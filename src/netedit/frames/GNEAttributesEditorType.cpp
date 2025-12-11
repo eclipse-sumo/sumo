@@ -80,7 +80,7 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, GNEAttri
     if (attributeType == AttributeType::NETEDIT) {
         // create netedit editor buttons
         myFrontButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Front element"), GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_ATTRIBUTESEDITOR_FRONT, GUIDesignButton);
-        myFrontButton->setTipText(TL("Mark element for draw over the rest"));
+        myFrontButton->setTipText(TL("Mark element to be drawn above everything else"));
         myFrontButton->hide();
         myOpenDialogButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Open element dialog"), nullptr, this, MID_GNE_ATTRIBUTESEDITOR_DIALOG, GUIDesignButton);
         myOpenDialogButton->setTipText(TL("Open specific element edit dialog"));
@@ -411,7 +411,7 @@ GNEAttributesEditorType::onUpdMarkAsFront(FXObject*, FXSelector, void*) {
         myFrontButton->setTipText(TL("Unfront inspected elements"));
     } else {
         myFrontButton->setText(TL("Front element"));
-        myFrontButton->setTipText(TL("Mark element for draw over the rest"));
+        myFrontButton->setTipText(TL("Mark element to be drawn above everything else"));
     }
     return 1;
 }

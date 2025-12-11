@@ -2810,7 +2810,7 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
             myEditMenuCommands.toggleFrontElement->setTipText(TL("Unfront inspected elements"));
         } else {
             myEditMenuCommands.toggleFrontElement->setText(TL("Front element"));
-            myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element for draw over the rest"));
+            myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element to be drawn above everything else"));
         }
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else if (myViewNet && (myViewNet->getMarkFrontElements().getACs().size() > 0)) {
@@ -2819,7 +2819,7 @@ GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
     } else {
         myEditMenuCommands.toggleFrontElement->setText(TL("Front element (only inspected elements)"));
-        myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element for draw over the rest"));
+        myEditMenuCommands.toggleFrontElement->setTipText(TL("Mark element to be drawn above everything else"));
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     }
 }

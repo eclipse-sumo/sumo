@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-12-05 19:47+0100\n"
+"POT-Creation-Date: 2025-12-11 19:35+0100\n"
 "PO-Revision-Date: 2025-12-03 10:01+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hant/>\n"
@@ -705,35 +705,39 @@ msgid ""
 "Use FLOAT as a maximum train length when initializing the railway router"
 msgstr "進行鐵路路徑搜尋器初始化時,最大鐵路長度為浮點數(float)"
 
-#: src/duarouter/RODUAFrame.cpp:229
+#: src/duarouter/RODUAFrame.cpp:195
+msgid "Declare routing failure if traveltime exceeds the given positive TIME"
+msgstr ""
+
+#: src/duarouter/RODUAFrame.cpp:232
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
 msgstr "路徑搜尋演算法 '%' 不支援權重屬性 '%'。"
 
-#: src/duarouter/RODUAFrame.cpp:233
+#: src/duarouter/RODUAFrame.cpp:236
 #, c-format
 msgid "Routing algorithm '%' does not support bulk routing."
 msgstr "路徑搜尋演算法 '%' 不支援大量(bulk)路徑搜尋 '%'。"
 
-#: src/duarouter/RODUAFrame.cpp:240 src/microsim/MSFrame.cpp:1112
+#: src/duarouter/RODUAFrame.cpp:243 src/microsim/MSFrame.cpp:1112
 msgid ""
 "The option --weights.random-factor should not be used together with astar "
 "and precomputed distances."
 msgstr ""
 
-#: src/duarouter/RODUAFrame.cpp:244 src/marouter/ROMAFrame.cpp:243
+#: src/duarouter/RODUAFrame.cpp:247 src/marouter/ROMAFrame.cpp:243
 msgid "Invalid route choice method '%'."
 msgstr "無效的路徑選擇方法 '%'。"
 
-#: src/duarouter/RODUAFrame.cpp:248
+#: src/duarouter/RODUAFrame.cpp:251
 msgid ""
 "The --logit option is deprecated, please use --route-choice-method logit."
 msgstr "這個選項指令--logit已不適用, 請使用 --route-choice-method logit。"
 
-#: src/duarouter/RODUAFrame.cpp:262
+#: src/duarouter/RODUAFrame.cpp:265
 msgid "Cannot derive file name for alternatives output, skipping it."
 msgstr "無法為替代路徑的輸出導出(derive)檔案名稱, 將跳過。"
 
-#: src/duarouter/RODUAFrame.cpp:269
+#: src/duarouter/RODUAFrame.cpp:272
 msgid ""
 "Option --write-trips.junctions takes no affect when --write-trips is "
 "disabled."
@@ -1501,38 +1505,38 @@ msgstr "中觀模擬內尚未建置得到領導車輛的函數(getLeader)"
 msgid "getFollower not yet implemented for meso"
 msgstr "中觀模擬內尚未建置得到跟隨車輛的函數(getFollower)"
 
-#: src/microsim/MSEdge.cpp:768
+#: src/microsim/MSEdge.cpp:774
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr "選擇新的速度係數(speed factor) % 給車輛 '%' 使用,以符合出發速度 % （最大值 %）。"
 
-#: src/microsim/MSEdge.cpp:792 src/microsim/MSEdge.cpp:795
+#: src/microsim/MSEdge.cpp:798 src/microsim/MSEdge.cpp:801
 msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', "
 "time=%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:812 src/microsim/MSLane.cpp:856
+#: src/microsim/MSEdge.cpp:818 src/microsim/MSLane.cpp:856
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:853
+#: src/microsim/MSEdge.cpp:859
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:1391
+#: src/microsim/MSEdge.cpp:1397
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr "雙向路段(Bidi-edge) '%' 不存在"
 
-#: src/microsim/MSEdge.cpp:1404
+#: src/microsim/MSEdge.cpp:1410
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr "路口 '%' 和 '%' 之間不明確的可疊加路段(superposable edges)。"
 
-#: src/microsim/MSEdge.cpp:1435
+#: src/microsim/MSEdge.cpp:1441
 #, c-format
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr "路段'%'和雙向路段(bidi edge)'%'沒有符合的雙向車道(bidi lanes)"
@@ -2786,7 +2790,7 @@ msgid ""
 "length was specified."
 msgstr "積分方法設定為'彈道(ballistic)'，因為指定了預設的動作步長(action step)。"
 
-#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:526
+#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:528
 #, c-format
 msgid "Another vehicle with the id '%' exists."
 msgstr "另一輛識別名(id) 為 '%' 的車輛已存在。"
@@ -2944,7 +2948,7 @@ msgstr ""
 msgid "A network was not yet constructed."
 msgstr "路網尚未構建。"
 
-#: src/microsim/MSNet.cpp:224 src/router/RONet.cpp:86
+#: src/microsim/MSNet.cpp:224 src/router/RONet.cpp:88
 msgid "A network was already constructed."
 msgstr "一個路網已經構建。"
 
@@ -3003,7 +3007,7 @@ msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr "TraCI和觸發器(triggers)不能使用選路演算法 '%'。 改用'astar'方法。"
 
-#: src/microsim/MSNet.cpp:1780 src/netload/NLBuilder.cpp:440
+#: src/microsim/MSNet.cpp:1780 src/netload/NLBuilder.cpp:443
 #: src/router/ROLoader.cpp:243 src/tools/emissionsDrivingCycle_main.cpp:221
 #: src/tools/emissionsMap_main.cpp:84
 #, c-format
@@ -3366,40 +3370,40 @@ msgstr "由於路線不兼容,無法結合(join)車輛 '%'及車輛'%'. 時間=%
 msgid "Suspicious right_before_left junction '%'."
 msgstr "可疑的 right_before_left 路口 '%'。"
 
-#: src/microsim/MSVehicle.cpp:4702
+#: src/microsim/MSVehicle.cpp:4707
 msgid " for unknown reasons"
 msgstr " 由於未知原因"
 
-#: src/microsim/MSVehicle.cpp:4704
+#: src/microsim/MSVehicle.cpp:4709
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, "
 "offset=%), time=%."
 msgstr "車輛 '%' 在車道 '%'% 的末端緊急停車(減速度=%，偏移值=%)，時間=%。"
 
-#: src/microsim/MSVehicle.cpp:4787
+#: src/microsim/MSVehicle.cpp:4792
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr "車輛 '%' 在車道 '%' 的對面車道無預期的結束，時間=%。"
 
-#: src/microsim/MSVehicle.cpp:4905
+#: src/microsim/MSVehicle.cpp:4910
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr "車輛 '%' 在車道 '%' 上執行緊急剎車，減速度=%，希望的(wished)=%，嚴重程度=%，時間=%。"
 
-#: src/microsim/MSVehicle.cpp:5727 src/microsim/MSVehicle.cpp:5818
+#: src/microsim/MSVehicle.cpp:5732 src/microsim/MSVehicle.cpp:5823
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr "車輛 '%'跳過停靠站(位於車道'%', 時間為%)."
 
-#: src/microsim/MSVehicle.cpp:5812
+#: src/microsim/MSVehicle.cpp:5817
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr "車輛 '%' 放棄停靠。"
 
-#: src/microsim/MSVehicle.cpp:7733
+#: src/microsim/MSVehicle.cpp:7738
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr "錯誤：狀態中的無效車輛 （可能是中觀(meso)狀態）！"
 
-#: src/microsim/MSVehicle.cpp:7777
+#: src/microsim/MSVehicle.cpp:7782
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr "已載入的車輛'%'的操作步驟(action steps)不同步調."
 
@@ -9627,7 +9631,7 @@ msgstr "路網包含被忽略的內部路段。 車輛會以'跳過(jump)'方式
 msgid "State was written at a different time=% than the begin time %!"
 msgstr "狀態(state)是在不同的時間 =% 寫入的,而非在開始時間 %!"
 
-#: src/netload/NLBuilder.cpp:198 src/router/RONet.cpp:271
+#: src/netload/NLBuilder.cpp:198 src/router/RONet.cpp:273
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
 msgstr "具有識別名(id)為 '%' 的分區已存在。不構建路口分區(TAZ)。"
@@ -9654,20 +9658,20 @@ msgstr ""
 msgid "Loading done."
 msgstr "載入完成。"
 
-#: src/netload/NLBuilder.cpp:403
+#: src/netload/NLBuilder.cpp:406
 msgid "Wrong number of state file names!"
 msgstr "狀態檔案數量錯誤!"
 
-#: src/netload/NLBuilder.cpp:438
+#: src/netload/NLBuilder.cpp:441
 msgid "Loading % from '%'"
 msgstr "載入 % (從 '%')"
 
-#: src/netload/NLBuilder.cpp:458
+#: src/netload/NLBuilder.cpp:461
 #, c-format
 msgid "The route file '%' is not accessible."
 msgstr "路徑檔案 '%' 無法讀取。"
 
-#: src/netload/NLBuilder.cpp:474
+#: src/netload/NLBuilder.cpp:477
 msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
@@ -10139,11 +10143,11 @@ msgstr "在路網中嵌入 的分區(TAZ)資料已不適用。 使用選項 --ta
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的雙向連接線 (bidi-connection)"
 
-#: src/netwrite/NWWriter_XML.cpp:106 src/utils/options/OptionsCont.cpp:677
+#: src/netwrite/NWWriter_XML.cpp:105 src/utils/options/OptionsCont.cpp:688
 msgid "Could not save configuration to '%'"
 msgstr "無法將設定(configuration)保存到 '%'"
 
-#: src/netwrite/NWWriter_XML.cpp:119 src/polyconvert/PCPolyContainer.cpp:105
+#: src/netwrite/NWWriter_XML.cpp:118 src/polyconvert/PCPolyContainer.cpp:105
 msgid ""
 "Ignoring option \"proj.plain-geo\" because no geo-conversion has been "
 "defined"
@@ -10681,7 +10685,7 @@ msgstr ""
 "沒有區間(interval)與通過的時間=% 配對; 路段: '%'。\n"
 " 使用路段長度/最大速度。"
 
-#: src/router/ROEdge.cpp:254
+#: src/router/ROEdge.cpp:253
 msgid ""
 "No interval matches passed time=% in edge '%'.\n"
 " Using edge's length / edge's speed."
@@ -10689,7 +10693,7 @@ msgstr ""
 "沒有區間(interval)與通過的時間=% 配對; 路段: '%'。\n"
 " 使用路段長度/最大速度。"
 
-#: src/router/ROEdge.cpp:479
+#: src/router/ROEdge.cpp:478
 msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority."
@@ -10858,66 +10862,66 @@ msgstr "% 的載入器(位於檔案 '%' 中)無法進行初始化 (%)。"
 msgid "failed."
 msgstr "失敗。"
 
-#: src/router/RONet.cpp:210
+#: src/router/RONet.cpp:212
 #, c-format
 msgid "The edge '%' occurs at least twice."
 msgstr "路段 '%' 至少出現兩次。"
 
-#: src/router/RONet.cpp:224
+#: src/router/RONet.cpp:226
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
 msgstr "交通分區(TAZ) '%' 至少出現兩次。"
 
-#: src/router/RONet.cpp:247
+#: src/router/RONet.cpp:249
 #, c-format
 msgid "The TAZ '%' is unknown."
 msgstr "交通分區(TAZ) '%' 未知。"
 
-#: src/router/RONet.cpp:252
+#: src/router/RONet.cpp:254
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
 msgstr "未知路段 '%' 位於交通分區(TAZ) '%'內。"
 
-#: src/router/RONet.cpp:307
+#: src/router/RONet.cpp:309
 #, c-format
 msgid "The bidi edge '%' is not known."
 msgstr "雙向路段(bidi edge) '%' 未知。"
 
-#: src/router/RONet.cpp:318
+#: src/router/RONet.cpp:320
 #, c-format
 msgid "The node '%' occurs at least twice."
 msgstr "節點 '%' 至少出現兩次。"
 
-#: src/router/RONet.cpp:327
+#: src/router/RONet.cpp:329
 msgid "The % '%' occurs at least twice."
 msgstr "% '%' 至少出現兩次。"
 
-#: src/router/RONet.cpp:491
+#: src/router/RONet.cpp:493
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
 msgstr "車輛類型 '%' 至少出現兩次。"
 
-#: src/router/RONet.cpp:543
+#: src/router/RONet.cpp:545
 msgid "Requesting departure time for unknown vehicle '%'"
 msgstr "請求未知車輛 '%' 的出發時間"
 
-#: src/router/RONet.cpp:573
+#: src/router/RONet.cpp:575
 #, c-format
 msgid "Another person with the id '%' exists."
 msgstr "另一個識別名(id)為 '%' 的人已存在。"
 
-#: src/router/RONet.cpp:701
+#: src/router/RONet.cpp:703
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal "
 "routes."
 msgstr "批量處理不同的最大速度 ('%' 和 '%') 可能會導致次佳路徑。"
 
-#: src/router/RONet.cpp:704
+#: src/router/RONet.cpp:706
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr "批量處理不同的車輛類別 ('%' 和 '%') 可能會導致路徑無效。"
 
-#: src/router/RONet.cpp:712
+#: src/router/RONet.cpp:714
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
 msgstr ""
@@ -11977,7 +11981,7 @@ msgstr ""
 msgid " or "
 msgstr ""
 
-#: src/utils/handlers/DataHandler.cpp:123
+#: src/utils/handlers/DataHandler.cpp:124
 msgid "Data elements cannot load attributes as params"
 msgstr "資料元素(data elements)無法載入屬性作為參數(params)"
 
@@ -11989,52 +11993,52 @@ msgstr "平均資料(MeanData)無法載入屬性作為參數(params)"
 msgid "The netstate type 'hbefa' is deprecated. Using 'emissions' instead."
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:628
+#: src/utils/handlers/RouteHandler.cpp:629
 msgid "an embedded route cannot have their own ID"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:708
-#: src/utils/handlers/RouteHandler.cpp:798
+#: src/utils/handlers/RouteHandler.cpp:709
+#: src/utils/handlers/RouteHandler.cpp:799
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr "屬性 'from', 'fromJunction' 和 'fromTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:711
-#: src/utils/handlers/RouteHandler.cpp:801
+#: src/utils/handlers/RouteHandler.cpp:712
+#: src/utils/handlers/RouteHandler.cpp:802
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr "屬性 'to', 'toJunction' 和 'toTaz' 無法一起定義"
 
-#: src/utils/handlers/RouteHandler.cpp:976
+#: src/utils/handlers/RouteHandler.cpp:977
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1095
+#: src/utils/handlers/RouteHandler.cpp:1096
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
 
-#: src/utils/handlers/RouteHandler.cpp:1138
+#: src/utils/handlers/RouteHandler.cpp:1139
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
 msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType"
 " '%', use attributes instead!"
 msgstr "在車輛類型(vType) '%' 的巢狀元素(nested element)內定義的跟車參數已不適用改用屬性(attributes)!"
 
-#: src/utils/handlers/RouteHandler.cpp:1146
-#: src/utils/handlers/RouteHandler.cpp:1148
+#: src/utils/handlers/RouteHandler.cpp:1147
+#: src/utils/handlers/RouteHandler.cpp:1149
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
 msgstr "解析嵌入的(embedded)車輛類型(vType)無效"
 
-#: src/utils/handlers/RouteHandler.cpp:1233
+#: src/utils/handlers/RouteHandler.cpp:1234
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr "停靠站必須要定義在一個路段或是一個車道, 不可以兩者"
 
-#: src/utils/handlers/RouteHandler.cpp:1248
+#: src/utils/handlers/RouteHandler.cpp:1249
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr "停靠站只能定義在一個可停下的地方(StoppingPlace)"
 
-#: src/utils/handlers/RouteHandler.cpp:1250
+#: src/utils/handlers/RouteHandler.cpp:1251
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr "停靠站必須要定義在一個路段, 一個車道或是一個可停下的地方(StoppingPlace)"
 
@@ -12073,23 +12077,23 @@ msgid ""
 "yet."
 msgstr ""
 
-#: src/utils/options/Option.cpp:352
+#: src/utils/options/Option.cpp:364
 #, c-format
 msgid "'%' is not a valid float."
 msgstr "'%' 不是有效的浮點數。"
 
-#: src/utils/options/Option.cpp:386
+#: src/utils/options/Option.cpp:398
 #, c-format
 msgid "'%' is not a valid bool."
 msgstr "'%' 不是有效的布林(bool)。"
 
-#: src/utils/options/Option.cpp:446
+#: src/utils/options/Option.cpp:458
 msgid ""
 "Please note that using ';' as list separator is deprecated and not accepted "
 "anymore."
 msgstr "請注意，使用';'作為清單分隔符號已不適用，並不再接受。"
 
-#: src/utils/options/Option.cpp:456
+#: src/utils/options/Option.cpp:468
 #, c-format
 msgid "'%' is not a valid integer vector."
 msgstr "'%' 不是有效的整數向量。"
@@ -12141,66 +12145,66 @@ msgid ""
 " Possible synonymes: "
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:625 src/utils/options/OptionsCont.cpp:646
+#: src/utils/options/OptionsCont.cpp:636 src/utils/options/OptionsCont.cpp:657
 msgid " Build features: "
 msgstr " 構建功能: "
 
-#: src/utils/options/OptionsCont.cpp:629
+#: src/utils/options/OptionsCont.cpp:640
 msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 "
 "<https://eclipse.org/legal/epl-v20.html>"
 msgstr ""
 " 許可證EPL-2.0: Eclipse公共許可證版本 2 <https://eclipse.org/legal/epl-v20.html>"
 
-#: src/utils/options/OptionsCont.cpp:630
+#: src/utils/options/OptionsCont.cpp:641
 msgid " Use --help to get the list of options."
 msgstr " 使用 --求助 獲取選項清單。"
 
-#: src/utils/options/OptionsCont.cpp:681
+#: src/utils/options/OptionsCont.cpp:692
 msgid "Written configuration to '%'"
 msgstr "將設定(configuration)寫入 '%'"
 
-#: src/utils/options/OptionsCont.cpp:694
+#: src/utils/options/OptionsCont.cpp:705
 msgid "Could not save template to '%'"
 msgstr "無法將範本(template)儲存到 '%'"
 
-#: src/utils/options/OptionsCont.cpp:698
+#: src/utils/options/OptionsCont.cpp:709
 msgid "Written template to '%'"
 msgstr "將範本(template)寫入 '%'"
 
-#: src/utils/options/OptionsCont.cpp:710
+#: src/utils/options/OptionsCont.cpp:721
 msgid "Could not save schema to '%'"
 msgstr "無法將綱目(schema)儲存到 '%'"
 
-#: src/utils/options/OptionsCont.cpp:714
+#: src/utils/options/OptionsCont.cpp:725
 msgid "Written schema to '%'"
 msgstr "將綱目(schema)寫入 '%'"
 
-#: src/utils/options/OptionsCont.cpp:833
+#: src/utils/options/OptionsCont.cpp:844
 msgid "Help Topics:"
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:841
+#: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:841
+#: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:853
+#: src/utils/options/OptionsCont.cpp:864
 msgid "Examples:"
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:860
+#: src/utils/options/OptionsCont.cpp:871
 msgid "Report bugs at %."
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:861
+#: src/utils/options/OptionsCont.cpp:872
 msgid "Get in contact via %."
 msgstr ""
 
-#: src/utils/options/OptionsCont.cpp:867
+#: src/utils/options/OptionsCont.cpp:878
 msgid "% Options:"
 msgstr ""
 
@@ -12311,7 +12315,7 @@ msgstr "將新的矩陣存入 '%'。"
 
 #: src/utils/router/AStarRouter.h:275 src/utils/router/CHRouter.h:332
 #: src/utils/router/DijkstraRouter.h:247
-#: src/utils/router/SUMOAbstractRouter.h:230
+#: src/utils/router/SUMOAbstractRouter.h:243
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
 msgstr ""
@@ -12340,26 +12344,26 @@ msgstr "出發路段 '%' 不在多運具(intermodal)路網內。"
 msgid "Arrival edge '%' not found in intermodal network."
 msgstr "抵達路段 '%' 不在多運具(intermodal)路網內。"
 
-#: src/utils/router/IntermodalNetwork.h:676
+#: src/utils/router/IntermodalNetwork.h:680
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
 msgstr "忽略未排序的停靠站於 '%' 處, 直到(until) %; 車輛為 '%'。"
 
-#: src/utils/router/IntermodalNetwork.h:688
+#: src/utils/router/IntermodalNetwork.h:692
 msgid "Ignoring stop at '%' until % for vehicle '%'."
 msgstr "忽略停靠站於 '%' 處, 直到(until) %; 車輛為 '%'。"
 
-#: src/utils/router/IntermodalNetwork.h:693
+#: src/utils/router/IntermodalNetwork.h:697
 #, c-format
 msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr "不使用大眾運輸路線 '%' 來安排人員的路徑。 它只有不到兩個可用的停靠點。"
 
-#: src/utils/router/IntermodalRouter.h:201
+#: src/utils/router/IntermodalRouter.h:203
 msgid "No connection between % '%' and % '%' found."
 msgstr ""
 
-#: src/utils/router/IntermodalRouter.h:229
+#: src/utils/router/IntermodalRouter.h:231
 #: src/utils/router/PedestrianRouter.h:126
 msgid "Do not use this method"
 msgstr "不要使用這種方法"
@@ -12739,29 +12743,29 @@ msgstr ""
 "傳輸選項 '%' 無效。必須是 '停車區域(parkingAreas)', '大眾運輸停靠點(ptStops)'和 "
 "'全部路口(allJunctions)' 的其中一個"
 
-#: src/utils/xml/CommonXMLStructure.cpp:1150
+#: src/utils/xml/CommonXMLStructure.cpp:958
 msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element"
 " % '%'"
 msgstr ""
 
-#: src/utils/xml/CommonXMLStructure.cpp:1412
+#: src/utils/xml/CommonXMLStructure.cpp:1220
 msgid "Trying to get undefined parent '%' in SUMOBaseObject '%'"
 msgstr ""
 
-#: src/utils/xml/CommonXMLStructure.cpp:1429
+#: src/utils/xml/CommonXMLStructure.cpp:1237
 msgid "Undefined vehicleType parameter"
 msgstr "未定義的車輛類型(vehicleType)參數"
 
-#: src/utils/xml/CommonXMLStructure.cpp:1439
+#: src/utils/xml/CommonXMLStructure.cpp:1247
 msgid "Undefined vehicle parameter"
 msgstr "未定義的車輛參數"
 
-#: src/utils/xml/CommonXMLStructure.cpp:1449
+#: src/utils/xml/CommonXMLStructure.cpp:1257
 msgid "Undefined stop parameter"
 msgstr "未定義的停靠點參數(stop parameter)"
 
-#: src/utils/xml/CommonXMLStructure.cpp:1716
+#: src/utils/xml/CommonXMLStructure.cpp:1524
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr "嘗試在 SUMOBaseObject '%' 中得到未定義的 % 屬性 '%'"
 
@@ -12805,233 +12809,233 @@ msgstr "XML解析器(parser)無法初始化。"
 msgid "The XML-parser could not be build."
 msgstr "無法建立XML解析器(parser)。"
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1755
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1823
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1835
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1841
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1847
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1853
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1859
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1865
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1871
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1877
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1883
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1889
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1894
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1900
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1911
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1668
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1736
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1748
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1754
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1760
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1772
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1778
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1784
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1790
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1796
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1802
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "XML files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1756
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1669
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1674
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1679
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1684
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1738
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1743
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1749
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1755
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1761
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1766
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1771
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1767
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1773
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1779
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1785
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1791
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1797
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1803
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1808
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1814
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1825
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1830
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1836
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1842
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1848
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1854
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1860
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1866
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1872
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1878
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1884
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1890
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1895
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1901
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1906
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1912
 msgid "All files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1760
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1673
 msgid "Plain text files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1765
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1678
 msgid "CSV files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1770
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1683
 msgid "Open scene graph files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1775
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1688
 msgid "All Image Files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1776
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1802
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1689
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1715
 msgid "GIF Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1803
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1690
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1716
 msgid "BMP Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1778
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1804
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1691
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1717
 msgid "XPM Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1779
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1805
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1692
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "PCX Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1780
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1806
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1693
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1719
 msgid "ICO Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1781
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1807
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1694
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1720
 msgid "RGB Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1782
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1808
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1695
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1721
 msgid "XBM Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1783
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1809
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1696
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1722
 msgid "TARGA Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1784
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1810
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1697
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 msgid "PNG Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1785
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1811
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1698
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1724
 msgid "JPEG Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1786
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1699
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1725
 msgid "TIFF Image"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1787
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1813
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1700
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1726
 msgid "Postscript"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1788
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1814
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1701
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1727
 msgid "Encapsulated Postscript"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1815
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1702
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1728
 msgid "Portable Document Format"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1790
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1816
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1703
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1729
 msgid "Scalable Vector Graphics"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1791
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1817
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1704
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1730
 msgid "LATEX text strings"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1792
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 msgid "Portable LaTeX Graphics"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1793
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1819
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1706
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1732
 msgid "All Files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1797
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 msgid "All Image and Video Files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1798
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "All Video Files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1799
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 msgid "G264 Video"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1800
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1713
 msgid "HEVC Video"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1714
 msgid "MP4 Video"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1731
 msgid "Portable"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1824
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1829
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1834
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "State GZipped XML files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1840
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "Sumo config"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1846
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 msgid "Netedit config files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1852
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "Netconvert config files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1858
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid "OSM network files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1864
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "SUMO network files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1870
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "TLS files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1876
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "Junction files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1882
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Edge type files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1888
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Additional files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1899
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "Route files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1905
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "Edge data files"
 msgstr ""
 
-#: src/utils/xml/SUMOXMLDefinitions.cpp:1910
+#: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Mean data files"
 msgstr ""
 
