@@ -51,6 +51,7 @@ jobs:
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp312-*
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel sumo-data
@@ -64,6 +65,7 @@ jobs:
         env:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp312-*
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
