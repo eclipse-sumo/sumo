@@ -107,7 +107,7 @@ public:
      * @return the maximum speed factor
      */
     inline double getChosenSpeedFactor() const {
-        return getType()->speedFactor.getParameter(0);
+        return getParameter().wasSet(VEHPARS_SPEEDFACTOR_SET) ? getParameter().speedFactor :  getType()->speedFactor.getParameter(0);
     }
 
     /** @brief Returns the vehicle's type definition

@@ -230,7 +230,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             }
         }
     }
-    const double speed = veh != nullptr ? MIN2(veh->getMaxSpeed(), veh->getType()->speedFactor.getParameter(0) * getVClassMaxSpeed(veh->getVClass())) : mySpeed;
+    const double speed = veh != nullptr ? MIN2(veh->getMaxSpeed(), veh->getChosenSpeedFactor() * getVClassMaxSpeed(veh->getVClass())) : mySpeed;
     return myLength / speed + myTimePenalty;
 }
 
