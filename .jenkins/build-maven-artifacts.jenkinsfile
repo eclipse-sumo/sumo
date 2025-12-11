@@ -73,7 +73,7 @@ spec:
             cmake --install jupedsim-build --config Release
 
             # Cloning SUMO
-            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch v1_25_0 https://github.com/eclipse-sumo/sumo.git
+            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
             export SUMO_HOME=\${WORKSPACE}/sumo
 
             # Creating virtual env for Python for the whole process
