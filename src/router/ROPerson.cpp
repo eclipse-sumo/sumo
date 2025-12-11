@@ -463,6 +463,14 @@ ROPerson::computeRoute(const RORouterProvider& provider,
         }
         time += it->getDuration();
     }
+    if (RONet::getInstance()->getMaxTraveltime() > 0) {
+        double costs = STEPS2TIME(time - getParameter().depart);
+        if (costs > RONet::getInstance()->getMaxTraveltime()) {
+            errorHandler->inform("Person '" + getID() + "' has no valid route (traveltime " + time2string(TIME2STEPS(costs)) + " exceeds max-traveltime)");
+            myRoutingSuccess = false;
+            return;
+        }
+    }
 }
 
 
