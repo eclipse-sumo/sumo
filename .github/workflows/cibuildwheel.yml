@@ -37,6 +37,9 @@ jobs:
           # to work around actions/checkout#1467
           ref: ${{ github.ref }}
 
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+
       - name: Preparing wheel eclipse-sumo
         run: python3 sumo/tools/build_config/version.py sumo/build_config/eclipse-sumo-pyproject.toml sumo/pyproject.toml
 
