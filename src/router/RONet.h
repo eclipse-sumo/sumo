@@ -457,6 +457,10 @@ public:
     /// @brief whether efforts were loaded from file
     bool hasLoadedEffort() const;
 
+    SUMOTime getMaxTraveltime() const {
+        return myMaxTraveltime;
+    }
+
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
@@ -614,6 +618,9 @@ private:
 
     /// @brief whether the network contains bidirectional railway edges
     bool myHasBidiEdges;
+
+    /// @brief the maximum traveltime beyond which routing is considered a failure
+    double myMaxTraveltime;
 
 #ifdef HAVE_FOX
 private:

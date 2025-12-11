@@ -81,7 +81,9 @@ RONet::RONet() :
                   || OptionsCont::getOptions().getBool("ptline-routing")),
     myKeepFlows(OptionsCont::getOptions().exists("keep-flows")
                   && OptionsCont::getOptions().getBool("keep-flows")),
-    myHasBidiEdges(false) {
+    myHasBidiEdges(false),
+    myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1)
+{
     if (myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
     }

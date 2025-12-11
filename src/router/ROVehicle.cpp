@@ -180,6 +180,15 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
             return;
         }
     }
+    if (RONet::getInstance()->getMaxTraveltime() > 0) {
+        double costs = router.recomputeCosts(current->getEdgeVector(), this, getDepartureTime());
+        if (costs > RONet::getInstance()->getMaxTraveltime()) {
+            errorHandler->inform(noRouteMsg + " (traveltime " + time2string(TIME2STEPS(costs)) + " exceeds max-traveltime)");
+            delete current;
+            myRoutingSuccess = false;
+            return;
+        }
+    }
     // add built route
     routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
     myRoutingSuccess = true;
