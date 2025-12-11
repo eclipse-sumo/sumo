@@ -266,7 +266,7 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
             succ->trackChanges += 1;
             return succ;
         }
-        skippedPrio =+ next.priority;
+        skippedPrio += next.priority;
         if (skippedPrio >= minSkipped) {
             // cannot improve on current best solution
 #ifdef DEBUG_OPTIMIZE_SKIPPED
