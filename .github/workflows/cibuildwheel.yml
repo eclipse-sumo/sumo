@@ -41,7 +41,7 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
 
       - name: Preparing wheel eclipse-sumo
-        run: python3 sumo/tools/build_config/version.py sumo/build_config/eclipse-sumo-pyproject.toml sumo/pyproject.toml
+        run: python3 sumo/tools/build_config/version.py --pep440 sumo/build_config/eclipse-sumo-pyproject.toml sumo/pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
@@ -55,7 +55,7 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel sumo-data
-        run: python3 sumo/tools/build_config/version.py sumo/build_config/sumodata-pyproject.toml sumo/pyproject.toml
+        run: python3 sumo/tools/build_config/version.py --pep440 sumo/build_config/sumo-data-pyproject.toml sumo/pyproject.toml
 
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
@@ -66,10 +66,11 @@ jobs:
           CIBW_BEFORE_ALL_MACOS: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps ccache googletest fmt swig eigen
           CIBW_BUILD: cp312-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
+          CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
-        run: python3 sumo/tools/build_config/version.py sumo/build_config/libsumo-pyproject.toml sumo/pyproject.toml
+        run: python3 sumo/tools/build_config/version.py --pep440 sumo/build_config/libsumo-pyproject.toml sumo/pyproject.toml
 
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
