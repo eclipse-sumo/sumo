@@ -1229,6 +1229,13 @@ Under windows these settings must be configured using `regedit` i.e. at the regi
 - The font is configured with: normalfont (i.e. normalfont="Times,100")
 - Further config entries are: typingspeed, clickspeed, scrollspeed, scrolldelay, blinkspeed, animspeed, menupause, tippause, tiptime, dragdelta, wheellines, scrollbarsize, displaygamma
 
+### How can I change font and icon size in sumo-gui or netedit?
+
+Starting with version 1.26.0 (specifically v1_25_0-454), it is possible to scale fonts and icons sizes in the gui-settings ('UI Scaling' in the openGL tab). The application must be restarted for the setting to take effect.
+
+In older versions the fox-registry (see above) must be used to change the 'normalfont'. On Linux and MaCOS this can be accomplished by creating the file *~/.foxrc/Desktop* with the following line:
+`normalfont="Arial,200"` 
+(with any desired font or size)
 
 ## Upgrading
 
