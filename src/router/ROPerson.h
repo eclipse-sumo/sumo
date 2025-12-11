@@ -452,6 +452,7 @@ private:
      */
     std::vector<PlanItem*> myPlan;
 
+    static bool myHaveWarnedPTMissing;
 
 private:
     /// @brief Invalidated copy constructor

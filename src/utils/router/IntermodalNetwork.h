@@ -87,7 +87,7 @@ public:
      * @param numericalID the start number for the creation of new edges
      */
     IntermodalNetwork(const std::vector<E*>& edges, const bool pedestrianOnly, const int carWalkTransfer = 0)
-        : myNumericalID(0), myCarWalkTransfer(carWalkTransfer) {
+        : myNumericalID(0), myCarWalkTransfer(carWalkTransfer), myHavePTSchedules(false) {
 #ifdef IntermodalRouter_DEBUG_NETWORK
         std::cout << "initIntermodalNetwork\n";
 #endif
@@ -659,6 +659,10 @@ public:
         }
     }
 
+    bool hasPTSchedules() const {
+        return myHavePTSchedules;
+    }
+
     void addSchedule(const SUMOVehicleParameter& pars, const StopParVector* addStops = nullptr) {
         SUMOTime lastUntil = 0;
         StopParVector validStops;
@@ -706,6 +710,7 @@ public:
                     _PTEdge* const newEdge = new _PTEdge(s.busstop, myNumericalID++, lastStop, currStop->getEdge(), pars.line, lastPos.distanceTo(stopPos));
                     addEdge(newEdge);
                     newEdge->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s.until - lastTime);
+                    myHavePTSchedules = true;
                     lastStop->addSuccessor(newEdge);
                     newEdge->addSuccessor(currStop);
                     lineEdges.push_back(newEdge);
@@ -740,6 +745,7 @@ public:
             }
             for (lineEdge = lineEdges.begin(), s = validStops.begin() + 1; lineEdge != lineEdges.end(); ++lineEdge, ++s) {
                 (*lineEdge)->addSchedule(pars.id, lastTime, pars.repetitionNumber, pars.repetitionOffset, s->until - lastTime);
+                myHavePTSchedules = true;
                 lastTime = s->until;
             }
         }
@@ -907,6 +913,7 @@ private:
 
     int myNumericalID;
     const int myCarWalkTransfer;
+    bool myHavePTSchedules;
 
 private:
     /// @brief Invalidated assignment operator

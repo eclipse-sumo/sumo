@@ -40,6 +40,7 @@
 #include "ROLane.h"
 #include "ROPerson.h"
 
+bool ROPerson::myHaveWarnedPTMissing(false);
 const std::string ROPerson::PlanItem::UNDEFINED_STOPPING_PLACE;
 
 // ===========================================================================
@@ -451,6 +452,14 @@ ROPerson::computeRoute(const RORouterProvider& provider,
                 }
             }
             trip->setItems(best, bestVeh);
+
+            // test after routing to ensuer network was initialized
+            if (!myHaveWarnedPTMissing && (trip->getModes() & SVC_BUS) != 0) {
+                myHaveWarnedPTMissing = true;
+                if (!provider.getIntermodalRouter().getNetwork()->hasPTSchedules()) {
+                    WRITE_WARNINGF("Person '%' is configured to use public transport but no schedules are loaded.", getID());
+                }
+            }
         }
         time += it->getDuration();
     }
