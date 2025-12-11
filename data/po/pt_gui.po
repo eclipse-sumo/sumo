@@ -8,9 +8,11 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-05 19:47+0100\n"
-"PO-Revision-Date: 2025-11-26 16:03+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/pt/>\n"
+"PO-Revision-Date: 2025-12-11 12:23+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1366,7 +1368,7 @@ msgstr "potência de carga [W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "total charging power [W]"
-msgstr ""
+msgstr "poder de carga total [W]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charging efficiency [#]"
@@ -1573,11 +1575,11 @@ msgstr "número médio de paradas no intervalo anterior [#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "tempo perdido médio no último intevalo [s]"
 
 #: src/guisim/GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "número de veículos médio no intervalo anterior [#]"
 
 #: src/guisim/GUIEdge.cpp:187
 msgid "max speed [m/s]"
@@ -1597,7 +1599,7 @@ msgstr "fricção média [%]"
 
 #: src/guisim/GUIEdge.cpp:192
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "velocidade média do veículo [m/s]"
 
 #: src/guisim/GUIEdge.cpp:193 src/guisim/GUILane.cpp:1067
 msgid "routing speed [m/s]"
@@ -1613,7 +1615,7 @@ msgstr "taxa de ocupação bruta [%]"
 
 #: src/guisim/GUIEdge.cpp:196
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "fluxo da aresta [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:200
 msgid "segment index"
@@ -1629,7 +1631,7 @@ msgstr "comprimento do segmento [m]"
 
 #: src/guisim/GUIEdge.cpp:203
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "velocidade permitida do segmento [m/s]"
 
 #: src/guisim/GUIEdge.cpp:204
 msgid "segment jam threshold [%]"
