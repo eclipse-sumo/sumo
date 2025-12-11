@@ -601,7 +601,7 @@ GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() const
 bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
     // open question dialog box
-    const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
+    const GNEQuestionBasicDialog questionDialog(mySelectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows(),
             GNEDialog::Buttons::YES_NO,
             TL("Confirm selection operation"),
             TL("There are locked elements in the current selection."),

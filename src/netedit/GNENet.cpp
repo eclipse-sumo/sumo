@@ -1652,7 +1652,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (const auto& junction : myAttributeCarriers->getJunctions()) {
         if ((junction.second->getPositionInView() == pos) && (cluster.find(junction.second->getNBNode()) == cluster.end())) {
             // open dialog
-            const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myApplicationWindow, GNEDialog::Buttons::YES_NO,
+            const GNEQuestionBasicDialog questionDialog(myApplicationWindow, GNEDialog::Buttons::YES_NO,
                     TL("Position of joined junction"),
                     TL("There is another unselected junction in the same position of joined junction."),
                     TL("It will be joined with the other selected junctions. Continue?"));
@@ -1764,7 +1764,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     } else {
         std::string plural = myInvalidCrossings.size() == 1 ? ("") : ("s");
         // Ask confirmation to user
-        const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myApplicationWindow,
+        const GNEQuestionBasicDialog questionDialog(myApplicationWindow,
                 GNEDialog::Buttons::YES_NO, TL("Clear crossings"),
                 TL("Crossings will be cleared. Continue?"));
         // 1:yes, 2:no, 4:esc
@@ -2233,7 +2233,7 @@ GNENet::saveAdditionals() {
     // if there are invalid additionls, open GNEFixAdditionalElementsDialog
     if (invalidAdditionals.size() > 0) {
         // open fix additional elements dialog
-        const auto fixAdditionalElements = GNEFixAdditionalElementsDialog(myApplicationWindow, invalidAdditionals);
+        const GNEFixAdditionalElementsDialog fixAdditionalElements(myApplicationWindow, invalidAdditionals);
         if (fixAdditionalElements.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }
@@ -2299,7 +2299,7 @@ GNENet::saveDemandElements() {
     // if there are invalid demand elements, open GNEFixDemandElementsDialog
     if (invalidSingleLaneDemandElements.size() > 0) {
         // open fix demand elements dialog
-        const auto fixDemandElement = GNEFixDemandElementsDialog(myApplicationWindow, invalidSingleLaneDemandElements);
+        const GNEFixDemandElementsDialog fixDemandElement(myApplicationWindow, invalidSingleLaneDemandElements);
         if (fixDemandElement.getResult() != GNEDialog::Result::ACCEPT) {
             return false;
         }

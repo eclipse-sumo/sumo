@@ -841,7 +841,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetZeroFringeProbabilities(FXObject
                                  TL("Set weight 0 in ") + toString(sources.size()) + TL(" sources and ") +
                                  toString(sinks.size()) + TL(" sinks from ") + toString(TAZs.size()) + TL(" TAZs?");
         // open question dialog
-        const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(GNEApp, GNEDialog::Buttons::YES_NO,
+        const GNEQuestionBasicDialog questionDialog(GNEApp, GNEDialog::Buttons::YES_NO,
                 TL("Set zero fringe probabilities"), text);
         // continue depending of answer
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {

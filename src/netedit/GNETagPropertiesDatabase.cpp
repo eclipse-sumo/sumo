@@ -3496,7 +3496,6 @@ GNETagPropertiesDatabase::fillContainerTransportElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSPORT;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
-    const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -3879,7 +3878,6 @@ GNETagPropertiesDatabase::fillContainerTranshipElements() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::CONTAINERPLAN | GNETagProperties::Type::TRANSHIP;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
-    const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
@@ -5702,7 +5700,6 @@ GNETagPropertiesDatabase::fillPersonPlanRides() {
     // declare common tag types and properties
     const auto tagType = GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::PERSONPLAN | GNETagProperties::Type::RIDE;
     const auto tagProperty = GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS;
-    const auto tagPropertyTAZ = GNETagProperties::Property::RTREE | tagProperty;
     const auto files = FileBucket::Type::NOTHING;
     const auto conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});

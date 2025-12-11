@@ -942,7 +942,7 @@ GNEViewNet::askMergeJunctions(const GNEJunction* movedJunction, const GNEJunctio
                                      targetJunction->getMicrosimID(),
                                      movedJunction->getMicrosimID(),
                                      targetJunction->getMicrosimID());
-        const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(),
+        const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(),
                 GNEDialog::Buttons::YES_NO, header, body);
         // continue depending of result
         if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
@@ -971,7 +971,7 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
         throw ProcessError("invalid expected supermode");
     }
     // open question dialog
-    const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(myViewParent->getGNEAppWindows(),
+    const GNEQuestionBasicDialog questionDialog(myViewParent->getGNEAppWindows(),
             GNEDialog::Buttons::YES_NO, TL("Confirm switch mode"), body);
     // continue depending of result
     if (questionDialog.getResult() == GNEDialog::Result::ACCEPT) {
@@ -1054,7 +1054,7 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
             // show question dialog
-            const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
@@ -1122,7 +1122,7 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
             const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             // show question dialog
-            const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
@@ -1204,7 +1204,7 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
             const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             // show question dialog
-            const GNEQuestionBasicDialog questionDialog = GNEQuestionBasicDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
+            const GNEQuestionBasicDialog questionDialog(GNEApp, GNEDialog::Buttons::YES_NO, header, body);
             // continue depending of result
             if (questionDialog.getResult() != GNEDialog::Result::ACCEPT) { //1:yes, 2:no, 4:esc
                 return 0;
