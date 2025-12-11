@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter v1_25_0+0045-28a3daf62ee
+Eclipse SUMO duarouter v1_25_0+0458-86552fc0338
  Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -196,6 +196,8 @@ Processing Options:
                                        that stops at the destination
   --railway.max-train-length FLOAT    Use FLOAT as a maximum train length when
                                        initializing the railway router
+  --max-traveltime TIME               Declare routing failure if traveltime
+                                       exceeds the given positive TIME
 
 Defaults Options:
   --departlane STR                    Assigns a default depart lane

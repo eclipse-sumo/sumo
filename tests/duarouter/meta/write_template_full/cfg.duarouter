@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:21.940268+01:00 by Eclipse SUMO duarouter v1_25_0+0045-28a3daf62ee
+<!-- generated on 2025-12-11T12:24:22.326062+01:00 by Eclipse SUMO duarouter v1_25_0+0458-86552fc0338
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -108,6 +108,7 @@
         <persontrip.taxi.waiting-time value="300" type="TIME" help="Estimated time for taxi pickup"/>
         <persontrip.ride-public-line value="false" type="BOOL" help="Only use the intended public transport line rather than any alternative line that stops at the destination"/>
         <railway.max-train-length value="1000" type="FLOAT" help="Use FLOAT as a maximum train length when initializing the railway router"/>
+        <max-traveltime value="-1" type="TIME" help="Declare routing failure if traveltime exceeds the given positive TIME"/>
     </processing>
 
     <defaults>
