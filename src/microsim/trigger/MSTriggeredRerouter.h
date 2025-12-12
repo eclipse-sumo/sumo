@@ -81,7 +81,7 @@ public:
     /** @brief Destructor */
     virtual ~MSTriggeredRerouter();
 
-    typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
+    typedef std::map<const MSEdge*, RouterProhibition> Prohibitions;
 
     /**
      * @struct OvertakeLocation

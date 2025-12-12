@@ -129,7 +129,7 @@ public:
     };
 
     typedef std::map<std::string, std::vector<Collision> > CollisionMap;
-    typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
+    typedef std::map<const MSEdge*, RouterProhibition> Prohibitions;
 
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).

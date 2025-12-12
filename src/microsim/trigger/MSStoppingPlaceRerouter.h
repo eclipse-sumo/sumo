@@ -131,7 +131,7 @@ public:
     typedef std::map<std::string, bool> StoppingPlaceParamSwitchMap_t;
     typedef std::map<MSStoppingPlace*, StoppingPlaceParamMap_t, ComparatorIdLess> StoppingPlaceMap_t;
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
-    typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
+    typedef std::map<const MSEdge*, RouterProhibition> Prohibitions;
 
     ///@brief Constructor
     MSStoppingPlaceRerouter(std::string paramPrefix = "", bool checkValidity = false, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
