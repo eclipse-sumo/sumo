@@ -44,6 +44,10 @@ closing_with_disallow2
 # closing an edge with modifying permissions, vehicles with unaffected permissions should not reroute
 closing_with_disallow_unaffected
 
+# closing an edge with modifying permissions, 
+# edges where permissions are still compatible must remain usable
+closing_with_disallow_detour_unaffected
+
 # closing an edge with modifying permissions
 closing_with_disallow_teleport
 
