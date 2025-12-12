@@ -976,6 +976,15 @@ RONet::getStoppingPlaceElement(const std::string& id) const {
 }
 
 
+void
+RONet::addProhibition(const ROEdge* edge, const RouterProhibition& prohibition) {
+    if (myProhibitions.count(edge) != 0) {
+        throw ProcessError(TLF("Already loaded prohibition for edge '%'. (Only one prohibition per edge is supported)", edge->getID()));
+    }
+    myProhibitions[edge] = prohibition;
+}
+
+
 #ifdef HAVE_FOX
 // ---------------------------------------------------------------------------
 // RONet::RoutingTask-methods

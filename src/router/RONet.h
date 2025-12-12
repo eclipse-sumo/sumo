@@ -64,6 +64,7 @@ class RONet {
 public:
 
     typedef std::map<const SUMOTime, std::vector<RORoutable*> > RoutablesMap;
+    typedef std::map<const ROEdge*, RouterProhibition> Prohibitions;
 
     /// @brief Constructor
     RONet();
@@ -461,6 +462,12 @@ public:
         return myMaxTraveltime;
     }
 
+    const Prohibitions& getProhibitions() const {
+        return myProhibitions;
+    }
+
+    void addProhibition(const ROEdge* edge, const RouterProhibition& prohibition);
+
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
             return myRouteAlternativesOutput;
@@ -621,6 +628,9 @@ private:
 
     /// @brief the maximum traveltime beyond which routing is considered a failure
     double myMaxTraveltime;
+
+    /// @brief temporary edge closing (rerouters)
+    Prohibitions myProhibitions;
 
 #ifdef HAVE_FOX
 private:

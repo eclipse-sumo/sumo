@@ -145,6 +145,34 @@ RONetHandler::myStartElement(int element,
             }
             break;
         }
+        case SUMO_TAG_REROUTER: {
+            bool ok = true;
+            myRerouterID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            break;
+        }
+        case SUMO_TAG_INTERVAL:
+            if (myRerouterID != "") {
+                bool ok = true;
+                myIntervalBegin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, myRerouterID.c_str(), ok, -1);
+                myIntervalEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, myRerouterID.c_str(), ok, SUMOTime_MAX);
+            }
+            break;
+        case SUMO_TAG_CLOSING_REROUTE: {
+            const std::string& closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+            ROEdge* closedEdge = myNet.getEdge(closed_id);
+            if (closedEdge == nullptr) {
+                throw ProcessError(TLF("rerouter '%': Edge '%' to close is not known.", myRerouterID, closed_id));
+            }
+            bool ok;
+            const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, myRerouterID.c_str(), ok, "", false);
+            const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, myRerouterID.c_str(), ok, "");
+            RouterProhibition prohibition;
+            prohibition.permissions = parseVehicleClasses(allow, disallow);
+            prohibition.begin = STEPS2TIME(myIntervalBegin);
+            prohibition.end = STEPS2TIME(attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, myIntervalEnd));
+            myNet.addProhibition(closedEdge, prohibition);
+            break;
+        }
         case SUMO_TAG_PARAM:
             addParam(attrs);
             break;
@@ -157,6 +185,9 @@ RONetHandler::myStartElement(int element,
 void
 RONetHandler::myEndElement(int element) {
     switch (element) {
+        case SUMO_TAG_REROUTER:
+            myRerouterID = "";
+            break;
         case SUMO_TAG_NET:
             // build junction graph
             for (std::set<std::string>::const_iterator it = myUnseenNodeIDs.begin(); it != myUnseenNodeIDs.end(); ++it) {

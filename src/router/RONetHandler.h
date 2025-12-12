@@ -24,6 +24,7 @@
 
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <utils/router/SUMOAbstractRouter.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/UtilExceptions.h>
 
@@ -35,7 +36,6 @@ class RONet;
 class OptionsCont;
 class ROEdge;
 class ROAbstractEdgeBuilder;
-
 
 // ===========================================================================
 // class definitions
@@ -217,6 +217,11 @@ protected:
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<ROEdge*, std::string> myBidiEdges;
+
+    std::string myRerouterID;
+    SUMOTime myIntervalBegin;
+    SUMOTime myIntervalEnd;
+
 
 private:
     /// @brief Invalidated copy constructor

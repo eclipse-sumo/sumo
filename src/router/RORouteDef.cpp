@@ -196,6 +196,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
     const int initialSize = (int)oldEdges.size();
     const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
+    if (RONet::getInstance()->getProhibitions().size() > 0 && !router.hasProhibitions()) {
+        router.prohibit(RONet::getInstance()->getProhibitions());
+    }
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
