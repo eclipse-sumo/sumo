@@ -355,7 +355,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             delete myAlternatives[0];
             myAlternatives[0] = current;
         }
-        if (!router.isValid(current->getEdgeVector(), veh)) {
+        if (!router.isValid(current->getEdgeVector(), veh, STEPS2TIME(begin))) {
             throw ProcessError("Route '" + getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
         double costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
@@ -381,7 +381,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     // recompute the costs and (when a new route was added) scale the probabilities
     const double scale = double(myAlternatives.size() - 1) / double(myAlternatives.size());
     for (RORoute* const alt : myAlternatives) {
-        if (!router.isValid(alt->getEdgeVector(), veh)) {
+        if (!router.isValid(alt->getEdgeVector(), veh, STEPS2TIME(begin))) {
             throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
         // recompute the costs for all routes

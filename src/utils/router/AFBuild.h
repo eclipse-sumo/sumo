@@ -476,8 +476,7 @@ void AFBuild<E, N, V, M>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLev
             if (supercellEdge->isInternal()) {
                 continue;
             }
-            if ((myNode2EdgeRouter->edgeInfo(supercellEdge))->prohibited
-                    || myNode2EdgeRouter->isProhibited(supercellEdge, vehicle)) {
+            if (myNode2EdgeRouter->isProhibited(supercellEdge, vehicle, STEPS2TIME(msTime))) {
                 continue;
             }
 #ifdef AFBU_DEBUG_LEVEL_1
@@ -528,8 +527,7 @@ void AFBuild<E, N, V, M>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLev
                 ArcInfo* followerInfo = myArcInfos[follower.first->getNumericalID()];
 
                 // check whether it can be used
-                if ((myNode2EdgeRouter->edgeInfo(follower.first))->prohibited
-                        || myNode2EdgeRouter->isProhibited(follower.first, vehicle)) {
+                if (myNode2EdgeRouter->isProhibited(follower.first, vehicle, sTime)) {
                     myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + followerInfo->edge->getID() + "'.");
                     continue;
                 }
@@ -582,8 +580,7 @@ void AFBuild<E, N, V, M>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLev
 #endif
     for (const FlippedEdge<E, N, V>* edgeInsideCell : edgesInsideCell) {
         ArcInfo* arcInfo = myArcInfos[edgeInsideCell->getNumericalID()];
-        if ((myNode2EdgeRouter->edgeInfo(edgeInsideCell))->prohibited
-                || myNode2EdgeRouter->isProhibited(edgeInsideCell, vehicle)) {
+        if (myNode2EdgeRouter->isProhibited(edgeInsideCell, vehicle, STEPS2TIME(msTime))) {
             continue;
         }
         arcInfosOnAShortestPath.insert(arcInfo);

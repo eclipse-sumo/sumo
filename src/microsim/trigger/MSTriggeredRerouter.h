@@ -145,7 +145,12 @@ public:
         Prohibitions getClosed() const {
             Prohibitions v;
             for (const auto& settings : closed) {
-                v[settings.first].end = settings.second.second;
+                // no permissions are changed but edges are forbidden for all during routing
+                v[settings.first].permissions = settings.second.first == SVCAll ? 0 : settings.second.first;
+                if (settings.second.second != -1) {
+                    // end time is known
+                    v[settings.first].end = STEPS2TIME(settings.second.second);
+                }
             }
             return v;
         }

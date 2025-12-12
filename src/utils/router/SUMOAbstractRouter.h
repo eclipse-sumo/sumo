@@ -41,8 +41,8 @@
 
 /// Prohibitions and their estimated end time
 struct RouterProhibition {
-    double begin;
-    double end;
+    double begin = 0;
+    double end = std::numeric_limits<double>::max();
     SVCPermissions permissions = SVC_IGNORING;
 };
 
@@ -246,8 +246,11 @@ public:
         return false;
     }
 
-    inline bool isProhibited(const E* const edge, const V* const vehicle) const {
-        return (myEdgeInfos[edge->getNumericalID()].prohibitedPermissions & vehicle->getVClass()) != vehicle->getVClass()
+    inline bool isProhibited(const E* const edge, const V* const vehicle, double t) const {
+        return (myProhibited.size() > 0
+                && (myEdgeInfos[edge->getNumericalID()].prohibitedPermissions & vehicle->getVClass()) != vehicle->getVClass()
+                && myEdgeInfos[edge->getNumericalID()].prohibitionBegin <= t
+                && myEdgeInfos[edge->getNumericalID()].prohibitionEnd == std::numeric_limits<double>::max())
             || (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
 
@@ -280,9 +283,9 @@ public:
         length += e->getLength();
     }
 
-    bool isValid(const std::vector<const E*>& edges, const V* const v) const {
+    bool isValid(const std::vector<const E*>& edges, const V* const v, double t) const {
         for (const E* const e : edges) {
-            if (isProhibited(e, v)) {
+            if (isProhibited(e, v, t)) {
                 return false;
             }
         }
@@ -355,8 +358,9 @@ public:
 
     inline double getEffort(const E* const e, const V* const v, double t) const {
         if (this->myProhibited.size() > 0 && myEdgeInfos.size() > 0
-                && myEdgeInfos[e->getNumericalID()].prohibitionEnd > 0
-                && myEdgeInfos[e->getNumericalID()].prohibitionBegin >= t) {
+                && myEdgeInfos[e->getNumericalID()].prohibitionEnd > t
+                && myEdgeInfos[e->getNumericalID()].prohibitionBegin <= t
+                && (myEdgeInfos[e->getNumericalID()].prohibitedPermissions & v->getVClass()) != v->getVClass()) {
             // pass edge after prohibition ends
             return (myEdgeInfos[e->getNumericalID()].prohibitionEnd - t) + (*myOperation)(e, v, myEdgeInfos[e->getNumericalID()].prohibitionEnd);
         } else {
@@ -386,15 +390,13 @@ public:
         for (auto item : this->myProhibited) {
             myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = SVCAll;
             myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = -1;
-            myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = 0;
+            myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = -1;
         }
         for (auto item : toProhibit) {
-            if (item.second.end >= 0 && item.second.end != std::numeric_limits<double>::max()) {
-                myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = item.second.begin;
-                myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = item.second.end;
-            } else {
-                myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = 0;
-            }
+            myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = item.second.begin;
+            myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = item.second.end;
+            myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = item.second.permissions;
+            //std::cout << item.first->getID() << " " << item.second.begin << " " << item.second.end << " (" << getVehicleClassNames(item.second.permissions) << "\n";
         }
         this->myProhibited = toProhibit;
     }

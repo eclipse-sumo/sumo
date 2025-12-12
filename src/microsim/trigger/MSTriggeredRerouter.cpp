@@ -181,7 +181,7 @@ MSTriggeredRerouter::myStartElement(int element,
         bool ok;
         const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
         const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
-        const SUMOTime until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, -1);
+        const SUMOTime until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, TIME2STEPS(-1));
         SVCPermissions permissions = parseVehicleClasses(allow, disallow);
         myParsedRerouteInterval.closed[closedEdge] = std::make_pair(permissions, STEPS2TIME(until));
     }

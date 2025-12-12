@@ -209,7 +209,7 @@ public:
                 auto& followerInfo = myEdgeInfos[follower.first->getNumericalID()];
                 ArcInfo* followerArcInfo = myArcInfos[follower.first->getNumericalID()];
                 // check whether it can be used
-                if (followerInfo.prohibited || isProhibited(follower.first, vehicle)) {
+                if (isProhibited(follower.first, vehicle)) {
                     if (!silent) {
                         myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + followerInfo.edge->getID() + "'.");
                     }
@@ -355,7 +355,7 @@ void AFCentralizedSPTree<E, N, V>::init(std::vector<const E*> fromEdges, const V
         }
         int edgeID = from->getNumericalID();
         auto& fromInfo = myEdgeInfos[edgeID];
-        if (fromInfo.prohibited || isProhibited(from, vehicle)) {
+        if (isProhibited(from, vehicle)) {
             continue;
         }
         fromInfo.heuristicEffort = 0.;

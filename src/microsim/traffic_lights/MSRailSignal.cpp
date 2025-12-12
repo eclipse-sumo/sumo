@@ -595,7 +595,7 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
         MSRoutingEngine::Prohibitions prohibited;
         for (MSEdge* e : occupied) {
             // indefinite occupation because vehicles might be in deadlock on their current routes
-            prohibited[e].end = -1;
+            prohibited[e].end = std::numeric_limits<double>::max();
         }
         MSRoutingEngine::reroute(*veh, now, "railSignal:" + getID(), false, true, prohibited);
 #ifdef DEBUG_REROUTE
