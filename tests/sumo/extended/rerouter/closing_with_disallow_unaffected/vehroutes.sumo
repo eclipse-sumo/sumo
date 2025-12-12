@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-12T08:41:07.319887+01:00 by Eclipse SUMO sumo v1_25_0+0482-e1712a2661e
+<!-- generated on 2025-12-12T11:34:12.862525+01:00 by Eclipse SUMO sumo v1_25_0+0486-3de77c903c4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,16 +47,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="affected" depart="0.00" arrival="218.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right right2end end rend"/>
-        </routeDistribution>
+    <vehicle id="unaffected" type="bus" depart="4.00" arrival="109.00">
+        <route edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="unaffected" type="bus" depart="4.00" arrival="232.00">
+    <vehicle id="affected" depart="0.00" arrival="219.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="4.00" probability="0" edges="beg middle end rend"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="0.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
