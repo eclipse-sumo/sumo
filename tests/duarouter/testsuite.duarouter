@@ -28,6 +28,9 @@ vclasses
 # testing some additional options
 function
 
+# test route closing
+closing
+
 # routing of pedestrians
 person
 
