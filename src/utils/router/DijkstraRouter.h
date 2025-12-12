@@ -107,13 +107,13 @@ public:
                  SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         assert(from != nullptr && (vehicle == nullptr || to != nullptr));
         // check whether from and to can be used
-        if (this->myEdgeInfos[from->getNumericalID()].prohibited || this->isProhibited(from, vehicle)) {
+        if (this->isProhibited(from, vehicle)) {
             if (!silent) {
                 this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
             }
             return false;
         }
-        if (to != nullptr && (this->myEdgeInfos[to->getNumericalID()].prohibited || this->isProhibited(to, vehicle))) {
+        if (this->isProhibited(to, vehicle)) {
             if (!silent) {
                 this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
@@ -215,7 +215,7 @@ public:
             for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass, ignoreTransient)) {
                 auto& followerInfo = this->myEdgeInfos[follower.first->getNumericalID()];
                 // check whether it can be used
-                if (followerInfo.prohibited || this->isProhibited(follower.first, vehicle)) {
+                if (this->isProhibited(follower.first, vehicle)) {
                     continue;
                 }
                 double effort = minimumInfo->effort + effortDelta;

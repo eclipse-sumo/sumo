@@ -43,6 +43,7 @@
 struct RouterProhibition {
     double begin;
     double end;
+    SVCPermissions permissions = SVC_IGNORING;
 };
 
 /**
@@ -63,7 +64,7 @@ public:
         EdgeInfo(const E* const e)
             : edge(e), effort(std::numeric_limits<double>::max()),
               heuristicEffort(std::numeric_limits<double>::max()),
-              leaveTime(0.), prev(nullptr), visited(false), prohibited(false), prohibitionBegin(-1), prohibitionEnd(-1) {}
+              leaveTime(0.), prev(nullptr), visited(false), prohibitedPermissions(SVCAll), prohibitionBegin(-1), prohibitionEnd(-1) {}
 
         /// The current edge
         const E* const edge;
@@ -84,8 +85,8 @@ public:
         /// whether the edge was already evaluated
         bool visited;
 
-        /// whether the edge is currently not allowed
-        bool prohibited;
+        /// temporary permission change
+        SVCPermissions prohibitedPermissions;
 
         /// the time at which a temporary prohibitione begins
         double prohibitionBegin;
@@ -246,7 +247,8 @@ public:
     }
 
     inline bool isProhibited(const E* const edge, const V* const vehicle) const {
-        return (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
+        return (myEdgeInfos[edge->getNumericalID()].prohibitedPermissions & vehicle->getVClass()) != vehicle->getVClass()
+            || (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
@@ -382,7 +384,7 @@ public:
 
     virtual void prohibit(const Prohibitions& toProhibit) {
         for (auto item : this->myProhibited) {
-            myEdgeInfos[item.first->getNumericalID()].prohibited = false;
+            myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = SVCAll;
             myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = -1;
             myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = 0;
         }
@@ -391,7 +393,7 @@ public:
                 myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = item.second.begin;
                 myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = item.second.end;
             } else {
-                myEdgeInfos[item.first->getNumericalID()].prohibited = true;
+                myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = 0;
             }
         }
         this->myProhibited = toProhibit;
