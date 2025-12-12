@@ -502,8 +502,7 @@ void AFBuild<E, N, V, M>::computeArcFlagsAux(SUMOTime msTime, const int sHARCLev
         const ArcInfo* arcInfo = *iter2;
         assert(!arcInfo->edge->isInternal());
         assert(myNode2EdgeRouter);
-        assert(!(myNode2EdgeRouter->edgeInfo(arcInfo->edge))->prohibited
-               && !myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle));
+        assert(!myNode2EdgeRouter->isProhibited(arcInfo->edge, vehicle, STEPS2TIME(msTime)));
         size_t numberOfBoundaryNodes = arcInfo->effortsToBoundaryNodes.size();
         size_t index;
         bool onShortestPath = false;

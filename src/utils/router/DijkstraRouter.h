@@ -114,7 +114,7 @@ public:
             return false;
         }
         // technically, a temporary permission might be lifted by the time of arrival
-        if (this->isProhibited(to, vehicle, STEPS2TIME(msTime))) {
+        if (to != nullptr && this->isProhibited(to, vehicle, STEPS2TIME(msTime))) {
             if (!silent) {
                 this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on destination edge '" + to->getID() + "'.");
             }
