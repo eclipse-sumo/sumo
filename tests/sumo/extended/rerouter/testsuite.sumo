@@ -41,6 +41,9 @@ closing_with_disallow
 # multiple rerouters that close the same edge with modifying permissions
 closing_with_disallow2
 
+# closing an edge with modifying permissions, vehicles with unaffected permissions should not reroute
+closing_with_disallow_unaffected
+
 # closing an edge with modifying permissions
 closing_with_disallow_teleport
 
