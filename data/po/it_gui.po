@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-11 19:36+0100\n"
-"PO-Revision-Date: 2025-12-11 18:26+0000\n"
+"PO-Revision-Date: 2025-12-12 18:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2539,16 +2540,16 @@ msgstr "file di tipi di archi"
 
 #: src/netedit/GNEApplicationWindow.cpp:1037
 msgid "Reloading netedit config file '%'"
-msgstr ""
+msgstr "Caricamento ripetuto della configurazione netedit '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1042
 msgid "Reloading sumo config file '%'"
-msgstr ""
+msgstr "Caricamento ripetuto della configurazione sumo '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1047
 #: src/netedit/GNEApplicationWindow.cpp:1110
 msgid "Reloading network file '%'"
-msgstr ""
+msgstr "Caricamento ripetuto della rete '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1062
 msgid "&Reload Netedit config"
@@ -2565,17 +2566,17 @@ msgstr "&Ricarica rete"
 #: src/netedit/GNEApplicationWindow.cpp:1309
 #, c-format
 msgid "Loading of netedit config '%' failed"
-msgstr ""
+msgstr "Il caricamento della configurazione netedit '%' è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:1312
 #, c-format
 msgid "Loading of sumo config '%' failed"
-msgstr ""
+msgstr "Il caricamento della configurazione sumo '%' è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:1315
 #, c-format
 msgid "Loading of netconvert config '%' failed"
-msgstr ""
+msgstr "Il caricamento della configurazione netconvert '%' è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:1318
 #, c-format
@@ -2585,7 +2586,7 @@ msgstr "Il caricamento della rete '%' è fallito"
 #: src/netedit/GNEApplicationWindow.cpp:1321
 #, c-format
 msgid "Loading of OSM Network '%' failed"
-msgstr ""
+msgstr "Il caricamento della rete OSM '%' è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:1324
 msgid "Invalid Options. Nothing loaded"
@@ -2635,11 +2636,11 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
 msgid "Network '%' loaded through console"
-msgstr ""
+msgstr "La rete '%' è stata caricata attraverso la consolle"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
 msgid "New network successfully created"
-msgstr ""
+msgstr "Nuova rete creata con successo"
 
 #: src/netedit/GNEApplicationWindow.cpp:1462
 msgid "&Modes"
