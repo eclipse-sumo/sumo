@@ -176,6 +176,7 @@ GNERerouter::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 void
 GNERerouter::openAdditionalDialog(FXWindow* restoringFocusWindow) {
     // Open rerouter dialog
+    UNUSED_PARAMETER(restoringFocusWindow);
     GNERerouterDialog(this);
 }
 
