@@ -18,11 +18,20 @@ title: ChangeLog
   - Fixed unsafe sublane-change due to missed neighbor vehicles #17388
   - Fixed invalid expected sublane speeds at lane split with forbidden connections #17390
   - Fixed failure to return from outside lane bounds after lane width change in the sublane model #17383
+  - Fixed collisions involving pedestrian crossings #17385
+  - Fixed invalid braking after lane change #17408
+  - Fixed bug where vehicles block each others lane change #10763
+  - Fixed right-of-way violation when entering roundabout #17409
+  - Fixed invalid braking at intersection with sublane model #17410
+  - Fixed unsafe lane-changing ahead of roundabout #17411
+  - Fixed broken vehicle flows where total vehicle count overflows a 32-bit integer #17396
+  - A closingReroute with configured permissions no longer affects vehicle with an unaffected vehicle class #17426
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
   - No longer saving an invalid network when edges from prohibition elements are deleted #17331
   - selection scaling now work for tazRelations #17382
+  - Remove some unsupported combinations of taz/junctions for rides, transport, and tranships #17414
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
@@ -30,7 +39,7 @@ title: ChangeLog
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
   - Option **--ignore-errors** now works when origin or destination are prohibited by option **--restriction-params** #17387
-
+  - Any routes that are repaired with option **--repair** no longer trigger an error (and thus do not require option **--ignore-errors** anymore) #17369
 
 - TraCI
   - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
@@ -41,6 +50,8 @@ title: ChangeLog
   - generateRerouters.py: Fixed invalid output when no detours are possible #17361
   - generateRerouters.py: now find notication edges for consecutive closed edges #17360
   - tazRel2POI.py: fixed invalid error on skipped taz #17379
+  - countEdgeUsage.py: Fixed invalid count for vehroute-output involving replaced routes #17401
+  - sumolib.xml.parse_fast: No longer yields records for element names that start with the same string as the requested element #17403
 
 ### Enhancements
 
@@ -48,6 +59,17 @@ title: ChangeLog
   - Routing with randomized weights (**--weights.random-factor**) is now stable with respect to network changes, vehicle composition and state loading. The random noise for each edge only depends on the random seed and vehicle id (also applies to duarouter). If thew new option **--weights.random-factor.dynamic** is set, the randomness in the simulation also varies over time. #17325
   - The new option **--output-suffix** can be used to modify the names of all output files (similar to **--output-prefix**). The suffix will be inserted right before the file name extension. #17338
   - edgeData output definitions now support attribute `aggregate="taz"` which will aggregated data within each loaded taz definition #11104
+  - Added option shortcut **-m** for **--edgedata-files** #17400
+  - A warn is now given when loading personTrips with mode "public" and no public transport was loaded #2825
+
+- netedit
+  - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
+  - The written sumocfg now tracks network file name changes #17314
+ 
+- duarouter
+  - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
+  - Added option **--max-traveltime** which lets routing fail if traveling takes too long #17422
+  - Rerouters with element `closingReroute` can now be loaded from an **--additinal-file** to influence routing #12501
 
 - TraCI
   - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
@@ -61,6 +83,7 @@ title: ChangeLog
   - tazRel2POI.py: supports multiple taz input files #17378
   - route2OD.py: supports separating multiple input files with ',' #17377
   - edgesInDistricts.py: now supports geo polygons #17376
+  - edgeDataDiff.py: now include mean_abs in output #17404
 
 
 ### Miscellaneous
