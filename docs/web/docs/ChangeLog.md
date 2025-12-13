@@ -60,7 +60,7 @@ title: ChangeLog
   - The new option **--output-suffix** can be used to modify the names of all output files (similar to **--output-prefix**). The suffix will be inserted right before the file name extension. #17338
   - edgeData output definitions now support attribute `aggregate="taz"` which will aggregated data within each loaded taz definition #11104
   - Added option shortcut **-m** for **--edgedata-files** #17400
-  - A warn is now given when loading personTrips with mode "public" and no public transport was loaded #2825
+  - A warning is now given when loading personTrips with mode "public" and no public transport was loaded #2825
 
 - netedit
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
