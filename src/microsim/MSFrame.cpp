@@ -173,6 +173,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.distance", "Output", TL("Add kilometrage to the FCD output (linear referencing)"));
     oc.doRegister("fcd-output.acceleration", new Option_Bool(false));
     oc.addDescription("fcd-output.acceleration", "Output", TL("Add acceleration to the FCD output"));
+    oc.doRegister("fcd-output.speed-relative", new Option_Bool(false));
+    oc.addDescription("fcd-output.speed-relative", "Output", TL("Add relative speed (vehicle speed / edge speed limit) to the FCD output"));
     oc.doRegister("fcd-output.max-leader-distance", new Option_Float(-1));
     oc.addDescription("fcd-output.max-leader-distance", "Output", TL("Add leader vehicle information to the FCD output (within the given distance)"));
     oc.doRegister("fcd-output.params", new Option_StringVector());
