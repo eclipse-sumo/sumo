@@ -201,7 +201,7 @@ if (SWIG_FOUND)
             swig_link_libraries(libsumo -Wl,--whole-archive ${libsumo_link_library} ${sumolibs} -Wl,--no-whole-archive)
         else()
             set_target_properties(${SWIG_MODULE_libsumo_REAL_NAME} PROPERTIES FOLDER "libsumo")
-            if (SKBUILD OR ${CMAKE_VERSION} VERSION_LESS 3.14.0)
+            if (${CMAKE_VERSION} VERSION_LESS 3.14.0)
                 swig_link_libraries(libsumo ${libsumo_link_library} ${sumolibs} ${PYTHON_LIBRARIES})
             else()
                 # using target fixes segfault in macos, swig_link_libraries is also deprecated
