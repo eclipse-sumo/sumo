@@ -26,7 +26,6 @@ import sys
 import struct
 import contextlib
 
-import xml2csv
 import xml2protobuf
 
 import google.protobuf.descriptor  # we need to do this late because the xml2protobuf import modifies sys.path
@@ -90,13 +89,9 @@ def msg2xml(desc, cont, out, depth=1):
 
 
 def writeXml(root, module, options):
-    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
+    with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
         outputf.write(u'<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
-        if options.source.isdigit():
-            inp = xml2csv.getSocketStream(int(options.source))
-        else:
-            inp = open(options.source, 'rb')
-        with contextlib.closing(inp) as inputf:
+        with contextlib.closing(sumolib.openz(options.source, "rb", trySocket=True)) as inputf:
             first = True
             while True:
                 length = struct.unpack('>L', read_n(inputf, 4))[0]
@@ -118,7 +113,7 @@ def writeXml(root, module, options):
 def main():
     options = get_options()
     # get attributes
-    attrFinder = xml2csv.AttrFinder(options.xsd, options.source, False)
+    attrFinder = sumolib.xml.AttrFinder(options.xsd, options.source, False)
     base = os.path.basename(options.xsd).split('.')[0]
     # generate proto format description
     module = xml2protobuf.generateProto(attrFinder.tagAttrs, attrFinder.depthTags,

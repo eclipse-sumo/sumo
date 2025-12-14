@@ -357,6 +357,8 @@ def openz(fileOrURL, mode="r", **kwargs):
             if "b" in mode:
                 return gzip.open(fileOrURL, mode="w")
             return gzip.open(fileOrURL, mode="wt", encoding=encoding)
+        if kwargs.get("trySocket") and fileOrURL.isdigit():
+            return getSocketStream(int(fileOrURL), mode)
         if kwargs.get("tryGZip", True) and "r" in mode:
             with gzip.open(fileOrURL) as fd:
                 fd.read(1)

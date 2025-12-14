@@ -25,27 +25,21 @@ import os
 import sys
 import csv
 import contextlib
-import io
 
 from collections import OrderedDict
-
-import xsd
-import xml2csv
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
+from sumolib.xml import xsd  # noqa
 
 
 def get_options():
     optParser = sumolib.options.ArgumentParser(description="Convert a CSV file to a XML file.")
-    # input
     optParser.add_argument("source", category="input", type=optParser.data_file,
                            help="the input CSV file")
-    # output
     optParser.add_argument("-o", "--output", category="output", required=True, type=optParser.file,
                            help="name for generic output file")
-    # processing
     optParser.add_argument("-q", "--quotechar", default="",
                            help="the quoting character for fields")
     optParser.add_argument("-d", "--delimiter", default=";",
@@ -82,12 +76,9 @@ def row2vehicle_and_route(row, tag):
 
 
 def write_xml(toptag, tag, options, printer=row2xml):
-    with io.open(options.output, 'w', encoding="utf8") as outputf:
+    with sumolib.openz(options.output, 'w') as outputf:
         outputf.write(u'<%s>\n' % toptag)
-        if options.source.isdigit():
-            inputf = xml2csv.getSocketStream(int(options.source))
-        else:
-            inputf = io.open(options.source, encoding="utf8")
+        inputf = sumolib.openz(options.source, trySocket=True)
         reader = csv.DictReader(inputf, delimiter=options.delimiter)
         for row in reader:
             orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
@@ -146,11 +137,8 @@ def checkChanges(out, old, new, currEle, tagStack, depth):
 def writeHierarchicalXml(struct, options):
     if not struct.root.attributes:
         options.skip_root = True
-    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        if options.source.isdigit():
-            inputf = xml2csv.getSocketStream(int(options.source))
-        else:
-            inputf = io.open(options.source, encoding="utf8")
+    with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
+        inputf = sumolib.openz(options.source, trySocket=True)
         lastRow = OrderedDict()
         tagStack = [struct.root.name]
         if options.skip_root:
@@ -185,11 +173,8 @@ def writeHierarchicalXml(struct, options):
 
 
 def writeFlatXml(options):
-    with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        if options.source.isdigit():
-            inputf = xml2csv.getSocketStream(int(options.source))
-        else:
-            inputf = io.open(options.source, encoding="utf8")
+    with contextlib.closing(sumolib.openz(options.output, "w", trySocket=True)) as outputf:
+        inputf = sumolib.openz(options.source, trySocket=True)
         outputf.write('<data>\n')
         fields = None
         for raw in csv.reader(inputf, delimiter=options.delimiter):

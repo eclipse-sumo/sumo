@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    xml.py
+# @file    parsing.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Mirko Barthauer
@@ -19,24 +19,23 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
-import os
 import sys
 import re
 import gzip
 import io
-import datetime
-import fileinput
 try:
     import xml.etree.cElementTree as ET
 except ImportError as e:
     print("recovering from ImportError '%s'" % e)
     import xml.etree.ElementTree as ET
-from collections import namedtuple, OrderedDict
+from collections import defaultdict, namedtuple, OrderedDict
 from keyword import iskeyword
 from functools import reduce
+import xml.sax
 from xml.sax import saxutils
 
-from . import version, miscutils
+from . import xsd
+from .. import miscutils
 
 DEFAULT_ATTR_CONVERSIONS = {
     # shape-like
@@ -67,6 +66,102 @@ DEFAULT_ATTR_CONVERSIONS = {
     'fromLane': int,
     'toLane': int,
 }
+
+
+class NestingHandler(xml.sax.handler.ContentHandler):
+
+    """A handler which knows the current nesting of tags"""
+
+    def __init__(self):
+        self.tagstack = []
+
+    def startElement(self, name, attrs):
+        self.tagstack.append(name)
+
+    def endElement(self, name):
+        self.tagstack.pop()
+
+    def depth(self):
+        # do not count the root element
+        return len(self.tagstack) - 1
+
+
+class AttrFinder(NestingHandler):
+
+    def __init__(self, xsdFile, source, split, keepAttrs=None):
+        NestingHandler.__init__(self)
+        self.tagDepths = {}  # tag -> depth of appearance
+        self.tagAttrs = defaultdict(OrderedDict)  # tag -> set of attrs
+        self.renamedAttrs = {}  # (name, attr) -> renamedAttr
+        self.attrs = {}
+        self.depthTags = {}  # child of root: depth of appearance -> tag list
+        self.rootDepth = 1 if split else 0
+        self.keepAttrs = keepAttrs
+        if xsdFile:
+            self.xsdStruc = xsd.XsdStructure(xsdFile)
+            if split:
+                for ele in self.xsdStruc.root.children:
+                    self.attrs[ele.name] = []
+                    self.depthTags[ele.name] = [[]]
+                    self.recursiveAttrFind(ele, ele, 1)
+            else:
+                self.attrs[self.xsdStruc.root.name] = []
+                self.depthTags[self.xsdStruc.root.name] = []
+                self.recursiveAttrFind(
+                    self.xsdStruc.root, self.xsdStruc.root, 0)
+        else:
+            self.xsdStruc = None
+            xml.sax.parse(source, self)
+
+    def addElement(self, root, name, depth):
+        # print("adding", root, name, depth)
+        if len(self.depthTags[root]) == depth:
+            self.tagDepths[name] = depth
+            self.depthTags[root].append([name])
+            return True
+        if name not in self.tagDepths:
+            self.depthTags[root][depth].append(name)
+            return True
+        if name not in self.depthTags[root][depth]:
+            print("Ignoring tag %s at depth %s" %
+                  (name, depth), file=sys.stderr)
+        return False
+
+    def recursiveAttrFind(self, root, currEle, depth):
+        if not self.addElement(root.name, currEle.name, depth):
+            return
+        for a in currEle.attributes:
+            if ":" not in a.name:  # no namespace support yet
+                self.tagAttrs[currEle.name][a.name] = a
+                anew = "%s_%s" % (currEle.name, a.name)
+                self.renamedAttrs[(currEle.name, a.name)] = anew
+                attrList = self.attrs[root.name]
+                if anew in attrList:
+                    del attrList[attrList.index(anew)]
+                attrList.append(anew)
+        for ele in currEle.children:
+            # print("attr", root.name, ele.name, depth)
+            self.recursiveAttrFind(root, ele, depth + 1)
+
+    def startElement(self, name, attrs):
+        NestingHandler.startElement(self, name, attrs)
+        if self.depth() >= self.rootDepth:
+            root = self.tagstack[self.rootDepth]
+            if self.depth() == self.rootDepth and root not in self.attrs:
+                self.attrs[root] = []
+                self.depthTags[root] = [[]] * self.rootDepth
+            if not self.addElement(root, name, self.depth()):
+                return
+            # collect attributes
+            for a in sorted(list(attrs.keys())):
+                if self.keepAttrs is not None and a not in self.keepAttrs:
+                    continue
+                if a not in self.tagAttrs[name] and ":" not in a:
+                    self.tagAttrs[name][a] = xsd.XmlAttribute(a)
+                    if not (name, a) in self.renamedAttrs:
+                        anew = "%s_%s" % (name, a)
+                        self.renamedAttrs[(name, a)] = anew
+                        self.attrs[root].append(anew)
 
 
 def xmlescape(value):
@@ -553,78 +648,6 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
     finally:
         if close_source:
             xmlfile.close()
-
-
-def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):
-    """
-    Builds an XML header with schema information and a comment on how the file has been generated
-    (script name, arguments and datetime).
-    If script name is not given, it is determined from the command line call.
-    If root is not given, no root element is printed (and thus no schema).
-    If schemaPath is not given, it is derived from the root element.
-    If rootAttrs is given as a string, it can be used to add further attributes to the root element.
-    If rootAttrs is set to None, the schema related attributes are not printed.
-    """
-    if script is None or script == "$Id$":
-        script = os.path.basename(sys.argv[0])
-    if options is None:
-        optionString = u"  options: %s\n" % (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))
-    else:
-        optionString = options.config_as_string
-    if includeXMLDeclaration:
-        header = u'<?xml version="1.0" encoding="UTF-8"?>\n\n'
-    else:
-        header = u''
-    header += u'<!-- generated on %s by Eclipse SUMO %s %s\n%s-->\n\n' % (datetime.datetime.now(), script,
-                                                                          version.gitDescribe(), optionString)
-    if root is not None:
-        if rootAttrs is None:
-            header += u'<%s>\n' % root
-        else:
-            if schemaPath is None:
-                schemaPath = root + "_file.xsd"
-            header += (u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                       u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath)
-    return header
-
-
-def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=True):
-    """
-    Writes an XML header with schema information and a comment on how the file has been generated
-    (script name, arguments and datetime). Please use this as first call whenever you open a
-    SUMO related XML file for writing from your script.
-    If script name is not given, it is determined from the command line call.
-    If root is not given, no root element is printed (and thus no schema).
-    If schemaPath is not given, it is derived from the root element.
-    If rootAttrs is given as a string, it can be used to add further attributes to the root element.
-    If rootAttrs is set to None, the schema related attributes are not printed.
-    """
-    outf.write(buildHeader(script, root, schemaPath, rootAttrs, options, includeXMLDeclaration))
-
-
-def insertOptionsHeader(filename, options):
-    """
-    Inserts a comment header with the options used to call the script into an existing file.
-    """
-    header = buildHeader(options=options)
-    if not filename.endswith('.gz'):
-        fileToPatch = fileinput.FileInput(filename, inplace=True)
-        for lineNbr, line in enumerate(fileToPatch):
-            if lineNbr == 2:
-                print(header, end='')
-            print(line, end='')
-        fileToPatch.close()
-    else:
-        #  fileinput cannot use inplace together with compression
-        tmpfile = "tmp." + filename
-        with miscutils.openz(tmpfile, 'w') as tmpf:
-            with miscutils.openz(filename) as inpf:
-                for lineNbr, line in enumerate(inpf):
-                    if lineNbr == 2:
-                        tmpf.write(header)
-                    tmpf.write(line)
-        os.remove(filename)  # on windows, rename does not overwrite
-        os.rename(tmpfile, filename)
 
 
 def quoteattr(val, ensureUnicode=False):
