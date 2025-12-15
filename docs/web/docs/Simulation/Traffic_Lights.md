@@ -278,6 +278,13 @@ ensured by loading the network and the new signal plan into
 [netconvert](../netconvert.md) and thus updating the right-of-way
 rules.
 
+# Traffic Lights with fixed  timing
+
+The simplest type of traffic light in SUMO has fixed timings and is declared with `<tlLogic>`-attribute `type="static"`.
+This type of traffic light will cycle through a fixed sequence of states and spent time in each state according to the `duration` attribute of each state.
+By default the phase sequence will be in order of the phase elements in the input file, starting anew with the first phase after the last phase has ended.
+The order of the phases can be changed by defining attribute `next` for some or all phases (if multiple indices are defined in `next`, the first entry is used and all others are ignored).
+
 # Traffic Lights that respond to traffic
 
 Generally, the designation "actuated" refers to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
