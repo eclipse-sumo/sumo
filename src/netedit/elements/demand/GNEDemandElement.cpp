@@ -107,6 +107,19 @@ GNEDemandElement::getFileBucket() const {
 }
 
 
+void
+GNEDemandElement::changeFileBucket(FileBucket* fileBucket) {
+    myFileBucket->removeElement(false);
+    myFileBucket = fileBucket;
+    myFileBucket->addElement(false);
+    // update options
+    myNet->getGNEApplicationWindow()->getFileBucketHandler()->updateOptions();
+    // mark demand elements to save
+    myNet->getSavingStatus()->requireSaveAdditionals();
+    myNet->getSavingStatus()->requireSaveDemandElements();
+}
+
+
 const GUIGeometry&
 GNEDemandElement::getDemandElementGeometry() {
     return myDemandElementGeometry;

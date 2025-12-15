@@ -117,9 +117,19 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // add calibratorFlow
         return removeElement(calibratorFlow);
+    } else if (calibratorFlow->getFileBucket()->getFilename().empty()) {
+        // in this case, the bucket has to be updated manually
+        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+            vType->changeFileBucket(calibratorFlow->getFileBucket());
+        }
+        route->changeFileBucket(calibratorFlow->getFileBucket());
     } else {
-        updateList();
+        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+            vType->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
+        }
+        route->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
     }
+    updateList();
     return 1;
 }
 
