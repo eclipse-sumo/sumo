@@ -9,18 +9,12 @@ set(utils_foxtools_STAT_SRCS
    MFXCheckButtonTooltip.h
    MFXCheckableButton.cpp
    MFXCheckableButton.h
-   MFXComboBoxAttrProperty.cpp
-   MFXComboBoxAttrProperty.h
    MFXComboBoxIcon.cpp
    MFXComboBoxIcon.h
-   MFXComboBoxTagProperty.cpp
-   MFXComboBoxTagProperty.h
    MFXDecalsTable.cpp
    MFXDecalsTable.h
    MFXDynamicLabel.cpp
    MFXDynamicLabel.h
-   MFXGroupBoxModule.cpp
-   MFXGroupBoxModule.h
    MFXImageHelper.cpp
    MFXImageHelper.h
    MFXInterThreadEventClient.h

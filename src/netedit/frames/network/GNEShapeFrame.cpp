@@ -42,7 +42,7 @@ FXDEFMAP(GNEShapeFrame::GEOPOICreator) GEOPOICreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     MFXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
+FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     GNEGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
 
 
 // ===========================================================================
@@ -54,7 +54,7 @@ FXIMPLEMENT(GNEShapeFrame::GEOPOICreator,     MFXGroupBoxModule,     GEOPOICreat
 // ---------------------------------------------------------------------------
 
 GNEShapeFrame::GEOPOICreator::GEOPOICreator(GNEShapeFrame* polygonFrameParent) :
-    MFXGroupBoxModule(polygonFrameParent, TL("GEO POI Creator")),
+    GNEGroupBoxModule(polygonFrameParent, TL("GEO POI Creator")),
     myShapeFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
     myLonLatRadioButton = new FXRadioButton(getCollapsableFrame(), TL("Format: Lon-Lat"), this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);

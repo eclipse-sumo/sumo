@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXGroupBoxModule.cpp
+/// @file    GNEGroupBoxModule.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2021
 ///
@@ -23,6 +23,7 @@
  * ======================================================================= */
 #include <config.h>
 
+#include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -32,32 +33,31 @@
 #include <netedit/GNEApplicationWindow.h>
 #include <netedit/frames/GNETLSTable.h>
 
-#include "MFXGroupBoxModule.h"
-#include "MFXButtonTooltip.h"
+#include "GNEGroupBoxModule.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(MFXGroupBoxModule) MFXGroupBoxModuleMap[] = {
-    FXMAPFUNC(SEL_PAINT,    0,                              MFXGroupBoxModule::onPaint),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_COLLAPSE,    MFXGroupBoxModule::onCmdCollapseButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      MFXGroupBoxModule::onCmdExtendButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_RESETWIDTH,  MFXGroupBoxModule::onCmdResetButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_SAVE,        MFXGroupBoxModule::onCmdSaveButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_LOAD,        MFXGroupBoxModule::onCmdLoadButton),
-    FXMAPFUNC(SEL_UPDATE,   MID_GROUPBOXMODULE_RESETWIDTH,  MFXGroupBoxModule::onUpdResetButton),
+FXDEFMAP(GNEGroupBoxModule) GNEGroupBoxModuleMap[] = {
+    FXMAPFUNC(SEL_PAINT,    0,                              GNEGroupBoxModule::onPaint),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_COLLAPSE,    GNEGroupBoxModule::onCmdCollapseButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_EXTEND,      GNEGroupBoxModule::onCmdExtendButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_RESETWIDTH,  GNEGroupBoxModule::onCmdResetButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_SAVE,        GNEGroupBoxModule::onCmdSaveButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GROUPBOXMODULE_LOAD,        GNEGroupBoxModule::onCmdLoadButton),
+    FXMAPFUNC(SEL_UPDATE,   MID_GROUPBOXMODULE_RESETWIDTH,  GNEGroupBoxModule::onUpdResetButton),
 };
 
 // Object implementation
-FXIMPLEMENT(MFXGroupBoxModule, FXVerticalFrame, MFXGroupBoxModuleMap, ARRAYNUMBER(MFXGroupBoxModuleMap))
+FXIMPLEMENT(GNEGroupBoxModule, FXVerticalFrame, GNEGroupBoxModuleMap, ARRAYNUMBER(GNEGroupBoxModuleMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
+GNEGroupBoxModule::GNEGroupBoxModule(GNEFrame* frame, const std::string& text, const int options) :
     FXVerticalFrame(frame->getContentFrame(), GUIDesignGroupBoxModule),
     myOptions(options),
     myFrameParent(frame),
@@ -65,71 +65,71 @@ MFXGroupBoxModule::MFXGroupBoxModule(GNEFrame* frame, const std::string& text, c
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
+        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonGNEGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
         myExtendButton = new MFXButtonTooltip(headerFrame,
                                               frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                              TL("Expand"), nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonMFXGroupBoxModuleExtend);
+                                              TL("Expand"), nullptr, this, MID_GROUPBOXMODULE_EXTEND, GUIDesignButtonGNEGroupBoxModuleExtend);
         myExtendButton->setTipText(TL("Expand frame to show all contents"));
         myResetWidthButton = new MFXButtonTooltip(headerFrame,
-                                                  frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
-                                                  "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonMFXGroupBoxModule);
+                frame->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
+                "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GROUPBOXMODULE_RESETWIDTH, GUIDesignButtonGNEGroupBoxModule);
         myResetWidthButton->setTipText(TL("Shrink frame to default width"));
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
+        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonGNEGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
+        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonGNEGroupBoxModule);
     }
-    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
+    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelGNEGroupBoxModule);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
 
 
-MFXGroupBoxModule::MFXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
+GNEGroupBoxModule::GNEGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
     FXVerticalFrame(contentFrame, GUIDesignGroupBoxModuleExtendY),
     myOptions(options),
     myCollapsed(false) {
     // build button and labels
     FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
-        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonMFXGroupBoxModule);
+        myCollapseButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonGNEGroupBoxModule);
     }
     if (myOptions & Options::EXTENSIBLE) {
-        throw ProcessError("This MFXGroupBoxModule doesn't support Extensible flag");
+        throw ProcessError("This GNEGroupBoxModule doesn't support Extensible flag");
     }
     if (myOptions & Options::SAVE) {
-        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonMFXGroupBoxModule);
+        mySaveButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GROUPBOXMODULE_SAVE, GUIDesignButtonGNEGroupBoxModule);
     }
     if (myOptions & Options::LOAD) {
-        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonMFXGroupBoxModule);
+        myLoadButton = GUIDesigns::buildFXButton(headerFrame, "", "", "", GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_GROUPBOXMODULE_LOAD, GUIDesignButtonGNEGroupBoxModule);
     }
-    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelMFXGroupBoxModule);
+    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelGNEGroupBoxModule);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
 
 
-MFXGroupBoxModule::~MFXGroupBoxModule() {}
+GNEGroupBoxModule::~GNEGroupBoxModule() {}
 
 
 void
-MFXGroupBoxModule::setText(const std::string& text) {
+GNEGroupBoxModule::setText(const std::string& text) {
     myLabel->setText(text.c_str());
 }
 
 
 FXVerticalFrame*
-MFXGroupBoxModule::getCollapsableFrame() {
+GNEGroupBoxModule::getCollapsableFrame() {
     return myCollapsableFrame;
 }
 
 
 long
-MFXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
+GNEGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     FXDCWindow dc(this, event);
     // Paint background
@@ -142,7 +142,7 @@ MFXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 long
-MFXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
+GNEGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
     if (myCollapsed) {
         myCollapsed = false;
         myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLLAPSE));
@@ -158,7 +158,7 @@ MFXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
 
 
 long
-MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
+GNEGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         int maximumWidth = -1;
         // iterate over all collapsableFrame childrens
@@ -184,7 +184,7 @@ MFXGroupBoxModule::onCmdExtendButton(FXObject*, FXSelector, void*) {
 
 
 long
-MFXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
+GNEGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
     if (myFrameParent) {
         myFrameParent->getViewNet()->getViewParent()->setFrameAreaWidth(220);
     }
@@ -193,7 +193,7 @@ MFXGroupBoxModule::onCmdResetButton(FXObject*, FXSelector, void*) {
 
 
 long
-MFXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
+GNEGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
     if (myFrameParent) {
         if (myFrameParent->getViewNet()->getViewParent()->getFrameAreaWidth() == 220) {
             sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
@@ -206,39 +206,39 @@ MFXGroupBoxModule::onUpdResetButton(FXObject* sender, FXSelector, void*) {
 
 
 long
-MFXGroupBoxModule::onCmdSaveButton(FXObject*, FXSelector, void*) {
+GNEGroupBoxModule::onCmdSaveButton(FXObject*, FXSelector, void*) {
     return saveContents();
 }
 
 
 long
-MFXGroupBoxModule::onCmdLoadButton(FXObject*, FXSelector, void*) {
+GNEGroupBoxModule::onCmdLoadButton(FXObject*, FXSelector, void*) {
     return loadContents();
 }
 
 
-MFXGroupBoxModule::MFXGroupBoxModule() :
+GNEGroupBoxModule::GNEGroupBoxModule() :
     myOptions(Options::NOTHING),
     myCollapsed(false) {
 }
 
 
 bool
-MFXGroupBoxModule::saveContents() const {
+GNEGroupBoxModule::saveContents() const {
     // nothing to do
     return false;
 }
 
 
 bool
-MFXGroupBoxModule::loadContents() const {
+GNEGroupBoxModule::loadContents() const {
     // nothing to do
     return false;
 }
 
 
 void
-MFXGroupBoxModule::toggleSaveButton(const bool value) {
+GNEGroupBoxModule::toggleSaveButton(const bool value) {
     if (mySaveButton) {
         if (value) {
             mySaveButton->enable();

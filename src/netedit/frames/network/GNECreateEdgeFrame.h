@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -42,7 +42,7 @@ public:
     // class EdgeTypeSelector
     // ===========================================================================
 
-    class EdgeTypeSelector : public MFXGroupBoxModule {
+    class EdgeTypeSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::EdgeTypeSelector)
 
@@ -166,7 +166,7 @@ public:
     // class LaneTypeSelector
     // ===========================================================================
 
-    class LaneTypeSelector : public MFXGroupBoxModule {
+    class LaneTypeSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::LaneTypeSelector)
 
@@ -226,7 +226,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public MFXGroupBoxModule {
+    class Legend : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

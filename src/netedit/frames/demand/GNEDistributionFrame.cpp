@@ -61,10 +61,10 @@ FXDEFMAP(GNEDistributionFrame::DistributionValuesEditor) DistributionValuesEdito
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,       MFXGroupBoxModule,  DistributionEditorMap,          ARRAYNUMBER(DistributionEditorMap))
-FXIMPLEMENT(GNEDistributionFrame::DistributionSelector,     MFXGroupBoxModule,  DistributionSelectorMap,        ARRAYNUMBER(DistributionSelectorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionEditor,       GNEGroupBoxModule,  DistributionEditorMap,          ARRAYNUMBER(DistributionEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionSelector,     GNEGroupBoxModule,  DistributionSelectorMap,        ARRAYNUMBER(DistributionSelectorMap))
 FXIMPLEMENT(GNEDistributionFrame::DistributionRow,          FXHorizontalFrame,  DistributionRowMap,             ARRAYNUMBER(DistributionRowMap))
-FXIMPLEMENT(GNEDistributionFrame::DistributionValuesEditor, MFXGroupBoxModule,  DistributionValuesEditorMap,    ARRAYNUMBER(DistributionValuesEditorMap))
+FXIMPLEMENT(GNEDistributionFrame::DistributionValuesEditor, GNEGroupBoxModule,  DistributionValuesEditorMap,    ARRAYNUMBER(DistributionValuesEditorMap))
 
 
 // ===========================================================================
@@ -76,7 +76,7 @@ FXIMPLEMENT(GNEDistributionFrame::DistributionValuesEditor, MFXGroupBoxModule,  
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionEditor::DistributionEditor(GNEFrame* frameParent, SumoXMLTag distributionTag, GUIIcon icon) :
-    MFXGroupBoxModule(frameParent, TL("Distribution Editor")),
+    GNEGroupBoxModule(frameParent, TL("Distribution Editor")),
     myFrameParent(frameParent),
     myDistributionTag(distributionTag) {
     // get staticTooltip menu
@@ -162,7 +162,7 @@ GNEDistributionFrame::DistributionEditor::onUpdDeleteDistribution(FXObject* send
 // ---------------------------------------------------------------------------
 
 GNEDistributionFrame::DistributionSelector::DistributionSelector(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Distribution selector")),
+    GNEGroupBoxModule(frameParent, TL("Distribution selector")),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon
     myDistributionsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
@@ -386,7 +386,7 @@ GNEDistributionFrame::DistributionRow::onCmdSetProbability(FXObject*, FXSelector
 
 GNEDistributionFrame::DistributionValuesEditor::DistributionValuesEditor(GNEFrame* frameParent, DistributionEditor* distributionEditor,
         DistributionSelector* distributionSelector, GNEAttributesEditor* attributesEditor) :
-    MFXGroupBoxModule(frameParent, TL("Distribution values")),
+    GNEGroupBoxModule(frameParent, TL("Distribution values")),
     myFrameParent(frameParent),
     myDistributionEditor(distributionEditor),
     myDistributionSelector(distributionSelector),

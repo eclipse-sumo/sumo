@@ -25,7 +25,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNEGroupBoxModule.h"
 
 // ===========================================================================
 // class declaration
@@ -45,7 +45,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : public MFXGroupBoxModule {
+    class SelectionInformation : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -82,7 +82,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : public MFXGroupBoxModule {
+    class ModificationMode : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -143,7 +143,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : public MFXGroupBoxModule {
+    class VisualScaling : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -184,7 +184,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : public MFXGroupBoxModule {
+    class SelectionOperation : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
@@ -291,7 +291,7 @@ public:
     // class SelectionHierarchy
     // ===========================================================================
 
-    class SelectionHierarchy : public MFXGroupBoxModule {
+    class SelectionHierarchy : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionHierarchy)
 
@@ -390,7 +390,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Information : public MFXGroupBoxModule {
+    class Information : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

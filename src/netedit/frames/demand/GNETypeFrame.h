@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -42,7 +42,7 @@ public:
     // class TypeSelector
     // ===========================================================================
 
-    class TypeSelector : public MFXGroupBoxModule {
+    class TypeSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeSelector)
 
@@ -88,7 +88,7 @@ public:
     // class TypeEditor
     // ===========================================================================
 
-    class TypeEditor : public MFXGroupBoxModule {
+    class TypeEditor : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETypeFrame::TypeEditor)
 

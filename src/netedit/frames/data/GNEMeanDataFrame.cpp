@@ -51,9 +51,9 @@ FXDEFMAP(GNEMeanDataFrame::MeanDataSelector) meanDataTypeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataTypeSelector, MFXGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataEditor,       MFXGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
-FXIMPLEMENT(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
+FXIMPLEMENT(GNEMeanDataFrame::MeanDataTypeSelector, GNEGroupBoxModule,  meanDataSelectorMap,        ARRAYNUMBER(meanDataSelectorMap))
+FXIMPLEMENT(GNEMeanDataFrame::MeanDataEditor,       GNEGroupBoxModule,  meanDataEditorMap,          ARRAYNUMBER(meanDataEditorMap))
+FXIMPLEMENT(GNEMeanDataFrame::MeanDataSelector,     GNEGroupBoxModule,  meanDataTypeSelectorMap,    ARRAYNUMBER(meanDataTypeSelectorMap))
 
 
 // ===========================================================================
@@ -65,7 +65,7 @@ FXIMPLEMENT(GNEMeanDataFrame::MeanDataSelector,     MFXGroupBoxModule,  meanData
 // ---------------------------------------------------------------------------
 
 GNEMeanDataFrame::MeanDataTypeSelector::MeanDataTypeSelector(GNEMeanDataFrame* meanDataFrameParent) :
-    MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
+    GNEGroupBoxModule(meanDataFrameParent, TL("MeanData Type")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create MFXComboBoxIcon
     myTypeComboBox = new MFXComboBoxIcon(getCollapsableFrame(), meanDataFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
@@ -153,7 +153,7 @@ GNEMeanDataFrame::MeanDataTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
 // ---------------------------------------------------------------------------
 
 GNEMeanDataFrame::MeanDataEditor::MeanDataEditor(GNEMeanDataFrame* meanDataFrameParent) :
-    MFXGroupBoxModule(meanDataFrameParent, TL("MeanData Editor")),
+    GNEGroupBoxModule(meanDataFrameParent, TL("MeanData Editor")),
     myMeanDataFrameParent(meanDataFrameParent) {
     // Create new meanData
     myCreateMeanDataButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create MeanData"), "", "",
@@ -269,7 +269,7 @@ GNEMeanDataFrame::MeanDataEditor::onCmdCopyMeanData(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEMeanDataFrame::MeanDataSelector::MeanDataSelector(GNEMeanDataFrame* typeFrameParent) :
-    MFXGroupBoxModule(typeFrameParent, TL("Current MeanData")),
+    GNEGroupBoxModule(typeFrameParent, TL("Current MeanData")),
     myMeanDataFrameParent(typeFrameParent),
     myCurrentMeanData(nullptr) {
     // get current meanData type

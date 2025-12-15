@@ -38,8 +38,8 @@ FXDEFMAP(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions) ConsecutiveLane
 };
 
 // Object abstract implementation
-FXIMPLEMENT(GNEFixAdditionalElementsDialog::PositionOptions,        MFXGroupBoxModule, PositionOptionsMap,          ARRAYNUMBER(PositionOptionsMap))
-FXIMPLEMENT(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions, MFXGroupBoxModule, ConsecutiveLaneOptionsMap,   ARRAYNUMBER(ConsecutiveLaneOptionsMap))
+FXIMPLEMENT(GNEFixAdditionalElementsDialog::PositionOptions,        GNEGroupBoxModule, PositionOptionsMap,          ARRAYNUMBER(PositionOptionsMap))
+FXIMPLEMENT(GNEFixAdditionalElementsDialog::ConsecutiveLaneOptions, GNEGroupBoxModule, ConsecutiveLaneOptionsMap,   ARRAYNUMBER(ConsecutiveLaneOptionsMap))
 
 // ===========================================================================
 // member method definitions

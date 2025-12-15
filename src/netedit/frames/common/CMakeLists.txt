@@ -1,10 +1,18 @@
 set(netedit_frames_common_SRCS
+   GNEComboBoxAttrProperty.h
+   GNEComboBoxAttrProperty.cpp
+   GNEComboBoxTagProperty.h
+   GNEComboBoxTagProperty.cpp
    GNEInspectorFrame.h
    GNEInspectorFrame.cpp
    GNESelectorFrame.h
    GNESelectorFrame.cpp
    GNEDeleteFrame.h
    GNEDeleteFrame.cpp
+   GNEGroupBoxModule.h
+   GNEGroupBoxModule.cpp
+   GNEMatchAttribute.h
+   GNEMatchAttribute.cpp
    GNEMoveFrame.h
    GNEMoveFrame.cpp
    )

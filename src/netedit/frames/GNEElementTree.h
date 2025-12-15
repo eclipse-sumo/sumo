@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/foxtools/MFXTreeListDynamic.h>
 
 // ===========================================================================
@@ -45,7 +45,7 @@ class GNETAZSourceSink;
 // class definitions
 // ===========================================================================
 
-class GNEElementTree : public MFXGroupBoxModule {
+class GNEElementTree : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementTree)
 

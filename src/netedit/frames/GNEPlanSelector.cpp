@@ -80,14 +80,14 @@ FXDEFMAP(GNEPlanSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPlanSelector, MFXGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEPlanSelector, GNEGroupBoxModule, TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEPlanSelector::GNEPlanSelector(GNEFrame* frameParent, SumoXMLTag planType) :
-    MFXGroupBoxModule(frameParent, TL("Plan type")),
+    GNEGroupBoxModule(frameParent, TL("Plan type")),
     myPlanType(planType),
     myFrameParent(frameParent) {
     // Create MFXComboBoxIcon

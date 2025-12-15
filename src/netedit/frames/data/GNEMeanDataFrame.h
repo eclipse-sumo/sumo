@@ -40,7 +40,7 @@ public:
     // class MeanDataTypeSelector
     // ===========================================================================
 
-    class MeanDataTypeSelector : public MFXGroupBoxModule {
+    class MeanDataTypeSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMeanDataFrame::MeanDataTypeSelector)
 
@@ -82,7 +82,7 @@ public:
     // class MeanDataEditor
     // ===========================================================================
 
-    class MeanDataEditor : public MFXGroupBoxModule {
+    class MeanDataEditor : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMeanDataFrame::MeanDataEditor)
 
@@ -136,7 +136,7 @@ public:
     // class MeanDataSelector
     // ===========================================================================
 
-    class MeanDataSelector : public MFXGroupBoxModule {
+    class MeanDataSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMeanDataFrame::MeanDataSelector)
 

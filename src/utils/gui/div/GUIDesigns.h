@@ -115,10 +115,10 @@ class MFXMenuCheckIcon;
 #define GUIDesignButtonFixed(width)             (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, width, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button used in GroupBoxModule
-#define GUIDesignButtonMFXGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
+#define GUIDesignButtonGNEGroupBoxModule        (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight - 1, GUIDesignHeight - 1, 2, 2, 2, 2
 
 /// @brief button used in GroupBoxModule for extend
-#define GUIDesignButtonMFXGroupBoxModuleExtend  (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight - 1, 2, 2, 2, 2
+#define GUIDesignButtonGNEGroupBoxModuleExtend  (FRAME_LINE | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight - 1, 2, 2, 2, 2
 
 /// @brief button rectangular with thick and raise frame with a width of 100
 #define GUIDesignButtonStatusBarFixed           (ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 2, 2, 2, 2
@@ -283,8 +283,8 @@ class MFXMenuCheckIcon;
 /// @brief label used in statusBar
 #define GUIDesignLabelStatusBar             (LAYOUT_CENTER_Y), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief label used in MFXGroupBoxModule
-#define GUIDesignLabelMFXGroupBoxModule     (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+/// @brief label used in GNEGroupBoxModule
+#define GUIDesignLabelGNEGroupBoxModule     (FRAME_GROOVE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
 /// @}
 
@@ -334,10 +334,10 @@ class MFXMenuCheckIcon;
 
 /// @name FXPackers
 /// @{
-/// @brief Horizontal frame extended over X-frame parent used in MFXGroupBoxModule
+/// @brief Horizontal frame extended over X-frame parent used in GNEGroupBoxModule
 #define GUIDesignGroupBoxModule             (LAYOUT_FIX_WIDTH), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
-/// @brief Horizontal frame extended over XY-frame parent used in MFXGroupBoxModule
+/// @brief Horizontal frame extended over XY-frame parent used in GNEGroupBoxModule
 #define GUIDesignGroupBoxModuleExtendY      (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 4, 4, 4, 4, 4, 4
 
 /// @brief Thick frame extended over frame parent
@@ -441,7 +441,7 @@ class MFXMenuCheckIcon;
 /// @brief design for horizontal frame used to pack another frames with a uniform width
 #define GUIDesignUniformHorizontalFrame                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | PACK_UNIFORM_WIDTH)
 
-/// @brief design for CollapsableFrame (Used in MFXGroupBoxModule)
+/// @brief design for CollapsableFrame (Used in GNEGroupBoxModule)
 #define GUIDesignCollapsableFrame                           (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @brief design for auxiliar vertical frames with fixed height (DecalsTable)

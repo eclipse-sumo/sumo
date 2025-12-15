@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -34,7 +34,7 @@ class GNETagProperties;
 // class definitions
 // ===========================================================================
 
-class GNEViewObjectSelector : protected MFXGroupBoxModule {
+class GNEViewObjectSelector : protected GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEViewObjectSelector)
 

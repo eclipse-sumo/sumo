@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXGroupBoxModule.h
+/// @file    GNEGroupBoxModule.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2021
 ///
@@ -20,18 +20,23 @@
 
 #pragma once
 #include <config.h>
-
-#include "fxheader.h"
-
 #include <string>
 
-/// @brief class declaration
+#include <utils/foxtools/fxheader.h>
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class GNEFrame;
 class MFXButtonTooltip;
 
-/// @brief MFXGroupBoxModule (based on FXGroupBox)
-class MFXGroupBoxModule : protected FXVerticalFrame {
-    FXDECLARE(MFXGroupBoxModule)
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/// @brief GNEGroupBoxModule (based on FXGroupBox)
+class GNEGroupBoxModule : protected FXVerticalFrame {
+    FXDECLARE(GNEGroupBoxModule)
 
 public:
     /// @brief GroupBoxModule options
@@ -44,13 +49,13 @@ public:
     };
 
     /// @brief constructor for frames
-    MFXGroupBoxModule(GNEFrame* frame, const std::string& text, const int options = Options::COLLAPSIBLE);
+    GNEGroupBoxModule(GNEFrame* frame, const std::string& text, const int options = Options::COLLAPSIBLE);
 
     /// @brief constructor for fix dialogs
-    MFXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::NOTHING);
+    GNEGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::NOTHING);
 
     /// @brief destructor
-    ~MFXGroupBoxModule();
+    ~GNEGroupBoxModule();
 
     /// @brief set text
     void setText(const std::string& text);
@@ -58,7 +63,7 @@ public:
     /// @brief get collapsable frame (used by all elements that will be collapsed if button is toggled)
     FXVerticalFrame* getCollapsableFrame();
 
-    /// @brief draw MFXGroupBoxModule
+    /// @brief draw GNEGroupBoxModule
     long onPaint(FXObject*, FXSelector, void*);
 
     /// @brief collapse GroupBoxModule
@@ -81,7 +86,7 @@ public:
 
 protected:
     /// @brief FOX need this
-    MFXGroupBoxModule();
+    GNEGroupBoxModule();
 
     /// @brief save contents (can be reimplemented in children)
     virtual bool saveContents() const;
@@ -102,7 +107,7 @@ private:
     /// @brief vertical collapsable frame
     FXVerticalFrame* myCollapsableFrame = nullptr;
 
-    /// @brief label used in non collapsable MFXGroupBoxModule
+    /// @brief label used in non collapsable GNEGroupBoxModule
     FXLabel* myLabel = nullptr;
 
     /// @brief button for collapse elements

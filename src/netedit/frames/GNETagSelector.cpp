@@ -38,14 +38,14 @@ FXDEFMAP(GNETagSelector) TagSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETagSelector, MFXGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNETagSelector, GNEGroupBoxModule,  TagSelectorMap, ARRAYNUMBER(TagSelectorMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNETagSelector::GNETagSelector(GNEFrame* frameParent, const GNETagProperties::Type type, const SumoXMLTag tag) :
-    MFXGroupBoxModule(frameParent, TL("Element")),
+    GNEGroupBoxModule(frameParent, TL("Element")),
     myFrameParent(frameParent),
     myCurrentTemplateAC(nullptr) {
     // Create MFXComboBoxIcon

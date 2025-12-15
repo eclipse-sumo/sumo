@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXComboBoxAttrProperty.cpp
+/// @file    GNEComboBoxAttrProperty.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -20,36 +20,36 @@
 
 #include <netedit/GNEAttributeProperties.h>
 
-#include "MFXComboBoxAttrProperty.h"
+#include "GNEComboBoxAttrProperty.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxAttrProperty::MFXComboBoxAttrProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
+GNEComboBoxAttrProperty::GNEComboBoxAttrProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     MFXComboBoxIcon(p, staticToolTip, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
-MFXComboBoxAttrProperty::~MFXComboBoxAttrProperty() {}
+GNEComboBoxAttrProperty::~GNEComboBoxAttrProperty() {}
 
 
 FXint
-MFXComboBoxAttrProperty::appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor, void* ptr) {
+GNEComboBoxAttrProperty::appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor, void* ptr) {
     myAttrProperties.push_back(attrProperties);
     return MFXComboBoxIcon::appendIconItem(attrProperties->getAttrStr().c_str(), nullptr, bgColor, ptr);
 }
 
 
 const GNEAttributeProperties*
-MFXComboBoxAttrProperty::getAttrProperties(FXint index) const {
+GNEComboBoxAttrProperty::getAttrProperties(FXint index) const {
     return myAttrProperties.at(index);
 }
 
 
 const GNEAttributeProperties*
-MFXComboBoxAttrProperty::getCurrentAttrProperty() const {
+GNEComboBoxAttrProperty::getCurrentAttrProperty() const {
     const auto currentIndex = MFXComboBoxIcon::getCurrentItem();
     if (currentIndex >= 0) {
         return myAttrProperties.at(currentIndex);
@@ -60,7 +60,7 @@ MFXComboBoxAttrProperty::getCurrentAttrProperty() const {
 
 
 long
-MFXComboBoxAttrProperty::setCurrentItem(const GNEAttributeProperties* attributeProperties, FXbool notify) {
+GNEComboBoxAttrProperty::setCurrentItem(const GNEAttributeProperties* attributeProperties, FXbool notify) {
     for (int i = 0; i < (int)myAttrProperties.size(); i++) {
         if (myAttrProperties.at(i) == attributeProperties) {
             return MFXComboBoxIcon::setCurrentItem(i, notify);
@@ -72,12 +72,16 @@ MFXComboBoxAttrProperty::setCurrentItem(const GNEAttributeProperties* attributeP
 
 
 bool
-MFXComboBoxAttrProperty::hasAttrProperty(const GNEAttributeProperties* attrProperties) {
+GNEComboBoxAttrProperty::hasAttrProperty(const GNEAttributeProperties* attrProperties) {
     return std::find(myAttrProperties.begin(), myAttrProperties.end(), attrProperties) != myAttrProperties.end();
 }
 
+
 void
-MFXComboBoxAttrProperty::clearItems() {
+GNEComboBoxAttrProperty::clearItems() {
     MFXComboBoxIcon::clearItems();
     myAttrProperties.clear();
 }
+
+
+/****************************************************************************/

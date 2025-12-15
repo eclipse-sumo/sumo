@@ -43,14 +43,14 @@ FXDEFMAP(GNEOverlappedInspection) OverlappedInspectionMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEOverlappedInspection,       MFXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEOverlappedInspection,       GNEGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEOverlappedInspection::GNEOverlappedInspection(GNEFrame* frameParent, const bool onlyJunctions) :
-    MFXGroupBoxModule(frameParent, onlyJunctions ? TL("Overlapped junctions") : TL("Overlapped elements")),
+    GNEGroupBoxModule(frameParent, onlyJunctions ? TL("Overlapped junctions") : TL("Overlapped elements")),
     myFrameParent(frameParent),
     myOnlyJunctions(onlyJunctions) {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);

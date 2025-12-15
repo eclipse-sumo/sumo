@@ -42,7 +42,7 @@ public:
     // class GEOPOICreator
     // ===========================================================================
 
-    class GEOPOICreator : public MFXGroupBoxModule {
+    class GEOPOICreator : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEShapeFrame::GEOPOICreator)
 

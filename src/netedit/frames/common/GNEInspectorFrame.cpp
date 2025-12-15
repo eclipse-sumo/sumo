@@ -49,7 +49,7 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                  FXVerticalFrame,    GNEInspectorFrameMap,   ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  GNEGroupBoxModule,  TemplateEditorMap,      ARRAYNUMBER(TemplateEditorMap))
 
 
 // ===========================================================================
@@ -61,7 +61,7 @@ FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,  MFXGroupBoxModule,  TemplateEdit
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFrameParent) :
-    MFXGroupBoxModule(inspectorFrameParent, TL("Templates")),
+    GNEGroupBoxModule(inspectorFrameParent, TL("Templates")),
     myInspectorFrameParent(inspectorFrameParent),
     myEdgeTemplate(nullptr) {
     // Create set template button

@@ -50,9 +50,9 @@ FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECrossingFrame::EdgesSelector,        MFXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
-FXIMPLEMENT(GNECrossingFrame::CrossingParameters,   MFXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
-FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
+FXIMPLEMENT(GNECrossingFrame::EdgesSelector,        GNEGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
+FXIMPLEMENT(GNECrossingFrame::CrossingParameters,   GNEGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
+FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       GNEGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       MFXGroupBoxModule,     Creat
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::JunctionInformation::JunctionInformation(GNECrossingFrame* crossingFrameParent) :
-    MFXGroupBoxModule(crossingFrameParent, TL("Junction")) {
+    GNEGroupBoxModule(crossingFrameParent, TL("Junction")) {
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create label
@@ -92,7 +92,7 @@ GNECrossingFrame::JunctionInformation::updateCurrentJunctionLabel(const std::str
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::EdgesSelector::EdgesSelector(GNECrossingFrame* crossingFrameParent) :
-    MFXGroupBoxModule(crossingFrameParent, TL("selection of edges")),
+    GNEGroupBoxModule(crossingFrameParent, TL("selection of edges")),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentJunction(nullptr) {
 
@@ -179,7 +179,7 @@ GNECrossingFrame::EdgesSelector::onCmdClearSelection(FXObject*, FXSelector, void
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* crossingFrameParent) :
-    MFXGroupBoxModule(crossingFrameParent, TL("Crossing parameters")),
+    GNEGroupBoxModule(crossingFrameParent, TL("Crossing parameters")),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentParametersValid(true) {
     FXHorizontalFrame* crossingParameter = nullptr;
@@ -449,7 +449,7 @@ GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrameParent) :
-    MFXGroupBoxModule(crossingFrameParent, TL("Create")),
+    GNEGroupBoxModule(crossingFrameParent, TL("Create")),
     myCrossingFrameParent(crossingFrameParent) {
     // Create groupbox for create crossings
     myCreateCrossingButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create crossing"), "", "", 0, this, MID_GNE_CREATE, GUIDesignButton);
@@ -500,7 +500,7 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent) :
-    MFXGroupBoxModule(crossingFrameParent, TL("Information")) {
+    GNEGroupBoxModule(crossingFrameParent, TL("Information")) {
 
     // create label
     new MFXDynamicLabel(getCollapsableFrame(), (std::string("- ") + TL("Click over junction to mark candidate edges.") + std::string("\n- ") + TL("Click over candidate edges for selecting.")).c_str(), 0, GUIDesignLabelFrameInformation);

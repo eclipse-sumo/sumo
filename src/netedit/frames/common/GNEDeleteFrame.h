@@ -22,7 +22,7 @@
 
 #include <netedit/GNEViewNetHelper.h>
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -42,7 +42,7 @@ public:
     // class DeleteOptions
     // ===========================================================================
 
-    class DeleteOptions : public MFXGroupBoxModule {
+    class DeleteOptions : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEDeleteFrame::DeleteOptions)
 
@@ -79,7 +79,7 @@ public:
     // class ProtectElements
     // ===========================================================================
 
-    class ProtectElements : public MFXGroupBoxModule {
+    class ProtectElements : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEDeleteFrame::ProtectElements)
 

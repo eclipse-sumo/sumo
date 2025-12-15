@@ -38,14 +38,14 @@ FXDEFMAP(GNEViewObjectSelector) SelectorParentNetworkElementsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEViewObjectSelector, MFXGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
+FXIMPLEMENT(GNEViewObjectSelector, GNEGroupBoxModule, SelectorParentNetworkElementsMap, ARRAYNUMBER(SelectorParentNetworkElementsMap))
 
 // ---------------------------------------------------------------------------
 // GNEViewObjectSelector - methods
 // ---------------------------------------------------------------------------
 
 GNEViewObjectSelector::GNEViewObjectSelector(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("NetworkElements")),
+    GNEGroupBoxModule(frameParent, TL("NetworkElements")),
     myFrameParent(frameParent) {
     // Create buttons
     myClearSelection = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Clear selection"), "", "", nullptr, this, MID_GNE_CLEARSELECTION, GUIDesignButton);

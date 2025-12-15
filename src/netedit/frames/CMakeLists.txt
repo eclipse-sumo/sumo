@@ -20,8 +20,6 @@ set(netedit_frames_SRCS
    GNEElementTree.h
    GNEFrame.cpp
    GNEFrame.h
-   GNEMatchAttribute.cpp
-   GNEMatchAttribute.h
    GNEOverlappedInspection.cpp
    GNEOverlappedInspection.h
    GNEPathCreator.cpp

@@ -40,7 +40,7 @@
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::E2MultilaneLegendModule::E2MultilaneLegendModule(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Legend")) {
+    GNEGroupBoxModule(frameParent, TL("Legend")) {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate
@@ -78,7 +78,7 @@ GNEAdditionalFrame::E2MultilaneLegendModule::hideE2MultilaneLegend() {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Help")) {
+    GNEGroupBoxModule(frameParent, TL("Help")) {
     // edge candidate
     myHelpLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
     // fill map

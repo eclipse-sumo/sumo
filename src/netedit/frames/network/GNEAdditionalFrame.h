@@ -44,7 +44,7 @@ public:
     // class EdgeTypeSelector
     // ===========================================================================
 
-    class E2MultilaneLegendModule : public MFXGroupBoxModule {
+    class E2MultilaneLegendModule : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -64,7 +64,7 @@ public:
     // class HelpCreationModule
     // ===========================================================================
 
-    class HelpCreationModule : public MFXGroupBoxModule {
+    class HelpCreationModule : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

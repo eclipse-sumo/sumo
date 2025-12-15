@@ -11,59 +11,60 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXComboBoxAttrProperty.h
+/// @file    GNEComboBoxTagProperty.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
-// ComboBox icon specific for attr properties
+// ComboBox icon specific for tag properties
 /****************************************************************************/
 #pragma once
 #include <config.h>
+#include <vector>
 
-#include "MFXComboBoxIcon.h"
+#include <utils/foxtools/MFXComboBoxIcon.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
-class GNEAttributeProperties;
+class GNETagProperties;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class MFXComboBoxAttrProperty : public MFXComboBoxIcon {
+class GNEComboBoxTagProperty : public MFXComboBoxIcon {
 
 public:
     /// @brief Construct a Combo Box widget with room to display cols columns of text
-    MFXComboBoxAttrProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
-                            FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
-                            FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
+    GNEComboBoxTagProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
+                           FXObject* tgt, FXSelector sel, FXuint opts, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0,
+                           FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief Destructor
-    ~MFXComboBoxAttrProperty();
+    ~GNEComboBoxTagProperty();
 
     /// @brief append item
-    FXint appendAttrItem(const GNEAttributeProperties* attrProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
+    FXint appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
-    /// @brief get attribute properties
-    const GNEAttributeProperties* getAttrProperties(FXint index) const;
+    /// @brief get tag properties
+    const GNETagProperties* getTagProperties(FXint index) const;
 
-    /// @brief get current attribute property
-    const GNEAttributeProperties* getCurrentAttrProperty() const;
+    /// @brief get current tag property
+    const GNETagProperties* getCurrentTagProperty() const;
+
+    /// @brief check if the comboBox has the given tag property
+    bool hasTagProperty(const GNETagProperties* tagProperties) const;
 
     /// @brief Set the current item
-    long setCurrentItem(const GNEAttributeProperties* attrProperties, FXbool notify = FALSE);
-
-    /// @brief check if the given attribute exist in comboBox
-    bool hasAttrProperty(const GNEAttributeProperties* attrProperties);
+    long setCurrentItem(const GNETagProperties* tagProperties, FXbool notify = FALSE);
 
     /// @brief Remove all items from the list
     void clearItems();
 
 private:
     /// @brief vector with tag properties
-    std::vector<const GNEAttributeProperties*> myAttrProperties;
+    std::vector<const GNETagProperties*> myTagProperties;
 
     /// @brief delete original replace the item at index
     FXint updateIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
@@ -75,8 +76,8 @@ private:
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr) = delete;
 
     /// @brief invalidate copy constructor
-    MFXComboBoxAttrProperty(const MFXComboBoxAttrProperty&) = delete;
+    GNEComboBoxTagProperty(const GNEComboBoxTagProperty&) = delete;
 
     /// @brief invalidate assignment operator
-    MFXComboBoxAttrProperty& operator=(const MFXComboBoxAttrProperty&) = delete;
+    GNEComboBoxTagProperty& operator=(const GNEComboBoxTagProperty&) = delete;
 };

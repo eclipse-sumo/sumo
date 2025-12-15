@@ -23,7 +23,7 @@
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <netbuild/NBTrafficLightLogic.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -48,7 +48,7 @@ public:
     // class TLSJunction
     // ===========================================================================
 
-    class TLSJunction : public MFXGroupBoxModule {
+    class TLSJunction : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSJunction)
 
@@ -154,7 +154,7 @@ public:
     // class TLSPrograms
     // ===========================================================================
 
-    class TLSPrograms : public MFXGroupBoxModule {
+    class TLSPrograms : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSPrograms)
 
@@ -275,7 +275,7 @@ public:
     // class TLSAttributes
     // ===========================================================================
 
-    class TLSAttributes : public MFXGroupBoxModule {
+    class TLSAttributes : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSAttributes)
 
@@ -384,7 +384,7 @@ public:
     // class TLSPhases
     // ===========================================================================
 
-    class TLSPhases : public MFXGroupBoxModule {
+    class TLSPhases : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSPhases)
 
@@ -546,7 +546,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : public MFXGroupBoxModule {
+    class TLSFile : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 

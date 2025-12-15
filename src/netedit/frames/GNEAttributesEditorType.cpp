@@ -61,7 +61,7 @@ FXDEFMAP(GNEAttributesEditorType) GNEAttributeTableMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
+FXIMPLEMENT(GNEAttributesEditorType,  GNEGroupBoxModule,  GNEAttributeTableMap,   ARRAYNUMBER(GNEAttributeTableMap))
 
 // ===========================================================================
 // method definitions
@@ -69,7 +69,7 @@ FXIMPLEMENT(GNEAttributesEditorType,  MFXGroupBoxModule,  GNEAttributeTableMap, 
 
 GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, GNEAttributesEditor* attributesEditorParent,
         const std::string attributesEditorName, EditorType editorType, AttributeType attributeType) :
-    MFXGroupBoxModule(frameParent, attributesEditorName.c_str()),
+    GNEGroupBoxModule(frameParent, attributesEditorName.c_str()),
     myFrameParent(frameParent),
     myAttributesEditorParent(attributesEditorParent),
     myEditorType(editorType),

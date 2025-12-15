@@ -21,7 +21,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include "GNEGroupBoxModule.h"
 
 // ===========================================================================
 // class declaration
@@ -31,14 +31,14 @@ class GNEAttributeProperties;
 class GNESelectorFrame;
 class GNETagProperties;
 class GNETagPropertiesDatabase;
-class MFXComboBoxAttrProperty;
-class MFXComboBoxTagProperty;
+class GNEComboBoxAttrProperty;
+class GNEComboBoxTagProperty;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEMatchAttribute : public MFXGroupBoxModule {
+class GNEMatchAttribute : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEMatchAttribute)
 
@@ -187,13 +187,13 @@ private:
     GNESelectorFrame* mySelectorFrameParent = nullptr;
 
     /// @brief vector with tag property comboBoxes
-    std::vector <MFXComboBoxTagProperty*> myTagComboBoxVector;
+    std::vector <GNEComboBoxTagProperty*> myTagComboBoxVector;
 
     /// @brief checkbox for enable/disable show only common attributes
     FXCheckButton* myShowOnlyCommonAttributes = nullptr;
 
     /// @brief attribute property comboBox
-    MFXComboBoxAttrProperty* myAttributeComboBox = nullptr;
+    GNEComboBoxAttrProperty* myAttributeComboBox = nullptr;
 
     /// @brief string of the match
     FXTextField* myMatchString = nullptr;

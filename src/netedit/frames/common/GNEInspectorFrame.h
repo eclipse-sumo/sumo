@@ -23,7 +23,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -47,7 +47,7 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : public MFXGroupBoxModule {
+    class TemplateEditor : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 

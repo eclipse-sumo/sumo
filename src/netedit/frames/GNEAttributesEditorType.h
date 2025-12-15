@@ -23,7 +23,7 @@
 #include <vector>
 #include <map>
 #include <unordered_set>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/CommonXMLStructure.h>
 
@@ -41,7 +41,7 @@ class MFXButtonTooltip;
 // class GNEAttributesEditorType
 // ===========================================================================
 
-class GNEAttributesEditorType : public MFXGroupBoxModule {
+class GNEAttributesEditorType : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEAttributesEditorType)
 

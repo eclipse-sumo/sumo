@@ -45,7 +45,7 @@ FXDEFMAP(GNEPathCreator) PathCreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPathCreator,                MFXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNEPathCreator,                GNEGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
@@ -123,7 +123,7 @@ GNEPathCreator::Path::Path() :
 
 
 GNEPathCreator::GNEPathCreator(GNEFrame* frameParent, GNEPathManager* pathManager) :
-    MFXGroupBoxModule(frameParent, TL("Route creator")),
+    GNEGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myPathManager(pathManager),
     myVClass(SVC_PASSENGER),

@@ -29,7 +29,7 @@
 // ===========================================================================
 
 GNEPlanCreatorLegend::GNEPlanCreatorLegend(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Information")) {
+    GNEGroupBoxModule(frameParent, TL("Information")) {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate

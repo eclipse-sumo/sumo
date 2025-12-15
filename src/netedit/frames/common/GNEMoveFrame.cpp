@@ -51,10 +51,10 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::NetworkMoveOptions,           MFXGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
-FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           MFXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    MFXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::NetworkMoveOptions,           GNEGroupBoxModule, NetworkMoveOptionsMap,  ARRAYNUMBER(NetworkMoveOptionsMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           GNEGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    GNEGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           GNEGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions
@@ -65,7 +65,7 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           MFXGroupBoxModule, Shift
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::CommonMoveOptions::CommonMoveOptions(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Common move options")) {
+    GNEGroupBoxModule(moveFrameParent, TL("Common move options")) {
     // Create checkbox for enable/disable allow change lanes
     myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), TL("Allow change lanes"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
@@ -94,7 +94,7 @@ GNEMoveFrame::CommonMoveOptions::getMergeGeometryPoints() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::NetworkMoveOptions::NetworkMoveOptions(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Network move options")),
+    GNEGroupBoxModule(moveFrameParent, TL("Network move options")),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
     myMoveWholePolygons = new FXCheckButton(getCollapsableFrame(), TL("Move whole polygons"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -169,7 +169,7 @@ GNEMoveFrame::NetworkMoveOptions::onCmdChangeOption(FXObject*, FXSelector, void*
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::DemandMoveOptions::DemandMoveOptions(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Demand move options")),
+    GNEGroupBoxModule(moveFrameParent, TL("Demand move options")),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
     myLeaveStopPersonsConnected = new FXCheckButton(getCollapsableFrame(), TL("Leave stopPersons connected"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -208,7 +208,7 @@ GNEMoveFrame::DemandMoveOptions::getLeaveStopPersonsConnected() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Shift selected edges geometry")),
+    GNEGroupBoxModule(moveFrameParent, TL("Shift selected edges geometry")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -288,7 +288,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Change Z in selection")),
+    GNEGroupBoxModule(moveFrameParent, TL("Change Z in selection")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -554,7 +554,7 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Shift shape geometry")),
+    GNEGroupBoxModule(moveFrameParent, TL("Shift shape geometry")),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -650,7 +650,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::Information::Information(GNEMoveFrame* moveFrameParent) :
-    MFXGroupBoxModule(moveFrameParent, TL("Information")) {
+    GNEGroupBoxModule(moveFrameParent, TL("Information")) {
     // create info label
     std::string info = std::string("- ") + TL("Click over edge to create or edit geometry point.") + std::string("\n") +
                        std::string("- ") + TL("Shift+click over edge to edit start or end geometry point.");

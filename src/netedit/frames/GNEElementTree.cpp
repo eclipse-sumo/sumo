@@ -50,14 +50,14 @@ FXDEFMAP(GNEElementTree) HierarchicalElementTreeMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEElementTree,    MFXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEElementTree,    GNEGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEElementTree::GNEElementTree(GNEFrame* frameParent) :
-    MFXGroupBoxModule(frameParent, TL("Hierarchy")),
+    GNEGroupBoxModule(frameParent, TL("Hierarchy")),
     myFrameParent(frameParent) {
     // Create tree list with fixed height
     myTreeListDynamic = new MFXTreeListDynamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListFixedHeight);

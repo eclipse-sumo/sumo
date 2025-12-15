@@ -26,7 +26,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/foxtools/MFXCheckButtonTooltip.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/foxtools/MFXStaticToolTip.h>
 #include <utils/foxtools/MFXTextFieldSearch.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -92,8 +92,8 @@ GNEOptionsEditor::GNEOptionsEditor(GNEDialog* dialog, const std::string& titleNa
     FXVerticalFrame* elementsFrameTree = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarVerticalFrame);
     FXVerticalFrame* elementsFrameValues = new FXVerticalFrame(elementsFrame, GUIDesignAuxiliarFrame);
     // Create GroupBox modules
-    MFXGroupBoxModule* groupBoxTree = new MFXGroupBoxModule(elementsFrameTree, TL("Topics"));
-    MFXGroupBoxModule* groupBoxOptions = new MFXGroupBoxModule(elementsFrameValues, TL("Options"));
+    GNEGroupBoxModule* groupBoxTree = new GNEGroupBoxModule(elementsFrameTree, TL("Topics"));
+    GNEGroupBoxModule* groupBoxOptions = new GNEGroupBoxModule(elementsFrameValues, TL("Options"));
     // create FXTreeList
     myTopicsTreeList = new FXTreeList(groupBoxTree->getCollapsableFrame(), this, MID_GNE_SELECT, GUIDesignTreeListFixedWidth);
     myTopicsTreeList->setWidth(TREELISTWIDTH);

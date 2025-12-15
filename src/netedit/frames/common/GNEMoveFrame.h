@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class definitions
@@ -34,7 +34,7 @@ public:
     // class CommonMoveOptions
     // ===========================================================================
 
-    class CommonMoveOptions : public MFXGroupBoxModule {
+    class CommonMoveOptions : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -61,7 +61,7 @@ public:
     // class NetworkMoveOptions
     // ===========================================================================
 
-    class NetworkMoveOptions : public MFXGroupBoxModule {
+    class NetworkMoveOptions : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::NetworkMoveOptions)
 
@@ -116,7 +116,7 @@ public:
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandMoveOptions : public MFXGroupBoxModule {
+    class DemandMoveOptions : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -146,7 +146,7 @@ public:
     // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeSelectedGeometry : public MFXGroupBoxModule {
+    class ShiftEdgeSelectedGeometry : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
@@ -192,7 +192,7 @@ public:
     // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeZInSelection : public MFXGroupBoxModule {
+    class ChangeZInSelection : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
@@ -253,7 +253,7 @@ public:
     // class ShiftShapeGeometry
     // ===========================================================================
 
-    class ShiftShapeGeometry : public MFXGroupBoxModule {
+    class ShiftShapeGeometry : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
 
@@ -299,7 +299,7 @@ public:
     // class Information
     // ===========================================================================
 
-    class Information : public MFXGroupBoxModule {
+    class Information : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

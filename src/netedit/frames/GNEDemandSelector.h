@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/GNETagProperties.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -33,7 +33,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEDemandElementSelector : public MFXGroupBoxModule {
+class GNEDemandElementSelector : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEDemandElementSelector)
 

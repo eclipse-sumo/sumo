@@ -87,11 +87,11 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETLSEditorFrame::TLSJunction,     MFXGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSPrograms,     MFXGroupBoxModule,  TLSProgramsMap,     ARRAYNUMBER(TLSProgramsMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   MFXGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       MFXGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         MFXGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSJunction,     GNEGroupBoxModule,  TLSJunctionMap,     ARRAYNUMBER(TLSJunctionMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSPrograms,     GNEGroupBoxModule,  TLSProgramsMap,     ARRAYNUMBER(TLSProgramsMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSAttributes,   GNEGroupBoxModule,  TLSAttributesMap,   ARRAYNUMBER(TLSAttributesMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSPhases,       GNEGroupBoxModule,  TLSPhasesMap,       ARRAYNUMBER(TLSPhasesMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSFile,         GNEGroupBoxModule,  TLSFileMap,         ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
@@ -556,7 +556,7 @@ GNETLSEditorFrame::getSteps2Time(const SUMOTime value) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light Attributes")),
+    GNEGroupBoxModule(TLSEditorParent, TL("Traffic Light Attributes")),
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and TextField for Offset (By default disabled)
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -881,7 +881,7 @@ GNETLSEditorFrame::TLSAttributes::updateE1Detectors() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light")),
+    GNEGroupBoxModule(TLSEditorParent, TL("Traffic Light")),
     myTLSEditorParent(TLSEditorParent),
     myCurrentJunction(nullptr) {
     const auto staticTooltip = TLSEditorParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
@@ -1340,7 +1340,7 @@ GNETLSEditorFrame::TLSJunction::refreshTLSJunction() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSPrograms::TLSPrograms(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("Traffic Light Programs")),
+    GNEGroupBoxModule(TLSEditorParent, TL("Traffic Light Programs")),
     myTLSEditorParent(TLSEditorParent) {
     // create frame, label and comboBox for programID
     FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
@@ -1875,7 +1875,7 @@ GNETLSEditorFrame::TLSPrograms::switchProgram() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("Phases"), MFXGroupBoxModule::Options::COLLAPSIBLE | MFXGroupBoxModule::Options::EXTENSIBLE),
+    GNEGroupBoxModule(TLSEditorParent, TL("Phases"), GNEGroupBoxModule::Options::COLLAPSIBLE | GNEGroupBoxModule::Options::EXTENSIBLE),
     myTLSEditorParent(TLSEditorParent) {
     // create GNETLSTable
     myPhaseTable = new GNETLSTable(this);
@@ -2820,7 +2820,7 @@ GNETLSEditorFrame::TLSPhases::updateStateSize(const int col) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
-    MFXGroupBoxModule(TLSEditorParent, TL("TLS Program File")),
+    GNEGroupBoxModule(TLSEditorParent, TL("TLS Program File")),
     myTLSEditorParent(TLSEditorParent) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button

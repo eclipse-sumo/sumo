@@ -46,10 +46,10 @@ FXDEFMAP(GNEFixDemandElementsDialog::FixPlanOptions) FixPlanOptionsMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT(GNEFixDemandElementsDialog::FixRouteOptions,        MFXGroupBoxModule, FixRouteOptionsMap,          ARRAYNUMBER(FixRouteOptionsMap))
-FXIMPLEMENT(GNEFixDemandElementsDialog::FixVehicleOptions,      MFXGroupBoxModule, FixVehicleOptionsMap,        ARRAYNUMBER(FixVehicleOptionsMap))
-FXIMPLEMENT(GNEFixDemandElementsDialog::FixStopPositionOptions, MFXGroupBoxModule, FixStopPositionOptionsMap,   ARRAYNUMBER(FixStopPositionOptionsMap))
-FXIMPLEMENT(GNEFixDemandElementsDialog::FixPlanOptions,   MFXGroupBoxModule, FixPlanOptionsMap,     ARRAYNUMBER(FixPlanOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixRouteOptions,        GNEGroupBoxModule, FixRouteOptionsMap,          ARRAYNUMBER(FixRouteOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixVehicleOptions,      GNEGroupBoxModule, FixVehicleOptionsMap,        ARRAYNUMBER(FixVehicleOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixStopPositionOptions, GNEGroupBoxModule, FixStopPositionOptionsMap,   ARRAYNUMBER(FixStopPositionOptionsMap))
+FXIMPLEMENT(GNEFixDemandElementsDialog::FixPlanOptions,   GNEGroupBoxModule, FixPlanOptionsMap,     ARRAYNUMBER(FixPlanOptionsMap))
 
 // ===========================================================================
 // member method definitions

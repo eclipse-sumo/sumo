@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MFXComboBoxTagProperty.cpp
+/// @file    GNEComboBoxTagProperty.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2025
 ///
@@ -20,36 +20,36 @@
 
 #include <netedit/GNETagProperties.h>
 
-#include "MFXComboBoxTagProperty.h"
+#include "GNEComboBoxTagProperty.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-MFXComboBoxTagProperty::MFXComboBoxTagProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
+GNEComboBoxTagProperty::GNEComboBoxTagProperty(FXComposite* p, MFXStaticToolTip* staticToolTip, const bool canSearch, const int visibleItems,
         FXObject* tgt, FXSelector sel, FXuint opts, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     MFXComboBoxIcon(p, staticToolTip, canSearch, visibleItems, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb) {
 }
 
 
-MFXComboBoxTagProperty::~MFXComboBoxTagProperty() {}
+GNEComboBoxTagProperty::~GNEComboBoxTagProperty() {}
 
 
 FXint
-MFXComboBoxTagProperty::appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor, void* ptr) {
+GNEComboBoxTagProperty::appendTagItem(const GNETagProperties* tagProperties, FXColor bgColor, void* ptr) {
     myTagProperties.push_back(tagProperties);
     return MFXComboBoxIcon::appendIconItem(tagProperties->getSelectorText().c_str(), GUIIconSubSys::getIcon(tagProperties->getGUIIcon()), bgColor, ptr);
 }
 
 
 const GNETagProperties*
-MFXComboBoxTagProperty::getTagProperties(FXint index) const {
+GNEComboBoxTagProperty::getTagProperties(FXint index) const {
     return myTagProperties.at(index);
 }
 
 
 const GNETagProperties*
-MFXComboBoxTagProperty::getCurrentTagProperty() const {
+GNEComboBoxTagProperty::getCurrentTagProperty() const {
     const auto currentIndex = MFXComboBoxIcon::getCurrentItem();
     if (currentIndex >= 0) {
         return myTagProperties.at(currentIndex);
@@ -60,13 +60,13 @@ MFXComboBoxTagProperty::getCurrentTagProperty() const {
 
 
 bool
-MFXComboBoxTagProperty::hasTagProperty(const GNETagProperties* tagProperties) const {
+GNEComboBoxTagProperty::hasTagProperty(const GNETagProperties* tagProperties) const {
     return std::find(myTagProperties.begin(), myTagProperties.end(), tagProperties) != myTagProperties.end();
 }
 
 
 long
-MFXComboBoxTagProperty::setCurrentItem(const GNETagProperties* tagProperties, FXbool notify) {
+GNEComboBoxTagProperty::setCurrentItem(const GNETagProperties* tagProperties, FXbool notify) {
     for (int i = 0; i < (int)myTagProperties.size(); i++) {
         if (myTagProperties.at(i) == tagProperties) {
             return MFXComboBoxIcon::setCurrentItem(i, notify);
@@ -78,7 +78,10 @@ MFXComboBoxTagProperty::setCurrentItem(const GNETagProperties* tagProperties, FX
 
 
 void
-MFXComboBoxTagProperty::clearItems() {
+GNEComboBoxTagProperty::clearItems() {
     MFXComboBoxIcon::clearItems();
     myTagProperties.clear();
 }
+
+
+/****************************************************************************/

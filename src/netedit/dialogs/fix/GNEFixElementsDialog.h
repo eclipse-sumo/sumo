@@ -22,7 +22,7 @@
 
 #include <netedit/dialogs/basic/GNEErrorBasicDialog.h>
 #include <netedit/dialogs/basic/GNEInformationBasicDialog.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -86,12 +86,12 @@ public:
     };
 
     /// @brief GNEFixOptions module
-    class FixOptions : public MFXGroupBoxModule {
+    class FixOptions : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
         FixOptions(GNEFixElementsDialog<T>* fixElementDialog, FXVerticalFrame* frameParent, const std::string& title) :
-            MFXGroupBoxModule(frameParent, title, MFXGroupBoxModule::Options::SAVE),
+            GNEGroupBoxModule(frameParent, title, GNEGroupBoxModule::Options::SAVE),
             myFixElementDialogParent(fixElementDialog) {
             // register this fix option to list of fix options
             fixElementDialog->registerFixOptions(this);
@@ -184,7 +184,7 @@ public:
 
         /// @brief default constructor
         FixOptions() :
-            MFXGroupBoxModule() {
+            GNEGroupBoxModule() {
         }
 
         /// @brief add option to options container (used for adjust width and enable/disable)
@@ -214,7 +214,7 @@ public:
             }
         }
 
-        /// @brief save save list of conflicted items to a file (Reimplemented from MFXGroupBoxModule)
+        /// @brief save save list of conflicted items to a file (Reimplemented from GNEGroupBoxModule)
         bool saveContents() const {
             // open file dialog to save list of conflicted items
             const FXString file = MFXUtils::getFilename2Write(myTable,

@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 
 // ===========================================================================
@@ -40,7 +40,7 @@ class GNETAZ;
 // class definitions
 // ===========================================================================
 
-class GNEPathCreator : public MFXGroupBoxModule {
+class GNEPathCreator : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEPathCreator)
 

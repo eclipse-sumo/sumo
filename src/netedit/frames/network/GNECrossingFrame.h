@@ -22,7 +22,7 @@
 
 #include <netedit/frames/GNEFrame.h>
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class definitions
@@ -36,7 +36,7 @@ public:
     // class CurrentJunction
     // ===========================================================================
 
-    class JunctionInformation : public MFXGroupBoxModule {
+    class JunctionInformation : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -57,7 +57,7 @@ public:
     // class EdgesSelector
     // ===========================================================================
 
-    class EdgesSelector : public MFXGroupBoxModule {
+    class EdgesSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::EdgesSelector)
 
@@ -112,7 +112,7 @@ public:
     // class CrossingParameters
     // ===========================================================================
 
-    class CrossingParameters : public MFXGroupBoxModule {
+    class CrossingParameters : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CrossingParameters)
 
@@ -205,7 +205,7 @@ public:
     // class CreateCrossing
     // ===========================================================================
 
-    class CreateCrossing : public MFXGroupBoxModule {
+    class CreateCrossing : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECrossingFrame::CreateCrossing)
 
@@ -241,7 +241,7 @@ public:
     // class Information
     // ===========================================================================
 
-    class Information : public MFXGroupBoxModule {
+    class Information : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNESelectorParent : public MFXGroupBoxModule {
+class GNESelectorParent : public GNEGroupBoxModule {
 
 public:
     /// @brief constructor

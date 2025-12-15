@@ -18,6 +18,8 @@
 // The Widget for modifying selections of network-elements
 /****************************************************************************/
 
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/dialogs/basic/GNEHelpBasicDialog.h>
 #include <netedit/GNENet.h>
@@ -27,11 +29,9 @@
 #include <netedit/GNETagProperties.h>
 #include <netedit/GNEAttributeProperties.h>
 #include <netedit/GNETagPropertiesDatabase.h>
-#include <utils/foxtools/MFXComboBoxAttrProperty.h>
-#include <utils/foxtools/MFXComboBoxTagProperty.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/gui/windows/GUIAppEnum.h>
 
+#include "GNEComboBoxAttrProperty.h"
+#include "GNEComboBoxTagProperty.h"
 #include "GNEMatchAttribute.h"
 
 // ===========================================================================
@@ -47,7 +47,7 @@ FXDEFMAP(GNEMatchAttribute) GNEMatchAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
+FXIMPLEMENT(GNEMatchAttribute, GNEGroupBoxModule, GNEMatchAttributeMap, ARRAYNUMBER(GNEMatchAttributeMap))
 
 // ===========================================================================
 // method definitions
@@ -61,20 +61,20 @@ FXIMPLEMENT(GNEMatchAttribute, MFXGroupBoxModule, GNEMatchAttributeMap, ARRAYNUM
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEMatchAttribute::GNEMatchAttribute(GNESelectorFrame* selectorFrameParent) :
-    MFXGroupBoxModule(selectorFrameParent, TL("Match Attribute")),
+    GNEGroupBoxModule(selectorFrameParent, TL("Match Attribute")),
     mySelectorFrameParent(selectorFrameParent),
     myCurrentEditedProperties(new CurrentEditedProperties(this)) {
     const auto staticTooltipMenu = selectorFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu();
     // Create MFXComboBoxIcons (sum 1 due children)
     for (int i = 0; i < selectorFrameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getHierarchyDepth() + 1; i++) {
-        auto comboBoxIcon = new MFXComboBoxTagProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
+        auto comboBoxIcon = new GNEComboBoxTagProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
                 this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
         myTagComboBoxVector.push_back(comboBoxIcon);
     }
     myShowOnlyCommonAttributes = new FXCheckButton(getCollapsableFrame(), TL("Only common"), this, MID_GNE_SELECTORFRAME_TOGGLECOMMON, GUIDesignCheckButton);
     myShowOnlyCommonAttributes->setCheck(FALSE);
     // Create MFXComboBoxIcon for Attributes
-    myAttributeComboBox = new MFXComboBoxAttrProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
+    myAttributeComboBox = new GNEComboBoxAttrProperty(getCollapsableFrame(), staticTooltipMenu, true, GUIDesignComboBoxVisibleItems,
             this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
@@ -593,5 +593,6 @@ GNEMatchAttribute::CurrentEditedProperties::setMatchValue(const std::string valu
         myDataMatchValue = value;
     }
 }
+
 
 /****************************************************************************/

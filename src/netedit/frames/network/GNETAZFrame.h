@@ -42,7 +42,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : public MFXGroupBoxModule {
+    class CurrentTAZ : public GNEGroupBoxModule {
 
     public:
         /// @brief struct for edges and the source/sink colors
@@ -148,7 +148,7 @@ public:
     // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZCommonStatistics : public MFXGroupBoxModule {
+    class TAZCommonStatistics : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -178,7 +178,7 @@ public:
     // class TAZSaveChanges
     // ===========================================================================
 
-    class TAZSaveChanges : public MFXGroupBoxModule {
+    class TAZSaveChanges : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSaveChanges)
 
@@ -228,7 +228,7 @@ public:
     // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZChildDefaultParameters : public MFXGroupBoxModule {
+    class TAZChildDefaultParameters : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
@@ -315,7 +315,7 @@ public:
     // class TAZSelectionStatistics
     // ===========================================================================
 
-    class TAZSelectionStatistics : public MFXGroupBoxModule {
+    class TAZSelectionStatistics : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
@@ -389,7 +389,7 @@ public:
     // class TAZEdgesGraphic
     // ===========================================================================
 
-    class TAZEdgesGraphic : public MFXGroupBoxModule {
+    class TAZEdgesGraphic : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
 

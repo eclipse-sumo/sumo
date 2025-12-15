@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -46,7 +46,7 @@ public:
     // class HelpCreation
     // ===========================================================================
 
-    class HelpCreation : public MFXGroupBoxModule {
+    class HelpCreation : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

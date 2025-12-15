@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/GNEViewNetHelper.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 #include <utils/geom/Position.h>
 
 // ===========================================================================
@@ -34,7 +34,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEOverlappedInspection : public MFXGroupBoxModule {
+class GNEOverlappedInspection : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEOverlappedInspection)
 

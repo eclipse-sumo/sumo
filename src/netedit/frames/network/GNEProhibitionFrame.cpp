@@ -52,7 +52,7 @@ FXIMPLEMENT(GNEProhibitionFrame::Selection, FXVerticalFrame, SelectionMap, ARRAY
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, TL("Selected connection")),
+    GNEGroupBoxModule(prohibitionFrameParent, TL("Selected connection")),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
     myConnDescriptionLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
@@ -82,7 +82,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, TL("Information")),
+    GNEGroupBoxModule(prohibitionFrameParent, TL("Information")),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
@@ -165,7 +165,7 @@ GNEProhibitionFrame::Legend::getMutualConflictColor() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Selection::Selection(GNEProhibitionFrame* prohibitionFrameParent) :
-    MFXGroupBoxModule(prohibitionFrameParent, TL("Selection")),
+    GNEGroupBoxModule(prohibitionFrameParent, TL("Selection")),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create "OK" button
     mySaveButton = new MFXButtonTooltip(getCollapsableFrame(),

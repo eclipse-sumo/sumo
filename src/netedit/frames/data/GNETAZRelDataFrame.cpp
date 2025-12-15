@@ -40,7 +40,7 @@ FXDEFMAP(GNETAZRelDataFrame::ConfirmTAZRelation) ConfirmTAZRelationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
+FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, GNEGroupBoxModule, ConfirmTAZRelationMap, ARRAYNUMBER(ConfirmTAZRelationMap))
 
 // ===========================================================================
 // method definitions
@@ -51,7 +51,7 @@ FXIMPLEMENT(GNETAZRelDataFrame::ConfirmTAZRelation, MFXGroupBoxModule, ConfirmTA
 // ---------------------------------------------------------------------------
 
 GNETAZRelDataFrame::ConfirmTAZRelation::ConfirmTAZRelation(GNETAZRelDataFrame* TAZRelDataFrame) :
-    MFXGroupBoxModule(TAZRelDataFrame, TL("Confirm TAZRelation")),
+    GNEGroupBoxModule(TAZRelDataFrame, TL("Confirm TAZRelation")),
     myTAZRelDataFrame(TAZRelDataFrame) {
     myConfirmTAZButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Create TAZRelation"), "", TL("Click fromTaz and toTaz (confirm hotkey <ENTER>)"), GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA), this, MID_GNE_CREATE, GUIDesignButton);
     myConfirmTAZButton->disable();
@@ -98,7 +98,7 @@ GNETAZRelDataFrame::ConfirmTAZRelation::onCmdClearSelection(FXObject*, FXSelecto
 // ---------------------------------------------------------------------------
 
 GNETAZRelDataFrame::Legend::Legend(GNETAZRelDataFrame* TAZRelDataFrame) :
-    MFXGroupBoxModule(TAZRelDataFrame, TL("Information")),
+    GNEGroupBoxModule(TAZRelDataFrame, TL("Information")),
     myFromTAZLabel(nullptr),
     myToTAZLabel(nullptr) {
     // create from TAZ label

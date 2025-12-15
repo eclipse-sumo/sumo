@@ -22,7 +22,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class definitions
@@ -36,7 +36,7 @@ public:
     // class CurrentLane
     // ===========================================================================
 
-    class CurrentLane : public MFXGroupBoxModule {
+    class CurrentLane : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -57,7 +57,7 @@ public:
     // class ConnectionModifications
     // ===========================================================================
 
-    class ConnectionModifications : public MFXGroupBoxModule {
+    class ConnectionModifications : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionModifications)
 
@@ -99,7 +99,7 @@ public:
     // class ConnectionOperations
     // ===========================================================================
 
-    class ConnectionOperations : public MFXGroupBoxModule {
+    class ConnectionOperations : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionOperations)
 
@@ -162,7 +162,7 @@ public:
     // class ConnectionSelection
     // ===========================================================================
 
-    class ConnectionSelection : public MFXGroupBoxModule {
+    class ConnectionSelection : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -176,7 +176,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public MFXGroupBoxModule {
+    class Legend : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor

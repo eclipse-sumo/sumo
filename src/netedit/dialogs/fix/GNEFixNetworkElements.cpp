@@ -38,8 +38,8 @@ FXDEFMAP(GNEFixNetworkElements::FixCrossingOptions) FixCrossingOptionsMap[] = {
 };
 
 // Object abstract implementation
-FXIMPLEMENT(GNEFixNetworkElements::FixEdgeOptions,     MFXGroupBoxModule, FixEdgeOptionsMap,        ARRAYNUMBER(FixEdgeOptionsMap))
-FXIMPLEMENT(GNEFixNetworkElements::FixCrossingOptions, MFXGroupBoxModule, FixCrossingOptionsMap,    ARRAYNUMBER(FixCrossingOptionsMap))
+FXIMPLEMENT(GNEFixNetworkElements::FixEdgeOptions,     GNEGroupBoxModule, FixEdgeOptionsMap,        ARRAYNUMBER(FixEdgeOptionsMap))
+FXIMPLEMENT(GNEFixNetworkElements::FixCrossingOptions, GNEGroupBoxModule, FixCrossingOptionsMap,    ARRAYNUMBER(FixCrossingOptionsMap))
 
 // ===========================================================================
 // member method definitions

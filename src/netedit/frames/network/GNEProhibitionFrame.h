@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declarations
@@ -49,7 +49,7 @@ public:
     // class RelativeToConnection
     // ===========================================================================
 
-    class RelativeToConnection : public MFXGroupBoxModule {
+    class RelativeToConnection : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -73,7 +73,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public MFXGroupBoxModule {
+    class Legend : public GNEGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -118,7 +118,7 @@ public:
     // class Selection (in the future will be "Modification")
     // ===========================================================================
 
-    class Selection : public MFXGroupBoxModule {
+    class Selection : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEProhibitionFrame::Selection)
 

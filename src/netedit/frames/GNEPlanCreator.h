@@ -33,7 +33,7 @@ class GNEPathManager;
 // class definitions
 // ===========================================================================
 
-class GNEPlanCreator : public MFXGroupBoxModule {
+class GNEPlanCreator : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEPlanCreator)
 

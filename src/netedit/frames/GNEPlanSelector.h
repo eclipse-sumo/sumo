@@ -32,7 +32,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEPlanSelector : public MFXGroupBoxModule {
+class GNEPlanSelector : public GNEGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEPlanSelector)
 

@@ -43,14 +43,14 @@ FXDEFMAP(GNEConsecutiveSelector) ConsecutiveLaneSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEConsecutiveSelector, MFXGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNEConsecutiveSelector, GNEGroupBoxModule, ConsecutiveLaneSelectorMap, ARRAYNUMBER(ConsecutiveLaneSelectorMap))
 
 // ---------------------------------------------------------------------------
 // GNEConsecutiveSelector - methods
 // ---------------------------------------------------------------------------
 
 GNEConsecutiveSelector::GNEConsecutiveSelector(GNEFrame* frameParent, const bool allowOneLane) :
-    MFXGroupBoxModule(frameParent, TL("Consecutive lane selector")),
+    GNEGroupBoxModule(frameParent, TL("Consecutive lane selector")),
     myFrameParent(frameParent),
     myAllowOneLane(allowOneLane) {
     // create label for route info

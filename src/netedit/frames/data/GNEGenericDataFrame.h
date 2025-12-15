@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/MFXGroupBoxModule.h>
+#include <netedit/frames/common/GNEGroupBoxModule.h>
 
 // ===========================================================================
 // class declaration
@@ -44,7 +44,7 @@ public:
     // class DataSetSelector
     // ===========================================================================
 
-    class DataSetSelector : public MFXGroupBoxModule {
+    class DataSetSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::DataSetSelector)
 
@@ -104,7 +104,7 @@ public:
     // class IntervalSelector
     // ===========================================================================
 
-    class IntervalSelector : public MFXGroupBoxModule {
+    class IntervalSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::IntervalSelector)
 
@@ -183,7 +183,7 @@ public:
     // class AttributeSelector
     // ===========================================================================
 
-    class AttributeSelector : public MFXGroupBoxModule {
+    class AttributeSelector : public GNEGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::AttributeSelector)
 
