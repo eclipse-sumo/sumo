@@ -33,13 +33,9 @@ build.targets = ["libsumo"]
 install.components = ["tools_libsumo"]
 wheel.packages = ["tools/libsumo"]
 
-[tool.cibuildwheel.macos]
-before-all = ["brew update", "brew bundle --file=build_config/Brewfile --no-upgrade"]
+[tool.cibuildwheel]
+before-all = ["build_config/install_dependencies.sh"]
 
-# On an Linux Intel runner with qemu installed, build Intel and ARM wheels
 [tool.cibuildwheel.linux]
-archs = ["auto", "aarch64"]
 manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
-before-all = ["yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/",
-              "yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3 eigen3-devel"]
