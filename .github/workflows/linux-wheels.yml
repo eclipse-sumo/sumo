@@ -89,7 +89,7 @@ jobs:
 
     - name: Downloading Wheels artifact
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         path: manylinux-wheels
 
