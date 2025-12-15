@@ -117,6 +117,9 @@ jobs:
       with:
         python-version: ${{ matrix.python_version }}
 
+    - name: Installing dependencies
+      run: brew update && brew install proj
+
     - name: Preparing Python environment
       run: |
         python3 -m pip install --upgrade pip
