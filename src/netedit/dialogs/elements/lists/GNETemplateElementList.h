@@ -95,6 +95,8 @@ public:
         for (const auto& element : sortedTuples) {
             myEditedElements.push_back(std::get<6>(element));
         }
+        // sort children
+        myElementDialogParent->getElement()->sortChildren(myEditedElements);
         // update table
         return updateList();
     }

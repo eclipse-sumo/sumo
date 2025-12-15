@@ -106,7 +106,7 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     // open route dialog
     const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow, myElementDialogParent);
     // continue depending of result of routeDialog
-    if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
+    if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // add calibratorFlow
         return removeElement(calibratorFlow);
     }

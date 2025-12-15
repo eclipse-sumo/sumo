@@ -1780,12 +1780,12 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_VSS}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TIME,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Time"));
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
-                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Speed"),
                                    toString(OptionsCont::getOptions().getFloat("default.speed")));
@@ -1885,13 +1885,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_CALIBRATOR}, FXRGBA(253, 255, 206, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("First calibrator flow departure time"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("End of departure interval"),
                                    "3600");
@@ -2003,13 +2003,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         {SUMO_TAG_REROUTER}, FXRGBA(255, 213, 213, 255));
         // set values of attributes
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_BEGIN,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Begin"),
                                    "0");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
-                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::SORTABLE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("End"),
                                    "3600");
