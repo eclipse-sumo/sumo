@@ -32,3 +32,6 @@ build-dir = "_skbuild"
 build.targets = ["libsumo"]
 install.components = ["tools_libsumo"]
 wheel.packages = ["tools/libsumo"]
+
+[tool.cibuildwheel.macos]
+before-all = ["brew update", "brew bundle --file=build_config/Brewfile --no-upgrade"]

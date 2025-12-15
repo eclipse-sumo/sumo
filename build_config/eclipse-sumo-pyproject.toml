@@ -55,3 +55,6 @@ build-dir = "_skbuild"
 wheel.packages = ["tools/build_config/sumo"]
 wheel.install-dir = "sumo"
 wheel.py-api = "py3"
+
+[tool.cibuildwheel.macos]
+before-all = ["brew update", "brew bundle --file=build_config/Brewfile --no-upgrade"]

@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14]
+        os: [macos-14, ubuntu_latest]
 
     steps:
       - name: Cloning SUMO
@@ -42,10 +42,6 @@ jobs:
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
-
-      - name: Preparing macos environment
-        if: matrix.os == 'macos-14'
-        run: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps googletest fmt swig eigen
 
       - name: Preparing wheel eclipse-sumo
         run: python3 tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
@@ -125,7 +121,7 @@ jobs:
         python3 -m pip install --upgrade pip
         python3 -m pip install wheel  # need to do this separately because the texttest install wants it
         python3 -m pip install texttest
-        python3 -m pip install -f python-wheels eclipse_sumo
+        python3 -m pip install --no-index -f python-wheels eclipse_sumo
         python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
