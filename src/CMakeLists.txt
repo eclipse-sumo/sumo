@@ -14,14 +14,17 @@ if (OPENSCENEGRAPH_FOUND)
 endif ()
 
 set(sumoguilibs
-    gui guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects
+    guinetload guisim gui gui_dialogs utils_gui_windows utils_gui_globjects
     utils_gui_div utils_gui_settings utils_gui_images utils_gui_cursors
-    utils_gui_shortcuts utils_tests utils_gui_tracker utils_foxtools utils_traction_wire
-    ${osgviewlib} microsim traciserver libsumoguistatic ${sumolibs} mesogui
+    utils_gui_shortcuts utils_tests utils_gui_tracker utils_foxtools
+    ${osgviewlib} ${sumolibs} mesogui libsumoguistatic
     ${GDAL_LIBRARY} ${FFMPEG_LIBRARIES} ${OPENSCENEGRAPH_LIBRARIES} ${GL2PS_LIBRARIES})
 if (MSVC)
     set(sumoguilibs ${sumoguilibs} opengl32 glu32)
 endif ()
+if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
+    set(sumoguilibs -Wl,--whole-archive ${sumoguilibs} -Wl,--no-whole-archive)
+endif()
 
 add_subdirectory(activitygen)
 add_subdirectory(dfrouter)
@@ -118,7 +121,7 @@ endif()
 
 # define version.h dependency
 add_custom_command(OUTPUT version.h
-                   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build_config/version.py ${CMAKE_CURRENT_BINARY_DIR}
+                   COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../tools/build_config/version.py ${CMAKE_CURRENT_BINARY_DIR}
                    DEPENDS ${VERSION_DEP}
                   )
 add_custom_target(generate-version-h DEPENDS version.h)
