@@ -1892,7 +1892,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_END,
                                    GNEAttributeProperties::Property::SUMOTIME | GNEAttributeProperties::Property::DEFAULTVALUE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("End of departure interval"),
                                    "3600");
 
@@ -1911,13 +1911,13 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR,
                                    GNEAttributeProperties::Property::INT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Number of vehicles per hour, equally spaced"),
                                    "1800");
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_SPEED,
                                    GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::ACTIVATABLE,
-                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("Vehicle's speed"),
                                    "15");
 
