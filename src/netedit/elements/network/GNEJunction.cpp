@@ -245,22 +245,22 @@ GNEJunction::checkDrawToContour() const {
             }
         } else if (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
             // check if we're moving a junction
-            const auto movedJunction = dynamic_cast<GNEJunction*>(myNet->getViewNet()->getMoveSingleElementValues().getMovedElement());
-            if (movedJunction && (movedJunction != this)) {
+            const auto moveElementJunction = dynamic_cast<GNEMoveElementJunction*>(myNet->getViewNet()->getMoveSingleElementValues().getMovedElement());
+            if (moveElementJunction && (moveElementJunction->getJunction() != this)) {
                 // continue depending of junction shape
                 if (myNBNode->getShape().area() < 4) {
                     // calculate distance between both centers
                     const double junctionBubbleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius;
                     const double radiusTo = getExaggeration(myNet->getViewNet()->getVisualisationSettings()) * junctionBubbleRadius;
-                    if (myNBNode->getPosition().distanceSquaredTo2D(movedJunction->getPositionInView()) < (radiusTo * radiusTo)) {
+                    if (myNBNode->getPosition().distanceSquaredTo2D(moveElementJunction->getJunction()->getPositionInView()) < (radiusTo * radiusTo)) {
                         // add both it in the list of merging junction
-                        gViewObjectsHandler.addMergingJunctions(movedJunction);
+                        gViewObjectsHandler.addMergingJunctions(moveElementJunction->getJunction());
                         gViewObjectsHandler.addMergingJunctions(this);
                         return true;
                     }
-                } else if (myNBNode->getShape().around(movedJunction->getNBNode()->getPosition())) {
+                } else if (myNBNode->getShape().around(moveElementJunction->getJunction()->getNBNode()->getPosition())) {
                     // add both it in the list of merging junction
-                    gViewObjectsHandler.addMergingJunctions(movedJunction);
+                    gViewObjectsHandler.addMergingJunctions(moveElementJunction->getJunction());
                     gViewObjectsHandler.addMergingJunctions(this);
                     return true;
                 }
