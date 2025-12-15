@@ -19,7 +19,6 @@ case "$ID" in
         apt-get -y install $(cat $SCRIPT_DIR/build_req_deb.txt)
         ;;
     centos)
-        # For CentOS, check version for 7 specifically
         if [[ "$VERSION_ID" == "7" ]]; then
             yum install -y epel-release
             yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
@@ -33,6 +32,12 @@ case "$ID" in
         else
             echo "CentOS version other than 7 detected: $VERSION_ID"
         fi
+        ;;
+    almalinux)
+        dnf install -y epel-release
+        dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig
+        # dnf install -y https://packages.apache.org/artifactory/arrow/almalinux/$VERSION_ID/apache-arrow-release-latest.rpm
+        # dnf install -y arrow-devel parquet-devel
         ;;
     *)
         echo "Unknown or unsupported OS: $ID"

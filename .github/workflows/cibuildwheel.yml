@@ -24,7 +24,7 @@ on:
 
 jobs:
   build-wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }} for ${{ matrix.manylinux }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-15]
+        os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
     runs-on: ${{ matrix.os }}
 
@@ -122,6 +122,8 @@ jobs:
         python-version: ${{ matrix.python_version }}
 
     - name: Installing dependencies
+      if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
+      # we just need proj.db
       run: brew update && brew install proj
 
     - name: Preparing Python environment
@@ -132,13 +134,9 @@ jobs:
         python3 -m pip install --no-index -f python-wheels eclipse_sumo
         python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
-    - name: Running "sumo in the wheel" tests
+    - name: Running "sumo in the wheel" tests and cleaning up
       run: |
-        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python3 -m pip install -r tools/requirements.txt; fi
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
-
-    - name: Running meta tests and cleaning up
-      run: |
         tests/runTests.sh -b ci -v ci -ts meta
         python3 -m pip uninstall -y eclipse-sumo
 
