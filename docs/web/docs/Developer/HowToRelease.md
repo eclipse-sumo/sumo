@@ -31,7 +31,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
   - run [tools/build_config/checkStyle.py](../Developer/CodeStyle.md) and commit
     changed files
   - check the calendar to update copyright statements
-  - check whether the TraCI version needs to be incremented
+  - check whether the [TraCI version needs to be incremented](../TraCI/Control-related_commands.md#response_0x00_version)
     and rebuild TraCI constants in python
     (tools/traci/rebuildConstants.py)
   - check whether the network version needs to be incremented and
