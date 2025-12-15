@@ -5,7 +5,7 @@ title: SublaneModel
 # Introduction
 
 By default, there is at most one vehicle per lane and lane-changes are
-performed instantly. To changes this, one of the two models described
+performed instantly. To change this, one of the two models described
 below may be activated.
 
 # Sublane-Model
