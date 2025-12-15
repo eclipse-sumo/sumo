@@ -31,6 +31,9 @@ install.components = ["data", "dll"]
 wheel.install-dir = "sumo"
 wheel.py-api = "py3"
 
+[tool.cibuildwheel]
+before-all = ["build_config/install_dependencies.sh"]
+
 [tool.cibuildwheel.linux]
 build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]
 manylinux-x86_64-image = "manylinux2014"
