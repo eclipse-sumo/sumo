@@ -29,7 +29,7 @@ jobs:
         run: python ${{ github.workspace }}/tools/build_config/bibtexUpdate.py --bibtex-input ${{ github.workspace }}/docs/sumo.bib --bibtex-output ${{ github.workspace }}/docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
 
       - name: Pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Update SUMO bibtex file #13811'
