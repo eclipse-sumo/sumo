@@ -510,7 +510,7 @@ GNEEdge::checkDrawMoveContour() const {
     // get move element edge
     const auto moveElementEdge = dynamic_cast<GNEMoveElementEdge*>(myNet->getViewNet()->getMoveSingleElementValues().getMovedElement());
     // check if we're in move mode
-    if ((!myNet->getViewNet()->isCurrentlyMovingElements() || (moveElementEdge->getEdge() == this)) && editModes.isCurrentSupermodeNetwork() &&
+    if ((!myNet->getViewNet()->isCurrentlyMovingElements() || (moveElementEdge && (moveElementEdge->getEdge() == this))) && editModes.isCurrentSupermodeNetwork() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
         // check if we're editing this network element
         const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
