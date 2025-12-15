@@ -170,9 +170,8 @@ GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
 
 
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, GNEDialog* parentDialog) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, parentDialog, DialogType::ATTRIBUTECARRIER) {
     // build dialog
-    UNUSED_PARAMETER(parentDialog);
     builder(AC);
 }
 
