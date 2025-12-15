@@ -39,12 +39,12 @@
 #include <netedit/frames/network/GNECrossingFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNENet.h>
+#include <netedit/GNEApplicationWindow.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
@@ -1431,8 +1431,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             myNet->getViewNet()->updateObjectsInPosition(newPosition);
             for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getJunctions()) {
                 // check distance position
-                if ((junctionToMerge == nullptr) && (junction != this) && (junction->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                        myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
+                if ((junctionToMerge == nullptr) && (junction != this) &&
+                    (junction->getPositionInView().distanceTo2D(newPosition) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius) &&
+                    myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
                     junctionToMerge = junction;
                 }
             }
