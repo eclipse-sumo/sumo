@@ -221,8 +221,6 @@ GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* AC) {
         // add to myAttributeTextFields vector
         myAttributeTextFields.push_back(attributeTextField);
     }
-    // init commandGroup
-    myElement->getNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
     // open dialog
     openDialog();
 }
