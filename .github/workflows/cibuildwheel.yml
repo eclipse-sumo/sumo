@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, ubuntu_latest]
+        os: [macos-14, ubuntu-latest]
 
     steps:
       - name: Cloning SUMO
