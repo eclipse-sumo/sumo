@@ -1826,7 +1826,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         if (itOnSub != sub->myRoute.end()) {
             sub->myTrains.insert(veh);
             // non-zero is enough to avoid superfluous activation via activateReminders (and removal)
-            const double pos = itOnSub == sub->myRoute.begin() ? 0 : sub->myRoute.front()->getLength();
+            const double pos = sub->myRoute.front()->getLength();
             dynamic_cast<MSBaseVehicle*>(veh)->addReminder(sub, pos);
             for (const VehicleEvent& ve : myVehicleEvents) {
                 if (ve.id == veh->getID()) {
