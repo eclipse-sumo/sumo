@@ -44,7 +44,8 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, const SUMOTime begin, const SUMOTime end, 
+                                     GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent, GNE_TAG_CALIBRATOR_FLOW, ""),
     GNEAdditionalListed(this) {
     // set parents
@@ -54,6 +55,11 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     updateCenteringBoundary(false);
     // reset ID
     id.clear();
+    // set begin and end
+    depart = begin;
+    repetitionEnd = end;
+    // set default vehsperhour
+    setAttribute(SUMO_ATTR_VEHSPERHOUR, "1800");
 }
 
 

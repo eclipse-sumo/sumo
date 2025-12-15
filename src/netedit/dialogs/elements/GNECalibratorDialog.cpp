@@ -99,8 +99,16 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     GNEDemandElement* vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // get route
     GNEDemandElement* route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
+    // calculate begin based in last calibrator flow
+    SUMOTime begin = 0;
+    for (const auto &child :  myElementDialogParent->getElement()->getChildAdditionals()) {
+        if (child->getTagProperty()->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+            begin = GNEAttributeCarrier::parse<SUMOTime>(child->getAttribute(SUMO_ATTR_END));
+        }
+    }
+    const SUMOTime duration = GNEAttributeCarrier::parse<SUMOTime>("3600");
     // create vType
-    GNECalibratorFlow* calibratorFlow = new GNECalibratorFlow(myElementDialogParent->getElement(), vType, route);
+    GNECalibratorFlow* calibratorFlow = new GNECalibratorFlow(myElementDialogParent->getElement(), begin, begin + duration, vType, route);
     // add using undo-redo
     insertElement(calibratorFlow);
     // open route dialog
@@ -109,6 +117,8 @@ GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
         // add calibratorFlow
         return removeElement(calibratorFlow);
+    } else {
+        updateList();
     }
     return 1;
 }
