@@ -30,6 +30,11 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14, ubuntu-latest, ubuntu-24.04-arm]
+        manylinux: [manylinux2014, manylinux_2_28]
+        exclude:
+        # only need a single run on macOS
+        - os: macos-14
+          manylinux: manylinux_2_28
 
     steps:
       - name: Cloning SUMO
@@ -49,6 +54,8 @@ jobs:
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
@@ -58,6 +65,8 @@ jobs:
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
         env:
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
           MACOSX_DEPLOYMENT_TARGET: '14.0'
@@ -68,6 +77,8 @@ jobs:
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
@@ -75,7 +86,7 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
           path: ./wheelhouse/*.whl
 
   ###################

@@ -38,5 +38,3 @@ before-all = ["build_config/install_dependencies.sh"]
 
 [tool.cibuildwheel.linux]
 build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64"]
-manylinux-x86_64-image = "manylinux2014"
-manylinux-aarch64-image = "manylinux2014"
