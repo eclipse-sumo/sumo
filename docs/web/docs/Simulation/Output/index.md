@@ -153,6 +153,7 @@ Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can b
 - [traffic light states, by switch](Traffic_Lights.md#tls_switch_states):
   information about the states (lights) of a traffic light signal,
   written only when changed
+- [recorded programs](Traffic_Lights.md#tls_programs): Stores the sequence of states as a [static](../Traffic_Lights.md#traffic_lights_with_fixed_timing) signal program which can be loaded and re-run.
 - [lane area detectors coupled to tls](Traffic_Lights.md#coupled_lane_area_detectors):
   simulated vehicle tracking cameras triggered by tls
 
