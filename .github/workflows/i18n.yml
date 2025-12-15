@@ -26,7 +26,7 @@ jobs:
         run: python ${{ github.workspace }}/tools/build_config/i18n.py
 
       - name: Pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Update translatable strings ref #11859'
