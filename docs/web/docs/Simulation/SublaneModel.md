@@ -187,7 +187,7 @@ If only the non-instantaneous aspect of lane-changing needs to be
 modelled, a simplified (and thus faster) model may be used as an
 alternative to the sublane model.
 
-The *Simple continuos lane-change model* is activated by setting the
+The *Simple continuous lane-change model* is activated by setting the
 option **--lanechange.duration** {{DT_FLOAT}} which specifies the default time for changing between adjacent
 lanes in seconds (instead of setting option **--lateral-resolution**).
 
