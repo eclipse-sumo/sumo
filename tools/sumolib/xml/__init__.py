@@ -22,7 +22,8 @@ import datetime
 import fileinput
 
 from .. import version
-from .parsing import *
+from .. import miscutils
+from .parsing import *  # noqa
 from . import xsd  # noqa
 
 
