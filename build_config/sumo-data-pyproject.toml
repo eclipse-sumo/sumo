@@ -30,3 +30,8 @@ build.targets = ["install_mo", "install_dll"]
 install.components = ["data", "dll"]
 wheel.install-dir = "sumo"
 wheel.py-api = "py3"
+
+[tool.cibuildwheel.linux]
+build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]
+manylinux-x86_64-image = "manylinux2014"
+manylinux-aarch64-image = "manylinux2014"

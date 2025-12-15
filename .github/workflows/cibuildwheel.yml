@@ -49,7 +49,6 @@ jobs:
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp312-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
@@ -59,7 +58,6 @@ jobs:
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp312-*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
           MACOSX_DEPLOYMENT_TARGET: '14.0'
@@ -70,7 +68,6 @@ jobs:
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp3*
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
