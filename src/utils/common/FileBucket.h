@@ -80,6 +80,12 @@ public:
     /// @brief remove element
     void removeElement(const bool isTemplate);
 
+    /// @brief add default vClass
+    void addDefaultVType();
+
+    /// @brief remove default vClass
+    void removeDefaultVType();
+
     /// @brief check number of elements (no templates)
     int getNumElements() const;
 
@@ -106,6 +112,9 @@ private:
 
     /// @brief number of templates vinculated with this file bucket
     int myNumTemplates = 0;
+
+    /// @brief number of default vTypes vinculated with this file bucket
+    int myNumDefaultVTypes = 0;
 
     /// @brief flag to indicate if this is a default bucket (it cannot be removed)
     const bool myDefaultBucket;

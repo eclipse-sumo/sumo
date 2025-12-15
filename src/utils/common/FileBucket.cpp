@@ -116,6 +116,22 @@ FileBucket::removeElement(const bool isTemplate) {
 }
 
 
+void
+FileBucket::addDefaultVType() {
+    myNumDefaultVTypes++;
+}
+
+
+void
+FileBucket::removeDefaultVType() {
+    myNumDefaultVTypes--;
+    // check that number of elementes are not negative
+    if (myNumElements < 0) {
+        throw ProcessError("Number of defaultVTypes negative");
+    }
+}
+
+
 int
 FileBucket::getNumElements() const {
     return myNumElements;
