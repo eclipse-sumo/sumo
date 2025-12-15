@@ -92,7 +92,7 @@ jobs:
       run: cmake --build build_msvc --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: windows-${{ matrix.build_type }}-binaries
         path: bin
@@ -151,7 +151,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: texttesttmp-${{ matrix.build_type }}
         path: D:/texttest/tt.zip

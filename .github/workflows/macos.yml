@@ -78,7 +78,7 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Uploading artifacts (SUMO examples with outputs)
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: ${{ matrix.os }}-examples
         path: sumo/docs/examples
@@ -90,7 +90,7 @@ jobs:
         sumo/tests/runTests.sh -b ci -v ci -ts meta
 
     - name: Uploading artifacts (SUMO binaries and FMU)
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: ${{ matrix.os }}-binaries
         path: sumo/bin
@@ -103,7 +103,7 @@ jobs:
         dmgenv/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg
 
     - name: Uploading macOS installer pkg
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: ${{ matrix.os }}-installer-unsigned
         path: framework-pkg/*.pkg
