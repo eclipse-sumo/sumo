@@ -35,9 +35,7 @@ wheel.packages = ["tools/libsumo"]
 
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"
+build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64", "cp*-win_amd64"]
 
 [tool.cibuildwheel.windows]
 before-all = ""
-
-[tool.cibuildwheel.linux]
-build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64"]

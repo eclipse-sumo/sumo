@@ -67,6 +67,7 @@ jobs:
       - name: Building sumolib and traci wheels
         if: matrix.os == 'macos-14'
         run: |
+          python -m pip install build
           python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
           python -m build --wheel -o wheelhouse/
           python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
