@@ -24,17 +24,19 @@ on:
 
 jobs:
   build-wheels:
-    name: Build wheels on ${{ matrix.os }} for ${{ matrix.manylinux }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, ubuntu-latest, ubuntu-24.04-arm]
-        manylinux: [manylinux2014, manylinux_2_28]
-        exclude:
-        # only need a single run on macOS
-        - os: macos-14
+        os: [macos-14, ubuntu-latest, ubuntu-24.04-arm, windows-latest]
+        manylinux: [manylinux2014]
+        include:
+        - os: ubuntu-latest
           manylinux: manylinux_2_28
+        - os: ubuntu-24.04-arm
+          manylinux: manylinux_2_28
+    env:
+      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
 
     steps:
       - name: Cloning SUMO
@@ -45,13 +47,25 @@ jobs:
           # to work around actions/checkout#1467
           ref: ${{ github.ref }}
 
+      - name: Cloning SUMO Libraries
+        if: matrix.os == 'windows-latest'
+        uses: actions/checkout@v6
+        with:
+          repository: DLR-TS/SUMOLibraries
+          path: SUMOLibraries
+
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
       - name: Preparing wheel eclipse-sumo
-        run: python3 tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
@@ -62,7 +76,7 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel sumo-data
-        run: python3 tools/build_config/version.py --pep440 build_config/sumo-data-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/sumo-data-pyproject.toml pyproject.toml
 
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
@@ -74,7 +88,7 @@ jobs:
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
-        run: python3 tools/build_config/version.py --pep440 build_config/libsumo-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/libsumo-pyproject.toml pyproject.toml
 
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
@@ -99,14 +113,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm]
+        os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm, windows-latest]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-        manylinux: [manylinux2014, manylinux_2_28]
-        exclude:
-        # only need a single run on macOS
-        - os: macos-14
+        manylinux: [manylinux2014]
+        include:
+        - os: ubuntu-latest
           manylinux: manylinux_2_28
-        - os: macos-15
+        - os: ubuntu-24.04-arm
           manylinux: manylinux_2_28
     runs-on: ${{ matrix.os }}
 
@@ -137,7 +150,7 @@ jobs:
 
     - name: Preparing Python environment
       run: |
-        python3 -m venv testenv --system-site-packages
+        python -m venv testenv --system-site-packages
         source testenv/bin/activate
         python -m pip install --upgrade pip
         python -m pip install wheel  # need to do this separately because the texttest install wants it
@@ -162,16 +175,16 @@ jobs:
     - name: Building helper wheels
       run: |
         cd tools
-        python3 -m pip install build
-        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
-        python3 -m build --wheel
-        python3 build_config/version.py build_config/setup-traci.py ./setup.py
-        python3 -m build --wheel
-        python3 -m pip install --no-index -f dist sumolib traci
+        python -m pip install build
+        python build_config/version.py build_config/setup-sumolib.py ./setup.py
+        python -m build --wheel
+        python build_config/version.py build_config/setup-traci.py ./setup.py
+        python -m build --wheel
+        python -m pip install --no-index -f dist sumolib traci
 
     - name: Installing libsumo wheels (mac)
       if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
-      run: python3 -m pip install --no-index -f python-wheels libsumo
+      run: python -m pip install --no-index -f python-wheels libsumo
 
     - name: Installing libsumo wheels (linux)
       if: matrix.os != 'macos-14' && matrix.os != 'macos-15'
@@ -180,7 +193,7 @@ jobs:
         PYTAG="${{ matrix.python_version }}"
         WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-*${{ matrix.manylinux }}*.whl)
         echo wheel=$WHEEL
-        python3 -m pip install $WHEEL
+        python -m pip install $WHEEL
 
     - name: Running libsumo tests
       run: tests/runTests.sh -b ci -v ci -a complex.libsumo
