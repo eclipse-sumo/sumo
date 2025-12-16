@@ -24,7 +24,7 @@ set_target_properties(testlibsumostatic PROPERTIES OUTPUT_NAME testlibsumostatic
 set_target_properties(testlibsumostatic PROPERTIES OUTPUT_NAME_DEBUG testlibsumostatic${BINARY_SUFFIX}D)
 set_property(TARGET testlibsumostatic PROPERTY FOLDER "test_exe")
 if (FOX_FOUND)
-    target_link_libraries(testlibsumostatic ${sumoguilibs})
+    target_link_libraries(testlibsumostatic ${sumoguilibs} libsumoguistatic)
 else ()
     if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
         target_link_libraries(testlibsumostatic -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)

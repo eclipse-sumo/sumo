@@ -77,7 +77,8 @@ if (FOX_FOUND)
     # for libsumocpp we need to recompile a third time to make sure everything is in the public interface
     add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
     target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
-    set(sumo_link_libraries ${sumoguilibs})
+    set(sumo_link_libraries ${sumoguilibs} libsumoguistatic)
+    target_link_libraries(libsumocpp PRIVATE ${sumoguilibs})
 else ()
     add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
     if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
@@ -85,9 +86,9 @@ else ()
     else ()
         set(sumo_link_libraries libsumostatic ${sumolibs})
     endif()
+    target_link_libraries(libsumocpp PRIVATE ${sumolibs})
 endif()
 # TODO libsumocpp may contain GUI or not, you cannot tell from the name
-target_link_libraries(libsumocpp PRIVATE ${sumo_link_libraries})
 add_dependencies(libsumocpp generate-version-h install_dll)
 
 set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
