@@ -177,7 +177,8 @@ jobs:
       if: matrix.os != 'macos-14' && matrix.os != 'macos-15'
       run: |
         ls python-wheels
-        WHEEL=$(ls python-wheels/libsumo*cp${{ replace(matrix.python_version, '.', '') }}-*${{ matrix.manylinux }}*.whl)
+        PYTAG="${{ matrix.python_version }}"
+        WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-*${{ matrix.manylinux }}*.whl)
         echo wheel=$WHEEL
         python3 -m pip install $WHEEL
 
