@@ -57,31 +57,37 @@ if (NOT ISOLATED_BUILD)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 endif()
+# libsumostatic contains a compiled version of src/libsumo without GUI.* and without HAVE_LIBSUMOGUI being defined
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 add_dependencies(libsumostatic generate-version-h install_dll)
 set_target_properties(libsumostatic PROPERTIES FOLDER "libsumo" PREFIX ""
     OUTPUT_NAME libsumostatic${BINARY_SUFFIX}
     OUTPUT_NAME_DEBUG libsumostatic${BINARY_SUFFIX}D)
 
-file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/empty_cmake_dummy.cpp "")
-set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/empty_cmake_dummy.cpp PROPERTIES GENERATED TRUE)
-add_library(libsumocpp SHARED ${CMAKE_CURRENT_BINARY_DIR}/empty_cmake_dummy.cpp)
 if (FOX_FOUND)
+    # libsumoguistatic contains a compiled version of src/libsumo with HAVE_LIBSUMOGUI being defined
+    # the define also affects code in Simulation and Helper so we need to recompile
     add_library(libsumoguistatic STATIC ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
     add_dependencies(libsumoguistatic generate-version-h install_dll)
     set_target_properties(libsumoguistatic PROPERTIES FOLDER "libsumo" PREFIX ""
         OUTPUT_NAME libsumoguistatic${BINARY_SUFFIX}
         OUTPUT_NAME_DEBUG libsumoguistatic${BINARY_SUFFIX}D)
     target_compile_definitions(libsumoguistatic PUBLIC HAVE_LIBSUMOGUI)
+
+    # for libsumocpp we need to recompile a third time to make sure everything is in the public interface
+    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS} GUI.cpp GUI.h)
     target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
     set(sumo_link_libraries ${sumoguilibs})
 else ()
+    add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
     if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
         set(sumo_link_libraries -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
     else ()
         set(sumo_link_libraries libsumostatic ${sumolibs})
     endif()
 endif()
+# TODO libsumocpp may contain GUI or not, you cannot tell from the name
+target_link_libraries(libsumocpp PRIVATE ${sumo_link_libraries})
 add_dependencies(libsumocpp generate-version-h install_dll)
 
 set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
@@ -95,7 +101,6 @@ install(TARGETS libsumocpp EXPORT SUMOConfig
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
-target_link_libraries(libsumocpp PRIVATE ${sumo_link_libraries})
 
 if (SWIG_FOUND)
     include(${SWIG_USE_FILE})
