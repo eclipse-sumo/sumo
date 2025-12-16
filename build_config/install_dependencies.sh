@@ -36,8 +36,15 @@ case "$ID" in
     almalinux)
         dnf install -y epel-release
         dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig
-        # dnf install -y https://packages.apache.org/artifactory/arrow/almalinux/$VERSION_ID/apache-arrow-release-latest.rpm
-        # dnf install -y arrow-devel parquet-devel
+        dnf install -y libX11-devel libXft-devel libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel mesa-libGLU-devel freetype-devel fontconfig-devel libjpeg-turbo-devel libpng-devel
+        curl -LO http://www.fox-toolkit.org/ftp/fox-1.6.59.tar.gz
+        tar xf fox-1.6.59.tar.gz
+        cd fox-1.6.59
+        ./configure --disable-static --enable-shared
+        make -j$(nproc)
+        make install
+        dnf install -y https://packages.apache.org/artifactory/arrow/almalinux/$VERSION_ID/apache-arrow-release-latest.rpm
+        dnf install -y arrow-devel parquet-devel
         ;;
     *)
         echo "Unknown or unsupported OS: $ID"
