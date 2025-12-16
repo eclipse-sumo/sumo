@@ -570,7 +570,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
-        find_package(GEOS)
+        find_package(GEOS 3.3.0)
         if (GEOS_FOUND)
             include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
             set(JPS_VERSION "${jupedsim_VERSION_MAJOR}${jupedsim_VERSION_MINOR}${jupedsim_VERSION_PATCH}")
