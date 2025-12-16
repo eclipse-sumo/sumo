@@ -99,6 +99,13 @@ jobs:
       matrix:
         os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
+        manylinux: [manylinux2014, manylinux_2_28]
+        exclude:
+        # only need a single run on macOS
+        - os: macos-14
+          manylinux: manylinux_2_28
+        - os: macos-15
+          manylinux: manylinux_2_28
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -151,8 +158,10 @@ jobs:
 
     - name: Running libsumo tests
       run: |
+        WHEEL=$(ls python-wheels/libsumo*cp${{ matrix.python_version }}-*${{ matrix.manylinux }}*.whl)
+        echo wheel=$WHEEL
         python3 -m pip install --no-index -f tools/dist sumolib traci
-        python3 -m pip install --no-index -f python-wheels libsumo
+        python3 -m pip install $WHEEL
         cd tests
         texttest -b ci -v ci -a complex.libsumo
 
