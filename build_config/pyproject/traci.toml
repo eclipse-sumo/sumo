@@ -1,19 +1,21 @@
 [build-system]
-requires = ["scikit-build-core>=0.10"]
-build-backend = "scikit_build_core.build"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
-name = "sumo-data"
+name = "traci"
 version = "0.0.0"
+dependencies = ["sumolib>=0.0.0"]
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
-description = "The python ABI version indpeendent part of the traffic simulation Eclipse SUMO"
+description = "The pure python version of the TraCI API to communicate with the traffic simulation Eclipse SUMO"
 readme = "README.md"
-keywords = ["traffic", "simulation", "traci"]
+keywords = ["traffic", "simulation", "sumo"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
 ]
 
 [project.urls]
@@ -24,15 +26,14 @@ Issues = "https://github.com/eclipse-sumo/sumo/issues"
 Changelog = "https://sumo.dlr.de/docs/ChangeLog"
 Download = "https://sumo.dlr.de/download"
 
-[tool.scikit-build]
-build-dir = "_skbuild"
-build.targets = ["install_mo", "install_dll"]
-install.components = ["data", "dll"]
-wheel.install-dir = "sumo"
-wheel.py-api = "py3"
+[tool.hatch.build.targets.wheel]
+packages = ["tools/traci", "tools/simpla"]
 
-[tool.cibuildwheel]
-before-all = ["build_config/install_dependencies.sh"]
-
-[tool.cibuildwheel.linux]
-build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]
+[tool.hatch.build.targets.sdist]
+# ensure sdist matches wheel
+include = [
+  "tools/traci/**",
+  "tools/simpla/**",
+  "README.md",
+  "pyproject.toml"
+]

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["scikit-build-core>=0.10"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "sumo-data"
+version = "0.0.0"
+authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
+license = "EPL-2.0 OR GPL-2.0-or-later"
+description = "The python ABI version independent part of the traffic simulation Eclipse SUMO"
+readme = "README.md"
+keywords = ["traffic", "simulation", "traci"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+]
+
+[project.urls]
+Homepage = "https://sumo.dlr.de/"
+Documentation = "https://sumo.dlr.de/docs/"
+Repository = "https://github.com/eclipse-sumo/sumo"
+Issues = "https://github.com/eclipse-sumo/sumo/issues"
+Changelog = "https://sumo.dlr.de/docs/ChangeLog"
+Download = "https://sumo.dlr.de/download"
+
+[tool.scikit-build]
+build-dir = "_skbuild"
+build.targets = ["install_mo", "install_dll"]
+install.components = ["data", "dll"]
+wheel.install-dir = "sumo"
+wheel.py-api = "py3"
+
+[tool.cibuildwheel]
+before-all = ["build_config/install_dependencies.sh"]
+
+[tool.cibuildwheel.linux]
+build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64"]

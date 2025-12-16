@@ -29,7 +29,7 @@ def main():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(dirname(os.path.abspath(__file__)))))
-    version.filter_pep440(join(SUMO_HOME, "build_config", "eclipse-sumo-pyproject.toml"),
+    version.filter_pep440(join(SUMO_HOME, "build_config", "pyproject", "eclipse-sumo.toml"),
                           join(SUMO_HOME, "pyproject.toml"))
     status.log_subprocess([sys.executable, "-m", "build", "--wheel"], cwd=SUMO_HOME)
 

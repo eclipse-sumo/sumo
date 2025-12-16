@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sumolib"
+version = "0.0.0"
+authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
+license = "EPL-2.0 OR GPL-2.0-or-later"
+description = "Python helper modules to read networks, parse output data and do other useful stuff related to the traffic simulation Eclipse SUMO"
+readme = "README.md"
+keywords = ["traffic", "simulation", "traci", "sumo"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
+]
+
+[project.urls]
+Homepage = "https://sumo.dlr.de/"
+Documentation = "https://sumo.dlr.de/docs/"
+Repository = "https://github.com/eclipse-sumo/sumo"
+Issues = "https://github.com/eclipse-sumo/sumo/issues"
+Changelog = "https://sumo.dlr.de/docs/ChangeLog"
+Download = "https://sumo.dlr.de/download"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tools/sumolib"]
+
+[tool.hatch.build.targets.sdist]
+# ensure sdist matches wheel
+include = [
+  "tools/sumolib/**",
+  "README.md",
+  "pyproject.toml"
+]
