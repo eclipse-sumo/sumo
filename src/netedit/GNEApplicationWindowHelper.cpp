@@ -2258,12 +2258,12 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(mySumoConfigFile).c_str());
+        // allow to load with invalid options
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load SUMO configuration '%'.", mySumoConfigFile));
-            return false;
+            WRITE_WARNING(TLF("There are invalid options in sumo configuration '%'.", mySumoConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TLF("Could not load SUMO configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load sumo configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2305,9 +2305,9 @@ GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myNetconvertConfigFile).c_str());
+        // allow to load with invalid options
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load netconvert configuration '%'.", myNetconvertConfigFile));
-            return false;
+            WRITE_WARNING(TLF("There are invalid options in netconvert configuration '%'.", myNetconvertConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         WRITE_ERROR(TLF("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
@@ -2352,9 +2352,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         parser.parse(StringUtils::transcodeToLocal(myNeteditConfigFile).c_str());
+        // allow to load with invalid options
         if (handler.errorOccurred()) {
-            WRITE_ERROR(TLF("Could not load netedit configuration '%'.", myNeteditConfigFile));
-            return false;
+            WRITE_WARNING(TLF("There are invalid options in netedit configuration '%'.", myNeteditConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
         WRITE_ERROR(TLF("Could not load netedit configuration '%':\n %", myNeteditConfigFile, StringUtils::transcode(e.getMessage())));
