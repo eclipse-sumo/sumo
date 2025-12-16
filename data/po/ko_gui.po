@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-11 19:36+0100\n"
-"PO-Revision-Date: 2025-12-12 18:23+0000\n"
+"PO-Revision-Date: 2025-12-17 07:50+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2296 src/gui/GUIApplicationWindow.cpp:2297
@@ -33,13 +33,14 @@ msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:312
 #: src/netedit/GNEApplicationWindow.cpp:581
+#, fuzzy
 msgid "Original coordinate (before coordinate transformation in netconvert)"
-msgstr "원점원본 좌표 (netconvert에서 좌표 변환 전)"
+msgstr "원점 원본 좌표 (netconvert에서 좌표 변환 전)"
 
 #: src/gui/GUIApplicationWindow.cpp:315
 #: src/netedit/GNEApplicationWindow.cpp:585
 msgid "Network coordinate"
-msgstr "Network 좌표"
+msgstr "네트워크 좌표"
 
 #: src/gui/GUIApplicationWindow.cpp:343
 #: src/netedit/GNEApplicationWindow.cpp:608
@@ -359,9 +360,8 @@ msgstr "POI(Point of Interest) 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:585
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
-#, fuzzy
 msgid "Po&lygon"
-msgstr "Polygon(&L)"
+msgstr "폴리곤(&L)"
 
 #: src/gui/GUIApplicationWindow.cpp:585
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
@@ -379,11 +379,11 @@ msgstr "내부 교차점과 도로(street) 검색 대화 상자를 표시합니�
 
 #: src/gui/GUIApplicationWindow.cpp:589
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "주차중인 차량 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:589
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "주차중인 차량 표시 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:591
 msgid "Show vehicles outside the road network"
@@ -538,46 +538,46 @@ msgstr "기타(&O)..."
 #: src/gui/GUIApplicationWindow.cpp:647
 #: src/netedit/GNEApplicationWindowHelper.cpp:2148
 msgid "Show Status Line"
-msgstr ""
+msgstr "상태 표시줄 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:647
 msgid "Toggle the Status Bar on/off."
-msgstr ""
+msgstr "상태 표시줄을 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:648
 #: src/netedit/GNEApplicationWindowHelper.cpp:2151
 msgid "Show Message Window"
-msgstr ""
+msgstr "메시지 창 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:648
 #: src/netedit/GNEApplicationWindowHelper.cpp:2151
 msgid "Toggle the Message Window on/off."
-msgstr ""
+msgstr "메시지 창 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:649
 msgid "Show Simulation Time"
-msgstr ""
+msgstr "시뮬레이션 시간 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:649
 msgid "Toggle the Simulation Time on/off."
-msgstr ""
+msgstr "시뮬레이션 시간 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:650
 msgid "Show Simulation Delay"
-msgstr ""
+msgstr "시뮬레이션 지연 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:650
 msgid "Toggle the Simulation Delay Entry on/off."
-msgstr ""
+msgstr "시뮬레이션 지연 입력란 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:655
 #: src/netedit/GNEApplicationWindowHelper.cpp:2155
 msgid "Clear Message Window"
-msgstr ""
+msgstr "메시지 창 내용 지우기"
 
 #: src/gui/GUIApplicationWindow.cpp:655
 msgid "Clear the message window."
-msgstr ""
+msgstr "메시지 창의 내용을 지웁니다."
 
 #: src/gui/GUIApplicationWindow.cpp:662
 #: src/netedit/GNEApplicationWindow.cpp:1586
@@ -600,78 +600,81 @@ msgstr "업데이트 내역(&C)"
 #: src/gui/GUIApplicationWindow.cpp:667
 #: src/netedit/GNEApplicationWindowHelper.cpp:2174
 msgid "Open Changelog."
-msgstr ""
+msgstr "업데이트 내역을 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&Hotkeys"
-msgstr ""
+msgstr "단축키(&H)"
 
 #: src/gui/GUIApplicationWindow.cpp:669
 #: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "단축키를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:671
 msgid "&Tutorial"
-msgstr ""
+msgstr "튜토리얼(&T)"
 
 #: src/gui/GUIApplicationWindow.cpp:671
 #: src/netedit/GNEApplicationWindowHelper.cpp:2178
 msgid "Open Tutorial."
-msgstr ""
+msgstr "튜토리얼을 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:673
 msgid "&Feedback"
-msgstr ""
+msgstr "피드백(&F)"
 
 #: src/gui/GUIApplicationWindow.cpp:673
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "피드백 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:676
 msgid "&About"
-msgstr ""
+msgstr "정보(&A)"
 
 #: src/gui/GUIApplicationWindow.cpp:676
 msgid "About sumo-gui."
-msgstr ""
+msgstr "sumo-gui에 대한 정보."
 
 #: src/gui/GUIApplicationWindow.cpp:691
-#, fuzzy
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
-msgstr "\t시뮬레이션 열기\t시뮬레이션 열기 (Configuration 파일)."
+msgstr "\t시뮬레이션 열기\t시뮬레이션 열기 (구성 파일)."
 
 #: src/gui/GUIApplicationWindow.cpp:693
 msgid "\tOpen network\tOpen a network."
-msgstr ""
+msgstr "\t네트워크 열기\t네트워크 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:695
 msgid "\tReload\tReloads the simulation / the network."
-msgstr ""
+msgstr "\t다시 불러오기\t시뮬레이션 / 네트워크 다시 불러오기."
 
 #: src/gui/GUIApplicationWindow.cpp:704
+#, fuzzy
 msgid "\tRun\tStart/Resume the loaded simulation."
-msgstr ""
+msgstr "\t실행\t로드된 시뮬레이션을 시작/재개합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:706
 msgid "\tStop\tHalt the running simulation."
-msgstr ""
+msgstr "\t정지\t실행중인 시뮬레이션을 중단합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:708
+#, fuzzy
 msgid "\tStep\tPerform a single simulation step."
-msgstr ""
+msgstr "\tStep\tStep을 1회 수행합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:716
 msgid ""
 "Time:\tToggle between time formats\tToggle between seconds and "
 "hour:minute:seconds display."
-msgstr ""
+msgstr "시간:\t시간 형식 전환\t초와 시:분:초 표시 간에 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:730
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
 msgstr ""
+"지연(ms):\t시뮬레이션 초당 지연\t시뮬레이션 초당 지연입니다. 클릭시 마지막 "
+"두 지연 값 간에 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:753
 msgid "Scale Traffic:"
@@ -686,70 +689,72 @@ msgstr "실행 중인 flow와 route 파일에서 점진적으로 생성되는 �
 
 #: src/gui/GUIApplicationWindow.cpp:779
 msgid "Waiting Time:"
-msgstr ""
+msgstr "대기 시간:"
 
 #: src/gui/GUIApplicationWindow.cpp:779
 msgid "Time spent waiting accumulated for all vehicles"
-msgstr ""
+msgstr "모든 차량의 누적 대기 시간"
 
 #: src/gui/GUIApplicationWindow.cpp:790
 msgid "Time Loss:"
-msgstr ""
+msgstr "시간 손실:"
 
 #: src/gui/GUIApplicationWindow.cpp:790
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
-msgstr ""
+msgstr "모든 차량이 최대 속도로 주행하지 못해 발생한 시간 손실"
 
 #: src/gui/GUIApplicationWindow.cpp:801
 msgid "Distance (km):"
-msgstr ""
+msgstr "거리 (km):"
 
 #: src/gui/GUIApplicationWindow.cpp:801
 msgid "Total distance driven by DRT vehicles"
-msgstr ""
+msgstr "DRT 차량의 총 주행 거리"
 
 #: src/gui/GUIApplicationWindow.cpp:812
 msgid "Emergency Vehicle waiting time:"
-msgstr ""
+msgstr "긴급 차량 대기 시간:"
 
 #: src/gui/GUIApplicationWindow.cpp:812
 msgid "Time spent waiting accumulated for emergency vehicles"
-msgstr ""
+msgstr "긴급 차량의 누적 대기 시간"
 
 #: src/gui/GUIApplicationWindow.cpp:837
 #: src/netedit/GNEApplicationWindowHelper.cpp:156
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "최근 네트워크 지우기(&e)"
 
 #: src/gui/GUIApplicationWindow.cpp:838
 #: src/netedit/GNEApplicationWindowHelper.cpp:157
 msgid "No Recent Networks"
-msgstr ""
+msgstr "최근 네트워크 없음"
 
 #: src/gui/GUIApplicationWindow.cpp:842
 #: src/netedit/GNEApplicationWindowHelper.cpp:161
 msgid "Recent Networks"
-msgstr ""
+msgstr "최근 네트워크"
 
 #: src/gui/GUIApplicationWindow.cpp:860
 #: src/netedit/GNEApplicationWindowHelper.cpp:179
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "최근 구성 지우기(&e)"
 
 #: src/gui/GUIApplicationWindow.cpp:861
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
+#, fuzzy
 msgid "No Recent Configs"
-msgstr ""
+msgstr "최근 구성 파일 없음"
 
 #: src/gui/GUIApplicationWindow.cpp:865
 #: src/netedit/GNEApplicationWindowHelper.cpp:184
+#, fuzzy
 msgid "Recent Configs"
-msgstr ""
+msgstr "최근 구성 파일"
 
 #: src/gui/GUIApplicationWindow.cpp:1029 src/gui/GUIApplicationWindow.cpp:1055
 msgid "Running %."
-msgstr ""
+msgstr "% 실행중."
 
 #: src/gui/GUIApplicationWindow.cpp:1065
 #, fuzzy
@@ -758,211 +763,225 @@ msgstr "시뮬레이션 Configuration 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1085
 msgid "Open Network"
-msgstr ""
+msgstr "네트워크 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1105
+#, fuzzy
 msgid "Open Shapes"
-msgstr ""
+msgstr "Shape 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1119 src/gui/GUIApplicationWindow.cpp:1147
 #: src/netedit/GNEApplicationWindow.cpp:5020
 #: src/netedit/GNEApplicationWindow.cpp:5064
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "% 로딩에 실패했습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1136
+#, fuzzy
 msgid "Open EdgeData"
-msgstr ""
+msgstr "EdgeData 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1171
+#, fuzzy
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "자동으로 다시 불러오는중."
 
 #: src/gui/GUIApplicationWindow.cpp:1171
+#, fuzzy
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "TraCI 불러오는 중."
 
 #: src/gui/GUIApplicationWindow.cpp:1173
+#, fuzzy
 msgid "Reloading."
-msgstr ""
+msgstr "다시 불러오는중."
 
 #: src/gui/GUIApplicationWindow.cpp:1184
+#, fuzzy
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "빠른 다시 불러오기 중."
 
 #: src/gui/GUIApplicationWindow.cpp:1194
 #: src/netedit/GNEApplicationWindow.cpp:1139
+#, fuzzy
 msgid "Already loading!"
-msgstr ""
+msgstr "이미 불러오는 중입니다!"
 
 #: src/gui/GUIApplicationWindow.cpp:1206
-#, fuzzy
 msgid "Save SUMO Configuration"
-msgstr "SUMO Configuration 저장"
+msgstr "SUMO 구성 저장"
 
 #: src/gui/GUIApplicationWindow.cpp:1220
-#, fuzzy
 msgid "Configuration saved to %."
-msgstr "Configuration이 %에 저장되었습니다."
+msgstr "구성이 %에 저장되었습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1222
-#, fuzzy
 msgid "Could not save configuration to %."
-msgstr "Configuration을 %에 저장할 수 없습니다."
+msgstr "구성을 %에 저장할 수 없습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1278 src/gui/GUIApplicationWindow.cpp:1304
 #: src/gui/GUIApplicationWindow.cpp:2222
+#, fuzzy
 msgid "No simulation loaded!"
-msgstr ""
+msgstr "불러온 시뮬레이션이 없습니다!"
 
 #: src/gui/GUIApplicationWindow.cpp:1320
 msgid "Save Simulation State"
-msgstr ""
+msgstr "시뮬레이션 상태 저장"
 
 #: src/gui/GUIApplicationWindow.cpp:1332
 msgid "Simulation state saved to '%'."
-msgstr ""
+msgstr "시뮬레이션 상태가 '%'에 저장되었습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1340
 msgid "Load Simulation State"
-msgstr ""
+msgstr "시뮬레이션 상태 불러오기"
 
 #: src/gui/GUIApplicationWindow.cpp:1352
 msgid "State loaded from '%'."
-msgstr ""
+msgstr "상태가 '%'에서 로드되었습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1354
 msgid "Failed to load state from '%' (%)."
-msgstr ""
+msgstr "상태를 '%' (%)에서 로드할 수 없습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1501
 msgid "Scale number of vehicles in simulation"
-msgstr ""
+msgstr "시뮬레이션 내 차량 수 조정"
 
 #: src/gui/GUIApplicationWindow.cpp:1518
 msgid "Open sumo config in netedit"
-msgstr ""
+msgstr "sumo 구성을 netedit에서 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1851
 #, c-format
 msgid "Loading of '%' failed!"
-msgstr ""
+msgstr "'%' 로드에 실패했습니다!"
 
 #: src/gui/GUIApplicationWindow.cpp:1865
 #, c-format
 msgid "'%' loaded."
-msgstr ""
+msgstr "'%'가 로드되었습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1979
+#, fuzzy
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO Interactive 신호등"
 
 #: src/gui/GUIApplicationWindow.cpp:1981
+#, fuzzy
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO Interactive 수요-응답형-수송"
 
 #: src/gui/GUIApplicationWindow.cpp:2109
 msgid "Simulation ended at time: %. (%)"
-msgstr ""
+msgstr "시뮬레이션이 다음 시간에 종료되었습니다: %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2112
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "시뮬레이션이 다음 시간에 종료되었습니다: %."
 
 #: src/gui/GUIApplicationWindow.cpp:2113
 msgid "Reason:"
-msgstr ""
+msgstr "원인:"
 
 #: src/gui/GUIApplicationWindow.cpp:2114
+#, fuzzy
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "열려있는 모든 파일과 창을 닫으시겠습니까?"
 
 #: src/gui/GUIApplicationWindow.cpp:2115
 msgid "Simulation ended"
-msgstr ""
+msgstr "시뮬레이션 종료됨"
 
 #: src/gui/GUIApplicationWindow.cpp:2213 src/gui/GUILoadThread.cpp:114
+#, fuzzy
 msgid "Loading '%'."
-msgstr ""
+msgstr "'%' 불러오는 중."
 
 #: src/gui/GUIApplicationWindow.cpp:2366 src/gui/GUIApplicationWindow.cpp:2368
 #: src/gui/GUIApplicationWindow.cpp:2369 src/gui/GUIApplicationWindow.cpp:2370
+#, fuzzy
 msgid "seconds"
-msgstr ""
+msgstr "초"
 
 #: src/gui/GUIApplicationWindow.cpp:2513
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "%에 중단점 설정"
 
 #: src/gui/GUILoadThread.cpp:206
+#, fuzzy
 msgid "Could not load edgedata-files '%'"
-msgstr ""
+msgstr "EdgeData 파일 '%'를 불러올 수 없습니다."
 
 #: src/gui/GUIRunThread.cpp:108 src/gui/GUIRunThread.cpp:114
+#, fuzzy
 msgid "Quitting (on error)."
-msgstr ""
+msgstr "종료 중 (에러에 의함)."
 
 #: src/gui/GUIRunThread.cpp:273
 msgid "Simulation started with time: %."
-msgstr ""
+msgstr "시뮬레이션이 다음 시간에 시작되었습니다: %."
 
 #: src/gui/GUISUMOViewParent.cpp:142 src/netedit/GNEViewParent.cpp:475
 msgid "Save Snapshot"
-msgstr ""
+msgstr "스냅샷 저장"
 
 #: src/gui/GUISUMOViewParent.cpp:160 src/netedit/GNEViewParent.cpp:489
 msgid "No file extension was specified - saving Snapshot as PNG."
-msgstr ""
+msgstr "파일 확장자가 지정되지 않았습니다 - 스냅샷을 PNG로 저장합니다."
 
 #: src/gui/GUISUMOViewParent.cpp:166 src/netedit/GNEViewParent.cpp:494
 msgid "Saving failed."
-msgstr ""
+msgstr "저장 실패."
 
 #: src/gui/GUISUMOViewParent.cpp:168 src/netedit/GNEViewParent.cpp:496
 msgid "Snapshot successfully saved!"
-msgstr ""
+msgstr "스냅샷이 성공적으로 저장되었습니다!"
 
 #: src/gui/GUISUMOViewParent.cpp:212 src/gui/GUISUMOViewParent.cpp:261
 msgid "Unknown Message ID in onCmdLocate"
-msgstr ""
+msgstr "onCmdLocate에서 알 수 없는 메시지 ID"
 
 #: src/gui/GUISUMOViewParent.cpp:226 src/netedit/GNEViewParent.cpp:522
+#, fuzzy
 msgid "Junction Chooser"
-msgstr ""
+msgstr "교차점 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:230 src/netedit/GNEViewParent.cpp:529
 msgid "Edge Chooser"
-msgstr ""
+msgstr "Edge 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:234 src/netedit/GNEViewParent.cpp:543
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:91
 msgid "Vehicle Chooser"
-msgstr ""
+msgstr "차량 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:238 src/netedit/GNEViewParent.cpp:554
 msgid "Person Chooser"
-msgstr ""
+msgstr "Person 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:242 src/netedit/GNEViewParent.cpp:564
 msgid "Container Chooser"
-msgstr ""
+msgstr "컨테이너 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:246
 msgid "Traffic Lights Chooser"
-msgstr ""
+msgstr "신호등 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:250
+#, fuzzy
 msgid "Additional Objects Chooser"
-msgstr ""
+msgstr "부가 오브젝트 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:254 src/netedit/GNEViewParent.cpp:615
 msgid "POI Chooser"
-msgstr ""
+msgstr "POI 선택기"
 
 #: src/gui/GUISUMOViewParent.cpp:258
 msgid "Polygon Chooser"
-msgstr ""
+msgstr "폴리곤 선택기"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:277
 msgid "phase names"
@@ -974,110 +993,113 @@ msgstr ""
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:281
 msgid "conditions"
-msgstr ""
+msgstr "조건"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:345
 msgid "Overflow in time computation occurred."
-msgstr ""
+msgstr "시간 계산 과정에서 Overflow가 발생했습니다."
 
 #: src/gui/GUIViewTraffic.cpp:110 src/netedit/GNEViewNet.cpp:389
 msgid "Locate Junctions"
-msgstr ""
+msgstr "교차점 검색"
 
 #: src/gui/GUIViewTraffic.cpp:110
 msgid "Locate a junction within the network."
-msgstr ""
+msgstr "네트워크 내에서 교차점을 찾습니다."
 
 #: src/gui/GUIViewTraffic.cpp:115 src/netedit/GNEViewNet.cpp:393
 msgid "Locate Edges"
-msgstr ""
+msgstr "Edge 검색"
 
 #: src/gui/GUIViewTraffic.cpp:115
 msgid "Locate an edge within the network."
-msgstr ""
+msgstr "네트워크 내에서 Edge를 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:120 src/netedit/GNEViewNet.cpp:401
 msgid "Locate Vehicles"
-msgstr ""
+msgstr "차량 검색"
 
 #: src/gui/GUIViewTraffic.cpp:120
 msgid "Locate a vehicle within the network."
-msgstr ""
+msgstr "네트워크 내에서 차량을 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:125 src/netedit/GNEViewNet.cpp:405
 msgid "Locate Persons"
-msgstr ""
+msgstr "Person 검색"
 
 #: src/gui/GUIViewTraffic.cpp:125
 msgid "Locate a person within the network."
-msgstr ""
+msgstr "네트워크 내에서 Person을 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate Container"
-msgstr ""
+msgstr "컨테이너 검색"
 
 #: src/gui/GUIViewTraffic.cpp:130
 msgid "Locate a container within the network."
-msgstr ""
+msgstr "네트워크 내에서 컨테이너를 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:135 src/netedit/GNEViewNet.cpp:428
 msgid "Locate TLS"
-msgstr ""
+msgstr "TLS 검색"
 
 #: src/gui/GUIViewTraffic.cpp:135
 msgid "Locate a tls within the network."
-msgstr ""
+msgstr "네트워크 내에서 TLS를 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:140 src/netedit/GNEViewNet.cpp:432
 msgid "Locate Additional"
-msgstr ""
+msgstr "추가 요소 검색"
 
 #: src/gui/GUIViewTraffic.cpp:140
 msgid "Locate an additional structure within the network."
-msgstr ""
+msgstr "네트워크 내에서 추가 구조물을 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:145 src/netedit/GNEViewNet.cpp:436
 msgid "Locate PoI"
-msgstr ""
+msgstr "POI 검색"
 
 #: src/gui/GUIViewTraffic.cpp:145
 msgid "Locate a PoI within the network."
-msgstr ""
+msgstr "네트워크 내에서 POI를 검색합니다."
 
 #: src/gui/GUIViewTraffic.cpp:150 src/netedit/GNEViewNet.cpp:440
 msgid "Locate Polygon"
-msgstr ""
+msgstr "Polygon 검색"
 
 #: src/gui/GUIViewTraffic.cpp:150
 msgid "Locate a Polygon within the network."
-msgstr ""
+msgstr "네트워크 내에서 Polygon을 검색합니다."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:39
+#, fuzzy
 msgid "About Eclipse SUMO sumo-gui"
-msgstr ""
+msgstr "Eclipse SUMO sumo-gui에 대해서"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:54
+#, fuzzy
 msgid ""
 "Graphical user interface for the microscopic, multi-modal traffic simulation"
 " SUMO."
-msgstr ""
+msgstr "미시적, 멀티모달 시뮬레이션 SUMO의 GUI(그래픽 사용자 인터페이스) 입니다."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:57
+#, fuzzy
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:64
 #: src/netedit/dialogs/GNEAboutDialog.cpp:60
 msgid ""
 "This application is based on code provided by the Eclipse SUMO project."
-msgstr ""
+msgstr "이 애플리케이션은 Eclipse SUMO 프로젝트에서 제공한 코드를 기반으로 합니다."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:65
 #: src/netedit/dialogs/GNEAboutDialog.cpp:61
 msgid ""
 "These core components are available under the conditions of the Eclipse "
 "Public License v2."
-msgstr ""
+msgstr "이 핵심 구성 요소는 Eclipse Public License v2 조건에 따라 사용할 수 있습니다."
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:74
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
@@ -1087,7 +1109,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:97
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
-msgstr ""
+msgstr "확인"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
@@ -1095,67 +1117,69 @@ msgstr "시뮬레이션 종료시 프로그램 종료"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:64
 msgid "Autostart Simulation on Load and Reload"
-msgstr ""
+msgstr "Load/Reload 시 시뮬레이션 자동 실행"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:66
+#, fuzzy
 msgid "Reload Simulation after finish (Demo mode)"
-msgstr ""
+msgstr "시뮬레이션 종료 시 Reload (실험 기능)"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:68
 msgid "Locate elements when clicking on messages"
-msgstr ""
+msgstr "메세지 클릭 시 요소 위치 찾기"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:74
 msgid "Breakpoint offset when clicking on time message"
-msgstr ""
+msgstr "시간 메시지 클릭 시 중단점 오프셋"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:98
+#, fuzzy
 msgid "Allow Textures"
-msgstr ""
+msgstr "텍스처 허용"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:101
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:137
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1073
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2590
 msgid "&OK"
-msgstr ""
+msgstr "확인(&O)"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:138
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1074
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2591
 msgid "&Cancel"
-msgstr ""
+msgstr "취소(&C)"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:71
 msgid "Breakpoints Editor"
-msgstr ""
+msgstr "중단점 편집기"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:93
 msgid "&Load"
-msgstr ""
+msgstr "불러오기(&L)"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:95
 msgid "&Save"
-msgstr ""
+msgstr "저장(&S)"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:98
 msgid "Clea&r"
-msgstr ""
+msgstr "Clear(&C)"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:131
 #: src/netedit/GNETagPropertiesDatabase.cpp:1785
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:440
 msgid "Time"
-msgstr ""
+msgstr "시간"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:157
 msgid "Load Breakpoints"
-msgstr ""
+msgstr "중단점 불러오기"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:178
 msgid "Save Breakpoints"
-msgstr ""
+msgstr "중단점 저장"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:190
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:165
@@ -1163,25 +1187,29 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:246
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1185
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1268
+#, fuzzy
 msgid "Storing failed!"
-msgstr ""
+msgstr "Storing에 실패했습니다!"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:259
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:262
 msgid "Time format error"
-msgstr ""
+msgstr "시간 포맷 오류"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:46
+#, fuzzy
 msgid "- General problem solving"
-msgstr ""
+msgstr "- 일반적 문제 해결"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:50
+#, fuzzy
 msgid "- Sumo-user mailing list"
-msgstr ""
+msgstr "- Sumo-user 메일링 리스트"
 
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:54
+#, fuzzy
 msgid "- Send us an Email"
-msgstr ""
+msgstr "- 이메일 보내기"
 
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:55
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
@@ -1189,27 +1217,27 @@ msgstr ""
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:60
 #, c-format
 msgid "Hotkey '%' is not supported"
-msgstr ""
+msgstr "지원되지 않는 단축키 '%'"
 
 #: src/guisim/GUIBaseVehicle.cpp:304
 msgid "GUI-triggered stop not implemented for meso"
-msgstr ""
+msgstr "GUI에서 트리거된 정지는 meso에서 구현되지 않았습니다"
 
 #: src/guisim/GUIBaseVehicle.cpp:352
 msgid "Hide Current Route"
-msgstr ""
+msgstr "현재 Route 숨기기"
 
 #: src/guisim/GUIBaseVehicle.cpp:354
 msgid "Show Current Route"
-msgstr ""
+msgstr "현재 Route 보이기"
 
 #: src/guisim/GUIBaseVehicle.cpp:357
 msgid "Hide Future Route"
-msgstr ""
+msgstr "미래 Route 숨기기"
 
 #: src/guisim/GUIBaseVehicle.cpp:359
 msgid "Show Future Route"
-msgstr ""
+msgstr "미래 Route 보이기"
 
 #: src/guisim/GUIBaseVehicle.cpp:362
 msgid "Hide All Routes"
@@ -1220,40 +1248,48 @@ msgid "Show All Routes"
 msgstr "모든 Route 보이기"
 
 #: src/guisim/GUIBaseVehicle.cpp:367 src/guisim/GUIBaseVehicle.cpp:370
+#, fuzzy
 msgid "Draw looped routes"
-msgstr ""
+msgstr "루프된 Route 그리기"
 
 #: src/guisim/GUIBaseVehicle.cpp:374
+#, fuzzy
 msgid "Hide Best Lanes"
-msgstr ""
+msgstr "최적 차로 숨기기"
 
 #: src/guisim/GUIBaseVehicle.cpp:376
 msgid "Show Best Lanes"
-msgstr ""
+msgstr "최적 차로 보이기"
 
 #: src/guisim/GUIBaseVehicle.cpp:379
+#, fuzzy
 msgid "Hide Link Items"
-msgstr ""
+msgstr "Link 항목 숨기기"
 
 #: src/guisim/GUIBaseVehicle.cpp:381
+#, fuzzy
 msgid "Show Link Items"
-msgstr ""
+msgstr "Link 항목 보이기"
 
 #: src/guisim/GUIBaseVehicle.cpp:385
+#, fuzzy
 msgid "Start Tracking"
-msgstr ""
+msgstr "추적 시작"
 
 #: src/guisim/GUIBaseVehicle.cpp:387
+#, fuzzy
 msgid "Stop Tracking"
-msgstr ""
+msgstr "추적 정지"
 
 #: src/guisim/GUIBaseVehicle.cpp:389
+#, fuzzy
 msgid "Select Foes"
-msgstr ""
+msgstr "Foe 선택"
 
 #: src/guisim/GUIBaseVehicle.cpp:391
+#, fuzzy
 msgid "Select transported"
-msgstr ""
+msgstr "transported 선택"
 
 #: src/guisim/GUIBaseVehicle.cpp:393
 msgid "Abort stop"
@@ -1262,172 +1298,188 @@ msgstr ""
 #: src/guisim/GUIBaseVehicle.cpp:393
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
 msgid "Stop"
-msgstr ""
+msgstr "정지"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1333
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1401
 msgid "Remove"
-msgstr ""
+msgstr "제거"
 
 #: src/guisim/GUIBaseVehicle.cpp:883 src/guisim/GUIVehicle.cpp:635
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
-msgstr ""
+msgstr "차량 '%'의 차량 매개변수 '%' 키 '%'이(가) 숫자가 아닙니다."
 
 #: src/guisim/GUIBusStop.cpp:149 src/guisim/GUIChargingStation.cpp:83
 #: src/guisim/GUIE2Collector.cpp:129 src/guisim/GUIE3Collector.cpp:80
 #: src/guisim/GUIInductLoop.cpp:140 src/guisim/GUIInstantInductLoop.cpp:96
 #: src/guisim/GUIJunctionWrapper.cpp:122 src/guisim/GUIParkingArea.cpp:110
 msgid "name"
-msgstr ""
+msgstr "이름"
 
 #: src/guisim/GUIBusStop.cpp:150 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
 msgid "begin position [m]"
-msgstr ""
+msgstr "시작 위치 [m]"
 
 #: src/guisim/GUIBusStop.cpp:151 src/guisim/GUIChargingStation.cpp:85
 #: src/guisim/GUIInductLoop.cpp:143 src/guisim/GUIOverheadWire.cpp:110
 #: src/guisim/GUIParkingArea.cpp:112
 msgid "end position [m]"
-msgstr ""
+msgstr "종료 위치 [m]"
 
 #: src/guisim/GUIBusStop.cpp:152
 msgid "lines"
 msgstr ""
 
 #: src/guisim/GUIBusStop.cpp:153
+#, fuzzy
 msgid "parking length [m]"
-msgstr ""
+msgstr "주차 길이 [m]"
 
 #: src/guisim/GUIBusStop.cpp:157 src/guisim/GUIChargingStation.cpp:86
+#, fuzzy
 msgid "stopped vehicles [#]"
-msgstr ""
+msgstr "정지된 차량 수 [#]"
 
 #: src/guisim/GUIBusStop.cpp:158 src/guisim/GUIChargingStation.cpp:87
+#, fuzzy
 msgid "last free pos [m]"
-msgstr ""
+msgstr "마지막 free pos [m]"
 
 #: src/guisim/GUIBusStop.cpp:172
+#, fuzzy
 msgid "waiting for:"
-msgstr ""
+msgstr "다음을 기다리는 중:"
 
 #: src/guisim/GUICalibrator.cpp:295
+#, fuzzy
 msgid "interval start"
-msgstr ""
+msgstr "구간 시작"
 
 #: src/guisim/GUICalibrator.cpp:296
+#, fuzzy
 msgid "interval end"
-msgstr ""
+msgstr "구간 끝"
 
 #: src/guisim/GUICalibrator.cpp:297
+#, fuzzy
 msgid "aspired flow [veh/h]"
-msgstr ""
+msgstr "목표 교통량 [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:298
 msgid "aspired speed"
-msgstr ""
+msgstr "목표 속도"
 
 #: src/guisim/GUICalibrator.cpp:299
 msgid "current flow [veh/h]"
-msgstr ""
+msgstr "현재 교통량 [veh/h]"
 
 #: src/guisim/GUICalibrator.cpp:300
 msgid "current speed"
-msgstr ""
+msgstr "현재 속도"
 
 #: src/guisim/GUICalibrator.cpp:301
 msgid "default speed"
-msgstr ""
+msgstr "기본 속도"
 
 #: src/guisim/GUICalibrator.cpp:302
+#, fuzzy
 msgid "required vehicles"
-msgstr ""
+msgstr "요구 차량 수"
 
 #: src/guisim/GUICalibrator.cpp:303
+#, fuzzy
 msgid "passed vehicles"
-msgstr ""
+msgstr "지나간 차량 수"
 
 #: src/guisim/GUICalibrator.cpp:304
+#, fuzzy
 msgid "inserted vehicles"
-msgstr ""
+msgstr "삽입된 차량 수"
 
 #: src/guisim/GUICalibrator.cpp:305
+#, fuzzy
 msgid "removed vehicles"
-msgstr ""
+msgstr "삭제된 차량 수"
 
 #: src/guisim/GUICalibrator.cpp:306
+#, fuzzy
 msgid "cleared in jam"
-msgstr ""
+msgstr "교통 정체 해소됨"
 
 #: src/guisim/GUICalibrator.cpp:313
+#, fuzzy
 msgid "inactive until"
-msgstr ""
+msgstr "비활성화 해제 시점"
 
 #: src/guisim/GUIChargingStation.cpp:88
 msgid "charging power [W]"
-msgstr ""
+msgstr "충전 전력 [W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "total charging power [W]"
-msgstr ""
+msgstr "총 충전 전력 [W]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charging efficiency [#]"
-msgstr ""
+msgstr "충전 효율 [#]"
 
 #: src/guisim/GUIChargingStation.cpp:91
 msgid "charge in transit [true/false]"
-msgstr ""
+msgstr "이동 중 충전 [true/false]"
 
 #: src/guisim/GUIChargingStation.cpp:92
 msgid "charge delay [s]"
-msgstr ""
+msgstr "충전 지연 [s]"
 
 #: src/guisim/GUIChargingStation.cpp:93
+#, fuzzy
 msgid "charge type"
-msgstr ""
+msgstr "충전 유형"
 
 #: src/guisim/GUIChargingStation.cpp:94 src/guisim/GUIContainer.cpp:175
 #: src/guisim/GUIPerson.cpp:243 src/guisim/GUIVehicle.cpp:136
 msgid "waiting time [s]"
-msgstr ""
+msgstr "대기 시간 [s]"
 
 #: src/guisim/GUIContainer.cpp:164 src/guisim/GUIPerson.cpp:230
+#, fuzzy
 msgid "stage"
-msgstr ""
+msgstr "단계"
 
 #: src/guisim/GUIContainer.cpp:166 src/guisim/GUIPerson.cpp:232
 msgid "stage index"
-msgstr ""
+msgstr "단계 Index"
 
 #: src/guisim/GUIContainer.cpp:167 src/guisim/GUIPerson.cpp:233
 msgid "start edge [id]"
-msgstr ""
+msgstr "시작 Edge [id]"
 
 #: src/guisim/GUIContainer.cpp:168 src/guisim/GUIPerson.cpp:234
+#, fuzzy
 msgid "dest edge [id]"
-msgstr ""
+msgstr "도착 Edge [id]"
 
 #: src/guisim/GUIContainer.cpp:169
 msgid "arrivalPos [m]"
-msgstr ""
+msgstr "도착 위치 [m]"
 
 #: src/guisim/GUIContainer.cpp:170 src/guisim/GUIPerson.cpp:237
 msgid "edge [id]"
-msgstr ""
+msgstr "Edge [id]"
 
 #: src/guisim/GUIContainer.cpp:171 src/guisim/GUIE2Collector.cpp:131
 #: src/guisim/GUIInductLoop.cpp:141 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIPerson.cpp:239 src/guisim/GUIVehicle.cpp:118
 msgid "position [m]"
-msgstr ""
+msgstr "위치 [m]"
 
 #: src/guisim/GUIContainer.cpp:172 src/guisim/GUIInductLoop.cpp:152
 #: src/guisim/GUILaneSpeedTrigger.cpp:302 src/guisim/GUIPerson.cpp:240
 #: src/guisim/GUIVehicle.cpp:122
 msgid "speed [m/s]"
-msgstr ""
+msgstr "속도 [m/s]"
 
 #: src/guisim/GUIContainer.cpp:173 src/guisim/GUIPerson.cpp:241
 #: src/guisim/GUIVehicle.cpp:132
@@ -1437,7 +1489,7 @@ msgstr ""
 #: src/guisim/GUIContainer.cpp:174 src/guisim/GUIPerson.cpp:242
 #: src/guisim/GUIVehicle.cpp:128
 msgid "angle [degree]"
-msgstr ""
+msgstr "각도 [degree]"
 
 #: src/guisim/GUIContainer.cpp:176 src/guisim/GUIPerson.cpp:246
 #: src/guisim/GUIVehicle.cpp:148
@@ -1446,35 +1498,35 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:256
 msgid "length"
-msgstr ""
+msgstr "길이"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:257
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2275
 msgid "width"
-msgstr ""
+msgstr "너비"
 
 #: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:258
 msgid "height"
-msgstr ""
+msgstr "높이"
 
 #: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:259
 msgid "minGap"
-msgstr ""
+msgstr "최소 간격"
 
 #: src/guisim/GUIContainer.cpp:190 src/guisim/GUIPerson.cpp:260
 #: src/guisim/GUIVehicle.cpp:241
 msgid "mass [kg]"
-msgstr ""
+msgstr "질량 [kg]"
 
 #: src/guisim/GUIContainer.cpp:191 src/guisim/GUIPerson.cpp:262
 #: src/guisim/GUIVehicle.cpp:245
 msgid "maximum speed [m/s]"
-msgstr ""
+msgstr "최대 속도 [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:130 src/guisim/GUIEdge.cpp:188
 #: src/guisim/GUILane.cpp:1062 src/guisim/GUIVehicle.cpp:235
 msgid "length [m]"
-msgstr ""
+msgstr "길이 [m]"
 
 #: src/guisim/GUIE2Collector.cpp:132 src/guisim/GUIInductLoop.cpp:145
 #: src/guisim/GUIInstantInductLoop.cpp:98
@@ -1485,207 +1537,239 @@ msgstr "차로"
 #: src/guisim/GUIE2Collector.cpp:134 src/guisim/GUIE3Collector.cpp:82
 #: src/guisim/GUIInductLoop.cpp:147 src/guisim/GUIInstantInductLoop.cpp:100
 msgid "vTypes"
-msgstr ""
+msgstr "vTypes"
 
 #: src/guisim/GUIE2Collector.cpp:137 src/guisim/GUIEdge.cpp:197
+#, fuzzy
 msgid "vehicles [#]"
-msgstr ""
+msgstr "차량 수 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:139 src/guisim/GUIInductLoop.cpp:154
+#, fuzzy
 msgid "occupancy [%]"
-msgstr ""
+msgstr "점유 [%]"
 
 #: src/guisim/GUIE2Collector.cpp:141 src/guisim/GUIE3Collector.cpp:86
 msgid "mean speed [m/s]"
-msgstr ""
+msgstr "평균 속도 [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:143
 msgid "mean vehicle length [m]"
-msgstr ""
+msgstr "평균 차량 길이 [m]"
 
 #: src/guisim/GUIE2Collector.cpp:145
+#, fuzzy
 msgid "jam number [#]"
-msgstr ""
+msgstr "정체 횟수 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:147
+#, fuzzy
 msgid "max jam length [veh]"
-msgstr ""
+msgstr "최대 정체 길이 [veh]"
 
 #: src/guisim/GUIE2Collector.cpp:149
+#, fuzzy
 msgid "max jam length [m]"
-msgstr ""
+msgstr "최대 정체 길이 [m]"
 
 #: src/guisim/GUIE2Collector.cpp:151
+#, fuzzy
 msgid "jam length sum [veh]"
-msgstr ""
+msgstr "정체 길이 합계 [veh]"
 
 #: src/guisim/GUIE2Collector.cpp:153
 msgid "jam length sum [m]"
-msgstr ""
+msgstr "정체 길이 합계 [m]"
 
 #: src/guisim/GUIE2Collector.cpp:155
+#, fuzzy
 msgid "started halts [#]"
-msgstr ""
+msgstr "정지 시작 횟수 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:157
+#, fuzzy
 msgid "interval seen vehicles [#]"
-msgstr ""
+msgstr "구간 내 감지 차량 수 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:159 src/guisim/GUIInductLoop.cpp:164
 msgid "interval speed [m/s]"
-msgstr ""
+msgstr "구간 속도 [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:161 src/guisim/GUIInductLoop.cpp:166
+#, fuzzy
 msgid "interval occupancy [%]"
-msgstr ""
+msgstr "구간 점유율 [%]"
 
 #: src/guisim/GUIE2Collector.cpp:163
+#, fuzzy
 msgid "interval max jam length [m]"
-msgstr ""
+msgstr "구간 최대 정체 길이 [m]"
 
 #: src/guisim/GUIE2Collector.cpp:165
 msgid "last interval seen vehicles [#]"
-msgstr ""
+msgstr "이전 구간 감지 차량 수 [#]"
 
 #: src/guisim/GUIE2Collector.cpp:167 src/guisim/GUIInductLoop.cpp:170
 msgid "last interval speed [m/s]"
-msgstr ""
+msgstr "이전 구간 속도 [m/s]"
 
 #: src/guisim/GUIE2Collector.cpp:169 src/guisim/GUIInductLoop.cpp:172
 msgid "last interval occupancy [%]"
-msgstr ""
+msgstr "이전 구간 점유율 [%]"
 
 #: src/guisim/GUIE2Collector.cpp:171
 msgid "last interval max jam length [m]"
-msgstr ""
+msgstr "이전 구간 최대 정체 길이 [m]"
 
 #: src/guisim/GUIE3Collector.cpp:84
 msgid "vehicles within [#]"
-msgstr ""
+msgstr "내부 차량 수 [#]"
 
 #: src/guisim/GUIE3Collector.cpp:88
+#, fuzzy
 msgid "haltings [#]"
-msgstr ""
+msgstr "정지 횟수 [#]"
 
 #: src/guisim/GUIE3Collector.cpp:90
+#, fuzzy
 msgid "last interval mean travel time [s]"
-msgstr ""
+msgstr "이전 구간 평균 이동 시간 [s]"
 
 #: src/guisim/GUIE3Collector.cpp:92
+#, fuzzy
 msgid "last interval mean haltings [#]"
-msgstr ""
+msgstr "이전 구간 평균 정지 횟수 [#]"
 
 #: src/guisim/GUIE3Collector.cpp:94
 msgid "last interval mean time loss [s]"
-msgstr ""
+msgstr "이전 구간 평균 시간 손실 [s]"
 
 #: src/guisim/GUIE3Collector.cpp:96
 msgid "last interval mean vehicle count [#]"
-msgstr ""
+msgstr "이전 구간 평균 차량 수 [#]"
 
 #: src/guisim/GUIEdge.cpp:187
 msgid "max speed [m/s]"
-msgstr ""
+msgstr "최대 속도 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:189 src/guisim/GUILane.cpp:1064
+#, fuzzy
 msgid "street name"
-msgstr ""
+msgstr "도로명 (street)"
 
 #: src/guisim/GUIEdge.cpp:190 src/guisim/GUILane.cpp:1072
 msgid "pending insertions [#]"
-msgstr ""
+msgstr "대기 중인 삽입 차량 수[#]"
 
 #: src/guisim/GUIEdge.cpp:191
 msgid "mean friction [%]"
-msgstr ""
+msgstr "평균 마찰 [%]"
 
 #: src/guisim/GUIEdge.cpp:192
 msgid "mean vehicle speed [m/s]"
-msgstr ""
+msgstr "평균 차량 속도 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:193 src/guisim/GUILane.cpp:1067
+#, fuzzy
 msgid "routing speed [m/s]"
-msgstr ""
+msgstr "라우팅 속도 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:194 src/guisim/GUILane.cpp:1069
 msgid "time penalty [s]"
-msgstr ""
+msgstr "시간 패널티 [s]"
 
 #: src/guisim/GUIEdge.cpp:195 src/guisim/GUILane.cpp:1070
+#, fuzzy
 msgid "brutto occupancy [%]"
-msgstr ""
+msgstr "brutto 점유율 [%]"
 
 #: src/guisim/GUIEdge.cpp:196
+#, fuzzy
 msgid "edge flow [veh/h/m]"
-msgstr ""
+msgstr "Edge 교통량 [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:200
+#, fuzzy
 msgid "segment index"
-msgstr ""
+msgstr "segment index"
 
 #: src/guisim/GUIEdge.cpp:201
+#, fuzzy
 msgid "segment queues"
-msgstr ""
+msgstr "segment 대기열"
 
 #: src/guisim/GUIEdge.cpp:202
+#, fuzzy
 msgid "segment length [m]"
-msgstr ""
+msgstr "segment 길이 [m]"
 
 #: src/guisim/GUIEdge.cpp:203
+#, fuzzy
 msgid "segment allowed speed [m/s]"
-msgstr ""
+msgstr "segment 허용 속도 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:204
+#, fuzzy
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "segment 교통 정체 임계값 [%]"
 
 #: src/guisim/GUIEdge.cpp:205
+#, fuzzy
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "segment brutto 점유율 [%]"
 
 #: src/guisim/GUIEdge.cpp:206
+#, fuzzy
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "segment 평균 차량 속도 [m/s]"
 
 #: src/guisim/GUIEdge.cpp:207
+#, fuzzy
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "segment 교통 흐름 [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:208
+#, fuzzy
 msgid "segment vehicles [#]"
-msgstr ""
+msgstr "segment 차량 수 [#]"
 
 #: src/guisim/GUIEdge.cpp:209
+#, fuzzy
 msgid "segment leader leave time"
-msgstr ""
+msgstr "segment 선두 이탈 시간"
 
 #: src/guisim/GUIEdge.cpp:210
+#, fuzzy
 msgid "segment headway [s]"
-msgstr ""
+msgstr "segment 차두시간 [s]"
 
 #: src/guisim/GUIEdge.cpp:211
+#, fuzzy
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "segment 진입 차단 시간 [s]"
 
 #: src/guisim/GUIEdge.cpp:229
 msgid "Type Information:"
-msgstr ""
+msgstr "유형 정보:"
 
 #: src/guisim/GUIEdge.cpp:230
 msgid "type [id]"
-msgstr ""
+msgstr "유형 [id]"
 
 #: src/guisim/GUIEdge.cpp:231
+#, fuzzy
 msgid "routing type [id]"
-msgstr ""
+msgstr "라우팅 유형 [id]"
 
 #: src/guisim/GUIEdge.cpp:232
+#, fuzzy
 msgid "tauff"
-msgstr ""
+msgstr "tauff"
 
 #: src/guisim/GUIEdge.cpp:233
+#, fuzzy
 msgid "taufj"
-msgstr ""
+msgstr "taufj"
 
 #: src/guisim/GUIEdge.cpp:234
 msgid "taujf"
