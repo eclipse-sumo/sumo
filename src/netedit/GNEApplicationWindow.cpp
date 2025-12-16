@@ -750,6 +750,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert file dialog
     const GNEFileDialog netConvertFileDialog(this, TL("netconvert config file"),
             SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
@@ -758,8 +759,20 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
             myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((netConvertFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
-        // load configuration
-        loadConfiguration(netConvertFileDialog.getFilename());
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
+        // reset netedit options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set netconvert configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("netccfg-file", netConvertFileDialog.getFilename());
+        // run load thread
+        myLoadThread->loadNetworkOrConfig();
+        // update view
+        update();
     }
     return 1;
 }
@@ -818,7 +831,7 @@ GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
         myLoadThread->setDefaultOptions(neteditOptions);
         // set netedit configuration file to load
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", neteditConfigFileDialog.getFilename());
+        neteditOptions.set("netecfg-file", neteditConfigFileDialog.getFilename());
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -846,8 +859,9 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set sumo config
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename());
+        // set sumo configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", sumoConfigFileDialog.getFilename());
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -871,9 +885,9 @@ GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set configuration file to load
+        // set netedit configuration file to load
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", neteditConfigFile);
+        neteditOptions.set("netecg-file", neteditConfigFile);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
