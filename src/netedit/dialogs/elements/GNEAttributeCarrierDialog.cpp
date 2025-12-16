@@ -201,7 +201,7 @@ GNEAttributeCarrierDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 void
-GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* AC) {
+GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* /* AC */) {
     // Create auxiliar frames for rows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
