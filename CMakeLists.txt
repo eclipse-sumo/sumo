@@ -124,6 +124,10 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=5000000")
+        if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 10 AND CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+            # see the last bulletpoint about ABI at https://gcc.gnu.org/gcc-10/changes.html#cxx
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-psabi")
+        endif()
     endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
