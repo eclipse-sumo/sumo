@@ -33,7 +33,7 @@ wheel.py-api = "py3"
 
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"
-build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64", "cp312-win_amd64"]
+build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64", "cp312-win_amd64", "cp312-macosx_arm64"]
 
 [tool.cibuildwheel.windows]
 before-all = ""
