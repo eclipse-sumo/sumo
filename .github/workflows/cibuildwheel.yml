@@ -117,7 +117,7 @@ jobs:
         # to work around actions/checkout#1467
         ref: ${{ github.ref }}
 
-    - name: Downloading Wheels artifact
+    - name: Downloading wheels artifact
       uses: actions/download-artifact@v7
       with:
         path: python-wheels
@@ -128,24 +128,32 @@ jobs:
       with:
         python-version: ${{ matrix.python_version }}
 
-    - name: Installing dependencies
-      if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
-      # we just need proj.db
-      run: brew update && brew install proj
+    # - name: Installing dependencies
+    #   if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
+    #   # we just need proj.db
+    #   run: brew update && brew install proj
 
     - name: Preparing Python environment
       run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install wheel  # need to do this separately because the texttest install wants it
-        python3 -m pip install texttest
-        python3 -m pip install --no-index -f python-wheels eclipse_sumo
-        python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
+        python3 -m venv testenv --system-site-packages
+        testenv/bin/python -m pip install --upgrade pip
+        testenv/bin/python -m pip install wheel  # need to do this separately because the texttest install wants it
+        testenv/bin/python -m pip install texttest
+        testenv/bin/python -m pip install --no-index -f python-wheels eclipse_sumo
+        testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
-    - name: Running "sumo in the wheel" tests and cleaning up
+    - name: Running "sumo in the wheel" tests without full dependencies
       run: |
+        source testenv/bin/activate
+        python -m pip install pyproj
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
-        tests/runTests.sh -b ci -v ci -ts meta
-        python3 -m pip uninstall -y eclipse-sumo
+
+    - name: Running remaining "sumo in the wheel" tests and cleaning up
+      run: |
+        source testenv/bin/activate
+        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
+        tests/runTests.sh -b ci -v ci.fast -a complex,sumo,tools,traci
+        rm -rf testenv
 
     - name: Building helper wheels
       run: |
@@ -155,15 +163,22 @@ jobs:
         python3 -m build --wheel
         python3 build_config/version.py build_config/setup-traci.py ./setup.py
         python3 -m build --wheel
+        python3 -m pip install --no-index -f dist sumolib traci
 
-    - name: Running libsumo tests
+    - name: Installing libsumo wheels (mac)
+      if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
+      run: python3 -m pip install --no-index -f python-wheels libsumo
+
+    - name: Installing libsumo wheels (linux)
+      if: matrix.os != 'macos-14' && matrix.os != 'macos-15'
       run: |
+        ls python-wheels
         WHEEL=$(ls python-wheels/libsumo*cp${{ matrix.python_version }}-*${{ matrix.manylinux }}*.whl)
         echo wheel=$WHEEL
-        python3 -m pip install --no-index -f tools/dist sumolib traci
         python3 -m pip install $WHEEL
-        cd tests
-        texttest -b ci -v ci -a complex.libsumo
+
+    - name: Running libsumo tests
+      run: tests/runTests.sh -b ci -v ci -a complex.libsumo
 
     - name: Compressing test results
       if: failure()
