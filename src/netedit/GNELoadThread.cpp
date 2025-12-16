@@ -79,7 +79,7 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("osm-files").size() > 0) {
         // load an osm file
         type = GNEEvent_FileLoaded::Type::OSM;
-    } else if (neteditOptions.getString("net-file").size() > 0) {
+    } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
         // load a network file
         type = GNEEvent_FileLoaded::Type::NETWORK;
     } else if (neteditOptions.getString("netecfg-file").size() > 0) {

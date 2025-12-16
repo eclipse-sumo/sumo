@@ -48,7 +48,7 @@ void
 GNENetDiffTool::setCurrentValues() {
     myPythonToolsOptions.resetWritable();
     // obtain curren network folder
-    const auto networkPath = OptionsCont::getOptions().getString("net-file");
+    const auto networkPath = OptionsCont::getOptions().getString("sumo-net-file");
     if (networkPath.empty()) {
         myPythonToolsOptions.set("outprefix", "");
     } else {

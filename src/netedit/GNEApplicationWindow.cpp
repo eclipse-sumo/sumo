@@ -1415,7 +1415,7 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
             myViewNet->setViewportFromToRot(off, p, 0);
         }
         // set network in bucket handler
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("net-file"));
+        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
         // load elements
         loadAdditionalElements();
         loadDemandElements();

@@ -2272,7 +2272,12 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, mySumoConfigFile);
     // set load options in netedit
     neteditOptions.resetWritable();
-    neteditOptions.set("net-file", sumoOptions.getString("net-file"));
+    if (sumoOptions.getString("net-file").size() > 0) {
+        neteditOptions.set("sumo-net-file", sumoOptions.getString("net-file"));
+    } else {
+        WRITE_ERROR(TLF("No network defined in sumo configuration '%'.", mySumoConfigFile));
+        return false;
+    }
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
     return true;
@@ -2364,7 +2369,6 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     neteditOptions.relocateFiles(myNeteditConfigFile);
     // configure files in bucket
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile);
-
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"));
     // restore ignores
     neteditOptions.resetWritable();
@@ -2644,10 +2648,10 @@ GNEApplicationWindowHelper::FileBucketHandler::updateOptions() {
     }
     // network file (common)
     if (networkFile.size() > 0) {
-        myNeteditOptions.set("net-file", networkFile);
+        myNeteditOptions.set("sumo-net-file", networkFile);
         mySumoOptions.set("net-file", networkFile);
     } else {
-        myNeteditOptions.resetDefault("net-file");
+        myNeteditOptions.resetDefault("sumo-net-file");
         mySumoOptions.resetDefault("net-file");
     }
     // additional file (only netedit)
