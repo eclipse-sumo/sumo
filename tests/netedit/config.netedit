@@ -8,12 +8,18 @@ use_case_record_mode:GUI
 # CONFIGS
 copy_test_path:netedit_A.netecfg
 copy_test_path:netedit_B.netecfg
+copy_test_path:netedit_B.xml
+copy_test_path:netedit_B.txt
 
 copy_test_path:sumo_A.sumocfg
 copy_test_path:sumo_B.sumocfg
+copy_test_path:sumo_B.xml
+copy_test_path:sumo_B.txt
 
 copy_test_path:netconvert_A.netccfg
 copy_test_path:netconvert_B.netccfg
+copy_test_path:netconvert_B.xml
+copy_test_path:netconvert_B.txt
 
 # NETCONVERT FILES
 copy_test_path:input_netconvert_A.con.xml
@@ -32,6 +38,12 @@ copy_test_path:input_net_A.net.xml.gz
 copy_test_path:input_net_A.xml
 copy_test_path:input_net_A.xml.gz
 copy_test_path:input_net_A.txt
+
+copy_test_path:input_net_B.net.xml
+copy_test_path:input_net_B.net.xml.gz
+copy_test_path:input_net_B.xml
+copy_test_path:input_net_B.xml.gz
+copy_test_path:input_net_B.txt
 
 # ADDITIONALS
 copy_test_path:input_additionals_A.add.xml
@@ -85,22 +97,38 @@ copy_test_path:input_meandatas_B.xml
 copy_test_path:input_meandatas_B.xml.gz
 copy_test_path:input_meandatas_B.txt
 
+# TRAFFIC LIGHTS
+copy_test_path:trafficlights_A.tll.xml
+copy_test_path:trafficlights_A.tll.xml.gz
+copy_test_path:trafficlights_A.xml
+copy_test_path:trafficlights_A.xml.gz
+copy_test_path:trafficlights_A.txt
 
-copy_test_path:trafficlights.tll.xml
-copy_test_path:trafficlights2.tll.xml
-copy_test_path:trafficlights2.tll.xml.gz
-copy_test_path:trafficlights2.xml
-copy_test_path:trafficlights2.xml.gz
-copy_test_path:trafficlights2.txt
-copy_test_path:trafficlights3.tll.xml
+copy_test_path:trafficlights_B.tll.xml
+copy_test_path:trafficlights_B.tll.xml.gz
+copy_test_path:trafficlights_B.xml
+copy_test_path:trafficlights_B.xml.gz
+copy_test_path:trafficlights_B.txt
 
-copy_test_path:edgetypes.typ.xml
-copy_test_path:edgetypes2.typ.xml
-copy_test_path:edgetypes2.typ.xml.gz
-copy_test_path:edgetypes2.xml
-copy_test_path:edgetypes2.xml.gz
-copy_test_path:edgetypes2.txt
-copy_test_path:edgetypes3.typ.xml
+# EDGETYPES
+copy_test_path:edgetypes_A.typ.xml
+copy_test_path:edgetypes_A.typ.xml.gz
+copy_test_path:edgetypes_A.xml
+copy_test_path:edgetypes_A.xml.gz
+copy_test_path:edgetypes_A.txt
+
+copy_test_path:edgetypes_B.typ.xml
+copy_test_path:edgetypes_B.typ.xml.gz
+copy_test_path:edgetypes_B.xml
+copy_test_path:edgetypes_B.xml.gz
+copy_test_path:edgetypes_B.txt
+
+# JOINED JUNCTIONS
+copy_test_path:joinedjunctions_A.nod.xml
+copy_test_path:joinedjunctions_A.nod.xml.gz
+copy_test_path:joinedjunctions_A.xml
+copy_test_path:joinedjunctions_A.xml.gz
+copy_test_path:joinedjunctions_A.txt
 
 # OTHER
 copy_test_path:test.py
@@ -117,14 +145,19 @@ copy_test_path:loadViewport.xml
 # CONFIGS
 netedit_A:netedit_A.netecfg
 netedit_B:netedit_B.netecfg
-
-sumo_A:sumo_A.sumocfg
-sumo_B:sumo_B.sumocfg
+netedit_B_xml:netedit_B.xml
+netedit_B_txt:netedit_B.txt
 
 sumo:sumo.sumocfg
+sumo_A:sumo_A.sumocfg
+sumo_B:sumo_B.sumocfg
+sumo_B_xml:sumo_B.xml
+sumo_B_txt:sumo_B.txt
 
 netconvert_A:netconvert_A.netccfg
 netconvert_B:netconvert_B.netccfg
+netconvert_B_xml:netconvert_B.xml
+netconvert_B_txt:netconvert_B.txt
 
 # NETWORKS
 input_net_A_net_xml:input_net_A.net.xml
@@ -224,32 +257,38 @@ input_meandatas_B_xml:input_meandatas_B.xml
 input_meandatas_B_xml_gz:input_meandatas_B.xml.gz
 input_meandatas_B_txt:input_meandatas_B.txt
 
+# TRAFFIC LIGHTS
+trafficlights_A_ttl_xml:trafficlights_A.tll.xml
+trafficlights_A_ttl_xml_gz:trafficlights_A.tll.xml.gz
+trafficlights_A_xml:trafficlights_A.xml
+trafficlights_A_xml_gz:trafficlights_A.xml.gz
+trafficlights_A_txt:trafficlights_A.txt
 
+trafficlights_B_ttl_xml:trafficlights_B.tll.xml
+trafficlights_B_ttl_xml_gz:trafficlights_B.tll.xml.gz
+trafficlights_B_xml:trafficlights_B.xml
+trafficlights_B_xml_gz:trafficlights_B.xml.gz
+trafficlights_B_txt:trafficlights_B.txt
 
+# EDGETYPES
+edgetypes_A_typ_xml:edgetypes_A.typ.xml
+edgetypes_A_typ_xml_gz:edgetypes_A.typ.xml.gz
+edgetypes_A_xml:edgetypes_A.xml
+edgetypes_A_xml_gz:edgetypes_A.xml.gz
+edgetypes_A_txt:edgetypes_A.txt
 
+edgetypes_B_typ_xml:edgetypes_B.typ.xml
+edgetypes_B_typ_xml_gz:edgetypes_B.typ.xml.gz
+edgetypes_B_xml:edgetypes_B.xml
+edgetypes_B_xml_gz:edgetypes_B.xml.gz
+edgetypes_B_txt:edgetypes_B.txt
 
-trafficlights:trafficlights.tll.xml
-trafficlights_ttl_xml:trafficlights2.tll.xml
-trafficlights_ttl_xml_gz:trafficlights2.tll.xml.gz
-trafficlights_xml:trafficlights2.xml
-trafficlights_xml_gz:trafficlights2.xml.gz
-trafficlights_txt:trafficlights2.txt
-trafficlights3:trafficlights3.tll.xml
-
-edgetypes:edgetypes.typ.xml
-edgetypes_typ_xml:edgetypes2.typ.xml
-edgetypes_typ_xml_gz:edgetypes2.typ.xml.gz
-edgetypes_xml:edgetypes2.xml
-edgetypes_xml_gz:edgetypes2.xml.gz
-edgetypes_txt:edgetypes2.txt
-
-edgetypes3:edgetypes3.typ.xml
-
-joinedjunctions_nod_xml:joinedjunctions2.nod.xml
-joinedjunctions_nod_xml_gz:joinedjunctions2.nod.xml.gz
-joinedjunctions_xml:joinedjunctions2.xml
-joinedjunctions_xml_gz:joinedjunctions2.xml.gz
-joinedjunctions_txt:joinedjunctions2.txt
+# JOINED JUNCTIONS
+joinedjunctions_A_nod_xml:joinedjunctions_A.nod.xml
+joinedjunctions_A_nod_xml_gz:joinedjunctions_A.nod.xml.gz
+joinedjunctions_A_xml:joinedjunctions_A.xml
+joinedjunctions_A_xml_gz:joinedjunctions_A.xml.gz
+joinedjunctions_A_txt:joinedjunctions_A.txt
 
 # OTHER
 guisettings:guisettings.xml
@@ -265,11 +304,19 @@ netedit_A:<!-- generated{[->]}-->
 netedit_A:\\{REPLACE /}
 netedit_B:<!-- generated{[->]}-->
 netedit_B:\\{REPLACE /}
+netedit_B_xml:<!-- generated{[->]}-->
+netedit_B_xml:\\{REPLACE /}
+netedit_B_txt:<!-- generated{[->]}-->
+netedit_B_txt:\\{REPLACE /}
 
 sumo_A:<!-- generated{[->]}-->
 sumo_A:\\{REPLACE /}
 sumo_B:<!-- generated{[->]}-->
 sumo_B:\\{REPLACE /}
+sumo_B_xml:<!-- generated{[->]}-->
+sumo_B_xml:\\{REPLACE /}
+sumo_B_txt:<!-- generated{[->]}-->
+sumo_B_txt:\\{REPLACE /}
 
 sumo:<!-- generated{[->]}-->
 sumo:\\{REPLACE /}
@@ -430,33 +477,53 @@ input_meandatas_B_xml_gz:\\{REPLACE /}
 input_meandatas_B_txt:<!-- generated{[->]}-->
 input_meandatas_B_txt:\\{REPLACE /}
 
+# TRAFFIC LIGHTS
+trafficlights_A_ttl_xml:<!--{[->]}-->
+trafficlights_A_ttl_xml:\\{REPLACE /}
+trafficlights_A_ttl_xml_gz:
+trafficlights_A_xml:<!--{[->]}-->
+trafficlights_A_xml:\\{REPLACE /}
+trafficlights_A_xml_gz:
+trafficlights_A_txt:<!--{[->]}-->
+trafficlights_A_txt:\\{REPLACE /}
 
+trafficlights_B_ttl_xml:<!--{[->]}-->
+trafficlights_B_ttl_xml:\\{REPLACE /}
+trafficlights_B_ttl_xml_gz:
+trafficlights_B_xml:<!--{[->]}-->
+trafficlights_B_xml:\\{REPLACE /}
+trafficlights_B_xml_gz:
+trafficlights_B_txt:<!--{[->]}-->
+trafficlights_B_txt:\\{REPLACE /}
 
-trafficlights_ttl_xml:<!--{[->]}-->
-trafficlights_ttl_xml:\\{REPLACE /}
-trafficlights_ttl_xml_gz:
-trafficlights_xml:<!--{[->]}-->
-trafficlights_xml:\\{REPLACE /}
-trafficlights_xml_gz:
-trafficlights_txt:<!--{[->]}-->
-trafficlights_txt:\\{REPLACE /}
+# EDGE TYPES
+edgetypes_A_typ_xml:<!--{[->]}-->
+edgetypes_A_typ_xml:\\{REPLACE /}
+edgetypes_A_typ_xml_gz:
+edgetypes_A_xml:<!--{[->]}-->
+edgetypes_A_xml:\\{REPLACE /}
+edgetypes_A_xml_gz:
+edgetypes_A_txt:<!--{[->]}-->
+edgetypes_A_txt:\\{REPLACE /}
 
-edgetypes_typ_xml:<!--{[->]}-->
-edgetypes_typ_xml:\\{REPLACE /}
-edgetypes_typ_xml_gz:
-edgetypes_xml:<!--{[->]}-->
-edgetypes_xml:\\{REPLACE /}
-edgetypes_xml_gz:
-edgetypes_txt:<!--{[->]}-->
-edgetypes_txt:\\{REPLACE /}
+edgetypes_B_typ_xml:<!--{[->]}-->
+edgetypes_B_typ_xml:\\{REPLACE /}
+edgetypes_B_typ_xml_gz:
+edgetypes_B_xml:<!--{[->]}-->
+edgetypes_B_xml:\\{REPLACE /}
+edgetypes_B_xml_gz:
+edgetypes_B_txt:<!--{[->]}-->
+edgetypes_B_txt:\\{REPLACE /}
 
-joinedjunctions_nod_xml:<!--{[->]}-->
-joinedjunctions_nod_xml_gz:
-joinedjunctions_xml:<!--{[->]}-->
-joinedjunctions_xml_gz:
-joinedjunctions_txt:<!--{[->]}-->
-
-
+# JOINED JUNCTIONS
+joinedjunctions_A_nod_xml:<!--{[->]}-->
+joinedjunctions_A_nod_xml:\\{REPLACE /}
+joinedjunctions_A_nod_xml_gz:
+joinedjunctions_A_xml:<!--{[->]}-->
+joinedjunctions_A_xml:\\{REPLACE /}
+joinedjunctions_A_xml_gz:
+joinedjunctions_A_txt:<!--{[->]}-->
+joinedjunctions_A_txt:\\{REPLACE /}
 
 # OTHER
 guisettings:<scheme{[->]}</scheme>

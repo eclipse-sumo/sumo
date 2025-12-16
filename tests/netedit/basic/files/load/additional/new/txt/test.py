@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "additional", "additionals2", "txt", 2)
+netedit.loadFile(referencePosition, "additional", "input_additionals_B", "txt", 2)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

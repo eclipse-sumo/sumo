@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open sumo network
-netedit.loadFile(referencePosition, "sumoConfig", "sumo2", "xml", 1)
+netedit.loadFile(referencePosition, "sumoConfig", "sumo_B", "xml", 1)
 
 # save sumo network
 netedit.saveExistentFile("sumoConfig")

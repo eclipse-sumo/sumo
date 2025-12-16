@@ -1,7 +1,13 @@
 contextual_menu
+
 create
+
 delete
+
 inspect
+
 inspect_selection
+
 load
+
 volatile_recomputing
