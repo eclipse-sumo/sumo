@@ -130,10 +130,10 @@ jobs:
       with:
         python-version: ${{ matrix.python_version }}
 
-    # - name: Installing dependencies
-    #   if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
-    #   # we just need proj.db
-    #   run: brew update && brew install proj
+    - name: Installing dependencies
+      if: matrix.os == 'macos-14' || matrix.os == 'macos-15'
+      # we just need proj.db
+      run: brew update && brew install proj
 
     - name: Preparing Python environment
       run: |
@@ -177,7 +177,7 @@ jobs:
       if: matrix.os != 'macos-14' && matrix.os != 'macos-15'
       run: |
         ls python-wheels
-        WHEEL=$(ls python-wheels/libsumo*cp${{ matrix.python_version }}-*${{ matrix.manylinux }}*.whl)
+        WHEEL=$(ls python-wheels/libsumo*cp${{ matrix.python_version//./ }}-*${{ matrix.manylinux }}*.whl)
         echo wheel=$WHEEL
         python3 -m pip install $WHEEL
 
