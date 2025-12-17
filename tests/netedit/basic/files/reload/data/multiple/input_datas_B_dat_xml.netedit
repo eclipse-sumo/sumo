@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-16T12:00:21.718165+01:00 by Eclipse SUMO netedit v1_24_0+0812-5c470119209
+<!-- generated on 2025-12-17T12:20:11.118370+01:00 by Eclipse SUMO netedit v1_25_0+0576-bc250f73a58
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,9 +13,10 @@ https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- MeanDataEdges -->
-    <edgeData id="meanDataEdge_new" file="meanDataEdgeOutput.xml"/>
-    <!-- MeanDataLanes -->
-    <laneData id="meanDataEdge_new" file="meanDataLaneOutput.xml"/>
-</additional>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="set2" begin="0.00" end="3600.00">
+        <edgeRelation from="-E0" to="E1"/>
+        <edge id="E10"/>
+        <edge id="E11"/>
+    </interval>
+</data>

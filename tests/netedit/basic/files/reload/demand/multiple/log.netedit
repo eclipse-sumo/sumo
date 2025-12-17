@@ -1,3 +1,5 @@
+Error: Cannot read file 'input_routesB.rou.xml'!
+Error: loading of 'input_routesB.rou.xml' failed.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.

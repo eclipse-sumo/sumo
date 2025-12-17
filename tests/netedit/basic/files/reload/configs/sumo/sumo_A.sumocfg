@@ -31,4 +31,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
     </output>
 
+
+    <visualisation>
+        <gui-settings-file value="input_guisettings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="log.txt"/>
+    </report>
+
 </sumoConfiguration>

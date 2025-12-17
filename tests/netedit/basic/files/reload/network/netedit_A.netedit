@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-17T12:39:07.403711+01:00 by Eclipse SUMO netedit v1_25_0+0576-bc250f73a58
+-->
+
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>

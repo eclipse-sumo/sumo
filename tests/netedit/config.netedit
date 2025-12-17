@@ -329,8 +329,7 @@ netconvert_B:\\{REPLACE /}
 # NETWORKS
 input_net_A_net_xml:<!-- generated{[->]}-->
 input_net_A_net_xml:\\{REPLACE /}
-input_net_A_xml_gz:<!-- generated{[->]}-->
-input_net_A_xml_gz:\\{REPLACE /}
+input_net_A_xml_gz:
 input_net_A_xml:<!-- generated{[->]}-->
 input_net_A_xml:\\{REPLACE /}
 input_net_A_txt:<!-- generated{[->]}-->
@@ -338,8 +337,7 @@ input_net_A_txt:\\{REPLACE /}
 
 input_net_B_net_xml:<!-- generated{[->]}-->
 input_net_B_net_xml:\\{REPLACE /}
-input_net_B_xml_gz:<!-- generated{[->]}-->
-input_net_B_xml_gz:\\{REPLACE /}
+input_net_B_xml_gz:
 input_net_B_xml:<!-- generated{[->]}-->
 input_net_B_xml:\\{REPLACE /}
 input_net_B_txt:<!-- generated{[->]}-->
@@ -358,23 +356,19 @@ sumo_B_add_xml:\{REPLACE /}
 
 input_additionals_A_add_xml:<!-- generated{[->]}-->
 input_additionals_A_add_xml:\\{REPLACE /}
-input_additionals_A_add_xml_gz:<!-- generated{[->]}-->
-input_additionals_A_add_xml_gz:\\{REPLACE /}
+input_additionals_A_add_xml_gz:
 input_additionals_A_xml:<!-- generated{[->]}-->
 input_additionals_A_xml:\\{REPLACE /}
-input_additionals_A_xml_gz:<!-- generated{[->]}-->
-input_additionals_A_xml_gz:\\{REPLACE /}
+input_additionals_A_xml_gz:
 input_additionals_A_txt:<!-- generated{[->]}-->
 input_additionals_A_txt:\\{REPLACE /}
 
 input_additionals_B_add_xml:<!-- generated{[->]}-->
 input_additionals_B_add_xml:\\{REPLACE /}
-input_additionals_B_add_xml_gz:<!-- generated{[->]}-->
-input_additionals_B_add_xml_gz:\\{REPLACE /}
+input_additionals_B_add_xml_gz:
 input_additionals_B_xml:<!-- generated{[->]}-->
 input_additionals_B_xml:\\{REPLACE /}
-input_additionals_B_xml_gz:<!-- generated{[->]}-->
-input_additionals_B_xml_gz:\\{REPLACE /}
+input_additionals_B_xml_gz:
 input_additionals_B_txt:<!-- generated{[->]}-->
 input_additionals_B_txt:\\{REPLACE /}
 
@@ -391,23 +385,19 @@ sumo_B_rou_xml:\{REPLACE /}
 
 input_routes_A_rou_xml:<!-- generated{[->]}-->
 input_routes_A_rou_xml:\\{REPLACE /}
-input_routes_A_rou_xml_gz:<!-- generated{[->]}-->
-input_routes_A_rou_xml_gz:\\{REPLACE /}
+input_routes_A_rou_xml_gz:
 input_routes_A_xml:<!-- generated{[->]}-->
 input_routes_A_xml:\\{REPLACE /}
-input_routes_A_xml_gz:<!-- generated{[->]}-->
-input_routes_A_xml_gz:\\{REPLACE /}
+input_routes_A_xml_gz:
 input_routes_A_txt:<!-- generated{[->]}-->
 input_routes_A_txt:\\{REPLACE /}
 
 input_routes_B_rou_xml:<!-- generated{[->]}-->
 input_routes_B_rou_xml:\\{REPLACE /}
-input_routes_B_rou_xml_gz:<!-- generated{[->]}-->
-input_routes_B_rou_xml_gz:\\{REPLACE /}
+input_routes_B_rou_xml_gz:
 input_routes_B_xml:<!-- generated{[->]}-->
 input_routes_B_xml:\\{REPLACE /}
-input_routes_B_xml_gz:<!-- generated{[->]}-->
-input_routes_B_xml_gz:\\{REPLACE /}
+input_routes_B_xml_gz:
 input_routes_B_txt:<!-- generated{[->]}-->
 input_routes_B_txt:\\{REPLACE /}
 
@@ -424,23 +414,19 @@ sumo_B_dat_xml:\{REPLACE /}
 
 input_datas_A_dat_xml:<!-- generated{[->]}-->
 input_datas_A_dat_xml:\\{REPLACE /}
-input_datas_A_dat_xml_gz:<!-- generated{[->]}-->
-input_datas_A_dat_xml_gz:\\{REPLACE /}
+input_datas_A_dat_xml_gz:
 input_datas_A_xml:<!-- generated{[->]}-->
 input_datas_A_xml:\\{REPLACE /}
-input_datas_A_xml_gz:<!-- generated{[->]}-->
-input_datas_A_xml_gz:\\{REPLACE /}
+input_datas_A_xml_gz:
 input_datas_A_txt:<!-- generated{[->]}-->
 input_datas_A_txt:\\{REPLACE /}
 
 input_datas_B_dat_xml:<!-- generated{[->]}-->
 input_datas_B_dat_xml:\\{REPLACE /}
-input_datas_B_dat_xml_gz:<!-- generated{[->]}-->
-input_datas_B_dat_xml_gz:\\{REPLACE /}
+input_datas_B_dat_xml_gz:
 input_datas_B_xml:<!-- generated{[->]}-->
 input_datas_B_xml:\\{REPLACE /}
-input_datas_B_xml_gz:<!-- generated{[->]}-->
-input_datas_B_xml_gz:\\{REPLACE /}
+input_datas_B_xml_gz:
 input_datas_B_txt:<!-- generated{[->]}-->
 input_datas_B_txt:\\{REPLACE /}
 
@@ -457,23 +443,19 @@ sumo_B_dat_add_xml:\{REPLACE /}
 
 input_meandatas_A_add_xml:<!-- generated{[->]}-->
 input_meandatas_A_add_xml:\\{REPLACE /}
-input_meandatas_A_add_xml_gz:<!-- generated{[->]}-->
-input_meandatas_A_add_xml_gz:\\{REPLACE /}
+input_meandatas_A_add_xml_gz:
 input_meandatas_A_xml:<!-- generated{[->]}-->
 input_meandatas_A_xml:\\{REPLACE /}
-input_meandatas_A_xml_gz:<!-- generated{[->]}-->
-input_meandatas_A_xml_gz:\\{REPLACE /}
+input_meandatas_A_xml_gz:
 input_meandatas_A_txt:<!-- generated{[->]}-->
 input_meandatas_A_txt:\\{REPLACE /}
 
 input_meandatas_B_add_xml:<!-- generated{[->]}-->
 input_meandatas_B_add_xml:\\{REPLACE /}
-input_meandatas_B_add_xml_gz:<!-- generated{[->]}-->
-input_meandatas_B_add_xml_gz:\\{REPLACE /}
+input_meandatas_B_add_xml_gz:
 input_meandatas_B_xml:<!-- generated{[->]}-->
 input_meandatas_B_xml:\\{REPLACE /}
-input_meandatas_B_xml_gz:<!-- generated{[->]}-->
-input_meandatas_B_xml_gz:\\{REPLACE /}
+input_meandatas_B_xml_gz:
 input_meandatas_B_txt:<!-- generated{[->]}-->
 input_meandatas_B_txt:\\{REPLACE /}
 
