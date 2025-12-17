@@ -44,7 +44,7 @@ fi
 
 cp build_config/pyproject.toml .
 py=/opt/python/cp312-cp312
-$py/bin/python ./tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
+$py/bin/python ./tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 $py/bin/python -m build --wheel
 auditwheel repair dist/eclipse_sumo*.whl
 cp -a data tools/libsumo
