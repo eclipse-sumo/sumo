@@ -148,11 +148,11 @@ jobs:
         exclude:
         # Windows and macOS don’t have manylinux variants
         - os: macos-14
-          variant: manylinux2_28
+          manylinux: manylinux2_28
         - os: macos-15
-          variant: manylinux2_28
+          manylinux: manylinux2_28
         - os: windows-latest
-          variant: manylinux2_28
+          manylinux: manylinux2_28
     runs-on: ${{ matrix.os }}
 
     steps:
