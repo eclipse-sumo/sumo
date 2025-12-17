@@ -58,6 +58,7 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
+          variant: ${{ matrix.os == 'windows-latest' && 'sccache' || 'ccache' }}
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -115,7 +116,7 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
+          name: cibw-wheels-${{ matrix.os }}-${{ startsWith(matrix.os, 'ubuntu') && matrix.manylinux || 'default' }}
           path: ./wheelhouse/*.whl
 
   ###################
