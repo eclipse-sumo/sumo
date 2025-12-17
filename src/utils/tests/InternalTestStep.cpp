@@ -1727,9 +1727,9 @@ InternalTestStep::saveNewFile() {
         } else if (type == "sumoConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
             file = "sumo_B." + extension;
-        } else if (type == "xml") {
+        } else if (type == "netconvertConfig") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
-            file = "input_net_B." + extension;
+            file = "netconvert_B." + extension;
         } else if (type == "joinedJunctions") {
             myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
             file = "joinedjunctions_B." + extension;
