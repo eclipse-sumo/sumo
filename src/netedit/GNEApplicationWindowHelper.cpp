@@ -2273,7 +2273,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     // set load options in netedit
     neteditOptions.resetWritable();
     if (sumoOptions.getString("net-file").size() > 0) {
-        neteditOptions.set("sumo-net-file", sumoOptions.getString("net-file"));
+        myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, sumoOptions.getString("net-file"));
     } else {
         WRITE_ERROR(TLF("No network defined in sumo configuration '%'.", mySumoConfigFile));
         return false;
@@ -2372,6 +2372,9 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     // configure files in bucket
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, myNeteditConfigFile);
     myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, neteditOptions.getString("sumocfg-file"));
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::TLS, neteditOptions.getString("tls-file"));
+    myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, neteditOptions.getString("edgetypes-file"));
     // restore ignores
     neteditOptions.resetWritable();
     // check if ignore additional or route files
