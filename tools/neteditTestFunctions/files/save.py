@@ -31,36 +31,36 @@ def saveNewFile(referencePosition, element: str, extension: str, extensionIndex:
     filename = ""
     if (element == "network"):
         typeTwoKeys('ctrl', 's')
-        filename = "net2"
+        filename = "input_net_B"
     elif (element == "trafficLights"):
         typeThreeKeys('ctrl', 'shift', 'k')
-        filename = "trafficlights2"
+        filename = "trafficlights_B"
     elif (element == "edgeTypes"):
         typeThreeKeys('ctrl', 'shift', 'h')
-        filename = "edgetypes2"
+        filename = "edgetypes_B"
     elif (element == "additional"):
         typeThreeKeys('ctrl', 'shift', 'a')
-        filename = "additionals2"
+        filename = "input_additionals_B"
     elif (element == "demand"):
         typeThreeKeys('ctrl', 'shift', 'd')
-        filename = "routes2"
+        filename = "input_routes_B"
     elif (element == "data"):
         typeThreeKeys('ctrl', 'shift', 'b')
-        filename = "datas2"
+        filename = "input_datas_B"
     elif (element == "meanData"):
         typeThreeKeys('ctrl', 'shift', 'm')
-        filename = "meandatas2.dat"
+        filename = "input_meandatas_B"
     elif (element == "xml"):
         typeTwoKeys('ctrl', 'l')
-        filename = "net2"
+        filename = "netconvert_B"
     elif (element == "sumoConfig"):
         typeThreeKeys('ctrl', 'shift', 's')
-        filename = "sumo2"
+        filename = "sumo_B"
     elif (element == "neteditConfig"):
         typeThreeKeys('ctrl', 'shift', 'e')
-        filename = "netedit2"
+        filename = "netedit_B"
     elif (element == "joinedJunctions"):
-        filename = "joinedjunctions2"
+        filename = "joinedjunctions_B"
         # move mouse (to avoid problems with file menu)
         moveMouse(referencePosition, positions.reference, 200, 0, False)
         # go to menu command
