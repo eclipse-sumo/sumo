@@ -228,6 +228,7 @@ jobs:
       if: failure()
       shell: bash
       run: |
+        if [[ "${{ matrix.os }}" == "windows-latest" ]]; then choco install zip -y; fi
         zip -r texttesttmp.zip ~/.texttest/tmp
 
     - name: Uploading test results
