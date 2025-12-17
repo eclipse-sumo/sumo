@@ -135,10 +135,18 @@ jobs:
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
         manylinux: [manylinux2014]
         include:
+        - os: macos-14
+          failure_file: macos_failures.txt
+        - os: macos-15
+          failure_file: macos_failures.txt
         - os: ubuntu-latest
           manylinux: manylinux_2_28
+          failure_file: linux_failures.txt
         - os: ubuntu-24.04-arm
           manylinux: manylinux_2_28
+          failure_file: linux_arm_failures.txt
+        - os: windows-latest
+          failure_file: windows_failures.txt
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -209,11 +217,12 @@ jobs:
       shell: bash
       run: |
         source testenv/*/activate
-        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert -finverse $PWD/tests/filter_files/known_macos_failures.txt
-        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen -finverse $PWD/tests/filter_files/known_macos_failures.txt
+        KNOWN_FAILURES=$PWD/tests/filter_files/${{ matrix.failure_file }}
+        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert -finverse $KNOWN_FAILURES
+        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen -finverse $KNOWN_FAILURES
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
-        tests/runTests.sh -b ci -v ci.fast -a sumo -finverse $PWD/tests/filter_files/known_macos_failures.txt
-        tests/runTests.sh -b ci -v ci.fast -a complex,tools,traci -finverse $PWD/tests/filter_files/known_macos_failures.txt
+        tests/runTests.sh -b ci -v ci.fast -a sumo -finverse $KNOWN_FAILURES
+        tests/runTests.sh -b ci -v ci.fast -a complex,tools,traci -finverse $KNOWN_FAILURES
         rm -rf testenv
 
     - name: Installing libsumo wheels (macos / windows)
@@ -225,6 +234,7 @@ jobs:
       if: ${{ startsWith(matrix.os, 'ubuntu') }}
       shell: bash
       run: |
+        python -m pip install --no-index -f python-wheels traci sumo-data
         PYTAG="${{ matrix.python_version }}"
         WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
         echo wheel=$WHEEL

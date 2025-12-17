@@ -76,6 +76,7 @@ lc_model/bugs/ticket16443
 pedestrian_model/nonInteracting/no_sidewalks
 pedestrian_model/striping/subsecond/bidirectional_flow_2_stripes
 rail/rail_signal/large_step_size
+rail/siding/long_siding_occupied_wait
 rail/siding/long_siding_occupied_wait2
 rail/deadlocks/loop_4veh
 rail/deadlocks/triangle_6veh

@@ -1,0 +1,15 @@
+-tp appdata=activitygen
+appdata=complex
+appdata=dfrouter
+appdata=duarouter
+appdata=jtrrouter
+appdata=marouter
+appdata=netconvert
+appdata=netedit
+appdata=neteditoutput
+appdata=netgen
+appdata=od2trips
+appdata=polyconvert
+appdata=sumo
+appdata=tools
+appdata=traci

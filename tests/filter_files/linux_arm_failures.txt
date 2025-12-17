@@ -1,0 +1,23 @@
+-tp appdata=activitygen
+appdata=complex
+appdata=dfrouter
+appdata=duarouter
+appdata=jtrrouter
+appdata=marouter
+appdata=netconvert
+import/XML/3D/basic
+export/amitran/adlershof_dlr
+function/junctions.join-same/basic
+function/fringe/guess
+function/railway/signals/guess.by-stops
+appdata=netedit
+appdata=neteditoutput
+appdata=netgen
+grid/user_example1_10m
+spider/user_example2
+spider/user_example2_v
+appdata=od2trips
+appdata=polyconvert
+appdata=sumo
+appdata=tools
+appdata=traci
