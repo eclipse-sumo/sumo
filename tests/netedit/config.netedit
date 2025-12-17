@@ -160,6 +160,9 @@ netconvert_B_xml:netconvert_B.xml
 netconvert_B_txt:netconvert_B.txt
 
 # NETWORKS
+netedit_A_net_xml:netedit_A.net.xml
+netedit_B_net_xml:netedit_B.net.xml
+
 input_net_A_net_xml:input_net_A.net.xml
 input_net_A_xml_gz:input_net_A.net.xml.gz
 input_net_A_xml:input_net_A.xml
@@ -171,6 +174,11 @@ input_net_B_xml:input_net_B.xml
 input_net_B_txt:input_net_B.txt
 
 # NETCONVERT FILES
+netconvert_A_con_xml:netconvert_A.con.xml
+netconvert_A_edg_xml:netconvert_A.edg.xml
+netconvert_A_nod_xml:netconvert_A.nod.xml
+netconvert_A_tll_xml:netconvert_A.tll.xml
+
 input_netconvert_A_con_xml:input_netconvert_A.con.xml
 input_netconvert_A_edg_xml:input_netconvert_A.edg.xml
 input_netconvert_A_nod_xml:input_netconvert_A.nod.xml

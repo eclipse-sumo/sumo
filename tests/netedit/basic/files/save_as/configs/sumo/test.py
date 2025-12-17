@@ -25,11 +25,55 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# open sumo network
-netedit.loadFile(referencePosition, "sumoConfig", "sumo2", "sumocfg", 0)
+# go to additional mode
+netedit.changeMode("additional")
+
+# select busStop
+netedit.changeElement("additionalFrame", "busStop")
+
+# create busStop in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# go to demand mode
+netedit.changeSupermode("demand")
+
+# go to route mode
+netedit.changeMode("route")
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+
+# press enter to create route
+netedit.typeKey("enter")
+
+# Go to data supermode
+netedit.changeSupermode("data")
+
+# change to edgeData
+netedit.changeMode("edgeData")
+
+# create dataSet
+netedit.createDataSet("newDataSet")
+
+# create data interval
+netedit.createDataInterval("0", "3600")
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# change to edgeData
+netedit.changeMode("meanData")
+
+# create mean data
+netedit.createMeanData()
+
+# Check undo redo
+netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveFileAs(referencePosition, "sumoConfig", True)
+netedit.saveNewFile(referencePosition, "sumoConfig", "sumocfg", 0)
 
 # quit netedit
 netedit.quit(neteditProcess)
