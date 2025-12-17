@@ -193,6 +193,7 @@ jobs:
         echo wheel=$WHEEL
         source testenv/*/activate
         python -m pip install $WHEEL
+        python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running tests with sumo wheel and cleaning up
       # we do not test all applications at once to fail earlier and to have a better readable report
