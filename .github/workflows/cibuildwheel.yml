@@ -54,6 +54,10 @@ jobs:
           repository: DLR-TS/SUMOLibraries
           path: SUMOLibraries
 
+      - name: "Set up MSVC Developer Command Prompt"
+        if: matrix.os == 'windows-latest'
+        uses: seanmiddleditch/gha-setup-vsdevenv@v5
+
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
