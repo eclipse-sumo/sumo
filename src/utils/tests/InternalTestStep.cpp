@@ -1723,37 +1723,37 @@ InternalTestStep::saveNewFile() {
         // continue depending of type
         if (type == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
-            file = "netedit2." + extension;
+            file = "netedit_B." + extension;
         } else if (type == "sumoConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
-            file = "sumo2." + extension;
+            file = "sumo_B." + extension;
         } else if (type == "xml") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
-            file = "net2." + extension;
+            file = "input_net_B." + extension;
         } else if (type == "joinedJunctions") {
             myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
-            file = "joinedjunctions2." + extension;
+            file = "joinedjunctions_B." + extension;
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
-            file = "net2." + extension;
+            file = "input_net_B." + extension;
         } else if (type == "trafficLights") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
-            file = "trafficlights2." + extension;
+            file = "trafficlights_B." + extension;
         } else if (type == "edgeTypes") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
-            file = "edgetypes2." + extension;
+            file = "input_edgetypes_B." + extension;
         } else if (type == "additional") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
-            file = "additionals2." + extension;
+            file = "input_additionals_B." + extension;
         } else if (type == "demand") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
-            file = "routes2." + extension;
+            file = "input_routes_B." + extension;
         } else if (type == "data") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
-            file = "datas2." + extension;
+            file = "input_datas_B." + extension;
         } else if (type == "meanData") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
-            file = "meandatas2.dat." + extension;
+            file = "input_meandatas_B." + extension;
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
