@@ -158,7 +158,7 @@ jobs:
       shell: bash
       run: |
         python -m venv testenv --system-site-packages
-        source testenv/bin/activate
+        source testenv/*/activate
         python -m pip install --upgrade pip
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
@@ -167,7 +167,7 @@ jobs:
       if: ${{ !startsWith(matrix.os, 'macos') }}
       # we just need proj.db
       run: |
-        source testenv/bin/activate
+        source testenv/*/activate
         python -m pip install pyproj
         python -c "import pyproj; print('PROJ_LIB=' + pyproj.datadir.get_data_dir())" >> $GITHUB_ENV
 
@@ -180,7 +180,7 @@ jobs:
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
       shell: bash
       run: |
-        source testenv/bin/activate
+        source testenv/*/activate
         python -m pip install --no-index -f python-wheels eclipse_sumo
         python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
@@ -191,18 +191,19 @@ jobs:
         ls python-wheels
         WHEEL=$(ls python-wheels/eclipse_sumo*${{ matrix.manylinux }}*$(uname -m).whl)
         echo wheel=$WHEEL
+        source testenv/*/activate
         python -m pip install $WHEEL
 
     - name: Running "sumo in the wheel" tests without full dependencies
       shell: bash
       run: |
-        source testenv/bin/activate
+        source testenv/*/activate
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
 
     - name: Running remaining "sumo in the wheel" tests and cleaning up
       shell: bash
       run: |
-        source testenv/bin/activate
+        source testenv/*/activate
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         tests/runTests.sh -b ci -v ci.fast -a complex,sumo,tools,traci
         rm -rf testenv
