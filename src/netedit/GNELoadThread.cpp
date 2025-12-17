@@ -350,11 +350,13 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // TOPIC: Output
 
-    neteditOptions.doRegister("tls-file", new Option_String());
+    neteditOptions.doRegister("tls-file", new Option_FileName());
     neteditOptions.addDescription("tls-file", "Output", TL("File in which TLS Programs must be saved"));
+    neteditOptions.setOptionEditable("tls-file", false);
 
-    neteditOptions.doRegister("edgetypes-file", new Option_String());
+    neteditOptions.doRegister("edgetypes-file", new Option_FileName());
     neteditOptions.addDescription("edgetypes-file", "Output", TL("File in which edgeTypes must be saved"));
+    neteditOptions.setOptionEditable("edgetypes-file", false);
 
     // TOPIC: Netedit
 

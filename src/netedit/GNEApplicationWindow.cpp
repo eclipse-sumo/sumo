@@ -958,6 +958,12 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // load traffic lights
         loadTrafficLights(false);
+        // requiere save network
+        myNet->getSavingStatus()->requireSaveNetwork();
+        // if defined, require save netedit config
+        if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
+            myNet->getSavingStatus()->requireSaveNeteditConfig();
+        }
     }
     return 1;
 }
@@ -996,6 +1002,12 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypesFileDialog.getFilename());
         // load edge types
         loadEdgeTypes(false);
+        // requiere save network
+        myNet->getSavingStatus()->requireSaveNetwork();
+        // if defined, require save netedit config
+        if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
+            myNet->getSavingStatus()->requireSaveNeteditConfig();
+        }
     }
     return 1;
 }
