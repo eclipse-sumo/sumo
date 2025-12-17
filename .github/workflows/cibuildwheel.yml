@@ -166,6 +166,7 @@ jobs:
     - name: Installing dependencies (linux / windows)
       if: ${{ !startsWith(matrix.os, 'macos') }}
       # we just need proj.db
+      shell: bash
       run: |
         source testenv/*/activate
         python -m pip install pyproj
@@ -202,8 +203,9 @@ jobs:
       run: |
         source testenv/*/activate
         tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert -finverse $PWD/tests/filter_files/known_macos_failures.txt
-        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen,sumo -finverse $PWD/tests/filter_files/known_macos_failures.txt
+        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen -finverse $PWD/tests/filter_files/known_macos_failures.txt
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
+        tests/runTests.sh -b ci -v ci.fast -a sumo -finverse $PWD/tests/filter_files/known_macos_failures.txt
         tests/runTests.sh -b ci -v ci.fast -a complex,tools,traci -finverse $PWD/tests/filter_files/known_macos_failures.txt
         rm -rf testenv
 
