@@ -3578,7 +3578,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
         if (out.good()) {
             const auto& neteditOptions = OptionsCont::getOptions();
             // write netedit config
-            neteditOptions.writeConfiguration(out, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
+            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
             // write info
             WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
             // config saved
@@ -3628,6 +3628,8 @@ GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel,
     if (neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set file in file bucket handler
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfigFileDialog.getFilename());
+        // mark netedit config as unsaved
+        myNet->getSavingStatus()->requireSaveNeteditConfig();
         // continue saving netedit config
         return onCmdSaveNeteditConfig(sender, sel, ptr);
     } else {

@@ -2280,6 +2280,8 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     }
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
+    // relocate files
+    neteditOptions.relocateFiles(mySumoConfigFile);
     return true;
 }
 
@@ -2576,13 +2578,15 @@ GNEApplicationWindowHelper::FileBucketHandler::getDefaultFilename(const FileBuck
 std::string
 GNEApplicationWindowHelper::FileBucketHandler::getDefaultFolder(const FileBucket::Type type) const {
     std::string prefix = getDefaultFilename(type);
-    // remove until empty or slash
+    // remove until empty or trailing slash
     while (true) {
         if (prefix.empty()) {
             return prefix;
         } else if ((prefix.back() == '\'') ||
                    (prefix.back() == '\\') ||
                    (prefix.back() == '/')) {
+            // remove last trailing slash
+            prefix.pop_back();
             return prefix;
         } else {
             prefix.pop_back();
