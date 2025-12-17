@@ -14,11 +14,12 @@
 # Bash script for the test run.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
 
-if test `uname` = "Darwin"; then  # macOS specific exports
-  export LC_ALL=C
-  export LANG=C
-fi
+export LC_ALL=C
+export LANG=C
 
+if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
+  suffix = ".exe"
+fi
 pushd `dirname $0` > /dev/null
 export TEXTTEST_HOME="$PWD"
 shopt -s nullglob  # expand the pattern to an empty list if no env exists
@@ -35,19 +36,19 @@ if test x"$SUMO_HOME" = x; then
   export SUMO_HOME="$PWD"
 fi
 popd > /dev/null
-export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen"
-export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter"
-export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouter"
-export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouter"
-export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvert"
-export NETEDIT_BINARY="$SUMO_HOME/bin/netedit"
-export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerate"
-export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2trips"
-export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvert"
-export SUMO_BINARY="$SUMO_HOME/bin/sumo"
-export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui"
-export MAROUTER_BINARY="$SUMO_HOME/bin/marouter"
+
+export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen$suffix"
+export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter$suffix"
+export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouter$suffix"
+export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouter$suffix"
+export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvert$suffix"
+export NETEDIT_BINARY="$SUMO_HOME/bin/netedit$suffix"
+export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerate$suffix"
+export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2trips$suffix"
+export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvert$suffix"
+export SUMO_BINARY="$SUMO_HOME/bin/sumo$suffix"
+export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui$suffix"
+export MAROUTER_BINARY="$SUMO_HOME/bin/marouter$suffix"
 export PYTHON="python"
-export LANG="C"
 
 texttest "$@"

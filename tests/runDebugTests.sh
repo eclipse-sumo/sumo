@@ -17,30 +17,33 @@
 export LC_ALL=C
 export LANG=C
 
-OLDDIR=$PWD
-cd `dirname $0`
+if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
+  suffix = ".exe"
+fi
+pushd `dirname $0` > /dev/null
 export TEXTTEST_HOME="$PWD"
 if test x"$SUMO_HOME" = x; then
   cd ..
   export SUMO_HOME="$PWD"
 fi
-cd $OLDDIR
-# for clang sanitizer tests
-export LSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0
-export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt
+popd > /dev/null
 
-export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD"
-export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouterD"
-export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouterD"
-export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouterD"
-export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvertD"
-export NETEDIT_BINARY="$SUMO_HOME/bin/neteditD"
-export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerateD"
-export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2tripsD"
-export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvertD"
-export SUMO_BINARY="$SUMO_HOME/bin/sumoD"
-export GUISIM_BINARY="$SUMO_HOME/bin/sumo-guiD"
-export MAROUTER_BINARY="$SUMO_HOME/bin/marouterD"
+# for clang sanitizer tests
+export LSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0"
+export UBSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_ubsan_suppressions.txt"
+
+export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD$suffix"
+export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouterD$suffix"
+export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouterD$suffix"
+export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouterD$suffix"
+export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvertD$suffix"
+export NETEDIT_BINARY="$SUMO_HOME/bin/neteditD$suffix"
+export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerateD$suffix"
+export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2tripsD$suffix"
+export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvertD$suffix"
+export SUMO_BINARY="$SUMO_HOME/bin/sumoD$suffix"
+export GUISIM_BINARY="$SUMO_HOME/bin/sumo-guiD$suffix"
+export MAROUTER_BINARY="$SUMO_HOME/bin/marouterD$suffix"
 export PYTHON="python"
 
 texttest "$@" -v debug
