@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-11 19:36+0100\n"
-"PO-Revision-Date: 2025-12-17 07:50+0000\n"
+"PO-Revision-Date: 2025-12-18 14:00+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -1772,12 +1772,14 @@ msgid "taufj"
 msgstr "taufj"
 
 #: src/guisim/GUIEdge.cpp:234
+#, fuzzy
 msgid "taujf"
-msgstr ""
+msgstr "taujf"
 
 #: src/guisim/GUIEdge.cpp:235
+#, fuzzy
 msgid "taujj"
-msgstr ""
+msgstr "taujj"
 
 #: src/guisim/GUIEdge.cpp:236
 msgid "jam threshold"
@@ -1801,23 +1803,26 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:241
 msgid "overtaking"
-msgstr ""
+msgstr "추월"
 
 #: src/guisim/GUIInductLoop.cpp:150
+#, fuzzy
 msgid "entered vehicles [-]"
-msgstr ""
+msgstr "진입 차량 [-]"
 
 #: src/guisim/GUIInductLoop.cpp:156
 msgid "vehicle length [m]"
-msgstr ""
+msgstr "차량 길이 [m]"
 
 #: src/guisim/GUIInductLoop.cpp:158
+#, fuzzy
 msgid "empty time [s]"
-msgstr ""
+msgstr "공백 시간 [s]"
 
 #: src/guisim/GUIInductLoop.cpp:160
+#, fuzzy
 msgid "occupied time [s]"
-msgstr ""
+msgstr "점유 시간 [s]"
 
 #: src/guisim/GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
@@ -1831,19 +1836,19 @@ msgstr ""
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243
 #: src/guisim/GUIVehicle.cpp:234
 msgid "type"
-msgstr ""
+msgstr "유형"
 
 #: src/guisim/GUILane.cpp:1010
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Edge 이름 클립보드에 저장"
 
 #: src/guisim/GUILane.cpp:1018
 msgid "pos: "
-msgstr ""
+msgstr "위치: "
 
 #: src/guisim/GUILane.cpp:1018
 msgid "height: "
-msgstr ""
+msgstr "높이: "
 
 #: src/guisim/GUILane.cpp:1027
 msgid "Reopen lane"
@@ -1879,11 +1884,11 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1055 src/guisim/GUILane.cpp:1059
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "허용 속도 [m/s]"
 
 #: src/guisim/GUILane.cpp:1063 src/guisim/GUIVehicle.cpp:236
 msgid "width [m]"
-msgstr ""
+msgstr "너비 [m]"
 
 #: src/guisim/GUILane.cpp:1065
 msgid "stored travel time [s]"
@@ -1891,39 +1896,43 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1066
 msgid "loaded weight"
-msgstr ""
+msgstr "적재 하중"
 
 #: src/guisim/GUILane.cpp:1068
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "차로 마찰 계수 [%]"
 
 #: src/guisim/GUILane.cpp:1071
 msgid "netto occupancy [%]"
 msgstr ""
 
 #: src/guisim/GUILane.cpp:1073
+#, fuzzy
 msgid "edge type"
-msgstr ""
+msgstr "Edge 유형"
 
 #: src/guisim/GUILane.cpp:1074
 msgid "routing type"
 msgstr ""
 
 #: src/guisim/GUILane.cpp:1076 src/guisim/GUITrafficLightLogicWrapper.cpp:261
+#, fuzzy
 msgid "priority"
-msgstr ""
+msgstr "우선 순위"
 
 #: src/guisim/GUILane.cpp:1077
 msgid "distance [km]"
-msgstr ""
+msgstr "거리 [km]"
 
 #: src/guisim/GUILane.cpp:1078
+#, fuzzy
 msgid "allowed vehicle class"
-msgstr ""
+msgstr "허용된 차량 Class"
 
 #: src/guisim/GUILane.cpp:1079
+#, fuzzy
 msgid "disallowed vehicle class"
-msgstr ""
+msgstr "제한된 차량 Class"
 
 #: src/guisim/GUILane.cpp:1080
 msgid "permission code"
@@ -1938,12 +1947,14 @@ msgid "bidi-lane"
 msgstr ""
 
 #: src/guisim/GUINet.cpp:336
+#, fuzzy
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
-msgstr ""
+msgstr "네트워크 크기가 1광년을 초과합니다. 입력 내용을 다시 검토해 주세요.\n"
 
 #: src/guisim/GUINet.cpp:479 src/netedit/GNENet.cpp:234
+#, fuzzy
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "클립보드에 view geo-boundary 복사"
 
 #: src/guisim/GUINet.cpp:490
 msgid "loaded vehicles [#]"
@@ -1963,7 +1974,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:498
 msgid "arrived vehicles [#]"
-msgstr ""
+msgstr "도착 차량 수 [#]"
 
 #: src/guisim/GUINet.cpp:500
 msgid "discarded vehicles [#]"
@@ -1971,11 +1982,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:502
 msgid "collisions [#]"
-msgstr ""
+msgstr "충돌 횟수 [#]"
 
 #: src/guisim/GUINet.cpp:504
 msgid "teleports [#]"
-msgstr ""
+msgstr "텔레포트 횟수 [#]"
 
 #: src/guisim/GUINet.cpp:506
 msgid "halting [#]"
@@ -1987,11 +1998,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:510
 msgid "avg. speed [m/s]"
-msgstr ""
+msgstr "평균 속도 [m/s]"
 
 #: src/guisim/GUINet.cpp:512
 msgid "avg. relative speed"
-msgstr ""
+msgstr "평균 상대 속도"
 
 #: src/guisim/GUINet.cpp:515
 msgid "loaded persons [#]"
@@ -2007,11 +2018,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:522
 msgid "end time [s]"
-msgstr ""
+msgstr "종료 시간 [s]"
 
 #: src/guisim/GUINet.cpp:523
 msgid "begin time [s]"
-msgstr ""
+msgstr "시작 시간 [s]"
 
 #: src/guisim/GUINet.cpp:526
 msgid "step duration [ms]"
@@ -2019,7 +2030,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:527
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: src/guisim/GUINet.cpp:528
 msgid "simulation duration [ms]"
@@ -2035,11 +2046,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:541
 msgid "updates per second"
-msgstr ""
+msgstr "초당 업데이트 수"
 
 #: src/guisim/GUINet.cpp:542
 msgid "avg. updates per second"
-msgstr ""
+msgstr "평균 초당 업데이트 수"
 
 #: src/guisim/GUINet.cpp:545
 msgid "avg. trip length [m]"
@@ -2260,7 +2271,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:113
 msgid "target lane [id]"
-msgstr ""
+msgstr "목표 차로 [id]"
 
 #: src/guisim/GUIVehicle.cpp:116
 msgid "back lanes [id,..]"
@@ -2268,19 +2279,19 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:120
 msgid "lateral offset [m]"
-msgstr ""
+msgstr "횡방향 오프셋 [m]"
 
 #: src/guisim/GUIVehicle.cpp:124
 msgid "lateral speed [m/s]"
-msgstr ""
+msgstr "횡방향 속도 [m/s]"
 
 #: src/guisim/GUIVehicle.cpp:126
 msgid "acceleration [m/s^2]"
-msgstr ""
+msgstr "가속도 [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:130
 msgid "slope [degree]"
-msgstr ""
+msgstr "경사 [degree]"
 
 #: src/guisim/GUIVehicle.cpp:134
 msgid "time gap on lane [s]"
@@ -2292,12 +2303,13 @@ msgid "waiting time (accumulated, % s) [s]"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:140
+#, fuzzy
 msgid "time since startup [s]"
-msgstr ""
+msgstr "startup시 시간 [s]"
 
 #: src/guisim/GUIVehicle.cpp:142
 msgid "time loss [s]"
-msgstr ""
+msgstr "시간 손실 [s]"
 
 #: src/guisim/GUIVehicle.cpp:144
 msgid "impatience"
@@ -2305,15 +2317,16 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:146
 msgid "last lane change [s]"
-msgstr ""
+msgstr "마지막 차로 변경 [s]"
 
 #: src/guisim/GUIVehicle.cpp:149
 msgid "depart delay [s]"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:150
+#, fuzzy
 msgid "odometer [m]"
-msgstr ""
+msgstr "주행 거리계 [m]"
 
 #: src/guisim/GUIVehicle.cpp:153
 msgid "remaining [#]"
@@ -2341,63 +2354,67 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:166
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:168
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:170
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:172
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:174
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:176
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "연료 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:178
+#, fuzzy
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "electricity [Wh/s]"
 
 #: src/guisim/GUIVehicle.cpp:180
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "소음 (Harmonoise) [dB]"
 
 #: src/guisim/GUIVehicle.cpp:182
 msgid "devices"
-msgstr ""
+msgstr "장치"
 
 #: src/guisim/GUIVehicle.cpp:183
 msgid "persons"
-msgstr ""
+msgstr "사람"
 
 #: src/guisim/GUIVehicle.cpp:185
 msgid "containers"
-msgstr ""
+msgstr "컨테이너"
 
 #: src/guisim/GUIVehicle.cpp:187
+#, fuzzy
 msgid "lcState right"
-msgstr ""
+msgstr "lcState right"
 
 #: src/guisim/GUIVehicle.cpp:188
+#, fuzzy
 msgid "lcState left"
-msgstr ""
+msgstr "lcState left"
 
 #: src/guisim/GUIVehicle.cpp:189
 msgid "parking badges"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:192
+#, fuzzy
 msgid "lcState center"
-msgstr ""
+msgstr "lcState center"
 
 #: src/guisim/GUIVehicle.cpp:193
 msgid "right side on edge [m]"
@@ -2449,31 +2466,32 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:223
 msgid "lane change mode"
-msgstr ""
+msgstr "차선 변경 모드"
 
 #: src/guisim/GUIVehicle.cpp:237
 msgid "height [m]"
-msgstr ""
+msgstr "높이 [m]"
 
 #: src/guisim/GUIVehicle.cpp:238
 msgid "minGap [m]"
-msgstr ""
+msgstr "최소 간격 [m]"
 
 #: src/guisim/GUIVehicle.cpp:239
 msgid "vehicle class"
-msgstr ""
+msgstr "차량 Class"
 
 #: src/guisim/GUIVehicle.cpp:240
 msgid "emission class"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:242
+#, fuzzy
 msgid "car-following model"
-msgstr ""
+msgstr "차량 추종 모델"
 
 #: src/guisim/GUIVehicle.cpp:243
 msgid "lane-change model"
-msgstr ""
+msgstr "차선 변경 모델"
 
 #: src/guisim/GUIVehicle.cpp:244
 msgid "guiShape"
@@ -2481,19 +2499,19 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:246
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "목표 최대 속도 [m/s]"
 
 #: src/guisim/GUIVehicle.cpp:247
 msgid "maximum acceleration [m/s^2]"
-msgstr ""
+msgstr "최대 가속도 [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:248
 msgid "maximum deceleration [m/s^2]"
-msgstr ""
+msgstr "최대 감속도 [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:249
 msgid "emergency deceleration [m/s^2]"
-msgstr ""
+msgstr "긴급 감속도 [m/s^2]"
 
 #: src/guisim/GUIVehicle.cpp:250
 msgid "apparent deceleration [m/s^2]"
@@ -2504,12 +2522,14 @@ msgid "imperfection (sigma)"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:252
+#, fuzzy
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "목표 차두시간 (tau) [s]"
 
 #: src/guisim/GUIVehicle.cpp:253
+#, fuzzy
 msgid "speedfactor"
-msgstr ""
+msgstr "속도 계수"
 
 #: src/guisim/GUIVehicle.cpp:254
 msgid "startupDelay [s]"
