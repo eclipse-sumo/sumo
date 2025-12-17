@@ -56,7 +56,7 @@ jobs:
 
       - name: "Set up MSVC Developer Command Prompt"
         if: matrix.os == 'windows-latest'
-        uses: seanmiddleditch/gha-setup-vsdevenv@v5
+        uses: compnerd/gha-setup-vsdevenv@v6
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
