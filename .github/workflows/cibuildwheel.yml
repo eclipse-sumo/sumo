@@ -151,12 +151,9 @@ jobs:
 
     steps:
     - name: Cloning SUMO
+      # we just need the tests, so we are fine with a shallow checkout
+      # maybe this even ensures we have the same commit as with the initial checkout
       uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
-        filter: tree:0
-        # to work around actions/checkout#1467
-        ref: ${{ github.ref }}
 
     - name: Downloading wheels artifact
       uses: actions/download-artifact@v7
