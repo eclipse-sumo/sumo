@@ -194,18 +194,16 @@ jobs:
         source testenv/*/activate
         python -m pip install $WHEEL
 
-    - name: Running "sumo in the wheel" tests without full dependencies
+    - name: Running tests with sumo wheel and cleaning up
+      # we do not test all applications at once to fail earlier and to have a better readable report
+      # also windows seems to have problems with loading many tests at once
       shell: bash
       run: |
         source testenv/*/activate
-        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
-
-    - name: Running remaining "sumo in the wheel" tests and cleaning up
-      shell: bash
-      run: |
-        source testenv/*/activate
+        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert -finverse $PWD/tests/filter_files/known_macos_failures.txt
+        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen,sumo -finverse $PWD/tests/filter_files/known_macos_failures.txt
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
-        tests/runTests.sh -b ci -v ci.fast -a complex,sumo,tools,traci
+        tests/runTests.sh -b ci -v ci.fast -a complex,tools,traci -finverse $PWD/tests/filter_files/known_macos_failures.txt
         rm -rf testenv
 
     - name: Installing libsumo wheels (macos / windows)
