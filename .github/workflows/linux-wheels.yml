@@ -108,7 +108,8 @@ jobs:
         sudo apt-get install pipx
         pipx install texttest
         python3 -m venv testenv --system-site-packages
-        testenv/bin/python -m pip install -f $WHEEL_DIR eclipse_sumo
+        ls manylinux-wheels
+        testenv/bin/python -m pip install --no-index -f $WHEEL_DIR eclipse_sumo
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
