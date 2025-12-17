@@ -9,7 +9,7 @@ dependencies = ["sumolib>=0.0.0"]
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "The pure python version of the TraCI API to communicate with the traffic simulation Eclipse SUMO"
-readme = "README.md"
+readme = "build_config/pyproject/README_traci.md"
 keywords = ["traffic", "simulation", "sumo"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -34,6 +34,6 @@ packages = ["tools/traci", "tools/simpla"]
 include = [
   "tools/traci/**",
   "tools/simpla/**",
-  "README.md",
+  "build_config/pyproject/README_traci.md",
   "pyproject.toml"
 ]

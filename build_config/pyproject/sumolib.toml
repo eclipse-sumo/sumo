@@ -8,7 +8,7 @@ version = "0.0.0"
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "Python helper modules to read networks, parse output data and do other useful stuff related to the traffic simulation Eclipse SUMO"
-readme = "README.md"
+readme = "build_config/pyproject/README_sumolib.md"
 keywords = ["traffic", "simulation", "traci", "sumo"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -32,6 +32,6 @@ packages = ["tools/sumolib"]
 # ensure sdist matches wheel
 include = [
   "tools/sumolib/**",
-  "README.md",
+  "build_config/pyproject/README_sumolib.md",
   "pyproject.toml"
 ]
