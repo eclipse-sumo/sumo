@@ -133,20 +133,26 @@ jobs:
       matrix:
         os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm, windows-latest]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-        manylinux: [manylinux2014]
+        manylinux: [manylinux2014, manylinux_2_28]
         include:
         - os: macos-14
           failure_file: macos_failures.txt
         - os: macos-15
           failure_file: macos_failures.txt
         - os: ubuntu-latest
-          manylinux: manylinux_2_28
           failure_file: linux_failures.txt
         - os: ubuntu-24.04-arm
-          manylinux: manylinux_2_28
           failure_file: linux_arm_failures.txt
         - os: windows-latest
           failure_file: windows_failures.txt
+        exclude:
+        # Windows and macOS don’t have manylinux variants
+        - os: macos-14
+          variant: manylinux2_28
+        - os: macos-15
+          variant: manylinux2_28
+        - os: windows-latest
+          variant: manylinux2_28
     runs-on: ${{ matrix.os }}
 
     steps:
