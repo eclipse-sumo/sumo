@@ -1313,8 +1313,6 @@ void
 GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_FileLoaded* fileLoadedEvent = static_cast<GNEEvent_FileLoaded*>(e);
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successful
     if (fileLoadedEvent->getNet() == nullptr) {
         // report failure
