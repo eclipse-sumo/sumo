@@ -26,7 +26,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart()
 
 # open network
-netedit.loadFile(referencePosition, "meanData", "input_meandatas_B", "dat.add.xml", 0)
+netedit.loadFile(referencePosition, "meanData", "input_meandatas_B", "add.xml", 0)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
