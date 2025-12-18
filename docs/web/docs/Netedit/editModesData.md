@@ -110,7 +110,7 @@ The width of the relation lines can be uniformly adjusted. It is especially usef
 ### Change the width of all lines, scaling them according to the demand of each OD pair
 TAZ relation lines can also be displayed with varying widths according to demand. Like above mentioned, firstly, you click "Data" in the window shown after selecting *Edit-\>Edit Visualisation* or after clicking the color palette icon "View Settings". Then choose "by attribute (numericval)" in the drop-down window of "Scale size" and adjust the wished scale size for each demand category. This setting can be used together with the setting to display the TAZ polygons by different colors (see above). The buttons/rubrics you need to click are illustrated below.
 
-<img width="404" height="883" alt="image" src="https://github.com/user-attachments/assets/e4f219e3-6d37-4ec9-8a0b-03275feebcc2" />
+![](../images/setScaledWidth.png)
 
 ### Inspect a specific TAZ relation
 A TAZ can be selected under the Mode "Inspect". It is easier to do the selection when (1) the icon "Draw TAZ fill" is activated, and (2) the display of TAZ-relation lines is off. The latter one is under implementation. So, you firstly click some TAZ which can be seen after (1) under the inspect mode. Then you click the desired TAZ. After that, you can see the TAZ-relation lines from/to the selected TAZ. You can also choose only to show the relation lines either to or from the selected TAZ. The respective illustration is shown below.
