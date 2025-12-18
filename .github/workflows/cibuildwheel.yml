@@ -84,7 +84,7 @@ jobs:
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/.ccache"
+          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache"
           CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
@@ -109,7 +109,7 @@ jobs:
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/.ccache"
+          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache"
           CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
