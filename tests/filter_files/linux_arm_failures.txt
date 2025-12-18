@@ -54,6 +54,8 @@ basic/dynamics/insertion/high_flow2
 basic/dynamics/insertion/high_flow2_emergencyDecel
 basic/dynamics/insertion/best_distance
 basic/dynamics/short_edges
+output/fcd-output/persons/parquet
+output/fcd-output/persons/separate_parquet
 extended/rerouter/closingLaneReroute/closingLane
 extended/rerouter/closingLaneReroute/closingLane_all
 extended/bidiEdge/TWLT_side2
