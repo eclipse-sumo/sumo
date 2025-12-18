@@ -192,12 +192,10 @@ jobs:
       # the pyproj hack does not seem to work on mac
       run: brew update && brew install proj
 
-    - name: Installing dependencies (macos-15)
-      if: matrix.os == 'macos-15'
-      # matplotlib 3.6.3 does not compile out of the box on newer macos
-      run: |
-        brew install freetype pkg-config
-        (echo "[libs]"; echo "system_freetype = true") > mplsetup.cfg
+    - name: Installing dependencies (windows)
+      if: matrix.os == 'windows-latest'
+      # texttest has a hard time finding pandas for test output filtering
+      run: python -m pip install pandas pyarrow
 
     - name: Installing sumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
