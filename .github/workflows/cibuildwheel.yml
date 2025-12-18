@@ -133,26 +133,12 @@ jobs:
       matrix:
         os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm, windows-latest]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-        manylinux: [manylinux2014, manylinux_2_28]
+        manylinux: [manylinux2014]
         include:
-        - os: macos-14
-          failure_file: macos_failures.txt
-        - os: macos-15
-          failure_file: macos_failures.txt
         - os: ubuntu-latest
-          failure_file: linux_failures.txt
+          manylinux: manylinux_2_28
         - os: ubuntu-24.04-arm
-          failure_file: linux_arm_failures.txt
-        - os: windows-latest
-          failure_file: windows_failures.txt
-        exclude:
-        # Windows and macOS don’t have manylinux variants
-        - os: macos-14
-          manylinux: manylinux2_28
-        - os: macos-15
-          manylinux: manylinux2_28
-        - os: windows-latest
-          manylinux: manylinux2_28
+          manylinux: manylinux_2_28
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -220,23 +206,38 @@ jobs:
       shell: bash
       run: |
         source testenv/*/activate
-        KNOWN_FAILURES=$PWD/tests/filter_files/${{ matrix.failure_file }}
-        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert -finverse $KNOWN_FAILURES
-        tests/runTests.sh -b ci -v ci.fast -a netconvert,netgen -finverse $KNOWN_FAILURES
+        OS=$(echo "${{ matrix.os }}" | cut -f1 -d-)
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then OS=linux; fi
+        if [[ "${{ matrix.os }}" == "ubuntu-24.04-arm" ]]; then OS=linux_arm; fi
+        TEXTTEST_CALL="tests/runTests.sh -b ci -v ci.fast -finverse $PWD/tests/filter_files/${OS}_failures.txt"
+        $TEXTTEST_CALL -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
+        $TEXTTEST_CALL -a netconvert,netgen
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
-        tests/runTests.sh -b ci -v ci.fast -a sumo -finverse $KNOWN_FAILURES
-        tests/runTests.sh -b ci -v ci.fast -a complex,tools,traci -finverse $KNOWN_FAILURES
+        $TEXTTEST_CALL -a sumo
+        $TEXTTEST_CALL -a complex,tools,traci
         rm -rf testenv
+
+    - name: Preparing Python environment for libsumo
+      shell: bash
+      run: |
+        python -m venv libsumo_testenv --system-site-packages
+        source libsumo_testenv/*/activate
+        python -m pip install --upgrade pip
+        python -m pip install wheel  # need to do this separately because the texttest install wants it
+        python -m pip install texttest
 
     - name: Installing libsumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
       shell: bash
-      run: python -m pip install --no-index -f python-wheels libsumo
+      run: |
+        source libsumo_testenv/*/activate
+        python -m pip install --no-index -f python-wheels libsumo
 
     - name: Installing libsumo wheels (linux)
       if: ${{ startsWith(matrix.os, 'ubuntu') }}
       shell: bash
       run: |
+        source libsumo_testenv/*/activate
         python -m pip install --no-index -f python-wheels traci sumo-data
         PYTAG="${{ matrix.python_version }}"
         WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
@@ -245,7 +246,9 @@ jobs:
 
     - name: Running libsumo tests
       shell: bash
-      run: tests/runTests.sh -b ci -v ci -a complex.libsumo
+      run: |
+        source libsumo_testenv/*/activate
+        tests/runTests.sh -b ci -v ci -a complex.libsumo
 
     - name: Compressing test results
       if: failure()

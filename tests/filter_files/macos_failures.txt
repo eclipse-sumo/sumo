@@ -110,4 +110,7 @@ bugs/5xxx/ticket5632
 bugs/11xxx/ticket11004
 bugs/13xxx/ticket13363
 appdata=tools
+net/abstractRail/multiple_stations/plain
+net/abstractRail/multiple_stations/horizontal
+net/abstractRail/horizontal
 appdata=traci

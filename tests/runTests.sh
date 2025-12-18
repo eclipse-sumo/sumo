@@ -18,7 +18,7 @@ export LC_ALL=C
 export LANG=C
 
 if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
-  suffix = ".exe"
+  suffix=".exe"
 fi
 pushd `dirname $0` > /dev/null
 export TEXTTEST_HOME="$PWD"
