@@ -132,14 +132,24 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-14, macos-15, ubuntu-latest, ubuntu-24.04-arm, windows-latest]
+        manylinux: [default, manylinux2014, manylinux_2_28]
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-        manylinux: [manylinux2014]
-        include:
-        - os: ubuntu-latest
-          python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
+        exclude:
+        - os: macos-14
+          manylinux: manylinux2014
+        - os: macos-14
           manylinux: manylinux_2_28
+        - os: macos-15
+          manylinux: manylinux2014
+        - os: macos-15
+          manylinux: manylinux_2_28
+        - os: ubuntu-latest
+          manylinux: default
         - os: ubuntu-24.04-arm
-          python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
+          manylinux: default
+        - os: windows-latest
+          manylinux: manylinux2014
+        - os: windows-latest
           manylinux: manylinux_2_28
     runs-on: ${{ matrix.os }}
 
@@ -272,6 +282,6 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v6
       with:
-        name: texttesttmp-${{ matrix.python_version }}-${{ matrix.os }}
+        name: texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}
         path: texttesttmp.zip
         if-no-files-found: warn
