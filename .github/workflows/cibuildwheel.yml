@@ -167,8 +167,8 @@ jobs:
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
 
-    - name: Installing dependencies (linux / windows)
-      if: ${{ !startsWith(matrix.os, 'macos') }}
+    - name: Installing dependencies (linux)
+      if: ${{ startsWith(matrix.os, 'ubuntu') }}
       # we just need proj.db
       shell: bash
       run: |
