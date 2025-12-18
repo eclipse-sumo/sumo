@@ -31,14 +31,14 @@ template<class E, class L, class N, class V>
 class PublicTransportEdge : public IntermodalEdge<E, L, N, V> {
 private:
     struct Schedule {
-        Schedule(const std::string& _id, const SUMOTime _begin, const int _repetitionNumber, const SUMOTime _period, const SUMOTime _travelTime)
+        Schedule(const std::string& _id, const SUMOTime _begin, const long long int _repetitionNumber, const SUMOTime _period, const SUMOTime _travelTime)
             : ids({
             _id
         }), begin(_begin), repetitionNumber(_repetitionNumber), period(_period), travelTime(_travelTime) {}
         // the id of the vehicle or flow from which this schedule is generated
         std::vector<std::string> ids;
         const SUMOTime begin;
-        int repetitionNumber;
+        long long int repetitionNumber;
         // the repetition period for a flow or -1 for a vehicle
         SUMOTime period;
         const SUMOTime travelTime;
@@ -64,7 +64,7 @@ public:
         return mySchedules.find(begin) != mySchedules.end();
     }
 
-    void addSchedule(const std::string id, const SUMOTime begin, const int repetitionNumber, const SUMOTime period, const SUMOTime travelTime) {
+    void addSchedule(const std::string id, const SUMOTime begin, const long long int repetitionNumber, const SUMOTime period, const SUMOTime travelTime) {
         // try to merge with existing vehicle or flow
         bool found = false;
         for (auto& it : mySchedules) {
@@ -79,14 +79,14 @@ public:
                     found = true;
                 }
                 if (found) {
-                    s.repetitionNumber += MAX2(repetitionNumber, 1);
+                    s.repetitionNumber += MAX2(repetitionNumber, 1ll);
                     s.ids.push_back(id);
                     break;
                 }
             }
         }
         if (!found) {
-            mySchedules.insert(std::make_pair(begin, Schedule(id, begin, MAX2(repetitionNumber, 1), MAX2<SUMOTime>(period, 1), travelTime)));
+            mySchedules.insert(std::make_pair(begin, Schedule(id, begin, MAX2(repetitionNumber, 1ll), MAX2<SUMOTime>(period, 1), travelTime)));
         }
     }
 

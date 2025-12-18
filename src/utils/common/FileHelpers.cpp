@@ -282,7 +282,7 @@ FileHelpers::appendBeforeExtension(const std::string& path, const std::string& s
         }
     }
     auto components = StringTokenizer(path, ".").getVector();
-    for (int i = components.size() - 1; i >= 0; i--) {
+    for (int i = (int)components.size() - 1; i >= 0; i--) {
         // assume anything after a dot with less then 5 letters is part of the extension
         if (i == 0 || components[i].size() > 4) {
             components[i] += suffix;
