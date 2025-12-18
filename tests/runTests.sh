@@ -13,29 +13,49 @@
 
 # Bash script for the test run.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
+# The script understands the option --gui to run sumo-gui instead of sumo
+# and --debug to use the debug versions of the executables.
+# If they are present, these two options need to come first,
+# all remaining options are passed directly to texttest.
 
+# to have reproducible (english) error messages and warnings
 export LC_ALL=C
 export LANG=C
 
-if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
-  suffix=".exe"
+if [[ "$1" == "--gui" ]]; then
+  sumo_suffix="-gui"
+  shift
 fi
-pushd `dirname $0` > /dev/null
+if [[ "$1" == "--debug" ]]; then
+  suffix="D"
+  sumo_suffix="${sumo_suffix}D"
+  shift
+fi
+if [[ $(uname) == MINGW* || $(uname) == CYGWIN* ]]; then
+  suffix="${suffix}.exe"
+  sumo_suffix="${sumo_suffix}.exe"
+fi
+
+pushd $(dirname $0) > /dev/null
 export TEXTTEST_HOME="$PWD"
 shopt -s nullglob  # expand the pattern to an empty list if no env exists
 for i in *env/bin/activate; do
-  if test x"$VIRTUAL_ENV" = x; then
+  if [[ "$VIRTUAL_ENV" == "" ]]; then
     echo "Activating virtual environment $(dirname $(dirname $i))."
     source $i
   else
     echo "Virtual environment $VIRTUAL_ENV already active, ignoring $(dirname $(dirname $i))."
   fi
 done
-if test x"$SUMO_HOME" = x; then
+if [[ "$SUMO_HOME" == "" ]]; then
   cd ..
   export SUMO_HOME="$PWD"
 fi
 popd > /dev/null
+
+# for clang sanitizer tests
+export LSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0"
+export UBSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_ubsan_suppressions.txt"
 
 export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen$suffix"
 export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter$suffix"
@@ -46,7 +66,7 @@ export NETEDIT_BINARY="$SUMO_HOME/bin/netedit$suffix"
 export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerate$suffix"
 export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2trips$suffix"
 export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvert$suffix"
-export SUMO_BINARY="$SUMO_HOME/bin/sumo$suffix"
+export SUMO_BINARY="$SUMO_HOME/bin/sumo$sumo_suffix"
 export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui$suffix"
 export MAROUTER_BINARY="$SUMO_HOME/bin/marouter$suffix"
 export PYTHON="python"
