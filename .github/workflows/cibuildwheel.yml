@@ -215,7 +215,12 @@ jobs:
         python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
         $TEXTTEST_CALL -a sumo
         $TEXTTEST_CALL -a complex,tools,traci
+
+    - name: Cleaning up test environment
+      shell: bash
+      run: |
         rm -rf testenv
+        echo 'SUMO_HOME=' >> $GITHUB_ENV
 
     - name: Preparing Python environment for libsumo
       shell: bash
