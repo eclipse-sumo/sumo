@@ -136,8 +136,10 @@ jobs:
         manylinux: [manylinux2014]
         include:
         - os: ubuntu-latest
+          python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
           manylinux: manylinux_2_28
         - os: ubuntu-24.04-arm
+          python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
           manylinux: manylinux_2_28
     runs-on: ${{ matrix.os }}
 
@@ -245,7 +247,7 @@ jobs:
         source libsumo_testenv/*/activate
         python -m pip install --no-index -f python-wheels traci sumo-data
         PYTAG="${{ matrix.python_version }}"
-        WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
+        WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
         echo wheel=$WHEEL
         python -m pip install $WHEEL
 
