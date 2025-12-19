@@ -483,7 +483,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                             }
                         }
                         glTranslated(0, 0, getType());
-                        //glScaled(exaggeration, exaggeration, 1);
+                        glScaled(exaggeration, exaggeration, 1);
                         glColor3d(0.7, 0, 0);
                         GLHelper::drawFilledCircle((double) 1.3, noPoints);
                         glTranslated(0, 0, .1);
