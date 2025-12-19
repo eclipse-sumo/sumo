@@ -247,6 +247,14 @@ jobs:
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
 
+    - name: Installing proj.db (linux)
+      if: ${{ startsWith(matrix.os, 'ubuntu') }}
+      shell: bash
+      run: |
+        source libsumo_testenv/*/activate
+        python -m pip install pyproj
+        python -c "import pyproj; print('PROJ_LIB=' + pyproj.datadir.get_data_dir())" >> $GITHUB_ENV
+
     - name: Installing libsumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
       shell: bash
