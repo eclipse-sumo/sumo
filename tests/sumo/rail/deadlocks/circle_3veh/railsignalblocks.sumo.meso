@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2025-12-19T17:50:52.521457+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,12 +47,26 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to="b_0">
-            <driveWay id="A.0" vehicle="t0" edges="b">
+            <driveWay id="A.0" vehicle="t0" edges="b c">
                 <forward lanes="b_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.0"/>
+                <foes driveWays="A.0 A.1 A.2"/>
+            </driveWay>
+            <driveWay id="A.1" vehicle="t1" edges="b c a">
+                <forward lanes="b_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="A.0 A.1 A.2"/>
+            </driveWay>
+            <driveWay id="A.2" vehicle="t2" edges="b">
+                <forward lanes="b_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="A.0 A.1 A.2"/>
             </driveWay>
         </link>
     </railSignal>
@@ -63,25 +77,46 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.0 B.1"/>
+                <foes driveWays="B.0 B.1 B.2"/>
             </driveWay>
-            <driveWay id="B.1" vehicle="t1" edges="c">
+            <driveWay id="B.1" vehicle="t1" edges="c a">
                 <forward lanes="c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.0 B.1"/>
+                <foes driveWays="B.0 B.1 B.2"/>
+            </driveWay>
+            <driveWay id="B.2" vehicle="t2" edges="c a b">
+                <forward lanes="c_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="B.0 B.1 B.2"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="C">
         <link linkIndex="0" from="c_0" to="a_0">
-            <driveWay id="C.0" vehicle="t0" edges="a">
+            <driveWay id="C.0" vehicle="t0" edges="a b c">
                 <forward lanes="a_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="C.0"/>
+                <foes driveWays="C.0 C.1 C.2"/>
+            </driveWay>
+            <driveWay id="C.1" vehicle="t1" edges="a">
+                <forward lanes="a_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="C.0 C.1 C.2"/>
+            </driveWay>
+            <driveWay id="C.2" vehicle="t2" edges="a b">
+                <forward lanes="a_0"/>
+                <bidi lanes=""/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="C.0 C.1 C.2"/>
             </driveWay>
         </link>
     </railSignal>
