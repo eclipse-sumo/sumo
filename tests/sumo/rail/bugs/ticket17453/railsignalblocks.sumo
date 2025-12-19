@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T16:03:13.496721+01:00 by Eclipse SUMO sumo v1_25_0+0639-d35a4fe013c
+<!-- generated on 2025-12-19T16:13:09.313268+01:00 by Eclipse SUMO sumo v1_25_0+0640-893ce434dd4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
     </output>
 
@@ -77,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J1_1"/>
-            <foes driveWays="J2.d0"/>
+            <foes driveWays="J1.0 J2.d0"/>
         </driveWay>
         <subDriveWay id="J2.d0.0" vehicle="" edges="E2">
             <forward lanes="E2_0"/>
