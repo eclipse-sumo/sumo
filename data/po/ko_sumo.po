@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-19 13:30+0000\n"
+"PO-Revision-Date: 2025-12-19 15:04+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ko/>\n"
@@ -61,13 +61,14 @@ msgid "Invalid % value of edge % is treated as zero."
 msgstr ""
 
 #: src/activitygen/AGActivityGenHandler.cpp:186
-#, c-format
+#, c-format, fuzzy
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "Edge '%'를 찾을 수 없습니다."
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
+#, fuzzy
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "알 수 없는 버스 정류장 '%'."
 
 #: src/activitygen/AGFrame.cpp:47
 msgid ""
@@ -119,13 +120,13 @@ msgstr ""
 
 #: src/activitygen/activitygen_main.cpp:68 src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Net 불러오는 중"
 
 #: src/activitygen/activitygen_main.cpp:78
 #: src/netload/NLEdgeControlBuilder.cpp:238 src/router/ROLoader.cpp:129
 #, c-format
 msgid "Deprecated vehicle classes '%' in input network."
-msgstr ""
+msgstr "입력 네트워크에 더 이상 사용되지 않는 차량 클래스 '%'가 있습니다."
 
 #: src/activitygen/activitygen_main.cpp:88
 msgid ""
@@ -136,11 +137,12 @@ msgstr ""
 #: src/activitygen/activitygen_main.cpp:112
 #, c-format
 msgid "Loaded % edges."
-msgstr ""
+msgstr "% Edge 로드됨."
 
 #: src/activitygen/city/AGCity.cpp:415
+#, fuzzy
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "이 도시에서 승용차가 허용된 도로를 찾을 수 없습니다."
 
 #: src/activitygen/city/AGWorkPosition.cpp:127
 msgid "Work position already occupied. Cannot give it to another adult."
@@ -10292,7 +10294,7 @@ msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/polyconvert/PCLoaderArcView.cpp:112
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:208
