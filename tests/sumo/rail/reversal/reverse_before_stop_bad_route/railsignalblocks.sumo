@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
+<!-- generated on 2025-12-19T17:42:42.825586+01:00 by Eclipse SUMO sumo v1_25_0+0642-06e43b453fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -39,13 +40,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
     <railSignal id="11">
         <link linkIndex="0" from="h2_0" to=":11_0_0">
-            <driveWay id="11.0" vehicle="light_rail_S46:0.0" edges="i -i -h2 -h">
+            <driveWay id="11.0" vehicle="light_rail_S46:0.0" edges="i -i -h2 -h g end">
                 <forward lanes=":11_0_0 i_0 :gneJ0_1_0 -i_0"/>
                 <bidi lanes=":11_2_0 -i_0 i_0 :11_0_0 h2_0 :gneJ1_0_0 h_0"/>
                 <flank lanes=""/>
@@ -67,11 +68,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="0">
-        <driveWay id="0.d0" vehicle="light_rail_S46:0.0" edges="beg f h h2 i -i -h2 -h">
+        <driveWay id="0.d0" vehicle="light_rail_S46:0.0" edges="beg f h h2 i -i -h2 -h g end">
             <forward lanes="beg_0 :1_0_0 f_0 :10_1_0 h_0 :gneJ1_0_0 h2_0"/>
-            <bidi lanes="-h_0 :gneJ1_1_0 -h2_0 :11_2_0 -i_0 i_0 :11_0_0 h2_0 :gneJ1_0_0 h_0"/>
+            <bidi lanes="-h_0 :gneJ1_1_0 -h2_0 :11_2_0 -i_0"
+                    deadlockCheck="i_0 :11_0_0 h2_0 :gneJ1_0_0 h_0"/>
             <flank lanes=""/>
-            <conflictLinks signals=""/>
+            <conflictLinks signals="11_0"/>
             <foes driveWays="0.d0 11.0 11.1.0"/>
         </driveWay>
     </departJunction>

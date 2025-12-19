@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-31 09:18:07 by Eclipse SUMO sumo Version v1_22_0+1156-46cc7b777df
+<!-- generated on 2025-12-19T12:55:22.866845+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J3">
         <link linkIndex="0" from="E2_0" to=":J3_0_0">
-            <driveWay id="J3.0" vehicle="t0" edges="E3 E4 E5 E6">
+            <driveWay id="J3.0" vehicle="t0" edges="E3 E4 E5 E6 E6.1 E7">
                 <forward lanes=":J3_0_0 E3_0 :J4_1_0 E4_0 :J5_0_0 E5_0 :J6_0_0 E6_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="J3.0.1" vehicle="" edges="E3">
                 <forward lanes=":J3_0_0 E3_0"/>
             </subDriveWay>
-            <driveWay id="J3.1" vehicle="t0" edges="E3 E4b E5b">
+            <driveWay id="J3.1" vehicle="t0" edges="E3 E4b E5b E6b E7">
                 <forward lanes=":J3_0_0 E3_0 :J4_0_0 E4b_0 :J5b_0_0 E5b_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="J1">
-        <driveWay id="J1.d0" vehicle="t0" edges="E1 E2">
+        <driveWay id="J1.d0" vehicle="t0" edges="E1 E2 E3 E4 E5 E6 E6.1 E7">
             <forward lanes="E1_0 :J2_0_0 E2_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
@@ -114,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="J3c">
-        <driveWay id="J3c.d0" vehicle="t1" edges="E3c">
+        <driveWay id="J3c.d0" vehicle="t1" edges="E3c E4c E5 E6c E7c">
             <forward lanes="E3c_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>

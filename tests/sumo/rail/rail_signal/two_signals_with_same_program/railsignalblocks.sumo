@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-25 13:36:24 by Eclipse SUMO sumo Version v1_20_0+0593-8dcc4e49145
+<!-- generated on 2025-12-19T12:55:22.398343+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -39,13 +40,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
     <railSignal id="gneJ2">
         <link linkIndex="0" from="gneE1_0" to=":gneJ2_0_0">
-            <driveWay id="gneJ2.0" vehicle="rail1" edges="gneE2 gneE3">
+            <driveWay id="gneJ2.0" vehicle="rail1" edges="gneE2 gneE3 gneE4 gneE5">
                 <forward lanes=":gneJ2_0_0 gneE2_0 :gneJ3_0_0 gneE3_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -66,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ0">
-        <driveWay id="gneJ0.d0" vehicle="rail1" edges="gneE0 gneE1">
+        <driveWay id="gneJ0.d0" vehicle="rail1" edges="gneE0 gneE1 gneE2 gneE3 gneE4 gneE5">
             <forward lanes="gneE0_0 :gneJ1_0_0 gneE1_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>

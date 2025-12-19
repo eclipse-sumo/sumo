@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'v_0'; waited too long (yield, railSignal), lane='-E7_0', time=201.00.
-Warning: Teleporting vehicle 'v_1'; waited too long (yield, railSignal), lane='E0_0', time=201.00.
-Warning: Vehicle 'v_0' ends teleporting on edge '-E4', time=201.00.
-Warning: Vehicle 'v_1' ends teleporting on edge 'E1', time=201.00.
-Warning: Teleporting vehicle 'v_1'; collision with vehicle 'v_0', lane='E3_0', gap=-1.00, time=209.00, stage=move.
-Warning: Vehicle 'v_1' ends teleporting on edge 'E4', time=212.00.
