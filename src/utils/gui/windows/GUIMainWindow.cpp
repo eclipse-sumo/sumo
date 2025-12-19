@@ -367,6 +367,8 @@ GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "日本語", "", TL("Change language to japanese. (ja)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_JA), this, MID_LANGUAGE_JA);
+    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "한국어", "", TL("Change language to korean. (ko)"),
+                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_KO), this, MID_LANGUAGE_KO);
 }
 
 
@@ -416,6 +418,10 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         case MID_LANGUAGE_JA:
             langID = "ja";
             lang = TL("japanese");
+            break;
+        case MID_LANGUAGE_KO:
+            langID = "ko";
+            lang = TL("korean");
             break;
         default:
             langID = "C";
@@ -480,6 +486,10 @@ GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
             menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
+        } else if ((gLanguage == "ja") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_JA))) {
+            menuCommand->setTextColor(GUIDesignTextColorBlue);
+        } else if ((gLanguage == "ko") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_KO))) {
             menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else {
             menuCommand->setTextColor(GUIDesignTextColorBlack);
