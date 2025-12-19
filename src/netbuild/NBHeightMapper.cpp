@@ -90,7 +90,7 @@ NBHeightMapper::getZ(const Position& geo) const {
     }
     for (auto& item : myRasters) {
         const Boundary& boundary = item.boundary;
-        int16_t* raster = item.raster;
+        float* raster = item.raster;
         double result = -1e6;
         if (boundary.around2D(geo)) {
             const int xSize = item.xSize;
@@ -308,7 +308,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
         return 0;
     }
     const int picSize = xSize * ySize;
-    int16_t* raster = (int16_t*)CPLMalloc(sizeof(int16_t) * picSize);
+    float* raster = (float*)CPLMalloc(sizeof(float) * picSize);
     bool ok = true;
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
         GDALRasterBand* poBand = poDataset->GetRasterBand(i);
@@ -319,7 +319,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
             break;
         }
         assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
-        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
+        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Float32, 0, 0) == CE_Failure) {
             WRITE_ERRORF(TL("Failure in reading %."), file);
             clearData();
             ok = false;
