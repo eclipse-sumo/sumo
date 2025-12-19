@@ -261,7 +261,7 @@ jobs:
         source libsumo_testenv/*/activate
         python -m pip install --no-index -f python-wheels traci sumo-data
         PYTAG="${{ matrix.python_version }}"
-        WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
+        WHEEL=$(ls python-wheels/libsumo*cp${PYTAG/.}-cp${PYTAG/.}-*${{ matrix.manylinux }}*$(uname -m).whl)
         echo wheel=$WHEEL
         python -m pip install $WHEEL
 
