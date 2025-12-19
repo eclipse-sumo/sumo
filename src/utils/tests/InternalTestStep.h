@@ -448,6 +448,9 @@ private:
     /// @brief process computeJunctionsVolatileOptions function
     void computeJunctionsVolatileOptions();
 
+    /// @brief process joinJunctions function
+    void joinJunctions();
+
     /// @brief process selectChild function
     void selectAdditionalChild();
 

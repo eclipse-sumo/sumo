@@ -290,6 +290,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
         computeJunctionsVolatileOptions();
+    } else if (function == "joinJunctions") {
+        joinJunctions();
     } else if (function == "selectAdditionalChild") {
         selectAdditionalChild();
     } else if (function == "createRectangledShape") {
@@ -2183,6 +2185,17 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         } else {
             new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ABORT), "close aborting");
         }
+    }
+}
+
+
+void
+InternalTestStep::joinJunctions() {
+    if (myArguments.size() > 0) {
+        writeError("joinJunctions", 0, "<>");
+    } else {
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES;
     }
 }
 
