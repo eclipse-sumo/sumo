@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-19 13:30+0000\n"
+"PO-Revision-Date: 2025-12-19 13:48+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -12070,7 +12070,7 @@ msgstr ""
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:513
 #, c-format
 msgid " %'s size"
-msgstr ""
+msgstr " tamanho de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:35
 msgid "lane start"
