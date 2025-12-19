@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-11 12:23+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2025-12-19 13:30+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -7279,7 +7279,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6185
 #: src/netedit/GNETagPropertiesDatabase.cpp:6192
 msgid "File"
-msgstr ""
+msgstr "Arquivo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6183
 msgid "The path to the file to save this element (the same of their parent)"
@@ -9919,7 +9919,7 @@ msgstr "Parâmetros"
 #: src/netedit/dialogs/GNESaveDialog.cpp:33
 #: src/netedit/dialogs/GNESaveDialog.cpp:41
 msgid "Save %"
-msgstr ""
+msgstr "Salvar %"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:86
 msgid "You have unsaved %."
@@ -13270,7 +13270,7 @@ msgstr "remover itens selecionados"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
@@ -17207,7 +17207,7 @@ msgstr "japonês"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:424
 msgid "korean"
-msgstr ""
+msgstr "coreano"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "english"
