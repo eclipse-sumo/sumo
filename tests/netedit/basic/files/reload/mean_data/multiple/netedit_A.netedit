@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-17T12:20:45.786509+01:00 by Eclipse SUMO netedit v1_25_0+0576-bc250f73a58
+<!-- generated on 2025-12-19T11:17:49.075046+01:00 by Eclipse SUMO netedit v1_25_0+0630-f3ceb0d19b0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <sumocfg-file value="sumo.sumocfg"/>
         <additional-files value="input_additionals_A.add.xml"/>
         <route-files value="input_routes_A.rou.xml"/>
         <data-files value="input_datas_A.dat.xml"/>

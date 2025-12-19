@@ -58,6 +58,18 @@ copy_test_path:input_additionals_B.xml
 copy_test_path:input_additionals_B.xml.gz
 copy_test_path:input_additionals_B.txt
 
+copy_test_path:jupedsims_A.add.xml
+copy_test_path:jupedsims_A.add.xml.gz
+copy_test_path:jupedsims_A.xml
+copy_test_path:jupedsims_A.xml.gz
+copy_test_path:jupedsims_A.txt
+
+copy_test_path:jupedsims_B.add.xml
+copy_test_path:jupedsims_B.add.xml.gz
+copy_test_path:jupedsims_B.xml
+copy_test_path:jupedsims_B.xml.gz
+copy_test_path:jupedsims_B.txt
+
 # ROUTES
 copy_test_path:input_routes_A.rou.xml
 copy_test_path:input_routes_A.rou.xml.gz
@@ -129,6 +141,12 @@ copy_test_path:joinedjunctions_A.nod.xml.gz
 copy_test_path:joinedjunctions_A.xml
 copy_test_path:joinedjunctions_A.xml.gz
 copy_test_path:joinedjunctions_A.txt
+
+copy_test_path:joinedjunctions_B.nod.xml
+copy_test_path:joinedjunctions_B.nod.xml.gz
+copy_test_path:joinedjunctions_B.xml
+copy_test_path:joinedjunctions_B.xml.gz
+copy_test_path:joinedjunctions_B.txt
 
 # OTHER
 copy_test_path:test.py
@@ -207,6 +225,18 @@ input_additionals_B_add_xml_gz:input_additionals_B.add.xml.gz
 input_additionals_B_xml:input_additionals_B.xml
 input_additionals_B_xml_gz:input_additionals_B.xml.gz
 input_additionals_B_txt:input_additionals_B.txt
+
+jupedsims_A_add_xml:jupedsims_A.add.xml
+jupedsims_A_add_xml_gz:jupedsims_A.add.xml.gz
+jupedsims_A_xml:jupedsims_A.xml
+jupedsims_A_xml_gz:jupedsims_A.xml.gz
+jupedsims_A_txt:jupedsims_A.txt
+
+jupedsims_B_add_xml:jupedsims_B.add.xml
+jupedsims_B_add_xml_gz:jupedsims_B.add.xml.gz
+jupedsims_B_xml:jupedsims_B.xml
+jupedsims_B_xml_gz:jupedsims_B.xml.gz
+jupedsims_B_txt:jupedsims_B.txt
 
 # ROUTES
 netedit_A_rou_xml:netedit_A.rou.xml
@@ -298,6 +328,12 @@ joinedjunctions_A_xml:joinedjunctions_A.xml
 joinedjunctions_A_xml_gz:joinedjunctions_A.xml.gz
 joinedjunctions_A_txt:joinedjunctions_A.txt
 
+joinedjunctions_B_nod_xml:joinedjunctions_B.nod.xml
+joinedjunctions_B_nod_xml_gz:joinedjunctions_B.nod.xml.gz
+joinedjunctions_B_xml:joinedjunctions_B.xml
+joinedjunctions_B_xml_gz:joinedjunctions_B.xml.gz
+joinedjunctions_B_txt:joinedjunctions_B.txt
+
 # OTHER
 guisettings:guisettings.xml
 log:log.txt
@@ -335,6 +371,17 @@ netconvert_B:<!-- generated{[->]}-->
 netconvert_B:\\{REPLACE /}
 
 # NETWORKS
+
+netedit_A_net_xml:<!-- generated{[->]}-->
+netedit_A_net_xml:\{REPLACE /}
+netedit_B_net_xml:<!-- generated{[->]}-->
+netedit_B_net_xml:\{REPLACE /}
+
+sumo_A_net_xml:<!-- generated{[->]}-->
+sumo_A_net_xml:\{REPLACE /}
+sumo_B_net_xml:<!-- generated{[->]}-->
+sumo_B_net_xml:\{REPLACE /}
+
 input_net_A_net_xml:<!-- generated{[->]}-->
 input_net_A_net_xml:\\{REPLACE /}
 input_net_A_xml_gz:
@@ -379,6 +426,24 @@ input_additionals_B_xml:\\{REPLACE /}
 input_additionals_B_xml_gz:
 input_additionals_B_txt:<!-- generated{[->]}-->
 input_additionals_B_txt:\\{REPLACE /}
+
+jupedsims_A_add_xml:<!-- generated{[->]}-->
+jupedsims_A_add_xml:\\{REPLACE /}
+jupedsims_A_add_xml_gz:
+jupedsims_A_xml:<!-- generated{[->]}-->
+jupedsims_A_xml:\\{REPLACE /}
+jupedsims_A_xml_gz:
+jupedsims_A_txt:<!-- generated{[->]}-->
+jupedsims_A_txt:\\{REPLACE /}
+
+jupedsims_B_add_xml:<!-- generated{[->]}-->
+jupedsims_B_add_xml:\\{REPLACE /}
+jupedsims_B_add_xml_gz:
+jupedsims_B_xml:<!-- generated{[->]}-->
+jupedsims_B_xml:\\{REPLACE /}
+jupedsims_B_xml_gz:
+jupedsims_B_txt:<!-- generated{[->]}-->
+jupedsims_B_txt:\\{REPLACE /}
 
 # ROUTES
 netedit_A_rou_xml:<!-- generated{[->]}-->
@@ -514,6 +579,15 @@ joinedjunctions_A_xml:\\{REPLACE /}
 joinedjunctions_A_xml_gz:
 joinedjunctions_A_txt:<!--{[->]}-->
 joinedjunctions_A_txt:\\{REPLACE /}
+
+joinedjunctions_B_nod_xml:<!--{[->]}-->
+joinedjunctions_B_nod_xml:\\{REPLACE /}
+joinedjunctions_B_nod_xml_gz:
+joinedjunctions_B_xml:<!--{[->]}-->
+joinedjunctions_B_xml:\\{REPLACE /}
+joinedjunctions_B_xml_gz:
+joinedjunctions_B_txt:<!--{[->]}-->
+joinedjunctions_B_txt:\\{REPLACE /}
 
 # OTHER
 guisettings:<scheme{[->]}</scheme>
