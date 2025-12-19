@@ -114,7 +114,10 @@ def main():
         print("Error: SUMO_BINARY must be defined", file=sys.stderr)
         sys.exit(2)
     # run sumo
-    rc = subprocess.run([sumo, "-c", "sumo.sumocfg", "--no-step-log", "--no-duration-log"]).returncode
+    if (os.path.exists("sumo_B.sumocfg")):
+        rc = subprocess.run([sumo, "-c", "sumo_B.sumocfg", "--no-step-log", "--no-duration-log"]).returncode
+    else:
+        rc = subprocess.run([sumo, "-c", "sumo.sumocfg", "--no-step-log", "--no-duration-log"]).returncode
     sys.exit(rc)
 
 
