@@ -1793,17 +1793,17 @@ InternalTestStep::saveFileAs() {
             myMessageID = MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS;
             file = "jupedsims_B." + extension;
         } else if (type == "additional") {
-            throw ProcessError("not finish");
             file = "input_additionals_B." + extension;
+            throw ProcessError("not finish");
         } else if (type == "demand") {
-            throw ProcessError("not finish");
             file = "input_routes_B." + extension;
+            throw ProcessError("not finish");
         } else if (type == "data") {
-            throw ProcessError("not finish");
             file = "input_datas_B." + extension;
-        } else if (type == "meanData") {
             throw ProcessError("not finish");
+        } else if (type == "meanData") {
             file = "input_meandatas_B." + extension;
+            throw ProcessError("not finish");
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
