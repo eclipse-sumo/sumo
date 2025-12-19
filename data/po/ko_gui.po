@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-18 14:00+0000\n"
+"PO-Revision-Date: 2025-12-19 13:30+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2565,8 +2565,9 @@ msgid "maxSpeedLat [m/s]"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:265
+#, fuzzy
 msgid "latAlignment"
-msgstr ""
+msgstr "횡방향 정렬"
 
 #: src/guisim/GUIVehicle.cpp:276
 msgid "manoeuver Angle vs Times"
@@ -2574,75 +2575,79 @@ msgstr ""
 
 #: src/guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
-msgstr ""
+msgstr "미시적 멀티모달 교통 시뮬레이션 SUMO의 GUI 버전입니다."
 
 #: src/guisim_main.cpp:81 src/netedit/netedit_main.cpp:87
+#, fuzzy
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "이 시스템은 OpenGL을 지원하지 않습니다. 종료합니다."
 
 #: src/netedit/GNEApplicationWindow.cpp:537
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "미시적, 멀티모달 교통 시뮬레이션."
 
 #: src/netedit/GNEApplicationWindow.cpp:550
+#, fuzzy
 msgid "Close dialog automatically"
-msgstr ""
+msgstr "대화 상자 자동으로 닫기"
 
 #: src/netedit/GNEApplicationWindow.cpp:578
 msgid "Recomputing"
-msgstr ""
+msgstr "재계산 중"
 
 #: src/netedit/GNEApplicationWindow.cpp:579
 msgid "Recomputing is needed"
-msgstr ""
+msgstr "재계산이 필요합니다"
 
 #: src/netedit/GNEApplicationWindow.cpp:591
 msgid "Test coordinate"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:757
+#, fuzzy
 msgid "netconvert config file"
-msgstr ""
+msgstr "netconvert 구성 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:786
 #: src/netedit/GNEApplicationWindow.cpp:3443
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:115
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:361
 msgid "network file"
-msgstr ""
+msgstr "네트워크 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:803
 msgid "OpenStreetMap file"
-msgstr ""
+msgstr "OpenStreetMap 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:820
 #: src/netedit/GNEApplicationWindow.cpp:3621
 msgid "netedit config file"
-msgstr ""
+msgstr "netedit 구성 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:850
 #: src/netedit/GNEApplicationWindow.cpp:3749
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:565
 msgid "sumo config file"
-msgstr ""
+msgstr "SUMO 구성 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:953
 #: src/netedit/GNEApplicationWindow.cpp:3870
+#, fuzzy
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "Traffic Light 정의 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:991
 #: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "EdgeTypes file"
-msgstr ""
+msgstr "EdgeTypes 파일"
 
 #: src/netedit/GNEApplicationWindow.cpp:1054
 msgid "Reloading netedit config file '%'"
-msgstr ""
+msgstr "netedit 구성 파일 다시 로드 중 '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1059
 msgid "Reloading sumo config file '%'"
-msgstr ""
+msgstr "Sumo 구성 파일 다시 로드 중 '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1064
 #: src/netedit/GNEApplicationWindow.cpp:1127
@@ -2714,120 +2719,137 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1362
 #, c-format
 msgid "Sumo config '%' loaded"
-msgstr ""
+msgstr "Sumo 구성 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
 #, c-format
 msgid "Netconvert config '%' loaded"
-msgstr ""
+msgstr "Netconvert 구성 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "네트워크 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1371
 #, c-format
 msgid "OSM Network '%' loaded"
-msgstr ""
+msgstr "OSM 네트워크 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
 msgid "Network '%' loaded through console"
-msgstr ""
+msgstr "네트워크 '%'가 콘솔을 통해 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "New network successfully created"
-msgstr ""
+msgstr "새 네트워크가 성공적으로 생성됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Modes"
-msgstr ""
+msgstr "모드(%M)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1511
 msgid "L&ock"
-msgstr ""
+msgstr "잠금(&O)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1518
+#, fuzzy
 msgid "&Processing"
-msgstr ""
+msgstr "&Processing"
 
 #: src/netedit/GNEApplicationWindow.cpp:1545
 msgid "&Tools"
-msgstr ""
+msgstr "도구(&T)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1547
 msgid "Assign"
-msgstr ""
+msgstr "Assign"
 
 #: src/netedit/GNEApplicationWindow.cpp:1548
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 #: src/netedit/GNETagPropertiesDatabase.cpp:429
+#, fuzzy
 msgid "Detectors"
-msgstr ""
+msgstr "Detectors"
 
 #: src/netedit/GNEApplicationWindow.cpp:1549
+#, fuzzy
 msgid "Districts"
-msgstr ""
+msgstr "Districts"
 
 #: src/netedit/GNEApplicationWindow.cpp:1550
+#, fuzzy
 msgid "DRT"
-msgstr ""
+msgstr "DRT"
 
 #: src/netedit/GNEApplicationWindow.cpp:1552
+#, fuzzy
 msgid "CityBrain"
-msgstr ""
+msgstr "CityBrain"
 
 #: src/netedit/GNEApplicationWindow.cpp:1553
+#, fuzzy
 msgid "GTFS"
-msgstr ""
+msgstr "GTFS"
 
 #: src/netedit/GNEApplicationWindow.cpp:1554
+#, fuzzy
 msgid "Vissim"
-msgstr ""
+msgstr "Vissim"
 
 #: src/netedit/GNEApplicationWindow.cpp:1555
+#, fuzzy
 msgid "Visum"
-msgstr ""
+msgstr "Visum"
 
 #: src/netedit/GNEApplicationWindow.cpp:1556
+#, fuzzy
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: src/netedit/GNEApplicationWindow.cpp:1557
+#, fuzzy
 msgid "Net"
-msgstr ""
+msgstr "Net"
 
 #: src/netedit/GNEApplicationWindow.cpp:1558
+#, fuzzy
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: src/netedit/GNEApplicationWindow.cpp:1559
 #: src/netedit/GNEApplicationWindowHelper.cpp:705
 #: src/netedit/GNETagPropertiesDatabase.cpp:2114
 #: src/netedit/GNETagPropertiesDatabase.cpp:2590
+#, fuzzy
 msgid "Route"
-msgstr ""
+msgstr "Route"
 
 #: src/netedit/GNEApplicationWindow.cpp:1561
+#, fuzzy
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: src/netedit/GNEApplicationWindow.cpp:1562
+#, fuzzy
 msgid "Trigger"
-msgstr ""
+msgstr "Trigger"
 
 #: src/netedit/GNEApplicationWindow.cpp:1563
+#, fuzzy
 msgid "Turn-defs"
-msgstr ""
+msgstr "Turn-defs"
 
 #: src/netedit/GNEApplicationWindow.cpp:1564
+#, fuzzy
 msgid "Visualization"
-msgstr ""
+msgstr "Visualization"
 
 #: src/netedit/GNEApplicationWindow.cpp:1565
+#, fuzzy
 msgid "XML"
-msgstr ""
+msgstr "XML"
 
 #: src/netedit/GNEApplicationWindow.cpp:1655
 msgid "Network computed"
@@ -2835,7 +2857,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1659
 msgid "Press F5"
-msgstr ""
+msgstr "F5를 누르세요"
 
 #: src/netedit/GNEApplicationWindow.cpp:1660
 msgid "Network requires recomputing"
@@ -2847,15 +2869,16 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1768
 msgid "Creating new network."
-msgstr ""
+msgstr "새 네트워크 생성중."
 
 #: src/netedit/GNEApplicationWindow.cpp:1779
+#, fuzzy
 msgid "Trying to load an empty network."
-msgstr ""
+msgstr "비어있는 네트워크의 불러오기를 시도했습니다."
 
 #: src/netedit/GNEApplicationWindow.cpp:1798
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "네트워크 파일 로드 중 '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1810
 #, fuzzy
@@ -2869,7 +2892,7 @@ msgstr "configuration 파일 '%'을 불러오는 중입니다.."
 
 #: src/netedit/GNEApplicationWindow.cpp:1865
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "OSM 파일 로드 중 '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1882
 msgid "Recompute with volatile options"
@@ -2903,19 +2926,20 @@ msgstr ""
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
-msgstr ""
+msgstr "되돌리기"
 
 #: src/netedit/GNEApplicationWindow.cpp:2678
 #: src/netedit/GNEApplicationWindowHelper.cpp:1286
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
-msgstr ""
+msgstr "다시실행"
 
 #: src/netedit/GNEApplicationWindow.cpp:2822
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
+#, fuzzy
 msgid "Unfront element"
-msgstr ""
+msgstr "Unfront element"
 
 #: src/netedit/GNEApplicationWindow.cpp:2823
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
@@ -2950,31 +2974,34 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3372
 msgid "Force save network"
-msgstr ""
+msgstr "네트워크 강제 저장"
 
 #: src/netedit/GNEApplicationWindow.cpp:3422
 msgid "Saving network failed"
-msgstr ""
+msgstr "네트워크 저장 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "네트워크가 다음 위치에 저장되었습니다'%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3432
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "네트워크를 다음 위치에 저장할 수 없습니다 '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3482
+#, fuzzy
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "Plain XML saved with prefix '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3485
+#, fuzzy
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "Saving plain xml failed"
 
 #: src/netedit/GNEApplicationWindow.cpp:3499
+#, fuzzy
 msgid "plain XML file"
-msgstr ""
+msgstr "plain XML file"
 
 #: src/netedit/GNEApplicationWindow.cpp:3518
 msgid "joined junctions file"
