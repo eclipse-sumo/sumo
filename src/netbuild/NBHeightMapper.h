@@ -124,7 +124,7 @@ public:
 private:
 
     struct RasterData {
-        int16_t* raster;
+        float* raster;
         Boundary boundary;
         int xSize;
         int ySize;
