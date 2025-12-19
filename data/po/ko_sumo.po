@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-17 07:50+0000\n"
+"PO-Revision-Date: 2025-12-19 13:30+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -871,8 +871,9 @@ msgid ""
 msgstr ""
 
 #: src/libsumo/GUI.cpp:332
+#, fuzzy
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "이 시스템은 OpenGL을 지원하지 않습니다. 종료합니다."
 
 #: src/libsumo/Helper.cpp:927
 #, c-format
@@ -10923,7 +10924,7 @@ msgstr ""
 
 #: src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "미시적, 멀티모달 교통 시뮬레이션."
 
 #: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 #, fuzzy
