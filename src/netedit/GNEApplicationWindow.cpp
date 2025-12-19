@@ -958,7 +958,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // load traffic lights
-        loadTrafficLights("loading");
+        loadTrafficLights("Loading");
     }
     return 1;
 }
@@ -967,7 +967,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // load traffic lights
-    loadTrafficLights("reloading");
+    loadTrafficLights("Reloading");
     return 1;
 }
 
@@ -996,7 +996,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypesFileDialog.getFilename());
         // load edge types
-        loadEdgeTypes("loading");
+        loadEdgeTypes("Loading");
     }
     return 1;
 }
@@ -1005,7 +1005,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // load edge types
-    loadEdgeTypes("reloading");
+    loadEdgeTypes("Reloading");
     return 0;
 }
 
@@ -1414,10 +1414,10 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
             myViewNet->setViewportFromToRot(off, p, 0);
         }
         // load elements
-        loadAdditionalElements("loading");
-        loadDemandElements("loading");
-        loadDataElements("loading");
-        loadMeanDataElements("loading");
+        loadAdditionalElements("Loading");
+        loadDemandElements("Loading");
+        loadDataElements("Loading");
+        loadMeanDataElements("Loading");
         // load selection
         if (!OptionsCont::getOptions().isDefault("selection-file")) {
             myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
@@ -3965,7 +3965,7 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
     // reload additional elements stored in options
-    loadAdditionalElements("reloading");
+    loadAdditionalElements("Reloading");
     // end undoList operation
     myUndoList->end();
     // restore validation for additionals
@@ -4175,7 +4175,7 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
     // reload demand elements stored in options
-    loadDemandElements("reloading");
+    loadDemandElements("Reloading");
     // end undoList operation and update view
     myUndoList->end();
     // restore validation for demand
@@ -4357,7 +4357,7 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     // clear data elements
     myNet->clearDataElements(myUndoList);
     // reload data elements stored in options
-    loadDataElements("reloading");
+    loadDataElements("Reloading");
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");
     // end undoList operation and update view
@@ -4530,7 +4530,7 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
     // reload meanData elements stored in options
-    loadMeanDataElements("reloading");
+    loadMeanDataElements("Reloading");
     // end undoList operation and update view
     myUndoList->end();
     // restore validation for meanDatas
