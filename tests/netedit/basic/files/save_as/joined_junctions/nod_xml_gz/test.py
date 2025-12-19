@@ -25,6 +25,39 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
+# Change to create mode
+netedit.changeMode("createEdge")
+
+# Create two nodes
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+
+# go to select mode
+netedit.changeMode("select")
+
+# select and and
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+
+# join
+netedit.joinJunctions()
+
+# select and and
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+
+# join
+netedit.joinJunctions()
+
 # save joined junctions
 netedit.saveFileAs(referencePosition, "joinedJunctions", "nod.xml.gz", 0)
 
