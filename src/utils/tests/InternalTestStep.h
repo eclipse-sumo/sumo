@@ -400,6 +400,9 @@ private:
     /// @brief process save file as function
     void saveFileAs();
 
+    /// @brief process save unified file as function
+    void saveUnifiedFileAs();
+
     /// @brief process reload file function
     void reloadFile();
 
