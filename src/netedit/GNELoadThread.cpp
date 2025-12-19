@@ -82,6 +82,8 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
         // load a network file
         type = GNEEvent_FileLoaded::Type::NETWORK;
+        // set network as default file in file bucket
+        myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
     } else if (neteditOptions.getString("netecfg-file").size() > 0) {
         // load a sumo config file
         type = GNEEvent_FileLoaded::Type::NETECFG;
