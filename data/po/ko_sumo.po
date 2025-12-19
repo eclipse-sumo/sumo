@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-19 15:04+0000\n"
+"PO-Revision-Date: 2025-12-19 16:53+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ko/>\n"
@@ -1935,12 +1935,14 @@ msgid "Write internal state values with the given precision (default 2)"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:359
+#, fuzzy
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr ""
+msgstr "시작 시간을 초 단위로 정의; 시뮬레이션은 이 시간에 시작됨"
 
 #: src/microsim/MSFrame.cpp:362
+#, fuzzy
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr ""
+msgstr "종료 시간을 초 단위로 정의; 시뮬레이션은 이 시간에 종료됨"
 
 #: src/microsim/MSFrame.cpp:365
 msgid "Defines the step duration in seconds"
@@ -2199,6 +2201,7 @@ msgid "Select default depart lane"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:528
+#, fuzzy
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -2206,16 +2209,22 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
+"차량 추종 및 차로 변경 모델의 행동 지점 간 기본 간격 길이(초). 지정하지 "
+"않으면 기본적으로 시뮬레이션 단계 길이가 사용됨. 차량 또는 VType별 설정이 "
+"기본값을 재정의함. 시뮬레이션 단계 길이의 배수여야 함."
 
 #: src/microsim/MSFrame.cpp:531
 msgid "Select default car following model (Krauss, IDM, ...)"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:535
+#, fuzzy
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
 msgstr ""
+"기본 속도 편차 선택. 음수 값은 vClass별 기본값을 의미함 (기본 승용차 "
+"클래스의 경우 0.1)"
 
 #: src/microsim/MSFrame.cpp:538
 msgid ""
@@ -2552,8 +2561,9 @@ msgid ""
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:794
+#, fuzzy
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "파일에서 시각화 설정 불러오기"
 
 #: src/microsim/MSFrame.cpp:797
 msgid "Quits the GUI when the simulation stops"
@@ -2600,16 +2610,19 @@ msgid "Do not load background pictures"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:831
+#, fuzzy
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "레지스트리에서 현재 뷰포트 불러오기"
 
 #: src/microsim/MSFrame.cpp:834
+#, fuzzy
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "주어진 x,y 크기로 초기 창 생성"
 
 #: src/microsim/MSFrame.cpp:837
+#, fuzzy
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "주어진 x,y 위치에 초기 창 생성"
 
 #: src/microsim/MSFrame.cpp:840
 msgid "The aggregation period for value tracker windows"
@@ -2620,12 +2633,14 @@ msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
 msgstr ""
 
 #: src/microsim/MSFrame.cpp:849
+#, fuzzy
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "화면 인식을 위한 오버레이 활성화"
 
 #: src/microsim/MSFrame.cpp:853
+#, fuzzy
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "GUI 테스트 중 출력 메시지 활성화"
 
 #: src/microsim/MSFrame.cpp:857
 msgid "Save gui settings in the given settings output file"
@@ -10233,8 +10248,9 @@ msgid "Missing at least one information in line '%'."
 msgstr ""
 
 #: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+#, fuzzy
 msgid "Could not open '%'."
-msgstr ""
+msgstr "호스트"
 
 #: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
 #, c-format
@@ -10289,8 +10305,9 @@ msgid "Unknown traffic light in '%'."
 msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:986
+#, fuzzy
 msgid "(No projection defined)"
-msgstr ""
+msgstr "(투영법 미정의)"
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
@@ -11525,16 +11542,19 @@ msgstr ""
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:158
 #: src/utils/foxtools/MFXDecalsTable.cpp:169
+#, fuzzy
 msgid "Invalid row or column"
-msgstr ""
+msgstr "호환성"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:193
+#, fuzzy
 msgid "Invalid row"
-msgstr ""
+msgstr "하위 호환"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:203
+#, fuzzy
 msgid "Invalid column"
-msgstr ""
+msgstr "상위 호환"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:339
 #: src/utils/foxtools/MFXDecalsTable.cpp:796
