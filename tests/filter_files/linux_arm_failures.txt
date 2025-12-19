@@ -1,5 +1,10 @@
 -tp appdata=activitygen
 appdata=complex
+broken_nets/sumo
+broken_nets/dfrouter
+broken_nets/duarouter
+broken_nets/jtrrouter
+broken_nets/netconvert
 appdata=dfrouter
 appdata=duarouter
 appdata=jtrrouter
@@ -89,4 +94,8 @@ devices/ssm/following/foe_follows_both_turning_left_minor
 devices/ssm/recurrent_net/ego_major_recurrent
 bugs/13xxx/ticket13363
 appdata=tools
+net/abstractRail/multiple_stations/plain
+net/abstractRail/multiple_stations/horizontal
+net/abstractRail/multiple_stations/stations_horizontal
+net/abstractRail/horizontal
 appdata=traci
