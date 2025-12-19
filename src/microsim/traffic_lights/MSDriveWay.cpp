@@ -1746,7 +1746,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         subLast--;
     }
     if (subLast < 0) {
-        if (foe->myTerminateRoute) {
+        if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
+            // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
+            foe->myFoes.push_back(this);
+        } else if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
                 // foe will get the sidings
