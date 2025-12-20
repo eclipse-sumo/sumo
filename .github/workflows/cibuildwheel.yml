@@ -259,7 +259,7 @@ jobs:
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
       shell: bash
       run: |
-        source libsumo_testenv/*/activate
+        if [[ "${{ matrix.os }}" != "windows-latest" ]]; then source libsumo_testenv/*/activate; fi
         python -m pip install --no-index -f python-wheels libsumo
 
     - name: Installing libsumo wheels (linux)
