@@ -195,7 +195,9 @@ jobs:
     - name: Installing dependencies (windows)
       if: matrix.os == 'windows-latest'
       # texttest has a hard time finding dependencies
-      run: python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
+      run: |
+        python -m pip install --no-index -f python-wheels eclipse_sumo
+        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
 
     - name: Installing sumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
