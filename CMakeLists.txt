@@ -755,7 +755,7 @@ if (SUMO_LIBRARIES AND WIN32)
         add_custom_command(OUTPUT ${PROJ_DATA}
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${TARGET_DIR}/share/proj
                            DEPENDS ${PROJ_INCLUDE_DIR}/../share/proj/proj.db)
-        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share)
+        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
 # set install dll targets, for non-Windows they depend on nothing
