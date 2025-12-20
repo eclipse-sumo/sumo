@@ -111,9 +111,9 @@ public:
     double getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const;
 
     /// @brief add edge type specific routing preference
-    void addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio); 
+    void addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio);
     /// @brief add edge type specific routing preference
-    void addPreference(const std::string& routingType, std::string vType, double prio); 
+    void addPreference(const std::string& routingType, std::string vType, double prio);
 
     /// @name Insertion and retrieval of graph parts
     //@{
@@ -458,7 +458,7 @@ public:
     /// @brief whether efforts were loaded from file
     bool hasLoadedEffort() const;
 
-    SUMOTime getMaxTraveltime() const {
+    double getMaxTraveltime() const {
         return myMaxTraveltime;
     }
 
@@ -627,7 +627,7 @@ private:
     bool myHasBidiEdges;
 
     /// @brief the maximum traveltime beyond which routing is considered a failure
-    double myMaxTraveltime;
+    const double myMaxTraveltime;
 
     /// @brief temporary edge closing (rerouters)
     Prohibitions myProhibitions;

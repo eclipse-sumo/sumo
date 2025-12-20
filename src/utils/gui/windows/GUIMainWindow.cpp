@@ -66,8 +66,8 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     // build bold font
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
-    double uiScale = app->reg().readRealEntry("SETTINGS", "uiscale", 1);
-    fdesc.size *= uiScale;
+    const double uiScale = app->reg().readRealEntry("SETTINGS", "uiscale", 1);
+    fdesc.size = (FXushort)(fdesc.size * uiScale);
     myNormalFont = new FXFont(app, fdesc);
     app->setNormalFont(myNormalFont);
     fdesc.weight = FXFont::Bold;
