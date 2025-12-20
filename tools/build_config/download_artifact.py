@@ -17,6 +17,8 @@
 
 import argparse
 import io
+import os
+import sys
 import zipfile
 
 import requests
@@ -75,6 +77,14 @@ if __name__ == "__main__":
     ap.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me more")
     options = ap.parse_args()
 
+    if not options.token:
+        for cred_path in (".", os.path.dirname(__file__), os.path.expanduser("~")):
+            if os.path.exists(os.path.join(cred_path, ".git-credentials")):
+                with open(os.path.join(cred_path, ".git-credentials")) as f:
+                    options.token = f.read().split(":")[-1].split("@")[0]
+                    break
+    if not options.token:
+        sys.exit("no authentication token found, please use the option --token or provide a .git-credentials file")
     for artifact_url in get_latest_artifact_url(options):
         response = request(artifact_url, options.token)
         if response.status_code == 200:
