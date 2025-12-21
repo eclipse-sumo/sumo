@@ -87,7 +87,7 @@ jobs:
       run: |
         export DYLD_FALLBACK_LIBRARY_PATH=/usr/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
         brew install texttest
-        sumo/tests/runTests.sh -b ci -v ci -ts meta
+        sumo/tests/runTests.sh -b ci -v ci -finverse $PWD/sumo/tests/filter_files/macos_failures.txt
 
     - name: Uploading artifacts (SUMO binaries and FMU)
       uses: actions/upload-artifact@v6
