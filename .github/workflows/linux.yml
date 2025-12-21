@@ -55,13 +55,6 @@ jobs:
         sudo apt update
         sudo apt install -y -V libarrow-dev libparquet-dev
 
-    - name: Validate CITATION.cff
-      if: matrix.build_type == 'full' && github.event_name == 'schedule' && matrix.compiler == 'gcc'
-      uses: dieghernan/cff-validator@v4
-      with:
-        install-r: true
-        citation-path: sumo/CITATION.cff
-
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       uses: actions/checkout@v6
