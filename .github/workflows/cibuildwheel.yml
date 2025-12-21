@@ -39,7 +39,7 @@ jobs:
           include_test = []
           for osys in osl:
               for ml in manylinux:
-                  if (ml == "default") ^ osys.startswith("ubuntu"):
+                  if (ml == "default") == osys.startswith("ubuntu"):
                       continue
                   if osys != "macos-15" or "macos-14" not in osl:
                       include_build.append({"os": osys, "manylinux": ml})
@@ -141,7 +141,7 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ startsWith(matrix.os, 'ubuntu') && matrix.manylinux || 'default' }}
+          name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
           path: ./wheelhouse/*.whl
 
   ###################
