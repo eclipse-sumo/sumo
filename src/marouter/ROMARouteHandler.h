@@ -81,7 +81,7 @@ private:
     double myScale;
 
     /// @brief number of parsed vehicles
-    int myNumLoaded;
+    long long int myNumLoaded;
 
 private:
     /// @brief Invalidated copy constructor
