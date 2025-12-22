@@ -918,7 +918,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, MSRouteIterator start, MSRouteIte
         const MSEdge& next = **(e + 1);
         if ((*e)->allowedLanes(next, myType->getVehicleClass()) == nullptr) {
             if (!checkJumps || !hasJump(e)) {
-                if ((myRoutingMode & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) == 0
+                if (!ignoreTransientPermissions()
                         || (!next.hasTransientPermissions() && !(*e)->hasTransientPermissions())) {
                     msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
                     return false;
