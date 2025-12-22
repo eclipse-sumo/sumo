@@ -27,6 +27,7 @@
 #include "MSPModel_Interacting.h"
 
 //#define DEBUG_INTERACTING
+//#define DEBUG_CROSSING_APPROACH
 
 #define DEBUGCOND(PED) ((PED)->getPerson()->isSelected())
 
@@ -176,7 +177,7 @@ void
 MSPModel_Interacting::unregisterCrossingApproach(const MSPModel_InteractingState& ped, const MSLane* crossing) {
     // person has entered the crossing
     crossing->getIncomingLanes()[0].viaLink->removeApproachingPerson(ped.getPerson());
-#ifdef DEBUG_INTERACTING
+#ifdef DEBUG_CROSSING_APPROACH
     if DEBUGCOND(&ped) {
         std::cout << SIMTIME << " unregister " << ped.getPerson()->getID() << " at crossing " << crossing->getID() << "\n";
     }
