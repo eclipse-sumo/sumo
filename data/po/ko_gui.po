@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-20 09:39+0000\n"
+"PO-Revision-Date: 2025-12-22 07:24+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -45,7 +45,7 @@ msgstr "Network 좌표"
 #: src/gui/GUIApplicationWindow.cpp:345
 #: src/netedit/GNEApplicationWindow.cpp:610
 msgid "Ready."
-msgstr "준비."
+msgstr "준비됨."
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindow.cpp:1451
@@ -55,27 +55,27 @@ msgstr "파일 (&F)"
 #: src/gui/GUIApplicationWindow.cpp:470
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "New Window"
-msgstr "새 창"
+msgstr "새 창 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:470
 msgid "Open a new sumo-gui window."
-msgstr "새 sumo-gui 창 열기."
+msgstr "새 sumo-gui 창을 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "&Open Simulation..."
-msgstr "&시뮬레이션 열기(&O)..."
+msgstr "&시뮬레이션 열기 (&O)..."
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Open a simulation (Configuration file)."
-msgstr "시뮬레이션 열기 (구성 파일)."
+msgstr "시뮬레이션을 엽니다 (sumocfg 파일)."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open &Network..."
-msgstr "Network 열기(&N)..."
+msgstr "Network 열기 (&N)..."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open a network."
-msgstr "Network 열기."
+msgstr "Network 파일을 엽니다 (.net.xml 파일)."
 
 #: src/gui/GUIApplicationWindow.cpp:480
 msgid "Open Shapes "
@@ -83,7 +83,7 @@ msgstr "Shape 열기 "
 
 #: src/gui/GUIApplicationWindow.cpp:480
 msgid "Load POIs and Polygons for visualization."
-msgstr "시각화를 위해 POI와 폴리곤을 불러옵니다."
+msgstr "시각화를 위한 POI와 Polygon을 불러옵니다."
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Open EdgeData "
@@ -116,7 +116,7 @@ msgstr "구성 저장"
 
 #: src/gui/GUIApplicationWindow.cpp:493
 msgid "Save current options as a configuration file."
-msgstr "현재 설정을 구성 파일로 저장."
+msgstr "현재 설정을 구성 파일로 저장합니다.."
 
 #: src/gui/GUIApplicationWindow.cpp:496
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
@@ -125,7 +125,7 @@ msgstr "닫기"
 
 #: src/gui/GUIApplicationWindow.cpp:496
 msgid "Close the simulation."
-msgstr "시뮬레이션 종료."
+msgstr "시뮬레이션을 닫습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
@@ -135,7 +135,7 @@ msgstr "종료(&Q)"
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "Quit the Application."
-msgstr "프로그램 종료."
+msgstr "프로그램을 종료합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:513
 #: src/netedit/GNEApplicationWindow.cpp:1486
@@ -737,7 +737,7 @@ msgstr "최근 Network"
 #: src/gui/GUIApplicationWindow.cpp:862
 #: src/netedit/GNEApplicationWindowHelper.cpp:179
 msgid "Cl&ear Recent Configs"
-msgstr "최근 구성 지우기(&e)"
+msgstr "최근 구성 비우기 (&E)"
 
 #: src/gui/GUIApplicationWindow.cpp:863
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
@@ -4255,7 +4255,6 @@ msgstr "MeanData Edge/차로를 생성합니다."
 #: src/netedit/GNEApplicationWindowHelper.cpp:860
 #: src/netedit/GNEApplicationWindowHelper.cpp:1045
 #: src/netedit/GNEViewNetHelper.cpp:2709 src/netedit/GNEViewNetHelper.cpp:2993
-#, fuzzy
 msgid "Show grid"
 msgstr "그리드 표시"
 
@@ -20175,7 +20174,6 @@ msgid "Sky color"
 msgstr "하늘 색상"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:120
-#, fuzzy
 msgid "Recenter View"
 msgstr "뷰 중앙 재정렬"
 
