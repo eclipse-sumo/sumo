@@ -1014,20 +1014,23 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
         }
     }
     if (myApproachingPersons != nullptr && !haveRed()) {
+        const SUMOTime lookAhead = (ego == nullptr
+                ? myLookaheadTime
+                : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime))));
         for (const auto& it : *myApproachingPersons) {
-//#ifdef MSLink_DEBUG_OPENED
-//            if (gDebugFlag1) {
-//                std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime
-//                    << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
-//                    << " dist=" << dist << "\n";
-//            }
-//#endif
+#ifdef MSLink_DEBUG_OPENED
+            if (gDebugFlag1) {
+                std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime
+                    << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
+                    << " dist=" << dist << "\n";
+            }
+#endif
             if ((ego == nullptr
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                     && !ignoreFoe(ego, it.first)
-                    && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
+                    && !((arrivalTime > it.second.leavingTime + lookAhead) || (leaveTime + lookAhead < it.second.arrivalTime))) {
                 if (ego == nullptr) {
                     // during insertion
                     if (myJunction->getType() == SumoXMLNodeType::RAIL_CROSSING) {
