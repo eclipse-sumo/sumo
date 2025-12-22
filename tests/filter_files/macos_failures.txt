@@ -141,6 +141,7 @@ appdata=tools
 net/abstractRail/multiple_stations/plain
 net/abstractRail/multiple_stations/horizontal
 net/abstractRail/horizontal
+import/dxf/jupedsim
 turndefs/routeSampler/min_count_optimize
 visualization/plot_csv_pie/paradigm
 visualization/plot_csv_pie/plain
