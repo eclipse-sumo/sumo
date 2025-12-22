@@ -76,7 +76,7 @@ jobs:
 
       - uses: actions/upload-artifact@v6
         with:
-          name: pure-wheels
+          name: cibw-pure-wheels
           path: ./dist/*
 
   ###################
