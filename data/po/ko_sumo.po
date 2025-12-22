@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-20 09:38+0000\n"
+"PO-Revision-Date: 2025-12-23 09:18+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ko/>\n"
@@ -10304,9 +10304,8 @@ msgid "Unknown traffic light in '%'."
 msgstr ""
 
 #: src/osgview/GUIOSGView.cpp:986
-#, fuzzy
 msgid "(No projection defined)"
-msgstr "(프로젝션이 정의되지 않음, No projection defined)"
+msgstr "(프로젝션이 정의되지 않음)"
 
 #: src/osgview/GUIOSGView.cpp:990 src/osgview/GUIOSGView.cpp:991
 msgid "N/A"
