@@ -478,7 +478,7 @@ private:
     static int getStripeOffset(int origStripes, int destStripes, bool addRemainder);
 
     ///@brief add vehicles driving across
-    static bool addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& crossingVehs, bool prio);
+    static bool addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& crossingVehs, bool prio, bool flipY);
 
     ///@brief retrieve vehicle obstacles on the given lane
     static Obstacles getVehicleObstacles(const MSLane* lane, int dir, PState* ped = 0);

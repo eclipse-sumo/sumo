@@ -794,7 +794,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 // add vehicle obstacles
                 const MSLink* crossingEntryLink = nextLane->getIncomingLanes().front().viaLink;
                 const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
-                addCrossingVehs(nextLane, stripes, offset, nextDir, obs, prio);
+                addCrossingVehs(nextLane, stripes, offset, nextDir, obs, prio, currentDir != nextDir);
             }
             if (nextLane->getVehicleNumberWithPartials() > 0) {
                 Obstacles vehObs = getVehicleObstacles(nextLane, nextDir);
@@ -1053,7 +1053,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     bool hasCrossingVehObs = false;
     if (lane->isCrossing()) {
         // assume that vehicles will brake when already on the crossing
-        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true);
+        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true, false);
     }
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
@@ -1230,7 +1230,7 @@ MSPModel_Striping::registerCrossingApproach(const PState& ped, const MSLane* cro
 
 
 bool
-MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs, bool prio) {
+MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs, bool prio, bool flipY) {
     bool hasCrossingVehObs = false;
     const MSLink* crossingExitLink = crossing->getLinkCont().front();
     gDebugFlag1 = DEBUGCOND2(crossing);
@@ -1280,6 +1280,12 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                         hasCrossingVehObs = true;
                     }
                 }
+                if (flipY) {
+                    Obstacles tmp = obs;
+                    for (int i = 0; i < (int)obs.size(); i++) {
+                        obs[i] = tmp[obs.size() - 1 - i];
+                    }
+                }
                 if (DEBUGCOND2(crossing)) {
                     std::cout << SIMTIME
                               << " crossingVeh=" << veh->getID()
@@ -1287,6 +1293,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                               << " prio=" << prio
                               << " latOffset=" << lateral_offset
                               << " dir=" << dir
+                              << " flipY=" << flipY
                               << " stripes=" << stripes
                               << " dist=" << (*it).distToCrossing
                               << " gap=" << (*it).vehAndGap.second
