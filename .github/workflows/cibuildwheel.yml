@@ -50,6 +50,36 @@ jobs:
               print(f"build_matrix={json.dumps({'include': include_build})}", file=f)
               print(f"test_matrix={json.dumps({'include': include_test})}", file=f)
 
+  ###################
+  # building pure python wheels
+  ###################
+  pure-python-wheels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning SUMO
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          filter: tree:0
+          # to work around actions/checkout#1467
+          ref: ${{ github.ref }}
+
+      - name: Building sumolib and traci wheels
+        run: |
+          python -m pip install build
+          python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
+          python -m build
+          python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
+          python -m build
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: pure-wheels
+          path: ./dist/*
+
+  ###################
+  # building wheels with cibuildwheel
+  ###################
   build-wheels:
     needs: [generate-matrix]
     strategy:
@@ -89,15 +119,6 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-
-      - name: Building sumolib and traci wheels
-        if: matrix.os == 'macos-14'
-        run: |
-          python -m pip install build
-          python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
-          python -m build --wheel -o wheelhouse/
-          python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
-          python -m build --wheel -o wheelhouse/
 
       - name: Preparing wheel eclipse-sumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
@@ -148,7 +169,7 @@ jobs:
   # testing wheels
   ###################
   test-wheels:
-    needs: [generate-matrix, build-wheels]
+    needs: [generate-matrix, pure-python-wheels, build-wheels]
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.generate-matrix.outputs.test_matrix) }}
