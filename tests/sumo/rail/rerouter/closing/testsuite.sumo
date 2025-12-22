@@ -46,6 +46,9 @@ blockedStopEdge_skip
 # see #16421
 dest_unreachable_skip
 
+# only stop is unreachable
+dest_unreachable_skip2
+
 # see #16421
 # destination is not a stop edge
 dest_unreachable2
