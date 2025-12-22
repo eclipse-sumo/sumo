@@ -447,7 +447,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             if DEBUGCOND(ped) {
                 std::cout << "  crossing\n";
             }
-            unregisterCrossingApproach(ped, currentLane);
+            if (currentLane->isPriorityCrossing()) {
+                unregisterCrossingApproach(ped, currentLane);
+            }
         } else if (currentEdge->isWalkingArea())  {
             ConstMSEdgeVector crossingRoute;
             // departPos can be 0 because the direction of the walkingArea does not matter
@@ -491,7 +493,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     }
                 }
                 assert(link != nullptr);
-                if (nextLane->isCrossing()) {
+                if (nextLane->isPriorityCrossing()) {
                     registerCrossingApproach(ped, nextLane, prevLane);
                 }
             } else {
@@ -1144,7 +1146,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 // @todo actually another path would be needed starting at the current position
                 const MSLane* oldNext = p.myNLI.lane;
                 p.myNLI = getNextLane(p, p.getLane(), p.myWalkingAreaPath->from);
-                if (p.myNLI.lane != oldNext) {
+                if (p.myNLI.lane != oldNext && oldNext->isPriorityCrossing()) {
                     unregisterCrossingApproach(p, oldNext);
                 }
             }
