@@ -239,6 +239,7 @@ public:
      * @return The lanes that may be used by the given vclass
      */
     const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass = SVC_IGNORING) const;
+    const std::vector<MSLane*>* allowedLanes(SUMOVehicleClass vclass, bool ignoreTransientPermissions) const;
 
     inline bool isConnectedTo(const MSEdge& destination, SUMOVehicleClass vclass, bool ignoreTransientPermissions = false) const {
         const std::vector<MSLane*>* const lanes = allowedLanes(destination, vclass, ignoreTransientPermissions);
