@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-23 09:18+0000\n"
+"PO-Revision-Date: 2025-12-25 00:00+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -386,13 +386,12 @@ msgid "Show vehicles outside the road network"
 msgstr "도로 Network 외부의 차량 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:593
-#, fuzzy
 msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"locator dialog에서 순간이동 또는 원격 제어로 도로망 밖에서 주행하는 차량을 보"
-"여줍니다."
+"검색 대화상자에서 순간이동 또는 원격 제어로 도로망 밖에서 주행하는 차량을 "
+"보여줍니다."
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Simulation"
@@ -475,16 +474,14 @@ msgid "Open new view"
 msgstr "새 View 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:621 src/gui/GUIApplicationWindow.cpp:768
-#, fuzzy
 msgid "Open a new microscopic view."
-msgstr "새 microscopic view를 엽니다."
+msgstr "새 미시적 뷰를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:623 src/gui/GUIApplicationWindow.cpp:771
 msgid "Open new 3D view"
 msgstr "새 3D View 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:623 src/gui/GUIApplicationWindow.cpp:771
-#, fuzzy
 msgid "Open a new 3D view."
 msgstr "새 3D View를 엽니다."
 
@@ -632,7 +629,6 @@ msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
 msgstr "\t시뮬레이션 열기\t시뮬레이션 열기 (구성 파일)."
 
 #: src/gui/GUIApplicationWindow.cpp:695
-#, fuzzy
 msgid "\tOpen network\tOpen a network."
 msgstr "\tNetwork 열기\tNetwork 열기."
 
@@ -641,7 +637,6 @@ msgid "\tReload\tReloads the simulation / the network."
 msgstr "\t다시 불러오기\t시뮬레이션 / Network 다시 불러오기."
 
 #: src/gui/GUIApplicationWindow.cpp:706
-#, fuzzy
 msgid "\tRun\tStart/Resume the loaded simulation."
 msgstr "\t실행\t로드된 시뮬레이션을 시작/재개합니다."
 
@@ -650,7 +645,6 @@ msgid "\tStop\tHalt the running simulation."
 msgstr "\t정지\t실행중인 시뮬레이션을 중단합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:710
-#, fuzzy
 msgid "\tStep\tPerform a single simulation step."
 msgstr "\tStep\tStep을 1회 수행합니다."
 
@@ -736,13 +730,11 @@ msgstr "최근 구성 비우기 (&E)"
 
 #: src/gui/GUIApplicationWindow.cpp:863
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
-#, fuzzy
 msgid "No Recent Configs"
 msgstr "최근 구성 파일 없음"
 
 #: src/gui/GUIApplicationWindow.cpp:867
 #: src/netedit/GNEApplicationWindowHelper.cpp:184
-#, fuzzy
 msgid "Recent Configs"
 msgstr "최근 구성 파일"
 
@@ -751,16 +743,14 @@ msgid "Running %."
 msgstr "% 실행중."
 
 #: src/gui/GUIApplicationWindow.cpp:1067
-#, fuzzy
 msgid "Open Simulation Configuration"
-msgstr "시뮬레이션 Configuration 열기"
+msgstr "시뮬레이션 구성 파일 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1087
 msgid "Open Network"
 msgstr "Network 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1107
-#, fuzzy
 msgid "Open Shapes"
 msgstr "Shape 열기"
 
@@ -777,12 +767,11 @@ msgstr "EdgeData 열기"
 #: src/gui/GUIApplicationWindow.cpp:1173
 #, fuzzy
 msgid "Auto-Reloading."
-msgstr "자동으로 다시 불러오는중."
+msgstr "Auto-Reloading 진행 중."
 
 #: src/gui/GUIApplicationWindow.cpp:1173
-#, fuzzy
 msgid "TraCI-Loading."
-msgstr "TraCI 불러오는 중."
+msgstr "TraCI 로드 중."
 
 #: src/gui/GUIApplicationWindow.cpp:1175
 #, fuzzy
@@ -792,7 +781,7 @@ msgstr "다시 불러오는중."
 #: src/gui/GUIApplicationWindow.cpp:1186
 #, fuzzy
 msgid "Quick-Reloading."
-msgstr "빠른 다시 불러오기 중."
+msgstr "Quick-Reloading 중."
 
 #: src/gui/GUIApplicationWindow.cpp:1196
 #: src/netedit/GNEApplicationWindow.cpp:1156
