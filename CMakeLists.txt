@@ -928,7 +928,10 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/tests
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
         COMMAND find tools/contributed/saga/ tools/contributed/traci4matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
+        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/build_config/sumo/__init__.py
+        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/libsumo/__init__.py
         COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/sumolib/version.py
+        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/traci/__init__.py
         COMMAND mkdir sumo-${PACKAGE_VERSION}/include
         COMMAND cp ${CMAKE_BINARY_DIR}/src/version.h sumo-${PACKAGE_VERSION}/include
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}

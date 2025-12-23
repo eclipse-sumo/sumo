@@ -25,6 +25,8 @@ try:
     SUMO_DATA_HOME = sumo_data.__path__[0]
     if not os.environ.get("SUMO_HOME"):
         os.environ["SUMO_HOME"] = SUMO_DATA_HOME
+    if not os.environ.get("PROJ_LIB") and not os.environ.get("PROJ_DATA"):
+        os.environ["PROJ_LIB"] = os.environ["PROJ_DATA"] = os.path.join(SUMO_DATA_HOME, "proj")
 except ImportError:
     # fall back to the eclipse-sumo wheel
     try:
@@ -48,6 +50,14 @@ if hasattr(os, "add_dll_directory"):
         os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
     elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "zlib.dll")):
         os.add_dll_directory(os.path.join(os.path.dirname(__file__), "..", "..", "bin"))
+
+try:
+    # this tries to determine the version number of an installed wheel
+    import importlib.metadata  # noqa
+    __version__ = importlib.metadata.version(__name__)
+except ImportError:
+    # this is the fallback version, it gets replaced with the current version on "make install" or "make dist"
+    __version__ = "0.0.0"
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.step import StepManager, StepListener  # noqa
