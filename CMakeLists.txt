@@ -759,7 +759,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
 endif()
 if (PROJ_DATA_DIR)
-    install(DIRECTORY ${PROJ_DATA_DIR} DESTINATION ${DATA_PATH}data COMPONENT data)
+    install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT data)
 endif ()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})

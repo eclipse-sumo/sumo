@@ -26,7 +26,7 @@ try:
     if not os.environ.get("SUMO_HOME"):
         os.environ["SUMO_HOME"] = SUMO_DATA_HOME
     if not os.environ.get("PROJ_LIB") and not os.environ.get("PROJ_DATA"):
-        os.environ["PROJ_LIB"] = os.environ["PROJ_DATA"] = os.path.join(SUMO_DATA_HOME, "proj")
+        os.environ["PROJ_LIB"] = os.environ["PROJ_DATA"] = os.path.join(SUMO_DATA_HOME, "data", "proj")
 except ImportError:
     # fall back to the eclipse-sumo wheel
     try:
