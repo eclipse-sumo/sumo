@@ -203,19 +203,6 @@ jobs:
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
 
-    - name: Installing proj.db (linux)
-      if: ${{ startsWith(matrix.os, 'ubuntu') }}
-      shell: bash
-      run: |
-        source testenv/*/activate
-        python -m pip install pyproj
-        python -c "import pyproj; print('PROJ_LIB=' + pyproj.datadir.get_data_dir())" >> $GITHUB_ENV
-
-    - name: Installing proj.db (macos)
-      if: ${{ startsWith(matrix.os, 'macos') }}
-      # the pyproj hack does not seem to work on mac
-      run: brew update && brew install proj
-
     - name: Installing dependencies (windows)
       if: matrix.os == 'windows-latest'
       # texttest has a hard time finding dependencies
@@ -270,14 +257,6 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install wheel  # need to do this separately because the texttest install wants it
         python -m pip install texttest
-
-    - name: Installing proj.db (linux)
-      if: ${{ startsWith(matrix.os, 'ubuntu') }}
-      shell: bash
-      run: |
-        source libsumo_testenv/*/activate
-        python -m pip install pyproj
-        python -c "import pyproj; print('PROJ_LIB=' + pyproj.datadir.get_data_dir())" >> $GITHUB_ENV
 
     - name: Installing libsumo wheels (macos / windows)
       if: ${{ !startsWith(matrix.os, 'ubuntu') }}
