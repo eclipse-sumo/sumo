@@ -749,15 +749,18 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${TARGET_DIR}/bin/${OSG_PLUGIN_DIR}
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
-    if (PROJ_FOUND)
+    if (PROJ_DATA_DIR)
         # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
         set(PROJ_DATA ${TARGET_DIR}/share/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${TARGET_DIR}/share/proj
-                           DEPENDS ${PROJ_INCLUDE_DIR}/../share/proj/proj.db)
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/share/proj
+                           DEPENDS ${PROJ_DATA_DIR}/proj.db)
         install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
+if (PROJ_DATA_DIR)
+    install(DIRECTORY ${PROJ_DATA_DIR} DESTINATION ${DATA_PATH}data COMPONENT data)
+endif ()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
