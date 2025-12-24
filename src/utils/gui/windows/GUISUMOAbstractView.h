@@ -427,6 +427,15 @@ public:
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
     FXMutex& getDecalsLockMutex();
 
+    /// @brief queue a texture for deletion
+    void queueTextureDelete(unsigned int textureId);
+
+    /// @brief process pending texture deletions
+    void processPendingTextureDeletes();
+
+    /// @brief clear all decals
+    void clearDecals();
+
     /// @brief get coloring schemes combo
     MFXComboBoxIcon* getColoringSchemesCombo();
 
@@ -612,6 +621,12 @@ protected:
 
     /// @brief The mutex to use before accessing the decals list in order to avoid thread conflicts
     FXMutex myDecalsLockMutex;
+
+    /// @brief texture IDs pending deletion
+    std::vector<unsigned int> myPendingTextureDeletes;
+
+    /// @brief mutex for pending texture deletes
+    FXMutex myTextureDeleteMutex;
 
     ///@}
 

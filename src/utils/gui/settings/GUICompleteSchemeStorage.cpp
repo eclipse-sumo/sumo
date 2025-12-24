@@ -232,7 +232,10 @@ void
 GUICompleteSchemeStorage::saveDecals(const std::vector<GUISUMOAbstractView::Decal>& decals) {
     myDecals = decals;
     for (auto& d : myDecals) {
+        // reset GPU resource handles
         d.initialised = false;
+        d.glID = -1;
+        d.image = nullptr;
     }
 }
 

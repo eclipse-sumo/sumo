@@ -133,6 +133,13 @@ GUITexturesHelper::getTextureID(const std::string& filename, const bool mirrorX)
 
 void
 GUITexturesHelper::clearTextures() {
+    // delete textures
+    for (const auto& pair : myTextures) {
+        if (pair.second > 0) {
+            GLuint texId = static_cast<GLuint>(pair.second);
+            glDeleteTextures(1, &texId);
+        }
+    }
     myTextures.clear();
 }
 
