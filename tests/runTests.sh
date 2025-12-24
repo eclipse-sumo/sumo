@@ -53,22 +53,27 @@ if [[ "$SUMO_HOME" == "" ]]; then
 fi
 popd > /dev/null
 
+# we need to be able to set this separately because in python wheels we want to test the wrapper binaries
+if [[ "$SUMO_BIN_DIR" == "" ]]; then
+  SUMO_BIN_DIR="$SUMO_HOME/bin"
+fi
+
 # for clang sanitizer tests
 export LSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_memleak_suppressions.txt,print_suppressions=0"
 export UBSAN_OPTIONS=suppressions="$SUMO_HOME/build_config/clang_ubsan_suppressions.txt"
 
-export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen$suffix"
-export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter$suffix"
-export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouter$suffix"
-export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouter$suffix"
-export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvert$suffix"
-export NETEDIT_BINARY="$SUMO_HOME/bin/netedit$suffix"
-export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerate$suffix"
-export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2trips$suffix"
-export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvert$suffix"
-export SUMO_BINARY="$SUMO_HOME/bin/sumo$sumo_suffix"
-export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui$suffix"
-export MAROUTER_BINARY="$SUMO_HOME/bin/marouter$suffix"
+export ACTIVITYGEN_BINARY="$SUMO_BIN_DIR/activitygen$suffix"
+export DFROUTER_BINARY="$SUMO_BIN_DIR/dfrouter$suffix"
+export DUAROUTER_BINARY="$SUMO_BIN_DIR/duarouter$suffix"
+export JTRROUTER_BINARY="$SUMO_BIN_DIR/jtrrouter$suffix"
+export NETCONVERT_BINARY="$SUMO_BIN_DIR/netconvert$suffix"
+export NETEDIT_BINARY="$SUMO_BIN_DIR/netedit$suffix"
+export NETGENERATE_BINARY="$SUMO_BIN_DIR/netgenerate$suffix"
+export OD2TRIPS_BINARY="$SUMO_BIN_DIR/od2trips$suffix"
+export POLYCONVERT_BINARY="$SUMO_BIN_DIR/polyconvert$suffix"
+export SUMO_BINARY="$SUMO_BIN_DIR/sumo$sumo_suffix"
+export GUISIM_BINARY="$SUMO_BIN_DIR/sumo-gui$suffix"
+export MAROUTER_BINARY="$SUMO_BIN_DIR/marouter$suffix"
 export PYTHON="python"
 
 texttest "$@"

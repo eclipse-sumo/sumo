@@ -32,7 +32,6 @@ Changelog = "https://sumo.dlr.de/docs/ChangeLog"
 Download = "https://sumo.dlr.de/download"
 
 [project.scripts]
-spam-cli = "spam:main_cli"
 activitygen = "sumo:activitygen"
 dfrouter = "sumo:dfrouter"
 duarouter = "sumo:duarouter"

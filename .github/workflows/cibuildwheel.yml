@@ -236,6 +236,7 @@ jobs:
         OS=$(echo "${{ matrix.os }}" | cut -f1 -d-)
         if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then OS=linux; fi
         if [[ "${{ matrix.os }}" == "ubuntu-24.04-arm" ]]; then OS=linux_arm; fi
+        export SUMO_BIN_DIR=$(python -c "import os,sys; print(os.path.dirname(sys.executable))")
         TEXTTEST_CALL="tests/runTests.sh -b ci -v ci.fast -finverse $PWD/tests/filter_files/${OS}_failures.txt"
         $TEXTTEST_CALL -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
         $TEXTTEST_CALL -a netconvert,netgen
