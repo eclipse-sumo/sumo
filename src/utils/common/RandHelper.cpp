@@ -155,7 +155,11 @@ RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
 
 double
 RandHelper::randExp(double rate, SumoRNG* rng) {
-    return -log(rand(rng)) / rate;
+    double r = rand(rng);
+    while (r == 0) {
+        r = rand(rng);
+    }
+    return -log(r) / rate;
 }
 
 // template<class T>
