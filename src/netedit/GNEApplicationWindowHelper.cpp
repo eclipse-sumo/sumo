@@ -2289,8 +2289,7 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
 // GNENetconvertConfigHandler - methods
 // ---------------------------------------------------------------------------
 
-GNEApplicationWindowHelper::GNENetconvertConfigHandler::GNENetconvertConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& sumoConfigFile) :
-    myApplicationWindow(applicationWindow),
+GNEApplicationWindowHelper::GNENetconvertConfigHandler::GNENetconvertConfigHandler(const std::string& sumoConfigFile) :
     myNetconvertConfigFile(sumoConfigFile) {
 }
 
