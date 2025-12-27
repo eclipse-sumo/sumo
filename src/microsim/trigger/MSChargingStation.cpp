@@ -178,7 +178,9 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     double sumReqWh = 0;
     std::vector<Charge*> thisStepCharges;
     for (auto& kv : myChargeValues) {
-        // auto& vid = kv.first;
+        if (MSNet::getInstance()->getVehicleControl().getVehicle(kv.first) == nullptr) {
+            continue;
+        }
         Charge& lastcharge = kv.second.back();
         if (lastcharge.timeStep == currentTime) {
             sumReqWh += lastcharge.WCharged;
