@@ -914,13 +914,13 @@ MSDriveWay::buildRoute(const MSLink* origin,
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
-    while ((seekForwardSignal || seekBidiSwitch)) {
+    while (true) {
         if (length > MSGlobals::gMaxRailSignalBlockLength) {
             // typical block length in germany on main lines is 3-5km on branch lines up to 7km
             // special branches that are used by one train exclusively could also be up to 20km in length
             // minimum block size in germany is 37.5m (LZB)
             // larger countries (USA, Russia) might see blocks beyond 20km)
-            if (myRoute.size() == 0 || myBlockLengthWarnings.count(myRoute.front()) == 0) {
+            if (seekForwardSignal && myBlockLengthWarnings.count(myRoute.front()) == 0) {
                 WRITE_WARNINGF("Block after % exceeds maximum length (stopped searching after edge '%' (length=%m).",
                                warnID, toLane->getEdge().getID(), length);
                 myBlockLengthWarnings.insert(myRoute.front());
@@ -982,40 +982,35 @@ MSDriveWay::buildRoute(const MSLink* origin,
             }
         }
         if (bidi != nullptr) {
+            if (!seekForwardSignal && !foundUnsafeSwitch && bidi->isNormal()) {
+                // look for switch that could protect from oncoming vehicles
+                for (const MSLink* const link : bidi->getLinkCont()) {
+                    if (link->getDirection() == LinkDirection::TURN) {
+                        continue;
+                    }
+                    if (!myBidi.empty() && link->getViaLaneOrLane() != myBidi.back()) {
+                        myCoreSize = (int)myRoute.size() - 1;
+                        MSLink* used = const_cast<MSLink*>(bidi->getLinkTo(myBidi.back()));
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                        if (gDebugFlag4) {
+                            std::cout << "      found unsafe switch " << link->getDescription() << " (used=" << (used == nullptr ? "NULL" : used->getDescription()) << ")\n";
+                        }
+#endif
+                        // trains along our route beyond this switch might create deadlock
+                        foundUnsafeSwitch = true;
+                        // the switch itself must still be guarded to ensure safety
+                        if (used != nullptr) {
+                            // possibly nullptr if there was an intermediate section of unidirectional edges
+                            flankSwitches.insert(used);
+                        }
+                        break;
+                    }
+                }
+            }
             if (foundUnsafeSwitch) {
                 myBidiExtended.push_back(bidi);
             } else {
                 myBidi.push_back(bidi);
-            }
-            if (!seekForwardSignal) {
-                // look for switch that could protect from oncoming vehicles
-                for (const auto& ili : bidi->getIncomingLanes()) {
-                    if (ili.viaLink->getDirection() == LinkDirection::TURN) {
-                        continue;
-                    }
-                    for (const MSLink* const link : ili.lane->getLinkCont()) {
-                        if (link->getDirection() == LinkDirection::TURN) {
-                            continue;
-                        }
-                        if (link->getViaLaneOrLane() != bidi) {
-                            myCoreSize = (int)myRoute.size();
-#ifdef DEBUG_DRIVEWAY_BUILDROUTE
-                            if (gDebugFlag4) {
-                                const MSEdge* const bidiNext = bidi->getNextNormal();
-                                std::cout << "      found unsafe switch " << ili.viaLink->getDescription() << " (used=" << bidiNext->getID() << ")\n";
-                            }
-#endif
-                            // trains along our route beyond this switch might create deadlock
-                            foundUnsafeSwitch = true;
-                            // the switch itself must still be guarded to ensure safety
-                            for (const auto& ili2 : bidi->getIncomingLanes()) {
-                                if (ili2.viaLink->getDirection() != LinkDirection::TURN) {
-                                    flankSwitches.insert(ili.viaLink);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
         const std::vector<MSLink*>& links = toLane->getLinkCont();
@@ -1026,7 +1021,9 @@ MSDriveWay::buildRoute(const MSLink* origin,
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0) {
                     if (link == origin) {
-                        WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
+                        if (seekForwardSignal) {
+                            WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
+                        }
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         myAbortedBuild = true;
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -1709,8 +1706,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     // Remove further edges from the end of the driveway (myForward) until the point of conflict is found.
     //
     // For movingBlock the logic is changed:
-    // We remove the conflict-free part as before but then keep removing the the conflict part until the
-    // another non-conconflit part is found
+    // We remove the conflict-free part as before but then keep removing the conflict part until another non-conconflit part is found
     if (myForward.size() < foe->myForward.size() &&
             myForward == std::vector<const MSLane*>(foe->myForward.begin(), foe->myForward.begin() + myForward.size())) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
@@ -1746,7 +1742,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         subLast--;
     }
     if (subLast < 0) {
-        if (foe->myTerminateRoute) {
+        if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
+            // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
+            foe->myFoes.push_back(this);
+        } else if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
                 // foe will get the sidings
@@ -1826,7 +1825,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         if (itOnSub != sub->myRoute.end()) {
             sub->myTrains.insert(veh);
             // non-zero is enough to avoid superfluous activation via activateReminders (and removal)
-            const double pos = itOnSub == sub->myRoute.begin() ? 0 : sub->myRoute.front()->getLength();
+            const double pos = sub->myRoute.front()->getLength();
             dynamic_cast<MSBaseVehicle*>(veh)->addReminder(sub, pos);
             for (const VehicleEvent& ve : myVehicleEvents) {
                 if (ve.id == veh->getID()) {

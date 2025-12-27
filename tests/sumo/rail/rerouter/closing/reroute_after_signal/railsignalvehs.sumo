@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-01 10:37:12 by Eclipse SUMO sumo Version v1_22_0+1185-c17c4546020
+<!-- generated on 2025-12-19T12:55:22.866997+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,6 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
             <subDriveWay id="J3.0.1">
                 <entry id="t0" time="35.00" reason="junction"/>
+                <exit id="t0" time="49.00" reason="junction"/>
             </subDriveWay>
             <driveWay id="J3.1">
                 <entry id="t0" time="35.00" reason="reroute"/>
@@ -89,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <departJunction id="J1">
         <driveWay id="J1.d0">
             <entry id="t0" time="0.00" reason="departed"/>
-            <exit id="t0" time="40.00" reason="junction"/>
+            <exit id="t0" time="36.00" reason="reroute"/>
         </driveWay>
     </departJunction>
     <departJunction id="J3c">

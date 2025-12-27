@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
+<!-- generated on 2025-12-19T17:42:42.961656+01:00 by Eclipse SUMO sumo v1_25_0+0642-06e43b453fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
@@ -42,7 +42,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="E1_0" to=":J2_1_0">
             <driveWay id="J2.0" vehicle="v_0" edges="E2 E3 E4 -E4 E4 E5 E6">
                 <forward lanes=":J2_1_0 E2_0"/>
-                <bidi lanes=":J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0 E4_0 -E4_0 :J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
+                <bidi lanes=":J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"
+                    deadlockCheck="E4_0 -E4_0 :J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J2.0 J7.d0.0"/>
@@ -78,7 +79,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <departJunction id="J0">
         <driveWay id="J0.d0" vehicle="v_0" edges="E0 E1 E2 E3 E4 -E4 E4 E5 E6">
             <forward lanes="E0_0 :J1_1_0 E1_0"/>
-            <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0 E4_0 -E4_0 :J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
+            <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"
+                    deadlockCheck="E4_0 -E4_0 :J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="J0.d0 J7.d0"/>

@@ -127,6 +127,18 @@ public:
         myHierarchicalStructureChildren.add(element);
     }
 
+    /// @brief Sort childrens
+    template<typename ChildType>
+    void sortChildren(std::vector<ChildType*> sortedChildrens) {
+        // remove elements and add again
+        for (auto child : sortedChildrens) {
+            myHierarchicalStructureChildren.remove(child);
+        }
+        for (auto child : sortedChildrens) {
+            myHierarchicalStructureChildren.add(child);
+        }
+    }
+
     /// @}
 
     /// @name edit function maintain integrity

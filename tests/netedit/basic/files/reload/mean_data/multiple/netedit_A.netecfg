@@ -17,10 +17,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <additional-files value="input_additionals_A.add.xml"/>
-        <meandata-files value="input_meandatas_A.add.xml,meaninput_datasB.dat.add.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml,meaninput_datas_B.dat.add.xml"/>
         <route-files value="input_routes_A.rou.xml"/>
         <data-files value="input_datas_A.dat.xml"/>
         <sumo-net-file value="input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
     </input>
 
     <output>

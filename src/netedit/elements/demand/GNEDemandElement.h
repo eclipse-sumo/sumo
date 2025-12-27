@@ -95,6 +95,9 @@ public:
     /// @brief get reference to fileBucket in which save this AC
     FileBucket* getFileBucket() const override;
 
+    /// @brief change filebucket manually (used only during calibratorFlows creation)
+    void changeFileBucket(FileBucket* fileBucket);
+
     /// @brief get demand element geometry (stacked)
     const GUIGeometry& getDemandElementGeometry();
 

@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "traci"
+version = "0.0.0"
+dependencies = ["sumolib>=0.0.0"]
+authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
+license = "EPL-2.0 OR GPL-2.0-or-later"
+description = "The pure python version of the TraCI API to communicate with the traffic simulation Eclipse SUMO"
+readme = "build_config/pyproject/README_traci.md"
+keywords = ["traffic", "simulation", "sumo"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
+]
+
+[project.urls]
+Homepage = "https://sumo.dlr.de/"
+Documentation = "https://sumo.dlr.de/docs/"
+Repository = "https://github.com/eclipse-sumo/sumo"
+Issues = "https://github.com/eclipse-sumo/sumo/issues"
+Changelog = "https://sumo.dlr.de/docs/ChangeLog"
+Download = "https://sumo.dlr.de/download"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tools/traci", "tools/simpla"]
+
+[tool.hatch.build.targets.sdist]
+# ensure sdist matches wheel
+include = [
+  "tools/traci/**",
+  "tools/simpla/**",
+  "build_config/pyproject/README_traci.md",
+  "pyproject.toml"
+]

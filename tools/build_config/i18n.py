@@ -76,6 +76,8 @@ def generate_po(sumo_home, path, languages, pot_file, gui_pot_file, py_pot_file,
             for s in new.readlines():
                 if s.startswith("#") and sumo_home in s:
                     fixed.write(s.replace(sumo_home, "").replace("\\", "/").replace("#: /", "#: "))
+                elif s.strip() == r'"Content-Type: text/plain; charset=CHARSET\n"':
+                    fixed.write(s.replace("CHARSET", "UTF-8"))
                 else:
                     fixed.write(s)
         os.remove(new.name)

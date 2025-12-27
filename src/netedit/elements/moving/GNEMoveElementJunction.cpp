@@ -53,6 +53,12 @@ GNEMoveElementJunction::getMoveOperation() {
 }
 
 
+GNEJunction*
+GNEMoveElementJunction::getJunction() const {
+    return myJunction;
+}
+
+
 std::string
 GNEMoveElementJunction::getMovingAttribute(SumoXMLAttr key) const {
     return myMovedElement->getCommonAttribute(key);

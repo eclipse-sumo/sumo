@@ -37,16 +37,8 @@
 
 GNECalibratorDialog::GNECalibratorDialog(GNEAdditional* calibrator) :
     GNETemplateElementDialog<GNEAdditional>(calibrator, DialogType::CALIBRATOR) {
-    // Create two columns, one for Routes and VehicleTypes, and other for Flows
-    FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignUniformHorizontalFrame);
-    FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    FXVerticalFrame* columnRight = new FXVerticalFrame(columns, GUIDesignAuxiliarFrame);
-    // create route element list
-    myRoutes = new RoutesList(this, columnLeft);
-    // create closing lane reroute element list
-    myVTypes = new VTypesList(this, columnLeft);
     // parking area reroute
-    myCalibratorFlows = new CalibratorFlowsList(this, columnRight, myRoutes, myVTypes);
+    myCalibratorFlows = new CalibratorFlowsList(this, myContentFrame);
     // open dialog
     openDialog();
 }
@@ -66,17 +58,9 @@ GNECalibratorDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // declare strings
     const auto warningTitle = TLF("Error updating % '%'", myElement->getTagStr(), myElement->getID());
     const auto infoA = TLF("% '%' cannot be updated because", myElement->getTagStr(), myElement->getID());
-    std::string infoB;
-    // set infoB
-    if (!myRoutes->isListValid()) {
-        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_ROUTE));
-    } else if (!myVTypes->isListValid()) {
-        infoB = TLF("there are invalid %s.", toString(SUMO_TAG_VTYPE));
-    } else if (!myCalibratorFlows->isListValid()) {
-        infoB = TLF("there are invalid %s.", toString(GNE_TAG_CALIBRATOR_FLOW));
-    }
+    const auto infoB = TLF("there are invalid %s.", toString(GNE_TAG_CALIBRATOR_FLOW));
     // continue depending of info
-    if (infoB.size() > 0) {
+    if (!myCalibratorFlows->isListValid()) {
         // open question dialog box with two lines
         GNEWarningBasicDialog(myElement->getNet()->getGNEApplicationWindow(), this, warningTitle, infoA, infoB);
         return 1;
@@ -91,80 +75,7 @@ long
 GNECalibratorDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // reset changes
     resetChanges();
-    // update tables
-    myRoutes->updateList();
-    myVTypes->updateList();
     myCalibratorFlows->updateList();
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNECalibratorDialog::RoutesList - methods
-// ---------------------------------------------------------------------------
-
-GNECalibratorDialog::RoutesList::RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_ROUTE,
-                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
-}
-
-
-long
-GNECalibratorDialog::RoutesList::addNewElement() {
-    // create route using calibrator as parent
-    GNERoute* route = new GNERoute(myElementDialogParent->getElement());
-    // insert route
-    insertElement(route);
-    // open route dialog
-    const GNEAttributeCarrierDialog routeDialog(route, myElementDialogParent);
-    // continue depending of result of routeDialog
-    if (routeDialog.getResult() != GNEDialog::Result::ACCEPT) {
-        // remove route
-        return removeElement(route);
-    } else {
-        return 1;
-    }
-}
-
-
-long
-GNECalibratorDialog::RoutesList::openElementDialog(const size_t rowIndex) {
-    // open attribute carrier dialog
-    GNEAttributeCarrierDialog(myEditedElements.at(rowIndex), myElementDialogParent);
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNECalibratorDialog::VTypesList - methods
-// ---------------------------------------------------------------------------
-
-GNECalibratorDialog::VTypesList::VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame) :
-    GNETemplateElementList(rerouterDialog, contentFrame, SUMO_TAG_VTYPE,
-                           GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
-}
-
-
-long
-GNECalibratorDialog::VTypesList::addNewElement() {
-    // create vType
-    GNEVType* vType = new GNEVType(myElementDialogParent->getElement());
-    // insert vType
-    insertElement(vType);
-    // open route dialog
-    const GNEVehicleTypeDialog vTypeDialog(vType);
-    // continue depending of result of routeDialog
-    if (vTypeDialog.getResult() != GNEDialog::Result::ACCEPT) {
-        // remove vType
-        return removeElement(vType);
-    } else {
-        return 1;
-    }
-}
-
-
-long
-GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
-    // open vType dialog
-    GNEVehicleTypeDialog(myEditedElements.at(rowIndex));
     return 1;
 }
 
@@ -172,12 +83,9 @@ GNECalibratorDialog::VTypesList::openElementDialog(const size_t rowIndex) {
 // GNECalibratorDialog::CalibratorFlowsList - methods
 // ---------------------------------------------------------------------------
 
-GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame,
-        RoutesList* routesList, VTypesList* vTypesList) :
+GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame) :
     GNETemplateElementList(calibratorDialog, contentFrame, GNE_TAG_CALIBRATOR_FLOW,
-                           GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::DIALOG_ELEMENT),
-    myRoutesList(routesList),
-    myVTypesList(vTypesList) {
+                           GNEElementList::Options::SORTELEMENTS | GNEElementList::Options::DIALOG_ELEMENT | GNEElementList::Options::FIXED_HEIGHT) {
     // disable if there are no routes in net
     if (calibratorDialog->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         disableList(TL("No routes in net"));
@@ -188,33 +96,40 @@ GNECalibratorDialog::CalibratorFlowsList::CalibratorFlowsList(GNECalibratorDialo
 long
 GNECalibratorDialog::CalibratorFlowsList::addNewElement() {
     // get vType
-    GNEDemandElement* vType = nullptr;
-    if (myVTypesList->getEditedElements().size() > 0) {
-        vType = myVTypesList->getEditedElements().back();
-    } else {
-        vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).begin()->second;
-    }
+    GNEDemandElement* vType = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
     // get route
-    GNEDemandElement* route = nullptr;
-    if (myVTypesList->getEditedElements().size() > 0) {
-        route = myVTypesList->getEditedElements().back();
-    } else {
-        route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
-    }
-    // check if route and vType are valid
-    if (route && vType) {
-        // create vType
-        GNECalibratorFlow* calibratorFlow = new GNECalibratorFlow(myElementDialogParent->getElement(), vType, route);
-        // add using undo-redo
-        insertElement(calibratorFlow);
-        // open route dialog
-        const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow, myElementDialogParent);
-        // continue depending of result of routeDialog
-        if (calibratorFlowDialog.getResult() != GNEDialog::Result::CANCEL) {
-            // add calibratorFlow
-            return removeElement(calibratorFlow);
+    GNEDemandElement* route = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->second;
+    // calculate begin based in last calibrator flow
+    SUMOTime begin = 0;
+    for (const auto &child :  myElementDialogParent->getElement()->getChildAdditionals()) {
+        if (child->getTagProperty()->getTag() == GNE_TAG_CALIBRATOR_FLOW) {
+            begin = GNEAttributeCarrier::parse<SUMOTime>(child->getAttribute(SUMO_ATTR_END));
         }
     }
+    const SUMOTime duration = GNEAttributeCarrier::parse<SUMOTime>("3600");
+    // create vType
+    GNECalibratorFlow* calibratorFlow = new GNECalibratorFlow(myElementDialogParent->getElement(), begin, begin + duration, vType, route);
+    // add using undo-redo
+    insertElement(calibratorFlow);
+    // open route dialog
+    const GNEAttributeCarrierDialog calibratorFlowDialog(calibratorFlow, myElementDialogParent);
+    // continue depending of result of routeDialog
+    if (calibratorFlowDialog.getResult() != GNEDialog::Result::ACCEPT) {
+        // add calibratorFlow
+        return removeElement(calibratorFlow);
+    } else if (calibratorFlow->getFileBucket()->getFilename().empty()) {
+        // in this case, the bucket has to be updated manually
+        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+            vType->changeFileBucket(calibratorFlow->getFileBucket());
+        }
+        route->changeFileBucket(calibratorFlow->getFileBucket());
+    } else {
+        if (vType->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::TRUE_STR) {
+            vType->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
+        }
+        route->setAttribute(GNE_ATTR_SAVEFILE, calibratorFlow->getFileBucket()->getFilename(), calibratorFlow->getNet()->getUndoList());
+    }
+    updateList();
     return 1;
 }
 

@@ -100,7 +100,7 @@ ROMARouteHandler::myEndElement(int element) {
                 } else if (myVehicleParameter->repetitionProbability > 0) {
                     flowSize = (int)(flowDur * myVehicleParameter->repetitionProbability);
                 }
-                quota = (int)(flowSize * myScale + 0.5);
+                quota = (int)((double)flowSize * myScale + 0.5);
                 myNumLoaded += flowSize;
                 departOffset = TIME2STEPS(flowDur) / quota;
             } else {

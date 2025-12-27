@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
+<!-- generated on 2025-12-19T17:42:42.971528+01:00 by Eclipse SUMO sumo v1_25_0+0642-06e43b453fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
@@ -101,8 +101,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="1003_0" to="1002_0">
             <driveWay id="2.0" vehicle="v_0" edges="1002 1031 1001 1000 1013 1012 1034 1017 1033 1011 1051 1052 1075 1058 1077 1053 1054 1043 1044 1072 1047 1048">
                 <forward lanes="1002_0 1031_0 1001_0 1000_0 1013_0"/>
-                <bidi lanes="1071_0 1044_0 1043_0 1054_0 1053_0 1077_0 1058_0 1075_0 1052_0 1051_0 1011_0 1033_0 1017_0 1034_0"
-                    deadlockCheck="1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0"/>
+                <bidi lanes="1071_0 1044_0 1043_0 1054_0 1053_0 1077_0 1058_0 1075_0 1052_0 1051_0"
+                    deadlockCheck="1011_0 1033_0 1017_0 1034_0 1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="12_0 15_0"/>
                 <foes driveWays="1.0.0 11.0 12.0 15.0 2.0"/>

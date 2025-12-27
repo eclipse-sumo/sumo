@@ -290,6 +290,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         computeJunctions();
     } else if (function == "computeJunctionsVolatileOptions") {
         computeJunctionsVolatileOptions();
+    } else if (function == "joinJunctions") {
+        joinJunctions();
     } else if (function == "selectAdditionalChild") {
         selectAdditionalChild();
     } else if (function == "createRectangledShape") {
@@ -330,6 +332,8 @@ InternalTestStep::InternalTestStep(InternalTest* testSystem, const std::string& 
         saveNewFile();
     } else if (function == "saveFileAs") {
         saveFileAs();
+    } else if (function == "saveUnifiedFileAs") {
+        saveUnifiedFileAs();
     } else if (function == "reloadFile") {
         reloadFile();
     } else if (function == "selectEdgeType") {
@@ -1723,37 +1727,22 @@ InternalTestStep::saveNewFile() {
         // continue depending of type
         if (type == "neteditConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_E_SAVENETEDITCONFIG;
-            file = "netedit2." + extension;
+            file = "netedit_B." + extension;
         } else if (type == "sumoConfig") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_S_SAVESUMOCONFIG;
-            file = "sumo2." + extension;
-        } else if (type == "xml") {
+            file = "sumo_B." + extension;
+        } else if (type == "netconvertConfig") {
             myMessageID = MID_HOTKEY_CTRL_L_SAVEASPLAINXML;
-            file = "net2." + extension;
-        } else if (type == "joinedJunctions") {
-            myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
-            file = "joinedjunctions2." + extension;
+            file = "netconvert_B." + extension;
         } else if (type == "network") {
             myMessageID = MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK;
-            file = "net2." + extension;
+            file = "input_net_B." + extension;
         } else if (type == "trafficLights") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_K_SAVETLS;
-            file = "trafficlights2." + extension;
+            file = "trafficlights_B." + extension;
         } else if (type == "edgeTypes") {
             myMessageID = MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES;
-            file = "edgetypes2." + extension;
-        } else if (type == "additional") {
-            myMessageID = MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALELEMENTS;
-            file = "additionals2." + extension;
-        } else if (type == "demand") {
-            myMessageID = MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS;
-            file = "routes2." + extension;
-        } else if (type == "data") {
-            myMessageID = MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS;
-            file = "datas2." + extension;
-        } else if (type == "meanData") {
-            myMessageID = MID_HOTKEY_CTRL_SHIFT_M_SAVEMEANDATAELEMENTS;
-            file = "meandatas2.dat." + extension;
+            file = "input_edgetypes_B." + extension;
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
@@ -1768,12 +1757,14 @@ InternalTestStep::saveNewFile() {
 
 void
 InternalTestStep::saveFileAs() {
-    if (myArguments.size() != 3) {
-        writeError("saveFileAs", 0, "<referencePosition, type, bool>");
+    if ((myArguments.size() != 4) || !checkIntArgument(myArguments[3])) {
+        writeError("saveFileAs", 0, "<referencePosition, type, extension, extensionIndex>");
     } else {
         myCategory = Category::APP;
         // get type and file
         const auto type = getStringArgument(myArguments[1]);
+        const auto extension = getStringArgument(myArguments[2]);
+        const auto extensionIndex = getIntArgument(myArguments[3]);
         std::string file;
         // get working directory
         std::string workingDirectory = FXSystem::getCurrentDirectory().text();
@@ -1784,41 +1775,86 @@ InternalTestStep::saveFileAs() {
         // continue depending of type
         if (type == "neteditConfig") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVENETEDITCONFIG_AS;
-            file = "netedit3.netecfg";
+            file = "netedit_B." + extension;
         } else if (type == "sumoConfig") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVESUMOCONFIG_AS;
-            file = "sumo3.sumocfg";
+            file = "sumo_B." + extension;
         } else if (type == "network") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVENETWORK_AS;
-            file = "net3.net.xml";
+            file = "input_net_B." + extension;
+        } else if (type == "joinedJunctions") {
+            myMessageID = MID_GNE_SAVEJOINEDJUNCTIONS;
+            file = "joinedjunctions_B." + extension;
         } else if (type == "trafficLights") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS;
-            file = "trafficlights3.tll.xml";
+            file = "trafficlights_B." + extension;
         } else if (type == "edgeTypes") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS;
-            file = "edgetypes3.typ.xml";
-        } else if (type == "additional") {
-            myMessageID = MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED;
-            file = "additionals3.add.xml";
+            file = "edgetypes_B." + extension;
         } else if (type == "jupedsim") {
             myMessageID = MID_GNE_TOOLBARFILE_SAVEJUPEDSIMELEMENTS_AS;
-            file = "additionals3.add.xml";
+            file = "jupedsims_B." + extension;
+        } else if (type == "additional") {
+            file = "input_additionals_B." + extension;
+            throw ProcessError("not finish");
         } else if (type == "demand") {
-            myMessageID = MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED;
-            file = "routes3.rou.xml";
+            file = "input_routes_B." + extension;
+            throw ProcessError("not finish");
         } else if (type == "data") {
-            myMessageID = MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED;
-            file = "datas3.dat.xml";
+            file = "input_datas_B." + extension;
+            throw ProcessError("not finish");
         } else if (type == "meanData") {
-            myMessageID = MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED;
-            file = "meandatas3.dat.add.xml";
+            file = "input_meandatas_B." + extension;
+            throw ProcessError("not finish");
         } else {
             WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
         }
         // write info
         std::cout << file << std::endl;
         // set filename dialog
-        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file, extensionIndex), "filepath");
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
+    }
+}
+
+
+void
+InternalTestStep::saveUnifiedFileAs() {
+    if ((myArguments.size() != 4) || !checkIntArgument(myArguments[3])) {
+        writeError("saveUnifiedFileAs", 0, "<referencePosition, type, extension, extensionIndex>");
+    } else {
+        myCategory = Category::APP;
+        // get type and file
+        const auto type = getStringArgument(myArguments[1]);
+        const auto extension = getStringArgument(myArguments[2]);
+        const auto extensionIndex = getIntArgument(myArguments[3]);
+        std::string file;
+        // get working directory
+        std::string workingDirectory = FXSystem::getCurrentDirectory().text();
+        const auto sandboxDirectory = std::getenv("TEXTTEST_SANDBOX");
+        if (sandboxDirectory) {
+            workingDirectory = sandboxDirectory;
+        }
+        // continue depending of type
+        if (type == "additional") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEADDITIONALELEMENTS_UNIFIED;
+            file = "input_additionals_B." + extension;;
+        } else if (type == "demand") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDEMANDELEMENTS_UNIFIED;
+            file = "input_routes_B." + extension;
+        } else if (type == "data") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEDATAELEMENTS_UNIFIED;
+            file = "input_datas_B." + extension;
+        } else if (type == "meanData") {
+            myMessageID = MID_GNE_TOOLBARFILE_SAVEMEANDATAELEMENTS_UNIFIED;
+            file = "input_meandatas_B." + extension;
+        } else {
+            WRITE_ERRORF("Invalid type '%' used in function loadFile", type);
+        }
+        // write info
+        std::cout << file << std::endl;
+        // set filename dialog
+        new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, workingDirectory + "/" + file, extensionIndex), "filepath");
         new InternalTestStep(myTestSystem, new DialogArgument(DialogType::FILE, DialogArgument::Action::ACCEPT), "go to directory");
     }
 }
@@ -2149,6 +2185,17 @@ InternalTestStep::computeJunctionsVolatileOptions() {
         } else {
             new InternalTestStep(myTestSystem, new DialogArgument(DialogType::QUESTION, DialogArgument::Action::ABORT), "close aborting");
         }
+    }
+}
+
+
+void
+InternalTestStep::joinJunctions() {
+    if (myArguments.size() > 0) {
+        writeError("joinJunctions", 0, "<>");
+    } else {
+        myCategory = Category::APP;
+        myMessageID = MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES;
     }
 }
 

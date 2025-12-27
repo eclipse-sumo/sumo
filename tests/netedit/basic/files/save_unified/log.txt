@@ -1,0 +1,6 @@
+Error: Could not build busStop with ID 'busStopB' in netedit; lane parent with ID 'EdgeCenter1_1' doesn't exist.
+Error: Could not build trainStop with ID 'trainStopB' in netedit; lane parent with ID 'EdgeCenter0_1' doesn't exist.
+Error: Could not build containerStop with ID 'containerStopB' in netedit; lane parent with ID 'EdgeCenter1_1' doesn't exist.
+Error: Could not build parkingArea with ID 'parkingAreaB' in netedit; lane parent with ID 'EdgeCenter0_1' doesn't exist.
+Error: Could not build chargingStation with ID 'chargingStationB' in netedit; lane parent with ID 'EdgeCenter1_1' doesn't exist.
+Error: Loading of 'D:\SUMO\tests\netedit\basic\files\save_unified\input_additionals_A.add.xml' failed.

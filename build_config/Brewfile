@@ -1,0 +1,13 @@
+cask "xquartz"
+
+brew "xerces-c"
+brew "fox"
+brew "proj"
+brew "gdal"
+brew "gl2ps"
+brew "ccache"
+brew "googletest"
+brew "fmt"
+brew "swig"
+brew "eigen"
+brew "apache-arrow"

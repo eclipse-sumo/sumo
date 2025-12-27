@@ -400,6 +400,9 @@ private:
     /// @brief process save file as function
     void saveFileAs();
 
+    /// @brief process save unified file as function
+    void saveUnifiedFileAs();
+
     /// @brief process reload file function
     void reloadFile();
 
@@ -444,6 +447,9 @@ private:
 
     /// @brief process computeJunctionsVolatileOptions function
     void computeJunctionsVolatileOptions();
+
+    /// @brief process joinJunctions function
+    void joinJunctions();
 
     /// @brief process selectChild function
     void selectAdditionalChild();

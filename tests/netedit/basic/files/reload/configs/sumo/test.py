@@ -25,12 +25,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# open sumo network
-netedit.loadFile(referencePosition, "sumoConfig", "sumo2", "sumocfg", 0)
-
-# save sumo network
-netedit.saveExistentFile("sumoConfig")
-
 # open network
 netedit.reloadFile(referencePosition, "sumoConfig", False)
 
@@ -38,7 +32,7 @@ netedit.reloadFile(referencePosition, "sumoConfig", False)
 netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
-netedit.saveNewFile(referencePosition, "sumoConfig", "sumocfg", 0)
+netedit.saveExistentFile("sumoConfig")
 
 # quit netedit
 netedit.quit(neteditProcess)

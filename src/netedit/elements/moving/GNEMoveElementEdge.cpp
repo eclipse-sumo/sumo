@@ -44,6 +44,12 @@ GNEMoveElementEdge::GNEMoveElementEdge(GNEEdge* edge) :
 GNEMoveElementEdge::~GNEMoveElementEdge() {}
 
 
+GNEEdge*
+GNEMoveElementEdge::getEdge() const {
+    return myEdge;
+}
+
+
 GNEMoveOperation*
 GNEMoveElementEdge::getMoveOperation() {
     // get geometry point radius

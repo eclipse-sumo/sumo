@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:59 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2025-12-19T17:50:52.843998+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to="b_0">
-            <driveWay id="A.0" vehicle="train1" edges="b c d e f -f -e -d -c -b">
+            <driveWay id="A.0" vehicle="train1" edges="b c d e f -f -e -d -c -b -a">
                 <forward lanes="b_0 c_0 d_0"/>
                 <bidi lanes="-c_0 -d_0 -e_0 -f_0 f_0 e_0 d_0 c_0"/>
                 <flank lanes=""/>
@@ -69,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
         </link>
         <link linkIndex="1" from="d_0" to="e_0">
-            <driveWay id="D.0" vehicle="train1" edges="e f -f -e -d -c -b">
+            <driveWay id="D.0" vehicle="train1" edges="e f -f -e -d -c -b -a">
                 <forward lanes="e_0 f_0 -f_0 -e_0"/>
                 <bidi lanes="-e_0 -f_0 f_0 e_0 d_0 c_0"/>
                 <flank lanes=""/>
@@ -79,9 +79,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ0">
-        <driveWay id="gneJ0.d0" vehicle="train1" edges="a">
+        <driveWay id="gneJ0.d0" vehicle="train1" edges="a b c d e f -f -e -d -c -b -a">
             <forward lanes="a_0"/>
-            <bidi lanes=""/>
+            <bidi lanes="-c_0 -d_0 -e_0 -f_0 f_0 e_0 d_0 c_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="gneJ0.d0"/>

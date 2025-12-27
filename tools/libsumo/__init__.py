@@ -18,27 +18,46 @@
 import os
 import sys
 import warnings
-SUMO_WHEEL_HOME = None
+
+SUMO_DATA_HOME = None
 try:
-    import sumo
-    if not hasattr(sumo, "SUMO_HOME"):  # maybe it is not the correct module
-        raise ImportError()
-    SUMO_WHEEL_HOME = sumo.SUMO_HOME
-    if "SUMO_HOME" not in os.environ:
-        os.environ["SUMO_HOME"] = SUMO_WHEEL_HOME
+    import sumo_data
+    SUMO_DATA_HOME = sumo_data.__path__[0]
+    if not os.environ.get("SUMO_HOME"):
+        os.environ["SUMO_HOME"] = SUMO_DATA_HOME
+    if not os.environ.get("PROJ_LIB") and not os.environ.get("PROJ_DATA"):
+        os.environ["PROJ_LIB"] = os.environ["PROJ_DATA"] = os.path.join(SUMO_DATA_HOME, "data", "proj")
 except ImportError:
-    if "SUMO_HOME" not in os.environ:
-        warnings.warn("SUMO_HOME is not set and the eclipse-sumo wheel is not installed!")
+    # fall back to the eclipse-sumo wheel
+    try:
+        import sumo
+        if not hasattr(sumo, "SUMO_HOME"):  # maybe it is not the correct module
+            raise ImportError()
+        SUMO_DATA_HOME = sumo.SUMO_HOME
+        if not os.environ.get("SUMO_HOME"):
+            os.environ["SUMO_HOME"] = SUMO_DATA_HOME
+    except ImportError:
+        if not os.environ.get("SUMO_HOME"):
+            warnings.warn("SUMO_HOME is not set and neither sumo-data nor the eclipse-sumo wheel are installed!")
+
 if hasattr(sys, "_is_gil_enabled") and not sys._is_gil_enabled():
     warnings.warn("This package has not been validated in free-threaded Python (no-GIL mode).")
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
-    if SUMO_WHEEL_HOME and os.path.exists(os.path.join(SUMO_WHEEL_HOME, "bin", "zlib.dll")):
-        os.add_dll_directory(os.path.abspath(os.path.join(SUMO_WHEEL_HOME, "bin")))
+    if SUMO_DATA_HOME and os.path.exists(os.path.join(SUMO_DATA_HOME, "bin", "zlib.dll")):
+        os.add_dll_directory(os.path.abspath(os.path.join(SUMO_DATA_HOME, "bin")))
     elif "SUMO_HOME" in os.environ and os.path.exists(os.path.join(os.environ["SUMO_HOME"], "bin", "zlib.dll")):
         os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
     elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "zlib.dll")):
         os.add_dll_directory(os.path.join(os.path.dirname(__file__), "..", "..", "bin"))
+
+try:
+    # this tries to determine the version number of an installed wheel
+    import importlib.metadata  # noqa
+    __version__ = importlib.metadata.version(__name__)
+except ImportError:
+    # this is the fallback version, it gets replaced with the current version on "make install" or "make dist"
+    __version__ = "0.0.0"
 
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.step import StepManager, StepListener  # noqa

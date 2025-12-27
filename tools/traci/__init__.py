@@ -24,6 +24,14 @@ import os
 import sys
 import warnings
 
+try:
+    # this tries to determine the version number of an installed wheel
+    import importlib.metadata  # noqa
+    __version__ = importlib.metadata.version(__name__)
+except ImportError:
+    # this is the fallback version, it gets replaced with the current version on "make install" or "make dist"
+    __version__ = "0.0.0"
+
 # the pure python version needs to be the first variant to help IDEs finding the docstrings
 if 'LIBSUMO_AS_TRACI' not in os.environ and 'LIBTRACI_AS_TRACI' not in os.environ:
     from .main import *  # noqa

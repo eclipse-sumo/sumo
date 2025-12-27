@@ -1,6 +1,7 @@
 # these requirements are used to make sure the tests run only with versions known to work on GitHub actions
 # the "normal" requirements should be used in addition
 fmpy<0.3.23
-matplotlib==3.6.3
+matplotlib==3.6.3; sys.platform != 'darwin' or python_version < '3.12'
 ortools==9.10.4067; python_version >= '3.8' and python_version < '3.13'
 pandas<2.2.0; python_version < '3.13'
+pyparsing<3.3.0

@@ -210,9 +210,16 @@ GNEDialog::onKeyPress(FXObject* obj, FXSelector sel, void* ptr) {
         FXEvent* event = (FXEvent*)ptr;
         if (event->code == KEY_Escape) {
             return closeDialogAborting();
-        } else {
-            return FXDialogBox::onKeyPress(obj, sel, ptr);
+        } else if (event->code == KEY_Return) {
+            if (myAcceptButton->hasFocus()) {
+                return closeDialogAccepting();
+            } else if (myCancelButton->hasFocus()) {
+                return closeDialogCanceling();
+            } else if (myAbortButton && myAbortButton->hasFocus()) {
+                return closeDialogAborting();
+            }
         }
+        return FXDialogBox::onKeyPress(obj, sel, ptr);
     }
 }
 

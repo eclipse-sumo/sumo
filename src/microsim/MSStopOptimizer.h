@@ -104,7 +104,7 @@ private:
         std::shared_ptr<StopPathNode> getSuccessor(const std::vector<StopEdgeInfo>& stops, double minSkipped);
 
         // for finding the best final node
-        bool operator<(StopPathNode& b) const {
+        bool operator<(const StopPathNode& b) const {
             if (reachedMandatory == b.reachedMandatory) {
                 if (reachedPrio == b.reachedPrio) {
                     if (trackChanges == b.trackChanges) {

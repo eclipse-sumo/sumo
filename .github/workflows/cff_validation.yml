@@ -1,0 +1,20 @@
+name: cff-validation
+
+on:
+  push:
+    paths:
+      - 'CITATION.cff'
+  workflow_dispatch:
+  schedule:
+    - cron:  '5 1 * * *'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v6
+
+    - name: Validate CITATION.cff
+      uses: dieghernan/cff-validator@v4

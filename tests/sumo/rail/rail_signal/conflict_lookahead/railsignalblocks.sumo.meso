@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2025-12-19T17:50:52.443878+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to="b_0">
-            <driveWay id="A.0" vehicle="train1" edges="b c">
+            <driveWay id="A.0" vehicle="train1" edges="b c d">
                 <forward lanes="b_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -58,7 +58,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="A2">
         <link linkIndex="0" from="a2_0" to="b2_0">
-            <driveWay id="A2.0" vehicle="train2" edges="b2 b2.10 b2.20 b2.38 b2.54 b2.67 b2.77 b2.89 b2.105 b2.122 c">
+            <driveWay id="A2.0" vehicle="train2" edges="b2 b2.10 b2.20 b2.38 b2.54 b2.67 b2.77 b2.89 b2.105 b2.122 c d">
                 <forward lanes="b2_0 b2.10_0 b2.20_0 b2.38_0 b2.54_0 b2.67_0 b2.77_0 b2.89_0 b2.105_0 b2.122_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ0">
-        <driveWay id="gneJ0.d0" vehicle="train1" edges="a">
+        <driveWay id="gneJ0.d0" vehicle="train1" edges="a b c d">
             <forward lanes="a_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
@@ -88,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ3">
-        <driveWay id="gneJ3.d0" vehicle="train2" edges="a2">
+        <driveWay id="gneJ3.d0" vehicle="train2" edges="a2 b2 b2.10 b2.20 b2.38 b2.54 b2.67 b2.77 b2.89 b2.105 b2.122 c d">
             <forward lanes="a2_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>

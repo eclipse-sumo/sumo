@@ -65,7 +65,8 @@ public:
         FLOW =              1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
         COPYABLE =          1 << 24,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
         ALWAYSENABLED =     1 << 25,    // Attribute cannot be disabled
-        NO_PROPERTY =       1 << 26,    // No property defined
+        SORTABLE =          1 << 26,    // Attribute can be used for sort elements in dialog
+        NO_PROPERTY =       1 << 27,    // No property defined
     };
 
     /// @brief enum class with all edit modes
@@ -266,6 +267,9 @@ public:
 
     /// @brief return true if attribute is always enabled
     bool isAlwaysEnabled() const;
+
+    /// @brief return true if attribute can be used for sorting elements in dialogs
+    bool isSortable() const;
 
     /// @name edit modes
     /// @{

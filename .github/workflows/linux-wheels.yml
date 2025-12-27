@@ -57,14 +57,14 @@ jobs:
     #     entrypoint: tools/build_config/build_wheels.sh
 
     # - name: Uploading raw wheels (without auditwheel being applied)
-    #   uses: actions/upload-artifact@v5
+    #   uses: actions/upload-artifact@v6
     #   with:
     #     name: manylinux-raw-wheels
     #     path: dist
 
     - name: Uploading artifacts (Python wheels)
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: manylinux-wheels
         path: wheelhouse
@@ -89,7 +89,7 @@ jobs:
 
     - name: Downloading Wheels artifact
       if: github.event.schedule != '5 8 * * *'
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         path: manylinux-wheels
 
@@ -108,7 +108,7 @@ jobs:
         sudo apt-get install pipx
         pipx install texttest
         python3 -m venv testenv --system-site-packages
-        testenv/bin/python -m pip install -f $WHEEL_DIR eclipse_sumo
+        testenv/bin/python -m pip install --no-index -f $WHEEL_DIR eclipse_sumo
         testenv/bin/python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
 
     - name: Running "sumo in the wheel" tests
@@ -132,7 +132,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: texttesttmp-${{ matrix.python_version }}
         path: texttesttmp.zip

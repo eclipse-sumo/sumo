@@ -1762,6 +1762,8 @@ enum {
     MID_LANGUAGE_HU,
     /// @brief change language to japanese
     MID_LANGUAGE_JA,
+    /// @brief change language to korean
+    MID_LANGUAGE_KO,
 
     /// @}
 

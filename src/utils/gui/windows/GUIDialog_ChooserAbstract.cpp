@@ -159,7 +159,7 @@ GUIDialog_ChooserAbstract::onCmdTrack(FXObject*, FXSelector, void*) {
         myWindowsParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
         GUIGlID id = *static_cast<GUIGlID*>(myList->getItemData(selected));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        if (o->getType() == GLO_VEHICLE) {
+        if (o != nullptr && o->getType() == GLO_VEHICLE) {
             myWindowsParent->getView()->startTrack(o->getGlID());
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);

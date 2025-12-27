@@ -2633,6 +2633,13 @@ MSLane::isCrossing() const {
     return myEdge->isCrossing();
 }
 
+
+bool
+MSLane::isPriorityCrossing() const {
+    return isCrossing() && getIncomingLanes()[0].viaLink->getOffState() == LINKSTATE_MAJOR;
+}
+
+
 bool
 MSLane::isWalkingArea() const {
     return myEdge->isWalkingArea();

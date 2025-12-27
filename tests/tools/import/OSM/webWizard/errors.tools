@@ -123,5 +123,4 @@ Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#
 Warning: At actuated tlLogic 'cluster_1827996421_1827996431_1827996455_2121324874_#10more', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,7,8,9,10,31,32,33,34 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
-Warning: Vehicle 'pt_bus_N6:0.1' performs emergency braking on lane ':cluster_2071423335_25662916_4591015614_4591015618_#1more_10_0' with decel=7.00, wished=4.00, severity=1.00, time=1223.00.
 Warning: Person 'ped133' aborted waiting for ANY at busStop '4673135647'.

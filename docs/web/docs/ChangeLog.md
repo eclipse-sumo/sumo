@@ -26,12 +26,22 @@ title: ChangeLog
   - Fixed unsafe lane-changing ahead of roundabout #17411
   - Fixed broken vehicle flows where total vehicle count overflows a 32-bit integer #17396
   - A closingReroute with configured permissions no longer affects vehicle with an unaffected vehicle class #17426
+  - Fixed missing railsignal vehicle-events on sub-driveways #17442
+  - Fixed unsafe train insertion when driveways start and end in the middle of the block #17453
+  - Fixed missing driveway foes when a sequence of bidi-edges is interrupted by a unidirectional edge #17367
+  - When ignoring transient permission changse (**--device.routing.mode 8**), departure on a closed edge causes delay rather than errr #17461
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
+  - In move mode, grabbed and merged geometry points are indicated again (with contour instead of color) #17032 (regression in 1.20.0)
+  - Fixed crash in calibrator dialog #17398 (regression in 1.25.0)
+  - Merging junctions in move mode is working again #17358 (regression in 1.25.0)
+  - Creating calibrator flows is working again #17399 (regression in 1.25.0)
   - No longer saving an invalid network when edges from prohibition elements are deleted #17331
   - selection scaling now work for tazRelations #17382
   - Remove some unsupported combinations of taz/junctions for rides, transport, and tranships #17414
+  - Fixed bug where paths in the configuration were absolute when they should have been relative #17446
+
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
@@ -65,6 +75,7 @@ title: ChangeLog
 - netedit
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
   - The written sumocfg now tracks network file name changes #17314
+  - Configurations with unsupported options can now be loaded with warnings instead of errors #17445
  
 - duarouter
   - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
@@ -73,6 +84,7 @@ title: ChangeLog
 
 - TraCI
   - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
+  - Fixed faulty libsumo wheels for M2 Mac
 
 - tools
   - attributeCompare.py: Now supports special id-attribute @FILE #17334
@@ -88,8 +100,10 @@ title: ChangeLog
 
 ### Miscellaneous
 
-- TraCI version is now 23
-
+- Fixed invalid meta data in python wheels
+- Windows debug build no longer crashes with parquet output #17275
+- Started Korean Language translation #17420
+- add manylinux_2_28 support #16771
 
 ## Version 1.25.0 (13.11.2025)
 

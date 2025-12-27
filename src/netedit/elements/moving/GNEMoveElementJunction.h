@@ -46,6 +46,9 @@ public:
      */
     GNEMoveOperation* getMoveOperation() override;
 
+    /// @brief get pointer to junction
+    GNEJunction* getJunction() const;
+
     /// @name functions related with moving attributes
     /// @{
 

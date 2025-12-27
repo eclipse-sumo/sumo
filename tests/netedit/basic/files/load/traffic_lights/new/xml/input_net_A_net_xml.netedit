@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-16T08:58:59.992981+01:00 by Eclipse SUMO netedit v1_24_0+0808-23e0c7cb3b6
+<!-- generated on 2025-12-17T11:39:52.445792+01:00 by Eclipse SUMO netedit v1_25_0+0574-fd2920a6f31
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <sumocfg-file value="sumo.sumocfg"/>
         <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
-        <tls-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.16Sep085841.20524\netedit.internal\basic\files\load\traffic_lights\new\xml\trafficlights2.xml.tll.xml"/>
+        <tls-file value="C:\Users\alva_pa\.texttest\tmp\netedit.internal.17Dec113831.15620\netedit.internal\basic\files\load\traffic_lights\new\xml\trafficlights_B.xml"/>
         <write-license value="true"/>
         <output-file value="input_net_A.net.xml"/>
     </output>
@@ -44,17 +45,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <netedit>
         <ignore-supermode-question value="true"/>
-        <ignore.additionalelements value="0"/>
-        <ignore.routeelements value="0"/>
         <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>

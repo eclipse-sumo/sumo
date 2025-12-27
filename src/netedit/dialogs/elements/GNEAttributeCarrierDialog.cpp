@@ -170,9 +170,8 @@ GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC) :
 
 
 GNEAttributeCarrierDialog::GNEAttributeCarrierDialog(GNEAttributeCarrier* AC, GNEDialog* parentDialog) :
-    GNETemplateElementDialog<GNEAttributeCarrier>(AC, DialogType::ATTRIBUTECARRIER) {
+    GNETemplateElementDialog<GNEAttributeCarrier>(AC, parentDialog, DialogType::ATTRIBUTECARRIER) {
     // build dialog
-    UNUSED_PARAMETER(parentDialog);
     builder(AC);
 }
 
@@ -202,7 +201,7 @@ GNEAttributeCarrierDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 void
-GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* AC) {
+GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* /* AC */) {
     // Create auxiliar frames for rows
     FXHorizontalFrame* columns = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* columnLeft = new FXVerticalFrame(columns, GUIDesignAuxiliarFrameFixedWidth(250));
@@ -222,8 +221,6 @@ GNEAttributeCarrierDialog::builder(GNEAttributeCarrier* AC) {
         // add to myAttributeTextFields vector
         myAttributeTextFields.push_back(attributeTextField);
     }
-    // init commandGroup
-    myElement->getNet()->getUndoList()->begin(myElement, TLF("edit % '%'", AC->getTagStr(), AC->getID()));
     // open dialog
     openDialog();
 }

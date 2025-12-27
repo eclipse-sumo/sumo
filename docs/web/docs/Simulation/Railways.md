@@ -12,9 +12,11 @@ taken in comparison to a plain vehicular simulation.
 
 ## Railways
 
-Railways can be imported from
-[OSM](../Networks/Import/OpenStreetMap.md). They can also be
-explicitly specified using the existing *vClasses*.
+Railways can be imported from all the input formats supported by [netconvert](../netconvert.md#import).
+When importing from [OSM](../Networks/Import/OpenStreetMap.md), railways will already configured for the appropriate [vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) (i.e. `rail`)
+When building networks from scratch in [netedit](../netedit.md), railways can be modelled by setting edge attribute 'allow' to `rail`.
+
+[Contact the developers](https://eclipse.dev/sumo/contact/) regarding support for other common railway data interchange formats.
 
 ### Parallel Tracks
 If a railway has parallel tracks, these must be modelled as distinct edge

@@ -102,3 +102,9 @@ ticket17183
 # crash when using rail signal on "normal" edges
 ticket17258
 ticket17323
+
+# unsafe insertion
+ticket17367
+
+# unsafe insertion
+ticket17453

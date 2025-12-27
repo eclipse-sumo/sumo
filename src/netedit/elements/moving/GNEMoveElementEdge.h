@@ -41,6 +41,9 @@ public:
     //// @brief empty destructor
     ~GNEMoveElementEdge();
 
+    /// @brief get pointer to edge
+    GNEEdge* getEdge() const;
+
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
      */

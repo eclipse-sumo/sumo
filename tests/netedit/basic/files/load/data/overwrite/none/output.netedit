@@ -1,8 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-C:\Users\alva_pa\.texttest\tmp\netedit.external.05Sep115945.12688\netedit.external\basic\files\load\data\overwrite\none
-input_datasB.dat.xml
+input_datas_B.dat.xml
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

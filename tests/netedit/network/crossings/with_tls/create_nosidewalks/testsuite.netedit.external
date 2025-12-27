@@ -1,9 +1,17 @@
 button_clear
+
 default
+
 default_invalid
+
 default_shortcut
+
 duplicated
+
 manual
+
 single_crossing
+
 split_crossing
+
 width

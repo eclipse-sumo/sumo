@@ -17,10 +17,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <input>
         <sumo-net-file value="input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
     </input>
 
     <output>
-		<tls-file value="trafficlights.tll.xml"/>
+		<tls-file value="trafficlights_A.tll.xml"/>
         <write-license value="true"/>
     </output>
 

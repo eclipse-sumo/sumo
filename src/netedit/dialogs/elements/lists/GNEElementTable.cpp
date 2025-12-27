@@ -64,7 +64,7 @@ GNEElementTable::ColumnHeader::ColumnHeader(GNEElementTable* elementTable, const
             myLabels.push_back(std::make_pair(attrProperty->getAttr(), new FXLabel(horizontalFrameLabels, attrProperty->getAttrStr().c_str(),
                                               nullptr, GUIDesignLabelThick(JUSTIFY_NORMAL))));
             // check if this attribute is sortable
-            if (attrProperty->isNumerical()) {
+            if (attrProperty->isSortable()) {
                 mySortableAttrs.push_back(attrProperty->getAttr());
             }
         }

@@ -36,7 +36,6 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
     double minSkipped = 0;
     double totalPrio = 0;
     std::vector<StopEdgeInfo> bestStops = stops;
-    std::shared_ptr<StopPathNode> bestNode = nullptr;
     double bestCost = myRouter.recomputeCostsPos(edges, myVehicle, sourcePos, 0, myT);
     std::vector<int> skipped;
 
@@ -46,6 +45,7 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
     std::priority_queue<std::shared_ptr<StopPathNode>, std::vector<std::shared_ptr<StopPathNode> >, spnCompare> queue;
 
     auto prev = std::make_shared<StopPathNode>(*this, StopEdgeInfo(source, -1, SIMSTEP, sourcePos));
+    std::shared_ptr<StopPathNode> bestNode = prev;
     prev->stopIndex = -1;
     prev->routeIndex = 0;
     prev->cost = bestCost;
@@ -174,6 +174,10 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
         }
     }
     ConstMSEdgeVector bestEdges;
+    if (bestNode->stopIndex < 0) {
+        // all stops were skipped. End route on current edge
+        bestEdges.push_back(source);
+    }
     while (bestNode != nullptr && bestNode->stopIndex >= 0) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
         std::cout << "  revBestNode index=" << bestNode->stopIndex << " edge=" << bestNode->edge->getID() << " name=" << bestNode->nameTag.first << " tc=" << bestNode->trackChanges << " c=" << bestNode->cost  << "\n";

@@ -36,13 +36,7 @@
 #    PROJ_INCLUDE_DIR
 #    PROJ_API_FILE
 #    PROJ_LIBRARY
-
-# FIND_PATH and FIND_LIBRARY normally search standard locations
-# before the specified paths. To search non-standard paths first,
-# FIND_* is invoked first with specified paths and NO_DEFAULT_PATH
-# and then again with no specified paths to search the default
-# locations. When an earlier FIND_* succeeds, subsequent FIND_*s
-# searching for the same item do nothing.
+#    PROJ_DATA_DIR (only if proj.db was found)
 
 FIND_PATH(PROJ_INCLUDE_DIR NAMES proj.h proj_api.h PATHS
   "$ENV{INCLUDE}"
@@ -63,8 +57,21 @@ IF (PROJ_INCLUDE_DIR AND PROJ_LIBRARY)
   ELSE ()
     SET(PROJ_API_FILE "proj_api.h")
   ENDIF ()
+  FIND_PATH(PROJ_DATA_DIR NAMES proj.db PATHS "${PROJ_INCLUDE_DIR}/../share/proj")
+  IF (NOT PROJ_DATA_DIR)
+    # Ask projinfo for search path
+    FIND_PROGRAM(PROJINFO_EXEC projinfo PATHS "${PROJ_INCLUDE_DIR}/../bin")
+    IF (PROJINFO_EXEC)
+      execute_process(COMMAND ${PROJINFO_EXEC} --searchpaths OUTPUT_VARIABLE PROJ_SEARCH_PATHS_RAW OUTPUT_STRIP_TRAILING_WHITESPACE)
+      string(REPLACE "\n" ";" PROJ_SEARCH_PATHS_LIST "${PROJ_SEARCH_PATHS_RAW}")
+      FIND_PATH(PROJ_DATA_DIR NAMES proj.db PATHS ${PROJ_SEARCH_PATHS_LIST})
+    ENDIF ()
+  ENDIF ()
+  IF (PROJ_DATA_DIR)
+    get_filename_component(PROJ_DATA_DIR "${PROJ_DATA_DIR}" REALPATH)
+  ENDIF ()
   IF (NOT PROJ_FIND_QUIETLY)
-    MESSAGE(STATUS "Found Proj: ${PROJ_LIBRARY}")
+    MESSAGE(STATUS "Found Proj: ${PROJ_LIBRARY} (data dir: ${PROJ_DATA_DIR})")
   ENDIF (NOT PROJ_FIND_QUIETLY)
 ELSE ()
   SET(PROJ_FOUND FALSE)

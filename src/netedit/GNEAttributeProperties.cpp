@@ -117,6 +117,10 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
     if ((isFileOpen() || isFileSave()) && myFilenameExtensions.empty()) {
         throw FormatException("Files requieres at least one extension");
     }
+    // check that attribute sortables appears always in dialog
+    if (isSortable() && !isDialogEditor()) {
+        throw FormatException("Sortable attributes must be a dialog editor attribute");
+    }
     // check that ranges are valid
     if (hasAttrRange()) {
         if (myMinimumRange == myMaximumRange) {
@@ -579,6 +583,11 @@ GNEAttributeProperties::isCopyable() const {
 bool
 GNEAttributeProperties::isAlwaysEnabled() const {
     return myAttributeProperty & Property::ALWAYSENABLED;
+}
+
+bool
+GNEAttributeProperties::isSortable() const {
+    return myAttributeProperty & Property::SORTABLE;
 }
 
 

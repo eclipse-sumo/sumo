@@ -765,6 +765,7 @@ enum class GUIIcon {
     LANGUAGE_TR,
     LANGUAGE_ZH,
     LANGUAGE_ZHT,
-    LANGUAGE_JA
+    LANGUAGE_JA,
+    LANGUAGE_KO
     /// @}
 };

@@ -932,7 +932,8 @@ GEOSCoordSequence*
 MSPModel_JuPedSim::convertToGEOSPoints(PositionVector shape) {
     GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)shape.size(), 2);
     for (int i = 0; i < (int)shape.size(); i++) {
-        GEOSCoordSeq_setXY(coordinateSequence, i, shape[i].x(), shape[i].y());
+        GEOSCoordSeq_setX(coordinateSequence, i, shape[i].x());
+        GEOSCoordSeq_setY(coordinateSequence, i, shape[i].y());
     }
     return coordinateSequence;
 }
@@ -1137,7 +1138,10 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
     }
     std::vector<JPS_Point> points;
     for (const Position& p : pv) {
-        GEOSGeometry* point = GEOSGeom_createPointFromXY(p.x(), p.y());
+        GEOSCoordSequence* seq = GEOSCoordSeq_create(1, 2); // 1 point, 2 dimensions
+        GEOSCoordSeq_setX(seq, 0, p.x());
+        GEOSCoordSeq_setY(seq, 0, p.y());
+        GEOSGeometry* point = GEOSGeom_createPoint(seq);
         if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
             points.push_back({p.x(), p.y()});
         }

@@ -4,32 +4,65 @@ on:
   push:
     paths:
       - '.github/workflows/cibuildwheel.yml'
-      - 'build_config/*pyproject.toml'
-  # push:            # run on push events
-  #   paths-ignore:  # but ignore everything in the docs subfolder
-  #     - 'docs/**'
-  #     - 'src/gui*/**'
-  #     - 'src/netedit/**'
-  #     - 'tests/netedit/**'
-  #   branches:
-  #     - '**'
-  #   tags:
-  #     - '*'
-  # pull_request:    # run on pull requests
-  #   paths-ignore:  # but ignore everything in the docs subfolder
-  #     - 'docs/**'
+      - 'build_config/pyproject/*.toml'
   workflow_dispatch:
+    inputs:
+      os:
+        type: string
+        description: "comma separated list of OS"
+        required: false
+  workflow_call:
+    inputs:
+      os:
+        type: string
+        required: false
   schedule:
     - cron:  '25 1 * * *'
 
 jobs:
+  generate-matrix:
+    uses: ./.github/workflows/generate-matrix.yml
+    with:
+      os: ${{ inputs.os }}
+
+  ###################
+  # building pure python wheels
+  ###################
+  pure-python-wheels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning SUMO
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          filter: tree:0
+          # to work around actions/checkout#1467
+          ref: ${{ github.ref }}
+
+      - name: Building sumolib and traci wheels
+        run: |
+          python -m pip install build
+          python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
+          python -m build
+          python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
+          python -m build
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: cibw-pure-wheels
+          path: ./dist/*
+
+  ###################
+  # building wheels with cibuildwheel
+  ###################
   build-wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    needs: [generate-matrix]
     strategy:
       fail-fast: false
-      matrix:
-        os: [macos-14]
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.build_matrix) }}
+    runs-on: ${{ matrix.os }}
+    env:
+      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
 
     steps:
       - name: Cloning SUMO
@@ -40,129 +73,78 @@ jobs:
           # to work around actions/checkout#1467
           ref: ${{ github.ref }}
 
+      - name: Cloning SUMO Libraries
+        if: matrix.os == 'windows-latest'
+        uses: actions/checkout@v6
+        with:
+          repository: DLR-TS/SUMOLibraries
+          path: SUMOLibraries
+
+      - name: "Set up MSVC Developer Command Prompt"
+        if: matrix.os == 'windows-latest'
+        uses: compnerd/gha-setup-vsdevenv@v6
+
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ matrix.os }}-${{ matrix.manylinux }}
+          variant: ${{ matrix.os == 'windows-latest' && 'sccache' || 'ccache' }}
 
-      - name: Preparing macos environment
-        if: matrix.os == 'macos-14'
-        run: brew update && brew install --cask xquartz && brew install xerces-c fox proj gdal gl2ps googletest fmt swig eigen
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
 
       - name: Preparing wheel eclipse-sumo
-        run: python3 tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp312-*
+          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache"
+          CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel sumo-data
-        run: python3 tools/build_config/version.py --pep440 build_config/sumo-data-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
 
       - name: Building wheel sumo-data
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp312-*
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
-        run: python3 tools/build_config/version.py --pep440 build_config/libsumo-pyproject.toml pyproject.toml
+        run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
 
       - name: Building wheel libsumo
         uses: pypa/cibuildwheel@v3.3.0
         env:
-          CIBW_BUILD: cp3*
+          CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache"
+          CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
+          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
           path: ./wheelhouse/*.whl
 
   ###################
   # testing wheels
   ###################
   test-wheels:
-    needs: [build-wheels]
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-14, macos-15]
-        python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-    runs-on: ${{ matrix.os }}
-
-    steps:
-    - name: Cloning SUMO
-      uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
-        filter: tree:0
-        # to work around actions/checkout#1467
-        ref: ${{ github.ref }}
-
-    - name: Downloading Wheels artifact
-      uses: actions/download-artifact@v6
-      with:
-        path: python-wheels
-        merge-multiple: true
-
-    - name: Configuring Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ matrix.python_version }}
-
-    - name: Installing dependencies
-      run: brew update && brew install proj
-
-    - name: Preparing Python environment
-      run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install wheel  # need to do this separately because the texttest install wants it
-        python3 -m pip install texttest
-        python3 -m pip install -f python-wheels eclipse_sumo
-        python3 -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $GITHUB_ENV
-
-    - name: Running "sumo in the wheel" tests
-      run: |
-        if [[ "${{ matrix.python_version }}" != "3.12" ]]; then python3 -m pip install -r tools/requirements.txt; fi
-        tests/runTests.sh -b ci -v ci.fast -a activitygen,duarouter,jtrrouter,marouter,od2trips,polyconvert
-
-    - name: Running meta tests and cleaning up
-      run: |
-        tests/runTests.sh -b ci -v ci -ts meta
-        python3 -m pip uninstall -y eclipse-sumo
-
-    - name: Building helper wheels
-      run: |
-        cd tools
-        python3 -m pip install build
-        python3 build_config/version.py build_config/setup-sumolib.py ./setup.py
-        python3 -m build --wheel
-        python3 build_config/version.py build_config/setup-traci.py ./setup.py
-        python3 -m build --wheel
-
-    - name: Running libsumo tests
-      run: |
-        python3 -m pip install --no-index -f tools/dist sumolib traci
-        python3 -m pip install --no-index -f python-wheels libsumo
-        cd tests
-        texttest -b ci -v ci -a complex.libsumo
-
-    - name: Compressing test results
-      if: failure()
-      run: |
-        zip -r texttesttmp.zip ~/.texttest/tmp
-
-    - name: Uploading test results
-      if: failure()
-      uses: actions/upload-artifact@v5
-      with:
-        name: texttesttmp-${{ matrix.python_version }}-${{ matrix.os }}
-        path: texttesttmp.zip
-        if-no-files-found: warn
+    needs: [generate-matrix, pure-python-wheels, build-wheels]
+    uses: ./.github/workflows/test-wheels.yml
+    with:
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.test_matrix) }}

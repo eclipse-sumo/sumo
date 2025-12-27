@@ -22,6 +22,16 @@ import subprocess
 SUMO_HOME = os.path.dirname(__file__)
 if "SUMO_HOME" not in os.environ:
     os.environ["SUMO_HOME"] = SUMO_HOME
+if not os.environ.get("PROJ_LIB") and not os.environ.get("PROJ_DATA"):
+    os.environ["PROJ_LIB"] = os.environ["PROJ_DATA"] = os.path.join(SUMO_HOME, "data", "proj")
+
+try:
+    # this tries to determine the version number of an installed wheel
+    import importlib.metadata  # noqa
+    __version__ = importlib.metadata.version(__name__)
+except ImportError:
+    # this is the fallback version, it gets replaced with the current version on "make install" or "make dist"
+    __version__ = "0.0.0"
 
 
 def _makefunc(app):

@@ -1,4 +1,7 @@
 complex/traci/bugs/ticket3505_with_load_offset/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'load-state.offset', attribute 'value': '-100.0' is not a valid value of the union type 'timeTypeWithErrorValue'.
+netedit/basic/files/load/configs/sumo/sumo_A.sumocfg:19:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'net-file': This element is not expected.
+netedit/basic/files/load/configs/sumo/sumocfg/sumo_B.sumocfg:29:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'visualisation': This element is not expected.
+netedit/basic/files/reload/configs/sumo/sumo_A.sumocfg:35:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'visualisation': This element is not expected.
 sumo/meta/deprecated_option/sumo.sumocfg:28:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
 Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Input is not proper UTF-8, indicate encoding !

@@ -124,6 +124,10 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=5000000")
+        if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 10 AND CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+            # see the last bulletpoint about ABI at https://gcc.gnu.org/gcc-10/changes.html#cxx
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-psabi")
+        endif()
     endif ()
     if (PROFILING)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
@@ -562,7 +566,7 @@ if (CHECK_OPTIONAL_LIBS)
 
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
-        find_package(GEOS)
+        find_package(GEOS 3.3.0)
         if (GEOS_FOUND)
             include_directories(SYSTEM ${GEOS_INCLUDE_DIR})
             set(JPS_VERSION "${jupedsim_VERSION_MAJOR}${jupedsim_VERSION_MINOR}${jupedsim_VERSION_PATCH}")
@@ -737,15 +741,18 @@ if (SUMO_LIBRARIES AND WIN32)
                            COMMAND ${CMAKE_COMMAND} -E copy_directory ${OSG_PATH}/bin/${OSG_PLUGIN_DIR} ${TARGET_DIR}/bin/${OSG_PLUGIN_DIR}
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
-    if (PROJ_FOUND)
+    if (PROJ_DATA_DIR)
         # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
         set(PROJ_DATA ${TARGET_DIR}/share/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_INCLUDE_DIR}/../share/proj ${TARGET_DIR}/share/proj
-                           DEPENDS ${PROJ_INCLUDE_DIR}/../share/proj/proj.db)
-        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share)
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/share/proj
+                           DEPENDS ${PROJ_DATA_DIR}/proj.db)
+        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
+if (PROJ_DATA_DIR)
+    install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT data)
+endif ()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})

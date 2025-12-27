@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-28 11:52:51 by Eclipse SUMO sumo Version v1_21_0+1016-6ec0787118a
+<!-- generated on 2025-12-19T17:50:52.561726+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -73,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </subDriveWay>
     </departJunction>
     <departJunction id="gneJ4">
-        <driveWay id="gneJ4.d0" vehicle="t1" edges="d">
+        <driveWay id="gneJ4.d0" vehicle="t1" edges="d d2 b">
             <forward lanes="d_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>

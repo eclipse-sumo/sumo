@@ -5,7 +5,7 @@ title: SublaneModel
 # Introduction
 
 By default, there is at most one vehicle per lane and lane-changes are
-performed instantly. To changes this, one of the two models described
+performed instantly. To change this, one of the two models described
 below may be activated.
 
 # Sublane-Model
@@ -187,7 +187,7 @@ If only the non-instantaneous aspect of lane-changing needs to be
 modelled, a simplified (and thus faster) model may be used as an
 alternative to the sublane model.
 
-The *Simple continuos lane-change model* is activated by setting the
+The *Simple continuous lane-change model* is activated by setting the
 option **--lanechange.duration** {{DT_FLOAT}} which specifies the default time for changing between adjacent
 lanes in seconds (instead of setting option **--lateral-resolution**).
 

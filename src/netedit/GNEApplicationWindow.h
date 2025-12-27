@@ -640,23 +640,23 @@ public:
     /// @brief get netgenerate options container
     OptionsCont& getNetgenerateOptions();
 
-    /// @brief load additional elements
-    void loadAdditionalElements();
+    /// @brief load additional elements from netedit options
+    void loadAdditionalElements(const std::string operation);
 
-    /// @brief load demand elements
-    void loadDemandElements();
+    /// @brief load demand elements from netedit options
+    void loadDemandElements(const std::string operation);
 
-    /// @brief load data elements
-    void loadDataElements();
+    /// @brief load data elements from netedit options
+    void loadDataElements(const std::string operation);
 
-    /// @brief load meanData elements
-    void loadMeanDataElements();
+    /// @brief load meanData elements from netedit options
+    void loadMeanDataElements(const std::string operation);
 
     /// @brief load traffic lights
-    void loadTrafficLights(const bool reloading);
+    void loadTrafficLights(const std::string operation);
 
     /// @brief load meanData elements
-    void loadEdgeTypes(const bool reloading);
+    void loadEdgeTypes(const std::string operation);
 
     /// @name functions related with test system
     /// @{

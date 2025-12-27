@@ -79,15 +79,22 @@ GNELoadThread::run() {
     } else if (neteditOptions.getString("osm-files").size() > 0) {
         // load an osm file
         type = GNEEvent_FileLoaded::Type::OSM;
-    } else if (neteditOptions.getString("net-file").size() > 0) {
+    } else if (neteditOptions.getString("sumo-net-file").size() > 0) {
         // load a network file
         type = GNEEvent_FileLoaded::Type::NETWORK;
+        // set network as default file in file bucket
+        myApplicationWindow->getFileBucketHandler()->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("sumo-net-file"));
+    } else if (neteditOptions.getString("netecfg-file").size() > 0) {
+        // load a sumo config file
+        type = GNEEvent_FileLoaded::Type::NETECFG;
+        // set sumo config as loaded file
+        loadedFile = neteditOptions.getString("netecfg-file");
     } else if (neteditOptions.getString("sumocfg-file").size() > 0) {
         // load a sumo config file
         type = GNEEvent_FileLoaded::Type::SUMOCFG;
         // set sumo config as loaded file
         loadedFile = neteditOptions.getString("sumocfg-file");
-    } else if (neteditOptions.getString("netconvert-file").size() > 0) {
+    } else if (neteditOptions.getString("netccfg-file").size() > 0) {
         // load a netconvert config file
         type = GNEEvent_FileLoaded::Type::NETCCFG;
         // set netconvert config file as loaded file
@@ -96,12 +103,12 @@ GNELoadThread::run() {
         // get configuration
         loadedFile = neteditOptions.getString("configuration-file");
         // check the extension to determine what we're loading
-        if (StringUtils::endsWith(loadedFile, ".sumocfg")) {
-            // load a sumo config file
-            type = GNEEvent_FileLoaded::Type::SUMOCFG;
-        } else if (StringUtils::endsWith(loadedFile, ".netccfg")) {
+        if (StringUtils::endsWith(loadedFile, ".netccfg")) {
             // load a netconvert config file
             type = GNEEvent_FileLoaded::Type::NETCCFG;
+        } else if (StringUtils::endsWith(loadedFile, ".sumocfg")) {
+            // load a sumo config file
+            type = GNEEvent_FileLoaded::Type::SUMOCFG;
         } else if (StringUtils::endsWith(loadedFile, ".netecfg")) {
             // load a netedit config file
             type = GNEEvent_FileLoaded::Type::NETECFG;
@@ -293,6 +300,11 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addOptionSubTopic("Time");
 
     // TOPIC: Input
+    neteditOptions.doRegister("netecfg-file", new Option_FileName());
+    neteditOptions.addSynonyme("netecfg-file", "netecfg");
+    neteditOptions.addDescription("netecfg-file", "Input", TL("Load netedit config"));
+    neteditOptions.addXMLDefault("netecfg-file", "neteditConfiguration");
+    neteditOptions.setOptionEditable("netecfg-file", false);
 
     neteditOptions.doRegister("sumocfg-file", new Option_FileName());
     neteditOptions.addSynonyme("sumocfg-file", "sumocfg");
@@ -300,11 +312,11 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.addXMLDefault("sumocfg-file", "sumoConfiguration");
     neteditOptions.setOptionEditable("sumocfg-file", false);
 
-    neteditOptions.doRegister("netconvert-file", new Option_FileName());
-    neteditOptions.addSynonyme("netconvert-file", "netccfg");
-    neteditOptions.addDescription("netconvert-file", "Input", TL("Load netconvert config"));
-    neteditOptions.addXMLDefault("netconvert-file", "netconvertConfiguration");
-    neteditOptions.setOptionEditable("netconvert-file", false);
+    neteditOptions.doRegister("netccfg-file", new Option_FileName());
+    neteditOptions.addSynonyme("netccfg-file", "netccfg");
+    neteditOptions.addDescription("netccfg-file", "Input", TL("Load netconvert config"));
+    neteditOptions.addXMLDefault("netccfg-file", "netconvertConfiguration");
+    neteditOptions.setOptionEditable("netccfg-file", false);
 
     neteditOptions.doRegister("additional-files", 'a', new Option_FileName());
     neteditOptions.addSynonyme("additional-files", "additional");
@@ -340,11 +352,13 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
 
     // TOPIC: Output
 
-    neteditOptions.doRegister("tls-file", new Option_String());
+    neteditOptions.doRegister("tls-file", new Option_FileName());
     neteditOptions.addDescription("tls-file", "Output", TL("File in which TLS Programs must be saved"));
+    neteditOptions.setOptionEditable("tls-file", false);
 
-    neteditOptions.doRegister("edgetypes-file", new Option_String());
+    neteditOptions.doRegister("edgetypes-file", new Option_FileName());
     neteditOptions.addDescription("edgetypes-file", "Output", TL("File in which edgeTypes must be saved"));
+    neteditOptions.setOptionEditable("edgetypes-file", false);
 
     // TOPIC: Netedit
 

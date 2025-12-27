@@ -219,14 +219,14 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
     // for equidistant vehicles, up-scaling is done via repetitionOffset
     for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end();) {
         MSVehicleType* vtype = nullptr;
-        SUMOVehicleParameter* pars = i->pars;
+        SUMOVehicleParameter* const pars = i->pars;
         double typeScale = i->scale;
         if (typeScale < 0) {
             // must sample from distribution to determine scale value
             vtype = vehControl.getVType(pars->vtypeid, MSRouteHandler::getParsingRNG());
             typeScale = vtype->getParameter().scale;
         }
-        double scale = vehControl.getScale() * typeScale;
+        const double scale = vehControl.getScale() * typeScale;
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while (scale > 0 && ((pars->repetitionProbability < 0
                               && pars->repetitionsDone < pars->repetitionNumber * scale
@@ -238,7 +238,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                                  && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
                             )) {
             tryEmitByProb = false; // only emit one per step
-            SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*pars);
+            SUMOVehicleParameter* const newPars = new SUMOVehicleParameter(*pars);
             newPars->id = pars->id + "." + toString(i->index);
             newPars->depart = pars->repetitionProbability > 0 ? time : pars->depart + pars->repetitionTotalOffset + computeRandomDepartOffset();
             pars->incrementFlow(scale, &myFlowRNG);

@@ -46,7 +46,7 @@ flows = [
 ]
 
 
-fd = open("input_flows.flows.xml", "w")
+fd = open("flows.rou.xml", "w")
 print("<routes>", file=fd)
 
 

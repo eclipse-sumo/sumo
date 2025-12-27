@@ -1594,6 +1594,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElements.at(defaultVehicleType->getTagProperty()->getTag()).insert(std::make_pair(defaultVehicleType->getGUIGlObject(), defaultVehicleType));
     myDemandElementIDs.at(defaultVehicleType->getTagProperty()->getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
+    bucket->addDefaultVType();
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultBikeType = new GNEVType(DEFAULT_BIKETYPE_ID, myNet, bucket, SVC_BICYCLE);
@@ -1601,6 +1602,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElementIDs.at(defaultBikeType->getTagProperty()->getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
     defaultBikeType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
+    bucket->addDefaultVType();
 
     // Create default taxi Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultTaxiType = new GNEVType(DEFAULT_TAXITYPE_ID, myNet, bucket, SVC_TAXI);
@@ -1608,6 +1610,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElementIDs.at(defaultTaxiType->getTagProperty()->getTag()).insert(std::make_pair(defaultTaxiType->getID(), defaultTaxiType));
     defaultTaxiType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultTaxiType->incRef("GNENet::DEFAULT_TAXITYPE_ID");
+    bucket->addDefaultVType();
 
     // Create default rail Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultRailType = new GNEVType(DEFAULT_RAILTYPE_ID, myNet, bucket, SVC_RAIL);
@@ -1615,6 +1618,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElementIDs.at(defaultRailType->getTagProperty()->getTag()).insert(std::make_pair(defaultRailType->getID(), defaultRailType));
     defaultRailType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultRailType->incRef("GNENet::DEFAULT_RAILTYPE_ID");
+    bucket->addDefaultVType();
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultPersonType = new GNEVType(DEFAULT_PEDTYPE_ID, myNet, bucket, SVC_PEDESTRIAN);
@@ -1622,6 +1626,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElementIDs.at(defaultPersonType->getTagProperty()->getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
     defaultPersonType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
+    bucket->addDefaultVType();
 
     // Create default container Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultContainerType = new GNEVType(DEFAULT_CONTAINERTYPE_ID, myNet, bucket, SVC_IGNORING);
@@ -1629,6 +1634,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     myDemandElementIDs.at(defaultContainerType->getTagProperty()->getTag()).insert(std::make_pair(defaultContainerType->getID(), defaultContainerType));
     defaultContainerType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
+    bucket->addDefaultVType();
 }
 
 

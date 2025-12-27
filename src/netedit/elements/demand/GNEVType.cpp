@@ -1844,6 +1844,13 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);
+            if (myDefaultVehicleTypeModified) {
+                myFileBucket->removeDefaultVType();
+                myFileBucket->addElement(false);
+            } else {
+                myFileBucket->addDefaultVType();
+                myFileBucket->removeElement(false);
+            }
             break;
         default:
             setCommonAttribute(key, value);

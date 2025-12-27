@@ -583,6 +583,7 @@
 #include "icons/languages/zh.xpm"
 #include "icons/languages/zht.xpm"
 #include "icons/languages/ja.xpm"
+#include "icons/languages/ko.xpm"
 
 // ===========================================================================
 // static member variable definitions
@@ -1160,6 +1161,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LANGUAGE_ZH] = new FXXPMIcon(a, language_zh_xpm);
     myIcons[GUIIcon::LANGUAGE_ZHT] = new FXXPMIcon(a, language_zht_xpm);
     myIcons[GUIIcon::LANGUAGE_JA] = new FXXPMIcon(a, language_ja_xpm);
+    myIcons[GUIIcon::LANGUAGE_KO] = new FXXPMIcon(a, language_ko_xpm);
 
     // ... and create them
     for (const auto& icon : myIcons) {

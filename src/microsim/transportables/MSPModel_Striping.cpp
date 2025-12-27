@@ -447,7 +447,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             if DEBUGCOND(ped) {
                 std::cout << "  crossing\n";
             }
-            unregisterCrossingApproach(ped, currentLane);
+            if (currentLane->isPriorityCrossing()) {
+                unregisterCrossingApproach(ped, currentLane);
+            }
         } else if (currentEdge->isWalkingArea())  {
             ConstMSEdgeVector crossingRoute;
             // departPos can be 0 because the direction of the walkingArea does not matter
@@ -491,7 +493,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     }
                 }
                 assert(link != nullptr);
-                if (nextLane->isCrossing()) {
+                if (nextLane->isPriorityCrossing()) {
                     registerCrossingApproach(ped, nextLane, prevLane);
                 }
             } else {
@@ -794,7 +796,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 // add vehicle obstacles
                 const MSLink* crossingEntryLink = nextLane->getIncomingLanes().front().viaLink;
                 const bool prio = crossingEntryLink->havePriority() || crossingEntryLink->getTLLogic() != nullptr;
-                addCrossingVehs(nextLane, stripes, offset, nextDir, obs, prio);
+                addCrossingVehs(nextLane, stripes, offset, nextDir, obs, prio, currentDir != nextDir);
             }
             if (nextLane->getVehicleNumberWithPartials() > 0) {
                 Obstacles vehObs = getVehicleObstacles(nextLane, nextDir);
@@ -1053,7 +1055,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
     bool hasCrossingVehObs = false;
     if (lane->isCrossing()) {
         // assume that vehicles will brake when already on the crossing
-        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true);
+        hasCrossingVehObs = addCrossingVehs(lane, stripes, 0, dir, crossingVehs, true, false);
     }
 
     for (int ii = 0; ii < (int)pedestrians.size(); ++ii) {
@@ -1144,7 +1146,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 // @todo actually another path would be needed starting at the current position
                 const MSLane* oldNext = p.myNLI.lane;
                 p.myNLI = getNextLane(p, p.getLane(), p.myWalkingAreaPath->from);
-                if (p.myNLI.lane != oldNext) {
+                if (p.myNLI.lane != oldNext && oldNext->isPriorityCrossing()) {
                     unregisterCrossingApproach(p, oldNext);
                 }
             }
@@ -1230,7 +1232,7 @@ MSPModel_Striping::registerCrossingApproach(const PState& ped, const MSLane* cro
 
 
 bool
-MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs, bool prio) {
+MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double lateral_offset, int dir, Obstacles& obs, bool prio, bool flipY) {
     bool hasCrossingVehObs = false;
     const MSLink* crossingExitLink = crossing->getLinkCont().front();
     gDebugFlag1 = DEBUGCOND2(crossing);
@@ -1280,6 +1282,12 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                         hasCrossingVehObs = true;
                     }
                 }
+                if (flipY) {
+                    Obstacles tmp = obs;
+                    for (int i = 0; i < (int)obs.size(); i++) {
+                        obs[i] = tmp[obs.size() - 1 - i];
+                    }
+                }
                 if (DEBUGCOND2(crossing)) {
                     std::cout << SIMTIME
                               << " crossingVeh=" << veh->getID()
@@ -1287,6 +1295,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
                               << " prio=" << prio
                               << " latOffset=" << lateral_offset
                               << " dir=" << dir
+                              << " flipY=" << flipY
                               << " stripes=" << stripes
                               << " dist=" << (*it).distToCrossing
                               << " gap=" << (*it).vehAndGap.second

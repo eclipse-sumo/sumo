@@ -477,6 +477,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GNEApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_JA,    GNEApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_JA,    GNEApplicationWindow::onUpdChangeLanguage),
+    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_KO,    GNEApplicationWindow::onCmdChangeLanguage),
+    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_KO,    GNEApplicationWindow::onUpdChangeLanguage),
     // tools
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_RUNNETGENERATE,             GNEApplicationWindow::onCmdRunNetgenerate),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_POSTPROCESSINGNETGENERATE,  GNEApplicationWindow::onCmdPostprocessingNetgenerate),
@@ -750,6 +752,7 @@ GNEApplicationWindow::onCmdNewNetwork(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
+    auto& neteditOptions = OptionsCont::getOptions();
     // get netconvert file dialog
     const GNEFileDialog netConvertFileDialog(this, TL("netconvert config file"),
             SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
@@ -758,8 +761,20 @@ GNEApplicationWindow::onCmdOpenNetconvertConfig(FXObject*, FXSelector, void*) {
             myFileBucketHandler->getConfigDirectory());
     // continue depending of dialog
     if ((netConvertFileDialog.getResult() == GNEDialog::Result::ACCEPT) && (onCmdClose(0, 0, 0) == 1)) {
-        // load configuration
-        loadConfiguration(netConvertFileDialog.getFilename());
+        // stop test before calling load thread
+        if (myInternalTest) {
+            myInternalTest->stopTests();
+        }
+        // reset netedit options
+        myLoadThread->fillOptions(neteditOptions);
+        myLoadThread->setDefaultOptions(neteditOptions);
+        // set netconvert configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("netccfg-file", netConvertFileDialog.getFilename());
+        // run load thread
+        myLoadThread->loadNetworkOrConfig();
+        // update view
+        update();
     }
     return 1;
 }
@@ -818,7 +833,7 @@ GNEApplicationWindow::onCmdOpenNeteditConfig(FXObject*, FXSelector, void*) {
         myLoadThread->setDefaultOptions(neteditOptions);
         // set netedit configuration file to load
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", neteditConfigFileDialog.getFilename());
+        neteditOptions.set("netecfg-file", neteditConfigFileDialog.getFilename());
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -846,8 +861,9 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set sumo config
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::SUMO_CONFIG, sumoConfigFileDialog.getFilename());
+        // set sumo configuration file to load
+        neteditOptions.resetWritable();
+        neteditOptions.set("sumocfg-file", sumoConfigFileDialog.getFilename());
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -859,6 +875,8 @@ GNEApplicationWindow::onCmdOpenSumoConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
+    // get existent configuration file
+    const auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
         // stop test before calling load thread
@@ -866,14 +884,12 @@ GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
             myInternalTest->stopTests();
         }
         auto& neteditOptions = OptionsCont::getOptions();
-        // get existent configuration file
-        const auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
-        // set configuration file to load
+        // set netedit configuration file to load
         neteditOptions.resetWritable();
-        neteditOptions.set("configuration-file", neteditConfigFile);
+        neteditOptions.set("netecfg-file", neteditConfigFile);
         // run load thread
         myLoadThread->loadNetworkOrConfig();
         // update view
@@ -885,14 +901,15 @@ GNEApplicationWindow::onCmdReloadNeteditConfig(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdReloadSumoConfig(FXObject*, FXSelector, void*) {
-    auto& neteditOptions = OptionsCont::getOptions();
+    // get existent sumo config file
+    const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
     // check if close current simulation
     if (onCmdClose(0, 0, 0) == 1) {
         // stop test before calling load thread
         if (myInternalTest) {
             myInternalTest->stopTests();
         }
-        const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
+        auto& neteditOptions = OptionsCont::getOptions();
         // reset options
         myLoadThread->fillOptions(neteditOptions);
         myLoadThread->setDefaultOptions(neteditOptions);
@@ -943,7 +960,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::TLS, TLSfileDialog.getFilename());
         // load traffic lights
-        loadTrafficLights(false);
+        loadTrafficLights("Loading");
     }
     return 1;
 }
@@ -952,7 +969,7 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadTLSPrograms(FXObject*, FXSelector, void*) {
     // load traffic lights
-    loadTrafficLights(true);
+    loadTrafficLights("Reloading");
     return 1;
 }
 
@@ -981,7 +998,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         // set tls type in bucket
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::EDGETYPE, edgeTypesFileDialog.getFilename());
         // load edge types
-        loadEdgeTypes(false);
+        loadEdgeTypes("Loading");
     }
     return 1;
 }
@@ -990,7 +1007,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdReloadEdgeTypes(FXObject*, FXSelector, void*) {
     // load edge types
-    loadEdgeTypes(true);
+    loadEdgeTypes("Reloading");
     return 0;
 }
 
@@ -1298,8 +1315,6 @@ void
 GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
     myAmLoading = false;
     GNEEvent_FileLoaded* fileLoadedEvent = static_cast<GNEEvent_FileLoaded*>(e);
-    // get option container
-    auto& neteditOptions = OptionsCont::getOptions();
     // check whether the loading was successful
     if (fileLoadedEvent->getNet() == nullptr) {
         // report failure
@@ -1400,13 +1415,11 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
             Position p(off.x(), off.y(), 0);
             myViewNet->setViewportFromToRot(off, p, 0);
         }
-        // set network in bucket handler
-        myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETWORK, neteditOptions.getString("net-file"));
         // load elements
-        loadAdditionalElements();
-        loadDemandElements();
-        loadDataElements();
-        loadMeanDataElements();
+        loadAdditionalElements("Loading");
+        loadDemandElements("Loading");
+        loadDataElements("Loading");
+        loadMeanDataElements("Loading");
         // load selection
         if (!OptionsCont::getOptions().isDefault("selection-file")) {
             myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
@@ -3564,7 +3577,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
         if (out.good()) {
             const auto& neteditOptions = OptionsCont::getOptions();
             // write netedit config
-            neteditOptions.writeConfiguration(out, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
+            neteditOptions.writeConfiguration(out, true, false, false, neteditConfigFile, true);
             // write info
             WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
             // config saved
@@ -3614,6 +3627,8 @@ GNEApplicationWindow::onCmdSaveNeteditConfigAs(FXObject* sender, FXSelector sel,
     if (neteditConfigFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
         // set file in file bucket handler
         myFileBucketHandler->setDefaultFilenameFile(FileBucket::Type::NETEDIT_CONFIG, neteditConfigFileDialog.getFilename());
+        // mark netedit config as unsaved
+        myNet->getSavingStatus()->requireSaveNeteditConfig();
         // continue saving netedit config
         return onCmdSaveNeteditConfig(sender, sel, ptr);
     } else {
@@ -3951,22 +3966,8 @@ GNEApplicationWindow::onCmdReloadAdditionalElements(FXObject*, FXSelector, void*
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading additionals"));
     // clear additionals
     myNet->clearAdditionalElements(myUndoList);
-    // iterate over all additional files
-    for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::ADDITIONAL)) {
-        // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
-            // Create general handler
-            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-            // force overwritte elements
-            generalHandler.forceOverwriteElements();
-            // Run parser
-            if (!generalHandler.parse()) {
-                WRITE_ERROR(TLF("Reloading of additional file '%' failed.", bucket->getFilename()));
-            } else {
-                WRITE_MESSAGE(TLF("Reloading of additional file '%' successfully.", bucket->getFilename()));
-            }
-        }
-    }
+    // reload additional elements stored in options
+    loadAdditionalElements("Reloading");
     // end undoList operation
     myUndoList->end();
     // restore validation for additionals
@@ -4175,22 +4176,8 @@ GNEApplicationWindow::onCmdReloadDemandElements(FXObject*, FXSelector, void*) {
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TL("reloading demand elements"));
     // clear demand elements
     myNet->clearDemandElements(myUndoList);
-    // iterate over all demand elements
-    for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::DEMAND)) {
-        // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
-            // Create handler
-            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-            // force overwritte elements
-            generalHandler.forceOverwriteElements();
-            // Run parser for additionals
-            if (!generalHandler.parse()) {
-                WRITE_ERROR(TLF("Reloading of route file '%' failed.", bucket->getFilename()));
-            } else {
-                WRITE_MESSAGE(TLF("Reloading of route file '%' successfully.", bucket->getFilename()));
-            }
-        }
-    }
+    // reload demand elements stored in options
+    loadDemandElements("Reloading");
     // end undoList operation and update view
     myUndoList->end();
     // restore validation for demand
@@ -4371,22 +4358,8 @@ GNEApplicationWindow::onCmdReloadDataElements(FXObject*, FXSelector, void*) {
     myUndoList->begin(Supermode::DATA, GUIIcon::SUPERMODEDATA, TL("reloading data elements"));
     // clear data elements
     myNet->clearDataElements(myUndoList);
-    // iterate over all data elements
-    for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::DATA)) {
-        // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
-            // Create additional handler
-            GNEDataHandler dataHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-            // force overwritte elements
-            dataHandler.forceOverwriteElements();
-            // Run data parser
-            if (!dataHandler.parse()) {
-                WRITE_ERROR(TLF("Reloading of data file '%' failed.", bucket->getFilename()));
-            } else {
-                WRITE_MESSAGE(TLF("Reloading of data file '%' successfully.", bucket->getFilename()));
-            }
-        }
-    }
+    // reload data elements stored in options
+    loadDataElements("Reloading");
     // restore validation for data
     XMLSubSys::setValidation("auto", "auto", "auto");
     // end undoList operation and update view
@@ -4558,22 +4531,8 @@ GNEApplicationWindow::onCmdReloadMeanDataElements(FXObject*, FXSelector, void*) 
     myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODENETWORK, TL("reloading meanDatas"));
     // clear meanDatas
     myNet->clearMeanDataElements(myUndoList);
-    // iterate over all data elements
-    for (const auto& bucket : myFileBucketHandler->getFileBuckets(FileBucket::Type::MEANDATA)) {
-        // only write buckets with elements
-        if (bucket->getNumElements() > 0) {
-            // Create general handler
-            GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-            // force overwritte elements
-            generalHandler.forceOverwriteElements();
-            // Run parser
-            if (!generalHandler.parse()) {
-                WRITE_ERROR(TLF("Reloading of meanData file '%' failed.", bucket->getFilename()));
-            } else {
-                WRITE_MESSAGE(TLF("Reloading of meanData file '%' successfully.", bucket->getFilename()));
-            }
-        }
-    }
+    // reload meanData elements stored in options
+    loadMeanDataElements("Reloading");
     // end undoList operation and update view
     myUndoList->end();
     // restore validation for meanDatas
@@ -4904,7 +4863,7 @@ GNEApplicationWindow::getNetgenerateOptions() {
 
 
 void
-GNEApplicationWindow::loadAdditionalElements() {
+GNEApplicationWindow::loadAdditionalElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get additional files (don't use reference because it's modified during loading)
@@ -4914,23 +4873,27 @@ GNEApplicationWindow::loadAdditionalElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("loading additional elements from '%'", toString(additionalFiles)));
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::SUPERMODENETWORK, TLF("% additional elements from '%'", operation, toString(additionalFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = additionalFiles.size() == 1;
         // iterate over every additional file
         for (const auto& file : additionalFiles) {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TLF("loading additionals from '%'.", file));
+                WRITE_MESSAGE(TLF("% additionals from '%'.", operation, file));
                 // get (or create) bucket for this new file
                 auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::ADDITIONAL, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-                // Run parser
-                if (!handler.parse()) {
-                    WRITE_ERROR(TLF("Loading of '%' failed.", file));
+                GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                // check if force overwritte
+                if (operation == "reloading") {
+                    generalHandler.forceOverwriteElements();
                 }
-                setSaved &= !handler.isErrorCreatingElement();
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TLF("% of '%' failed.", operation, file));
+                }
+                setSaved &= !generalHandler.isErrorCreatingElement();
             }
         }
         // end undo list
@@ -4949,7 +4912,7 @@ GNEApplicationWindow::loadAdditionalElements() {
 
 
 void
-GNEApplicationWindow::loadDemandElements() {
+GNEApplicationWindow::loadDemandElements(const std::string operation) {
     // get netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get demand files (don't use reference because it's modified during loading)
@@ -4959,23 +4922,27 @@ GNEApplicationWindow::loadDemandElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading demand elements from '%'", toString(demandFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("% demand elements from '%'", operation, toString(demandFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = demandFiles.size() == 1;
         // iterate over every demand file
         for (const auto& file : demandFiles) {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TLF("loading demand elements from '%'.", file));
+                WRITE_MESSAGE(TLF("% demand elements from '%'.", operation, file));
                 // get (or create) bucket for this new file
                 auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::DEMAND, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-                // Run parser
-                if (!handler.parse()) {
-                    WRITE_ERROR(TLF("Loading of '%' failed.", file));
+                GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                // check if force overwritte
+                if (operation == "reloading") {
+                    generalHandler.forceOverwriteElements();
                 }
-                setSaved &= !handler.isErrorCreatingElement();
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TLF("% of '%' failed.", operation, file));
+                }
+                setSaved &= !generalHandler.isErrorCreatingElement();
             }
         }
         // end undo list
@@ -4994,7 +4961,7 @@ GNEApplicationWindow::loadDemandElements() {
 
 
 void
-GNEApplicationWindow::loadDataElements() {
+GNEApplicationWindow::loadDataElements(const std::string operation) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get data files (don't use reference because it's modified during loading)
@@ -5003,23 +4970,27 @@ GNEApplicationWindow::loadDataElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading data elements from '%'", toString(dataFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("% data elements from '%'", operation, toString(dataFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = dataFiles.size() == 1;
         // iterate over every data file
         for (const auto& file : dataFiles) {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TLF("loading data elements from '%'.", file));
+                WRITE_MESSAGE(TLF("% data elements from '%'.", operation, file));
                 // get (or create) bucket for this new file
                 auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::DATA, file, true);
                 // declare general handler
-                GNEDataHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-                // Run parser
-                if (!handler.parse()) {
-                    WRITE_ERROR(TLF("Loading of % failed.", file));
+                GNEDataHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                // check if force overwritte
+                if (operation == "reloading") {
+                    generalHandler.forceOverwriteElements();
                 }
-                setSaved &= !handler.isErrorCreatingElement();
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TLF("% of % failed.", operation, file));
+                }
+                setSaved &= !generalHandler.isErrorCreatingElement();
             }
         }
         // end undo list
@@ -5038,7 +5009,7 @@ GNEApplicationWindow::loadDataElements() {
 
 
 void
-GNEApplicationWindow::loadMeanDataElements() {
+GNEApplicationWindow::loadMeanDataElements(const std::string operation) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
     // get meanData files (don't use reference because it's modified during loading)
@@ -5047,23 +5018,27 @@ GNEApplicationWindow::loadMeanDataElements() {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // begin undolist
-        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("loading meanData elements from '%'", toString(meanDataFiles)));
+        myUndoList->begin(Supermode::DEMAND, GUIIcon::SUPERMODEDEMAND, TLF("% meanData elements from '%'", operation, toString(meanDataFiles)));
         // use this flag for mark all elements as saved after loading, if it was sucessfully
         bool setSaved = meanDataFiles.size() == 1;
         // iterate over every meanData file
         for (const auto& file : meanDataFiles) {
             // check if ignore missing inputs
             if (FileHelpers::isReadable(file) || !neteditOptions.getBool("ignore-missing-inputs")) {
-                WRITE_MESSAGE(TLF("loading meanData elements from '%'.", file));
+                WRITE_MESSAGE(TLF("% meanData elements from '%'.", operation, file));
                 // get (or create) bucket for this new file
                 auto bucket = myFileBucketHandler->getBucket(FileBucket::Type::MEANDATA, file, true);
                 // declare general handler
-                GNEGeneralHandler handler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
-                // Run parser
-                if (!handler.parse()) {
-                    WRITE_ERROR(TLF("Loading of % failed.", file));
+                GNEGeneralHandler generalHandler(myNet, bucket, myAllowUndoRedoLoading ? myAllowUndoRedo : false);
+                // check if force overwritte
+                if (operation == "reloading") {
+                    generalHandler.forceOverwriteElements();
                 }
-                setSaved &= !handler.isErrorCreatingElement();
+                // Run parser
+                if (!generalHandler.parse()) {
+                    WRITE_ERROR(TLF("% of % failed.", operation, file));
+                }
+                setSaved &= !generalHandler.isErrorCreatingElement();
             }
         }
         // end undo list
@@ -5082,20 +5057,15 @@ GNEApplicationWindow::loadMeanDataElements() {
 
 
 void
-GNEApplicationWindow::loadTrafficLights(const bool reloading) {
+GNEApplicationWindow::loadTrafficLights(const std::string operation) {
     // get TLS file
     const auto tlsFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::TLS);
-    // check if file exist
     if (tlsFile.size() > 0) {
-        // Run parser
-        if (reloading) {
-            WRITE_MESSAGE(TL("Reloading TLS programs"));
-            myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("reloading TLS Programs from '%'", tlsFile));
-        } else {
-            WRITE_MESSAGE(TLF("Loading TLS programs from '%'", tlsFile));
-            myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("loading TLS Programs from '%'", tlsFile));
-        }
+        // show info
+        WRITE_MESSAGE(TLF("% TLS programs from '%'.", operation, tlsFile));
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("% TLS programs from '%'.", operation, tlsFile));
         myNet->computeNetwork(this);
+        // parse TLS programs
         if (myNet->getViewParent()->getTLSEditorFrame()->parseTLSPrograms(tlsFile) == false) {
             // Abort undo/redo
             myUndoList->abortAllChangeGroups();
@@ -5104,15 +5074,20 @@ GNEApplicationWindow::loadTrafficLights(const bool reloading) {
             myUndoList->end();
             update();
         }
+        // requiere save network
+        myNet->getSavingStatus()->requireSaveNetwork();
+        // if defined, require save netedit config
+        if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
+            myNet->getSavingStatus()->requireSaveNeteditConfig();
+        }
     }
 }
 
 
 void
-GNEApplicationWindow::loadEdgeTypes(const bool reloading) {
+GNEApplicationWindow::loadEdgeTypes(const std::string operation) {
     // get edgeType file
     const auto edgeTypeFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::EDGETYPE);
-    // check if file exist
     if (edgeTypeFile.size() > 0) {
         // declare type container
         NBTypeCont typeContainerAux;
@@ -5121,13 +5096,8 @@ GNEApplicationWindow::loadEdgeTypes(const bool reloading) {
         // load edge types
         NITypeLoader::load(handler, {edgeTypeFile}, toString(SUMO_TAG_TYPES));
         // now create GNETypes based on typeContainerAux
-        if (reloading) {
-            WRITE_MESSAGE(TL("Reloading edge types"));
-            myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TLF("loading edge types from '%'", edgeTypeFile));
-        } else {
-            WRITE_MESSAGE(TLF("Loading edge types from '%'", edgeTypeFile));
-            myViewNet->getUndoList()->begin(Supermode::NETWORK, GUIIcon::EDGE, TLF("reloading edge types from '%'", edgeTypeFile));
-        }
+        WRITE_MESSAGE(TLF("% edge types from '%'.", operation, edgeTypeFile));
+        myUndoList->begin(Supermode::NETWORK, GUIIcon::MODETLS, TLF("% edge types from '%'.", operation, edgeTypeFile));
         // iterate over typeContainerAux
         for (const auto& auxEdgeType : typeContainerAux) {
             // create new edge type
@@ -5144,6 +5114,12 @@ GNEApplicationWindow::loadEdgeTypes(const bool reloading) {
         myViewNet->getUndoList()->end();
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
+        // requiere save network
+        myNet->getSavingStatus()->requireSaveNetwork();
+        // if defined, require save netedit config
+        if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
+            myNet->getSavingStatus()->requireSaveNeteditConfig();
+        }
     }
 }
 

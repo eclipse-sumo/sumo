@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-31 21:15:46 by Eclipse SUMO sumo Version v1_22_0+1175-7450f55ecdd
+<!-- generated on 2025-12-19T12:55:23.069059+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,10 +58,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="A">
         <link linkIndex="0" from="T17_0_0" to=":A_1_0">
-            <driveWay id="A.0" vehicle="rail2" edges="T18_0 T29_0 T19_0 T20_0 T21_0 T30_0">
+            <driveWay id="A.0" vehicle="rail2" edges="T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0">
                 <forward lanes=":A_1_0 T18_0_0 :w7_2_0 T29_0_0 :w8_2_0 T19_0_0 :P1_1_0 T20_0_0"/>
                 <bidi lanes=":A_0_0 T18_1_0 :w7_1_0 T29_1_0 :w8_1_0 T19_1_0 :P1_0_0 T20_1_0 :N1_0_0 T21_1_0 :w9_1_0"
-                    deadlockCheck="T30_1_0"/>
+                    deadlockCheck="T30_1_0 T24_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="G_0 P2_0 P3_0"/>
                 <foes driveWays="A.0 G.2 P1.0.0 P2.0.1 P3.0.1"/>
@@ -90,10 +90,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="B.0.1" vehicle="" edges="T5_0 T6_0 T27_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0"/>
             </subDriveWay>
-            <driveWay id="B.1" vehicle="rail5" edges="T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0">
+            <driveWay id="B.1" vehicle="rail5" edges="T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T22_0 T23_0 T24_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0 :w3_2_0 T7_0_0 :P2_1_0 T8_0_0"/>
                 <bidi lanes=":B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0 T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0"
-                    deadlockCheck="T30_1_0"/>
+                    deadlockCheck="T30_1_0 T24_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="F_0 G_0 P3_0"/>
                 <foes driveWays="B.0 B.1 F.0 F.2 G.0 G.1 P2.0.0 P2.1.0 P3.0.0"/>
@@ -200,9 +200,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="N1">
         <link linkIndex="0" from="T20_0_0" to=":N1_1_0">
-            <driveWay id="N1.0" vehicle="rail2" edges="T21_0 T30_0 T22_0 T23_0">
+            <driveWay id="N1.0" vehicle="rail2" edges="T21_0 T30_0 T22_0 T23_0 T24_0">
                 <forward lanes=":N1_1_0 T21_0_0 :w9_2_0 T30_0_0 :w10_2_0 T22_0_0 :w11_0_0 T23_0_0"/>
-                <bidi lanes=":N1_0_0 T21_1_0 :w9_1_0 T30_1_0"/>
+                <bidi lanes=":N1_0_0 T21_1_0 :w9_1_0 T30_1_0 T24_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="G_0 N2_0"/>
                 <foes driveWays="G.0.1 G.1.1 G.2.1 N1.0 N2.0.1 N2.1"/>
@@ -230,9 +230,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="N2.0.2" vehicle="" edges="T9_0 T15_0 T30_0 T25_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_1_0 T25_0_0 :G_1_0"/>
             </subDriveWay>
-            <driveWay id="N2.1" vehicle="rail5" edges="T9_0 T15_0 T30_0 T22_0 T23_0">
+            <driveWay id="N2.1" vehicle="rail5" edges="T9_0 T15_0 T30_0 T22_0 T23_0 T24_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_2_0 T22_0_0 :w11_0_0 T23_0_0"/>
-                <bidi lanes=":N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0"/>
+                <bidi lanes=":N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0 T24_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="F_0 G_0 N1_0"/>
                 <foes driveWays="F.0.0 F.2.0 G.0.0 G.1.0 G.2.0 N1.0 N2.0.1 N2.1"/>
@@ -310,19 +310,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="e2">
-        <driveWay id="e2.d0" vehicle="rail3" edges="T12_1">
+        <driveWay id="e2.d0" vehicle="rail3" edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1">
             <forward lanes="T12_1_0"/>
-            <bidi lanes=""/>
+            <bidi lanes="T28_0_0 :w5_2_0 T10_0_0 :w4_3_0"
+                    deadlockCheck="T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="e2.d0"/>
+            <foes driveWays="e2.d0 e2.d1 e2.d2"/>
+        </driveWay>
+        <driveWay id="e2.d1" vehicle="rail3" edges="T12_1 T11_1 T28_1 T4_1 T3_1 T2_1 T27_1 T14_1 T29_1 T18_1 T17_1">
+            <forward lanes="T12_1_0"/>
+            <bidi lanes="T28_0_0 :w5_3_0 T4_0_0 :N3_1_0 T3_0_0 :P3_1_0 T2_0_0 :w3_3_0"
+                    deadlockCheck="T27_0_0 :w2_2_0 T14_0_0 :w8_3_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="e2.d0 e2.d1 e2.d2"/>
+        </driveWay>
+        <driveWay id="e2.d2" vehicle="rail7" edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T6_1 T5_1 T1_1">
+            <forward lanes="T12_1_0"/>
+            <bidi lanes="T28_0_0 :w5_2_0 T10_0_0 :w4_3_0"
+                    deadlockCheck="T9_0_0 :N2_1_0 T8_0_0 :P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="e2.d0 e2.d1 e2.d2"/>
         </driveWay>
     </departJunction>
     <departJunction id="e3">
-        <driveWay id="e3.d0" vehicle="rail2" edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0">
+        <driveWay id="e3.d0" vehicle="rail2" edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0">
             <forward lanes="T17_0_0"/>
             <bidi lanes="T17_1_0 :A_0_0 T18_1_0 :w7_1_0"
-                    deadlockCheck="T29_1_0 :w8_1_0 T19_1_0 :P1_0_0 T20_1_0 :N1_0_0 T21_1_0 :w9_1_0 T30_1_0"/>
+                    deadlockCheck="T29_1_0 :w8_1_0 T19_1_0 :P1_0_0 T20_1_0 :N1_0_0 T21_1_0 :w9_1_0 T30_1_0 T24_1_0"/>
             <flank lanes=""/>
             <conflictLinks signals="G_0 P1_0 P2_0 P3_0"/>
             <foes driveWays="G.2 P1.0 P2.0 P3.0 e3.d0"/>
@@ -337,10 +354,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="F_0 G_0 P2_0"/>
             <foes driveWays="F.2 G.0 P2.1 e1.d0 e1.d1 e5.d0"/>
         </driveWay>
-        <driveWay id="e1.d1" vehicle="rail5" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0">
+        <driveWay id="e1.d1" vehicle="rail5" edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T22_0 T23_0 T24_0">
             <forward lanes="T1_0_0"/>
             <bidi lanes="T1_1_0 :B_0_0 T5_1_0 :w1_0_0 T6_1_0 :w2_0_0"
-                    deadlockCheck="T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0"/>
+                    deadlockCheck="T27_1_0 :w3_1_0 T7_1_0 :P2_0_0 T8_1_0 :N2_0_0 T9_1_0 :w4_1_0 T15_1_0 :w9_0_0 T30_1_0 T24_1_0"/>
             <flank lanes=""/>
             <conflictLinks signals="F_0 G_0 P2_0"/>
             <foes driveWays="F.2 G.0 P2.1 e1.d0 e1.d1"/>

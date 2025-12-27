@@ -56,68 +56,19 @@ public:
     /// @}
 
 protected:
-    /// @brief route list
-    class RoutesList : public GNETemplateElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
-
-    public:
-        /// @brief constructor
-        RoutesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
-
-        /// @brief add new element
-        long addNewElement();
-
-        /// @brief open element dialog
-        long openElementDialog(const size_t rowIndex);
-
-    private:
-        /// @brief Invalidated copy constructor
-        RoutesList(const RoutesList&) = delete;
-
-        /// @brief Invalidated assignment operator
-        RoutesList& operator=(const RoutesList&) = delete;
-    };
-
-    /// @brief vTypes list
-    class VTypesList : public GNETemplateElementList<GNEAdditional, GNEDemandElement, GNEChange_DemandElement> {
-
-    public:
-        /// @brief constructor
-        VTypesList(GNECalibratorDialog* rerouterDialog, FXVerticalFrame* contentFrame);
-
-        /// @brief add new element
-        long addNewElement();
-
-        /// @brief open element dialog
-        long openElementDialog(const size_t rowIndex);
-
-    private:
-        /// @brief Invalidated copy constructor
-        VTypesList(const VTypesList&) = delete;
-
-        /// @brief Invalidated assignment operator
-        VTypesList& operator=(const VTypesList&) = delete;
-    };
-
+    
     /// @brief calibrator flows list
     class CalibratorFlowsList : public GNETemplateElementList<GNEAdditional, GNEAdditional, GNEChange_Additional> {
 
     public:
         /// @brief constructor
-        CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame,
-                            RoutesList* routesList, VTypesList* vTypesList);
+        CalibratorFlowsList(GNECalibratorDialog* calibratorDialog, FXVerticalFrame* contentFrame);
 
         /// @brief add new element
         long addNewElement();
 
         /// @brief open element dialog
         long openElementDialog(const size_t rowIndex);
-
-    protected:
-        /// @brief pointer to routes list
-        RoutesList* myRoutesList = nullptr;
-
-        /// @brief pointer to vTypes list
-        VTypesList* myVTypesList = nullptr;
 
     private:
         /// @brief Invalidated copy constructor
@@ -126,12 +77,6 @@ protected:
         /// @brief Invalidated assignment operator
         CalibratorFlowsList& operator=(const CalibratorFlowsList&) = delete;
     };
-
-    /// @brief list with routes
-    RoutesList* myRoutes;
-
-    /// @brief list with vTypes
-    VTypesList* myVTypes;
 
     /// @brief list with calibrator flows
     CalibratorFlowsList* myCalibratorFlows;

@@ -1,0 +1,11 @@
+<routes>    
+    <vType id="car" sigma="0"/>
+    <vehicle id="v0" type="car" depart="30" departPos="-5" departLane="4" arrivalLane="4">
+        <route edges="EC CW"/>
+        <stop edge="CW" endPos="2.5" duration="60"/>
+        <param key="has.fcd.device" value="false"/>
+    </vehicle>
+    <person id="p0" depart="30" departPos="-2.0">
+        <walk edges="NC CS" arrivalPos="2"/>
+    </person>
+</routes>

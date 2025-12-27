@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+# this is basically a hack to allow the installation of libsumo during make install for a local build
+name = "libsumo"
+version = "0.0.0"
+dependencies = ["traci>=0.0.0"]
+authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
+license = "EPL-2.0 OR GPL-2.0-or-later"
+description = "The python version of the libsumo API to communicate with the traffic simulation Eclipse SUMO"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tools/libsumo"]
