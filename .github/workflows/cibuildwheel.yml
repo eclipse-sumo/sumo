@@ -147,4 +147,4 @@ jobs:
     needs: [generate-matrix, pure-python-wheels, build-wheels]
     uses: ./.github/workflows/test-wheels.yml
     with:
-      matrix: ${{ fromJSON(needs.generate-matrix.outputs.test_matrix) }}
+      matrix: ${{ needs.generate-matrix.outputs.test_matrix }}
