@@ -1,0 +1,41 @@
+name: Generate build and test matrix
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        type: string
+        required: false
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      build_matrix: ${{ steps.gen.outputs.build_matrix }}
+      test_matrix: ${{ steps.gen.outputs.test_matrix }}
+    steps:
+      - id: gen
+        env:
+          INPUT_OS: ${{ inputs.os }}
+        shell: python
+        run: |
+          import json, os
+
+          osl = (os.environ.get('INPUT_OS') or 'macos-14,macos-15,ubuntu-latest,ubuntu-24.04-arm,windows-latest').split(",")
+          manylinux = ["default", "manylinux2014", "manylinux_2_28"]
+          python_versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+
+          include_build = []
+          include_test = []
+          for osys in osl:
+              for ml in manylinux:
+                  if (ml == "default") == osys.startswith("ubuntu"):
+                      continue
+                  if osys != "macos-15" or "macos-14" not in osl:
+                      include_build.append({"os": osys, "manylinux": ml})
+                  for py in python_versions:
+                      include_test.append({"os": osys, "manylinux": ml, "python_version": py})
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              print(f"build_matrix={json.dumps({'include': include_build})}", file=f)
+              print(f"test_matrix={json.dumps({'include': include_test})}", file=f)
