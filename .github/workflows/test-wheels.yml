@@ -23,7 +23,7 @@ jobs:
     needs: [maybe-generate-matrix]
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(inputs.matrix || needs.maybe-generate-matrix.outputs.matrix) }}
+      matrix: ${{ fromJSON(inputs.matrix || needs.maybe-generate-matrix.outputs.test_matrix) }}
     runs-on: ${{ matrix.os }}
     env:
       WHEEL_SOURCE: ${{ inputs.wheel_source }}
