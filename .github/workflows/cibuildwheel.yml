@@ -127,7 +127,7 @@ jobs:
         uses: pypa/cibuildwheel@v3.3.0
         env:
           CIBW_ENVIRONMENT_LINUX: "CCACHE_DIR=/host/home/runner/work/sumo/sumo/.ccache"
-          CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
+          CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja CMAKE_ARGS=-DPython_EXECUTABLE={python}"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
