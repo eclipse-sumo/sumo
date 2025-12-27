@@ -6,6 +6,11 @@ on:
       os:
         type: string
         required: false
+    outputs:
+      build_matrix:
+        value: ${{ jobs.generate-matrix.outputs.build_matrix }}
+      test_matrix:
+        value: ${{ jobs.generate-matrix.outputs.test_matrix }}
 
 jobs:
   generate-matrix:
