@@ -1133,15 +1133,12 @@ struct GNEApplicationWindowHelper {
 
     public:
         /// @brief Constructor
-        GNENetconvertConfigHandler(GNEApplicationWindow* applicationWindow, const std::string& file);
+        GNENetconvertConfigHandler(const std::string& file);
 
         /// @brief load netconvert config
         bool loadNetconvertConfig();
 
     private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myApplicationWindow;
-
         /// @brief netconvert config file
         const std::string myNetconvertConfigFile;
 

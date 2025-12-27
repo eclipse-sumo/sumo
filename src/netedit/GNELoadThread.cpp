@@ -132,7 +132,7 @@ GNELoadThread::run() {
         }
     } else if (type == GNEEvent_FileLoaded::Type::NETCCFG) {
         // declare parser for netedit config file
-        GNEApplicationWindowHelper::GNENetconvertConfigHandler confighandler(myApplicationWindow, loadedFile);
+        GNEApplicationWindowHelper::GNENetconvertConfigHandler confighandler(loadedFile);
         // if there is an error loading sumo config, stop
         if (!confighandler.loadNetconvertConfig()) {
             return submitEndAndCleanup(type, nullptr, loadedFile);
