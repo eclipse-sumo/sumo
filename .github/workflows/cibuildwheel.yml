@@ -148,3 +148,4 @@ jobs:
     uses: ./.github/workflows/test-wheels.yml
     with:
       matrix: ${{ needs.generate-matrix.outputs.test_matrix }}
+      wheel_source: 'python-wheels'
