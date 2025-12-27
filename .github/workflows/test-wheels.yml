@@ -1,6 +1,9 @@
 name: Test wheels
 
 on:
+  push:
+    paths:
+      - '.github/workflows/test-wheels.yml'
   workflow_call:
     inputs:
       matrix:
@@ -11,6 +14,11 @@ on:
         required: false
         default: 'https://sumo.dlr.de/daily/ciwheels'
   workflow_dispatch:
+    inputs:
+      wheel_source:
+        type: string
+        required: false
+        default: 'https://sumo.dlr.de/daily/ciwheels'
   schedule:
     - cron:  '5 6 * * *'
 
