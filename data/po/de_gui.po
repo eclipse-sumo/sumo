@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-08 18:49+0000\n"
+"PO-Revision-Date: 2025-12-27 19:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2480,7 +2480,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:550
 msgid "Close dialog automatically"
-msgstr ""
+msgstr "Dialog automatisch schließen"
 
 #: src/netedit/GNEApplicationWindow.cpp:578
 msgid "Recomputing"
@@ -2532,16 +2532,16 @@ msgstr "Kantentypdatei"
 
 #: src/netedit/GNEApplicationWindow.cpp:1054
 msgid "Reloading netedit config file '%'"
-msgstr ""
+msgstr "Die netedit-Konfiguration '%' wird erneut geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1059
 msgid "Reloading sumo config file '%'"
-msgstr ""
+msgstr "Die sumo-Konfiguration '%' wird erneut geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1064
 #: src/netedit/GNEApplicationWindow.cpp:1127
 msgid "Reloading network file '%'"
-msgstr ""
+msgstr "Das Netz '%' wird erneut geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1079
 msgid "&Reload Netedit config"
@@ -2603,17 +2603,17 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
 msgid "Netedit config '%' loaded"
-msgstr ""
+msgstr "Netedit-Konfiguration '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
 #, c-format
 msgid "Sumo config '%' loaded"
-msgstr ""
+msgstr "Sumo-Konfiguration '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
 #, c-format
 msgid "Netconvert config '%' loaded"
-msgstr ""
+msgstr "Netconvert-Konfiguration '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
 #, c-format
@@ -2623,7 +2623,7 @@ msgstr "Netz '%' geladen"
 #: src/netedit/GNEApplicationWindow.cpp:1371
 #, c-format
 msgid "OSM Network '%' loaded"
-msgstr ""
+msgstr "OSM-Netz '%' geladen"
 
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
@@ -2632,7 +2632,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "New network successfully created"
-msgstr ""
+msgstr "Neues Netz erfolgreich erstellt"
 
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Modes"
