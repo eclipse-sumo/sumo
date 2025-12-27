@@ -12,13 +12,11 @@ on:
       wheel_source:
         type: string
         required: false
-        default: 'https://sumo.dlr.de/daily/ciwheels'
   workflow_dispatch:
     inputs:
       wheel_source:
         type: string
         required: false
-        default: 'https://sumo.dlr.de/daily/ciwheels'
   schedule:
     - cron:  '5 6 * * *'
 
@@ -34,7 +32,7 @@ jobs:
       matrix: ${{ fromJSON(inputs.matrix || needs.maybe-generate-matrix.outputs.test_matrix) }}
     runs-on: ${{ matrix.os }}
     env:
-      WHEEL_SOURCE: ${{ inputs.wheel_source }}
+      WHEEL_SOURCE: ${{ inputs.wheel_source || 'https://sumo.dlr.de/daily/ciwheels' }}
 
     steps:
     - name: Cloning SUMO
