@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-10-22 10:49+0000\n"
+"PO-Revision-Date: 2025-12-29 11:38+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -776,6 +776,8 @@ msgstr ""
 #: src/duarouter/RODUAFrame.cpp:195
 msgid "Declare routing failure if traveltime exceeds the given positive TIME"
 msgstr ""
+"Declarar un fallo de enrutamiento si el tiempo de viaje supera el TIME "
+"positivo especificado"
 
 #: src/duarouter/RODUAFrame.cpp:232
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
@@ -1726,7 +1728,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:66
 msgid "print help"
-msgstr ""
+msgstr "mostrar ayuda"
 
 #: src/microsim/MSFrame.cpp:80
 msgid "Load road network description from FILE"
@@ -3150,7 +3152,7 @@ msgstr "colisión frontal"
 
 #: src/microsim/MSLane.cpp:2059
 msgid "side collision"
-msgstr ""
+msgstr "colisión lateral"
 
 #: src/microsim/MSLane.cpp:2062
 msgid "junction collision"
@@ -5435,11 +5437,11 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1333
 msgid "Function '%' requires % arguments but % were given"
-msgstr ""
+msgstr "La función '%' requiere % argumentos, pero se proporcionaron %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1348
 msgid "Error when evaluating function '%' with args '%' (%)"
-msgstr ""
+msgstr "Error al evaluar la función '%' con los argumentos '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1366
 #, c-format
@@ -5457,7 +5459,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1463
 msgid "Unsupported function '%' in expression '%'"
-msgstr ""
+msgstr "Función '%' no compatible en la expresión '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1507
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
@@ -7450,7 +7452,7 @@ msgstr " Se combinaron % grupo(s) de cruce."
 
 #: src/netbuild/NBNetBuilder.cpp:259
 msgid "Joining junctions with similar coordinates"
-msgstr ""
+msgstr "Combinando cruces con coordenadas similares"
 
 #: src/netbuild/NBNetBuilder.cpp:263
 #, c-format
@@ -7502,7 +7504,7 @@ msgstr "Asignando nodos a semáforos"
 
 #: src/netbuild/NBNetBuilder.cpp:374
 msgid "Guessing and setting on-/off-ramps"
-msgstr ""
+msgstr "Detectando y configurando rampas de entrada/salida"
 
 #: src/netbuild/NBNetBuilder.cpp:392
 msgid "Guessed % bike lanes."
@@ -11906,6 +11908,8 @@ msgid ""
 "Already loaded prohibition for edge '%'. (Only one prohibition per edge is "
 "supported)"
 msgstr ""
+"La prohibición para la arista '%' ya fue cargada. (Solo se admite una "
+"prohibición por arista)"
 
 #: src/router/RONetHandler.cpp:194
 msgid "Unknown node '%'."
@@ -12971,7 +12975,7 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:363
 msgid "Overwriting % with ID '%'"
-msgstr ""
+msgstr "Sobrescribiendo % con ID '%'"
 
 #: src/utils/handlers/CommonHandler.cpp:369
 msgid ""
@@ -13233,7 +13237,7 @@ msgstr "Esquema guardado en '%'"
 
 #: src/utils/options/OptionsCont.cpp:844
 msgid "Help Topics:"
-msgstr ""
+msgstr "Temas de ayuda:"
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
@@ -13257,7 +13261,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:878
 msgid "% Options:"
-msgstr ""
+msgstr "Opciones %:"
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
@@ -14053,15 +14057,15 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 msgid "G264 Video"
-msgstr ""
+msgstr "Video G264"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1713
 msgid "HEVC Video"
-msgstr ""
+msgstr "Video HEVC"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1714
 msgid "MP4 Video"
-msgstr ""
+msgstr "Video MP4"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1731
 msgid "Portable"
@@ -14069,7 +14073,7 @@ msgstr "Portable"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text"
-msgstr ""
+msgstr "Texto sin formato"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
