@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-29 11:38+0000\n"
+"PO-Revision-Date: 2025-12-30 10:04+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2304,12 +2304,18 @@ msgid ""
 "The waiting time after which vehicles on a fast road (speed > 69km/h) are "
 "teleported if they are on a non-continuing lane"
 msgstr ""
+"El tiempo de espera tras el cual los vehículos en una vía rápida "
+"(velocidad > 69 km/h) son teleportados si se encuentran en un carril no "
+"continuo"
 
 #: src/microsim/MSFrame.cpp:441
 msgid ""
 "The waiting time after which vehicles on a fast road (default: speed > 69km/"
 "h) are teleported if they are on a non-continuing lane"
 msgstr ""
+"El tiempo de espera tras el cual los vehículos en una vía rápida (por "
+"defecto: velocidad > 69 km/h) son teleportados si se encuentran en un carril "
+"no continuo"
 
 #: src/microsim/MSFrame.cpp:444
 msgid ""
@@ -2738,6 +2744,9 @@ msgid ""
 "Distinguish travel time by turn direction and shift a fraction of the "
 "estimated time loss ahead of the intersection onto the internal edges"
 msgstr ""
+"Distinguir el tiempo de viaje según la dirección del giro y desplazar una "
+"fracción de la pérdida de tiempo estimada antes de la intersección hacia las "
+"aristas internas"
 
 #: src/microsim/MSFrame.cpp:683
 msgid ""
@@ -3090,6 +3099,9 @@ msgid ""
 "speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). "
 "Using it is not recommended!"
 msgstr ""
+"La opción --threads tiene problemas conocidos y actualmente NO ofrece una "
+"mejora de velocidad significativa (https://github.com/eclipse-sumo/sumo/"
+"issues/4767). ¡No se recomienda su uso!"
 
 #: src/microsim/MSFrame.cpp:1122
 msgid ""
@@ -4006,6 +4018,8 @@ msgid ""
 "Battery builder: Vehicle '%' has a % (%) greater than its % (%). A max "
 "battery capacity value will be assigned."
 msgstr ""
+"Constructor de batería: el vehículo '%' tiene un % (%) mayor que su % (%). "
+"Se asignará un valor máximo de capacidad de batería."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:149
 msgid ""
@@ -4433,6 +4447,9 @@ msgid ""
 "measures (see documentation and watch the order!). Only events exceeding the "
 "thresholds will be logged."
 msgstr ""
+"Especifica umbrales separados por espacios o comas correspondientes a las "
+"medidas indicadas (ver la documentación y cuidar el orden). Solo se "
+"registrarán los eventos que superen los umbrales."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:242
 msgid ""
@@ -4451,6 +4468,9 @@ msgid ""
 "Specifies the time in seconds to be logged after a conflict is over. "
 "Required >0 if PET is to be calculated for crossing conflicts."
 msgstr ""
+"Especifica el tiempo, en segundos, que se registrará después de que termine "
+"un conflicto. Debe ser >0 si se va a calcular el PET para conflictos de "
+"cruce."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:248
 msgid "Specifies the perception reaction time for MDRAC computation."
@@ -4529,6 +4549,9 @@ msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
 msgstr ""
+"No se puede calcular el SSM debido a una geometría interna de carril "
+"incorrecta en el cruce '%'. No se encontró el punto de cruce entre el "
+"tráfico de los enlaces % y %."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3892
 #: src/microsim/devices/MSDevice_SSM.cpp:4174
@@ -8114,6 +8137,8 @@ msgid ""
 "Could not interpret rail signal direction at junction '%' due to "
 "inconsistent directions of edge '%' (%) and edge '%' (%)"
 msgstr ""
+"No se pudo interpretar la dirección de la señal ferroviaria en el cruce '%' "
+"debido a direcciones inconsistentes de la arista '%' (%) y la arista '%' (%)"
 
 #: src/netbuild/NBTrafficLightLogic.cpp:102
 #, c-format
@@ -8424,6 +8449,8 @@ msgid ""
 "The number of nodes must be positive and at least 2 in one direction if "
 "there are no attachments."
 msgstr ""
+"El número de nodos debe ser positivo y de al menos 2 en una dirección, si no "
+"hay anexos."
 
 #: src/netgen/netgen_main.cpp:188
 #, c-format
@@ -9332,6 +9359,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
+"La señalización de la conexión de '%' a '%' (controlador '%') es ambigua "
+"porque es sobrescrita por la señal '%' y por el controlador '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:926
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
@@ -9342,6 +9371,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"La señalización de la conexión de '%' a '%' (controlador '%') es ambigua "
+"porque es sobrescrita con la señal '%' y el controlador '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1422
 #: src/netimport/NIImporter_OpenDrive.cpp:1455
@@ -9478,12 +9509,18 @@ msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
 msgstr ""
+"El número de carriles hacia adelante de la arista '%' ('%') no coincide con "
+"el número de carriles definido en la clave width:lanes:forward ('%'). Se "
+"usarán los valores de ancho predeterminados."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:900
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
 msgstr ""
+"El número de carriles hacia atrás de la arista '%' ('%') no coincide con el "
+"número de carriles definido en la clave width:lanes:backward ('%'). Se "
+"usarán los valores de ancho predeterminados."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:913
 msgid "Could not add edge '-%'."
@@ -12904,6 +12941,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have an external route and "
 "an embedded route in the same definition."
 msgstr ""
+"No se pudo crear % con ID '%' en netedit; no se puede tener una ruta externa "
+"y una ruta incrustada en la misma definición."
 
 #: src/utils/handlers/CommonHandler.cpp:200
 msgid ""
@@ -12916,6 +12955,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
+"No se pudo crear % con ID '%' en netedit; no se pueden tener atributos from-"
+"to y atributos de ruta en la misma definición."
 
 #: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
@@ -13597,12 +13638,16 @@ msgid ""
 "Circuit Voltage Source '%' is connected to less than two nodes, please "
 "adjust the definition of the section (with substation '%')."
 msgstr ""
+"La fuente de tensión de circuito '%' está conectada a menos de dos nodos; "
+"por favor ajuste la definición de la sección (con la subestación '%')."
 
 #: src/utils/traction_wire/Circuit.cpp:922
 msgid ""
 "Circuit Element '%' is connected to less than two nodes, please adjust the "
 "definition of the section (with substation '%')."
 msgstr ""
+"El elemento de circuito '%' está conectado a menos de dos nodos; por favor "
+"ajuste la definición de la sección (con la subestación '%')."
 
 #: src/utils/traction_wire/Circuit.cpp:937
 msgid ""
