@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-25 16:30+0000\n"
+"PO-Revision-Date: 2025-12-30 17:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -782,6 +782,8 @@ msgstr ""
 #: src/duarouter/RODUAFrame.cpp:195
 msgid "Declare routing failure if traveltime exceeds the given positive TIME"
 msgstr ""
+"Routing als fehlgeschlagen ansehen, wenn die Reisezeit den gegebenen "
+"positiven Wert TIME überschreitet"
 
 #: src/duarouter/RODUAFrame.cpp:232
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
@@ -2799,6 +2801,8 @@ msgstr "Ordnet Positionen Verkehrsumlegungszonen statt Kanten zu"
 msgid ""
 "When using option --weights.random-factor, vary the randomness over time"
 msgstr ""
+"Den zufälligen Charakter bei Nutzung der Option --weights.random-factor mit "
+"der Zeit verändern"
 
 #: src/microsim/MSFrame.cpp:649
 msgid ""
@@ -2829,6 +2833,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for train "
 "reversal. Negative values disable reversal"
 msgstr ""
+"Die gegebene Strafe für Zugrichtungswechsel zu den Routingkosten hinzufügen. "
+"Negative Werte schließen Zugrichtungswechsel aus"
 
 #: src/microsim/MSFrame.cpp:664
 msgid ""
@@ -3245,18 +3251,23 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:832
 msgid "Vehicle '%' is inserted in an emergency situation, time=%."
-msgstr ""
+msgstr "Das Fahrzeug '%' wird in einer Notsituation eingesetzt zur Zeit %."
 
 #: src/microsim/MSLane.cpp:838
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
 msgstr ""
+"Das Fahrzeug '%' wird nicht vom Fahrstreifen '%' mit der Geschwindigkeit % "
+"(%) zur Zeit % abfahren können."
 
 #: src/microsim/MSLane.cpp:1164
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%', time=%."
 msgstr ""
+"Das Fahrzeug '%' wird mit überhöhter Geschwindigkeit eingesetzt, sodass es "
+"die Geschwindigkeitsbeschränkung auf dem Fahrstreifen '%' zur Zeit % "
+"überschreitet."
 
 #: src/microsim/MSLane.cpp:1168
 msgid ""
@@ -9644,18 +9655,20 @@ msgstr ""
 #, c-format
 msgid "Junction '%' has no valid inner edges to determine its position."
 msgstr ""
+"Der Knoten '%' verfügt über keine gültigen inneren Kanten, aus denen seine "
+"Position bestimmt werden könnte."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:294
 msgid "Could not determine position for junction '%'."
-msgstr ""
+msgstr "Die Position des Knotens '%' konnte nicht bestimmt werden."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:299
 msgid "Junction '%' resulted in invalid (NaN) position."
-msgstr ""
+msgstr "Für den Knoten '%' wurde eine ungültige Position (NaN) bestimmt."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:300
 msgid "Could not compute valid position for junction '%'."
-msgstr ""
+msgstr "Für den Knoten '%' konnte keine gültige Position bestimmt werden."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:317
 #: src/netimport/NIImporter_OpenDrive.cpp:355
@@ -12413,6 +12426,8 @@ msgstr ""
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
 msgstr ""
+"Für % Einheiten aus % verschiedenen Quellen wird der \"bulk-Modus\" "
+"angewendet"
 
 #: src/router/RONet.cpp:982
 msgid ""
@@ -13063,6 +13078,8 @@ msgid ""
 "Suffix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Auf alle Ausgabedateien angewandter Suffix. Die Spezialzeichenkette 'TIME' "
+"wird durch die aktuelle Zeit ersetzt."
 
 #: src/utils/common/SystemFrame.cpp:134
 msgid "Defines the number of digits after the comma for floating point output"
@@ -13198,7 +13215,7 @@ msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: src/utils/emissions/PollutantsInterface.cpp:252
 msgid "Unknown emission class '%'."
-msgstr ""
+msgstr "Unbekannte Emissionsklasse '%'."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
