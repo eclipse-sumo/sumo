@@ -223,7 +223,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
 else()
     # we search for Interpreter _and_ Development to make sure the versions match
     find_package(Python COMPONENTS Interpreter Development)
-    if (NOT Python_FOUND)
+    if (NOT Python_Interpreter_FOUND)
         message(FATAL_ERROR "Python NOT found")
     endif()
 endif()
