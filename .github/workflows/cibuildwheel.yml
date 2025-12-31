@@ -133,7 +133,7 @@ jobs:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
           # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
-          CMAKE_ARGS: "-DPython_EXECUTABLE={python}"
+          # CMAKE_ARGS: "-DPython_EXECUTABLE={python}"
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - uses: actions/upload-artifact@v6
