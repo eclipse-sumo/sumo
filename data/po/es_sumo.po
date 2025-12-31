@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-30 10:04+0000\n"
+"PO-Revision-Date: 2025-12-31 12:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2460,11 +2460,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:522
 msgid "Select default depart speed"
-msgstr ""
+msgstr "Seleccionar velocidad de salida predeterminada"
 
 #: src/microsim/MSFrame.cpp:525
 msgid "Select default depart lane"
-msgstr ""
+msgstr "Seleccionar carril de salida predeterminado"
 
 #: src/microsim/MSFrame.cpp:528
 msgid ""
@@ -6787,7 +6787,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:144
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "Desactiva la creación de retornos"
 
 #: src/netbuild/NBFrame.cpp:148
 msgid "Disables building turnarounds at tls-controlled junctions"
@@ -7011,7 +7011,7 @@ msgstr "Invierte la coordenada-y a lo largo de cero"
 
 #: src/netbuild/NBFrame.cpp:317
 msgid "Enable roundabout-guessing"
-msgstr ""
+msgstr "Habilitar detección de rotondas"
 
 #: src/netbuild/NBFrame.cpp:321
 msgid ""
@@ -7193,7 +7193,7 @@ msgstr "No regular nodos de distrito"
 
 #: src/netbuild/NBFrame.cpp:728
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "Habilitar detección de rampas de acceso"
 
 #: src/netbuild/NBFrame.cpp:731
 msgid ""
@@ -7261,7 +7261,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:788
 msgid "'tls.green.time' must be positive"
-msgstr ""
+msgstr "'tls.green.time' debe ser positivo"
 
 #: src/netbuild/NBFrame.cpp:792
 msgid "default.lanenumber must be at least 1"
@@ -8403,15 +8403,15 @@ msgstr ""
 
 #: src/netgen/netgen_main.cpp:62
 msgid "create grid net"
-msgstr ""
+msgstr "crear red en cuadrícula"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
-msgstr ""
+msgstr "Crear red en telaraña"
 
 #: src/netgen/netgen_main.cpp:64
 msgid "create random net"
-msgstr ""
+msgstr "crear red aleatoria"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
@@ -8843,7 +8843,7 @@ msgstr "Usar velocidades de los tipos"
 
 #: src/netimport/NIFrame.cpp:341
 msgid "Sets connector speed"
-msgstr ""
+msgstr "Establece la velocidad del conector"
 
 #: src/netimport/NIFrame.cpp:345
 msgid "Sets connector lane number"
@@ -12603,7 +12603,7 @@ msgstr ""
 
 #: src/utils/common/SystemFrame.cpp:149
 msgid "Separator in CSV output"
-msgstr ""
+msgstr "Delimitador en la salida CSV"
 
 #: src/utils/common/SystemFrame.cpp:152
 msgid ""
@@ -13063,7 +13063,7 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:435
 msgid " or "
-msgstr ""
+msgstr " o "
 
 #: src/utils/handlers/DataHandler.cpp:124
 msgid "Data elements cannot load attributes as params"
@@ -13286,7 +13286,7 @@ msgstr "Uso: "
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
-msgstr ""
+msgstr " [OPCIÓN]*"
 
 #: src/utils/options/OptionsCont.cpp:864
 msgid "Examples:"
@@ -13989,7 +13989,7 @@ msgstr "Todos los archivos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1673
 msgid "Plain text files"
-msgstr ""
+msgstr "Archivos de texto sin formato"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1678
 msgid "CSV files"
@@ -13997,11 +13997,11 @@ msgstr "Archivos CSV"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1683
 msgid "Open scene graph files"
-msgstr ""
+msgstr "Archivos OpenSceneGraph"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1688
 msgid "All Image Files"
-msgstr ""
+msgstr "Todos los archivos de imagen"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1689
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1715
@@ -14081,11 +14081,11 @@ msgstr "Gráficos vectoriales escalables"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1704
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1730
 msgid "LATEX text strings"
-msgstr ""
+msgstr "Cadenas de texto LaTeX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "Gráficos LaTeX portables"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1706
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
@@ -14098,7 +14098,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "All Video Files"
-msgstr ""
+msgstr "Todos los archivos de video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 msgid "G264 Video"
@@ -14122,7 +14122,7 @@ msgstr "Texto sin formato"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
-msgstr ""
+msgstr "Archivos de configuración de la vista"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "State GZipped XML files"
@@ -14158,7 +14158,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Edge type files"
-msgstr ""
+msgstr "Archivos de tipos de arista"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Additional files"
