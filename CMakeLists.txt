@@ -221,7 +221,11 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
     # define variable for compatibility
     set(Python_EXECUTABLE ${PYTHON_EXECUTABLE} CACHE FILEPATH "Python executable")
 else()
-    find_package(Python REQUIRED COMPONENTS Interpreter)
+    # we search for Interpreter _and_ Development to make sure the versions match
+    find_package(Python COMPONENTS Interpreter Development)
+    if (NOT Python_FOUND)
+        message(FATAL_ERROR "Python NOT found")
+    endif()
 endif()
 message(STATUS "Found Python: " ${Python_EXECUTABLE})
 if (${CMAKE_VERSION} VERSION_LESS 3.15.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))

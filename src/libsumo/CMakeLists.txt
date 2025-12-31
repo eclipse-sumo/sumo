@@ -157,8 +157,7 @@ if (SWIG_FOUND)
     endif(ENABLE_CS_BINDINGS)
 
     if (ENABLE_PYTHON_BINDINGS)
-        find_package(Python COMPONENTS Development.Module)
-        if (Python_Development.Module_FOUND)
+        if (Python_Development.FOUND OR Python_Development.Module_FOUND)  # the latter exists only since CMake 3.18
             set(CMAKE_SWIG_FLAGS -keyword) # is necessary for using keyword args
             # other options which should be evaluated: -builtin, -modern, -extranative
             if (FOX_FOUND)
