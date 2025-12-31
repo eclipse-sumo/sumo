@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-30 10:04+0000\n"
+"PO-Revision-Date: 2025-12-31 12:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2845,7 +2845,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3372
 msgid "Force save network"
-msgstr ""
+msgstr "Forzar guardado de la red"
 
 #: src/netedit/GNEApplicationWindow.cpp:3422
 msgid "Saving network failed"
@@ -8365,7 +8365,7 @@ msgstr "lista de alternativas de vehículos a tomar para el viaje de la persona"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7477
 msgid "Walk factor"
-msgstr ""
+msgstr "Factor de caminata"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7483
 #: src/netedit/GNETagPropertiesDatabase.cpp:7515
@@ -10047,7 +10047,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report bug to github"
-msgstr ""
+msgstr "Reportar error en GitHub"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:44
 msgid "Custom Geometry Point"
@@ -10391,7 +10391,7 @@ msgstr "Clase definida por el usuario"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:35
 msgid "Overwrite % '%'"
-msgstr ""
+msgstr "Sobrescribir % '%'"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
@@ -11074,7 +11074,7 @@ msgstr "Guardar elementos con posiciones no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:314
 msgid "Select conflicted stops"
-msgstr ""
+msgstr "Seleccionar paradas en conflicto"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:315
 msgid "Select conflicted stops and abort saving"
@@ -11712,7 +11712,7 @@ msgstr "agregar polígono '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1645
 msgid "add POI '%'"
-msgstr ""
+msgstr "agregar punto de interés '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1691
 msgid "add POI lane '%'"
@@ -12389,11 +12389,11 @@ msgstr ""
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:326
 msgid "Lanes aren't consecutives"
-msgstr ""
+msgstr "Los carriles no son consecutivos"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:328
 msgid "Lanes aren't connected"
-msgstr ""
+msgstr "Los carriles no están conectados"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:335
 msgid "starPos > (endPos - EPS)"
@@ -12403,7 +12403,7 @@ msgstr ""
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:331
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:154
 msgid "position of %"
-msgstr ""
+msgstr "posición de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:494
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:504
@@ -12422,7 +12422,7 @@ msgstr "fin de carril"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:220
 msgid "% < 0"
-msgstr ""
+msgstr "% < 0"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:222
 msgid "% > length of lane"
@@ -12452,19 +12452,19 @@ msgstr ""
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:216
 msgid "editing shape of %"
-msgstr ""
+msgstr "editando la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:99
 msgid "length of %"
-msgstr ""
+msgstr "longitud de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:103
 msgid "width of %"
-msgstr ""
+msgstr "ancho de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:107
 msgid "height of %"
-msgstr ""
+msgstr "altura de %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:360
 msgid "Set custom connection shape"
@@ -12472,7 +12472,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNEConnection.cpp:361
 msgid "Smooth connection shape"
-msgstr ""
+msgstr "Suavizar la forma de la conexión"
 
 #: src/netedit/elements/network/GNEConnection.cpp:667
 msgid "Could not set attribute '%' (tls is broken)"
