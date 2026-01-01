@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-08 18:08+0000\n"
+"PO-Revision-Date: 2025-12-30 17:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -782,6 +782,8 @@ msgstr ""
 #: src/duarouter/RODUAFrame.cpp:195
 msgid "Declare routing failure if traveltime exceeds the given positive TIME"
 msgstr ""
+"Routing als fehlgeschlagen ansehen, wenn die Reisezeit den gegebenen "
+"positiven Wert TIME überschreitet"
 
 #: src/duarouter/RODUAFrame.cpp:232
 msgid "Routing algorithm '%' does not support weight-attribute '%'."
@@ -2799,6 +2801,8 @@ msgstr "Ordnet Positionen Verkehrsumlegungszonen statt Kanten zu"
 msgid ""
 "When using option --weights.random-factor, vary the randomness over time"
 msgstr ""
+"Den zufälligen Charakter bei Nutzung der Option --weights.random-factor mit "
+"der Zeit verändern"
 
 #: src/microsim/MSFrame.cpp:649
 msgid ""
@@ -2829,6 +2833,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for train "
 "reversal. Negative values disable reversal"
 msgstr ""
+"Die gegebene Strafe für Zugrichtungswechsel zu den Routingkosten hinzufügen. "
+"Negative Werte schließen Zugrichtungswechsel aus"
 
 #: src/microsim/MSFrame.cpp:664
 msgid ""
@@ -3128,8 +3134,8 @@ msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
 msgstr ""
-"Die Option 'ignore-accidents' ist veraltet. Nutze statt dessen 'collision."
-"action none'."
+"Die Option 'ignore-accidents' ist veraltet. Nutze stattdessen "
+"'collision.action none'."
 
 #: src/microsim/MSFrame.cpp:1025
 msgid ""
@@ -3245,18 +3251,23 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:832
 msgid "Vehicle '%' is inserted in an emergency situation, time=%."
-msgstr ""
+msgstr "Das Fahrzeug '%' wird in einer Notsituation eingesetzt zur Zeit %."
 
 #: src/microsim/MSLane.cpp:838
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
 msgstr ""
+"Das Fahrzeug '%' wird nicht vom Fahrstreifen '%' mit der Geschwindigkeit % "
+"(%) zur Zeit % abfahren können."
 
 #: src/microsim/MSLane.cpp:1164
 msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%', time=%."
 msgstr ""
+"Das Fahrzeug '%' wird mit überhöhter Geschwindigkeit eingesetzt, sodass es "
+"die Geschwindigkeitsbeschränkung auf dem Fahrstreifen '%' zur Zeit % "
+"überschreitet."
 
 #: src/microsim/MSLane.cpp:1168
 msgid ""
@@ -3462,8 +3473,8 @@ msgstr "Unbekannter Grund."
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
-"TraCI und Triggers können keine Routen-Algorithmen '%' nutzen. Nutze statt "
-"dessen 'astar'."
+"TraCI und Triggers können keine Routen-Algorithmen '%' nutzen. Nutze "
+"stattdessen 'astar'."
 
 #: src/microsim/MSNet.cpp:1780 src/netload/NLBuilder.cpp:443
 #: src/router/ROLoader.cpp:243 src/tools/emissionsDrivingCycle_main.cpp:221
@@ -3521,7 +3532,7 @@ msgstr "Ungültiger Verweis auf Route '%' in Route %."
 #: src/microsim/MSRouteHandler.cpp:376
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
-"Attribut 'period' ist veraltet für die Route. Nutze statt dessen 'cycleTime'."
+"Attribut 'period' ist veraltet für die Route. Nutze stattdessen 'cycleTime'."
 
 #: src/microsim/MSRouteHandler.cpp:380
 msgid "Invalid cost for route '%'."
@@ -9644,18 +9655,20 @@ msgstr ""
 #, c-format
 msgid "Junction '%' has no valid inner edges to determine its position."
 msgstr ""
+"Der Knoten '%' verfügt über keine gültigen inneren Kanten, aus denen seine "
+"Position bestimmt werden könnte."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:294
 msgid "Could not determine position for junction '%'."
-msgstr ""
+msgstr "Die Position des Knotens '%' konnte nicht bestimmt werden."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:299
 msgid "Junction '%' resulted in invalid (NaN) position."
-msgstr ""
+msgstr "Für den Knoten '%' wurde eine ungültige Position (NaN) bestimmt."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:300
 msgid "Could not compute valid position for junction '%'."
-msgstr ""
+msgstr "Für den Knoten '%' konnte keine gültige Position bestimmt werden."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:317
 #: src/netimport/NIImporter_OpenDrive.cpp:355
@@ -10602,7 +10615,7 @@ msgstr "Ignoriere selbst geloopte Kante '%' am Knotenpunkt %'"
 #: src/netimport/NIXMLEdgesHandler.cpp:394
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr "'%' ist veraltet, bitte nutze statt dessen '%'."
+msgstr "'%' ist veraltet, bitte nutze stattdessen '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:404
 msgid "Lane index is larger than number of lanes (edge '%')."
@@ -11021,7 +11034,7 @@ msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
-"Der Netzstatustyp 'hbefa' ist veraltet. Bitte nutze statt dessen den Typ "
+"Der Netzstatustyp 'hbefa' ist veraltet. Bitte nutze stattdessen den Typ "
 "'emissions'."
 
 #: src/netload/NLEdgeControlBuilder.cpp:203
@@ -12413,6 +12426,8 @@ msgstr ""
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
 msgstr ""
+"Für % Einheiten aus % verschiedenen Quellen wird der \"bulk-Modus\" "
+"angewendet"
 
 #: src/router/RONet.cpp:982
 msgid ""
@@ -12966,7 +12981,7 @@ msgstr ""
 #: src/utils/common/SUMOVehicleClass.cpp:442
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
-msgstr "Die Fahrzeugklasse '%' ist veraltet, nutze statt dessen '%'."
+msgstr "Die Fahrzeugklasse '%' ist veraltet, nutze stattdessen '%'."
 
 #: src/utils/common/SystemFrame.cpp:43
 msgid "Loads the named config on startup"
@@ -13063,6 +13078,8 @@ msgid ""
 "Suffix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Auf alle Ausgabedateien angewandter Suffix. Die Spezialzeichenkette 'TIME' "
+"wird durch die aktuelle Zeit ersetzt."
 
 #: src/utils/common/SystemFrame.cpp:134
 msgid "Defines the number of digits after the comma for floating point output"
@@ -13198,7 +13215,7 @@ msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: src/utils/emissions/PollutantsInterface.cpp:252
 msgid "Unknown emission class '%'."
-msgstr ""
+msgstr "Unbekannte Emissionsklasse '%'."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
@@ -13763,7 +13780,7 @@ msgid ""
 " Use '%' instead."
 msgstr ""
 "Bitte beachte das '%' veraltet ist.\n"
-"Nutze statt dessen '%'."
+"Nutze stattdessen '%'."
 
 #: src/utils/options/OptionsCont.cpp:391
 #, c-format
@@ -14330,7 +14347,8 @@ msgstr ""
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:716
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr "Ungültig(es) %% gegeben für %. Nutze statt dessen Kante."
+msgstr ""
+"Ungültig(es) %% gegeben für %. Stattdessen wird das Kantenende verwendet."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:766
 msgid ""
@@ -14355,8 +14373,8 @@ msgstr "Ungültig % ID '%'. Beinhaltet ungültige Zeichen."
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:996
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
 msgstr ""
-"Fahrstreifenwechsel-Model 'JE2013' ist veraltet. Nutze statt dessen "
-"Standardmodel."
+"Fahrstreifenwechsel-Model 'JE2013' ist veraltet. Stattdessen wird das "
+"Standardmodell verwendet."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1210
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."

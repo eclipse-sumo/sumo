@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-03 10:00+0000\n"
-"Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
+"PO-Revision-Date: 2025-12-27 13:32+0000\n"
+"Last-Translator: Arina <hello.arina.s@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -30,7 +30,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1707
 #: src/netedit/GNEApplicationWindow.cpp:1708
 msgid "N/A"
-msgstr ""
+msgstr "Недоступно"
 
 #: src/gui/GUIApplicationWindow.cpp:314
 #: src/netedit/GNEApplicationWindow.cpp:583
@@ -45,7 +45,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:345
 #: src/netedit/GNEApplicationWindow.cpp:610
 msgid "Ready."
-msgstr ""
+msgstr "Готово."
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindow.cpp:1451
@@ -55,7 +55,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:470
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "New Window"
-msgstr ""
+msgstr "Новое окно"
 
 #: src/gui/GUIApplicationWindow.cpp:470
 msgid "Open a new sumo-gui window."
@@ -67,15 +67,15 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Открыть симуляцию (Файл конфигурации)."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open &Network..."
-msgstr ""
+msgstr "Сеть"
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open a network."
-msgstr ""
+msgstr "Открыть сеть."
 
 #: src/gui/GUIApplicationWindow.cpp:480
 msgid "Open Shapes "
@@ -96,55 +96,55 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:486
 #: src/netedit/GNEApplicationWindow.cpp:1082
 msgid "&Reload"
-msgstr ""
+msgstr "Перезагрузить"
 
 #: src/gui/GUIApplicationWindow.cpp:486
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Перезагрузить симуляцию / сеть."
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Быстрая перезагрузка"
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Перезагрузка симуляции (без перезагрузки сети)."
 
 #: src/gui/GUIApplicationWindow.cpp:493
 msgid "Save Configuration"
-msgstr ""
+msgstr "Сохранить конфигрурацию"
 
 #: src/gui/GUIApplicationWindow.cpp:493
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Сохранить текущие опции как файл конфигурации."
 
 #: src/gui/GUIApplicationWindow.cpp:496
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: src/gui/GUIApplicationWindow.cpp:496
 msgid "Close the simulation."
-msgstr ""
+msgstr "Закрыть симуляцию."
 
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "&Quit"
-msgstr ""
+msgstr "Выйти"
 
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "Quit the Application."
-msgstr ""
+msgstr "Выйти из Приложения."
 
 #: src/gui/GUIApplicationWindow.cpp:513
 #: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "&Edit"
-msgstr ""
+msgstr "&Изменить"
 
 #: src/gui/GUIApplicationWindow.cpp:515 src/gui/GUIApplicationWindow.cpp:887
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Изменить выбранные..."
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Opens a dialog for editing the list of selected items."
@@ -152,7 +152,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:517
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Выбрать полосы, которые разрешают..."
 
 #: src/gui/GUIApplicationWindow.cpp:518
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
@@ -187,12 +187,12 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:530
 #: src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "Изменить визуализацию"
 
 #: src/gui/GUIApplicationWindow.cpp:530
 #: src/netedit/GNEApplicationWindowHelper.cpp:1303
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "Открыть окно для изменения настроек визуализации."
 
 #: src/gui/GUIApplicationWindow.cpp:533
 #: src/netedit/GNEApplicationWindowHelper.cpp:1306
@@ -226,7 +226,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:542
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Открыть текущую симуляцию в NETEDIT."
 
 #: src/gui/GUIApplicationWindow.cpp:545 src/gui/GUIApplicationWindow.cpp:1524
 msgid "Open network in netedit"
@@ -238,16 +238,16 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:549
 msgid "&Settings"
-msgstr ""
+msgstr "&Настройки"
 
 #: src/gui/GUIApplicationWindow.cpp:551
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Настройки приложения"
 
 #: src/gui/GUIApplicationWindow.cpp:551
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "Открыть окно для изменения настроек приложения."
 
 #: src/gui/GUIApplicationWindow.cpp:554
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
@@ -255,7 +255,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:557
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Полноэкранный режим"
 
 #: src/gui/GUIApplicationWindow.cpp:557
 msgid "Toggle full screen mode on/off."
@@ -264,7 +264,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindow.cpp:1522
 msgid "&Locate"
-msgstr ""
+msgstr "Найти"
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:1349
@@ -292,12 +292,12 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1419
 #: src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "&Vehicles"
-msgstr ""
+msgstr "Транспортные средства"
 
 #: src/gui/GUIApplicationWindow.cpp:569
 #: src/netedit/GNEApplicationWindowHelper.cpp:2023
 msgid "Open a dialog for locating a Vehicle."
-msgstr ""
+msgstr "Открыть окно для определения местоположения транспортного средства."
 
 #: src/gui/GUIApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindowHelper.cpp:1424
@@ -327,18 +327,18 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "Open a dialog for locating a Traffic Light."
-msgstr ""
+msgstr "Открыть окно для определения местоположения светофора."
 
 #: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "&Additional"
-msgstr ""
+msgstr "Дополнительно"
 
 #: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "Open a dialog for locating an Additional Structure."
-msgstr ""
+msgstr "Открыть окно для определения местоположения дополнительных структур."
 
 #: src/gui/GUIApplicationWindow.cpp:584
 #: src/netedit/GNEApplicationWindowHelper.cpp:2044
@@ -362,7 +362,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:590
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "Показать внутренние структуры"
 
 #: src/gui/GUIApplicationWindow.cpp:590
 msgid "Show internal junctions and streets in locator dialog."
@@ -388,16 +388,16 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Simulation"
-msgstr ""
+msgstr "Симуляция"
 
 #: src/gui/GUIApplicationWindow.cpp:600 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
 msgid "Run"
-msgstr ""
+msgstr "Выполнить"
 
 #: src/gui/GUIApplicationWindow.cpp:600
 msgid "Start/ Resume the simulation."
-msgstr ""
+msgstr "Начать / возобновить симуляцию."
 
 #: src/gui/GUIApplicationWindow.cpp:603
 msgctxt "Simulation"
@@ -406,11 +406,11 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:603
 msgid "Halt the simulation."
-msgstr ""
+msgstr "Остановить симуляцию."
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Step"
-msgstr ""
+msgstr "Шаг"
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Perform one simulation step."
@@ -422,7 +422,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:609
 msgid "Increase simulation step delay."
-msgstr ""
+msgstr "Увеличить задержку шага симуляции."
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Delay-"
@@ -439,11 +439,11 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2830
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:71
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: src/gui/GUIApplicationWindow.cpp:613
 msgid "Save the current simulation state to a file."
-msgstr ""
+msgstr "Сохранить текущее состоянии симуляции как файл."
 
 #: src/gui/GUIApplicationWindow.cpp:616
 #: src/netedit/dialogs/GNEParametersDialog.cpp:296
@@ -451,7 +451,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2827
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load"
-msgstr ""
+msgstr "Загрузить"
 
 #: src/gui/GUIApplicationWindow.cpp:616
 msgid "Load simulation state for the current network from file."

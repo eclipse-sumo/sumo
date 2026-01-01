@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-10-22 10:49+0000\n"
+"PO-Revision-Date: 2025-12-31 12:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2483,7 +2483,7 @@ msgstr "Una simulación de tráfico microscópica y multi-modal."
 
 #: src/netedit/GNEApplicationWindow.cpp:550
 msgid "Close dialog automatically"
-msgstr ""
+msgstr "Cerrar el diálogo automáticamente"
 
 #: src/netedit/GNEApplicationWindow.cpp:578
 msgid "Recomputing"
@@ -2845,7 +2845,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3372
 msgid "Force save network"
-msgstr ""
+msgstr "Forzar guardado de la red"
 
 #: src/netedit/GNEApplicationWindow.cpp:3422
 msgid "Saving network failed"
@@ -3170,7 +3170,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4943
 #, c-format
 msgid "% of '%' failed."
-msgstr ""
+msgstr "% de '%' falló."
 
 #: src/netedit/GNEApplicationWindow.cpp:4925
 msgid "% demand elements from '%'"
@@ -3192,7 +3192,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:5039
 #, c-format
 msgid "% of % failed."
-msgstr ""
+msgstr "% de % falló."
 
 #: src/netedit/GNEApplicationWindow.cpp:5021
 msgid "% meanData elements from '%'"
@@ -4342,37 +4342,43 @@ msgstr "Seleccionar modo de datos."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2263
 msgid "There are invalid options in sumo configuration '%'."
-msgstr ""
+msgstr "Hay opciones no válidas en la configuración de sumo '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2266
 msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
 msgstr ""
+"No se pudo cargar la configuración de SUMO '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2278
 msgid "No network defined in sumo configuration '%'."
-msgstr ""
+msgstr "No hay una red definida en la configuración de SUMO '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2317
 msgid "There are invalid options in netconvert configuration '%'."
-msgstr ""
+msgstr "Hay opciones no válidas en la configuración de netconvert '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2320
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
+"No se pudo cargar la configuración de netconvert '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2364
 msgid "There are invalid options in netedit configuration '%'."
-msgstr ""
+msgstr "Hay opciones no válidas en la configuración de netedit '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2367
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
+"No se pudo cargar la configuración de netedit '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2486
 msgid "Element '% cannot be updateAC in bucket '%'"
@@ -4484,7 +4490,7 @@ msgstr "cancelado por el usuario\n"
 
 #: src/netedit/GNEExternalRunner.cpp:167
 msgid "Error running tool using boost::process"
-msgstr ""
+msgstr "Error al ejecutar la herramienta usando boost::process"
 
 #: src/netedit/GNEExternalRunner.cpp:197
 msgid "starting process...\n"
@@ -4524,7 +4530,7 @@ msgstr "Abrir un archivo de configuración de SUMO"
 
 #: src/netedit/GNELoadThread.cpp:303
 msgid "Load netedit config"
-msgstr ""
+msgstr "Cargar configuración de netedit"
 
 #: src/netedit/GNELoadThread.cpp:309
 msgid "Load sumo config"
@@ -4532,7 +4538,7 @@ msgstr "Cargar configuración de sumo"
 
 #: src/netedit/GNELoadThread.cpp:315
 msgid "Load netconvert config"
-msgstr ""
+msgstr "Cargar configuración de netconvert"
 
 #: src/netedit/GNELoadThread.cpp:321
 msgid "Load additional and shapes descriptions from FILE(s)"
@@ -4562,6 +4568,8 @@ msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr ""
+"Si está habilitado, se guardará automáticamente una configuración de "
+"netconvert después de guardar una configuración de netedit"
 
 #: src/netedit/GNELoadThread.cpp:346
 msgid "Load element selection"
@@ -4614,6 +4622,8 @@ msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
+"Si está habilitado, los elementos cargados se guardarán independientemente "
+"de si fueron editados o no (usualmente usado en pruebas de netedit)"
 
 #: src/netedit/GNELoadThread.cpp:388
 msgid "Prefix for node naming"
@@ -7401,20 +7411,24 @@ msgstr "centrar vista"
 msgid ""
 "The path to the file to save this element (not editable for network elements)"
 msgstr ""
+"La ruta al archivo donde se guardará este elemento (no editable para "
+"elementos de red)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6178
 #: src/netedit/GNETagPropertiesDatabase.cpp:6185
 #: src/netedit/GNETagPropertiesDatabase.cpp:6192
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6183
 msgid "The path to the file to save this element (the same of their parent)"
 msgstr ""
+"La ruta al archivo donde se guardará este elemento (la misma que la de su "
+"elemento padre)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6190
 msgid "The path to the file to save this element"
-msgstr ""
+msgstr "La ruta al archivo donde se guardará este elemento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6200
 msgid "Toggle front element"
@@ -8351,7 +8365,7 @@ msgstr "lista de alternativas de vehículos a tomar para el viaje de la persona"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7477
 msgid "Walk factor"
-msgstr ""
+msgstr "Factor de caminata"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7483
 #: src/netedit/GNETagPropertiesDatabase.cpp:7515
@@ -8638,6 +8652,8 @@ msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to "
 "qualify for detection"
 msgstr ""
+"Lista de IDs de aristas que deben formar parte de la ruta futura del "
+"vehículo para que califique para la detección"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:8011
 msgid ""
@@ -8987,7 +9003,7 @@ msgstr "desanclar punto de interés del carril"
 
 #: src/netedit/GNEViewNet.cpp:3075
 msgid "transform to POI"
-msgstr ""
+msgstr "transformar en punto de interés (POI)"
 
 #: src/netedit/GNEViewNet.cpp:3100
 msgid "transform to POI GEO"
@@ -9946,7 +9962,7 @@ msgstr "Editar color"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:57
 msgid "Critical error"
-msgstr ""
+msgstr "Error crítico"
 
 #: src/netedit/dialogs/GNECrashDialog.cpp:63
 msgid "Netedit found an internal critical error and will be closed:"
@@ -10007,7 +10023,7 @@ msgstr "Ejecutar de nuevo"
 #: src/netedit/dialogs/GNEDialog.cpp:511
 #: src/netedit/dialogs/run/GNERunDialog.cpp:205
 msgid "Rerun tool"
-msgstr ""
+msgstr "Volver a ejecutar herramienta"
 
 #: src/netedit/dialogs/GNEDialog.cpp:515
 msgid "Back"
@@ -10031,7 +10047,7 @@ msgstr ""
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report bug to github"
-msgstr ""
+msgstr "Reportar error en GitHub"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:44
 msgid "Custom Geometry Point"
@@ -10051,7 +10067,7 @@ msgstr "resetear a los valores previos"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:33
 msgid "Attributes of %"
-msgstr ""
+msgstr "Atributos de %"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:45
 msgid "Attribute"
@@ -10197,7 +10213,7 @@ msgstr "Parámetros"
 #: src/netedit/dialogs/GNESaveDialog.cpp:33
 #: src/netedit/dialogs/GNESaveDialog.cpp:41
 msgid "Save %"
-msgstr ""
+msgstr "Guardar %"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:86
 msgid "You have unsaved %."
@@ -10375,7 +10391,7 @@ msgstr "Clase definida por el usuario"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:35
 msgid "Overwrite % '%'"
-msgstr ""
+msgstr "Sobrescribir % '%'"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
@@ -10775,7 +10791,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:788
 msgid "File doesn't exist"
-msgstr ""
+msgstr "El archivo no existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:789
 msgid "The selected file '%'"
@@ -10783,7 +10799,7 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:790
 msgid "doesn't exist"
-msgstr ""
+msgstr "no existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:868
 msgid "Create New Directory"
@@ -11046,7 +11062,7 @@ msgstr "Posiciones de paradas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:304
 msgid "Activate friendlyPos"
-msgstr ""
+msgstr "Activar friendlyPos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:309
 msgid "Save invalid stops"
@@ -11058,7 +11074,7 @@ msgstr "Guardar elementos con posiciones no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:314
 msgid "Select conflicted stops"
-msgstr ""
+msgstr "Seleccionar paradas en conflicto"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:315
 msgid "Select conflicted stops and abort saving"
@@ -11408,7 +11424,7 @@ msgstr "Nada que deshabilitar, implementar en descendientes"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:853
 msgid "Parent filename"
-msgstr ""
+msgstr "Nombre de archivo padre"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:968
 msgid "Nothing to toggle, implement in Children"
@@ -11696,7 +11712,7 @@ msgstr "agregar polígono '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1645
 msgid "add POI '%'"
-msgstr ""
+msgstr "agregar punto de interés '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1691
 msgid "add POI lane '%'"
@@ -11765,7 +11781,7 @@ msgstr "Vincular al carril más cercano"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:344
 msgid "Transform to POI"
-msgstr ""
+msgstr "Transformar en punto de interés (POI)"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:346
 msgid "Transform to POI Geo"
@@ -12373,11 +12389,11 @@ msgstr ""
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:326
 msgid "Lanes aren't consecutives"
-msgstr ""
+msgstr "Los carriles no son consecutivos"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:328
 msgid "Lanes aren't connected"
-msgstr ""
+msgstr "Los carriles no están conectados"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:335
 msgid "starPos > (endPos - EPS)"
@@ -12387,7 +12403,7 @@ msgstr ""
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:331
 #: src/netedit/elements/moving/GNEMoveElementView.cpp:154
 msgid "position of %"
-msgstr ""
+msgstr "posición de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:494
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:504
@@ -12406,7 +12422,7 @@ msgstr "fin de carril"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:220
 msgid "% < 0"
-msgstr ""
+msgstr "% < 0"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:222
 msgid "% > length of lane"
@@ -12436,19 +12452,19 @@ msgstr ""
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:216
 msgid "editing shape of %"
-msgstr ""
+msgstr "editando la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:99
 msgid "length of %"
-msgstr ""
+msgstr "longitud de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:103
 msgid "width of %"
-msgstr ""
+msgstr "ancho de %"
 
 #: src/netedit/elements/moving/GNEMoveElementViewResizable.cpp:107
 msgid "height of %"
-msgstr ""
+msgstr "altura de %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:360
 msgid "Set custom connection shape"
@@ -12456,7 +12472,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNEConnection.cpp:361
 msgid "Smooth connection shape"
-msgstr ""
+msgstr "Suavizar la forma de la conexión"
 
 #: src/netedit/elements/network/GNEConnection.cpp:667
 msgid "Could not set attribute '%' (tls is broken)"
@@ -13603,15 +13619,15 @@ msgstr "remover ítems seleccionados"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Expandir"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Expandir el panel para mostrar todo el contenido"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:78
 msgid "Shrink frame to default width"
-msgstr ""
+msgstr "Reducir el panel al ancho predeterminado"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:64
 msgid "Templates"
@@ -13686,6 +13702,8 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
 msgstr ""
+"- Un objeto coincide si la comparación entre su atributo y el número dado, "
+"usando el operador indicado, se evalúa como 'true'"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:329
 msgid ""
@@ -17369,7 +17387,7 @@ msgstr "Mostrar leyenda de color de vehículo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2503
 msgid "UI Scaling"
-msgstr ""
+msgstr "Escalado de la interfaz"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2510
 msgid "Combobox max rows"
@@ -17560,7 +17578,7 @@ msgstr "Cambiar el idioma a japonés. (ja)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "Change language to korean. (ko)"
-msgstr ""
+msgstr "Cambiar el idioma a coreano. (ko)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "german"
@@ -17604,7 +17622,7 @@ msgstr "japonés"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:424
 msgid "korean"
-msgstr ""
+msgstr "coreano"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "english"
