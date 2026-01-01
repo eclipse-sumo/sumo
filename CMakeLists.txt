@@ -222,7 +222,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
     set(Python_EXECUTABLE ${PYTHON_EXECUTABLE} CACHE FILEPATH "Python executable")
 else()
     # we search for Interpreter _and_ Development to make sure the versions match
-    find_package(Python COMPONENTS Interpreter Development)
+    find_package(Python COMPONENTS Interpreter Development.Module)
     if (NOT Python_Interpreter_FOUND)
         message(FATAL_ERROR "Python NOT found")
     endif()
