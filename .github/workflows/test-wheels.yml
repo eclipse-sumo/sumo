@@ -6,7 +6,7 @@ on:
       - '.github/workflows/test-wheels.yml'
   workflow_call:
     inputs:
-      matrix:
+      os:
         type: string
         required: false
       wheel_source:
@@ -14,6 +14,9 @@ on:
         required: false
   workflow_dispatch:
     inputs:
+      os:
+        type: string
+        required: false
       wheel_source:
         type: string
         required: false
@@ -21,15 +24,16 @@ on:
     - cron:  '5 6 * * *'
 
 jobs:
-  maybe-generate-matrix:
-    if: inputs.matrix == ''
+  generate-matrix:
     uses: ./.github/workflows/generate-matrix.yml
+    with:
+      os: ${{ inputs.os }}
 
   test-wheels:
-    needs: [maybe-generate-matrix]
+    needs: [generate-matrix]
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(inputs.matrix || needs.maybe-generate-matrix.outputs.test_matrix) }}
+      matrix: ${{ fromJSON(needs.generate-matrix.outputs.test_matrix) }}
     runs-on: ${{ matrix.os }}
     env:
       WHEEL_SOURCE: ${{ inputs.wheel_source || 'https://sumo.dlr.de/daily/ciwheels' }}

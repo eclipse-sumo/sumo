@@ -144,8 +144,8 @@ jobs:
   # testing wheels
   ###################
   test-wheels:
-    needs: [generate-matrix, pure-python-wheels, build-wheels]
+    needs: [pure-python-wheels, build-wheels]
     uses: ./.github/workflows/test-wheels.yml
     with:
-      matrix: ${{ needs.generate-matrix.outputs.test_matrix }}
+      os: ${{ inputs.os }}
       wheel_source: 'python-wheels'
