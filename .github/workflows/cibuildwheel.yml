@@ -139,6 +139,7 @@ jobs:
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
           path: ./wheelhouse/*.whl
+          # to download the unrepaired wheels, use the "dist" path
 
   ###################
   # testing wheels
