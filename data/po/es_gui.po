@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-31 12:29+0000\n"
+"PO-Revision-Date: 2026-01-01 14:23+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2535,16 +2535,16 @@ msgstr "archivo de tipos de arista"
 
 #: src/netedit/GNEApplicationWindow.cpp:1054
 msgid "Reloading netedit config file '%'"
-msgstr ""
+msgstr "Recargando el archivo de configuración de netedit '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1059
 msgid "Reloading sumo config file '%'"
-msgstr ""
+msgstr "Recargando el archivo de configuración de sumo '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1064
 #: src/netedit/GNEApplicationWindow.cpp:1127
 msgid "Reloading network file '%'"
-msgstr ""
+msgstr "Recargando el archivo red '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1079
 msgid "&Reload Netedit config"
@@ -2561,17 +2561,17 @@ msgstr "&Recargar red"
 #: src/netedit/GNEApplicationWindow.cpp:1324
 #, c-format
 msgid "Loading of netedit config '%' failed"
-msgstr ""
+msgstr "La carga de la configuración de netedit '%' falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:1327
 #, c-format
 msgid "Loading of sumo config '%' failed"
-msgstr ""
+msgstr "La carga de la configuración de sumo '%' falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:1330
 #, c-format
 msgid "Loading of netconvert config '%' failed"
-msgstr ""
+msgstr "La carga de la configuración de netconvert '%' falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:1333
 #, c-format
@@ -2581,7 +2581,7 @@ msgstr "La carga de la red '%' falló"
 #: src/netedit/GNEApplicationWindow.cpp:1336
 #, c-format
 msgid "Loading of OSM Network '%' failed"
-msgstr ""
+msgstr "La carga de la red de OSM '%' falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:1339
 msgid "Invalid Options. Nothing loaded"
@@ -2589,34 +2589,38 @@ msgstr "Opciones inválidas. Nada que cargar"
 
 #: src/netedit/GNEApplicationWindow.cpp:1342
 msgid "Could not build projection. Nothing loaded"
-msgstr ""
+msgstr "No se pudo crear la proyección. No se cargó nada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1345
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
 msgstr ""
+"Extensión no válida para el archivo de configuración. Solo se permiten "
+".netecfg, .sumocfg o .netccfg"
 
 #: src/netedit/GNEApplicationWindow.cpp:1348
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
 msgstr ""
+"Opción de red de entrada no válida. Cargue usando una configuración de sumo/"
+"netedit/netconvert o con la opción --new"
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
 msgid "Netedit config '%' loaded"
-msgstr ""
+msgstr "Configuración de netedit '%' cargada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
 #, c-format
 msgid "Sumo config '%' loaded"
-msgstr ""
+msgstr "Configuración de sumo '%' cargada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
 #, c-format
 msgid "Netconvert config '%' loaded"
-msgstr ""
+msgstr "Configuración de netconvert '%' cargada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
 #, c-format
@@ -2626,16 +2630,16 @@ msgstr "Red '%' cargada"
 #: src/netedit/GNEApplicationWindow.cpp:1371
 #, c-format
 msgid "OSM Network '%' loaded"
-msgstr ""
+msgstr "Red de OSM '%' cargada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
 msgid "Network '%' loaded through console"
-msgstr ""
+msgstr "Red '%' cargada a través de la consola"
 
 #: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "New network successfully created"
-msgstr ""
+msgstr "Nueva red creada correctamente"
 
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Modes"
