@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-29 10:49+0000\n"
+"PO-Revision-Date: 2026-01-01 14:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -2601,6 +2601,8 @@ msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
 msgstr ""
+"Ungültige Option zum Laden eines Netzes. Lade es entweder über eine sumo/"
+"netedit/netconvert-Konfiguration oder mit der Option --new"
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
@@ -2630,7 +2632,7 @@ msgstr "OSM-Netz '%' geladen"
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
 msgid "Network '%' loaded through console"
-msgstr ""
+msgstr "Über die Konsole geladenes Netz '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "New network successfully created"
@@ -2828,7 +2830,7 @@ msgstr "Vorderstes Element"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
-msgstr ""
+msgstr "Element über allen anderen zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2830
 msgid "Unfront all element"
