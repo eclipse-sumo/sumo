@@ -129,7 +129,7 @@ if (SWIG_FOUND)
     endif()
 
     if (ENABLE_PYTHON_BINDINGS)
-        if (Python_Development.FOUND OR Python_Development.Module_FOUND)  # the latter exists only since CMake 3.18
+        if (Python_Development.Module_FOUND)
             set(CMAKE_SWIG_FLAGS "-keyword") # is necessary for using keyword args
             # other options which should be evaluated: -builtin, -modern, -extranative
             set(SWIG_OUTFILE_DIR ${CMAKE_CURRENT_BINARY_DIR})
