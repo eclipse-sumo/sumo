@@ -19,139 +19,19 @@ on:
     - cron:  '5 1 * * *'
 
 jobs:
-  build-wheels:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        build_type: [libsumo]
-        python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-        include:
-          - build_type: sumo
-            python_version: 3.12
-    env:
-      CC: cl
-      CXX: cl
-      SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
-      TEXTTEST_TMP: 'D:/texttest'
+  call-cibuildwheel:
+    uses: ./.github/workflows/cibuildwheel.yml
+    with:
+      os: "windows-latest"
 
-    steps:
-    - name: Cloning SUMO
-      uses: actions/checkout@v6
-      with:
-        fetch-depth: 0
-        filter: tree:0
-        # to work around actions/checkout#1467
-        ref: ${{ github.ref }}
-
-    - name: Cloning SUMO Libraries
-      uses: actions/checkout@v6
-      with:
-        repository: DLR-TS/SUMOLibraries
-        path: SUMOLibraries
-
-    - name: Setup fail-fast PowerShell
-      run: |
-        if (-not (Test-Path $PROFILE.CurrentUserAllHosts)) {
-          New-Item -ItemType File -Path $PROFILE.CurrentUserAllHosts -Force | Out-Null
-        }
-        Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$ErrorActionPreference = "Stop"'
-
-    - name: Configuring Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: ${{ matrix.python_version }}
-        architecture: x64
-
-    - name: Configuring Java
-      uses: actions/setup-java@v5
-      with:
-        distribution: 'temurin'
-        java-version: '21'
-
-    - name: ccache
-      # do a clean build once a day
-      if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2
-      with:
-        key: ${{ matrix.build_type }}-${{ matrix.python_version }}
-        variant: sccache
-
-    # required for CMake to find Ninja
-    - name: "Set up MSVC Developer Command Prompt"
-      # uses: seanmiddleditch/gha-setup-vsdevenv@v4  # disabled until it gets an update for node.js
-      uses: compnerd/gha-setup-vsdevenv@main
-
-    - name: Installing Python build environment
-      run: python -m pip install wheel build texttest
-
-    - name: Building libsumo plain
-      if: matrix.build_type == 'libsumo'
-      run: |
-        cmake -Bbuild_msvc -GNinja
-        cmake --build build_msvc --config Release --target libsumo
-        python tools\build_config\version.py tools\build_config\setup-libsumo.py tools\setup.py
-        python -m build --wheel tools -o dist --config-setting=--plat-name=win_amd64
-
-    - name: Uploading artifacts
-      if: matrix.build_type == 'libsumo'
-      uses: actions/upload-artifact@v6
-      with:
-        name: libsumo-python-${{ matrix.python_version }}-wheels
-        path: dist
-
-    - name: Building SUMO Wheels
-      if: matrix.build_type == 'sumo'
-      run: |
-        python tools\build_config\version.py tools\build_config\setup-sumolib.py tools\setup.py
-        python -m build --wheel tools -o dist
-        python tools\build_config\version.py tools\build_config\setup-traci.py tools\setup.py
-        python -m build --wheel tools -o dist
-        python tools\build_config\buildWindowsSUMOWheel.py
-
-    - name: Uploading artifacts
-      if: matrix.build_type == 'sumo'
-      uses: actions/upload-artifact@v6
-      with:
-        name: sumo-python-wheels
-        path: dist
-
-    - name: Plain libsumo tests
-      if: matrix.build_type == 'libsumo'
-      run: |
-        $env:PATH += ";$pwd\bin"
-        $env:TEXTTEST_CI_APPS = "-a complex.libsumo.ci"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-
-    - name: Compressing test results
-      if: failure()
-      run: Compress-Archive -Path $env:TEXTTEST_TMP -DestinationPath D:/texttest_plain.zip
-
-    - name: Uploading test results
-      if: failure()
-      uses: actions/upload-artifact@v6
-      with:
-        name: texttesttmp-${{ matrix.build_type }}-${{ matrix.python_version }}
-        path: D:/texttest_plain.zip
-        if-no-files-found: warn
-
-  ###################
-  # testing wheels
-  ###################
-  test-wheels:
-    needs: [build-wheels]
+  check-dependencies:
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
         python_version: [3.9, '3.10', 3.11, 3.12, 3.13, 3.14]
-    env:
-      TEXTTEST_TMP: 'D:/texttest'
 
     steps:
-    - name: Cloning SUMO
-      uses: actions/checkout@v6
-
     - name: Downloading Wheels artifact
       uses: actions/download-artifact@v7
       with:
@@ -163,24 +43,9 @@ jobs:
       with:
         python-version: ${{ matrix.python_version }}
 
-    - name: Preparing Python environment
-      run: |
-        dir python-wheels
-        python -m pip install texttest
-        python -m pip install -f python-wheels eclipse_sumo
-        python -c "import sumo; print('SUMO_HOME=' + sumo.SUMO_HOME)" >> $env:GITHUB_ENV
-
-    - name: Running "sumo in the wheel" tests
-      run: |
-        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt
-        $env:TEXTTEST_CI_APPS = "-v ci.fast -a activitygen,dfrouter,duarouter,jtrrouter,marouter,netgen,od2trips,polyconvert,netconvert,sumo"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-        $env:TEXTTEST_CI_APPS = "-v ci.fast -a complex,tools"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-
     - name: Installing libsumo
       run: |
-        python -m pip install -f python-wheels libsumo
+        python -m pip install --no-index -f python-wheels libsumo
         python -c "import libsumo; print(libsumo.__file__)"
 
     - name: Running dependency checker
@@ -190,20 +55,3 @@ jobs:
           7z x -oDependencies Dependencies.zip
           $env:PATH += ";" + $env:SUMO_HOME + "\bin"
           python -c "import libsumo, subprocess; subprocess.call(['Dependencies\\Dependencies.exe', '-modules', '-depth', '2', libsumo.__file__.replace('__init__.py', '_libsumo.pyd')])"
-
-    - name: Running libsumo tests
-      run: |
-        $env:TEXTTEST_CI_APPS = "-a complex.libsumo"
-        tests\runCiTests.bat $env:pythonLocation\Scripts\texttest.exe
-
-    - name: Compressing test results
-      if: failure()
-      run: Compress-Archive -Path $env:TEXTTEST_TMP -DestinationPath D:/texttest_installed.zip
-
-    - name: Uploading test results
-      if: failure()
-      uses: actions/upload-artifact@v6
-      with:
-        name: texttesttmp-installed-${{ matrix.python_version }}
-        path: D:/texttest_installed.zip
-        if-no-files-found: warn

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-25 00:00+0000\n"
+"PO-Revision-Date: 2026-01-01 14:23+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -672,8 +672,8 @@ msgid ""
 "Scale traffic volume from running flows and from vehicles that are loaded "
 "incrementally from route files."
 msgstr ""
-"실행 중인 flow와 route 파일에서 점진적으로 생성되는 차량의 교통량을 조절합니"
-"다."
+"실행 중인 flow와 route 파일에서 점진적으로 로드되는 차량의 교통량을 "
+"조절합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:781
 msgid "Waiting Time:"
@@ -803,9 +803,8 @@ msgstr "구성을 %에 저장할 수 없습니다."
 
 #: src/gui/GUIApplicationWindow.cpp:1280 src/gui/GUIApplicationWindow.cpp:1306
 #: src/gui/GUIApplicationWindow.cpp:2224
-#, fuzzy
 msgid "No simulation loaded!"
-msgstr "불러온 시뮬레이션이 없습니다!"
+msgstr "로드된 시뮬레이션이 없습니다!"
 
 #: src/gui/GUIApplicationWindow.cpp:1322
 msgid "Save Simulation State"
@@ -1947,9 +1946,8 @@ msgid "Copy view geo-boundary to clipboard"
 msgstr "클립보드에 view geo-boundary 복사"
 
 #: src/guisim/GUINet.cpp:490
-#, fuzzy
 msgid "loaded vehicles [#]"
-msgstr "적재된(loaded) 차량 수 [#]"
+msgstr "로드된 차량 수 [#]"
 
 #: src/guisim/GUINet.cpp:492
 #, fuzzy
@@ -2003,9 +2001,8 @@ msgid "avg. relative speed"
 msgstr "평균 상대 속도"
 
 #: src/guisim/GUINet.cpp:515
-#, fuzzy
 msgid "loaded persons [#]"
-msgstr "loaded persons [#]"
+msgstr "로드된 사람 수 [#]"
 
 #: src/guisim/GUINet.cpp:517
 #, fuzzy
@@ -2777,12 +2774,10 @@ msgid "Loading of OSM Network '%' failed"
 msgstr "OSM Network '%' 불러오기 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:1339
-#, fuzzy
 msgid "Invalid Options. Nothing loaded"
 msgstr "잘못된 옵션. 아무것도 불러오지 않음"
 
 #: src/netedit/GNEApplicationWindow.cpp:1342
-#, fuzzy
 msgid "Could not build projection. Nothing loaded"
 msgstr "투영을 생성할 수 없음. 아무것도 불러오지 않음"
 
@@ -3656,12 +3651,11 @@ msgid "Allow undoing element loading"
 msgstr "element 불러오기 실행 취소 허용"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
-#, fuzzy
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
-"elements 불러오기 실행 취소 허용 (로드된 elements가 많을 시, 속도 저하 "
-"발생할 수 있음)"
+"요소 불러오기 실행 취소를 허용 (로드된 요소가 많을 시, 속도 저하 발생할 수 "
+"있음)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close the network."
@@ -5137,13 +5131,12 @@ msgid ""
 msgstr "차로가 추가 요소보다 짧으면 자동으로 friendlyPos 활성화"
 
 #: src/netedit/GNELoadThread.cpp:383
-#, fuzzy
 msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
-"활성화 시 편집 여부와 관계없이 불러온 요소 저장 (보통 netedit 테스트에서 "
-"사용)"
+"활성화 시 편집 여부와 관계없이 불러온 요소 저장됨 (보통 netedit 테스트에서 "
+"사용됨)"
 
 #: src/netedit/GNELoadThread.cpp:388
 #, fuzzy
@@ -8469,9 +8462,8 @@ msgid "The time required by a person to board the vehicle"
 msgstr "사람이 차량에 탑승하는 데 필요한 시간"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6457
-#, fuzzy
 msgid "The time required to load a container onto the vehicle"
-msgstr "컨테이너를 차량에 적재하는 데 필요한 시간"
+msgstr "차량에 컨테이너를 적재하는 데 필요한 시간"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6463
 #, fuzzy
@@ -11354,9 +11346,8 @@ msgid "Loading of Parameters From % failed."
 msgstr "%에서 매개변수 불러오기 실패."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:326
-#, fuzzy
 msgid "Loaded % Parameters."
-msgstr "% 매개변수를 불러왔습니다."
+msgstr "% 매개변수가 로드되었습니다."
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:336
 #, fuzzy
@@ -12756,9 +12747,8 @@ msgid "Could not load tool configuration '"
 msgstr "도구 설정을 불러올 수 없음 '"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:355
-#, fuzzy
 msgid "Loaded configuration."
-msgstr "설정을 불러왔습니다."
+msgstr "구성이 로드되었습니다."
 
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:81
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:135
@@ -17682,7 +17672,6 @@ msgstr "tlLogic '%', 프로그램 '%'을(를) 빌드할 수 없음"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:258
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2910
-#, fuzzy
 msgid "Loaded "
 msgstr "로드됨 "
 
@@ -18164,7 +18153,7 @@ msgid "Execute python tool '"
 msgstr "Python 도구 실행 '"
 
 #: src/netedit/tools/GNEPythonTool.cpp:191
-#, c-format, fuzzy
+#, c-format
 msgid "Loaded % configuration."
 msgstr "% 구성 로드됨."
 
@@ -18669,7 +18658,6 @@ msgstr "선택됨"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:988
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1532
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1865
-#, fuzzy
 msgid "by allowed speed (lanewise)"
 msgstr "허용 속도별 (차로별)"
 
@@ -18677,13 +18665,13 @@ msgstr "허용 속도별 (차로별)"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1535
 #, fuzzy
 msgid "by current occupancy (lanewise, brutto)"
-msgstr "현재 점유율별 (차로별, 총)"
+msgstr "현재 점유율별 (차로별, brutto)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1001
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1538
 #, fuzzy
 msgid "by current occupancy (lanewise, netto)"
-msgstr "현재 점유율별 (차로별, 순)"
+msgstr "현재 점유율별 (차로별, netto)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1007
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1541
@@ -18777,9 +18765,8 @@ msgstr "각도별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1092
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1581
-#, fuzzy
 msgid "by loaded weight"
-msgstr "적재 중량별"
+msgstr "적재 중량 별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1096
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1586
