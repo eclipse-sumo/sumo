@@ -11,7 +11,7 @@ add_library(libsumofmi2 SHARED ${libsumofmi2_SRCS})
 set_target_properties(libsumofmi2 PROPERTIES PREFIX "")
 set_target_properties(libsumofmi2 PROPERTIES OUTPUT_NAME libsumofmi2${BINARY_SUFFIX})
 set_target_properties(libsumofmi2 PROPERTIES OUTPUT_NAME_DEBUG libsumofmi2${BINARY_SUFFIX}D)
-target_link_libraries(libsumofmi2 libsumocpp ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
+target_link_libraries(libsumofmi2 libsumocpp)
 
 #########################################################
 # Building of the ZIP Archive with the model description
