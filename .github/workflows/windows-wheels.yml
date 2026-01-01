@@ -25,6 +25,7 @@ jobs:
       os: "windows-latest"
 
   check-dependencies:
+    needs: [call-cibuildwheel]
     runs-on: windows-latest
     strategy:
       fail-fast: false
