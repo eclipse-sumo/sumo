@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-31 12:29+0000\n"
+"PO-Revision-Date: 2026-01-01 14:23+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2442,12 +2442,16 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:513
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
 msgstr ""
+"No crear bloques de tramo más largos que FLOAT y emitir una advertencia en "
+"su lugar"
 
 #: src/microsim/MSFrame.cpp:516
 msgid ""
 "List vehicle classes that uses block-based insertion checks even when the "
 "network has no rail signals for them"
 msgstr ""
+"Listar las clases de vehículos que usan comprobaciones de inserción basadas "
+"en bloques incluso cuando la red no tiene señales ferroviarias para ellas"
 
 #: src/microsim/MSFrame.cpp:519
 msgid ""
@@ -2554,18 +2558,24 @@ msgid ""
 "Select among pedestrian models ['nonInteracting', 'striping', 'jupedsim', "
 "'remote']"
 msgstr ""
+"Seleccionar entre los modelos de peatones ['nonInteracting', 'striping', "
+"'jupedsim', 'remote']"
 
 #: src/microsim/MSFrame.cpp:566
 msgid ""
 "Minimal acceptable gap (in seconds) between two vehicles before starting to "
 "cross"
 msgstr ""
+"Brecha mínima aceptable (en segundos) entre dos vehículos antes de comenzar "
+"a cruzar"
 
 #: src/microsim/MSFrame.cpp:569
 msgid ""
 "Width of parallel stripes for segmenting a sidewalk (meters) for use with "
 "model 'striping'"
 msgstr ""
+"Ancho de las franjas paralelas para segmentar una acera (en metros) para "
+"usar con el modelo 'striping'"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "Factor for random slow-downs [0,1] for use with model 'striping'"
@@ -2610,17 +2620,19 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:585
 msgid "Factor for reducing speed of pedestrian in jammed state"
-msgstr ""
+msgstr "Factor para reducir la velocidad del peatón en estado de congestión"
 
 #: src/microsim/MSFrame.cpp:588
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "Fracción de franjas a reservar para peatones en sentido contrario"
 
 #: src/microsim/MSFrame.cpp:591
 msgid ""
 "Fraction of stripes to reserve for oncoming pedestrians on crossings and "
 "walkingareas"
 msgstr ""
+"Fracción de franjas a reservar para peatones en sentido contrario en pasos "
+"peatonales y áreas peatonales"
 
 #: src/microsim/MSFrame.cpp:594
 msgid "Maximum width in m to reserve for oncoming pedestrians"
@@ -2701,6 +2713,8 @@ msgid ""
 "Maximum distance when mapping input coordinates (fromXY etc.) to the road "
 "network"
 msgstr ""
+"Distancia máxima al mapear las coordenadas de entrada (fromXY, etc.) a la "
+"red vial"
 
 #: src/microsim/MSFrame.cpp:632 src/router/ROFrame.cpp:169
 msgid "Match positions to junctions instead of edges"
@@ -2708,12 +2722,14 @@ msgstr "Hacer coincidir posiciones con cruces en lugar de aristas"
 
 #: src/microsim/MSFrame.cpp:635 src/router/ROFrame.cpp:172
 msgid "Match positions to taz instead of edges"
-msgstr ""
+msgstr "Asignar posiciones a zonas de análisis de tráfico en lugar de aristas"
 
 #: src/microsim/MSFrame.cpp:646
 msgid ""
 "When using option --weights.random-factor, vary the randomness over time"
 msgstr ""
+"Al usar la opción –weights.random-factor, variar la aleatoriedad a lo largo "
+"del tiempo"
 
 #: src/microsim/MSFrame.cpp:649
 msgid ""
@@ -2752,11 +2768,15 @@ msgstr ""
 msgid ""
 "Where taxis can drop off customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Dónde los taxis pueden dejar a los pasajeros ('allJunctions, 'ptStops', "
+"'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:686
 msgid ""
 "Where taxis can pick up customers ('allJunctions, 'ptStops', 'parkingAreas')"
 msgstr ""
+"Dónde los taxis pueden recoger pasajeros ('allJunctions, 'ptStops', "
+"'parkingAreas')"
 
 #: src/microsim/MSFrame.cpp:689
 msgid ""
@@ -2940,7 +2960,7 @@ msgstr "Crear ventana inicial en la posición x,y dada"
 
 #: src/microsim/MSFrame.cpp:840
 msgid "The aggregation period for value tracker windows"
-msgstr ""
+msgstr "El período de agregación para las ventanas de rastreo de valores"
 
 #: src/microsim/MSFrame.cpp:844
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
