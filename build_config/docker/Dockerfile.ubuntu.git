@@ -12,37 +12,39 @@ FROM ubuntu:jammy AS build
 
 ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
-ARG JUPEDSIM_VERSION=v1.3.1
+ARG JUPEDSIM_VERSION=1.3.1
 
 RUN apt-get -qq update && \
     apt-get -y install git ca-certificates lsb-release wget
 
 RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://github.com/eclipse-sumo/sumo
 
-# basic build dependencies
-RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt)
-# 3D GUI, video recording
-RUN apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev
-# Parquet / Arrow
-RUN wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+# installing dependencies
+RUN apt-get -y install $(cat /opt/sumo/build_config/build_req_deb.txt) && \
+    apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev && \
+    wget https://packages.apache.org/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
     apt-get -y install ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb && \
+    rm ./apache-arrow-apt-source-latest-*.deb && \
     apt-get -qq update && \
-    apt-get -y install libarrow-dev libparquet-dev
-# packages needed for the tools (some are also listed in tools/requirements.txt but we prefer the ubuntu packages)
-RUN apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt)
+    apt-get -y install libarrow-dev libparquet-dev && \
+    apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt) && \
+    pip3 install --no-cache-dir -r /opt/sumo/tools/requirements.txt -r /opt/sumo/docs/web/requirements.txt
 
-# JuPedSim
-RUN cd /opt; git clone -b $JUPEDSIM_VERSION https://github.com/PedestrianDynamics/jupedsim
-RUN cd /opt; cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=/install/usr jupedsim; \
- cmake --build jupedsim-build -j4 --config Release; cmake --install jupedsim-build --config Release
+# JuPedSim build
+RUN cd /opt && \
+    wget -q https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v$JUPEDSIM_VERSION.tar.gz && \
+    tar xzf v$JUPEDSIM_VERSION.tar.gz && \
+    cmake -B jupedsim-build -D CMAKE_INSTALL_PREFIX=/install/usr jupedsim-${JUPEDSIM_VERSION} && \
+    cmake --build jupedsim-build -j$(nproc) && \
+    cmake --install jupedsim-build && \
+    rm -rf /opt/jupedsim-$JUPEDSIM_VERSION /opt/jupedsim-build v$JUPEDSIM_VERSION.tar.gz
 
-# python packages needed for the tools (the ones where we do not have ubuntu packages)
-RUN pip3 install -r /opt/sumo/tools/requirements.txt
-# python packages needed for the docs (the ones where we do not have ubuntu packages)
-RUN pip3 install -r /opt/sumo/docs/web/requirements.txt
-
-RUN cd /opt/sumo; cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/install/usr -DSUMO_UTILS=TRUE; \
- cd cmake-build; make -j8 all examples doc install
+# SUMO build
+RUN cd /opt/sumo && \
+    cmake -B cmake-build -DCMAKE_INSTALL_PREFIX=/install/usr -DSUMO_UTILS=TRUE && \
+    cmake --build cmake-build -j$(nproc) --target all --target examples --target doc && \
+    cmake --install cmake-build && \
+    rm -rf cmake-build
 
 # Now create actual image
 FROM ubuntu:jammy
