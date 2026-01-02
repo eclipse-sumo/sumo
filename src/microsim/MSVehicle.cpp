@@ -2586,6 +2586,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     if (!instantStopping()) {
                         // regular stops are not emergencies
                         stopSpeed = MAX2(stopSpeed, vMinComfortable);
+                    } else if (myInfluencer && !myInfluencer->hasSpeedTimeLine(SIMSTEP)) {
+                        std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+                        speedTimeLine.push_back(std::make_pair(SIMSTEP, getSpeed()));
+                        speedTimeLine.push_back(std::make_pair(SIMSTEP + DELTA_T, stopSpeed));
+                        myInfluencer->setSpeedTimeLine(speedTimeLine);
                     }
                     if (lastLink != nullptr) {
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));

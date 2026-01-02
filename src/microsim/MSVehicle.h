@@ -1430,6 +1430,10 @@ public:
          */
         void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine);
 
+        bool hasSpeedTimeLine(SUMOTime t) const {
+            return !mySpeedTimeLine.empty() && mySpeedTimeLine.front().first >= t;
+        }
+
         /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
         void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh = nullptr);
