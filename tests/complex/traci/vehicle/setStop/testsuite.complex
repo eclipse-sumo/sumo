@@ -5,6 +5,9 @@ newStop
 # brakeGap must be considered
 newStop_fast
 
+# stop instantly ignoring brake gap
+newStop_fast_forced
+
 # Copy of newStop
 pos_0
 
