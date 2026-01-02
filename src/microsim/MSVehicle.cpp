@@ -2542,7 +2542,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     std::cout << SIMTIME << " veh=" << getID() <<  " stopDist=" << stopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
                 }
 #endif
-                // regular stops are not emergencies
                 double stopSpeed = laneMaxV;
                 if (isWaypoint) {
                     bool waypointWithStop = false;
@@ -2583,7 +2582,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         }
                     }
                 } else {
-                    stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), stopDist), vMinComfortable);
+                    stopSpeed = cfModel.stopSpeed(this, getSpeed(), stopDist);
+                    if (!instantStopping()) {
+                        // regular stops are not emergencies
+                        stopSpeed = MAX2(stopSpeed, vMinComfortable);
+                    }
                     if (lastLink != nullptr) {
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
