@@ -1,3 +1,37 @@
+# global patterns
+*.vcxproj.user
+*.class
+lib*.a
+.deps
+.DS_Store
+.libs
+*.o
+__pycache__
+*.pyc
+*.sdf
+*.suo
+*.db
+*.opendb
+*.db-shm
+*.db-wal
+*.obj
+*.log
+*.tlog
+*.lastbuildstate
+*.exe
+*.jar
+*.ilk
+*.pdb
+*.props
+*.exp
+*.lib
+*.res
+*.ipch
+.vscode
+*.aps
+.gdb_history
+.env
+
 # root dir, mostly release / doc building stuff
 /sumo*.tar.gz
 /sumo-*.zip
@@ -9,17 +43,20 @@
 /dist
 /_skbuild
 /wheelhouse
-/setup.py
+/pyproject.toml
 # IDE project files
 /.settings
 /.cproject
 /.project
 /.pydevproject
+/.pylintrc
 /.vs
 /.vim
 # build dir
 /build
 /build_clang
+/cmclang
+/cmvs
 /out
 # bin dir
 /bin/TraCITestClient*
@@ -71,37 +108,13 @@
 /docs/tutorial
 /docs/userdoc
 /docs/web/site/
-/docs/web/__pycache__/
-/docs/web/*.pyc
-# src dir, mostly configure / make stuff
-/src/config.h
-/src/config.h.in
-/src/stamp-h1
-/src/version.h
-/src/tags
-/src/cscope.out
-/src/activitygen/activitygen
-/src/dfrouter/dfrouter
-/src/duarouter/duarouter
-/src/jtrrouter/jtrrouter
-/src/marouter/marouter
-/src/netconvert
-/src/netedit/netedit
-/src/netgen/netgenerate
-/src/netimport/typemap.h
-/src/od2trips
-/src/polyconvert/pc_typemap.h
-/src/polyconvert/polyconvert
-/src/sumo
-/src/sumo-gui
-/src/tools/emissionsDrivingCycle
-/src/tools/emissionsMap
-/src/traci_testclient/TraCITestClient
 # tools dir
 /tools/*.vs
 /tools/*.egg-info
 /tools/[0-9]*
 /tools/game/output
+/tools/game/racing/log
+/tools/game/racing/tripinfos.xml
 /tools/game/tls
 /tools/game/scores.pkl
 /tools/game/refscores.pkl
@@ -115,44 +128,9 @@
 /tools/libsumo/libsumo.py
 /tools/libtraci/_libtraci.*
 /tools/libtraci/libtraci.py
+/tools/neteditTestFunctions/.vs
 /tools/setup.py
 # extracted tests
 /tests/_*
-# netedit test
-/tools/neteditTestFunctions/.vs
+/tests/activitygen/filter_files
 /tests/netedit/filter_files
-# global patterns
-Makefile
-Makefile.in
-*.vcxproj.user
-*.class
-lib*.a
-.deps
-**/.DS_Store
-.libs
-*.o
-__pycache__
-*.pyc
-*.sdf
-*.suo
-*.db
-*.opendb
-*.db-shm
-*.db-wal
-*.obj
-*.log
-*.tlog
-*.lastbuildstate
-*.exe
-*.jar
-*.ilk
-*.pdb
-*.props
-*.exp
-*.lib
-*.res
-*.ipch
-.vscode
-*.aps
-.gdb_history
-.env
