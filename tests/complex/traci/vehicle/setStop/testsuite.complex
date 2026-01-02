@@ -8,6 +8,10 @@ newStop_fast
 # stop instantly ignoring brake gap
 newStop_fast_forced
 
+# stop instantly ignoring brake gap
+# (exceed emergency braking)
+newStop_fast_forced2
+
 # Copy of newStop
 pos_0
 
