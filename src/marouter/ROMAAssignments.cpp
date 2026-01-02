@@ -335,6 +335,8 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     }
                     continue;
                 }
+#else
+                UNUSED_PARAMETER(workerIndex);
 #endif
                 if (lastOrigin != c->origin) {
                     myRouter.setBulkMode(false);
