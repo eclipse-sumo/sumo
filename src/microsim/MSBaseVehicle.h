@@ -173,6 +173,11 @@ public:
      */
     bool ignoreTransientPermissions() const;
 
+    /// @brief whether instant stopping is permitted
+    virtual bool instantStopping() const {
+        return false;
+    }
+
     /** @brief Returns the maximum speed (the minimum of desired and technical maximum speed)
      * @return The vehicle's maximum speed
      */

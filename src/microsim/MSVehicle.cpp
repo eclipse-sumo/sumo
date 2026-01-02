@@ -8279,4 +8279,10 @@ MSVehicle::resetApproachOnReroute() {
     }
 }
 
+
+bool
+MSVehicle::instantStopping() const {
+    return myInfluencer && !myInfluencer->considerMaxDeceleration();
+}
+
 /****************************************************************************/

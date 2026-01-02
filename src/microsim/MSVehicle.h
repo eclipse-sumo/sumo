@@ -1002,6 +1002,9 @@ public:
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
 
+    /// @brief whether instant stopping is permitted
+    bool instantStopping() const;
+
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;
@@ -1538,6 +1541,11 @@ public:
         bool considerSpeedLimit() const {
             // backward compatibility (when we ignore safe velocity we implicitly ignore speed limits as well)
             return myConsiderSpeedLimit && myConsiderSafeVelocity;
+        }
+
+        /// @brief Returns whether safe velocities shall be considered
+        bool considerMaxDeceleration() const {
+            return myConsiderMaxDeceleration;
         }
 
         /** @brief Sets speed-constraining behaviors
