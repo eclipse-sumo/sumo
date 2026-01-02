@@ -259,8 +259,7 @@ when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
 
-- When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks.
-- When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
+When loading a network with edge permissions, a seperate preprocessing is triggered for every vehicle class encountered in a routing task (by automatically switching to #CHWrapper).
 
 ## CHWrapper
 
