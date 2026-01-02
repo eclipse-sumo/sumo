@@ -33,7 +33,6 @@ import traci.constants as tc  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net2.net.xml",
-             "-a", "input_additional2.add.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
              "--vehroute-output", "vehroutes.xml",
