@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-01 14:23+0000\n"
+"PO-Revision-Date: 2026-01-02 12:54+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -1366,7 +1366,7 @@ msgstr "potencia de carga [W]"
 
 #: src/guisim/GUIChargingStation.cpp:89
 msgid "total charging power [W]"
-msgstr ""
+msgstr "potencia total de carga [W]"
 
 #: src/guisim/GUIChargingStation.cpp:90
 msgid "charging efficiency [#]"
@@ -2814,12 +2814,12 @@ msgstr "Rehacer"
 #: src/netedit/GNEApplicationWindow.cpp:2822
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
-msgstr ""
+msgstr "Dejar de destacar elemento"
 
 #: src/netedit/GNEApplicationWindow.cpp:2823
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
-msgstr ""
+msgstr "Dejar de destacar los elementos inspeccionados"
 
 #: src/netedit/GNEApplicationWindow.cpp:2825
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
@@ -2833,15 +2833,15 @@ msgstr "Elemento frontal"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
-msgstr ""
+msgstr "Dibujar elemento por encima de todo lo demás"
 
 #: src/netedit/GNEApplicationWindow.cpp:2830
 msgid "Unfront all element"
-msgstr ""
+msgstr "Dejar de destacar todos los elementos"
 
 #: src/netedit/GNEApplicationWindow.cpp:2831
 msgid "Unfront all elements"
-msgstr ""
+msgstr "Dejar de destacar todos los elementos"
 
 #: src/netedit/GNEApplicationWindow.cpp:2834
 msgid "Front element (only inspected elements)"
@@ -2889,23 +2889,31 @@ msgstr "El guardado de las unión de cruces (joined junctions) falló"
 
 #: src/netedit/GNEApplicationWindow.cpp:3554
 msgid "Saving of netedit configuration aborted (due network)."
-msgstr ""
+msgstr "Guardado de la configuración de netedit cancelado (debido a la red)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
+"Guardado de la configuración de netedit cancelado (debido al archivo "
+"adicional)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr ""
+"Guardado de la configuración de netedit cancelado (debido al archivo de "
+"demanda)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3566
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr ""
+"Guardado de la configuración de netedit cancelado (debido al archivo de "
+"datos)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3570
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr ""
+"Guardado de la configuración de netedit cancelado (debido al archivo "
+"meanData)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3582
 #: src/netedit/GNEApplicationWindow.cpp:3726
@@ -3058,7 +3066,7 @@ msgstr "El guardado de los elementos de demanda ha fallado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4254
 msgid "Route elements"
-msgstr ""
+msgstr "Elementos de ruta"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Route elements file in unified file"
@@ -3164,11 +3172,11 @@ msgstr "guardando elementos meanData unificados en '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4876
 msgid "% additional elements from '%'"
-msgstr ""
+msgstr "% elementos adicionales desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4883
 msgid "% additionals from '%'."
-msgstr ""
+msgstr "% adicionales desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4894
 #: src/netedit/GNEApplicationWindow.cpp:4943
@@ -3178,19 +3186,19 @@ msgstr "% de '%' falló."
 
 #: src/netedit/GNEApplicationWindow.cpp:4925
 msgid "% demand elements from '%'"
-msgstr ""
+msgstr "% elementos de demanda desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4932
 msgid "% demand elements from '%'."
-msgstr ""
+msgstr "% elementos de demanda desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "% data elements from '%'"
-msgstr ""
+msgstr "% elementos de datos desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4980
 msgid "% data elements from '%'."
-msgstr ""
+msgstr "% elementos de datos desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4991
 #: src/netedit/GNEApplicationWindow.cpp:5039
@@ -3200,11 +3208,11 @@ msgstr "% de % falló."
 
 #: src/netedit/GNEApplicationWindow.cpp:5021
 msgid "% meanData elements from '%'"
-msgstr ""
+msgstr "% elementos meanData desde '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5028
 msgid "% meanData elements from '%'."
-msgstr ""
+msgstr "% elementos meanData desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5065
 #: src/netedit/GNEApplicationWindow.cpp:5066
