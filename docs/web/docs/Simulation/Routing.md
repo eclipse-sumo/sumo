@@ -259,7 +259,7 @@ when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
 
-When loading a network with edge permissions, a seperate preprocessing is triggered for every vehicle class encountered in a routing task (by automatically switching to #chwrapper).
+When loading a network with edge permissions, a seperate preprocessing is triggered for every vehicle class encountered in a routing task (by automatically switching to (CHWrapper)[#chwrapper]).
 
 ## CHWrapper
 
