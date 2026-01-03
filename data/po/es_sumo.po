@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-01 14:23+0000\n"
+"PO-Revision-Date: 2026-01-03 12:10+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1596,7 +1596,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2213
 msgid "unable to replace stop with teleporting"
-msgstr ""
+msgstr "no se puede reemplazar la parada por teleportación"
 
 #: src/microsim/MSBaseVehicle.cpp:2241
 msgid "cannot insert stop before the currently reached stop"
@@ -1691,16 +1691,22 @@ msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', time="
 "%."
 msgstr ""
+"La velocidad de salida del vehículo '%' es demasiado alta para la arista de "
+"salida '%', tiempo=%."
 
 #: src/microsim/MSEdge.cpp:818 src/microsim/MSLane.cpp:856
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
+"Se proporcionó una posición de salida % no válida para el vehículo '%', "
+"tiempo=%. Se insertará al final del carril."
 
 #: src/microsim/MSEdge.cpp:859
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
+"No se pudo insertar el vehículo '%' en ningún carril de la arista '%', "
+"tiempo=%."
 
 #: src/microsim/MSEdge.cpp:1397
 #, c-format
@@ -1709,7 +1715,7 @@ msgstr "La arista bidireccional '%' no existe"
 
 #: src/microsim/MSEdge.cpp:1410
 msgid "Ambiguous superposable edges between junction '%' and '%'."
-msgstr ""
+msgstr "Aristas superpuestas ambiguas entre los cruces '%' y '%'."
 
 #: src/microsim/MSEdge.cpp:1441
 #, c-format
@@ -1721,10 +1727,12 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:64
 msgid "start a simulation from time 0 to 1000 with given net and routes"
 msgstr ""
+"iniciar una simulación desde el tiempo 0 hasta 1000 con la red y las rutas "
+"dadas"
 
 #: src/microsim/MSFrame.cpp:65
 msgid "start with a configuration file"
-msgstr ""
+msgstr "iniciar con un archivo de configuración"
 
 #: src/microsim/MSFrame.cpp:66
 msgid "print help"
@@ -1767,6 +1775,8 @@ msgid ""
 "Initialize a TAZ for every junction to use attributes toJunction and "
 "fromJunction"
 msgstr ""
+"Inicializar una zona de análisis de tráfico para cada cruce, para poder usar "
+"los atributos toJunction y fromJunction"
 
 #: src/microsim/MSFrame.cpp:116
 msgid "Save complete network states into FILE"
@@ -1774,7 +1784,7 @@ msgstr "Guardar los estados completos de la red en FILE"
 
 #: src/microsim/MSFrame.cpp:121
 msgid "Write also empty edges completely when dumping"
-msgstr ""
+msgstr "Al generar la salida, escribir también completamente las aristas vacías"
 
 #: src/microsim/MSFrame.cpp:126
 msgid "Write positions and speeds with the given precision (default 2)"
@@ -1801,6 +1811,8 @@ msgid ""
 "Write emission values scaled to the step length rather than as per-second "
 "values"
 msgstr ""
+"Escribir los valores de emisiones escalados a la duración del paso en lugar "
+"de como valores por segundo"
 
 #: src/microsim/MSFrame.cpp:137
 msgid "List attributes that should be included in the emission output"
@@ -1833,12 +1845,16 @@ msgstr "Escribir datos de estaciones de carga"
 #: src/microsim/MSFrame.cpp:154
 msgid "Write aggregated charging event data instead of single time steps"
 msgstr ""
+"Escribir datos agregados de eventos de carga en lugar de pasos de tiempo "
+"individuales"
 
 #: src/microsim/MSFrame.cpp:156
 msgid ""
 "Write aggregated charging event data for vehicles which have not arrived at "
 "simulation end"
 msgstr ""
+"Escribir datos agregados de eventos de carga para vehículos que no han "
+"llegado al final de la simulación"
 
 #: src/microsim/MSFrame.cpp:159
 msgid "Write data of overhead wire segments"
@@ -1903,6 +1919,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:189
 msgid "Save fcd for persons and container to separate FILE"
 msgstr ""
+"Guardar datos FCD de personas y contenedores en un archivo FILE separado"
 
 #: src/microsim/MSFrame.cpp:192
 msgid ""
@@ -1939,11 +1956,11 @@ msgstr "Guardar las trayectorias de los vehículos en formato Amitran"
 
 #: src/microsim/MSFrame.cpp:210
 msgid "Save aggregated vehicle departure info into FILE"
-msgstr ""
+msgstr "Guardar información agregada de salida de vehículos en FILE"
 
 #: src/microsim/MSFrame.cpp:213
 msgid "Save summary-output with the given period"
-msgstr ""
+msgstr "Guardar el resumen con el período indicado"
 
 #: src/microsim/MSFrame.cpp:216
 msgid "Save aggregated person counts into FILE"
