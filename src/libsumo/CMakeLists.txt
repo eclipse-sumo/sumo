@@ -177,9 +177,11 @@ if (SWIG_FOUND)
             SWIG_ADD_LIBRARY(libsumo LANGUAGE python SOURCES libsumo.i)
             add_dependencies(${SWIG_MODULE_libsumo_REAL_NAME} generate-version-h install_dll)
             target_link_libraries(libsumo ${sumo_link_libraries} Python::Module)
-            if (NOT ${PYTHON_SETUPTOOLS_MISSING})
-                install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} ./build_config/version.py ./build_config/setup-libsumo.py ./setup.py COMMAND ${Python_EXECUTABLE} -m pip install --no-build-isolation --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . WORKING_DIRECTORY ${SUMO_TOOLS_DIR})"
-                        COMPONENT pylibsumo)
+            if (NOT ${PYTHON_BUILD_MISSING})
+                install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/libsumo_local.toml pyproject.toml \
+                                              COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . \
+                                              WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
+                        COMPONENT python_package EXCLUDE_FROM_ALL)
             endif()
         endif()
     endif(ENABLE_PYTHON_BINDINGS)

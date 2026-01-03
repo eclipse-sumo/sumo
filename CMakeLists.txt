@@ -245,12 +245,8 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
     endif()
 endif()
 
-execute_process(COMMAND ${Python_EXECUTABLE} -c "import setuptools; import build; import pip; build.__version__"
-                RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
-if (MSVC)
-    # disable the installation of python wheels during "cmake --install" on Windows because they go into a strange location, see #17288
-    set(PYTHON_SETUPTOOLS_MISSING True)
-endif()
+execute_process(COMMAND ${Python_EXECUTABLE} -c "import build, pip; build.__version__"
+                RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
 
 # exclusive from Apple
 if (APPLE)
@@ -690,16 +686,18 @@ endif ()
 install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
-if (NOT ${PYTHON_SETUPTOOLS_MISSING})
-    if (NOT VERBOSE_SUB)
-        set(PYTHON_BUILD_OPTS "-C--quiet")
-    endif ()
-    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${Python_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
-            COMPONENT pysumolib)
-    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${Python_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
-            COMPONENT pytraci)
-    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
-            COMPONENT pytraci)
+if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
+    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml \
+                                  COMMAND ${Python_EXECUTABLE} -m build --wheel . -o ${CMAKE_BINARY_DIR} \
+                                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
+            COMPONENT python_package EXCLUDE_FROM_ALL)
+    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml \
+                                  COMMAND ${Python_EXECUTABLE} -m build --wheel . -o ${CMAKE_BINARY_DIR} \
+                                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
+            COMPONENT python_package EXCLUDE_FROM_ALL)
+    install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci \
+                                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
+            COMPONENT python_package EXCLUDE_FROM_ALL)
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
