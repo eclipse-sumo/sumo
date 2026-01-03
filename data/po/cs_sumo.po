@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-12-03 10:01+0000\n"
+"PO-Revision-Date: 2026-01-04 17:03+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -63,11 +63,11 @@ msgstr ""
 #: src/activitygen/AGActivityGenHandler.cpp:186
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "Hrana '%' není známá."
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "Neznámá autobusová zastávka '%'."
 
 #: src/activitygen/AGFrame.cpp:47
 msgid ""
