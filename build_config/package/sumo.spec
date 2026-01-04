@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2022 SUSE LLC
-# Copyright (c) 2001-2025 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2026 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -36,10 +36,6 @@ BuildRequires:  cmake
 BuildRequires:  java-devel
 %endif
 %if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
-BuildRequires:  python3-build
-BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
 BuildRequires:  pkgconfig(geos)
 BuildRequires:  jupedsim
 %endif
@@ -97,17 +93,6 @@ Requires:       libsumocpp = %{version}
 %description -n libsumocpp-devel
 This package provides development libraries and headers needed to build
 software using libsumocpp.
-
-%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
-%package -n python3-libsumo
-Summary:        libsumo Python3 module
-Requires:       %{name}
-Provides:       python3-%{name} = %{version}
-Obsoletes:      python3-%{name} < %{version}
-
-%description -n python3-libsumo
-The libsumo python module provides support to connect to and remote control a running sumo simulation.
-%endif
 
 %if 0%{?fedora_version} || 0%{?centos_version}
 %global debug_package %{nil}
@@ -172,9 +157,9 @@ make %{?_smp_mflags} test
 %files
 %defattr(-,root,root)
 %{_bindir}/*
+%if 0%{?fedora_version} > 35 || 0%{?sle_version} >= 150400 || 0%{?suse_version} >= 1600
 %{_libdir}/libsumocs.so
 %{_libdir}/libtracics.so
-%if 0%{?centos_version} == 0
 %{_libdir}/liblibsumojni.so
 %{_libdir}/liblibtracijni.so
 %endif
@@ -195,15 +180,5 @@ make %{?_smp_mflags} test
 %files -n libsumocpp-devel
 %license LICENSE
 %{_includedir}/libsumo
-
-%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
-%files -n python3-libsumo
-%license LICENSE
-%{python3_sitelib}/sumolib*/
-%{python3_sitelib}/traci*/
-%{python3_sitelib}/simpla*/
-%{python3_sitearch}/libsumo*/
-%{python3_sitearch}/libtraci*/
-%endif
 
 %changelog

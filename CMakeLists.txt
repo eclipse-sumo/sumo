@@ -758,6 +758,22 @@ add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
+# installing desktop files and other Linux specific stuff
+if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/profile.d
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*sh" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*.desktop" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*.png" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/application
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "org.eclipse.sumo.xml" PATTERN "jupedsim" EXCLUDE)
+endif()
+
 # i18n target
 find_package(Gettext)
 if (Gettext_FOUND)
@@ -858,6 +874,10 @@ if (HELPMAN_EXECUTABLE)
     set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET man PROPERTY FOLDER "doc")
     set(MAN_TARGET man)
+    if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        install(DIRECTORY docs/man/ DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+                COMPONENT linux_integration EXCLUDE_FROM_ALL)
+    endif()
 endif ()
 
 add_custom_target(doc)
