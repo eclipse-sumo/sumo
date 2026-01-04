@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-03 12:10+0000\n"
+"PO-Revision-Date: 2026-01-04 17:03+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3154,6 +3154,8 @@ msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
 msgstr ""
+"El método de integración se estableció en 'ballistic', ya que se especificó "
+"una longitud de paso de acción predeterminada."
 
 #: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:528
 #, c-format
@@ -10071,11 +10073,11 @@ msgstr "No se pudo crear el nodo conector '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:1526
 msgid " The from-node was not found within the net"
-msgstr ""
+msgstr " No se encontró el nodo de origen dentro de la red"
 
 #: src/netimport/NIImporter_VISUM.cpp:1529
 msgid " The to-node was not found within the net"
-msgstr ""
+msgstr " No se encontró el nodo de destino dentro de la red"
 
 #: src/netimport/NIImporter_VISUM.cpp:1532
 msgid " Both nodes are the same"
@@ -10915,6 +10917,8 @@ msgid ""
 "Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire "
 "simulation"
 msgstr ""
+"El solucionador de catenaria (Eigen) no está compilado; se esperan errores "
+"en la simulación de la catenaria"
 
 #: src/netload/NLTriggerBuilder.cpp:384
 msgid ""
@@ -10944,18 +10948,24 @@ msgid ""
 "Cannot check circuit, overhead circuit solver support (Eigen) not compiled "
 "in."
 msgstr ""
+"No se puede verificar el circuito; el soporte del solucionador de circuitos "
+"aéreos (Eigen) no está compilado."
 
 #: src/netload/NLTriggerBuilder.cpp:477
 msgid ""
 "Not building overhead wire clamps, overhead wire solver support (Eigen) not "
 "compiled in."
 msgstr ""
+"No se crearán las abrazaderas de catenaria; el soporte del solucionador de "
+"catenaria (Eigen) no está compilado."
 
 #: src/netload/NLTriggerBuilder.cpp:480
 msgid ""
 "Ignoring overhead wire clamps, they make no sense when overhead wire circuit "
 "solver is off."
 msgstr ""
+"Se ignorarán las abrazaderas de catenaria, ya que no tienen sentido cuando "
+"el solucionador del circuito de la catenaria está desactivado."
 
 #: src/netload/NLTriggerBuilder.cpp:535
 msgid "Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."
@@ -11091,13 +11101,15 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:165
 msgid "OpenDRIVE export needs internal links computation."
-msgstr ""
+msgstr "La exportación a OpenDRIVE requiere el cálculo de enlaces internos."
 
 #: src/netwrite/NWFrame.cpp:175
 msgid ""
 "OpenDRIVE cannot represent oblique lane cuts and should use option "
 "'rectangular-lane-cut'."
 msgstr ""
+"OpenDRIVE no puede representar cortes oblicuos de carril y debería usar la "
+"opción 'rectangular-lane-cut'."
 
 #: src/netwrite/NWFrame.cpp:185
 msgid "public transport lines output requires 'ptstop-output' to be set"
@@ -11108,6 +11120,8 @@ msgid ""
 "'ptline-clean-up' only works in conjunction with 'ptline-output'. Ignoring "
 "invalid option."
 msgstr ""
+"'ptline-clean-up' solo funciona en conjunto con 'ptline-output'. Ignorando "
+"la opción no válida."
 
 #: src/netwrite/NWFrame.cpp:204
 msgid "Writing network"
