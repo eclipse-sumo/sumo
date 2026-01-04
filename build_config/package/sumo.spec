@@ -111,12 +111,12 @@ rm -rf tools/contributed/sumopy
 mkdir cmake-build
 cd cmake-build
 %if 0%{?centos_version} && 0%{?centos_version} < 800
-cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %else
 %if 0%{?suse_version}
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %else
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
 make %{?_smp_mflags}
@@ -125,26 +125,17 @@ make %{?_smp_mflags} man
 %install
 cd cmake-build
 %make_install
+%if 0%{?centos_version} && 0%{?centos_version} < 800
+DESTDIR=%{buildroot} cmake3 --install . --component linux_integration
+%else
+DESTDIR=%{buildroot} cmake --install . --component linux_integration
+%endif
 cd ..
 rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo %{buildroot}%{_datadir}/sumo/tools/libtraci
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
 ln -s %{_datadir}/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
-install -d -m 755 %{buildroot}%{_mandir}/man1
-install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
-install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -p -m 644 build_config/package/*sh %{buildroot}%{_sysconfdir}/profile.d
-install -d -m 755 %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.netedit.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.desktop %{buildroot}%{_datadir}/applications
-install -d -m 755 %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.netedit.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
-install -d -m 755 %{buildroot}%{_datadir}/mime/application
-install -p -m 644 build_config/package/org.eclipse.sumo.xml %{buildroot}%{_datadir}/mime/application
 %fdupes %{buildroot}%{_datadir}
 
 %check
