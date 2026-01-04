@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-01 14:23+0000\n"
+"PO-Revision-Date: 2026-01-04 17:03+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -18455,12 +18455,10 @@ msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr "데칼에 대한 'filename' 속성은 더 이상 사용되지 않음. 'file'을 사용하세요."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:610
-#, fuzzy
 msgid "A breakpoint value must be a time description (%)."
-msgstr "중단점 값은 시간 설명(%)이어야 함."
+msgstr "중단점 값은 시간 값(time description) 이어야 합니다 (%)."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:613
-#, fuzzy
 msgid "Could not decode breakpoint '%'."
 msgstr "중단점 '%'를 디코드할 수 없음."
 
@@ -18551,7 +18549,6 @@ msgstr "보도"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:960
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1836
-#, fuzzy
 msgid "bike lane"
 msgstr "자전거 도로"
 
@@ -18675,7 +18672,6 @@ msgstr "현재 점유율별 (차로별, netto)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1007
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1541
-#, fuzzy
 msgid "by first vehicle waiting time (lanewise)"
 msgstr "첫 차량 대기 시간별 (차로별)"
 
