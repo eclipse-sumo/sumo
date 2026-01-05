@@ -18,3 +18,9 @@ load_some_taz
 
 # trip with fromJunction in additional file
 fromJunction_add
+
+# trip with fromJunction and to junction
+fromToJunction
+
+# trip with fromJunction and to junction that belong to the same edge
+fromToJunction_1edge
