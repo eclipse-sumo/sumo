@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T10:45:49.537681+01:00 by Eclipse SUMO netedit v1_24_0+0978-987cf28f5ec
+<!-- generated on 2026-01-05T09:45:30.932512+01:00 by Eclipse SUMO netedit v1_25_0+0778-d5741e7d76a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- RouteProbes -->
-    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="-E0" file="rp_0.xml"/>
-    <!-- Calibrators -->
-    <calibrator id="ca_0" edge="-E0" pos="0.00"/>
-    <calibrator id="ca_1" lane="-E0_2" pos="25.00"/>
     <!-- StoppingPlaces -->
     <busStop id="bs_0" lane="-E0_0" startPos="45.00" endPos="55.00" friendlyPos="1"/>
     <trainStop id="ts_0" lane="-E0_1" startPos="40.00" endPos="50.00" friendlyPos="1"/>
@@ -36,6 +31,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <detEntry lane="-E0_1" pos="50.00" friendlyPos="1"/>
         <detExit lane="-E0_1" pos="10.00" friendlyPos="1"/>
     </entryExitDetector>
-    <!-- Other additionals -->
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="-E0" file="rp_0.xml"/>
+    <!-- Vaporizers -->
     <vaporizer id="-E0" begin="0.00" end="3600.00"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" edge="-E0" pos="0.00"/>
+    <calibrator id="ca_1" lane="-E0_2" pos="25.00"/>
 </additional>
