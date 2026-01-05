@@ -125,7 +125,8 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_FILE, myFile);
     }
     // write optional attributes
-    if (myType != myTagProperty->getDefaultStringValue(SUMO_ATTR_TYPE)) {
+    if (myType != myTagProperty->getDefaultStringValue(SUMO_ATTR_TYPE) &&
+            (myType != SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC))) {
         device.writeAttr(SUMO_ATTR_TYPE, myType);
     }
     if (myPeriod != myTagProperty->getDefaultTimeValue(SUMO_ATTR_PERIOD)) {

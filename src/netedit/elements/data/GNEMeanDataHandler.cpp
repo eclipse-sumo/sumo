@@ -78,6 +78,8 @@ GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
         return false;
+    } else if (!checkDetectPersons(SUMO_TAG_MEANDATA_EDGE, id, detectPersons)) {
+        return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_EDGE, id, myNet, myFileBucket, file, type, period, begin, end,
                 trackVehicles, attributes,  aggregate, edgeIDs, edgeFile, excludeEmpty,  withInternal,
@@ -114,19 +116,21 @@ GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* 
         return false;
     } else if (!checkDuplicatedMeanDataElement(SUMO_TAG_MEANDATA_LANE, id)) {
         return false;
-    } else if ((period != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_PERIOD, period, true)) {
+    } else if ((period != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_PERIOD, period, true)) {
         return false;
-    } else if ((begin != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_BEGIN, begin, true)) {
+    } else if ((begin != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_BEGIN, begin, true)) {
         return false;
-    } else if ((end != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_END, end, true)) {
+    } else if ((end != TIME2STEPS(-1)) && !checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_END, end, true)) {
         return false;
-    } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_MAX_TRAVELTIME, maxTravelTime, true)) {
+    } else if (!checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_MAX_TRAVELTIME, maxTravelTime, true)) {
         return false;
-    } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_MIN_SAMPLES, minSamples, true)) {
+    } else if (!checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_MIN_SAMPLES, minSamples, true)) {
         return false;
-    } else if (!checkNegative(SUMO_TAG_MEANDATA_EDGE, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
+    } else if (!checkNegative(SUMO_TAG_MEANDATA_LANE, id, SUMO_ATTR_HALTING_SPEED_THRESHOLD, speedThreshold, true)) {
         return false;
-    } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_EDGE, id, excludeEmpty)) {
+    } else if (!checkExcludeEmpty(SUMO_TAG_MEANDATA_LANE, id, excludeEmpty)) {
+        return false;
+    } else if (!checkDetectPersons(SUMO_TAG_MEANDATA_LANE, id, detectPersons)) {
         return false;
     } else if ((edges.size() == edgeIDs.size()) && (attributes.size() == writtenAttributes.size())) {
         GNEMeanData* edgeMeanData = new GNEMeanData(SUMO_TAG_MEANDATA_LANE, id, myNet, myFileBucket, file, type, period, begin, end,
@@ -221,6 +225,18 @@ GNEMeanDataHandler::checkExcludeEmpty(const SumoXMLTag tag, const std::string& i
     } else {
         return writeError(TLF("Could not build % with ID '%' in netedit; Invalid value '%' for %.", toString(tag), id, excludeEmpty, toString(SUMO_ATTR_EXCLUDE_EMPTY)));
     }
+}
+
+
+bool
+GNEMeanDataHandler::checkDetectPersons(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& detectPersons) {
+    // check all values
+    for (const auto& detectPerson : detectPersons) {
+        if (!SUMOXMLDefinitions::PersonModeValues.hasString(detectPerson)) {
+            return writeError(TLF("Could not build % with ID '%' in netedit; Invalid value '%' for %.", toString(tag), id, detectPerson, toString(SUMO_ATTR_DETECT_PERSONS)));
+        }
+    }
+    return true;
 }
 
 /****************************************************************************/

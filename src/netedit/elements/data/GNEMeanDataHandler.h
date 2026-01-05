@@ -84,6 +84,9 @@ protected:
     /// @brief check if given excludeEmpty is valid
     bool checkExcludeEmpty(const SumoXMLTag tag, const std::string& id, const std::string& excludeEmpty);
 
+    /// @brief check if given excludeEmpty is valid
+    bool checkDetectPersons(const SumoXMLTag tag, const std::string& id, const std::vector<std::string>& detectPersons);
+
 private:
     /// @brief invalidate default onstructor
     GNEMeanDataHandler() = delete;
