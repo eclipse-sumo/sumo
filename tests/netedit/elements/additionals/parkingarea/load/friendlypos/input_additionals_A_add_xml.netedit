@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-12 14:35:44 by Eclipse SUMO netedit Version v1_22_0+0808-91687f8467b
+<!-- generated on 2026-01-05T16:09:23.411282+01:00 by Eclipse SUMO netedit v1_25_0+0793-43213df5d5e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
     <parkingArea id="parkingArea_1" name="parkingArea" lane="EdgeCenter1_0" startPos="-20.00" endPos="-10.00" friendlyPos="1" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_2" name="parkingArea" lane="EdgeCenter1_0" startPos="200.00" endPos="300.00" friendlyPos="1" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_3" name="parkingArea" lane="EdgeCenter1_0" startPos="50.00" endPos="20.00" friendlyPos="1" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_4" name="parkingArea" lane="EdgeCenter1_0" startPos="20.00" endPos="20.00" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_2" name="parkingArea" lane="EdgeCenter1_0" startPos="47.40" endPos="47.50" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_3" name="parkingArea" lane="EdgeCenter1_0" startPos="19.90" endPos="20.00" friendlyPos="1" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_4" name="parkingArea" lane="EdgeCenter1_0" startPos="19.90" endPos="20.00" friendlyPos="1" width="12.00" length="5.00"/>
 </additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-05T15:53:20.861565+01:00 by Eclipse SUMO sumo v1_25_0+0793-43213df5d5e
+<!-- generated on 2026-01-05T16:08:08.171248+01:00 by Eclipse SUMO sumo v1_25_0+0793-43213df5d5e
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -8,7 +8,7 @@
     <input>
         <net-file value="input_net_A.net.xml"/>
         <route-files value="input_routes_A.rou.xml"/>
-        <additional-files value="input_additionals_A.add.xml,input_additionals_B.add.xml,input_meandatas_A.add.xml"/>
+        <additional-files value="input_additionals_A.add.xml,input_meandatas_A.add.xml"/>
     </input>
 
 </sumoConfiguration>
