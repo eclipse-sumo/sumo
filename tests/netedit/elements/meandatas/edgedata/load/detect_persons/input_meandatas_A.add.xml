@@ -16,12 +16,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- MeanDataEdges -->
-    <edgeData id="ed_0" file="ed_0.xml" minSamples=""/>
+    <edgeData id="ed_0" file="ed_0.xml" detectPersons=""/>
 
-	<edgeData id="ed_1" file="ed_0.xml" minSamples="dummy"/>
+	<edgeData id="ed_1" file="ed_0.xml" detectPersons="dummy"/>
 
-	<edgeData id="ed_2" file="ed_0.xml" minSamples="-12"/>
-
-	<edgeData id="ed_3" file="ed_0.xml" minSamples="7.70"/>
+	<edgeData id="ed_2" file="ed_0.xml" detectPersons="walk"/>
 
 </additional>

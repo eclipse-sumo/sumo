@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-17T09:47:56.351081+01:00 by Eclipse SUMO netedit v1_24_0+1484-b10c14deb3b
+<!-- generated on 2026-01-05T15:31:55.963675+01:00 by Eclipse SUMO netedit v1_25_0+0793-43213df5d5e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- MeanDataEdges -->
     <edgeData id="ed_2" file="ed_2.xml"/>
-    <edgeData id="ed_3" file="ed_3.xml" type="traffic"/>
+    <edgeData id="ed_3" file="ed_3.xml"/>
     <edgeData id="ed_4" file="ed_4.xml" type="emissions"/>
     <edgeData id="ed_5" file="ed_5.xml" type="emissions"/>
     <edgeData id="ed_6" file="ed_6.xml" type="harmonoise"/>

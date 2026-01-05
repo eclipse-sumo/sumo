@@ -35,13 +35,10 @@ netedit.changeMode("meanData")
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "dummy")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.detectPersons, "dummy")
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "-12")
-
-# modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "7.5")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.detectPersons, "walk")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

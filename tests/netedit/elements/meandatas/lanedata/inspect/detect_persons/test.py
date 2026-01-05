@@ -38,13 +38,10 @@ netedit.changeElement("meanDataFrame", "laneData")
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "dummy")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.detectPersons, "dummy")
 
 # modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "-12")
-
-# modify meanData
-netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.minSamples, "7.5")
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.detectPersons, "taxi")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
