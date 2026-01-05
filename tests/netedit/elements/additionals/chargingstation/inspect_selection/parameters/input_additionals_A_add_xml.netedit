@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-23 09:38:54 by Eclipse SUMO netedit Version v1_22_0+1689-da961123e94
+<!-- generated on 2026-01-05T14:03:12.553431+01:00 by Eclipse SUMO netedit v1_25_0+0788-4f8553c6d87
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="chargingStationA" name="chargingStationNameA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" power="21000.00" efficiency="0.65" chargeDelay="1.00" chargeType="battery-exchange" waitingTime="600.00">
-        <param key="keyFinal1" value="value1"/>
-        <param key="keyFinal2" value="value2"/>
-        <param key="keyFinal3" value="value3"/>
-    </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStationNameB" lane="EdgeCenter0_1" startPos="26.71" endPos="36.71" friendlyPos="1" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" chargeType="fuel" waitingTime="500.00">
+    <chargingStation id="chargingStationA" name="chargingStationNameA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" power="21000.00" totalPower="300.00" efficiency="0.65" chargeDelay="1.00" chargeType="battery-exchange" waitingTime="600.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>

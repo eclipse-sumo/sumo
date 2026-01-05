@@ -542,7 +542,7 @@ netedit.attrs.calibrator.inspectSelection.vTypes 8
 netedit.attrs.chargingStation.create.additionalFile 27
 netedit.attrs.chargingStation.create.additionalFileButton 26
 netedit.attrs.chargingStation.create.angle 8
-netedit.attrs.chargingStation.create.chargeDelay 1
+netedit.attrs.chargingStation.create.chargeDelay 13
 netedit.attrs.chargingStation.create.chargeInTransit 12
 netedit.attrs.chargingStation.create.chargeType 14
 netedit.attrs.chargingStation.create.efficiency 11

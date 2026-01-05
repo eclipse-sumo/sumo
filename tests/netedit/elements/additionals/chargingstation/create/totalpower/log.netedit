@@ -1,2 +1,2 @@
-Warning: Invalid value 'dummyPower' in attribute power
-Warning: Invalid value '-300' in attribute power
+Warning: Invalid value 'dummyPower' in attribute totalPower
+Warning: Invalid value '-300' in attribute totalPower

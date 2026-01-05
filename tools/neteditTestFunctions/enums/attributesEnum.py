@@ -884,7 +884,7 @@ class attrs:
             totalPower = 10
             efficiency = 11
             chargeInTransit = 12
-            chargeDelay = 1
+            chargeDelay = 13
             chargeType = 14
             waitingTime = 16
             parkingArea = 17

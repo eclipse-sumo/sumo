@@ -248,6 +248,8 @@ errors:primary document entity.*{REPLACE primary document entity <path_to_file>}
 errors:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 errors:aborted waiting{LINES 1}
 log:not be able to arrive
+log:Collision of person
+log:is jammed on edge
 log:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
