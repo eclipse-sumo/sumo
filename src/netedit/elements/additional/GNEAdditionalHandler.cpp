@@ -294,6 +294,8 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
             return writeErrorInvalidPosition(SUMO_TAG_CHARGING_STATION, id);
         } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGINGPOWER, chargingPower, true)) {
             return false;
+        } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_TOTALPOWER, totalPower, true)) {
+            return false;
         } else if (!checkNegative(SUMO_TAG_CHARGING_STATION, id, SUMO_ATTR_CHARGEDELAY, chargeDelay, true)) {
             return false;
         } else if (!SUMOXMLDefinitions::ChargeTypes.hasString(chargeType)) {
