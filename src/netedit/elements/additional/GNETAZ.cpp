@@ -52,8 +52,8 @@ myMoveElementShape(new GNEMoveElementShape(this)) {
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const Parameterised::Map& parameters) :
-    GNEAdditional(id, net, SUMO_TAG_TAZ, fileBucket, ""),
-    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, name, parameters),
+    GNEAdditional(id, net, SUMO_TAG_TAZ, fileBucket, name),
+    TesselatedPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, "", parameters),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, center, true)) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -107,10 +107,6 @@ GNETAZ::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_TAZ);
     // write common additional attributes
     writeAdditionalAttributes(device);
-    // temporal name
-    if (getShapeName().size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
-    }
     // write specific attributes
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
     if (myMoveElementShape->myCenterPosition != myShape.getCentroid()) {
@@ -390,7 +386,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_COLOR:
             return toString(getShapeColor());
         case SUMO_ATTR_NAME:
-            return getShapeName();
+            return myAdditionalName;
         case SUMO_ATTR_FILL:
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
@@ -664,7 +660,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeColor(parse<RGBColor>(value));
             break;
         case SUMO_ATTR_NAME:
-            setShapeName(value);
+            myAdditionalName = value;
             break;
         case SUMO_ATTR_FILL:
             myFill = parse<bool>(value);

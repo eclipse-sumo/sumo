@@ -49,8 +49,8 @@ myMoveElementShape(new GNEMoveElementShape(this)) {
 GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const PositionVector& shape,
                  bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
                  const std::string& name, const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters),
-    GNEAdditional(id, net, SUMO_TAG_POLY, fileBucket, ""),
+    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, "", parameters),
+    GNEAdditional(id, net, SUMO_TAG_POLY, fileBucket, name),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, false)),
     myClosedShape(shape.isClosed()) {
     // check if imgFile is valid
@@ -78,8 +78,8 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, con
 GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape,
                  bool geo, const std::string& name, const Parameterised::Map& parameters) :
     TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
-                      getJuPedSimLayer(tag), 0, "", name, parameters),
-    GNEAdditional(id, net, tag, fileBucket, ""),
+                      getJuPedSimLayer(tag), 0, "", "", parameters),
+    GNEAdditional(id, net, tag, fileBucket, name),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE))),
     myClosedShape(shape.isClosed()),
     mySimplifiedShape(false) {
@@ -178,10 +178,6 @@ GNEPoly::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_POLY);
     // write common additional attributes
     writeAdditionalAttributes(device);
-    // temporal name
-    if (getShapeName().size() > 0) {
-        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
-    }
     // write specific attributes
     PositionVector shape = getShape();
     if (myGEO) {
@@ -541,7 +537,7 @@ GNEPoly::getSumoBaseObject() const {
     polygonBaseObject->addDoubleAttribute(SUMO_ATTR_LAYER, getShapeLayer());
     polygonBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
     polygonBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
-    polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, getShapeName());
+    polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, myAdditionalName);
     return polygonBaseObject;
 }
 
@@ -580,7 +576,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_GEO:
             return toString(myGEO);
         case SUMO_ATTR_NAME:
-            return getShapeName();
+            return myAdditionalName;
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myClosedShape);
         default:
@@ -803,7 +799,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_NAME:
-            setShapeName(value);
+            myAdditionalName = value;
             break;
         case GNE_ATTR_CLOSE_SHAPE:
             myClosedShape = parse<bool>(value);
