@@ -245,8 +245,12 @@ if (MSVC AND ENABLE_PYTHON_BINDINGS)
     endif()
 endif()
 
-execute_process(COMMAND ${Python_EXECUTABLE} -c "import build, pip; build.__version__"
+# hatchling is required for doing a build without access to pypi.org (offline on open build service, launchpad etc.)
+execute_process(COMMAND ${Python_EXECUTABLE} -c "import build, hatchling, pip; build.__version__"
                 RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
+if (PYTHON_BUILD_MISSING)
+    message(STATUS "Python build, hatchling or pip are missing (sumo packages will not be installable via cmake).")
+endif()
 
 # exclusive from Apple
 if (APPLE)
@@ -687,12 +691,13 @@ install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
+    # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
     install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml \
-                                  COMMAND ${Python_EXECUTABLE} -m build --wheel . -o ${CMAKE_BINARY_DIR} \
+                                  COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR} \
                                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
             COMPONENT python_package EXCLUDE_FROM_ALL)
     install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml \
-                                  COMMAND ${Python_EXECUTABLE} -m build --wheel . -o ${CMAKE_BINARY_DIR} \
+                                  COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR} \
                                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
             COMPONENT python_package EXCLUDE_FROM_ALL)
     install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci \

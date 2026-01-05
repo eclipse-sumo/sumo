@@ -178,8 +178,9 @@ if (SWIG_FOUND)
             add_dependencies(${SWIG_MODULE_libsumo_REAL_NAME} generate-version-h install_dll)
             target_link_libraries(libsumo ${sumo_link_libraries} Python::Module)
             if (NOT ${PYTHON_BUILD_MISSING})
+                # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
                 install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/libsumo_local.toml pyproject.toml \
-                                              COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . \
+                                              COMMAND ${Python_EXECUTABLE} -m pip install --no-build-isolation --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} . \
                                               WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})"
                         COMPONENT python_package EXCLUDE_FROM_ALL)
             endif()

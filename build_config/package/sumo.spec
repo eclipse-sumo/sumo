@@ -36,6 +36,9 @@ BuildRequires:  cmake
 BuildRequires:  java-devel
 %endif
 %if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+BuildRequires:  python3-build
+BuildRequires:  python3-hatchling
+BuildRequires:  python3-pip
 BuildRequires:  pkgconfig(geos)
 BuildRequires:  jupedsim
 %endif
@@ -94,6 +97,17 @@ Requires:       libsumocpp = %{version}
 This package provides development libraries and headers needed to build
 software using libsumocpp.
 
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+%package -n python3-libsumo
+Summary:        libsumo Python3 module
+Requires:       %{name}
+Provides:       python3-%{name} = %{version}
+Obsoletes:      python3-%{name} < %{version}
+
+%description -n python3-libsumo
+The libsumo python module provides support to connect to and remote control a running sumo simulation.
+%endif
+
 %if 0%{?fedora_version} || 0%{?centos_version}
 %global debug_package %{nil}
 %endif
@@ -129,6 +143,9 @@ cd cmake-build
 DESTDIR=%{buildroot} cmake3 --install . --component linux_integration
 %else
 DESTDIR=%{buildroot} cmake --install . --component linux_integration
+%endif
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+DESTDIR=%{buildroot} cmake --install . --component python_package
 %endif
 cd ..
 rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo %{buildroot}%{_datadir}/sumo/tools/libtraci
@@ -171,5 +188,15 @@ make %{?_smp_mflags} test
 %files -n libsumocpp-devel
 %license LICENSE
 %{_includedir}/libsumo
+
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+%files -n python3-libsumo
+%license LICENSE
+%{python3_sitelib}/sumolib*/
+%{python3_sitelib}/traci*/
+%{python3_sitelib}/simpla*/
+%{python3_sitearch}/libsumo*/
+%{python3_sitearch}/libtraci*/
+%endif
 
 %changelog
