@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-05T15:33:35.656743+01:00 by Eclipse SUMO netedit v1_25_0+0403-931ad22b820
+<!-- generated on 2026-01-05T12:42:43.526269+01:00 by Eclipse SUMO netedit v1_25_0+0778-d5741e7d76a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,10 +14,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- VTypes -->
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian" color="12,13,14"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <person id="p_0" depart="0.00">
-        <personTrip from="Edge0" to="Edge2"/>
-    </person>
+    <trip id="flowB" type="typeC" depart="5.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="line B" personNumber="2" containerNumber="10" fromJunction="Junction2" toJunction="Junction3">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </trip>
 </routes>
