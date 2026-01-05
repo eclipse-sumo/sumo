@@ -1,4 +1,4 @@
-Error: Could not build vehicleWithRoute with ID 'vehicle_1' in netedit; vType parent with ID 'dummy_Type' doesn't exist.
+Error: Could not build vehicleWithRoute with ID 'vehicle_1' in netedit; doesn't exist a vType or vTypeDistribution parent with ID 'dummy_Type'.
 Error: Attribute 'type' in definition of vehicle 'vehicle_2' is empty.
-Error: Could not build vehicleWithRoute with ID 'vehicle_3' in netedit; vType parent with ID 'id with invalid characters' doesn't exist.
+Error: Could not build vehicleWithRoute with ID 'vehicle_3' in netedit; doesn't exist a vType or vTypeDistribution parent with ID 'id with invalid characters'.
 Error: Loading of 'input_routes_A.rou.xml' failed.
