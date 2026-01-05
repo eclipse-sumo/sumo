@@ -247,6 +247,9 @@ errors:Could not find connection between
 errors:primary document entity.*{REPLACE primary document entity <path_to_file>}
 errors:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 errors:aborted waiting{LINES 1}
+errors:not be able to arrive
+errors:Collision of person
+errors:is jammed on edge
 log:not be able to arrive
 log:Collision of person
 log:is jammed on edge
