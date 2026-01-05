@@ -26,6 +26,7 @@ prepare() {
         -DCMAKE_CXX_FLAGS:STRING="${CXXFLAGS}" \
         -DCMAKE_EXE_LINKER_FLAGS:STRING="${LDFLAGS}" \
         -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release
 }
@@ -49,11 +50,9 @@ package_sumo() {
     cd ${pkgbase}-${pkgver}
 
     # Installs just the bin files
-    cmake --build build -- DESTDIR="${pkgdir}/" install
-
-    install -Dm644 data/logo/sumo-128x138.png ${pkgdir}/usr/share/pixmaps/${pkgbase}.png
-    install -Dm644 build_config/package/*.desktop -t ${pkgdir}/usr/share/applications/
-    install -Dm644 build_config/package/*sh -t ${pkgdir}/etc/profile.d/
+    DESTDIR="${pkgdir}/" cmake --install build
+    # Installs desktop files and pixmaps
+    DESTDIR="${pkgdir}/" cmake --install build --component linux_integration
 }
 
 package_sumo-doc() {

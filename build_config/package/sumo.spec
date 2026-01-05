@@ -148,7 +148,7 @@ make %{?_smp_mflags} test
 %files
 %defattr(-,root,root)
 %{_bindir}/*
-%if 0%{?fedora_version} > 35 || 0%{?sle_version} >= 150400 || 0%{?suse_version} >= 1600
+%if 0%{?fedora_version} || 0%{?sle_version} >= 150400 || 0%{?suse_version} >= 1600
 %{_libdir}/libsumocs.so
 %{_libdir}/libtracics.so
 %{_libdir}/liblibsumojni.so
