@@ -12,7 +12,4 @@
     <personFlow id="pf_0" type="typeA" color="red" departPos="0.00" begin="10.00" end="3600.00" personsPerHour="1200.00">
         <personTrip from="Edge0" to="Edge2"/>
     </personFlow>
-    <personFlow id="pf_1" type="typeB" color="blue" departPos="11.00" begin="12.00" end="3800.00" personsPerHour="11500.00">
-        <personTrip from="Edge1" to="Edge2"/>
-    </personFlow>
 </routes>

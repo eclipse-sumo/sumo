@@ -11,10 +11,4 @@
         <param key="KeyA2" value="valueA3"/>
         <transport from="Edge0" to="Edge2"/>
     </containerFlow>
-    <containerFlow id="cf_1" color="blue" departPos="11.00" begin="12.00" end="3800.00" containersPerHour="11500.00">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB3" value="valueB2"/>
-        <param key="KeyB2" value="valueB3"/>
-        <transport from="Edge1" to="Edge2"/>
-    </containerFlow>
 </routes>

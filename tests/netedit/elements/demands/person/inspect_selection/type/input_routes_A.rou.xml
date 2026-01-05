@@ -12,7 +12,4 @@
     <person id="p_0" type="typeA" color="red" departPos="0.00" depart="10.00">
         <personTrip from="Edge0" to="Edge2"/>
     </person>
-    <person id="p_1" type="typeB" color="blue" departPos="11.00" depart="12.00">
-        <personTrip from="Edge1" to="Edge2"/>
-    </person>
 </routes>
