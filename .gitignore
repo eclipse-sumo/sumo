@@ -31,7 +31,9 @@ __pycache__
 *.aps
 .gdb_history
 .env
-
+# ctags/cscope files
+/src/tags
+/src/cscope.out
 # root dir, mostly release / doc building stuff
 /sumo*.tar.gz
 /sumo-*.zip
