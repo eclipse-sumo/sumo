@@ -999,9 +999,6 @@ protected:
     /// @brief Whether the network contains bidirectional rail edges
     bool myHasBidiEdges;
 
-    /// @brief Whether the network was built for left-hand traffic
-    bool myLefthand;
-
     /// @brief the network version
     MMVersion myVersion;
 

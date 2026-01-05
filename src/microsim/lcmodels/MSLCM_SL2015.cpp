@@ -81,24 +81,24 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-//#define DEBUG_MANEUVER
-//#define DEBUG_WANTSCHANGE
-//#define DEBUG_DECISION
-//#define DEBUG_STRATEGIC_CHANGE
-//#define DEBUG_KEEP_LATGAP
-//#define DEBUG_STATE
-//#define DEBUG_ACTIONSTEPS
-//#define DEBUG_COMMITTED_SPEED
-//#define DEBUG_PATCHSPEED
-//#define DEBUG_INFORM
-//#define DEBUG_ROUNDABOUTS
-//#define DEBUG_COOPERATE
-//#define DEBUG_SLOWDOWN
-//#define DEBUG_SAVE_BLOCKER_LENGTH
-//#define DEBUG_BLOCKING
-//#define DEBUG_TRACI
-//#define DEBUG_EXPECTED_SLSPEED
-//#define DEBUG_SLIDING
+#define DEBUG_MANEUVER
+#define DEBUG_WANTSCHANGE
+#define DEBUG_DECISION
+#define DEBUG_STRATEGIC_CHANGE
+#define DEBUG_KEEP_LATGAP
+#define DEBUG_STATE
+#define DEBUG_ACTIONSTEPS
+#define DEBUG_COMMITTED_SPEED
+#define DEBUG_PATCHSPEED
+#define DEBUG_INFORM
+#define DEBUG_ROUNDABOUTS
+#define DEBUG_COOPERATE
+#define DEBUG_SLOWDOWN
+#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_BLOCKING
+#define DEBUG_TRACI
+#define DEBUG_EXPECTED_SLSPEED
+#define DEBUG_SLIDING
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
