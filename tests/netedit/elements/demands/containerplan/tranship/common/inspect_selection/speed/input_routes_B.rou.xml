@@ -6,6 +6,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <container id="c_1" depart="0.00">
         <transport from="EdgeBike0" to="EdgeCenter0"/>
-        <tranship to="Edge5" arrivalPos="11.00" speed="16.7" duration="12.5"/>
+        <tranship to="Edge5" arrivalPos="11.00" speed="16.7"/>
     </container>
 </routes>

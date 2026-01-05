@@ -4,11 +4,13 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-
+    <!-- VTypes -->
+    <vType id="type1"/>
+    <vType id="type2"/>
+    <vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <person id="p_0" depart="0.00">
-        <walk from="Edge0" to="Edge1"/>
-        <walk to="Edge2" arrivalPos="37.00" duration="12"/>
-    </person>
-
+    <container id="c_0" depart="0.00">
+        <transport from="Edge0" to="Edge1"/>
+        <tranship to="Edge2" arrivalPos="37.00" duration="11"/>
+    </container>
 </routes>

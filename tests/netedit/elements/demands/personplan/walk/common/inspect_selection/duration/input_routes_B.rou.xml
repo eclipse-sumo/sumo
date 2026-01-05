@@ -6,9 +6,9 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <person id="p_0" depart="0.00">
-        <walk from="Edge0" to="Edge1"/>
-        <walk to="Edge2" arrivalPos="37.00" duration="12"/>
+    <person id="p_1" depart="0.00">
+        <walk from="EdgeBike0" to="EdgeCenter0"/>
+        <walk to="Edge5" arrivalPos="11.00" duration="15.3"/>
     </person>
 
 </routes>
