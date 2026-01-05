@@ -95,6 +95,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
       - name: Preparing wheel eclipse-sumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 
