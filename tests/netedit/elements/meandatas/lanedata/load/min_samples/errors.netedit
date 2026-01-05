@@ -1,4 +1,4 @@
 Error: Attribute 'minSamples' in definition of laneData 'ld_0' is empty.
 Error: Attribute 'minSamples' in definition of laneData 'ld_1' Invalid Number Format (double) dummy.
-Error: Could not build edgeData with ID 'ld_2' in netedit; Attribute minSamples cannot be negative (-12.00).
+Error: Could not build laneData with ID 'ld_2' in netedit; Attribute minSamples cannot be negative (-12.00).
 Error: Loading of input_meandatas_A.add.xml failed.
