@@ -25,11 +25,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart()
 
-# save netedit config
-netedit.saveExistentFile("neteditConfig")
-
-# save
-netedit.typeKey("space")
+# Fix stopping places position
+netedit.fixStoppingPlace("fixPositions")
 
 # quit netedit
 netedit.quit(neteditProcess)
