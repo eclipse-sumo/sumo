@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-04 17:03+0000\n"
+"PO-Revision-Date: 2026-01-05 08:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1457,6 +1457,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
 msgstr ""
+"El vehículo '%' omite una parada inalcanzable en la arista '%' con prioridad "
+"% en el tiempo %."
 
 #: src/microsim/MSBaseVehicle.cpp:517
 #, c-format
@@ -1495,10 +1497,14 @@ msgid ""
 "Vehicle '%' replaced stop on edge '%' (named '%') and now stops at '%' "
 "instead; after rerouting (%) at time=%."
 msgstr ""
+"El vehículo '%' reemplazó la parada en la arista '%' (llamada '%') y ahora "
+"se detiene en '%' en su lugar; después de reenrutar (%) en el tiempo=%."
 
 #: src/microsim/MSBaseVehicle.cpp:734
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
+"El vehículo '%' no pudo asignar la parada '%' después de reenrutar (%) en el "
+"tiempo=%."
 
 #: src/microsim/MSBaseVehicle.cpp:923
 msgid "No connection between edge '%' and edge '%'."
@@ -1526,6 +1532,8 @@ msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
+"El vehículo '%' ignora el atributo arrivalEdge=% después de reenrutar en el "
+"tiempo=% (routeLength=%)"
 
 #: src/microsim/MSBaseVehicle.cpp:1092
 msgid "Vehicle '%' will not be able to arrive at the given position!"
@@ -1592,7 +1600,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2132
 msgid "cannot reroute towards reached stop"
-msgstr ""
+msgstr "no se puede reenrutar hacia una parada ya alcanzada"
 
 #: src/microsim/MSBaseVehicle.cpp:2213
 msgid "unable to replace stop with teleporting"
@@ -1964,11 +1972,11 @@ msgstr "Guardar el resumen con el período indicado"
 
 #: src/microsim/MSFrame.cpp:216
 msgid "Save aggregated person counts into FILE"
-msgstr ""
+msgstr "Guardar conteos agregados de personas en FILE"
 
 #: src/microsim/MSFrame.cpp:220
 msgid "Save single vehicle trip info into FILE"
-msgstr ""
+msgstr "Guardar información de viaje de un solo vehículo en FILE"
 
 #: src/microsim/MSFrame.cpp:223
 msgid ""
@@ -1987,7 +1995,7 @@ msgstr "Guardar personinfo y containerinfo en FILE"
 
 #: src/microsim/MSFrame.cpp:234
 msgid "Save single vehicle route info into FILE"
-msgstr ""
+msgstr "Guardar información de ruta de un solo vehículo en FILE"
 
 #: src/microsim/MSFrame.cpp:238
 msgid "Write the exit times for all edges"
@@ -1999,7 +2007,7 @@ msgstr "Escribir solo la última ruta"
 
 #: src/microsim/MSFrame.cpp:246
 msgid "Sorts the output by departure time"
-msgstr ""
+msgstr "Ordenar en el archivo de salida por hora de salida"
 
 #: src/microsim/MSFrame.cpp:250
 msgid "Write the output in the duarouter alternatives style"
@@ -2386,6 +2394,9 @@ msgid ""
 "How long vehicles wait for departure before being skipped, defaults to -1 "
 "which means vehicles are never skipped"
 msgstr ""
+"Cuánto tiempo esperan los vehículos para salir antes de ser omitidos; el "
+"valor predeterminado es -1, lo que significa que los vehículos nunca se "
+"omiten"
 
 #: src/microsim/MSFrame.cpp:471
 msgid ""
@@ -3190,12 +3201,16 @@ msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%', time=%."
 msgstr ""
+"El vehículo '%' se inserta a una velocidad demasiado alta y violará el "
+"límite de velocidad en el carril '%', tiempo=%."
 
 #: src/microsim/MSLane.cpp:1168
 msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead), time=%."
 msgstr ""
+"El vehículo '%' no podrá salir usando la velocidad indicada (hay un carril "
+"lento adelante), tiempo=%."
 
 #: src/microsim/MSLane.cpp:2056
 msgid "frontal collision"
@@ -3219,7 +3234,7 @@ msgstr "Vehículo '%'; % con vehículo '%'"
 
 #: src/microsim/MSLane.cpp:2129
 msgid "Teleporting vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "Teleportando el vehículo '%'; % con el vehículo '%"
 
 #: src/microsim/MSLane.cpp:2134
 msgid "Removing % participants: vehicle '%', vehicle '%"
@@ -4279,30 +4294,36 @@ msgstr ""
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
 msgstr ""
+"Carril '%' desconocido en el archivo de reproducción FCD para el vehículo "
+"'%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:352
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "Tipo de vehículo desconocido '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:356
 msgid "No edge in fcd replay file for person '%' at time %."
 msgstr ""
+"No hay ninguna arista en el archivo de reproducción FCD para la persona '%' "
+"en el tiempo %."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:358
 msgid "No lane in fcd replay file for vehicle '%' at time %."
 msgstr ""
+"No hay ningún carril en el archivo de reproducción FCD para el vehículo '%' "
+"en el tiempo %."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:368
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "Persona duplicada '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:381
 msgid "Could not add route '%'."
-msgstr ""
+msgstr "No se pudo agregar la ruta '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:390
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "Vehículo duplicado '%'."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -5277,6 +5298,7 @@ msgstr "Estado ToC desconocido '%'"
 #, c-format
 msgid "Vehicle type '%' in parameter '%' of vehicle '%' is not known."
 msgstr ""
+"El tipo de vehículo '%' en el parámetro '%' del vehículo '%' no es conocido."
 
 #: src/microsim/devices/MSDispatch.cpp:101
 msgid ""
@@ -5384,7 +5406,7 @@ msgstr ""
 
 #: src/microsim/output/MSE2Collector.cpp:915
 msgid "Multi-lane e2Detector does not support detecting persons yet"
-msgstr ""
+msgstr "El detector multicarril e2 aún no soporta la detección de personas"
 
 #: src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
