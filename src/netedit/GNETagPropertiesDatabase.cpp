@@ -1391,7 +1391,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LEFTHAND,
                                    GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Enable or disable lefthand position"),
+                                   TL("Visual placement to the left of the lane (in righthand networks)"),
                                    GNEAttributeCarrier::FALSE_STR);
 
     }
@@ -6274,7 +6274,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
     auto reference = new GNEAttributeProperties(tagProperties, GNE_ATTR_REFERENCE,
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-            TLF("Reference position used for creating %", tagProperties->getTagStr()));
+            TLF("Longitudinal reference position for creating %", tagProperties->getTagStr()));
     reference->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
 }
 
