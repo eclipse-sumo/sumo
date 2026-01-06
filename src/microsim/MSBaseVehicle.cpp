@@ -288,7 +288,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     std::set<int> jumps;
 
 
-    double sourcePos = getPositionOnLane();
+    double sourcePos = onInit ? 0 : getPositionOnLane();
 #ifdef DEBUG_REROUTE
     if (DEBUG_COND) {
         std::cout << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << "\n";
