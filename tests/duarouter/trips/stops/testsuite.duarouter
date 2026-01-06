@@ -17,3 +17,6 @@ stops_and_vias
 
 # check correct handling of stops and vias
 stops_and_vias_inconsistent
+
+# define stop order with index different from xml order
+index
