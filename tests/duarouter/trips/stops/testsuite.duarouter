@@ -1,23 +1,13 @@
+jumps
+
 # test trip with intermediate stop
 stop
 
 # test trip with intermediate bus stop
 busStop
 
-# define an explicit jump (disconnect) in the route
-jump
-
-# define an explicit jump (disconnect) in the route
-jump_end
-
-# jump twice
-jump2
-
-# see #14324
-jump_duplicate_stop
-
-# define an explicit jump despite there being a possible route
-jump_connected
-
 # test trip with intermediate stop and custom stop parameters
 stops_params
+
+# reaching both stops requires a loop
+2stops_loop
