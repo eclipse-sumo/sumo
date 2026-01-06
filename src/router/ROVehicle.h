@@ -94,11 +94,6 @@ public:
     }
 
 
-    inline const ConstROEdgeVector& getStopEdges() const {
-        return myStopEdges;
-    }
-
-
     /// @brief compute mandatory edges
     ConstROEdgeVector getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const;
 
@@ -150,9 +145,6 @@ private:
 private:
     /// @brief The route the vehicle takes
     RORouteDef* const myRoute;
-
-    /// @brief The edges where the vehicle stops
-    ConstROEdgeVector myStopEdges;
 
     /// @brief Whether this vehicle has any jumps defined
     SUMOTime myJumpTime;

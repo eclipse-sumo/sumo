@@ -38,6 +38,8 @@
 #include "ROLane.h"
 #include "ROVehicle.h"
 
+#define INVALID_STOP_POS -std::numeric_limits<double>::max()
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -61,15 +63,6 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
     for (StopParVector::const_iterator s = pars.stops.begin(); s != pars.stops.end(); ++s) {
         addStop(*s, net, errorHandler);
     }
-    if (pars.via.size() != 0) {
-        // via takes precedence over stop edges
-        // XXX check for inconsistencies #2275
-        myStopEdges.clear();
-        for (std::vector<std::string>::const_iterator it = pars.via.begin(); it != pars.via.end(); ++it) {
-            assert(net->getEdge(*it) != 0);
-            myStopEdges.push_back(net->getEdge(*it));
-        }
-    }
 }
 
 
@@ -85,35 +78,18 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     }
     // where to insert the stop
     StopParVector::iterator iter = getParameter().stops.begin();
-    ConstROEdgeVector::iterator edgeIter = myStopEdges.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(getParameter().stops.size())) {
         if (getParameter().stops.size() > 0) {
             iter = getParameter().stops.end();
-            edgeIter = myStopEdges.end();
         }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
-            const ConstROEdgeVector edges = myRoute->getFirstRoute()->getEdgeVector();
-            ConstROEdgeVector::const_iterator stopEdgeIt = std::find(edges.begin(), edges.end(), stopEdge);
-            if (stopEdgeIt == edges.end()) {
-                iter = getParameter().stops.end();
-                edgeIter = myStopEdges.end();
-            } else {
-                while (iter != getParameter().stops.end()) {
-                    if (edgeIter > stopEdgeIt || (edgeIter == stopEdgeIt && iter->endPos >= stopPar.endPos)) {
-                        break;
-                    }
-                    ++iter;
-                    ++edgeIter;
-                }
-            }
+            iter = getParameter().stops.end();
         } else {
             iter += stopPar.index;
-            edgeIter += stopPar.index;
         }
     }
     getParameter().stops.insert(iter, stopPar);
-    myStopEdges.insert(edgeIter, stopEdge);
     if (stopPar.jump >= 0) {
         if (stopEdge->isInternal()) {
             if (errorHandler != nullptr) {
@@ -197,22 +173,35 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 
 ConstROEdgeVector
 ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const {
+    const RONet* net = RONet::getInstance();
     ConstROEdgeVector mandatory;
+    double pos = 0;
     if (requiredStart) {
         mandatory.push_back(requiredStart);
+        if (getParameter().departPosProcedure == DepartPosDefinition::GIVEN) {
+            pos = getParameter().departPos;
+        }
     }
-    for (const ROEdge* e : getStopEdges()) {
-        if (e->isInternal()) {
-            // the edges before and after the internal edge are mandatory
-            const ROEdge* before = e->getNormalBefore();
-            const ROEdge* after = e->getNormalAfter();
-            if (mandatory.size() == 0 || after != mandatory.back()) {
-                mandatory.push_back(before);
-                mandatory.push_back(after);
-            }
-        } else {
-            if (mandatory.size() == 0 || e != mandatory.back()) {
-                mandatory.push_back(e);
+    if (getParameter().via.size() != 0) {
+        // via takes precedence over stop edges
+        for (const std::string& via : getParameter().via) {
+            mandatory.push_back(net->getEdge(via));
+        }
+    } else {
+        for (const auto& stop : getParameter().stops) {
+            const ROEdge* e = net->getEdge(stop.edge);
+            if (e->isInternal()) {
+                // the edges before and after the internal edge are mandatory
+                const ROEdge* before = e->getNormalBefore();
+                const ROEdge* after = e->getNormalAfter();
+                if (mandatory.size() == 0 || after != mandatory.back()) {
+                    mandatory.push_back(before);
+                    mandatory.push_back(after);
+                }
+            } else {
+                if (mandatory.size() == 0 || e != mandatory.back()) {
+                    mandatory.push_back(e);
+                }
             }
         }
     }
