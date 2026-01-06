@@ -17,7 +17,7 @@
 
 # This script builds the python wheels using cibuildwheel.
 # It understands one parameter which is the docker image to use. If it is provided,
-# the docker images needs to contain all dependencies and the build should work completely offline.
+# the docker image needs to contain all dependencies and the build should work completely offline.
 
 if test $# -ge 1; then
     export CIBW_MANYLINUX_X86_64_IMAGE=$1
