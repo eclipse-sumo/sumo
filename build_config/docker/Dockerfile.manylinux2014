@@ -1,28 +1,19 @@
-# Build the docker image locally:       docker build -f Dockerfile.manylinux2014 . -t manylinux2014_aarch64
+# Build the docker image locally:       docker build -f docker/Dockerfile.manylinux2014 . -t manylinux2014_aarch64
 # Store the docker image in a tar file: docker save -o manylinux2014_aarch64.tar manylinux2014_aarch64
 # Transfer it with scp and reload:      docker load -i manylinux2014_aarch64.tar
 # Run the docker image:                 docker run --rm -v $PWD:/github/workspace --workdir /github/workspace manylinux2014_aarch64 tools/build/build_wheels.sh $HTTPS_PROXY
-# how to build it for x64:              docker build --build-arg platform=x86_64 -f Dockerfile.manylinux2014 . -t manylinux2014_x64
+# how to build it for x64:              docker build --build-arg platform=x86_64 -f docker/Dockerfile.manylinux2014 . -t manylinux2014_x64
 # if you build the image for arm on x64, you need to run the following instructions once:
 # sudo apt-get install qemu binfmt-support qemu-user-static
 # docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-# then you can build:                   docker build --platform=linux/arm64/v8 -f Dockerfile.manylinux2014 . -t manylinux2014_aarch64
+# then you can build:                   docker build --platform=linux/arm64/v8 -f docker/Dockerfile.manylinux2014 . -t manylinux2014_aarch64
 
 ARG platform=aarch64
 FROM quay.io/pypa/manylinux2014_${platform}
 ARG platform
-LABEL description="Dockerfile for a container to build manylinux python packages for ${platform}"
+LABEL description="Dockerfile for a container to build manylinux2014 python packages for ${platform}"
 
 ENV CMAKE_PREFIX_PATH=/usr/geos311
 
-# Install dependencies
-# GDAL cannot be added because the build fails with dependency problems with sqlite3
-RUN yum install -y epel-release
-RUN yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
-RUN yum install -y --nogpgcheck ccache libxerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3 eigen3-devel
-RUN yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-${platform}/pgdg-redhat-repo-latest.noarch.rpm
-RUN yum install -y geos311-devel
-RUN yum install -y https://packages.apache.org/artifactory/arrow/centos/7/apache-arrow-release-latest.rpm
-RUN yum install -y arrow-devel parquet-devel # For Apache Parquet
-# see https://github.com/pypa/manylinux/issues/1421
-RUN pipx install -f patchelf==0.16.1.0
+COPY install_dependencies.sh /opt/install_dependencies.sh
+RUN cd /opt && ./install_dependencies.sh
