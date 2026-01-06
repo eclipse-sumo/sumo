@@ -94,8 +94,19 @@ public:
     }
 
 
-    /// @brief compute mandatory edges
-    ConstROEdgeVector getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const;
+    /// @brief information for mandatory edges
+    struct Mandatory {
+        Mandatory(const ROEdge* e, double p, SUMOTime jump = -1):
+            edge(e),
+            pos(p),
+            isJump(jump >= 0) {}
+
+        const ROEdge* edge;
+        double pos;
+        bool isJump;
+    };
+
+    std::vector<Mandatory> getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const;
 
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
@@ -116,9 +127,6 @@ public:
     inline SUMOTime getJumpTime() const {
         return myJumpTime;
     }
-
-    /// @brief collect mandatory-edge iterators that define jumps in the route
-    void collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const;
 
     /** @brief Saves the complete vehicle description.
      *

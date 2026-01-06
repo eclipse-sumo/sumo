@@ -38,7 +38,7 @@
 #include "ROLane.h"
 #include "ROVehicle.h"
 
-#define INVALID_STOP_POS -std::numeric_limits<double>::max()
+#define INVALID_STOP_POS -1
 
 // ===========================================================================
 // static members
@@ -147,7 +147,11 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
                                        || getParameter().departLaneProcedure == DepartLaneDefinition::GIVEN ? current->getEdgeVector().front() : 0);
         const ROEdge* requiredEnd = (getParameter().arrivalPosProcedure == ArrivalPosDefinition::GIVEN
                                      || getParameter().arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN ? current->getEdgeVector().back() : 0);
-        current->recheckForLoops(getMandatoryEdges(requiredStart, requiredEnd));
+        ConstROEdgeVector mandatory;
+        for (auto m : getMandatoryEdges(requiredStart, requiredEnd)) {
+            mandatory.push_back(m.edge);
+        }
+        current->recheckForLoops(mandatory);
         // check whether the route is still valid
         if (current->size() == 0) {
             delete current;
@@ -171,21 +175,21 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
 }
 
 
-ConstROEdgeVector
+std::vector<ROVehicle::Mandatory>
 ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* requiredEnd) const {
     const RONet* net = RONet::getInstance();
-    ConstROEdgeVector mandatory;
-    double pos = 0;
+    std::vector<Mandatory> mandatory;
     if (requiredStart) {
-        mandatory.push_back(requiredStart);
+        double departPos = 0;
         if (getParameter().departPosProcedure == DepartPosDefinition::GIVEN) {
-            pos = getParameter().departPos;
+            departPos = SUMOVehicleParameter::interpretEdgePos(getParameter().departPos, requiredStart->getLength(), SUMO_ATTR_DEPARTPOS, "vehicle '" + getID() + "'");
         }
+        mandatory.push_back(Mandatory(requiredStart, departPos));
     }
     if (getParameter().via.size() != 0) {
         // via takes precedence over stop edges
         for (const std::string& via : getParameter().via) {
-            mandatory.push_back(net->getEdge(via));
+            mandatory.push_back(Mandatory(net->getEdge(via), INVALID_STOP_POS));
         }
     } else {
         for (const auto& stop : getParameter().stops) {
@@ -194,48 +198,22 @@ ROVehicle::getMandatoryEdges(const ROEdge* requiredStart, const ROEdge* required
                 // the edges before and after the internal edge are mandatory
                 const ROEdge* before = e->getNormalBefore();
                 const ROEdge* after = e->getNormalAfter();
-                if (mandatory.size() == 0 || after != mandatory.back()) {
-                    mandatory.push_back(before);
-                    mandatory.push_back(after);
-                }
+                mandatory.push_back(Mandatory(before, INVALID_STOP_POS));
+                mandatory.push_back(Mandatory(after, INVALID_STOP_POS, stop.jump));
             } else {
-                if (mandatory.size() == 0 || e != mandatory.back()) {
-                    mandatory.push_back(e);
-                }
+                double endPos = SUMOVehicleParameter::interpretEdgePos(stop.endPos, e->getLength(), SUMO_ATTR_ENDPOS, "stop of vehicle '" + getID() + "' on edge '" + e->getID() + "'");
+                mandatory.push_back(Mandatory(e, endPos, stop.jump));
             }
         }
     }
     if (requiredEnd) {
-        if (mandatory.size() < 2 || mandatory.back() != requiredEnd) {
-            mandatory.push_back(requiredEnd);
+        double arrivalPos = INVALID_STOP_POS;
+        if (getParameter().arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
+            arrivalPos = SUMOVehicleParameter::interpretEdgePos(getParameter().arrivalPos, requiredEnd->getLength(), SUMO_ATTR_ARRIVALPOS, "vehicle '" + getID() + "'");
         }
+        mandatory.push_back(Mandatory(requiredEnd, arrivalPos));
     }
     return mandatory;
-}
-
-
-void
-ROVehicle::collectJumps(const ConstROEdgeVector& mandatory, std::set<ConstROEdgeVector::const_iterator>& jumpStarts) const {
-    auto itM = mandatory.begin();
-    auto itS = getParameter().stops.begin();
-    auto itSEnd = getParameter().stops.end();
-    while (itM != mandatory.end() && itS != itSEnd) {
-        bool repeatMandatory = false;
-        // if we stop twice on the same edge, we must treat this as a repeated
-        // mandatory edge (even though the edge appears only once in the mandatory vector)
-        if ((*itM)->getID() == itS->edge) {
-            if (itS->jump >= 0) {
-                jumpStarts.insert(itM);
-            }
-            itS++;
-            if (itS != itSEnd && itS->edge == (itS - 1)->edge) {
-                repeatMandatory = true;
-            }
-        }
-        if (!repeatMandatory) {
-            itM++;
-        }
-    }
 }
 
 

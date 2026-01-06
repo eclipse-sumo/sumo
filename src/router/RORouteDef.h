@@ -156,7 +156,7 @@ public:
 protected:
     /// @brief backtrack to last mandatory edge and route to next mandatory
     static bool backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                          ConstROEdgeVector::const_iterator& i, int lastMandatory, ConstROEdgeVector::iterator nextMandatory,
+                          ConstROEdgeVector::const_iterator& i, int lastMandatory, const ROEdge* nextMandatory,
                           ConstROEdgeVector& newEdges, const ROVehicle& veh, SUMOTime begin);
 
 protected:
