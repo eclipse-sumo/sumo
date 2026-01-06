@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-02 12:54+0000\n"
+"PO-Revision-Date: 2026-01-06 09:12+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2716,7 +2716,7 @@ msgstr "Semáforo (TLS)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1562
 msgid "Trigger"
-msgstr ""
+msgstr "Activador"
 
 #: src/netedit/GNEApplicationWindow.cpp:1563
 msgid "Turn-defs"
@@ -2982,7 +2982,7 @@ msgstr "recarga de adicionales"
 
 #: src/netedit/GNEApplicationWindow.cpp:4005
 msgid "Force save additional elements"
-msgstr ""
+msgstr "Forzar el guardado de elementos adicionales"
 
 #: src/netedit/GNEApplicationWindow.cpp:4028
 msgid "Additionals saved."
@@ -2998,11 +2998,11 @@ msgstr "El guardado de los elementos adicionales ha fallado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 msgid "Additional elements as"
-msgstr ""
+msgstr "Elementos adicionales como"
 
 #: src/netedit/GNEApplicationWindow.cpp:4066
 msgid "Additional elements in unified file"
-msgstr ""
+msgstr "Elementos adicionales en un archivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4076
 msgid "saving of unified additional elements in '%'"
@@ -3049,7 +3049,7 @@ msgstr "recargando elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4215
 msgid "Force save demand elements"
-msgstr ""
+msgstr "Forzar el guardado de elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4236
 msgid "Demand elements saved."
@@ -3070,7 +3070,7 @@ msgstr "Elementos de ruta"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Route elements file in unified file"
-msgstr ""
+msgstr "Elementos de ruta en un archivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4284
 msgid "saving of unified demand elements in '%'."
@@ -3102,7 +3102,7 @@ msgstr "recargando elementos de datos"
 
 #: src/netedit/GNEApplicationWindow.cpp:4399
 msgid "Force save data elements"
-msgstr ""
+msgstr "Forzar el guardado de elementos de datos"
 
 #: src/netedit/GNEApplicationWindow.cpp:4417
 msgid "Data elements saved."
@@ -3144,7 +3144,7 @@ msgstr "recargando meanDatas"
 
 #: src/netedit/GNEApplicationWindow.cpp:4570
 msgid "Force save meandata elements"
-msgstr ""
+msgstr "Forzar el guardado de elementos meanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4590
 msgid "MeanDatas elements saved"
@@ -3160,7 +3160,7 @@ msgstr "¡El guardado de los elementos de demanda ha fallado!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4608
 msgid "MeanData elements"
-msgstr ""
+msgstr "Elementos meanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4628
 msgid "MeanData elements file in unified file"
