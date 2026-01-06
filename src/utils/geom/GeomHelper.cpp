@@ -298,12 +298,12 @@ GeomHelper::calculateLotSpacePosition(const PositionVector& shape, const int ind
         normAngle = fmod(normAngle, 360);
         const double radianAngle = normAngle / 180 * M_PI;
         double spaceExtension = width * sin(radianAngle) + length * cos(radianAngle);
-        const double hlp_angle = fabs(((double)atan2((endOffset.y() - startOffset.y()), (endOffset.x() - startOffset.x()))));
+        const double hlp_angle = (double)atan2((endOffset.y() - startOffset.y()), (endOffset.x() - startOffset.x()));
         Position offset;
         double xOffset = 0.5 * width * sin(radianAngle) - 0.5 * (spaceExtension - spaceDim);
         pos.setx(startOffset.x() + xOffset + length * cos(radianAngle));
         if (normAngle <= 90) {
-            pos.sety((startOffset.y() + 0.5 * width * (1 - cos(radianAngle)) - length * sin(radianAngle)));
+            pos.sety(startOffset.y() + 0.5 * width * (1 - cos(radianAngle)) - length * sin(radianAngle));
         } else if (normAngle <= 180) {
             pos.sety(startOffset.y() + 0.5 * width * (1 + cos(radianAngle)) - length * sin(radianAngle));
         } else if (angle <= 270) {
