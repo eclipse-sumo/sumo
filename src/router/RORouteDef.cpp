@@ -342,6 +342,19 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 lastMandatory = (int)newEdges.size() - 1;
             }
         }
+        if (veh.getParameter().via.size() > 0 && veh.getParameter().stops.size() > 0) {
+            // check consistency of stops and vias
+           auto it = newEdges.begin(); 
+           const RONet* net = RONet::getInstance();
+           for (const auto& stop : veh.getParameter().stops) {
+               const ROEdge* e = net->getEdge(stop.edge);
+               it = std::find(it, newEdges.end(), e);
+               if (it == newEdges.end()) {
+                   mh->inform("Stop edge '" + e->getID() + "' is inconsistent with via edges for vehicle '" + veh.getID() + "'.");
+                   return false;
+               }
+           }
+        }
     }
     return true;
 }
