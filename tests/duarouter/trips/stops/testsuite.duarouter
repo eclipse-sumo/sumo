@@ -11,3 +11,9 @@ stops_params
 
 # reaching both stops requires a loop
 2stops_loop
+
+# check correct handling of stops and vias
+stops_and_vias
+
+# check correct handling of stops and vias
+stops_and_vias_inconsistent
