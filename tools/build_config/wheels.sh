@@ -25,6 +25,6 @@ git clean -f -x -d -q . &> $LOG || (echo "git clean failed"; tail -10 $LOG)
 git pull >> $LOG 2>&1 || (echo "git pull failed"; tail -10 $LOG)
 rm -rf dist dist_native $LOG
 if test "$3" == "local"; then
-  ./tools/build_config/build_wheels.sh >> $LOG 2>&1
+  ./tools/build_config/cibuild_wheels.sh >> $LOG 2>&1
 fi
-./tools/build_config/build_wheels.sh $PLATFORM >> $LOG 2>&1
+./tools/build_config/cibuild_wheels.sh $PLATFORM >> $LOG 2>&1
