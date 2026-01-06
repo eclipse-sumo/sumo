@@ -1,0 +1,34 @@
+#!/bin/bash
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    cibuild_wheels.sh
+# @author  Michael Behrisch
+# @date    2026-01-06
+
+# This script builds the python wheels using cibuildwheel.
+# It understands one parameter which is the docker image to use. If it is provided,
+# the docker images needs to contain all dependencies and the build should work completely offline.
+
+if test $# -ge 1; then
+    export CIBW_MANYLINUX_X86_64_IMAGE=$1
+    export CIBW_BEFORE_ALL=""
+fi
+cd $(dirname $0)/../..
+tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
+python -m build --wheel
+tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
+python -m build --wheel
+tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
+pipx run cibuildwheel
+tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
+pipx run cibuildwheel

@@ -19,26 +19,12 @@
 PREFIX=$1
 PLATFORM=$2
 LOG=$PREFIX/wheel.log
-# to make sure we do not use the brew python
-PYTHON=/usr/bin/python3
 
 cd $PREFIX/sumo
-git clean -f -x -d -q . &> $LOG ||(echo "git clean failed"; tail -10 $LOG)
+git clean -f -x -d -q . &> $LOG || (echo "git clean failed"; tail -10 $LOG)
 git pull >> $LOG 2>&1 || (echo "git pull failed"; tail -10 $LOG)
 rm -rf dist dist_native $LOG
 if test "$3" == "local"; then
-  $PYTHON ./tools/build_config/version.py --pep440 build_config/eclipse-sumo-pyproject.toml pyproject.toml
-  $PYTHON -m build --wheel >> $LOG 2>&1
-  $PYTHON ./tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
-  $PYTHON -m build --wheel tools -o dist >> $LOG 2>&1
-  pushd tools >> $LOG
-  $PYTHON ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
-  $PYTHON -m build --wheel . -o ../dist >> $LOG 2>&1
-  $PYTHON ./build_config/version.py ./build_config/setup-traci.py ./setup.py
-  $PYTHON -m build --wheel . -o ../dist >> $LOG 2>&1
-  popd >> $LOG
-  mv dist dist_native  # just as backup
+  ./tools/build_config/build_wheels.sh >> $LOG 2>&1
 fi
-# the docker script will create _skbuild, dist and wheelhouse dir owned by root but writable for everyone
-# we only need wheelhouse, the rest is for inspecting if errors occur
-docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo $PLATFORM tools/build_config/build_wheels.sh $HTTPS_PROXY v1.3.1 >> $LOG 2>&1
+./tools/build_config/build_wheels.sh $PLATFORM >> $LOG 2>&1
