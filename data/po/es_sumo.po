@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-05 08:17+0000\n"
+"PO-Revision-Date: 2026-01-06 09:12+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2367,17 +2367,23 @@ msgid ""
 "The waiting time after which persons / containers waiting for a pickup are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"El tiempo de espera tras el cual las personas o contenedores que esperan ser "
+"recogidos son teleportados. Los valores negativos desactivan la teleportación"
 
 #: src/microsim/MSFrame.cpp:456
 msgid ""
 "The waiting time after which vehicles on bidirectional edges are teleported"
 msgstr ""
+"El tiempo de espera tras el cual los vehículos en aristas bidireccionales "
+"son teleportados"
 
 #: src/microsim/MSFrame.cpp:459
 msgid ""
 "The waiting time after which vehicles in a rail-signal based deadlock are "
 "teleported"
 msgstr ""
+"El tiempo de espera tras el cual los vehículos en un bloqueo debido a "
+"señales ferroviarias son teleportados"
 
 #: src/microsim/MSFrame.cpp:462
 msgid ""
@@ -2419,6 +2425,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:480
 msgid "Override default value for vehicle attribute insertionChecks"
 msgstr ""
+"Sobrescribir el valor predeterminado del atributo de vehículo insertionChecks"
 
 #: src/microsim/MSFrame.cpp:483
 msgid ""
@@ -3298,6 +3305,8 @@ msgstr "Removiendo el vehículo '%' tras avería, carril='%', tiempo=%."
 #: src/microsim/MSLane.cpp:2335
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
 msgstr ""
+"Teleportando el vehículo '%'; está más allá del final del carril, carril "
+"destino='%', tiempo=%."
 
 #: src/microsim/MSLane.cpp:2343
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
@@ -3337,7 +3346,7 @@ msgstr "Método no soportado"
 #: src/microsim/MSLink.cpp:252
 #, c-format
 msgid "Internal lane '%' has % predecessors"
-msgstr ""
+msgstr "El carril interno '%' tiene % predecesores"
 
 #: src/microsim/MSNet.cpp:191 src/router/RONet.cpp:60
 msgid "A network was not yet constructed."
@@ -3420,11 +3429,11 @@ msgstr "Error al cargar el estado desde '%'."
 
 #: src/microsim/MSParkingArea.cpp:86
 msgid "Only a numerical departPos is supported for % '%'"
-msgstr ""
+msgstr "Solo se admite un departPos numérico para % '%'"
 
 #: src/microsim/MSParkingArea.cpp:88
 msgid "Invalid departPos for % '%'"
-msgstr ""
+msgstr "departPos no válido para % '%'"
 
 #: src/microsim/MSRightOfWayJunction.cpp:91
 msgid ""
@@ -3435,6 +3444,8 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:111 src/router/RORouteHandler.cpp:111
 msgid "Taz usage was requested but no taz present in % '%'!"
 msgstr ""
+"¡Se solicitó el uso de TAZ, pero no hay ninguna zona de análisis de tráfico "
+"presente en % '%'!"
 
 #: src/microsim/MSRouteHandler.cpp:320
 #, c-format
@@ -3703,6 +3714,8 @@ msgid ""
 "Inconsistent tranship for container '%', needs either: 'edges', 'to', "
 "'containerStop' (or any other stopping place)"
 msgstr ""
+"Transbordo inconsistente para el contenedor '%'; se requiere uno de los "
+"siguientes: 'edges', 'to', 'containerStop' (o cualquier otro lugar de parada)"
 
 #: src/microsim/MSRouteHandler.cpp:1822
 msgid "No edges to tranship container '%'."
@@ -3732,13 +3745,15 @@ msgstr "Carril desconocido '%' en el estado cargado."
 #: src/microsim/MSStateHandler.cpp:321
 #, c-format
 msgid "Unknown segment '%' in loaded state."
-msgstr ""
+msgstr "Segmento '%' desconocido en el estado cargado."
 
 #: src/microsim/MSStateHandler.cpp:349
 msgid ""
 "Invalid queue index '%' on segment '%'. Check for consistency of lane "
 "numbers and queue options."
 msgstr ""
+"Índice de cola '%' no válido en el segmento '%'. Verifique la consistencia "
+"de los números de carril y las opciones de cola."
 
 #: src/microsim/MSStateHandler.cpp:454
 #, c-format
@@ -3850,7 +3865,7 @@ msgstr "El vehículo '%' interrumpe su espera %."
 
 #: src/microsim/MSVehicleTransfer.cpp:171
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
-msgstr ""
+msgstr "El vehículo '%' finaliza la teleportación en la arista '%', tiempo=%."
 
 #: src/microsim/MSVehicleType.cpp:336
 #, c-format
@@ -4066,6 +4081,8 @@ msgstr ""
 msgid ""
 "Battery builder: Vehicle '%' doesn't have a valid value for parameter % (%)."
 msgstr ""
+"Constructor de batería: El vehículo '%' no tiene un valor válido para el "
+"parámetro % (%)."
 
 #: src/microsim/devices/MSDevice_Battery.cpp:134
 msgid ""
