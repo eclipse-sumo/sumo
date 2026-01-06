@@ -693,7 +693,7 @@ set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
     # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
     # furthermore several commands in the same execute_process are not guaranteed to be executed sequentially
-    install(CODE [[
+    install(CODE "
         execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
         execute_process(COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR}
@@ -704,7 +704,7 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
         execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci
                         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
-    ]] COMPONENT python_package EXCLUDE_FROM_ALL)
+    " COMPONENT python_package EXCLUDE_FROM_ALL)
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
