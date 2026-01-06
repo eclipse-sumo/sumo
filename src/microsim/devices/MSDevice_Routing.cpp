@@ -200,7 +200,7 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
                              MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
-                             false, MSRoutingEngine::withTaz(), false);
+                             true, MSRoutingEngine::withTaz(), false);
         }
         // build repetition trigger if routing shall be done more often
         rebuildRerouteCommand(SIMSTEP + myPeriod);
