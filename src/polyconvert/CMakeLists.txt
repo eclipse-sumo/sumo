@@ -32,4 +32,4 @@ add_custom_command(OUTPUT pc_typemap.h
                    )
 set_source_files_properties(${CMAKE_BINARY_DIR}/src/polyconvert/pc_typemap.h PROPERTIES GENERATED TRUE)
 
-install(TARGETS polyconvert RUNTIME DESTINATION bin)
+install(TARGETS polyconvert RUNTIME DESTINATION bin COMPONENT runtime)

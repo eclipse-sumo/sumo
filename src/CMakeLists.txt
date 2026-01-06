@@ -92,7 +92,7 @@ if (FOX_FOUND)
         endif ()
     endif ()
     add_dependencies(sumo-gui generate-version-h install_dll install_mo)
-    install(TARGETS sumo-gui RUNTIME DESTINATION bin)
+    install(TARGETS sumo-gui RUNTIME DESTINATION bin COMPONENT runtime)
 endif ()
 
 add_executable(netconvert netconvert_main.cpp)
@@ -107,8 +107,8 @@ set_target_properties(od2trips PROPERTIES OUTPUT_NAME_DEBUG od2trips${BINARY_SUF
 target_link_libraries(od2trips od router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(od2trips generate-version-h install_dll)
 
-install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin)
-install(DIRECTORY libsumo DESTINATION include
+install(TARGETS sumo netconvert od2trips RUNTIME DESTINATION bin COMPONENT runtime)
+install(DIRECTORY libsumo DESTINATION include COMPONENT runtime
         FILES_MATCHING PATTERN "*.h"
         PATTERN "*Helper.h" EXCLUDE
         PATTERN "Subscription.h" EXCLUDE)

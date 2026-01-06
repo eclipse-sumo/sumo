@@ -27,7 +27,7 @@ Download = "https://sumo.dlr.de/download"
 [tool.scikit-build]
 build-dir = "_skbuild"
 build.targets = ["install_mo", "install_dll"]
-install.components = ["data", "dll"]
+install.components = ["data", "dll", "proj_data"]
 wheel.install-dir = "sumo_data"
 wheel.py-api = "py3"
 

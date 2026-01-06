@@ -662,7 +662,7 @@ if (SKBUILD)
 endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
-        USE_SOURCE_PERMISSIONS
+        USE_SOURCE_PERMISSIONS COMPONENT runtime
         PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
@@ -681,13 +681,18 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
     install(DIRECTORY tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
             PATTERN "__pycache__" EXCLUDE
             PATTERN "*.pyc" EXCLUDE)
+    if (PROJ_DATA_DIR)
+        install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL)
+    endif ()
 endif ()
-install(CODE "execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)")
+install(CODE "
+    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
+" COMPONENT runtime)
 if (DATA_PATH)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
 endif ()
 
-install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
+install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONENT runtime)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
 if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
@@ -756,9 +761,6 @@ if (SUMO_LIBRARIES AND WIN32)
         install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
-if (PROJ_DATA_DIR)
-    install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT data)
-endif ()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
@@ -786,7 +788,7 @@ find_package(Gettext)
 if (Gettext_FOUND)
     if (ISOLATED_BUILD)
         set(LOCALE_DIR ${CMAKE_BINARY_DIR}/data)
-        install(DIRECTORY ${LOCALE_DIR}/locale/ DESTINATION ${DATA_PATH}data/locale)
+        install(DIRECTORY ${LOCALE_DIR}/locale/ DESTINATION ${DATA_PATH}data/locale COMPONENT data)
     else()
         set(LOCALE_DIR ${CMAKE_SOURCE_DIR}/data)
     endif()

@@ -27,4 +27,4 @@ set_target_properties(dfrouter PROPERTIES OUTPUT_NAME_DEBUG dfrouter${BINARY_SUF
 target_link_libraries(dfrouter router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(dfrouter generate-version-h install_dll)
 
-install(TARGETS dfrouter RUNTIME DESTINATION bin)
+install(TARGETS dfrouter RUNTIME DESTINATION bin COMPONENT runtime)

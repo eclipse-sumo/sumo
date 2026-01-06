@@ -91,7 +91,7 @@ endif ()
 add_dependencies(netedit generate-templates-h generate-version-h install_dll)
 
 # finally, define output folder (in our case, SUMO/bin)
-install(TARGETS netedit RUNTIME DESTINATION bin)
+install(TARGETS netedit RUNTIME DESTINATION bin COMPONENT runtime)
 
 # now we're going to define the templates.h dependency.
 # First we define a custom target for templates.h

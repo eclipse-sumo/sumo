@@ -18,4 +18,4 @@ set_target_properties(netgenerate PROPERTIES OUTPUT_NAME_DEBUG netgenerate${BINA
 target_link_libraries(netgenerate netbuild netimport netwrite ${GDAL_LIBRARY} ${commonlibs} ${TCMALLOC_LIBRARY})
 add_dependencies(netgenerate generate-version-h install_dll)
 
-install(TARGETS netgenerate RUNTIME DESTINATION bin)
+install(TARGETS netgenerate RUNTIME DESTINATION bin COMPONENT runtime)

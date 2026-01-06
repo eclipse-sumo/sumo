@@ -19,4 +19,4 @@ set_target_properties(activitygen PROPERTIES OUTPUT_NAME_DEBUG activitygen${BINA
 target_link_libraries(activitygen activitygen_activities activitygen_city router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(activitygen generate-version-h install_dll)
 
-install(TARGETS activitygen RUNTIME DESTINATION bin)
+install(TARGETS activitygen RUNTIME DESTINATION bin COMPONENT runtime)
