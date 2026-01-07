@@ -22,6 +22,7 @@
 if test $# -ge 1; then
     export CIBW_MANYLINUX_X86_64_IMAGE=$1
     export CIBW_BEFORE_ALL=""
+    export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
 fi
 cd $(dirname $0)/../..
 tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
