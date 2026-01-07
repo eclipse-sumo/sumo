@@ -101,11 +101,10 @@ software using libsumocpp.
 %package -n python3-libsumo
 Summary:        libsumo Python3 module
 Requires:       %{name}
-Provides:       python3-%{name} = %{version}
-Obsoletes:      python3-%{name} < %{version}
 
 %description -n python3-libsumo
-The libsumo python module provides support to connect to and remote control a running sumo simulation.
+The libsumo python module provides support to connect to and remote control
+a running sumo simulation. This package also contains traci, simpla and sumolib.
 %endif
 
 %if 0%{?fedora_version} || 0%{?centos_version}
@@ -125,12 +124,12 @@ rm -rf tools/contributed/sumopy
 mkdir cmake-build
 cd cmake-build
 %if 0%{?centos_version} && 0%{?centos_version} < 800
-cmake3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPython_EXECUTABLE=/usr/bin/python3 ..
 %else
 %if 0%{?suse_version}
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPython_EXECUTABLE=/usr/bin/python3 ..
 %else
-cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPython_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
 make %{?_smp_mflags}
@@ -195,8 +194,7 @@ make %{?_smp_mflags} test
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
 %{python3_sitelib}/simpla*/
-%{python3_sitearch}/libsumo*/
-%{python3_sitearch}/libtraci*/
+%{python3_sitelib}/libsumo*/
 %endif
 
 %changelog
