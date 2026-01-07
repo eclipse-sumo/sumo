@@ -981,7 +981,7 @@ protected:
     /// @brief The original intersection of lane permissions for this edge (before temporary modifications)
     SVCPermissions myOriginalMinimumPermissions = SVCAll;
     /// @brief The original union of lane permissions for this edge (before temporary modifications)
-    SVCPermissions myOriginalCombinedPermissions;
+    SVCPermissions myOriginalCombinedPermissions = SVCAll;
 
     /// @brief whether transient permission changes were applied to this edge or a predecessor
     bool myHaveTransientPermissions;
