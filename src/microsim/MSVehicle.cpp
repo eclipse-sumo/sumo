@@ -6434,7 +6434,7 @@ MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
         }
     }
 #ifdef _DEBUG
-    assert(found);
+    assert(found || startLane->isInternal());
 #endif
 }
 

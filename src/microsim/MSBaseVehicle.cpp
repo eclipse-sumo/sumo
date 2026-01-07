@@ -269,8 +269,17 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
 bool
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent, const MSEdge* sink) {
     // check whether to reroute
-    const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : *getRerouteOrigin();
-    if (source == nullptr) {
+    const MSEdge* source = nullptr;
+    if (onInit) {
+        if (withTaz) {
+            source = MSEdge::dictionary(myParameter->fromTaz + "-source");
+            if (source == nullptr) {
+                source = *getRerouteOrigin();
+            }
+        } else {
+            source = myRoute->getEdges()[getDepartEdge()];
+        }
+    } else {
         source = *getRerouteOrigin();
     }
     if (sink == nullptr) {
@@ -291,7 +300,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     double sourcePos = onInit ? 0 : getPositionOnLane();
 #ifdef DEBUG_REROUTE
     if (DEBUG_COND) {
-        std::cout << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << "\n";
+        std::cout << " curEdge=" << (*myCurrEdge)->getID() << " source=" << source->getID() << " sourcePos=" << sourcePos << " lane=" << Named::getIDSecure(getLane()) << " departPos=" << myParameter->departPos << " oldEdgesRemaining=" << toString(oldEdgesRemaining) << "\n";
     }
 #endif
     if (onInit && myParameter->departPosProcedure == DepartPosDefinition::GIVEN) {
@@ -369,9 +378,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
     }
 #ifdef DEBUG_REROUTE
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " stops: veh=" << getID() << " source=" << source->getID() << " sink=" << sink->getID() << " sourcePos=" << sourcePos << " arrivalPos=" << myArrivalPos << "\n";
+        std::cout << SIMTIME << " reroute veh=" << getID() << " onInit=" << onInit << " source=" << source->getID() << " sink=" << sink->getID() << " sourcePos=" << sourcePos << " arrivalPos=" << myArrivalPos << " stops:\n";
         for (auto item : stops) {
-            std::cout << " e=" << item.edge->getID() << " pos=" << item.pos << "\n";
+            std::cout << " e=" << item.edge->getID() << " pos=" << item.pos << " isSink=" << item.isSink << "\n";
         }
     }
 #endif
