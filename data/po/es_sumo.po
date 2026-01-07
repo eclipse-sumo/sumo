@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-06 09:12+0000\n"
+"PO-Revision-Date: 2026-01-07 08:06+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4996,6 +4996,8 @@ msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
 msgstr ""
+"El vehículo '%' fue reenrutado después de esperar demasiado en la estación "
+"de carga anterior, en el tiempo=%."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:257
 msgid ""
@@ -5071,7 +5073,7 @@ msgstr "El período entre llamadas sucesivas al despachador"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:98
 msgid "The time before aborting unreachable reservations"
-msgstr ""
+msgstr "El tiempo antes de cancelar reservas inalcanzables"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:101
 msgid "The behavior of idle taxis [stop|randomCircling|taxistand]"
@@ -5104,10 +5106,11 @@ msgstr "El algoritmo de despacho '%' no es conocido"
 #: src/microsim/devices/MSDevice_Taxi.cpp:368
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
+"Reasignación no válida para el cliente existente '%' con una nueva reserva"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:401
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
-msgstr ""
+msgstr "La reasignación no indicó la recogida para el cliente existente '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:514
 msgid "Could not add taxi stop, time=%, error=%"
@@ -5115,7 +5118,7 @@ msgstr "No se pudo agregar la parada de taxi, tiempo=%, error=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:550
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
-msgstr ""
+msgstr "El taxi '%' cancela la espera de clientes: % en el tiempo=%."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:747
 msgid "Taxi '%' reaches scheduled end of service at time=%."
@@ -5356,6 +5359,7 @@ msgstr ""
 #: src/microsim/devices/MSRoutingEngine.cpp:100
 msgid "Rerouting is useless if the edge weights do not get updated!"
 msgstr ""
+"¡El reenrutamiento es inútil si los pesos de las aristas no se actualizan!"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:160
 msgid "weights.priority-factor cannot be negative."
@@ -5556,7 +5560,7 @@ msgstr "Expresión vacía no válida"
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1443
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1458
 msgid "Invalid link index '%' in expression '%'"
-msgstr ""
+msgstr "Índice de enlace '%' no válido en la expresión '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1463
 msgid "Unsupported function '%' in expression '%'"
@@ -5564,16 +5568,16 @@ msgstr "Función '%' no compatible en la expresión '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1507
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
-msgstr ""
+msgstr "Error al obtener las condiciones '%' para la lógica de semáforo '%' (%)"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1522
 msgid "Unknown condition '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Condición '%' desconocida para el semáforo accionado '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1553
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1570
 msgid "Invalid lane '%' in key '%' for actuated traffic light '%'"
-msgstr ""
+msgstr "Carril '%' no válido en la clave '%' para el semáforo accionado '%'"
 
 #: src/microsim/traffic_lights/MSDelayBasedTrafficLightLogic.cpp:96
 msgid ""
@@ -5583,7 +5587,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:1029
 msgid "Found circular block after % (% edges, length %)"
-msgstr ""
+msgstr "Se encontró un bloqueo circular después de % (% aristas, longitud %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2097
 msgid "Unknown driveWay '%' with route '%'"
@@ -5595,7 +5599,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2126
 msgid "Unknown vehicle '%' in driveway '%'"
-msgstr ""
+msgstr "Vehículo '%' desconocido en el acceso '%'"
 
 #: src/microsim/traffic_lights/MSOffTrafficLightLogic.cpp:80
 msgid "Invalid 'off'-state for link % at junction '%'"
@@ -5613,7 +5617,7 @@ msgstr "La señal ferroviaria en el cruce '%' no controla ningún enlace"
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:157
 #, c-format
 msgid "Unknown tracker lane '%' in loaded state."
-msgstr ""
+msgstr "Carril de seguimiento '%' desconocido en el estado cargado."
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
@@ -5622,7 +5626,7 @@ msgstr "Listando carriles de salida"
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:243
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:277
 msgid "Unrecognized traffic threshold calculation mode"
-msgstr ""
+msgstr "Modo de cálculo de umbral de tráfico no reconocido"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:57
 msgid "NO VALID POLICY LIST READ"
@@ -5677,6 +5681,8 @@ msgid ""
 "Can not switch tls '%' to program '%';\n"
 " The program is not known."
 msgstr ""
+"No se puede cambiar el semáforo '%' al programa '%';\n"
+" El programa no es conocido."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:488
 #, c-format
@@ -5690,20 +5696,22 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:643
 msgid "Could not switch tls '%' to program '%': No such tls exists."
 msgstr ""
+"No se pudo cambiar el semáforo '%' al programa '%': No existe dicho semáforo."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
-msgstr ""
+msgstr "Waut '%' ya estaba definido."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:672
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:694
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:729
 msgid "Waut '%' was not yet defined."
-msgstr ""
+msgstr "Waut '%' aún no estaba definido."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
 msgstr ""
+"El semáforo '%' que se iba a cambiar en el WAUT '%' aún no estaba definido."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:168
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -6690,7 +6698,7 @@ msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:645
 msgid "Could not insert edge '%' after split of edge '%'."
-msgstr ""
+msgstr "No se pudo insertar la arista '%' después de dividir la arista '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:1417
 msgid "Replacing loaded roundabout '%' with '%'."
@@ -6742,7 +6750,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "El número predeterminado de carriles en una arista"
 
 #: src/netbuild/NBFrame.cpp:56
 msgid "The default width of lanes"
@@ -6751,10 +6759,12 @@ msgstr "El ancho predeterminado de los carriles"
 #: src/netbuild/NBFrame.cpp:59
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
+"El método predeterminado para calcular las formas de los carriles a partir "
+"de las formas de las aristas"
 
 #: src/netbuild/NBFrame.cpp:63
 msgid "The default speed on an edge (in m/s)"
-msgstr ""
+msgstr "La velocidad predeterminada en una arista (en m/s)"
 
 #: src/netbuild/NBFrame.cpp:67
 msgid "The default friction on an edge"
@@ -6774,27 +6784,27 @@ msgstr "El ancho predeterminado de las aceras agregadas"
 
 #: src/netbuild/NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "El ancho predeterminado de los carriles para bicicletas añadidos"
 
 #: src/netbuild/NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "El ancho predeterminado de un paso peatonal"
 
 #: src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
-msgstr ""
+msgstr "El 'límite' de velocidad predeterminado en un paso peatonal (en m/s)"
 
 #: src/netbuild/NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
-msgstr ""
+msgstr "El 'límite' de velocidad predeterminado en un área peatonal (en m/s)"
 
 #: src/netbuild/NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "Las clases de vehículos permitidas por defecto"
 
 #: src/netbuild/NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "Las clases de vehículos no permitidas por defecto"
 
 #: src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
