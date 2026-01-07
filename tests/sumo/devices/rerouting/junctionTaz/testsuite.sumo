@@ -24,3 +24,6 @@ fromToJunction
 
 # trip with fromJunction and to junction that belong to the same edge
 fromToJunction_1edge
+
+# see #17490
+fromToJunction_routingMode
