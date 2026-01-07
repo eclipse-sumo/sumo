@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-02T08:43:42.420255+01:00 by Eclipse SUMO netedit v1_25_0+0186-18b5f2ee9b5
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" fromJunction="left0" toJunction="right0">
+        <stop busStop="paA0B0" duration="60.00" priority="1"/>
+        <stop busStop="paB0C0" duration="60.00" priority="1"/>
+        <stop busStop="paC0D0" duration="60.00" priority="1"/>
+        <stop busStop="paD0E0" duration="60.00" priority="1"/>
+        <stop busStop="paE0F0" duration="60.00" priority="1"/>
+        <stop busStop="paF0G0" duration="60.00" priority="1"/>
+        <stop busStop="paG0H0" duration="60.00" priority="1"/>
+        <stop busStop="paH0I0" duration="60.00" priority="1"/>
+        <stop busStop="paI0J0" duration="60.00" priority="1"/>
+    </trip>
+</routes>
