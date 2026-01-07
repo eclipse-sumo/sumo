@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2025-11-10 19:01+0000\n"
+"PO-Revision-Date: 2026-01-08 09:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1721,16 +1721,22 @@ msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', time="
 "%."
 msgstr ""
+"La velocità di partenza del veicolo '%' è troppo elevata per poter partire "
+"dall'arco '%' alle ore %."
 
 #: src/microsim/MSEdge.cpp:818 src/microsim/MSLane.cpp:856
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
+"Posizione di partenza invalida % del veicolo '%' alle ore %. Invece va "
+"essere inserito alla fine della corsia."
 
 #: src/microsim/MSEdge.cpp:859
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
+"Non ho potuto inserire il veicolo '%' su nessuna corsia dell'arco '%' alle "
+"ore %."
 
 #: src/microsim/MSEdge.cpp:1397
 #, c-format
@@ -1943,7 +1949,7 @@ msgstr "Elenca gli nomi delle forme da usare per filtrate l'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:189
 msgid "Save fcd for persons and container to separate FILE"
-msgstr ""
+msgstr "Salva dati FCD di persone e di contenitori in FILE separati"
 
 #: src/microsim/MSFrame.cpp:192
 msgid ""
