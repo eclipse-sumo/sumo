@@ -314,12 +314,30 @@ public:
     inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
         double effort = recomputeCosts(edges, v, msTime, lengthp);
         if (!edges.empty()) {
-            double firstEffort = this->getEffort(edges.front(), v, STEPS2TIME(msTime));
-            double lastEffort = this->getEffort(edges.back(), v, STEPS2TIME(msTime));
-            effort -= firstEffort * fromPos / edges.front()->getLength();
-            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
+            const E* first = edges.front();
+            if (first->getLength() == 0) {
+                if (edges.size() > 1 && edges[1]->getLength() > 0) {
+                    first = edges[1];
+                } else {
+                    return effort;
+                }
+            }
+            const E* last = edges.back();
+            if (last->getLength() == 0) {
+                if (edges.size() > 1 && edges[edges.size() - 2]->getLength() > 0) {
+                    last = edges[edges.size() - 2];
+                } else {
+                    return effort;
+                }
+            }
+            assert(first->getLength() > 0);
+            assert(last->getLength() > 0);
+            double firstEffort = this->getEffort(first, v, STEPS2TIME(msTime));
+            double lastEffort = this->getEffort(last, v, STEPS2TIME(msTime));
+            effort -= firstEffort * fromPos / first->getLength();
+            effort -= lastEffort * (last->getLength() - toPos) / last->getLength();
             if (lengthp != nullptr) {
-                (*lengthp) -= fromPos + edges.back()->getLength() - toPos;
+                (*lengthp) -= fromPos + last->getLength() - toPos;
             }
         }
         return effort;
