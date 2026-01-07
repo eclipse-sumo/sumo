@@ -6412,6 +6412,9 @@ void
 MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
     std::vector<LaneQ>& currLanes = *myBestLanes.begin();
     std::vector<LaneQ>::iterator i;
+#ifdef _DEBUG
+    bool found = false;
+#endif
     for (i = currLanes.begin(); i != currLanes.end(); ++i) {
         double nextOccupation = 0;
         for (std::vector<MSLane*>::const_iterator j = (*i).bestContinuations.begin() + 1; j != (*i).bestContinuations.end(); ++j) {
@@ -6425,8 +6428,14 @@ MSVehicle::updateOccupancyAndCurrentBestLane(const MSLane* startLane) {
 #endif
         if ((*i).lane == startLane) {
             myCurrentLaneInBestLanes = i;
+#ifdef _DEBUG
+            found = true;
+#endif
         }
     }
+#ifdef _DEBUG
+    assert(found);
+#endif
 }
 
 
