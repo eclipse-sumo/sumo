@@ -196,6 +196,7 @@ errors:\\{REPLACE /}
 errors:Fontconfig warning:
 errors:Unable to revert mtime:
 errors:DeprecationWarning: builtin type .*wig.* has no __module__ attribute
+errors:Error: tcpip::Socket::accept() Unable to create listening socket: Address already in use{LINES 4}
 ps:%%CreationDate
 gtfs_additional:<!-- generated on{[->]}-->
 gtfs_routes:<!-- generated on{[->]}-->
