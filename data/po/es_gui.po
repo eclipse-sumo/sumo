@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-06 09:12+0000\n"
+"PO-Revision-Date: 2026-01-07 08:06+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -4023,7 +4023,7 @@ msgstr "Permitir deshacer/rehacer"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Mark current inspected element as front element"
-msgstr ""
+msgstr "Marcar el elemento inspeccionado actual como elemento frontal"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1324
 msgid "Load additionals in sumo-gui"
@@ -4402,7 +4402,7 @@ msgstr "Extendido"
 
 #: src/netedit/GNEAttributeProperties.cpp:301
 msgid "GEO"
-msgstr ""
+msgstr "GEO"
 
 #: src/netedit/GNEAttributeProperties.cpp:303
 #: src/netedit/elements/demand/GNEVehicle.cpp:129
