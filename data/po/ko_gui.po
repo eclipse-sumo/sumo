@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-04 17:03+0000\n"
+"PO-Revision-Date: 2026-01-07 08:06+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -18463,27 +18463,23 @@ msgid "Could not decode breakpoint '%'."
 msgstr "중단점 '%'를 디코드할 수 없음."
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
-#, fuzzy
 msgid "by param (numerical, streetwise)"
 msgstr "매개변수별 (숫자, 도로별)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
-#, fuzzy
 msgid "by param (numerical, lanewise)"
 msgstr "매개변수별 (숫자, 차로별)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
-#, fuzzy
 msgid "by param (numerical)"
 msgstr "매개변수별 (숫자)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 #, fuzzy
 msgid "by edgeData (numerical, streetwise)"
-msgstr "Edge데이터별 (숫자, 도로별)"
+msgstr "edgeData별 (숫자, 도로별)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
-#, fuzzy
 msgid "by attribute (numerical)"
 msgstr "속성별 (숫자)"
 
@@ -18493,20 +18489,18 @@ msgid "by selection"
 msgstr "선택별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:204
-#, fuzzy
 msgid "by type"
 msgstr "유형별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:205
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1851
-#, fuzzy
 msgid "by permission code"
 msgstr "권한 코드별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:206
 #, fuzzy
 msgid "by live edgeData"
-msgstr "실시간 Edge데이터별"
+msgstr "Live edgeData별"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:958
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1206
