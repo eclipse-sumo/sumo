@@ -343,6 +343,11 @@ public:
     */
     const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
+    /// @brief reset after lane permissions changes
+    void resetSuccessors() {
+        myClassesSuccessorMap.clear();
+        myClassesViaSuccessorMap.clear();
+    }
 
     /** @brief Returns the number of edges connected to this edge
      *

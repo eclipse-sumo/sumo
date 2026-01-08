@@ -982,6 +982,45 @@ RONet::addProhibition(const ROEdge* edge, const RouterProhibition& prohibition) 
         throw ProcessError(TLF("Already loaded prohibition for edge '%'. (Only one prohibition per edge is supported)", edge->getID()));
     }
     myProhibitions[edge] = prohibition;
+    myHavePermissions = true;
+}
+
+
+void
+RONet::addLaneProhibition(const ROLane* lane, const RouterProhibition& prohibition) {
+    if (myLaneProhibitions.count(lane) != 0) {
+        throw ProcessError(TLF("Already loaded prohibition for lane '%'. (Only one prohibition per lane is supported)", lane->getID()));
+    }
+    assert(prohibition.end > prohibition.begin);
+    myLaneProhibitions[lane] = prohibition;
+    myLaneProhibitionTimes[prohibition.begin].insert(lane);
+    myHavePermissions = true;
+}
+
+
+void
+RONet::updateLaneProhibitions(SUMOTime begin) {
+    const double beginS = STEPS2TIME(begin);
+    while (myLaneProhibitionTimes.size() > 0 && myLaneProhibitionTimes.begin()->first <= beginS) {
+        SUMOTime t = myLaneProhibitionTimes.begin()->first;
+        for (const ROLane* lane : myLaneProhibitionTimes.begin()->second) {
+            SVCPermissions orig = lane->getPermissions();
+            assert(myLaneProhibitionTimes.count(lane) != 0);
+            RouterProhibition& rp = myLaneProhibitions[lane];
+            const_cast<ROLane*>(lane)->setPermissions(rp.permissions);
+            lane->getEdge().resetSuccessors();
+            for (ROEdge* pred : lane->getEdge().getPredecessors()) {
+                pred->resetSuccessors();
+            }
+            if (t == rp.begin) {
+                // schedule restoration of original permissions. This works
+                // without a stack because there is at most on prohibition per lane
+                myLaneProhibitionTimes[rp.end].insert(lane);
+                rp.permissions = orig;
+            }
+        }
+        myLaneProhibitionTimes.erase(myLaneProhibitionTimes.begin());
+    }
 }
 
 

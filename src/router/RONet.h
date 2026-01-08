@@ -65,6 +65,7 @@ public:
 
     typedef std::map<const SUMOTime, std::vector<RORoutable*> > RoutablesMap;
     typedef std::map<const ROEdge*, RouterProhibition> Prohibitions;
+    typedef std::map<const ROLane*, RouterProhibition> LaneProhibitions;
 
     /// @brief Constructor
     RONet();
@@ -466,7 +467,10 @@ public:
         return myProhibitions;
     }
 
+    void updateLaneProhibitions(SUMOTime begin);
+
     void addProhibition(const ROEdge* edge, const RouterProhibition& prohibition);
+    void addLaneProhibition(const ROLane* lane, const RouterProhibition& prohibition);
 
     OutputDevice* getRouteOutput(const bool alternative = false) {
         if (alternative) {
@@ -631,6 +635,9 @@ private:
 
     /// @brief temporary edge closing (rerouters)
     Prohibitions myProhibitions;
+    /// @brief temporary lane closing (rerouters)
+    LaneProhibitions myLaneProhibitions;
+    std::map<SUMOTime, std::set<const ROLane*> > myLaneProhibitionTimes;
 
 #ifdef HAVE_FOX
 private:

@@ -194,11 +194,13 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                                bool isTrip) const {
     MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    RONet* net = RONet::getInstance();
     const int initialSize = (int)oldEdges.size();
     const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
-    if (RONet::getInstance()->getProhibitions().size() > 0 && !router.hasProhibitions()) {
-        router.prohibit(RONet::getInstance()->getProhibitions());
+    if (net->getProhibitions().size() > 0 && !router.hasProhibitions()) {
+        router.prohibit(net->getProhibitions());
     }
+    net->updateLaneProhibitions(begin);
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
@@ -345,7 +347,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         if (veh.getParameter().via.size() > 0 && veh.getParameter().stops.size() > 0) {
             // check consistency of stops and vias
            auto it = newEdges.begin(); 
-           const RONet* net = RONet::getInstance();
            for (const auto& stop : veh.getParameter().stops) {
                const ROEdge* e = net->getEdge(stop.edge);
                it = std::find(it, newEdges.end(), e);

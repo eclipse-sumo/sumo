@@ -87,6 +87,10 @@ public:
         return myPermissions;
     }
 
+    void  setPermissions(SVCPermissions permissions) {
+        myPermissions = permissions;
+    }
+
     /** @brief Returns the lane's edge
      * @return This lane's edge
      */
