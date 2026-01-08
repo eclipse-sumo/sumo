@@ -145,6 +145,8 @@ DESTDIR=%{buildroot} cmake --install . --component linux_integration
 %endif
 %if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
 DESTDIR=%{buildroot} cmake --install . --component python_package
+install -d -m 755 %{buildroot}%{python3_sitearch}
+mv %{buildroot}%{python3_sitelib}/libsumo* %{buildroot}%{python3_sitearch}
 %endif
 cd ..
 rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo %{buildroot}%{_datadir}/sumo/tools/libtraci
@@ -194,7 +196,7 @@ make %{?_smp_mflags} test
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
 %{python3_sitelib}/simpla*/
-%{python3_sitelib}/libsumo*/
+%{python3_sitearch}/libsumo*/
 %endif
 
 %changelog
