@@ -153,7 +153,7 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v6
       with:
-        name: texttesttmp-${{ matrix.compiler }}-${{ matrix.build_type }}
+        name: texttesttmp-${{ matrix.os }}-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: texttesttmp.zip
         if-no-files-found: warn
 
