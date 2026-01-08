@@ -2080,10 +2080,15 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                 } else {
                     state |= LCA_AMBACKBLOCKER;
                 }
-                addLCSpeedAdvice(getCarFollowModel().followSpeed(
-                                     &myVehicle, myVehicle.getSpeed(),
-                                     (gap - POSITION_EPS), (*blocked)->getSpeed(),
-                                     (*blocked)->getCarFollowModel().getMaxDecel()), false);
+                const double targetSpeed = getCarFollowModel().followSpeed(
+                        &myVehicle, myVehicle.getSpeed(), (gap - POSITION_EPS),
+                        (*blocked)->getSpeed(), (*blocked)->getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_INFORM
+                if (gDebugFlag2) {
+                    std::cout << "   slowing down for blocked " << Named::getIDSecure(*blocked) << " targetSpeed=" << targetSpeed << "\n";
+                }
+#endif
+                addLCSpeedAdvice(targetSpeed, false);
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
             }
         }
