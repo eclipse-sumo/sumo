@@ -1192,7 +1192,7 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
 
 int
 MSBaseVehicle::getDepartEdge() const {
-    return myParameter->departEdge <= myRoute->size() ? myParameter->departEdge : 0;
+    return myParameter->departEdge < myRoute->size() ? myParameter->departEdge : 0;
 }
 
 int
