@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-07 08:06+0000\n"
+"PO-Revision-Date: 2026-01-08 09:45+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4435,6 +4435,8 @@ msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "TIME"
 msgstr ""
+"Solo reenrutar si la nueva ruta es más rápida que la ruta actual por el TIME "
+"indicado"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:80
 msgid "Use zones (districts) as routing start- and endpoints"
@@ -4468,7 +4470,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Routing.cpp:96
 msgid "Allow rerouting triggered by rail signals."
-msgstr ""
+msgstr "Permitir el reenrutamiento activado por señales ferroviarias."
 
 #: src/microsim/devices/MSDevice_Routing.cpp:99
 msgid "Compute separate average speeds for bicycles"
@@ -4533,12 +4535,17 @@ msgid ""
 "Specifies whether trajectories will be logged (if false, only the extremal "
 "values and times are reported)."
 msgstr ""
+"Especifica si se registrarán las trayectorias (si es falso, solo se informan "
+"los valores y tiempos extremos)."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:244
 msgid ""
 "Specifies the detection range in meters. For vehicles below this distance "
 "from the equipped vehicle, SSM values are traced."
 msgstr ""
+"Especifica el rango de detección en metros. Para los vehículos que se "
+"encuentren por debajo de esta distancia respecto al vehículo equipado, se "
+"registrarán los valores SSM."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:246
 msgid ""
@@ -4708,6 +4715,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-lane-"
 "positions'. Using default of '%'."
 msgstr ""
+"El vehículo '%' no tiene un parámetro 'device.ssm.write-lane-positions' "
+"definido. Se usará el valor predeterminado '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4010
 #, c-format
@@ -4833,6 +4842,8 @@ msgstr ""
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
 msgstr ""
+"El identificador SSM '%' no es compatible. Se aborta la construcción del "
+"dispositivo SSM '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4213
 #, c-format
@@ -4928,6 +4939,8 @@ msgid ""
 "Only stops with a predicted duration of at least the given threshold are "
 "considered for opportunistic charging."
 msgstr ""
+"Solo se consideran para la carga oportunista las paradas con una duración "
+"prevista de al menos el umbral indicado."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:85
 msgid "Target state of charge after which the vehicle stops charging"
@@ -4944,18 +4957,24 @@ msgid ""
 "State of charge below which the vehicle may look for charging opportunities "
 "along its planned stops"
 msgstr ""
+"Estado de carga por debajo del cual el vehículo puede buscar oportunidades "
+"de carga a lo largo de sus paradas planificadas"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:91
 msgid ""
 "Share of stopping time of the next independently planned stop to use for "
 "charging instead"
 msgstr ""
+"Proporción del tiempo de parada de la siguiente parada planificada de forma "
+"independiente, que se usará para cargar en su lugar"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:93
 msgid ""
 "Maximum distance in meters from the original stop to be replaced by the "
 "charging stop"
 msgstr ""
+"Distancia máxima en metros desde la parada original a reemplazar por la "
+"parada de carga"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:95
 msgid ""
@@ -4968,6 +4987,8 @@ msgid ""
 "Only search for charging stations if the battery charge is not estimated "
 "sufficient to complete the current route"
 msgstr ""
+"Buscar estaciones de carga solo si se estima que la carga de la batería no "
+"es suficiente para completar la ruta actual"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:138
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
@@ -4990,6 +5011,8 @@ msgid ""
 "Vehicle '%' won't do opportunistic charging as the threshold % is too close "
 "to the regular one %."
 msgstr ""
+"El vehículo '%' no realizará carga oportunista porque el umbral % está "
+"demasiado cerca al regular %."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:212
 msgid ""
@@ -5519,6 +5542,8 @@ msgid ""
 "Error when evaluating expression '%':\n"
 "  %"
 msgstr ""
+"Error al evaluar la expresión '%':\n"
+"  %"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1237
 msgid "Invalid empty condition '%'"
@@ -5538,7 +5563,7 @@ msgstr "División por 0 en la condición '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1324
 msgid "Unsupported operator '%' in condition '%'"
-msgstr ""
+msgstr "Operador '%' no compatible en la condición '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1333
 msgid "Function '%' requires % arguments but % were given"
@@ -6228,7 +6253,7 @@ msgstr ""
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:285
 #, c-format
 msgid "The main edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "La arista principal '%' a usar por el reenrutador '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:293
 #, c-format
@@ -6678,6 +6703,8 @@ msgstr "Límite no válido: coordenada mal formada"
 msgid ""
 "Cannot prune edges using a geo-boundary because no projection has been loaded"
 msgstr ""
+"No se pueden recortar aristas usando límites geográficos, porque no se ha "
+"cargado ninguna proyección"
 
 #: src/netbuild/NBEdgeCont.cpp:440
 msgid "Attempt to rename edge using existing id '%'"
@@ -6694,7 +6721,7 @@ msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:641
 msgid "Could not insert edge '%' before split of edge '%'."
-msgstr ""
+msgstr "No se pudo insertar la arista '%' antes de dividir la arista '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:645
 msgid "Could not insert edge '%' after split of edge '%'."
@@ -6887,7 +6914,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:154
 msgid "Disables building turnarounds except at dead end junctions"
-msgstr ""
+msgstr "Desactiva la creación de retornos, excepto en cruces sin salida"
 
 #: src/netbuild/NBFrame.cpp:157
 msgid ""
@@ -6897,7 +6924,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:160
 msgid "Disables building turnarounds at fringe junctions"
-msgstr ""
+msgstr "Desactiva la creación de retornos en cruces de borde"
 
 #: src/netbuild/NBFrame.cpp:163
 msgid "Disables building connections to left"
