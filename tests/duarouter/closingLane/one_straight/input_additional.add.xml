@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-12T08:30:03.522943+01:00 by Eclipse SUMO netedit v1_25_0+0482-e1712a2661e
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Rerouter -->
+    <rerouter id="rr_1" pos="515.26,-9.48" edges="beg">
+        <interval begin="1000.00" end="2000.00">
+            <closingLaneReroute id="beg_0" allow="authority"/>
+        </interval>
+    </rerouter>
+</additional>
