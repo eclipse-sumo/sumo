@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-07 08:06+0000\n"
+"PO-Revision-Date: 2026-01-08 18:58+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/ko/>\n"
@@ -2831,16 +2831,15 @@ msgstr "새 Network가 성공적으로 생성됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Modes"
-msgstr "모드(%M)"
+msgstr "모드(&M)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1511
 msgid "L&ock"
 msgstr "잠금(&O)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1518
-#, fuzzy
 msgid "&Processing"
-msgstr "&Processing"
+msgstr "프로세싱(&P)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1545
 msgid "&Tools"
@@ -2853,17 +2852,14 @@ msgstr "할당(Assign)"
 #: src/netedit/GNEApplicationWindow.cpp:1548
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 #: src/netedit/GNETagPropertiesDatabase.cpp:429
-#, fuzzy
 msgid "Detectors"
 msgstr "감지기(Detectors)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1549
-#, fuzzy
 msgid "Districts"
 msgstr "구역 (Districts)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1550
-#, fuzzy
 msgid "DRT"
 msgstr "DRT (Demand Responsive Transport)"
 
@@ -2872,7 +2868,6 @@ msgid "CityBrain"
 msgstr "CityBrain"
 
 #: src/netedit/GNEApplicationWindow.cpp:1553
-#, fuzzy
 msgid "GTFS"
 msgstr "GTFS (General Transit Feeds Specification)"
 
@@ -2885,7 +2880,6 @@ msgid "Visum"
 msgstr "Visum"
 
 #: src/netedit/GNEApplicationWindow.cpp:1556
-#, fuzzy
 msgid "Import"
 msgstr "Import"
 
@@ -2894,7 +2888,6 @@ msgid "Net"
 msgstr "Net"
 
 #: src/netedit/GNEApplicationWindow.cpp:1558
-#, fuzzy
 msgid "Output"
 msgstr "출력(Output)"
 
@@ -2906,24 +2899,20 @@ msgid "Route"
 msgstr "Route"
 
 #: src/netedit/GNEApplicationWindow.cpp:1561
-#, fuzzy
 msgid "TLS"
-msgstr "TLS"
+msgstr "TLS (Traffic Light System)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1562
-#, fuzzy
 msgid "Trigger"
-msgstr "Trigger"
+msgstr "트리거(Trigger)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1563
-#, fuzzy
 msgid "Turn-defs"
-msgstr "Turn-defs"
+msgstr "회전 정의(Turn-defs)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1564
-#, fuzzy
 msgid "Visualization"
-msgstr "Visualization"
+msgstr "시각화(Visualization)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1565
 msgid "XML"
@@ -2942,41 +2931,36 @@ msgid "Network requires recomputing"
 msgstr "Network 재계산 필요"
 
 #: src/netedit/GNEApplicationWindow.cpp:1740
-#, fuzzy
 msgid "Loading console arguments."
-msgstr "콘솔 인수(arguments) 불러오는 중."
+msgstr "콘솔 인수(arguments) 로드 중."
 
 #: src/netedit/GNEApplicationWindow.cpp:1768
 msgid "Creating new network."
 msgstr "새 Network 생성중."
 
 #: src/netedit/GNEApplicationWindow.cpp:1779
-#, fuzzy
 msgid "Trying to load an empty network."
-msgstr "비어있는 Network의 불러오기를 시도했습니다."
+msgstr "비어있는 Network의 로드를 시도했습니다."
 
 #: src/netedit/GNEApplicationWindow.cpp:1798
 msgid "Loading network file '%'."
 msgstr "Network 파일 로드 중 '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1810
-#, fuzzy
 msgid "Trying to load an empty configuration."
-msgstr "빈 구성(config)을 불러오려고 합니다."
+msgstr "비어있는 구성(config)의 로드를 시도했습니다."
 
 #: src/netedit/GNEApplicationWindow.cpp:1826
-#, fuzzy
 msgid "Loading configuration file '%'."
-msgstr "구성(config) 파일 '%'을 불러오는 중입니다.."
+msgstr "구성(config) 파일 '%'을 로드 중입니다."
 
 #: src/netedit/GNEApplicationWindow.cpp:1865
 msgid "Loading OSM file '%'."
 msgstr "OSM 파일 로드 중 '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1882
-#, fuzzy
 msgid "Recompute with volatile options"
-msgstr "volatile 옵션으로 재계산"
+msgstr "휘발성(volatile) 옵션으로 재계산"
 
 #: src/netedit/GNEApplicationWindow.cpp:1883
 #, fuzzy
@@ -18155,12 +18139,12 @@ msgstr "Python 도구 실행 '"
 #: src/netedit/tools/GNEPythonTool.cpp:191
 #, c-format
 msgid "Loaded % configuration."
-msgstr "% 구성 로드됨."
+msgstr "구성 % 로드됨."
 
 #: src/netedit/tools/GNEPythonTool.cpp:207
-#, c-format, fuzzy
+#, c-format
 msgid "Saved % configuration."
-msgstr "% 구성 저장됨."
+msgstr "구성 % 저장됨."
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:80
 #, fuzzy
@@ -18379,22 +18363,19 @@ msgid "Copy typed name to clipboard"
 msgstr "유형 이름을 클립보드에 복사"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:346
-#, fuzzy
 msgid "Remove From Selected"
-msgstr "선택에서 제거"
+msgstr "선택된 항목에서 제거"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:358
-#, fuzzy
 msgid "Show Parameter"
 msgstr "매개변수 표시"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:367
 #, fuzzy
 msgid "Show Type Parameter"
-msgstr "유형 매개변수 표시"
+msgstr "Type Parameter(매개변수) 표시"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:376
-#, fuzzy
 msgid "Copy cursor position to clipboard"
 msgstr "커서 위치를 클립보드에 복사"
 
@@ -18404,55 +18385,47 @@ msgid "Copy cursor geo-position to clipboard"
 msgstr "커서 지리 위치를 클립보드에 복사"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:382
-#, fuzzy
 msgid "Show cursor geo-position in "
 msgstr "커서 지리 위치 표시: "
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:403
-#, fuzzy
 msgid "Open Manipulator..."
 msgstr "조작기 열기..."
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:442
 #: src/utils/gui/globjects/GUIGlObject.cpp:465
-#, fuzzy
 msgid "type: %"
 msgstr "유형: %"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:58
-#, fuzzy
 msgid "Replacing POI '%'"
 msgstr "POI '%' 대체"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:81
-#, fuzzy
 msgid "Replacing polygon '%'"
 msgstr "폴리곤 '%' 대체"
 
 #: src/utils/gui/images/GUIIconSubSys.cpp:1189
-#, fuzzy
 msgid "Instance was previously created"
 msgstr "인스턴스가 이전에 생성됨"
 
 #: src/utils/gui/images/GUITextureSubSys.cpp:191
-#, fuzzy
 msgid "Undefined texture"
 msgstr "정의되지 않은 텍스처"
 
 #: src/utils/gui/images/VClassIcons.cpp:106
-#, fuzzy
 msgid "Invalid vClass"
 msgstr "잘못된 vClass"
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:77
-#, fuzzy
 msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
-msgstr "중단점에 대한 'value' 속성은 더 이상 사용되지 않음. 'time'을 사용하세요."
+msgstr "중단점에 대한 'value' 속성은 더 이상 사용되지 않습니다. 'time'을 사용하세요."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:415
-#, fuzzy
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
-msgstr "데칼에 대한 'filename' 속성은 더 이상 사용되지 않음. 'file'을 사용하세요."
+msgstr ""
+"decal에 대한 'filename' 속성은 더 이상 사용되지 않습니다. 'file'을 "
+"사용하세요."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:610
 msgid "A breakpoint value must be a time description (%)."
@@ -18531,13 +18504,11 @@ msgstr "균일"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:958
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1834
-#, fuzzy
 msgid "road"
 msgstr "도로"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:959
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1835
-#, fuzzy
 msgid "sidewalk"
 msgstr "보도"
 
