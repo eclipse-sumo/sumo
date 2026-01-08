@@ -29,7 +29,13 @@ title: ChangeLog
   - Fixed missing railsignal vehicle-events on sub-driveways #17442
   - Fixed unsafe train insertion when driveways start and end in the middle of the block #17453
   - Fixed missing driveway foes when a sequence of bidi-edges is interrupted by a unidirectional edge #17367
-  - When ignoring transient permission changse (**--device.routing.mode 8**), departure on a closed edge causes delay rather than errr #17461
+  - Fixed bug where pedestrian walks into vehicle #17462
+  - Fixed unsafe lookahead time when computing crossing conflicts between vehicles and pedestrians (now attribute `jmTimegapMinor` takes effect) #17463
+  - vehicles approaching a non-priority crossing no longer yield unless a person steps onto the crossing #17465
+  - Fixed infinite traffic from poisson flow at specific random seeds #17468
+  - Fixed inconsistency where a route with a single edge and departPos > arrivalPos causes no error on loading but rerouting (now results in a warning) #10246
+  - Fixed invalid error when combining option **--device.rerouting.mode** with taz-routing #17490
+  - Fixed undefined behavior when computing route cost between taz #17489
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
@@ -45,11 +51,16 @@ title: ChangeLog
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
+  - fixed crash when tracking a vehicle which already left #17472
+
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
   - Option **--ignore-errors** now works when origin or destination are prohibited by option **--restriction-params** #17387
   - Any routes that are repaired with option **--repair** no longer trigger an error (and thus do not require option **--ignore-errors** anymore) #17369
+  - Fixed invalid route when two stops on the same edge require looping back #17484
+  - Fixed invalid route when departPos > arrivalPos and from=to #17482
+
 
 - TraCI
   - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
@@ -71,6 +82,8 @@ title: ChangeLog
   - edgeData output definitions now support attribute `aggregate="taz"` which will aggregated data within each loaded taz definition #11104
   - Added option shortcut **-m** for **--edgedata-files** #17400
   - A warning is now given when loading personTrips with mode "public" and no public transport was loaded #2825
+  - Departure on closed edge with option to ignore transient permissions (**--device.rerouting.mode 8**) now delays departure instead of raising an error #17461
+  - ChargingStation attribute `totalPower` can now be used to limit the total power when charging multiple vehicles at the same time. #17173
 
 - netedit
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
@@ -81,10 +94,15 @@ title: ChangeLog
   - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
   - Added option **--max-traveltime** which lets routing fail if traveling takes too long #17422
   - Rerouters with element `closingReroute` can now be loaded from an **--additinal-file** to influence routing #12501
+  - consistency of stops and vias is now checked #17485
+
 
 - TraCI
   - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
   - Fixed faulty libsumo wheels for M2 Mac
+  - `traci.vehicle.setSpeedMode` bit 2 (ignoring deceleration constraints) now also applies when validating deceleration for `traci.vehicle.setStop` #17477
+  - traci and libsumo python libraries now provide the standard __version__ attribute #17366
+
 
 - tools
   - attributeCompare.py: Now supports special id-attribute @FILE #17334
