@@ -80,10 +80,9 @@ RONet::RONet() :
     myDoPTRouting(!OptionsCont::getOptions().exists("ptline-routing")
                   || OptionsCont::getOptions().getBool("ptline-routing")),
     myKeepFlows(OptionsCont::getOptions().exists("keep-flows")
-                  && OptionsCont::getOptions().getBool("keep-flows")),
+                && OptionsCont::getOptions().getBool("keep-flows")),
     myHasBidiEdges(false),
-    myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1)
-{
+    myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1) {
     if (myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
     }
@@ -664,6 +663,9 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                 for (StopParVector::iterator stop = newPars->stops.begin(); stop != newPars->stops.end(); ++stop) {
                     if (stop->until >= 0) {
                         stop->until += depart - pars->depart;
+                    }
+                    if (stop->arrival >= 0) {
+                        stop->arrival += depart - pars->depart;
                     }
                 }
                 pars->incrementFlow(1);
