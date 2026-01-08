@@ -274,10 +274,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (withTaz) {
             source = MSEdge::dictionary(myParameter->fromTaz + "-source");
             if (source == nullptr) {
-                source = *getRerouteOrigin();
+                source = myRoute->getEdges().front();
             }
         } else {
-            source = myRoute->getEdges()[getDepartEdge()];
+            source = myRoute->getEdges().front();
         }
     } else {
         source = *getRerouteOrigin();
