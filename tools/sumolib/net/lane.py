@@ -238,6 +238,17 @@ class Lane:
         """
         return self._outgoing
 
+    def getOutgoingEdges(self):
+        """
+        Returns all outgoing edges from this lane.
+        """
+        result = []
+        for conn in self.getOutgoing():
+            if conn.getTo() not in result:
+                result.append(conn.getTo())
+        return result
+
+
     def getOutgoingLanes(self):
         """
         Returns all outgoing lanes from this lane.
