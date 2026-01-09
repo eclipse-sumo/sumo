@@ -13,7 +13,5 @@ FROM quay.io/pypa/manylinux2014_${platform}
 ARG platform
 LABEL description="Dockerfile for a container to build manylinux2014 python packages for ${platform}"
 
-ENV CMAKE_PREFIX_PATH=/usr/geos311
-
 COPY install_dependencies.sh /opt/install_dependencies.sh
 RUN cd /opt && ./install_dependencies.sh
