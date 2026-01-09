@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-07 08:06+0000\n"
+"PO-Revision-Date: 2026-01-09 10:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5745,6 +5745,8 @@ msgstr "Acceso"
 msgid ""
 "The walking length of the access in meters (default is geometric length)"
 msgstr ""
+"La distancia de caminata del acceso en metros (el valor predeterminado es la "
+"longitud geométrica)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1255
 #: src/netedit/GNETagPropertiesDatabase.cpp:4286
@@ -5782,7 +5784,7 @@ msgstr "Potencia de carga en W"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1302
 msgid "Total power in W"
-msgstr ""
+msgstr "Potencia total en W"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1308
 msgid "Charging efficiency [0,1]"
