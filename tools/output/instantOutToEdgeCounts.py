@@ -47,7 +47,7 @@ def get_options(args=None):
     ap.add_argument("-p", "--period", metavar="FLOAT",
                     help="The interval duration for grouping counts")
     ap.add_argument("-t", "--event-type", dest="eType", default="leave",
-                    help="The event type to read (default 'leavel')")
+                    help="The event type to read (default 'leave')")
     options = ap.parse_args(args=args)
     return options
 
