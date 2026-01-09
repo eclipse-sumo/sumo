@@ -53,6 +53,7 @@
 #include "Route.h"
 #include "Polygon.h"
 #include "Vehicle.h"
+#include "VehicleGroupStop.h"
 
 #define CALL_MICRO_FUN(veh, fun, mesoResult) ((dynamic_cast<MSVehicle*>(veh) == nullptr ? (mesoResult) : dynamic_cast<MSVehicle*>(veh)->fun))
 #define CALL_MESO_FUN(veh, fun, microResult) ((dynamic_cast<MEVehicle*>(veh) == nullptr ? (microResult) : dynamic_cast<MEVehicle*>(veh)->fun))
@@ -3014,6 +3015,44 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
         default:
             return VehicleType::handleVariableWithID(objID, getTypeID(objID), variable, wrapper, paramData);
     }
+}
+
+
+void
+Vehicle::setSequentialStop(const std::vector<std::string>& vehIDs,
+                           const std::string& edgeID,
+                           double pos,
+                           int laneIndex,
+                           double duration,
+                           int flags,
+                           double startPos,
+                           double until,
+                           double spacing,
+                           bool allowUpstreamOverflow) {
+    // Implementation delegates to VehicleGroupStop utility class
+    VehicleGroupStop::setSequentialStop(vehIDs, edgeID, pos, laneIndex, duration,
+                                        flags, startPos, until, spacing, allowUpstreamOverflow);
+}
+
+
+std::vector<std::string>
+Vehicle::getStopSequence(const std::string& edgeID, double pos) {
+    return VehicleGroupStop::getStopSequence(edgeID, pos);
+}
+
+
+double
+Vehicle::getSequentialStopPosition(const std::string& vehID,
+                                   const std::string& edgeID,
+                                   double basePos,
+                                   double spacing) {
+    return VehicleGroupStop::getSequentialStopPosition(vehID, edgeID, basePos, spacing);
+}
+
+
+void
+Vehicle::clearStopSequence(const std::string& edgeID, double pos, double tolerance) {
+    VehicleGroupStop::clearStopSequence(edgeID, pos, tolerance);
 }
 
 

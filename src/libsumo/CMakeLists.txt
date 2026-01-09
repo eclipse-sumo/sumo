@@ -49,6 +49,8 @@ set(libsumostatic_STAT_SRCS
     TrafficLight.h
     Vehicle.cpp
     Vehicle.h
+    VehicleGroupStop.cpp
+    VehicleGroupStop.h
     VehicleType.cpp
     VehicleType.h
 )

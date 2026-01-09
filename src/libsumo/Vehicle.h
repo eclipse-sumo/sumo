@@ -216,6 +216,31 @@ public:
     static void setVia(const std::string& vehID, const std::vector<std::string>& edgeList);
     static void highlight(const std::string& vehID, const libsumo::TraCIColor& col = libsumo::TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
     static void dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations);
+
+    /// @brief Set multiple vehicles to stop sequentially at the same position
+    static void setSequentialStop(const std::vector<std::string>& vehIDs,
+                                  const std::string& edgeID,
+                                  double pos = 1.,
+                                  int laneIndex = 0,
+                                  double duration = libsumo::INVALID_DOUBLE_VALUE,
+                                  int flags = libsumo::STOP_DEFAULT,
+                                  double startPos = libsumo::INVALID_DOUBLE_VALUE,
+                                  double until = libsumo::INVALID_DOUBLE_VALUE,
+                                  double spacing = 2.5,
+                                  bool allowUpstreamOverflow = true);
+
+    /// @brief Get the sequential stop order for vehicles
+    static std::vector<std::string> getStopSequence(const std::string& edgeID, double pos);
+
+    /// @brief Get sequential stop position for a vehicle in the queue
+    static double getSequentialStopPosition(const std::string& vehID,
+                                            const std::string& edgeID,
+                                            double basePos,
+                                            double spacing = 2.5);
+
+    /// @brief Clear the stop sequence information
+    static void clearStopSequence(const std::string& edgeID, double pos, double tolerance = 1.0);
+
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_SETTER
