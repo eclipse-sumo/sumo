@@ -105,7 +105,7 @@ MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
 
-    previous->getEdge()->addTransportable(transportable);
+    myDestination->addTransportable(transportable);
     if (transportable->isPerson()) {
         net->getPersonControl().setWaitEnd(myStopEndTime, transportable);
     } else {
