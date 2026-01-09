@@ -20,7 +20,6 @@ from __future__ import print_function
 import os
 import sys
 import datetime
-import fileinput
 
 from .. import version
 from .. import miscutils
