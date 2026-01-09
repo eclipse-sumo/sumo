@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -2010,8 +2010,8 @@ GUIVisualizationSettings::initNeteditDefaults() {
     dataScaler.addScheme(dataScheme);
     dataScheme = GUIScaleScheme(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL, TL(SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL.c_str()), 1, TL("missing data"), false, MISSING_DATA);
     dataScheme.setAllowsNegativeValues(true);
-    dataScheme.addColor(1, 1); 
-    dataScheme.addColor(5, 100); 
+    dataScheme.addColor(1, 1);
+    dataScheme.addColor(5, 100);
     dataScheme.addColor(10, 1000);
     dataScheme.addColor(20, 10000);
     dataScheme.addColor(30, 100000);

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -200,7 +200,7 @@ public:
     static std::string wrapText(const std::string s, int width);
 
     /// @brief write with maximum precision if needed but remove trailing zeros
-    static std::string adjustDecimalValue(double value, int precision); 
+    static std::string adjustDecimalValue(double value, int precision);
 
     /// @brief must be called when shutting down the xml subsystem
     static void resetTranscoder();

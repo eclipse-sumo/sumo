@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -92,9 +92,9 @@ FXIMPLEMENT(GUIDialog_ViewSettings::SizePanel,  FXObject,       GUIDialog_SizeMa
 #endif
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings) :
     FXTopWindow(parent, TL("View Settings"),
-            GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
-            GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
-            GUIDesignViewSettingsMainDialog),
+                GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
+                GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL),
+                GUIDesignViewSettingsMainDialog),
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
     myParent(parent),
     mySettings(settings),
@@ -252,7 +252,7 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
 long
 GUIDialog_ViewSettings::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     const FXEvent* e = (FXEvent*) ptr;
-    if(e->code==KEY_Escape){
+    if (e->code == KEY_Escape) {
         onCmdCancel(nullptr, 0, nullptr);
         return 1;
     }
@@ -921,8 +921,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         // vehicles (scaling)
         if (tmpSettings.dataScaler.getActive() == prevDataScaleMode) {
             if (updateScaleRanges(sender, myDataScales.begin(), myDataScales.end(),
-                        myDataScaleThresholds.begin(), myDataScaleThresholds.end(), myDataScaleButtons.begin(),
-                        tmpSettings.dataScaler.getScheme())) {
+                                  myDataScaleThresholds.begin(), myDataScaleThresholds.end(), myDataScaleButtons.begin(),
+                                  tmpSettings.dataScaler.getScheme())) {
                 doRebuildColorMatrices = true;
             }
             if (sender == myDataScaleInterpolation) {
@@ -2449,7 +2449,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     FXMatrix* matrixDataScale = new FXMatrix(verticalFrameDataScale, 4, GUIDesignViewSettingsMatrix3);
     new FXLabel(matrixDataScale, TL("Scale size"), nullptr, GUIDesignViewSettingsLabel1);
     myDataScaleMode = new MFXComboBoxIcon(matrixDataScale, nullptr, true, GUIDesignComboBoxVisibleItems,
-            this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+                                          this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataScaleInterpolation = new FXCheckButton(matrixDataScale, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataScaleParamKey = new FXComboBox(matrixDataScale, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
     myDataScaleParamKey->setEditable(true);
