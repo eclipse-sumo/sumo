@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -739,7 +739,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                 const std::string oldName = iter->getStoppingPlaceName().first;
                 if (replaceWithAlternative(iter, searchStart, edges.end())) {
                     WRITE_WARNINGF(TL("Vehicle '%' replaced stop on edge '%' (named '%') and now stops at '%' instead; after rerouting (%) at time=%."),
-                            getID(), oldEdge, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
+                                   getID(), oldEdge, oldName, iter->getDescription(true), info, time2string(SIMSTEP));
                 }
             }
             if (iter->edge == edges.end()) {
@@ -1088,7 +1088,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     if (arrivalEdgeIndex != myParameter->arrivalEdge) {
         if (!(onInit && myParameter->wasSet(VEHPARS_FORCE_REROUTE))) {
             WRITE_WARNINGF(TL("Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% (routeLength=%)"),
-                    getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
+                           getID(), myParameter->arrivalEdge, time2string(SIMSTEP), myRoute->getEdges().size() - 1);
         }
     }
     const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[arrivalEdgeIndex] : myRoute->getLastEdge();

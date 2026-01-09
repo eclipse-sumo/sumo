@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -287,7 +287,7 @@ GUIOSGBuilder::buildPolygonGeometry(const SUMOPolygon& poly, osg::Group& addTo, 
     osg::Vec3Array* osg_coords = new osg::Vec3Array((int)shape.size()); // OSG needs float coordinates here
     geom->setVertexArray(osg_coords);
     for (int k = 0; k < (int)shape.size(); ++k) {
-        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (useZ)? (float)shape[k].z() : 0.1f);
+        (*osg_coords)[k].set((float)shape[k].x(), (float)shape[k].y(), (useZ) ? (float)shape[k].z() : 0.1f);
     }
     // TODO: how to draw holes? Don't worry for the moment, just don't
     if (holes.size() > 0) {

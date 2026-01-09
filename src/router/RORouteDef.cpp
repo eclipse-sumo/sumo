@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -98,7 +98,7 @@ RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler)
             if (myAlternatives[i]->isPermitted(veh, errorHandler)) {
                 i++;
             } else {
-                myAlternatives.erase(myAlternatives.begin() + i); 
+                myAlternatives.erase(myAlternatives.begin() + i);
                 if (myLastUsed > i) {
                     myLastUsed--;
                 }
@@ -303,9 +303,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                             && mandatory[i - targets.begin() - 1].pos >= 0
                             && mandatory[i - targets.begin()].pos >= 0) {
                         ok = router.compute(
-                                last, mandatory[i - targets.begin() - 1].pos,
-                                *i, mandatory[i - targets.begin()].pos,
-                                &veh, begin, newEdges);
+                                 last, mandatory[i - targets.begin() - 1].pos,
+                                 *i, mandatory[i - targets.begin()].pos,
+                                 &veh, begin, newEdges);
                     } else {
                         ok = router.compute(last, *i, &veh, begin, newEdges);
                     }
@@ -346,15 +346,15 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         if (veh.getParameter().via.size() > 0 && veh.getParameter().stops.size() > 0) {
             // check consistency of stops and vias
-           auto it = newEdges.begin(); 
-           for (const auto& stop : veh.getParameter().stops) {
-               const ROEdge* e = net->getEdge(stop.edge);
-               it = std::find(it, newEdges.end(), e);
-               if (it == newEdges.end()) {
-                   mh->inform("Stop edge '" + e->getID() + "' is inconsistent with via edges for vehicle '" + veh.getID() + "'.");
-                   return false;
-               }
-           }
+            auto it = newEdges.begin();
+            for (const auto& stop : veh.getParameter().stops) {
+                const ROEdge* e = net->getEdge(stop.edge);
+                it = std::find(it, newEdges.end(), e);
+                if (it == newEdges.end()) {
+                    mh->inform("Stop edge '" + e->getID() + "' is inconsistent with via edges for vehicle '" + veh.getID() + "'.");
+                    return false;
+                }
+            }
         }
     }
     return true;

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -472,8 +472,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     // do not upscale vehicles on physically impossible geometry factors > 1
     const double geometryFactor = (s.scaleLength ?
                                    MIN2(1.0, (myVehicle.getLane() != nullptr
-                                     ? myVehicle.getLane()->getLengthGeometryFactor(s2)
-                                     : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor(s2) : 1)))
+                                           ? myVehicle.getLane()->getLengthGeometryFactor(s2)
+                                           : (myVehicle.getEdge()->getLanes().size() > 0 ? myVehicle.getEdge()->getLanes()[0]->getLengthGeometryFactor(s2) : 1)))
                                    : 1);
     double scaledLength = length * geometryFactor;
     if (col.alpha() != 0) {

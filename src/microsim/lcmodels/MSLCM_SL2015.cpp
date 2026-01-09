@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2013-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -2081,8 +2081,8 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                     state |= LCA_AMBACKBLOCKER;
                 }
                 const double targetSpeed = getCarFollowModel().followSpeed(
-                        &myVehicle, myVehicle.getSpeed(), (gap - POSITION_EPS),
-                        (*blocked)->getSpeed(), (*blocked)->getCarFollowModel().getMaxDecel());
+                                               &myVehicle, myVehicle.getSpeed(), (gap - POSITION_EPS),
+                                               (*blocked)->getSpeed(), (*blocked)->getCarFollowModel().getMaxDecel());
 #ifdef DEBUG_INFORM
                 if (gDebugFlag2) {
                     std::cout << "   slowing down for blocked " << Named::getIDSecure(*blocked) << " targetSpeed=" << targetSpeed << "\n";
@@ -2252,7 +2252,7 @@ bool
 MSLCM_SL2015::sublaneEnds(int i, const MSLane* next, double shift) {
     const double side = i * MSGlobals::gLateralResolution + shift;
     return ((side < -NUMERICAL_EPS
-                && (next->getParallelLane(-1) == nullptr || !next->getParallelLane(-1)->allowsVehicleClass(myVehicle.getVClass())))
+             && (next->getParallelLane(-1) == nullptr || !next->getParallelLane(-1)->allowsVehicleClass(myVehicle.getVClass())))
             || (side + MSGlobals::gLateralResolution > next->getWidth()
                 && (next->getParallelLane(1) == nullptr || !next->getParallelLane(1)->allowsVehicleClass(myVehicle.getVClass()))));
 }
@@ -2444,7 +2444,7 @@ MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double man
 #ifdef DEBUG_BLOCKING
     if (gDebugFlag2) {
         std::cout << "    blocked=" << blocked << " (" << toString((LaneChangeAction)blocked) << ") blockedFully=" << toString((LaneChangeAction)blockedFully)
-            << " canChangeFully=" << myCanChangeFully << " keepLatGapManeuver=" << keepLatGapManeuver << "\n";
+                  << " canChangeFully=" << myCanChangeFully << " keepLatGapManeuver=" << keepLatGapManeuver << "\n";
     }
 #endif
     if (blocked == 0 && !myCanChangeFully && myPushy == 0 && !keepLatGapManeuver) {
@@ -2926,7 +2926,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 #ifdef DEBUG_STRATEGIC_CHANGE
                     if (gDebugFlag2) {
                         std::cout << SIMTIME << " rightSublaneEnds rVSide=" << myVehicle.getRightSideOnLane()
-                            << " shift=" << link->getLateralShift() << " rVSide2=" << rightVehSide << " myLeftSpace=" << myLeftSpace << " \n";
+                                  << " shift=" << link->getLateralShift() << " rVSide2=" << rightVehSide << " myLeftSpace=" << myLeftSpace << " \n";
                     }
 #endif
                 } else if (leftVehSide > next->getWidth() + res && (next->getParallelLane(1) == nullptr || !next->getParallelLane(1)->allowsVehicleClass(myVehicle.getVClass()))) {
@@ -2936,14 +2936,14 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 #ifdef DEBUG_STRATEGIC_CHANGE
                     if (gDebugFlag2) {
                         std::cout << SIMTIME << " leftSublaneEnds lVSide=" << myVehicle.getLeftSideOnLane()
-                            << " shift=" << link->getLateralShift() << " lVSide2=" << leftVehSide << " myLeftSpace=" << myLeftSpace << "\n";
+                                  << " shift=" << link->getLateralShift() << " lVSide2=" << leftVehSide << " myLeftSpace=" << myLeftSpace << "\n";
                     }
 #endif
                 }
             }
         }
     } else if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
-            && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
+               && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
         if (!mustOvertakeStopped(false, neighLane, neighLeaders, leaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
             latDist = latLaneDist;

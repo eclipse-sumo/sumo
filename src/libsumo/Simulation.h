@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -147,7 +147,7 @@ public:
     static double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
 
     static libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "",
-            double depart = -1., int routingMode = 0, double departPos = 0, double arrivalPos = libsumo::INVALID_DOUBLE_VALUE);
+                                         double depart = -1., int routingMode = 0, double departPos = 0, double arrivalPos = libsumo::INVALID_DOUBLE_VALUE);
 
     /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction,
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.

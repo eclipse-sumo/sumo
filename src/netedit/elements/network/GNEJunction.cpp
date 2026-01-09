@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1432,8 +1432,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             for (const auto& junction : myNet->getViewNet()->getViewObjectsSelector().getJunctions()) {
                 // check distance position
                 if ((junctionToMerge == nullptr) && (junction != this) &&
-                    (junction->getPositionInView().distanceTo2D(newPosition) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius) &&
-                    myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
+                        (junction->getPositionInView().distanceTo2D(newPosition) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius) &&
+                        myNet->getViewNet()->askMergeJunctions(this, junction, alreadyAsked)) {
                     junctionToMerge = junction;
                 }
             }

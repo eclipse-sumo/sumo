@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -426,8 +426,8 @@ public:
 
     static inline double getTravelTimeStaticRandomized(const ROEdge* const edge, const ROVehicle* const veh, double time) {
         return edge->getTravelTime(veh, time)
-            * (1 + RandHelper::randHash(veh->getRandomSeed() ^ edge->getNumericalID()) * (gWeightsRandomFactor - 1))
-            * getRoutingFactor(edge, veh);
+               * (1 + RandHelper::randHash(veh->getRandomSeed() ^ edge->getNumericalID()) * (gWeightsRandomFactor - 1))
+               * getRoutingFactor(edge, veh);
     }
 
     /// @brief Alias for getTravelTimeStatic (there is no routing device to provide aggregated travel times)

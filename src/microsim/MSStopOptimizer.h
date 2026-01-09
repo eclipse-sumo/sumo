@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -77,10 +77,10 @@ private:
         StopPathNode(const MSStopOptimizer& _so, const StopEdgeInfo& o):
             StopEdgeInfo(o.edge, o.priority, o.arrival, o.pos),
             so(_so) {
-                nameTag = o.nameTag;
-                delay = o.delay;
-                routeIndex = o.routeIndex;
-            }
+            nameTag = o.nameTag;
+            delay = o.delay;
+            routeIndex = o.routeIndex;
+        }
 
         // ordering criterion (minimize in order)
         const MSStopOptimizer& so;
@@ -134,7 +134,7 @@ private:
     };
 
     bool reachableInTime(const MSEdge* from, double fromPos,
-        const MSEdge* to, double toPos,
-        SUMOTime arrival, ConstMSEdgeVector& into, double& cost) const;
+                         const MSEdge* to, double toPos,
+                         SUMOTime arrival, ConstMSEdgeVector& into, double& cost) const;
 
 };

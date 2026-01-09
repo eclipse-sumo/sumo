@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -932,8 +932,8 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     */
 #endif
     if ((havePriority()
-                || lastWasContState(LINKSTATE_TL_GREEN_MAJOR)
-                || (isExitLinkAfterInternalJunction() && getCorrespondingEntryLink()->getState() == LINKSTATE_TL_GREEN_MAJOR))
+            || lastWasContState(LINKSTATE_TL_GREEN_MAJOR)
+            || (isExitLinkAfterInternalJunction() && getCorrespondingEntryLink()->getState() == LINKSTATE_TL_GREEN_MAJOR))
             && myState != LINKSTATE_ZIPPER) {
         // priority usually means the link is open but there are exceptions:
         // zipper still needs to collect foes
@@ -1015,14 +1015,14 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
     }
     if (myApproachingPersons != nullptr && !haveRed()) {
         const SUMOTime lookAhead = (ego == nullptr
-                ? myLookaheadTime
-                : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime))));
+                                    ? myLookaheadTime
+                                    : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime))));
         for (const auto& it : *myApproachingPersons) {
 #ifdef MSLink_DEBUG_OPENED
             if (gDebugFlag1) {
                 std::cout << SIMTIME << ": " << ego->getID() << " check person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime
-                    << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
-                    << " dist=" << dist << "\n";
+                          << " lTime=" << leaveTime << " foeLTime=" << it.second.leavingTime
+                          << " dist=" << dist << "\n";
             }
 #endif
             if ((ego == nullptr

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -273,8 +273,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             Boundary geomBoundary = e->geom.getBoxBoundary();
             // Only add if the boundary doesn't contain NaN values
             if (geomBoundary.isInitialised() &&
-                !std::isnan(geomBoundary.xmin()) && !std::isnan(geomBoundary.xmax()) &&
-                !std::isnan(geomBoundary.ymin()) && !std::isnan(geomBoundary.ymax())) {
+                    !std::isnan(geomBoundary.xmin()) && !std::isnan(geomBoundary.xmax()) &&
+                    !std::isnan(geomBoundary.ymin()) && !std::isnan(geomBoundary.ymax())) {
                 posMap[e->junction].add(geomBoundary);
             } else {
                 WRITE_WARNINGF(TL("Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."),
