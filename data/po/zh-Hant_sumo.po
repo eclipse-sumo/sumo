@@ -6316,7 +6316,7 @@ msgstr "拉直路段幾何以避免轉彎半徑小於 geometry.min-radius （僅
 
 #: src/netbuild/NBFrame.cpp:220
 msgid ""
-"Warn if the junction shape is to far away from the original node position"
+"Warn if the junction shape is too far away from the original node position"
 msgstr "如果路口形狀離原始節點位置太遠，則發出警告"
 
 #: src/netbuild/NBFrame.cpp:223

@@ -672,7 +672,7 @@ class NetConvertMixin(CmlMixin, Process):
         #                info = ' 	Warn about edge geometries with an angle above the maximum angle in successive segments.',
         #                )
         # --geometry.min-radius <FLOAT> 	Warn about edge geometries with a turning radius less than METERS at the start or end; default: 9
-        # --geometry.junction-mismatch-threshold <FLOAT> 	Warn if the junction shape is to far away from the original node position; default: 20
+        # --geometry.junction-mismatch-threshold <FLOAT> 	Warn if the junction shape is too far away from the original node position; default: 20
         # self.add_option('projparams','!',
         #                groupnames = ['options'],#
         #                cml = '--proj',

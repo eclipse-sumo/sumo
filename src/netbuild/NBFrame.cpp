@@ -217,7 +217,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.addDescription("geometry.min-radius.fix.railways", "Processing", TL("Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)"));
 
         oc.doRegister("geometry.junction-mismatch-threshold", new Option_Float(20));
-        oc.addDescription("geometry.junction-mismatch-threshold", "Processing", TL("Warn if the junction shape is to far away from the original node position"));
+        oc.addDescription("geometry.junction-mismatch-threshold", "Processing", TL("Warn if the junction shape is too far away from the original node position"));
 
         oc.doRegister("geometry.check-overlap", new Option_Float(0));
         oc.addDescription("geometry.check-overlap", "Processing", TL("Warn if edges overlap by more than the given threshold value"));

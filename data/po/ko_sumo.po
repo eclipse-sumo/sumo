@@ -6114,7 +6114,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:220
 msgid ""
-"Warn if the junction shape is to far away from the original node position"
+"Warn if the junction shape is too far away from the original node position"
 msgstr ""
 
 #: src/netbuild/NBFrame.cpp:223

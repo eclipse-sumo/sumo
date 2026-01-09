@@ -265,7 +265,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--geometry.min-radius** {{DT_FLOAT}} | Warn about edge geometries with a turning radius less than METERS at the start or end; *default:* **9** |
 | **--geometry.min-radius.fix** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius; *default:* **false** |
 | **--geometry.min-radius.fix.railways** {{DT_BOOL}} | Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways); *default:* **true** |
-| **--geometry.junction-mismatch-threshold** {{DT_FLOAT}} | Warn if the junction shape is to far away from the original node position; *default:* **20** |
+| **--geometry.junction-mismatch-threshold** {{DT_FLOAT}} | Warn if the junction shape is too far away from the original node position; *default:* **20** |
 | **--geometry.check-overlap** {{DT_FLOAT}} | Warn if edges overlap by more than the given threshold value; *default:* **0** |
 | **--geometry.check-overlap.vertical-threshold** {{DT_FLOAT}} | Ignore overlapping edges if they are separated vertically by the given threshold.; *default:* **4** |
 | **--geometry.avoid-overlap** {{DT_BOOL}} | Modify edge geometries to avoid overlap at junctions; *default:* **true** |

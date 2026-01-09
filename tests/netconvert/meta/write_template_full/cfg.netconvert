@@ -115,7 +115,7 @@
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
         <geometry.min-radius.fix.railways value="true" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)"/>
-        <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is to far away from the original node position"/>
+        <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is too far away from the original node position"/>
         <geometry.check-overlap value="0" type="FLOAT" help="Warn if edges overlap by more than the given threshold value"/>
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT" help="Ignore overlapping edges if they are separated vertically by the given threshold."/>
         <geometry.avoid-overlap value="true" type="BOOL" help="Modify edge geometries to avoid overlap at junctions"/>
