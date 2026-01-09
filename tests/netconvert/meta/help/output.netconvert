@@ -196,7 +196,7 @@ Processing Options:
                                         turning radii less than
                                         geometry.min-radius (only railways)
   --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
-                                        to far away from the original node
+                                        too far away from the original node
                                         position
   --geometry.check-overlap FLOAT       Warn if edges overlap by more than the
                                         given threshold value
