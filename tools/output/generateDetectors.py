@@ -117,9 +117,10 @@ def main(options):
             endPos = 'endPos="-1" '
 
         def writeDet(options, lane, numWritten, nextEdge=None):
-            fout.write('    <%s id="%s%s" lane="%s" pos="%s" %s%s%s%s%sfile="%s"/>\n' % (
+            fout.write('    <%s id="%s%s%s" lane="%s" pos="%s" %s%s%s%s%sfile="%s"/>\n' % (
                 options.dType,
                 options.prefix, lane.getID(),
+                '_%s' % nextEdge.getID() if nextEdge else '',
                 lane.getID(),
                 "%.2f" % options.getRelpos(lane),
                 period, length, endPos, friendlyPos,
