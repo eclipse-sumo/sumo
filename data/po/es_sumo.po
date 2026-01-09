@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-08 09:45+0000\n"
+"PO-Revision-Date: 2026-01-09 10:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6989,26 +6989,33 @@ msgstr ""
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
 msgstr ""
+"Advertir si la forma del cruce está demasiado lejos de la posición original "
+"del nodo"
 
 #: src/netbuild/NBFrame.cpp:223
 msgid "Warn if edges overlap by more than the given threshold value"
-msgstr ""
+msgstr "Advertir si las aristas se superponen más allá del umbral indicado"
 
 #: src/netbuild/NBFrame.cpp:226
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
 msgstr ""
+"Ignorar aristas superpuestas si están separadas verticalmente por el umbral "
+"indicado."
 
 #: src/netbuild/NBFrame.cpp:229
 msgid "Modify edge geometries to avoid overlap at junctions"
 msgstr ""
+"Modificar las geometrías de aristas para evitar superposiciones en los cruces"
 
 #: src/netbuild/NBFrame.cpp:232
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr ""
+"combinar carriles adyacentes que tengan los mismos permisos y que no "
+"permitan cambios de carril (aceras y carriles no permitidos)"
 
 #: src/netbuild/NBFrame.cpp:235
 msgid ""
@@ -7065,7 +7072,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:266
 msgid "Move junctions to straighten a sequence of rail edges"
-msgstr ""
+msgstr "Mover cruces para enderezar una secuencia de aristas ferroviarias"
 
 #: src/netbuild/NBFrame.cpp:269
 msgid "Guess signals that guard public transport stops"
@@ -7074,6 +7081,7 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:272 src/netgen/netgen_main.cpp:97
 msgid "List rail classes that may run without rail signals"
 msgstr ""
+"Listar las clases ferroviarias que pueden circular sin señales ferroviarias"
 
 #: src/netbuild/NBFrame.cpp:275
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -7090,6 +7098,8 @@ msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
 msgstr ""
+"La distancia de caminata del acceso se calcula como la distancia en línea "
+"recta multiplicada por FLOAT"
 
 #: src/netbuild/NBFrame.cpp:287
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
