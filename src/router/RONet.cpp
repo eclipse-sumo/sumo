@@ -1007,7 +1007,7 @@ RONet::updateLaneProhibitions(SUMOTime begin) {
         SUMOTime t = myLaneProhibitionTimes.begin()->first;
         for (const ROLane* lane : myLaneProhibitionTimes.begin()->second) {
             SVCPermissions orig = lane->getPermissions();
-            assert(myLaneProhibitionTimes.count(lane) != 0);
+            assert(myLaneProhibitions.count(lane) != 0);
             RouterProhibition& rp = myLaneProhibitions[lane];
             const_cast<ROLane*>(lane)->setPermissions(rp.permissions);
             lane->getEdge().resetSuccessors();
