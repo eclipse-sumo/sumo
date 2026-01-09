@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2015-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2015-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -244,8 +244,8 @@ def main(options):
             fout.write('    <vType id="%s"/>\n' % vtype.VEHTYPEID)
 
         nested = {
-                'ITEM': ['NODE'],
-                'DEMAND': ['VTI', 'VOLUME']}
+            'ITEM': ['NODE'],
+            'DEMAND': ['VTI', 'VOLUME']}
         for route in sumolib.xml.parse_fast_structured(options.routefile, 'ROUTE', ['INDEX'], nested):
             nodes = [i.NODE for i in route.ITEM]
             validNodes = list(getValidNodes(net, nodes))
