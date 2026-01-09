@@ -6,6 +6,9 @@ default
 # Test with cross3ltl
 instant
 
+# test with attribut nextEdges
+instant_next
+
 # Test with cross1lt1
 pos_random
 
