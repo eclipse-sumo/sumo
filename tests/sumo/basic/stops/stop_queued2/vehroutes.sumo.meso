@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-10T23:23:17.874285+01:00 by Eclipse SUMO sumo v1_25_0+0897-9d402d589e3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v1.0" depart="0.00" departPos="0.00" arrival="413.00">
+        <route edges="SC CN"/>
+        <stop lane="SC_4" startPos="40.00" endPos="70.00" duration="400.00"/>
+    </vehicle>
+
+    <vehicle id="v1.1" depart="2.00" departPos="0.00" arrival="415.00">
+        <route edges="SC CN"/>
+        <stop lane="SC_4" startPos="40.00" endPos="70.00" duration="400.00"/>
+    </vehicle>
+
+    <vehicle id="v1.2" depart="4.00" departPos="0.00" arrival="417.00">
+        <route edges="SC CN"/>
+        <stop lane="SC_4" startPos="40.00" endPos="70.00" duration="400.00"/>
+    </vehicle>
+
+</routes>
