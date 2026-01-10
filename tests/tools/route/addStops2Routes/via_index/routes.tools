@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-09 20:37:56.962451 by addStops2Routes.py v1_22_0+0002-63e50f52594
+<!-- generated on 2026-01-10 22:51:44.108039 by Eclipse SUMO addStops2Routes.py v1_25_0+0897-9d402d589e3
 <configuration>
     <net-file value="input_net.net.xml"/>
-    <route-files value="input_routes_via.rou.xml"/>
+    <route-files value="input_routes.rou.xml"/>
     <output-file value="out.rou.xml"/>
     <duration value="1800"/>
     <via-index value="2"/>
@@ -12,7 +12,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="type1" vClass="passenger"/>
-    <trip depart="0" from="SC" id="0" to="CS" type="type1" via="CN CW">
+    <trip id="0" type="type1" depart="0" from="SC" to="CS" via="CN CW">
         <stop duration="1800" lane="CW_3"/>
     </trip>
 </routes>
