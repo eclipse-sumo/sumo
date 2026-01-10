@@ -2,6 +2,9 @@
 newInternalStop
 newStop
 
+# set startPos to achieve queued stopping
+newStop_startPos
+
 # brakeGap must be considered
 newStop_fast
 
