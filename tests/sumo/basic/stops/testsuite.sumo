@@ -48,3 +48,6 @@ stop_queued
 
 # let multiple vehicles stop with the same stop definition
 stop_queued2
+
+# let multiple vehicles stop with the same stop definition
+stop_queued3
