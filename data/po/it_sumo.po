@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-12-19 13:27+0100\n"
-"PO-Revision-Date: 2026-01-09 06:55+0000\n"
+"PO-Revision-Date: 2026-01-10 11:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5797,6 +5797,8 @@ msgid ""
 "Can not switch tls '%' to program '%';\n"
 " The program is not known."
 msgstr ""
+"Non si può impostare il programma seguente per il semaforo '%': '%';\n"
+" Il programma è sconosciuto."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:488
 #, c-format
@@ -5815,13 +5817,13 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:655
 msgid "Waut '%' was already defined."
-msgstr ""
+msgstr "Waut '%' è già stato definito."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:672
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:694
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:729
 msgid "Waut '%' was not yet defined."
-msgstr ""
+msgstr "Waut '%' non è ancora stato definito."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
@@ -13157,6 +13159,8 @@ msgid ""
 "Suffix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Suffisso applicato a tutti gli file in uscita. La sequenza di caratteri "
+"speciale 'TIME' verrà sostituita con l'ora attuale."
 
 #: src/utils/common/SystemFrame.cpp:134
 msgid "Defines the number of digits after the comma for floating point output"
@@ -13664,6 +13668,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; doesn't exist a % parent with ID "
 "'%'."
 msgstr ""
+"Non ho potuto creare % con il codice identificativo '%' in netedit; non c'è "
+"un elemento padre del tipo % con il codice identificativo '%'."
 
 #: src/utils/handlers/CommonHandler.cpp:407
 #, c-format
