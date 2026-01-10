@@ -27,6 +27,9 @@ reledge_random
 via_index
 
 # set stop on via edge by index
+via_index_invalid
+
+# set stop on via edge by index
 via_index_random
 duration_random
 

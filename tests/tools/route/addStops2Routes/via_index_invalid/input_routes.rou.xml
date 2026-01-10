@@ -1,0 +1,4 @@
+<routes>
+    <vType id="type1" vClass="passenger"/>
+    <trip id="0" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+</routes>
