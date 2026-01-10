@@ -1,0 +1,13 @@
+<routes>
+    <vType id="type1" vClass="passenger"/>
+    <trip id="0" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="1" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="2" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="3" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="4" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="5" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="6" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="7" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="8" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+    <trip id="9" type="type1" depart="0" from="SC" to="CS" via="CN CW"/>
+</routes>

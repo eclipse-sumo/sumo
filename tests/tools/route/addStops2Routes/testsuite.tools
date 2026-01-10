@@ -26,6 +26,8 @@ reledge_random
 # set stop on via edge by index
 via_index
 
+# set stop on via edge by index
+via_index_random
 duration_random
 
 # assign stops probabilistically

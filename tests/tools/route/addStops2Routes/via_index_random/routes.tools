@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-10 22:54:09.291544 by Eclipse SUMO addStops2Routes.py v1_25_0+0898-ef51949844b
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <duration value="1800"/>
+    <via-index value="random"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="passenger"/>
+    <trip id="0" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="SC_3"/>
+    </trip>
+    <trip id="1" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="SC_3"/>
+    </trip>
+    <trip id="2" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="CW_3"/>
+    </trip>
+    <trip id="3" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="CN_3"/>
+    </trip>
+    <trip id="4" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="CN_3"/>
+    </trip>
+    <trip id="5" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="CN_3"/>
+    </trip>
+    <trip id="6" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="SC_3"/>
+    </trip>
+    <trip id="7" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="SC_3"/>
+    </trip>
+    <trip id="8" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="CS_3"/>
+    </trip>
+    <trip id="9" type="type1" depart="0" from="SC" to="CS" via="CN CW">
+        <stop duration="1800" lane="SC_3"/>
+    </trip>
+</routes>
