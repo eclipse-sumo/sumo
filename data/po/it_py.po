@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-07-29 11:04+0200\n"
+"POT-Creation-Date: 2025-10-06 11:40+0200\n"
 "PO-Revision-Date: 2025-07-27 10:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -95,7 +95,7 @@ msgstr "Trasporto a chiamata - Livello avanzato (nuovo)"
 msgid "DRT - Demo"
 msgstr "Trasporto a chiamata - Demo"
 
-#: tools/game/runner.py:86 /tools/game/runner.py:96
+#: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
 msgstr "Classifica per punteggi"
 

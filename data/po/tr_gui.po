@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-12-19 13:27+0100\n"
+"POT-Creation-Date: 2026-01-10 13:03+0100\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -4335,27 +4335,27 @@ msgstr ""
 msgid "No network defined in sumo configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2317
+#: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2320
+#: src/netedit/GNEApplicationWindowHelper.cpp:2319
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2364
+#: src/netedit/GNEApplicationWindowHelper.cpp:2363
 msgid "There are invalid options in netedit configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2367
+#: src/netedit/GNEApplicationWindowHelper.cpp:2366
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2486
+#: src/netedit/GNEApplicationWindowHelper.cpp:2485
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr ""
 
@@ -4479,314 +4479,314 @@ msgstr "hata işleme komutu\n"
 msgid "process finished\n"
 msgstr "süreç bitti\n"
 
-#: src/netedit/GNELoadThread.cpp:198
+#: src/netedit/GNELoadThread.cpp:200
 msgid "Performing initial computation ..."
 msgstr "Ön Hesaplama Gerçekleştiriliyor..."
 
-#: src/netedit/GNELoadThread.cpp:232
+#: src/netedit/GNELoadThread.cpp:234
 msgid "Failed to build network."
 msgstr "Ağ Oluşturulması Başarısız."
 
-#: src/netedit/GNELoadThread.cpp:276
+#: src/netedit/GNELoadThread.cpp:278
 msgid "Start plain GUI with empty net"
 msgstr "Boş ağ ile yalın GUI başlat"
 
-#: src/netedit/GNELoadThread.cpp:277
+#: src/netedit/GNELoadThread.cpp:279
 msgid "Open a SUMO network"
 msgstr "Bir SUMO ağı aç"
 
-#: src/netedit/GNELoadThread.cpp:278
+#: src/netedit/GNELoadThread.cpp:280
 msgid "Open a configuration file (netedit or netconvert config)"
 msgstr "Bir yapılandırma dosyası aç (netedit veya netconvert)"
 
-#: src/netedit/GNELoadThread.cpp:279
+#: src/netedit/GNELoadThread.cpp:281
 msgid "Open a SUMO config file"
 msgstr "Bir SUMO yapılandırma dosyası aç"
 
-#: src/netedit/GNELoadThread.cpp:303
+#: src/netedit/GNELoadThread.cpp:305
 msgid "Load netedit config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:309
+#: src/netedit/GNELoadThread.cpp:311
 msgid "Load sumo config"
 msgstr "Sumo yapılandırması yükle"
 
-#: src/netedit/GNELoadThread.cpp:315
+#: src/netedit/GNELoadThread.cpp:317
 msgid "Load netconvert config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:321
+#: src/netedit/GNELoadThread.cpp:323
 msgid "Load additional and shapes descriptions from FILE(s)"
 msgstr "Dosya(lar)dan ek ve şekil açıklamaları yükle"
 
-#: src/netedit/GNELoadThread.cpp:326
+#: src/netedit/GNELoadThread.cpp:328
 msgid "Load demand elements descriptions from FILE(s)"
 msgstr "Dosya(lar)dan talep elemanları açıklamaları yükle"
 
-#: src/netedit/GNELoadThread.cpp:331
+#: src/netedit/GNELoadThread.cpp:333
 msgid "Load data elements descriptions from FILE(s)"
 msgstr "Dosya(lar)dan talep elemanları açıklamaları yükle"
 
-#: src/netedit/GNELoadThread.cpp:336
+#: src/netedit/GNELoadThread.cpp:338
 msgid "Load meanData descriptions from FILE(s)"
 msgstr "Dosya(lar)dan meanData açıklamaları yükle"
 
-#: src/netedit/GNELoadThread.cpp:340
+#: src/netedit/GNELoadThread.cpp:342
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:343
+#: src/netedit/GNELoadThread.cpp:345
 msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:346
+#: src/netedit/GNELoadThread.cpp:348
 msgid "Load element selection"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:349
+#: src/netedit/GNELoadThread.cpp:351
 msgid "Test file"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:354
+#: src/netedit/GNELoadThread.cpp:356
 msgid "File in which TLS Programs must be saved"
 msgstr "TIS Programlarının kaydedilmesi gereken dosya"
 
-#: src/netedit/GNELoadThread.cpp:358
+#: src/netedit/GNELoadThread.cpp:360
 msgid "File in which edgeTypes must be saved"
 msgstr "Kesim tiplerinin kaydedilmesi gereken dosya"
 
-#: src/netedit/GNELoadThread.cpp:365
+#: src/netedit/GNELoadThread.cpp:367
 msgid "Start netedit with a new network"
 msgstr "netedit'i yeni bir ağ ile başlat"
 
-#: src/netedit/GNELoadThread.cpp:368
+#: src/netedit/GNELoadThread.cpp:370
 msgid "Write attribute help to file"
 msgstr "Öznitelik yardımını dosyaya yaz"
 
-#: src/netedit/GNELoadThread.cpp:371
+#: src/netedit/GNELoadThread.cpp:373
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
 "Geri al-yinele'de süpermodlar arasında geçiş yaparken soru iletişim kutusunu "
 "yok sayma"
 
-#: src/netedit/GNELoadThread.cpp:374
+#: src/netedit/GNELoadThread.cpp:376
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr "Sumo-config'lerin yüklenmesi sırasında ek öğeleri yoksayma"
 
-#: src/netedit/GNELoadThread.cpp:377
+#: src/netedit/GNELoadThread.cpp:379
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr "Sumo-config'lerin yüklenmesi sırasında rota öğelerini yok sayma"
 
-#: src/netedit/GNELoadThread.cpp:380
+#: src/netedit/GNELoadThread.cpp:382
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:383
+#: src/netedit/GNELoadThread.cpp:385
 msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:388
+#: src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for node naming"
 msgstr "Düğüm adlandırma için önek"
 
-#: src/netedit/GNELoadThread.cpp:391
+#: src/netedit/GNELoadThread.cpp:393
 msgid "Prefix for edge naming"
 msgstr "Kesim adlandırma için önek"
 
-#: src/netedit/GNELoadThread.cpp:394
+#: src/netedit/GNELoadThread.cpp:396
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr "Kesim içekini etkinleştir ((<DüğümdenID><içek><DüğümeID>)"
 
-#: src/netedit/GNELoadThread.cpp:399
+#: src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for busStop naming"
 msgstr "Otobüs durağı adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:402
+#: src/netedit/GNELoadThread.cpp:404
 msgid "Prefix for trainStop naming"
 msgstr "Tren durağı adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:405
+#: src/netedit/GNELoadThread.cpp:407
 msgid "Prefix for containerStop naming"
 msgstr "Konteyner durağı adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:408
+#: src/netedit/GNELoadThread.cpp:410
 msgid "Prefix for chargingStation naming"
 msgstr "Şarj istasyonu adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:411
+#: src/netedit/GNELoadThread.cpp:413
 msgid "Prefix for parkingArea naming"
 msgstr "Park alanı adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:414
+#: src/netedit/GNELoadThread.cpp:416
 msgid "Prefix for e1Detector naming"
 msgstr "e1Dedektör adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:417
+#: src/netedit/GNELoadThread.cpp:419
 msgid "Prefix for e2Detector naming"
 msgstr "e2Dedektör adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:420
+#: src/netedit/GNELoadThread.cpp:422
 msgid "Prefix for e3Detector naming"
 msgstr "e3Dedektör adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:423
+#: src/netedit/GNELoadThread.cpp:425
 msgid "Prefix for e1InstantDetector naming"
 msgstr "e1InstantDetector adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:426
+#: src/netedit/GNELoadThread.cpp:428
 msgid "Prefix for rerouter naming"
 msgstr "Yeniden rotalayıcı adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:429
+#: src/netedit/GNELoadThread.cpp:431
 msgid "Prefix for calibrator naming"
 msgstr "Kalibratör adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:432
+#: src/netedit/GNELoadThread.cpp:434
 msgid "Prefix for routeProbe naming"
 msgstr "routeProbe adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:435
+#: src/netedit/GNELoadThread.cpp:437
 msgid "Prefix for variable speed sign naming"
 msgstr "Değişken hız işareti adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:438
+#: src/netedit/GNELoadThread.cpp:440
 msgid "Prefix for traction substation naming"
 msgstr "cer trafo merkezi adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:441
+#: src/netedit/GNELoadThread.cpp:443
 msgid "Prefix for overhead wire naming"
 msgstr "Havai hat adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:444
+#: src/netedit/GNELoadThread.cpp:446
 msgid "Prefix for polygon naming"
 msgstr "Çokgen adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:447
+#: src/netedit/GNELoadThread.cpp:449
 msgid "Prefix for poi naming"
 msgstr "EN adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:450
+#: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for jps walkable area naming"
 msgstr "JPS yürünebilir alan adlandırması için ön ek"
 
-#: src/netedit/GNELoadThread.cpp:453
+#: src/netedit/GNELoadThread.cpp:455
 msgid "Prefix for jps obstacle naming"
 msgstr "JPS engel isimlendirmesi için önek"
 
-#: src/netedit/GNELoadThread.cpp:458
+#: src/netedit/GNELoadThread.cpp:460
 msgid "Prefix for route naming"
 msgstr "Rota adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:461
+#: src/netedit/GNELoadThread.cpp:463
 msgid "Prefix for route distribution naming"
 msgstr "Rota dağıtım adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:464
+#: src/netedit/GNELoadThread.cpp:466
 msgid "Prefix for type naming"
 msgstr "Tür adlandırma için önek"
 
-#: src/netedit/GNELoadThread.cpp:467
+#: src/netedit/GNELoadThread.cpp:469
 msgid "Prefix for type distribution naming"
 msgstr "Tür dağıtım adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:470
+#: src/netedit/GNELoadThread.cpp:472
 msgid "Prefix for vehicle naming"
 msgstr "Araç adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:473
+#: src/netedit/GNELoadThread.cpp:475
 msgid "Prefix for trip naming"
 msgstr "Yolculuk adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:476
+#: src/netedit/GNELoadThread.cpp:478
 msgid "Prefix for flow naming"
 msgstr "Akım adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:479
+#: src/netedit/GNELoadThread.cpp:481
 msgid "Prefix for person naming"
 msgstr "Yolcu adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:482
+#: src/netedit/GNELoadThread.cpp:484
 msgid "Prefix for personFlow naming"
 msgstr "personFlow adlandırması için önek (Yolcu Akımı)"
 
-#: src/netedit/GNELoadThread.cpp:485
+#: src/netedit/GNELoadThread.cpp:487
 msgid "Prefix for container naming"
 msgstr "Konteyner adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:488
+#: src/netedit/GNELoadThread.cpp:490
 msgid "Prefix for containerFlow naming"
 msgstr "containerFlow adlandırması için önek (Konteyner Akımı)"
 
-#: src/netedit/GNELoadThread.cpp:493
+#: src/netedit/GNELoadThread.cpp:495
 msgid "Prefix for dataSet naming"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:498
+#: src/netedit/GNELoadThread.cpp:500
 msgid "Prefix for meanDataEdge naming"
 msgstr "meanDataEdge adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:501
+#: src/netedit/GNELoadThread.cpp:503
 msgid "Prefix for meanDataLane naming"
 msgstr "meanDataLane adlandırması için önek"
 
-#: src/netedit/GNELoadThread.cpp:508
+#: src/netedit/GNELoadThread.cpp:510
 msgid "Disable icons of special lanes"
 msgstr "Özel şeritlerin simgelerini devre dışı bırak"
 
-#: src/netedit/GNELoadThread.cpp:511
+#: src/netedit/GNELoadThread.cpp:513
 msgid "Disable textures"
 msgstr "Dokuları devre dışı bırak"
 
-#: src/netedit/GNELoadThread.cpp:514
+#: src/netedit/GNELoadThread.cpp:516
 msgid "Load visualisation settings from FILE"
 msgstr "Görselleştirme ayarlarını Dosya'dan yükle"
 
-#: src/netedit/GNELoadThread.cpp:519
+#: src/netedit/GNELoadThread.cpp:521
 msgid "Load current viewport from registry"
 msgstr "Geçerli görünüm alanını kayıt defterinden yükle"
 
-#: src/netedit/GNELoadThread.cpp:522
+#: src/netedit/GNELoadThread.cpp:524
 msgid "Create initial window with the given x,y size"
 msgstr "Verilen x,y boyutuyla ilk pencereyi oluştur"
 
-#: src/netedit/GNELoadThread.cpp:525
+#: src/netedit/GNELoadThread.cpp:527
 msgid "Create initial window at the given x,y position"
 msgstr "Verilen x,y boyutunda ilk pencereyi oluştur"
 
-#: src/netedit/GNELoadThread.cpp:530
+#: src/netedit/GNELoadThread.cpp:532
 msgid "Enable overlay for screen recognition"
 msgstr "Ekran tanıma için yer paylaşımını etkinleştir"
 
-#: src/netedit/GNELoadThread.cpp:533
+#: src/netedit/GNELoadThread.cpp:535
 msgid "Enable output messages during GUI-Testing"
 msgstr "GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
-#: src/netedit/GNELoadThread.cpp:536
+#: src/netedit/GNELoadThread.cpp:538
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr ""
 "gl fonksiyonlarına özgü GUI-Test sırasında çıktı mesajlarını etkinleştir"
 
-#: src/netedit/GNELoadThread.cpp:539
+#: src/netedit/GNELoadThread.cpp:541
 msgid "Save gui settings in the given settings-output file"
 msgstr "Gui ayarlarını verilen ayarlar-çıktı dosyasına kaydet"
 
-#: src/netedit/GNELoadThread.cpp:546
+#: src/netedit/GNELoadThread.cpp:548
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr ""
 "Başlangıç zamanını saniye cinsinden tanımlar; simülasyon bu zamanda başlar"
 
-#: src/netedit/GNELoadThread.cpp:549
+#: src/netedit/GNELoadThread.cpp:551
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
 "Bitiş zamanını saniye cinsinden tanımlar; simülasyon bu zamanda sona erer"
 
-#: src/netedit/GNELoadThread.cpp:552
+#: src/netedit/GNELoadThread.cpp:554
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -4800,7 +4800,7 @@ msgstr ""
 "ayarlar varsayılanı geçersiz kılar. Simülasyon adım uzunluğunun katı "
 "olmalıdır."
 
-#: src/netedit/GNELoadThread.cpp:555
+#: src/netedit/GNELoadThread.cpp:557
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
@@ -4808,7 +4808,7 @@ msgstr ""
 "Varsayılan hız sapmasını seçin. Negatif bir değer Araç-Sınıfına özgü "
 "varsayılanlar anlamına gelir (varsayılan yolcu sınıfı için 0,1)"
 
-#: src/netedit/GNELoadThread.cpp:598
+#: src/netedit/GNELoadThread.cpp:600
 msgid "Failed to reset options."
 msgstr "Seçenekler sıfırlanamadı."
 
@@ -5783,8 +5783,8 @@ msgstr ""
 "startPos) / roadsideCapacity"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1394
-msgid "Enable or disable lefthand position"
-msgstr "Sol el konumunu etkinleştirme veya devre dışı bırakma"
+msgid "Visual placement to the left of the lane (in righthand networks)"
+msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1407
 msgid "ParkingSpace"
@@ -7383,7 +7383,7 @@ msgid "force size"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6277
-msgid "Reference position used for creating %"
+msgid "Longitudinal reference position for creating %"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6292
@@ -11327,15 +11327,15 @@ msgstr "erişim ekle '"
 msgid "add container stop '"
 msgstr "konteyner durağı ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:300
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:302
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:307
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:309
 msgid "add charging station '"
 msgstr "şarj istasyonu ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:349
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:351
 #, c-format
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
@@ -11344,11 +11344,11 @@ msgstr ""
 "Netedit'te '%' ID'li park alanı oluşturulamadı; Şerit üzerinde geçersiz "
 "departPos."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:357
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:359
 msgid "add parking area '"
 msgstr "park alanı ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:379
 msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
@@ -11356,7 +11356,7 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik genişliği ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:379
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:381
 msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
@@ -11364,7 +11364,7 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik uzunluğu ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:381
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:383
 msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
@@ -11372,16 +11372,16 @@ msgstr ""
 "Netedit'te park yeri oluşturulamadı; öznitelik açısı ondalıklı olarak "
 "ayrıştırılamıyor."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:401
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:403
 msgid "add parking space in '"
 msgstr "' içine park yeri ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:448
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:450
 msgid "add induction loop '"
 msgstr "indüksiyon döngüsü ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:491
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:554
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:556
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
@@ -11390,12 +11390,12 @@ msgstr ""
 "Netedit'te '%' ID'li şerit alanı dedektörü oluşturulamadı; geçersiz trafik "
 "ışığı ID'si."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:509
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:572
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:574
 msgid "add lane area detector '"
 msgstr "şerit alanı dedektörü ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:545
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
@@ -11404,49 +11404,49 @@ msgstr ""
 "Netedit'te ID '%' ile şerit alanı dedektörü oluşturulamadı; Şeritler ardışık "
 "değil."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:616
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:618
 msgid "add entry-exit detector '"
 msgstr "giriş-çıkış dedektörü ekle'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:647
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:649
 msgid "add entry detector in '"
 msgstr "' içine giriş dedektörü ekleyin"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:680
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:682
 msgid "add exit detector in '"
 msgstr "' içine çıkış dedektörü ekleyin"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:720
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:722
 msgid "add instant induction loop '"
 msgstr "anlık indüksiyon döngüsü ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:767
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:769
 msgid "add lane calibrator '"
 msgstr "şerit kalibratörü ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:821
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:823
 msgid "add calibrator '"
 msgstr "kali̇bratör ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:863
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:865
 msgid "add calibrator flow in '"
 msgstr "' içine kalibratör akımı ekleyin"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:924
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:926
 msgid "add rerouter '"
 msgstr "yeniden yönlendirici ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:961
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:963
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "Netedit'te '%' ID'li aralık oluşturulamadı; başlangıç bitişten büyük."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:969
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:971
 msgid "add rerouter interval in '"
 msgstr "' içine yeniden yönlendirici aralığı ekleyin"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:977
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:979
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
@@ -11454,79 +11454,79 @@ msgstr ""
 "Çakışma nedeniyle '%' içinde '%' başlangıçlı ve '%' bitişli aralık "
 "oluşturulamadı."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1002
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1004
 msgid "add closing lane reroute in '"
 msgstr "' içine kapanış şeridi yeniden yönlendirmesi ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1032
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1034
 msgid "add closing reroute in '"
 msgstr "' içine kapanış yeniden yönlendirme ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1061
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1063
 msgid "add dest prob reroute in '"
 msgstr "' içine hedef inceleme yeniden yönlendirmesi ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1091
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1093
 msgid "add parking area reroute in '"
 msgstr "' içine park alanı yeniden yönlendirmesi ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1121
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1123
 msgid "add route prob reroute in '"
 msgstr "' içine rota inceleme yeniden yönlendirmesi ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1162
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1164
 msgid "add route probe '"
 msgstr "rota sorgulama ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1210
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1212
 msgid "add Variable Speed Sign '"
 msgstr "Değişken Hız İşareti ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1249
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1251
 msgid "add VSS Step in '"
 msgstr "' içine VSS Adımı ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1283
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1285
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
 "Netedit'te '%' ID'li Buharlaştırıcı oluşturulamadı; başlangıç bitişten büyük."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1289
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1291
 msgid "add vaporizer in '"
 msgstr "' içine buharlaştırıcı ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1345
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1347
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr "Netedit'te '%' ID'li TAZ oluşturulamadı; Geçersiz Şekil."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1354
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1356
 msgid "add TAZ '"
 msgstr "TAB ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1420
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1422
 msgid "add TAZ Source in '"
 msgstr "' içine TAB kaynağı ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1432
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1434
 msgid "update TAZ Source in '"
 msgstr "' içinde TAB kaynağını güncelle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1470
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1472
 msgid "add TAZ Sink in '"
 msgstr "' içine TAB Alıcı ekle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1482
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1484
 msgid "update TAZ Sink in '"
 msgstr "' içinde TAB alıcısını güncelle"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1512
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1514
 msgid "add traction substation '"
 msgstr "cer trafo merkezi̇ ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1545
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1547
 #, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
@@ -11534,45 +11534,45 @@ msgid ""
 msgstr ""
 "Netedit'te '%' ID'li havai hat teli oluşturulamadı; Şeritler ardışık değil."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1557
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1559
 msgid "add overhead wire '"
 msgstr "havai hat ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1606
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1608
 msgid "add polygon '"
 msgstr "çokgen ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1645
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
 msgid "add POI '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1691
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1693
 msgid "add POI lane '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1724
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "Netedit'te '%' ID'li POI oluşturulamadı"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1724
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
 msgid "Network requires a geo projection."
 msgstr "Ağ bir coğrafi projeksiyon gerektirir."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1734
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1736
 msgid "add POI GEO '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1761
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1763
 msgid "add jps walkable area '"
 msgstr "jps yürünebi̇li̇r alan ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1788
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1790
 msgid "add jps obstacle '"
 msgstr "jps engeli̇ ekle '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2009
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2027
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2011
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2029
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2572
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
@@ -11621,90 +11621,90 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEPOI.cpp:414
 #: src/netedit/elements/additional/GNEPOI.cpp:420
-#: src/netedit/elements/additional/GNEPoly.cpp:564
+#: src/netedit/elements/additional/GNEPoly.cpp:560
 #: src/netedit/frames/network/GNEShapeFrame.cpp:91
 msgid "No geo-conversion defined"
 msgstr "Tanımlanmış coğrafi dönüşüm yok"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:269
+#: src/netedit/elements/additional/GNEPoly.cpp:265
 msgid "Simplify Shape"
 msgstr "Şekli Basitleştir"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:269
+#: src/netedit/elements/additional/GNEPoly.cpp:265
 #: src/netedit/elements/network/GNENetworkElement.cpp:335
 #: src/netedit/elements/network/GNENetworkElement.cpp:346
 msgid "Replace current shape with a rectangle"
 msgstr "Geçerli şekli bir dikdörtgenle değiştir"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:277
+#: src/netedit/elements/additional/GNEPoly.cpp:273
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Open shape"
 msgstr "Şekli aç"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:277
+#: src/netedit/elements/additional/GNEPoly.cpp:273
 msgid "Open polygon's shape"
 msgstr "Çokgenin şeklini aç"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:279
+#: src/netedit/elements/additional/GNEPoly.cpp:275
 #: src/netedit/elements/network/GNENetworkElement.cpp:343
 msgid "Close shape"
 msgstr "şekli kapat"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:279
+#: src/netedit/elements/additional/GNEPoly.cpp:275
 msgid "Close polygon's shape"
 msgstr "Çokgenin şeklini kapat"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:282
+#: src/netedit/elements/additional/GNEPoly.cpp:278
 msgid "Select elements within polygon"
 msgstr "Çokgen içindeki elemanları seç"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:282
+#: src/netedit/elements/additional/GNEPoly.cpp:278
 msgid "Select elements within polygon boundary"
 msgstr "Çokgen sınırı içindeki elemanları seç"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:284
+#: src/netedit/elements/additional/GNEPoly.cpp:280
 msgid "Triangulate polygon"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEPoly.cpp:284
+#: src/netedit/elements/additional/GNEPoly.cpp:280
 msgid "Convert the current polygon in triangles"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEPoly.cpp:295
+#: src/netedit/elements/additional/GNEPoly.cpp:291
 msgid "Remove geometry point"
 msgstr "Geometri noktasını kaldır"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:295
+#: src/netedit/elements/additional/GNEPoly.cpp:291
 #: src/netedit/elements/network/GNENetworkElement.cpp:355
 msgid "Remove geometry point under mouse"
 msgstr "Farenin altındaki geometri noktasını kaldır"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:296
+#: src/netedit/elements/additional/GNEPoly.cpp:292
 #: src/netedit/elements/network/GNENetworkElement.cpp:356
 msgid "Set first geometry point"
 msgstr "İlk geometri noktasını ayarla"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:404
+#: src/netedit/elements/additional/GNEPoly.cpp:400
 msgid "Number of remaining points insufficient"
 msgstr "Kalan nokta sayısı yetersiz"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:431
+#: src/netedit/elements/additional/GNEPoly.cpp:427
 msgid "Polygon already opened"
 msgstr "Çokgen zaten açıldı"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:452
+#: src/netedit/elements/additional/GNEPoly.cpp:448
 msgid "Polygon already closed"
 msgstr "Çokgen zaten kapandı"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:463
+#: src/netedit/elements/additional/GNEPoly.cpp:459
 msgid "Selected point must be different of the first point"
 msgstr "Seçilen nokta ilk noktadan farklı olmalıdır"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:524
+#: src/netedit/elements/additional/GNEPoly.cpp:520
 msgid "Polygon already simplified"
 msgstr "Poligon zaten basitleştirilmiş"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:556
+#: src/netedit/elements/additional/GNEPoly.cpp:552
 msgid "Using GEO Shape"
 msgstr ""
 
@@ -11712,7 +11712,7 @@ msgstr ""
 msgid "' needs at least one edge"
 msgstr ""
 
-#: src/netedit/elements/additional/GNETAZ.cpp:254
+#: src/netedit/elements/additional/GNETAZ.cpp:250
 #: src/netedit/elements/network/GNELane.cpp:549
 msgid "Set custom Geometry Point"
 msgstr "Özel Geometri Noktası ayarla"
@@ -11785,30 +11785,31 @@ msgstr "Açık % İletişim Kutusu"
 msgid "Invalid index"
 msgstr "Geçersiz dizin"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:86
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:88
 msgid "add meanDataEdge"
 msgstr "meanDataEdge ekle"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:136
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:140
 msgid "add meanDataLane"
 msgstr "meanDataLane ekle"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "Netedit'te % oluşturulamadı"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
 msgid "Edge doesn't exist."
 msgstr "Kesim diye bir şey yok."
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
 #, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr "'%' özniteliği mevcut değil."
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:222
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:226
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:236
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
 
@@ -17462,6 +17463,9 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+
+#~ msgid "Enable or disable lefthand position"
+#~ msgstr "Sol el konumunu etkinleştirme veya devre dışı bırakma"
 
 #~ msgid "Reloading netedit config file '"
 #~ msgstr "Netedit yapılandırma dosyası yeniden yükleniyor '"

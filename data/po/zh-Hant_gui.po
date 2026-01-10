@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-12-19 13:27+0100\n"
+"POT-Creation-Date: 2026-01-10 13:03+0100\n"
 "PO-Revision-Date: 2025-12-03 10:00+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -4314,27 +4314,27 @@ msgstr ""
 msgid "No network defined in sumo configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2317
+#: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2320
+#: src/netedit/GNEApplicationWindowHelper.cpp:2319
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2364
+#: src/netedit/GNEApplicationWindowHelper.cpp:2363
 msgid "There are invalid options in netedit configuration '%'."
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2367
+#: src/netedit/GNEApplicationWindowHelper.cpp:2366
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2486
+#: src/netedit/GNEApplicationWindowHelper.cpp:2485
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr ""
 
@@ -4458,309 +4458,309 @@ msgstr "錯誤處理指令\n"
 msgid "process finished\n"
 msgstr "處理完成\n"
 
-#: src/netedit/GNELoadThread.cpp:198
+#: src/netedit/GNELoadThread.cpp:200
 msgid "Performing initial computation ..."
 msgstr "進行初始計算..."
 
-#: src/netedit/GNELoadThread.cpp:232
+#: src/netedit/GNELoadThread.cpp:234
 msgid "Failed to build network."
 msgstr "無法建立路網。"
 
-#: src/netedit/GNELoadThread.cpp:276
+#: src/netedit/GNELoadThread.cpp:278
 msgid "Start plain GUI with empty net"
 msgstr "使用空白路網開啟普通GUI"
 
-#: src/netedit/GNELoadThread.cpp:277
+#: src/netedit/GNELoadThread.cpp:279
 msgid "Open a SUMO network"
 msgstr "開啟SUMO路網"
 
-#: src/netedit/GNELoadThread.cpp:278
+#: src/netedit/GNELoadThread.cpp:280
 msgid "Open a configuration file (netedit or netconvert config)"
 msgstr "開啟一個設定檔案(netedit或是netconvert config)"
 
-#: src/netedit/GNELoadThread.cpp:279
+#: src/netedit/GNELoadThread.cpp:281
 msgid "Open a SUMO config file"
 msgstr "開啟SUMO設定檔案"
 
-#: src/netedit/GNELoadThread.cpp:303
+#: src/netedit/GNELoadThread.cpp:305
 msgid "Load netedit config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:309
+#: src/netedit/GNELoadThread.cpp:311
 msgid "Load sumo config"
 msgstr "載入sumo設定檔案"
 
-#: src/netedit/GNELoadThread.cpp:315
+#: src/netedit/GNELoadThread.cpp:317
 msgid "Load netconvert config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:321
+#: src/netedit/GNELoadThread.cpp:323
 msgid "Load additional and shapes descriptions from FILE(s)"
 msgstr "從檔案載入附加物及形狀的描述"
 
-#: src/netedit/GNELoadThread.cpp:326
+#: src/netedit/GNELoadThread.cpp:328
 msgid "Load demand elements descriptions from FILE(s)"
 msgstr "由檔案載入需求元素的描述"
 
-#: src/netedit/GNELoadThread.cpp:331
+#: src/netedit/GNELoadThread.cpp:333
 msgid "Load data elements descriptions from FILE(s)"
 msgstr "由檔案載入資料元素的描述"
 
-#: src/netedit/GNELoadThread.cpp:336
+#: src/netedit/GNELoadThread.cpp:338
 msgid "Load meanData descriptions from FILE(s)"
 msgstr "從檔案載入meanData的描述"
 
-#: src/netedit/GNELoadThread.cpp:340
+#: src/netedit/GNELoadThread.cpp:342
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr "載入 netedit 設定檔後重設路徑值（附加資料(additional)、路徑、資料...）"
 
-#: src/netedit/GNELoadThread.cpp:343
+#: src/netedit/GNELoadThread.cpp:345
 msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:346
+#: src/netedit/GNELoadThread.cpp:348
 msgid "Load element selection"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:349
+#: src/netedit/GNELoadThread.cpp:351
 msgid "Test file"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:354
+#: src/netedit/GNELoadThread.cpp:356
 msgid "File in which TLS Programs must be saved"
 msgstr "交通號誌計畫檔案必須儲存"
 
-#: src/netedit/GNELoadThread.cpp:358
+#: src/netedit/GNELoadThread.cpp:360
 msgid "File in which edgeTypes must be saved"
 msgstr "edgeTypes檔案必須儲存"
 
-#: src/netedit/GNELoadThread.cpp:365
+#: src/netedit/GNELoadThread.cpp:367
 msgid "Start netedit with a new network"
 msgstr "使用新路網開啟netedit"
 
-#: src/netedit/GNELoadThread.cpp:368
+#: src/netedit/GNELoadThread.cpp:370
 msgid "Write attribute help to file"
 msgstr "將屬性幫助(attribute help)寫入檔案"
 
-#: src/netedit/GNELoadThread.cpp:371
+#: src/netedit/GNELoadThread.cpp:373
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr "在取消-重做中變換主編輯模式時, 忽略問題對話窗"
 
-#: src/netedit/GNELoadThread.cpp:374
+#: src/netedit/GNELoadThread.cpp:376
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr "在載入SUMO設定檔時, 忽略附加元素(additional elements)"
 
-#: src/netedit/GNELoadThread.cpp:377
+#: src/netedit/GNELoadThread.cpp:379
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr "在載入SUMO設定檔時, 忽略路徑元素(elements)"
 
-#: src/netedit/GNELoadThread.cpp:380
+#: src/netedit/GNELoadThread.cpp:382
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:383
+#: src/netedit/GNELoadThread.cpp:385
 msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:388
+#: src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for node naming"
 msgstr "節點的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:391
+#: src/netedit/GNELoadThread.cpp:393
 msgid "Prefix for edge naming"
 msgstr "路段的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:394
+#: src/netedit/GNELoadThread.cpp:396
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr "使用路段中綴(<fromNodeID><infix><toNodeID>)"
 
-#: src/netedit/GNELoadThread.cpp:399
+#: src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for busStop naming"
 msgstr "公車站的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:402
+#: src/netedit/GNELoadThread.cpp:404
 msgid "Prefix for trainStop naming"
 msgstr "火車站的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:405
+#: src/netedit/GNELoadThread.cpp:407
 msgid "Prefix for containerStop naming"
 msgstr "貨櫃停靠站(containerStop)的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:408
+#: src/netedit/GNELoadThread.cpp:410
 msgid "Prefix for chargingStation naming"
 msgstr "充電站的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:411
+#: src/netedit/GNELoadThread.cpp:413
 msgid "Prefix for parkingArea naming"
 msgstr "停車區域的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:414
+#: src/netedit/GNELoadThread.cpp:416
 msgid "Prefix for e1Detector naming"
 msgstr "e1偵測器的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:417
+#: src/netedit/GNELoadThread.cpp:419
 msgid "Prefix for e2Detector naming"
 msgstr "e2偵測器的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:420
+#: src/netedit/GNELoadThread.cpp:422
 msgid "Prefix for e3Detector naming"
 msgstr "e3偵測器的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:423
+#: src/netedit/GNELoadThread.cpp:425
 msgid "Prefix for e1InstantDetector naming"
 msgstr "e1InstantDetector的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:426
+#: src/netedit/GNELoadThread.cpp:428
 msgid "Prefix for rerouter naming"
 msgstr "改道裝置(rerouter)的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:429
+#: src/netedit/GNELoadThread.cpp:431
 msgid "Prefix for calibrator naming"
 msgstr "校估裝置(calibrator)的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:432
+#: src/netedit/GNELoadThread.cpp:434
 msgid "Prefix for routeProbe naming"
 msgstr "路徑取樣裝置的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:435
+#: src/netedit/GNELoadThread.cpp:437
 msgid "Prefix for variable speed sign naming"
 msgstr "可變速度標誌的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:438
+#: src/netedit/GNELoadThread.cpp:440
 msgid "Prefix for traction substation naming"
 msgstr "牽引變電站的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:441
+#: src/netedit/GNELoadThread.cpp:443
 msgid "Prefix for overhead wire naming"
 msgstr "架空線的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:444
+#: src/netedit/GNELoadThread.cpp:446
 msgid "Prefix for polygon naming"
 msgstr "多邊形物件的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:447
+#: src/netedit/GNELoadThread.cpp:449
 msgid "Prefix for poi naming"
 msgstr "興趣點的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:450
+#: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for jps walkable area naming"
 msgstr "JuPedSim內可步行區域命名的前綴"
 
-#: src/netedit/GNELoadThread.cpp:453
+#: src/netedit/GNELoadThread.cpp:455
 msgid "Prefix for jps obstacle naming"
 msgstr "JuPedSim內障礙物命名的前綴"
 
-#: src/netedit/GNELoadThread.cpp:458
+#: src/netedit/GNELoadThread.cpp:460
 msgid "Prefix for route naming"
 msgstr "路徑的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:461
+#: src/netedit/GNELoadThread.cpp:463
 msgid "Prefix for route distribution naming"
 msgstr "路徑分配命名的前綴"
 
-#: src/netedit/GNELoadThread.cpp:464
+#: src/netedit/GNELoadThread.cpp:466
 msgid "Prefix for type naming"
 msgstr "類型命名的前綴"
 
-#: src/netedit/GNELoadThread.cpp:467
+#: src/netedit/GNELoadThread.cpp:469
 msgid "Prefix for type distribution naming"
 msgstr "類型分配命名的前綴"
 
-#: src/netedit/GNELoadThread.cpp:470
+#: src/netedit/GNELoadThread.cpp:472
 msgid "Prefix for vehicle naming"
 msgstr "車輛的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:473
+#: src/netedit/GNELoadThread.cpp:475
 msgid "Prefix for trip naming"
 msgstr "旅次的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:476
+#: src/netedit/GNELoadThread.cpp:478
 msgid "Prefix for flow naming"
 msgstr "流量的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:479
+#: src/netedit/GNELoadThread.cpp:481
 msgid "Prefix for person naming"
 msgstr "人員的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:482
+#: src/netedit/GNELoadThread.cpp:484
 msgid "Prefix for personFlow naming"
 msgstr "personFlow的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:485
+#: src/netedit/GNELoadThread.cpp:487
 msgid "Prefix for container naming"
 msgstr "貨櫃的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:488
+#: src/netedit/GNELoadThread.cpp:490
 msgid "Prefix for containerFlow naming"
 msgstr "containerFlow的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:493
+#: src/netedit/GNELoadThread.cpp:495
 msgid "Prefix for dataSet naming"
 msgstr ""
 
-#: src/netedit/GNELoadThread.cpp:498
+#: src/netedit/GNELoadThread.cpp:500
 msgid "Prefix for meanDataEdge naming"
 msgstr "meanDataEdge的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:501
+#: src/netedit/GNELoadThread.cpp:503
 msgid "Prefix for meanDataLane naming"
 msgstr "meanDataLane的命名前綴"
 
-#: src/netedit/GNELoadThread.cpp:508
+#: src/netedit/GNELoadThread.cpp:510
 msgid "Disable icons of special lanes"
 msgstr "禁用特殊車道的圖示"
 
-#: src/netedit/GNELoadThread.cpp:511
+#: src/netedit/GNELoadThread.cpp:513
 msgid "Disable textures"
 msgstr "禁用貼圖(textures)"
 
-#: src/netedit/GNELoadThread.cpp:514
+#: src/netedit/GNELoadThread.cpp:516
 msgid "Load visualisation settings from FILE"
 msgstr "從檔案載入視覺化設定"
 
-#: src/netedit/GNELoadThread.cpp:519
+#: src/netedit/GNELoadThread.cpp:521
 msgid "Load current viewport from registry"
 msgstr "從註冊表載入目前檢視區"
 
-#: src/netedit/GNELoadThread.cpp:522
+#: src/netedit/GNELoadThread.cpp:524
 msgid "Create initial window with the given x,y size"
 msgstr "使用給定的 x, y 尺寸建立初始視窗"
 
-#: src/netedit/GNELoadThread.cpp:525
+#: src/netedit/GNELoadThread.cpp:527
 msgid "Create initial window at the given x,y position"
 msgstr "在給定的 x, y 位置建立初始視窗"
 
-#: src/netedit/GNELoadThread.cpp:530
+#: src/netedit/GNELoadThread.cpp:532
 msgid "Enable overlay for screen recognition"
 msgstr "允許銀幕辨識的覆蓋"
 
-#: src/netedit/GNELoadThread.cpp:533
+#: src/netedit/GNELoadThread.cpp:535
 msgid "Enable output messages during GUI-Testing"
 msgstr "允許在 GUI 測試期間輸出訊息"
 
-#: src/netedit/GNELoadThread.cpp:536
+#: src/netedit/GNELoadThread.cpp:538
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr "允許在特定於 gl 函數的 GUI 測試期間輸出消息"
 
-#: src/netedit/GNELoadThread.cpp:539
+#: src/netedit/GNELoadThread.cpp:541
 msgid "Save gui settings in the given settings-output file"
 msgstr "將gui設定儲存於指定的設定輸出檔案(settings-output)"
 
-#: src/netedit/GNELoadThread.cpp:546
+#: src/netedit/GNELoadThread.cpp:548
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr "定義開始時間（以秒為單位）;模擬於此時間開始"
 
-#: src/netedit/GNELoadThread.cpp:549
+#: src/netedit/GNELoadThread.cpp:551
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr "定義結束時間（以秒為單位）;模擬於此時間結束"
 
-#: src/netedit/GNELoadThread.cpp:552
+#: src/netedit/GNELoadThread.cpp:554
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -4772,7 +4772,7 @@ msgstr ""
 "位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設"
 "值。必須是模擬步長的倍數。"
 
-#: src/netedit/GNELoadThread.cpp:555
+#: src/netedit/GNELoadThread.cpp:557
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
@@ -4780,7 +4780,7 @@ msgstr ""
 "選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0.1為小客車等級的"
 "預設值)"
 
-#: src/netedit/GNELoadThread.cpp:598
+#: src/netedit/GNELoadThread.cpp:600
 msgid "Failed to reset options."
 msgstr "無法重置選項。"
 
@@ -5719,8 +5719,8 @@ msgid ""
 msgstr "路邊停車位的長度。預設情況下為（終點位置 - 開始位置）/路邊容量"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1394
-msgid "Enable or disable lefthand position"
-msgstr "啟用或禁用左側位置"
+msgid "Visual placement to the left of the lane (in righthand networks)"
+msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1407
 msgid "ParkingSpace"
@@ -7299,7 +7299,7 @@ msgid "force size"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6277
-msgid "Reference position used for creating %"
+msgid "Longitudinal reference position for creating %"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6292
@@ -11143,15 +11143,15 @@ msgstr "新增通路(access)於 '"
 msgid "add container stop '"
 msgstr "新增貨櫃停靠點 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:300
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:302
 msgid "Could not build % with ID '%' in netedit; Invalid charge type '%' ."
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:307
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:309
 msgid "add charging station '"
 msgstr "新增充電站 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:349
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:351
 #, c-format
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
@@ -11160,38 +11160,38 @@ msgstr ""
 "無法在 netedit 中用識別號(ID) '%' 建立停車區域; 車道上的出發位置(departPos)無"
 "效."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:357
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:359
 msgid "add parking area '"
 msgstr "新增停車區域 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:377
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:379
 msgid ""
 "Could not build parking space in netedit; attribute width cannot be parse to "
 "float."
 msgstr "無法在netedit建立停車區域; 屬性寬度無法解析為浮點數。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:379
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:381
 msgid ""
 "Could not build parking space in netedit; attribute length cannot be parse "
 "to float."
 msgstr "無法在netedit內建立停車空間; 屬性長度無法剖析為浮點數。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:381
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:383
 msgid ""
 "Could not build parking space in netedit; attribute angle cannot be parse to "
 "float."
 msgstr "浮點數。"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:401
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:403
 msgid "add parking space in '"
 msgstr "新增停車空間於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:448
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:450
 msgid "add induction loop '"
 msgstr "新增偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:491
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:554
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:556
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
@@ -11200,99 +11200,99 @@ msgstr ""
 "無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 交通號誌識別號 (ID) 無"
 "效."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:509
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:572
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:511
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:574
 msgid "add lane area detector '"
 msgstr "新增車道區域(lane area)偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:545
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
 #, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr "無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 車道不連續."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:616
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:618
 msgid "add entry-exit detector '"
 msgstr "新增出入口偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:647
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:649
 msgid "add entry detector in '"
 msgstr "新增入口偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:680
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:682
 msgid "add exit detector in '"
 msgstr "新增出口偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:720
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:722
 msgid "add instant induction loop '"
 msgstr "新增即時偵測器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:767
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:769
 msgid "add lane calibrator '"
 msgstr "新增車道校估器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:821
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:823
 msgid "add calibrator '"
 msgstr "新增校估器 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:863
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:865
 msgid "add calibrator flow in '"
 msgstr "新增校估流量於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:924
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:926
 msgid "add rerouter '"
 msgstr "新增改道裝置 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:961
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:963
 #, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "無法在 netedit 中用識別號(ID) '%' 建立時間間隔; 開始時間大於結束時間."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:969
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:971
 msgid "add rerouter interval in '"
 msgstr "新增改道裝置區間於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:977
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:979
 #, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr "由於重疊, 無法用開始時間 '%' 和結束時間 '%' 建立時間間隔."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1002
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1004
 msgid "add closing lane reroute in '"
 msgstr "新增封閉車道的改道路徑裝置於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1032
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1034
 msgid "add closing reroute in '"
 msgstr "新增封閉車道的改道路徑裝置於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1061
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1063
 msgid "add dest prob reroute in '"
 msgstr "新增改道路徑裝置的目的地機率(dest prob)於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1091
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1093
 msgid "add parking area reroute in '"
 msgstr "新增停車場改道路徑裝置於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1121
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1123
 msgid "add route prob reroute in '"
 msgstr "新增改道路徑裝置的路徑選擇機率(route prob)於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1162
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1164
 msgid "add route probe '"
 msgstr "新增路徑取樣裝置 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1210
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1212
 msgid "add Variable Speed Sign '"
 msgstr "新增可變速度標誌 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1249
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1251
 msgid "add VSS Step in '"
 msgstr "新增可變速度標誌(VSS)時間步長於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1283
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1285
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
@@ -11300,85 +11300,85 @@ msgstr ""
 "無法在 netedit 中用識別號(ID) '%' 建立蒸發器(vaporizer); 開始時間大於結束時"
 "間."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1289
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1291
 msgid "add vaporizer in '"
 msgstr "新增車輛移除裝置(vaporizer)於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1345
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1347
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr "無法在 netedit 中用識別號(ID) '%' 建立交通分區; 無效的形狀."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1354
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1356
 msgid "add TAZ '"
 msgstr "新增交通分區"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1420
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1422
 msgid "add TAZ Source in '"
 msgstr "新增交通分區起點於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1432
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1434
 msgid "update TAZ Source in '"
 msgstr "更新交通分區起點於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1470
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1472
 msgid "add TAZ Sink in '"
 msgstr "新增交通分區迄點於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1482
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1484
 msgid "update TAZ Sink in '"
 msgstr "更新交通分區迄點於 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1512
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1514
 msgid "add traction substation '"
 msgstr "新增牽引變電站 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1545
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1547
 #, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
 msgstr "無法在 netedit 中用識別號(ID) '%' 建立架空電線; 車道不連續."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1557
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1559
 msgid "add overhead wire '"
 msgstr "新增架空線 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1606
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1608
 msgid "add polygon '"
 msgstr "新增多邊形物件 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1645
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
 msgid "add POI '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1691
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1693
 msgid "add POI lane '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1724
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
 #, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "無法在 netedit 中用識別號(ID) '%' 建立興趣點(POI)"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1724
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
 msgid "Network requires a geo projection."
 msgstr "路網需要一個地理投影."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1734
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1736
 msgid "add POI GEO '%'"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1761
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1763
 msgid "add jps walkable area '"
 msgstr "新增 JuPedSim的可步行區域 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1788
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1790
 msgid "add jps obstacle '"
 msgstr "新增 JuPedSim的障礙物 '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2009
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2027
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2011
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2029
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2572
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
@@ -11427,90 +11427,90 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEPOI.cpp:414
 #: src/netedit/elements/additional/GNEPOI.cpp:420
-#: src/netedit/elements/additional/GNEPoly.cpp:564
+#: src/netedit/elements/additional/GNEPoly.cpp:560
 #: src/netedit/frames/network/GNEShapeFrame.cpp:91
 msgid "No geo-conversion defined"
 msgstr "未定義大地坐標轉換方式"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:269
+#: src/netedit/elements/additional/GNEPoly.cpp:265
 msgid "Simplify Shape"
 msgstr "簡化形狀物"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:269
+#: src/netedit/elements/additional/GNEPoly.cpp:265
 #: src/netedit/elements/network/GNENetworkElement.cpp:335
 #: src/netedit/elements/network/GNENetworkElement.cpp:346
 msgid "Replace current shape with a rectangle"
 msgstr "用長方形替代目前的形狀"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:277
+#: src/netedit/elements/additional/GNEPoly.cpp:273
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Open shape"
 msgstr "開啟形狀(shape)"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:277
+#: src/netedit/elements/additional/GNEPoly.cpp:273
 msgid "Open polygon's shape"
 msgstr "開啟多邊形的形狀"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:279
+#: src/netedit/elements/additional/GNEPoly.cpp:275
 #: src/netedit/elements/network/GNENetworkElement.cpp:343
 msgid "Close shape"
 msgstr "關閉形狀(shape)"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:279
+#: src/netedit/elements/additional/GNEPoly.cpp:275
 msgid "Close polygon's shape"
 msgstr "關閉多邊形的形狀"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:282
+#: src/netedit/elements/additional/GNEPoly.cpp:278
 msgid "Select elements within polygon"
 msgstr "在多邊形內選擇元素(elements)"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:282
+#: src/netedit/elements/additional/GNEPoly.cpp:278
 msgid "Select elements within polygon boundary"
 msgstr "在多邊形的邊界內選擇元素(elements)"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:284
+#: src/netedit/elements/additional/GNEPoly.cpp:280
 msgid "Triangulate polygon"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEPoly.cpp:284
+#: src/netedit/elements/additional/GNEPoly.cpp:280
 msgid "Convert the current polygon in triangles"
 msgstr ""
 
-#: src/netedit/elements/additional/GNEPoly.cpp:295
+#: src/netedit/elements/additional/GNEPoly.cpp:291
 msgid "Remove geometry point"
 msgstr "移除幾何點"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:295
+#: src/netedit/elements/additional/GNEPoly.cpp:291
 #: src/netedit/elements/network/GNENetworkElement.cpp:355
 msgid "Remove geometry point under mouse"
 msgstr "移除滑鼠下的幾何點"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:296
+#: src/netedit/elements/additional/GNEPoly.cpp:292
 #: src/netedit/elements/network/GNENetworkElement.cpp:356
 msgid "Set first geometry point"
 msgstr "設定第一個幾何點"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:404
+#: src/netedit/elements/additional/GNEPoly.cpp:400
 msgid "Number of remaining points insufficient"
 msgstr "剩餘的點數不足"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:431
+#: src/netedit/elements/additional/GNEPoly.cpp:427
 msgid "Polygon already opened"
 msgstr "多邊形已開啟"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:452
+#: src/netedit/elements/additional/GNEPoly.cpp:448
 msgid "Polygon already closed"
 msgstr "多邊形已關閉"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:463
+#: src/netedit/elements/additional/GNEPoly.cpp:459
 msgid "Selected point must be different of the first point"
 msgstr "所選擇的點必須不同於第一個點"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:524
+#: src/netedit/elements/additional/GNEPoly.cpp:520
 msgid "Polygon already simplified"
 msgstr "多邊形已簡化"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:556
+#: src/netedit/elements/additional/GNEPoly.cpp:552
 msgid "Using GEO Shape"
 msgstr ""
 
@@ -11518,7 +11518,7 @@ msgstr ""
 msgid "' needs at least one edge"
 msgstr ""
 
-#: src/netedit/elements/additional/GNETAZ.cpp:254
+#: src/netedit/elements/additional/GNETAZ.cpp:250
 #: src/netedit/elements/network/GNELane.cpp:549
 msgid "Set custom Geometry Point"
 msgstr "設定自行定義的幾何點"
@@ -11591,30 +11591,31 @@ msgstr "開啟 % 對話框"
 msgid "Invalid index"
 msgstr "無效的索引"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:86
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:88
 msgid "add meanDataEdge"
 msgstr "新增平均資料路段(meanDataEdge)"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:136
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:140
 msgid "add meanDataLane"
 msgstr "新增平均資料車道(meanDataLane)"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "無法在 netedit 中建置 %"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:157
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
 msgid "Edge doesn't exist."
 msgstr "路段不存在。"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:175
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
 #, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr "屬性'%'不存在。"
 
-#: src/netedit/elements/data/GNEMeanDataHandler.cpp:222
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:226
+#: src/netedit/elements/data/GNEMeanDataHandler.cpp:236
 msgid "Could not build % with ID '%' in netedit; Invalid value '%' for %."
 msgstr ""
 
@@ -17205,6 +17206,9 @@ msgstr "投影方式未定義"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1740
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+
+#~ msgid "Enable or disable lefthand position"
+#~ msgstr "啟用或禁用左側位置"
 
 #, c-format
 #~ msgid "Reloading of additional file '%' failed."

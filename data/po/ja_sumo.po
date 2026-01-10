@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-12-19 13:27+0100\n"
+"POT-Creation-Date: 2026-01-10 13:03+0100\n"
 "PO-Revision-Date: 2025-02-18 09:35+0000\n"
 "Last-Translator: Tomosawa Ryo <tomosawa.r.103@ms.saitama-u.ac.jp>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -993,7 +993,7 @@ msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
 
-#: src/libsumo/Vehicle.cpp:2014 src/microsim/MSBaseVehicle.cpp:579
+#: src/libsumo/Vehicle.cpp:2014 src/microsim/MSBaseVehicle.cpp:592
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr ""
 
@@ -1216,7 +1216,7 @@ msgid ""
 "time=%."
 msgstr ""
 
-#: src/mesosim/MESegment.cpp:374 src/microsim/MSBaseVehicle.cpp:983
+#: src/mesosim/MESegment.cpp:374 src/microsim/MSBaseVehicle.cpp:996
 msgid "Vehicle '%' has no valid route. %"
 msgstr ""
 
@@ -1279,253 +1279,258 @@ msgstr ""
 msgid "Changing a vehicle ID is not permitted"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:353
+#: src/microsim/MSBaseVehicle.cpp:362
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:451
+#: src/microsim/MSBaseVehicle.cpp:458
+msgid ""
+"Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:464
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:469
+#: src/microsim/MSBaseVehicle.cpp:482
 msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:471
+#: src/microsim/MSBaseVehicle.cpp:484
 msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:473
+#: src/microsim/MSBaseVehicle.cpp:486
 msgid ""
 "Vehicle '%' skips unreachable stop on edge '%' with priority % at time %."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:517
+#: src/microsim/MSBaseVehicle.cpp:530
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:519
+#: src/microsim/MSBaseVehicle.cpp:532
 msgid "Removing vehicle '%' which has no valid route."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:534
+#: src/microsim/MSBaseVehicle.cpp:547
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:604
+#: src/microsim/MSBaseVehicle.cpp:617
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:617
+#: src/microsim/MSBaseVehicle.cpp:630
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:630
+#: src/microsim/MSBaseVehicle.cpp:643
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:728
+#: src/microsim/MSBaseVehicle.cpp:741
 msgid ""
 "Vehicle '%' replaced stop on edge '%' (named '%') and now stops at '%' "
 "instead; after rerouting (%) at time=%."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:734
+#: src/microsim/MSBaseVehicle.cpp:747
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:923
+#: src/microsim/MSBaseVehicle.cpp:936
 msgid "No connection between edge '%' and edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:932
+#: src/microsim/MSBaseVehicle.cpp:945
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:944
+#: src/microsim/MSBaseVehicle.cpp:957
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:953
+#: src/microsim/MSBaseVehicle.cpp:966
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1077
+#: src/microsim/MSBaseVehicle.cpp:1090
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1092
+#: src/microsim/MSBaseVehicle.cpp:1105
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1112
+#: src/microsim/MSBaseVehicle.cpp:1125
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1124 src/microsim/MSBaseVehicle.cpp:1136
+#: src/microsim/MSBaseVehicle.cpp:1137 src/microsim/MSBaseVehicle.cpp:1149
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1148
+#: src/microsim/MSBaseVehicle.cpp:1161
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1164
+#: src/microsim/MSBaseVehicle.cpp:1177
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1925
+#: src/microsim/MSBaseVehicle.cpp:1938
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2005 src/microsim/MSBaseVehicle.cpp:2128
-#: src/microsim/MSBaseVehicle.cpp:2237
+#: src/microsim/MSBaseVehicle.cpp:2018 src/microsim/MSBaseVehicle.cpp:2141
+#: src/microsim/MSBaseVehicle.cpp:2250
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2009
+#: src/microsim/MSBaseVehicle.cpp:2022
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2024
+#: src/microsim/MSBaseVehicle.cpp:2037
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2037 src/microsim/MSBaseVehicle.cpp:2249
+#: src/microsim/MSBaseVehicle.cpp:2050 src/microsim/MSBaseVehicle.cpp:2262
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2056 src/microsim/MSBaseVehicle.cpp:2150
-#: src/microsim/MSBaseVehicle.cpp:2277
+#: src/microsim/MSBaseVehicle.cpp:2069 src/microsim/MSBaseVehicle.cpp:2163
+#: src/microsim/MSBaseVehicle.cpp:2290
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2065 src/microsim/MSBaseVehicle.cpp:2286
+#: src/microsim/MSBaseVehicle.cpp:2078 src/microsim/MSBaseVehicle.cpp:2299
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2077 src/microsim/MSBaseVehicle.cpp:2300
+#: src/microsim/MSBaseVehicle.cpp:2090 src/microsim/MSBaseVehicle.cpp:2313
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2132
+#: src/microsim/MSBaseVehicle.cpp:2145
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2213
+#: src/microsim/MSBaseVehicle.cpp:2226
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2241
+#: src/microsim/MSBaseVehicle.cpp:2254
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2257
+#: src/microsim/MSBaseVehicle.cpp:2270
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2565
+#: src/microsim/MSBaseVehicle.cpp:2578
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2578 src/microsim/MSBaseVehicle.cpp:2590
+#: src/microsim/MSBaseVehicle.cpp:2591 src/microsim/MSBaseVehicle.cpp:2603
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2601
+#: src/microsim/MSBaseVehicle.cpp:2614
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2647
+#: src/microsim/MSBaseVehicle.cpp:2660
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2730
+#: src/microsim/MSBaseVehicle.cpp:2743
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2736
+#: src/microsim/MSBaseVehicle.cpp:2749
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2741
+#: src/microsim/MSBaseVehicle.cpp:2754
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2748
+#: src/microsim/MSBaseVehicle.cpp:2761
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2753
+#: src/microsim/MSBaseVehicle.cpp:2766
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2760
+#: src/microsim/MSBaseVehicle.cpp:2773
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2766
+#: src/microsim/MSBaseVehicle.cpp:2779
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2793
+#: src/microsim/MSBaseVehicle.cpp:2806
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.h:992
+#: src/microsim/MSBaseVehicle.h:997
 msgid "getLeader not yet implemented for meso"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.h:1006
+#: src/microsim/MSBaseVehicle.h:1011
 msgid "getFollower not yet implemented for meso"
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:774
+#: src/microsim/MSEdge.cpp:794
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:798 src/microsim/MSEdge.cpp:801
+#: src/microsim/MSEdge.cpp:818 src/microsim/MSEdge.cpp:821
 msgid ""
 "Departure speed for vehicle '%' is too high for the departure edge '%', time="
 "%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:818 src/microsim/MSLane.cpp:856
+#: src/microsim/MSEdge.cpp:838 src/microsim/MSLane.cpp:856
 msgid ""
 "Invalid departPos % given for vehicle '%', time=%. Inserting at lane end "
 "instead."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:859
+#: src/microsim/MSEdge.cpp:879
 msgid "Could not insert vehicle '%' on any lane of edge '%', time=%."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:1397
+#: src/microsim/MSEdge.cpp:1417
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:1410
+#: src/microsim/MSEdge.cpp:1430
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr ""
 
-#: src/microsim/MSEdge.cpp:1441
+#: src/microsim/MSEdge.cpp:1461
 #, c-format
 msgid "Edge '%' and bidi edge '%' have no matching bidi lanes"
 msgstr ""
@@ -2766,7 +2771,7 @@ msgid ""
 "length was specified."
 msgstr ""
 
-#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:528
+#: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:527
 #, c-format
 msgid "Another vehicle with the id '%' exists."
 msgstr ""
@@ -2894,17 +2899,17 @@ msgstr ""
 msgid "Teleporting vehicle '%' after earlier collision, lane='%', time=%."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:2873
+#: src/microsim/MSLane.cpp:2880
 msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:4504
+#: src/microsim/MSLane.cpp:4511
 msgid "Invalid % '%'."
 msgstr ""
 
-#: src/microsim/MSLane.cpp:4672
+#: src/microsim/MSLane.cpp:4679
 msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
@@ -2924,7 +2929,7 @@ msgstr ""
 msgid "A network was not yet constructed."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:224 src/router/RONet.cpp:88
+#: src/microsim/MSNet.cpp:224 src/router/RONet.cpp:87
 msgid "A network was already constructed."
 msgstr ""
 
@@ -3104,7 +3109,7 @@ msgid ""
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:830
-#: src/microsim/transportables/MSTransportable.cpp:451
+#: src/microsim/transportables/MSTransportable.cpp:450
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -3340,44 +3345,44 @@ msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:2934
+#: src/microsim/MSVehicle.cpp:2942
 msgid "Suspicious right_before_left junction '%'."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:4707
+#: src/microsim/MSVehicle.cpp:4715
 msgid " for unknown reasons"
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:4709
+#: src/microsim/MSVehicle.cpp:4717
 msgid ""
 "Vehicle '%' performs emergency stop at the end of lane '%'% (decel=%, offset="
 "%), time=%."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:4792
+#: src/microsim/MSVehicle.cpp:4800
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:4910
+#: src/microsim/MSVehicle.cpp:4918
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:5732 src/microsim/MSVehicle.cpp:5823
+#: src/microsim/MSVehicle.cpp:5740 src/microsim/MSVehicle.cpp:5831
 msgid "Vehicle '%' skips stop on lane '%' time=%."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:5817
+#: src/microsim/MSVehicle.cpp:5825
 #, c-format
 msgid "Vehicle '%' aborts stop."
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:7738
+#: src/microsim/MSVehicle.cpp:7755
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
 msgstr ""
 
-#: src/microsim/MSVehicle.cpp:7782
+#: src/microsim/MSVehicle.cpp:7799
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr ""
 
@@ -4826,19 +4831,19 @@ msgid ""
 "tlLogic '%', program '%."
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:1029
+#: src/microsim/traffic_lights/MSDriveWay.cpp:1025
 msgid "Found circular block after % (% edges, length %)"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2097
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2096
 msgid "Unknown driveWay '%' with route '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2107
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2106
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
 msgstr ""
 
-#: src/microsim/traffic_lights/MSDriveWay.cpp:2126
+#: src/microsim/traffic_lights/MSDriveWay.cpp:2125
 msgid "Unknown vehicle '%' in driveway '%'"
 msgstr ""
 
@@ -5146,19 +5151,19 @@ msgstr ""
 msgid "Invalid walkingarea '%' does not allow continuation."
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1541
+#: src/microsim/transportables/MSPModel_Striping.cpp:1550
 msgid " between edge '%' and edge '%'"
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1543
+#: src/microsim/transportables/MSPModel_Striping.cpp:1552
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:1846
+#: src/microsim/transportables/MSPModel_Striping.cpp:1855
 msgid "Disconnected walk for person '%'."
 msgstr ""
 
-#: src/microsim/transportables/MSPModel_Striping.cpp:2053
+#: src/microsim/transportables/MSPModel_Striping.cpp:2062
 msgid "Person '%' is jammed on edge '%', time=%."
 msgstr ""
 
@@ -5198,15 +5203,15 @@ msgid ""
 "timeLoss and routeLength may be invalid."
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:154
+#: src/microsim/transportables/MSTransportable.cpp:153
 msgid "Changing a transportable ID is not permitted"
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:303
+#: src/microsim/transportables/MSTransportable.cpp:302
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:527
+#: src/microsim/transportables/MSTransportable.cpp:526
 msgid "parkingAreaReroute not supported for containers"
 msgstr ""
 
@@ -5354,11 +5359,12 @@ msgid ""
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:179
-#: src/router/RONetHandler.cpp:164
+#: src/router/RONetHandler.cpp:167
 msgid "rerouter '%': Edge '%' to close is not known."
 msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:194
+#: src/router/RONetHandler.cpp:183
 msgid "rerouter '%': Lane '%' to close is not known."
 msgstr ""
 
@@ -9532,7 +9538,7 @@ msgstr ""
 msgid "State was written at a different time=% than the begin time %!"
 msgstr ""
 
-#: src/netload/NLBuilder.cpp:198 src/router/RONet.cpp:273
+#: src/netload/NLBuilder.cpp:198 src/router/RONet.cpp:272
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
 msgstr ""
@@ -10192,7 +10198,7 @@ msgid ""
 "'%'."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
@@ -10223,7 +10229,7 @@ msgstr ""
 msgid "More entries than districts found."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
 msgstr ""
 
@@ -10235,12 +10241,12 @@ msgstr ""
 msgid "Could not open '%'."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
 msgstr ""
@@ -10750,103 +10756,113 @@ msgstr ""
 msgid "failed."
 msgstr ""
 
-#: src/router/RONet.cpp:212
+#: src/router/RONet.cpp:211
 #, c-format
 msgid "The edge '%' occurs at least twice."
 msgstr ""
 
-#: src/router/RONet.cpp:226
+#: src/router/RONet.cpp:225
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
 msgstr ""
 
-#: src/router/RONet.cpp:249
+#: src/router/RONet.cpp:248
 #, c-format
 msgid "The TAZ '%' is unknown."
 msgstr ""
 
-#: src/router/RONet.cpp:254
+#: src/router/RONet.cpp:253
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
 msgstr ""
 
-#: src/router/RONet.cpp:309
+#: src/router/RONet.cpp:308
 #, c-format
 msgid "The bidi edge '%' is not known."
 msgstr ""
 
-#: src/router/RONet.cpp:320
+#: src/router/RONet.cpp:319
 #, c-format
 msgid "The node '%' occurs at least twice."
 msgstr ""
 
-#: src/router/RONet.cpp:329
+#: src/router/RONet.cpp:328
 msgid "The % '%' occurs at least twice."
 msgstr ""
 
-#: src/router/RONet.cpp:493
+#: src/router/RONet.cpp:492
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
 msgstr ""
 
-#: src/router/RONet.cpp:545
+#: src/router/RONet.cpp:544
 msgid "Requesting departure time for unknown vehicle '%'"
 msgstr ""
 
-#: src/router/RONet.cpp:575
+#: src/router/RONet.cpp:574
 #, c-format
 msgid "Another person with the id '%' exists."
 msgstr ""
 
-#: src/router/RONet.cpp:703
+#: src/router/RONet.cpp:705
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
 
-#: src/router/RONet.cpp:706
+#: src/router/RONet.cpp:708
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
 
-#: src/router/RONet.cpp:714
+#: src/router/RONet.cpp:716
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
 msgstr ""
 
-#: src/router/RONet.cpp:982
+#: src/router/RONet.cpp:984
 msgid ""
 "Already loaded prohibition for edge '%'. (Only one prohibition per edge is "
 "supported)"
 msgstr ""
 
-#: src/router/RONetHandler.cpp:194
+#: src/router/RONet.cpp:994
+msgid ""
+"Already loaded prohibition for lane '%'. (Only one prohibition per lane is "
+"supported)"
+msgstr ""
+
+#: src/router/RONetHandler.cpp:159
+msgid "Invalid rerouter interval from % to %"
+msgstr ""
+
+#: src/router/RONetHandler.cpp:213
 msgid "Unknown node '%'."
 msgstr ""
 
-#: src/router/RONetHandler.cpp:300
+#: src/router/RONetHandler.cpp:319
 msgid "Ignoring lane '%' with broken shape."
 msgstr ""
 
-#: src/router/RONetHandler.cpp:337
+#: src/router/RONetHandler.cpp:356
 msgid "Skipping isolated junction '%'."
 msgstr ""
 
-#: src/router/RONetHandler.cpp:357
+#: src/router/RONetHandler.cpp:376
 #, c-format
 msgid "unknown from-edge '%' in connection"
 msgstr ""
 
-#: src/router/RONetHandler.cpp:360
+#: src/router/RONetHandler.cpp:379
 #, c-format
 msgid "unknown to-edge '%' in connection"
 msgstr ""
 
-#: src/router/RONetHandler.cpp:388
+#: src/router/RONetHandler.cpp:407
 #, c-format
 msgid "unknown via-edge '%' in connection"
 msgstr ""
 
-#: src/router/RONetHandler.cpp:449
+#: src/router/RONetHandler.cpp:468
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
 msgstr ""
 
@@ -10864,7 +10880,7 @@ msgid ""
 "'%'."
 msgstr ""
 
-#: src/router/RORouteDef.cpp:269
+#: src/router/RORouteDef.cpp:278
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
 msgstr ""
 
@@ -10927,7 +10943,7 @@ msgstr ""
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "ミクロ・多モード交通シミュレーションです。"
 
-#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "終了しています（エラーのため）。"
 
@@ -11821,33 +11837,21 @@ msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:397
+#: src/utils/handlers/CommonHandler.cpp:399
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:399
-msgid ""
-"Could not build % with ID '%' in netedit; doesn't exist a % parent with ID "
-"'%'."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:407
+#: src/utils/handlers/CommonHandler.cpp:409
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:409
-msgid "Could not build % in netedit; doesn't exist a % parent with ID '%'."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:417
-#, c-format
-msgid "Could not build % in netedit; % parent doesn't exist."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:419
 #, c-format
-msgid "Could not build % in netedit; doesn't exist a % parent."
+msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:435
@@ -11973,7 +11977,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:67
 msgid ""
-"Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
 

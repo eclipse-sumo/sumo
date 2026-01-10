@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-01-09 11:46+0100\n"
+"POT-Creation-Date: 2026-01-10 13:03+0100\n"
 "PO-Revision-Date: 2026-01-09 11:46+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3104,7 +3104,7 @@ msgid ""
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:830
-#: src/microsim/transportables/MSTransportable.cpp:451
+#: src/microsim/transportables/MSTransportable.cpp:450
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -5198,15 +5198,15 @@ msgid ""
 "timeLoss and routeLength may be invalid."
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:154
+#: src/microsim/transportables/MSTransportable.cpp:153
 msgid "Changing a transportable ID is not permitted"
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:303
+#: src/microsim/transportables/MSTransportable.cpp:302
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:527
+#: src/microsim/transportables/MSTransportable.cpp:526
 msgid "parkingAreaReroute not supported for containers"
 msgstr ""
 
@@ -10193,7 +10193,7 @@ msgid ""
 "'%'."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
 msgid ""
 "Flow density of % vehicles per second, cannot be represented with a simple "
 "probability. Falling back to even spacing."
@@ -10224,7 +10224,7 @@ msgstr ""
 msgid "More entries than districts found."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594
+#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
 msgid "Not numeric vehicle number in line '%'."
 msgstr ""
 
@@ -10236,12 +10236,12 @@ msgstr ""
 msgid "Could not open '%'."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672
+#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
 #, c-format
 msgid "'%' does not contain the needed information about the time described."
 msgstr ""
 
-#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695
+#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
 #, c-format
 msgid "Could not access matrix file '%' to load."
 msgstr ""
@@ -10938,7 +10938,7 @@ msgstr ""
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 
-#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr ""
 
@@ -11832,33 +11832,21 @@ msgid "Could not build % with ID '%' in netedit; List of lanes isn't valid."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:397
+#: src/utils/handlers/CommonHandler.cpp:399
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:399
-msgid ""
-"Could not build % with ID '%' in netedit; doesn't exist a % parent with ID "
-"'%'."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:407
+#: src/utils/handlers/CommonHandler.cpp:409
 #, c-format
 msgid "Could not build % in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
 
-#: src/utils/handlers/CommonHandler.cpp:409
-msgid "Could not build % in netedit; doesn't exist a % parent with ID '%'."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:417
-#, c-format
-msgid "Could not build % in netedit; % parent doesn't exist."
-msgstr ""
-
 #: src/utils/handlers/CommonHandler.cpp:419
 #, c-format
-msgid "Could not build % in netedit; doesn't exist a % parent."
+msgid "Could not build % in netedit; % parent doesn't exist."
 msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:435
@@ -11984,7 +11972,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:67
 msgid ""
-"Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://"
+"Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
 
