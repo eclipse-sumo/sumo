@@ -10,3 +10,4 @@ lane_change
 
 # the detector is at the end of the lane and by the time the vehicle passes the detector it is already on the next lane
 at_end_of_lane
+depart_on_det
