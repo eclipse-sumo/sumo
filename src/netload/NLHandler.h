@@ -312,6 +312,8 @@ private:
     /// @brief Parses the given character into an enumeration typed link state
     LinkState parseLinkState(const std::string& state);
 
+    int parseDetectPersons(const std::string& detectPersonsString, const std::string& id, bool& ok);
+
 protected:
     /// @brief The net to fill (preinitialised)
     MSNet& myNet;
