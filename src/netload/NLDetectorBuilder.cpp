@@ -132,13 +132,14 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
         const std::string& device, bool friendlyPos,
         const std::string name,
         const std::string& vTypes,
-        const std::string& nextEdges) {
+        const std::string& nextEdges,
+        int detectPersons) {
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
     // build the loop
-    MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device, name, vTypes, nextEdges);
+    MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device, name, vTypes, nextEdges, detectPersons);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INSTANT_INDUCTION_LOOP, loop);
     return loop;
@@ -432,8 +433,9 @@ MSDetectorFileOutput*
 NLDetectorBuilder::createInstantInductLoop(const std::string& id,
         MSLane* lane, double pos, const std::string& od,
         const std::string name, const std::string& vTypes,
-        const std::string& nextEdges) {
-    return new MSInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, name, vTypes, nextEdges);
+        const std::string& nextEdges,
+        int detectPersons) {
+    return new MSInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, name, vTypes, nextEdges, detectPersons);
 }
 
 

@@ -63,8 +63,9 @@ GUIDetectorBuilder::createInductLoop(const std::string& id,
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInstantInductLoop(const std::string& id,
-        MSLane* lane, double pos, const std::string& od, const std::string name, const std::string& vTypes, const std::string& nextEdges) {
-    return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, name, vTypes, nextEdges);
+        MSLane* lane, double pos, const std::string& od, const std::string name, const std::string& vTypes, const std::string& nextEdges,
+        int detectPersons) {
+    return new GUIInstantInductLoop(id, OutputDevice::getDevice(od), lane, pos, name, vTypes, nextEdges, detectPersons);
 }
 
 

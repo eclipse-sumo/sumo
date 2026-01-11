@@ -46,9 +46,10 @@
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
         OutputDevice& od, MSLane* const lane, double positionInMeters,
         const std::string name, const std::string& vTypes,
-        const std::string& nextEdges) :
+        const std::string& nextEdges,
+        int detectPersons) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id, vTypes, nextEdges),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myName(name),
     myOutputDevice(od),
     myPosition(positionInMeters), myLastExitTime(-1) {
