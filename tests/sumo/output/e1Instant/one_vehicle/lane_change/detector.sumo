@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:03:01 by SUMO Version dev-SVN-r21978
+<!-- generated on 2026-01-11T21:52:18.224375+01:00 by Eclipse SUMO sumo v1_25_0+0906-4c8d584c9cd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -14,13 +19,21 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
@@ -34,6 +47,8 @@ SPDX-License-Identifier: EPL-2.0
     <instantOut id="instant_beg_0_at" time="28.73" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck" gap="12.15"/>
     <instantOut id="instant_beg_0_at" time="29.00" state="stay" vehID="v1" speed="13.89" length="7.10" type="truck"/>
     <instantOut id="instant_beg_0_at" time="29.00" state="leave" vehID="v1" speed="13.89" length="7.10" type="truck"/>
+    <instantOut id="instant_beg_1_at" time="29.00" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck"/>
+    <instantOut id="instant_beg_1_at" time="29.24" state="leave" vehID="v1" speed="13.89" length="7.10" type="truck" occupancy="0.24"/>
     <instantOut id="instant_beg_1_after" time="30.62" state="enter" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="instant_beg_1_after" time="30.98" state="leave" vehID="v0" speed="13.89" length="5.00" type="DEFAULT_VEHTYPE" occupancy="0.36"/>
     <instantOut id="instant_beg_1_after" time="43.13" state="enter" vehID="v1" speed="13.89" length="7.10" type="truck" gap="12.15"/>
