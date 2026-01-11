@@ -60,6 +60,29 @@ MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
 MSInstantInductLoop::~MSInstantInductLoop() {
 }
 
+bool
+MSInstantInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /*enteredLane*/) {
+    // vehicles must be kept if the "inductionloop" wants to detect passeengers
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
+    if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
+        if (veh.getBackPositionOnLane(myLane) >= myPosition) {
+            return false;
+        }
+        if (veh.getPositionOnLane() >= myPosition) {
+            double entryTime = SIMTIME;
+            if (myLastExitTime >= 0) {
+                write("enter", entryTime, veh, veh.getSpeed(), "gap", entryTime - myLastExitTime);
+            } else {
+                write("enter", entryTime, veh, veh.getSpeed());
+            }
+            myEntryTimes[&veh] = entryTime;
+        }
+    }
+    return true;
+}
+
 
 bool
 MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
