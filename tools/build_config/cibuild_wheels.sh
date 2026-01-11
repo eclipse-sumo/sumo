@@ -16,19 +16,20 @@
 # @date    2026-01-06
 
 # This script builds the python wheels using cibuildwheel.
-# It understands one parameter which is the docker image to use. If it is provided,
-# the docker image needs to contain all dependencies and the build should work completely offline.
+# It understands one parameter which is the docker image to use.
+# If it is provided, the docker image needs to contain all dependencies and the build should work
+# without access to the packages of the distribution (but still needs pypi).
 
-if test $# -ge 1; then
+if [[ $# -ge 1 && "$1" != "local" ]] ; then
     export CIBW_MANYLINUX_X86_64_IMAGE=$1
     export CIBW_BEFORE_ALL=""
     export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
 fi
 cd $(dirname $0)/../..
 tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
-python -m build --wheel
+python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
-python -m build --wheel
+python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 pipx run cibuildwheel
 tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml

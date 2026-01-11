@@ -17,14 +17,12 @@
 
 # Does the nightly git pull on the Linux / macOS server and then runs the wheel build
 PREFIX=$1
-PLATFORM=$2
 LOG=$PREFIX/wheel.log
 
 cd $PREFIX/sumo
 git clean -f -x -d -q . &> $LOG || (echo "git clean failed"; tail -10 $LOG)
 git pull >> $LOG 2>&1 || (echo "git pull failed"; tail -10 $LOG)
-rm -rf dist dist_native $LOG
-if test "$3" == "local"; then
-  ./tools/build_config/cibuild_wheels.sh >> $LOG 2>&1
-fi
-./tools/build_config/cibuild_wheels.sh $PLATFORM >> $LOG 2>&1
+shift
+for platform in $*; do
+    ./tools/build_config/cibuild_wheels.sh $platform >> $LOG 2>&1;
+done
