@@ -363,7 +363,3 @@ Warning: Vehicle 'flowA.96' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.97' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.98' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.99' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Teleporting vehicle 'flowB.27'; waited too long (wrong lane), lane='Edge0_1', time=417.00.
-Warning: Vehicle 'flowB.27' ends teleporting on edge 'Edge2', time=417.00.
-Warning: Teleporting vehicle 'flowB.98'; waited too long (wrong lane), lane='Edge0_1', time=949.00.
-Warning: Vehicle 'flowB.98' ends teleporting on edge 'Edge2', time=949.00.
