@@ -32,5 +32,7 @@ tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproje
 python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 pipx run cibuildwheel
+tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
+pipx run cibuildwheel
 tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
 pipx run cibuildwheel
