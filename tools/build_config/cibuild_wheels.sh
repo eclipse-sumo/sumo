@@ -22,8 +22,13 @@
 
 if [[ $# -ge 1 && "$1" != "local" ]] ; then
     export CIBW_MANYLINUX_X86_64_IMAGE=$1
-    export CIBW_BEFORE_ALL=""
-    export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
+    if [[ "$(uname)" == "Linux" ]] ; then
+        # on Linux we run isolated
+        export CIBW_BEFORE_ALL=""
+        export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
+    else
+        platform = "--platform linux"
+    fi
 fi
 cd $(dirname $0)/../..
 tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
@@ -31,8 +36,8 @@ python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
 python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
-pipx run cibuildwheel
+pipx run cibuildwheel $platform
 tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
-pipx run cibuildwheel
+pipx run cibuildwheel $platform
 tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
-pipx run cibuildwheel
+pipx run cibuildwheel $platform
