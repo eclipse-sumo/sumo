@@ -26,8 +26,9 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-const Triangle Triangle::INVALID = Triangle();
 
+const Triangle Triangle::INVALID = Triangle();
+const double Triangle::EPSILON = 1e-9;
 
 // ===========================================================================
 // method definitions
@@ -195,9 +196,10 @@ Triangle::isPositionWithin(const Position& A, const Position& B, const Position&
     const double crossAB = crossProduct(A, B, pos);
     const double crossBC = crossProduct(B, C, pos);
     const double crossCA = crossProduct(C, A, pos);
-    // Check if all cross products have the same sign
-    return ((crossAB >= 0) && (crossBC >= 0) && (crossCA >= 0)) ||
-           ((crossAB <= 0) && (crossBC <= 0) && (crossCA <= 0));
+    // check conditions
+    const bool allPositive = (crossAB > -EPSILON) && (crossBC > -EPSILON) && (crossCA > -EPSILON);
+    const bool allNegative = (crossAB < EPSILON) && (crossBC < EPSILON) && (crossCA < EPSILON);
+    return allPositive || allNegative;
 }
 
 
@@ -226,23 +228,22 @@ Triangle::crossProduct(const Position& a, const Position& b, const Position& c) 
 int
 Triangle::orientation(const Position& p, const Position& q, const Position& r) const {
     const double val = (q.y() - p.y()) * (r.x() - q.x()) - (q.x() - p.x()) * (r.y() - q.y());
-    if (val > 0) {
-        // Clockwise
-        return 1;
-    } else if (val < 0) {
-        // Counterclockwise
-        return -1;
-    } else {
-        // Collinear
+    if (std::abs(val) < EPSILON) {
         return 0;
+    } else if (val > 0) {
+        return 1;
+    } else {
+        return -1;
     }
 }
 
 
 bool
 Triangle::onSegment(const Position& p, const Position& q, const Position& r) const {
-    return (q.x() >= std::min(p.x(), r.x()) && q.x() <= std::max(p.x(), r.x()) &&
-            q.y() >= std::min(p.y(), r.y()) && q.y() <= std::max(p.y(), r.y()));
+    return ((q.x() >= std::min(p.x(), r.x()) - EPSILON) &&
+            (q.x() <= std::max(p.x(), r.x()) + EPSILON) &&
+            (q.y() >= std::min(p.y(), r.y()) - EPSILON) &&
+            (q.y() <= std::max(p.y(), r.y()) + EPSILON));
 }
 
 
