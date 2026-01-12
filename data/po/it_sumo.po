@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-10 11:50+0000\n"
+"PO-Revision-Date: 2026-01-12 18:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1467,6 +1467,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%'."
 msgstr ""
+"Il veicolo '%' ignora la posizione di arrivo % andando dall'arco '%' "
+"all'arco '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:464
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
@@ -12789,7 +12791,7 @@ msgstr "Nessuna uscita."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:168
 msgid "Either a timeline or a netstate / amitran file must be given."
-msgstr ""
+msgstr "SI deve provvedere o un file netstate o un file amitran."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:171
 msgid "The output file must be given."
@@ -13313,7 +13315,7 @@ msgstr "Non è stata trovata nessuna accelerazione data attraverso la potenza."
 
 #: src/utils/emissions/PollutantsInterface.cpp:252
 msgid "Unknown emission class '%'."
-msgstr ""
+msgstr "Classe di emissioni sconosciuta '%'."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
@@ -13372,7 +13374,7 @@ msgstr "Desideri sovrascrivere '%'?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr ""
+msgstr "Ignorando sia geoidgrids che vgridshifts nella proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
@@ -13588,29 +13590,41 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"Attributi di origine/destinazione e quello di itinerario non possono "
+"coesistere nella stessa definizione."
 
 #: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; Si "
+"richiede o un itinerario (interno o non) oppure degli attributi di origine/"
+"destinazione (archi, nodi o zone di assegnazione del traffico)."
 
 #: src/utils/handlers/CommonHandler.cpp:265
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % non può assumere valori negativi."
 
 #: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % deve essere maggiore di zero."
 
 #: src/utils/handlers/CommonHandler.cpp:283
 #: src/utils/handlers/CommonHandler.cpp:301
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % non può assumere valori negativi (%)."
 
 #: src/utils/handlers/CommonHandler.cpp:289
 #: src/utils/handlers/CommonHandler.cpp:307
