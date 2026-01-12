@@ -20,6 +20,7 @@
 # If it is provided, the docker image needs to contain all dependencies and the build should work
 # without access to the packages of the distribution (but still needs pypi).
 
+platform="auto"
 if [[ $# -ge 1 && "$1" != "local" ]] ; then
     export CIBW_MANYLINUX_X86_64_IMAGE=$1
     if [[ "$(uname)" == "Linux" ]] ; then
@@ -27,7 +28,7 @@ if [[ $# -ge 1 && "$1" != "local" ]] ; then
         export CIBW_BEFORE_ALL=""
         export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
     else
-        platform = "--platform linux"
+        platform="linux"
     fi
 fi
 cd $(dirname $0)/../..
@@ -36,8 +37,8 @@ python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
 python -m build -o wheelhouse
 tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
-pipx run cibuildwheel $platform
+pipx run cibuildwheel --platform $platform
 tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
-pipx run cibuildwheel $platform
+pipx run cibuildwheel --platform $platform
 tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
-pipx run cibuildwheel $platform
+pipx run cibuildwheel --platform $platform
