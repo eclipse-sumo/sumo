@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-09 10:39+0000\n"
+"PO-Revision-Date: 2026-01-12 14:48+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9414,15 +9414,15 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:294
 msgid "Could not determine position for junction '%'."
-msgstr ""
+msgstr "No se pudo determinar la posición del cruce '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:299
 msgid "Junction '%' resulted in invalid (NaN) position."
-msgstr ""
+msgstr "El cruce '%' tiene una posición no válida (NaN)."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:300
 msgid "Could not compute valid position for junction '%'."
-msgstr ""
+msgstr "No se pudo calcular una posición válida para el cruce '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:317
 #: src/netimport/NIImporter_OpenDrive.cpp:355
@@ -9548,6 +9548,8 @@ msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr ""
+"Se descartarán las configuraciones de acceso, ya que se han especificado "
+"tanto clases permitidas como prohibidas."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2461
 msgid "Ignoring invalid pRange value '%' for road '%'."
@@ -10064,7 +10066,7 @@ msgstr "Una longitud de carril en la arista '%' no es positiva (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:851
 msgid "Could not find split position for edge '%'."
-msgstr ""
+msgstr "No se pudo encontrar la posición de división para la arista '%'."
 
 #: src/netimport/NIImporter_VISUM.cpp:861
 msgid "Ups - could not insert node!"
@@ -11086,15 +11088,15 @@ msgstr ""
 
 #: src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction IDs"
-msgstr ""
+msgstr "Define un prefijo para los IDs de aristas y cruces"
 
 #: src/netwrite/NWFrame.cpp:72
 msgid "Defines a prefix for junction IDs"
-msgstr ""
+msgstr "Define un prefijo para los IDs de cruces"
 
 #: src/netwrite/NWFrame.cpp:75
 msgid "Defines a prefix for edge IDs"
-msgstr ""
+msgstr "Define un prefijo para los IDs de aristas"
 
 #: src/netwrite/NWFrame.cpp:80
 msgid "Write geo coordinates in plain-xml"
@@ -11207,6 +11209,8 @@ msgstr ""
 #: src/netwrite/NWFrame.cpp:185
 msgid "public transport lines output requires 'ptstop-output' to be set"
 msgstr ""
+"La salida de líneas de transporte público requiere que se establezca la "
+"opción 'ptstop-output' primero"
 
 #: src/netwrite/NWFrame.cpp:189
 msgid ""
@@ -11271,7 +11275,7 @@ msgstr ""
 
 #: src/od2trips_main.cpp:63
 msgid "run with configuration file"
-msgstr ""
+msgstr "ejecutar con archivo de configuración"
 
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
