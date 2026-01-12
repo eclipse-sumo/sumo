@@ -51,11 +51,11 @@ netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectan
 netedit.delete()
 
 # check undo redo
-# netedit.undo(referencePosition, 2)
-# netedit.redo(referencePosition, 2)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
-# netedit.saveExistentFile("neteditConfig")
+netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
-# netedit.quit(neteditProcess)
+netedit.quit(neteditProcess)
