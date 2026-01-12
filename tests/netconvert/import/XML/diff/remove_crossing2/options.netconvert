@@ -1,0 +1,3 @@
+--sumo-net-file input_net.net.xml 
+-x input_plain.con.xml
+-o net.net.xml 
