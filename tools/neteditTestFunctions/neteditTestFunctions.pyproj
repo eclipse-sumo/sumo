@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ba09ae0f-8205-4ceb-a78c-4446c0c9592b}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>enums\attributesEnum.py</StartupFile>
+    <StartupFile>buildinternaltestdata.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>

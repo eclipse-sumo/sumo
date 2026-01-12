@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-12T08:48:09.396905+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
+<!-- generated on 2026-01-12T09:00:06.621790+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,6 +41,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- JuPedSim elements -->
     <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="15.000000,15.000000 15.000000,10.000000 10.000000,10.000000 10.000000,15.000000 15.000000,15.000000"/>
     <poly id="jps.obstacle_0" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-10.000000,-10.000000 -15.000000,-10.000000 -15.000000,-15.000000 -10.000000,-15.000000 -10.000000,-10.000000"/>
-    <!-- TAZs -->
-    <taz id="taz_0" shape="10.00,-10.00 16.00,-10.00 16.00,-16.00 10.00,-16.00 10.00,-10.00" fill="1" color="green"/>
 </additional>

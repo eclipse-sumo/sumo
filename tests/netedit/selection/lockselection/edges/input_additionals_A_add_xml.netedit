@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-12T08:47:14.919008+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
+<!-- generated on 2026-01-12T08:59:10.776286+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,29 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="bs_0" lane="EdgeExternTop_0" startPos="147.76" endPos="157.76">
-        <access lane="E0_0" pos="2.80"/>
-    </busStop>
-    <busStop id="bs_1" lane="EdgeExternBot_0" startPos="17.24" endPos="27.24">
-        <access lane="-E0_0" pos="19.80"/>
-    </busStop>
-    <busStop id="bs_2" lane="EdgeExternBot_0" startPos="147.76" endPos="157.76">
-        <access lane="E1_0" pos="2.80"/>
-    </busStop>
-    <busStop id="bs_3" lane="EdgeExternTop_0" startPos="17.24" endPos="27.24">
-        <access lane="-E1_0" pos="19.80"/>
-    </busStop>
-    <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="E0_1" pos="2.80" period="300.00" file="e1_0.xml"/>
-    <inductionLoop id="e1_1" lane="-E0_1" pos="19.80" period="300.00" file="e1_1.xml"/>
-    <inductionLoop id="e1_2" lane="-E1_1" pos="19.80" period="300.00" file="e1_2.xml"/>
-    <inductionLoop id="e1_3" lane="E1_1" pos="2.80" period="300.00" file="e1_3.xml"/>
+    <busStop id="bs_0" lane="EdgeExternTop_0" startPos="147.76" endPos="157.76"/>
+    <busStop id="bs_1" lane="EdgeExternBot_0" startPos="17.24" endPos="27.24"/>
+    <busStop id="bs_2" lane="EdgeExternBot_0" startPos="147.76" endPos="157.76"/>
+    <busStop id="bs_3" lane="EdgeExternTop_0" startPos="17.24" endPos="27.24"/>
     <!-- Shapes -->
     <poly id="po_0" color="red" fill="1" layer="0.00" shape="-10.000000,10.000000 -15.000000,10.000000 -15.000000,15.000000 -10.000000,15.000000 -10.000000,10.000000"/>
-    <poi id="poi_0" lane="-E9_0" pos="9.80"/>
-    <poi id="poi_1" lane="E9_0" pos="2.80"/>
-    <poi id="poi_2" lane="E12_0" pos="9.80"/>
-    <poi id="poi_3" lane="-E12_0" pos="2.80"/>
     <!-- JuPedSim elements -->
     <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="15.000000,15.000000 15.000000,10.000000 10.000000,10.000000 10.000000,15.000000 15.000000,15.000000"/>
     <poly id="jps.obstacle_0" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-10.000000,-10.000000 -15.000000,-10.000000 -15.000000,-15.000000 -10.000000,-15.000000 -10.000000,-10.000000"/>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2009-2026 German Aerospace Center (DLR) and others.
+# Copyright (C) 2009-2025 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -86,12 +86,12 @@ class positions:
             y = 373
 
         class rectangleLargeA:
-            x = 129
-            y = 4
+            x = 252
+            y = 75
 
         class rectangleLargeB:
-            x = 867
-            y = 463
+            x = 744
+            y = 394
 
     class network:
 

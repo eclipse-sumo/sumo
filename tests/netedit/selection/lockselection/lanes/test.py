@@ -44,18 +44,18 @@ netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lockAll)
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lanes)
 
 # use a rectangle to select central elements
-# netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleLargeA,
-#                           netedit.positions.selection.rectangleLargeB)
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleLargeA,
+                           netedit.positions.selection.rectangleLargeB)
 
 # remove elements
 netedit.delete()
 
 # check undo redo
-netedit.undo(referencePosition, 2)
-netedit.redo(referencePosition, 2)
+# netedit.undo(referencePosition, 2)
+# netedit.redo(referencePosition, 2)
 
 # save Netedit config
-netedit.saveExistentFile("neteditConfig")
+# netedit.saveExistentFile("neteditConfig")
 
 # quit netedit
-netedit.quit(neteditProcess)
+# netedit.quit(neteditProcess)
