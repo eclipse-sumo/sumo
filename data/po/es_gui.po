@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-09 10:39+0000\n"
+"PO-Revision-Date: 2026-01-12 14:48+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8796,15 +8796,15 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:965
 msgid "% requires switch to network mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de red. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:967
 msgid "% requires switch to demand mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de demanda. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:969
 msgid "% requires switch to data mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de datos. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:975
 msgid "Confirm switch mode"
@@ -9021,7 +9021,7 @@ msgstr "transformar en punto de interés (POI)"
 
 #: src/netedit/GNEViewNet.cpp:3100
 msgid "transform to POI GEO"
-msgstr ""
+msgstr "transformar a punto de interés GEO"
 
 #: src/netedit/GNEViewNet.cpp:3116
 msgid "reverse % '%'"
@@ -10045,19 +10045,19 @@ msgstr "Atrás"
 
 #: src/netedit/dialogs/GNEDialog.cpp:515
 msgid "Back to tool dialog"
-msgstr ""
+msgstr "Volver a la ventana de la herramienta"
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
 msgid "Copy error trace to clipboard"
-msgstr ""
+msgstr "Copiar seguimiento de error al portapapeles"
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report"
-msgstr ""
+msgstr "Reportar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report bug to github"
@@ -10065,7 +10065,7 @@ msgstr "Reportar error en GitHub"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:44
 msgid "Custom Geometry Point"
-msgstr ""
+msgstr "Punto geométrico personalizado"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:71
 msgid "close accepting changes"
@@ -10231,7 +10231,7 @@ msgstr "Guardar %"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:86
 msgid "You have unsaved %."
-msgstr ""
+msgstr "Hay % sin guardar."
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:87
 msgid "Do you wish to close and discard all changes?"
@@ -10239,7 +10239,7 @@ msgstr "¿Quiere cerrar y descartar todos los cambios?"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:90
 msgid "Apply to all unsaved elements"
-msgstr ""
+msgstr "Aplicar a todos los elementos sin guardar"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10409,11 +10409,11 @@ msgstr "Sobrescribir % '%'"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
-msgstr ""
+msgstr "Ya existe un % '%'. ¿Sobrescribir?"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:44
 msgid "Apply this solution to all conflicted elements"
-msgstr ""
+msgstr "Aplicar esta solución a todos los elementos en conflicto"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:673

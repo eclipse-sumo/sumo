@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-07 11:23:17 by Eclipse SUMO netedit Version v1_21_0+1687-5d9a0443092
+<!-- generated on 2026-01-12T15:50:45.218322+01:00 by Eclipse SUMO netedit v1_25_0+0930-8df81cde35d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_additionals_A.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_routes_A.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_datas_A.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_meandatas_A.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -51,16 +53,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Jan110902.14028\netedit.gui\network\junctions\inspect\no_tls\unselected\id\log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -267,11 +269,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="JunctionLeft" type="left_before_right" x="-25.00" y="0.00" incLanes="-E0_0 E4_0 E4_1 -E1_0" intLanes=":JunctionLeft_0_0 :JunctionLeft_1_0 :JunctionLeft_2_0 :JunctionLeft_3_0 :JunctionLeft_4_0 :JunctionLeft_5_0" shape="-28.20,7.20 -21.80,7.20 -21.58,6.09 -21.30,5.70 -20.91,5.42 -20.41,5.26 -19.80,5.20 -19.80,-5.20 -20.91,-5.42 -21.30,-5.70 -21.58,-6.09 -21.74,-6.59 -21.80,-7.20 -28.20,-7.20" radius="2.00" fringe="outer" name="left">
         <request index="0" response="001000" foes="001000" cont="0"/>
-        <request index="1" response="001000" foes="111000" cont="0"/>
+        <request index="1" response="111000" foes="111000" cont="0"/>
         <request index="2" response="100000" foes="100000" cont="0"/>
         <request index="3" response="100000" foes="100011" cont="0"/>
-        <request index="4" response="000010" foes="000010" cont="0"/>
-        <request index="5" response="000010" foes="001110" cont="0"/>
+        <request index="4" response="000000" foes="000010" cont="0"/>
+        <request index="5" response="000000" foes="001110" cont="0"/>
     </junction>
     <junction id="JunctionRight" type="priority" x="25.00" y="0.00" incLanes="-E2_0 -E3_0 E6_0 E6_1" intLanes=":JunctionRight_0_0 :JunctionRight_1_0 :JunctionRight_2_0 :JunctionRight_3_0 :JunctionRight_4_0 :JunctionRight_5_0" shape="21.80,7.20 28.20,7.20 28.20,-7.20 21.80,-7.20 21.58,-6.09 21.30,-5.70 20.91,-5.42 20.41,-5.26 19.80,-5.20 19.80,5.20 20.91,5.42 21.30,5.70 21.58,6.09 21.74,6.59" rightOfWay="edgePriority">
         <request index="0" response="000000" foes="001000" cont="0"/>
@@ -308,8 +310,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="-E0" to="E1" fromLane="0" toLane="0" keepClear="0" via=":JunctionLeft_0_0" dir="s" state="="/>
     <connection from="-E0" to="-E4" fromLane="0" toLane="1" keepClear="0" via=":JunctionLeft_1_0" dir="l" state="="/>
-    <connection from="-E1" to="-E4" fromLane="0" toLane="1" keepClear="0" via=":JunctionLeft_4_0" dir="r" state="="/>
-    <connection from="-E1" to="E0" fromLane="0" toLane="0" keepClear="0" via=":JunctionLeft_5_0" dir="s" state="="/>
+    <connection from="-E1" to="-E4" fromLane="0" toLane="1" keepClear="0" via=":JunctionLeft_4_0" dir="r" state="M"/>
+    <connection from="-E1" to="E0" fromLane="0" toLane="0" keepClear="0" via=":JunctionLeft_5_0" dir="s" state="M"/>
     <connection from="-E2" to="-E6" fromLane="0" toLane="1" via=":JunctionRight_0_0" dir="r" state="M"/>
     <connection from="-E2" to="E3" fromLane="0" toLane="0" via=":JunctionRight_1_0" dir="s" state="M"/>
     <connection from="-E3" to="E2" fromLane="0" toLane="0" via=":JunctionRight_2_0" dir="s" state="M"/>
