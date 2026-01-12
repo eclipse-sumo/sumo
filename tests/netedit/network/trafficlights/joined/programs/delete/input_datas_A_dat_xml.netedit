@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-12T14:14:27.049675+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
+<!-- generated on 2026-01-12T14:17:05.512714+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,9 +15,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="dataSet" begin="0.00" end="3600.00">
-        <edgeRelation from="-E2" to="E1"/>
-        <edgeRelation from="-E1" to="E2"/>
-        <edgeRelation from="-E3" to="E0"/>
-        <edgeRelation from="-E0" to="E3"/>
+        <edgeRelation from="-E2" to="E3"/>
+        <edgeRelation from="-E3" to="E2"/>
+        <edge id="E0"/>
+        <edge id="-E0"/>
+        <edge id="-E1"/>
+        <edge id="E1"/>
     </interval>
 </data>

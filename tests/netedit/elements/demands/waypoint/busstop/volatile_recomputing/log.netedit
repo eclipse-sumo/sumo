@@ -1,2 +1,2 @@
-Error: Could not build vehicle with ID 'vehicle_0' in netedit; doesn't exist a route or routeDistribution parent with ID 'route_0'.
+Error: Could not build vehicle with ID 'vehicle_0' in netedit; route or routeDistribution parent with ID 'route_0' doesn't exist.
 Error: Loading of 'input_routes_A.rou.xml' failed.
