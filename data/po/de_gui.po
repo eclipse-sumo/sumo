@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-08 09:45+0000\n"
+"PO-Revision-Date: 2026-01-13 08:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2886,23 +2886,27 @@ msgstr "Speichern der vereinigten Knotenpunkte fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3554
 msgid "Saving of netedit configuration aborted (due network)."
-msgstr ""
+msgstr "Speichern der netedit-Konfiguration (wegen des Netzes) abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
+"Speichern der netedit-Konfiguration (wegen Datei mit weiteren Daten) "
+"abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr ""
+"Speichern der netedit-Konfiguration (wegen der Nachfragedatei) abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3566
 msgid "Saving of netedit configuration aborted (due data file)."
-msgstr ""
+msgstr "Speichern der netedit-Konfiguration (wegen der Datendatei) abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3570
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr ""
+"Speichern der netedit-Konfiguration (wegen der meanData-Datei) abgebrochen."
 
 #: src/netedit/GNEApplicationWindow.cpp:3582
 #: src/netedit/GNEApplicationWindow.cpp:3726
@@ -4343,7 +4347,7 @@ msgstr "Wähle Datenmodus."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2263
 msgid "There are invalid options in sumo configuration '%'."
-msgstr ""
+msgstr "Die sumo-Konfiguration '%' enthält ungültige Optionen."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2266
 msgid ""
@@ -4357,7 +4361,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "There are invalid options in netconvert configuration '%'."
-msgstr ""
+msgstr "Die netconvert-Konfiguration '%' enthält ungültige Optionen."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2319
 msgid ""
@@ -4367,7 +4371,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2363
 msgid "There are invalid options in netedit configuration '%'."
-msgstr ""
+msgstr "Die netedit-Konfiguration '%' enthält ungültige Optionen."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2366
 msgid ""
