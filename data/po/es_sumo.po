@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-12 14:48+0000\n"
+"PO-Revision-Date: 2026-01-13 09:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -12842,7 +12842,7 @@ msgstr ""
 
 #: src/utils/emissions/EnergyParams.cpp:91
 msgid " And also set a vehicle mass!"
-msgstr ""
+msgstr " ¡Y también establezca la masa del vehículo!"
 
 #: src/utils/emissions/EnergyParams.cpp:97
 #, c-format
@@ -12850,14 +12850,16 @@ msgid ""
 "Vehicle type '%' uses the Energy model parameter 'internalMomentOfInertia' "
 "which is deprecated. Use 'rotatingMass' instead."
 msgstr ""
+"El tipo de vehículo '%' usa el parámetro de modelo de energía "
+"'internalMomentOfInertia', que está obsoleto. Use 'rotatingMass' en su lugar."
 
 #: src/utils/emissions/HelpersEnergy.cpp:227
 msgid "An acceleration given by the power was not found."
-msgstr ""
+msgstr "No se encontró una aceleración determinada por la potencia."
 
 #: src/utils/emissions/PollutantsInterface.cpp:252
 msgid "Unknown emission class '%'."
-msgstr ""
+msgstr "Clase de emisiones '%' desconocida."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
@@ -12962,15 +12964,15 @@ msgstr "Convertir de Gauss-Krueger a UTM"
 
 #: src/utils/geom/GeoConvHelper.cpp:374
 msgid "Failed to create transformation, reason unknown."
-msgstr ""
+msgstr "No se pudo crear la transformación por motivo desconocido."
 
 #: src/utils/geom/GeoConvHelper.cpp:376
 msgid "Failed to create transformation, %."
-msgstr ""
+msgstr "No se pudo crear la transformación, %."
 
 #: src/utils/geom/GeoConvHelper.cpp:381
 msgid "Failed to transform, %."
-msgstr ""
+msgstr "No se pudo realizar la transformación, %."
 
 #: src/utils/geom/GeoConvHelper.cpp:464
 msgid "Could not transform (%,%)"
@@ -13058,6 +13060,8 @@ msgid ""
 "Attribute '%' defined in % with id '%' doesn't have a valid value (given "
 "'%')."
 msgstr ""
+"El atributo '%' definido en % con ID '%' no tiene un valor válido (se "
+"proporcionó '%')."
 
 #: src/utils/handlers/CommonHandler.cpp:93
 msgid "Parameters must be defined within an object"
@@ -13080,15 +13084,16 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:143
 msgid "'%' must be defined within the definition of a %."
-msgstr ""
+msgstr "'%' debe definirse dentro de la definición de un %."
 
 #: src/utils/handlers/CommonHandler.cpp:146
 msgid "'%' must be defined within the definition of a '%' (found % '%')."
 msgstr ""
+"'%' debe definirse dentro de la definición de un '%' (se encontró % '%')."
 
 #: src/utils/handlers/CommonHandler.cpp:149
 msgid "'%' must be defined within the definition of a '%' (found %)."
-msgstr ""
+msgstr "'%' debe definirse dentro de la definición de un '%' (se encontró %)."
 
 #: src/utils/handlers/CommonHandler.cpp:161
 msgid "Could not build % with ID '%' in netedit; '%' ist not a valid vType ID."
