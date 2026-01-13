@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-12 18:42+0000\n"
+"PO-Revision-Date: 2026-01-13 18:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5834,7 +5834,7 @@ msgstr "Waut '%' non è ancora stato definito."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
-msgstr ""
+msgstr "Il semaforo '%' da attuare nel WAUT '%' non è tuttora stato definito."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:168
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -12570,7 +12570,7 @@ msgstr "L'itinerario del veicolo '%' è stato corretto."
 
 #: src/router/RORouteDef.cpp:246
 msgid "Removing invalid edge '%' from route for vehicle '%'."
-msgstr ""
+msgstr "L'arco invalido '%' viene rimosso dall'itinerario del veicolo '%'."
 
 #: src/router/RORouteDef.cpp:254
 msgid ""
@@ -13693,6 +13693,8 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; Non "
+"esiste un elemento padre % con il codice identificativo '%'."
 
 #: src/utils/handlers/CommonHandler.cpp:407
 #: src/utils/handlers/CommonHandler.cpp:409
@@ -13723,6 +13725,7 @@ msgstr "Gli elementi MeanData non possono caricare attributi come parametri"
 #: src/utils/handlers/MeanDataHandler.cpp:183
 msgid "The netstate type 'hbefa' is deprecated. Using 'emissions' instead."
 msgstr ""
+"Il tipo netstate 'hbefa' non si usa più poiché sostuito dal tipo 'emissions'."
 
 #: src/utils/handlers/RouteHandler.cpp:629
 msgid "an embedded route cannot have their own ID"
@@ -13746,10 +13749,14 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:977
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
+"Gli attributi di velocità e di durata usati nei cammini si escludono a "
+"vicenda"
 
 #: src/utils/handlers/RouteHandler.cpp:1096
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
+"Gli attributi di velocità e durata usatoi nei trasbordi si escludono a "
+"vicenda"
 
 #: src/utils/handlers/RouteHandler.cpp:1139
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
@@ -13785,6 +13792,8 @@ msgstr "Non ho potuto caricare il modello '%'."
 msgid ""
 "Unexpected attribute '%', this file format does not support CSV output yet."
 msgstr ""
+"Attributo inaspettato '%' - questo formato di file finora non supporta "
+"l'uscita CSV."
 
 #: src/utils/iodevices/OutputDevice.cpp:97
 msgid "No port number given."
@@ -13811,6 +13820,8 @@ msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
 msgstr ""
+"Attributo inaspettato '%' - questo formato di file finora non supporta "
+"l'uscita Parquet."
 
 #: src/utils/options/Option.cpp:364
 #, c-format
