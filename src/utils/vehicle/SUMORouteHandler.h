@@ -65,9 +65,6 @@ public:
      * @brief return */
     static StopPos checkStopPos(double& startPos, double& endPos, const double laneLength, const double minLength, const bool friendlyPos);
 
-    /// @brief check if start and end position of a stop is valid
-    static bool isStopPosValid(const double startPos, const double endPos, const double laneLength, const double minLength, const bool friendlyPos);
-
     /// @brief returns the first departure time that was ever read
     SUMOTime getFirstDepart() const;
 
