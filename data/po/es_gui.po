@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-12 14:48+0000\n"
+"PO-Revision-Date: 2026-01-13 09:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -12020,75 +12020,75 @@ msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:94
 msgid "Invalid from edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arista de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:97
 msgid "Invalid to edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arista destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:100
 msgid "Invalid from junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Cruce de origen '%' no válido usado en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:103
 msgid "Invalid to junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Cruce destino '%' no válido usado en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:106
 msgid "Invalid from TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de análisis de tráfico de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:109
 msgid "Invalid to TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de análisis de tráfico destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:112
 msgid "Invalid from bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de bus de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:115
 msgid "Invalid from train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de tren de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:118
 msgid "Invalid from container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de contenedor de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:121
 msgid "Invalid from charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Estación de carga de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:124
 msgid "Invalid from parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de estacionamiento de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:127
 msgid "Invalid to bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de bus destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:130
 msgid "Invalid to train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de tren destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:133
 msgid "Invalid to container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de contenedor destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:136
 msgid "Invalid to charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Estación de carga destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:139
 msgid "Invalid to parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de estacionamiento destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:142
 msgid "Invalid from route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ruta de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:145
 msgid "Invalid to route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ruta destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNERoute.cpp:288
 msgid "Cannot repeat in routes with only one edge"
@@ -12240,7 +12240,7 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteRef.cpp:304
 #: src/netedit/elements/demand/GNEVTypeRef.cpp:301
 msgid "%: %, %"
-msgstr ""
+msgstr "%: %, %"
 
 #: src/netedit/elements/demand/GNEStop.cpp:288
 msgid "Invalid Stop parent"
