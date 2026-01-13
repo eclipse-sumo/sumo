@@ -1784,6 +1784,8 @@ MSVehicle::processNextStop(double currentVelocity) {
             if (noExits && noEntries) {
                 //std::cout << " skipOnDemand\n";
                 stop.skipOnDemand = true;
+                // bestLanes must be extended past this stop
+                updateBestLanes(true);
             }
         }
         // is the next stop on the current lane?
@@ -7387,6 +7389,7 @@ MSVehicle::resumeFromStopping() {
             // reset lateral position to default
             myState.myPosLat = 0;
         }
+        const bool wasWaypoint = stop.getSpeed() > 0;
         myPastStops.push_back(stop.pars);
         myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         myStops.pop_front();
@@ -7399,7 +7402,7 @@ MSVehicle::resumeFromStopping() {
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::ENDING_STOP);
         MSNet::getInstance()->getVehicleControl().registerStopEnded();
-        return true;
+        return !wasWaypoint;
     }
     return false;
 }
