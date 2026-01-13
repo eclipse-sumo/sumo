@@ -555,7 +555,7 @@ double
 GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 8:
-            if (isStopped()) {
+            if (isStopped() && getNextStop().getSpeed() <= 0) {
                 return isParking() ? -2 : -1;
             }
             return getSpeed();
