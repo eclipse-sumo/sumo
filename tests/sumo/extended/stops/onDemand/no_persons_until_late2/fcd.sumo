@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-13T16:55:09.914613+01:00 by Eclipse SUMO sumo v1_25_0+0948-62a4c3e853b
+<!-- generated on 2026-01-13T17:01:36.123560+01:00 by Eclipse SUMO sumo v1_25_0+0949-aa5a42a5b7b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -103,52 +103,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="veh0" speed="11.00" pos="89.00"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="veh0" speed="8.00" pos="97.00"/>
+        <vehicle id="veh0" speed="12.00" pos="0.90"/>
     </timestep>
     <timestep time="35.00">
-        <vehicle id="veh0" speed="3.00" pos="100.00"/>
+        <vehicle id="veh0" speed="13.00" pos="13.90"/>
     </timestep>
     <timestep time="36.00">
-        <vehicle id="veh0" speed="0.00" pos="100.00"/>
+        <vehicle id="veh0" speed="13.90" pos="27.80"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="veh0" speed="1.00" pos="0.90"/>
+        <vehicle id="veh0" speed="13.90" pos="41.70"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="veh0" speed="2.00" pos="2.90"/>
+        <vehicle id="veh0" speed="13.90" pos="55.60"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="veh0" speed="3.00" pos="5.90"/>
+        <vehicle id="veh0" speed="13.90" pos="69.50"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="veh0" speed="4.00" pos="9.90"/>
+        <vehicle id="veh0" speed="13.90" pos="83.40"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="veh0" speed="5.00" pos="14.90"/>
+        <vehicle id="veh0" speed="13.90" pos="97.30"/>
     </timestep>
-    <timestep time="42.00">
-        <vehicle id="veh0" speed="6.00" pos="20.90"/>
-    </timestep>
-    <timestep time="43.00">
-        <vehicle id="veh0" speed="7.00" pos="27.90"/>
-    </timestep>
-    <timestep time="44.00">
-        <vehicle id="veh0" speed="8.00" pos="35.90"/>
-    </timestep>
-    <timestep time="45.00">
-        <vehicle id="veh0" speed="9.00" pos="44.90"/>
-    </timestep>
-    <timestep time="46.00">
-        <vehicle id="veh0" speed="10.00" pos="54.90"/>
-    </timestep>
-    <timestep time="47.00">
-        <vehicle id="veh0" speed="11.00" pos="65.90"/>
-    </timestep>
-    <timestep time="48.00">
-        <vehicle id="veh0" speed="12.00" pos="77.90"/>
-    </timestep>
-    <timestep time="49.00">
-        <vehicle id="veh0" speed="13.00" pos="90.90"/>
-    </timestep>
-    <timestep time="50.00"/>
+    <timestep time="42.00"/>
 </fcd-export>
