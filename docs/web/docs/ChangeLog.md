@@ -36,6 +36,10 @@ title: ChangeLog
   - Fixed inconsistency where a route with a single edge and departPos > arrivalPos causes no error on loading but rerouting (now results in a warning) #10246
   - Fixed invalid error when combining option **--device.rerouting.mode** with taz-routing #17490
   - Fixed undefined behavior when computing route cost between taz #17489
+  - Fixed missing events when vehicle is inserted on `<instantInductionLoop>` #17510
+  - Fixed crash when running rail signal simulation with **--tls.all-off** #17516
+  - Fixed bug where vehicle stops despite stop attribute `onDemand` when there is no demand #17523
+  - Fixed invalid default stop startPos if endPos is defined as negative #17522
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
@@ -47,12 +51,19 @@ title: ChangeLog
   - selection scaling now work for tazRelations #17382
   - Remove some unsupported combinations of taz/junctions for rides, transport, and tranships #17414
   - Fixed bug where paths in the configuration were absolute when they should have been relative #17446
-
+  - Fixed problem when locking lanes #17514
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
   - fixed crash when tracking a vehicle which already left #17472
+  - Fixed invalid positioning of parking spaces #17478
+  - Fixed crash when person performs a jump #17506
+  - Fixed invalid color when vehicle passes a waypoint and coloring *by speed* is active #17524
 
+
+- netconvert
+  - Fixed crash when removing traffic light crossing via xml input #17515
+  - Negative split pos is now relative to custom edge length #17527
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
@@ -60,7 +71,7 @@ title: ChangeLog
   - Any routes that are repaired with option **--repair** no longer trigger an error (and thus do not require option **--ignore-errors** anymore) #17369
   - Fixed invalid route when two stops on the same edge require looping back #17484
   - Fixed invalid route when departPos > arrivalPos and from=to #17482
-
+  - stop arrival times for flows are now shifted #17504
 
 - TraCI
   - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
@@ -93,7 +104,8 @@ title: ChangeLog
 - duarouter
   - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
   - Added option **--max-traveltime** which lets routing fail if traveling takes too long #17422
-  - Rerouters with element `closingReroute` can now be loaded from an **--additinal-file** to influence routing #12501
+  - Rerouters with element `closingReroute` can now be loaded from an **--additional-file** to influence routing #12501
+  - Rerouters with element `closingLaneReroute` can now be loaded from an **--additional-file** to influence routing #17428
   - consistency of stops and vias is now checked #17485
 
 
@@ -114,6 +126,8 @@ title: ChangeLog
   - route2OD.py: supports separating multiple input files with ',' #17377
   - edgesInDistricts.py: now supports geo polygons #17376
   - edgeDataDiff.py: now include mean_abs in output #17404
+  - generateDetectors.py: supports generating nextEdges attribute #17509
+  - addStops2Routes.py: allows placing stops on vias #14818
 
 
 ### Miscellaneous
@@ -122,6 +136,8 @@ title: ChangeLog
 - Windows debug build no longer crashes with parquet output #17275
 - Started Korean Language translation #17420
 - add manylinux_2_28 support #16771
+- dlr-navteq output no longer defaults to option **--numerical-ids** #17520
+
 
 ## Version 1.25.0 (13.11.2025)
 
