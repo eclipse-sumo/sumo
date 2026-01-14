@@ -652,7 +652,10 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // build the new edges' geometries
     double geomPos = pos;
     if (edge->hasLoadedLength()) {
-        geomPos *= edge->getGeometry().length() / edge->getLoadedLength();
+        geomPos = edge->getGeometry().nearest_offset_to_point2D(node->getPosition());
+        if (geomPos <= 0) {
+            geomPos = pos * edge->getGeometry().length() / edge->getLoadedLength();
+        }
     }
     std::pair<PositionVector, PositionVector> geoms = edge->getGeometry().splitAt(geomPos);
     // reduce inaccuracies and preserve bidi
