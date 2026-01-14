@@ -637,7 +637,7 @@ private:
     Prohibitions myProhibitions;
     /// @brief temporary lane closing (rerouters)
     LaneProhibitions myLaneProhibitions;
-    std::map<SUMOTime, std::set<const ROLane*> > myLaneProhibitionTimes;
+    std::map<double, std::set<const ROLane*> > myLaneProhibitionTimes;
 
 #ifdef HAVE_FOX
 private:
