@@ -51,6 +51,9 @@ preserve_custom_length2
 # modify custom length in proportion so that the total custom length is preserved (split pos is beyond the end of the geometrical length)
 preserve_custom_length3
 
+# split pos is negative and should count backwards from the custom length
+preserve_custom_length4
+
 # modify custom length in proportion so that the total custom length is preserved even when the split-junction is large
 preserve_custom_length_intersection
 
