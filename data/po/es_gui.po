@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-13 09:29+0000\n"
+"PO-Revision-Date: 2026-01-14 09:37+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12391,16 +12391,16 @@ msgstr "moviendo % de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:163
 msgid "remove first geometry point of %"
-msgstr ""
+msgstr "eliminar el primer punto geométrico de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:168
 msgid "remove last geometry point of %"
-msgstr ""
+msgstr "eliminar el último punto geométrico de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:219
 #: src/netedit/elements/moving/GNEMoveElementJunction.cpp:161
 msgid "moving shape of %"
-msgstr ""
+msgstr "moviendo la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:326
 msgid "Lanes aren't consecutives"
@@ -12425,7 +12425,7 @@ msgstr "posición de %"
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:513
 #, c-format
 msgid " %'s size"
-msgstr ""
+msgstr " tamaño de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:35
 msgid "lane start"
@@ -12441,7 +12441,7 @@ msgstr "% < 0"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:222
 msgid "% > length of lane"
-msgstr ""
+msgstr "% > longitud de carril"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:224
 msgid "% > (length of lane - EPS)"
@@ -12459,11 +12459,11 @@ msgstr "posición de salida de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:190
 msgid "moving center of %"
-msgstr ""
+msgstr "moviendo el centro de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:198
 msgid "moving entire shape of %"
-msgstr ""
+msgstr "moviendo toda la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:216
 msgid "editing shape of %"
@@ -12483,7 +12483,7 @@ msgstr "altura de %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:360
 msgid "Set custom connection shape"
-msgstr ""
+msgstr "Establecer forma de conexión personalizada"
 
 #: src/netedit/elements/network/GNEConnection.cpp:361
 msgid "Smooth connection shape"
@@ -12496,6 +12496,8 @@ msgstr "No se pudo establecer el atributo '%' (el semáforo no es válido)"
 #: src/netedit/elements/network/GNEConnection.cpp:944
 msgid "Cannot restore attribute '%=%' for computed connection from lane '%'"
 msgstr ""
+"No se puede restaurar el atributo '%=%' para la conexión calculada desde el "
+"carril '%'"
 
 #: src/netedit/elements/network/GNECrossing.cpp:86
 msgid "Crossing's edges don't support pedestrians"

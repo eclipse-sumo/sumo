@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-13 09:29+0000\n"
+"PO-Revision-Date: 2026-01-14 09:37+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -13290,6 +13290,7 @@ msgstr "No se pudo cargar la plantilla '%'."
 msgid ""
 "Unexpected attribute '%', this file format does not support CSV output yet."
 msgstr ""
+"Atributo inesperado '%'; este formato de archivo aún no admite salida CSV."
 
 #: src/utils/iodevices/OutputDevice.cpp:97
 msgid "No port number given."
@@ -13302,10 +13303,11 @@ msgstr "Error al cerrar los dispositivos de salida."
 #: src/utils/iodevices/OutputDevice.cpp:324
 msgid "Attribute '%' is not support for filtering written attributes in %."
 msgstr ""
+"El atributo '%' no es compatible para filtrar los atributos escritos en %."
 
 #: src/utils/iodevices/OutputDevice.cpp:327
 msgid "Unknown attribute '%' to write in %."
-msgstr ""
+msgstr "Atributo '%' desconocido para escribir en %."
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -13316,6 +13318,8 @@ msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
 msgstr ""
+"Atributo inesperado '%'; este formato de archivo aún no admite salida "
+"Parquet."
 
 #: src/utils/options/Option.cpp:364
 #, c-format
@@ -13345,6 +13349,8 @@ msgid ""
 "Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2026 Centro Aeroespacial Alemán (DLR) y otros; https://"
+"sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:153
 msgid "Internal request for unknown option '%'!"
@@ -13443,11 +13449,11 @@ msgstr "Ejemplos:"
 
 #: src/utils/options/OptionsCont.cpp:871
 msgid "Report bugs at %."
-msgstr ""
+msgstr "Reportar errores en %."
 
 #: src/utils/options/OptionsCont.cpp:872
 msgid "Get in contact via %."
-msgstr ""
+msgstr "Ponerse en contacto vía %."
 
 #: src/utils/options/OptionsCont.cpp:878
 msgid "% Options:"
@@ -13471,7 +13477,7 @@ msgstr "No se pudo cargar la configuración '%'."
 
 #: src/utils/options/OptionsLoader.cpp:74
 msgid "Ignoring attribute '%' for option '%'"
-msgstr ""
+msgstr "Ignorando el atributo '%' para la opción '%'"
 
 #: src/utils/options/OptionsLoader.cpp:87
 msgid "Could not set option '%' (probably defined twice)."
@@ -13480,7 +13486,7 @@ msgstr ""
 
 #: src/utils/options/OptionsLoader.cpp:117
 msgid "Could not set option '%' because attribute 'value' is missing."
-msgstr ""
+msgstr "No se pudo establecer la opción '%' porque falta el atributo 'value'."
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
@@ -13512,7 +13518,7 @@ msgstr "Arista duplicada '%' en el archivo de referencia."
 #: src/utils/router/AStarLookupTable.h:175
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "La arista de referencia '%' no existe en la red."
 
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
@@ -13640,7 +13646,7 @@ msgstr ""
 
 #: src/utils/shapes/ShapeHandler.cpp:144
 msgid "Invalid characters for PoI ID '%'"
-msgstr ""
+msgstr "Caracteres no válidos en el ID del punto de interés '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:175
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
@@ -13663,7 +13669,7 @@ msgstr "El punto de interés '%' ya existe."
 
 #: src/utils/shapes/ShapeHandler.cpp:218
 msgid "Invalid characters for Poly ID '%'"
-msgstr ""
+msgstr "Caracteres no válidos en el ID del polígono '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:260
 msgid "Polygon's shape cannot be empty."
