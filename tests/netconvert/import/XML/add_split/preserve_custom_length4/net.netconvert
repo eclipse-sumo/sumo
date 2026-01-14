@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-14T14:01:33.954549+01:00 by Eclipse SUMO netconvert v1_25_0+0962-c939988a938
+<!-- generated on 2026-01-14T14:04:53.929452+01:00 by Eclipse SUMO netconvert v1_25_0+0963-756ba5f5f27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,20 +42,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
-    <edge id="1" from="0" to="1.-10" priority="-1" length="90.00">
-        <lane id="1_0" index="0" speed="13.89" length="90.00" shape="0.00,-8.00 45.00,-8.00"/>
-        <lane id="1_1" index="1" speed="13.89" length="90.00" shape="0.00,-4.80 45.00,-4.80"/>
-        <lane id="1_2" index="2" speed="13.89" length="90.00" shape="0.00,-1.60 45.00,-1.60"/>
+    <edge id="1" from="0" to="1.-10" priority="-1" length="190.00">
+        <lane id="1_0" index="0" speed="13.89" length="190.00" shape="0.00,-8.00 95.00,-8.00"/>
+        <lane id="1_1" index="1" speed="13.89" length="190.00" shape="0.00,-4.80 95.00,-4.80"/>
+        <lane id="1_2" index="2" speed="13.89" length="190.00" shape="0.00,-1.60 95.00,-1.60"/>
     </edge>
-    <edge id="1.-10" from="1.-10" to="1" priority="-1" length="110.00">
-        <lane id="1.-10_0" index="0" speed="13.89" length="110.00" shape="45.00,-8.00 100.00,-8.00"/>
-        <lane id="1.-10_1" index="1" speed="13.89" length="110.00" shape="45.00,-4.80 100.00,-4.80"/>
-        <lane id="1.-10_2" index="2" speed="13.89" length="110.00" shape="45.00,-1.60 100.00,-1.60"/>
+    <edge id="1.-10" from="1.-10" to="1" priority="-1" length="10.00">
+        <lane id="1.-10_0" index="0" speed="13.89" length="10.00" shape="95.00,-8.00 100.00,-8.00"/>
+        <lane id="1.-10_1" index="1" speed="13.89" length="10.00" shape="95.00,-4.80 100.00,-4.80"/>
+        <lane id="1.-10_2" index="2" speed="13.89" length="10.00" shape="95.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <junction id="0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
     <junction id="1" type="dead_end" x="100.00" y="0.00" incLanes="1.-10_0 1.-10_1 1.-10_2" intLanes="" shape="100.00,-9.60 100.00,0.00"/>
-    <junction id="1.-10" type="priority" x="45.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="45.00,0.00 45.00,-9.60 45.00,0.00">
+    <junction id="1.-10" type="priority" x="95.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="95.00,0.00 95.00,-9.60 95.00,0.00">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
