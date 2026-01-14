@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-13 18:39+0000\n"
+"PO-Revision-Date: 2026-01-14 20:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -12531,7 +12531,7 @@ msgstr ""
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
-msgstr ""
+msgstr "Intervallo rerouter invalido da % a %"
 
 #: src/router/RONetHandler.cpp:213
 msgid "Unknown node '%'."
@@ -13764,17 +13764,21 @@ msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
+"Gli parametri per modelli di guida non vengono più definiti in un elemento "
+"figlio del tipo di veicolo ma direttamente come attributi!"
 
 #: src/utils/handlers/RouteHandler.cpp:1147
 #: src/utils/handlers/RouteHandler.cpp:1149
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
-msgstr ""
+msgstr "Tipo di veicolo interno invalido"
 
 #: src/utils/handlers/RouteHandler.cpp:1234
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
+"Una fermata deve essere definita accennando a un arco o una corsia ma non "
+"entrambi allo stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:1249
 msgid "A stop must be defined only in a StoppingPlace"
@@ -13783,6 +13787,8 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:1251
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
+"Una fermata deve essere definita su un arco, una corsia o un elemento "
+"specifico di fermata"
 
 #: src/utils/handlers/TemplateHandler.cpp:67
 msgid "Could not load template '%'."
@@ -13806,6 +13812,8 @@ msgstr "Errore nel chiudere gli dispositivi di uscita."
 #: src/utils/iodevices/OutputDevice.cpp:324
 msgid "Attribute '%' is not support for filtering written attributes in %."
 msgstr ""
+"L'attributo '%' non può essere usato per filtrare gli attributi da scrivere "
+"in %."
 
 #: src/utils/iodevices/OutputDevice.cpp:327
 msgid "Unknown attribute '%' to write in %."
@@ -13851,6 +13859,8 @@ msgid ""
 "Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2026 Deutsches Zentrum für Luft- und Raumfahrt e altri; "
+"https://sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:153
 msgid "Internal request for unknown option '%'!"
@@ -13933,11 +13943,11 @@ msgstr "Schema salvato in '%'"
 
 #: src/utils/options/OptionsCont.cpp:844
 msgid "Help Topics:"
-msgstr ""
+msgstr "Soggetti di aiuto:"
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
-msgstr ""
+msgstr "Uso: "
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
@@ -13977,7 +13987,7 @@ msgstr "Non ho potuto caricare la configurazione '%'."
 
 #: src/utils/options/OptionsLoader.cpp:74
 msgid "Ignoring attribute '%' for option '%'"
-msgstr ""
+msgstr "L'attributo '%' dell'opzione '%' viene ignorato"
 
 #: src/utils/options/OptionsLoader.cpp:87
 msgid "Could not set option '%' (probably defined twice)."
@@ -13987,6 +13997,8 @@ msgstr ""
 #: src/utils/options/OptionsLoader.cpp:117
 msgid "Could not set option '%' because attribute 'value' is missing."
 msgstr ""
+"Non ho potuto impostare l'opzione '%' a causa dell'attributo mancante "
+"'value'."
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
