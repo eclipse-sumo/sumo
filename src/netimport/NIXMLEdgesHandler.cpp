@@ -490,7 +490,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
         // XXX rounding to int may duplicate the id of another split
         e.nameID = myCurrentID + "." + toString((int)e.pos);
         if (e.pos < 0) {
-            e.pos += myCurrentEdge->getGeometry().length();
+            e.pos += myCurrentEdge->getLoadedLength();
         }
         for (const std::string& id : attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LANES, myCurrentID.c_str(), ok)) {
             try {
