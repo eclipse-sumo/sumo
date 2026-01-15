@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-15T09:14:23.271314+01:00 by Eclipse SUMO netconvert v1_25_0+0969-fda50631639
+<!-- generated on 2026-01-15T09:24:23.494977+01:00 by Eclipse SUMO netconvert v1_25_0+0970-f82bd568dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,11 +42,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,300.00,0.00" origBoundary="-100.00,0.00,200.00,0.00" projParameter="!"/>
 
-    <edge id="a" from="a" to="b" priority="-1" shape="0.00,0.00 100.00,0.00 200.00,0.00 300.00,0.00">
-        <lane id="a_0" index="0" speed="13.89" length="300.00" shape="0.00,-1.60 100.00,-1.60 200.00,-1.60 300.00,-1.60"/>
+    <edge id="1" from="0" to="b" priority="-1" shape="100.00,0.00 200.00,0.00 300.00,0.00">
+        <lane id="1_0" index="0" speed="13.89" length="200.00" shape="100.00,-1.60 200.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="a" from="a" to="0" priority="-1">
+        <lane id="a_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
     </edge>
 
+    <tlLogic id="foo" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+
+    <junction id="0" type="traffic_light" x="100.00" y="0.00" incLanes="a_0" intLanes="" shape="100.00,0.00 100.00,-3.20 100.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
     <junction id="a" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
-    <junction id="b" type="dead_end" x="300.00" y="0.00" incLanes="a_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+    <junction id="b" type="dead_end" x="300.00" y="0.00" incLanes="1_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+
+    <connection from="a" to="1" fromLane="0" toLane="0" tl="foo" linkIndex="0" dir="s" state="O"/>
 
 </net>
