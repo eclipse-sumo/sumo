@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-14 09:37+0000\n"
+"PO-Revision-Date: 2026-01-15 13:08+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -13781,12 +13781,16 @@ msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 1e-6. "
 msgstr ""
+"Intentando agregar un elemento resistor al circuito de la catenaria con una "
+"resistencia < 1e-6. "
 
 #: src/utils/traction_wire/Circuit.cpp:795
 msgid ""
 "Trying to add resistor element into the overhead wire circuit with "
 "resistance < 0. "
 msgstr ""
+"Intentando agregar un elemento resistor al circuito de la catenaria con una "
+"resistencia < 0. "
 
 #: src/utils/traction_wire/Circuit.cpp:914
 msgid ""
@@ -13815,6 +13819,8 @@ msgid ""
 "A Circuit Resistor Element connects the ground, please adjust the definition "
 "of the section (with substation '%')."
 msgstr ""
+"Un elemento resistor del circuito conecta a tierra; por favor ajuste la "
+"definición de la sección (con la subestación '%')."
 
 #: src/utils/traction_wire/Circuit.cpp:970
 msgid ""
@@ -13864,7 +13870,7 @@ msgstr "Falta el parámetro '%' para % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:65
 msgid "Invalid float value '%' for parameter '%' in % '%' (%)."
-msgstr ""
+msgstr "Valor flotante '%' no válido para el parámetro '%' en % '%' (%)."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:78
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
@@ -14018,6 +14024,8 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
 msgstr ""
+"Atributo % no válido del modelo de seguimiento vehicular. El valor del "
+"perfil de aceleración no puede ser negativo"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
 #, c-format
