@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-14 20:02+0000\n"
+"PO-Revision-Date: 2026-01-15 18:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -14087,34 +14087,38 @@ msgstr "Non è stato trovato nessun collegamento tra l'arco '%' e l'arco '%'."
 #: src/utils/router/CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
 msgstr ""
+"L'algoritmo di instradamento CH non supporta la chiusura dinamica di archi%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
 msgstr ""
+"L'algoritmo di instradamento CHWrapper non supporta la chiusura dinamica di "
+"archi%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr ""
+msgstr "L'arco '%' non è stato incontrato nella rete intermodale.'"
 
 #: src/utils/router/IntermodalNetwork.h:310
 #: src/utils/router/IntermodalNetwork.h:344
 #, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr ""
+msgstr "L'arco di partenza '%' non è stato incontrato nella rete intermodale."
 
 #: src/utils/router/IntermodalNetwork.h:356
 #, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr ""
+msgstr "L'arco di arrivo '%' non è stato incontrato nella rete intermodale."
 
 #: src/utils/router/IntermodalNetwork.h:680
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
 msgstr ""
+"La fermata non ordinata presso '%' fino a % del veicolo '%' viene ignorata."
 
 #: src/utils/router/IntermodalNetwork.h:692
 msgid "Ignoring stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "La fermata presso '%' fino a % del veicolo '%' viene ignorata."
 
 #: src/utils/router/IntermodalNetwork.h:697
 #, c-format
@@ -14122,6 +14126,8 @@ msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr ""
+"La linea di trasporto pubblico '%' viene scartata per instradare delle "
+"persone perché possiede meno di due fermate utilizzabili."
 
 #: src/utils/router/IntermodalRouter.h:203
 msgid "No connection between % '%' and % '%' found."
@@ -14180,7 +14186,7 @@ msgstr "Il punto di interesse '%' esiste già."
 
 #: src/utils/shapes/ShapeHandler.cpp:218
 msgid "Invalid characters for Poly ID '%'"
-msgstr ""
+msgstr "Caratteri invalidi nel codice identificativo del poligono '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:260
 msgid "Polygon's shape cannot be empty."
@@ -14198,7 +14204,7 @@ msgstr "Il poligono '%' esiste già."
 #: src/utils/shapes/ShapeHandler.cpp:287
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "Il caricamento di forme da % è fallito."
 
 #: src/utils/tests/InternalTest.cpp:318
 msgid "Could not open attributes enum file '%'."
