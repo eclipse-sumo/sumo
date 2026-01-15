@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-13 08:33+0000\n"
+"PO-Revision-Date: 2026-01-15 21:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2992,7 +2992,7 @@ msgstr "Speichervorgang der weiteren Elemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 msgid "Additional elements as"
-msgstr ""
+msgstr "Weitere Daten speichern unter"
 
 #: src/netedit/GNEApplicationWindow.cpp:4066
 msgid "Additional elements in unified file"
@@ -3060,7 +3060,7 @@ msgstr "Speichern der Nachfrageelemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4254
 msgid "Route elements"
-msgstr ""
+msgstr "Routenelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Route elements file in unified file"
