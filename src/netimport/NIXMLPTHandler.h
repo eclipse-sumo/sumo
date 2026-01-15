@@ -163,7 +163,7 @@ private:
     /** @brief Parses an public transport stop
      * @param[in] attrs The attributes to get the stops's values from
      */
-    void addPTStop(const SUMOSAXAttributes& attrs);
+    void addPTStop(int element, const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a route as port of a public transport line
      * @param[in] attrs The attributes to get the routes's values from

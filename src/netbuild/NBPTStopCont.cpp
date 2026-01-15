@@ -137,7 +137,7 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 }
                 continue;
             }
-            std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(id,
+            std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(stop->getElement(), id,
                                                  stop->getPosition(),
                                                  bidiEdge->getID(),
                                                  stop->getOrigEdgeId(),
@@ -201,7 +201,7 @@ NBPTStopCont::getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& 
     if (reverse != nullptr) {
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
-            return std::make_shared<NBPTStop>(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+            return std::make_shared<NBPTStop>(pStop->getElement(), reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
                                               pStop->getLength(), pStop->getName(), pStop->getPermissions());
         } else {
             return myPTStops[reverseID];

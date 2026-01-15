@@ -69,7 +69,7 @@ NIXMLPTHandler::myStartElement(int element,
             if (myCurrentRouteID != "") {
                 addRouteStop(attrs);
             } else if (myCurrentLine == nullptr) {
-                addPTStop(attrs);
+                addPTStop(element, attrs);
             } else {
                 addPTLineStop(attrs);
             }
@@ -141,7 +141,7 @@ NIXMLPTHandler::myEndElement(int element) {
 
 
 void
-NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
+NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "busStop", ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
@@ -196,7 +196,7 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
             }
         }
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
-        myCurrentStop = std::make_shared<NBPTStop>(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
+        myCurrentStop = std::make_shared<NBPTStop>((SumoXMLTag)element, id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength, color, startPos);
         while (myEdgeCont.getSplit(edge) != nullptr) {
             myCurrentStop->resetLoaded();
             const std::pair<NBEdge*, NBEdge*> split = *myEdgeCont.getSplit(edge);

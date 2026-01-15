@@ -390,7 +390,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             if (!NBNetBuilder::transformCoordinate(ptPos)) {
                 WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
             }
-            std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+            SumoXMLTag element = isRailway(n->permissions) ? SUMO_TAG_TRAIN_STOP : SUMO_TAG_BUS_STOP;
+            std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(element, toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
             nb.getPTStopCont().insert(ptStop, true);
         }
     }
@@ -553,7 +554,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 if (!NBNetBuilder::transformCoordinate(ptPos)) {
                     WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
                 }
-                ptStops.push_back(std::make_shared<NBPTStop>(toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
+                SumoXMLTag element = isRailway(n->permissions) ? SUMO_TAG_TRAIN_STOP : SUMO_TAG_BUS_STOP;
+                ptStops.push_back(std::make_shared<NBPTStop>(element, toString(n->id), ptPos, id, toString(e->id), n->ptStopLength, n->name, n->permissions));
                 sc.insert(ptStops.back());
             }
         }
@@ -2682,7 +2684,8 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     if (!NBNetBuilder::transformCoordinate(ptPos)) {
                         WRITE_ERRORF("Unable to project coordinates for node '%'.", n->id);
                     }
-                    ptStop = std::make_shared<NBPTStop>(toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
+                    SumoXMLTag element = isRailway(n->permissions) ? SUMO_TAG_TRAIN_STOP : SUMO_TAG_BUS_STOP;
+                    ptStop = std::make_shared<NBPTStop>(element, toString(n->id), ptPos, "", "", n->ptStopLength, n->name, n->permissions);
                     myNBPTStopCont->insert(ptStop);
                     if (myStopAreas.count(n->id)) {
                         ptStop->setIsMultipleStopPositions(false, myStopAreas[n->id]);

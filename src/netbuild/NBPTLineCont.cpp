@@ -254,7 +254,7 @@ NBPTLineCont::findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEd
                 // check if an alternative stop already exists
                 std::shared_ptr<NBPTStop> newStop = sc.findStop(wayID, stop->getPosition());
                 if (newStop == nullptr) {
-                    newStop = std::make_shared<NBPTStop>(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
+                    newStop = std::make_shared<NBPTStop>(stop->getElement(), stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
                     newStop->setEdgeId(best->getID(), ec);  // trigger lane assignment
                     sc.insert(newStop);
                 }

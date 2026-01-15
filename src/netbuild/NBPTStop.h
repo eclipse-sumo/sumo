@@ -53,13 +53,17 @@ public:
     * @param[in] color ptStop color
     * @param[in] givenStartPos Loaded startPos (and implicit endPos) that should not be adapted
     */
-    NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
+    NBPTStop(SumoXMLTag tag, std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length, std::string name,
              SVCPermissions svcPermissions, double parkingLength = 0, const RGBColor color = RGBColor(false), double givenStartPos = -1);
 
     /// @brief Destructor
     virtual ~NBPTStop() {};
 
     std::string getID() const;
+
+    SumoXMLTag getElement() const {
+        return myTag;
+    }
 
     const std::string& getEdgeId() const;
 
@@ -198,6 +202,7 @@ private:
     bool myIsMultipleStopPositions;
     long long int myAreaID;
     double myGivenStartPos;
+    SumoXMLTag myTag;
 
 private:
     /// @brief Invalidated assignment operator.
