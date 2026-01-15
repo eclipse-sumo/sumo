@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:20 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-01-15T12:11:49.972034+01:00 by Eclipse SUMO netconvert v1_25_0+0976-3f75f4984c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,14 +39,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="2161757200" name="Leisewitzstraße" lane="25290479#1_0" startPos="91.19" endPos="116.19" friendlyPos="true" lines="2"/>
+    <trainStop id="2161757200" name="Leisewitzstraße" lane="25290479#1_0" startPos="91.19" endPos="116.19" friendlyPos="true" lines="2"/>
     <busStop id="302112841" name="Bürgerpark" lane="33289080_0" startPos="59.47" endPos="74.47" friendlyPos="true" lines="420"/>
     <busStop id="309922823" name="Bürgerpark" lane="320432219#0_0" startPos="18.55" endPos="33.55" friendlyPos="true" lines="420"/>
-    <busStop id="3153581347" name="Heinrich-Büssing-Ring" lane="310144574#1_0" startPos="242.63" endPos="267.63" friendlyPos="true" lines="2 1"/>
-    <busStop id="3153581348" name="Heinrich-Büssing-Ring" lane="310003023#0_0" startPos="124.90" endPos="149.90" friendlyPos="true" lines="2 1"/>
-    <busStop id="3155095015" name="Leisewitzstraße" lane="310143559#1_0" startPos="91.13" endPos="116.13" friendlyPos="true" lines="2"/>
-    <busStop id="3156641197" name="Bürgerpark" lane="310264604_0" startPos="28.86" endPos="53.86" friendlyPos="true" lines="2 1"/>
-    <busStop id="3156641198" name="Jahnplatz" lane="393236369_0" startPos="402.21" endPos="427.21" friendlyPos="true" lines="2 1"/>
-    <busStop id="3372476419" name="Jahnplatz" lane="393236370_0" startPos="74.57" endPos="99.57" friendlyPos="true" lines="2 1"/>
-    <busStop id="51519930" name="Bürgerpark" lane="26811659#0_0" startPos="44.10" endPos="69.10" friendlyPos="true" lines="2 1"/>
+    <trainStop id="3153581347" name="Heinrich-Büssing-Ring" lane="310144574#1_0" startPos="242.63" endPos="267.63" friendlyPos="true" lines="2 1"/>
+    <trainStop id="3153581348" name="Heinrich-Büssing-Ring" lane="310003023#0_0" startPos="124.90" endPos="149.90" friendlyPos="true" lines="2 1"/>
+    <trainStop id="3155095015" name="Leisewitzstraße" lane="310143559#1_0" startPos="91.13" endPos="116.13" friendlyPos="true" lines="2"/>
+    <trainStop id="3156641197" name="Bürgerpark" lane="310264604_0" startPos="28.86" endPos="53.86" friendlyPos="true" lines="2 1"/>
+    <trainStop id="3156641198" name="Jahnplatz" lane="393236369_0" startPos="402.21" endPos="427.21" friendlyPos="true" lines="2 1"/>
+    <trainStop id="3372476419" name="Jahnplatz" lane="393236370_0" startPos="74.57" endPos="99.57" friendlyPos="true" lines="2 1"/>
+    <trainStop id="51519930" name="Bürgerpark" lane="26811659#0_0" startPos="44.10" endPos="69.10" friendlyPos="true" lines="2 1"/>
 </additional>
