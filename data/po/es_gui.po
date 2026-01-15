@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-14 09:37+0000\n"
+"PO-Revision-Date: 2026-01-15 13:08+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2-dev\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -12916,7 +12916,7 @@ msgstr "Abrir diálogo de elemento"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Open specific element edit dialog"
-msgstr ""
+msgstr "Abrir el diálogo de edición del elemento específico"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:92
 msgid "Open help attributes dialog"
@@ -12932,11 +12932,11 @@ msgstr "Editar atributos extendidos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:103
 msgid "Open dialog for edit extended attributes"
-msgstr ""
+msgstr "Abrir el diálogo para editar atributos extendidos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:107
 msgid "Open dialog for edit generic parameters"
-msgstr ""
+msgstr "Abrir el diálogo para editar parámetros genéricos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:214
 #, c-format
@@ -12952,7 +12952,7 @@ msgstr "Valor no válido '%' en el atributo %"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:568
 #, c-format
 msgid "change multiple % attributes"
-msgstr ""
+msgstr "cambiar múltiples atributos de %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:538
 #, c-format
