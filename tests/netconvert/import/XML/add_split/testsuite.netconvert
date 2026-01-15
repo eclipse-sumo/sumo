@@ -42,6 +42,9 @@ no_change_keep_node
 # do not change edge properties but add a new traffic_light node
 set_type
 
+# change type of from-node
+set_type_pos0
+
 # modify custom length in proportion so that the total custom length is preserved
 preserve_custom_length
 
