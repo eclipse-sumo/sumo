@@ -93,12 +93,12 @@ ROMARouteHandler::myEndElement(int element) {
             if (element == SUMO_TAG_FLOW) {
                 long long int flowSize = 1;
                 double flowDur = STEPS2TIME(myVehicleParameter->repetitionEnd - myVehicleParameter->depart);
-                if (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()) {
+                if (myVehicleParameter->repetitionNumber != std::numeric_limits<long long int>::max()) {
                     flowSize = myVehicleParameter->repetitionNumber;
                 } else if (myVehicleParameter->poissonRate > 0) {
-                    flowSize = (int)(flowDur * myVehicleParameter->poissonRate);
+                    flowSize = (long long int)(flowDur * myVehicleParameter->poissonRate);
                 } else if (myVehicleParameter->repetitionProbability > 0) {
-                    flowSize = (int)(flowDur * myVehicleParameter->repetitionProbability);
+                    flowSize = (long long int)(flowDur * myVehicleParameter->repetitionProbability);
                 }
                 quota = (int)((double)flowSize * myScale + 0.5);
                 myNumLoaded += flowSize;
