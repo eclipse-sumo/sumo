@@ -58,6 +58,8 @@ def get_options(args=None):
     optParser.add_argument("-i", "--keep-interval", category="processing", dest="keepInterval",
                            help="comma-separated begin an end values of interval to keep "
                                 "(deletes all non-matching elements")
+    optParser.add_argument("--remove-parent", action="store_true", default=False, dest="removeParent",
+                           help="removes the parent element if a child tag matches")
     options = optParser.parse_args(args=args)
 
     if options.values is not None:
@@ -109,6 +111,13 @@ def main(options):
                 toRemove.append((parent, node))
 
     # write modified tree
+    if options.removeParent:
+        removedParents = set([p for p, n in toRemove])
+        toRemove = []
+        for parent, node in traverseNodes(tree.getroot()):
+            if node in removedParents:
+                toRemove.append((parent, node))
+
     for parent, node in toRemove:
         parent.remove(node)
     tree.write(options.output)
