@@ -38,11 +38,36 @@
 
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// Helper function to get interpolated position on lane for mesoscopic vehicles
+static double
+getInterpolatedMesoPositionOnLane(const MEVehicle* mesoVeh) {
+    const MESegment* segment = mesoVeh->getSegment();
+    if (segment == nullptr || mesoVeh->getQueIndex() == MESegment::PARKING_QUEUE) {
+        return mesoVeh->getPositionOnLane();
+    }
+
+    const double now = SIMTIME;
+    const double intendedLeave = MIN2(mesoVeh->getEventTimeSeconds(), mesoVeh->getBlockTimeSeconds());
+    const double entry = mesoVeh->getLastEntryTimeSeconds();
+
+    // Calculate segment offset (position of segment start)
+    double segmentOffset = 0;
+    for (MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(*mesoVeh->getEdge());
+            seg != nullptr && seg != segment; seg = seg->getNextSegment()) {
+        segmentOffset += seg->getLength();
+    }
+
+    // Calculate interpolated position within segment
+    const double length = segment->getLength();
+    return segmentOffset + length * (now - entry) / (intendedLeave - entry);
+}
 void
 MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
                    SUMOTime timestep, int precision) {
@@ -132,7 +157,13 @@ MSXMLRawOut::writeVehicle(OutputDevice& of, const MSBaseVehicle& veh) {
     if (veh.isOnRoad()) {
         of.openTag("vehicle");
         of.writeAttr(SUMO_ATTR_ID, veh.getID());
-        of.writeAttr(SUMO_ATTR_POSITION, veh.getPositionOnLane());
+        // Use interpolated position for meso vehicles
+        if (MSGlobals::gUseMesoSim) {
+            const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(&veh);
+            of.writeAttr(SUMO_ATTR_POSITION, getInterpolatedMesoPositionOnLane(mesoVeh));
+        } else {
+            of.writeAttr(SUMO_ATTR_POSITION, veh.getPositionOnLane());
+        }
         of.writeAttr(SUMO_ATTR_SPEED, veh.getSpeed());
         // TODO: activate action step length output, if required
         //of.writeAttr(SUMO_ATTR_ACTIONSTEPLENGTH, veh.getActionStepLength());
