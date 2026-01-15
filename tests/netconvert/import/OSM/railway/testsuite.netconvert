@@ -53,3 +53,6 @@ S5
 
 # keep railway.rail when used for light_rail route but remove it otherwise
 mixed_traffic_filter
+
+# see #17537
+jena_tram

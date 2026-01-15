@@ -1,0 +1,35 @@
+Warning: The referenced geometry information (ref='7858090496') is not known
+Warning: The referenced geometry information (ref='571230962') is not known
+Warning: Discarding unknown compound 'usage.test' in type 'railway.tram|service.yard|usage.test' (first occurrence for edge '174755984').
+Warning: Discarding unknown compound 'bus' in type 'bus|railway.platform' (first occurrence for edge '267253636').
+Warning: Discarding unknown compound 'railway.platform' in type 'bus|railway.platform' (first occurrence for edge '267253636').
+Warning: Discarding unusable type 'bus|railway.platform' (first occurrence for edge '267253636').
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '380537118').
+Warning: Discarding unusable type 'waterway.ditch' (first occurrence for edge '617041337').
+Warning: No way found for reference '260462571' in relation '2277630'
+Warning: No way found for reference '1823271050' in relation '2277630'
+Warning: No way found for reference '260462571' in relation '2277635'
+Warning: No way found for reference '5839931353' in relation '2277635'
+Warning: No way found for reference '174775743' in relation '2335313'
+Warning: Ignoring restriction relation '2335313' with unknown from-way.
+Warning: Ignoring restriction relation '2335313' with unknown to-way.
+Warning: Ignoring restriction relation '2335314' with unknown from-way.
+Warning: Ignoring restriction relation '2335314' with unknown to-way.
+Warning: Ignoring restriction relation '2335315' with unknown from-way.
+Warning: Ignoring restriction relation '2335315' with unknown to-way.
+Warning: Ignoring restriction relation '2335316' with unknown from-way.
+Warning: Ignoring restriction relation '2335316' with unknown to-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '1987230820' (Bertolt-Brecht-Straße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590354344' (Bertolt-Brecht-Straße). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590354345' (Hugo-Schrade-Straße). Thus, it will be removed!
+Warning: Cannot assign stop 1854212875 on edge '1350384122' to pt line '3474899'. Ignoring!
+Warning: Cannot assign stop 1854212875 on edge '1350384122' to pt line '3474911'. Ignoring!
+Warning: First stop edge '1350384122' is not part of the route of line '3474899'.
+Warning: Edge sequence is not consistent with stop sequence in line '3474899', not adding bidi edges.
+Warning: First stop edge '1350384122' is not part of the route of line '3474911'.
+Warning: Edge sequence is not consistent with stop sequence in line '3474911', not adding bidi edges.
+Warning: Converting invalid rail_crossing to priority junction '1839033754'.
+Warning: Converting invalid rail_crossing to priority junction '1839997596'.
+Warning: Converting invalid rail_crossing to priority junction '1839997600'.
+Warning: Converting invalid rail_crossing to priority junction '2470156337'.
+Warning: 12 total messages of type: No way found for reference '%' in relation '%'

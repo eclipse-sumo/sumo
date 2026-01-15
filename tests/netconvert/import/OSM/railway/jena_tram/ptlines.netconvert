@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-15T22:52:31.857671+01:00 by Eclipse SUMO netconvert v1_25_0+0988-8821f78a678
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair.minimal value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="147373" name="Tram 3: Lobeda-Ost =&gt; Winzerla" line="3" type="tram" vClass="tram" period="600" color="127,95,0" completeness="0.13" missingBefore="13">
+        <route edges="23784729 173172695#0 173172695#1 173172695#2 194083386 1466597378 239203105 239203103 239203108"/>
+        <busStop id="1839997617" name="Freizeitbad"/>
+        <busStop id="-262490611" name="Winzerla"/>
+    </ptLine>
+    <ptLine id="147471" name="Tram 2: Jena-Ost =&gt; Winzerla" line="2" type="tram" vClass="tram" period="600" color="250,183,27" completeness="0.13" missingBefore="13">
+        <route edges="1444594663 1444594665 194083383 194083386 1466597378 239203105 194083387 1350384122"/>
+        <busStop id="1839997637" name="Enver-Şimşek-Platz"/>
+        <busStop id="-1854212875" name="Winzerla"/>
+    </ptLine>
+    <ptLine id="3474899" name="Tram 3: Winzerla =&gt; Lobeda-Ost" line="3" type="tram" vClass="tram" period="600" color="127,95,0" completeness="0.13" missingAfter="13">
+        <route edges="239203102 239203107 239203106 1466597379 194083384 194083389#0 194083389#1 194083393"/>
+        <busStop id="1854212875" name="Winzerla"/>
+        <busStop id="262490610" name="Freizeitbad"/>
+    </ptLine>
+    <ptLine id="3474911" name="Tram 2: Winzerla =&gt; Jena-Ost" line="2" type="tram" vClass="tram" period="600" color="250,183,27" completeness="0.12" missingAfter="14">
+        <route edges="239203102 239203107 239203106 1466597379 194083384 617839409#0 617839409#1 617839409#2 1444594664 1444594662"/>
+        <busStop id="1854212875" name="Winzerla"/>
+        <busStop id="1839997638" name="Enver-Şimşek-Platz"/>
+    </ptLine>
+</ptLines>
