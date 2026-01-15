@@ -1,0 +1,8 @@
+<routes>
+    <trip depart="106014.82" departLane="best" departSpeed="max" id="100612522_100340936_312_0" to="30429265#2" type="medium" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-B-4.private"/>
+    </trip>
+    <trip depart="107052.00" departLane="best" departSpeed="max" id="100044898_100028734_339_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmbode-B-4.private"/>
+    </trip>
+</routes>
