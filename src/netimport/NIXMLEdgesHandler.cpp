@@ -521,7 +521,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             WRITE_ERRORF(TL("Invalid split node id for edge '%' (from- and to-node are forbidden)"), myCurrentEdge->getID());
             return;
         }
-        e.node = myNodeCont.retrieve(nodeID);
+        e.node = e.pos != 0 ? myNodeCont.retrieve(nodeID) : myCurrentEdge->getFromNode();
         e.offset = attrs.getOpt(SUMO_ATTR_OFFSET, nullptr, ok, 0.0);
         e.offsetFactor = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
         if (e.node == nullptr) {
