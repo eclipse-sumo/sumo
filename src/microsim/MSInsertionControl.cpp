@@ -227,9 +227,11 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             typeScale = vtype->getParameter().scale;
         }
         const double scale = vehControl.getScale() * typeScale;
+        const long long int scaledRepetitions = pars->repetitionNumber == std::numeric_limits<long long int>::max() ? std::numeric_limits<long long int>::max() :
+                                                (long long int)((double)pars->repetitionNumber * scale + 0.5);
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while (scale > 0 && ((pars->repetitionProbability < 0
-                              && pars->repetitionsDone < pars->repetitionNumber * scale
+                              && pars->repetitionsDone < scaledRepetitions
                               && pars->depart + pars->repetitionTotalOffset <= time)
                              || (tryEmitByProb
                                  && pars->depart <= time
@@ -285,9 +287,7 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
             }
             vtype = nullptr;
         }
-        if (time >= pars->repetitionEnd ||
-                (pars->repetitionNumber != std::numeric_limits<long long int>::max()
-                 && pars->repetitionsDone >= (long long int)(pars->repetitionNumber * scale + 0.5))) {
+        if (time >= pars->repetitionEnd || pars->repetitionsDone >= scaledRepetitions) {
             i = myFlows.erase(i);
             MSRoute::checkDist(pars->routeid);
             delete pars;
