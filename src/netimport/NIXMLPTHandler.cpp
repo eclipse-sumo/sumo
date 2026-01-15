@@ -150,7 +150,7 @@ NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
     double endPos = attrs.get<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok);
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
-    //const std::string lines = attrs.get<std::string>(SUMO_ATTR_LINES, id.c_str(), ok);
+    const std::string lines = attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "");
     const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
     std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
@@ -204,6 +204,9 @@ NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
                 edge = split.first->getID() == myCurrentStop->getEdgeId() ? split.first : split.second;
                 edgeID = edge->getID();
             }
+        }
+        for (const std::string& line : StringTokenizer(lines).getVector()) {
+            myCurrentStop->addLine(line);
         }
         if (!myStopCont.insert(myCurrentStop)) {
             WRITE_ERRORF(TL("Could not add public transport stop '%' (already exists)"), id);
