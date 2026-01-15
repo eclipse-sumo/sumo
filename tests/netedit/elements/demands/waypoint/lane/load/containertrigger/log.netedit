@@ -1,9 +1,15 @@
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
 Error: Attribute 'containerTriggered' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Warning: Attributes 'speed' and 'containerTriggered' cannot be loaded simultaneously. Ignoring 'containerTriggered'
 Error: Loading of 'input_routes_A.rou.xml' failed.
