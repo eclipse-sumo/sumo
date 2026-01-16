@@ -1,4 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml' ... done (1ms).
+Parsing sumo-net from 'input_net.net.xml' ... done (0ms).
 Parsing public transport stops from 'input_ptstops.xml' ... done.
 Parsing public transport lines from 'input_ptlines.xml' ... done.
  Import done:
@@ -9,7 +9,7 @@ Processing public transport stops ... done (0ms).
 Revising public transport stops based on pt lines ... done (0ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Added 2 bidi-edges for public transport stops and a total of 3 bidi-edges to ensure connectivity of stops (0 stops remain disconnected)
-DijkstraRouter answered 3 queries and explored 5.67 edges on average.
+DijkstraRouter answered 1 queries and explored 8.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Found 6 railway edges and 4 railway nodes (0 signals).
 Railway nodes by number of incoming,outgoing edges:
@@ -18,18 +18,18 @@ Railway nodes by number of incoming,outgoing edges:
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 3 bidirectional rail edges
-Removing empty nodes ... done (0ms).
+Removing empty nodes ... done (2ms).
    6 nodes removed.
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (0ms).
+Computing approaching lanes ... done (1ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
@@ -53,5 +53,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.00,-100.00,200.00,-100.00
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (0ms).
 Success.

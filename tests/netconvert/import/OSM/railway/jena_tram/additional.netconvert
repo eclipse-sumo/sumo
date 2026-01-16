@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-15T22:52:31.857568+01:00 by Eclipse SUMO netconvert v1_25_0+0988-8821f78a678
+<!-- generated on 2026-01-16T10:51:39.336666+01:00 by Eclipse SUMO netconvert v1_25_0+0995-1363e65118a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,8 +43,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="-1854212875" name="Winzerla" lane="-1350384122_0" startPos="0.00" endPos="25.00" friendlyPos="true"/>
-    <trainStop id="-262490611" name="Winzerla" lane="-239203108_0" startPos="0.00" endPos="25.00" friendlyPos="true"/>
     <trainStop id="11042335374" name="Winzerla" lane="1466597378_0" startPos="99.65" endPos="124.65" friendlyPos="true"/>
     <trainStop id="1839997617" name="Freizeitbad" lane="23784729_0" startPos="90.85" endPos="115.85" friendlyPos="true" lines="3"/>
     <trainStop id="1839997637" name="Enver-Şimşek-Platz" lane="1444594665_0" startPos="42.57" endPos="67.57" friendlyPos="true" lines="2"/>
