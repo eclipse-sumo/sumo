@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-15 13:08+0000\n"
+"PO-Revision-Date: 2026-01-16 08:20+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8648,7 +8648,7 @@ msgstr "La posición sobre el carril donde se colocará el % (en metros)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7971
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
-msgstr ""
+msgstr "Detectar personas en lugar de vehículos (peatones o pasajeros)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7982
 #, c-format
@@ -8696,7 +8696,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8035
 #: src/netedit/GNETagPropertiesDatabase.cpp:8041
 msgid "The probability when being added to a distribution"
-msgstr ""
+msgstr "La probabilidad al ser agregado a una distribución"
 
 #: src/netedit/GNEUndoList.cpp:469
 msgid "Disabled undo"
@@ -13015,7 +13015,7 @@ msgstr "- Largo: "
 
 #: src/netedit/frames/GNEDemandSelector.cpp:49
 msgid "Parent %"
-msgstr ""
+msgstr "Elemento padre %"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:67
 msgid "Parent element"
@@ -13246,7 +13246,7 @@ msgstr "Solo dos cruces están permitidos"
 
 #: src/netedit/frames/GNEPathCreator.cpp:296
 msgid "creation of path between junctions"
-msgstr ""
+msgstr "creación de un camino entre cruces"
 
 #: src/netedit/frames/GNEPathCreator.cpp:324
 #: src/netedit/frames/GNEPlanCreator.cpp:813
@@ -13259,7 +13259,7 @@ msgstr "Solo se permiten dos zonas de análisis de tráfico (TAZ)"
 
 #: src/netedit/frames/GNEPathCreator.cpp:343
 msgid "creation of path between TAZs"
-msgstr ""
+msgstr "creación de un camino entre zonas de análisis de tráfico"
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
 #: src/netedit/frames/GNEPlanCreator.cpp:755
@@ -13289,7 +13289,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:415
 msgid "creation of path between edges"
-msgstr ""
+msgstr "creación de un camino entre aristas"
 
 #: src/netedit/frames/GNEPathCreator.cpp:817
 msgid "- Selected edges: "
@@ -13703,16 +13703,20 @@ msgstr "     2. Seleccione un atributo en el segundo cuadro de entrada"
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press <return>"
 msgstr ""
+"     3. Ingrese una 'expresión de coincidencia' en el tercer campo de "
+"entrada y presione <ENTER>"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
-msgstr ""
+msgstr "- La expresión vacía coincide con todos los objetos"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:326
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number."
 msgstr ""
+"- Para atributos numéricos, la expresión de coincidencia debe consistir de "
+"un operador de comparación ('<', '>', '=') y un número."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:327
 msgid ""
@@ -13727,6 +13731,9 @@ msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string."
 msgstr ""
+"- Para atributos de cadena de texto, la expresión de coincidencia debe "
+"consistir de un operador de comparación ('*', '=', '!', '^') y una cadena de "
+"texto."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:330
 msgid ""
@@ -13736,15 +13743,15 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
-msgstr ""
+msgstr "     '=' coincide si la cadena de texto es una coincidencia exacta."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:332
 msgid "     '!' matches if string is not a substring."
-msgstr ""
+msgstr "     '!' coincide si la cadena no es una subcadena."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:333
 msgid "     '^' matches if string is not an exact match."
-msgstr ""
+msgstr "     '^' coincide si la cadena no es una coincidencia exacta."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:335
 msgid "- Examples:"
