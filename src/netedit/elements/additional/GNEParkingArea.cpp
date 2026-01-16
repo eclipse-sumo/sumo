@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNEParkingArea.cpp
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    Feb 2018
 ///
 // A lane area vehicles can park at (GNE version)
@@ -104,7 +105,7 @@ GNEParkingArea::updateGeometry() {
     // calculate length
     const double length = (myLength > 0) ? myLength : spaceDim;
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myWidth);
+    setStoppingPlaceGeometry((myOnRoad)? 0 : myWidth);
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // Move shape to side
