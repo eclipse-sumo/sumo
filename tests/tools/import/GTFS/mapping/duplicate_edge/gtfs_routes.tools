@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-16 12:26:10.454677 by Eclipse SUMO gtfs2pt.py v1_25_0+0998-cf70c324fd7
+<!-- generated on 2026-01-16 13:01:08.501164 by Eclipse SUMO gtfs2pt.py v1_25_0+0999-2f5f16dc016
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -10,7 +10,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="36232563" edges="194083373#5 308691084#3 308691084#6 308691084#8 308691084#9 308691084#12 308691084#27 308691084#31 449880366#2 239198519#0 -1336523426#1 -239198518#3 -239198518#0 -239198519#8 -762193814#14 -449880366#1 -265584619 -47054574#2 -47054575#4 -47054575#2 -47065544#3 -47065548#1 251681972#0 251681972#10 155342582#0 155342582#2 155342582#3 155342584#0 155342579 155342584#2 155342584#3 308691084#12">
+    <route id="36232563" edges="194083373#5 308691084#3 308691084#6 308691084#8 308691084#9 308691084#12">
         <stop busStop="36232563.0" duration="10" until="0"/> <!-- Jena, Spittelplatz -->
         <stop busStop="36232563.1" duration="10" until="120"/> <!-- Jena, Nordschule -->
         <stop busStop="36232563.2" duration="10" until="180"/> <!-- Jena, Scharnhorststraße -->

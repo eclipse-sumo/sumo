@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-16 12:26:10.420438 by Eclipse SUMO gtfs2pt.py v1_25_0+0998-cf70c324fd7
+<!-- generated on 2026-01-16 13:01:08.465867 by Eclipse SUMO gtfs2pt.py v1_25_0+0999-2f5f16dc016
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -11,7 +11,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <trainStop id="36232563.0" lane="194083373#5_0" startPos="470.53" endPos="495.53" friendlyPos="true" name="Jena, Spittelplatz"/>
-    <trainStop id="36232563.1" lane="251681972#10_0" startPos="23.28" endPos="48.28" friendlyPos="true" name="Jena, Nordschule"/>
+    <trainStop id="36232563.1" lane="308691084#8_0" startPos="21.17" endPos="46.17" friendlyPos="true" name="Jena, Nordschule"/>
     <trainStop id="36232563.2" lane="308691084#12_0" startPos="449.14" endPos="474.14" friendlyPos="true" name="Jena, Scharnhorststraße"/>
     <trainStop id="36232563.3" lane="308691084#12_0" startPos="680.70" endPos="705.70" friendlyPos="true" name="Jena, Kieshügel"/>
     <trainStop id="36232563.4" lane="308691084#12_0" startPos="1065.10" endPos="1090.10" friendlyPos="true" name="Jena, An der Eule"/>
