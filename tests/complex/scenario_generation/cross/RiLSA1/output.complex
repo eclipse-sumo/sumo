@@ -1,13 +1,13 @@
-Parsing nodes from 'C:\Users\behr_mi\AppData\Local\Temp\tmpf_uar_gm' ... done.
-Parsing edges from 'C:\Users\behr_mi\AppData\Local\Temp\tmp077bugco' ... done.
-Parsing connections from 'C:\Users\behr_mi\AppData\Local\Temp\tmpz6wt_q6u' ... done.
+Parsing nodes from '/tmp/tmpbwt_0au5' ... done.
+Parsing edges from '/tmp/tmpexry3rpa' ... done.
+Parsing connections from '/tmp/tmpwpu7l8ao' ... done.
  Import done:
-   21 nodes loaded.
+   13 nodes loaded.
    16 edges loaded.
 The split of edges was performed 8 times.
 Removing self-loops ... done (0ms).
 Removing empty nodes ... done (0ms).
-   8 nodes removed.
+   0 nodes removed.
 Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
@@ -23,7 +23,7 @@ Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (0ms).
+Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  1 traffic light(s) computed.
 Building inner edges ... done (0ms).
@@ -39,5 +39,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network ... done (9ms).
+Writing network ... done (0ms).
 Success.
