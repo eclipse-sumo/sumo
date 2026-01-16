@@ -1,7 +1,7 @@
 # tests for rail signals
 rail_signal
 
-# trams driving in a loop servicing stops
+# trams driving in a loop servicing stops (actually vClass rail)
 tramwayLoop
 
 # splitting and joining train parts

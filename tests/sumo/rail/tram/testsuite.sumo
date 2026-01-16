@@ -3,3 +3,6 @@ tram_road
 
 # do not perform insertion checks when there are no relevant signals in the network.
 unrelated_signals
+
+# do not perform flank checks at zipper junction
+zipper
