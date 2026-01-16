@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_25_0+0257-b3edb448106
+Eclipse SUMO sumo v1_25_0+1007-be30c3e220c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -336,6 +336,8 @@ Processing Options:
                                         yellow
   --railsignal-moving-block            Let railsignals operate in moving-block
                                         mode by default
+  --railsignal.moving-block-default-classes STR[]  List vehicle classes that
+                                        default to moving-block operations
   --railsignal.max-block-length FLOAT  Do not build blocks longer than FLOAT
                                         and issue a warning instead
   --railsignal.default-classes STR[]   List vehicle classes that uses
@@ -1063,6 +1065,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

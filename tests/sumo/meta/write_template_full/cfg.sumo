@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-08T13:11:09.419163+01:00 by Eclipse SUMO sumo v1_25_0+0257-b3edb448106
+<!-- generated on 2026-01-16T15:06:54.672053+01:00 by Eclipse SUMO sumo v1_25_0+1007-be30c3e220c
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -180,9 +180,10 @@
         <tls.actuated.detector-length value="0" type="FLOAT" help="Sets default detector length parameter for all actuation detectors"/>
         <tls.delay_based.detector-range value="100" type="FLOAT" help="Sets default range for detecting delayed vehicles"/>
         <tls.yellow.min-decel value="3" type="FLOAT" help="Minimum deceleration when braking at yellow"/>
-        <railsignal-moving-block value="false" type="BOOL" help="Let railsignals operate in moving-block mode by default"/>
+        <railsignal-moving-block value="false" synonymes="railsignal.moving-block" type="BOOL" help="Let railsignals operate in moving-block mode by default"/>
+        <railsignal.moving-block-default-classes value="tram,cable_car" type="STR[]" help="List vehicle classes that default to moving-block operations"/>
         <railsignal.max-block-length value="20000" type="FLOAT" help="Do not build blocks longer than FLOAT and issue a warning instead"/>
-        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban" type="STR[]" help="List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"/>
+        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban,subway" type="STR[]" help="List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"/>
         <time-to-impatience value="180" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
         <default.departspeed value="0" type="STR" help="Select default depart speed"/>
         <default.departlane value="first" type="STR" help="Select default depart lane"/>
@@ -546,6 +547,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
