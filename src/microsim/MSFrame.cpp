@@ -508,11 +508,14 @@ MSFrame::fillOptions() {
 
     oc.doRegister("railsignal-moving-block", new Option_Bool(false));
     oc.addDescription("railsignal-moving-block", "Processing", TL("Let railsignals operate in moving-block mode by default"));
+    oc.addSynonyme("railsignal-moving-block", "railsignal.moving-block");
+    oc.doRegister("railsignal.moving-block-default-classes", new Option_StringVector(StringVector({"tram", "cable_car"})));
+    oc.addDescription("railsignal.moving-block-default-classes", "Processing", TL("List vehicle classes that default to moving-block operations"));
 
     oc.doRegister("railsignal.max-block-length", new Option_Float(2e4));
     oc.addDescription("railsignal.max-block-length", "Processing", TL("Do not build blocks longer than FLOAT and issue a warning instead"));
 
-    oc.doRegister("railsignal.default-classes", new Option_StringVector(StringVector({"rail", "rail_fast", "rail_electric", "rail_urban"})));
+    oc.doRegister("railsignal.default-classes", new Option_StringVector(StringVector({"rail", "rail_fast", "rail_electric", "rail_urban", "subway"})));
     oc.addDescription("railsignal.default-classes", "Processing", TL("List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"));
 
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
