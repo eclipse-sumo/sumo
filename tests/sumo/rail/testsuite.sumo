@@ -25,8 +25,8 @@ rerouter
 # tests for train reversal
 reversal
 
-# tests for shared tram/car lane
-tram_road
+# test for tram specific behavior
+tram
 
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict
