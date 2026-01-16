@@ -1719,25 +1719,36 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         return true;
     }
     int subLast = (int)myForward.size() - 2;
+    if (movingBlock && myForward.back() == foe->myForward.back()) {
+        subLast++;
+    }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
         std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
     }
 #endif
     bool foundConflict = false;
+    bool flankC = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp(myOrigin, "tmp", true);
         tmp.myForward.push_back(lane);
-#ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << tmp.flankConflict(*foe) << " cc=" << tmp.crossingConflict(*foe)
-                  << " bc=" << (std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) << "\n";
-#endif
+        flankC = tmp.flankConflict(*foe);
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
-        if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) || bidiConflict) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << tmp.crossingConflict(*foe) << " bc=" << bidiConflict << "\n";
+#endif
+        if (flankC || tmp.crossingConflict(*foe) || bidiConflict) {
             foundConflict = true;
             if (!movingBlock || bidiConflict) {
                 break;
+            }
+            if ((flankC && lane->getFromJunction()->getType() == SumoXMLNodeType::ZIPPER)
+                    || (!flankC && lane->getToJunction()->getType() == SumoXMLNodeType::ZIPPER)) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+                std::cout << "     ignored movingBlock zipperConflict\n";
+#endif
+                foundConflict = false;
             }
         } else if (foundConflict) {
             break;
@@ -1745,7 +1756,12 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         subLast--;
     }
     if (subLast < 0) {
-        if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
+        if (movingBlock && flankC) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+#endif
+            return false;
+        } else if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
             // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
             foe->myFoes.push_back(this);
         } else if (foe->myTerminateRoute) {
