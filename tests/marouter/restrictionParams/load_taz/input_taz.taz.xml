@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-11 17:49:38 by Eclipse SUMO netedit Version v1_22_0+1459-7f84157f7c9
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- TAZs -->
+    <taz id="taz_0" shape="-68.84,78.05 326.53,82.00 292.93,-187.84 -62.91,-126.55 -68.84,78.05" color="red">
+        <tazSource id="absBeg" weight="1.00"/>
+        <tazSink id="absBeg" weight="1.00"/>
+    </taz>
+    <taz id="taz_1" shape="2215.91,164.44 2800.64,199.76 2824.18,-182.86 2229.64,-202.49 2215.91,164.44" color="red">
+        <tazSource id="absEnd" weight="1.00"/>
+        <tazSink id="absEnd" weight="1.00"/>
+    </taz>
+</additional>
