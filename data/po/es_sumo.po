@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-15 13:08+0000\n"
+"PO-Revision-Date: 2026-01-16 08:20+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9953,7 +9953,7 @@ msgstr "Índice de carril no válido '%' para la conexión desde '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:946
 msgid "Definition of tl-logic '%' was not finished."
-msgstr ""
+msgstr "La definición de la lógica de semáforo '%' no se completó."
 
 #: src/netimport/NIImporter_SUMO.cpp:958
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:127
@@ -14091,6 +14091,8 @@ msgstr "Falta valor '%' en la arista '%'."
 msgid ""
 "The value '%' of attribute '%' should be numeric in edge '%' at time step %."
 msgstr ""
+"El valor '%' del atributo '%' debe ser numérico en la arista '%' en el "
+"instante de tiempo %."
 
 #: src/utils/xml/SUMOSAXReader.cpp:110 src/utils/xml/SUMOSAXReader.cpp:136
 msgid "Cannot read file '%'!"
@@ -14257,7 +14259,7 @@ msgstr "Todos los archivos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 msgid "All Image and Video Files"
-msgstr ""
+msgstr "Todos los archivos de imagen y video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "All Video Files"
@@ -14313,11 +14315,11 @@ msgstr "Archivos de red de SUMO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "TLS files"
-msgstr ""
+msgstr "Archivos de semáforo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "Junction files"
-msgstr ""
+msgstr "Archivos de cruces"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Edge type files"
@@ -14325,11 +14327,11 @@ msgstr "Archivos de tipos de arista"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Additional files"
-msgstr ""
+msgstr "Archivos adicionales"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "Route files"
-msgstr ""
+msgstr "Archivos de ruta"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "Edge data files"
