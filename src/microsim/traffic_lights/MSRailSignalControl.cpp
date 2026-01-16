@@ -40,6 +40,7 @@
 // ===========================================================================
 MSRailSignalControl* MSRailSignalControl::myInstance(nullptr);
 SVCPermissions MSRailSignalControl::mySignalizedClasses(SVC_UNSPECIFIED);
+SVCPermissions MSRailSignalControl::myMBClasses(SVC_UNSPECIFIED);
 
 // ===========================================================================
 // method definitions

@@ -1217,7 +1217,11 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     for (const std::string& vClassName : oc.getStringVector("railsignal.default-classes")) {
         defaultClasses |= parseVehicleClasses(vClassName);
     }
-    MSRailSignalControl::initSignalized(defaultClasses);
+    SVCPermissions mBdefaultClasses = 0;
+    for (const std::string& vClassName : oc.getStringVector("railsignal.moving-block-default-classes")) {
+        mBdefaultClasses |= parseVehicleClasses(vClassName);
+    }
+    MSRailSignalControl::initSignalized(defaultClasses, mBdefaultClasses);
 
     std::string error;
     if (!SUMOVehicleParameter::parseDepartLane(oc.getString("default.departlane"), "options", "",

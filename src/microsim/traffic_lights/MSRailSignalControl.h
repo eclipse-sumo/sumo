@@ -98,8 +98,13 @@ public:
         return (mySignalizedClasses & svc) == svc;
     }
 
-    static void initSignalized(SVCPermissions svc) {
+    static bool isMovingBlock(SVCPermissions svc) {
+        return (myMBClasses & svc) == svc;
+    }
+
+    static void initSignalized(SVCPermissions svc, SVCPermissions mbSvc) {
         mySignalizedClasses = svc;
+        myMBClasses = mbSvc;
     }
 
 protected:
@@ -143,6 +148,7 @@ private:
 
     /// @brief signalized classes
     static SVCPermissions mySignalizedClasses;
+    static SVCPermissions myMBClasses;
 
     static MSRailSignalControl* myInstance;
 

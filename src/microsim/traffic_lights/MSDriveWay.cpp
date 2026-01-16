@@ -1335,7 +1335,9 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         dw->findFlankProtection(flink, flink, dw->myBidiExtended);
     }
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
-    const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && OptionsCont::getOptions().getBool("railsignal-moving-block"));
+    const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && 
+            (OptionsCont::getOptions().getBool("railsignal-moving-block")
+             || MSRailSignalControl::isMovingBlock((*first)->getPermissions())));
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
         std::cout << SIMTIME << " buildDriveWay " << dw->myID << " link=" << (link == nullptr ? "NULL" : link->getDescription())
