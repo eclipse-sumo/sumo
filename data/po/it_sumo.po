@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-15 18:47+0000\n"
+"PO-Revision-Date: 2026-01-16 20:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -12515,7 +12515,7 @@ msgstr ""
 #: src/router/RONet.cpp:716
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
-msgstr ""
+msgstr "Usando il modo massa per % entità di % origini"
 
 #: src/router/RONet.cpp:984
 msgid ""
@@ -14392,10 +14392,14 @@ msgstr "Indicazione temporale '%' invalida per parametro '%' in % '%'."
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:675
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
+"Dimensione invalida della matrice per il tipo di veicolo '%' (necessita "
+"almeno due valori)."
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
+"Dimensioni incongruenti delle matrici della velocità (%) e quelle % (%) del "
+"tipo di veicolo '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:716
 msgid "Invalid % % given for %. Using edge end instead."
@@ -14467,6 +14471,8 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
 msgstr ""
+"Attributo di modello di guida % invalido perché impossibile di analizzare "
+"come vettore di paia di velocità e accelerazione"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1327
 msgid ""
@@ -14529,11 +14535,15 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
 msgstr ""
+"Attributo di modello di guia % invalido. Un profilo di accelerazione non può "
+"essere negativo"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
 #, c-format
 msgid "Entry '%' of % table for vType '%' cannot be parsed as 'double'"
 msgstr ""
+"Il valore '%' della matrice % del tipo di veicolo '%' non può essere "
+"analizzata come numero in virgola mobile"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1821
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1837
@@ -14631,7 +14641,7 @@ msgstr "L'analizzatore XML non poteva essere creato."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1813
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "XML files"
-msgstr ""
+msgstr "File XML"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1669
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1674
@@ -14654,78 +14664,78 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1819
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1825
 msgid "All files"
-msgstr ""
+msgstr "Tutti i file"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1673
 msgid "Plain text files"
-msgstr ""
+msgstr "File di testo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1678
 msgid "CSV files"
-msgstr ""
+msgstr "File CSV"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1683
 msgid "Open scene graph files"
-msgstr ""
+msgstr "File OpenSceneGraph"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1688
 msgid "All Image Files"
-msgstr ""
+msgstr "Tutti i file di immagini"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1689
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1715
 msgid "GIF Image"
-msgstr ""
+msgstr "Immagine GIF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1690
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1716
 msgid "BMP Image"
-msgstr ""
+msgstr "Immagine BMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1691
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1717
 msgid "XPM Image"
-msgstr ""
+msgstr "Immagine XMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1692
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "PCX Image"
-msgstr ""
+msgstr "Immagine PCX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1693
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1719
 msgid "ICO Image"
-msgstr ""
+msgstr "Immagine ICO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1694
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1720
 msgid "RGB Image"
-msgstr ""
+msgstr "Immagine RGB"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1695
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1721
 msgid "XBM Image"
-msgstr ""
+msgstr "Immagine XBM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1696
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1722
 msgid "TARGA Image"
-msgstr ""
+msgstr "Immagine TARGA"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1697
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 msgid "PNG Image"
-msgstr ""
+msgstr "Immagine PNG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1698
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1724
 msgid "JPEG Image"
-msgstr ""
+msgstr "Immagine JPEG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1699
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1725
 msgid "TIFF Image"
-msgstr ""
+msgstr "Immagine TIFF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1700
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1726
@@ -14763,23 +14773,23 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 msgid "All Image and Video Files"
-msgstr ""
+msgstr "Tutti i file immagine e video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "All Video Files"
-msgstr ""
+msgstr "Tutti i file video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 msgid "G264 Video"
-msgstr ""
+msgstr "Video G264"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1713
 msgid "HEVC Video"
-msgstr ""
+msgstr "Video HEVC"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1714
 msgid "MP4 Video"
-msgstr ""
+msgstr "Video MP4"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1731
 msgid "Portable"
