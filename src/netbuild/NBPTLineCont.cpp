@@ -126,7 +126,9 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         return;
     }
     std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
+    std::vector<bool> stopsRevised;
     for (std::shared_ptr<NBPTStop> stop : stops) {
+        stopsRevised.push_back(false);
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -176,9 +178,9 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
 
         std::string edgeId = stop->getEdgeId();
         NBEdge* current = ec.getByID(edgeId);
-        int assignedTo = edgeId.at(0) == '-' ? BWD : FWD;
+        int assignedDir = edgeId.at(0) == '-' ? BWD : FWD;
 
-        if (dir != assignedTo) {
+        if (dir != assignedDir) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
                 WRITE_WARNINGF(TL("Could not re-assign PT stop '%', probably broken osm file."), stop->getID());
@@ -195,7 +197,9 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
             stop->setEdgeId(reverse->getID(), ec);
         }
         stop->addLine(line->getRef());
+        stopsRevised.back() = true;
     }
+    line->setRevised(stopsRevised);
 }
 
 
