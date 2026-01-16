@@ -109,7 +109,7 @@ GNEParkingArea::updateGeometry() {
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // Move shape to side
-    tmpShape.move2side(1.5 * offsetSign + myWidth);
+    tmpShape.move2side(offsetSign * (1.5 + myWidth));
     // Get position of the sign
     mySymbolPosition = tmpShape.getLineCenter();
     // clear LotSpaceDefinitions
