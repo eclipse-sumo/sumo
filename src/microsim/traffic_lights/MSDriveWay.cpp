@@ -54,8 +54,9 @@
 //#define DEBUG_HELPER(obj) ((obj)->getID() == "")
 //#define DEBUG_HELPER(obj) (true)
 
-//#define DEBUG_COND_DW (dw->myNumericalID == 5)
-#define DEBUG_COND_DW (false)
+#define DEBUG_DW_ID ""
+#define DEBUG_COND_DW (dw->getID() == DEBUG_DW_ID || DEBUG_DW_ID == std::string("ALL"))
+#define DEBUG_COND_DW2 (getID() == DEBUG_DW_ID || DEBUG_DW_ID == std::string("ALL"))
 
 // ===========================================================================
 // static value definitions
@@ -910,7 +911,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
     const std::string warnID = origin ? "rail signal " + getClickableTLLinkID(origin) : "insertion lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    gDebugFlag4 = DEBUG_COND_DW;
+    gDebugFlag4 = DEBUG_COND_DW2;
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
