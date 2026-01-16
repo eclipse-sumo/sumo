@@ -92,6 +92,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
+    #debug = True
     result = ()
     paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
     lastPos = None
@@ -133,12 +134,14 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 minPath = None
                 for path, (dist, lastBase) in paths.items():
                     if debug:
-                        print("*** extending path %s by edge '%s'" % ([e.getID() for e in path], edge.getID()))
+                        print("*** extending path %s by edge '%s' (d=%s)" % ([e.getID() for e in path], edge.getID(), d))
                         print("              lastBase: %.2f, base: %.2f, advance: %.2f, old dist: %.2f, minDist: %.2f" %
                               (lastBase, base, advance, dist, minDist))
                     if dist < minDist:
                         if edge == path[-1] and base > lastBase:
                             pathLength = base - lastBase
+                            if fastest:
+                                pathLength /= edge.getSpeed()
                             baseDiff = advance - pathLength
                             extension = ()
                             if debug:
