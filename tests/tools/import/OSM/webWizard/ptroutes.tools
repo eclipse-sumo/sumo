@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-17 18:09:48.548147 by Eclipse SUMO osmWebWizard.py v1_25_0+1034-0b0d78f35d9
+<!-- generated on 2026-01-17 20:46:37.273239 by Eclipse SUMO osmWebWizard.py v1_25_0+1037-3f3c69d38f8
 <configuration>
-    <net-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/osm.net.xml.gz"/>
-    <ptlines-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
-    <ptstops-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
-    <output-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
-    <stopinfos-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/stopinfos.xml"/>
-    <routes-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/vehroutes.xml"/>
-    <trips-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan180944.1889825/tools/import/OSM/webWizard/test/trips.trips.xml"/>
+    <net-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/osm.net.xml.gz"/>
+    <ptlines-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/osm_ptlines.xml"/>
+    <ptstops-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/osm_stops.add.xml"/>
+    <output-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/osm_pt.rou.xml"/>
+    <stopinfos-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/stopinfos.xml"/>
+    <routes-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/vehroutes.xml"/>
+    <trips-file value="/home/erdm_ja/.texttest/tmp/tools.17Jan204630.1942070/tools/import/OSM/webWizard/test/trips.trips.xml"/>
     <end value="900.0"/>
     <min-stops value="0"/>
     <extend-to-fringe value="True"/>
@@ -405,22 +405,22 @@
     <route id="pt_tram_M1:0" color="238,102,0" edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1" >
         <stop busStop="247603398" duration="20" until="40.0"/> <!-- Am Kupfergraben -->
         <stop busStop="1673526976" duration="20" until="99.0"/> <!-- Georgenstraße/Am Kupfergraben -->
-        <stop busStop="1823298700" duration="20" until="203.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="30731700" duration="20" until="356.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="1668717159" duration="20" until="447.0"/> <!-- S Oranienburger Straße -->
-        <stop busStop="963600646" duration="20" until="511.0"/> <!-- Monbijouplatz -->
-        <stop busStop="1633759766" duration="20" until="608.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="1662153916" duration="20" until="674.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="1823298700" duration="20" until="197.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="30731700" duration="20" until="350.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="1668717159" duration="20" until="441.0"/> <!-- S Oranienburger Straße -->
+        <stop busStop="963600646" duration="20" until="505.0"/> <!-- Monbijouplatz -->
+        <stop busStop="1633759766" duration="20" until="602.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="1662153916" duration="20" until="668.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_tram_M1:1" color="238,102,0" edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 195411594#2 195411594#1 195411594#0 165409971#1 165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1" >
         <stop busStop="247603398" duration="20" until="72.0"/> <!-- Am Kupfergraben -->
         <stop busStop="1673526976" duration="20" until="132.0"/> <!-- Georgenstraße/Am Kupfergraben -->
-        <stop busStop="1823298700" duration="20" until="259.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="30731700" duration="20" until="447.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="1668717159" duration="20" until="523.0"/> <!-- S Oranienburger Straße -->
-        <stop busStop="963600646" duration="20" until="587.0"/> <!-- Monbijouplatz -->
-        <stop busStop="1633759766" duration="20" until="684.0"/> <!-- S Hackescher Markt -->
-        <stop busStop="1662153916" duration="20" until="750.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
+        <stop busStop="1823298700" duration="20" until="253.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="30731700" duration="20" until="441.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="1668717159" duration="20" until="517.0"/> <!-- S Oranienburger Straße -->
+        <stop busStop="963600646" duration="20" until="581.0"/> <!-- Monbijouplatz -->
+        <stop busStop="1633759766" duration="20" until="678.0"/> <!-- S Hackescher Markt -->
+        <stop busStop="1662153916" duration="20" until="744.0"/> <!-- U Weinmeisterstraße/Gipsstraße -->
     </route>
     <route id="pt_tram_M1:2" color="238,102,0" edges="153537614#0 153537614#1 153537614#2 153522303#0 153522303#1 46140393 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#1 154321040#2 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 195411601#1 195411601#0 22820560#2 22820560#1 22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014233#0 144014233#1 144014230#0 144014230#1 144014230#2 144014230#4" >
         <stop busStop="1668497956" duration="20" until="85.0"/> <!-- S Hackescher Markt -->
@@ -437,10 +437,10 @@
         <stop busStop="1661927028" duration="20" until="147.0"/> <!-- Monbijouplatz -->
         <stop busStop="1862699772" duration="20" until="219.0"/> <!-- S Oranienburger Straße -->
         <stop busStop="1668685086" duration="20" until="282.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="990017251" duration="20" until="356.0"/> <!-- U Oranienburger Tor -->
-        <stop busStop="247600965" duration="20" until="454.0"/> <!-- S+U Friedrichstraße -->
-        <stop busStop="3922258748" duration="20" until="625.0"/> <!-- Universitätsstraße -->
-        <stop busStop="247603398" duration="20" until="688.0"/> <!-- Am Kupfergraben -->
+        <stop busStop="990017251" duration="20" until="353.0"/> <!-- U Oranienburger Tor -->
+        <stop busStop="247600965" duration="20" until="451.0"/> <!-- S+U Friedrichstraße -->
+        <stop busStop="3922258748" duration="20" until="622.0"/> <!-- Universitätsstraße -->
+        <stop busStop="247603398" duration="20" until="685.0"/> <!-- Am Kupfergraben -->
     </route>
     <route id="pt_tram_M2:0" color="51,255,51" edges="331114772#0 331114772#1 331114772#2 331114772#3 331114772#4 148452597#0 148452597#1 148452597#2 148458495 148458500#0 148458500#1" >
         <stop busStop="1840333892" duration="20" until="74.0"/> <!-- Memhardstraße -->
@@ -595,11 +595,11 @@
         <param key="name" value="S-Bahnlinie S7: Potsdam Hauptbahnhof =&gt; Ahrensfelde"/>
         <param key="completeness" value="0.10"/>
     </flow>
-    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="1420.0" end="2320.0" period="1200" line="M1:0" >
+    <flow id="pt_tram_M1:0" type="pt_tram" route="pt_tram_M1:0" begin="1426.0" end="2326.0" period="1200" line="M1:0" >
         <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße"/>
         <param key="completeness" value="0.28"/>
     </flow>
-    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="1427.0" end="2327.0" period="1200" line="M1:1" >
+    <flow id="pt_tram_M1:1" type="pt_tram" route="pt_tram_M1:1" begin="1433.0" end="2333.0" period="1200" line="M1:1" >
         <param key="name" value="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord"/>
         <param key="completeness" value="0.26"/>
     </flow>
@@ -607,7 +607,7 @@
         <param key="name" value="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.28"/>
     </flow>
-    <flow id="pt_tram_M1:3" type="pt_tram" route="pt_tram_M1:3" begin="1886.0" end="2786.0" period="1200" line="M1:3" >
+    <flow id="pt_tram_M1:3" type="pt_tram" route="pt_tram_M1:3" begin="1889.0" end="2789.0" period="1200" line="M1:3" >
         <param key="name" value="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben"/>
         <param key="completeness" value="0.26"/>
     </flow>
