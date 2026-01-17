@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_25_0+1007-be30c3e220c
+Eclipse SUMO sumo v1_25_0+1029-849896c54e2
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -336,7 +336,7 @@ Processing Options:
                                         yellow
   --railsignal-moving-block            Let railsignals operate in moving-block
                                         mode by default
-  --railsignal.moving-block-default-classes STR[]  List vehicle classes that
+  --railsignal.moving-block.default-classes STR[]  List vehicle classes that
                                         default to moving-block operations
   --railsignal.max-block-length FLOAT  Do not build blocks longer than FLOAT
                                         and issue a warning instead
