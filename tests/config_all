@@ -18,6 +18,10 @@ log:spent [0-9\.]+s{REPLACE spent (TIME)}
 log:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 logPrefixed:[0-9\.]+ms{REPLACE (TIME)}
 logPrefixed:[0-9\.]+s{REPLACE (TIME)}
+logSuffixed:[0-9\.]+ms{REPLACE (TIME)}
+logSuffixed:[0-9\.]+s{REPLACE (TIME)}
+logPrefixedSuffixed:[0-9\.]+ms{REPLACE (TIME)}
+logPrefixedSuffixed:[0-9\.]+s{REPLACE (TIME)}
 errors:random.tcc.*runtime error
 errors:UTFDataFormatException
 errors:exceeded byte limit
