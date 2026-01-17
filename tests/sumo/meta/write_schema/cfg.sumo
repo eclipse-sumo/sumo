@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-17T17:43:51.133210+01:00 by Eclipse SUMO sumo v1_25_0+1029-849896c54e2
+<!-- generated on 2026-01-17T17:50:02.689537+01:00 by Eclipse SUMO sumo v1_25_0+1031-30c9dee08ac
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -210,6 +210,7 @@
             <xsd:element name="tls.yellow.min-decel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-moving-block" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.moving-block.default-classes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="railsignal.moving-block.max-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.default-classes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>

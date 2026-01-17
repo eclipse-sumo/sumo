@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-17T17:43:51.150333+01:00 by Eclipse SUMO sumo v1_25_0+1029-849896c54e2
+<!-- generated on 2026-01-17T17:50:02.717912+01:00 by Eclipse SUMO sumo v1_25_0+1031-30c9dee08ac
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -509,6 +509,9 @@
 
         <!-- List vehicle classes that default to moving-block operations -->
         <railsignal.moving-block.default-classes value="tram,cable_car" type="STR[]"/>
+
+        <!-- Maximum signal distance above which zipper conflicts are ignored -->
+        <railsignal.moving-block.max-dist value="200" type="FLOAT"/>
 
         <!-- Do not build blocks longer than FLOAT and issue a warning instead -->
         <railsignal.max-block-length value="20000" type="FLOAT"/>
