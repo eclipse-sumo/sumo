@@ -1020,7 +1020,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
             if ((next != end && &link->getLane()->getEdge() == *next)
                     && isRailwayOrShared(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
-                if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0) {
+                if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0 && link->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
                     if (link == origin) {
                         if (seekForwardSignal) {
                             WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
