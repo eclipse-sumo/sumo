@@ -46,7 +46,7 @@ def get_options():
                     help="the vehicle class that restricts which junctions are considered")
     ap.add_argument("-t", "--junction-type", dest="junctionType", default="rail_signal",
                     help="the new junction type for rail/rail crossings")
-    ap.add_argument("-k", "--keep-junction-type", dest="keepJunctionType", default="traffic_light,traffic_light_unregulated,rail_signal,zipper",
+    ap.add_argument("-k", "--keep-junction-type", dest="keepJunctionType", default="traffic_light,traffic_light_unregulated,rail_signal",
                     help="the new junction type for rail/rail crossings")
     ap.add_argument("-e", "--end-offset", dest="endOffset", type=float, default=0,
                     help="move back the stop line from the crossing")
@@ -78,7 +78,7 @@ def main(options):
         nIn = len(node.getIncoming())
         nOut = len(node.getOutgoing())
         nBidi = len([e for e in node.getIncoming() + node.getOutgoing() if e.getBidi() is not None]) / 2
-        if nIn >= 2 and nOut >= 2 and ((nIn + nOut - nBidi) >= 4):
+        if nIn >= 2 and nOut >= 1 and ((nIn + nOut - nBidi) >= 3):
             if node.getType() in options.keepJunctionType:
                 skipped[node.getType()] += 1
                 continue
