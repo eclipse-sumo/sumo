@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-15 21:34+0000\n"
+"PO-Revision-Date: 2026-01-17 14:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -3125,12 +3125,12 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:4503
 #, c-format
 msgid "Loading of meandata file '%' failed."
-msgstr ""
+msgstr "Ladevorgang der meandata-Datei '%' fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4506
 #, c-format
 msgid "Loading of meandata file '%' successfully."
-msgstr ""
+msgstr "Die meandata-Datei '%' wurde erfolgreich geladen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4531
 msgid "reloading meanDatas"
@@ -3154,7 +3154,7 @@ msgstr "Speichern der Nachfrageelemente fehlgeschlagen!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4608
 msgid "MeanData elements"
-msgstr ""
+msgstr "MeanData-Elemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4628
 msgid "MeanData elements file in unified file"
@@ -3166,7 +3166,7 @@ msgstr "Speichern der gesammelten MeanData-Elemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4876
 msgid "% additional elements from '%'"
-msgstr ""
+msgstr "% weitere Elemente aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4883
 msgid "% additionals from '%'."
@@ -3180,19 +3180,19 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4925
 msgid "% demand elements from '%'"
-msgstr ""
+msgstr "% Nachfrageelemente aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4932
 msgid "% demand elements from '%'."
-msgstr ""
+msgstr "% Nachfrageelemente aus '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "% data elements from '%'"
-msgstr ""
+msgstr "% Datenelemente aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4980
 msgid "% data elements from '%'."
-msgstr ""
+msgstr "% Datenelemente aus '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4991
 #: src/netedit/GNEApplicationWindow.cpp:5039
