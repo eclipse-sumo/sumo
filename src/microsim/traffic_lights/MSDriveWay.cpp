@@ -64,6 +64,7 @@
 int MSDriveWay::myGlobalDriveWayIndex(0);
 std::set<const MSEdge*> MSDriveWay::myBlockLengthWarnings;
 bool MSDriveWay::myWriteVehicles(false);
+double MSDriveWay::myMovingBlockMaxDist(1e10);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myDepartureDriveways;
@@ -79,6 +80,7 @@ std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 void
 MSDriveWay::init() {
     myWriteVehicles = OptionsCont::getOptions().isSet("railsignal-vehicle-output");
+    myMovingBlockMaxDist = OptionsCont::getOptions().getFloat("railsignal.moving-block.max-dist");
 }
 
 // ===========================================================================
@@ -1729,6 +1731,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #endif
     bool foundConflict = false;
     bool flankC = false;
+    bool zipperC = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp(myOrigin, "tmp", true);
@@ -1745,11 +1748,13 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             }
             if (((flankC && lane->getFromJunction()->getType() == SumoXMLNodeType::ZIPPER)
                     || (!flankC && lane->getToJunction()->getType() == SumoXMLNodeType::ZIPPER))
-                    && isDepartDriveway()) {
+                    && (isDepartDriveway()
+                        || getForwardDistance(flankC ? subLast - 1 : subLast) > myMovingBlockMaxDist)) {
+                zipperC = true;
+                foundConflict = false;
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
                 std::cout << "     ignored movingBlock zipperConflict\n";
 #endif
-                foundConflict = false;
             }
         } else if (foundConflict) {
             break;
@@ -1757,7 +1762,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         subLast--;
     }
     if (subLast < 0) {
-        if (movingBlock && flankC) {
+        if (movingBlock && zipperC) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
 #endif
@@ -1866,6 +1871,18 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #endif
     return true;
 }
+
+
+double
+MSDriveWay::getForwardDistance(int lastIndex) const {
+    assert(lastIndex < myForward.size());
+    double result = 0;
+    for (int i = 0; i <= lastIndex; i++) {
+        result += myForward[i]->getLength();
+    }
+    return result;
+}
+
 
 void
 MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {

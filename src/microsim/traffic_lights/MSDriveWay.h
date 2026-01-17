@@ -314,6 +314,9 @@ protected:
 
     bool haveSubTrains() const;
 
+    /// @brief compute distance along the forward section up to lastIndex
+    double getForwardDistance(int lastIndex) const;
+
     /* @brief whether the train would have matched this driveway in it's past
      * @return If matching, returns the number of edges the vehicle has gone past the start of the driveway,
      *         Indicate no-match by returning a negative value */
@@ -370,6 +373,7 @@ private:
 
     static int myGlobalDriveWayIndex;
     static bool myWriteVehicles;
+    static double myMovingBlockMaxDist;
     static std::set<const MSEdge*> myBlockLengthWarnings;
 
     /// @brief all driveways passing the given switch (used to look up flank foes)
