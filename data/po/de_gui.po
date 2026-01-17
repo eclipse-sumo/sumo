@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-17 14:29+0000\n"
+"PO-Revision-Date: 2026-01-17 14:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -3202,21 +3202,21 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:5021
 msgid "% meanData elements from '%'"
-msgstr ""
+msgstr "% meanData-Elemente aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5028
 msgid "% meanData elements from '%'."
-msgstr ""
+msgstr "% meanData-Elemente aus '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5065
 #: src/netedit/GNEApplicationWindow.cpp:5066
 msgid "% TLS programs from '%'."
-msgstr ""
+msgstr "% LSA-Programme aus '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5099
 #: src/netedit/GNEApplicationWindow.cpp:5100
 msgid "% edge types from '%'."
-msgstr ""
+msgstr "% Kantentypen aus '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
@@ -4354,10 +4354,12 @@ msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
 msgstr ""
+"Die sumo-Konfiguration '%' konnte nicht geladen werden:\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2278
 msgid "No network defined in sumo configuration '%'."
-msgstr ""
+msgstr "Die sumo-Konfiguration '%' referenziert kein Netz."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "There are invalid options in netconvert configuration '%'."
@@ -4368,6 +4370,8 @@ msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
+"Die netconvert-Konfiguration '%' konnte nicht geladen werden:\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2363
 msgid "There are invalid options in netedit configuration '%'."
@@ -4378,6 +4382,8 @@ msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
+"Die netedit-Konfigration '%' konnte nicht geladen werden:\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2485
 msgid "Element '% cannot be updateAC in bucket '%'"
@@ -4531,7 +4537,7 @@ msgstr "Sumo-Konfigurationsdatei öffnen"
 
 #: src/netedit/GNELoadThread.cpp:305
 msgid "Load netedit config"
-msgstr ""
+msgstr "Netedit-Konfiguration laden"
 
 #: src/netedit/GNELoadThread.cpp:311
 msgid "Load sumo config"
@@ -4539,7 +4545,7 @@ msgstr "Sumo-Konfiguration laden"
 
 #: src/netedit/GNELoadThread.cpp:317
 msgid "Load netconvert config"
-msgstr ""
+msgstr "Netconvert-Konfiguration laden"
 
 #: src/netedit/GNELoadThread.cpp:323
 msgid "Load additional and shapes descriptions from FILE(s)"
