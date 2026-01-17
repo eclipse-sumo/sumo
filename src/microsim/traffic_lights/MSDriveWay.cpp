@@ -1743,8 +1743,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             if (!movingBlock || bidiConflict) {
                 break;
             }
-            if ((flankC && lane->getFromJunction()->getType() == SumoXMLNodeType::ZIPPER)
-                    || (!flankC && lane->getToJunction()->getType() == SumoXMLNodeType::ZIPPER)) {
+            if (((flankC && lane->getFromJunction()->getType() == SumoXMLNodeType::ZIPPER)
+                    || (!flankC && lane->getToJunction()->getType() == SumoXMLNodeType::ZIPPER))
+                    && isDepartDriveway()) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
                 std::cout << "     ignored movingBlock zipperConflict\n";
 #endif
@@ -1764,6 +1765,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         } else if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
             // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
             foe->myFoes.push_back(this);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " foe endsOnForward\n";
+#endif
         } else if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
