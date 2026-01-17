@@ -7,6 +7,9 @@ unrelated_signals
 # do not perform flank checks at zipper junction
 zipper
 
+# do not perform flank checks at zipper junction unless there are signals directly ahead
+zipper_guarded
+
 # train insertion should try to prevent a frontal collision, 
 # driveway computation must deal with traffic lights
 # see #17546
