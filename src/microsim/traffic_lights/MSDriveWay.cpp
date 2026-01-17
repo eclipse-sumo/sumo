@@ -1738,10 +1738,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         tmp.myForward.push_back(lane);
         flankC = tmp.flankConflict(*foe);
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
+        const bool crossC = tmp.crossingConflict(*foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << tmp.crossingConflict(*foe) << " bc=" << bidiConflict << "\n";
+        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << crossC << " bc=" << bidiConflict << "\n";
 #endif
-        if (flankC || tmp.crossingConflict(*foe) || bidiConflict) {
+        if (flankC || crossC || bidiConflict) {
             foundConflict = true;
             if (!movingBlock || bidiConflict) {
                 break;
@@ -1755,12 +1756,24 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
                 std::cout << "     ignored movingBlock zipperConflict\n";
 #endif
+                if (!flankC && crossC) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+                    std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+#endif
+                    return false;
+                }
+            }
+            if (!flankC && crossC) {
+                break;
             }
         } else if (foundConflict) {
             break;
         }
         subLast--;
     }
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+    std::cout << "  subLastFina=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
+#endif
     if (subLast < 0) {
         if (movingBlock && zipperC) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
