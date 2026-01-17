@@ -513,6 +513,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal.moving-block.default-classes", new Option_StringVector(StringVector({"tram", "cable_car"})));
     oc.addDescription("railsignal.moving-block.default-classes", "Processing", TL("List vehicle classes that default to moving-block operations"));
 
+    oc.doRegister("railsignal.moving-block.max-dist", new Option_Float(200));
+    oc.addDescription("railsignal.moving-block.max-dist", "Processing", TL("Maximum signal distance above which zipper conflicts are ignored"));
+
     oc.doRegister("railsignal.max-block-length", new Option_Float(2e4));
     oc.addDescription("railsignal.max-block-length", "Processing", TL("Do not build blocks longer than FLOAT and issue a warning instead"));
 
