@@ -4,6 +4,9 @@ tram_road
 # do not perform insertion checks when there are no relevant signals in the network.
 unrelated_signals
 
+# test  subDriveways in moving-block mode
+unrelated_signals_crossing
+
 # do not perform flank checks at zipper junction
 zipper
 
