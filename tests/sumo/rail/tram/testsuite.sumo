@@ -6,3 +6,8 @@ unrelated_signals
 
 # do not perform flank checks at zipper junction
 zipper
+
+# train insertion should try to prevent a frontal collision, 
+# driveway computation must deal with traffic lights
+# see #17546
+bidi_conflict_insertion_tls
