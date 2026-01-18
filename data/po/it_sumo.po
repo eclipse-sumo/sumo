@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-16 20:13+0000\n"
+"PO-Revision-Date: 2026-01-18 12:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5322,27 +5322,36 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:139
 msgid "Timegap for ToC preparation phase."
 msgstr ""
+"Intervallo di tempo per la fase preparativa dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:141
 msgid "Additional spacing for ToC preparation phase."
 msgstr ""
+"Intervallo spaziale aggiuntivo per la fase preparativa dell'acquisizione del "
+"controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:143
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
+"Decelerazione massima applicata per creare l'intervallo maggiore nella fase "
+"preparativa all'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:145
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
+"Rata di adattamento verso l'intervallo di tempo maggiorato durante la "
+"preparazione dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:147
 msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
 msgstr ""
+"Se se deve applicare uno schema di colori per indicare le fasi differenti "
+"dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:149
 msgid "Switches on output by specifying an output filename."
