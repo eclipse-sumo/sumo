@@ -357,7 +357,7 @@ private:
         double length;
     };
 
-    std::set<SUMOVehicle*> myTrains;
+    std::set<SUMOVehicle*, ComparatorNumericalIdLess> myTrains;
 
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;

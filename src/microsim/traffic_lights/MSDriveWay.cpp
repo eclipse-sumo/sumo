@@ -2106,7 +2106,11 @@ MSDriveWay::_saveState(OutputDevice& out) const {
         out.writeAttr(SUMO_ATTR_ID, getID());
         out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
         if (!myTrains.empty()) {
-            out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+            std::vector<std::string> trainIDs;
+            for (SUMOVehicle* veh : myTrains) {
+                trainIDs.push_back(veh->getID());
+            }
+            out.writeAttr(SUMO_ATTR_VEHICLES, toString(trainIDs));
         }
         out.closeTag();
     }
