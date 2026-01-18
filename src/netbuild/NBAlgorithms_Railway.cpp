@@ -1005,12 +1005,14 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             Track* from = fromRevised ? tracks[fromEdge->getNumericalID()] : stopTracks[fromEdge].first;
             Track* to = toRevised ? tracks[toEdge->getNumericalID()] : stopTracks[toEdge].second;
             router->compute(from, to, &veh, 0, route);
+            const int iStart = fromRevised ? 0 : 1;
+            const int iDeltaEnd = toRevised ? 0 : 1;
             //if (line->getLineID() == "147373") {
             //    std::cout << "DEBUG: route=" << toString(route) << "\n";
             //}
             if (route.size() > 0) {
-                assert(route.size() > 2);
-                for (int i = 1; i < (int)route.size() - 1; ++i) {
+                assert((int)route.size() > iStart + iDeltaEnd);
+                for (int i = iStart; i < (int)route.size() - iDeltaEnd; ++i) {
                     if (route[i]->getNumericalID() >= numEdges || needBidi) {
                         NBEdge* edge = route[i]->edge;
                         if (addBidiEdges.count(edge) == 0) {
