@@ -120,6 +120,7 @@ def remap_edge(options, obj, edgeID, pos=None):
     relpos = pos / edge.getLength() if pos else 0.5
     if relpos < 0:
         relpos += 1
+    shapePos = relpos * shapelen
     x, y = gh.positionAtShapeOffset(shape, shapelen * relpos)
     x2, y2 = options.remap_xy((x, y))
 
@@ -129,11 +130,21 @@ def remap_edge(options, obj, edgeID, pos=None):
         return None, None
 
     scut = options.shapecut
-    if shapelen < scut:
-        origAngle = gh.angleTo2D(shape[0], shape[-1])
-    else:
-        origAngle = gh.angleTo2D(gh.positionAtShapeOffset(shape, shapelen * relpos - scut / 2),
-                                 gh.positionAtShapeOffset(shape, shapelen * relpos + scut / 2))
+    cutFront = 0
+    end = []
+    cutEnd = 0
+    front = []
+    if shapePos + scut < shapelen:
+        # cut off at shape rear
+        cutEnd = shapelen - (shapePos + scut)
+        shape, end = gh.splitPolygonAtLengths2D(shape, [shapePos + scut])
+    if shapePos - scut > 0:
+        # cut off at shape front
+        cutFront = shapePos - scut
+        front, shape = gh.splitPolygonAtLengths2D(shape, [shapePos - scut])
+
+    origAngle = gh.angleTo2D(shape[0], shape[-1])
+
     cands = []
     for e, d in edges:
         if e.getLength() < scut:

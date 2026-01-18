@@ -571,3 +571,8 @@ def intersectsLineSegment(p11, p12, p21, p22, withinDist=0.0, pIntersection=None
         pIntersection[0] = x
         pIntersection[1] = y
     return True
+
+
+def debugPrint(polygon, polyID):
+    """print polygon in a way that can be processed with debug2poly.py"""
+    print("%s=%s" % (polyID, ' '.join(['%s,%s' % p for p in polygon])))
