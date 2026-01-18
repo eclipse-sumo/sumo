@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-17 14:32+0000\n"
+"PO-Revision-Date: 2026-01-18 13:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -10818,15 +10818,15 @@ msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:788
 msgid "File doesn't exist"
-msgstr ""
+msgstr "Die Datei existiert nicht"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:789
 msgid "The selected file '%'"
-msgstr ""
+msgstr "Die ausgewählte Datei '%'"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:790
 msgid "doesn't exist"
-msgstr ""
+msgstr "existiert nicht"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:868
 msgid "Create New Directory"
@@ -11144,19 +11144,19 @@ msgstr "Ungültige Pläne speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:418
 msgid "Select conflicted plans"
-msgstr ""
+msgstr "Widersprüchliche Pläne auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:419
 msgid "Select conflicted plans and abort saving"
-msgstr ""
+msgstr "Widersprüchliche Pläne auswählen und nicht speichern"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:444
 msgid "delete invalid person plans"
-msgstr ""
+msgstr "ungültige Personenpläne löschen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:451
 msgid "select invalid person plans"
-msgstr ""
+msgstr "ungültige Personenpläne auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:490
 msgid "Fix demand elements problems"
@@ -11177,7 +11177,7 @@ msgstr "Speichern erfolgreich"
 
 #: src/netedit/dialogs/fix/GNEFixElementsDialog.h:240
 msgid "List of conflicted items was successfully saved"
-msgstr ""
+msgstr "Die Liste widersprüchlicher Elemente wurde erfolgreich gespeichert"
 
 #: src/netedit/dialogs/fix/GNEFixElementsDialog.h:245
 msgid "Saving list of conflicted items failed"
@@ -11199,7 +11199,7 @@ msgstr "Ungültige Kanten auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:67
 msgid "Select invalid edges and abort saving"
-msgstr ""
+msgstr "Ungültige Kanten auswählen und nicht speichern"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:92
 msgid "delete invalid edges"
@@ -11225,7 +11225,7 @@ msgstr "Ungültige Fußgängerüberwege auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:153
 msgid "Select invalid crossing and abort saving"
-msgstr ""
+msgstr "Ungültige Fußgängerfurten auswählen und nicht speichern"
 
 #: src/netedit/dialogs/fix/GNEFixNetworkElements.cpp:185
 msgid "delete invalid crossings"
@@ -11300,7 +11300,7 @@ msgstr "Auch Beschreibung durchsuchen"
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:144
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:160
 msgid "options file"
-msgstr ""
+msgstr "Optionsdatei"
 
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:347
 msgid "Could not load configuration '"
