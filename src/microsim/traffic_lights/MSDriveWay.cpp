@@ -1888,7 +1888,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 
 double
 MSDriveWay::getForwardDistance(int lastIndex) const {
-    assert(lastIndex < myForward.size());
+    assert(lastIndex < (int)myForward.size());
     double result = 0;
     for (int i = 0; i <= lastIndex; i++) {
         result += myForward[i]->getLength();

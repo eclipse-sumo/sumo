@@ -169,6 +169,7 @@ public:
     }
 
 private:
+    SumoXMLTag myTag;
     std::string myPTStopId;
     Position myPosition;
     std::string myEdgeId;
@@ -202,7 +203,6 @@ private:
     bool myIsMultipleStopPositions;
     long long int myAreaID;
     double myGivenStartPos;
-    SumoXMLTag myTag;
 
 private:
     /// @brief Invalidated assignment operator.
