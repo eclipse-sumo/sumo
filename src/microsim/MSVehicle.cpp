@@ -6352,6 +6352,10 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #endif
 
     }
+    if (myBestLanes.front().front().lane->isInternal()) {
+        // vehicle departed on an internal lane
+        startLane = myLane;
+    }
     updateOccupancyAndCurrentBestLane(startLane);
 #ifdef DEBUG_BESTLANES
     if (DEBUG_COND) {
