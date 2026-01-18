@@ -513,10 +513,13 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
         NBVehicle veh(line->getRef(), types[line->getType()]);
         std::vector<std::shared_ptr<NBPTStop> > newStops;
         std::shared_ptr<NBPTStop> from = nullptr;
+        std::vector<NBPTLine::PTStopInfo> stopInfos = line->getStopEdges(ec);
+        assert(stopInfos.size() == stops.size());
         for (auto it = stops.begin(); it != stops.end(); ++it) {
             std::shared_ptr<NBPTStop> to = *it;
             std::shared_ptr<NBPTStop> used = *it;
-            if (to->getBidiStop() != nullptr) {
+            bool isRevised = stopInfos[it - stops.begin()].revised;
+            if (to->getBidiStop() != nullptr && !isRevised) {
                 double best = std::numeric_limits<double>::max();
                 std::shared_ptr<NBPTStop> to2 = to->getBidiStop();
                 if (from == nullptr) {
