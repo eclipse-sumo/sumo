@@ -74,6 +74,8 @@ def parse_args(args=None):
 
 def getDriveWays(fname):
     for rs in sumolib.xml.parse(fname, "railSignal"):
+        if not rs.link:
+            continue
         for link in rs.link:
             if not link.driveWay:
                 continue
