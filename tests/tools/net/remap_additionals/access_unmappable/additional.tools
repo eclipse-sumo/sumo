@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-06 16:20:49.853355 by remap_additionals.py v1_22_0+0693-add122ad1be
+<!-- generated on 2026-01-18 18:18:49.165773 by Eclipse SUMO remap_additionals.py v1_25_0+1060-c70c1fb2925
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -14,8 +14,8 @@
     <!--busStop id="bs_0" lane="B3C3_0" startPos="44.23" endPos="54.23" friendlyPos="True">
         <access lane="C3B3_0" pos="49.72" friendlyPos="True"/>
     </busStop-->
-    <busStop id="bs_3" lane="27_1" startPos="17.766369571902302" endPos="69.4663695719023" friendlyPos="True">
-        <access lane="36_0" pos="9.660790048034704" friendlyPos="True"/>
+    <busStop id="bs_3" lane="27_1" startPos="17.77" endPos="69.47" friendlyPos="True">
+        <access lane="36_0" pos="9.66" friendlyPos="True"/>
         <!--access lane="C3C2_0" pos="50.20" friendlyPos="True"/-->
     </busStop>
 </additional>

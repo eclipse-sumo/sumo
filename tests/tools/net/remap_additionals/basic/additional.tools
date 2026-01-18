@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-06 16:20:49.839345 by remap_additionals.py v1_22_0+0693-add122ad1be
+<!-- generated on 2026-01-18 18:18:49.169609 by Eclipse SUMO remap_additionals.py v1_25_0+1060-c70c1fb2925
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -10,21 +10,21 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="bs_0" lane="0_1" startPos="8.292651192568712" endPos="18.292651192568712" friendlyPos="True"/>
-    <busStop id="bs_1" lane="0_1" startPos="57.81000000000002" endPos="67.81000000000002" friendlyPos="True"/>
+    <busStop id="bs_0" lane="0_1" startPos="8.29" endPos="18.29" friendlyPos="True"/>
+    <busStop id="bs_1" lane="0_1" startPos="57.81" endPos="67.81" friendlyPos="True"/>
     <!--busStop id="bs_2" lane="D2D3_0" startPos="51.98" endPos="61.98" friendlyPos="True"/-->
-    <busStop id="bs_3" lane="14_1" startPos="0.0" endPos="51.7" friendlyPos="True">
-        <access lane="22_0" pos="10.800317047353031" friendlyPos="True"/>
-        <access lane="12_0" pos="0.0" friendlyPos="True"/>
+    <busStop id="bs_3" lane="14_1" startPos="0.00" endPos="51.70" friendlyPos="True">
+        <access lane="22_0" pos="10.80" friendlyPos="True"/>
+        <access lane="12_0" pos="0.00" friendlyPos="True"/>
     </busStop>
-    <parkingArea id="pa_0" lane="5_1" startPos="34.82000549628327" endPos="64.82000549628327" roadsideCapacity="5" length="6.00" angle="45.00" friendlyPos="True"/>
-    <parkingArea id="pa_1" lane="9_1" startPos="20.736021606562197" endPos="30.73602160656221" width="2.00" length="6.00" angle="90.00" friendlyPos="True">
+    <parkingArea id="pa_0" lane="5_1" startPos="34.82" endPos="64.82" roadsideCapacity="5" length="6.00" angle="45.00" friendlyPos="True"/>
+    <parkingArea id="pa_1" lane="9_1" startPos="20.74" endPos="30.74" width="2.00" length="6.00" angle="90.00" friendlyPos="True">
         <space x="-10.12" y="144.69"/>
         <space x="-11.54" y="140.43"/>
         <space x="-11.82" y="135.74"/>
         <space x="-10.12" y="131.04"/>
     </parkingArea>
-    <inductionLoop id="e1_0" lane="16_1" pos="47.849999999999994" period="300.00" file="NUL" friendlyPos="True"/>
-    <laneAreaDetector id="e2_0" lane="26_1" pos="0.0" length="10.00" period="300.00" file="NUL" friendlyPos="True"/>
-    <laneAreaDetector id="e2_1" lanes="10_1 11_1 27_1" pos="76.14835494608975" endPos="2.5383549460897594" period="300.00" file="NUL" friendlyPos="True"/>
+    <inductionLoop id="e1_0" lane="16_1" pos="47.85" period="300.00" file="NUL" friendlyPos="True"/>
+    <laneAreaDetector id="e2_0" lane="26_1" pos="0.00" length="10.00" period="300.00" file="NUL" friendlyPos="True"/>
+    <laneAreaDetector id="e2_1" lanes="10_1 11_1 27_1" pos="76.15" endPos="2.54" period="300.00" file="NUL" friendlyPos="True"/>
 </additional>
