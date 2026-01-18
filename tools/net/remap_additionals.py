@@ -139,9 +139,11 @@ def remap_edge(options, obj, edgeID, pos=None, size=None):
         # cut off at shape rear
         cutEnd = shapelen - (shapePos + scut)
         shape, end = gh.splitPolygonAtLengths2D(shape, [shapePos + scut])
+        shapelen -= cutEnd
     if shapePos - scut > 0:
         # cut off at shape front
         cutFront = shapePos - scut
+        shapelen -= cutFront
         front, shape = gh.splitPolygonAtLengths2D(shape, [shapePos - scut])
 
     origAngle = gh.angleTo2D(shape[0], shape[-1])
