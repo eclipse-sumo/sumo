@@ -847,12 +847,7 @@ public:
     }
 
     /// @brief retrieve parameters for the energy consumption model
-    inline EnergyParams* getEmissionParameters() const {
-        if (myEnergyParams == nullptr) {
-            myEnergyParams = new EnergyParams(getVehicleType().getEmissionParameters());
-        }
-        return myEnergyParams;
-    }
+    EnergyParams* getEmissionParameters() const;
 
     /// @name Emission retrieval
     //@{

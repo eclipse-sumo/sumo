@@ -2352,6 +2352,27 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
 }
 
 
+EnergyParams*
+MSBaseVehicle::getEmissionParameters() const {
+    if (myEnergyParams == nullptr) {
+        myEnergyParams = new EnergyParams(getVehicleType().getEmissionParameters());
+        double tMass = 0;
+        if (myPersonDevice != nullptr) {
+            for (MSTransportable* t : myPersonDevice->getTransportables()) {
+                tMass += t->getVehicleType().getMass();
+            }
+        }
+        if (myContainerDevice != nullptr) {
+            for (MSTransportable* t : myContainerDevice->getTransportables()) {
+                tMass += t->getVehicleType().getMass();
+            }
+        }
+        myEnergyParams->setTransportableMass(tMass);
+    }
+    return myEnergyParams;
+}
+
+
 double
 MSBaseVehicle::getStateOfCharge() const {
     if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
