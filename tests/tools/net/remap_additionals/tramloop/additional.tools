@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-18 17:36:25.089879 by Eclipse SUMO remap_additionals.py v1_25_0+1059-02777b36fcf
+<configuration>
+    <orig-net value="net.net.xml"/>
+    <target-net value="net2.net.xml"/>
+    <additional-file value="input_additional.add.xml"/>
+    <output-file value="out.add.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="1854212875" name="Winzerla" lane="239203103#0_0" startPos="155.5305456402221" endPos="180.5305456402221" friendlyPos="True" lines="2">
+    </trainStop>
+</additional>

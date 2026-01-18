@@ -12,3 +12,6 @@ access_duplicate
 
 # when edges overlap, use vclass to resolve ambiguity in mapping
 edge_overlap_vclass
+
+# see #17556
+tramloop
