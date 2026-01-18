@@ -56,10 +56,8 @@ MFXRecentNetworks::onUpdFile(FXObject* obj, FXSelector sel, void*) {
     // get filename index
     const FXint which = FXSELID(sel) - ID_FILE_1 + 1;
     // get filename
-    const FXchar* filename;
-    FXchar key[20];
-    sprintf(key, "FILE%d", which);
-    filename = getApp()->reg().readStringEntry(getGroupName().text(), key, NULL);
+    const FXString key = FXStringFormat("FILE%d", which);
+    const FXchar* filename = getApp()->reg().readStringEntry(getGroupName().text(), key.text(), NULL);
     // update myIndexFilenames
     myIndexFilenames[which] = filename;
     // check filename
