@@ -23,3 +23,6 @@ ticket17330
 # (both streams of traffic intersect before reaching their internal junction)
 ticket17385
 ticket17480
+
+# invalid mass
+ticket17551

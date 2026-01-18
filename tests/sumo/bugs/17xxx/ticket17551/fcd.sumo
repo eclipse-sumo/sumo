@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-18T13:02:55.862002+01:00 by Eclipse SUMO sumo v1_25_0+1046-72c48d6289c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="emissions"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.03" noise="55.94"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.97" noise="64.50"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.41" noise="66.75"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="3.80" noise="64.43"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.37" noise="69.24"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="6.99" noise="66.37"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="11.54" noise="69.69"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="17.35" noise="72.87"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.27" noise="63.77"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-2.60" noise="62.65"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="8.56" noise="67.56"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-3.25" noise="62.83"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-1.76" noise="62.89"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.04" noise="63.38"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-15.32" noise="57.25"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-16.75" noise="49.37"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-6.34" noise="41.63"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="p0_0" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="-0.56" noise="51.29"/>
+    </timestep>
+    <timestep time="18.00"/>
+</fcd-export>
