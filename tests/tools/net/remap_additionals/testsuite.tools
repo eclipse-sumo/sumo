@@ -15,3 +15,6 @@ edge_overlap_vclass
 
 # see #17556
 tramloop
+
+# see #17556
+parallel_tracks
