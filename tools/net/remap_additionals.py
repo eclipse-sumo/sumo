@@ -214,7 +214,8 @@ def remap(options, obj, level=1):
             if len(posAttrs) == 0:
                 pos = None
             else:
-                pos = posAttrs[0][1]
+                positions = [av[1] for av in posAttrs]
+                pos = sum(positions) / len(positions)
                 obj.setAttribute("friendlyPos", True)
             id2, pos2 = mapper(options, obj, getattr(obj, attr), pos)
             if id2:
