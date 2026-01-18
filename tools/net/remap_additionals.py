@@ -220,7 +220,7 @@ def remap(options, obj, level=1):
             if id2:
                 obj.setAttribute(attr, id2)
                 for posAttr, posOrig in posAttrs:
-                    obj.setAttribute(posAttr, pos2 + posOrig - pos)
+                    obj.setAttribute(posAttr, "%.2f" % (pos2 + posOrig - pos))
             else:
                 print("Could not map %s on %s '%s'" % (
                     obj.name, attr, getattr(obj, attr)),
