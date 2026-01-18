@@ -171,6 +171,10 @@ public:
         return mySubDriveWays;
     }
 
+    bool foundSignal() const {
+        return myFoundSignal;
+    }
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
