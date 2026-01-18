@@ -40,6 +40,7 @@ title: ChangeLog
   - Fixed crash when running rail signal simulation with **--tls.all-off** #17516
   - Fixed bug where vehicle stops despite stop attribute `onDemand` when there is no demand #17523
   - Fixed invalid default stop startPos if endPos is defined as negative #17522
+  - Fixed unsafe train insertion when combining rail signals with traffic lights #17546
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
@@ -52,6 +53,8 @@ title: ChangeLog
   - Remove some unsupported combinations of taz/junctions for rides, transport, and tranships #17414
   - Fixed bug where paths in the configuration were absolute when they should have been relative #17446
   - Fixed problem when locking lanes #17514
+  - Trying to load waypoints with triggers now issues a warning #17534
+  - Fixed visualization of parkingArea with onRoad=true or lefthand=true #17499, #17538  
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
@@ -64,6 +67,11 @@ title: ChangeLog
 - netconvert
   - Fixed crash when removing traffic light crossing via xml input #17515
   - Negative split pos is now relative to custom edge length #17527
+  - Fixed invalid handling custom edge length when splitting at an existing node #17528
+  - Split at position 0 now sets node type #17533
+  - Elements written with **--ptstop-output** are now assigned as trainStop where appropriate #17535
+  - Elements written with **--ptstop-output** now preserve their 'lines' attribute #17530
+  - Fixed invalid busStop direction in ptline-output #17537
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
@@ -84,6 +92,9 @@ title: ChangeLog
   - tazRel2POI.py: fixed invalid error on skipped taz #17379
   - countEdgeUsage.py: Fixed invalid count for vehroute-output involving replaced routes #17401
   - sumolib.xml.parse_fast: No longer yields records for element names that start with the same string as the requested element #17403
+  - gtfs2pt.py: Fixed bug that was causing invalid stop assignments and large detours #17540
+
+- Options **--output-prefix** and **--output-suffix** can now be freely combined #17545
 
 ### Enhancements
 
@@ -95,7 +106,11 @@ title: ChangeLog
   - A warning is now given when loading personTrips with mode "public" and no public transport was loaded #2825
   - Departure on closed edge with option to ignore transient permissions (**--device.rerouting.mode 8**) now delays departure instead of raising an error #17461
   - ChargingStation attribute `totalPower` can now be used to limit the total power when charging multiple vehicles at the same time. #17173
-
+  - Tram simulation
+    - Tram simulation now defaults to moving-block mode. This can be configured with the new option **--railsignal.moving-block-default-classes** #17542
+    - Train insertion in moving-block mode ignores zipper conflicts to improve operations where when rail signals are sparse #17544  
+    - Rail signals in moving block mode ignore zipper conflicts if they are beyond 200m (configurable with new option **--railsignal.moving-block.max-dist**) #17542
+      
 - netedit
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
   - The written sumocfg now tracks network file name changes #17314
@@ -128,7 +143,7 @@ title: ChangeLog
   - edgeDataDiff.py: now include mean_abs in output #17404
   - generateDetectors.py: supports generating nextEdges attribute #17509
   - addStops2Routes.py: allows placing stops on vias #14818
-
+  - filterElements.py: Added option **--remove-parent** which filters parent element based on child attributes #17539
 
 ### Miscellaneous
 
@@ -137,7 +152,7 @@ title: ChangeLog
 - Started Korean Language translation #17420
 - add manylinux_2_28 support #16771
 - dlr-navteq output no longer defaults to option **--numerical-ids** #17520
-
+- It is no longer possible to end a rail_signal block with a traffic light (this was found to be unsafe in the context of single-track operations). Both types of signaling should only ever be combined in tram simulation which defaults to moving block so no adverse effects are expected #17542
 
 ## Version 1.25.0 (13.11.2025)
 
