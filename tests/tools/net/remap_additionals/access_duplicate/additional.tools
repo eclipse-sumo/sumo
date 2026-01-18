@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-18 18:18:49.159040 by Eclipse SUMO remap_additionals.py v1_25_0+1060-c70c1fb2925
+<!-- generated on 2026-01-18 18:20:31.738018 by Eclipse SUMO remap_additionals.py v1_25_0+1062-692be8b3d9a
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -11,7 +11,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="dummy"/>
-    <busStop id="bs_0" lane="27_1" startPos="33.22" endPos="43.22" friendlyPos="True">
+    <busStop id="bs_0" lane="27_1" startPos="33.64" endPos="43.64" friendlyPos="True">
         <access lane="36_0" pos="1.47" friendlyPos="True"/>
         <!--access lane="36_1" pos="0.00" friendlyPos="True"/-->
     </busStop>
