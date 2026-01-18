@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    patchRailCrossings.py
+# @file    patchRailConflicts.py
 # @author  Jakob Erdmann
 # @date    2026-01-17
 
@@ -46,7 +46,8 @@ def get_options():
                     help="the vehicle class that restricts which junctions are considered")
     ap.add_argument("-t", "--junction-type", dest="junctionType", default="rail_signal",
                     help="the new junction type for rail/rail crossings")
-    ap.add_argument("-k", "--keep-junction-type", dest="keepJunctionType", default="traffic_light,traffic_light_unregulated,rail_signal",
+    ap.add_argument("-k", "--keep-junction-type", dest="keepJunctionType",
+                    default="traffic_light,traffic_light_unregulated,rail_signal",
                     help="the new junction type for rail/rail crossings")
     ap.add_argument("-e", "--end-offset", dest="endOffset", type=float, default=0,
                     help="move back the stop line from the crossing")
@@ -113,6 +114,7 @@ def main(options):
                      '-e', options.output_edges,
                      '-o', options.output,
                      ], stdout=subprocess.DEVNULL)
+
 
 if __name__ == "__main__":
     main(get_options())
