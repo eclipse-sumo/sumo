@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-18 22:56:36.863676 by Eclipse SUMO remap_additionals.py v1_25_0+1070-5afb9a323e3
+<!-- generated on 2026-01-18 23:13:06.918991 by Eclipse SUMO remap_additionals.py v1_25_0+1071-9cf1404f51c
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -10,6 +10,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="2045933395" name="Geschwister-Scholl-Straße" lane="-194083413#4_0" startPos="18.13" endPos="43.13" friendlyPos="True" lines="2">
+    <trainStop id="2045933395" name="Geschwister-Scholl-Straße" lane="194083375#6_0" startPos="56.47" endPos="81.47" friendlyPos="True" lines="2">
     </trainStop>
 </additional>
