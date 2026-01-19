@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-18 12:51+0000\n"
+"PO-Revision-Date: 2026-01-19 18:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -12531,12 +12531,16 @@ msgid ""
 "Already loaded prohibition for edge '%'. (Only one prohibition per edge is "
 "supported)"
 msgstr ""
+"È già stato caricato un divieto per l'arco '%'. (Soltanto un divieto per "
+"ogni arco è supportato)"
 
 #: src/router/RONet.cpp:994
 msgid ""
 "Already loaded prohibition for lane '%'. (Only one prohibition per lane is "
 "supported)"
 msgstr ""
+"È già stato caricato un divieto per la corsia '%'. (Soltanto un divieto per "
+"ogni corsia è supportato)"
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
@@ -14029,51 +14033,53 @@ msgstr "Sintassi di parametro mischiata in '%'."
 
 #: src/utils/router/AStarLookupTable.h:131
 msgid "Could not load landmark-lookup-table from '%'."
-msgstr ""
+msgstr "Non ho potuto caricare la tabella di cippi da '%'."
 
 #: src/utils/router/AStarLookupTable.h:145
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr ""
+msgstr "L'arco '%' è presente due volte nel file di cippi."
 
 #: src/utils/router/AStarLookupTable.h:150
 #: src/utils/router/AStarLookupTable.h:175
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "La rete non contiene l'arco cippo '%'."
 
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
-msgstr ""
+msgstr "Coordinate invalide nel file di cippi - non ho incontrato l'arco a  '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format
 msgid "Broken landmark file, could not parse '%' as coordinates."
-msgstr ""
+msgstr "File di cippi rotto - non ho potuto analizzare '%' come coordinate."
 
 #: src/utils/router/AStarLookupTable.h:189
 #: src/utils/router/AStarLookupTable.h:202
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr ""
+msgstr "L'arco '%' menzionato nel file di cippi è sconosciuto o in disordine."
 
 #: src/utils/router/AStarLookupTable.h:199
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
-msgstr ""
+msgstr "File di cippi rotto - numero di valori inaspettato per l'arco '%'."
 
 #: src/utils/router/AStarLookupTable.h:222
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "File di cippi in aggiornamento."
 
 #: src/utils/router/AStarLookupTable.h:229
 msgid "No lookup table for landmark edge '%', recalculating."
-msgstr ""
+msgstr "Nessuna tabella per L'arco cippo '%' - va ricalcolata."
 
 #: src/utils/router/AStarLookupTable.h:232
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'.%"
 msgstr ""
+"Nella tabella di memoria '%' mancano valori per alcuni archi della rete tra "
+"essi e l'arco cippo '%'.%"
 
 #: src/utils/router/AStarLookupTable.h:323
 #, c-format
@@ -14081,6 +14087,8 @@ msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
 msgstr ""
+"Il cippo % non può essere raggiunto da % archi e da lì non si possono "
+"raggiungere % del totale di % archi."
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
