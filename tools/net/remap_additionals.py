@@ -27,6 +27,7 @@ import sumolib  # noqa
 from sumolib.geomhelper import distance  # noqa
 from sumolib.xml import parse  # noqa
 from sumolib.net import lane2edge  # noqa
+from sumolib.miscutils import openz  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 
@@ -295,7 +296,7 @@ def main(options):
     else:
         options.remap_xy = lambda x: x
 
-    with open(options.output, 'w') as fout:
+    with openz(options.output, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "additional", options=options)
         for obj in parse(options.additional):
             if not remap(options, obj):
