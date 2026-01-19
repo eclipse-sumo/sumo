@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-18 13:59+0000\n"
+"PO-Revision-Date: 2026-01-19 20:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -3116,11 +3116,11 @@ msgstr "Speichern der gesammelten Datenelemente in '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4483
 msgid "MeanData elements file"
-msgstr ""
+msgstr "Datei mit MeanData-Elementen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4499
 msgid "load meanDatas from '%'"
-msgstr ""
+msgstr "meanData aus '%' laden"
 
 #: src/netedit/GNEApplicationWindow.cpp:4503
 #, c-format
@@ -3170,13 +3170,13 @@ msgstr "% weitere Elemente aus '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4883
 msgid "% additionals from '%'."
-msgstr ""
+msgstr "% weitere Daten aus '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4894
 #: src/netedit/GNEApplicationWindow.cpp:4943
 #, c-format
 msgid "% of '%' failed."
-msgstr ""
+msgstr "% von '%' fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:4925
 msgid "% demand elements from '%'"
@@ -3198,7 +3198,7 @@ msgstr "% Datenelemente aus '%'."
 #: src/netedit/GNEApplicationWindow.cpp:5039
 #, c-format
 msgid "% of % failed."
-msgstr ""
+msgstr "% von % fehlgeschlagen."
 
 #: src/netedit/GNEApplicationWindow.cpp:5021
 msgid "% meanData elements from '%'"
@@ -4019,7 +4019,7 @@ msgstr "Rückgängig-Wiederholen erlauben"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Mark current inspected element as front element"
-msgstr ""
+msgstr "Aktuell geprüftes Element als oberstes markieren"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1324
 msgid "Load additionals in sumo-gui"
@@ -4497,7 +4497,7 @@ msgstr "auf Nutzerwunsch abgebrochen\n"
 
 #: src/netedit/GNEExternalRunner.cpp:167
 msgid "Error running tool using boost::process"
-msgstr ""
+msgstr "Fehler beim Ausführen eines Werkzeugs mit boost::process"
 
 #: src/netedit/GNEExternalRunner.cpp:197
 msgid "starting process...\n"
@@ -5112,7 +5112,7 @@ msgstr "Datenelemente"
 
 #: src/netedit/GNENetHelper.cpp:3642
 msgid "meanData elements"
-msgstr ""
+msgstr "meanData-Elemente"
 
 #: src/netedit/GNENetHelper.cpp:3690
 msgid "Redo replace in TLS"
@@ -5785,7 +5785,7 @@ msgstr "Ladepower in W"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1302
 msgid "Total power in W"
-msgstr ""
+msgstr "Gesamtleistung in W"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1308
 msgid "Charging efficiency [0,1]"
@@ -5860,6 +5860,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:1394
 msgid "Visual placement to the left of the lane (in righthand networks)"
 msgstr ""
+"Visuell links des Fahrstreifens platzieren (in Netzen mit Rechtsverkehr)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1407
 msgid "ParkingSpace"
@@ -7420,20 +7421,24 @@ msgstr "Ansicht zentrieren"
 msgid ""
 "The path to the file to save this element (not editable for network elements)"
 msgstr ""
+"Der Dateipfad wo dieses Element gespeichert wird (für Netzelemente nur im "
+"Lesemodus)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6178
 #: src/netedit/GNETagPropertiesDatabase.cpp:6185
 #: src/netedit/GNETagPropertiesDatabase.cpp:6192
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6183
 msgid "The path to the file to save this element (the same of their parent)"
 msgstr ""
+"Der Dateipfad wo dieses Element gespeichert wird (identisch mit jenem für "
+"das Elternelement)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6190
 msgid "The path to the file to save this element"
-msgstr ""
+msgstr "Der Dateipfad wo dieses Element gespeichert wird"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6200
 msgid "Toggle front element"
@@ -10091,7 +10096,7 @@ msgstr "Zurücksetzen auf vorherige Werte"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:33
 msgid "Attributes of %"
-msgstr ""
+msgstr "%-Attribute"
 
 #: src/netedit/dialogs/GNEHelpAttributesDialog.cpp:45
 msgid "Attribute"
@@ -10636,7 +10641,7 @@ msgstr "Datei überschreiben"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:249
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:295
 msgid "The destination file: %"
-msgstr ""
+msgstr "Die Zieldatei: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:250
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:296
@@ -10814,7 +10819,7 @@ msgstr "Löschen..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:773
 msgid "The selected file: %"
-msgstr ""
+msgstr "Die ausgewählte Datei: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:788
 msgid "File doesn't exist"
