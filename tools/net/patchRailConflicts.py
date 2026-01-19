@@ -52,6 +52,8 @@ def get_options():
                     help="the new junction type for rail/rail crossings")
     ap.add_argument("-e", "--end-offset", dest="endOffset", type=float, default=0,
                     help="move back the stop line from the crossing")
+    ap.add_argument("-j", "--join-distance", dest="joinDist", type=float, default=200,
+                    help="The distance for joining clusters which are guarded only from the outside")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
     options = ap.parse_args()
@@ -66,7 +68,58 @@ def get_options():
     options.keepJunctionType = set(options.keepJunctionType.split(','))
     options.output_nodes = outputBase + ".nod.xml"
     options.output_edges = outputBase + ".edg.xml"
+    options.output_conns = outputBase + ".con.xml"
     return options
+
+
+def getDownstream(node, joinDist, nodes):
+    result = set()
+    seen = set()
+    check = [(node, 0)]
+    while check:
+        n, dist = check.pop()
+        seen.add(n)
+        if n != node and n in nodes:
+            result.add(n)
+        for e in n.getOutgoing():
+            dist2 = dist + e.getLength()
+            if dist2 < joinDist and e.getToNode() not in seen:
+                check.append((e.getToNode(), dist2))
+    return result
+
+
+def findClusters(joinDist, nodes):
+    downstreamNodes = {n: getDownstream(n, joinDist, nodes) for n in nodes}
+    check = list(downstreamNodes.keys())
+    while check:
+        n = check.pop(0)
+        if n not in downstreamNodes:
+            # already merged
+            continue
+        down = downstreamNodes[n]
+        down2 = set(down)
+        for d in down:
+            if d == n:
+                continue
+            if d in downstreamNodes:
+                down2.update(downstreamNodes[d])
+                del downstreamNodes[d]
+        if down != down2:
+            downstreamNodes[n] = down2
+            check.append(n)
+
+    result = []
+    unconnectedNodes = []
+    for node, cluster in downstreamNodes.items():
+        cluster.add(node)
+        if len(cluster) > 1:
+            incoming = sum([n.getIncoming() for n in cluster], start=[])
+            result.append((list(cluster), [e for e in incoming if e.getFromNode() not in cluster]))
+        else:
+            unconnectedNodes.append(node)
+
+    result.append((unconnectedNodes, sum([n.getIncoming() for n in unconnectedNodes], start=[])))
+    return result
 
 
 def main(options):
@@ -88,21 +141,44 @@ def main(options):
                 continue
             crossingNodes.append(node)
 
-    with open(options.output_nodes, 'w') as outf_nod:
-        sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
-        for nodeID in sorted([n.getID() for n in crossingNodes]):
-            outf_nod.write('    <node id="%s" type="%s"/>\n' % (nodeID, options.junctionType))
-        outf_nod.write("</nodes>\n")
+    clusters = findClusters(options.joinDist,  crossingNodes)
 
-    with open(options.output_edges, 'w') as outf_edg:
-        sumolib.writeXMLHeader(outf_edg, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
-        incoming = []
-        for node in crossingNodes:
-            incoming += [e.getID() for e in node.getIncoming()]
-        incoming.sort()
-        for e in incoming:
-            outf_edg.write('    <edge id="%s" endOffset="%s"/>\n' % (e, options.endOffset))
-        outf_edg.write("</edges>\n")
+    outf_nod = open(options.output_nodes, 'w')
+    outf_edg = open(options.output_edges, 'w')
+    outf_con = open(options.output_conns, 'w')
+    sumolib.writeXMLHeader(outf_nod, "$Id$", "nodes", options=options)
+    sumolib.writeXMLHeader(outf_edg, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
+    sumolib.writeXMLHeader(outf_con, "$Id$", "connections", options=options)
+
+    for outerNodes, incomingEdges in clusters:
+        for nodeID in sorted([n.getID() for n in outerNodes]):
+            outf_nod.write('    <node id="%s" type="%s"/>\n' % (nodeID, options.junctionType))
+        outf_nod.write('\n')
+
+        if options.endOffset > 0:
+            for edgeID in sorted([e.getID() for e in incomingEdges]):
+                outf_edg.write('    <edge id="%s" endOffset="%s"/>\n' % (edgeID, options.endOffset))
+            outf_edg.write('\n')
+
+        allIncoming = set()
+        for node in outerNodes:
+            allIncoming.update(node.getIncoming())
+        uncontrolled = allIncoming.difference(incomingEdges)
+
+        if uncontrolled:
+            for edge in uncontrolled:
+                for con in sum(edge.getOutgoing().values(), start=[]):
+                    outf_con.write('    <connection from="%s" fromLane="%s" to="%s" toLane="%s" uncontrolled="1"/>\n' % (  # noqa
+                        con.getFrom().getID(), con.getFromLane().getIndex(),
+                        con.getTo().getID(), con.getToLane().getIndex()))
+            outf_con.write('\n')
+
+    outf_nod.write("</nodes>\n")
+    outf_edg.write("</edges>\n")
+    outf_con.write("</connections>\n")
+    outf_nod.close()
+    outf_edg.close()
+    outf_con.close()
 
     if options.verbose:
         if skipped:
@@ -115,6 +191,7 @@ def main(options):
                      '-s', options.netfile,
                      '-n', options.output_nodes,
                      '-e', options.output_edges,
+                     '-x', options.output_conns,
                      '-o', options.output,
                      ], stdout=subprocess.DEVNULL)
 
