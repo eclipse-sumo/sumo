@@ -1,0 +1,14 @@
+# two tracks cross each other
+simple_crossing
+
+# two tracks cross each other
+endOffset
+
+# a siding
+switches
+
+# a siding
+switches_bidi
+
+# a complex intersection with multiple conflict points 
+dual_track_T
