@@ -77,6 +77,8 @@ def main(options):
     for node in net.getNodes():
         if any([e.getPermissions() != options.vclass for e in node.getIncoming() + node.getOutgoing()]):
             continue
+        if not node.hasFoes():
+            continue
         nIn = len(node.getIncoming())
         nOut = len(node.getOutgoing())
         nBidi = len([e for e in node.getIncoming() + node.getOutgoing() if e.getBidi() is not None]) / 2
