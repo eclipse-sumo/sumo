@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-16 08:20+0000\n"
+"PO-Revision-Date: 2026-01-19 12:30+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6117,6 +6117,8 @@ msgstr "La estación de carga con ID='%' no tiene una posición válida (% < %).
 #: src/microsim/trigger/MSChargingStation.h:70
 msgid "Encountered an unknown charge type. Assuming charge type 'normal'."
 msgstr ""
+"Se encontró un tipo de carga desconocido. Se asumirá el tipo de carga "
+"'normal'."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -6190,45 +6192,49 @@ msgstr "Valor no válido '%' para el parámetro de tipo de vehículo '%'"
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:139
 msgid "rerouter '%': interval end % is not after begin %."
-msgstr ""
+msgstr "rerouter '%': el final del intervalo % no es posterior al inicio %."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:149
 msgid "rerouter '%': destProbReroute has no destination edge id."
-msgstr ""
+msgstr "rerouter '%': destProbReroute no tiene un ID de arista de destino."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:158
 msgid "rerouter '%': Destination edge '%' is not known."
-msgstr ""
+msgstr "rerouter '%': La arista destino '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:168
 msgid ""
 "rerouter '%': Attribute 'probability' for destination '%' is negative (must "
 "not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para el destino '%' es negativo (no "
+"debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:179
 #: src/router/RONetHandler.cpp:167
 msgid "rerouter '%': Edge '%' to close is not known."
-msgstr ""
+msgstr "rerouter '%': La arista '%' a cerrar, no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:194
 #: src/router/RONetHandler.cpp:183
 msgid "rerouter '%': Lane '%' to close is not known."
-msgstr ""
+msgstr "rerouter '%': El carril '%' a cerrar, no es conocido."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:211
 msgid "rerouter '%': routeProbReroute has no alternative route id."
-msgstr ""
+msgstr "rerouter '%': routeProbReroute no tiene un ID de ruta alternativa."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:215
 msgid "rerouter '%': Alternative route '%' does not exist."
-msgstr ""
+msgstr "rerouter '%': La ruta alternativa '%' no existe."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:225
 msgid ""
 "rerouter '%': Attribute 'probability' for alternative route '%' is negative "
 "(must not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para la ruta alternativa '%' es "
+"negativo (no debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:234
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
