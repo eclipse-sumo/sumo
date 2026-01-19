@@ -328,7 +328,7 @@ Example:
 
 The vType attributes `maxPower` and `maxTraction` can be used to specify the traction curve for a given speed (in m/s) according to the formula:
 
- `traction_kN = min(maxPower / speed, maxTraction`
+ `traction_kN = min(maxPower / speed, maxTraction)`
 
 
 The vType attributes `resCoef_quadratic`, `resCoef_linear` and `resCoef_constant` can be usd to specify the resistance curve for a given speed (in m/s) according to the formula:
