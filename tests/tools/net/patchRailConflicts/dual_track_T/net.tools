@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-19T13:02:14.615070+01:00 by Eclipse SUMO netconvert v1_25_0+1075-5d7cce700e5
+<!-- generated on 2026-01-19T13:13:01.264169+01:00 by Eclipse SUMO netconvert v1_25_0+1075-5d7cce700e5
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -371,7 +371,7 @@
         <param key="origEdgeIds" value="-371708154#3 371708154#3"/>
         <param key="origId" value="1684175608 35304331"/>
     </junction>
-    <junction id="cluster_1684175609_388137720_88136350" type="rail_signal" x="2992.20" y="4204.04" incLanes="173172697#0_0 239201419#1_0" intLanes=":cluster_1684175609_388137720_88136350_0_0 :cluster_1684175609_388137720_88136350_1_0" shape="2991.24,4205.43 2989.46,4198.44 2988.90,4198.51 2988.69,4198.51 2988.49,4198.52 2988.26,4198.58 2987.97,4198.71">
+    <junction id="cluster_1684175609_388137720_88136350" type="priority" x="2992.20" y="4204.04" incLanes="173172697#0_0 239201419#1_0" intLanes=":cluster_1684175609_388137720_88136350_0_0 :cluster_1684175609_388137720_88136350_1_0" shape="2991.24,4205.43 2989.46,4198.44 2988.90,4198.51 2988.69,4198.51 2988.49,4198.52 2988.26,4198.58 2987.97,4198.71">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
         <param key="origEdgeIds" value="-371708154#0 -371708154#1 371708154#0 371708154#1"/>
@@ -399,7 +399,7 @@
     <connection from="156131180#2.177" to="156131180#4" fromLane="0" toLane="0" via=":cluster_260806012_2634305184_2_0" tl="cluster_260806012_2634305184" linkIndex="2" dir="s" state="O"/>
     <connection from="156131180#4" to="156131160#0" fromLane="0" toLane="0" via=":1684175646_2_0" tl="1684175646" linkIndex="2" dir="s" state="O"/>
     <connection from="156131180#4" to="239201419#0" fromLane="0" toLane="0" via=":1684175646_3_0" tl="1684175646" linkIndex="3" dir="s" state="o"/>
-    <connection from="173172697#0" to="173172697#1" fromLane="0" toLane="0" via=":cluster_1684175609_388137720_88136350_0_0" tl="cluster_1684175609_388137720_88136350" linkIndex="0" dir="s" state="O"/>
+    <connection from="173172697#0" to="173172697#1" fromLane="0" toLane="0" via=":cluster_1684175609_388137720_88136350_0_0" dir="s" state="M"/>
     <connection from="173172697#1" to="239201417#0" fromLane="0" toLane="0" via=":257708046_0_0" tl="257708046" linkIndex="0" dir="s" state="O"/>
     <connection from="194083377#5.80" to="173172697#0" fromLane="0" toLane="0" via=":1839997614_0_0" dir="R" state="M"/>
     <connection from="194083377#5.80" to="194083392#0" fromLane="0" toLane="0" via=":1839997614_1_0" dir="s" state="M"/>
@@ -418,7 +418,7 @@
     <connection from="239201417#0" to="239201417#1" fromLane="0" toLane="0" via=":cluster_260806012_2634305184_3_0" tl="cluster_260806012_2634305184" linkIndex="3" dir="s" state="O"/>
     <connection from="239201417#0" to="-156131180#3" fromLane="0" toLane="0" via=":cluster_260806012_2634305184_4_0" tl="cluster_260806012_2634305184" linkIndex="4" dir="s" state="o"/>
     <connection from="239201419#0" to="239201419#1" fromLane="0" toLane="0" via=":1684175633_2_0" tl="1684175633" linkIndex="2" dir="s" state="o"/>
-    <connection from="239201419#1" to="239201419#3" fromLane="0" toLane="0" via=":cluster_1684175609_388137720_88136350_1_0" tl="cluster_1684175609_388137720_88136350" linkIndex="1" dir="s" state="O"/>
+    <connection from="239201419#1" to="239201419#3" fromLane="0" toLane="0" via=":cluster_1684175609_388137720_88136350_1_0" dir="s" state="M"/>
     <connection from="239201419#3" to="239201419#4" fromLane="0" toLane="0" keepClear="0" via=":1684175591_1_0" tl="1684175591" linkIndex="1" dir="s" state="O"/>
     <connection from="239201419#4" to="172233351#0" fromLane="0" toLane="0" via=":257708043_1_0" tl="257708043" linkIndex="1" dir="s" state="o"/>
 
