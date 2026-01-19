@@ -36,6 +36,7 @@ except:  # noqa
 
 NETCONVERT = sumolib.checkBinary('netconvert')
 
+
 def get_options():
     ap = ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
