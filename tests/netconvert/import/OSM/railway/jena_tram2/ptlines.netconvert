@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-19T16:25:47.569931+01:00 by Eclipse SUMO netconvert v1_25_0+1088-13078e78b20
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="147471" name="Tram 2: Jena-Ost =&gt; Winzerla" line="2" type="tram" vClass="tram" period="600" color="250,183,27" completeness="0.40" missingAfter="9">
+        <route edges="-47069121 -239198955 -194083390 -47069119 -194083396"/>
+        <busStop id="-2621259936" name="Jena Ost"/>
+        <busStop id="-1720353263" name="Löbichauer Straße"/>
+        <busStop id="-344852619" name="An der Trebe"/>
+        <busStop id="2045933399" name="Jenzigweg"/>
+        <busStop id="-344852621" name="Ostschule"/>
+        <busStop id="-344852622" name="Schlippenstraße"/>
+    </ptLine>
+    <ptLine id="3474911" name="Tram 2: Winzerla =&gt; Jena-Ost" line="2" type="tram" vClass="tram" period="600" color="250,183,27" completeness="0.38" missingBefore="10">
+        <route edges="194083396 47069119 47069122 239198955 47069121"/>
+        <busStop id="344852622" name="Schlippenstraße"/>
+        <busStop id="344852621" name="Ostschule"/>
+        <busStop id="271142348" name="Jenzigweg"/>
+        <busStop id="344852619" name="An der Trebe"/>
+        <busStop id="1720353263" name="Löbichauer Straße"/>
+        <busStop id="2621259936" name="Jena Ost"/>
+    </ptLine>
+</ptLines>

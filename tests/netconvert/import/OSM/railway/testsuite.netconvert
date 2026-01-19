@@ -59,3 +59,6 @@ jena_tram
 
 # see #17537
 jena_tram_allBidi
+
+# see #17537
+jena_tram2
