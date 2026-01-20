@@ -76,6 +76,8 @@ def get_options(args=None):
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
+    ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
+                    help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
@@ -252,7 +254,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                                                          fillGaps=options.fill_gaps, gapPenalty=5000.,
                                                          vClass=vclass, vias=vias,
                                                          fastest=True,
-                                                         reversalPenalty=1000.)
+                                                         reversalPenalty=1000.,
+                                                         detourWarnFactor=options.detourWarnFactor)
                     traceCache[trace] = mappedRoute
 
                 if mappedRoute:

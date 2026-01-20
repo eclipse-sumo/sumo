@@ -16,6 +16,7 @@
 # @date    2013-10-23
 
 from __future__ import print_function
+import sys
 from .miscutils import euclidean
 from .geomhelper import polygonOffsetWithMinimumDistanceToPoint
 
@@ -75,25 +76,30 @@ def addInternal(net, edges):
     return result
 
 
-def _getMinPath(paths):
+def _getMinPath(paths, detoursOut=None):
     minDist = 1e400
     minPath = None
-    for path, (dist, _) in paths.items():
+    minDetours = None
+    for path, (dist, _, detours) in paths.items():
         if dist < minDist:
             minPath = path
             minDist = dist
+            minDetours = detours
+    if detoursOut is not None:
+        detoursOut += minDetours
     return minPath
 
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
              debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.,
-             fastest=False):
+             fastest=False, detourWarnFactor=1e400):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
-    paths = {}  # maps a path stub to a pair of current cost and the last mapping position on the last edge
+    resultDetours = []
+    paths = {}  # maps a path stub to a tuple (currentCost, posOnLastEdge, detours)
     lastPos = None
     nPathCalls = 0
     nNoCandidates = 0
@@ -129,9 +135,11 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             base *= edge.getLengthGeometryFactor()
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector
+                bestLength = 1e400 # length of the best path (not necessarily the shortest)
                 minDist = 1e400
                 minPath = None
-                for path, (dist, lastBase) in paths.items():
+                for path, (dist, lastBase, detours) in paths.items():
+                    pathLength = None
                     if debug:
                         print("*** extending path %s by edge '%s' (d=%s)" %
                               ([e.getID() for e in path], edge.getID(), d))
@@ -139,7 +147,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                               (lastBase, base, advance, dist, minDist))
                     if dist < minDist:
                         if edge == path[-1] and base > lastBase:
-                            pathCost = base - lastBase
+                            pathLength = base - lastBase
+                            pathCost = pathLength
                             if fastest:
                                 pathCost /= edge.getSpeed()
                             baseDiff = advance - pathCost
@@ -159,6 +168,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                     path[-1].getToNode().getCoord(),
                                     edge.getFromNode().getCoord())
                                 pathCost = path[-1].getLength() - lastBase + base + airLineDist + penalty
+                                pathLength = pathCost
                                 baseDiff = abs(lastBase + advance -
                                                path[-1].getLength() - base - airLineDist) + penalty
                                 extension = (edge,)
@@ -166,6 +176,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 pathCost = cost
                                 baseDiff = advance - pathCost
                                 extension = extension[1:]
+                                pathLength = sum([e.getLength() for e in extension[:-1]]) - lastBase + base
                             if debug:
                                 print("---------- extension path: %s, cost: %.2f, pathCost: %.2f" %
                                       (" ".join([e.getID() for e in extension]),
@@ -176,25 +187,27 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                         if dist < minDist:
                             minDist = dist
                             minPath = path + extension
+                            bestLength = pathLength
                         if debug:
                             print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f" % (dist, baseDiff, minDist))
                 if minPath:
-                    newPaths[minPath] = (minDist, base)
+                    newPaths[minPath] = (minDist, base, detours + [bestLength / advance if advance > 0 else 0])
             else:
                 #  the penality for picking a departure edge that is further away from pos
                 #  must outweigh the distance that is saved by picking an edge
                 #  that is closer to the subsequent pos
                 if debug:
                     print("*** origin %s d=%s base=%s" % (edge.getID(), d, base))
-                newPaths[(edge,)] = (d * 2, base)
+                newPaths[(edge,)] = (d * 2, base, [0])
         if not newPaths:
             # no mapping for the current pos, the route may be disconnected or the radius is too small
             if paths:
-                minPath = _getMinPath(paths)
+                minPath = _getMinPath(paths, resultDetours)
                 if len(result) > 0 and minPath[0] in result:
                     cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
                     minPath = minPath[cropIndex+1:]
                 result += minPath
+                resultDetours.append(0)
         paths = newPaths
         lastPos = pos
     if verbose:
@@ -202,12 +215,21 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             print("%s Points had no candidates. " % nNoCandidates, end="")
         print("(%s router calls)" % nPathCalls)
     if paths:
+        result += _getMinPath(paths, resultDetours)
+        assert(len(resultDetours) == len(trace))
+        if detourWarnFactor is not None:
+            for i in range(1, len(trace)):
+                detour = resultDetours[i]
+                if detour > detourWarnFactor:
+                    airLine = euclidean(trace[i - 1], trace[i])
+                    print("Large detour (%s) to trace index %s, fromPos=%s, toPos=%s (airLine=%s path=%s)" %
+                            (detour, i, trace[i - i], trace[i], airLine, detour * airLine), file=sys.stderr)
+
         if debug:
             print("**************** paths:")
-            for edges, (cost, base) in paths.items():
+            for edges, (cost, base, _) in paths.items():
                 print(cost, base, " ".join([e.getID() for e in edges]))
             print("**************** result:")
-            for i in result + _getMinPath(paths):
+            for i in result:
                 print("path:%s" % i.getID())
-        return result + _getMinPath(paths)
     return result
