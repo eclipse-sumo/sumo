@@ -42,3 +42,6 @@ duplicate_edge
 
 # warn about large detour (#17567)
 detour
+
+# warn about large detour (#17567)
+detour_edgeNotFound
