@@ -132,6 +132,10 @@ public:
 
     const std::vector<long long int>* getWayNodes(std::string wayId);
 
+    const EdgeVector& getEdges() const {
+        return myRoute;
+    }
+
 private:
     std::string myName;
     std::string myType;

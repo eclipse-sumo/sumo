@@ -116,7 +116,7 @@ NBRailwayTopologyAnalyzer::repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPT
     int addedBidi = 0;
     if (!minimal) {
         addedBidi += extendBidiEdges(ec);
-        addedBidi += reverseEdges(ec, sc); // technically not bidi but new edges nevertheless
+        addedBidi += reverseEdges(ec, sc, lc); // technically not bidi but new edges nevertheless
         addedBidi += addBidiEdgesForBufferStops(ec);
         addedBidi += addBidiEdgesBetweenSwitches(ec);
     }
@@ -569,14 +569,23 @@ NBRailwayTopologyAnalyzer::extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge*
 
 
 int
-NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
+NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
     // find reversible edge sequences between broken nodes
     std::vector<EdgeVector> seqsToReverse;
+    EdgeSet lineEdges;
+    for (auto item : lc.getLines()) {
+        const EdgeVector& route = item.second->getEdges();
+        lineEdges.insert(route.begin(), route.end());
+    }
     for (NBNode* n : brokenNodes) {
         EdgeVector inRail, outRail;
         getRailEdges(n, inRail, outRail);
         for (NBEdge* start : outRail) {
+            if (lineEdges.count(start)) {
+                // ptline edges should never be reversed. They are fixed by a different algorithm require their original ids and orientation
+                continue;
+            }
             EdgeVector tmp;
             tmp.push_back(start);
             // only reverse edges where the node would be unbroken afterwards
