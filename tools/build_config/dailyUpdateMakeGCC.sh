@@ -154,10 +154,9 @@ if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREF
 fi
 
 # macOS upload
-if test ${FILEPREFIX::10} == "clangMacOS"; then
+if test -e $PREFIX/upload.sh && test ${FILEPREFIX::10} == "clangMacOS"; then
   cd $PREFIX
   base=$(basename $SUMO_REPORT)
   tar czf $base.tar.gz ${FILEPREFIX}*.log $(find $base -type f -mtime -2)
-  # the credentials are in ~/.netrc
-  curl -n -F file=@$base.tar.gz https://sumo.dlr.de/daily/upload/upload.php
+  ./upload.sh $base.tar.gz
 fi

@@ -26,7 +26,8 @@ shift
 for platform in $*; do
     ./tools/build_config/cibuild_wheels.sh $platform >> $LOG 2>&1;
 done
-for f in wheelhouse/*.whl; do
-    # the credentials are in ~/.netrc
-    curl -n -F file=@$f https://sumo.dlr.de/daily/upload/upload.php
-done
+if test -e $PREFIX/upload.sh; then
+    for f in wheelhouse/*.whl; do
+        $PREFIX/upload.sh $f
+    done
+fi
