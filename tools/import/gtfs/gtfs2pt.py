@@ -137,10 +137,14 @@ def get_options(args=None):
 
 
 def splitNet(options):
-    netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
+    netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--no-turnarounds",
                 "--no-warnings",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
+    if options.mapperlib != "tracemapper":
+        # otherwise, preserve original ids for easier debugging
+        netcCall += ["--numerical-ids"]
+
     doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
