@@ -1,0 +1,6 @@
+trip_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+36232563;2791_0;1;0;de:16053:153014::15301403;Jena, Spittelplatz;50.933151;11.590548;2.0;;;;Jena, Zwätzen Schleife;23100;23100
+36232563;2791_0;1;0;de:16053:153024::15302400;Jena, Nordschule;50.937609;11.588659;3.0;;;;Jena, Zwätzen Schleife;23220;23220
+36232563;2791_0;1;0;de:16053:153097::15309704;Jena, Scharnhorststraße;50.941953;11.591933;4.0;;;;Jena, Zwätzen Schleife;23280;23280
+36232563;2791_0;1;0;de:16053:153040::15304003;Jena, An der Eule;50.946124;11.597718;5.0;;;;Jena, Zwätzen Schleife;23440;23440
+36232563;2791_0;1;0;de:16053:153087::15308701;Jena, Kieshügel;50.943588;11.594459;6.0;;;;Jena, Zwätzen Schleife;23360;23360
