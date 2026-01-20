@@ -139,6 +139,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 bestLength = 1e400 # length of the best path (not necessarily the shortest)
                 minDist = 1e400
                 minPath = None
+                minDetours = None
                 for path, (dist, lastBase, detours) in paths.items():
                     pathLength = None
                     if debug:
@@ -188,11 +189,12 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                         if dist < minDist:
                             minDist = dist
                             minPath = path + extension
+                            minDetours = detours
                             bestLength = pathLength
                         if debug:
                             print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f" % (dist, baseDiff, minDist))
                 if minPath:
-                    newPaths[minPath] = (minDist, base, detours + [bestLength / advance if advance > 0 else 0])
+                    newPaths[minPath] = (minDist, base, minDetours + [bestLength / advance if advance > 0 else 0])
             else:
                 #  the penality for picking a departure edge that is further away from pos
                 #  must outweigh the distance that is saved by picking an edge
