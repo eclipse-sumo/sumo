@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-19T16:25:47.569931+01:00 by Eclipse SUMO netconvert v1_25_0+1088-13078e78b20
+<!-- generated on 2026-01-20T09:34:46.089128+01:00 by Eclipse SUMO netconvert v1_25_0+1092-80e3b1fe371
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
     <ptLine id="147471" name="Tram 2: Jena-Ost =&gt; Winzerla" line="2" type="tram" vClass="tram" period="600" color="250,183,27" completeness="0.40" missingAfter="9">
-        <route edges="-47069121 -239198955 -194083390 -47069119 -194083396"/>
+        <route edges="-47069121 -239198955 194083390 -47069119 -194083396"/>
         <busStop id="-2621259936" name="Jena Ost"/>
         <busStop id="-1720353263" name="Löbichauer Straße"/>
         <busStop id="-344852619" name="An der Trebe"/>

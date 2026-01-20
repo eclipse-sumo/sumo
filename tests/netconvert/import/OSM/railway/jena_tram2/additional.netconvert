@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-19T16:25:47.569775+01:00 by Eclipse SUMO netconvert v1_25_0+1088-13078e78b20
+<!-- generated on 2026-01-20T09:34:46.088472+01:00 by Eclipse SUMO netconvert v1_25_0+1092-80e3b1fe371
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,16 +44,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <trainStop id="-1720353263" name="Löbichauer Straße" lane="-47069121_0" startPos="419.15" endPos="444.15" friendlyPos="true"/>
-    <trainStop id="-2045933399" name="Jenzigweg" lane="-194083390_0" startPos="24.30" endPos="49.30" friendlyPos="true"/>
     <trainStop id="-2621259936" name="Jena Ost" lane="-47069121_0" startPos="0.00" endPos="25.00" friendlyPos="true"/>
-    <trainStop id="-271142348" name="Jenzigweg" lane="-47069122_0" startPos="20.67" endPos="45.67" friendlyPos="true"/>
     <trainStop id="-344852619" name="An der Trebe" lane="-47069121_0" startPos="623.69" endPos="648.69" friendlyPos="true"/>
     <trainStop id="-344852621" name="Ostschule" lane="-47069119_0" startPos="152.99" endPos="177.99" friendlyPos="true"/>
     <trainStop id="-344852622" name="Schlippenstraße" lane="-194083396_0" startPos="130.32" endPos="155.32" friendlyPos="true"/>
     <trainStop id="1720353263" name="Löbichauer Straße" lane="47069121_0" startPos="204.54" endPos="229.54" friendlyPos="true" lines="2"/>
-    <trainStop id="2045933399" name="Jenzigweg" lane="194083390_0" startPos="31.50" endPos="56.50" friendlyPos="true" lines="2"/>
+    <trainStop id="2045933399" name="Jenzigweg" lane="194083390_0" startPos="26.26" endPos="51.26" friendlyPos="true" lines="2"/>
     <trainStop id="2621259936" name="Jena Ost" lane="47069121_0" startPos="623.69" endPos="648.69" friendlyPos="true" lines="2"/>
-    <trainStop id="271142348" name="Jenzigweg" lane="47069122_0" startPos="32.24" endPos="57.24" friendlyPos="true" lines="2"/>
+    <trainStop id="271142348" name="Jenzigweg" lane="47069122_0" startPos="29.35" endPos="54.35" friendlyPos="true" lines="2"/>
     <trainStop id="344852619" name="An der Trebe" lane="47069121_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>
     <trainStop id="344852621" name="Ostschule" lane="47069119_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>
     <trainStop id="344852622" name="Schlippenstraße" lane="194083396_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>

@@ -18,8 +18,4 @@ Warning: Could not re-assign PT stop '1720353263', probably broken osm file.
 Warning: Could not re-assign PT stop '344852619', probably broken osm file.
 Warning: Could not re-assign PT stop '344852621', probably broken osm file.
 Warning: Could not re-assign PT stop '344852622', probably broken osm file.
-Warning: No connection found between stops on edge '47069121' and edge '194083390'.
-Warning: No connection found between stops on edge '194083390' and edge '47069119'.
-Warning: Ambiguity in turnarounds computation at junction '1720816044'.
-Warning: Ambiguity in turnarounds computation at junction '2045933582'.
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
