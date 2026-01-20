@@ -92,13 +92,14 @@ def _getMinPath(paths, detoursOut=None):
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
              debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.,
-             fastest=False, detourWarnFactor=1e400):
+             fastest=False, resultDetours=None):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
     """
     result = ()
-    resultDetours = []
+    if resultDetours is None:
+        resultDetours = []
     paths = {}  # maps a path stub to a tuple (currentCost, posOnLastEdge, detours)
     lastPos = None
     nPathCalls = 0
@@ -207,7 +208,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                     cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
                     minPath = minPath[cropIndex+1:]
                 result += minPath
-                resultDetours.append(0)
+            resultDetours.append(0)
         paths = newPaths
         lastPos = pos
     if verbose:
@@ -216,15 +217,6 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         print("(%s router calls)" % nPathCalls)
     if paths:
         result += _getMinPath(paths, resultDetours)
-        assert(len(resultDetours) == len(trace))
-        if detourWarnFactor is not None:
-            for i in range(1, len(trace)):
-                detour = resultDetours[i]
-                if detour > detourWarnFactor:
-                    airLine = euclidean(trace[i - 1], trace[i])
-                    print("Large detour (%s) to trace index %s, fromPos=%s, toPos=%s (airLine=%s path=%s)" %
-                            (detour, i, trace[i - i], trace[i], airLine, detour * airLine), file=sys.stderr)
-
         if debug:
             print("**************** paths:")
             for edges, (cost, base, _) in paths.items():

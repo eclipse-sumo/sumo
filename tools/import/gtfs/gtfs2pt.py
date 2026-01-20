@@ -39,6 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
 import route2poly  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import humanReadableTime  # noqa
+from sumolib.miscutils import euclidean
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -250,12 +251,21 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                     mappedRoute = traceCache[trace]
                     cacheHits += 1
                 else:
+                    detours = []
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
                                                          fillGaps=options.fill_gaps, gapPenalty=5000.,
                                                          vClass=vclass, vias=vias,
                                                          fastest=True,
                                                          reversalPenalty=1000.,
-                                                         detourWarnFactor=options.detourWarnFactor)
+                                                         resultDetours=detours)
+                    assert(len(detours) == len(trace))
+                    for i in range(1, len(trace)):
+                        detour = detours[i]
+                        if detour > options.detourWarnFactor:
+                            airLine = euclidean(trace[i - 1], trace[i])
+                            print("Trip %s (%s): detour (factor %s) to stop index %s, fromPos=%s, toPos=%s (airLine=%s path=%s)" %
+                                    (tid, mode, detour, i, trace[i - i], trace[i], airLine, detour * airLine), file=sys.stderr)
+
                     traceCache[trace] = mappedRoute
 
                 if mappedRoute:
