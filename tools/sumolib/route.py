@@ -139,10 +139,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                               (lastBase, base, advance, dist, minDist))
                     if dist < minDist:
                         if edge == path[-1] and base > lastBase:
-                            pathLength = base - lastBase
+                            pathCost = base - lastBase
                             if fastest:
-                                pathLength /= edge.getSpeed()
-                            baseDiff = advance - pathLength
+                                pathCost /= edge.getSpeed()
+                            baseDiff = advance - pathCost
                             extension = ()
                             if debug:
                                 print("---------- same edge")
@@ -158,18 +158,19 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
                                     edge.getFromNode().getCoord())
-                                pathLength = path[-1].getLength() - lastBase + base + airLineDist + penalty
+                                pathCost = path[-1].getLength() - lastBase + base + airLineDist + penalty
                                 baseDiff = abs(lastBase + advance -
                                                path[-1].getLength() - base - airLineDist) + penalty
                                 extension = (edge,)
                             else:
-                                pathLength = cost
-                                baseDiff = advance - pathLength
+                                pathCost = cost
+                                baseDiff = advance - pathCost
                                 extension = extension[1:]
                             if debug:
-                                print("---------- extension path: %s, cost: %.2f, pathLength: %.2f" %
-                                      (" ".join([e.getID() for e in extension]), cost, pathLength))
-                        dist += d * d + pathLength
+                                print("---------- extension path: %s, cost: %.2f, pathCost: %.2f" %
+                                      (" ".join([e.getID() for e in extension]),
+                                          cost, pathCost))
+                        dist += d * d + pathCost
                         if direction:
                             dist += baseDiff * baseDiff
                         if dist < minDist:
