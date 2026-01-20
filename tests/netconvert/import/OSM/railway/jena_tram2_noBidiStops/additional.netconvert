@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-20T18:49:11.060910+01:00 by Eclipse SUMO netconvert v1_25_0+1107-e2b4d31e5e4
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <ptstop-output.no-bidi value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="1720353263" name="Löbichauer Straße" lane="47069121_0" startPos="204.54" endPos="229.54" friendlyPos="true" lines="2"/>
+    <trainStop id="2045933399" name="Jenzigweg" lane="194083390_0" startPos="26.26" endPos="51.26" friendlyPos="true" lines="2"/>
+    <trainStop id="2621259936" name="Jena Ost" lane="47069121_0" startPos="623.69" endPos="648.69" friendlyPos="true" lines="2"/>
+    <trainStop id="271142348" name="Jenzigweg" lane="47069122_0" startPos="29.35" endPos="54.35" friendlyPos="true" lines="2"/>
+    <trainStop id="344852619" name="An der Trebe" lane="47069121_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>
+    <trainStop id="344852621" name="Ostschule" lane="47069119_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>
+    <trainStop id="344852622" name="Schlippenstraße" lane="194083396_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="2"/>
+</additional>

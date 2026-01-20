@@ -62,3 +62,6 @@ jena_tram_allBidi
 
 # see #17537
 jena_tram2
+
+# see #17537
+jena_tram2_noBidiStops
