@@ -263,7 +263,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                         detour = detours[i]
                         if detour > options.detourWarnFactor:
                             airLine = euclidean(trace[i - 1], trace[i])
-                            fx, fy = trace[i - i]
+                            fx, fy = trace[i - 1]
                             tx, ty = trace[i]
                             print("Trip %s (%s): detour (factor %s) to stop index %s, fromPos=%.2f,%.2f toPos=%.2f,%.2f (airLine=%.2f path=%.2f)" %
                                     (tid, mode, detour, i, fx, fy, tx, ty, airLine, detour * airLine), file=sys.stderr)
