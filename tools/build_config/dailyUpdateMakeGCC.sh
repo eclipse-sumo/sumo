@@ -157,7 +157,7 @@ fi
 if test ${FILEPREFIX::10} == "clangMacOS"; then
   cd $PREFIX
   base=$(basename $SUMO_REPORT)
-  tar czf $base.tar.gz *.log $(find $base -type f -mtime -1)
+  tar czf $base.tar.gz ${FILEPREFIX}*.log $(find $base -type f -mtime -2)
   # the credentials are in ~/.netrc
   curl -n -F file=@$base.tar.gz https://sumo.dlr.de/daily/upload/upload.php
 fi
