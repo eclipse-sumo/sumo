@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-19 12:30+0000\n"
+"PO-Revision-Date: 2026-01-20 08:34+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1372,7 +1372,7 @@ msgstr "El vehículo '%' no tiene una ruta válida. %"
 #: src/mesosim/METriggeredCalibrator.cpp:84
 #, c-format
 msgid "Emission of vehicle '%' in calibrator '%' failed!"
-msgstr ""
+msgstr "¡Falló la inserción del vehículo '%' en el calibrador '%'!"
 
 #: src/mesosim/METriggeredCalibrator.cpp:130
 #: src/microsim/trigger/MSCalibrator.cpp:628
@@ -1429,7 +1429,7 @@ msgstr "Error: ¡Vehículos en estado no válidos (puede ser un estado micro)!"
 
 #: src/mesosim/MEVehicle.cpp:634
 msgid "Unknown segment '%:%' for vehicle '%' in loaded state."
-msgstr ""
+msgstr "Segmento '%:%' desconocido para el vehículo '%' en el estado cargado."
 
 #: src/microsim/MSBaseVehicle.cpp:189
 msgid "Changing a vehicle ID is not permitted"
@@ -1443,6 +1443,8 @@ msgstr "El vehículo '%' no está permitido en ningún carril de la arista '%'."
 msgid ""
 "Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%'."
 msgstr ""
+"El vehículo '%' ignora la posición de llegada % al conducir desde la arista "
+"'%' hacia la arista '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:464
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
@@ -1453,10 +1455,14 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:482
 msgid "Vehicle '%' skips stop on edge '%' with delay % at time %."
 msgstr ""
+"El vehículo '%' omite la parada en la arista '%' con un retardo de % en el "
+"tiempo %."
 
 #: src/microsim/MSBaseVehicle.cpp:484
 msgid "Vehicle '%' skips stop on edge '%' with priority % at time %."
 msgstr ""
+"El vehículo '%' omite la parada en la arista '%' con prioridad % en el "
+"tiempo %."
 
 #: src/microsim/MSBaseVehicle.cpp:486
 msgid ""
@@ -2352,6 +2358,8 @@ msgid ""
 "The waiting time after which vehicles with a disconnected route are "
 "teleported. Negative values disable teleporting"
 msgstr ""
+"El tiempo de espera tras el cual los vehículos con una ruta desconectada son "
+"teleportados. Los valores negativos desactivan la teleportación"
 
 #: src/microsim/MSFrame.cpp:447
 msgid ""
@@ -3201,12 +3209,14 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:832
 msgid "Vehicle '%' is inserted in an emergency situation, time=%."
-msgstr ""
+msgstr "El vehículo '%' se inserta en una situación de emergencia, tiempo=%."
 
 #: src/microsim/MSLane.cpp:838
 msgid ""
 "Vehicle '%' will not be able to depart on lane '%' with speed % (%), time=%."
 msgstr ""
+"El vehículo '%' no podrá salir desde el carril '%' con velocidad % (%), "
+"tiempo=%."
 
 #: src/microsim/MSLane.cpp:1164
 msgid ""
