@@ -80,10 +80,11 @@ public:
     }
     /// @brief get stop edges and stop ids and directional validity
     struct PTStopInfo {
-        PTStopInfo(NBEdge* _edge, const std::string& _stopID, bool _revised):
-            edge(_edge), stopID(_stopID), revised(_revised) {}
+        PTStopInfo(NBEdge* _edge, const std::string& _stopID, double _pos, bool _revised):
+            edge(_edge), stopID(_stopID), pos(_pos), revised(_revised) {}
         NBEdge* edge;
         std::string stopID;
+        double pos;
         bool revised;
     };
     std::vector<PTStopInfo> getStopEdges(const NBEdgeCont& ec) const;

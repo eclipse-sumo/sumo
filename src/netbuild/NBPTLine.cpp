@@ -184,7 +184,7 @@ NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
         NBEdge* e = ec.retrieve(stop->getEdgeId());
         if (e != nullptr) {
             bool revised = (int)myStopsRevised.size() > i ? myStopsRevised[i] : false;
-            result.push_back(PTStopInfo(e, stop->getID(), revised));
+            result.push_back(PTStopInfo(e, stop->getID(), stop->getEndPos(), revised));
         }
         i++;
     }
