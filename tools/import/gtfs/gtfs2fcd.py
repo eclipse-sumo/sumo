@@ -146,7 +146,7 @@ def main(options):
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
     seenModes = set()
-    modes = set(options.modes.split(","))
+    modes = options.modes.split(",")
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
