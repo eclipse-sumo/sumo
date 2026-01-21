@@ -105,7 +105,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
     nPathCalls = 0
     nNoCandidates = 0
     if verbose:
-        print("mapping trace with %s points ... " % len(trace), end="", flush=True)
+        print("mapping trace with %s points ..." % len(trace), end="", flush=True)
     for idx, pos in enumerate(trace):
         x, y = pos
         newPaths = {}
@@ -126,7 +126,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         if verbose and not candidates:
             if nNoCandidates == 0:
                 print()
-            print("   Found no candidate edges for %s,%s (index %s) " % (x, y, idx))
+            print("   Found no candidate edges for %.2f,%.2f (index %s)" % (x, y, idx))
             nNoCandidates += 1
 
         for edge, d in candidates:
@@ -136,7 +136,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             base *= edge.getLengthGeometryFactor()
             if paths:
                 advance = euclidean(lastPos, pos)  # should become a vector
-                bestLength = 1e400 # length of the best path (not necessarily the shortest)
+                bestLength = 1e400  # length of the best path (not necessarily the shortest)
                 minDist = 1e400
                 minPath = None
                 minDetours = None
@@ -215,8 +215,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
         lastPos = pos
     if verbose:
         if nNoCandidates > 0:
-            print("%s Points had no candidates. " % nNoCandidates, end="")
-        print("(%s router calls)" % nPathCalls)
+            print("%s Points had no candidates." % nNoCandidates, end="")
+        print(" (%s router calls)" % nPathCalls)
     if paths:
         result += _getMinPath(paths, resultDetours)
         if debug:
