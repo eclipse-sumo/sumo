@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2025-12-19 13:48+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2026-01-22 08:57+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -1631,19 +1631,19 @@ msgstr "velocidade permitida do segmento [m/s]"
 
 #: src/guisim/GUIEdge.cpp:204
 msgid "segment jam threshold [%]"
-msgstr ""
+msgstr "limiar de congestionamento do segmento [%]"
 
 #: src/guisim/GUIEdge.cpp:205
 msgid "segment brutto occupancy [%]"
-msgstr ""
+msgstr "ocupação bruta do segmento [%]"
 
 #: src/guisim/GUIEdge.cpp:206
 msgid "segment mean vehicle speed [m/s]"
-msgstr ""
+msgstr "velocidade média dos veículos no segmento [m/s]"
 
 #: src/guisim/GUIEdge.cpp:207
 msgid "segment flow [veh/h/m]"
-msgstr ""
+msgstr "fluxo do segmento [veh/h/m]"
 
 #: src/guisim/GUIEdge.cpp:208
 msgid "segment vehicles [#]"
@@ -1651,7 +1651,7 @@ msgstr "veículos no segmento [#]"
 
 #: src/guisim/GUIEdge.cpp:209
 msgid "segment leader leave time"
-msgstr ""
+msgstr "tempo de saída do líder do segmento"
 
 #: src/guisim/GUIEdge.cpp:210
 msgid "segment headway [s]"
@@ -1659,7 +1659,7 @@ msgstr "headway do segmento [s]"
 
 #: src/guisim/GUIEdge.cpp:211
 msgid "segment entry block time [s]"
-msgstr ""
+msgstr "tempo de bloqueio da entrada do segmento [s]"
 
 #: src/guisim/GUIEdge.cpp:229
 msgid "Type Information:"
@@ -1671,7 +1671,7 @@ msgstr "tipo [id]"
 
 #: src/guisim/GUIEdge.cpp:231
 msgid "routing type [id]"
-msgstr ""
+msgstr "tipo de roteamento [id]"
 
 #: src/guisim/GUIEdge.cpp:232
 msgid "tauff"
@@ -1731,11 +1731,11 @@ msgstr "tempo ocupado [s]"
 
 #: src/guisim/GUIInductLoop.cpp:162
 msgid "interval entered vehicles [#]"
-msgstr ""
+msgstr "veículos que entraram no intervalo [#]"
 
 #: src/guisim/GUIInductLoop.cpp:168
 msgid "last interval entered vehicles [#]"
-msgstr ""
+msgstr "veículos que entraram no último intervalo [#]"
 
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1075
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243 src/guisim/GUIVehicle.cpp:234
@@ -1744,7 +1744,7 @@ msgstr "tipo"
 
 #: src/guisim/GUILane.cpp:1010
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Copiar nome da aresta para a área de transferência"
 
 #: src/guisim/GUILane.cpp:1018
 msgid "pos: "
@@ -1764,11 +1764,11 @@ msgstr "Reabrir aresta"
 
 #: src/guisim/GUILane.cpp:1030
 msgid "Reopen lane (override rerouter)"
-msgstr ""
+msgstr "Reabrir faixa (sobrescrever rerouter)"
 
 #: src/guisim/GUILane.cpp:1031
 msgid "Reopen edge (override rerouter)"
-msgstr ""
+msgstr "Reabrir aresta (sobrescrever rerouter)"
 
 #: src/guisim/GUILane.cpp:1034
 msgid "Close lane"
@@ -1796,7 +1796,7 @@ msgstr "largura [m]"
 
 #: src/guisim/GUILane.cpp:1065
 msgid "stored travel time [s]"
-msgstr ""
+msgstr "tempo de viagem acumulado [s]"
 
 #: src/guisim/GUILane.cpp:1066
 msgid "loaded weight"
@@ -1804,7 +1804,7 @@ msgstr "peso carregado"
 
 #: src/guisim/GUILane.cpp:1068
 msgid "lane friction coefficient [%]"
-msgstr ""
+msgstr "coeficiente de fricção da faixa [%]"
 
 #: src/guisim/GUILane.cpp:1071
 msgid "netto occupancy [%]"
@@ -1849,10 +1849,11 @@ msgstr "pista bidirecional"
 #: src/guisim/GUINet.cpp:336
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
 msgstr ""
+"O tamanho da rede excede 1 ano-luz. Por favor, revise os dados de entrada.\n"
 
 #: src/guisim/GUINet.cpp:479 src/netedit/GNENet.cpp:234
 msgid "Copy view geo-boundary to clipboard"
-msgstr ""
+msgstr "Copiar limite geográfico da vista para a área de transferência"
 
 #: src/guisim/GUINet.cpp:490
 msgid "loaded vehicles [#]"
@@ -1948,43 +1949,43 @@ msgstr "atualizações por segundo"
 
 #: src/guisim/GUINet.cpp:542
 msgid "avg. updates per second"
-msgstr ""
+msgstr "média de atualizações por segundo"
 
 #: src/guisim/GUINet.cpp:545
 msgid "avg. trip length [m]"
-msgstr ""
+msgstr "comprimento médio da viagem [m]"
 
 #: src/guisim/GUINet.cpp:546
 msgid "avg. trip duration [s]"
-msgstr ""
+msgstr "duração média da viagem [s]"
 
 #: src/guisim/GUINet.cpp:547
 msgid "avg. trip waiting time [s]"
-msgstr ""
+msgstr "tempo de espera médio da viagem [s]"
 
 #: src/guisim/GUINet.cpp:548
 msgid "avg. trip time loss [s]"
-msgstr ""
+msgstr "tempo perdido médio da viagem [s]"
 
 #: src/guisim/GUINet.cpp:549
 msgid "avg. trip depart delay [s]"
-msgstr ""
+msgstr "atraso médio no início da viagem [s]"
 
 #: src/guisim/GUINet.cpp:550
 msgid "avg. trip speed [m/s]"
-msgstr ""
+msgstr "velocidade média da viagem [m/s]"
 
 #: src/guisim/GUINet.cpp:552
 msgid "avg. walk length [m]"
-msgstr ""
+msgstr "distância média da caminhada [m]"
 
 #: src/guisim/GUINet.cpp:553
 msgid "avg. walk duration [s]"
-msgstr ""
+msgstr "duração média da caminhada [s]"
 
 #: src/guisim/GUINet.cpp:554
 msgid "avg. walk time loss [s]"
-msgstr ""
+msgstr "tempo perdido médio da caminhada [s]"
 
 #: src/guisim/GUINet.cpp:557
 msgid "nodes [#]"
@@ -1996,11 +1997,11 @@ msgstr "arestas [#]"
 
 #: src/guisim/GUINet.cpp:559
 msgid "total edge length [km]"
-msgstr ""
+msgstr "comprimento total da aresta [km]"
 
 #: src/guisim/GUINet.cpp:560
 msgid "total lane length [km]"
-msgstr ""
+msgstr "comprimento total da faixa [km]"
 
 #: src/guisim/GUINet.cpp:561
 msgid "network version "
@@ -2008,16 +2009,18 @@ msgstr "versão da rede "
 
 #: src/guisim/GUINet.cpp:676
 msgid "Trying to set data value for the unknown edge '%'."
-msgstr ""
+msgstr "Tentando definir valor de dados para a aresta desconhecida '%'."
 
 #: src/guisim/GUINet.cpp:700
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
+"Tentando definir valor de dados para relação desconhecida da aresta '%' para "
+"aresta '%'."
 
 #: src/guisim/GUINet.cpp:718
 msgid "No data defined after simulation begin time."
-msgstr ""
+msgstr "Sem dados definidos depois do tempo de início da simulação."
 
 #: src/guisim/GUIParkingArea.cpp:113
 msgid "occupancy [#]"
@@ -2057,7 +2060,7 @@ msgstr "duração da parada [s]"
 
 #: src/guisim/GUIPerson.cpp:261
 msgid "desired max speed [m/s]"
-msgstr ""
+msgstr "velocidade máxima desejada [m/s]"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:172
 msgid "Switch to '%'"
@@ -2193,16 +2196,16 @@ msgstr "greide [graus]"
 
 #: src/guisim/GUIVehicle.cpp:134
 msgid "time gap on lane [s]"
-msgstr ""
+msgstr "Intervalo de tempo na faixa [s]"
 
 #: src/guisim/GUIVehicle.cpp:138
 #, c-format
 msgid "waiting time (accumulated, % s) [s]"
-msgstr ""
+msgstr "tempo de espera (acumulado, % s) [s]"
 
 #: src/guisim/GUIVehicle.cpp:140
 msgid "time since startup [s]"
-msgstr ""
+msgstr "tempo desde o início [s]"
 
 #: src/guisim/GUIVehicle.cpp:142
 msgid "time loss [s]"
@@ -2214,7 +2217,7 @@ msgstr "impaciência"
 
 #: src/guisim/GUIVehicle.cpp:146
 msgid "last lane change [s]"
-msgstr ""
+msgstr "última troca de faixa [s]"
 
 #: src/guisim/GUIVehicle.cpp:149
 msgid "depart delay [s]"
@@ -2310,23 +2313,23 @@ msgstr "estado de mudança de faixa para o centro"
 
 #: src/guisim/GUIVehicle.cpp:193
 msgid "right side on edge [m]"
-msgstr ""
+msgstr "lado direito na aresta [m]"
 
 #: src/guisim/GUIVehicle.cpp:194
 msgid "left side on edge [m]"
-msgstr ""
+msgstr "lado esquerdo na aresta [m]"
 
 #: src/guisim/GUIVehicle.cpp:195
 msgid "rightmost edge sublane [#]"
-msgstr ""
+msgstr "subfaixa mais à direita da aresta [#]"
 
 #: src/guisim/GUIVehicle.cpp:196
 msgid "leftmost edge sublane [#]"
-msgstr ""
+msgstr "subfaixa mais à esquerda da aresta [#]"
 
 #: src/guisim/GUIVehicle.cpp:197
 msgid "lane change maneuver distance [m]"
-msgstr ""
+msgstr "distância da manobra de mudança de faixa [m]"
 
 #: src/guisim/GUIVehicle.cpp:200
 msgid "driveways"
@@ -2334,23 +2337,23 @@ msgstr "acessos de veículos"
 
 #: src/guisim/GUIVehicle.cpp:203
 msgid "present state of charge [Wh]"
-msgstr ""
+msgstr "estado de carga atual [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:207
 msgid "relative state of charge (SoC) [-]"
-msgstr ""
+msgstr "estado de carga relativo (SoC) [-]"
 
 #: src/guisim/GUIVehicle.cpp:209
 msgid "current timestep charge [Wh]"
-msgstr ""
+msgstr "carga no passo de tempo atual [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:211
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "taxa de carga máxima [W]"
 
 #: src/guisim/GUIVehicle.cpp:215
 msgid "present electric current [A]"
-msgstr ""
+msgstr "corrente elétrica presente [A]"
 
 #: src/guisim/GUIVehicle.cpp:220
 msgid "speed mode"
@@ -2390,7 +2393,7 @@ msgstr "guiShape"
 
 #: src/guisim/GUIVehicle.cpp:246
 msgid "desired maximum speed [m/s]"
-msgstr ""
+msgstr "velocidade máxima desejada [m/s]"
 
 #: src/guisim/GUIVehicle.cpp:247
 msgid "maximum acceleration [m/s^2]"
@@ -2414,7 +2417,7 @@ msgstr "imperfeição (sigma)"
 
 #: src/guisim/GUIVehicle.cpp:252
 msgid "desired headway (tau) [s]"
-msgstr ""
+msgstr "tempo de seguimento desejado (tau) [s]"
 
 #: src/guisim/GUIVehicle.cpp:253
 msgid "speedfactor"
@@ -2426,7 +2429,7 @@ msgstr "atraso na saída [s]"
 
 #: src/guisim/GUIVehicle.cpp:256
 msgid "action step length [s]"
-msgstr ""
+msgstr "duração do passo de ação [s]"
 
 #: src/guisim/GUIVehicle.cpp:258
 msgid "person capacity"
@@ -2458,23 +2461,25 @@ msgstr "alinhamento lateral"
 
 #: src/guisim/GUIVehicle.cpp:276
 msgid "manoeuver Angle vs Times"
-msgstr ""
+msgstr "ângulo de manobra vs tempos"
 
 #: src/guisim_main.cpp:57
 msgid "GUI version of the microscopic, multi-modal traffic simulation SUMO."
 msgstr ""
+"Versão com interface gráfica do simulador de tráfego microscópico e "
+"multimodal SUMO."
 
 #: src/guisim_main.cpp:81 src/netedit/netedit_main.cpp:87
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "O sistema não tem suporte para OpenGL. Saindo."
 
 #: src/netedit/GNEApplicationWindow.cpp:537
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "Uma simulação de tráfego microscópica e multi modal."
 
 #: src/netedit/GNEApplicationWindow.cpp:550
 msgid "Close dialog automatically"
-msgstr ""
+msgstr "Fechar caixa de diálogo automaticamente"
 
 #: src/netedit/GNEApplicationWindow.cpp:578
 msgid "Recomputing"
@@ -2490,7 +2495,7 @@ msgstr "Coordenadas teste"
 
 #: src/netedit/GNEApplicationWindow.cpp:757
 msgid "netconvert config file"
-msgstr ""
+msgstr "arquivo de configuração do netconvert"
 
 #: src/netedit/GNEApplicationWindow.cpp:786
 #: src/netedit/GNEApplicationWindow.cpp:3443
@@ -2506,18 +2511,18 @@ msgstr "arquivo do OpenStreetMap"
 #: src/netedit/GNEApplicationWindow.cpp:820
 #: src/netedit/GNEApplicationWindow.cpp:3621
 msgid "netedit config file"
-msgstr ""
+msgstr "arquivo de configuração do netedit"
 
 #: src/netedit/GNEApplicationWindow.cpp:850
 #: src/netedit/GNEApplicationWindow.cpp:3749
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:565
 msgid "sumo config file"
-msgstr ""
+msgstr "arquivo de configuração do sumo"
 
 #: src/netedit/GNEApplicationWindow.cpp:953
 #: src/netedit/GNEApplicationWindow.cpp:3870
 msgid "Traffic Light definitions file"
-msgstr ""
+msgstr "arquivo de definições de semáforos"
 
 #: src/netedit/GNEApplicationWindow.cpp:991
 #: src/netedit/GNEApplicationWindow.cpp:3894
@@ -2526,16 +2531,16 @@ msgstr "arquivo de EdgeTypes"
 
 #: src/netedit/GNEApplicationWindow.cpp:1054
 msgid "Reloading netedit config file '%'"
-msgstr ""
+msgstr "Recarregando arquivo de configuração do netedit '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1059
 msgid "Reloading sumo config file '%'"
-msgstr ""
+msgstr "Recarregando aquivo de configuração do sumo '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1064
 #: src/netedit/GNEApplicationWindow.cpp:1127
 msgid "Reloading network file '%'"
-msgstr ""
+msgstr "Recarregando arquivo de rede '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:1079
 msgid "&Reload Netedit config"
@@ -2552,47 +2557,51 @@ msgstr "&Recarregar rede"
 #: src/netedit/GNEApplicationWindow.cpp:1324
 #, c-format
 msgid "Loading of netedit config '%' failed"
-msgstr ""
+msgstr "Carregamento das configurações do netedit '%' falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:1327
 #, c-format
 msgid "Loading of sumo config '%' failed"
-msgstr ""
+msgstr "Carregamento das configurações do sumo '%' falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:1330
 #, c-format
 msgid "Loading of netconvert config '%' failed"
-msgstr ""
+msgstr "Carregamento das configurações do netconvert '%' falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:1333
 #, c-format
 msgid "Loading of network '%' failed"
-msgstr ""
+msgstr "Carregamento da rede '%' falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:1336
 #, c-format
 msgid "Loading of OSM Network '%' failed"
-msgstr ""
+msgstr "Carregamento da rede do OSM '%' falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:1339
 msgid "Invalid Options. Nothing loaded"
-msgstr ""
+msgstr "Opções inválidas. Nada foi carregado"
 
 #: src/netedit/GNEApplicationWindow.cpp:1342
 msgid "Could not build projection. Nothing loaded"
-msgstr ""
+msgstr "Não foi possível criar a projeção. Nada foi carregado"
 
 #: src/netedit/GNEApplicationWindow.cpp:1345
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
 msgstr ""
+"Extensão inválida para arquivo de configuração. Apenas .netecfg, .sumocfg or "
+".netccfg são permitidos"
 
 #: src/netedit/GNEApplicationWindow.cpp:1348
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
 msgstr ""
+"Opção de rede de entrada inválida. Carregue usando uma configuração do sumo/"
+"netedit/netconvert ou com a opção --new"
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
@@ -8509,6 +8518,8 @@ msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
 msgstr ""
+"Deseja mesclar os cruzamentos '%' e '%'?\n"
+"('%' será eliminado e suas vias adicionadas a '%')"
 
 #: src/netedit/GNEViewNet.cpp:965
 msgid "% requires switch to network mode. Continue?"
