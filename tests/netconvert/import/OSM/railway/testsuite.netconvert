@@ -65,3 +65,8 @@ jena_tram2
 
 # see #17537
 jena_tram2_noBidiStops
+
+# see #17537
+# 
+# includes a road so the tram edge is split differently
+jena_tram2_noBidiStops_split
