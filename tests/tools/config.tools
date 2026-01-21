@@ -269,6 +269,7 @@ output:optional arguments:{REPLACE options:}
 output:succeeded after .*{REPLACE succeeded after TIME}
 output:usage: {LINES 1000}
 output:^load.*dll...
+output:\\{REPLACE /}
 dualog:uration:.*ms
 dualog:uration:.*s
 dualog:Real time factor
