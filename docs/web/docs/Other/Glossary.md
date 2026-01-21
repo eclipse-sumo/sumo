@@ -53,6 +53,9 @@ Dynamic User Assignment
 - **DUE**:
 Dynamic User Equilibrium
 
+- **DRT**:
+Demand responsive transport
+
 ## E
 
 - **edge**:
@@ -145,6 +148,9 @@ an application shall do
 The position of the begin of a vehicle journey. Mostly a TAZ
 processed by OD2TRIPs within which a "source" edge lies
 
+- **OSM**:
+OpenStreetMap
+
 ## P
 
 - **poi**:
@@ -161,7 +167,7 @@ the network; it contains the information when the vehicle departs
 ## S
 
 - **script**:
-A small computer program which normally doees not have to be
+A small computer program which normally does not have to be
 compiled. The SUMO package includes several scripts, most written in
 Python
 
@@ -193,6 +199,9 @@ area](../Demand/Importing_O/D_Matrices.md#describing_the_taz)
 - **TLS**:
 traffic lights system
 
+- **TraCI**:
+Traffic Control Interface
+
 - **trip**:
 A reduced information about a vehicle's movement; contains
 only the departure time, the begin, and the end edge. Must be
@@ -216,6 +225,16 @@ TS Standort Berlin-Adlershof
 A XML-file describing types of streets, see [type
 descriptions for importing networks defined as
 XML](../Networks/PlainXML.md#type_descriptions)
+
+## V
+
+- **vss**:
+Variable speed sign
+
+## W
+
+- **WAUT**:
+Short for "Wochenschaltautomatik" (weekly switch automatism)
 
 ## X
 
