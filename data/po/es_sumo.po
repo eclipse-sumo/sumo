@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-20 08:34+0000\n"
+"PO-Revision-Date: 2026-01-21 08:08+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4150,7 +4150,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:59
 msgid "Initial value assigned to the driver's awareness."
-msgstr ""
+msgstr "Valor inicial asignado a la atención del conductor."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:61
 msgid "Time scale for the error process."
@@ -4322,6 +4322,7 @@ msgstr "Archivo FCD a leer"
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown edge '%' in fcd replay file for person '%'."
 msgstr ""
+"Arista '%' desconocida en el archivo de reproducción FCD para la persona '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:216
 msgid "Unknown lane '%' in fcd replay file for vehicle '%'."
@@ -4394,7 +4395,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:63
 msgid "Use queue in front of the tls for GLOSA calculation"
-msgstr ""
+msgstr "Usar la cola delante del semáforo para el cálculo de GLOSA"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:66
 msgid ""
@@ -4444,6 +4445,8 @@ msgid ""
 "Only reroute if the new route is faster than the current route by the given "
 "factor"
 msgstr ""
+"Solo reenrutar si la nueva ruta es más rápida que la ruta actual por el "
+"factor indicado"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:75
 msgid ""
@@ -4598,6 +4601,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid "Whether to write conflict outputs with no data as NA values or skip it"
 msgstr ""
+"Si escribir las salidas de conflictos sin datos como valores NA u omitirlas "
+"del todo"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:260
 msgid ""
@@ -5507,11 +5512,13 @@ msgstr ""
 #: src/microsim/output/MSStopOut.cpp:149
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
+"El vehículo '%' finaliza la parada en la arista '%', tiempo=% sin haber "
+"entrado en la parada."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:149
 #, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr ""
+msgstr "El semáforo '%' no controla ningún enlace"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:239
 msgid ""
@@ -5715,7 +5722,7 @@ msgstr "No se cargó ningún plan de señal inicial para el semáforo '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:164
 msgid "Could not build an off-state for tls '%'."
-msgstr ""
+msgstr "No se pudo crear un estado apagado para el semáforo '%'."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:168
 msgid ""
@@ -6090,6 +6097,8 @@ msgid ""
 "Either 'vehsPerHour', 'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
 msgstr ""
+"Debe establecerse 'vehsPerHour', 'speed' o 'type' en la definición de flujo "
+"del calibrador '%'."
 
 #: src/microsim/trigger/MSCalibrator.cpp:249
 msgid "Type calibration is not supported in meso for calibrator '%'."
@@ -6249,6 +6258,7 @@ msgstr ""
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:234
 msgid "rerouter '%': parkingAreaReroute requires a parkingArea id."
 msgstr ""
+"rerouter '%': parkingAreaReroute requiere un ID de zona de estacionamiento."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
 msgid "rerouter '%': parkingArea '%' is not known."
