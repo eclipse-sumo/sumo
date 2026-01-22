@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-21 08:08+0000\n"
+"PO-Revision-Date: 2026-01-22 13:32+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9597,7 +9597,7 @@ msgstr "Ignorando objeto sin ID en la arista '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2700
 msgid "Repeat without object at edge '%'."
-msgstr ""
+msgstr "Repetir sin objeto en la arista '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2763
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
@@ -9892,7 +9892,7 @@ msgstr "No se pudo abrir el archivo de red de sumo '%'."
 #: src/netimport/NIImporter_SUMO.cpp:148
 #, c-format
 msgid "Edge's '%' from-node and to-node '%' are identical."
-msgstr ""
+msgstr "En la arista '%' los nodos de origen y de destino '%' son idénticos."
 
 #: src/netimport/NIImporter_SUMO.cpp:167
 msgid "Could not insert edge '%'."
@@ -10154,11 +10154,11 @@ msgstr "Ignorando el lugar de parada '%' sin ID de arista"
 
 #: src/netimport/NIImporter_VISUM.cpp:1169
 msgid "Ignoring stopping place '%' without node information"
-msgstr ""
+msgstr "Ignorando el punto de parada '%' sin información de nodo"
 
 #: src/netimport/NIImporter_VISUM.cpp:1173
 msgid "Ignoring stopping place '%' with invalid edge reference '%'"
-msgstr ""
+msgstr "Ignorando el punto de parada '%' con referencia de arista no válida '%'"
 
 #: src/netimport/NIImporter_VISUM.cpp:1179
 msgid ""
@@ -10266,7 +10266,7 @@ msgstr ""
 
 #: src/netimport/NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
-msgstr ""
+msgstr "Código de velocidad no válido (arista '%')."
 
 #: src/netimport/NINavTeqHelper.cpp:64
 msgid "Non-numerical value for an edge's speed type occurred (edge '%')."
@@ -10375,7 +10375,7 @@ msgstr "La arista '%' cambió su tipo; se asume que este cambio es deseado."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:315
 msgid "Ignoring self-looped edge '%' at junction '%'"
-msgstr ""
+msgstr "Ignorando la arista con bucle propio '%' en el cruce '%'"
 
 #: src/netimport/NIXMLEdgesHandler.cpp:394
 #, c-format
@@ -10408,11 +10408,11 @@ msgstr ""
 
 #: src/netimport/NIXMLEdgesHandler.cpp:560
 msgid "The from-node is not given for edge '%'."
-msgstr ""
+msgstr "No se indicó el nodo de origen para la arista '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:572
 msgid "The to-node is not given for edge '%'."
-msgstr ""
+msgstr "No se indicó el nodo destino para la arista '%'."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:618
 msgid "Ignoring unknown spreadType '%' for edge '%'."
@@ -10524,10 +10524,12 @@ msgstr "Índice de carril no válido '%' para la arista '%'."
 #: src/netimport/NIXMLTypesHandler.cpp:86
 msgid "Invalid lane spread type '%'. Using default 'right'"
 msgstr ""
+"Tipo de distribución de carril '%' no válido. Se usará el valor "
+"predeterminado 'right'"
 
 #: src/netimport/NIXMLTypesHandler.cpp:115
 msgid "Invalid lane index % for edge type '%' with % lanes"
-msgstr ""
+msgstr "Índice de carril % no válido para el tipo de arista '%' con % carriles"
 
 #: src/netimport/vissim/NIImporter_Vissim.cpp:887
 msgid "Could not open vissim-file '%'."
