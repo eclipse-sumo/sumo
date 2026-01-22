@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 19:41+0000\n"
+"PO-Revision-Date: 2026-01-22 19:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -12522,11 +12522,11 @@ msgstr "Höhe von %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:360
 msgid "Set custom connection shape"
-msgstr ""
+msgstr "Individuellen Shape für Verbindung setzen"
 
 #: src/netedit/elements/network/GNEConnection.cpp:361
 msgid "Smooth connection shape"
-msgstr ""
+msgstr "Shape der Verbindung glätten"
 
 #: src/netedit/elements/network/GNEConnection.cpp:667
 msgid "Could not set attribute '%' (tls is broken)"
