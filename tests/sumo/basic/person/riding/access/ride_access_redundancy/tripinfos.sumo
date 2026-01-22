@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-24 09:37:09 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
+<!-- generated on 2026-01-22T16:24:59.478821+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="225.00" waitingTime="48.00" timeLoss="43.00" traveltime="177.00">
+    <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="225.00" waitingTime="48.00" timeLoss="0.80" traveltime="177.00">
         <walk depart="0.00" departPos="90.00" arrival="44.00" arrivalPos="50.00" duration="44.00" routeLength="60.00" timeLoss="0.80" maxSpeed="1.39" waitingTime="0.00"/>
         <access stop="stopE" depart="44.00" arrival="124.00" duration="80.00" routeLength="111.80"/>
-        <ride waitingTime="48.00" vehicle="train" depart="172.00" arrival="225.00" arrivalPos="200.00" duration="53.00" routeLength="300.10" timeLoss="42.20"/>
+        <ride waitingTime="48.00" vehicle="train" depart="172.00" arrival="225.00" arrivalPos="200.00" duration="53.00" routeLength="300.10" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="train" depart="0.00" departLane="e_0" departPos="300.00" departSpeed="27.78" departDelay="0.00" arrival="272.00" arrivalLane="f_0" arrivalPos="300.00" arrivalSpeed="7.00" duration="272.00" routeLength="4300.10" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="77.16" rerouteNo="0" devices="vehroute_train tripinfo_train routing_train person_train" vType="tt" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="train" depart="0.00" departLane="e_0" departPos="300.00" departSpeed="27.78" departDelay="0.00" arrival="272.00" arrivalLane="f_0" arrivalPos="300.00" arrivalSpeed="7.00" duration="272.00" routeLength="4300.10" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_train tripinfo_train routing_train person_train" vType="tt" speedFactor="1.00" vaporized=""/>
 </tripinfos>

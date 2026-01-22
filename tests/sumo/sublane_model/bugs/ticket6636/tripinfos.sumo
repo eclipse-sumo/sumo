@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-26 11:34:29 by Eclipse SUMO sumo Version v1_17_0+0029-3726f21
+<!-- generated on 2026-01-22T16:25:29.447759+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -33,11 +33,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="blocker" depart="0.00" departLane="372_1" departPos="76.73" departPosLat="1.40" departSpeed="0.00" departDelay="0.00" arrival="28.00" arrivalLane="784_1" arrivalPos="87.74" arrivalPosLat="1.22" arrivalSpeed="4.96" duration="28.00" routeLength="133.42" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.61" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="bike" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker2" depart="0.00" departLane="-784_2" departPos="67.74" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="46.00" arrivalLane="-372_1" arrivalPos="101.73" arrivalPosLat="0.00" arrivalSpeed="12.34" duration="46.00" routeLength="142.48" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="15.71" rerouteNo="1" devices="tripinfo_blocker2 routing_blocker2" vType="truck" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker2" depart="0.00" departLane="-784_2" departPos="67.74" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="46.00" arrivalLane="-372_1" arrivalPos="101.73" arrivalPosLat="0.00" arrivalSpeed="12.34" duration="46.00" routeLength="142.48" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="4.05" rerouteNo="1" devices="tripinfo_blocker2 routing_blocker2" vType="truck" speedFactor="1.00" vaporized=""/>
     <tripinfo id="a" depart="0.00" departLane="372_2" departPos="91.73" departPosLat="-0.85" departSpeed="0.00" departDelay="0.00" arrival="59.00" arrivalLane="788_1" arrivalPos="93.65" arrivalPosLat="1.35" arrivalSpeed="5.25" duration="59.00" routeLength="123.26" waitingTime="28.00" waitingCount="1" stopTime="0.00" timeLoss="36.10" rerouteNo="0" devices="tripinfo_a routing_a" vType="bike" speedFactor="1.00" vaporized=""/>
 </tripinfos>
