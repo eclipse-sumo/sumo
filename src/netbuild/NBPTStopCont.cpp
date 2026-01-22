@@ -134,6 +134,8 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
                     WRITE_WARNINGF(TL("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'."),
                                    bidiEdge->getID(), i->first, id, myPTStops[id]->getEdgeId());
+                } else {
+                    existingBidiStops++;
                 }
                 continue;
             }
@@ -326,10 +328,11 @@ NBPTStopCont::getClosestPlatformToPTStopPosition(std::shared_ptr<NBPTStop> pStop
 NBEdge*
 NBPTStopCont::getReverseEdge(NBEdge* edge) {
     if (edge != nullptr) {
+        const PositionVector rGeom = edge->getGeometry().reverse();
         for (auto it = edge->getToNode()->getOutgoingEdges().begin();
                 it != edge->getToNode()->getOutgoingEdges().end();
                 it++) {
-            if ((*it)->getToNode() == edge->getFromNode()) {
+            if ((*it)->getToNode() == edge->getFromNode() && (*it)->getGeometry() == rGeom) {
                 return (*it);
             }
         }

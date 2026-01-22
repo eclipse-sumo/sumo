@@ -999,7 +999,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             bool toRevised = (it + 1)->revised;
             std::pair<std::string, std::string> trip(fromStop, toStop);
             std::pair<std::string, std::string> reverseTrip(toStop, fromStop);
-            //if (line->getLineID() == "147373" || true) {
+            //if (line->getLineID() == "147471") {
             //    std::cout << " line=" << line->getLineID() << " trip=" << Named::getIDSecure(fromEdge) << "->" << Named::getIDSecure(toEdge) << " visited=" << (visited.count(trip) != 0) << " fromStop=" << fromStop << " toStop=" << toStop << " fromRevised=" << fromRevised << " toRevised=" << toRevised << "\n";
             //}
             if (visited.count(trip) != 0) {
@@ -1027,17 +1027,17 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
             } else {
                 router->compute(from, to, &veh, 0, route);
             }
-            //if (line->getLineID() == "147373" || true) {
+            //if (line->getLineID() == "147471") {
             //    std::cout << "DEBUG: route=" << toString(route) << "\n";
             //}
             if (route.size() > 0) {
                 assert((int)route.size() > iStart + iDeltaEnd);
                 for (int i = iStart; i < (int)route.size() - iDeltaEnd; ++i) {
                     const bool isBidi = route[i]->getNumericalID() >= numEdges;
+                    bool isStop = i == iStart || i == (int)route.size() - 1 - iDeltaEnd;
                     if (isBidi || needBidi) {
                         NBEdge* edge = route[i]->edge;
                         if (addBidiEdges.count(edge) == 0) {
-                            bool isStop = i == iStart || i == (int)route.size() - 1 - iDeltaEnd;
                             if (!edge->isBidiRail(true)) {
                                 if (edge->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
                                     addBidiEdges.insert(edge);
@@ -1050,16 +1050,16 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
                                     }
                                 }
                             }
-                            if (isStop && needBidi) {
-                                std::shared_ptr<NBPTStop> fs = sc.get(fromStop);
-                                if (fs) {
-                                    addBidiStops.insert(fs);
-                                }
-                                std::shared_ptr<NBPTStop> ts = sc.get(toStop);
-                                if (ts) {
-                                    addBidiStops.insert(ts);
-                                }
-                            }
+                        }
+                    }
+                    if (isStop && isBidi) {
+                        std::shared_ptr<NBPTStop> fs = sc.get(fromStop);
+                        if (fs) {
+                            addBidiStops.insert(fs);
+                        }
+                        std::shared_ptr<NBPTStop> ts = sc.get(toStop);
+                        if (ts) {
+                            addBidiStops.insert(ts);
                         }
                     }
                 }
