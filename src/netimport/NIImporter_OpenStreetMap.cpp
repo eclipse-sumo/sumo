@@ -2654,7 +2654,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
         } else if (myPTRouteType != "" && myIsRoute) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,
                                             interpretTransportType(myPTRouteType), myRouteColor);
-            bool hadGap = false;
+            int consecutiveGap = false;
             int missingBefore = 0;
             int missingAfter = 0;
             for (long long ref : myStops) {
@@ -2664,17 +2664,18 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                         missingBefore++;
                     } else {
                         missingAfter++;
-                        if (!hadGap) {
-                            hadGap = true;
-                        }
+                        consecutiveGap++;
                     }
                     continue;
                 }
-                if (hadGap) {
-                    WRITE_WARNINGF(TL("PT line '%' in relation % seems to be split, only keeping first part."), myName, myCurrentRelation);
+                // give some slack for single missing stops
+                if (consecutiveGap > 1) {
+                    WRITE_WARNINGF(TL("PT line '%' in relation % has a gap of % stops, only keeping first part."), myName, myCurrentRelation, consecutiveGap);
                     missingAfter = (int)myStops.size() - missingBefore - (int)ptLine->getStops().size();
                     break;
                 }
+                // reset gap
+                consecutiveGap = 0;
 
                 const NIOSMNode* const n = nodeIt->second;
                 std::shared_ptr<NBPTStop> ptStop = myNBPTStopCont->get(toString(n->id));
