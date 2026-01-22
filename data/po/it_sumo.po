@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-19 18:37+0000\n"
+"PO-Revision-Date: 2026-01-22 19:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -14757,36 +14757,36 @@ msgstr "Immagine TIFF"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1700
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1726
 msgid "Postscript"
-msgstr ""
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1701
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1727
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Encapsulated Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1702
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1728
 msgid "Portable Document Format"
-msgstr ""
+msgstr "Portable Document Format"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1703
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1729
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1704
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1730
 msgid "LATEX text strings"
-msgstr ""
+msgstr "Catene di caratteri LATEX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "Portable LaTeX Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1706
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
 msgid "All Files"
-msgstr ""
+msgstr "Tutti i file"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 msgid "All Image and Video Files"
@@ -14814,7 +14814,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text"
-msgstr ""
+msgstr "Testo puro"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
@@ -14826,51 +14826,51 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "Sumo config"
-msgstr ""
+msgstr "Configurazione sumo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 msgid "Netedit config files"
-msgstr ""
+msgstr "File di configurazione netedit"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "Netconvert config files"
-msgstr ""
+msgstr "File di configurazione netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid "OSM network files"
-msgstr ""
+msgstr "File di reti OSM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "SUMO network files"
-msgstr ""
+msgstr "File di reti SUMO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "TLS files"
-msgstr ""
+msgstr "File di semafori"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "Junction files"
-msgstr ""
+msgstr "File di incroci"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Edge type files"
-msgstr ""
+msgstr "File di tipi di archi"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Additional files"
-msgstr ""
+msgstr "File di dati addizionali"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "Route files"
-msgstr ""
+msgstr "File di itinerari"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "Edge data files"
-msgstr ""
+msgstr "File di dati di archi"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Mean data files"
-msgstr ""
+msgstr "File MeanData"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
