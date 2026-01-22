@@ -4,6 +4,8 @@ The SUMO Documentation is generated using [MkDocs](https://www.mkdocs.org/).
 
 You can read the Documentation online at: <https://sumo.dlr.de/docs/>
 
+Read more on how to build the documentation: https://sumo.dlr.de/docs/Developer/Documentation_Build.html
+
 ## Getting started
 
 ### Prerequisites
