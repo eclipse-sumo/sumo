@@ -10,6 +10,8 @@ Warning: Cannot revise pt stop localization for pt line '1200744', which consist
 Warning: Cannot revise pt stop localization for pt line '1201388', which consist of one way only. Ignoring!
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: PT stop '1553912606' has been moved to edge '-141968830#1'.
+Warning: Stop '837697182' named 'Johannes-Sasse-Ring' from line '1119047' on edge '141968799' is not part of the route.
+Warning: Stop '-851572693' named 'Wegedornstraße/Semmelweisstraße' from line '1227007' on edge '-46150481#0' is not part of the route.
 Warning: Removing pt stop '588394564' on non existing edge ''.
 Warning: Removing pt stop '588394578' on non existing edge ''.
 Warning: Removed 5 pt stops because they could not be assigned to the network
@@ -24,3 +26,4 @@ Warning: 12 total messages of type: Ignoring parking area on edge '%' due to ins
 Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 3 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 5 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 4 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.

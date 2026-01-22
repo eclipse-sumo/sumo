@@ -14,3 +14,4 @@ Warning: The traffic light '2696124617' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '2696124617'
 Warning: The traffic light '665421850' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '665421850'
+Warning: Stop '1711974496' named 'Ahrensburg, Rathaus' from line '3651123' on edge '206357901#0' is not part of the route.

@@ -24,6 +24,8 @@ Warning: Edge '-172014854#1' has a grade of 11.33%.
 Warning: Edge '-172014854#2' has a grade of 10.78%.
 Warning: Edge '-24214694#1' has a grade of 14.95%.
 Warning: Edge '-24214694#4' has a grade of 13.96%.
+Warning: Stop '837696524' named 'James-Franck-Straße' from line '1119047' on edge '46039050#1' is not part of the route.
+Warning: Stop '-851572693' named 'Wegedornstraße/Semmelweisstraße' from line '1227007' on edge '-46150481#0' is not part of the route.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network

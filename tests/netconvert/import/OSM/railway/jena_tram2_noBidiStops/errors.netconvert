@@ -18,4 +18,7 @@ Warning: Could not re-assign PT stop '1720353263', probably broken osm file.
 Warning: Could not re-assign PT stop '344852619', probably broken osm file.
 Warning: Could not re-assign PT stop '344852621', probably broken osm file.
 Warning: Could not re-assign PT stop '344852622', probably broken osm file.
+Warning: Stop '344852619' named 'An der Trebe' from line '147471' on edge '47069121' is not part of the route.
+Warning: Stop '344852621' named 'Ostschule' from line '147471' on edge '47069119' is not part of the route.
+Warning: Stop '344852622' named 'Schlippenstraße' from line '147471' on edge '194083396' is not part of the route.
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'

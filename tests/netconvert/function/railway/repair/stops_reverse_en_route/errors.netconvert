@@ -1,0 +1,3 @@
+Warning: Stop 'stopBeg' named '' from line '0' on edge 'beg' is not part of the route.
+Warning: Stop 'stopBranch' named '' from line '0' on edge 'branch' is not part of the route.
+Warning: Stop 'stopEnd' named '' from line '0' on edge 'end' is not part of the route.

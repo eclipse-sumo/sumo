@@ -7,6 +7,8 @@ Warning: PT line in relation 1609587 with no stops ignored. Probably OSM file is
 Warning: PT stop '378729074' has been moved to edge '-1096073141'.
 Warning: PT stop '378729465' has been moved to edge '-171943679#1'.
 Warning: PT stop '112326137' has been moved to edge '-12369753#1'.
+Warning: Stop '7108387797' named 'Eschergutweg' from line '15004495' on edge '42208485#0' is not part of the route downstream of the previous stop.
+Warning: Stop '7108387797' named 'Eschergutweg' from line '7871933' on edge '42208485#0' is not part of the route downstream of the previous stop.
 Warning: Removing pt stop '5596717355' on non existing edge ''.
 Warning: Removing pt stop '5635232641' on non existing edge ''.
 Warning: Removing pt stop '7064021220' on non existing edge ''.

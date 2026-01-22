@@ -15,4 +15,6 @@ Warning: No way found for reference '374540383' in relation '8114619'
 Warning: Ignoring restriction relation '8114619' with unknown from-way.
 Warning: Ignoring restriction relation '8114619' with unknown to-way.
 Warning: Cannot assign stop 383074942 on edge '854904053' to pt line '1141160'. Ignoring!
+Warning: Stop '383074942' named 'Bellevue' from line '1140952' on edge '854904053' is not part of the route.
+Warning: Stop '383074942' named 'Bellevue' from line '1141160' on edge '854904053' is not part of the route.
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'

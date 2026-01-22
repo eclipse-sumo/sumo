@@ -52,10 +52,16 @@ Warning: The traffic light '5708137319' does not control any links; it will not 
 Warning: Could not build program '0' for traffic light '5708137319'
 Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.14 due to turning radius of 10.93 (length=7.13, angle=55.34).
 Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.13 due to turning radius of 6.04 (length=1.76, angle=34.22).
+Warning: Stop '5428806610' named 'Ackerstraße' from line '1518915' on edge '563320574#0' is not part of the route.
+Warning: Stop '5708039355' named 'Hauptfriedhof' from line '31272' on edge '291757758#1' is not part of the route downstream of the previous stop.
+Warning: Stop '5428806609' named 'Ackerstraße' from line '6615477' on edge '563320575#1' is not part of the route.
+Warning: Stop '5428806609' named 'Ackerstraße' from line '6789990' on edge '563320575#1' is not part of the route.
+Warning: Stop '5428806610' named 'Ackerstraße' from line '6789991' on edge '563320574#0' is not part of the route.
 Warning: 8 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 13 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 8 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 12 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 8 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 7 total messages of type: Last stop edge '%' is not part of the route of line '%'.
+Warning: 9 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.
 Warning: 799 total messages of type: The referenced geometry information (ref='%') is not known

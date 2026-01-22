@@ -1,0 +1,2 @@
+Warning: Stop '-stopF' named 'foo' from line '1' on edge '-f' is not part of the route.
+Warning: Stop 'stopH' named 'bar' from line '1' on edge 'h' is not part of the route.

@@ -11,5 +11,7 @@ Warning: Could not determine direction for line '7520265' at stop '3361686496'.
 Warning: Could not determine direction for line '7520266' at stop '3361686496'.
 Warning: Could not determine direction for line '7520266' at stop '3361686497'.
 Warning: Could not determine direction for line '7520266' at stop '3361686498'.
+Warning: Stop '3361686497' named 'Las Torres' from line '7520266' on edge '329301843#0' is not part of the route downstream of the previous stop.
+Warning: Stop '3361686498' named 'Villa Sierra' from line '7520266' on edge '329301843#0' is not part of the route downstream of the previous stop.
 Warning: Removing pt stop '8647924360' on non existing edge ''.
 Warning: Removed 1 pt stops because they could not be assigned to the network

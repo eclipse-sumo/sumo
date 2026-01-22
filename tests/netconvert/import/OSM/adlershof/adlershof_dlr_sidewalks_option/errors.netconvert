@@ -19,6 +19,10 @@ Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: PT stop '1553912606' has been moved to edge '-141968830#1'.
 Warning: PT stop '1094134880' has been moved to edge '-141968799'.
 Warning: Shape for junction '158710676' has distance 21.62 to its given position.
+Warning: Stop '837697182' named 'Johannes-Sasse-Ring' from line '1119047' on edge '141968799' is not part of the route.
+Warning: Stop '-851572693' named 'Wegedornstraße/Semmelweisstraße' from line '1227007' on edge '-46150481#0' is not part of the route.
+Warning: Stop '1704693343' named 'Karl-Ziegler-Straße' from line '2077947' on edge '158236729#0' is not part of the route.
+Warning: Stop '1704693343' named 'Karl-Ziegler-Straße' from line '2077981' on edge '158236729#0' is not part of the route.
 Warning: Removing pt stop '588394564' on non existing edge ''.
 Warning: Removing pt stop '588394578' on non existing edge ''.
 Warning: Removing pt stop '663346697' on non existing edge ''.
