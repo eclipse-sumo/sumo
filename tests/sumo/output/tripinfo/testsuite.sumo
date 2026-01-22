@@ -49,5 +49,8 @@ enable_by_type
 # disable tripinfo output by default and enable it probabilistically for selected vType
 probability_by_type
 
+# discount acceleration and deceleration for planned stops
+timeLoss_stop
+
 # Testing error cases
 errors
