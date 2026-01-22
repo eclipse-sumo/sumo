@@ -4241,8 +4241,8 @@ void
 MSVehicle::updateTimeLoss(double vNext) {
     // update time loss (depends on the updated edge)
     if (!isStopped()) {
-        const double vmax = MIN2(myLane->getVehicleMaxSpeed(this), myStopSpeed);
-        assert(vNext <= myStopSpeed + NUMERICAL_EPS);
+        // some cfModels (i.e. EIDM may drive faster than predicted by maxNextSpeed)
+        const double vmax = MIN2(myLane->getVehicleMaxSpeed(this), MAX2(myStopSpeed, vNext));
         if (vmax > 0) {
             myTimeLoss += TS * (vmax - vNext) / vmax;
         }
