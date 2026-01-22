@@ -233,7 +233,7 @@
   speed 9.21
   duration 31.00
   waitingTime 1.00
-  timeLoss 5.75
+  timeLoss 2.90
   departDelay 0.00
   departDelayWaiting -1.00
   totalTravelTime 31.00
@@ -243,7 +243,7 @@
   vehicleTripStatistics.speed 9.21
   vehicleTripStatistics.duration 31.00
   vehicleTripStatistics.waitingTime 1.00
-  vehicleTripStatistics.timeLoss 5.75
+  vehicleTripStatistics.timeLoss 2.90
   vehicleTripStatistics.departDelay 0.00
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 31.00
@@ -290,7 +290,7 @@
   speed 8.27
   duration 35.00
   waitingTime 3.00
-  timeLoss 8.76
+  timeLoss 5.42
   departDelay 0.25
   departDelayWaiting -1.00
   totalTravelTime 70.00
@@ -300,7 +300,7 @@
   vehicleTripStatistics.speed 8.27
   vehicleTripStatistics.duration 35.00
   vehicleTripStatistics.waitingTime 3.00
-  vehicleTripStatistics.timeLoss 8.76
+  vehicleTripStatistics.timeLoss 5.42
   vehicleTripStatistics.departDelay 0.25
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 70.00
@@ -347,7 +347,7 @@
   speed 7.53
   duration 39.00
   waitingTime 5.67
-  timeLoss 12.84
+  timeLoss 8.80
   departDelay 0.50
   departDelayWaiting -1.00
   totalTravelTime 117.00
@@ -357,7 +357,7 @@
   vehicleTripStatistics.speed 7.53
   vehicleTripStatistics.duration 39.00
   vehicleTripStatistics.waitingTime 5.67
-  vehicleTripStatistics.timeLoss 12.84
+  vehicleTripStatistics.timeLoss 8.80
   vehicleTripStatistics.departDelay 0.50
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 117.00
@@ -404,7 +404,7 @@
   speed 6.95
   duration 43.00
   waitingTime 8.25
-  timeLoss 17.15
+  timeLoss 12.29
   departDelay 0.75
   departDelayWaiting -1.00
   totalTravelTime 172.00
@@ -414,7 +414,7 @@
   vehicleTripStatistics.speed 6.95
   vehicleTripStatistics.duration 43.00
   vehicleTripStatistics.waitingTime 8.25
-  vehicleTripStatistics.timeLoss 17.15
+  vehicleTripStatistics.timeLoss 12.29
   vehicleTripStatistics.departDelay 0.75
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 172.00
@@ -461,7 +461,7 @@
   speed 6.47
   duration 47.00
   waitingTime 11.00
-  timeLoss 21.18
+  timeLoss 15.64
   departDelay 1.00
   departDelayWaiting -1.00
   totalTravelTime 235.00
@@ -471,7 +471,7 @@
   vehicleTripStatistics.speed 6.47
   vehicleTripStatistics.duration 47.00
   vehicleTripStatistics.waitingTime 11.00
-  vehicleTripStatistics.timeLoss 21.18
+  vehicleTripStatistics.timeLoss 15.64
   vehicleTripStatistics.departDelay 1.00
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 235.00
@@ -518,7 +518,7 @@
   speed 6.04
   duration 51.33
   waitingTime 13.67
-  timeLoss 24.77
+  timeLoss 18.78
   departDelay 1.08
   departDelayWaiting -1.00
   totalTravelTime 308.00
@@ -528,7 +528,7 @@
   vehicleTripStatistics.speed 6.04
   vehicleTripStatistics.duration 51.33
   vehicleTripStatistics.waitingTime 13.67
-  vehicleTripStatistics.timeLoss 24.77
+  vehicleTripStatistics.timeLoss 18.78
   vehicleTripStatistics.departDelay 1.08
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 308.00
@@ -575,7 +575,7 @@
   speed 5.69
   duration 55.43
   waitingTime 16.43
-  timeLoss 29.02
+  timeLoss 22.23
   departDelay 1.21
   departDelayWaiting -1.00
   totalTravelTime 388.00
@@ -585,7 +585,7 @@
   vehicleTripStatistics.speed 5.69
   vehicleTripStatistics.duration 55.43
   vehicleTripStatistics.waitingTime 16.43
-  vehicleTripStatistics.timeLoss 29.02
+  vehicleTripStatistics.timeLoss 22.23
   vehicleTripStatistics.departDelay 1.21
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 388.00
@@ -632,7 +632,7 @@
   speed 5.38
   duration 59.62
   waitingTime 19.12
-  timeLoss 32.87
+  timeLoss 25.52
   departDelay 1.38
   departDelayWaiting -1.00
   totalTravelTime 477.00
@@ -642,7 +642,7 @@
   vehicleTripStatistics.speed 5.38
   vehicleTripStatistics.duration 59.62
   vehicleTripStatistics.waitingTime 19.12
-  vehicleTripStatistics.timeLoss 32.87
+  vehicleTripStatistics.timeLoss 25.52
   vehicleTripStatistics.departDelay 1.38
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 477.00
@@ -689,7 +689,7 @@
   speed 5.11
   duration 63.67
   waitingTime 21.89
-  timeLoss 36.86
+  timeLoss 28.86
   departDelay 1.55
   departDelayWaiting -1.00
   totalTravelTime 573.00
@@ -699,7 +699,7 @@
   vehicleTripStatistics.speed 5.11
   vehicleTripStatistics.duration 63.67
   vehicleTripStatistics.waitingTime 21.89
-  vehicleTripStatistics.timeLoss 36.86
+  vehicleTripStatistics.timeLoss 28.86
   vehicleTripStatistics.departDelay 1.55
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 573.00
@@ -742,7 +742,7 @@ final
   speed 4.87
   duration 67.80
   waitingTime 24.70
-  timeLoss 40.69
+  timeLoss 32.13
   departDelay 1.75
   departDelayWaiting -1.00
   totalTravelTime 678.00
@@ -752,7 +752,7 @@ final
   vehicleTripStatistics.speed 4.87
   vehicleTripStatistics.duration 67.80
   vehicleTripStatistics.waitingTime 24.70
-  vehicleTripStatistics.timeLoss 40.69
+  vehicleTripStatistics.timeLoss 32.13
   vehicleTripStatistics.departDelay 1.75
   vehicleTripStatistics.departDelayWaiting -1.00
   vehicleTripStatistics.totalTravelTime 678.00

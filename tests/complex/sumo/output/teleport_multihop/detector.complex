@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-19 09:47:21 by Eclipse SUMO sumo Version v1_12_0+1539-41ad2ee
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-01-22T16:46:25.663948+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -24,11 +24,7 @@
         <no-step-log value="true"/>
     </report>
 
-    <gui_only>
-        <tracker-interval value="1"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
@@ -43,7 +39,7 @@
    <interval begin="100.00" end="200.00" id="e3_2/1to1/1_0" meanTravelTime="40.00" meanOverlapTravelTime="40.50" meanSpeed="10.00" meanHaltsPerVehicle="0.00" meanTimeLoss="0.00" vehicleSum="45" meanSpeedWithin="10.00" meanHaltsPerVehicleWithin="0.00" meanDurationWithin="33.00" vehicleSumWithin="8" meanIntervalSpeedWithin="10.00" meanIntervalHaltsPerVehicleWithin="0.00" meanIntervalDurationWithin="33.00" meanTimeLossWithin="0.00"/>
     <interval begin="100.00" end="200.00" id="e1_1/1to0/1_0" nVehContrib="26" flow="936.00" occupancy="29.95" speed="9.92" harmonicMeanSpeed="9.90" length="5.00" nVehEntered="27"/>
    <interval begin="100.00" end="200.00" id="e2_1/1to0/1_0" sampledSeconds="2025.00" nVehEntered="45" nVehLeft="0" nVehSeen="45" meanSpeed="5.12" meanTimeLoss="21.98" meanOccupancy="0.34" maxOccupancy="0.75" meanMaxJamLengthInVehicles="9.21" meanMaxJamLengthInMeters="67.91" maxJamLengthInVehicles="38" maxJamLengthInMeters="282.54" jamLengthInVehiclesSum="921" jamLengthInMetersSum="6790.87" meanHaltingDuration="24.61" maxHaltingDuration="48.00" haltingDurationSum="960.00" meanIntervalHaltingDuration="24.61" maxIntervalHaltingDuration="48.00" intervalHaltingDurationSum="960.00" startedHalts="39.00" meanVehicleNumber="20.25" maxVehicleNumber="45" />
-   <interval begin="100.00" end="200.00" id="e3_1/1to0/1_0" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="6.12" meanHaltsPerVehicleWithin="0.84" meanDurationWithin="46.00" vehicleSumWithin="45" meanIntervalSpeedWithin="6.12" meanIntervalHaltsPerVehicleWithin="0.84" meanIntervalDurationWithin="46.00" meanTimeLossWithin="1.07"/>
+   <interval begin="100.00" end="200.00" id="e3_1/1to0/1_0" meanTravelTime="-1.00" meanOverlapTravelTime="-1.00" meanSpeed="-1.00" meanHaltsPerVehicle="-1.00" meanTimeLoss="-1.00" vehicleSum="0" meanSpeedWithin="6.12" meanHaltsPerVehicleWithin="0.84" meanDurationWithin="46.00" vehicleSumWithin="45" meanIntervalSpeedWithin="6.12" meanIntervalHaltsPerVehicleWithin="0.84" meanIntervalDurationWithin="46.00" meanTimeLossWithin="1.03"/>
     <interval begin="200.00" end="300.00" id="e1_2/1to1/1_0" nVehContrib="1" flow="36.00" occupancy="0.50" speed="10.00" harmonicMeanSpeed="10.00" length="5.00" nVehEntered="1"/>
    <interval begin="200.00" end="300.00" id="e2_2/1to1/1_0" sampledSeconds="5369.00" nVehEntered="1" nVehLeft="0" nVehSeen="54" meanSpeed="0.28" meanTimeLoss="96.66" meanOccupancy="0.89" maxOccupancy="0.90" meanMaxJamLengthInVehicles="51.94" meanMaxJamLengthInMeters="387.76" maxJamLengthInVehicles="54" maxJamLengthInMeters="405.00" jamLengthInVehiclesSum="5194" jamLengthInMetersSum="38776.19" meanHaltingDuration="114.24" maxHaltingDuration="148.00" haltingDurationSum="6169.00" meanIntervalHaltingDuration="96.46" maxIntervalHaltingDuration="100.00" intervalHaltingDurationSum="5209.00" startedHalts="15.00" meanVehicleNumber="53.69" maxVehicleNumber="54" />
    <interval begin="200.00" end="300.00" id="e3_2/1to1/1_0" meanTravelTime="40.00" meanOverlapTravelTime="40.53" meanSpeed="10.00" meanHaltsPerVehicle="0.00" meanTimeLoss="0.04" vehicleSum="8" meanSpeedWithin="5.84" meanHaltsPerVehicleWithin="1.00" meanDurationWithin="70.00" vehicleSumWithin="1" meanIntervalSpeedWithin="5.84" meanIntervalHaltsPerVehicleWithin="1.00" meanIntervalDurationWithin="70.00" meanTimeLossWithin="29.10"/>
