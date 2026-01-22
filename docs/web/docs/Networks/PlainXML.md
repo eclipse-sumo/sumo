@@ -16,7 +16,7 @@ edited by the users. In contrast, the *.net.xml* format has lots of
 subtle inter-dependencies between its elements and should never be
 edited by hand. The *plain-xml* format is described below.
 
-It is possible to loaded a *net.xml* file along with *plain-xml* patch
+It is possible to load a *net.xml* file along with *plain-xml* patch
 files into [netconvert](../netconvert.md) to modify some aspects of
 an existing network.
 
@@ -77,7 +77,7 @@ available as XML Schema Definitions:
 
 <center>
 
-| Node Descriptions | |
+| Node Descriptions  |                                 |
 |--------------------|---------------------------------|
 | Filename extension | .nod.xml                        |
 | Type of content    | Nodes (intersections/junctions) |
