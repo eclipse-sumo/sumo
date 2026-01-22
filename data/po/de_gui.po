@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-19 20:13+0000\n"
+"PO-Revision-Date: 2026-01-22 19:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -8705,7 +8705,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8035
 #: src/netedit/GNETagPropertiesDatabase.cpp:8041
 msgid "The probability when being added to a distribution"
-msgstr ""
+msgstr "Die Wahrscheinlichkeit innerhalb einer Verteilung"
 
 #: src/netedit/GNEUndoList.cpp:469
 msgid "Disabled undo"
@@ -9031,11 +9031,11 @@ msgstr "PoI von Fahrstreifen lösen"
 
 #: src/netedit/GNEViewNet.cpp:3075
 msgid "transform to POI"
-msgstr ""
+msgstr "zu einem PoI umwandeln"
 
 #: src/netedit/GNEViewNet.cpp:3100
 msgid "transform to POI GEO"
-msgstr ""
+msgstr "zu einem GEO-PoI umwandeln"
 
 #: src/netedit/GNEViewNet.cpp:3116
 msgid "reverse % '%'"
@@ -10490,7 +10490,7 @@ msgstr "Keine Routen im Netz enthalten"
 
 #: src/netedit/dialogs/elements/GNEDistributionRefDialog.cpp:59
 msgid "Add % reference"
-msgstr ""
+msgstr "%-Referenz hinzufügen"
 
 #: src/netedit/dialogs/elements/GNEDistributionRefDialog.cpp:150
 #: src/netedit/elements/demand/GNERouteHandler.cpp:260
@@ -10625,7 +10625,7 @@ msgstr "Fehler bei der Kopie einer Datei"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:242
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 msgid "Unable to copy file: %"
-msgstr ""
+msgstr "Kopieren der Datei nicht möglich: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:243
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:289
@@ -10686,7 +10686,7 @@ msgstr "Fehler beim Löschen einer Datei"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:334
 msgid "Unable to delete file: %"
-msgstr ""
+msgstr "Löschen der Datei unmöglich: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:335
 msgid "Check file permissions"
@@ -11367,7 +11367,7 @@ msgstr "Ausführung abbrechen"
 #: src/netedit/dialogs/run/GNERunNetgenerateDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunNetgenerateDialog.cpp:56
 msgid "Running netgenerate results"
-msgstr ""
+msgstr "Ergebnisse der netgenerate-Ausführung"
 
 #: src/netedit/dialogs/run/GNERunPythonToolDialog.cpp:32
 #: src/netedit/dialogs/tools/GNERunPythonToolDialog.cpp:57
@@ -11769,7 +11769,7 @@ msgstr "Das Netz verlangt eine geografische Projektion."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1736
 msgid "add POI GEO '%'"
-msgstr ""
+msgstr "GEO-PoI '%' hinzufügen"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1763
 msgid "add jps walkable area '"
@@ -11825,11 +11825,11 @@ msgstr "Zum nächsten Fahrstreifen zuteilen"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:344
 msgid "Transform to POI"
-msgstr ""
+msgstr "In PoI umwandeln"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:346
 msgid "Transform to POI Geo"
-msgstr ""
+msgstr "In Geo-PoI umwandeln"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:414
 #: src/netedit/elements/additional/GNEPOI.cpp:420
