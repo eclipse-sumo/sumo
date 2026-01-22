@@ -13,9 +13,4 @@ Warning: Ignoring restriction relation '4209161' with unknown to-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482695' (Steinborn). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482696' (Steinborn). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482698' (Gabelsbergerstraße). Thus, it will be removed!
-Warning: Could not re-assign PT stop '2621259936', probably broken osm file.
-Warning: Could not re-assign PT stop '1720353263', probably broken osm file.
-Warning: Could not re-assign PT stop '344852619', probably broken osm file.
-Warning: Could not re-assign PT stop '344852621', probably broken osm file.
-Warning: Could not re-assign PT stop '344852622', probably broken osm file.
 Warning: 6 total messages of type: No way found for reference '%' in relation '%'
