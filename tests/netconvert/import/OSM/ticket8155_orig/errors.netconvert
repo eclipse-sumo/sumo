@@ -1,8 +1,8 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '10425555').
 Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurrence for edge '32548182').
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '32548183').
-Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 seems to be split, only keeping first part.
-Warning: PT line 'Bus 414: Stadion (Schwarzer Berg) => Heideblick' in relation 6768240 seems to be split, only keeping first part.
+Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 has a gap of 4 stops, only keeping first part.
+Warning: PT line 'Bus 414: Stadion (Schwarzer Berg) => Heideblick' in relation 6768240 has a gap of 5 stops, only keeping first part.
 Warning: Cannot revise pt stop localization for pt line '2653085', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2656639', which consist of one way only. Ignoring!
 Warning: Cannot assign stop 54142977 on edge '859066434' to pt line '4599999'. Ignoring!

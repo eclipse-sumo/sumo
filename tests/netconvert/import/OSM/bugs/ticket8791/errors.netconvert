@@ -3,8 +3,8 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '19431425').
 Warning: No way found for reference '264888946' in relation '3559808'
 Warning: Ignoring restriction relation '3559808' with unknown from-way.
-Warning: PT line 'Bus 769: Ahrensburg, Auestieg => Ahrensburg, Schulzentrum Am Heimgarten' in relation 4476426 seems to be split, only keeping first part.
-Warning: PT line 'Nachtbus 669: U Ahrensburg West => U Ahrensburg West' in relation 12151739 seems to be split, only keeping first part.
+Warning: PT line 'Bus 769: Ahrensburg, Auestieg => Ahrensburg, Schulzentrum Am Heimgarten' in relation 4476426 has a gap of 5 stops, only keeping first part.
+Warning: PT line 'Nachtbus 669: U Ahrensburg West => U Ahrensburg West' in relation 12151739 has a gap of 8 stops, only keeping first part.
 Warning: PT stop '1792502642' has been moved to edge '-76424358'.
 Warning: PT stop '8341032348' has been moved to edge '-19431426#9'.
 Warning: PT stop '2705494849' has been moved to edge '-39546438'.

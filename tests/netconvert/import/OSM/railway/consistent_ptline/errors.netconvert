@@ -15,10 +15,9 @@ Warning: Discarding way '127867792' because it has only 1 node(s)
 Warning: Discarding way '127867795' because it has only 1 node(s)
 Warning: Discarding unknown compound 'bus' in type 'bus|highway.service|psv' (first occurrence for edge '334152816').
 Warning: Discarding unknown compound 'psv' in type 'bus|highway.service|psv' (first occurrence for edge '334152816').
-Warning: PT line 'Tram 4: Radeklint => Helmstedter Str.' in relation 3887930 seems to be split, only keeping first part.
 Warning: PT line in relation 6915027 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 6915028 with no stops ignored. Probably OSM file is incomplete.
-Warning: PT line 'Bus 412: Paxmannstraße => Rathaus' in relation 6952992 seems to be split, only keeping first part.
+Warning: PT line 'Bus 412: Paxmannstraße => Rathaus' in relation 6952992 has a gap of 13 stops, only keeping first part.
 Warning: PT line in relation 6974265 with no stops ignored. Probably OSM file is incomplete.
 Warning: PT line in relation 7345498 with no stops ignored. Probably OSM file is incomplete.
 Warning: Cannot assign stop 5428806610 on edge '563320574' to pt line '1518915'. Ignoring!

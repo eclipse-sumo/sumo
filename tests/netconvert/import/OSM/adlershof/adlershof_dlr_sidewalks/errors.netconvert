@@ -6,29 +6,25 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurrence for edge '81096583').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurrence for edge '135777010').
 Warning: Discarding unusable type 'railway.abandoned' (first occurrence for edge '219832513').
-Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 164: S Flughafen Berlin-Schönefeld => S Kaulsdorf' in relation 228027 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 172: S Lichtenrade/Blohmstraße => U Rudow' in relation 1200744 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 172: U Rudow => S Lichtenrade/Blohmstraße' in relation 1201388 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 has a gap of 28 stops, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 has a gap of 8 stops, only keeping first part.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: Cannot revise pt stop localization for pt line '1200744', which consist of one way only. Ignoring!
-Warning: Cannot revise pt stop localization for pt line '1201388', which consist of one way only. Ignoring!
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: PT stop '1553912606' has been moved to edge '-141968830#1'.
 Warning: PT stop '1094134880' has been moved to edge '-141968799'.
 Warning: Shape for junction '158710676' has distance 21.62 to its given position.
 Warning: Stop '837697182' named 'Johannes-Sasse-Ring' from line '1119047' on edge '141968799' is not part of the route.
-Warning: Stop '-851572693' named 'Wegedornstraße/Semmelweisstraße' from line '1227007' on edge '-46150481#0' is not part of the route.
-Warning: Stop '1704693343' named 'Karl-Ziegler-Straße' from line '2077947' on edge '158236729#0' is not part of the route.
-Warning: Stop '1704693343' named 'Karl-Ziegler-Straße' from line '2077981' on edge '158236729#0' is not part of the route.
+Warning: Stop '837696912' named 'Akeleiweg' from line '1119047' on edge '141968853#0' is not part of the route.
+Warning: Stop '837696524' named 'James-Franck-Straße' from line '1119047' on edge '46039050#4' is not part of the route.
+Warning: Stop '1560223236' named 'Rudower Chaussee/Wegedornstraße' from line '1119047' on edge '143308587#0' is not part of the route.
+Warning: Stop '852932398' named 'Wegedornstraße/Semmelweisstraße' from line '1119047' on edge '46150481#0' is not part of the route.
 Warning: Removing pt stop '588394564' on non existing edge ''.
+Warning: Removing pt stop '588394577' on non existing edge ''.
 Warning: Removing pt stop '588394578' on non existing edge ''.
+Warning: Removing pt stop '663346674' on non existing edge ''.
 Warning: Removing pt stop '663346697' on non existing edge ''.
-Warning: Removing pt stop '735390157' on non existing edge ''.
-Warning: Removing pt stop '852932403' on non existing edge ''.
-Warning: Removed 5 pt stops because they could not be assigned to the network
+Warning: Removed 7 pt stops because they could not be assigned to the network
 Warning: Could not find edge for parkingArea '46039050#2'.
 Warning: Could not find edge for parkingArea '46039050#3'.
 Warning: Could not find edge for parkingArea '46039050#5'.
@@ -42,4 +38,5 @@ Warning: Ignoring parking area on edge '-143308521#6' due to insufficient space.
 Warning: 18 total messages of type: Could not find edge for parkingArea '%'.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 12 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
-Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
+Warning: 7 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 12 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.

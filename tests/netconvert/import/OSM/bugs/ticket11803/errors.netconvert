@@ -8,8 +8,7 @@ Warning: No way found for reference '8161400' in relation '11138423'
 Warning: No way found for reference '306839970' in relation '11138423'
 Warning: Ignoring restriction relation '11138423' with unknown from-way.
 Warning: Ignoring restriction relation '11138423' with unknown to-way.
-Warning: PT line 'Bateau 3154 : Genève-Mt-Blanc → Coppet → Genève-Mt-Blanc' in relation 12967710 seems to be split, only keeping first part.
-Warning: PT line 'Bateau 3154 : Genève-Mt-Blanc → Genève-Jardin-Anglais → La Belotte → Bellevue → Genève-Mt-Blanc → Genève-Jardin-Anglais' in relation 13042678 seems to be split, only keeping first part.
+Warning: PT line 'Bateau 3154 : Genève-Mt-Blanc → Genève-Jardin-Anglais → La Belotte → Bellevue → Genève-Mt-Blanc → Genève-Jardin-Anglais' in relation 13042678 has a gap of 3 stops, only keeping first part.
 Warning: Cannot revise pt stop localization for pt line '12936075', which has no route edges. Ignoring!
 Warning: Removed invalid stop '1035567617' from line '12936075'.
 Warning: Removed invalid stop '418757008' from line '12936075'.
@@ -28,4 +27,4 @@ Warning: Removing pt stop '1035567617' on non existing edge ''.
 Warning: Removing pt stop '418757008' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network
 Warning: 6 total messages of type: Cannot revise pt stop localization for pt line '%', which has no route edges. Ignoring!
-Warning: 18 total messages of type: Removed invalid stop '%' from line '%'.
+Warning: 19 total messages of type: Removed invalid stop '%' from line '%'.
