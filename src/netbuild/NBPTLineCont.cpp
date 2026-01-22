@@ -183,7 +183,10 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         if (dir != assignedDir) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
-                WRITE_WARNINGF(TL("Could not re-assign PT stop '%', probably broken osm file."), stop->getID());
+                const OptionsCont& oc = OptionsCont::getOptions();
+                if (!oc.getBool("railway.topology.repair") && oc.getBool("ptstop-output.no-bidi")) {
+                    WRITE_WARNINGF(TL("Could not re-assign PT stop '%'. May need option --railway.topology.repair"), stop->getID());
+                }
                 continue;
             }
             if (stop->getLines().size() > 0) {
