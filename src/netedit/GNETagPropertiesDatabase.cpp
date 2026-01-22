@@ -618,6 +618,13 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
         fringe->setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
 
+        auto roundabout = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUNDABOUT,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                TL("Whether this junction may be considered when guessing roundabouts"),
+                SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
+        roundabout->setDiscreteValues(SUMOXMLDefinitions::RoundaboutTypeValues.getStrings());
+
         fillNameAttribute(myTagProperties[currentTag]);
 
         auto tlType = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TLTYPE,
