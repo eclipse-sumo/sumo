@@ -269,7 +269,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                             airLine = euclidean(trace[i - 1], trace[i])
                             fx, fy = trace[i - 1]
                             tx, ty = trace[i]
-                            print("Trip %s (%s): detour (factor %.2f) to stop index %s, fromPos=%.2f,%.2f toPos=%.2f,%.2f (airLine=%.2f path=%.2f)" %
+                            print("Trip %s (%s): detour (factor %.2f) to stop index %s, fromPos=%.2f,%.2f toPos=%.2f,%.2f (airLine=%.2f path=%.2f)" %  # noqa
                                   (tid, mode, detour, i, fx, fy, tx, ty, airLine, detour * airLine), file=sys.stderr)
 
                     traceCache[trace] = mappedRoute
