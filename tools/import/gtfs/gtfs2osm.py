@@ -136,7 +136,7 @@ def import_gtfs(options, gtfsZip):
         routes['route_short_name'] = routes['route_long_name']
 
     # for some obscure reason there are GTFS files which have the sequence index as a float
-    stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float, copy=False)
+    stop_times['stop_sequence'] = stop_times['stop_sequence'].astype(float)
 
     # filter trips within given begin and end time
     # first adapt stop times to a single day (from 00:00:00 to 23:59:59)
