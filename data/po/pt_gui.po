@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 15:41+0000\n"
+"PO-Revision-Date: 2026-01-22 17:07+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2606,36 +2606,36 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
 msgid "Netedit config '%' loaded"
-msgstr ""
+msgstr "Configuração do netedit '%' carregada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
 #, c-format
 msgid "Sumo config '%' loaded"
-msgstr ""
+msgstr "Configuração do sumo '%' carregada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
 #, c-format
 msgid "Netconvert config '%' loaded"
-msgstr ""
+msgstr "Configuração do netconvert '%' carregada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
 #, c-format
 msgid "Network '%' loaded"
-msgstr ""
+msgstr "Rede '%' carregada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1371
 #, c-format
 msgid "OSM Network '%' loaded"
-msgstr ""
+msgstr "Rede OSM '%' carregada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
 msgid "Network '%' loaded through console"
-msgstr ""
+msgstr "Rede '%' carregada através do console"
 
 #: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "New network successfully created"
-msgstr ""
+msgstr "Nova rede criada com sucesso"
 
 #: src/netedit/GNEApplicationWindow.cpp:1475
 msgid "&Modes"
@@ -2740,7 +2740,7 @@ msgstr "A rede precisa ser recalculada"
 
 #: src/netedit/GNEApplicationWindow.cpp:1740
 msgid "Loading console arguments."
-msgstr ""
+msgstr "Carregando argumentos do console."
 
 #: src/netedit/GNEApplicationWindow.cpp:1768
 msgid "Creating new network."
@@ -2748,27 +2748,27 @@ msgstr "Criando nova rede."
 
 #: src/netedit/GNEApplicationWindow.cpp:1779
 msgid "Trying to load an empty network."
-msgstr ""
+msgstr "Tentando carregar uma rede vazia."
 
 #: src/netedit/GNEApplicationWindow.cpp:1798
 msgid "Loading network file '%'."
-msgstr ""
+msgstr "Abrindo arquivo de rede '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1810
 msgid "Trying to load an empty configuration."
-msgstr ""
+msgstr "Tentando carregar uma configuração vazia."
 
 #: src/netedit/GNEApplicationWindow.cpp:1826
 msgid "Loading configuration file '%'."
-msgstr ""
+msgstr "Carregando arquivo de configuração '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1865
 msgid "Loading OSM file '%'."
-msgstr ""
+msgstr "Carregando arquivo OSM '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:1882
 msgid "Recompute with volatile options"
-msgstr ""
+msgstr "Recalcular com opções voláteis"
 
 #: src/netedit/GNEApplicationWindow.cpp:1883
 msgid "Changes produced in the net due a recomputing with"
@@ -5707,6 +5707,8 @@ msgid ""
 "Enable or disable charge in transit, i.e. vehicle must or must not to stop "
 "for charging"
 msgstr ""
+"Ativar ou desativar o carregamento em trânsito, isto é, se o veículo deve ou "
+"não parar para carregar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1321
 msgid ""
@@ -5898,6 +5900,8 @@ msgid ""
 "The id of the routeProbe element from which to determine the route "
 "distribution for generated vehicles"
 msgstr ""
+"O ID do elemento routeProbe a partir do qual será determinada a distribuição "
+"de rotas para os veículos gerados"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1829
 #: src/netedit/GNETagPropertiesDatabase.cpp:1870
