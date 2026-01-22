@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 08:57+0000\n"
+"PO-Revision-Date: 2026-01-22 15:41+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -5319,6 +5319,8 @@ msgid ""
 "The spreadType defines how to compute the lane geometry from the edge "
 "geometry (used for visualization)"
 msgstr ""
+"O spreadType define como calcular a geometria da faixa a partir da geometria "
+"da aresta (usado para visualização)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:687
 #: src/netedit/GNETagPropertiesDatabase.cpp:765
@@ -5373,6 +5375,8 @@ msgid ""
 "If the shape is given it should start and end with the positions of the from-"
 "node and to-node"
 msgstr ""
+"Se a forma for fornecida, ela deve começar e terminar com as posições do nó "
+"de origem e do nó de destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:789
 msgid "The length of the edge in meter"
@@ -5429,6 +5433,8 @@ msgid ""
 "The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
 "is the leftmost one)"
 msgstr ""
+"O índice de enumeração da faixa (0 é a faixa mais à direita, <NUMBER_LANES>-"
+"1 é a mais à esquerda)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:875
 msgid "Speed in meters per second"
