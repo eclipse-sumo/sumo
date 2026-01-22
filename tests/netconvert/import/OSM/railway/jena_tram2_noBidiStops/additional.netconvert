@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-21T00:18:09.830955+01:00 by Eclipse SUMO netconvert v1_25_0+1114-48e56b5e860
+<!-- generated on 2026-01-22T09:39:26.781319+01:00 by Eclipse SUMO netconvert v1_25_0+1127-ffd934239ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,6 +49,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <trainStop id="-1720353263" name="Löbichauer Straße" lane="-47069121_0" startPos="419.15" endPos="444.15" friendlyPos="true"/>
     <trainStop id="-2621259936" name="Jena Ost" lane="-47069121_0" startPos="0.00" endPos="25.00" friendlyPos="true"/>
+    <trainStop id="-344852619" name="An der Trebe" lane="-47069121_0" startPos="623.69" endPos="648.69" friendlyPos="true"/>
+    <trainStop id="-344852621" name="Ostschule" lane="-47069119_0" startPos="152.99" endPos="177.99" friendlyPos="true"/>
+    <trainStop id="-344852622" name="Schlippenstraße" lane="-194083396_0" startPos="130.32" endPos="155.32" friendlyPos="true"/>
     <trainStop id="1720353263" name="Löbichauer Straße" lane="47069121_0" startPos="204.54" endPos="229.54" friendlyPos="true" lines="2"/>
     <trainStop id="2045933399" name="Jenzigweg" lane="194083390_0" startPos="26.26" endPos="51.26" friendlyPos="true" lines="2"/>
     <trainStop id="2621259936" name="Jena Ost" lane="47069121_0" startPos="623.69" endPos="648.69" friendlyPos="true" lines="2"/>
