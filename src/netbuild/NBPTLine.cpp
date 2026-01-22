@@ -358,6 +358,30 @@ NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
             i++;
         }
     }
+    // validate that all stops are actually on the route
+    auto ri = myRoute.begin();
+    for (auto it = myPTStops.begin(); it != myPTStops.end();) {
+        std::shared_ptr<NBPTStop> stop = *it;
+        NBEdge* e = ec.retrieve(stop->getEdgeId());
+        if (e == nullptr) {
+            WRITE_WARNINGF(TL("Removed stop '%' named '%' from line '%' because edge '%' is missing."),
+                    stop->getID(), stop->getName(), getLineID(), stop->getEdgeId());
+            it = myPTStops.erase(it);
+        } else {
+            auto riPrev = ri;
+            ri = std::find(ri, myRoute.end(), e);
+            if (ri == myRoute.end()) {
+                std::string reason = std::find(myRoute.begin(), myRoute.end(), e) == myRoute.end()
+                    ? TL("not part of the route")
+                    : TL("not part of the route downstream of the previous stop");
+
+                WRITE_WARNINGF(TL("Stop '%' named '%' from line '%' on edge '%' is %."),
+                        stop->getID(), stop->getName(), getLineID(), stop->getEdgeId(), reason);
+                ri = riPrev;
+            }
+            it++;
+        }
+    }
 }
 
 
