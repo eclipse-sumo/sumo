@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 17:07+0000\n"
+"PO-Revision-Date: 2026-01-22 19:41+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2861,61 +2861,66 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3482
 msgid "Plain XML saved with prefix '%'."
-msgstr ""
+msgstr "XML simples salvo com o prefixo '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3485
 msgid "Saving plain xml failed"
-msgstr ""
+msgstr "O salvamento do XML simples falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:3499
 msgid "plain XML file"
-msgstr ""
+msgstr "arquivo XML simples"
 
 #: src/netedit/GNEApplicationWindow.cpp:3518
 msgid "joined junctions file"
-msgstr ""
+msgstr "arquivo de junções de cruzamentos"
 
 #: src/netedit/GNEApplicationWindow.cpp:3529
 msgid "Joined junctions saved to '%'."
-msgstr ""
+msgstr "Cruzamentos unidos salvos em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3532
 msgid "Saving joined junctions failed"
-msgstr ""
+msgstr "O salvamento das uniões dos cruzamentos falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:3554
 msgid "Saving of netedit configuration aborted (due network)."
 msgstr ""
+"O salvamento das conffigurações do netedit foi cancelado (devido à rede)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
+"Salvamento da configuração do netedit abortado (devido a arquivo adicional)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr ""
+"Salvamento da configuração do netedit abortado (devido a arquivo de demanda)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3566
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr ""
+"Salvamento da configuração do netedit abortado (devido a arquivo de dados)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3570
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr ""
+"Salvamento da configuração do netedit abortado (devido a arquivo meanData)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3582
 #: src/netedit/GNEApplicationWindow.cpp:3726
 msgid "Netedit configuration saved in '%'."
-msgstr ""
+msgstr "Configuração do netedit salva em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3600
 #: src/netedit/GNEApplicationWindow.cpp:3713
 msgid "SUMO configuration saved in '%'."
-msgstr ""
+msgstr "Configuração do sumo salva em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3610
 msgid "Could not save netedit configuration in '%'."
-msgstr ""
+msgstr "Não foi possível salvar as configurações do netedit em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3682
 #: src/netedit/GNEApplicationWindow.cpp:3686
@@ -2923,46 +2928,46 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:3694
 #: src/netedit/GNEApplicationWindow.cpp:3698
 msgid "Saving of SUMO configuration aborted"
-msgstr ""
+msgstr "O salvamento das configurações do sumo foi abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:3738
 msgid "Could not save SUMO configuration in '%'."
-msgstr ""
+msgstr "Não foi possível salvar as configurações do sumo em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3799
 msgid "TLS Programs saved in '%'."
-msgstr ""
+msgstr "Programas de semáforos salvos em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3802
 msgid "Saving TLS Programs failed"
-msgstr ""
+msgstr "O salvamento do programa dos semáforos falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:3843
 msgid "EdgeType saved in '%'."
-msgstr ""
+msgstr "EdgeType salvo em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3846
 msgid "Saving edgeTypes failed"
-msgstr ""
+msgstr "O salvamento dos edgeTypes falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:3918
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:412
 msgid "Additional elements file"
-msgstr ""
+msgstr "Arquivo de elementos adicionais"
 
 #: src/netedit/GNEApplicationWindow.cpp:3934
 msgid "load additionals from '%'"
-msgstr ""
+msgstr "carregar adicionais de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:3938
 #, c-format
 msgid "Loading of additional file '%' failed."
-msgstr ""
+msgstr "O carregamento do arquivo de adicionais '%' falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:3941
 #, c-format
 msgid "Loading of additional file '%' successfully."
-msgstr ""
+msgstr "O arquivo de adicionais '%' foi carregado com sucesso."
 
 #: src/netedit/GNEApplicationWindow.cpp:3966
 msgid "reloading additionals"
@@ -2970,7 +2975,7 @@ msgstr "recarregando adicionais"
 
 #: src/netedit/GNEApplicationWindow.cpp:4005
 msgid "Force save additional elements"
-msgstr ""
+msgstr "Forçar salvamento dos elementos adicionais"
 
 #: src/netedit/GNEApplicationWindow.cpp:4028
 msgid "Additionals saved."
@@ -2978,48 +2983,48 @@ msgstr "Adicionais salvos."
 
 #: src/netedit/GNEApplicationWindow.cpp:4031
 msgid "Saving additional aborted."
-msgstr ""
+msgstr "O salvamento dos elementos adicionais foi abortado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4036
 msgid "Saving additional elements failed"
-msgstr ""
+msgstr "O salvamento dos elementos adicionais falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:4046
 msgid "Additional elements as"
-msgstr ""
+msgstr "Elementos adicionais como"
 
 #: src/netedit/GNEApplicationWindow.cpp:4066
 msgid "Additional elements in unified file"
-msgstr ""
+msgstr "Elementos adicionais em arquivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4076
 msgid "saving of unified additional elements in '%'"
-msgstr ""
+msgstr "salvando elementos adicionais unificados em '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4096
 msgid "JuPedSim elements file"
-msgstr ""
+msgstr "arquivo de elementos JuPedSim"
 
 #: src/netedit/GNEApplicationWindow.cpp:4110
 msgid "JuPedSim elements saved."
-msgstr ""
+msgstr "elementos JuPedSim salvos."
 
 #: src/netedit/GNEApplicationWindow.cpp:4113
 msgid "Saving JuPedSim elements aborted."
-msgstr ""
+msgstr "Salvamento de elementos JuPedSim abortado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4118
 msgid "Saving JuPedSim elements failed"
-msgstr ""
+msgstr "Salvamento de elementos JuPedSim falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:4128
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:463
 msgid "Route elements file"
-msgstr ""
+msgstr "arquivo de elementos de rota"
 
 #: src/netedit/GNEApplicationWindow.cpp:4144
 msgid "loading demand elements from '%'"
-msgstr ""
+msgstr "carregando elementos de demanda de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4148
 #, c-format
