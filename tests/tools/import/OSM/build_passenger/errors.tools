@@ -20,6 +20,8 @@ Warning: Removed invalid stop '1704693369' from line '2077946'.
 Warning: Removed invalid stop '1704693343' from line '2077947'.
 Warning: Removed invalid stop '1704693343' from line '2077981'.
 Warning: Removed invalid stop '1704693381' from line '2077982'.
+Warning: Stop '464396487' named 'Rudower Chaussee/Wegedornstraße' from line '1227007' on edge '143308542#0' is not part of the route.
+Warning: Stop '306982602' named 'Magnusstraße' from line '1227007' on edge '143308542#0' is not part of the route.
 Warning: Removing pt stop '1704693343' on non existing edge ''.
 Warning: Removing pt stop '1704693369' on non existing edge ''.
 Warning: Removed 6 pt stops because they could not be assigned to the network
