@@ -39,20 +39,15 @@ checkStyle.py --fix <SUMO_HOME>/tools
 
 # Documentation Tools
 
-## buildHTMLDocs.py
+## buildPyDoc.py
 
-Converts wiki-documentation into static HTML pages. It removes the wiki
-navigation and adds user doc navigation while keeping the contents
-intact. This script is called by the main Makefile if "make docs" is
-called. If the script is called with an argument, it tries to fetch the
-wiki site with the given name, if not it retrieves all sites listed in
-the [table of contents](../index.md). Call
-"buildHTMLDocs.py --help" for a complete list of options.
+Generate the static PyDoc documentation for the `sumolib` and `traci` Python libraries. Alternatively, you can [read the PyDoc documentation online](https://sumo.dlr.de/pydoc/) instead of building it locally.
+Call `buildPyDoc.py --help` for a complete list of options.
 
 Call:
 
 ```
-buildHTMLDocs.py SUMO
+buildPyDoc.py -p my_output_dir
 ```
 
 ## checkAuthors.py
