@@ -75,8 +75,8 @@ dialog and can also be used for coloring (*color by param, streetwise*).
 In reality all tracks can be used in either direction if the need arises
 but many rails are used in only one direction most of the time. In SUMO,
 bidirectional track usage must be enabled explicitly.
-If only one direction is needed during simulation, it is recommended not to enable bidirectoinal usage because having only one direction available greatly simplifies
-route search.
+If only one direction is needed during simulation, it is recommended not to enable bidirectional usage
+because having only one direction available greatly simplifies route search.
 
 Bidirectional track usage is modeled by two edges that have their
 geometries exactly reversed and using the attribute `spreadType="center"`. This will result
