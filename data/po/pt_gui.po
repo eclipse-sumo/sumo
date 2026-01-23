@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 19:41+0000\n"
+"PO-Revision-Date: 2026-01-23 13:54+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2772,11 +2772,11 @@ msgstr "Recalcular com opções voláteis"
 
 #: src/netedit/GNEApplicationWindow.cpp:1883
 msgid "Changes produced in the net due a recomputing with"
-msgstr ""
+msgstr "Alterações produzidas na rede devido a um recálculo com"
 
 #: src/netedit/GNEApplicationWindow.cpp:1884
 msgid "volatile options cannot be undone. Continue?"
-msgstr ""
+msgstr "opções voláteis não podem ser desfeitas. Continuar?"
 
 #: src/netedit/GNEApplicationWindow.cpp:2196
 #: src/netedit/GNEApplicationWindow.cpp:2254
@@ -2786,12 +2786,12 @@ msgstr "Executando '%'."
 #: src/netedit/GNEApplicationWindow.cpp:2217
 #, c-format
 msgid "Loading network '%' in SUMO-GUI."
-msgstr ""
+msgstr "Carregando rede '%' no SUMO-GUI."
 
 #: src/netedit/GNEApplicationWindow.cpp:2226
 #, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
-msgstr ""
+msgstr "Carregando configurações do sumo '%' no SUMO-GUI."
 
 #: src/netedit/GNEApplicationWindow.cpp:2645
 #: src/netedit/GNEApplicationWindowHelper.cpp:1283
@@ -2810,12 +2810,12 @@ msgstr "Refazer"
 #: src/netedit/GNEApplicationWindow.cpp:2822
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
-msgstr ""
+msgstr "Remover destaque do elemento"
 
 #: src/netedit/GNEApplicationWindow.cpp:2823
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
-msgstr ""
+msgstr "Remover destaque dos elementos inspecionados"
 
 #: src/netedit/GNEApplicationWindow.cpp:2825
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
@@ -2829,35 +2829,35 @@ msgstr "Elemento frontal"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
-msgstr ""
+msgstr "Marcar elemento para ser desenhado acima de tudo"
 
 #: src/netedit/GNEApplicationWindow.cpp:2830
 msgid "Unfront all element"
-msgstr ""
+msgstr "Remover destaque de todos os elementos"
 
 #: src/netedit/GNEApplicationWindow.cpp:2831
 msgid "Unfront all elements"
-msgstr ""
+msgstr "Remover destaque de todos os elementos"
 
 #: src/netedit/GNEApplicationWindow.cpp:2834
 msgid "Front element (only inspected elements)"
-msgstr ""
+msgstr "Trazer elemento para frente (apenas elementos inspecionados)"
 
 #: src/netedit/GNEApplicationWindow.cpp:3372
 msgid "Force save network"
-msgstr ""
+msgstr "Forçar salvamento da rede"
 
 #: src/netedit/GNEApplicationWindow.cpp:3422
 msgid "Saving network failed"
-msgstr ""
+msgstr "Salvamento da rede falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Network saved in '%'."
-msgstr ""
+msgstr "Rede salva em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3432
 msgid "Could not save network in '%'."
-msgstr ""
+msgstr "Não foi possível salvar a rede em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:3482
 msgid "Plain XML saved with prefix '%'."
@@ -3029,12 +3029,12 @@ msgstr "carregando elementos de demanda de '%'"
 #: src/netedit/GNEApplicationWindow.cpp:4148
 #, c-format
 msgid "Loading of route file '%' failed."
-msgstr ""
+msgstr "O carregamento do arquivo de rotas '%' falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:4151
 #, c-format
 msgid "Loading of route file '%' successfully."
-msgstr ""
+msgstr "O arquivo de rotas '%' foi carregado com sucesso."
 
 #: src/netedit/GNEApplicationWindow.cpp:4176
 msgid "reloading demand elements"
@@ -3042,52 +3042,52 @@ msgstr "recarregando elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4215
 msgid "Force save demand elements"
-msgstr ""
+msgstr "Forçar salvamento dos elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4236
 msgid "Demand elements saved."
-msgstr ""
+msgstr "Elementos de demanda salvos."
 
 #: src/netedit/GNEApplicationWindow.cpp:4239
 #: src/netedit/GNEApplicationWindow.cpp:4420
 msgid "Saving demand elements aborted."
-msgstr ""
+msgstr "O salvamento dos elementos de demanda foi abortado."
 
 #: src/netedit/GNEApplicationWindow.cpp:4244
 msgid "Saving demand elements failed"
-msgstr ""
+msgstr "O salvamento dos elementos de demanda falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:4254
 msgid "Route elements"
-msgstr ""
+msgstr "Elementos de rotas"
 
 #: src/netedit/GNEApplicationWindow.cpp:4274
 msgid "Route elements file in unified file"
-msgstr ""
+msgstr "Arquivo de elementos de rota em arquivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4284
 msgid "saving of unified demand elements in '%'."
-msgstr ""
+msgstr "salvando elementos de demanda unificados em '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4304
 #: src/netedit/GNEApplicationWindow.cpp:4435
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:514
 msgid "Data elements file"
-msgstr ""
+msgstr "Arquivo de elementos de dados"
 
 #: src/netedit/GNEApplicationWindow.cpp:4322
 msgid "loading data elements from '%'."
-msgstr ""
+msgstr "carregando elementos de dados de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4326
 #, c-format
 msgid "Loading of data file '%' failed."
-msgstr ""
+msgstr "O carregamento do arquivo de dados '%' falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:4329
 #, c-format
 msgid "Loading of data file '%' successfully."
-msgstr ""
+msgstr "O arquivo de dados '%' foi carregado com sucesso."
 
 #: src/netedit/GNEApplicationWindow.cpp:4358
 msgid "reloading data elements"
@@ -3095,7 +3095,7 @@ msgstr "recarregando elementos de dados"
 
 #: src/netedit/GNEApplicationWindow.cpp:4399
 msgid "Force save data elements"
-msgstr ""
+msgstr "Forçar o salvamento dos elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4417
 msgid "Data elements saved."
