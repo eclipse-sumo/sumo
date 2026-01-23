@@ -696,6 +696,8 @@ This file provides the times whenever a vehicle has entered or left a driveway.
 # Miscellaneous
 - Error checking for [railway schedules](Public_Transport.md#single_vehicles_and_trips) can be done with the tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy)
 - The tool [scheduleStats.py](../Tools/Railways.md#schedulestatspy) can be used to check how closely simulated train behavior conforms to a loaded rail schedule w.r.t. punctuality and expected traveltimes between stops.
+- The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy] counts reversals per vehicle and per edge to identify potentially problematic train routes.
+- The tool [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy) adds missing rail signals to a network (intended for tram simulation)
 - The tool [plotStops.py](../Tools/Railways.md#plotstopspy) can render schedule diagrams for a given route
 
 <img src="../images/S46_actual.png" width="800px"/>
