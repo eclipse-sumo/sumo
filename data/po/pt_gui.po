@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-23 13:54+0000\n"
+"PO-Revision-Date: 2026-01-23 16:46+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3099,37 +3099,37 @@ msgstr "Forçar o salvamento dos elementos de demanda"
 
 #: src/netedit/GNEApplicationWindow.cpp:4417
 msgid "Data elements saved."
-msgstr ""
+msgstr "Elementos de dados salvos."
 
 #: src/netedit/GNEApplicationWindow.cpp:4425
 msgid "Saving data elements failed"
-msgstr ""
+msgstr "O salvamento dos elementos de dados falhou"
 
 #: src/netedit/GNEApplicationWindow.cpp:4455
 msgid "Data elements file in unified file"
-msgstr ""
+msgstr "Arquivo de elementos de dados em arquivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4465
 msgid "saving of unified data elements in '%'"
-msgstr ""
+msgstr "salvando os elementos de dados unificados em '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4483
 msgid "MeanData elements file"
-msgstr ""
+msgstr "arquivo de elementos de MeanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4499
 msgid "load meanDatas from '%'"
-msgstr ""
+msgstr "carregar meanDatas de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4503
 #, c-format
 msgid "Loading of meandata file '%' failed."
-msgstr ""
+msgstr "O carregamento do arquivo de meandata '%' falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:4506
 #, c-format
 msgid "Loading of meandata file '%' successfully."
-msgstr ""
+msgstr "O arquivo de meandata '%' foi carregado com sucesso."
 
 #: src/netedit/GNEApplicationWindow.cpp:4531
 msgid "reloading meanDatas"
@@ -3137,7 +3137,7 @@ msgstr "recarregando dados médios"
 
 #: src/netedit/GNEApplicationWindow.cpp:4570
 msgid "Force save meandata elements"
-msgstr ""
+msgstr "Forçar salvamento dos elementos de meandata"
 
 #: src/netedit/GNEApplicationWindow.cpp:4590
 msgid "MeanDatas elements saved"
@@ -3145,77 +3145,77 @@ msgstr "elementos de MeanDatas salvo"
 
 #: src/netedit/GNEApplicationWindow.cpp:4593
 msgid "Saving MeanData elements aborted"
-msgstr ""
+msgstr "O salvamento dos elementos MeanData fooi abortado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4598
 msgid "Saving demand elements failed!"
-msgstr ""
+msgstr "O salvamento dos elementos de demanda falhou!"
 
 #: src/netedit/GNEApplicationWindow.cpp:4608
 msgid "MeanData elements"
-msgstr ""
+msgstr "Elementos MeanData"
 
 #: src/netedit/GNEApplicationWindow.cpp:4628
 msgid "MeanData elements file in unified file"
-msgstr ""
+msgstr "Arquivo de elementos MeanData em arquivo unificado"
 
 #: src/netedit/GNEApplicationWindow.cpp:4638
 msgid "saving of unified mean data elements in '%'"
-msgstr ""
+msgstr "salvando elementos de mean data unificados em '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4876
 msgid "% additional elements from '%'"
-msgstr ""
+msgstr "% elementos adicionais de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4883
 msgid "% additionals from '%'."
-msgstr ""
+msgstr "% adicionais de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4894
 #: src/netedit/GNEApplicationWindow.cpp:4943
 #, c-format
 msgid "% of '%' failed."
-msgstr ""
+msgstr "% de '%' falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:4925
 msgid "% demand elements from '%'"
-msgstr ""
+msgstr "% elementos de demanda de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4932
 msgid "% demand elements from '%'."
-msgstr ""
+msgstr "% elementos de demanda de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4973
 msgid "% data elements from '%'"
-msgstr ""
+msgstr "% elementos de dados de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:4980
 msgid "% data elements from '%'."
-msgstr ""
+msgstr "% elementos de dados de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:4991
 #: src/netedit/GNEApplicationWindow.cpp:5039
 #, c-format
 msgid "% of % failed."
-msgstr ""
+msgstr "% de % falhou."
 
 #: src/netedit/GNEApplicationWindow.cpp:5021
 msgid "% meanData elements from '%'"
-msgstr ""
+msgstr "% elementos de meanData de '%'"
 
 #: src/netedit/GNEApplicationWindow.cpp:5028
 msgid "% meanData elements from '%'."
-msgstr ""
+msgstr "% elementos de meanData de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5065
 #: src/netedit/GNEApplicationWindow.cpp:5066
 msgid "% TLS programs from '%'."
-msgstr ""
+msgstr "% programas semafóricos de '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5099
 #: src/netedit/GNEApplicationWindow.cpp:5100
 msgid "% edge types from '%'."
-msgstr ""
+msgstr "% tipos de arestas de '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
@@ -3231,11 +3231,11 @@ msgstr "Nova rede"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:202
 msgid "Create a new network."
-msgstr ""
+msgstr "Criar uma nova rede."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "Open a new netedit window."
-msgstr ""
+msgstr "Abrir uma nova janela do netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Generate Network"
@@ -3243,7 +3243,7 @@ msgstr "Gerar rede"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:210
 msgid "Create network using netgenerate."
-msgstr ""
+msgstr "Cria uma nova rede usando o netgenerate."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load Netedit config..."
@@ -3251,7 +3251,7 @@ msgstr "Carregar configurações do Netedit..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:217
 msgid "Load a netedit configuration file."
-msgstr ""
+msgstr "Carregar um arquivo de configuração do netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load Sumo config..."
@@ -3259,7 +3259,7 @@ msgstr "Carregar configuração do Sumo..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:221
 msgid "Load a SUMO configuration file."
-msgstr ""
+msgstr "Carregar um arquivo de configuração do SUMO."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open Network..."
@@ -3267,7 +3267,7 @@ msgstr "Abrir rede..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:228
 msgid "Open a SUMO network."
-msgstr ""
+msgstr "Abrir uma rede do SUMO."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open Netconvert Configuration..."
@@ -3275,7 +3275,7 @@ msgstr "Abrir configuração do Netconvert..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:232
 msgid "Open a configuration file with NETCONVERT options."
-msgstr ""
+msgstr "Abrir um arquivo de configuração com opções do netconvert."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import Foreign Network..."
@@ -3283,7 +3283,7 @@ msgstr "Importar rede externa..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:236
 msgid "Import a foreign network such as OSM."
-msgstr ""
+msgstr "Importar uma rede externa do OSM."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:243
 msgid "Save Network"
@@ -3299,7 +3299,7 @@ msgstr "Salvar rede como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:247
 msgid "Save the network to another file."
-msgstr ""
+msgstr "Salvar a rede em outro arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save Plain XML..."
@@ -3307,7 +3307,7 @@ msgstr "Salvar XML Simples..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:251
 msgid "Save a plain XML representation of the network."
-msgstr ""
+msgstr "Salvar uma representação da rede em um arquivo XML simples."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save Joined Junctions..."
@@ -3315,7 +3315,7 @@ msgstr "Salvar junções combinadas..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:255
 msgid "Save log of joined junctions (allows reproduction of joins)."
-msgstr ""
+msgstr "Salvar log de cruzamentos unidos (permite a reprodução de uniões)."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:262
 msgid "Reload"
@@ -3364,12 +3364,14 @@ msgstr "Elementos de MeanData"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid "Allow undoing element loading"
-msgstr ""
+msgstr "Permitir desfazer o carregamento de elementos"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:306
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
+"Permitir desfazer o carregamento de elementos (Lento se muitos elementos "
+"forem carregados)"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close the network."
@@ -3382,15 +3384,15 @@ msgstr "Salvar a configuração do Netedit"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:364
 msgid "Save netedit configuration file."
-msgstr ""
+msgstr "Salvar arquivo de configuração do netedit."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Save Netedit Config As..."
-msgstr ""
+msgstr "Salvar configurações do netedit como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:368
 msgid "Save netedit configuration in a new file."
-msgstr ""
+msgstr "Salvar configuração do netedit em um novo arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:374
 msgid "Reload Netedit Config"
@@ -3407,15 +3409,15 @@ msgstr "Salvar configuração do Sumo"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:382
 msgid "Save sumo configuration file."
-msgstr ""
+msgstr "Salvar configurações do sumo em um arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save Sumo Config As..."
-msgstr ""
+msgstr "Salvar configurações do sumo como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:386
 msgid "Save sumo configuration in a new file."
-msgstr ""
+msgstr "Salvar configurações do sumo em um novo arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:392
 msgid "Reload Sumo Config"
@@ -3431,7 +3433,7 @@ msgstr "Carregar programação semafórica..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:400
 msgid "Load programs for traffic lights in the current net."
-msgstr ""
+msgstr "Carregar programação semafórica na rede atual."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save TLS Programs"
@@ -3439,15 +3441,15 @@ msgstr "Salvar programação semafórica"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:406
 msgid "Save all traffic light programs of the current network."
-msgstr ""
+msgstr "Salvar todos os programas semafóricos da rede atual."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save TLS Programs As..."
-msgstr ""
+msgstr "Salvar programa semafórico (TLS) como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:410
 msgid "Save all traffic light programs of the current network to another file."
-msgstr ""
+msgstr "Salvar todos os programas semafóricos da rede atual em outro arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:416
 msgid "Reload TLS Programs"
@@ -3463,7 +3465,7 @@ msgstr "Carregar tipos de aresta..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:424
 msgid "Load edge types in the current net."
-msgstr ""
+msgstr "Carregar tipos de aresta na rede atual."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save Edge Types"
@@ -3471,15 +3473,15 @@ msgstr "Salvar tipos de arestas"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:430
 msgid "Save edge types of the current net."
-msgstr ""
+msgstr "Salvar tipos de arestas da rede atual."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save Edge Types As..."
-msgstr ""
+msgstr "Salvar tipos de aresta como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:434
 msgid "Save edge types of the current net to another file."
-msgstr ""
+msgstr "Salvar tipos de aresta da rede atual em outro arquivo."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:440
 msgid "Reload edge types"
@@ -3495,7 +3497,7 @@ msgstr "Carregar Adicionais..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:448
 msgid "Load additionals and shapes."
-msgstr ""
+msgstr "Carregar adicionais e formas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save Additionals"
@@ -3503,23 +3505,23 @@ msgstr "Salvar adicionais"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:454
 msgid "Save additionals and shapes."
-msgstr ""
+msgstr "Salvar adicionais e formas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save Additionals unified as..."
-msgstr ""
+msgstr "Salvar adicionais unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:458
 msgid "Save all additional elements to the chosen file."
-msgstr ""
+msgstr "Salvar todos os elementos adicionais no arquivo selecionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim Elements as..."
-msgstr ""
+msgstr "Salvar elementos do JuPedSim como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:462
 msgid "Save JuPedSim elements in a separated file."
-msgstr ""
+msgstr "Salvar elementos JuPedSim em um arquivo separado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:468
 msgid "Reload Additionals"
@@ -3547,11 +3549,11 @@ msgstr "Salva elementos de demanda."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save Demand Elements unified as..."
-msgstr ""
+msgstr "Salvar elementos de demanda unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:486
 msgid "Save all demand elements to the chosen file"
-msgstr ""
+msgstr "Salavar todos os elementos de demanda no arquivo selecionado"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:492
 msgid "Reload Demand Elements"
@@ -3579,11 +3581,11 @@ msgstr "Salva elementos de dados."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save Data Elements unified as..."
-msgstr ""
+msgstr "Salvar elemetnos de dados unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:510
 msgid "Save all data elements to the chosen file."
-msgstr ""
+msgstr "Salvar todos os elementos de dados para o arquivo selecionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:516
 msgid "Reload Data Elements"
@@ -3599,7 +3601,7 @@ msgstr "Carregar MeanDatas..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:524
 msgid "Load meanDatas and shapes."
-msgstr ""
+msgstr "Carregar meanDatas e formas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:530
 msgid "Save MeanDatas"
@@ -3607,15 +3609,15 @@ msgstr "Salvar MeanDatas"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:530
 msgid "Save meanDatas and shapes."
-msgstr ""
+msgstr "Salvar meanDatas e formas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save MeanDatas unified as..."
-msgstr ""
+msgstr "Salvar MeanDatas unificados como..."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:534
 msgid "Save all meanData elements to the chosen file."
-msgstr ""
+msgstr "Salavar todos os elemetnos de meanData para o arquivo selecionado."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:540
 msgid "Reload MeanDatas"
@@ -3631,7 +3633,7 @@ msgstr "&Inspecionar"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:557
 msgid "Inspect elements and change their attributes."
-msgstr ""
+msgstr "Inspecionar elementos e mudar seus atributos."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:560
 msgid "&Delete"
@@ -3665,7 +3667,7 @@ msgstr "&Aresta"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:616
 msgid "Create junction and edges."
-msgstr ""
+msgstr "Criar junções e arestas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:620
 msgid "&Traffic light"
@@ -3673,7 +3675,7 @@ msgstr "%Semáforos"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:620
 msgid "Modes traffic lights over junctions."
-msgstr ""
+msgstr "Modo para criar semáforos sobre cruzamentos."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:624
 msgid "&Connection"
@@ -3681,7 +3683,7 @@ msgstr "&Conexão"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:624
 msgid "Modes connections between lanes."
-msgstr ""
+msgstr "Modo de conexões entre faixas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:628
 msgid "Pro&hibition"
@@ -3697,7 +3699,7 @@ msgstr "C&ruzamento"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:632
 msgid "Create crossings between edges."
-msgstr ""
+msgstr "Criar cruzamentos entre arestas."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
 msgid "Create additional elements."
