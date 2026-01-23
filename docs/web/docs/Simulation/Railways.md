@@ -10,6 +10,8 @@ taken in comparison to a plain vehicular simulation.
 
 # Building a network for train simulation
 
+The following section describes network modelling and import for conventional rail operations. [Special consideration for tram simulations are found below](#tram_network_modelling].
+
 ## Railways
 
 Railways can be imported from all the input formats supported by [netconvert](../netconvert.md#import).
@@ -57,6 +59,11 @@ is exported for the edge types:
 This will lead to compound edge type ids such as
 *railway.rail|usage.main*.
 
+#### Railway line numbers
+
+Line numbers from OSM tag `ref` are exported as 'name' attribute of an edge when option **--output.street-names** is set during import.
+They can can be visualized in sumo-gui with '*Show street name*'.
+
 #### Track numbers
 
 Local track numbers (mostly in train stations) are exported as edge
@@ -67,9 +74,9 @@ dialog and can also be used for coloring (*color by param, streetwise*).
 
 In reality all tracks can be used in either direction if the need arises
 but many rails are used in only one direction most of the time. In SUMO,
-bidirectional track usage must be enabled explicitly. This simplifies
-routing as rails will only be used in their preferred direction most of
-the time.
+bidirectional track usage must be enabled explicitly.
+If only one direction is needed during simulation, it is recommended not to enable bidirectoinal usage because having only one direction available greatly simplifies
+route search.
 
 Bidirectional track usage is modeled by two edges that have their
 geometries exactly reversed and using the attribute `spreadType="center"`. This will result
@@ -93,6 +100,7 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
   without overlap.
    - this is highly recommended when using connection mode to define connections among bidirectional tracks as it's otherwise hard to distinguish the affected edges
    - the pre-defined gui setting scheme 'rail' automatically activates the *spread ...* setting.
+   - the *spread bidirectinal railways* setting only takes effect after network geometries have been computed for the first time (i.e. after pressing F5)
 - To find (and highlight) all bidirectional tracks, use [attribute
   selection](../Netedit/editModesCommon.md#match_attribute) and search for
   attribute *bidi* with a value of *1*
@@ -103,7 +111,7 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
 
 When train tracks can be used in both directions, there is considerable freedom for trains when searching a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
 There are two ways in which this may be accomplished. They work the same way during network preparation but differ in their effects during simulation.
-Both methods are discussed below.
+Both methods are discussed below followed by a section on [network preparation](#setting_edge_priority_and_routingtype).
 
 ### Using priority-factor
 
@@ -127,7 +135,7 @@ At the default option value of 0. Edge priority is ignored when routing. When se
 ```
 
 !!! note
-    When either trains or road vehicles are routed only outside the simulation this method can also be used for combined simulations by (by routing trains and cars separately and only using the option for train routing).
+    When either trains or road vehicles are routed only outside the simulation this method can also be used for combined simulations (by routing trains and cars separately and only using the option for train routing).
 
 ### Using routingType and preference definitions
 
@@ -196,13 +204,16 @@ train can only leave by reversing direction. [netconvert](../netconvert.md) prov
 
 - **--railway.topology.output** {{DT_FILE}}: Identify problematic tracks (i.e. for manual correction).
 - **--railway.topology.repair** : Automatically fixes problems by analyzing rail network topology and adding bidirectional tracks
-- **--railway.topology.repair.minimal** : Apply automated fixes but only those which are needed for the operation loaded public transport lines
+- **--railway.topology.repair.minimal** : Apply automated fixes but only those which are needed for the operation of loaded public transport lines
 - **--railway.topology.repair.connect-straight** : Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle
 - **--railway.topology.repair.stop-turn** : Add turn-around connections at all loaded stops (to enable direction reversal).
 - **--railway.topology.all-bidi** : make all tracks usable in both directions.
 - **--railway.topology.all-bidi.input-file** : Load edge ids from text file and make those tracks usable in both directions. (one edge id per line, optionally prefixed with 'edge:' as in a [selection file created with netedit](../Netedit/editModesCommon.md#selection_operations)).
 
 ## Rail Signals
+
+Rail signals are important simulation elements that are needed to safely handle train operations where the same track is used in both direction.
+They are also needed to model train operations with block-based signaling. The [details of rail signal behavior are described below](#rail_signal_behavior).
 
 ### Definition
 
@@ -359,7 +370,7 @@ other trains. When there are no rail signals or multiple trains have
 been inserted in the same block, they will automatically keep a safe
 distance according to their car following model. When using `carFollowModel="Rail"`, trains
 will always keep enough distance to the leading train to come to a safe
-stop even if the lead train was to stop instantly.
+stop even if the lead train were to stop instantly.
 
 # Reversing Direction
 
@@ -378,7 +389,7 @@ met:
   the reverse direction edge
 
   !!! note
-      When importing public transport stops with option **--ptstop-output**, all bidirectional edges with a public transport stop will have the necessary turn-around connection and thus be eligible for reversing.
+      When netconvert has loaded public transport stops (either during OSM import or from option **--ptstop-files**) then option **--railway.topology.repair.stop-turn** can be used to add a turn-around connection at every rail public transport stop and thus make it possible for trains to reverse at each stop.
 
 !!! caution   
     Undesirable train reversals may occur due to invalid stop assignment (i.e. assigning the reverse stop). The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy) can be used to search for unexpected reversals.
@@ -442,9 +453,11 @@ Rail signals perform the following safety functions automatically
 - c) guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
 - d) prevent deadlocks on bidirectional sections
 
+## Moving Block Mode
+
 Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with parameter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This is similar to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system when used with extremely short virtual blocks.
 
-To switch a  signal into moving-block-mode, the following additional file may be loaded:
+To switch a signal into moving-block-mode, the following additional file may be loaded:
 ```xml
 <additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="gneJ8" programID="0">
@@ -454,6 +467,10 @@ To switch a  signal into moving-block-mode, the following additional file may be
 ```
 
 Parameter *moving-block* may also be updated at runtime with `traci.trafficlight.setParameter`.
+
+!!! note
+    The [abstract vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#abstract_vehicle_class) `tram` and `cable_car` are automatically configured for moving block behavior. This can be configured with sumo option **--railsignal.moving-block.default-classes**.
+
 
 ## Schedule Constraints
 Additionally, rail signals can enforce train ordering to ensure that a [scheduled order at stations](Public_Transport.md#public_transport_schedules) can be kept.
@@ -466,8 +483,6 @@ To make use of this, the following elements can be loaded from an additional fil
         <insertionPredecessor tripId="t3" tl="E" foes="t4"/>
     </railSignalConstraints>
 ```
-
-
 
 ### predecessor constraint
 This constrain defines that a given vehicle id (or tripId) can only pass the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
@@ -488,6 +503,22 @@ This constrain defines that a given vehicle id (or tripId) can only be inserted 
 
 ### constraints generation
 Constraints can be generated using the tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) by using a route file with [stops that define a schedule](Public_Transport.md#public_transport_schedules).
+
+# Tram Simulation
+
+## Tram Behavior
+
+Operationally, there are many similarities between tram and conventional/heavy rail operations with regard to track networks and signaling at conflict points. 
+The main difference is that trams are not separated by blocks when following each other. To reflect this in sumo, rail signals on tram tracks are automatically put into [moving block mode](#moving block_mode) (This is configured with option **--railsignal.moving-block.default-classes**). Tram rail signals are still needed to regulate bidirectional access to single-track sections and they can be used to guard crossing and merging conflicts. However, fewer rail signals are needed compared to a convential rail simulation because block length is not a critical efficiency factor in one-directional operations.
+
+## Tram Network modelling
+
+In many parts of the world, OSM data does not provide information of signaling infrastructure for tram networks. To achieve smooth operations at conflict points without rail signals, [netconvert](../netconvert.md) sets merging conflicts to junction type 'zipper'. The vehicle classes elible for this behavior are configured with netconvert option **--railway.signal.permit-unsignalized** (default *tram,cable_car*).
+
+For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool 
+[patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy). 
+
+To simplify tram simulations where rail signals have been added selectively and some conflicts are regulared with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
 
 # Deadlocks
 
