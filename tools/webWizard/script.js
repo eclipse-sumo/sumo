@@ -322,6 +322,17 @@ on("ready", function(){
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
 
+    // Enable/disable pt mode checkboxes depending on the main publicTransport checkbox
+    var ptModesContainer = elem("#pt-modes");
+    function updatePtModesState() {
+        var enabled = elem("#publicTransport").checked;
+        if(ptModesContainer) {
+            Array.from(ptModesContainer.querySelectorAll("input[type=checkbox]")).forEach(function(ch){ ch.disabled = !enabled; });
+        }
+    }
+    elem("#publicTransport").on("click", updatePtModesState);
+    updatePtModesState();
+
     // function to check or uncheck all checkboxes for a certain roadType
     var checkOrUncheckAll = function() {
         Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
@@ -532,6 +543,19 @@ on("ready", function(){
             poly: elem("#polygons").checked,
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
+            ptModes: {
+                bus: elem("#pt_bus").checked,
+                tram: elem("#pt_tram").checked,
+                subway: elem("#pt_subway").checked,
+                light_rail: elem("#pt_light_rail").checked,
+                rail: elem("#pt_rail").checked,
+                trolleybus: elem("#pt_trolleybus").checked,
+                monorail: elem("#pt_monorail").checked,
+                minibus: elem("#pt_minibus").checked,
+                share_taxi: elem("#pt_share_taxi").checked,
+                ferry: elem("#pt_ferry").checked,
+                aerialway: elem("#pt_aerialway").checked
+            },
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
