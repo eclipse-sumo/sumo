@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 14:49:25 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
+<!-- generated on 2026-01-23T17:44:52.188618+01:00 by Eclipse SUMO sumo v1_25_0+1167-e4289d0ddf3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,15 +13,15 @@
     </report>
 
     <traci_server>
-        <remote-port value="60615"/>
+        <remote-port value="36333"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="0.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_25_0+1167-e4289d0ddf3" time="0.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC"/>
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
     <vType id="t0"/>
-    <tlLogic id="C" programID="0" phase="0" duration="0"/>
+    <tlLogic id="C" programID="0" phase="0" duration="0" active="1"/>
 </snapshot>
