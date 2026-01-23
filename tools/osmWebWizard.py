@@ -232,7 +232,9 @@ class Builder(object):
             netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
-        if "ship" in self.data["vehicles"]:
+        # if ferry PT mode is requested, aslo include ships typemap for netconvert
+        if "ship" in self.data["vehicles"] or \
+                (self.data.get("publicTransport") and self.data.get("ptModes") and self.data.get("ptModes").get("ferry")):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
@@ -246,7 +248,6 @@ class Builder(object):
             self.filename("ptroutes", "_pt.rou.xml")
             netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
             self.additionalFiles.append(self.files["stops"])
-            self.routenames.append(self.files["ptroutes"])
             netconvertOptions += ",--railway.topology.repair"
             typefiles.append(typemaps["aerialway"])
         if self.data["leftHand"]:
@@ -270,6 +271,7 @@ class Builder(object):
         self.report("Converting map data")
         osmBuild.build(options)
         ptOptions = None
+        hasPTFlows = False
         begin = self.data.get("begin", 0)
         if self.data["publicTransport"]:
             self.report("Generating public transport schedule")
@@ -296,7 +298,13 @@ class Builder(object):
                 "--extend-to-fringe",
                 "--verbose",
             ]
-            ptlines2flows.main(ptlines2flows.get_options(ptOptions))
+            # If ptModes is present and none are selected, do NOT call ptlines2flows
+            if self.data.get("ptModes") is not None:
+                types = [t for t, v in self.data.get("ptModes").items() if v]
+                if types:
+                    ptOptions += ["--types", ','.join(types)]
+                    ptlines2flows.main(ptlines2flows.get_options(ptOptions))
+                    hasPTFlows = True
 
         if self.data["decal"]:
             self.report("Downloading background images")
@@ -319,7 +327,7 @@ class Builder(object):
                 self.report("Error while downloading background images: %s" % e)
                 self.decalError = True
 
-        if self.data["vehicles"] or ptOptions:
+        if self.data["vehicles"] or hasPTFlows:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
             randomTripsCalls = []
@@ -340,7 +348,10 @@ class Builder(object):
                     continue
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
-                    options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
+                    addFiles = [self.files["stops"]]
+                    if hasPTFlows:
+                        addFiles.append(self.files["ptroutes"])
+                    options += ["--additional-files", ",".join(addFiles)]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
                     options += ["--duarouter-weights.tls-penalty", "20"]
 
@@ -362,6 +373,10 @@ class Builder(object):
                     self.routenames.append(self.files["trips"])
                     # clean up unused route file (was only used for validation)
                     os.remove(self.files["route"])
+
+            # add generated PT flows to route list only if at least one pt mode was selected
+            if hasPTFlows:
+                self.routenames.append(self.files["ptroutes"])
 
             # create a batch file for reproducing calls to randomTrips.py
             if os.name == "posix":
