@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-17 08:54:22 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<!-- generated on 2026-01-23T11:05:47.094058+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -63,7 +63,8 @@
     <departJunction id="gneJ7">
         <driveWay id="gneJ7.d0" vehicle="train2" edges="-d2 -c -b -a2">
             <forward lanes="-d2_0"/>
-            <bidi lanes="d2_0 c_0 b_0 a2_0"/>
+            <bidi lanes="d2_0"
+                    deadlockCheck="c_0 b_0 a2_0"/>
             <flank lanes=""/>
             <conflictLinks signals="A_0"/>
             <foes driveWays="A.0.0 gneJ7.d0"/>
@@ -72,7 +73,8 @@
     <departJunction id="gneJ0">
         <driveWay id="gneJ0.d0" vehicle="train" edges="a b c d">
             <forward lanes="a_0"/>
-            <bidi lanes="-a_0 -b_0 -c_0 -d_0"/>
+            <bidi lanes="-a_0"
+                    deadlockCheck="-b_0 -c_0 -d_0"/>
             <flank lanes=""/>
             <conflictLinks signals="B_0"/>
             <foes driveWays="gneJ0.d0"/>

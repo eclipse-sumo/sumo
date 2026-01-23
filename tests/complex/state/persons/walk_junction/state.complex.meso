@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-15 05:09:54 by Eclipse SUMO sumo Version v1_23_1+0573-d229b23078f
+<!-- generated on 2026-01-23T11:05:46.739073+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+0573-d229b23078f" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_25_0+1151-2ef687ab93b" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="2" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -102,5 +102,5 @@
             <walk edges="SC CN" arrivalPos="5.00"/>
         </person>
     </transportables>
-    <tlLogic id="C" programID="0" phase="0" duration="10000"/>
+    <tlLogic id="C" programID="0" phase="0" duration="10000" active="1"/>
 </snapshot>
