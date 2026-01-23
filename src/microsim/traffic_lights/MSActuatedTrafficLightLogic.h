@@ -148,7 +148,7 @@ public:
     /// @brief return all named conditions defined for this traffic light
     std::map<std::string, double> getConditions() const override;
 
-    void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration) override;
+    void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, bool active) override;
 
 protected:
     /// @brief initialize custom switching rules

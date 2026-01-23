@@ -447,6 +447,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string programID = attrs.get<std::string>(SUMO_ATTR_PROGRAMID, tlID.c_str(), ok);
             const int phase = attrs.get<int>(SUMO_ATTR_PHASE, tlID.c_str(), ok);
             const SUMOTime spentDuration = attrs.get<SUMOTime>(SUMO_ATTR_DURATION, tlID.c_str(), ok);
+            const bool active = attrs.get<bool>(SUMO_ATTR_ACTIVE, tlID.c_str(), ok);
             MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
             MSTrafficLightLogic* tl = tlc.get(tlID, programID);
             if (tl == nullptr) {
@@ -461,7 +462,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 throw ProcessError("Invalid phase '" + toString(phase) + "' for traffic light '" + tlID + "'");
             }
             // might not be set if the phase happens to match and there are multiple programs
-            tl->loadState(tlc, myTime, phase, spentDuration);
+            tl->loadState(tlc, myTime, phase, spentDuration, active);
             break;
         }
         default:
