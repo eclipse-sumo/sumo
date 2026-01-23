@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-23 19:15+0000\n"
+"PO-Revision-Date: 2026-01-23 19:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3281,6 +3281,8 @@ msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead), time=%."
 msgstr ""
+"Das Fahrzeug '%' wird aufgrund des vorausliegenden langsamen Fahrstreifens "
+"nicht der angegebenen Geschwindigkeit abfahren können (zur Zeit %)."
 
 #: src/microsim/MSLane.cpp:2056
 msgid "frontal collision"
@@ -9654,10 +9656,14 @@ msgstr "Signalreferenz '%' konnte nicht gefunden werden."
 msgid ""
 "Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction '%'."
 msgstr ""
+"Die ungültige Geometrie der inneren Kante '%' (XODR-Straße '%') innerhalb "
+"des Knotenpunkts '%' wird ignoriert."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:284
 msgid "Inner edge '%' (xodr road '%') in junction '%' has no geometry."
 msgstr ""
+"Die innere Kante '%' (XODR-Straße '%') im Knotenpunkt '%' verfügt über keine "
+"Geometrie."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:293
 #, c-format
@@ -12451,7 +12457,7 @@ msgstr ""
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
-msgstr ""
+msgstr "Ungültiges Rerouter-Intervall von % bis %"
 
 #: src/router/RONetHandler.cpp:213
 msgid "Unknown node '%'."
@@ -12492,7 +12498,7 @@ msgstr "Reparierte Route vom Fahrzeug '%'."
 
 #: src/router/RORouteDef.cpp:246
 msgid "Removing invalid edge '%' from route for vehicle '%'."
-msgstr ""
+msgstr "Die ungültige Kante '%' wird aus der Route des Fahrzeugs '%' entfernt."
 
 #: src/router/RORouteDef.cpp:254
 msgid ""
@@ -13767,6 +13773,8 @@ msgid ""
 "Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2026 Deutsches Zentrum für Luft- und Raumfahrt (DLR) und "
+"weitere; https://sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:153
 msgid "Internal request for unknown option '%'!"
