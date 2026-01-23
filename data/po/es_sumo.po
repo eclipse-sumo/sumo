@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 13:32+0000\n"
+"PO-Revision-Date: 2026-01-23 11:41+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7206,27 +7206,32 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:359
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr ""
+"Interpreta STR[] como una lista de cruces a excluir del proceso de "
+"combinación"
 
 #: src/netbuild/NBFrame.cpp:377
 msgid "Modifies all edge speeds by adding FLOAT"
-msgstr ""
+msgstr "Modifica las velocidades de todas las aristas sumando FLOAT"
 
 #: src/netbuild/NBFrame.cpp:380
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr ""
+"Modifica las velocidades de todas las aristas multiplicándolas por FLOAT"
 
 #: src/netbuild/NBFrame.cpp:383
 msgid "Modifies all edge speeds to at least FLOAT"
 msgstr ""
+"Modifica las velocidades de todas las aristas para que sean al menos FLOAT"
 
 #: src/netbuild/NBFrame.cpp:391
 msgid "Generate INT intermediate points to smooth out intersection corners"
-msgstr ""
+msgstr "Generar INT puntos intermedios para suavizar las esquinas de los cruces"
 
 #: src/netbuild/NBFrame.cpp:394
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr ""
+"Generar INT puntos intermedios para suavizar los carriles dentro del cruce"
 
 #: src/netbuild/NBFrame.cpp:397
 msgid ""
@@ -7236,17 +7241,19 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:444
 msgid "Forces rectangular cuts between lanes and intersections"
-msgstr ""
+msgstr "Fuerza cortes rectangulares entre carriles y cruces"
 
 #: src/netbuild/NBFrame.cpp:507
 msgid "Always build walking areas even if there are no crossings"
-msgstr ""
+msgstr "Construir siempre áreas peatonales, incluso si no hay pasos peatonales"
 
 #: src/netbuild/NBFrame.cpp:510
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr ""
+"No crear un área peatonal entre aceras que estén conectadas por un cruce "
+"peatonal dentro de FLOAT"
 
 #: src/netbuild/NBFrame.cpp:549
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
@@ -7255,7 +7262,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:658
 msgid "Only keep edges with speed in meters/second > FLOAT"
-msgstr ""
+msgstr "Conservar solo las aristas con velocidad en metros/segundo > FLOAT"
 
 #: src/netbuild/NBFrame.cpp:662
 msgid "Remove edges in STR[]"
