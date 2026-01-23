@@ -20,4 +20,7 @@ sue
 ue
 all_pair
 load
+
+# tests are copied from duarouter/trips/restrictionParams but all ships were changd to passenger cars because maroutero only handles those
+restrictionParams
 bugs

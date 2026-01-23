@@ -146,8 +146,8 @@ netedit.positions.reference 0 0
 netedit.positions.selection.edge 513 92
 netedit.positions.selection.junction 498 236
 netedit.positions.selection.lane 586 213
-netedit.positions.selection.rectangleLargeA 129 4
-netedit.positions.selection.rectangleLargeB 867 463
+netedit.positions.selection.rectangleLargeA 252 75
+netedit.positions.selection.rectangleLargeB 744 394
 netedit.positions.selection.rectangleMediumA 304 94
 netedit.positions.selection.rectangleMediumB 694 373
 netedit.positions.selection.rectangleSmallA 410 147

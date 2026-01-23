@@ -10,7 +10,7 @@ deadlocks
 # complex deadlocks that are not found automatically but are avoided by loading deadlock hints.
 deadlocks_loadHints
 
-# trams driving in a loop servicing stops
+# trams driving in a loop servicing stops (actually vClass rail)
 tramwayLoop
 
 # splitting and joining train parts
@@ -25,8 +25,8 @@ rerouter
 # tests for train reversal
 reversal
 
-# tests for shared tram/car lane
-tram_road
+# test for tram specific behavior
+tram
 
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
 headonconflict

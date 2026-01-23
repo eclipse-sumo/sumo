@@ -36,3 +36,12 @@ sbahn
 
 # test case from the berlin sbahn network (#16544)
 sbahn2
+
+# consecutive stops on the same edge should not cause mapping failure (#17540)
+duplicate_edge
+
+# warn about large detour (#17567)
+detour
+
+# warn about large detour (#17567)
+detour_edgeNotFound

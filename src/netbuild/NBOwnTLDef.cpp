@@ -989,6 +989,7 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
     }
 
     // correct behaviour for roads that are in conflict with a pedestrian crossing
+    assert(fromEdges.size() <= result.size());
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
         if (result[i1] == 'G') {
             for (const NBNode::Crossing* cross : crossings) {

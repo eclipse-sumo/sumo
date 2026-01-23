@@ -39,6 +39,9 @@ remove_tll_connection2
 remove_all_connections
 patch_crossing
 remove_crossing
+
+# remove the only crossing
+remove_crossing2
 rename_node
 remove_roundabout
 change_tlType

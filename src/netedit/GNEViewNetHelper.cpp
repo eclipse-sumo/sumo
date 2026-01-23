@@ -2067,30 +2067,36 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     std::vector<GNEAttributeCarrier*> ACsFiltered;
     ACsFiltered.reserve(myViewNet->getViewObjectsSelector().getAttributeCarriers().size());
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
-        // isGLObjectLockedcheck also if we're in their correspoindient supermode
-        if (!AC->getGUIGlObject()->isGLObjectLocked()) {
-            const auto tagProperty = AC->getTagProperty();
-            if (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement()) {
-                // filter edges and lanes
-                if (((tagProperty->getTag() == SUMO_TAG_EDGE) && !selEdges) ||
-                        ((tagProperty->getTag() == SUMO_TAG_LANE) && selEdges)) {
-                    continue;
-                } else {
-                    ACsFiltered.push_back(AC);
-                }
-            } else if (tagProperty->isDemandElement()) {
-                ACsFiltered.push_back(AC);
-            } else if (tagProperty->isGenericData()) {
+        const auto tagProperty = AC->getTagProperty();
+        if (tagProperty->isNetworkElement() || tagProperty->isAdditionalElement()) {
+            // filter edges and lanes
+            if (((tagProperty->getTag() == SUMO_TAG_EDGE) && !selEdges) ||
+                    ((tagProperty->getTag() == SUMO_TAG_LANE) && selEdges)) {
+                continue;
+            } else {
                 ACsFiltered.push_back(AC);
             }
+        } else if (tagProperty->isDemandElement()) {
+            ACsFiltered.push_back(AC);
+        } else if (tagProperty->isGenericData()) {
+            ACsFiltered.push_back(AC);
+        }
+    }
+    // filter ACsInBoundary depending if is locked
+    std::vector<GNEAttributeCarrier*> ACsFilteredUnlocked;
+    ACsFilteredUnlocked.reserve(ACsFiltered.size());
+    for (const auto& AC : ACsFiltered) {
+        // isGLObjectLockedcheck also if we're in their correspoindient supermode
+        if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+            ACsFilteredUnlocked.push_back(AC);
         }
     }
     // declare two sets of attribute carriers, one for select and another for unselect
     std::vector<GNEAttributeCarrier*> ACToSelect;
     std::vector<GNEAttributeCarrier*> ACToUnselect;
     // reserve memory (we assume that in the worst case we're going to insert all elements of ACsInBoundaryFiltered
-    ACToSelect.reserve(ACsFiltered.size());
-    ACToUnselect.reserve(ACsFiltered.size());
+    ACToSelect.reserve(ACsFilteredUnlocked.size());
+    ACToUnselect.reserve(ACsFilteredUnlocked.size());
     // in restrict AND replace mode all current selected attribute carriers will be unselected
     const auto modificationMode = myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode();
     if ((modificationMode == GNESelectorFrame::ModificationMode::Operation::RESTRICT) || (modificationMode == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
@@ -2102,7 +2108,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         }
     }
     // iterate over AttributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
-    for (const auto& AC : ACsFiltered) {
+    for (const auto& AC : ACsFilteredUnlocked) {
         switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
             case GNESelectorFrame::ModificationMode::Operation::SUB:
                 ACToUnselect.push_back(AC);

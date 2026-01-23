@@ -174,9 +174,6 @@ NWFrame::checkOptions(OptionsCont& oc) {
     if (oc.isSet("opendrive-output") && !oc.getBool("rectangular-lane-cut")) {
         WRITE_WARNING(TL("OpenDRIVE cannot represent oblique lane cuts and should use option 'rectangular-lane-cut'."));
     }
-    if (oc.isSet("dlr-navteq-output") && oc.isDefault("numerical-ids")) {
-        oc.setDefault("numerical-ids", "true");
-    }
     if (oc.isSet("dlr-navteq-output") && oc.isDefault("osm.all-attributes")) {
         oc.setDefault("osm.all-attributes", "true");
         oc.setDefault("osm.extra-attributes", "bridge,tunnel,layer,postal_code,maxheight,maxwidth,maxweight,surface");

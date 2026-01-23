@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T17:50:52.384265+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
+<!-- generated on 2026-01-18T08:52:20.504564+01:00 by Eclipse SUMO sumo v1_25_0+1041-b12d5b0c044
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,16 +52,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <entry id="EW" time="15.00" reason="junction"/>
                 <exit id="EW" time="64.00" reason="arrived"/>
             </driveWay>
+            <subDriveWay id="gneJ6.0.0"/>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
         <link linkIndex="0" from="a_0" to="b_0">
             <driveWay id="gneJ8.0">
-                <entry id="WE0" time="65.00" reason="junction"/>
-                <entry id="WE1" time="72.00" reason="junction"/>
-                <exit id="WE0" time="187.00" reason="arrived"/>
-                <exit id="WE1" time="194.00" reason="arrived"/>
+                <entry id="WE0" time="56.00" reason="junction"/>
+                <entry id="WE1" time="63.00" reason="junction"/>
+                <exit id="WE0" time="178.00" reason="arrived"/>
+                <exit id="WE1" time="185.00" reason="arrived"/>
             </driveWay>
+            <subDriveWay id="gneJ8.0.0"/>
         </link>
     </railSignal>
     <departJunction id="gneJ7">
@@ -74,8 +76,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <driveWay id="gneJ0.d0">
             <entry id="WE0" time="1.00" reason="departed"/>
             <entry id="WE1" time="20.00" reason="departed"/>
-            <exit id="WE0" time="65.00" reason="junction"/>
-            <exit id="WE1" time="72.00" reason="junction"/>
+            <exit id="WE0" time="56.00" reason="junction"/>
+            <exit id="WE1" time="63.00" reason="junction"/>
         </driveWay>
     </departJunction>
 </railsignal-vehicle-output>

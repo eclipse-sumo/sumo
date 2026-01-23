@@ -8,11 +8,8 @@ Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|high
 Warning: Removing pt stop '1704693343' on non existing edge '158236729#0'.
 Warning: Removing pt stop '1704693369' on non existing edge '220198810#3'.
 Warning: Removing pt stop '1704693381' on non existing edge '220198810#0'.
-Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 164: S Flughafen Berlin-Schönefeld => S Kaulsdorf' in relation 228027 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 162: S Adlershof => U Rudow' in relation 1226998 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 162: U Rudow => S Adlershof' in relation 1227007 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 has a gap of 29 stops, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 has a gap of 9 stops, only keeping first part.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
 Warning: Removed invalid stop '1704693381' from line '2077946'.
@@ -20,10 +17,12 @@ Warning: Removed invalid stop '1704693369' from line '2077946'.
 Warning: Removed invalid stop '1704693343' from line '2077947'.
 Warning: Removed invalid stop '1704693343' from line '2077981'.
 Warning: Removed invalid stop '1704693381' from line '2077982'.
+Warning: Stop '464396487' named 'Rudower Chaussee/Wegedornstraße' from line '1227007' on edge '143308542#0' is not part of the route.
+Warning: Stop '306982602' named 'Magnusstraße' from line '1227007' on edge '143308542#0' is not part of the route.
+Warning: Stop '464396589' named 'Walther-Nernst-Straße' from line '1227007' on edge '143308542#0' is not part of the route.
 Warning: Removing pt stop '1704693343' on non existing edge ''.
 Warning: Removing pt stop '1704693369' on non existing edge ''.
-Warning: Removed 6 pt stops because they could not be assigned to the network
+Warning: Removed 7 pt stops because they could not be assigned to the network
 Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 8 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 6 total messages of type: Removed invalid stop '%' from line '%'.
-Warning: 9 total messages of type: Removing pt stop '%' on non existing edge '%'.
+Warning: 10 total messages of type: Removing pt stop '%' on non existing edge '%'.

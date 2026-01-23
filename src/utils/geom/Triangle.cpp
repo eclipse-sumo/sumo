@@ -26,8 +26,9 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-const Triangle Triangle::INVALID = Triangle();
 
+const Triangle Triangle::INVALID = Triangle();
+const double Triangle::EPSILON = 1e-9;
 
 // ===========================================================================
 // method definitions
@@ -72,27 +73,39 @@ Triangle::intersectWithShape(const PositionVector& shape) const {
 
 bool
 Triangle::intersectWithShape(const PositionVector& shape, const Boundary& shapeBoundary) const {
-    // check if triangle is within shape
+    // Check if the triangle's vertices are within the shape
     if (shape.around(myA) || shape.around(myB) || shape.around(myC)) {
         return true;
     }
-    // check if at leas two corners of the shape boundary are within triangle
-    const int cornerA = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymax()));
-    const int cornerB = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymin()));
-    if ((cornerA + cornerB) == 2) {
+    // Check if at least two corners of the shape boundary are within the triangle.
+    // (This acts as a heuristic to detect overlap without checking every edge first)
+    int cornersInside = 0;
+    if (isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymax()))) {
+        cornersInside++;
+    }
+    if (isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymin()))) {
+        cornersInside++;
+    }
+    if ((cornersInside < 2) && isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymin()))) {
+        cornersInside++;
+    }
+    if ((cornersInside < 2) && isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymax()))) {
+        cornersInside++;
+    }
+    if (cornersInside >= 2) {
         return true;
     }
-    const int cornerC = isPositionWithin(Position(shapeBoundary.xmax(), shapeBoundary.ymin()));
-    if ((cornerA + cornerB + cornerC) == 2) {
-        return true;
-    }
-    const int cornerD = isPositionWithin(Position(shapeBoundary.xmin(), shapeBoundary.ymax()));
-    if ((cornerA + cornerB + cornerC + cornerD) == 2) {
-        return true;
-    }
-    // on this point, whe need to check if every shape line intersect with triangle
-    for (int i = 0; i < ((int)shape.size() - 1); i++) {
-        if (lineIntersectsTriangle(shape[i], shape[i + 1])) {
+    // At this point, we need to check if any line of the shape intersects with the triangle.
+    // We treat the shape as a closed polygon.
+    const int shapeSize = (int)shape.size();
+    for (int i = 0; i < shapeSize; i++) {
+        const Position& p1 = shape[i];
+        // Wrap around to the first point
+        const Position& p2 = shape[(i + 1) % shapeSize];
+        // Avoid checking a zero-length segment if the shape is already explicitly closed in data
+        if (p1 == p2) {
+            continue;
+        } else if (lineIntersectsTriangle(p1, p2)) {
             return true;
         }
     }
@@ -183,9 +196,10 @@ Triangle::isPositionWithin(const Position& A, const Position& B, const Position&
     const double crossAB = crossProduct(A, B, pos);
     const double crossBC = crossProduct(B, C, pos);
     const double crossCA = crossProduct(C, A, pos);
-    // Check if all cross products have the same sign
-    return ((crossAB >= 0) && (crossBC >= 0) && (crossCA >= 0)) ||
-           ((crossAB <= 0) && (crossBC <= 0) && (crossCA <= 0));
+    // check conditions
+    const bool allPositive = (crossAB > -EPSILON) && (crossBC > -EPSILON) && (crossCA > -EPSILON);
+    const bool allNegative = (crossAB < EPSILON) && (crossBC < EPSILON) && (crossCA < EPSILON);
+    return allPositive || allNegative;
 }
 
 
@@ -214,23 +228,22 @@ Triangle::crossProduct(const Position& a, const Position& b, const Position& c) 
 int
 Triangle::orientation(const Position& p, const Position& q, const Position& r) const {
     const double val = (q.y() - p.y()) * (r.x() - q.x()) - (q.x() - p.x()) * (r.y() - q.y());
-    if (val > 0) {
-        // Clockwise
-        return 1;
-    } else if (val < 0) {
-        // Counterclockwise
-        return -1;
-    } else {
-        // Collinear
+    if (std::abs(val) < EPSILON) {
         return 0;
+    } else if (val > 0) {
+        return 1;
+    } else {
+        return -1;
     }
 }
 
 
 bool
 Triangle::onSegment(const Position& p, const Position& q, const Position& r) const {
-    return (q.x() >= std::min(p.x(), r.x()) && q.x() <= std::max(p.x(), r.x()) &&
-            q.y() >= std::min(p.y(), r.y()) && q.y() <= std::max(p.y(), r.y()));
+    return ((q.x() >= std::min(p.x(), r.x()) - EPSILON) &&
+            (q.x() <= std::max(p.x(), r.x()) + EPSILON) &&
+            (q.y() >= std::min(p.y(), r.y()) - EPSILON) &&
+            (q.y() <= std::max(p.y(), r.y()) + EPSILON));
 }
 
 

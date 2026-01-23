@@ -1,14 +1,14 @@
 Reading net ...
 Reading traces ...
-mapping trace with 18 points ... 
-   Found no candidate edges for 4870.234796670498,10089.603445301764 (index 0) 
-   Found no candidate edges for 4864.586877862457,10155.90743032936 (index 3) 
-   Found no candidate edges for 4864.441538386745,10157.582431054674 (index 4) 
-   Found no candidate edges for 4864.311242061551,10158.112638860941 (index 5) 
-   Found no candidate edges for 4864.224767940119,10158.291991189122 (index 6) 
-   Found no candidate edges for 4856.951360172126,10213.408242867328 (index 13) 
-   Found no candidate edges for 4858.201709950576,10218.7895333739 (index 14) 
-   Found no candidate edges for 4858.42631768086,10218.90314238239 (index 15) 
-   Found no candidate edges for 4858.828239186434,10219.106438605115 (index 16) 
-   Found no candidate edges for 4859.36161410436,10219.431977975182 (index 17) 
+mapping trace with 18 points ...
+   Found no candidate edges for 4870.23,10089.60 (index 0)
+   Found no candidate edges for 4864.59,10155.91 (index 3)
+   Found no candidate edges for 4864.44,10157.58 (index 4)
+   Found no candidate edges for 4864.31,10158.11 (index 5)
+   Found no candidate edges for 4864.22,10158.29 (index 6)
+   Found no candidate edges for 4856.95,10213.41 (index 13)
+   Found no candidate edges for 4858.20,10218.79 (index 14)
+   Found no candidate edges for 4858.43,10218.90 (index 15)
+   Found no candidate edges for 4858.83,10219.11 (index 16)
+   Found no candidate edges for 4859.36,10219.43 (index 17)
 10 Points had no candidates. (0 router calls)

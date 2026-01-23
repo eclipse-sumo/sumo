@@ -1949,6 +1949,9 @@ protected:
     /// @brief distance to the next stop or doubleMax if there is none
     double myStopDist;
 
+    /// @brief the speed that is needed for a scheduled stop or waypoint
+    double myStopSpeed;
+
     /// @brief amount of time for which the vehicle is immune from collisions
     SUMOTime myCollisionImmunity;
 
@@ -2042,7 +2045,7 @@ protected:
     DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
-    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, const MSLink*>& myNextTurn) const;
+    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, double& newStopSpeed, std::pair<double, const MSLink*>& myNextTurn) const;
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;

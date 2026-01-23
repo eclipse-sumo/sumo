@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2025-11-26 13:14+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2026-01-22 08:57+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -909,7 +909,7 @@ msgstr ""
 
 #: src/libsumo/GUI.cpp:332
 msgid "This system has no OpenGL support. Exiting."
-msgstr ""
+msgstr "O sistema não tem suporte para OpenGL. Saindo."
 
 #: src/libsumo/Helper.cpp:927
 #, c-format
@@ -10995,7 +10995,7 @@ msgstr ""
 
 #: src/sumo_main.cpp:86
 msgid "A microscopic, multi-modal traffic simulation."
-msgstr ""
+msgstr "Uma simulação de tráfego microscópica e multi modal."
 
 #: src/sumo_main.cpp:114 src/sumo_main.cpp:123
 msgid "Quitting (on error)."

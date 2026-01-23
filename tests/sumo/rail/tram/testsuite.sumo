@@ -1,0 +1,22 @@
+# tests for shared tram/car lane
+tram_road
+
+# do not perform insertion checks when there are no relevant signals in the network.
+unrelated_signals
+
+# test  subDriveways in moving-block mode
+unrelated_signals_crossing
+
+# do not perform flank checks at zipper junction
+zipper
+
+# do not perform flank checks at zipper junction unless there are signals directly ahead
+zipper_guarded
+
+# do not perform flank checks at zipper junction unless there are signals directly ahead. The signal is too far ahead and is not considered to guard the zipper merge
+zipper_signal_ungarded
+
+# train insertion should try to prevent a frontal collision, 
+# driveway computation must deal with traffic lights
+# see #17546
+bidi_conflict_insertion_tls

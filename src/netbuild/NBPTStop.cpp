@@ -30,8 +30,9 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
+NBPTStop::NBPTStop(SumoXMLTag tag, std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
                    std::string name, SVCPermissions svcPermissions, double parkingLength, const RGBColor color, double givenStartPos) :
+    myTag(tag),
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
@@ -99,7 +100,7 @@ NBPTStop::addLine(const std::string& line) {
 
 void
 NBPTStop::write(OutputDevice& device) {
-    device.openTag(SUMO_TAG_BUS_STOP);
+    device.openTag(myTag);
     device.writeAttr(SUMO_ATTR_ID, myPTStopId);
     if (!myName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myName));

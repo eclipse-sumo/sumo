@@ -971,16 +971,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, id.c_str(), ok);
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
-    int detectPersons = 0;
-    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
-        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
-            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
-        } else {
-            WRITE_ERRORF(TL("Invalid person mode '%' in E1 detector definition '%'"), mode, id);
-            myCurrentIsBroken = true;
-            return;
-        }
-    }
+    const int detectPersons = parseDetectPersons(detectPersonsString, id, ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
@@ -1017,12 +1008,14 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     const std::string nextEdges = attrs.getOpt<std::string>(SUMO_ATTR_NEXT_EDGES, id.c_str(), ok, "");
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
+    const int detectPersons = parseDetectPersons(detectPersonsString, id, ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     try {
-        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, name, vTypes, nextEdges);
+        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, name, vTypes, nextEdges, detectPersons);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -1106,16 +1099,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     double endPosition = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, std::numeric_limits<double>::max());
     const std::string lanes = attrs.getOpt<std::string>(SUMO_ATTR_LANES, id.c_str(), ok, ""); // lanes has priority to lane
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
-    int detectPersons = 0;
-    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
-        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
-            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
-        } else {
-            WRITE_ERRORF(TL("Invalid person mode '%' in E2 detector definition '%'"), mode, id);
-            myCurrentIsBroken = true;
-            return;
-        }
-    }
+    const int detectPersons = parseDetectPersons(detectPersonsString, id, ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
@@ -1292,16 +1276,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     const bool openEntry = attrs.getOpt<bool>(SUMO_ATTR_OPEN_ENTRY, id.c_str(), ok, false);
     const bool expectArrival = attrs.getOpt<bool>(SUMO_ATTR_EXPECT_ARRIVAL, id.c_str(), ok, false);
     const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
-    int detectPersons = 0;
-    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
-        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
-            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
-        } else {
-            WRITE_ERRORF(TL("Invalid person mode '%' in E3 detector definition '%'"), mode, id);
-            myCurrentIsBroken = true;
-            return;
-        }
-    }
+    const int detectPersons = parseDetectPersons(detectPersonsString, id, ok);
     if (!ok) {
         myCurrentIsBroken = true;
         return;
@@ -1878,6 +1853,22 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
         }
     }
     return result;
+}
+
+
+int
+NLHandler::parseDetectPersons(const std::string& detectPersonsString, const std::string& id, bool& ok) {
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERRORF(TL("Invalid person mode '%' in E1 detector definition '%'"), mode, id);
+            ok = false;
+            return 0;
+        }
+    }
+    return detectPersons;
 }
 
 

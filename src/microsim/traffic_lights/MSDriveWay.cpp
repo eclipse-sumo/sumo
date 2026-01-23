@@ -54,8 +54,9 @@
 //#define DEBUG_HELPER(obj) ((obj)->getID() == "")
 //#define DEBUG_HELPER(obj) (true)
 
-//#define DEBUG_COND_DW (dw->myNumericalID == 5)
-#define DEBUG_COND_DW (false)
+#define DEBUG_DW_ID ""
+#define DEBUG_COND_DW (dw->getID() == DEBUG_DW_ID || DEBUG_DW_ID == std::string("ALL"))
+#define DEBUG_COND_DW2 (getID() == DEBUG_DW_ID || DEBUG_DW_ID == std::string("ALL"))
 
 // ===========================================================================
 // static value definitions
@@ -63,6 +64,7 @@
 int MSDriveWay::myGlobalDriveWayIndex(0);
 std::set<const MSEdge*> MSDriveWay::myBlockLengthWarnings;
 bool MSDriveWay::myWriteVehicles(false);
+double MSDriveWay::myMovingBlockMaxDist(1e10);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*>, ComparatorNumericalIdLess> MSDriveWay::myDepartureDriveways;
@@ -78,6 +80,7 @@ std::map<std::string, MSDriveWay*> MSDriveWay::myDriveWayLookup;
 void
 MSDriveWay::init() {
     myWriteVehicles = OptionsCont::getOptions().isSet("railsignal-vehicle-output");
+    myMovingBlockMaxDist = OptionsCont::getOptions().getFloat("railsignal.moving-block.max-dist");
 }
 
 // ===========================================================================
@@ -910,7 +913,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
     const std::string warnID = origin ? "rail signal " + getClickableTLLinkID(origin) : "insertion lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    gDebugFlag4 = DEBUG_COND_DW;
+    gDebugFlag4 = DEBUG_COND_DW2;
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
@@ -1019,7 +1022,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
             if ((next != end && &link->getLane()->getEdge() == *next)
                     && isRailwayOrShared(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
-                if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0) {
+                if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0 && link->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
                     if (link == origin) {
                         if (seekForwardSignal) {
                             WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
@@ -1334,7 +1337,9 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         dw->findFlankProtection(flink, flink, dw->myBidiExtended);
     }
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
-    const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && OptionsCont::getOptions().getBool("railsignal-moving-block"));
+    const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && 
+            (OptionsCont::getOptions().getBool("railsignal-moving-block")
+             || MSRailSignalControl::isMovingBlock((*first)->getPermissions())));
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
         std::cout << SIMTIME << " buildDriveWay " << dw->myID << " link=" << (link == nullptr ? "NULL" : link->getDescription())
@@ -1716,24 +1721,49 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         return true;
     }
     int subLast = (int)myForward.size() - 2;
+    if (movingBlock && myForward.back() == foe->myForward.back()) {
+        subLast++;
+    }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
         std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
     }
 #endif
     bool foundConflict = false;
+    bool flankC = false;
+    bool zipperC = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp(myOrigin, "tmp", true);
         tmp.myForward.push_back(lane);
-#ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << tmp.flankConflict(*foe) << " cc=" << tmp.crossingConflict(*foe)
-                  << " bc=" << (std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) << "\n";
-#endif
+        flankC = tmp.flankConflict(*foe);
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
-        if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) || bidiConflict) {
+        const bool crossC = tmp.crossingConflict(*foe);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << crossC << " bc=" << bidiConflict << "\n";
+#endif
+        if (flankC || crossC || bidiConflict) {
             foundConflict = true;
             if (!movingBlock || bidiConflict) {
+                break;
+            }
+            if (((flankC && lane->getFromJunction()->getType() == SumoXMLNodeType::ZIPPER)
+                    || (!flankC && lane->getToJunction()->getType() == SumoXMLNodeType::ZIPPER))
+                    && (isDepartDriveway()
+                        || getForwardDistance(flankC ? subLast - 1 : subLast) > myMovingBlockMaxDist)) {
+                zipperC = true;
+                foundConflict = false;
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+                std::cout << "     ignored movingBlock zipperConflict\n";
+#endif
+                if (!flankC && crossC) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+                    std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+#endif
+                    return false;
+                }
+            }
+            if (!flankC && crossC) {
                 break;
             }
         } else if (foundConflict) {
@@ -1741,10 +1771,21 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         }
         subLast--;
     }
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+    std::cout << "  subLastFina=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
+#endif
     if (subLast < 0) {
-        if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
+        if (movingBlock && zipperC) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+#endif
+            return false;
+        } else if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
             // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
             foe->myFoes.push_back(this);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " foe endsOnForward\n";
+#endif
         } else if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
                 foe->myFoes.push_back(this);
@@ -1843,6 +1884,18 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #endif
     return true;
 }
+
+
+double
+MSDriveWay::getForwardDistance(int lastIndex) const {
+    assert(lastIndex < (int)myForward.size());
+    double result = 0;
+    for (int i = 0; i <= lastIndex; i++) {
+        result += myForward[i]->getLength();
+    }
+    return result;
+}
+
 
 void
 MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
@@ -2053,7 +2106,11 @@ MSDriveWay::_saveState(OutputDevice& out) const {
         out.writeAttr(SUMO_ATTR_ID, getID());
         out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
         if (!myTrains.empty()) {
-            out.writeAttr(SUMO_ATTR_VEHICLES, toString(myTrains));
+            std::vector<std::string> trainIDs;
+            for (SUMOVehicle* veh : myTrains) {
+                trainIDs.push_back(veh->getID());
+            }
+            out.writeAttr(SUMO_ATTR_VEHICLES, toString(trainIDs));
         }
         out.closeTag();
     }

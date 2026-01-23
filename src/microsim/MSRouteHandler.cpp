@@ -1395,6 +1395,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 WRITE_WARNINGF(TL("Deprecated attribute 'pos' in description of stop%."), errorSuffix);
                 stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
             }
+            if (stop.endPos < 0) {
+                stop.endPos += edge->getLength();
+            }
             stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
             if (!myAmLoadingState) {
                 const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, !attrs.hasAttribute(SUMO_ATTR_STARTPOS) && !attrs.hasAttribute(SUMO_ATTR_ENDPOS))

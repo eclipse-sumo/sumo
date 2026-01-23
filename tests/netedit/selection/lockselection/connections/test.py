@@ -41,8 +41,8 @@ netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lockAll)
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.connections)
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
-                           netedit.positions.selection.rectangleMediumB)
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleLargeA,
+                           netedit.positions.selection.rectangleLargeB)
 
 # remove elements
 netedit.delete()

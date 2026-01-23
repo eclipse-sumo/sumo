@@ -1,8 +1,8 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurrence for edge '10425555').
 Warning: Discarding unknown compound 'railway.platform' in type 'highway.path|railway.platform' (first occurrence for edge '32548182').
 Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '32548183').
-Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 seems to be split, only keeping first part.
-Warning: PT line 'Bus 414: Stadion (Schwarzer Berg) => Heideblick' in relation 6768240 seems to be split, only keeping first part.
+Warning: PT line 'Bus 414: Heideblick => Stadion (Schwarzer Berg)' in relation 76955 has a gap of 4 stops, only keeping first part.
+Warning: PT line 'Bus 414: Stadion (Schwarzer Berg) => Heideblick' in relation 6768240 has a gap of 5 stops, only keeping first part.
 Warning: Cannot revise pt stop localization for pt line '2653085', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2656639', which consist of one way only. Ignoring!
 Warning: Cannot assign stop 54142977 on edge '859066434' to pt line '4599999'. Ignoring!
@@ -19,6 +19,11 @@ Warning: Found sharp turn with radius 7.92 at the end of edge '10426716#0'.
 Warning: The rail crossing '1882498697' does not have any roads.
 Warning: The rail crossing '54142974' does not have any roads.
 Warning: The rail crossing 'cluster_2525484869_366041397' does not have any roads.
+Warning: Stop '54142977' named 'Heideblick' from line '2777015' on edge '859066434#3' is not part of the route.
+Warning: Stop '54142977' named 'Heideblick' from line '4599999' on edge '859066434#3' is not part of the route.
+Warning: Stop '4539420388' named 'Veltenhöfer Straße' from line '6768240' on edge '4747816#1' is not part of the route.
+Warning: Stop '91556880' named 'Brandenburgstraße' from line '6768240' on edge '4747816#7' is not part of the route.
+Warning: Stop '54142977' named 'Heideblick' from line '7090406' on edge '859066434#3' is not part of the route.
 Warning: Removing pt stop '4103427181' on non existing edge ''.
 Warning: Removed 1 pt stops because they could not be assigned to the network
 Warning: 9 total messages of type: Cannot revise pt stop localization for pt line '%', which consist of one way only. Ignoring!

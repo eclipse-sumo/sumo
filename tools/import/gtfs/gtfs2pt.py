@@ -39,6 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
 import route2poly  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import humanReadableTime  # noqa
+from sumolib.miscutils import euclidean  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -76,6 +77,8 @@ def get_options(args=None):
                     help="file with replacement stops (based on stop ids)")
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
+    ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
+                    help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
@@ -134,10 +137,14 @@ def get_options(args=None):
 
 
 def splitNet(options):
-    netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--numerical-ids", "--no-turnarounds",
+    netcCall = [sumolib.checkBinary("netconvert"), "--no-internal-links", "--no-turnarounds",
                 "--no-warnings",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
+    if options.mapperlib != "tracemapper":
+        # otherwise, preserve original ids for easier debugging
+        netcCall += ["--numerical-ids"]
+
     doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
@@ -248,11 +255,23 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                     mappedRoute = traceCache[trace]
                     cacheHits += 1
                 else:
+                    detours = []
                     mappedRoute = sumolib.route.mapTrace(trace, net, radius, verbose=options.verbose,
                                                          fillGaps=options.fill_gaps, gapPenalty=5000.,
                                                          vClass=vclass, vias=vias,
                                                          fastest=True,
-                                                         reversalPenalty=1000.)
+                                                         reversalPenalty=1000.,
+                                                         resultDetours=detours)
+                    assert len(detours) == len(trace)
+                    for i in range(1, len(trace)):
+                        detour = detours[i]
+                        if detour > options.detourWarnFactor:
+                            airLine = euclidean(trace[i - 1], trace[i])
+                            fx, fy = trace[i - 1]
+                            tx, ty = trace[i]
+                            print("Trip %s (%s): detour (factor %.2f) to stop index %s, fromPos=%.2f,%.2f toPos=%.2f,%.2f (airLine=%.2f path=%.2f)" %  # noqa
+                                  (tid, mode, detour, i, fx, fy, tx, ty, airLine, detour * airLine), file=sys.stderr)
+
                     traceCache[trace] = mappedRoute
 
                 if mappedRoute:

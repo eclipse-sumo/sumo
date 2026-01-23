@@ -62,7 +62,7 @@ The default [car-following model
 *Krauss*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models)
 supports stochastic driving behavior through the `vType`-attribute `sigma` (default
 0.5). When this value is non-zero drivers will randomly vary their speed
-based on the RNG described above. Other car-following models also use
+based on the RNG described above. Some other car-following models also use
 this attribute.
 
 # Departure times

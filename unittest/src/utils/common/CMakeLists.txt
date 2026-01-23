@@ -6,4 +6,5 @@ add_executable(testcommon
         StringUtilsTest.cpp
         ValueTimeLineTest.cpp
         )
+# the commonlibs get linked anyway, no need to repeat them here
 setTestProperties(testcommon utils_common utils_iodevices)

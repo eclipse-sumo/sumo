@@ -89,10 +89,10 @@ public:
         /// temporary permission change
         SVCPermissions prohibitedPermissions;
 
-        /// the time at which a temporary prohibitione begins
+        /// the time at which a temporary prohibition begins
         double prohibitionBegin;
 
-        /// the time at which a temporary prohibitione ends
+        /// the time at which a temporary prohibition ends
         double prohibitionEnd;
 
         inline void reset() {

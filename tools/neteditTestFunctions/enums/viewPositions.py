@@ -86,12 +86,12 @@ class positions:
             y = 373
 
         class rectangleLargeA:
-            x = 129
-            y = 4
+            x = 252
+            y = 75
 
         class rectangleLargeB:
-            x = 867
-            y = 463
+            x = 744
+            y = 394
 
     class network:
 

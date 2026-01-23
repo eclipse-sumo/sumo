@@ -31,15 +31,10 @@ Warning: PT stop '3115234152' has been moved to edge '-572322449'.
 Warning: PT stop '7108387712' has been moved to edge '8420621#2'.
 Warning: PT stop '2898083829' has been moved to edge '-8420621#2'.
 Warning: PT stop '3909350504' has been moved to edge '-8420625#1'.
-Warning: Could not re-assign PT stop '1189482494', probably broken osm file.
-Warning: Could not re-assign PT stop '1189482494', probably broken osm file.
 Warning: Cannot revise pt stop localization for pt line '14726480', which has no route edges. Ignoring!
-Warning: Could not re-assign PT stop '1189447379', probably broken osm file.
-Warning: Could not re-assign PT stop '1189447375', probably broken osm file.
 Warning: Cannot assign stop 3115234152 on edge '572322449' to pt line '2180640'. Ignoring!
 Warning: Cannot assign stop 385182104 on edge '525176584' to pt line '2782364'. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '2810020', which has no route edges. Ignoring!
-Warning: Could not re-assign PT stop '1189482494@2827470', probably broken osm file.
 Warning: Cannot revise pt stop localization for pt line '2827499', which has no route edges. Ignoring!
 Warning: Could not assign stop '1189482494' to pt line '3185767' (closest edge '103006594', distance 203.03). Ignoring!
 Warning: Cannot assign stop 538163640 on edge '525176584' to pt line '53208'. Ignoring!
@@ -52,6 +47,11 @@ Warning: Converting invalid rail_crossing to priority junction '10268308584'.
 Warning: Converting invalid rail_crossing to priority junction '10268336874'.
 Warning: Converting invalid rail_crossing to priority junction '10268336886'.
 Warning: Converting invalid rail_crossing to priority junction '10268336891'.
+Warning: Stop '4881603356' named 'Bahnhof Oerlikon' from line '10412930' on edge '496693720' is not part of the route.
+Warning: Stop '538163640' named 'Bahnhof Oerlikon' from line '10532084' on edge '525176584#1' is not part of the route.
+Warning: Stop '4512555327' named 'Bahnhof Oerlikon Nord' from line '10535024' on edge '454724139#0' is not part of the route.
+Warning: Stop '1189482494' named 'Zürich Oerlikon' from line '14726480' on edge '237208574' is not part of the route.
+Warning: Stop '1189447379' named 'Zürich Oerlikon' from line '1574034' on edge '303826728' is not part of the route.
 Warning: Removing pt stop '4893875313' on non existing edge ''.
 Warning: Removing pt stop '4893875314' on non existing edge ''.
 Warning: Removing pt stop '5710994953' on non existing edge ''.
@@ -59,7 +59,7 @@ Warning: Removing pt stop '5710994954' on non existing edge ''.
 Warning: Removed 4 pt stops because they could not be assigned to the network
 Warning: 6 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
 Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 9 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 26 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 27 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 14 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
+Warning: 16 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.

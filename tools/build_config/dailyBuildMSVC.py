@@ -194,7 +194,7 @@ def main(options, platform="x64"):
     if options.suffix == "extra":
         try:
             buildWindowsSUMOWheel.main()
-            f = glob.glob(os.path.join(SUMO_HOME, "dist", "eclipse_sumo-*"))[0]
+            f = glob.glob(os.path.join(SUMO_HOME, "dist", "*"))[0]
             shutil.copy(f, os.path.join(options.remoteDir, "wheels"))
         except Exception as e:
             status.printLog("Warning: Could not create nightly sumo wheel! (%s)" % e)

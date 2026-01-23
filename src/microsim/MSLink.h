@@ -618,7 +618,7 @@ public:
     /// @brief write information about all approaching vehicles to the given output device
     void writeApproaching(OutputDevice& od, const std::string fromLaneID) const;
 
-    /// @brief return the link that is parallel to this lane or 0
+    /// @brief return the link that is parallel to this link or 0
     MSLink* getParallelLink(int direction) const;
 
     /// @brief return the link that is the opposite entry link to this one

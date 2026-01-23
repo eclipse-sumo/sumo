@@ -1186,7 +1186,11 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     }
     // legacy attribute
     if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.parametersSet |= STOP_TRIGGER_SET;
+        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+            WRITE_WARNING(TLF("Attributes '%' and '%' cannot be loaded simultaneously. Ignoring '%'", toString(SUMO_ATTR_SPEED), toString(SUMO_ATTR_CONTAINER_TRIGGERED), toString(SUMO_ATTR_CONTAINER_TRIGGERED)));
+        } else {
+            stop.parametersSet |= STOP_TRIGGER_SET;
+        }
     }
     if (attrs.hasAttribute(SUMO_ATTR_PARKING)) {
         stop.parametersSet |= STOP_PARKING_SET;
@@ -1276,7 +1280,7 @@ RouteHandler::parseStopParameters(SUMOVehicleParameter::Stop& stop, const SUMOSA
     bool expectTrigger = !attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL) && !attrs.hasAttribute(SUMO_ATTR_SPEED);
     std::vector<std::string> triggers = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_TRIGGERED, nullptr, ok);
     // legacy
-    if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false)) {
+    if (attrs.getOpt<bool>(SUMO_ATTR_CONTAINER_TRIGGERED, nullptr, ok, false) && !attrs.hasAttribute(SUMO_ATTR_SPEED)) {
         triggers.push_back(toString(SUMO_TAG_CONTAINER));
     };
     SUMOVehicleParameter::parseStopTriggers(triggers, expectTrigger, stop);

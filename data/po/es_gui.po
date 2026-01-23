@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-09 10:39+0000\n"
+"PO-Revision-Date: 2026-01-20 08:34+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -3217,12 +3217,12 @@ msgstr "% elementos meanData desde '%'."
 #: src/netedit/GNEApplicationWindow.cpp:5065
 #: src/netedit/GNEApplicationWindow.cpp:5066
 msgid "% TLS programs from '%'."
-msgstr ""
+msgstr "% programas semafóricos desde '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:5099
 #: src/netedit/GNEApplicationWindow.cpp:5100
 msgid "% edge types from '%'."
-msgstr ""
+msgstr "% tipos de aristas desde '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
@@ -8648,7 +8648,7 @@ msgstr "La posición sobre el carril donde se colocará el % (en metros)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7971
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
-msgstr ""
+msgstr "Detectar personas en lugar de vehículos (peatones o pasajeros)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7982
 #, c-format
@@ -8696,7 +8696,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:8035
 #: src/netedit/GNETagPropertiesDatabase.cpp:8041
 msgid "The probability when being added to a distribution"
-msgstr ""
+msgstr "La probabilidad al ser agregado a una distribución"
 
 #: src/netedit/GNEUndoList.cpp:469
 msgid "Disabled undo"
@@ -8796,15 +8796,15 @@ msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:965
 msgid "% requires switch to network mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de red. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:967
 msgid "% requires switch to demand mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de demanda. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:969
 msgid "% requires switch to data mode. Continue?"
-msgstr ""
+msgstr "% requiere cambiar al modo de datos. ¿Continuar?"
 
 #: src/netedit/GNEViewNet.cpp:975
 msgid "Confirm switch mode"
@@ -9021,7 +9021,7 @@ msgstr "transformar en punto de interés (POI)"
 
 #: src/netedit/GNEViewNet.cpp:3100
 msgid "transform to POI GEO"
-msgstr ""
+msgstr "transformar a punto de interés GEO"
 
 #: src/netedit/GNEViewNet.cpp:3116
 msgid "reverse % '%'"
@@ -10045,19 +10045,19 @@ msgstr "Atrás"
 
 #: src/netedit/dialogs/GNEDialog.cpp:515
 msgid "Back to tool dialog"
-msgstr ""
+msgstr "Volver a la ventana de la herramienta"
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:532
 msgid "Copy error trace to clipboard"
-msgstr ""
+msgstr "Copiar seguimiento de error al portapapeles"
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report"
-msgstr ""
+msgstr "Reportar"
 
 #: src/netedit/dialogs/GNEDialog.cpp:536
 msgid "Report bug to github"
@@ -10065,7 +10065,7 @@ msgstr "Reportar error en GitHub"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:44
 msgid "Custom Geometry Point"
-msgstr ""
+msgstr "Punto geométrico personalizado"
 
 #: src/netedit/dialogs/GNEGeometryPointDialog.cpp:71
 msgid "close accepting changes"
@@ -10231,7 +10231,7 @@ msgstr "Guardar %"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:86
 msgid "You have unsaved %."
-msgstr ""
+msgstr "Hay % sin guardar."
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:87
 msgid "Do you wish to close and discard all changes?"
@@ -10239,7 +10239,7 @@ msgstr "¿Quiere cerrar y descartar todos los cambios?"
 
 #: src/netedit/dialogs/GNESaveDialog.cpp:90
 msgid "Apply to all unsaved elements"
-msgstr ""
+msgstr "Aplicar a todos los elementos sin guardar"
 
 #: src/netedit/dialogs/GNEUndoListDialog.cpp:44
 msgid "Undo/Redo history"
@@ -10409,11 +10409,11 @@ msgstr "Sobrescribir % '%'"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:41
 msgid "There is already a % '%'. Overwrite?"
-msgstr ""
+msgstr "Ya existe un % '%'. ¿Sobrescribir?"
 
 #: src/netedit/dialogs/basic/GNEOverwriteElement.cpp:44
 msgid "Apply this solution to all conflicted elements"
-msgstr ""
+msgstr "Aplicar esta solución a todos los elementos en conflicto"
 
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:66
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:673
@@ -12020,75 +12020,75 @@ msgstr "La arista '%' no es consecutiva a la arista '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:94
 msgid "Invalid from edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arista de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:97
 msgid "Invalid to edge '%' used in % of % '%'"
-msgstr ""
+msgstr "Arista destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:100
 msgid "Invalid from junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Cruce de origen '%' no válido usado en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:103
 msgid "Invalid to junction '%' used in % of % '%'"
-msgstr ""
+msgstr "Cruce destino '%' no válido usado en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:106
 msgid "Invalid from TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de análisis de tráfico de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:109
 msgid "Invalid to TAZ '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de análisis de tráfico destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:112
 msgid "Invalid from bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de bus de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:115
 msgid "Invalid from train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de tren de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:118
 msgid "Invalid from container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de contenedor de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:121
 msgid "Invalid from charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Estación de carga de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:124
 msgid "Invalid from parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de estacionamiento de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:127
 msgid "Invalid to bus stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de bus destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:130
 msgid "Invalid to train stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de tren destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:133
 msgid "Invalid to container stop '%' used in % of % '%'"
-msgstr ""
+msgstr "Parada de contenedor destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:136
 msgid "Invalid to charging station '%' used in % of % '%'"
-msgstr ""
+msgstr "Estación de carga destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:139
 msgid "Invalid to parking area '%' used in % of % '%'"
-msgstr ""
+msgstr "Zona de estacionamiento destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:142
 msgid "Invalid from route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ruta de origen '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNEPlanParents.cpp:145
 msgid "Invalid to route '%' used in % of % '%'"
-msgstr ""
+msgstr "Ruta destino '%' no válida usada en % de % '%'"
 
 #: src/netedit/elements/demand/GNERoute.cpp:288
 msgid "Cannot repeat in routes with only one edge"
@@ -12240,7 +12240,7 @@ msgstr ""
 #: src/netedit/elements/demand/GNERouteRef.cpp:304
 #: src/netedit/elements/demand/GNEVTypeRef.cpp:301
 msgid "%: %, %"
-msgstr ""
+msgstr "%: %, %"
 
 #: src/netedit/elements/demand/GNEStop.cpp:288
 msgid "Invalid Stop parent"
@@ -12391,16 +12391,16 @@ msgstr "moviendo % de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:163
 msgid "remove first geometry point of %"
-msgstr ""
+msgstr "eliminar el primer punto geométrico de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:168
 msgid "remove last geometry point of %"
-msgstr ""
+msgstr "eliminar el último punto geométrico de %"
 
 #: src/netedit/elements/moving/GNEMoveElementEdge.cpp:219
 #: src/netedit/elements/moving/GNEMoveElementJunction.cpp:161
 msgid "moving shape of %"
-msgstr ""
+msgstr "moviendo la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:326
 msgid "Lanes aren't consecutives"
@@ -12425,7 +12425,7 @@ msgstr "posición de %"
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:513
 #, c-format
 msgid " %'s size"
-msgstr ""
+msgstr " tamaño de %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:35
 msgid "lane start"
@@ -12441,7 +12441,7 @@ msgstr "% < 0"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:222
 msgid "% > length of lane"
-msgstr ""
+msgstr "% > longitud de carril"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:224
 msgid "% > (length of lane - EPS)"
@@ -12459,11 +12459,11 @@ msgstr "posición de salida de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:190
 msgid "moving center of %"
-msgstr ""
+msgstr "moviendo el centro de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:198
 msgid "moving entire shape of %"
-msgstr ""
+msgstr "moviendo toda la forma de %"
 
 #: src/netedit/elements/moving/GNEMoveElementShape.cpp:216
 msgid "editing shape of %"
@@ -12483,7 +12483,7 @@ msgstr "altura de %"
 
 #: src/netedit/elements/network/GNEConnection.cpp:360
 msgid "Set custom connection shape"
-msgstr ""
+msgstr "Establecer forma de conexión personalizada"
 
 #: src/netedit/elements/network/GNEConnection.cpp:361
 msgid "Smooth connection shape"
@@ -12496,6 +12496,8 @@ msgstr "No se pudo establecer el atributo '%' (el semáforo no es válido)"
 #: src/netedit/elements/network/GNEConnection.cpp:944
 msgid "Cannot restore attribute '%=%' for computed connection from lane '%'"
 msgstr ""
+"No se puede restaurar el atributo '%=%' para la conexión calculada desde el "
+"carril '%'"
 
 #: src/netedit/elements/network/GNECrossing.cpp:86
 msgid "Crossing's edges don't support pedestrians"
@@ -12914,7 +12916,7 @@ msgstr "Abrir diálogo de elemento"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Open specific element edit dialog"
-msgstr ""
+msgstr "Abrir el diálogo de edición del elemento específico"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:92
 msgid "Open help attributes dialog"
@@ -12930,11 +12932,11 @@ msgstr "Editar atributos extendidos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:103
 msgid "Open dialog for edit extended attributes"
-msgstr ""
+msgstr "Abrir el diálogo para editar atributos extendidos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:107
 msgid "Open dialog for edit generic parameters"
-msgstr ""
+msgstr "Abrir el diálogo para editar parámetros genéricos"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:214
 #, c-format
@@ -12950,7 +12952,7 @@ msgstr "Valor no válido '%' en el atributo %"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:568
 #, c-format
 msgid "change multiple % attributes"
-msgstr ""
+msgstr "cambiar múltiples atributos de %"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:538
 #, c-format
@@ -13013,7 +13015,7 @@ msgstr "- Largo: "
 
 #: src/netedit/frames/GNEDemandSelector.cpp:49
 msgid "Parent %"
-msgstr ""
+msgstr "Elemento padre %"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:67
 msgid "Parent element"
@@ -13244,7 +13246,7 @@ msgstr "Solo dos cruces están permitidos"
 
 #: src/netedit/frames/GNEPathCreator.cpp:296
 msgid "creation of path between junctions"
-msgstr ""
+msgstr "creación de un camino entre cruces"
 
 #: src/netedit/frames/GNEPathCreator.cpp:324
 #: src/netedit/frames/GNEPlanCreator.cpp:813
@@ -13257,7 +13259,7 @@ msgstr "Solo se permiten dos zonas de análisis de tráfico (TAZ)"
 
 #: src/netedit/frames/GNEPathCreator.cpp:343
 msgid "creation of path between TAZs"
-msgstr ""
+msgstr "creación de un camino entre zonas de análisis de tráfico"
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
 #: src/netedit/frames/GNEPlanCreator.cpp:755
@@ -13287,7 +13289,7 @@ msgstr ""
 
 #: src/netedit/frames/GNEPathCreator.cpp:415
 msgid "creation of path between edges"
-msgstr ""
+msgstr "creación de un camino entre aristas"
 
 #: src/netedit/frames/GNEPathCreator.cpp:817
 msgid "- Selected edges: "
@@ -13701,16 +13703,20 @@ msgstr "     2. Seleccione un atributo en el segundo cuadro de entrada"
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press <return>"
 msgstr ""
+"     3. Ingrese una 'expresión de coincidencia' en el tercer campo de "
+"entrada y presione <ENTER>"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
-msgstr ""
+msgstr "- La expresión vacía coincide con todos los objetos"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:326
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number."
 msgstr ""
+"- Para atributos numéricos, la expresión de coincidencia debe consistir de "
+"un operador de comparación ('<', '>', '=') y un número."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:327
 msgid ""
@@ -13725,6 +13731,9 @@ msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string."
 msgstr ""
+"- Para atributos de cadena de texto, la expresión de coincidencia debe "
+"consistir de un operador de comparación ('*', '=', '!', '^') y una cadena de "
+"texto."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:330
 msgid ""
@@ -13734,15 +13743,15 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
-msgstr ""
+msgstr "     '=' coincide si la cadena de texto es una coincidencia exacta."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:332
 msgid "     '!' matches if string is not a substring."
-msgstr ""
+msgstr "     '!' coincide si la cadena no es una subcadena."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:333
 msgid "     '^' matches if string is not an exact match."
-msgstr ""
+msgstr "     '^' coincide si la cadena no es una coincidencia exacta."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:335
 msgid "- Examples:"

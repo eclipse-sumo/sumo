@@ -30,6 +30,10 @@ Warning: PT stop '843205116' has been moved to edge '-374535325#6'.
 Warning: Cannot revise pt stop localization for pt line '2807116', which consist of one way only. Ignoring!
 Warning: Cannot revise pt stop localization for pt line '48680', which consist of one way only. Ignoring!
 Warning: Edge '957112906' is not connected to outgoing edges at junction '8116258616'.
+Warning: Stop '843205115' named 'Militär-/Langstrasse' from line '1143404' on edge '4803425#1' is not part of the route downstream of the previous stop.
+Warning: Stop '1811884608' named 'Kanonengasse' from line '1143404' on edge '374535325#1' is not part of the route downstream of the previous stop.
+Warning: Stop '-843205116' named 'Militär-/Langstrasse' from line '1143405' on edge '-374535325#6' is not part of the route downstream of the previous stop.
+Warning: Stop '847284087' named 'Bäckeranlage' from line '1143405' on edge '374533048' is not part of the route downstream of the previous stop.
 Warning: Removing pt stop '5128707885' on non existing edge ''.
 Warning: Removing pt stop '5128707886' on non existing edge ''.
 Warning: Removing pt stop '5132952924' on non existing edge ''.

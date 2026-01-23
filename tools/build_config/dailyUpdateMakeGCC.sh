@@ -92,11 +92,7 @@ if test -e $SUMO_BINDIR/sumo && test $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Mak
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
-      if test ${FILEPREFIX::10} == "clangMacOS"; then
-        tests/runTests.sh -a sumo.gui.mac -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      else
-        tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      fi
+      tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
@@ -142,7 +138,6 @@ echo "--" >> $STATUSLOG
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
   if test "$FILEPREFIX" == "gcc"; then
     # send SIGTERM to the netedit tests after some time and SIGKILL sometime later
-    # This will not work on macOS unless "brew install coreutils" has been executed
     timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX} -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
     export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}netedit_ext_batch_result
@@ -151,4 +146,17 @@ if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREF
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
     killall -9 -q fluxbox Xvfb
   fi
+  if test "$FILEPREFIX" == "clangMacOS_M1"; then
+    # This will not work on macOS unless "brew install coreutils" has been executed
+    timeout -k 90m 60m tests/runTests.sh -a netedit.internal -b ${FILEPREFIX} -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
+  fi
+fi
+
+# macOS upload
+if test -e $PREFIX/upload.sh && test ${FILEPREFIX::10} == "clangMacOS"; then
+  cd $PREFIX
+  base=$(basename $SUMO_REPORT)
+  tar czf $base.tar.gz ${FILEPREFIX}*.log $(find $base -type f -mtime -2)
+  ./upload.sh $base.tar.gz
 fi

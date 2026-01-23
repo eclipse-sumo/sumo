@@ -826,6 +826,11 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 void
 MSTLLogicControl::switchOffAll() {
     for (const auto& logic : myLogics) {
+        if (logic.second->getActive()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+            // there is no sensible fall-back behavior when switching of rail
+            // signals so they should ignore tls.all-off
+            continue;
+        }
         logic.second->addLogic("off", new MSOffTrafficLightLogic(*this, logic.first), true, true);
     }
 }

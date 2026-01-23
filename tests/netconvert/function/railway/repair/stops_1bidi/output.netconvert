@@ -1,4 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml' ... done (2ms).
+Parsing sumo-net from 'input_net.net.xml' ... done (0ms).
 Parsing public transport stops from 'input_ptstops.xml' ... done.
 Parsing public transport lines from 'input_ptlines.xml' ... done.
  Import done:
@@ -39,9 +39,8 @@ Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... done (1ms).
-Added 2 stops for superposed rail edges.
-Find accesses for pt rail stops ... done (0ms).
+Building inner edges ... done (0ms).
+Find accesses for pt rail stops ... done (1ms).
 DijkstraRouter answered 4 queries and explored 3.50 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -----------------------------------------------------
@@ -56,5 +55,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.95,-200.00,300.00,-87.31
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (0ms).
 Success.

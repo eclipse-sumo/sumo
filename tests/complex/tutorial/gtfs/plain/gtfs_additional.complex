@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-22 09:04:01.193952 by gtfs2pt.py v1_22_0+1618-e44b8c02817
+<!-- generated on 2026-01-23 07:59:54.614409 by Eclipse SUMO gtfs2pt.py v1_25_0+1150-b3319930c02
 <configuration>
     <gtfs value="https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip"/>
     <date value="20160713"/>
@@ -62,6 +62,7 @@
     <busStop id="109261.11" lane="164719886_0" startPos="29.27" endPos="42.27" friendlyPos="true" name="Miersdorf, See"/>
     <busStop id="109261.12" lane="-589705321_0" startPos="227.35" endPos="240.35" friendlyPos="true" name="Miersdorf, Am Hochwald"/>
     <busStop id="109261.13" lane="-589705321_0" startPos="699.18" endPos="712.18" friendlyPos="true" name="Miersdorf, Hoherlehmer Str."/>
+    <busStop id="109261.14" lane="-589705321_0" startPos="943.23" endPos="956.23" friendlyPos="true" name="Wildau, Blumenkorso"/>
     <busStop id="281396.8" lane="-59226983#0_0" startPos="194.81" endPos="207.81" friendlyPos="true" name="Wildau, Westkorso"/>
     <busStop id="281396.9" lane="36852342#0_0" startPos="8.42" endPos="21.42" friendlyPos="true" name="Zeuthen, Fontaneallee"/>
     <busStop id="281396.10" lane="36852342#1_0" startPos="146.00" endPos="159.00" friendlyPos="true" name="Zeuthen, Seniorenstift"/>
@@ -171,6 +172,7 @@
     <busStop id="236831.7" lane="-26427693#0_0" startPos="810.33" endPos="823.33" friendlyPos="true" name="Rübezahl (Berlin)"/>
     <busStop id="246782.7" lane="-605914559#10_0" startPos="22.03" endPos="35.03" friendlyPos="true" name="Annweilerweg (Berlin)"/>
     <busStop id="246782.8" lane="-605914559#2_0" startPos="49.47" endPos="62.47" friendlyPos="true" name="Rehborner Str. (Berlin)"/>
+    <busStop id="246782.9" lane="-605914559#0_0" startPos="52.71" endPos="65.71" friendlyPos="true" name="Raumbacher Str. (Berlin)"/>
     <trainStop id="281018.1" lane="72875304_0" startPos="559.70" endPos="669.70" friendlyPos="true" name="S Altglienicke (Berlin)">
         <access friendlyPos="true" lane="207086006_1" pos="16.63" length="36.65"/>
         <access friendlyPos="true" lane="303118027_0" pos="1111.83" length="60.67"/>

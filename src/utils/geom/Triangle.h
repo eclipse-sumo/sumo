@@ -121,4 +121,7 @@ private:
 
     /// @brief triangle boundary
     Boundary myBoundary;
+
+    /// @brief epsilon used for certain comparations
+    static const double EPSILON;
 };

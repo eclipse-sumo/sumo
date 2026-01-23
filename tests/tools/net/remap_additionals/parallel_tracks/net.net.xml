@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-18T22:52:15.431020+01:00 by Eclipse SUMO netedit v1_25_0+1069-e0c5af7d458
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/17556/orig.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/17556/orig.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-679108.06,-5637424.38" convBoundary="3551.82,7714.90,3671.99,7800.27" origBoundary="11.550386,50.860392,11.650427,50.971744" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id=":cluster_2045933476_268754246_3378367344_0" function="internal">
+        <lane id=":cluster_2045933476_268754246_3378367344_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="4.67" shape="3589.22,7742.95 3588.70,7741.61 3588.82,7740.73 3589.61,7740.30 3591.05,7740.33"/>
+    </edge>
+    <edge id=":cluster_2045933483_3378367343_0" function="internal">
+        <lane id=":cluster_2045933483_3378367343_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="4.67" shape="3634.75,7772.90 3635.20,7774.27 3635.03,7775.15 3634.22,7775.54 3632.78,7775.43"/>
+    </edge>
+
+    <edge id="-194083375#6" from="cluster_6744263101_6777194645" to="cluster_11610390125_1684078557_2045933470_2045933471_#2more" priority="17" type="railway.tram" spreadType="center" shape="3671.99,7799.46 3651.55,7783.86 3634.74,7772.36 3615.04,7756.83 3610.40,7753.40 3597.82,7743.78 3590.95,7739.44 3552.61,7715.56" bidi="194083375#6">
+        <lane id="-194083375#6_0" index="0" allow="tram" speed="13.89" length="147.11" shape="3672.01,7799.47 3651.55,7783.86 3634.74,7772.36 3615.04,7756.83 3610.40,7753.40 3597.82,7743.78 3590.95,7739.44 3551.74,7715.02">
+            <param key="origId" value="194083375"/>
+        </lane>
+        <param key="origFrom" value="6777194645"/>
+        <param key="origTo" value="2045933470"/>
+    </edge>
+    <edge id="-194083406" from="cluster_2045933483_3378367343" to="cluster_2045933476_268754246_3378367344" name="Karl-Liebknecht-Straße" priority="10" type="highway.tertiary" shape="3633.87,7774.25 3614.47,7759.15 3600.62,7749.19 3594.47,7744.76">
+        <lane id="-194083406_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.33" length="54.34" shape="3632.78,7775.43 3613.51,7760.43 3599.69,7750.49 3589.22,7742.95">
+            <param key="origId" value="194083406"/>
+        </lane>
+        <param key="origFrom" value="3378367343"/>
+        <param key="origTo" value="3378367344"/>
+    </edge>
+    <edge id="-194083413#4" from="cluster_2045933476_268754246_3378367344" to="cluster_2045933483_3378367343" priority="17" type="railway.tram" spreadType="center" shape="3587.11,7740.97 3598.33,7748.30 3613.36,7760.34 3632.67,7775.36" bidi="194083413#4">
+        <lane id="-194083413#4_0" index="0" allow="tram" speed="13.89" length="54.38" shape="3589.51,7742.54 3598.33,7748.30 3613.36,7760.34 3632.77,7775.44">
+            <param key="origId" value="194083413"/>
+        </lane>
+        <param key="origFrom" value="2045933476"/>
+        <param key="origTo" value="2045933483"/>
+    </edge>
+    <edge id="194083375#6" from="cluster_11610390125_1684078557_2045933470_2045933471_#2more" to="cluster_6744263101_6777194645" priority="17" type="railway.tram" spreadType="center" shape="3552.61,7715.56 3590.95,7739.44 3597.82,7743.78 3610.40,7753.40 3615.04,7756.83 3634.74,7772.36 3651.55,7783.86 3671.99,7799.46" bidi="-194083375#6">
+        <lane id="194083375#6_0" index="0" allow="tram" speed="13.89" length="147.11" shape="3551.74,7715.02 3590.95,7739.44 3597.82,7743.78 3610.40,7753.40 3615.04,7756.83 3634.74,7772.36 3651.55,7783.86 3672.01,7799.47">
+            <param key="origId" value="194083375"/>
+        </lane>
+        <param key="origFrom" value="2045933470"/>
+        <param key="origTo" value="6777194645"/>
+    </edge>
+    <edge id="194083406" from="cluster_2045933476_268754246_3378367344" to="cluster_2045933483_3378367343" name="Karl-Liebknecht-Straße" priority="10" type="highway.tertiary" shape="3594.47,7744.76 3600.62,7749.19 3614.47,7759.15 3633.87,7774.25">
+        <lane id="194083406_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.33" length="54.51" shape="3591.05,7740.33 3601.55,7747.89 3615.43,7757.87 3634.75,7772.90">
+            <param key="origId" value="194083406"/>
+        </lane>
+        <param key="origFrom" value="3378367344"/>
+        <param key="origTo" value="3378367343"/>
+    </edge>
+    <edge id="194083413#4" from="cluster_2045933483_3378367343" to="cluster_2045933476_268754246_3378367344" priority="17" type="railway.tram" spreadType="center" shape="3632.67,7775.36 3613.36,7760.34 3598.33,7748.30 3587.11,7740.97" bidi="-194083413#4">
+        <lane id="194083413#4_0" index="0" allow="tram" speed="13.89" length="54.38" shape="3632.77,7775.44 3613.36,7760.34 3598.33,7748.30 3589.51,7742.54">
+            <param key="origId" value="194083413"/>
+        </lane>
+        <param key="origFrom" value="2045933483"/>
+        <param key="origTo" value="2045933476"/>
+    </edge>
+
+    <tlLogic id="cluster_2045933476_268754246_3378367344" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="G" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="cluster_2045933483_3378367343" type="actuated" programID="0" offset="0">
+        <phase duration="82" state="G" minDur="5" maxDur="50"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+
+    <junction id="cluster_11610390125_1684078557_2045933470_2045933471_#2more" type="dead_end" x="3551.82" y="7714.90" incLanes="-194083375#6_0" intLanes="" shape="3550.90,7716.38 3552.59,7713.66 3550.90,7716.38 3552.59,7713.66">
+        <param key="origEdgeIds" value="-27586734#0 -27586734#1 -27586734#2 27586734#0 27586734#1 27586734#2 27588456#1 27588456#2"/>
+        <param key="origId" value="11610390125 1684078557 2045933470 2045933471 268754241 8281263654"/>
+    </junction>
+    <junction id="cluster_2045933476_268754246_3378367344" type="traffic_light" x="3589.77" y="7742.06" incLanes="-194083406_0 194083413#4_0" intLanes=":cluster_2045933476_268754246_3378367344_0_0" shape="3588.22,7744.21 3591.97,7739.01 3588.60,7743.85 3590.35,7741.17 3588.60,7743.85 3590.35,7741.17">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origEdgeIds" value="-1265529828 1265529828 24727357#0"/>
+        <param key="origId" value="2045933476 268754246 3378367344"/>
+    </junction>
+    <junction id="cluster_2045933483_3378367343" type="traffic_light" x="3633.27" y="7774.80" incLanes="194083406_0 -194083413#4_0" intLanes=":cluster_2045933483_3378367343_0_0" shape="3635.73,7771.64 3631.79,7776.70 3633.75,7774.18 3631.79,7776.70">
+        <request index="0" response="0" foes="0" cont="0"/>
+        <param key="origEdgeIds" value="248234865#3"/>
+        <param key="origId" value="2045933483 3378367343"/>
+    </junction>
+    <junction id="cluster_6744263101_6777194645" type="dead_end" x="3671.40" y="7800.27" incLanes="194083375#6_0" intLanes="" shape="3672.98,7798.20 3671.04,7800.75 3672.98,7798.20 3671.04,7800.75">
+        <param key="origEdgeIds" value="-246045735#0 246045735#0"/>
+        <param key="origId" value="6744263101 6777194645"/>
+    </junction>
+
+    <connection from="-194083406" to="194083406" fromLane="0" toLane="0" via=":cluster_2045933476_268754246_3378367344_0_0" tl="cluster_2045933476_268754246_3378367344" linkIndex="0" dir="t" state="O"/>
+    <connection from="194083406" to="-194083406" fromLane="0" toLane="0" via=":cluster_2045933483_3378367343_0_0" tl="cluster_2045933483_3378367343" linkIndex="0" dir="t" state="O"/>
+
+    <connection from=":cluster_2045933476_268754246_3378367344_0" to="194083406" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":cluster_2045933483_3378367343_0" to="-194083406" fromLane="0" toLane="0" dir="t" state="M"/>
+
+
+</net>

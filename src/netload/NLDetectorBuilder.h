@@ -114,7 +114,8 @@ public:
                                           const std::string& lane, double pos,
                                           const std::string& device, bool friendlyPos,
                                           const std::string name, const std::string& vTypes,
-                                          const std::string& nextEdges);
+                                          const std::string& nextEdges,
+                                          int detectPersons);
 
 
     /** @brief Builds a new E2 detector and adds it to the net's detector control. Also performs some
@@ -294,7 +295,8 @@ public:
     virtual MSDetectorFileOutput* createInstantInductLoop(const std::string& id,
             MSLane* lane, double pos, const std::string& od,
             const std::string name, const std::string& vTypes,
-            const std::string& nextEdges);
+            const std::string& nextEdges,
+            int detectPersons);
 
 
     /** @brief Creates a MSE2Collector instance, overridden by GUIE2Collector::createE2Detector()

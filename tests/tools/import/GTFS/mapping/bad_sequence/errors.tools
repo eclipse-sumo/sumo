@@ -11,3 +11,4 @@ Warning! Stop 6 for vehicle 132189814 starts earlier (37020) than previous stop 
 Invalid stop_sequence in input for trip 132189814
 Warning! Stop 7 for vehicle 132189814 starts earlier (36900) than previous stop (37020)
 Warning! No mapping library found, falling back to tracemapper.
+Trip 132189814 (bus): detour (factor 5.34) to stop index 2, fromPos=572.07,1106.47 toPos=898.99,1104.09 (airLine=326.92 path=1744.41)

@@ -1,3 +1,4 @@
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurrence for edge '148827826').
 Warning: PT stop '1506797322' has been moved to edge '-185796110#2'.
 Warning: PT stop '2633073961' has been moved to edge '-185796110#2'.
+Warning: Stop '1175169691' named 'Kinderspital UKBB' from line '9487819' on edge '683939006#1' is not part of the route.

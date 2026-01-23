@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-15 05:10:02 by Eclipse SUMO sumo Version v1_23_1+0573-d229b23078f
+<!-- generated on 2026-01-14T07:07:11.650880+01:00 by Eclipse SUMO sumo v1_25_0+0955-b1df2471f66
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+0573-d229b23078f" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_25_0+0955-b1df2471f66" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop edge="beg" startPos="6.80" endPos="7.00" until="5.00" started="0.00">
             <param key="custom" value="42"/>
         </stop>
-        <stop edge="middle" startPos="0.00" endPos="199.00" until="30.00">
+        <stop edge="middle" startPos="198.80" endPos="199.00" until="30.00">
             <param key="custom2" value="43"/>
         </stop>
     </vehicle>

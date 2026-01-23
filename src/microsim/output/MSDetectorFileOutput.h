@@ -62,7 +62,7 @@ enum DetectorUsage {
 class MSDetectorFileOutput : public Named, public Parameterised {
 public:
     /// @brief Constructor
-    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const std::string& nextEdges = "", const int detectPersons = false);
+    MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const std::string& nextEdges = "", const int detectPersons = 0);
 
     /// @brief (virtual) destructor
     virtual ~MSDetectorFileOutput() { }

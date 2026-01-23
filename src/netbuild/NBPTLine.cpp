@@ -176,14 +176,17 @@ NBPTLine::getRoute() const {
 }
 
 
-std::vector<std::pair<NBEdge*, std::string> >
+std::vector<NBPTLine::PTStopInfo>
 NBPTLine::getStopEdges(const NBEdgeCont& ec) const {
-    std::vector<std::pair<NBEdge*, std::string> > result;
+    std::vector<PTStopInfo> result;
+    int i = 0;
     for (std::shared_ptr<NBPTStop> stop : myPTStops) {
         NBEdge* e = ec.retrieve(stop->getEdgeId());
         if (e != nullptr) {
-            result.push_back({e, stop->getID()});
+            bool revised = (int)myStopsRevised.size() > i ? myStopsRevised[i] : false;
+            result.push_back(PTStopInfo(e, stop->getID(), stop->getEndPos(), revised));
         }
+        i++;
     }
     return result;
 }
@@ -353,6 +356,30 @@ NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
             myRoute.erase(myRoute.begin() + i);
         } else {
             i++;
+        }
+    }
+    // validate that all stops are actually on the route
+    auto ri = myRoute.begin();
+    for (auto it = myPTStops.begin(); it != myPTStops.end();) {
+        std::shared_ptr<NBPTStop> stop = *it;
+        NBEdge* e = ec.retrieve(stop->getEdgeId());
+        if (e == nullptr) {
+            WRITE_WARNINGF(TL("Removed stop '%' named '%' from line '%' because edge '%' is missing."),
+                    stop->getID(), stop->getName(), getLineID(), stop->getEdgeId());
+            it = myPTStops.erase(it);
+        } else {
+            auto riPrev = ri;
+            ri = std::find(ri, myRoute.end(), e);
+            if (ri == myRoute.end()) {
+                std::string reason = std::find(myRoute.begin(), myRoute.end(), e) == myRoute.end()
+                    ? TL("not part of the route")
+                    : TL("not part of the route downstream of the previous stop");
+
+                WRITE_WARNINGF(TL("Stop '%' named '%' from line '%' on edge '%' is %."),
+                        stop->getID(), stop->getName(), getLineID(), stop->getEdgeId(), reason);
+                ri = riPrev;
+            }
+            it++;
         }
     }
 }

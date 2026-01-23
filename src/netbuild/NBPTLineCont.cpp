@@ -126,7 +126,9 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
         return;
     }
     std::vector<std::shared_ptr<NBPTStop> > stops = line->getStops();
+    std::vector<bool> stopsRevised;
     for (std::shared_ptr<NBPTStop> stop : stops) {
+        stopsRevised.push_back(false);
         //get the corresponding and one of the two adjacent ways
         stop = findWay(line, stop, ec, sc);
         if (stop == nullptr) {
@@ -176,12 +178,15 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
 
         std::string edgeId = stop->getEdgeId();
         NBEdge* current = ec.getByID(edgeId);
-        int assignedTo = edgeId.at(0) == '-' ? BWD : FWD;
+        int assignedDir = edgeId.at(0) == '-' ? BWD : FWD;
 
-        if (dir != assignedTo) {
+        if (dir != assignedDir) {
             NBEdge* reverse = NBPTStopCont::getReverseEdge(current);
             if (reverse == nullptr) {
-                WRITE_WARNINGF(TL("Could not re-assign PT stop '%', probably broken osm file."), stop->getID());
+                const OptionsCont& oc = OptionsCont::getOptions();
+                if (!oc.getBool("railway.topology.repair") && oc.getBool("ptstop-output.no-bidi")) {
+                    WRITE_WARNINGF(TL("Could not re-assign PT stop '%'. May need option --railway.topology.repair"), stop->getID());
+                }
                 continue;
             }
             if (stop->getLines().size() > 0) {
@@ -195,7 +200,9 @@ NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc
             stop->setEdgeId(reverse->getID(), ec);
         }
         stop->addLine(line->getRef());
+        stopsRevised.back() = true;
     }
+    line->setRevised(stopsRevised);
 }
 
 
@@ -254,7 +261,7 @@ NBPTLineCont::findWay(NBPTLine* line, std::shared_ptr<NBPTStop> stop, const NBEd
                 // check if an alternative stop already exists
                 std::shared_ptr<NBPTStop> newStop = sc.findStop(wayID, stop->getPosition());
                 if (newStop == nullptr) {
-                    newStop = std::make_shared<NBPTStop>(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
+                    newStop = std::make_shared<NBPTStop>(stop->getElement(), stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
                     newStop->setEdgeId(best->getID(), ec);  // trigger lane assignment
                     sc.insert(newStop);
                 }
@@ -509,10 +516,13 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
         NBVehicle veh(line->getRef(), types[line->getType()]);
         std::vector<std::shared_ptr<NBPTStop> > newStops;
         std::shared_ptr<NBPTStop> from = nullptr;
+        std::vector<NBPTLine::PTStopInfo> stopInfos = line->getStopEdges(ec);
+        assert(stopInfos.size() == stops.size());
         for (auto it = stops.begin(); it != stops.end(); ++it) {
             std::shared_ptr<NBPTStop> to = *it;
             std::shared_ptr<NBPTStop> used = *it;
-            if (to->getBidiStop() != nullptr) {
+            bool isRevised = stopInfos[it - stops.begin()].revised;
+            if (to->getBidiStop() != nullptr && !isRevised) {
                 double best = std::numeric_limits<double>::max();
                 std::shared_ptr<NBPTStop> to2 = to->getBidiStop();
                 if (from == nullptr) {

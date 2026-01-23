@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-10T00:30:45.778266+01:00 by Eclipse SUMO sumo v1_24_0+1341-5cfec16a0fc
+<!-- generated on 2026-01-22T16:44:50.722290+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_24_0+1341-5cfec16a0fc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_25_0+1143-5cfd67bbee0" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="0/1to1/1 1/1to2/1 3/1to4/1"/>
     <route id="!0.0!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <route id="!0.1!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
@@ -31,7 +31,7 @@
     <route id="!0.4!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <delay number="5" begin="5" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.0" depart="0.00" route="!0.0!var#1" distance="400 1" speedFactor="1.0600" reroute="1" state="262304 0 1 5.10 0 6.39 49000 0 0" pos="56.80 51.80 10.60" speed="10.60 10.60" angle="90.00" posLat="0.00" waitingTime="100000 1 7000 9000">
+    <vehicle id="0.0" depart="0.00" route="!0.0!var#1" distance="400 1" speedFactor="1.0600" reroute="1" state="262304 0 1 5.10 0 4.84 49000 0 0" pos="56.80 51.80 10.60" speed="10.60 10.60" angle="90.00" posLat="0.00" waitingTime="100000 1 7000 9000">
         <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
         <device id="vehroute_0.0" state="0 0.00 0.00 5.10 1 !NULL 0 !0 device.rerouting -1 0"/>
         <device id="routing_0.0" state="0 0"/>
@@ -51,7 +51,7 @@
         <device id="vehroute_0.3" state="0 0.00 0.00 5.10 1 !NULL 30000 !0 device.rerouting -1 0"/>
         <device id="routing_0.3" state="0 30000"/>
     </vehicle>
-    <vehicle id="0.4" depart="40.00" route="!0.4!var#1" distance="0 1" speedFactor="1.0303" reroute="1" state="262304 40000 0 5.10 0 1.49 49000 0 0" pos="82.52 77.52 10.30" speed="10.30 10.30" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="0.4" depart="40.00" route="!0.4!var#1" distance="0 1" speedFactor="1.0303" reroute="1" state="262304 40000 0 5.10 0 1.24 49000 0 0" pos="82.52 77.52 10.30" speed="10.30 10.30" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
         <device id="vehroute_0.4" state="0 0.00 0.00 5.10 1 !NULL 40000 !0 device.rerouting -1 0"/>
         <device id="routing_0.4" state="0 40000"/>

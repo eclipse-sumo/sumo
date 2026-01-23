@@ -2077,7 +2077,7 @@ MSLink::getParallelLink(int direction) const {
     } else if (direction == 1) {
         return myParallelLeft;
     } else {
-        assert(false || myLane->getOpposite() != nullptr);
+        assert(false || myLane->getOpposite() != nullptr || MSGlobals::gComputeLC);
         return nullptr;
     }
 }

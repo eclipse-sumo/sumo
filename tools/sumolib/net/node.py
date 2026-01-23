@@ -109,6 +109,10 @@ class Node:
     def areFoes(self, link1, link2):
         return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
 
+    def hasFoes(self):
+        """whether there are any conflicting connections as this node"""
+        return any(['1' in foes for foes in self._foes.values()])
+
     def getLinkIndex(self, conn):
         ret = 0
         for lane_id in self._incLanes:

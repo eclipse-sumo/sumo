@@ -11,6 +11,9 @@ In summary, the documentation works as follows:
 - The documentation is being "developed" or "written" as Markdown files, located in the [SUMO GitHub repository](https://github.com/eclipse-sumo/sumo/tree/main/docs/web)
 - The static HTML sites are being generated using MkDocs and certain MkDocs-plugins
 
+!!! note
+    If you want to know how to build the PyDoc documentation, check out [buildPyDoc.py](../Tools/Build.md#buildpydocpy).
+
 # Requirements
 Building the documentation requires the python3-version of mkdocs along with several plugins. The complete plugins list is contained in the `requirements.txt` file in the `docs/web/` directory. These can be installed with pip using:
 ```

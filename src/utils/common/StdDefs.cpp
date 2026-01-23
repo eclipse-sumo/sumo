@@ -69,7 +69,7 @@ double roundDecimalToEven(double x, int precision) {
 }
 
 int
-getScalingQuota(double frac, int loaded) {
+getScalingQuota(double frac, long long int loaded) {
     if (frac < 0 || frac == 1.) {
         return 1;
     }

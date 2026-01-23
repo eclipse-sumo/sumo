@@ -1004,9 +1004,9 @@ void
 RONet::updateLaneProhibitions(SUMOTime begin) {
     const double beginS = STEPS2TIME(begin);
     while (myLaneProhibitionTimes.size() > 0 && myLaneProhibitionTimes.begin()->first <= beginS) {
-        SUMOTime t = myLaneProhibitionTimes.begin()->first;
-        for (const ROLane* lane : myLaneProhibitionTimes.begin()->second) {
-            SVCPermissions orig = lane->getPermissions();
+        const double t = myLaneProhibitionTimes.begin()->first;
+        for (const ROLane* const lane : myLaneProhibitionTimes.begin()->second) {
+            const SVCPermissions orig = lane->getPermissions();
             assert(myLaneProhibitions.count(lane) != 0);
             RouterProhibition& rp = myLaneProhibitions[lane];
             const_cast<ROLane*>(lane)->setPermissions(rp.permissions);
@@ -1016,7 +1016,7 @@ RONet::updateLaneProhibitions(SUMOTime begin) {
             }
             if (t == rp.begin) {
                 // schedule restoration of original permissions. This works
-                // without a stack because there is at most on prohibition per lane
+                // without a stack because there is at most one prohibition per lane
                 myLaneProhibitionTimes[rp.end].insert(lane);
                 rp.permissions = orig;
             }

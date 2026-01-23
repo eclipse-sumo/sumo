@@ -102,6 +102,12 @@ dispatchinfos:dispatchinfos.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
+aggregated60Suffixed:aggregated_60_suf.xml
+tripinfosSuffix:tripinfos_suf.xml
+logSuffixed:log_suf.txt
+aggregated60PrefixedSuffixed:pre_aggregated_60_suf.xml
+tripinfosPrefixSuffix:pre_tripinfos_suf.xml
+logPrefixedSuffixed:pre_log_suf.txt
 weights:weights.xml
 lanechanges:lanechanges.xml
 deadlocks:deadlocks.xml
@@ -139,6 +145,8 @@ aggregated15:<!--{[->]}-->
 aggregated25:<!--{[->]}-->
 aggregated60:<!--{[->]}-->
 aggregated60Prefixed:<!--{[->]}-->
+aggregated60Suffixed:<!--{[->]}-->
+aggregated60PrefixedSuffixed:<!--{[->]}-->
 aggregated300:<!--{[->]}-->
 aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
@@ -149,6 +157,8 @@ statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 collisions:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
+tripinfosSuffix:<!--{[->]}-->
+tripinfosPrefixSuffix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
 vehroutes:^<!--{[->]}-->
 personroutes:^<!--{[->]}-->
@@ -206,6 +216,8 @@ errors:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or director
 log:(Datei oder Verzeichnis nicht gefunden){REPLACE (No such file or directory)}
 log:Simulation.*started with{REPLACE Simulation started with}
 logPrefixed:Simulation.*started with{REPLACE Simulation started with}
+logSuffixed:Simulation.*started with{REPLACE Simulation started with}
+logPrefixedSuffixed:Simulation.*started with{REPLACE Simulation started with}
 cfg:<movereminder{LINES 2}
 cfg:movereminder
 cfg:<python-script

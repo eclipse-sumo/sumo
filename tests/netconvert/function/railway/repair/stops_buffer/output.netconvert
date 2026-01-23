@@ -25,7 +25,7 @@ Removing empty nodes ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
@@ -40,7 +40,6 @@ Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
 Building inner edges ... done (0ms).
-Added 1 stops for superposed rail edges.
 Find accesses for pt rail stops ... done (0ms).
 DijkstraRouter answered 2 queries and explored 3.50 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
@@ -56,5 +55,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.95,-200.00,200.00,-176.21
 -----------------------------------------------------
-Writing network ... done (5ms).
+Writing network ... done (0ms).
 Success.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 11:03:16 by Eclipse SUMO sumo Version v1_20_0+0691-822de6bf232
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-01-22T16:44:50.560172+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -26,10 +26,10 @@
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="t1" depart="29.00" departLane="d_0" departPos="50.10" departSpeed="13.89" departDelay="9.00" arrival="149.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="120.00" routeLength="891.19" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="25.73" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="268.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="268.00" routeLength="849.90" waitingTime="119.00" waitingCount="1" stopTime="30.00" timeLoss="176.70" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="29.00" departLane="d_0" departPos="50.10" departSpeed="13.89" departDelay="9.00" arrival="149.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="120.00" routeLength="891.19" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="268.00" arrivalLane="c_0" arrivalPos="400.00" arrivalSpeed="7.00" duration="268.00" routeLength="849.90" waitingTime="119.00" waitingCount="1" stopTime="30.00" timeLoss="123.88" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

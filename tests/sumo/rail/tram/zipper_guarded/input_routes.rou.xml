@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-01-15 10:11:11.417125 by $Id$ via randomTrips.py
+  options:
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tram" vClass="tram"/>
+    <trip id="v0" type="tram" depart="0" departSpeed="max" from="1a" via="4b" to="6a"/>
+    <trip id="v1" type="tram" depart="20" departSpeed="max" from="1a" via="4a" to="6a"/>
+</routes>

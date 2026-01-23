@@ -166,4 +166,4 @@ double roundDecimalToEven(double x, int precision);
  * considering that "frac" of all objects shall be emitted overall
  * @return the number of objects to create (something between 0 and ceil(frac))
  */
-int getScalingQuota(double frac, int loaded);
+int getScalingQuota(double frac, long long int loaded);

@@ -350,8 +350,8 @@ NBLoadedSUMOTLDef::patchIfCrossingsAdded() {
                     (int)(phases.front().state.size()) < noLinksAll ||
                     ((int)(phases.front().state.size()) > noLinksAll && !customIndex))) {
             // collect edges
-            EdgeVector fromEdges(size, (NBEdge*)nullptr);
-            EdgeVector toEdges(size, (NBEdge*)nullptr);
+            EdgeVector fromEdges(numNormalLinks, (NBEdge*)nullptr);
+            EdgeVector toEdges(numNormalLinks, (NBEdge*)nullptr);
             std::vector<int> fromLanes(size, 0);
             collectEdgeVectors(fromEdges, toEdges, fromLanes);
             const std::string crossingDefaultState(crossings.size(), 'r');

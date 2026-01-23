@@ -1012,6 +1012,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myHaveToWaitOnNextLink(false),
     myAngle(0),
     myStopDist(std::numeric_limits<double>::max()),
+    myStopSpeed(std::numeric_limits<double>::max()),
     myCollisionImmunity(-1),
     myCachedPosition(Position::INVALID),
     myJunctionEntryTime(SUMOTime_MAX),
@@ -1784,6 +1785,8 @@ MSVehicle::processNextStop(double currentVelocity) {
             if (noExits && noEntries) {
                 //std::cout << " skipOnDemand\n";
                 stop.skipOnDemand = true;
+                // bestLanes must be extended past this stop
+                updateBestLanes(true);
             }
         }
         // is the next stop on the current lane?
@@ -2122,6 +2125,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         setActionStepLength(myDriverState->getDriverState()->getActionStepLength(), false);
     }
 
+    myStopSpeed = getCarFollowModel().maxNextSpeed(myStopSpeed, this);
     if (!checkActionStep(t)) {
 #ifdef DEBUG_ACTIONSTEPS
         if (DEBUG_COND) {
@@ -2142,7 +2146,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
         if (myInfluencer != nullptr) {
             myInfluencer->updateRemoteControlRoute(this);
         }
-        planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
+        planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myStopSpeed, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             DriveItemVector::iterator i;
@@ -2214,7 +2218,7 @@ MSVehicle::brakeForOverlap(const MSLink* link, const MSLane* lane) const {
 
 
 void
-MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, std::pair<double, const MSLink*>& nextTurn) const {
+MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& newStopDist, double& newStopSpeed, std::pair<double, const MSLink*>& nextTurn) const {
     lfLinks.clear();
     newStopDist = std::numeric_limits<double>::max();
     //
@@ -2596,6 +2600,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
                 }
+                newStopSpeed = MIN2(newStopSpeed, stopSpeed);
                 v = MIN2(v, stopSpeed);
                 if (lane->isInternal()) {
                     std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
@@ -4236,7 +4241,8 @@ void
 MSVehicle::updateTimeLoss(double vNext) {
     // update time loss (depends on the updated edge)
     if (!isStopped()) {
-        const double vmax = myLane->getVehicleMaxSpeed(this);
+        // some cfModels (i.e. EIDM may drive faster than predicted by maxNextSpeed)
+        const double vmax = MIN2(myLane->getVehicleMaxSpeed(this), MAX2(myStopSpeed, vNext));
         if (vmax > 0) {
             myTimeLoss += TS * (vmax - vNext) / vmax;
         }
@@ -5743,7 +5749,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         }
         // avoid startup-effects after teleport
         myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
-
+        myStopSpeed = std::numeric_limits<double>::max();
     }
     computeFurtherLanes(enteredLane, pos);
     if (MSGlobals::gLateralResolution > 0) {
@@ -6349,6 +6355,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         }
 #endif
 
+    }
+    if (myBestLanes.front().front().lane->isInternal()) {
+        // route starts on an internal lane
+        if (myLane != nullptr) {
+            startLane = myLane;
+        } else {
+            // vehicle not yet departed
+            startLane = myBestLanes.front().front().lane;
+        }
     }
     updateOccupancyAndCurrentBestLane(startLane);
 #ifdef DEBUG_BESTLANES
@@ -7387,6 +7402,7 @@ MSVehicle::resumeFromStopping() {
             // reset lateral position to default
             myState.myPosLat = 0;
         }
+        const bool wasWaypoint = stop.getSpeed() > 0;
         myPastStops.push_back(stop.pars);
         myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());
         myStops.pop_front();
@@ -7394,12 +7410,13 @@ MSVehicle::resumeFromStopping() {
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.
         myWaitingTime = 0;
+        myStopSpeed = getCarFollowModel().maxNextSpeed(getSpeed(), this);
         // maybe the next stop is on the same edge; let's rebuild best lanes
         updateBestLanes(true);
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::ENDING_STOP);
         MSNet::getInstance()->getVehicleControl().registerStopEnded();
-        return true;
+        return !wasWaypoint;
     }
     return false;
 }

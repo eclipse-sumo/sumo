@@ -74,8 +74,20 @@ public:
     void replaceStops(std::vector<std::shared_ptr<NBPTStop> > stops) {
         myPTStops = stops;
     }
-    /// @brief get stop edges and stop ids
-    std::vector<std::pair<NBEdge*, std::string> > getStopEdges(const NBEdgeCont& ec) const;
+
+    void setRevised(std::vector<bool> stopsRevised) {
+        myStopsRevised = stopsRevised;
+    }
+    /// @brief get stop edges and stop ids and directional validity
+    struct PTStopInfo {
+        PTStopInfo(NBEdge* _edge, const std::string& _stopID, double _pos, bool _revised):
+            edge(_edge), stopID(_stopID), pos(_pos), revised(_revised) {}
+        NBEdge* edge;
+        std::string stopID;
+        double pos;
+        bool revised;
+    };
+    std::vector<PTStopInfo> getStopEdges(const NBEdgeCont& ec) const;
 
     /// @brief return first valid edge of myRoute (if it doest not lie after the first stop)
     NBEdge* getRouteStart(const NBEdgeCont& ec) const;
@@ -121,10 +133,16 @@ public:
 
     const std::vector<long long int>* getWayNodes(std::string wayId);
 
+    const EdgeVector& getEdges() const {
+        return myRoute;
+    }
+
 private:
     std::string myName;
     std::string myType;
     std::vector<std::shared_ptr<NBPTStop> > myPTStops;
+    // @brief for each stop store a flag that states whether it was successfully matched to the osm-route
+    std::vector<bool> myStopsRevised;
     std::map<std::string, std::vector<long long int> > myWayNodes;
     std::vector<std::string> myWays;
     std::string myCurrentWay;

@@ -94,17 +94,20 @@ MSRailSignal::init(NLDetectorBuilder&) {
     if (myLanes.size() == 0) {
         WRITE_WARNINGF(TL("Rail signal at junction '%' does not control any links"), getID());
     }
+    SVCPermissions outgoingPermissions = 0;
     for (LinkVector& links : myLinks) { //for every link index
         if (links.size() != 1) {
             throw ProcessError("At railSignal '" + getID() + "' found " + toString(links.size())
                                + " links controlled by index " + toString(links[0]->getTLIndex()));
         }
         myLinkInfos.push_back(LinkInfo(links[0]));
+        outgoingPermissions |= links[0]->getPermissions();
     }
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
     myNumLinks = (int)myLinks.size();
     MSRailSignalControl::getInstance().addSignal(this);
+    myMovingBlock |= MSRailSignalControl::isMovingBlock(outgoingPermissions);
 }
 
 

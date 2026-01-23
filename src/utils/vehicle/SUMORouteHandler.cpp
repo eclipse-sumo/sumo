@@ -350,16 +350,6 @@ SUMORouteHandler::checkStopPos(double& startPos, double& endPos, const double la
 }
 
 
-bool
-SUMORouteHandler::isStopPosValid(const double startPos, const double endPos, const double laneLength, const double minLength, const bool friendlyPos) {
-    // declare dummy start and end positions
-    double dummyStartPos = startPos;
-    double dummyEndPos = endPos;
-    // return checkStopPos
-    return (checkStopPos(dummyStartPos, dummyEndPos, laneLength, minLength, friendlyPos) == STOPPOS_VALID);
-}
-
-
 SUMOTime
 SUMORouteHandler::getFirstDepart() const {
     return myFirstDepart;

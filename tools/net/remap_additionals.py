@@ -20,12 +20,14 @@ from __future__ import absolute_import
 import os
 import sys
 from math import fabs, degrees
+from statistics import median
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import sumolib  # noqa
 from sumolib.geomhelper import distance  # noqa
 from sumolib.xml import parse  # noqa
 from sumolib.net import lane2edge  # noqa
+from sumolib.miscutils import openz  # noqa
 import sumolib.geomhelper as gh  # noqa
 
 
@@ -71,8 +73,8 @@ def make_consecutive(net, laneIDs):
     return [lane.getID() for lane in lanes2]
 
 
-def remap_lanes(options, obj, laneIDs, pos=None):
-    laneIDs_positions2 = [remap_lane(options, obj, laneID, pos) for laneID in laneIDs.split()]
+def remap_lanes(options, obj, laneIDs, pos=None, size=None):
+    laneIDs_positions2 = [remap_lane(options, obj, laneID, pos, size) for laneID in laneIDs.split()]
     laneIDs2 = [la for la, pos in laneIDs_positions2]
     if obj.name in ["e2Detector", "laneAreaDetector"]:
         laneIDs2 = make_consecutive(options.net2, laneIDs2)
@@ -81,18 +83,18 @@ def remap_lanes(options, obj, laneIDs, pos=None):
     return ' '.join(laneIDs2), pos2
 
 
-def remap_edges(options, obj, edgeIDs, pos=None):
-    edgeIDs_positions2 = [remap_edge(options, obj, edgeID, pos) for edgeID in edgeIDs.split()]
+def remap_edges(options, obj, edgeIDs, pos=None, size=None):
+    edgeIDs_positions2 = [remap_edge(options, obj, edgeID, pos, size) for edgeID in edgeIDs.split()]
     edgeIDs2 = [e for e, pos in edgeIDs_positions2]
     pos2 = edgeIDs_positions2[0][1]
     return ' '.join(edgeIDs2), pos2
 
 
-def remap_lane(options, obj, laneID, pos=None):
+def remap_lane(options, obj, laneID, pos=None, size=None):
     lane = options.net.getLane(laneID)
     lane2 = None
     edge = lane.getEdge()
-    edge2, pos2 = remap_edge(options, obj, edge.getID(), pos)
+    edge2, pos2 = remap_edge(options, obj, edge.getID(), pos, size)
     if edge2:
         cands = [c for c in edge.getLanes() if c.getPermissions() == lane.getPermissions()]
         candIndex = cands.index(lane)
@@ -112,7 +114,7 @@ def remap_lane(options, obj, laneID, pos=None):
     return lane2, pos2
 
 
-def remap_edge(options, obj, edgeID, pos=None):
+def remap_edge(options, obj, edgeID, pos=None, size=None):
     edge = options.net.getEdge(edgeID)
     permissions = set(edge.getPermissions())
     shape = edge.getShape()
@@ -120,6 +122,7 @@ def remap_edge(options, obj, edgeID, pos=None):
     relpos = pos / edge.getLength() if pos else 0.5
     if relpos < 0:
         relpos += 1
+    shapePos = relpos * shapelen
     x, y = gh.positionAtShapeOffset(shape, shapelen * relpos)
     x2, y2 = options.remap_xy((x, y))
 
@@ -128,12 +131,24 @@ def remap_edge(options, obj, edgeID, pos=None):
         print("No edges near %.2f,%.2f (origEdge %s)" % (x, y, edgeID), file=sys.stderr)
         return None, None
 
-    scut = options.shapecut
-    if shapelen < scut:
-        origAngle = gh.angleTo2D(shape[0], shape[-1])
-    else:
-        origAngle = gh.angleTo2D(gh.positionAtShapeOffset(shape, shapelen * relpos - scut / 2),
-                                 gh.positionAtShapeOffset(shape, shapelen * relpos + scut / 2))
+    scut = size / 2 if size is not None else options.shapecut
+    cutFront = 0
+    end = []
+    cutEnd = 0
+    front = []
+    if shapePos + scut < shapelen:
+        # cut off at shape rear
+        cutEnd = shapelen - (shapePos + scut)
+        shape, end = gh.splitPolygonAtLengths2D(shape, [shapePos + scut])
+        shapelen -= cutEnd
+    if shapePos - scut > 0:
+        # cut off at shape front
+        cutFront = shapePos - scut
+        shapelen -= cutFront
+        front, shape = gh.splitPolygonAtLengths2D(shape, [shapePos - scut])
+
+    origAngle = gh.angleTo2D(shape[0], shape[-1])
+
     cands = []
     for e, d in edges:
         if e.getLength() < scut:
@@ -172,9 +187,9 @@ def remap_edge(options, obj, edgeID, pos=None):
     bestDist = 1e10
     for e in edges:
         if shapelen > e.getLength():
-            maxDist = max([gh.distancePointToPolygon(xy, shape2) for xy in e.getShape()])
+            maxDist = median([gh.distancePointToPolygon(xy, shape2) for xy in e.getShape()])
         else:
-            maxDist = max([gh.distancePointToPolygon(xy, e.getShape()) for xy in shape2])
+            maxDist = median([gh.distancePointToPolygon(xy, e.getShape()) for xy in shape2])
         if maxDist < bestDist:
             bestDist = maxDist
             edge2 = e
@@ -211,16 +226,22 @@ def remap(options, obj, level=1):
     for attr, mapper in IDS.items():
         if obj.hasAttribute(attr):
             posAttrs = getPosAttrs(obj)
+            size = None
             if len(posAttrs) == 0:
                 pos = None
-            else:
+            elif len(posAttrs) == 1:
                 pos = posAttrs[0][1]
                 obj.setAttribute("friendlyPos", True)
-            id2, pos2 = mapper(options, obj, getattr(obj, attr), pos)
+            else:
+                positions = [av[1] for av in posAttrs]
+                pos = sum(positions) / len(positions)
+                size = max(positions) - min(positions)
+                obj.setAttribute("friendlyPos", True)
+            id2, pos2 = mapper(options, obj, getattr(obj, attr), pos, size)
             if id2:
                 obj.setAttribute(attr, id2)
                 for posAttr, posOrig in posAttrs:
-                    obj.setAttribute(posAttr, pos2 + posOrig - pos)
+                    obj.setAttribute(posAttr, "%.2f" % (pos2 + posOrig - pos))
             else:
                 print("Could not map %s on %s '%s'" % (
                     obj.name, attr, getattr(obj, attr)),
@@ -275,7 +296,7 @@ def main(options):
     else:
         options.remap_xy = lambda x: x
 
-    with open(options.output, 'w') as fout:
+    with openz(options.output, 'w') as fout:
         sumolib.writeXMLHeader(fout, "$Id$", "additional", options=options)
         for obj in parse(options.additional):
             if not remap(options, obj):

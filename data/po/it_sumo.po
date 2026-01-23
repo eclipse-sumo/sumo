@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-10 11:50+0000\n"
+"PO-Revision-Date: 2026-01-22 19:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1467,6 +1467,8 @@ msgstr ""
 msgid ""
 "Vehicle '%' ignores arrivalPos % when driving from edge '%' to edge '%'."
 msgstr ""
+"Il veicolo '%' ignora la posizione di arrivo % andando dall'arco '%' "
+"all'arco '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:464
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
@@ -5320,27 +5322,36 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:139
 msgid "Timegap for ToC preparation phase."
 msgstr ""
+"Intervallo di tempo per la fase preparativa dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:141
 msgid "Additional spacing for ToC preparation phase."
 msgstr ""
+"Intervallo spaziale aggiuntivo per la fase preparativa dell'acquisizione del "
+"controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:143
 msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
+"Decelerazione massima applicata per creare l'intervallo maggiore nella fase "
+"preparativa all'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:145
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
+"Rata di adattamento verso l'intervallo di tempo maggiorato durante la "
+"preparazione dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:147
 msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
 msgstr ""
+"Se se deve applicare uno schema di colori per indicare le fasi differenti "
+"dell'acquisizione del controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:149
 msgid "Switches on output by specifying an output filename."
@@ -5832,7 +5843,7 @@ msgstr "Waut '%' non è ancora stato definito."
 
 #: src/microsim/traffic_lights/MSTLLogicControl.cpp:699
 msgid "TLS '%' to switch in WAUT '%' was not yet defined."
-msgstr ""
+msgstr "Il semaforo '%' da attuare nel WAUT '%' non è tuttora stato definito."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:168
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -12513,23 +12524,27 @@ msgstr ""
 #: src/router/RONet.cpp:716
 #, c-format
 msgid "Using bulk-mode for % entities from % origins"
-msgstr ""
+msgstr "Usando il modo massa per % entità di % origini"
 
 #: src/router/RONet.cpp:984
 msgid ""
 "Already loaded prohibition for edge '%'. (Only one prohibition per edge is "
 "supported)"
 msgstr ""
+"È già stato caricato un divieto per l'arco '%'. (Soltanto un divieto per "
+"ogni arco è supportato)"
 
 #: src/router/RONet.cpp:994
 msgid ""
 "Already loaded prohibition for lane '%'. (Only one prohibition per lane is "
 "supported)"
 msgstr ""
+"È già stato caricato un divieto per la corsia '%'. (Soltanto un divieto per "
+"ogni corsia è supportato)"
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
-msgstr ""
+msgstr "Intervallo rerouter invalido da % a %"
 
 #: src/router/RONetHandler.cpp:213
 msgid "Unknown node '%'."
@@ -12568,7 +12583,7 @@ msgstr "L'itinerario del veicolo '%' è stato corretto."
 
 #: src/router/RORouteDef.cpp:246
 msgid "Removing invalid edge '%' from route for vehicle '%'."
-msgstr ""
+msgstr "L'arco invalido '%' viene rimosso dall'itinerario del veicolo '%'."
 
 #: src/router/RORouteDef.cpp:254
 msgid ""
@@ -12789,7 +12804,7 @@ msgstr "Nessuna uscita."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:168
 msgid "Either a timeline or a netstate / amitran file must be given."
-msgstr ""
+msgstr "SI deve provvedere o un file netstate o un file amitran."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:171
 msgid "The output file must be given."
@@ -13313,7 +13328,7 @@ msgstr "Non è stata trovata nessuna accelerazione data attraverso la potenza."
 
 #: src/utils/emissions/PollutantsInterface.cpp:252
 msgid "Unknown emission class '%'."
-msgstr ""
+msgstr "Classe di emissioni sconosciuta '%'."
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
@@ -13372,7 +13387,7 @@ msgstr "Desideri sovrascrivere '%'?"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr ""
+msgstr "Ignorando sia geoidgrids che vgridshifts nella proiezione"
 
 #: src/utils/geom/GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
@@ -13588,29 +13603,41 @@ msgid ""
 "Could not build % with ID '%' in netedit; Cannot have from-to attributes and "
 "route attributes in the same definition."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"Attributi di origine/destinazione e quello di itinerario non possono "
+"coesistere nella stessa definizione."
 
 #: src/utils/handlers/CommonHandler.cpp:206
 msgid ""
 "Could not build % with ID '%' in netedit; Requires either a route or an "
 "embedded route or a from-to attribute (Edges, junctions or TAZs)."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; Si "
+"richiede o un itinerario (interno o non) oppure degli attributi di origine/"
+"destinazione (archi, nodi o zone di assegnazione del traffico)."
 
 #: src/utils/handlers/CommonHandler.cpp:265
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % non può assumere valori negativi."
 
 #: src/utils/handlers/CommonHandler.cpp:271
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % must be greather than "
 "zero."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % deve essere maggiore di zero."
 
 #: src/utils/handlers/CommonHandler.cpp:283
 #: src/utils/handlers/CommonHandler.cpp:301
 msgid ""
 "Could not build % with ID '%' in netedit; Attribute % cannot be negative (%)."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; "
+"L'attributo % non può assumere valori negativi (%)."
 
 #: src/utils/handlers/CommonHandler.cpp:289
 #: src/utils/handlers/CommonHandler.cpp:307
@@ -13679,6 +13706,8 @@ msgstr ""
 msgid ""
 "Could not build % with ID '%' in netedit; % parent with ID '%' doesn't exist."
 msgstr ""
+"Non ho potuto costruire % con il codice identificativo '%' in netedit; Non "
+"esiste un elemento padre % con il codice identificativo '%'."
 
 #: src/utils/handlers/CommonHandler.cpp:407
 #: src/utils/handlers/CommonHandler.cpp:409
@@ -13709,6 +13738,7 @@ msgstr "Gli elementi MeanData non possono caricare attributi come parametri"
 #: src/utils/handlers/MeanDataHandler.cpp:183
 msgid "The netstate type 'hbefa' is deprecated. Using 'emissions' instead."
 msgstr ""
+"Il tipo netstate 'hbefa' non si usa più poiché sostuito dal tipo 'emissions'."
 
 #: src/utils/handlers/RouteHandler.cpp:629
 msgid "an embedded route cannot have their own ID"
@@ -13732,10 +13762,14 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:977
 msgid "Speed and duration attributes cannot be defined together in walks"
 msgstr ""
+"Gli attributi di velocità e di durata usati nei cammini si escludono a "
+"vicenda"
 
 #: src/utils/handlers/RouteHandler.cpp:1096
 msgid "Speed and duration attributes cannot be defined together in tranships"
 msgstr ""
+"Gli attributi di velocità e durata usatoi nei trasbordi si escludono a "
+"vicenda"
 
 #: src/utils/handlers/RouteHandler.cpp:1139
 #: src/utils/vehicle/SUMORouteHandler.cpp:206
@@ -13743,17 +13777,21 @@ msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
+"Gli parametri per modelli di guida non vengono più definiti in un elemento "
+"figlio del tipo di veicolo ma direttamente come attributi!"
 
 #: src/utils/handlers/RouteHandler.cpp:1147
 #: src/utils/handlers/RouteHandler.cpp:1149
 #: src/utils/vehicle/SUMORouteHandler.cpp:209
 #: src/utils/vehicle/SUMORouteHandler.cpp:211
 msgid "Invalid parsing embedded VType"
-msgstr ""
+msgstr "Tipo di veicolo interno invalido"
 
 #: src/utils/handlers/RouteHandler.cpp:1234
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
+"Una fermata deve essere definita accennando a un arco o una corsia ma non "
+"entrambi allo stesso tempo"
 
 #: src/utils/handlers/RouteHandler.cpp:1249
 msgid "A stop must be defined only in a StoppingPlace"
@@ -13762,6 +13800,8 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:1251
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
+"Una fermata deve essere definita su un arco, una corsia o un elemento "
+"specifico di fermata"
 
 #: src/utils/handlers/TemplateHandler.cpp:67
 msgid "Could not load template '%'."
@@ -13771,6 +13811,8 @@ msgstr "Non ho potuto caricare il modello '%'."
 msgid ""
 "Unexpected attribute '%', this file format does not support CSV output yet."
 msgstr ""
+"Attributo inaspettato '%' - questo formato di file finora non supporta "
+"l'uscita CSV."
 
 #: src/utils/iodevices/OutputDevice.cpp:97
 msgid "No port number given."
@@ -13783,6 +13825,8 @@ msgstr "Errore nel chiudere gli dispositivi di uscita."
 #: src/utils/iodevices/OutputDevice.cpp:324
 msgid "Attribute '%' is not support for filtering written attributes in %."
 msgstr ""
+"L'attributo '%' non può essere usato per filtrare gli attributi da scrivere "
+"in %."
 
 #: src/utils/iodevices/OutputDevice.cpp:327
 msgid "Unknown attribute '%' to write in %."
@@ -13797,6 +13841,8 @@ msgid ""
 "Unexpected attribute '%', this file format does not support Parquet output "
 "yet."
 msgstr ""
+"Attributo inaspettato '%' - questo formato di file finora non supporta "
+"l'uscita Parquet."
 
 #: src/utils/options/Option.cpp:364
 #, c-format
@@ -13826,6 +13872,8 @@ msgid ""
 "Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2026 Deutsches Zentrum für Luft- und Raumfahrt e altri; "
+"https://sumo.dlr.de"
 
 #: src/utils/options/OptionsCont.cpp:153
 msgid "Internal request for unknown option '%'!"
@@ -13908,11 +13956,11 @@ msgstr "Schema salvato in '%'"
 
 #: src/utils/options/OptionsCont.cpp:844
 msgid "Help Topics:"
-msgstr ""
+msgstr "Soggetti di aiuto:"
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
-msgstr ""
+msgstr "Uso: "
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
@@ -13952,7 +14000,7 @@ msgstr "Non ho potuto caricare la configurazione '%'."
 
 #: src/utils/options/OptionsLoader.cpp:74
 msgid "Ignoring attribute '%' for option '%'"
-msgstr ""
+msgstr "L'attributo '%' dell'opzione '%' viene ignorato"
 
 #: src/utils/options/OptionsLoader.cpp:87
 msgid "Could not set option '%' (probably defined twice)."
@@ -13962,6 +14010,8 @@ msgstr ""
 #: src/utils/options/OptionsLoader.cpp:117
 msgid "Could not set option '%' because attribute 'value' is missing."
 msgstr ""
+"Non ho potuto impostare l'opzione '%' a causa dell'attributo mancante "
+"'value'."
 
 #: src/utils/options/OptionsParser.cpp:136
 #: src/utils/options/OptionsParser.cpp:143
@@ -13983,51 +14033,53 @@ msgstr "Sintassi di parametro mischiata in '%'."
 
 #: src/utils/router/AStarLookupTable.h:131
 msgid "Could not load landmark-lookup-table from '%'."
-msgstr ""
+msgstr "Non ho potuto caricare la tabella di cippi da '%'."
 
 #: src/utils/router/AStarLookupTable.h:145
 #, c-format
 msgid "Duplicate edge '%' in landmark file."
-msgstr ""
+msgstr "L'arco '%' è presente due volte nel file di cippi."
 
 #: src/utils/router/AStarLookupTable.h:150
 #: src/utils/router/AStarLookupTable.h:175
 #, c-format
 msgid "Landmark edge '%' does not exist in the network."
-msgstr ""
+msgstr "La rete non contiene l'arco cippo '%'."
 
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
-msgstr ""
+msgstr "Coordinate invalide nel file di cippi - non ho incontrato l'arco a  '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format
 msgid "Broken landmark file, could not parse '%' as coordinates."
-msgstr ""
+msgstr "File di cippi rotto - non ho potuto analizzare '%' come coordinate."
 
 #: src/utils/router/AStarLookupTable.h:189
 #: src/utils/router/AStarLookupTable.h:202
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
-msgstr ""
+msgstr "L'arco '%' menzionato nel file di cippi è sconosciuto o in disordine."
 
 #: src/utils/router/AStarLookupTable.h:199
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
-msgstr ""
+msgstr "File di cippi rotto - numero di valori inaspettato per l'arco '%'."
 
 #: src/utils/router/AStarLookupTable.h:222
 msgid "Calculating new lookup table."
-msgstr ""
+msgstr "File di cippi in aggiornamento."
 
 #: src/utils/router/AStarLookupTable.h:229
 msgid "No lookup table for landmark edge '%', recalculating."
-msgstr ""
+msgstr "Nessuna tabella per L'arco cippo '%' - va ricalcolata."
 
 #: src/utils/router/AStarLookupTable.h:232
 msgid ""
 "Not all network edges were found in the lookup table '%' for landmark edge "
 "'%'.%"
 msgstr ""
+"Nella tabella di memoria '%' mancano valori per alcuni archi della rete tra "
+"essi e l'arco cippo '%'.%"
 
 #: src/utils/router/AStarLookupTable.h:323
 #, c-format
@@ -14035,6 +14087,8 @@ msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of "
 "% total edges."
 msgstr ""
+"Il cippo % non può essere raggiunto da % archi e da lì non si possono "
+"raggiungere % del totale di % archi."
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
@@ -14050,34 +14104,38 @@ msgstr "Non è stato trovato nessun collegamento tra l'arco '%' e l'arco '%'."
 #: src/utils/router/CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
 msgstr ""
+"L'algoritmo di instradamento CH non supporta la chiusura dinamica di archi%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
 msgstr ""
+"L'algoritmo di instradamento CHWrapper non supporta la chiusura dinamica di "
+"archi%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
 msgid "Edge '%' not found in intermodal network.'"
-msgstr ""
+msgstr "L'arco '%' non è stato incontrato nella rete intermodale.'"
 
 #: src/utils/router/IntermodalNetwork.h:310
 #: src/utils/router/IntermodalNetwork.h:344
 #, c-format
 msgid "Depart edge '%' not found in intermodal network."
-msgstr ""
+msgstr "L'arco di partenza '%' non è stato incontrato nella rete intermodale."
 
 #: src/utils/router/IntermodalNetwork.h:356
 #, c-format
 msgid "Arrival edge '%' not found in intermodal network."
-msgstr ""
+msgstr "L'arco di arrivo '%' non è stato incontrato nella rete intermodale."
 
 #: src/utils/router/IntermodalNetwork.h:680
 msgid "Ignoring unordered stop at '%' until % for vehicle '%'."
 msgstr ""
+"La fermata non ordinata presso '%' fino a % del veicolo '%' viene ignorata."
 
 #: src/utils/router/IntermodalNetwork.h:692
 msgid "Ignoring stop at '%' until % for vehicle '%'."
-msgstr ""
+msgstr "La fermata presso '%' fino a % del veicolo '%' viene ignorata."
 
 #: src/utils/router/IntermodalNetwork.h:697
 #, c-format
@@ -14085,6 +14143,8 @@ msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr ""
+"La linea di trasporto pubblico '%' viene scartata per instradare delle "
+"persone perché possiede meno di due fermate utilizzabili."
 
 #: src/utils/router/IntermodalRouter.h:203
 msgid "No connection between % '%' and % '%' found."
@@ -14143,7 +14203,7 @@ msgstr "Il punto di interesse '%' esiste già."
 
 #: src/utils/shapes/ShapeHandler.cpp:218
 msgid "Invalid characters for Poly ID '%'"
-msgstr ""
+msgstr "Caratteri invalidi nel codice identificativo del poligono '%'"
 
 #: src/utils/shapes/ShapeHandler.cpp:260
 msgid "Polygon's shape cannot be empty."
@@ -14161,7 +14221,7 @@ msgstr "Il poligono '%' esiste già."
 #: src/utils/shapes/ShapeHandler.cpp:287
 #, c-format
 msgid "Loading of shapes from % failed."
-msgstr ""
+msgstr "Il caricamento di forme da % è fallito."
 
 #: src/utils/tests/InternalTest.cpp:318
 msgid "Could not open attributes enum file '%'."
@@ -14349,10 +14409,14 @@ msgstr "Indicazione temporale '%' invalida per parametro '%' in % '%'."
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:675
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
+"Dimensione invalida della matrice per il tipo di veicolo '%' (necessita "
+"almeno due valori)."
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
+"Dimensioni incongruenti delle matrici della velocità (%) e quelle % (%) del "
+"tipo di veicolo '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:716
 msgid "Invalid % % given for %. Using edge end instead."
@@ -14424,6 +14488,8 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
 msgstr ""
+"Attributo di modello di guida % invalido perché impossibile di analizzare "
+"come vettore di paia di velocità e accelerazione"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1327
 msgid ""
@@ -14486,11 +14552,15 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. An acceleration profile value "
 "cannot be negative"
 msgstr ""
+"Attributo di modello di guia % invalido. Un profilo di accelerazione non può "
+"essere negativo"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
 #, c-format
 msgid "Entry '%' of % table for vType '%' cannot be parsed as 'double'"
 msgstr ""
+"Il valore '%' della matrice % del tipo di veicolo '%' non può essere "
+"analizzata come numero in virgola mobile"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1821
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1837
@@ -14588,7 +14658,7 @@ msgstr "L'analizzatore XML non poteva essere creato."
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1813
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "XML files"
-msgstr ""
+msgstr "File XML"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1669
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1674
@@ -14611,132 +14681,132 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1819
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1825
 msgid "All files"
-msgstr ""
+msgstr "Tutti i file"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1673
 msgid "Plain text files"
-msgstr ""
+msgstr "File di testo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1678
 msgid "CSV files"
-msgstr ""
+msgstr "File CSV"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1683
 msgid "Open scene graph files"
-msgstr ""
+msgstr "File OpenSceneGraph"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1688
 msgid "All Image Files"
-msgstr ""
+msgstr "Tutti i file di immagini"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1689
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1715
 msgid "GIF Image"
-msgstr ""
+msgstr "Immagine GIF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1690
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1716
 msgid "BMP Image"
-msgstr ""
+msgstr "Immagine BMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1691
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1717
 msgid "XPM Image"
-msgstr ""
+msgstr "Immagine XMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1692
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "PCX Image"
-msgstr ""
+msgstr "Immagine PCX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1693
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1719
 msgid "ICO Image"
-msgstr ""
+msgstr "Immagine ICO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1694
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1720
 msgid "RGB Image"
-msgstr ""
+msgstr "Immagine RGB"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1695
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1721
 msgid "XBM Image"
-msgstr ""
+msgstr "Immagine XBM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1696
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1722
 msgid "TARGA Image"
-msgstr ""
+msgstr "Immagine TARGA"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1697
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 msgid "PNG Image"
-msgstr ""
+msgstr "Immagine PNG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1698
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1724
 msgid "JPEG Image"
-msgstr ""
+msgstr "Immagine JPEG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1699
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1725
 msgid "TIFF Image"
-msgstr ""
+msgstr "Immagine TIFF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1700
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1726
 msgid "Postscript"
-msgstr ""
+msgstr "Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1701
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1727
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Encapsulated Postscript"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1702
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1728
 msgid "Portable Document Format"
-msgstr ""
+msgstr "Portable Document Format"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1703
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1729
 msgid "Scalable Vector Graphics"
-msgstr ""
+msgstr "Scalable Vector Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1704
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1730
 msgid "LATEX text strings"
-msgstr ""
+msgstr "Catene di caratteri LATEX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "Portable LaTeX Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1706
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
 msgid "All Files"
-msgstr ""
+msgstr "Tutti i file"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 msgid "All Image and Video Files"
-msgstr ""
+msgstr "Tutti i file immagine e video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "All Video Files"
-msgstr ""
+msgstr "Tutti i file video"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 msgid "G264 Video"
-msgstr ""
+msgstr "Video G264"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1713
 msgid "HEVC Video"
-msgstr ""
+msgstr "Video HEVC"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1714
 msgid "MP4 Video"
-msgstr ""
+msgstr "Video MP4"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1731
 msgid "Portable"
@@ -14744,7 +14814,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text"
-msgstr ""
+msgstr "Testo puro"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
@@ -14756,51 +14826,51 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "Sumo config"
-msgstr ""
+msgstr "Configurazione sumo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 msgid "Netedit config files"
-msgstr ""
+msgstr "File di configurazione netedit"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "Netconvert config files"
-msgstr ""
+msgstr "File di configurazione netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid "OSM network files"
-msgstr ""
+msgstr "File di reti OSM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "SUMO network files"
-msgstr ""
+msgstr "File di reti SUMO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "TLS files"
-msgstr ""
+msgstr "File di semafori"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "Junction files"
-msgstr ""
+msgstr "File di incroci"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "Edge type files"
-msgstr ""
+msgstr "File di tipi di archi"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Additional files"
-msgstr ""
+msgstr "File di dati addizionali"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "Route files"
-msgstr ""
+msgstr "File di itinerari"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "Edge data files"
-msgstr ""
+msgstr "File di dati di archi"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Mean data files"
-msgstr ""
+msgstr "File MeanData"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""

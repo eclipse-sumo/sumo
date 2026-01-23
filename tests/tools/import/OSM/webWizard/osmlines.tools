@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-15 16:52:04 by Eclipse SUMO netconvert Version v1_22_0+1505-c313439acca
+<!-- generated on 2026-01-22T08:52:24.166776+01:00 by Eclipse SUMO netconvert v1_25_0+1124-f2af9bf1fbf
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.15Apr165202.525921/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.22Jan085222.1074739/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -14,6 +14,7 @@
         <output.original-names value="true"/>
         <ptstop-output value="osm_stops.add.xml"/>
         <ptline-output value="osm_ptlines.xml"/>
+        <ptline-clean-up value="true"/>
     </output>
 
     <projection>
@@ -22,7 +23,6 @@
 
     <processing>
         <geometry.remove value="true"/>
-        <roundabouts.guess value="true"/>
     </processing>
 
     <tls_building>
@@ -38,7 +38,6 @@
 
     <junctions>
         <junctions.join value="true"/>
-        <junctions.corner-detail value="5"/>
     </junctions>
 
     <pedestrian>
@@ -199,17 +198,17 @@
         <busStop id="30731497" name="U Alexanderplatz"/>
     </ptLine>
     <ptLine id="2014286" name="Straßenbahnlinie 12: Weißensee, Pasedagplatz =&gt; Mitte, Am Kupfergraben" line="12" type="tram" vClass="tram" period="600" color="153,102,153" completeness="0.15" missingBefore="22">
-        <route edges="6228154#0 6228154#1 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014228#0 144014228#1 144014228#2"/>
+        <route edges="6228154#0 6228154#1 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 -195411601#1 -195411601#0 -22820560#2 -22820560#1 -22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014228#0 144014228#1 144014228#2"/>
         <busStop id="990017251" name="U Oranienburger Tor"/>
-        <busStop id="247600965" name="S+U Friedrichstraße"/>
+        <busStop id="-247600965" name="S+U Friedrichstraße"/>
         <busStop id="3922258748" name="Universitätsstraße"/>
         <busStop id="2175753204" name="Am Kupfergraben"/>
     </ptLine>
     <ptLine id="2014287" name="Straßenbahnlinie 12: Mitte, Am Kupfergraben =&gt; Weißensee, Pasedagplatz" line="12" type="tram" vClass="tram" period="600" color="153,102,153" completeness="0.15" missingAfter="22">
-        <route edges="144014228#2 207364192#1 207364192#2 207364192#3 207364192#4 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 167140669#0 167140669#1 167140669#2 167140669#3"/>
+        <route edges="144014228#2 207364192#1 207364192#2 207364192#3 207364192#4 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 -195411594#2 -195411594#1 -195411594#0 -165409971#1 -165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 167140669#0 167140669#1 167140669#2 167140669#3"/>
         <busStop id="2175753204" name="Am Kupfergraben"/>
         <busStop id="1673526976" name="Georgenstraße/Am Kupfergraben"/>
-        <busStop id="1823298700" name="S+U Friedrichstraße"/>
+        <busStop id="-1823298700" name="S+U Friedrichstraße"/>
         <busStop id="30731700" name="U Oranienburger Tor"/>
     </ptLine>
     <ptLine id="2015944" name="S-Bahnlinie S5: Strausberg Nord =&gt; Spandau" line="S5" type="light_rail" vClass="rail_urban" period="600" color="242,87,33" completeness="0.08" missingBefore="20" missingAfter="13">
@@ -237,10 +236,10 @@
         <busStop id="27411231" name="S Alexanderplatz"/>
     </ptLine>
     <ptLine id="2076228" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Niederschönhausen, Schillerstraße" line="M1" type="tram" vClass="tram" period="1200" color="238,102,0" completeness="0.28" missingAfter="21">
-        <route edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1"/>
+        <route edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 -195411594#2 -195411594#1 -195411594#0 -165409971#1 -165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1"/>
         <busStop id="247603398" name="Am Kupfergraben"/>
         <busStop id="1673526976" name="Georgenstraße/Am Kupfergraben"/>
-        <busStop id="1823298700" name="S+U Friedrichstraße"/>
+        <busStop id="-1823298700" name="S+U Friedrichstraße"/>
         <busStop id="30731700" name="U Oranienburger Tor"/>
         <busStop id="1668717159" name="S Oranienburger Straße"/>
         <busStop id="963600646" name="Monbijouplatz"/>
@@ -248,10 +247,10 @@
         <busStop id="1662153916" name="U Weinmeisterstraße/Gipsstraße"/>
     </ptLine>
     <ptLine id="2076230" name="Straßenbahnlinie M1: Mitte, Am Kupfergraben =&gt; Rosenthal Nord" line="M1" type="tram" vClass="tram" period="1200" color="238,102,0" completeness="0.26" missingAfter="23">
-        <route edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1"/>
+        <route edges="144014230#4 207364191#1 144014242#1 167272512#0 167272512#2 167272512#3 167272512#4 167272512#5 167272512#6 167272512#7 -195411594#2 -195411594#1 -195411594#0 -165409971#1 -165409971#0 388702049#1 388702049#2 167272531#0 167272531#1 167272531#2 167272531#3 167272531#4 167272531#5 167272531#6 167272531#7 167272531#8 167272531#9 167272531#10 154321049#2 101699672 143891040#1 143891040#2 101699676#1 101699676#2 101699676#3 101699676#4 30721656#1 30721656#2 30721656#3 30721656#4 421641065#0 421641065#1 28341062 421641064 30721657#1 46140383 143931935 153537606#1"/>
         <busStop id="247603398" name="Am Kupfergraben"/>
         <busStop id="1673526976" name="Georgenstraße/Am Kupfergraben"/>
-        <busStop id="1823298700" name="S+U Friedrichstraße"/>
+        <busStop id="-1823298700" name="S+U Friedrichstraße"/>
         <busStop id="30731700" name="U Oranienburger Tor"/>
         <busStop id="1668717159" name="S Oranienburger Straße"/>
         <busStop id="963600646" name="Monbijouplatz"/>
@@ -259,24 +258,24 @@
         <busStop id="1662153916" name="U Weinmeisterstraße/Gipsstraße"/>
     </ptLine>
     <ptLine id="2076231" name="Straßenbahnlinie M1: Niederschönhausen, Schillerstraße =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" vClass="tram" period="1200" color="238,102,0" completeness="0.28" missingBefore="21">
-        <route edges="153537614#0 153537614#1 153537614#2 153522303#0 153522303#1 46140393 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#1 154321040#2 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014233#0 144014233#1 144014230#0 144014230#1 144014230#2 144014230#4"/>
+        <route edges="153537614#0 153537614#1 153537614#2 153522303#0 153522303#1 46140393 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#1 154321040#2 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 -195411601#1 -195411601#0 -22820560#2 -22820560#1 -22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014233#0 144014233#1 144014230#0 144014230#1 144014230#2 144014230#4"/>
         <busStop id="1668497956" name="S Hackescher Markt"/>
         <busStop id="1661927028" name="Monbijouplatz"/>
         <busStop id="1862699772" name="S Oranienburger Straße"/>
         <busStop id="1668685086" name="U Oranienburger Tor"/>
         <busStop id="990017251" name="U Oranienburger Tor"/>
-        <busStop id="247600965" name="S+U Friedrichstraße"/>
+        <busStop id="-247600965" name="S+U Friedrichstraße"/>
         <busStop id="3922258748" name="Universitätsstraße"/>
         <busStop id="247603398" name="Am Kupfergraben"/>
     </ptLine>
     <ptLine id="2076232" name="Straßenbahnlinie M1: Rosenthal Nord =&gt; Mitte, Am Kupfergraben" line="M1" type="tram" vClass="tram" period="1200" color="238,102,0" completeness="0.26" missingBefore="23">
-        <route edges="153537614#0 153537614#1 153537614#2 153522303#0 153522303#1 46140393 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#1 154321040#2 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014233#0 144014233#1 144014230#0 144014230#1 144014230#2 144014230#4"/>
+        <route edges="153537614#0 153537614#1 153537614#2 153522303#0 153522303#1 46140393 101699692#1 101699679#0 101699679#1 101699679#2 101699679#3 154321040#1 154321040#2 167140670#1 167140670#3 167140670#4 30122986#0 30122986#1 168453605#0 168453605#1 168453605#2 168453605#3 168453605#4 168453605#5 388702047#0 388702047#1 388702047#2 388702047#3 388702047#4 93584120#2 93584120#3 93584120#4 -195411601#1 -195411601#0 -22820560#2 -22820560#1 -22820560#0 93584121#1 144014237#0 144014237#1 144014237#2 144014233#0 144014233#1 144014230#0 144014230#1 144014230#2 144014230#4"/>
         <busStop id="1668497956" name="S Hackescher Markt"/>
         <busStop id="1661927028" name="Monbijouplatz"/>
         <busStop id="1862699772" name="S Oranienburger Straße"/>
         <busStop id="1668685086" name="U Oranienburger Tor"/>
         <busStop id="990017251" name="U Oranienburger Tor"/>
-        <busStop id="247600965" name="S+U Friedrichstraße"/>
+        <busStop id="-247600965" name="S+U Friedrichstraße"/>
         <busStop id="3922258748" name="Universitätsstraße"/>
         <busStop id="247603398" name="Am Kupfergraben"/>
     </ptLine>

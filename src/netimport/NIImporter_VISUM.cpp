@@ -1200,7 +1200,8 @@ void NIImporter_VISUM::parse_stopPoints() {
         Position pos = edge->getGeometry().positionAtOffset(edge->getLength() * relPos);
 
         const double length = OptionsCont::getOptions().getFloat("osm.stop-output.length");
-        std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(id, pos, edge->getID(), edge->getID(), length, name, permissions);
+        SumoXMLTag element = isRailway(permissions) ? SUMO_TAG_TRAIN_STOP : SUMO_TAG_BUS_STOP;
+        std::shared_ptr<NBPTStop> ptStop = std::make_shared<NBPTStop>(element, id, pos, edge->getID(), edge->getID(), length, name, permissions);
         myNetBuilder.getPTStopCont().insert(ptStop);
     }
 }

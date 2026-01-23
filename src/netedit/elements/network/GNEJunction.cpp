@@ -1364,6 +1364,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode->getRightOfWay());
         case SUMO_ATTR_FRINGE:
             return SUMOXMLDefinitions::FringeTypeValues.getString(myNBNode->getFringeType());
+        case SUMO_ATTR_ROUNDABOUT:
+            return SUMOXMLDefinitions::RoundaboutTypeValues.getString(myNBNode->getRoundaboutType());
         case SUMO_ATTR_NAME:
             return myNBNode->getName();
         default:
@@ -1407,6 +1409,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_RIGHT_OF_WAY:
         case SUMO_ATTR_FRINGE:
+        case SUMO_ATTR_ROUNDABOUT:
         case SUMO_ATTR_NAME:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList, true);
             break;
@@ -1637,6 +1640,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::RightOfWayValues.hasString(value);
         case SUMO_ATTR_FRINGE:
             return SUMOXMLDefinitions::FringeTypeValues.hasString(value);
+        case SUMO_ATTR_ROUNDABOUT:
+            return SUMOXMLDefinitions::RoundaboutTypeValues.hasString(value);
         case SUMO_ATTR_NAME:
             return true;
         default:
@@ -2005,6 +2010,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRINGE:
             myNBNode->setFringeType(SUMOXMLDefinitions::FringeTypeValues.get(value));
+            break;
+        case SUMO_ATTR_ROUNDABOUT:
+            myNBNode->setRoundaboutType(SUMOXMLDefinitions::RoundaboutTypeValues.get(value));
             break;
         case SUMO_ATTR_NAME:
             myNBNode->setName(value);
