@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-17 09:00:15 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<!-- generated on 2026-01-23T17:46:49.322383+01:00 by Eclipse SUMO sumo v1_25_0+1167-e4289d0ddf3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,7 +13,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="33061"/>
+        <remote-port value="46599"/>
     </traci_server>
 
     <mesoscopic>
@@ -24,7 +24,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+0606-06b23075d04" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_25_0+1167-e4289d0ddf3" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="testType"/>
@@ -33,5 +33,5 @@
         <vehicles time="-1" blockTime="-9223372036854775808" value="ego"/>
         <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
-    <tlLogic id="C" programID="0" phase="0" duration="1000"/>
+    <tlLogic id="C" programID="0" phase="0" duration="1000" active="1"/>
 </snapshot>
