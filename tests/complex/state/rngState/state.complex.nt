@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-17 16:23:45 by Eclipse SUMO sumo Version v1_23_1+1126-4221ab6978d
+<!-- generated on 2026-01-24T09:16:30.252385+01:00 by Eclipse SUMO sumo v1_25_0+1174-63c1a513bcd
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+1126-4221ab6978d" time="1000.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_25_0+1174-63c1a513bcd" time="1000.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="880" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -117,19 +117,19 @@
     <lane id="1/0to2/0_0">
         <vehicles value="v.333 v.332 v.331 v.330 v.329 v.328 v.327 v.326 v.325 v.324 v.323 v.322 v.321"/>
     </lane>
-    <tlLogic id="0/0" programID="0" phase="2" duration="14000"/>
-    <tlLogic id="0/1" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="0/2" programID="0" phase="2" duration="14000"/>
-    <tlLogic id="1/0" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="1/1" programID="0" phase="4" duration="11000"/>
-    <tlLogic id="1/2" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="2/0" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="2/1" programID="0" phase="4" duration="11000"/>
-    <tlLogic id="2/2" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="3/0" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="3/1" programID="0" phase="4" duration="11000"/>
-    <tlLogic id="3/2" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="4/0" programID="0" phase="2" duration="14000"/>
-    <tlLogic id="4/1" programID="0" phase="5" duration="2000"/>
-    <tlLogic id="4/2" programID="0" phase="2" duration="14000"/>
+    <tlLogic id="0/0" programID="0" phase="2" duration="14000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="14000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="11000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="11000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="11000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="14000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="5" duration="2000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="14000" active="1"/>
 </snapshot>
