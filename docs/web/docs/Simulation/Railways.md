@@ -467,7 +467,7 @@ To switch a signal into moving-block-mode, the following additional file may be 
 Parameter *moving-block* may also be updated at runtime with `traci.trafficlight.setParameter`.
 
 !!! note
-    The [abstract vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#abstract_vehicle_class) `tram` and `cable_car` are automatically configured for moving block behavior. This can be configured with sumo option **--railsignal.moving-block.default-classes**.
+    The [abstract vehicle classes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) `tram` and `cable_car` are automatically configured for moving block behavior. This can be configured with sumo option **--railsignal.moving-block.default-classes**.
 
 
 ## Schedule Constraints
