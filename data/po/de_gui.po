@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-22 19:42+0000\n"
+"PO-Revision-Date: 2026-01-25 12:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -4575,6 +4575,8 @@ msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr ""
+"Bei Aktivierung wird automatisch mit einer netedit-Konfiguration auch eine "
+"netconvert-Konfiguration gespeichert"
 
 #: src/netedit/GNELoadThread.cpp:348
 msgid "Load element selection"
@@ -4627,6 +4629,8 @@ msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
+"Bei Aktivierung werden geladene Elemente unabhängig davon gespeichert, ob "
+"sie bearbeitet worden (insbesondere in netedit-Tests genutzt)"
 
 #: src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for node naming"
@@ -11114,7 +11118,7 @@ msgstr "In Konflikt stehende Halte auswählen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:315
 msgid "Select conflicted stops and abort saving"
-msgstr ""
+msgstr "Widersprüchliche Halte auswählen und Speichervorgang abbrechen"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:320
 msgid "Fix stop positions and save"
@@ -11459,7 +11463,7 @@ msgstr "Nichts zu deaktivieren, implementiert in Kindelementen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:853
 msgid "Parent filename"
-msgstr ""
+msgstr "Dateiname des Elternelements"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:968
 msgid "Nothing to toggle, implement in Children"
@@ -12535,6 +12539,8 @@ msgstr "Konnte Attribut '%' nicht anwenden (LSA ist ungültig)"
 #: src/netedit/elements/network/GNEConnection.cpp:944
 msgid "Cannot restore attribute '%=%' for computed connection from lane '%'"
 msgstr ""
+"Das Attribut '%=%' der vom Fahrstreifen '%' ausgehenden berechneten "
+"Verbindung kann nicht wiederhergestellt werden"
 
 #: src/netedit/elements/network/GNECrossing.cpp:86
 msgid "Crossing's edges don't support pedestrians"
