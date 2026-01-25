@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-25 12:59+0000\n"
+"PO-Revision-Date: 2026-01-25 17:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
+"gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -7499,7 +7500,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6284
 msgid "Longitudinal reference position for creating %"
-msgstr ""
+msgstr "Referenzposition in Längsrichtung, um % zu erstellen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6299
 msgid "A typename for the POI"
@@ -10542,7 +10543,7 @@ msgstr "Rerouter-Intervalle von % '%' können nicht gespeichert werden"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:59
 msgid ". There are overlapping intervals."
-msgstr ""
+msgstr ". Es gibt sich überlappende Intervalle."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:76
 msgid "Error updating % of % '%'"
@@ -12992,7 +12993,7 @@ msgstr "Elementdialog öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Open specific element edit dialog"
-msgstr ""
+msgstr "Dialog zur Bearbeitung des spezifischen Elements öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:92
 msgid "Open help attributes dialog"
@@ -13008,11 +13009,11 @@ msgstr "Erweiterte Attribute bearbeiten"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:103
 msgid "Open dialog for editing extended attributes"
-msgstr ""
+msgstr "Dialog zur Bearbeitung der erweiterten Attribute öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:107
 msgid "Open dialog for editing generic parameters"
-msgstr ""
+msgstr "Dialog zur Bearbeitung der generischen Parameter öffnen"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:214
 #, c-format
@@ -13642,16 +13643,16 @@ msgstr ""
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
 #, c-format
 msgid "-Click over % to select"
-msgstr ""
+msgstr "-Zur Auswahl auf % klicken"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:86
 msgid "-ESC to clear elements"
-msgstr ""
+msgstr "-ESC um Auswahl zu leeren"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:87
 #, c-format
 msgid "Use selected %s"
-msgstr ""
+msgstr "Ausgewählte % nutzen"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
 #, c-format
@@ -13709,15 +13710,15 @@ msgstr "ausgewählte Elemente löschen"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Erweitern"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Rahmen erweitern, um alle Inhalte zu zeigen"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:78
 msgid "Shrink frame to default width"
-msgstr ""
+msgstr "Rahmen auf Standardbreite schrumpfen"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:64
 msgid "Templates"
@@ -13757,67 +13758,85 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are"
 " then applied to the current selection"
 msgstr ""
+"- Mit den zu 'Attributvergleich' gehörenden Bedienelementen kann eine Menge "
+"an Objekten auf die aktuelle Auswahl angewandt werden"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:320
 msgid "  according to the current 'Modification Mode'."
-msgstr ""
+msgstr "  entsprechend dem aktuellen 'Modifikationsmodus'."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:321
 msgid "     1. Select an object type from the first input box"
-msgstr ""
+msgstr "     1. Einen Objekttyp aus der ersten Liste auswählen"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:322
 msgid "     2. Select an attribute from the second input box"
-msgstr ""
+msgstr "     2. Ein Attribut aus der zweiten Liste wählen"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:323
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press <return>"
 msgstr ""
+"     3. Einen 'Vergleichsausdruck' in das dritte Feld eingeben und mit "
+"<return> bestätigen"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
-msgstr ""
+msgstr "- Ein leerer Ausdruck passt zu allen Objekten"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:326
 msgid ""
 "- For numerical attributes the match expression must consist of a comparison"
 " operator ('<', '>', '=') and a number."
 msgstr ""
+"- Bei numerischen Attributen muss der Vergleichsausdruck einen "
+"entsprechenden Operator  ('<', '>', '=') und eine Zahl enthalten."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:327
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
 msgstr ""
+"- Ein Objekt wird ausgewählt falls der Vergleich seines Attributs mit der "
+"Zahl über den Operator 'true' zurückgibt"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:329
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string."
 msgstr ""
+"- Bei Attributen mit Zeichenketten muss der Vergleichsausdruck einen "
+"entsprechenden Operator ('', '=', '!', '^') und eine Zeichenkette enthalten."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:330
 msgid ""
 "     '' (no operator) matches if string is a substring of that object's "
 "attribute."
 msgstr ""
+"     '' (kein Operator) wählt das Objekt aus, falls die gegebene "
+"Zeichenkette im Attributwert enthalten ist."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
 msgstr ""
+"     '=' wählt das Objekt bei exakter Übereinstimmung mit dem Attributwert "
+"aus."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:332
 msgid "     '!' matches if string is not a substring."
 msgstr ""
+"     '!' wählt das Objekt aus, falls die gegebene Zeichenkette nicht im "
+"Attributwert enthalten ist."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:333
 msgid "     '^' matches if string is not an exact match."
 msgstr ""
+"     '^' wählt das Objekt aus, wenn der Attributwert nicht exakt "
+"übereinstimmt."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:335
 msgid "- Examples:"
-msgstr ""
+msgstr "- Beispiele:"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:336
 msgid ""
