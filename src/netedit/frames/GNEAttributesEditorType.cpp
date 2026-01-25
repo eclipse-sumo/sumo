@@ -100,11 +100,11 @@ GNEAttributesEditorType::GNEAttributesEditorType(GNEFrame* frameParent, GNEAttri
     if (myAttributeType == AttributeType::EXTENDED) {
         // create extended attributes (always shown)
         myOpenExtendedAttributesButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Edit extended attributes"), nullptr, this, MID_GNE_ATTRIBUTESEDITOR_EXTENDED, GUIDesignButton);
-        myOpenExtendedAttributesButton->setTipText(TL("Open dialog for edit extended attributes"));
+        myOpenExtendedAttributesButton->setTipText(TL("Open dialog for editing extended attributes"));
     } else if (myAttributeType == AttributeType::PARAMETERS) {
         // create generic attributes editor button (always shown)
         myOpenGenericParametersEditorButton = new MFXButtonTooltip(getCollapsableFrame(), staticTooltipMenu, TL("Edit parameters"), nullptr, this, MID_GNE_ATTRIBUTESEDITOR_PARAMETERS, GUIDesignButton);
-        myOpenGenericParametersEditorButton->setTipText(TL("Open dialog for edit generic parameters"));
+        myOpenGenericParametersEditorButton->setTipText(TL("Open dialog for editing generic parameters"));
     }
 }
 

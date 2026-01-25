@@ -3881,7 +3881,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     trafficLightButton->create();
     // connection mode
     connectionButton = new MFXCheckableButton(false, gripModes, tooltipMenu,
-            std::string("\t") + TL("Connection mode") + std::string("\t") + TL("Mode for edit connections between lanes. (C)"),
+            std::string("\t") + TL("Connection mode") + std::string("\t") + TL("Mode for editing connections between lanes. (C)"),
             GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODE_CONNECT_CONTAINER, GUIDesignMFXCheckableButtonSquare);
     connectionButton->create();
     // prohibition mode
