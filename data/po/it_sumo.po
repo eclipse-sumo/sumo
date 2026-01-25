@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-22 19:48+0000\n"
+"PO-Revision-Date: 2026-01-25 17:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2545,10 +2546,13 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:514
 msgid "List vehicle classes that default to moving-block operations"
 msgstr ""
+"Elenca le classi di veicoli che per difetto usano operazioni di blocco mobile"
 
 #: src/microsim/MSFrame.cpp:517
 msgid "Maximum signal distance above which zipper conflicts are ignored"
 msgstr ""
+"Distanza massima da un segnale sopra la quale conflitti nel incolonnarsi "
+"vengono ignorati"
 
 #: src/microsim/MSFrame.cpp:520
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
@@ -5838,7 +5842,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
-msgstr ""
+msgstr "*** L'incrocio % va essere gestito usando MSSwarmTrafficLightLogic ***"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:202
 msgid "TL % time 0 Policy: % (pheroIn= 0 ,pheroOut= 0 ) OldPolicy: % ."
@@ -8491,6 +8495,8 @@ msgstr "Fermata raddoppiata '%' chiamata '%' rimossa dalla linea '%'."
 #: src/netbuild/NBPTLine.cpp:367
 msgid "Removed stop '%' named '%' from line '%' because edge '%' is missing."
 msgstr ""
+"La fermata '%' chiamata '%' della linea '%' è stata rimossa a causa "
+"dell'arco mancante '%'."
 
 #: src/netbuild/NBPTLine.cpp:375
 msgid "not part of the route"
@@ -9917,6 +9923,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
+"La segnalazione del collegamento da '%' a '%' (semaforo '%') è ambigua "
+"poiché viene sovrascritta con il segnale '%' del semaforo '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:926
 msgid ""
@@ -14352,7 +14360,7 @@ msgstr ""
 #: src/utils/tests/InternalTest.cpp:349 src/utils/tests/InternalTest.cpp:399
 #: src/utils/tests/InternalTest.cpp:434
 msgid "Could not open view positions file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file di posizioni vedute '%'."
 
 #: src/utils/tests/InternalTest.cpp:377
 #, c-format
@@ -14937,11 +14945,11 @@ msgstr "Testo puro"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
-msgstr ""
+msgstr "File di configurazione veduta"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1747
 msgid "State GZipped XML files"
-msgstr ""
+msgstr "File compressi di stati simulazione XML"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "Sumo config"
