@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-10 13:03+0100\n"
-"PO-Revision-Date: 2026-01-23 19:19+0000\n"
+"PO-Revision-Date: 2026-01-25 12:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -12448,12 +12448,15 @@ msgid ""
 "Already loaded prohibition for edge '%'. (Only one prohibition per edge is "
 "supported)"
 msgstr ""
+"Schon geladenes Verbot für Kante '%'. (Nur ein Verbot pro Kante ist erlaubt)"
 
 #: src/router/RONet.cpp:994
 msgid ""
 "Already loaded prohibition for lane '%'. (Only one prohibition per lane is "
 "supported)"
 msgstr ""
+"Schon geladenes Verbot für Fahrstreifen '%'. (Nur ein Verbot pro "
+"Fahrstreifen ist erlaubt)"
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
@@ -13641,7 +13644,7 @@ msgstr "MeanData-Elemente können keine Attribute als Parameter laden"
 
 #: src/utils/handlers/MeanDataHandler.cpp:183
 msgid "The netstate type 'hbefa' is deprecated. Using 'emissions' instead."
-msgstr ""
+msgstr "Anstatt des veralteten netstate-Typs 'hbefa' ist 'emissions' zu nutzen."
 
 #: src/utils/handlers/RouteHandler.cpp:629
 msgid "an embedded route cannot have their own ID"
@@ -13728,6 +13731,8 @@ msgstr "Fehler beim Schließen des Ausgabegerätes."
 #: src/utils/iodevices/OutputDevice.cpp:324
 msgid "Attribute '%' is not support for filtering written attributes in %."
 msgstr ""
+"Das Attribut '%' kann nicht zum Filtern der in % geschriebenen Attribute "
+"genutzt werden."
 
 #: src/utils/iodevices/OutputDevice.cpp:327
 msgid "Unknown attribute '%' to write in %."
@@ -14516,10 +14521,14 @@ msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element "
 "% '%'"
 msgstr ""
+"Die Abfahrt von % '%' aus % '%' wird ignoriert und mit dem Ziel % '%' des "
+"vorherigen Elements ersetzt"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1220
 msgid "Trying to get undefined parent '%' in SUMOBaseObject '%'"
 msgstr ""
+"Versuchter Zugriff auf das undefinierte Elternelemente '%' im SUMOBaseObject "
+"'%'"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1237
 msgid "Undefined vehicleType parameter"
@@ -14720,7 +14729,7 @@ msgstr "LATEX-Zeichenketten"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "Portable LaTeX Graphics"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1706
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
@@ -14753,7 +14762,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Plain text"
-msgstr ""
+msgstr "Reiner Text"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1742
 msgid "View settings files"
@@ -14801,15 +14810,15 @@ msgstr "Dateien mit weiteren Elementen"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1812
 msgid "Route files"
-msgstr ""
+msgstr "Routendateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1818
 msgid "Edge data files"
-msgstr ""
+msgstr "EdgeData-Dateien"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1823
 msgid "Mean data files"
-msgstr ""
+msgstr "MeanData-Dateien"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
