@@ -10,60 +10,11 @@ A device is a container for data and functionality which resides in
 individual vehicles. Devices are notified about all vehicle movements
 and may interact with the vehicle or with other devices. An important
 aspect of devices is, that it is possible to equip only a fraction of
-the simulated vehicles. Usually devices support some kind of output. The
-following is a list of available devices and their functionality
+the simulated vehicles. Many devices provide additional outputs but others may also change behavior.
+For details, refer to the complete list of [vehicle devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#devices).
+See also, the list of [person devices](../Specification/Persons.md#devices).
 
-### MSDevice_Tripinfo
-
-Records start and arrival of a vehicle as well as aggregate measures
-about a completed trip such as average speed and waiting time. This
-device is also used for expressing aggregate results from other devices
-such as emissions ([MSDevice_HBEFA](#msdevice_hbefa)). This
-devices is activated using the option **--tripinfo-output** {{DT_FILE}} and is then active for all
-vehicles.
-
-### MSDevice_Vehroutes
-
-Records the edges traveled by a vehicle and optionally the times at
-which each edge was left. It can also record dynamic route changes. This
-device is also used for expressing aggregate results from other devices
-such as emissions ([MSDevice_HBEFA](#msdevice_hbefa)). This
-devices is activated using the option **--vehroute-output** {{DT_FILE}} and is then active for all
-vehicles.
-
-### MSDevice_Routing
-
-Triggers periodic rerouting of equipped vehicles. This devices is
-activated using the options **--vehroute-output.\*** and is then active for selected vehicles.
-It is possible to equip specific vehicles or a fraction of the vehicle
-fleet.
-
-### MSDevice_Person
-
-This device is automatically created if a person rides in a vehicle. It
-is used when managing boarding and alighting
-
-### MSDevice_HBEFA
-
-Computes emissions of a vehicle as described in
-[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Vehicle_Emission_Classes](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_emission_classes).
-This devices is activated using the options **--device.hbefa.\*** and is then active for
-selected vehicles. It is possible to equip specific vehicles or a
-fraction of the vehicle fleet.
-
-### MSDevice_Battery
-
-This device is used for modelling energy use and battery capacity of
-electric vehicles.
-
-### MSDevice_SSM
-
-This device logs surrogate safety measures for equipped vehicles, see
-[Simulation/Output/SSM_Device](../../Simulation/Output/SSM_Device.md).
-
-### MSDevice_Example
-
-This device serves as an implementation example for custom devices.
+The devices can all be found in src/microsim/devices and the Example-Device exists as an implementation example for custom devices.
 
 ## Steps for implementing a new device
 
