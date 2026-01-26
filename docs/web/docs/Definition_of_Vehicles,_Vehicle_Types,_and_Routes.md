@@ -1307,25 +1307,25 @@ as output (device.fcd) or behavior (device.rerouting).
 The following device names are supported and can be used for the
 placeholder `<DEVICENAME>` below
 
-- [emission](Models/Emissions.md)
-- [battery](Models/Electric.md)
-- [stationfinder](Simulation/Stationfinder.md)
-- [elechybrid](Models/ElectricHybrid.md)
-- [btreiver](Simulation/Bluetooth.md)
-- [btsender](Simulation/Bluetooth.md)
-- [bluelight](Simulation/Emergency.md)
-- [rerouting](Demand/Automatic_Routing.md)
-- [ssm](Simulation/Output/SSM_Device.md)
-- [toc](ToC_Device.md)
-- [driverstate](Driver_State.md)
-- [fcd](Simulation/Output/FCDOutput.md)
-- [fcdreplay](Simulation/FCDReplay.md)
-- [tripinfo](Simulation/Output/TripInfo.md)
-- [vehroute](Simulation/Output/VehRoutes.md)
-- [taxi](Simulation/Taxi.md)
-- [glosa](Simulation/GLOSA.md)
-- [friction](Simulation/Friction.md)  
-- [example](Developer/How_To/Device.md)
+- [emission](Models/Emissions.md): extends tripinfo-output with emissions
+- [battery](Models/Electric.md): electricity consumption and battery state for electric vehicles, or fuel tank state for combustion vehicles
+- [stationfinder](Simulation/Stationfinder.md): automated charging at chargingStations
+- [elechybrid](Models/ElectricHybrid.md): electric vehicles driving under overhead wires
+- [btreiver](Simulation/Bluetooth.md): wireless connectivity (receiver side)
+- [btsender](Simulation/Bluetooth.md): wireless connectivity (sender side)
+- [bluelight](Simulation/Emergency.md): emergency vehicle behavior
+- [rerouting](Demand/Automatic_Routing.md): dynamic route changes
+- [ssm](Simulation/Output/SSM_Device.md): surrogate safety measures
+- [toc](ToC_Device.md): transition of control between automated and manual driving
+- [driverstate](Driver_State.md): randomized driver perception errors 
+- [fcd](Simulation/Output/FCDOutput.md): recording of vehicle positions and other attributes per step
+- [fcdreplay](Simulation/FCDReplay.md): replaying vehicle positions
+- [tripinfo](Simulation/Output/TripInfo.md): vehicle-based traffic data aggregation
+- [vehroute](Simulation/Output/VehRoutes.md): recording of driven route and route changes
+- [taxi](Simulation/Taxi.md): demand responsive transport
+- [glosa](Simulation/GLOSA.md): green light optiomal speed advisory at traffic lights
+- [friction](Simulation/Friction.md): wheather and road surface specific speed changes
+- [example](Developer/How_To/Device.md): implementation example
 
 ## Automatic assignment
 
