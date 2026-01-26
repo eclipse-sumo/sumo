@@ -40,7 +40,10 @@ title: ChangeLog
   - Fixed crash when running rail signal simulation with **--tls.all-off** #17516
   - Fixed bug where vehicle stops despite stop attribute `onDemand` when there is no demand #17523
   - Fixed invalid default stop startPos if endPos is defined as negative #17522
-  - Fixed unsafe train insertion when combining rail signals with traffic lights #17546
+  - Fixed unsafe train insertion when combining rail signals with traffic lights #17546, #17547
+  - Fixed invalid vehicle mass for personTrip with car #17551
+  - Fixed non-deterministic moving-block simulation #17557
+  - Fixed invalid signal state when using WAUT and loading state #17526
 
 - netedit
   - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
@@ -72,6 +75,8 @@ title: ChangeLog
   - Elements written with **--ptstop-output** are now assigned as trainStop where appropriate #17535
   - Elements written with **--ptstop-output** now preserve their 'lines' attribute #17530
   - Fixed invalid busStop direction in ptline-output #17537
+  - Fixed invalid ptlines with option --ptstop-output.no-bidi #17571
+
 
 - duarouter
   - Fixed crash when loading invalid routes with option **--skip-new-routes** and **--ignore-errors** #17348 (regression in 1.25.0)
@@ -93,6 +98,10 @@ title: ChangeLog
   - countEdgeUsage.py: Fixed invalid count for vehroute-output involving replaced routes #17401
   - sumolib.xml.parse_fast: No longer yields records for element names that start with the same string as the requested element #17403
   - gtfs2pt.py: Fixed bug that was causing invalid stop assignments and large detours #17540
+  - driveways2poly.py: fixed crash on rail signals without links #17550
+  - remap_additionals.py: fixed bug where wrong edge was picked among parallel edges #17556
+  - patchRailConflicts.py: new tool for adding tram rail signals
+  
 
 - Options **--output-prefix** and **--output-suffix** can now be freely combined #17545
 
@@ -106,6 +115,7 @@ title: ChangeLog
   - A warning is now given when loading personTrips with mode "public" and no public transport was loaded #2825
   - Departure on closed edge with option to ignore transient permissions (**--device.rerouting.mode 8**) now delays departure instead of raising an error #17461
   - ChargingStation attribute `totalPower` can now be used to limit the total power when charging multiple vehicles at the same time. #17173
+  - Timeloss is now discounted when braking/accelerating for planned stops. Thus, a punctual public transport vehicle does not have any timeLoss #5287
   - Tram simulation
     - Tram simulation now defaults to moving-block mode. This can be configured with the new option **--railsignal.moving-block-default-classes** #17542
     - Train insertion in moving-block mode ignores zipper conflicts to improve operations where when rail signals are sparse #17544  
@@ -115,6 +125,7 @@ title: ChangeLog
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
   - The written sumocfg now tracks network file name changes #17314
   - Configurations with unsupported options can now be loaded with warnings instead of errors #17445
+  - Added support for junction attribute 'roundabout' #17271
  
 - duarouter
   - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
@@ -123,6 +134,8 @@ title: ChangeLog
   - Rerouters with element `closingLaneReroute` can now be loaded from an **--additional-file** to influence routing #17428
   - consistency of stops and vias is now checked #17485
 
+- netconvert
+  - now keeps more stops from OSM despite minor data errors #17575
 
 - TraCI
   - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
@@ -144,6 +157,8 @@ title: ChangeLog
   - generateDetectors.py: supports generating nextEdges attribute #17509
   - addStops2Routes.py: allows placing stops on vias #14818
   - filterElements.py: Added option **--remove-parent** which filters parent element based on child attributes #17539
+  - gtfs2pt.py: now warns about large detours (i.e. implausible  routes) #17567
+
 
 ### Miscellaneous
 
