@@ -29,6 +29,7 @@ if [[ $# -ge 1 && "$1" != "local" ]] ; then
         export CIBW_ENVIRONMENT_PASS_LINUX="HTTP_PROXY HTTPS_PROXY"
     else
         platform="linux"
+        export CIBW_ENVIRONMENT="SKBUILD_BUILD_TOOL_ARGS=-j2"
     fi
 fi
 cd $(dirname $0)/../..

@@ -49,7 +49,9 @@ case "$ID" in
     almalinux)
         # this is only tested with quay.io/pypa/manylinux_2_28_x86_64 and will probably not work with vanilla almalinux
         dnf install -y epel-release
-        dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig gdal-devel eigen3-devel geos-devel
+        for i in 0 1; do
+            dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig gdal-devel eigen3-devel geos-devel
+        done
         # fox dependencies
         dnf install -y libX11-devel libXft-devel libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel mesa-libGLU-devel freetype-devel fontconfig-devel libjpeg-turbo-devel libpng-devel
         # installing arrow / parquet
@@ -74,7 +76,7 @@ esac
 curl -LO https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v1.3.1.tar.gz
 tar xf v1.3.1.tar.gz
 cmake -B jupedsim-build -DCMAKE_BUILD_TYPE=Release jupedsim-1.3.1
-cmake --build jupedsim-build -j$(nproc)
+cmake --build jupedsim-build -j2
 cmake --install jupedsim-build
 
 # see https://github.com/pypa/manylinux/issues/1421

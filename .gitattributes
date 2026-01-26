@@ -6,13 +6,14 @@
 # (none yet)
 
 # Declare files that will always have LF line endings on checkout.
-*.h    text eol=lf filter=keywords
-*.cpp  text eol=lf filter=keywords
-*.py   text eol=lf filter=keywords
-*.pyw  text eol=lf filter=keywords
-*.pl   text eol=lf filter=keywords
-*.java text eol=lf filter=keywords
-*.cs   text eol=lf filter=keywords
+*.h    text eol=lf
+*.cpp  text eol=lf
+*.py   text eol=lf
+*.pyw  text eol=lf
+*.pl   text eol=lf
+*.java text eol=lf
+*.cs   text eol=lf
+*.sh   text eol=lf
 
 *.xml  text eol=lf
 *.prog text eol=lf
