@@ -8,9 +8,11 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-23 18:24+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/pt/>\n"
+"PO-Revision-Date: 2026-01-26 18:33+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4515,23 +4517,24 @@ msgstr "Não foi possível criar a rede."
 
 #: src/netedit/GNELoadThread.cpp:278
 msgid "Start plain GUI with empty net"
-msgstr ""
+msgstr "Iniciar GUI com uma rede vazia"
 
 #: src/netedit/GNELoadThread.cpp:279
 msgid "Open a SUMO network"
-msgstr ""
+msgstr "Abrir uma rede do SUMO"
 
 #: src/netedit/GNELoadThread.cpp:280
 msgid "Open a configuration file (netedit or netconvert config)"
 msgstr ""
+"Abrir um arquivo de configuração (configurações do netedit ou netconvert)"
 
 #: src/netedit/GNELoadThread.cpp:281
 msgid "Open a SUMO config file"
-msgstr ""
+msgstr "Abrir um arquivo de configuração do SUMO"
 
 #: src/netedit/GNELoadThread.cpp:305
 msgid "Load netedit config"
-msgstr ""
+msgstr "Carregar configuração do netedit"
 
 #: src/netedit/GNELoadThread.cpp:311
 msgid "Load sumo config"
@@ -4539,34 +4542,38 @@ msgstr "Carregar configuração do sumo"
 
 #: src/netedit/GNELoadThread.cpp:317
 msgid "Load netconvert config"
-msgstr ""
+msgstr "Carregar configuração do netconvert"
 
 #: src/netedit/GNELoadThread.cpp:323
 msgid "Load additional and shapes descriptions from FILE(s)"
-msgstr ""
+msgstr "Abrir elementos adicionais e formas a partir de arquivos"
 
 #: src/netedit/GNELoadThread.cpp:328
 msgid "Load demand elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Carregar elmentos de demanda a partir de arquivos"
 
 #: src/netedit/GNELoadThread.cpp:333
 msgid "Load data elements descriptions from FILE(s)"
-msgstr ""
+msgstr "Carregar elementos de dados a partir de arquivos"
 
 #: src/netedit/GNELoadThread.cpp:338
 msgid "Load meanData descriptions from FILE(s)"
-msgstr ""
+msgstr "Carregar meanDatas a partir de arquivos"
 
 #: src/netedit/GNELoadThread.cpp:342
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr ""
+"Redefinir valores de caminho (adicional, rota, dados...) após carregar a "
+"configuração do netedit"
 
 #: src/netedit/GNELoadThread.cpp:345
 msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr ""
+"Se ativado, automaticamente salva a configuração do netconvert depois de "
+"salvar as configurações do netedit"
 
 #: src/netedit/GNELoadThread.cpp:348
 msgid "Load element selection"
@@ -4578,50 +4585,57 @@ msgstr "Arquivo de teste"
 
 #: src/netedit/GNELoadThread.cpp:356
 msgid "File in which TLS Programs must be saved"
-msgstr ""
+msgstr "Arquivo em que os programas semafóricos devem ser salvos"
 
 #: src/netedit/GNELoadThread.cpp:360
 msgid "File in which edgeTypes must be saved"
-msgstr ""
+msgstr "Arquivo em que os edgeTypes devem ser salvos"
 
 #: src/netedit/GNELoadThread.cpp:367
 msgid "Start netedit with a new network"
-msgstr ""
+msgstr "Iniciar o netedit com uma nova rede"
 
 #: src/netedit/GNELoadThread.cpp:370
 msgid "Write attribute help to file"
-msgstr ""
+msgstr "Escrever ajuda do atributo no arquivo"
 
 #: src/netedit/GNELoadThread.cpp:373
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr ""
+"Ignorar diálogo de confirmação ao alternar entre supermodos no desfazer-"
+"refazer"
 
 #: src/netedit/GNELoadThread.cpp:376
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr ""
+"Ignorar elementos adicionais durante o carregamento das configurações do sumo"
 
 #: src/netedit/GNELoadThread.cpp:379
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr ""
+"Ignorar elementos de rotas durante o carregamento das configurações do sumo"
 
 #: src/netedit/GNELoadThread.cpp:382
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr ""
+"Se a faixa for menor que o adicional, habilitar friendlyPos automaticamente"
 
 #: src/netedit/GNELoadThread.cpp:385
 msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
 msgstr ""
+"Se habilitado, os elementos carregados serão salvos independentemente de "
+"terem sido editados ou não (geralmente usado em testes do netedit)"
 
 #: src/netedit/GNELoadThread.cpp:390
 msgid "Prefix for node naming"
-msgstr ""
+msgstr "Prefixo para o nome das junções"
 
 #: src/netedit/GNELoadThread.cpp:393
 msgid "Prefix for edge naming"
-msgstr ""
+msgstr "Prefixo para os nomes das arestas"
 
 #: src/netedit/GNELoadThread.cpp:396
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
@@ -4629,95 +4643,95 @@ msgstr "Habilitar o infixo de aresta (<fromNodeID><infixo><toNodeID>)"
 
 #: src/netedit/GNELoadThread.cpp:401
 msgid "Prefix for busStop naming"
-msgstr ""
+msgstr "Prefixo para os nomes das paradas de ônibus"
 
 #: src/netedit/GNELoadThread.cpp:404
 msgid "Prefix for trainStop naming"
-msgstr ""
+msgstr "Prefixo para o nome das paradas de trem"
 
 #: src/netedit/GNELoadThread.cpp:407
 msgid "Prefix for containerStop naming"
-msgstr ""
+msgstr "Prefixo para o nome das paradas de container"
 
 #: src/netedit/GNELoadThread.cpp:410
 msgid "Prefix for chargingStation naming"
-msgstr ""
+msgstr "Prefixo para o nome das estações de carregamento"
 
 #: src/netedit/GNELoadThread.cpp:413
 msgid "Prefix for parkingArea naming"
-msgstr ""
+msgstr "Prefixo para o nome das áreas de estacionamento"
 
 #: src/netedit/GNELoadThread.cpp:416
 msgid "Prefix for e1Detector naming"
-msgstr ""
+msgstr "Prefixo para o nome dos detectores e1"
 
 #: src/netedit/GNELoadThread.cpp:419
 msgid "Prefix for e2Detector naming"
-msgstr ""
+msgstr "Prefixo para o nome dos detectores e2"
 
 #: src/netedit/GNELoadThread.cpp:422
 msgid "Prefix for e3Detector naming"
-msgstr ""
+msgstr "Prefixo para o nome dos detectores e3"
 
 #: src/netedit/GNELoadThread.cpp:425
 msgid "Prefix for e1InstantDetector naming"
-msgstr ""
+msgstr "Prefixo para o nome dos detectores e1 instant"
 
 #: src/netedit/GNELoadThread.cpp:428
 msgid "Prefix for rerouter naming"
-msgstr ""
+msgstr "Prefixo para o nome do rerouter"
 
 #: src/netedit/GNELoadThread.cpp:431
 msgid "Prefix for calibrator naming"
-msgstr ""
+msgstr "Prefixo para o nome do calibrador"
 
 #: src/netedit/GNELoadThread.cpp:434
 msgid "Prefix for routeProbe naming"
-msgstr ""
+msgstr "Prefixo para o nome dos routeProbe"
 
 #: src/netedit/GNELoadThread.cpp:437
 msgid "Prefix for variable speed sign naming"
-msgstr ""
+msgstr "Prefixo para a nomeação de sinais de velocidade variável"
 
 #: src/netedit/GNELoadThread.cpp:440
 msgid "Prefix for traction substation naming"
-msgstr ""
+msgstr "Prefixo para o nome de sinais de velocidade variável"
 
 #: src/netedit/GNELoadThread.cpp:443
 msgid "Prefix for overhead wire naming"
-msgstr ""
+msgstr "Prefixo para o nome de fios aéreos"
 
 #: src/netedit/GNELoadThread.cpp:446
 msgid "Prefix for polygon naming"
-msgstr ""
+msgstr "Prefixo para o nome dos polígonos"
 
 #: src/netedit/GNELoadThread.cpp:449
 msgid "Prefix for poi naming"
-msgstr ""
+msgstr "Prefixo para o nome dos pontos de interesse"
 
 #: src/netedit/GNELoadThread.cpp:452
 msgid "Prefix for jps walkable area naming"
-msgstr ""
+msgstr "Prefixo para o nome das áreas caminháveis do JuPedSim"
 
 #: src/netedit/GNELoadThread.cpp:455
 msgid "Prefix for jps obstacle naming"
-msgstr ""
+msgstr "Prefixo para o nome de obstáculos do JuPedSim"
 
 #: src/netedit/GNELoadThread.cpp:460
 msgid "Prefix for route naming"
-msgstr ""
+msgstr "Prefixo para o nome das rotas"
 
 #: src/netedit/GNELoadThread.cpp:463
 msgid "Prefix for route distribution naming"
-msgstr ""
+msgstr "Prefixo para o nome das distribuições de rotas"
 
 #: src/netedit/GNELoadThread.cpp:466
 msgid "Prefix for type naming"
-msgstr ""
+msgstr "Prefixo para o nome dos tipos"
 
 #: src/netedit/GNELoadThread.cpp:469
 msgid "Prefix for type distribution naming"
-msgstr ""
+msgstr "Prefixo para o nome das distribuições de tipos"
 
 #: src/netedit/GNELoadThread.cpp:472
 msgid "Prefix for vehicle naming"
