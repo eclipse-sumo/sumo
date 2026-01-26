@@ -49,9 +49,8 @@ case "$ID" in
     almalinux)
         # this is only tested with quay.io/pypa/manylinux_2_28_x86_64 and will probably not work with vanilla almalinux
         dnf install -y epel-release
-        for i in 0 1; do
-            dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig gdal-devel eigen3-devel geos-devel
-        done
+        dnf -y update
+        dnf install -y ccache xerces-c-devel proj-devel bzip2-devel gl2ps-devel swig gdal-devel eigen3-devel geos-devel
         # fox dependencies
         dnf install -y libX11-devel libXft-devel libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel mesa-libGLU-devel freetype-devel fontconfig-devel libjpeg-turbo-devel libpng-devel
         # installing arrow / parquet
