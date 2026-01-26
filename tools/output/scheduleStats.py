@@ -25,7 +25,6 @@ from __future__ import print_function
 
 import os
 import sys
-from math import isnan
 
 import pandas as pd
 
@@ -43,14 +42,14 @@ STATS = {
     'd': ('depart delay', lambda r, s: s.add(r['sim_ended'] - r['until'], key(r))),
     'a': ('arrival delay', lambda r, s: s.add(r['sim_started'] - r['arrival'], key(r))),
     'de': ('depart delay',
-           lambda r, s: s.add(r['sim_ended'] - (r['until'] if isnan(r['ended']) else r['ended']), key(r))),
+           lambda r, s: s.add(r['sim_ended'] - (r['until'] if pd.isna(r['ended']) else r['ended']), key(r))),
     'as': ('arrival delay',
-           lambda r, s: s.add(r['sim_started'] - (r['arrival'] if isnan(r['started']) else r['started']), key(r))),
+           lambda r, s: s.add(r['sim_started'] - (r['arrival'] if pd.isna(r['started']) else r['started']), key(r))),
     's': ('stop delay', lambda r, s: s.add(r['until'] - r['arrival'] - (r['sim_ended'] - r['sim_started']), key(r))),
     't': ('traveltime schedule delta', lambda r, s: s.add(r['traveltime'] - (r['sim_traveltime'])
-          if not isnan(r['traveltime']) and not isnan(r['sim_traveltime']) else 0, key(r))),
+          if pd.notna(r['traveltime']) and pd.notna(r['sim_traveltime']) else 0, key(r))),
     'T': ('traveltime recording delta', lambda r, s: s.add(r['traveltime_actual'] - (r['sim_traveltime'])
-          if not isnan(r['traveltime_actual']) and not isnan(r['sim_traveltime']) else 0, key(r))),
+          if pd.notna(r['traveltime_actual']) and pd.notna(r['sim_traveltime']) else 0, key(r))),
 }
 
 GROUPSTATS = {
@@ -123,7 +122,7 @@ def key(row):
 
 
 def main(options):
-    nan = float("nan")
+    nan = pd.NA
 
     columns = [
         'vehID',
@@ -163,10 +162,10 @@ def main(options):
                 started = stop.getAttributeSecure("started", nan)
                 ended = stop.getAttributeSecure("ended", nan)
                 traveltime = nan
-                if not isnan(priorUntil.get(vehID, nan)) and not isnan(arrival):
+                if pd.notna(priorUntil.get(vehID, nan)) and pd.notna(arrival):
                     traveltime = arrival - priorUntil[vehID]
                 traveltime_actual = nan
-                if not isnan(priorEnded.get(vehID, nan)) and not isnan(started):
+                if pd.notna(priorEnded.get(vehID, nan)) and pd.notna(started):
                     traveltime_actual = started - priorEnded[vehID]
 
                 priorStops[vehID] = stopID
@@ -192,7 +191,7 @@ def main(options):
         started = stop.getAttributeSecure("started", nan)
         ended = stop.getAttributeSecure("ended", nan)
         sim_traveltime = nan
-        if not isnan(priorEnded.get(vehID, nan)) and not isnan(started):
+        if pd.notna(priorEnded.get(vehID, nan)) and pd.notna(started):
             sim_traveltime = started - priorEnded[vehID]
         priorStops[vehID] = stopID
         priorEnded[vehID] = ended
@@ -210,7 +209,7 @@ def main(options):
                   # how="outer",
                   how="inner",
                   )
-
+    df = df.convert_dtypes()  # convert None to pd.NA
     print("Found %s matches" % len(df))
 
     if options.verbose:
