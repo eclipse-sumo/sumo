@@ -11,8 +11,8 @@ individual vehicles. Devices are notified about all vehicle movements
 and may interact with the vehicle or with other devices. An important
 aspect of devices is, that it is possible to equip only a fraction of
 the simulated vehicles. Many devices provide additional outputs but others may also change behavior.
-For details, refer to the complete list of [vehicle devices](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#devices).
-See also, the list of [person devices](../Specification/Persons.md#devices).
+For details, refer to the complete list of [vehicle devices](../../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#devices).
+See also, the list of [person devices](../../Specification/Persons.md#devices).
 
 The devices can all be found in src/microsim/devices and the Example-Device exists as an implementation example for custom devices.
 
