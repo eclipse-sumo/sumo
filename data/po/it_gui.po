@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2025-12-12 18:23+0000\n"
+"PO-Revision-Date: 2026-01-26 19:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -2591,34 +2592,38 @@ msgstr "Opzioni invalide. Niente è stato caricato"
 
 #: src/netedit/GNEApplicationWindow.cpp:1342
 msgid "Could not build projection. Nothing loaded"
-msgstr ""
+msgstr "La proiezione non poteva essere creata. Niente è stato caricato"
 
 #: src/netedit/GNEApplicationWindow.cpp:1345
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
 msgstr ""
+"Estensione invalida per un file di configurazione. Le uniche estensioni "
+"autorizzate sono -netecfg, -sumocfg e -netccfg"
 
 #: src/netedit/GNEApplicationWindow.cpp:1348
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
 msgstr ""
+"Opzione di rete d'ingresso invalida. Caricane una con una configurazione "
+"sumo/netedit/netconvert oppure usa l'opzione --new"
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
 #, c-format
 msgid "Netedit config '%' loaded"
-msgstr ""
+msgstr "Configurazione netedit '%' caricata"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
 #, c-format
 msgid "Sumo config '%' loaded"
-msgstr ""
+msgstr "Configurazione sumo '%' caricata"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
 #, c-format
 msgid "Netconvert config '%' loaded"
-msgstr ""
+msgstr "Configurazione netconvert '%' caricata"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
 #, c-format
@@ -2628,7 +2633,7 @@ msgstr "Rete '%' caricata"
 #: src/netedit/GNEApplicationWindow.cpp:1371
 #, c-format
 msgid "OSM Network '%' loaded"
-msgstr ""
+msgstr "Rete OSM '%' caricata"
 
 #: src/netedit/GNEApplicationWindow.cpp:1374
 #, c-format
@@ -2888,18 +2893,26 @@ msgstr "Il salvataggio del file di incroci combinati è fallito"
 #: src/netedit/GNEApplicationWindow.cpp:3554
 msgid "Saving of netedit configuration aborted (due network)."
 msgstr ""
+"Il salvataggio della configurazione netedit è stato cancellato (a causa "
+"della rete)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3558
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr ""
+"Il salvataggio della configurazione netedit è stato cancellato (a causa del "
+"file di elementi addizionali)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3562
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr ""
+"Il salvataggio della configurazione netedit è stato cancellato (a causa del "
+"file di domanda)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3566
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr ""
+"Il salvataggio della configurazione netedit è stato cancellato (a causa del "
+"file di dati)."
 
 #: src/netedit/GNEApplicationWindow.cpp:3570
 msgid "Saving of netedit configuration aborted (due meanData file)."
