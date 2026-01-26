@@ -53,7 +53,7 @@ error dynamics.
 
 | Parameter                                | Type  | Default                     | Description          |
 | ---------------------------------------- | ----- | --------------------------- | ---------------------------------------- |
-| initialAwareness                         | float | 1.0                         | The initial awareness assigned to the driver state.    |
+| initialAwareness                         | float | 1.0                         | The initial awareness assigned to the driver state. <span style="color:#FF8000>At awareness 1, the device does not produce any perception errors!</span>  |
 | errorTimeScaleCoefficient                | float | 100.0                       | Time scale constant that controls the time scale of the underlying error process.   |
 | errorNoiseIntensityCoefficient           | float | 0.2                         | Noise intensity constant that controls the noise intensity of the underlying error process.  |
 | speedDifferenceErrorCoefficient          | float | 0.15                        | Scaling coefficient for the error applied to the speed difference input of the car-following model. |
