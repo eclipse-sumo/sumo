@@ -292,7 +292,10 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
     if (step >= 0 && step != myStep) {
         myStep = step;
         myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
-        setTrafficLightSignals(simStep);
+        if (myAmActive) {
+            // when loading from state, the last loaded program isn't always the active one
+            setTrafficLightSignals(simStep);
+        }
         tlcontrol.get(getID()).executeOnSwitchActions();
     }
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
