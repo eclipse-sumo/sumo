@@ -735,7 +735,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     int firstIndex = -1;
     int i = 0;
     for (const WAUTSwitch& s : w->switches) {
-        if (s.when > SIMSTEP && s.when < minExecTime) {
+        if (s.when >= SIMSTEP && s.when < minExecTime) {
             minExecTime = s.when;
             firstIndex = i;
         }
