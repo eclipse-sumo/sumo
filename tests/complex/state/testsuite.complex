@@ -150,3 +150,8 @@ remove_reuse
 
 # see #17526
 waut
+
+# see #17526
+# 
+# save at waut switch time
+waut2
