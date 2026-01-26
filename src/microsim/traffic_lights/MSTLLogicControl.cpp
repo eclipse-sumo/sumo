@@ -732,10 +732,11 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     std::string initProg = myWAUTs[wautid]->startProg;
     // get the switch to be performed as first
     std::vector<WAUTSwitch>::const_iterator first = w->switches.end();
-    SUMOTime minExecTime = -1;
+    SUMOTime minExecTime = SUMOTime_MAX;
     for (std::vector<WAUTSwitch>::const_iterator i = w->switches.begin(); i != w->switches.end(); ++i) {
-        if ((*i).when > MSNet::getInstance()->getCurrentTimeStep() && (minExecTime == -1 || (*i).when < minExecTime)) {
-            minExecTime = (*i).when;
+        const SUMOTime t = (*i).when;
+        if (t > SIMSTEP && t < minExecTime) {
+            minExecTime = t;
             first = i;
         }
     }
@@ -743,8 +744,7 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     if (first != w->switches.end()) {
         std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-            new SwitchInitCommand(*this, wautid, (int)distance(mbegin, first)),
-            (*first).when);
+            new SwitchInitCommand(*this, wautid, (int)distance(mbegin, first)), minExecTime);
     }
     /*
     // set the current program to all junctions
