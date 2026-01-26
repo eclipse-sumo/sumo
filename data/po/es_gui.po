@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-20 08:34+0000\n"
+"PO-Revision-Date: 2026-01-26 19:42+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/es/>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5288,7 +5289,7 @@ msgstr "Rutas de contenedores"
 #: src/netedit/GNETagPropertiesDatabase.cpp:524
 #: src/netedit/GNETagPropertiesDatabase.cpp:526
 msgid "Container transports"
-msgstr ""
+msgstr "Transportes de contenedor"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:531
 #: src/netedit/GNETagPropertiesDatabase.cpp:533
@@ -5870,6 +5871,8 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:1401
 msgid "Visual placement to the left of the lane (in righthand networks)"
 msgstr ""
+"Ubicación visual a la izquierda del carril (en redes con circulación por la "
+"derecha)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:1414
 msgid "ParkingSpace"
@@ -7413,7 +7416,7 @@ msgstr "ruta"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6068
 #: src/netedit/GNETagPropertiesDatabase.cpp:6078
 msgid "Ride"
-msgstr ""
+msgstr "Conducción"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6104
 #: src/netedit/GNETagPropertiesDatabase.cpp:6115
@@ -7422,7 +7425,7 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6147
 #: src/netedit/GNETagPropertiesDatabase.cpp:6158
 msgid "PersonStop"
-msgstr ""
+msgstr "Parada de personas"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6175
 #, c-format
@@ -10821,7 +10824,7 @@ msgstr "Eliminar..."
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:773
 msgid "The selected file: %"
-msgstr ""
+msgstr "El archivo seleccionado: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:788
 msgid "File doesn't exist"
@@ -10829,7 +10832,7 @@ msgstr "El archivo no existe"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:789
 msgid "The selected file '%'"
-msgstr ""
+msgstr "El archivo seleccionado '%'"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:790
 msgid "doesn't exist"
@@ -10980,7 +10983,7 @@ msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:115
 msgid "fix positions of invalid additionals"
-msgstr ""
+msgstr "corregir posiciones de elementos adicionales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:123
 msgid "select invalid additionals"
@@ -11022,11 +11025,11 @@ msgstr "Rutas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:66
 msgid "Remove invalid routes"
-msgstr "Eliminar rutas inválidas"
+msgstr "Eliminar rutas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:67
 msgid "Remove invalid routes and save"
-msgstr ""
+msgstr "Eliminar rutas no válidas y guardar"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:71
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:72
