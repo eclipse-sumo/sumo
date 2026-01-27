@@ -124,7 +124,6 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair, no relocatable binaries inside
           MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - name: Preparing wheel libsumo
