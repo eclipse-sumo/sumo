@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-26 19:42+0000\n"
+"PO-Revision-Date: 2026-01-27 18:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3225,7 +3225,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:5099
 #: src/netedit/GNEApplicationWindow.cpp:5100
 msgid "% edge types from '%'."
-msgstr ""
+msgstr "% tipi di archi da '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:136
 msgid "nets"
@@ -4026,7 +4026,7 @@ msgstr "Permetti annullazione-reimpostazione"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Mark current inspected element as front element"
-msgstr ""
+msgstr "Segna l'elemento attualmente ispezionato come elemento frontale"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1324
 msgid "Load additionals in sumo-gui"
@@ -4354,37 +4354,43 @@ msgstr "Va al modo dati."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2263
 msgid "There are invalid options in sumo configuration '%'."
-msgstr ""
+msgstr "Ci sono opzioni invalide nella configurazione sumo '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2266
 msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
 msgstr ""
+"Non ho potuto caricare la configurazione sumo '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2278
 msgid "No network defined in sumo configuration '%'."
-msgstr ""
+msgstr "La configurazione sumo '%' non fa riferimento a nessuna rete."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2316
 msgid "There are invalid options in netconvert configuration '%'."
-msgstr ""
+msgstr "Ci sono opzioni invalide nella configurazione netconvert '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2319
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
 msgstr ""
+"Non ho potuto caricare la configurazione netconvert '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2363
 msgid "There are invalid options in netedit configuration '%'."
-msgstr ""
+msgstr "Ci sono opzioni invalide nella configurazione netedit '%'."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2366
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
 msgstr ""
+"Non ho potuto caricare la configurazione netedit '%':\n"
+" %"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2485
 msgid "Element '% cannot be updateAC in bucket '%'"
@@ -4496,7 +4502,7 @@ msgstr "cancellato dall'utente\n"
 
 #: src/netedit/GNEExternalRunner.cpp:167
 msgid "Error running tool using boost::process"
-msgstr ""
+msgstr "Errore eseguendo un'utensile attraverso boost::process"
 
 #: src/netedit/GNEExternalRunner.cpp:197
 msgid "starting process...\n"
@@ -4536,7 +4542,7 @@ msgstr "Apri un file di configurazione sumo"
 
 #: src/netedit/GNELoadThread.cpp:305
 msgid "Load netedit config"
-msgstr ""
+msgstr "Carica configurazione netedit"
 
 #: src/netedit/GNELoadThread.cpp:311
 msgid "Load sumo config"
@@ -4544,7 +4550,7 @@ msgstr "Carica configurazione sumo"
 
 #: src/netedit/GNELoadThread.cpp:317
 msgid "Load netconvert config"
-msgstr ""
+msgstr "Carica configurazione netconvert"
 
 #: src/netedit/GNELoadThread.cpp:323
 msgid "Load additional and shapes descriptions from FILE(s)"

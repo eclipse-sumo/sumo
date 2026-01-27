@@ -8,9 +8,11 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-22 08:57+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/applications/pt/>\n"
+"PO-Revision-Date: 2026-01-27 18:05+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2614,7 +2616,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:801
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Carrega configurações de vizualização a partir de um arquivo"
 
 #: src/microsim/MSFrame.cpp:804
 msgid "Quits the GUI when the simulation stops"
@@ -2662,15 +2664,15 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:838
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Carregar a janela de visualização atual do registro"
 
 #: src/microsim/MSFrame.cpp:841
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Criar janela inicial com o tamanho x,y dado"
 
 #: src/microsim/MSFrame.cpp:844
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Criar a janela inicial com a posição x,y dada"
 
 #: src/microsim/MSFrame.cpp:847
 msgid "The aggregation period for value tracker windows"
@@ -2682,7 +2684,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:856
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Habilitar sobreposição para reconhecimento de tela"
 
 #: src/microsim/MSFrame.cpp:860
 msgid "Enable output messages during GUI-Testing"

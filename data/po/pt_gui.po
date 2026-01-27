@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-26 18:33+0000\n"
+"PO-Revision-Date: 2026-01-27 18:05+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -4735,47 +4735,47 @@ msgstr "Prefixo para o nome das distribuições de tipos"
 
 #: src/netedit/GNELoadThread.cpp:472
 msgid "Prefix for vehicle naming"
-msgstr ""
+msgstr "Prefixo para o nome dos veículos"
 
 #: src/netedit/GNELoadThread.cpp:475
 msgid "Prefix for trip naming"
-msgstr ""
+msgstr "Prefixo para o nome das viagens"
 
 #: src/netedit/GNELoadThread.cpp:478
 msgid "Prefix for flow naming"
-msgstr ""
+msgstr "Prefixo para o nome dos fluxos"
 
 #: src/netedit/GNELoadThread.cpp:481
 msgid "Prefix for person naming"
-msgstr ""
+msgstr "Prefixo para o nome das pessoas"
 
 #: src/netedit/GNELoadThread.cpp:484
 msgid "Prefix for personFlow naming"
-msgstr ""
+msgstr "Prefixo para o nome do fluxo de pessoas"
 
 #: src/netedit/GNELoadThread.cpp:487
 msgid "Prefix for container naming"
-msgstr ""
+msgstr "Prefixo para o nome dos containers"
 
 #: src/netedit/GNELoadThread.cpp:490
 msgid "Prefix for containerFlow naming"
-msgstr ""
+msgstr "Prefixo para o nome dos fluxos de containers"
 
 #: src/netedit/GNELoadThread.cpp:495
 msgid "Prefix for dataSet naming"
-msgstr ""
+msgstr "Prefixo para o nome dos conjuntos de dados"
 
 #: src/netedit/GNELoadThread.cpp:500
 msgid "Prefix for meanDataEdge naming"
-msgstr ""
+msgstr "Prefixo para o nome dos meanDataEdge"
 
 #: src/netedit/GNELoadThread.cpp:503
 msgid "Prefix for meanDataLane naming"
-msgstr ""
+msgstr "Prefixo para o nome dos meanDataLane"
 
 #: src/netedit/GNELoadThread.cpp:510
 msgid "Disable icons of special lanes"
-msgstr ""
+msgstr "Desativa ícones de faixas especiais"
 
 #: src/netedit/GNELoadThread.cpp:513
 msgid "Disable textures"
@@ -4783,23 +4783,23 @@ msgstr "Desativar texturas"
 
 #: src/netedit/GNELoadThread.cpp:516
 msgid "Load visualisation settings from FILE"
-msgstr ""
+msgstr "Carrega configurações de vizualização a partir de um arquivo"
 
 #: src/netedit/GNELoadThread.cpp:521
 msgid "Load current viewport from registry"
-msgstr ""
+msgstr "Carregar a janela de visualização atual do registro"
 
 #: src/netedit/GNELoadThread.cpp:524
 msgid "Create initial window with the given x,y size"
-msgstr ""
+msgstr "Criar janela inicial com o tamanho x,y dado"
 
 #: src/netedit/GNELoadThread.cpp:527
 msgid "Create initial window at the given x,y position"
-msgstr ""
+msgstr "Criar a janela inicial com a posição x,y dada"
 
 #: src/netedit/GNELoadThread.cpp:532
 msgid "Enable overlay for screen recognition"
-msgstr ""
+msgstr "Habilitar sobreposição para reconhecimento de tela"
 
 #: src/netedit/GNELoadThread.cpp:535
 msgid "Enable output messages during GUI-Testing"
@@ -4960,11 +4960,11 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:1546
 msgid "Loading of meandata file failed: "
-msgstr ""
+msgstr "O carregamento do arquivo de meandata falhou "
 
 #: src/netedit/GNENet.cpp:1548
 msgid "Loading of meandata file successfully: "
-msgstr ""
+msgstr "O arquivo de meandata foi carregado com sucesso "
 
 #: src/netedit/GNENet.cpp:1558
 msgid "Finished computing junctions."
@@ -4972,29 +4972,30 @@ msgstr "Cálculo das junções finalizado."
 
 #: src/netedit/GNENet.cpp:1564
 msgid "Computing demand elements ..."
-msgstr ""
+msgstr "Calulando elementos de demanda..."
 
 #: src/netedit/GNENet.cpp:1578
 msgid "Finished computing demand elements."
-msgstr ""
+msgstr "Cálculo dos elementos de demanda finalizado."
 
 #: src/netedit/GNENet.cpp:1584
 msgid "Computing data elements ..."
-msgstr ""
+msgstr "Calculando elementos de demanda..."
 
 #: src/netedit/GNENet.cpp:1591
 msgid "Finished computing data elements."
-msgstr ""
+msgstr "Cálculo dos elementos de demanda finalizado."
 
 #: src/netedit/GNENet.cpp:1656
 msgid "Position of joined junction"
-msgstr ""
+msgstr "Posição da junção unida"
 
 #: src/netedit/GNENet.cpp:1657
 msgid ""
 "There is another unselected junction in the same position of joined "
 "junction."
 msgstr ""
+"Existe outro cruzamento não selecionado na mesma posição do cruzamento unido."
 
 #: src/netedit/GNENet.cpp:1658
 msgid "It will be joined with the other selected junctions. Continue?"
@@ -15062,7 +15063,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:202
 msgid "Save TLS Changes"
-msgstr ""
+msgstr "Salvar mudanças no programa semafórico"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:203
 msgid "There are unsaved changes in the currently edited traffic light."
@@ -15087,11 +15088,11 @@ msgstr " programas"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:428
 msgid "Invalid phase index"
-msgstr ""
+msgstr "Índice de fase inválido"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:524
 msgid "modifying TLS definition"
-msgstr ""
+msgstr "modificando a definição do semáforo (TLS)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:538
 msgid "Unsaved modifications. Abort or Save"
@@ -15104,7 +15105,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:575
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:576
 msgid "Assign E1 detectors"
-msgstr ""
+msgstr "Atribuir detectores E1"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:575
 msgid "Enable assign E1 mode"
@@ -15139,7 +15140,7 @@ msgstr "Juntar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
 msgid "Enable join mode"
-msgstr ""
+msgstr "Habilitar modo de união"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
@@ -15148,7 +15149,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
 msgid "Disable join mode"
-msgstr ""
+msgstr "Desabilitar modo de união"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:917
 msgid "Disjoin"
@@ -15156,11 +15157,11 @@ msgstr "Desjuntar"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:917
 msgid "Disjoin current TLS"
-msgstr ""
+msgstr "Separar semáforo atual"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:917
 msgid "Disjoin current TLS."
-msgstr ""
+msgstr "Separa o semáforo atual."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:922
 msgid "Finish join."
@@ -15181,7 +15182,7 @@ msgstr "renomear semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1136
 msgid "change TLS type"
-msgstr ""
+msgstr "trocar tipo de semáforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1195
 msgid "join TLS"
@@ -15197,7 +15198,7 @@ msgstr "IDs das junções"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1343
 msgid "Traffic Light Programs"
-msgstr ""
+msgstr "Programas semafóricos"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Create TLS"
@@ -15276,7 +15277,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1655
 msgid "reset current program"
-msgstr ""
+msgstr "reestabelecer o programa atual"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1695
 msgid "reset TLS"
@@ -15365,7 +15366,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2823
 msgid "TLS Program File"
-msgstr ""
+msgstr "Arquivo de programa semafórico"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2827
 msgid "Load TLS program from additional file"
@@ -15381,7 +15382,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2915
 msgid "Updated program '"
-msgstr ""
+msgstr "Programa atualizado '"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2915
 msgid "' for tlLogic '"
@@ -15431,19 +15432,19 @@ msgstr "Rede modificada"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:125
 msgid "Output prefix network"
-msgstr ""
+msgstr "Prefixo para a rede de saída"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:129
 msgid "Select modified elements"
-msgstr ""
+msgstr "Selecionar elementos modificados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:132
 msgid "Select added elements"
-msgstr ""
+msgstr "Selecionar elementos adicionados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:135
 msgid "Select deleted elements"
-msgstr ""
+msgstr "Selecionar elementos deletados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:139
 msgid "Load shapes for elements"
@@ -15478,12 +15479,12 @@ msgstr ""
 #: src/netedit/tools/GNEPythonTool.cpp:191
 #, c-format
 msgid "Loaded % configuration."
-msgstr ""
+msgstr "Configuração % carregada."
 
 #: src/netedit/tools/GNEPythonTool.cpp:207
 #, c-format
 msgid "Saved % configuration."
-msgstr ""
+msgstr "Configuração % salva."
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:80
 msgid "&Load selection"
@@ -15613,7 +15614,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:222
 msgid "Error during encoding!"
-msgstr ""
+msgstr "Erro durante a codificação!"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:60
 msgid "Overlapped objects"
@@ -15629,7 +15630,7 @@ msgstr "Selecionar elemento"
 
 #: src/utils/gui/globjects/GUICursorDialog.cpp:66
 msgid "Mark front element"
-msgstr ""
+msgstr "Marcar elemento frontal"
 
 #: src/utils/gui/globjects/GUIGLObjectPopupMenu.cpp:178
 msgid "Object must be a lane"
@@ -15646,12 +15647,12 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:302
 msgid "Remove from Selected"
-msgstr ""
+msgstr "Remover da seleção"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:304
 #: src/utils/gui/globjects/GUIGlObject.cpp:348
 msgid "Add to Selected"
-msgstr ""
+msgstr "Adicionar à seleção"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:335
 msgid "Copy name to clipboard"
@@ -15663,7 +15664,7 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:346
 msgid "Remove From Selected"
-msgstr ""
+msgstr "Remover da seleção"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:358
 msgid "Show Parameter"
@@ -15671,7 +15672,7 @@ msgstr "Mostrar parâmetro"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:367
 msgid "Show Type Parameter"
-msgstr ""
+msgstr "Mostrar parâmetros de tipo"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:376
 msgid "Copy cursor position to clipboard"
@@ -15696,11 +15697,11 @@ msgstr "tipo: %"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:58
 msgid "Replacing POI '%'"
-msgstr ""
+msgstr "Substituindo o Ponto de Interesse (POI) '%'"
 
 #: src/utils/gui/globjects/GUIShapeContainer.cpp:81
 msgid "Replacing polygon '%'"
-msgstr ""
+msgstr "Substituindo polígono '%'"
 
 #: src/utils/gui/images/GUIIconSubSys.cpp:1189
 msgid "Instance was previously created"
@@ -15741,7 +15742,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
 msgid "by param (numerical)"
-msgstr ""
+msgstr "por parâmetro (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 msgid "by edgeData (numerical, streetwise)"
@@ -15749,7 +15750,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
 msgid "by attribute (numerical)"
-msgstr ""
+msgstr "por atributo (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:203
 msgid "by selection"
@@ -16193,7 +16194,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1342
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1791
 msgid "by depart delay"
-msgstr ""
+msgstr "por atraso na partida"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1356
 msgid "by relative battery charge"
@@ -16201,17 +16202,17 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1365
 msgid "by charged energy"
-msgstr ""
+msgstr "por energia carregada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1374
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1797
 msgid "by time loss"
-msgstr ""
+msgstr "por tempo perdido"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1380
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1803
 msgid "by stop delay"
-msgstr ""
+msgstr "por atraso na parada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1389
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1812
@@ -16220,7 +16221,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1399
 msgid "by lateral speed"
-msgstr ""
+msgstr "por velocidade lateral"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1409
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1445
@@ -16232,11 +16233,11 @@ msgstr "aleatório"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1413
 msgid "given person/type color"
-msgstr ""
+msgstr "cor da pessoa/tipo dado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1415
 msgid "given/assigned person color"
-msgstr ""
+msgstr "cor de pessoa dada/atribuida"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1425
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1457
@@ -16268,19 +16269,19 @@ msgstr "acessando parada de trem"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1430
 msgid "waiting for ride"
-msgstr ""
+msgstr "esperando carona"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1438
 msgid "by jammed state"
-msgstr ""
+msgstr "por estado de congestionamento"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1448
 msgid "given container/type color"
-msgstr ""
+msgstr "cor do container/tipo dado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1450
 msgid "given/assigned container color"
-msgstr ""
+msgstr "cor do container dada/atribuída"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1459
 msgid "transport"
@@ -16288,7 +16289,7 @@ msgstr "transporte"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1461
 msgid "waiting for transport"
-msgstr ""
+msgstr "esperando por transporte"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1462
 msgid "tranship"
@@ -16302,12 +16303,12 @@ msgstr "por altura"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1510
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1975
 msgid "given POI color"
-msgstr ""
+msgstr "cor do ponto de interesse dado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1517
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1982
 msgid "given polygon color"
-msgstr ""
+msgstr "cor de polígono dada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1526
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1991
@@ -16320,7 +16321,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1621
 msgid "by purpose (streetwise)"
-msgstr ""
+msgstr "por propósito (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1621
 msgid "normal"
@@ -16361,7 +16362,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1660
 msgid "by segments (alternating)"
-msgstr ""
+msgstr "por segmentos (alternando)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1660
 msgid "odd"
@@ -16418,7 +16419,7 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1913
 msgid "by segment inclination"
-msgstr ""
+msgstr "por inclinação do segmento"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1941
 msgid "junction bubble"
@@ -16438,11 +16439,11 @@ msgstr "forma customizada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2000
 msgid "by origin taz"
-msgstr ""
+msgstr "por zona de análise de tráfego de origem"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2001
 msgid "by destination taz"
-msgstr ""
+msgstr "por zona de análise de tráfego de destino"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:2755
 msgid "No color defined for LinkState '%'"
@@ -16450,7 +16451,7 @@ msgstr ""
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:116
 msgid "Save the data..."
-msgstr ""
+msgstr "Salvar os dados..."
 
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:129
 msgid "Multiplot"
@@ -16482,7 +16483,7 @@ msgstr "&Selecionar/desselecionar"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:98
 msgid "Select/deselect current object"
-msgstr ""
+msgstr "Selecionar/desmarcar objeto atual"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:99
 msgid "&Filter substring"
@@ -16510,7 +16511,7 @@ msgstr "&Atualizar"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:102
 msgid "Reload all ids"
-msgstr ""
+msgstr "Recarregar todos os ids"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:106
 msgid "case-sensitive search"
@@ -16555,7 +16556,7 @@ msgstr "Ver configurações"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1067
 msgid "Enter a name"
-msgstr ""
+msgstr "Colocar um nome"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1069
 msgid "Please enter an alphanumeric name: "
@@ -16563,11 +16564,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1151
 msgid "Export view settings"
-msgstr ""
+msgstr "Exportar configurações de visualização"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1204
 msgid "Import view settings"
-msgstr ""
+msgstr "Importar configuração de visualização"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1221
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1238
@@ -16586,11 +16587,11 @@ msgstr "Sem dados"
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1696
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1741
 msgid "Only for selected"
-msgstr ""
+msgstr "Apenas para selecionados"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1698
 msgid "constant text size"
-msgstr ""
+msgstr "tamanho de texto constante"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1706
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1879
@@ -16680,11 +16681,11 @@ msgstr "Imagens de fundo:"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1886
 msgid "&Load XML Decals"
-msgstr ""
+msgstr "&Carregar imagens de fundo XML"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1887
 msgid "&Save XML Decals"
-msgstr ""
+msgstr "&Salvar imagem de fundo XML"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1888
 msgid "&Clear Decals"
@@ -16726,15 +16727,15 @@ msgstr "Escalar largura"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1957
 msgid "Show bike markings"
-msgstr ""
+msgstr "Mostrar marcações de bicicletas"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1959
 msgid "Show turning arrows"
-msgstr ""
+msgstr "Mostrar setas de conversão"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1962
 msgid "Show right-of-way rules"
-msgstr ""
+msgstr "Mostrar regras de direito de preferência"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1964
 msgid "Realistic stop line colors"
