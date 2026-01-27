@@ -33,7 +33,7 @@ import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 from agilepy.lib_base.geometry import *
 from agilepy.lib_base.processes import Process
-from mapmatching import COLOR_MATCHED_ROUTE, COLOR_SHORTEST_ROUTE, COLOR_FASTEST_ROUTE
+from .mapmatching import COLOR_MATCHED_ROUTE, COLOR_SHORTEST_ROUTE, COLOR_FASTEST_ROUTE
 import time
 try:
     from scipy import interpolate
@@ -257,7 +257,7 @@ class PointresultPlotter(PlotoptionsMixin, Process):
 
         # Plot net
         if self.is_net:
-            print 'plot net'
+            print('plot net')
             plot_net(ax, net, color_edge="gray", width_edge=2, color_node=None,
                      alpha=0.5)
         # Plot zones
@@ -280,7 +280,7 @@ class PointresultPlotter(PlotoptionsMixin, Process):
         # select points
         ids_final_point = np.zeros((len(ids_trip)), dtype=np.int32)
         ids_initial_point = np.zeros((len(ids_trip)), dtype=np.int32)
-        for id_trip, ids_point, i in zip(trips.get_ids(), ids_points, range(len(ids_trip))):
+        for id_trip, ids_point, i in zip(trips.get_ids(), ids_points, list(range(len(ids_trip)))):
             ids_final_point[i] = ids_point[-1]
             ids_initial_point[i] = ids_point[0]
             if self.select_points == 1:
@@ -306,7 +306,7 @@ class PointresultPlotter(PlotoptionsMixin, Process):
 # ids_final_point.tolist()
             ids_point = ids_initial_point.tolist()
             ids_point.extend(ids_final_point)
-            print ids_initial_point, ids_final_point, ids_points
+            print(ids_initial_point, ids_final_point, ids_points)
         if self.points_type == 4:
             ids_point = points.get_ids(points.are_selected.get_value() == True)
         coords = points.coords[ids_point]
@@ -325,7 +325,7 @@ class PointresultPlotter(PlotoptionsMixin, Process):
             for coord, id_point in zip(coords, ids_point):
                 coord = np.array([coord[0], coord[1]])
                 id_closest_edge = net.edges.get_closest_edge(coord)
-                print 'point', id_point
+                print('point', id_point)
                 if id_closest_edge > 0:
                     if self.select_points == 1:
                         time = (points.timestamps[id_point] - trips.timestamps[points.ids_trip[id_point]])/60.0
@@ -346,10 +346,10 @@ class PointresultPlotter(PlotoptionsMixin, Process):
                         # For the isochrone plot
 # if self.is_isochrone:
 ##                    times_point[id_point] = time
-            print 'number of points:', np.sum(count)
+            print('number of points:', np.sum(count))
 
             # Plot result on map
-            print 'plot results on map'
+            print('plot results on map')
             if self.select_points == 1:
                 title = 'Isochrone from the origin zone'
             if self.select_points == 2:
@@ -470,7 +470,7 @@ class PointresultPlotter(PlotoptionsMixin, Process):
                     else:
                         isochrone_shapes[i].append([(points.coords[iso_points[np.argmax(iso_points[:, 3]), 1]][0]),
                                                     (points.coords[iso_points[np.argmax(iso_points[:, 3]), 1]][1])])
-        print isochrone_shapes
+        print(isochrone_shapes)
         for isochrone_shape in isochrone_shapes:
             verts = np.array(isochrone_shape)[:, :2].tolist()
             verts.append([0, 0])
@@ -487,9 +487,9 @@ class PointresultPlotter(PlotoptionsMixin, Process):
 
             if len(isochrone_shape) > 4:
                 zone_shape = isochrone_shape
-                print zone_shape
-                for zone_shape_coords, i in zip(isochrone_shape, range(len(isochrone_shape))):
-                    print i, len(isochrone_shape)
+                print(zone_shape)
+                for zone_shape_coords, i in zip(isochrone_shape, list(range(len(isochrone_shape)))):
+                    print(i, len(isochrone_shape))
                     if i == 0:
                         zone_shape[i] = ((np.array(isochrone_shape[i])+np.array(isochrone_shape[i+1])+np.array(
                             isochrone_shape[-1])+np.array(isochrone_shape[i+2])+np.array(isochrone_shape[-2]))/5.).tolist()
@@ -539,7 +539,7 @@ class NoderesultPlotter(PlotoptionsMixin, Process):
         ])
         self.plottheme = attrsman.add(cm.AttrConf('plottheme', kwargs.get('plottheme', 'times wait'),
                                                   groupnames=['options'],
-                                                  choices=self.plotthemefuncs.keys(),
+                                                  choices=list(self.plotthemefuncs.keys()),
                                                   name='Plot theme',
                                                   info='Theme  or edge attribute to be plottet.',
                                                   ))
@@ -560,7 +560,7 @@ class NoderesultPlotter(PlotoptionsMixin, Process):
         attrsman.delete('is_widthvalue')
 
     def plot_all_themes(self):
-        for plottheme in self.plotthemefuncs.keys():
+        for plottheme in list(self.plotthemefuncs.keys()):
             self.plottheme = plottheme
             self.show()
 ##
@@ -599,7 +599,7 @@ class NoderesultPlotter(PlotoptionsMixin, Process):
         return self.parent.nodesresults
 
     def show(self):
-        print 'NoderesultPlotter.show', self.plottheme
+        print('NoderesultPlotter.show', self.plottheme)
         # if self.axis  is None:
         #axis = init_plot()
         self.init_figures()
@@ -607,9 +607,9 @@ class NoderesultPlotter(PlotoptionsMixin, Process):
         axis = fig.add_subplot(111)
         self.plotthemefuncs[self.plottheme](axis)
 
-        print '  self.is_save', self.is_save
+        print('  self.is_save', self.is_save)
         if not self.is_save:
-            print '  show_plot'
+            print('  show_plot')
             show_plot()
         else:
             figname = 'nodeplot_'+self.plottheme
@@ -628,7 +628,7 @@ class NoderesultPlotter(PlotoptionsMixin, Process):
             plt.close(fig)
 
     def plot_times_wait(self, ax):
-        print 'show noderesults', len(self.parent.nodesresults)
+        print('show noderesults', len(self.parent.nodesresults))
         # if self.axis  is None:
 
         nodesresults = self.parent.nodesresults
@@ -824,7 +824,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
 
     def plot_speed_over_time(self, ax, id_trip, id_route, edges, i_min=None, i_max=None,
                              is_pointlabel=True, alpha=1.0):
-        print 'plot_speed_over_time', id_trip, type(id_trip), self.parent.parent
+        print('plot_speed_over_time', id_trip, type(id_trip), self.parent.parent)
 
         #mapmatching = self.parent.parent
         #trips = mapmatching.trips
@@ -868,7 +868,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
 
         if is_scipy & (not (self.method_interp == 'linear')):
 
-            print 'use scipy to interpolate'
+            print('use scipy to interpolate')
             #tck = interpolate.splrep(x, y, s=0)
             #xnew = np.linspace(np.min(x), np.max(x), 200)
             #ynew = interpolate.splev(xnew, tck, der=0)
@@ -895,7 +895,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
 
     def plot_speed_over_way(self, ax, id_trip, id_route, edges, i_min=None, i_max=None,
                             is_pointlabel=True, alpha=1.0):
-        print 'plot_speed_over_way', id_trip, type(id_trip), self.parent.parent
+        print('plot_speed_over_way', id_trip, type(id_trip), self.parent.parent)
 
         #mapmatching = self.parent.parent
         #trips = mapmatching.trips
@@ -933,10 +933,10 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
         y = np.array(speeds, dtype=np.float32)*3.6  # in km/h
 
         #ax = init_plot()
-        print '  ids_point', routeresults.ids_valid_point_speedana[id_routeres]
-        print '  position', pointspositions
-        print '  x', x
-        print '  y', y
+        print('  ids_point', routeresults.ids_valid_point_speedana[id_routeres])
+        print('  position', pointspositions)
+        print('  x', x)
+        print('  y', y)
         #ax.plot(locations, speeds, color = self.color_line[:2], lw = self.width_line ,alpha=0.9 ,zorder = 0)
 
         if is_scipy & (not (self.method_interp == 'linear')):
@@ -964,7 +964,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                         fontsize=int(0.8*self.size_labelfont))  # baseline
 
     def show(self):
-        print 'show', self.id_trip, type(self.id_trip), self.parent.parent
+        print('show', self.id_trip, type(self.id_trip), self.parent.parent)
         # if self.axis  is None:
 
         if self.id_trip >= 0:
@@ -1054,8 +1054,8 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
             id_arc_last = 0
             i_point = 0
             pointstime = routeresults.speedana_point_times[id_routeres]
-            print '  len(ids_pointedge)', len(ids_pointedge)
-            print '  len(pointstime)', len(pointstime)
+            print('  len(ids_pointedge)', len(ids_pointedge))
+            print('  len(pointstime)', len(pointstime))
 
             # if len(pointstime)>1:
             #    t_last = pointstime[1]
@@ -1076,7 +1076,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                 routeresults.speedana_point_pos[id_routeres],
             ):
 
-                print '  id_arc_point', id_arc_point, 'is_connection_point', is_connection_point, 'id_arc_last', id_arc_last, id_arc_point != id_arc_last, 'pos=%.2fm, t=%.2fs, v=%.2fkm/h' % (pos, t, v*3.6),
+                print('  id_arc_point', id_arc_point, 'is_connection_point', is_connection_point, 'id_arc_last', id_arc_last, id_arc_point != id_arc_last, 'pos=%.2fm, t=%.2fs, v=%.2fkm/h' % (pos, t, v*3.6), end=' ')
                 color = 'k'
                 if (id_arc_point != id_arc_last):
 
@@ -1181,7 +1181,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
             cumulative_dists = np.insert(cumulative_dists, 0, 0.).tolist()
             ids_arc = routeresults.ids_arc[id_routeres]
             are_connections = routeresults.is_connection[id_routeres]
-            print cumulative_dists, ids_arc
+            print(cumulative_dists, ids_arc)
 
             for cumulative_dist, id_arc, is_connection in zip(cumulative_dists, ids_arc, are_connections):
 
@@ -1210,7 +1210,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                         if self.is_waitslabel_tls & (time_wait_tls > 0):
                             label += ' $T_{\mathrm{TL}}=%ds$' % time_wait_tls
 
-                        print '  id_edge', id_arc, 'pos=%df' % cumulative_dist, 'time_wait', time_wait, 'time_wait_junc', time_wait_junc, 'time_wait_tls', time_wait_tls
+                        print('  id_edge', id_arc, 'pos=%df' % cumulative_dist, 'time_wait', time_wait, 'time_wait_junc', time_wait_junc, 'time_wait_tls', time_wait_tls)
 
                         ax.text(cumulative_dist, ymin, label,
                                 verticalalignment='bottom',
@@ -1219,7 +1219,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                                 color=color,
                                 fontsize=int(0.8*self.size_labelfont))
                     else:
-                        print 'the edge', id_arc, 'is not in the edgeresult database'
+                        print('the edge', id_arc, 'is not in the edgeresult database')
                 else:
                     if connectionsresults.ids_connection.has_index(id_arc):
                         id_connectionres = connectionsresults.ids_connection.get_id_from_index(id_arc)
@@ -1237,7 +1237,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                         if self.is_waitslabel_tls & (time_wait_tls > 0):
                             label += ' $T_{\mathrm{TL}}=%ds$' % time_wait_tls
 
-                        print '  id_connection', id_arc, 'pos=%df' % x, 'time_wait', time_wait, 'time_wait_junc', time_wait_junc, 'time_wait_tls', time_wait_tls
+                        print('  id_connection', id_arc, 'pos=%df' % x, 'time_wait', time_wait, 'time_wait_junc', time_wait_junc, 'time_wait_tls', time_wait_tls)
 
                         ax.text(cumulative_dist, ymin, label,
                                 verticalalignment='bottom',
@@ -1246,7 +1246,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
                                 color=color,
                                 fontsize=int(0.8*self.size_labelfont))
                     else:
-                        print 'the connection', id_arc, 'is not in the connectionresult database'
+                        print('the connection', id_arc, 'is not in the connectionresult database')
 
                 ax.plot([cumulative_dist, cumulative_dist], [ymin, ymax], color=color, linestyle=linestyle)
 
@@ -1315,7 +1315,7 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         ])
         self.plottheme = attrsman.add(cm.AttrConf('plottheme', kwargs.get('plottheme', 'average speeds'),
                                                   groupnames=['options'],
-                                                  choices=self.plotthemefuncs.keys(),
+                                                  choices=list(self.plotthemefuncs.keys()),
                                                   name='Plot theme',
                                                   info='Theme  or edge attribute to be plottet.',
                                                   ))
@@ -1331,12 +1331,12 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def plot_all_themes(self):
-        for plottheme in self.plotthemefuncs.keys():
+        for plottheme in list(self.plotthemefuncs.keys()):
             self.plottheme = plottheme
             self.show()
 
     def show(self):
-        print 'EdgeresultPlotter.show', self.plottheme
+        print('EdgeresultPlotter.show', self.plottheme)
         # if self.axis  is None:
         #axis = init_plot()
         self.init_figures()
@@ -1344,9 +1344,9 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         axis = fig.add_subplot(111)
         self.plotthemefuncs[self.plottheme](axis)
 
-        print '  self.is_save', self.is_save
+        print('  self.is_save', self.is_save)
         if not self.is_save:
-            print '  show_plot'
+            print('  show_plot')
             show_plot()
         else:
             figname = 'edgeplot_'+self.plottheme
@@ -1373,7 +1373,7 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         ids_edge = edges.get_ids()
         #resultattrconf = getattr(self.parent.edgesresults, self.edgeattrname)
         average_slopes = edges.average_slopes
-        print ids_edge, average_slopes[ids_edge]
+        print(ids_edge, average_slopes[ids_edge])
         self.plot_results_on_map(ax,
                                  values=average_slopes[ids_edge],
                                  ids_edge=ids_edge,
@@ -1387,7 +1387,7 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         ids_edge = edges.get_ids()
         #resultattrconf = getattr(self.parent.edgesresults, self.edgeattrname)
         positive_climbs = edges.positive_climbs
-        print ids_edge, positive_climbs[ids_edge]
+        print(ids_edge, positive_climbs[ids_edge])
         self.plot_results_on_map(ax,
                                  values=positive_climbs[ids_edge],
                                  ids_edge=ids_edge,
@@ -1401,7 +1401,7 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
         ids_edge = edges.get_ids()
         #resultattrconf = getattr(self.parent.edgesresults, self.edgeattrname)
         negative_climbs = edges.negative_climbs
-        print ids_edge, negative_climbs[ids_edge]
+        print(ids_edge, negative_climbs[ids_edge])
         self.plot_results_on_map(ax,
                                  values=negative_climbs[ids_edge],
                                  ids_edge=ids_edge,
@@ -1459,7 +1459,7 @@ class EdgeresultPlotter(PlotoptionsMixin, Process):
     def plot_speeds_average(self, ax):
         edgesresults = self.parent.edgesresults
 
-        print 'plot_speeds_average'
+        print('plot_speeds_average')
 
         #ids_result = edgesresults.get_ids()
         ids_result = edgesresults.select_ids(
@@ -1562,7 +1562,7 @@ class ConnectionresultPlotter(PlotoptionsMixin, Process):
         ])
         self.plottheme = attrsman.add(cm.AttrConf('plottheme', kwargs.get('plottheme', 'times wait'),
                                                   groupnames=['options'],
-                                                  choices=self.plotthemefuncs.keys(),
+                                                  choices=list(self.plotthemefuncs.keys()),
                                                   name='Plot theme',
                                                   info='Theme  or edge attribute to be plottet.',
                                                   ))
@@ -1578,12 +1578,12 @@ class ConnectionresultPlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def plot_all_themes(self):
-        for plottheme in self.plotthemefuncs.keys():
+        for plottheme in list(self.plotthemefuncs.keys()):
             self.plottheme = plottheme
             self.show()
 
     def show(self):
-        print 'connectionresultPlotter.show', self.plottheme
+        print('connectionresultPlotter.show', self.plottheme)
         # if self.axis  is None:
         #axis = init_plot()
         self.init_figures()
@@ -1591,9 +1591,9 @@ class ConnectionresultPlotter(PlotoptionsMixin, Process):
         axis = fig.add_subplot(111)
         self.plotthemefuncs[self.plottheme](axis)
 
-        print '  self.is_save', self.is_save
+        print('  self.is_save', self.is_save)
         if not self.is_save:
-            print '  show_plot'
+            print('  show_plot')
             show_plot()
         else:
             figname = 'connectionplot_'+self.plottheme
@@ -1694,12 +1694,12 @@ class AlternativeRoutesPlotter(PlotoptionsMixin, Process):
 
         # configure fixed options as privat (non visible for gui)
         attrsman = self.get_attrsman()
-        for attrname in kwargs_fixed.keys():
+        for attrname in list(kwargs_fixed.keys()):
             attrconf = attrsman.get_config(attrname)
             attrconf.add_groupnames(['_private'])
 
     def show(self):
-        print 'AlternativeRoutesPlotter.show'
+        print('AlternativeRoutesPlotter.show')
         # if self.axis  is None:
         #axis = init_plot()
         title = 'Route alternatives'
@@ -1772,7 +1772,7 @@ class AlternativeRoutesPlotter(PlotoptionsMixin, Process):
                                       is_colorbar=False,
                                       )
             else:
-                print 'WARNING in AlternativeRoutesPlotter.show ids_edge=', ids_edge_all, 'of id_trip', id_trip
+                print('WARNING in AlternativeRoutesPlotter.show ids_edge=', ids_edge_all, 'of id_trip', id_trip)
 
         if self.is_show_title:
             axis.set_title(title, fontsize=self.size_titlefont)
@@ -1787,9 +1787,9 @@ class AlternativeRoutesPlotter(PlotoptionsMixin, Process):
         axis.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
         ## save or show
-        print '  self.is_save', self.is_save
+        print('  self.is_save', self.is_save)
         if not self.is_save:
-            print '  show_plot'
+            print('  show_plot')
             show_plot()
         else:
             self.save_fig('altroutesplot')
@@ -1804,7 +1804,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         self._init_common('routeresultplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'Resultplotter.__init__', results, self.parent
+        print('Resultplotter.__init__', results, self.parent)
         attrsman = self.get_attrsman()
 
         mapmatching = self.parent.parent
@@ -2158,20 +2158,20 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             show_plot()
 
     def plot_bike_availability_ffbss(self):
-        print 'plot_bike_availability_ffbss'
+        print('plot_bike_availability_ffbss')
         # Print the number of bikes simultaneously used every 24h/n_bins hours by selecting traces of a particular day
         fig = self.create_figure()
         mapmatching = self.parent.parent
         trips = mapmatching.trips
         ids_trip = trips.get_ids()[(trips.are_selected[trips.get_ids()] == True)]
         dep_arr_times = np.zeros((len(ids_trip), 2))
-        for i, id_trip in zip(range(len(ids_trip)), ids_trip):
+        for i, id_trip in zip(list(range(len(ids_trip))), ids_trip):
             t = time.localtime(trips.timestamps[id_trip])
             dep_arr_times[i, 0] = t.tm_hour + t.tm_min/60.0 + t.tm_sec/3600.0
             dep_arr_times[i, 1] = dep_arr_times[i, 0] + trips.durations_gps[id_trip]/3600.0
         self.n_bins
 ##        dep_arr_times = np.sort(dep_arr_times.sort, axis = 0)
-        print dep_arr_times[:1000]
+        print(dep_arr_times[:1000])
         ax = fig.add_subplot(111)
         x_min = min(dep_arr_times[:, 0])
         x_max = max(dep_arr_times[:, 0])
@@ -2179,10 +2179,10 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         bike_usage = np.zeros(self.n_bins)
 
         for id_trip, dep_arr_time in zip(ids_trip, dep_arr_times):
-            for bin, i in zip(bins, range(self.n_bins)):
+            for bin, i in zip(bins, list(range(self.n_bins))):
                 if dep_arr_time[0] < bin and dep_arr_time[1] > bin:
                     bike_usage[i-1] += 1
-        print bike_usage
+        print(bike_usage)
         bincenters = plt.plot(bins, bike_usage,  color=self.color_matched,
                               label='Bike usage distribution of GPS Mobike traces')
         ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
@@ -2197,7 +2197,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('bike_usage')
 
     def plot_bike_availability_ffbss_zone(self):
-        print 'plot_bike_availability_ffbss_zone'
+        print('plot_bike_availability_ffbss_zone')
         # Plot the difference between attracted and generated trips froma zone in a day every 24h/n_bins hours
         fig = self.create_figure()
         mapmatching = self.parent.parent
@@ -2217,7 +2217,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         for id_trip, ids_point in zip(ids_trip, ids_points):
             id_initial_point = ids_point[0]
             id_final_point = ids_point[-1]
-            print id_trip
+            print(id_trip)
             starting_time = np.int(points.timestamps[id_initial_point] % 86400/86400.*np.float(n_bins))
             arriving_time = np.int(points.timestamps[id_final_point] % 86400/86400.*np.float(n_bins))
 
@@ -2271,7 +2271,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('bike_availability')
 
     def analyze_bike_availability_ffbss_zones(self):
-        print 'analyze_bike_availability_ffbss_zones'
+        print('analyze_bike_availability_ffbss_zones')
         # Save a .txt file with generated trips and attracted trips every 24h/n_bins hours for each zone with selected trips
         fig = self.create_figure()
         mapmatching = self.parent.parent
@@ -2290,7 +2290,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         for id_trip, ids_point in zip(ids_trip, ids_points):
             id_initial_point = ids_point[0]
             id_final_point = ids_point[-1]
-            print id_trip
+            print(id_trip)
             starting_time = np.int(points.timestamps[id_initial_point] % 86400/86400.*np.float(n_bins))
             arriving_time = np.int(points.timestamps[id_final_point] % 86400/86400.*np.float(n_bins))
             i = 0
@@ -2408,13 +2408,13 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('bike_availability')
 
     def plot_deptimedistrib(self):
-        print 'plot_deptimedistrib'
+        print('plot_deptimedistrib')
         fig = self.create_figure()
         mapmatching = self.parent.parent
         trips = mapmatching.trips
         ids_trip = trips.get_ids()
         hour_departure = np.zeros(len(ids_trip))
-        for i, id_trip in zip(range(len(ids_trip)), ids_trip):
+        for i, id_trip in zip(list(range(len(ids_trip))), ids_trip):
             t = time.localtime(trips.timestamps[id_trip])
             hour_departure[i] = t.tm_hour + t.tm_min/60.0 + t.tm_sec/3600.0
         # print hour_departure[:1000]
@@ -2451,7 +2451,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('plot_deptimedistrib')
 
     def plot_tldensity(self):
-        print 'plot_tldensity'
+        print('plot_tldensity')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2488,7 +2488,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_tldensity')
 
     def plot_nodesdensity(self):
-        print 'plot_nodesdensity'
+        print('plot_nodesdensity')
         fig = self.create_figure()
         results = self.parent
 
@@ -2526,7 +2526,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_nodesdensity')
 
     def plot_prioritychangedensity(self):
-        print 'plot_prioritychangedensity'
+        print('plot_prioritychangedensity')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2563,7 +2563,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_nodesdensity')
 
     def plot_lowpriorityshare(self):
-        print 'plot_lowpriorityshare'
+        print('plot_lowpriorityshare')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2600,7 +2600,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lowpriorityshare')
 
     def plot_exclusiveshare(self):
-        print 'plot_exclusiveshare'
+        print('plot_exclusiveshare')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2637,7 +2637,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_exclusiveshare')
 
     def plot_mixshare(self):
-        print 'plot_mixshare'
+        print('plot_mixshare')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2675,7 +2675,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_mixshare')
 
     def plot_lengthdistrib_by_class(self):
-        print 'plot_lengthdistrib_by_class'
+        print('plot_lengthdistrib_by_class')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2700,7 +2700,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         stds_shortest = np.zeros(n_class, dtype=np.float32)
         xticklabels = []
         ratiolabels = []
-        for dist_lower, dist_upper, i in zip(dists_class[:-1], dists_class[1:], range(n_class)):
+        for dist_lower, dist_upper, i in zip(dists_class[:-1], dists_class[1:], list(range(n_class))):
             xticklabels.append('%d - %d' % (float(dist_lower)/1000, float(dist_upper)/1000))
             inds = np.logical_and(dists_match > dist_lower, dists_match < dist_upper)
             means_match[i] = np.mean(dists_match[inds])
@@ -2716,11 +2716,11 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
                     ratiolabel = '%d%%' % (means_shortest[i]/means_match[i]*100)
             ratiolabels.append(ratiolabel)
 
-        print '  dists_class_center', dists_class_center
-        print '  means_match', means_match
-        print '  stds_match', stds_match
-        print '  means_shortest', means_shortest
-        print '  stds_shortest', stds_shortest
+        print('  dists_class_center', dists_class_center)
+        print('  means_match', means_match)
+        print('  stds_match', stds_match)
+        print('  means_shortest', means_shortest)
+        print('  stds_shortest', stds_shortest)
 
         x = np.arange(n_class, dtype=np.float32)  # the x locations for the groups
         width = 0.35       # the width of the bars
@@ -2779,7 +2779,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
                                                                     time.                                          routesresults_matched.distances.get_value() > 0,
                                                                     # routesresults_matched.distances.get_value()<20000)
                                                                     ))
-        print 'plot_lengthdistrib', len(ids_valid)
+        print('plot_lengthdistrib', len(ids_valid))
         # print '  ids_valid',ids_valid
         if len(ids_valid) == 0:
             return False
@@ -2808,7 +2808,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         return True
 
     def plot_timedistrib(self):
-        print 'plot_timedistrib'
+        print('plot_timedistrib')
         fig = self.create_figure()
         results = self.parent
         mapmatching = results.parent
@@ -2856,7 +2856,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
         return True
 
     def plot_lengthprob(self):
-        print 'plot_lengthprob'
+        print('plot_lengthprob')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2901,7 +2901,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lengthprob')
 
     def plot_lengthoverlap(self):
-        print 'plot_lengthoverlap'
+        print('plot_lengthoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -2933,10 +2933,10 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lengthoverlap')
 
     def plot_lengthoverlap_fastest(self):
-        print 'plot_lengthoverlap_fastest'
+        print('plot_lengthoverlap_fastest')
         fig = self.create_figure()
         results = self.parent
-        print 'dir(results)', dir(results)
+        print('dir(results)', dir(results))
         routesresults_fastest = results.routesresults_fastest
         routesresults_matched = results.routesresults_matched
         edgesresults = results.edgesresults
@@ -2966,7 +2966,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lengthoverlap_fastest')
 
     def plot_lengthratio(self):
-        print 'plot_lengthratio'
+        print('plot_lengthratio')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3002,7 +3002,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
     # non-overlap
 
     def plot_lengthratio_nonoverlap(self):
-        print 'plot_lengthratio_nonoverlap'
+        print('plot_lengthratio_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3041,7 +3041,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lengthratio_nonoverlap')
 
     def plot_tldensity_nonoverlap(self):
-        print 'plot_tldensity_nonoverlap'
+        print('plot_tldensity_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3080,7 +3080,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_tldensity_nonoverlap')
 
     def plot_nodesdensity_nonoverlap(self):
-        print 'plot_nodesdensity_nonoverlap'
+        print('plot_nodesdensity_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3119,7 +3119,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_nodesdensity_nonoverlap')
 
     def plot_prioritychangedensity_nonoverlap(self):
-        print 'plot_prioritychangedensity_nonoverlap'
+        print('plot_prioritychangedensity_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3159,7 +3159,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_nodesdensity_nonoverlap')
 
     def plot_lowpriorityshare_nonoverlap(self):
-        print 'plot_lowpriorityshare_nonoverlap'
+        print('plot_lowpriorityshare_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3199,7 +3199,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_lowpriorityshare_nonoverlap')
 
     def plot_exclusiveshare_nonoverlap(self):
-        print 'plot_exclusiveshare_nonoverlap'
+        print('plot_exclusiveshare_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3239,7 +3239,7 @@ class RouteresultPlotter(PlotoptionsMixin, Process):
             self.save_fig('routeana_exclusiveshare_nonoverlap')
 
     def plot_mixshare_nonoverlap(self):
-        print 'plot_mixshare_nonoverlap'
+        print('plot_mixshare_nonoverlap')
         fig = self.create_figure()
         results = self.parent
         routesresults_shortest = results.routesresults_shortest
@@ -3295,7 +3295,7 @@ class PtFlowdigramPlotter(PlotoptionsMixin, Process):
         self._init_common('ptrouteresultplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'PtFlowdigramPlotter.__init__', results, self.parent
+        print('PtFlowdigramPlotter.__init__', results, self.parent)
         attrsman = self.get_attrsman()
 
         self.id_line = attrsman.add(cm.AttrConf('id_line', kwargs.get('id_line', -1),
@@ -3369,7 +3369,7 @@ class PtFlowdigramPlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def show(self):
-        print 'show'
+        print('show')
         # if self.axis  is None:
         self.init_figures()
         plt.rc('lines', linewidth=self.width_line)
@@ -3392,7 +3392,7 @@ class PtFlowdigramPlotter(PlotoptionsMixin, Process):
         ptlinks = ptlines.get_ptlinks()
 
         if not self.id_line in ptlines:
-            print 'WARNING: line with ID', self.id_line, 'not found.'
+            print('WARNING: line with ID', self.id_line, 'not found.')
             return False
 
         #id_line = ptlines.linenames.get_id_from_index(self.linename)
@@ -3404,7 +3404,7 @@ class PtFlowdigramPlotter(PlotoptionsMixin, Process):
             self.id_line, is_add_similar=self.is_add_similar)
 
         n_stops = len(ids_stoptuple_line)
-        ax.bar(xrange(n_stops), tripnumbers_line,
+        ax.bar(range(n_stops), tripnumbers_line,
                width=1.0, bottom=0, align='edge',
                color=self.color_fill,
                #linecolor = self.color_outline,
@@ -3414,7 +3414,7 @@ class PtFlowdigramPlotter(PlotoptionsMixin, Process):
         for id_fromstop, id_tostop in ids_stoptuple_line:
             stopnames.append(ptstops.stopnames_human[id_fromstop])
         # print  '  stopnames',stopnames
-        ax.set_xticks(xrange(n_stops))
+        ax.set_xticks(range(n_stops))
         ax.set_xticklabels(stopnames)
 
         #ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)

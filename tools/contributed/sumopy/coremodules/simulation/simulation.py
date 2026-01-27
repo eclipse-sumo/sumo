@@ -22,9 +22,9 @@ import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.misc import random_choice, get_inversemap
-import results
-from simplaconfig import SimplaConfig
-from taxi import TaxiService
+from . import results
+from .simplaconfig import SimplaConfig
+from .taxi import TaxiService
 
 
 class Simulation(cm.BaseObjman):
@@ -42,7 +42,7 @@ class Simulation(cm.BaseObjman):
         self._init_constants()
 
     def _init_attributes(self):
-        print 'Simulation._init_attributes id', id(self), self.parent.rootname  # ,dir(self)
+        print('Simulation._init_attributes id', id(self), self.parent.rootname)  # ,dir(self)
         attrsman = self.get_attrsman()
 
         # if self.get_version()<0.2:
@@ -107,4 +107,4 @@ class Simulation(cm.BaseObjman):
         #demandobjects = set([])
         # for ident, conf in self.get_group_attrs('').iteritems():
         #    demandobjects.add(conf.get_value())
-        return self.get_attrsman().get_group_attrs('simulation objects').values()
+        return list(self.get_attrsman().get_group_attrs('simulation objects').values())

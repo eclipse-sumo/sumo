@@ -24,7 +24,7 @@ from agilepy.lib_wx.objpanel import ObjPanel
 from agilepy.lib_base.processes import Process
 from agilepy.lib_wx.processdialog import ProcessDialog
 from coremodules.network.network import SumoIdsConf, MODES
-import turnflows
+from . import turnflows
 
 
 class TurnflowWxGuiMixin:

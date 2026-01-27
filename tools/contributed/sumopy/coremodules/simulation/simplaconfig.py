@@ -42,7 +42,7 @@ try:
     import simpla
 
 except:
-    print 'WARNING: No module simpla in syspath. Please provide SUMO_HOME.'
+    print('WARNING: No module simpla in syspath. Please provide SUMO_HOME.')
 
     simpla = None
 
@@ -287,7 +287,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         if self.is_enabled:
             # self.add_vtypes()# done in get_writexmlinfo means in get_vtypes()
             self.export_config()
-            print 'Simplaconfig.prepare_sim', self.configfilepath, self.is_enabled
+            print('Simplaconfig.prepare_sim', self.configfilepath, self.is_enabled)
             simpla.load(self.configfilepath)
 
     def finish_sim(self):
@@ -303,7 +303,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         """
         Write simpla xml config file
         """
-        print 'Simplaconfig.write_xml'
+        print('Simplaconfig.write_xml')
         fd.write(xm.begin(self.xmltag, indent))
         attrsman = self.get_attrsman()
         vtypes = self.parent.get_scenario().demand.vtypes
@@ -329,7 +329,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         #            #if id_vtype_sumo.split('_')[-1] not in plattypes:
         #            ids_vtypes_plat_sumo.append(id_vtype_sumo)
 
-        ids_vtypes_plat_sumo = ids_sumo_vtypes[self._typemap.keys()]
+        ids_vtypes_plat_sumo = ids_sumo_vtypes[list(self._typemap.keys())]
         fd.write(xm.start('vehicleSelectors', indent+2))
         fd.write(xm.arr('value', ids_vtypes_plat_sumo, sep=','))
         fd.write(xm.stopit())
@@ -349,9 +349,9 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         fd.write(xm.num('catchupFollower', self.speedfactor_catchup_follower))
         fd.write(xm.stopit())
 
-        for plattypes in self._typemap.values():
+        for plattypes in list(self._typemap.values()):
             fd.write(xm.start('vTypeMap', indent+2))
-            for plattype, id_vtype in plattypes.iteritems():
+            for plattype, id_vtype in plattypes.items():
                 fd.write(xm.num(plattype, ids_sumo_vtypes[id_vtype]))
             fd.write(xm.stopit())
 
@@ -372,7 +372,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         This function is called before writing vtypes.
         These vtypes should be deleted after the export.
         """
-        print 'Simplaconfig.add_vtypes'
+        print('Simplaconfig.add_vtypes')
         self._typemap = {}
         vtypes = self.get_scenario().demand.vtypes
         for id_mode in self.ids_platoonmodes:
@@ -433,14 +433,14 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         if not self.is_enabled:
             return []
 
-        print 'Simpla.get_vtypes'
+        print('Simpla.get_vtypes')
         plattype_original = 'original'
         # add vtypes for platooning here
         self.add_vtypes()
         # here we return only the additional vtypes
         ids_vtypes_plat = []
-        for plattypes in self._typemap.values():
-            for plattype, id_vtype in plattypes.iteritems():
+        for plattypes in list(self._typemap.values()):
+            for plattype, id_vtype in plattypes.items():
                 if plattype != plattype_original:
                     ids_vtypes_plat.append(id_vtype)
         # print '  ids_vtypes_plat',ids_vtypes_plat
@@ -452,12 +452,12 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         vtypes = self.get_scenario().demand.vtypes
         plattype_original = 'original'
         ids_vtypes_plat = []
-        for plattypes in self._typemap.values():
-            for plattype, id_vtype in plattypes.iteritems():
+        for plattypes in list(self._typemap.values()):
+            for plattype, id_vtype in plattypes.items():
                 if plattype != plattype_original:
                     ids_vtypes_plat.append(id_vtype)
 
-        print 'del_vtypes', ids_vtypes_plat
+        print('del_vtypes', ids_vtypes_plat)
         vtypes.del_rows(ids_vtypes_plat)
         self._typemap = {}
 
@@ -467,7 +467,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
                     coloroffset=np.zeros(4, np.float32),
                     colorfactor=np.ones(4, np.float32),
                     carfollowermodel='Krauss'):
-        print '_add_vtypes', ids, plattype
+        print('_add_vtypes', ids, plattype)
         n = len(ids)
         ids_new = vtypes.add_rows(n=len(ids))
         for colconfig in vtypes.get_attrsman()._colconfigs:
@@ -499,7 +499,7 @@ class SimplaConfig(DemandobjMixin, cm.BaseObjman):
         vtypes.decels_emergency[ids_new] = vtypes.decels[ids_new]+0.1
         # update typemap database
         for _id, _id_new in zip(ids, ids_new):
-            if self._typemap.has_key(_id):
+            if _id in self._typemap:
                 self._typemap[_id][plattype] = _id_new
             else:
                 self._typemap[_id] = {plattype: _id_new}

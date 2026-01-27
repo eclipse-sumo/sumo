@@ -28,13 +28,13 @@ from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
 from coremodules.network import routing
 from coremodules.demand import demand
 from coremodules.simulation import sumo, results
-import hcprt
+from . import hcprt
 
 try:
-    import results_mpl as results_mpl
+    from . import results_mpl as results_mpl
     is_mpl = True  # we have matplotlib support
 except:
-    print "WARNING: python matplotlib package not installed, no matplotlib plots."
+    print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False
 
 
@@ -91,7 +91,7 @@ class WxGui(ModuleGui):
         dependent on the availability of data. 
         """
         scenario = self.get_scenario()
-        print 'prtgui.refresh_widgets', self._simulation != scenario.simulation
+        print('prtgui.refresh_widgets', self._simulation != scenario.simulation)
 
         is_refresh = False
         if self._simulation != scenario.simulation:
@@ -214,7 +214,7 @@ class WxGui(ModuleGui):
         self._mainframe.browse_obj(self._prtservice.prtvehicles)
 
     def on_mpl_stopresults(self, event=None):
-        print 'on_mpl_stopresults', id(self._simulation.results)  # ,id(self._prtservice.get_results())
+        print('on_mpl_stopresults', id(self._simulation.results))  # ,id(self._prtservice.get_results())
         if self._prtservice is not None:
             if self._simulation is not None:
                 resultplotter = results_mpl.StopresultsPlotter(self._simulation.results,  # self._prtservice.get_results(),

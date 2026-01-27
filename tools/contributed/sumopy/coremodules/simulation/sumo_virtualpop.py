@@ -51,7 +51,7 @@ if __name__ == '__main__':
     else:
         filepath_simstats = None
 
-print 'sys.path', sys.path
+print('sys.path', sys.path)
 
 
 #from coremodules.demand import vehicles as ve
@@ -76,7 +76,7 @@ seed = 1234
 logfilepath = 'log.txt'
 sumologfilepath = 'log_sumo.txt'
 ###########################################################
-print 'script_vp: initialize sim cmlfilepath=', cmlfilepath
+print('script_vp: initialize sim cmlfilepath=', cmlfilepath)
 
 # Load the scenario
 
@@ -168,7 +168,7 @@ ids_pers = virtualpop.get_ids()
 
 if is_not_first_iter:
     # load previous results, if cmlfilepath is present
-    print '  importing and procerroessing previous results'
+    print('  importing and procerroessing previous results')
 
     # store plans before reselection
     ids_plan_before = virtualpop.ids_plan[ids_pers].copy()
@@ -180,7 +180,7 @@ if is_not_first_iter:
     # decrease c_probit and fraction for the nex iteration
     c_probit = c_probit/(decrease+1)**n_iter
     fraction = fraction/(decrease+1)**n_iter
-    print 'n_iter:', n_iter, 'c_probit:', c_probit, 'fraction:', fraction
+    print('n_iter:', n_iter, 'c_probit:', c_probit, 'fraction:', fraction)
     # select plans according to last simulation results
     sim.import_results()  # will update plan travel times
     virtualpop.select_plans_min_time_exec_est(fraction=fraction,
@@ -193,7 +193,7 @@ if is_not_first_iter:
 
 
 else:
-    print '  first iteration'
+    print('  first iteration')
     # select all plans with the minimum estimated time
     virtualpop.select_plans_min_time_est(fraction=1.0,
                                          c_probit=c_probit_ini)

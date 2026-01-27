@@ -18,9 +18,9 @@
 
 
 from agilepy.lib_base.processes import Process, CmlMixin, P
-from routing import get_mincostroute_edge2edges
-import publictransportnet as pt
-import netconvert
+from .routing import get_mincostroute_edge2edges
+from . import publictransportnet as pt
+from . import netconvert
 from agilepy.lib_base.geometry import *
 from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
 import agilepy.lib_base.xmlman as xm
@@ -162,7 +162,7 @@ class Modes(am.ArrayObjman):
         Sets the default maximum possible speed for certain modes.
         """
         # print 'MODES.add_default'
-        self.add_rows(ids=MODES.values(), names=MODES.keys())
+        self.add_rows(ids=list(MODES.values()), names=list(MODES.keys()))
 
         # these speeds are used to estimate free flow link travel times
         # mainly for routing purposes
@@ -197,7 +197,7 @@ class Modes(am.ArrayObjman):
             ('rail_fast', 350),
         ])
 
-        for mode, speed_kmph in speeds_max_kmph.iteritems():
+        for mode, speed_kmph in speeds_max_kmph.items():
             self.speeds_max[self.get_id_mode(mode)] = float(speed_kmph)/3.6
 
         # print '  self.speeds_max',self.speeds_max.get_value()
@@ -449,11 +449,11 @@ class TrafficLightSystems(am.ArrayObjman):
         if filepath is None:
             filepath = self.parent.get_rootfilepath()+'.tll.xml'
 
-        print 'export_sumoxml', filepath
+        print('export_sumoxml', filepath)
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
 
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -715,7 +715,7 @@ class Connections(am.ArrayObjman):
 
     def analyze_connections(self, **kwargs):
 
-        print 'Analyze connections'
+        print('Analyze connections')
 
         network = self.parent
         edges = network.edges
@@ -744,7 +744,7 @@ class Connections(am.ArrayObjman):
             coord_incoming_penultimate = incoming_edge_shape[-2]
             coord_outgoing_first = outgoing_edge_shape[0]
             coord_outgoing_second = outgoing_edge_shape[1]
-            print 'connection', connection
+            print('connection', connection)
             # print 'coord_node:',coord_node, 'coord_incoming:',coord_incoming, 'coord_outgoing:',coord_outgoing
             azimut_incoming = self.get_azimut(coord_incoming_last, coord_incoming_penultimate)
             azimut_outgoing = self.get_azimut(coord_outgoing_first, coord_outgoing_second)
@@ -761,19 +761,19 @@ class Connections(am.ArrayObjman):
             # Right turn
             if np.pi*3/4 <= np.absolute(diff_azimut) and np.absolute(diff_azimut) <= np.pi*5/4:
                 connections.turns_type[connection] = 'crossing'
-                print 'crossing'
+                print('crossing')
                 nodes.n_left_turns[node] += 1
             elif np.absolute(diff_azimut) <= np.pi/18 or np.absolute(diff_azimut) >= np.pi*35/18:
                 connections.turns_type[connection] = 'u_turn'
-                print 'u_turn'
+                print('u_turn')
                 nodes.n_right_turns[node] += 1
             elif (-3*np.pi/4 < diff_azimut and diff_azimut < -np.pi/18) or (5*np.pi/4 < diff_azimut and diff_azimut < np.pi*35/18):
                 connections.turns_type[connection] = 'right_turn'
-                print 'right turn'
+                print('right turn')
                 nodes.n_crossings[node] += 1
             elif (np.pi/18 < diff_azimut and diff_azimut < 3*np.pi/4) or (-np.pi*35/18 < diff_azimut and diff_azimut < -5*np.pi/4):
                 connections.turns_type[connection] = 'left_turn'
-                print 'left turn'
+                print('left turn')
                 nodes.n_u_turns[node] += 1
 
             init_point = incoming_edge_shape[-1]
@@ -807,7 +807,7 @@ class Connections(am.ArrayObjman):
         elif (x_inc-x_nod) < 0 and (y_inc-y_nod) >= 0:
             azimut_incoming = np.pi*3/2 + np.arctan((y_inc-y_nod)/(x_nod-x_inc))
         else:
-            print 'Warning, the two points are the same'
+            print('Warning, the two points are the same')
             # print point1, point2
             azimut_incoming = 0
 
@@ -836,7 +836,7 @@ class Connections(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
 
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -1091,7 +1091,7 @@ class Lanes(am.ArrayObjman):
         edges = self.parent.edges
 
         ids_lane = edges.ids_lanes[id_edge]
-        print 'reshape_edgelanes id_edge', id_edge, 'id_edge_sumo', edges.ids_sumo[id_edge], len(ids_lane)
+        print('reshape_edgelanes id_edge', id_edge, 'id_edge_sumo', edges.ids_sumo[id_edge], len(ids_lane))
 
         shape = np.array(edges.shapes[id_edge], np.float32)
 
@@ -1153,7 +1153,7 @@ class Lanes(am.ArrayObjman):
                 else:
                     indexes.append(ind)
                 ind += 1
-            print 'WARNING: ignoring mode has no access on footpath'
+            print('WARNING: ignoring mode has no access on footpath')
             return []
 
             # return len(ids_lane)-1
@@ -1199,7 +1199,7 @@ class Lanes(am.ArrayObjman):
 
                 else:
                     return ind
-            print 'WARNING: ignoring mode has no access on footpath'
+            print('WARNING: ignoring mode has no access on footpath')
             return -1
 
             # return len(ids_lane)-1
@@ -1253,7 +1253,7 @@ class Lanes(am.ArrayObjman):
         is_mode_mixed = False
         is_modes_all = False
 
-        for i, id_lane, ids_modes_allow, ids_modes_disallow in zip(xrange(len(ids_lane)), ids_lane, self.ids_modes_allow[ids_lane], self.ids_modes_disallow[ids_lane]):
+        for i, id_lane, ids_modes_allow, ids_modes_disallow in zip(range(len(ids_lane)), ids_lane, self.ids_modes_allow[ids_lane], self.ids_modes_disallow[ids_lane]):
             is_mode_only = False
             is_mode_mixed = False
             is_modes_all = False
@@ -1759,7 +1759,7 @@ class Edges(am.ArrayObjman):
             are considered, disregarding the actual connections
 
         """
-        print 'get_fstar id_mode', id_mode, 'is_return_lists', is_return_lists, 'is_return_arrays', is_return_arrays
+        print('get_fstar id_mode', id_mode, 'is_return_lists', is_return_lists, 'is_return_arrays', is_return_arrays)
         #ids_edge = self.get_ids()
         #fstar = np.array(np.zeros(np.max(ids_edge)+1, np.obj))
         fstar = {}
@@ -2017,7 +2017,7 @@ class Edges(am.ArrayObjman):
         If not allowed on a particular edge,
         then the respective edge distance is nan.
         """
-        print 'get_distances id_mode,is_check_lanes,speed_max', id_mode, is_check_lanes, is_precise
+        print('get_distances id_mode,is_check_lanes,speed_max', id_mode, is_check_lanes, is_precise)
         ids_edge = self.get_ids()
         dists = np.zeros(np.max(ids_edge)+1, np.float32)
         #speeds = self.speeds_max[ids_edge]
@@ -2140,7 +2140,7 @@ class Edges(am.ArrayObjman):
         ids_edges = self.get_ids()
         are_allowed = np.zeros(len(ids_edges), dtype=np.bool)
         inds_lane = np.zeros(len(ids_edges), dtype=np.int32)
-        for i, id_edge in zip(xrange(len(ids_edges)), ids_edges):
+        for i, id_edge in zip(range(len(ids_edges)), ids_edges):
             ind_lane = get_laneindex_allowed(ids_lanes[id_edge], id_mode)
             are_allowed[i] = ind_lane >= 0
             inds_lane[i] = ind_lane
@@ -2247,7 +2247,7 @@ class Edges(am.ArrayObjman):
             inds = self.get_inds()
         else:
             inds = self.get_inds(ids)
-        print 'make_linevertices', len(inds)
+        print('make_linevertices', len(inds))
 
         linevertices = np.zeros((0, 2, 3), np.float32)
         vertexinds = np.zeros((0, 2), np.int32)
@@ -2281,7 +2281,7 @@ class Edges(am.ArrayObjman):
             # print '  =======',n_seg#,polyline
 
             if n_seg > 1:
-                polyvinds = range(n_seg)
+                polyvinds = list(range(n_seg))
                 # print '  polyvinds\n',polyvinds
                 vi = np.zeros((2*n_seg-2), np.int32)
                 vi[0] = polyvinds[0]
@@ -2518,7 +2518,7 @@ class Edges(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
 
@@ -2531,7 +2531,7 @@ class Edges(am.ArrayObjman):
         return True
 
     def export_edgeweights_xml(self, filepath=None, weights=None, time_begin=0, time_end=3600, ident='w1',  encoding='UTF-8'):
-        print 'export_edgeweights_xml', time_begin, time_end, 'filepath', filepath
+        print('export_edgeweights_xml', time_begin, time_end, 'filepath', filepath)
         # <meandata>
         # <interval begin="0" end="7200" id="w1">
         # <edge id="gneE0" traveltime="100"/>
@@ -2545,7 +2545,7 @@ class Edges(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_edgeweights_xml: could not open', filepath
+            print('WARNING in export_edgeweights_xml: could not open', filepath)
             return ''
 
         if weights is None:
@@ -2574,7 +2574,7 @@ class Edges(am.ArrayObjman):
         return filepath
 
     def update(self, ids=None, is_update_lanes=False):
-        print 'Edges.update'
+        print('Edges.update')
 
         if ids is None:
             self.widths.value = self.nums_lanes.value * self.widths_lanes_default.value \
@@ -2640,7 +2640,7 @@ class Edges(am.ArrayObjman):
             # no lanes given...make some with default values
             ids_lane = []
             lanes = self.get_lanes()
-            for i in xrange(self.nums_lanes[id_edge]):
+            for i in range(self.nums_lanes[id_edge]):
                 id_lane = lanes.make(index=i, id_edge=id_edge)
                 ids_lane.append(id_lane)
 
@@ -2720,7 +2720,7 @@ class Edges(am.ArrayObjman):
 
     def analyze_edges(self, **kwargs):
         # TODO: this should feed into a temporary field
-        print 'Analyze edges'
+        print('Analyze edges')
         # individuate edge typologies (pedestrian, bike lane, bike/pedestrian,
         # one-way road, 2-way road)
         network = self.parent
@@ -2739,10 +2739,10 @@ class Edges(am.ArrayObjman):
             if len(lanes.ids_mode[id_lanes]) == 1:
                 if lanes.ids_mode[id_lanes] == [id_ped]:
                     pedestrian_edges.append(id_edge)
-                    print 'edge', id_edge, 'ped'
+                    print('edge', id_edge, 'ped')
                 if lanes.ids_mode[id_lanes] == [id_bike]:
                     cycling_edges.append(id_edge)
-                    print 'edge', id_edge, 'cycl'
+                    print('edge', id_edge, 'cycl')
         edges.edge_typology[pedestrian_edges] = 'Pedestrian'
         edges.edge_typology[cycling_edges] = 'bike lane'
 
@@ -2757,14 +2757,14 @@ class Edges(am.ArrayObjman):
             if len(lanes.ids_modes_allow[id_lanes][0]) == 2 and len(id_lanes) == 1:
                 if id_bike in np.array(lanes.ids_modes_allow[id_lanes][0]) and id_ped in np.array(lanes.ids_modes_allow[id_lanes][0]):
                     cycling_ped_edges.append(id_edge)
-                    print 'edge', id_edge, 'cycl_ped'
+                    print('edge', id_edge, 'cycl_ped')
             elif len(id_lanes) == 2:
                 if lanes.ids_mode[id_lanes[0]] == id_bike and lanes.ids_mode[id_lanes[1]] == id_ped:
                     cycling_ped_edges.append(id_edge)
-                    print 'edge', id_edge, 'cycl_ped'
+                    print('edge', id_edge, 'cycl_ped')
                 if lanes.ids_mode[id_lanes[0]] == id_ped and lanes.ids_mode[id_lanes[1]] == id_bike:
                     cycling_ped_edges.append(id_edge)
-                    print 'edge', id_edge, 'cycl_ped'
+                    print('edge', id_edge, 'cycl_ped')
 
         edges.edge_typology[cycling_ped_edges] = 'Bike/Pedestrian'
         ids_edge_car = ids_edge
@@ -3051,7 +3051,7 @@ class Nodes(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in export_sumoxml: could not open', filepath
+            print('WARNING in export_sumoxml: could not open', filepath)
             return False
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
         indent = 0
@@ -3116,7 +3116,7 @@ class Nodes(am.ArrayObjman):
 
     def clean(self, is_reshape_edgelanes=False, nodestretchfactor=1.2, n_min_nodeedges=2):
         # is_reshape_edgelanes = False, nodestretchfactor = 2.8
-        print 'Nodes.clean', len(self), 'is_reshape_edgelanes', is_reshape_edgelanes
+        print('Nodes.clean', len(self), 'is_reshape_edgelanes', is_reshape_edgelanes)
 
         edges = self.parent.edges
         lanes = self.parent.lanes
@@ -3173,7 +3173,7 @@ class Nodes(am.ArrayObjman):
                     shape = edges.shapes[id_edge]
                     n_shape = len(shape)
                     # edges.shapes[id_edge][::-1]:
-                    for i in xrange(n_shape-1, -1, -1):
+                    for i in range(n_shape-1, -1, -1):
                         d = get_norm_2d(np.array([shape[i]-coords]))[0]
                         # print '      i,d,r',i , d, radius,d>radius
                         if d > radius:
@@ -3208,7 +3208,7 @@ class Nodes(am.ArrayObjman):
                     shape = edges.shapes[id_edge]
                     n_shape = len(shape)
                     # edges.shapes[id_edge][::-1]:
-                    for i in xrange(n_shape):
+                    for i in range(n_shape):
                         d = get_norm_2d(np.array([shape[i]-coords]))[0]
                         # print '      i,d,r',i , d, radius,d>radius
                         if d > radius:
@@ -3242,7 +3242,7 @@ class Nodes(am.ArrayObjman):
 
 class Network(cm.BaseObjman):
     def __init__(self, parent=None, name='Network', **kwargs):
-        print 'Network.__init__', parent, name
+        print('Network.__init__', parent, name)
         self._init_objman(ident='net', parent=parent, name=name,
                           # xmltag = 'net',# no, done by netconvert
                           version=0.1,
@@ -3495,7 +3495,7 @@ class Network(cm.BaseObjman):
         # do other cleanup jobs
 
     def call_netedit(self, filepath=None, is_maps=False, is_poly=True, command='netedit'):
-        print 'call_netedit'
+        print('call_netedit')
         #filepath = self.export_netxml(filepath)
         if filepath is None:
             filepath = self.get_filepath()
@@ -3539,23 +3539,23 @@ class Network(cm.BaseObjman):
                 cml += ' --tllogic-files '+filepathlist_to_filepathstring(filepath_tlss)
 
             proc = subprocess.Popen(cml, shell=True)
-            print '  run_cml cml=', cml
+            print('  run_cml cml=', cml)
             # print '  pid = ',proc.pid
             proc.wait()
             if proc.returncode == 0:
-                print '  ', command, ':success'
+                print('  ', command, ':success')
 
                 return self.import_netxml()
                 # return self.import_xml() # use if netedit exports to plain xml files
             else:
-                print '  ', command, ':error'
+                print('  ', command, ':error')
                 return False
         else:
-            print '  netconvert:error'
+            print('  netconvert:error')
             return False
 
     def call_sumogui(self, filepath=None, is_maps=True, is_poly=True):
-        print 'call_sumogui', filepath, is_maps, is_poly
+        print('call_sumogui', filepath, is_maps, is_poly)
 
         if filepath is None:
             filepath = self.get_filepath()
@@ -3606,8 +3606,8 @@ class Network(cm.BaseObjman):
             + option_addfiles
 
         proc = subprocess.Popen(cml, shell=True)
-        print '  run_cml cml=', cml
-        print '  pid = ', proc.pid
+        print('  run_cml cml=', cml)
+        print('  pid = ', proc.pid)
         proc.wait()
         return proc.returncode
 
@@ -3642,7 +3642,7 @@ class Network(cm.BaseObjman):
         else:
             configfilepath = self.get_rootfilepath()+'.netedit.xml'
 
-        print 'write_guiconfig', configfilepath, is_maps & (maps is not None), maps
+        print('write_guiconfig', configfilepath, is_maps & (maps is not None), maps)
         fd_config = open(configfilepath, 'w')
         for line in fd_template.readlines():
             if line.count('<decals>') == 1:
@@ -3658,7 +3658,7 @@ class Network(cm.BaseObjman):
         return configfilepath
 
     def import_netxml(self, filepath=None, rootname=None, is_clean_nodes=False, is_remove_xmlfiles=False):
-        print 'import_netxml', filepath
+        print('import_netxml', filepath)
 
         if rootname is None:
             rootname = self.get_rootfilename()
@@ -3674,11 +3674,11 @@ class Network(cm.BaseObjman):
                 + ' --sumo-net-file '+filepathlist_to_filepathstring(filepath)\
                 + ' --plain-output-prefix '+filepathlist_to_filepathstring(os.path.join(dirname, rootname))
             proc = subprocess.Popen(cml, shell=True)
-            print '  run_cml cml=', cml
-            print '  pid = ', proc.pid
+            print('  run_cml cml=', cml)
+            print('  pid = ', proc.pid)
             proc.wait()
             if not proc.returncode:
-                print '  modes.names', self.modes.names
+                print('  modes.names', self.modes.names)
                 return self.import_xml(rootname, dirname)
             else:
                 return False
@@ -3698,7 +3698,7 @@ class Network(cm.BaseObjman):
             fd = open(filepath, 'w')
 
         except:
-            print 'WARNING in write_obj_to_xml: could not open', filepath
+            print('WARNING in write_obj_to_xml: could not open', filepath)
             return False
 
         #xmltag, xmltag_item, attrname_id = self.xmltag
@@ -3764,7 +3764,7 @@ class Network(cm.BaseObjman):
         if filepath is None:
             filepath = self.get_filepath()
 
-        print 'Net.export_netxml', filepath
+        print('Net.export_netxml', filepath)
         filepath_edges, filepath_nodes, filepath_connections, filepath_tlss = self.export_painxml(
             filepath=filepath, is_export_tlss=is_export_tlss)
 
@@ -3781,11 +3781,11 @@ class Network(cm.BaseObjman):
 
         if is_netconvert:
             proc = subprocess.Popen(cml, shell=True)
-            print 'run_cml cml=', cml
-            print '  pid = ', proc.pid
+            print('run_cml cml=', cml)
+            print('  pid = ', proc.pid)
             proc.wait()
             if proc.returncode == 0:
-                print '  success'
+                print('  success')
                 if is_return_delta:
                     delta = self._get_delta_netconvert(filepath)
 
@@ -3793,7 +3793,7 @@ class Network(cm.BaseObjman):
                 else:
                     return filepath
             else:
-                print '  success'
+                print('  success')
                 return ''
         else:
             return ''
@@ -3835,7 +3835,7 @@ class Network(cm.BaseObjman):
             oldoffset = self.get_offset()
         else:
             oldoffset = None
-        print 'Network.import_xml oldoffset', oldoffset
+        print('Network.import_xml oldoffset', oldoffset)
         # remove current network
         # print '  remove current network'
         self.clear_net()
@@ -3903,7 +3903,7 @@ class Network(cm.BaseObjman):
             return False
 
     def import_sumonodes(self, filename, is_remove_xmlfiles=False, logger=None, **others):
-        print 'import_sumonodes', filename
+        print('import_sumonodes', filename)
         # print '  parent',self.parent
         self.get_logger().w('import_sumonodes', key='message')
 
@@ -3923,11 +3923,11 @@ class Network(cm.BaseObjman):
         fastreader.write_to_net()
 
         # timeit
-        print '  exec time=', time.clock() - exectime_start
+        print('  exec time=', time.clock() - exectime_start)
         return fastreader
 
     def import_sumoedges(self, filename, is_remove_xmlfiles=False, logger=None, **others):
-        print 'import_sumoedges', filename
+        print('import_sumoedges', filename)
         logger = self.get_logger()
         logger.w('import_sumoedges', key='message')
         # timeit
@@ -3949,7 +3949,7 @@ class Network(cm.BaseObjman):
         if is_remove_xmlfiles:
             os.remove(filename)
         # timeit
-        print '  exec time=', time.clock() - exectime_start
+        print('  exec time=', time.clock() - exectime_start)
 
         # except KeyError:
         #    print >> sys.stderr, "Please mind that the network format has changed in 0.16.0, you may need to update your network!"
@@ -3957,7 +3957,7 @@ class Network(cm.BaseObjman):
         return fastreader
 
     def import_sumoconnections(self, filename, is_remove_xmlfiles=False, logger=None, **others):
-        print 'import_sumoedges', filename
+        print('import_sumoedges', filename)
         logger = self.get_logger()
         logger.w('import_sumoconnections', key='message')
 
@@ -3974,7 +3974,7 @@ class Network(cm.BaseObjman):
 
         # timeit
         exectime_end = time.clock()
-        print '  exec time=', exectime_end - exectime_start
+        print('  exec time=', exectime_end - exectime_start)
         return fastreader
 
     def import_sumotls(self, filename, is_remove_xmlfiles=False, logger=None, **others):
@@ -3982,7 +3982,7 @@ class Network(cm.BaseObjman):
         Import traffic ligh signals from tll.xml file
         as part of a complete import net process.
         """
-        print 'import_sumotls', filename
+        print('import_sumotls', filename)
 
         if logger is None:
             logger = self.get_logger()
@@ -3996,14 +3996,14 @@ class Network(cm.BaseObjman):
 
         # timeit
         exectime_end = time.clock()
-        print '  exec time=', exectime_end - exectime_start
+        print('  exec time=', exectime_end - exectime_start)
         return reader
 
     def import_sumotls_to_net(self, filename, is_remove_xmlfiles=False, logger=None, **others):
         """
         Import traffic ligh signals from tll.xml file into an existing network.
         """
-        print 'import_sumotls_to_net', filename
+        print('import_sumotls_to_net', filename)
 
         # associate nodes with sumo tls ID
         #map_id_node_to_id_tlss_sumo = {}
@@ -4028,7 +4028,7 @@ class Network(cm.BaseObjman):
 
         # timeit
         exectime_end = time.clock()
-        print '  exec time=', exectime_end - exectime_start
+        print('  exec time=', exectime_end - exectime_start)
 
         # reestablish TLS IDs of nodes
 
@@ -4191,7 +4191,7 @@ class SumoConnectionCounter(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'connection':
-            if attrs.has_key('to'):
+            if 'to' in attrs:
                 self.n_con += 1
 
         if name == 'crossing':
@@ -4233,7 +4233,7 @@ class SumoConnectionReader(handler.ContentHandler):
         if name == 'connection':
             # <connection from="153009994" to="153009966#1" fromLane="0" toLane="0" pass="1"/>
 
-            if attrs.has_key('to'):
+            if 'to' in attrs:
                 self._ind_con += 1
                 i = self._ind_con
                 # print 'startElement',name,i
@@ -4376,7 +4376,7 @@ class SumoNodeReader(handler.ContentHandler):
             if self._isNew | (version == attrs['version']):
                 self._net.set_version(attrs['version'])
             else:
-                print 'WARNING: merge with incompatible net versions %s versus %s.' % (version, attrs['version'])
+                print('WARNING: merge with incompatible net versions %s versus %s.' % (version, attrs['version']))
 
         elif name == 'location':  # j.s
             # print 'startElement',name,self._isNew
@@ -4418,12 +4418,12 @@ class SumoNodeReader(handler.ContentHandler):
                                             float(origBoundaryStr[3])]
                                            )
             if self._isNew:
-                if attrs.has_key('projParameter'):
+                if 'projParameter' in attrs:
                     self._net.set_projparams(attrs['projParameter'])
             else:
-                if attrs.has_key('projParameter'):
+                if 'projParameter' in attrs:
                     if self._net.get_projparams() != attrs['projParameter']:
-                        print 'WARNING: merge with incompatible projections %s versus %s.' % (self._net.getprojparams(), attrs['projparams'])
+                        print('WARNING: merge with incompatible projections %s versus %s.' % (self._net.getprojparams(), attrs['projparams']))
 
         elif name == 'node':
             if attrs['id'][0] != ':':  # no internal node
@@ -4476,7 +4476,7 @@ class SumoNodeReader(handler.ContentHandler):
                 # the jointly controlled nodes
                 # problem: we do not know yet the edge IDs
                 #
-                if attrs.has_key('controlledInner'):
+                if 'controlledInner' in attrs:
                     self.ids_sumo_controlled[i] = attrs['controlledInner'].strip().split(' ')
                 else:
                     self.ids_sumo_controlled[i] = []
@@ -4547,7 +4547,7 @@ class SumoTllReader(handler.ContentHandler):
             # print 'startElement',name,id_sumo_tls,int(attrs['linkIndex'])
             # print '  self.tlsconnections',self.tlsconnections
 
-            if not self.tlsconnections.has_key(id_sumo_tls):
+            if id_sumo_tls not in self.tlsconnections:
                 self.tlsconnections[id_sumo_tls] = {}
 
             id_con = self.connections.get_id_from_sumoinfo(attrs['from'],
@@ -4583,15 +4583,15 @@ class SumoTllReader(handler.ContentHandler):
             # end of scanning. Write controlled connections to tlss
             # print '  tlsconnections',self.tlsconnections
 
-            for id_sumo_tls, conmap in self.tlsconnections.iteritems():
+            for id_sumo_tls, conmap in self.tlsconnections.items():
 
                 if self.tlss.ids_sumo.has_index(id_sumo_tls):
-                    inds_con = np.array(conmap.keys(), dtype=np.int32)
+                    inds_con = np.array(list(conmap.keys()), dtype=np.int32)
                     ids_con = np.zeros(np.max(inds_con)+1, np.int32)
                     # print '  cons for',id_sumo_tls,conmap
                     # print '  inds',inds_con,len(ids_con)
                     # print '  values',conmap.values(),len(ids_con)
-                    ids_con[inds_con] = conmap.values()  # <<<<<<<<<<<
+                    ids_con[inds_con] = list(conmap.values())  # <<<<<<<<<<<
 
                     id_tls = self.tlss.ids_sumo.get_id_from_index(id_sumo_tls)
                     self.tlss.set_connections(id_tls, ids_con)
@@ -4735,7 +4735,7 @@ class SumoEdgeReader(handler.ContentHandler):
 
             self.speeds_max[ind] = float(attrs.get('speed', 13.888))
             self.priorities[ind] = int(attrs.get('priority', 9))
-            self.names[ind] = unicode(attrs.get('name', ''))
+            self.names[ind] = str(attrs.get('name', ''))
             self.offsets_end[ind] = float(attrs.get('endOffset', 0.0))
 
             # this lanewidth will be used as default if no lane width attribute
@@ -4756,20 +4756,20 @@ class SumoEdgeReader(handler.ContentHandler):
             ind_edge = self._ind_edge
             speed_max_default = -1
 
-            if attrs.has_key('allow'):
+            if 'allow' in attrs:
                 modes_access = attrs['allow'].split(' ')
                 if len(modes_access) == 1:
-                    if modes_access[0] == u'all':
-                        modes_access = MODES.keys()
+                    if modes_access[0] == 'all':
+                        modes_access = list(MODES.keys())
 
                 ids_modes_allow = list(self._modenames.get_ids_from_indices(modes_access))
                 ids_modes_disallow = []
 
-            elif attrs.has_key('disallow'):
+            elif 'disallow' in attrs:
                 modes_access = attrs['disallow'].split(' ')
                 if len(modes_access) == 1:
-                    if modes_access[0] == u'all':
-                        modes_access = MODES.keys()
+                    if modes_access[0] == 'all':
+                        modes_access = list(MODES.keys())
 
                 # print '    startElement id_edge_sumo',self.ids_edge_sumo[ind_edge],'disallow',modes_access
                 ids_modes_disallow = list(self._modenames.get_ids_from_indices(modes_access))
@@ -4779,7 +4779,7 @@ class SumoEdgeReader(handler.ContentHandler):
                 # guess allow from edge type
                 edgetype = self.types_edge[self._ind_edge]
 
-                if OSMEDGETYPE_TO_MODES.has_key(edgetype):
+                if edgetype in OSMEDGETYPE_TO_MODES:
                     ids_modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[edgetype]
                 else:
                     ids_modes_allow = []
@@ -4832,7 +4832,7 @@ class SumoEdgeReader(handler.ContentHandler):
                 if self._allow_egdeattr is not None:
                     ids_modes_allow = list(self._modenames.get_ids_from_indices(self._allow_egdeattr.split(' ')))
                 else:
-                    if OSMEDGETYPE_TO_MODES.has_key(edgetype):
+                    if edgetype in OSMEDGETYPE_TO_MODES:
                         ids_modes_allow, speed_max_default = OSMEDGETYPE_TO_MODES[edgetype]
                     else:
                         ids_modes_allow = []
@@ -5094,7 +5094,7 @@ class SumonetMerger(CmlMixin, Process):
 
     def do(self):
         self.netfilepaths = self.netfilepath+','+self.netfilepaths
-        print 'merging netfilepaths', self.netfilepaths
+        print('merging netfilepaths', self.netfilepaths)
         cml = self.get_cml()+' --ignore-errors -o %s' % (filepathlist_to_filepathstring(self.filepath_out))
         # print 'SumonetImporter.do',cml
         #import_xml(self, rootname, dirname, is_clean_nodes = True)

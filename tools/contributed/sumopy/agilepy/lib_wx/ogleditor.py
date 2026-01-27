@@ -21,8 +21,8 @@
 import types
 import os
 import sys
-from toolbox import *
-from wxmisc import *
+from .toolbox import *
+from .wxmisc import *
 from agilepy.lib_base.geometry import *
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.classman as cm
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     use for debugging
     python ogleditor.py --debug > debug.txt 2>&1
     """
-    print __copyright__
+    print(__copyright__)
 
 ###############################################################################
 # IMPORTS
@@ -63,7 +63,7 @@ try:
     import numpy as np
 
 except ImportError:
-    raise ImportError, "Required dependencies numpy or OpenGL not present"
+    raise ImportError("Required dependencies numpy or OpenGL not present")
 
 if __name__ == '__main__':
     try:
@@ -447,7 +447,7 @@ class SelectToolMixin(BaseTool):
             # calculate detectwidth based on current resolution
             self.detectwidth = self._canvas.get_resolution()*self.detectpix
 
-        print 'pick_all', self.detectwidth, self.detectpix, self._canvas.get_resolution()
+        print('pick_all', self.detectwidth, self.detectpix, self._canvas.get_resolution())
 
         self._idcounter = 0
         is_draw = False
@@ -1420,7 +1420,7 @@ class StretchTool(HandleTool):
         """
         Definively execute operation on currently selected drawobjects.
         """
-        print 'Stretch', self.is_tool_allowed_on_selection()
+        print('Stretch', self.is_tool_allowed_on_selection())
         if self.is_tool_allowed_on_selection():
             if not self.is_animated:
                 return self.begin_animation(event)
@@ -1792,7 +1792,7 @@ class DrawobjMixin(am.ArrayObjman):
         return self._vbos[ident]
 
     def get_vbos(self):
-        return self._vbos.values()
+        return list(self._vbos.values())
 
     def del_vbo(self, key):
         del self._vbos[key]
@@ -2649,7 +2649,7 @@ class Fancylines(Lines):
 
         if is_fill:
             self.add_vbo(Vbo('line_fill', GL_QUADS, 4, objtype='fill'))
-            for style in LINEHEADS.keys():
+            for style in list(LINEHEADS.keys()):
                 self.add_vbo(Vbo(('begin', 'fill', style), GL_TRIANGLES, 3, objtype='fill'))
                 self.add_vbo(Vbo(('end', 'fill', style), GL_TRIANGLES, 3, objtype='fill'))
 
@@ -2826,7 +2826,7 @@ class Fancylines(Lines):
         # print '  x1_new=',x1_new,x1_new.dtype
         # print '  x2_new=',x2_new,x2_new.dtype
         if self._is_fill.value:
-            for style, id_style in LINEHEADS.iteritems():
+            for style, id_style in LINEHEADS.items():
 
                 # begin
                 inds_style = np.flatnonzero(self.beginstyles.value == id_style)
@@ -3235,7 +3235,7 @@ class Polylines(Fancylines):
             # print '  polyline\n',polyline
 
             if n_seg > 1:
-                polyvinds = range(n_seg)
+                polyvinds = list(range(n_seg))
                 # print '  polyvinds\n',polyvinds
                 vi = np.zeros((2*n_seg-2), np.int32)
                 vi[0] = polyvinds[0]
@@ -3251,7 +3251,7 @@ class Polylines(Fancylines):
 
                 n_lines = len(v)/2
                 # print '  v\n',v
-                inds_polyline = range(ind_line, ind_line+n_lines)
+                inds_polyline = list(range(ind_line, ind_line+n_lines))
 
                 polyinds[inds_polyline] = ind
 
@@ -3308,7 +3308,7 @@ class Polylines(Fancylines):
         # print '  x1_new=',x1_new,x1_new.dtype
         # print '  x2_new=',x2_new,x2_new.dtype
         if self._is_fill.value:
-            for style, id_style in LINEHEADS.iteritems():
+            for style, id_style in LINEHEADS.items():
 
                 # begin
                 inds_style = np.flatnonzero(self._linebeginstyles == id_style)
@@ -3874,7 +3874,7 @@ class Polygons(DrawobjMixin):
             # print '  ======='
 
             # print '  polyline\n',polyline
-            polyvinds = range(len(polyline))
+            polyvinds = list(range(len(polyline)))
             # print '  polyvinds\n',polyvinds
             vi = np.zeros((2*len(polyline)), np.int32)
             vi[0] = polyvinds[0]
@@ -3893,7 +3893,7 @@ class Polygons(DrawobjMixin):
                 vi[1:-1] = np.repeat(polyvinds[1:], 2)
             n_lines = len(v)/2
             # print '  v\n',v
-            inds_polyline = range(ind_line, ind_line+n_lines)
+            inds_polyline = list(range(ind_line, ind_line+n_lines))
 
             polyinds[inds_polyline] = ind
             linevertices[inds_polyline] = v.reshape((-1, 2, 3))
@@ -4274,7 +4274,7 @@ class OGLnavcanvas(wx.Panel):
         event.Skip()
 
     def on_test(self, event=None):
-        print 'this is a test'
+        print('this is a test')
 
 
 class OGLcanvas(glcanvas.GLCanvas):
@@ -4523,7 +4523,7 @@ class OGLcanvas(glcanvas.GLCanvas):
             self.OnDraw(*args, **kwargs)
             # print 'draw',self.lastx,self.lasty,self.x,self.y
         except:
-            print 'WARNING in draw: unable to set context'
+            print('WARNING in draw: unable to set context')
 
     def set_drawing(self, drawing):
         if self._drawing != drawing:
@@ -4884,7 +4884,7 @@ class OGleditor(wx.Panel):
         #wx.EVT_SIZE(self, self.on_size)
 
     def on_test(self, event=None, drawing=None):
-        print '\non_test'
+        print('\non_test')
 
         if drawing is None:
             drawing = OGLdrawing()
@@ -5016,7 +5016,7 @@ class OGleditor(wx.Panel):
                 [[0.0, -2.0, 0.0], [-2.0, -2.0, 0.0], [-2.0, 0.0, 0.0]],  # 1 red
             ]
 
-            print '  vertices_polygon\n', vertices_poly
+            print('  vertices_polygon\n', vertices_poly)
             polygons.add_drawobjs(vertices_poly,
                                   colors_poly)
             polygons.add_drawobj([[5.0, -2.0, 0.0], [3.0, -2.0, 0.0], [3.0, 0.0, 0.0]],
@@ -5135,7 +5135,7 @@ if __name__ == '__main__':
     ###############################################################################
     # MAIN FRAME
 
-    from mainframe import AgileToolbarFrameMixin
+    from .mainframe import AgileToolbarFrameMixin
 
     class OGLeditorMainframe(AgileToolbarFrameMixin, wx.Frame):
         """
@@ -5169,7 +5169,7 @@ if __name__ == '__main__':
             #                    shortkey='Ctrl+t',info='Draw test objects')
 
         def on_test(self, event=None):
-            print '\non_test'
+            print('\non_test')
             vertices = np.array([
                 [[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]],  # 0 green
                 [[0.0, 0.0, 0.0], [0.0, 0.9, 0.0]],  # 1 red
@@ -5309,7 +5309,7 @@ if __name__ == '__main__':
                     [[0.0, -2.0, 0.0], [-2.0, -2.0, 0.0], [-2.0, 0.0, 0.0]],  # 1 red
                 ]
 
-                print '  vertices_polygon\n', vertices_poly
+                print('  vertices_polygon\n', vertices_poly)
                 polygons.add_drawobjs(vertices_poly,
                                       colors_poly)
                 polygons.add_drawobj([[5.0, -2.0, 0.0], [3.0, -2.0, 0.0], [3.0, 0.0, 0.0]],

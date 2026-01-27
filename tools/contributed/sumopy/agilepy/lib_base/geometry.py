@@ -118,7 +118,7 @@ def get_vec_on_polyline_from_pos(polyline, pos, length, angle=0.0):
     pos_edge_pre = 0.0
     x1, y1, z1 = polyline[0]
 
-    for j in xrange(1, len(polyline)):
+    for j in range(1, len(polyline)):
         x2, y2, z2 = polyline[j]
         seglength = np.linalg.norm([x2-x1, y2-y1])
         pos_edge += seglength
@@ -148,7 +148,7 @@ def get_coord_on_polyline_from_pos(polyline, pos):
     pos_edge_pre = 0.0
     x1, y1, z1 = polyline[0]
 
-    for j in xrange(1, len(polyline)):
+    for j in range(1, len(polyline)):
         x2, y2, z2 = polyline[j]
         length = np.linalg.norm([x2-x1, y2-y1])
         pos_edge += length
@@ -174,7 +174,7 @@ def get_coord_angle_on_polyline_from_pos(polyline, pos):
     pos_edge_pre = 0.0
     x1, y1, z1 = polyline[0]
 
-    for j in xrange(1, len(polyline)):
+    for j in range(1, len(polyline)):
         x2, y2, z2 = polyline[j]
         length = np.linalg.norm([x2-x1, y2-y1])
         pos_edge += length
@@ -206,7 +206,7 @@ def get_pos_on_polyline_from_coord(polyline, coord):
     p_min = 0.0
     pos = 0.0
     x1, y1, z1 = polyline[0]
-    for j in xrange(1, n_segs):
+    for j in range(1, n_segs):
         x2, y2, z2 = polyline[j]
         d, xp, yp = shortest_dist(x1, y1, x2, y2, xc, yc)
         # print '    x1,y1=(%d,%d)'%(x1,y1),',x2,y2=(%d,%d)'%(x2,y2),',xc,yc=(%d,%d)'%(xc,yc)
@@ -629,7 +629,7 @@ def anglediffs(a1, a2, deg=False):
     out : np.ndarray
         The difference between a1 and a2
     """
-    print 'anglediffs', a1, a2
+    print('anglediffs', a1, a2)
     return wrapanglediffs(a1 - a2, deg=deg)
 
 
@@ -704,6 +704,6 @@ def is_point_within_polygon(pos, shape):
 if __name__ == '__main__':
     a1 = 0.0
     a2 = +0.1
-    print 'a1', a1/np.pi*180
-    print 'a2', a2/np.pi*180
-    print 'anglediff(a1, a2)', anglediff(a1, a2)/np.pi*180
+    print('a1', a1/np.pi*180)
+    print('a2', a2/np.pi*180)
+    print('anglediff(a1, a2)', anglediff(a1, a2)/np.pi*180)

@@ -29,7 +29,7 @@
 ##
 
 import numpy as np
-from matplotlibtools import save_fig, init_plot
+from .matplotlibtools import save_fig, init_plot
 
 # needed for doc gen + import numpy as np
 from os import system, path, getcwd, chdir
@@ -37,9 +37,9 @@ import types
 
 ##############################################################################
 # convenience functions for Doc
-ARRAYTYPES = (types.TupleType, np.ndarray, types.ListType, types.XRangeType)
-INTTYPES = (types.IntType, np.int32, np.int64, np.int0, np.int16, np.int8, types.LongType)
-FLOATTYPES = (types.FloatType, np.float64)
+ARRAYTYPES = (tuple, np.ndarray, list, range)
+INTTYPES = (int, np.int32, np.int64, np.int0, np.int16, np.int8, int)
+FLOATTYPES = (float, np.float64)
 
 
 def is_arraytype(obj):
@@ -322,8 +322,8 @@ class Document:
         n_row = len(matrix)
         n_col = len(matrix[0])
         self.begin_array(n_col, leftbrace, arraystretch)
-        for row in xrange(0, n_row):
-            for col in xrange(0, n_col):
+        for row in range(0, n_row):
+            for col in range(0, n_col):
                 # print '  ',col,row,matrix[row,col]
                 if col == (n_col-1):
                     sep = "\\\\ \n"
@@ -340,7 +340,7 @@ class Document:
         n_row = len(vec)
         sep = "\\\\ \n"
         self.begin_array(1)
-        for col in xrange(0, n_row):
+        for col in range(0, n_row):
             self._write_arrayelement(vec[col], sep, format_default=format, is_math=is_math)
 
         self.end_array()
@@ -349,7 +349,7 @@ class Document:
         n_row = len(vec)
 
         self.begin_array(n_row)
-        for row in xrange(0, n_row):
+        for row in range(0, n_row):
             # print '  ',col,row,matrix[row,col]
             if row == (n_row-1):
                 sep = "\\\\ \n"
@@ -400,7 +400,7 @@ class Document:
 
     def include_graphics(self, filename, options=None, is_centered=True,
                          method='matplotlib', label=None, caption=None, envoptions='h!'):
-        print 'include_graphics ', filename
+        print('include_graphics ', filename)
         path_file = path.join(self.workdir, filename)
         if options is None:
             options = 'width = \\textwidth'
@@ -459,7 +459,7 @@ class Document:
             self.f.write("""\\end{document}\n""")
         self.f.close()
         if self.is_compile:
-            print 'compile latex ', self.path_file
+            print('compile latex ', self.path_file)
             system('pdflatex ' + self.path_file)
 
 

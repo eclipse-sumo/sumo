@@ -41,7 +41,7 @@ class priorityDictionary(dict):
     def smallest(self):
         '''Find smallest item after removing deleted items from heap.'''
         if len(self) == 0:
-            raise IndexError, "smallest of empty priorityDictionary"
+            raise IndexError("smallest of empty priorityDictionary")
         heap = self.__heap
         while heap[0][1] not in self or self[heap[0][1]] != heap[0][0]:
             lastItem = heap.pop()
@@ -74,7 +74,7 @@ class priorityDictionary(dict):
         dict.__setitem__(self, key, val)
         heap = self.__heap
         if len(heap) > 2 * len(self):
-            self.__heap = [(v, k) for k, v in self.iteritems()]
+            self.__heap = [(v, k) for k, v in self.items()]
             self.__heap.sort()  # builtin sort likely faster than O(n) heapify
         else:
             newPair = (val, key)
@@ -92,7 +92,7 @@ class priorityDictionary(dict):
         return self[key]
 
     def update(self, other):
-        for key in other.keys():
+        for key in list(other.keys()):
             self[key] = other[key]
 
 
@@ -150,7 +150,7 @@ def edgedijkstra_backwards(id_edge_start, cost_limit,
     # est.dist. of non-final vert.
 
     if np.isnan(weights[id_edge_start]):
-        print '  no access id_edge_start, weights', id_edge_start, weights[id_edge_start]
+        print('  no access id_edge_start, weights', id_edge_start, weights[id_edge_start])
         return ([], {}, {})
 
     Q = priorityDictionary()
@@ -166,9 +166,9 @@ def edgedijkstra_backwards(id_edge_start, cost_limit,
             # print '  toedge',e,'ids_bedge',bstar[e]
             # print '    D=',D
             # print '    Q=',Q
-            if not bstar.has_key(e):
-                print 'WARNING in edgedijkstra: bstar has no edge', e
-                print 'routes = \n', P
+            if e not in bstar:
+                print('WARNING in edgedijkstra: bstar has no edge', e)
+                print('routes = \n', P)
                 return ([], None, P)
 
             for id_edge in bstar[e]:
@@ -183,7 +183,7 @@ def edgedijkstra_backwards(id_edge_start, cost_limit,
                         newstate += '<Q'
                     else:
                         newstate += '>Q|'
-                    print '    id_bedge', id_edge, 'w=%.2f,w_tot=%.2f' % (weights[id_edge], weight_tot), weights[id_edge] >= 0, D[e] + weights[id_edge] < cost_limit, id_edge not in D, (id_edge not in Q or weight_tot < Q[id_edge]), newstate
+                    print('    id_bedge', id_edge, 'w=%.2f,w_tot=%.2f' % (weights[id_edge], weight_tot), weights[id_edge] >= 0, D[e] + weights[id_edge] < cost_limit, id_edge not in D, (id_edge not in Q or weight_tot < Q[id_edge]), newstate)
 
                 if not np.isnan(weights[id_edge]):  # edge accessible?
                     weight_tot = D[e] + weights[id_edge]
@@ -213,8 +213,8 @@ def get_edges_orig_from_tree(id_edge_dest, tree):
     ids_orig = []
     ids_edge = [id_edge_dest]
     is_cont = True
-    ids_edge_from = np.array(tree.keys(), dtype=np.int32)
-    ids_edge_to = np.array(tree.values(), dtype=np.int32)
+    ids_edge_from = np.array(list(tree.keys()), dtype=np.int32)
+    ids_edge_to = np.array(list(tree.values()), dtype=np.int32)
     if id_edge_dest not in ids_edge_to:
         return ids_orig
     while len(ids_edge) > 0:
@@ -252,7 +252,7 @@ def edgedijkstra(id_edge_start, ids_edge_target=None,
     # est.dist. of non-final vert.
 
     if np.isnan(weights[id_edge_start]):
-        print '  WARNING in edgedijkstra: no access id_edge_start, weights', id_edge_start, weights[id_edge_start]
+        print('  WARNING in edgedijkstra: no access id_edge_start, weights', id_edge_start, weights[id_edge_start])
         return ({}, {})
 
     Q = priorityDictionary()
@@ -265,9 +265,9 @@ def edgedijkstra(id_edge_start, ids_edge_target=None,
             ids_target.discard(e)
             if len(ids_target) == 0:
                 return (D, P)
-        if not fstar.has_key(e):
-            print 'WARNING in edgedijkstra: fstar has no edge', e
-            print 'routes = \n', P
+        if e not in fstar:
+            print('WARNING in edgedijkstra: fstar has no edge', e)
+            print('routes = \n', P)
             return (None, P)
         for id_edge in fstar[e]:
             if not np.isnan(weights[id_edge]):  # edge accessible?
@@ -292,7 +292,7 @@ def get_mincostroute_edge2edges(id_rootedge, ids_targetedge, D=None, P=None,
     routes = []
     costs = []
     for id_targetedge in ids_targetedge:
-        if P.has_key(id_targetedge):
+        if id_targetedge in P:
             route = [id_targetedge]
             e = id_targetedge
             while e != id_rootedge:
@@ -324,7 +324,7 @@ def get_mincostroute_edge2edge(id_rootedge, id_targetedge, D=None, P=None,
                             weights=weights, fstar=fstar)
 
     route = [id_targetedge]
-    if not P.has_key(id_targetedge):
+    if id_targetedge not in P:
         return 0.0, []
 
     e = id_targetedge
@@ -347,7 +347,7 @@ def get_mincostroute_node2node(id_rootnode, id_targetnode, D, P, edges):
     # print 'getMinCostRoute node_start=%s, edge_end =%s node_end=%s'%(rootnode.getID(),P[targetnode].getID(),targetnode.getID())
     id_node = id_targetnode
     route = []
-    if not P.has_key(id_targetnode):
+    if id_targetnode not in P:
         return 0.0, []
 
     while id_node != id_rootnode:
@@ -615,11 +615,11 @@ class RouterMixin(CmlMixin, Process):
         # print 'SumonetImporter.do',cml
         self.run_cml(cml)
         if self.status == 'success':
-            print '  Routing done.'
+            print('  Routing done.')
             if os.path.isfile(self.outfilepath):
                 # print '  outfile exists, start importing routes'
                 if self.is_update_current_routes:
-                    print '  update current routes'
+                    print('  update current routes')
                     self._trips.import_routes_xml(self.outfilepath,
                                                   is_clear_trips=False,
                                                   is_generate_ids=False,
@@ -627,7 +627,7 @@ class RouterMixin(CmlMixin, Process):
                                                   is_add=False
                                                   )
                 else:
-                    print '  create route alternatives'
+                    print('  create route alternatives')
                     self._trips.import_routes_xml(self.outfilepath,
                                                   is_clear_trips=False,
                                                   is_generate_ids=True,
@@ -645,7 +645,7 @@ class DuaRouter(RouterMixin):
                  is_export_net=True,
                  logger=None,
                  **kwargs):
-        print 'DuaRouter.__init__ net, trips', net, trips
+        print('DuaRouter.__init__ net, trips', net, trips)
         self.init_tripsrouter('duarouter', net,  # net becomes parent
                               trips,
                               outfilepath=outfilepath,
@@ -662,7 +662,7 @@ class DuaRouter(RouterMixin):
 
         else:
             self.is_export_trips = False
-        print '  tripfilepaths', tripfilepaths
+        print('  tripfilepaths', tripfilepaths)
         if tripfilepaths is not None:
             self.add_option('tripfilepaths', tripfilepaths,
                             groupnames=['_private'],
@@ -1075,7 +1075,7 @@ class MaRouter(CmlMixin, Process):
         """
         Imports simulation resuts into results object.
         """
-        print 'import_results of marouter'
+        print('import_results of marouter')
 
         if results is None:
             results = self._results

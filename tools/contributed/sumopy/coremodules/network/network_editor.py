@@ -414,7 +414,7 @@ class AddCrossingTool(SelectTool):
     def on_add_crossing(self, event=None):
         self._optionspanel.apply()
         #edges = self.get_edges().ids_sumo
-        print 'add crossing'
+        print('add crossing')
         # print '  id_node',self.id_node.get_value()
         # print '  ids_edge',self.ids_edge.get_value()
         crossings = self.get_scenario().net.crossings
@@ -717,7 +717,7 @@ class EdgeDrawings(Polylines):
             'delivery': ('highway.delivery', [0.4, 0.2, 0.8, 0.9]),
         }
 
-        for edgeclass, cdata in self.edgeclasses.iteritems():
+        for edgeclass, cdata in self.edgeclasses.items():
             edgetype, color = cdata
             self.add(cm.AttrConf('color_'+edgeclass, np.array(color, np.float32),
                                  groupnames=['options', 'edgecolors'],
@@ -802,7 +802,7 @@ class EdgeDrawings(Polylines):
         #self.colors.value = np.ones((n,1),np.float32)*np.array([0.9,0.9,0.9,0.9])
         #self.colors_highl.value = self._get_colors_highl(self.colors.value)
         self.colors_fill.value[:] = np.ones((n, 1), np.float32)*self.color_edge_default.value
-        for edgeclass, cdata in self.edgeclasses.iteritems():
+        for edgeclass, cdata in self.edgeclasses.items():
             edgetype, color = cdata
             # print '  ',edgeclass, np.sum(self._edges.types.value==edgetype)
             # print '  color',getattr(self,'color_'+edgeclass).value
@@ -848,7 +848,7 @@ class LaneDrawings(EdgeDrawings):
         }
 
         net = lanes.parent
-        for typename, color in typecolors.iteritems():
+        for typename, color in typecolors.items():
             id_mode = net.get_id_mode(typename)
             self.add(cm.AttrConf('color_'+typename, np.array(color, np.float32),
                                  groupnames=['options', 'typecolors'],
@@ -1504,7 +1504,7 @@ def netediting(net):
 if __name__ == '__main__':
     ###########################################################################
     # MAINLOOP
-    import network
+    from . import network
     from agilepy.lib_base.logger import Logger
     net = network.Network(logger=Logger())
     net.import_xml('facsp2', 'testnet')

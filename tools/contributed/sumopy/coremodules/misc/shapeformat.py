@@ -29,7 +29,7 @@ import agilepy.lib_base.arrayman as am
 from agilepy.lib_base.processes import Process  # ,CmlMixin,ff,call
 #from coremodules.scenario import scenario
 from agilepy.lib_base.misc import get_inversemap
-import shapefile
+from . import shapefile
 
 
 try:
@@ -42,10 +42,10 @@ try:
 
 except:
     IS_PROJ = False
-    print 'Import error: in order to run the traces plugin please install the following modules:'
-    print '   mpl_toolkits.basemap and shapely'
-    print 'Please install these modules if you want to use it.'
-    print __doc__
+    print('Import error: in order to run the traces plugin please install the following modules:')
+    print('   mpl_toolkits.basemap and shapely')
+    print('Please install these modules if you want to use it.')
+    print(__doc__)
     raise
 
 
@@ -54,7 +54,7 @@ try:
     IS_GDAL = True
 except:
     IS_GDAL = False
-    print 'WARNING: GDAL module is not installed.'
+    print('WARNING: GDAL module is not installed.')
 
 
 # Value Shape Type
@@ -153,7 +153,7 @@ def get_shapeproj(projparams):
     +proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
     +init=EPSG:23032
     """
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
     # print 'get_shapeproj',projparams
     params = {}
     for elem in projparams.split('+'):
@@ -162,13 +162,13 @@ def get_shapeproj(projparams):
             params[attr.strip()] = val.strip()
     # print 'params',params
 
-    if params.has_key('init'):
+    if 'init' in params:
         if params['init'].lower().find('epsg') >= 0:
             epgs, number = params['init'].lower().split(':')
             # print   epgs,number
             html = 'http://spatialreference.org/ref/epsg/%s/prj/' % number
 
-    elif params.has_key('datum'):
+    elif 'datum' in params:
         if params['datum'].lower().find('wgs') >= 0:
             number = params['datum'][3:]
             # print 'wgs', params['zone']+'n'
@@ -176,7 +176,7 @@ def get_shapeproj(projparams):
                 number, params['proj'], params['zone'])
 
     # print 'html=',html
-    f = urllib.urlopen(html)
+    f = urllib.request.urlopen(html)
     return (f.read())
 
 
@@ -221,7 +221,7 @@ def get_proj4_from_shapefile(filepath):
                     gcs, proj, date = groups
                     proj4 = '+proj=longlat +datum=%s%s +no_defs' % (proj, date[2:])
     else:
-        print 'WARNING: found no prj file', projfilepath
+        print('WARNING: found no prj file', projfilepath)
     return proj4
     # return "+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
     # return '+proj=longlat +datum=WGS84 +ellps=WGS84 +a=6378137.0 +f=298.257223563 +pm=0.0  +no_defs'
@@ -241,7 +241,7 @@ def get_shapefile(filepath):
 
     shapefilepath = os.path.join(dirname, basename)
 
-    print 'import_shapefile *%s*' % (shapefilepath), type(str(shapefilepath))
+    print('import_shapefile *%s*' % (shapefilepath), type(str(shapefilepath)))
     sf = shapefile.Reader(str(shapefilepath))
 
     return sf
@@ -285,7 +285,7 @@ class ShapefileImporter(Process):
                  logger=None,
                  **kwargs):
 
-        print 'ShapefileImporter.__init__', filepath  # ,projparams_target_default, projparams_shape
+        print('ShapefileImporter.__init__', filepath)  # ,projparams_target_default, projparams_shape
         self._init_common(ident,
                           parent=parent,
                           name=name,
@@ -308,7 +308,7 @@ class ShapefileImporter(Process):
         attrsman_parent = parent.get_attrsman()
         self._coordsconfig = attrsman_parent.get_config(coordsattr)
 
-        for attrname, shapeattr_default in attrnames_to_shapeattrs.iteritems():
+        for attrname, shapeattr_default in attrnames_to_shapeattrs.items():
             config = attrsman_parent.get_config(attrname)
             fieldname = 'fieldname_'+attrname
             setattr(self, fieldname,
@@ -461,25 +461,25 @@ class ShapefileImporter(Process):
         self._fieldinfo = {}
         fields = self._sf.fields
         #records = sf.records()
-        for ind_field, field in zip(xrange(1, len(fields)), fields[1:]):
+        for ind_field, field in zip(range(1, len(fields)), fields[1:]):
             attrname, default, dtype, digits_fraction = get_fieldinfo(field)
             self._fieldinfo[attrname] = (ind_field-1, default, dtype, digits_fraction)
 
     def get_projections(self):
-        print 'get_projections IS_PROJ', IS_PROJ
-        print 'self.projparams_shape', self.projparams_shape, 'self._projparams_target', self._projparams_target
+        print('get_projections IS_PROJ', IS_PROJ)
+        print('self.projparams_shape', self.projparams_shape, 'self._projparams_target', self._projparams_target)
 
         proj_shape = None
         proj_target = None
 
         if self.is_use_shapeproj & (self.projparams_shape == ''):
-            print '   no shape projection given'
+            print('   no shape projection given')
             self.projparams_shape = get_proj4_from_shapefile(self.filepath)
-            print '     from prj file projparams_shape', self.projparams_shape
+            print('     from prj file projparams_shape', self.projparams_shape)
             if self.projparams_shape == '':
                 # no results from shapefile info, let's try to guess
                 self.projparams_shape = self.guess_shapeproj()
-                print '     from guessing projparams_shape', self.projparams_shape
+                print('     from guessing projparams_shape', self.projparams_shape)
 
         # if self.is_guess_targetproj:
         #        self.projparams_target = self.guess_targetproj()
@@ -490,14 +490,14 @@ class ShapefileImporter(Process):
             if self.is_use_shapeproj:
 
                 try:
-                    print '  use projparams_shape =*%s*' % self.projparams_shape, type(str(self.projparams_shape)), pyproj.Proj(str(self.projparams_shape))
+                    print('  use projparams_shape =*%s*' % self.projparams_shape, type(str(self.projparams_shape)), pyproj.Proj(str(self.projparams_shape)))
                     proj_shape = pyproj.Proj(str(self.projparams_shape))
                 except:
                     proj_shape = None
 
             if self.is_use_targetproj:
                 try:
-                    print '  use projparams_target =*%s*' % self._projparams_target, type(str(self._projparams_target)), pyproj.Proj(str(self._projparams_target))
+                    print('  use projparams_target =*%s*' % self._projparams_target, type(str(self._projparams_target)), pyproj.Proj(str(self._projparams_target)))
                     proj_target = pyproj.Proj(str(self._projparams_target))
                 except:
                     proj_target = None
@@ -525,7 +525,7 @@ class ShapefileImporter(Process):
             shapeattrname = fieldconf.get_value()
             attrconf = attrsman_parent.get_config(fieldconf.attrname_orig)
 
-            if self._fieldinfo.has_key(shapeattrname):
+            if shapeattrname in self._fieldinfo:
                 attrconfs.append(attrconf)
                 shapeinds.append(self._fieldinfo[shapeattrname][0])
 
@@ -538,7 +538,7 @@ class ShapefileImporter(Process):
         return True
 
     def import_shapes(self):
-        print 'import_shapes'
+        print('import_shapes')
 
         shapes = self._sf.shapes()
         shapetype = shapes[3].shapeType
@@ -551,10 +551,10 @@ class ShapefileImporter(Process):
 
         # print '  proj_shape',proj_shape,'proj_target',proj_target
         if self.is_use_shapeproj & (proj_shape is None):
-            print 'WARNING: import_shapes, no shape projection'
+            print('WARNING: import_shapes, no shape projection')
             return [], 0
         if self.is_use_targetproj & (proj_target is None):
-            print 'WARNING: import_shapes, no target projection'
+            print('WARNING: import_shapes, no target projection')
             return [], 0
 
         offset = np.array([0.0, 0.0, 0.0], dtype=np.float32)
@@ -572,10 +572,10 @@ class ShapefileImporter(Process):
         # print '  offset_target',offset_target
         coordsconfig = self._coordsconfig
         ids = coordsconfig.get_manager().add_rows(n_records)
-        print '  n_records', n_records, shapetype
+        print('  n_records', n_records, shapetype)
 
         if (shapetype == 3) | (shapetype == 5):  # poliline = 3, polygon = 5
-            for ind_rec, id_attr in zip(xrange(n_records), ids):
+            for ind_rec, id_attr in zip(range(n_records), ids):
                 # print '  ind_rec',ind_rec,'id_attr',id_attr
                 shape_rec = self._sf.shapeRecord(ind_rec)
                 points = shape_rec.shape.points
@@ -583,26 +583,26 @@ class ShapefileImporter(Process):
                 n_points = len(points)
                 shape = np.zeros((n_points, 3), dtype=np.float32) + offset
                 if self.is_use_targetproj & self.is_use_shapeproj:
-                    for ind, point in zip(xrange(n_points), points):
+                    for ind, point in zip(range(n_points), points):
                         shape[ind, 0:2] += np.array(pyproj.transform(proj_shape, proj_target, point[0], point[1]))
 
                 elif self.is_use_targetproj:
-                    for ind, point in zip(xrange(n_points), points):
+                    for ind, point in zip(range(n_points), points):
                         shape[ind, 0:2] += proj_target(point[0], point[1])
 
                 elif self.is_use_shapeproj:
-                    for ind, point in zip(xrange(n_points), points):
+                    for ind, point in zip(range(n_points), points):
                         shape[ind, 0:2] += proj_shape(point[0], point[1])
 
                 else:  # no projection
-                    for ind, point in zip(xrange(n_points), points):
+                    for ind, point in zip(range(n_points), points):
                         shape[ind, 0:2] += (point[0], point[1])
 
                 coordsconfig[id_attr] = list(shape)
                 # print '  coords=',coordsconfig[id_attr]
 
         elif shapetype == 1:
-            for ind_rec, id_attr in zip(xrange(n_records), ids):
+            for ind_rec, id_attr in zip(range(n_records), ids):
                 # print '  ind_rec',ind_rec,id_attr
                 shape_rec = self._sf.shapeRecord(ind_rec)
                 points = shape_rec.shape.points
@@ -642,7 +642,7 @@ class ShapefileImporter(Process):
         return ids, shapetype
 
     def do(self):
-        print self.ident+'.do'
+        print(self.ident+'.do')
         #fields = self._sf.fields
         #records = self._sf.records()
 
@@ -661,7 +661,7 @@ class ShapefileImporter(Process):
         ids, shapetype = self.import_shapes()
 
         if len(ids) == 0:
-            print 'WARNING: import_shapes failed'
+            print('WARNING: import_shapes failed')
             return False
 
         n_attrs = len(attrconfs)
@@ -669,7 +669,7 @@ class ShapefileImporter(Process):
 
         # import no attributes from table
         if (n_attrs == 0) | (n_records == 0):
-            print 'WARNING: successfully imported no data'
+            print('WARNING: successfully imported no data')
             return True
         shaperecords = self._sf.shapeRecord
 
@@ -693,17 +693,17 @@ class ShapefileImporter(Process):
                     if not np.any(self.inboundaries(np.array(shape, dtype=np.float32))):
                         ids_outside.append(id_shape)
 
-            print '  ids_outside', ids_outside
+            print('  ids_outside', ids_outside)
             self.parent.del_rows(ids_outside)
 
         return True
 
     def import_data(self, shaperecords, ids, attrconfs, shapeinds):
-        print 'import_data'
+        print('import_data')
         n_records = len(ids)
         objecttype = np.dtype(np.object)  # np.dtype(np.zeros(1,dtype = np.object))
         values_invalid = ['NULL', '\n']
-        for ind_rec, id_attr in zip(xrange(n_records), ids):
+        for ind_rec, id_attr in zip(range(n_records), ids):
             shape_rec = shaperecords(ind_rec)
 
             # print '  shape_rec',id_attr,shape_rec.record
@@ -861,7 +861,7 @@ class Shapedata(am.ArrayObjman):
         If no file is given, the default file path will be selected.
         """
         # https://code.google.com/p/pyshp/
-        print '\nexport_shapefile', filepath
+        print('\nexport_shapefile', filepath)
         #proj_target, offset_target = self.parent.get_proj_offset()
         if len(self) == 0:
             return False
@@ -940,8 +940,8 @@ class Shapedata(am.ArrayObjman):
             prjfile.close()
             return True
         except:
-            print 'WARNING in export_shapefile:\n no projection file written (probably no Internet connection).'
-            print 'Open shapefile with projection: %s.' % self._projparams.get_value()
+            print('WARNING in export_shapefile:\n no projection file written (probably no Internet connection).')
+            print('Open shapefile with projection: %s.' % self._projparams.get_value())
             # raise
             return False
 
@@ -987,7 +987,7 @@ class Shapedata(am.ArrayObjman):
             self.filepath.set_value(filepath)
 
         basefilepath = self.get_basefilepath(filepath)
-        print 'import_shapefile *%s*' % (basefilepath), type(str(basefilepath))
+        print('import_shapefile *%s*' % (basefilepath), type(str(basefilepath)))
         sf = shapefile.Reader(str(basefilepath))
 
         shapes = sf.shapes()
@@ -1023,18 +1023,18 @@ class Shapedata(am.ArrayObjman):
         # print '  fields',len(fields),fields
 
         n = len(attrnames)
-        for ind in xrange(len(records)):
+        for ind in range(len(records)):
             shape_rec = sf.shapeRecord(ind)
 
             # use first field as id, but will also be a regular attribute
             id_egde = shape_rec.record[0]
             attrrow = {}
-            print '\n id_egde', id_egde
-            for i, field in zip(xrange(n), fields[1:]):
+            print('\n id_egde', id_egde)
+            for i, field in zip(range(n), fields[1:]):
                 val = shape_rec.record[i]
                 # print '  ',i,attrnames[i],'>>'+repr(val)+'<<', type(val)
                 if field[1] == 'N':
-                    if type(val) == types.StringType:
+                    if type(val) == bytes:
                         val = -1
 
                 attrrow[attrnames[i]] = val
@@ -1053,7 +1053,7 @@ class Shapedata(am.ArrayObjman):
             #self.set_row(id_egde, **attrrow)
             id = self.add_row(key=id_egde)
 
-            for attrname, val in attrrow.iteritems():
+            for attrname, val in attrrow.items():
                 # print '  ',attrname,'>>'+repr(val)+'<<', type(val)
                 getattr(self, attrname)[id] = val
 
@@ -1082,9 +1082,9 @@ def nodes_to_shapefile(net, filepath, dataname='nodeshapedata',
 
     map_nodetypes = get_inversemap(nodes.types.choices)
     nodetypes = np.zeros(max(map_nodetypes.keys())+1, dtype=np.object)
-    nodetypes[map_nodetypes.keys()] = map_nodetypes.values()
+    nodetypes[list(map_nodetypes.keys())] = list(map_nodetypes.values())
 
-    print 'nodes_to_shapefile', filepath
+    print('nodes_to_shapefile', filepath)
 
     for attr in attrlist:
         shapedata.add_field(attr[2:])
@@ -1131,7 +1131,7 @@ def edges_to_shapefile(net, filepath, dataname='edgeshapedata',
         ('speeds_max', 'val', 'SPEED_MAX', 'N', 6, 3),
     ]
 
-    print 'edges_to_shapefile', filepath
+    print('edges_to_shapefile', filepath)
 
     for attr in attrlist:
         shapedata.add_field(attr[2:])
@@ -1153,10 +1153,10 @@ def edges_to_shapefile(net, filepath, dataname='edgeshapedata',
     if is_access:
         accesses = np.zeros(len(ids_edge), dtype=object)
         accesses[:] = ''
-        for mode, shapemode in VEHICLECLASSCODE.iteritems():
+        for mode, shapemode in VEHICLECLASSCODE.items():
             # here we select this mode for access level 1 and 2
             #                     -1  0       1          2
-            accessvec = np.array(['', 'X', shapemode, shapemode], dtype=np.unicode)
+            accessvec = np.array(['', 'X', shapemode, shapemode], dtype=np.str)
 
             if net.modes.has_modename(mode):
                 accesslevels = edges.get_accesslevels(net.modes.get_id_mode(mode))
@@ -1196,7 +1196,7 @@ def facilities_to_shapefile(facilities, filepath, dataname='facilitydata',
         ('osmkeys', 'val', 'OSMKEY', 'C', 32, 0),
     ]
 
-    print 'facilities_to_shapefile', filepath
+    print('facilities_to_shapefile', filepath)
 
     for attr in attrlist:
         shapedata.add_field(attr[2:])
@@ -1250,7 +1250,7 @@ def zones_to_shapefile(zones, filepath, dataname='zonedata',
         # ('entropies','id','ENTROPY','N',12,5),
     ]
 
-    print 'zones_to_shapefile', filepath
+    print('zones_to_shapefile', filepath)
 
     for attr in attrlist:
         shapedata.add_field(attr[2:])

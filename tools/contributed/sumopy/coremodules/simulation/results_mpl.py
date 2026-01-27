@@ -50,7 +50,7 @@ class Resultplotter(PlotoptionsMixin, Process):
         # edgeresultes....
         attrnames_edgeresults = OrderedDict()
         edgeresultattrconfigs = self.parent.edgeresults.get_group_attrs('results')
-        edgeresultattrnames = edgeresultattrconfigs.keys()
+        edgeresultattrnames = list(edgeresultattrconfigs.keys())
         # edgeresultattrnames.sort()
         for attrname in edgeresultattrnames:
             attrconfig = edgeresultattrconfigs[attrname]
@@ -117,7 +117,7 @@ class ElectricalEnergyResultsPlotter(PlotoptionsMixin, Process):
         self._init_common('electricalenergyresultsplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'ElectricalEnergyResultsPlotter.__init__', results, self.parent, len(self.get_eneryresults())
+        print('ElectricalEnergyResultsPlotter.__init__', results, self.parent, len(self.get_eneryresults()))
         attrsman = self.get_attrsman()
 
         self.add_plotoptions_lineplot(**kwargs)
@@ -128,16 +128,16 @@ class ElectricalEnergyResultsPlotter(PlotoptionsMixin, Process):
 
     def show(self):
         eneryresults = self.get_eneryresults()
-        print 'show', eneryresults
+        print('show', eneryresults)
         # print '  dir(vehicleman)',dir(vehicleman)
 
-        print '  len(eneryresults)', len(eneryresults)
+        print('  len(eneryresults)', len(eneryresults))
         if len(eneryresults) > 0:
             plt.close("all")
             self.plot_power()
 
     def plot_power(self):
-        print 'plot_power'
+        print('plot_power')
         eneryresults = self.get_eneryresults()
 
         times = eneryresults.times.get_value()
@@ -193,7 +193,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
         self._init_common('speedprofileplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'SpeedprofilePlotter.__init__', results, self.parent, len(self.get_results())
+        print('SpeedprofilePlotter.__init__', results, self.parent, len(self.get_results()))
         attrsman = self.get_attrsman()
 
         self.id_veh_sumo = attrsman.add(cm.AttrConf('id_veh_sumo', kwargs.get('id_veh_sumo', ''),
@@ -211,10 +211,10 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
 
     def show(self):
         results = self.get_results()
-        print 'show', results
+        print('show', results)
         id_res = results.ids_sumo.get_id_from_index(self.id_veh_sumo)
 
-        print '  len(results)', len(results), results.ids_sumo.has_index(self.id_veh_sumo)
+        print('  len(results)', len(results), results.ids_sumo.has_index(self.id_veh_sumo))
         if results.ids_sumo.has_index(self.id_veh_sumo):
             id_res = results.ids_sumo.get_id_from_index(self.id_veh_sumo)
             plt.close("all")
@@ -224,7 +224,7 @@ class SpeedprofilePlotter(PlotoptionsMixin, Process):
             return False
 
     def plot_speedprofile(self, times, speeds):
-        print 'plot_speedprofile'
+        print('plot_speedprofile')
 
         if len(times) < 2:
             return False
@@ -278,13 +278,13 @@ class XYEdgeresultsPlotter(PlotoptionsMixin, Process):
         self._init_common('xyedgeresultsplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'XYResultsPlotter.__init__', results
+        print('XYResultsPlotter.__init__', results)
         attrsman = self.get_attrsman()
 
         # edgeresultes....
         attrnames_edgeresults = OrderedDict()
         edgeresultattrconfigs = self.parent.edgeresults.get_group_attrs('results')
-        edgeresultattrnames = edgeresultattrconfigs.keys()
+        edgeresultattrnames = list(edgeresultattrconfigs.keys())
         # edgeresultattrnames.sort()
         for attrname in edgeresultattrnames:
             attrconfig = edgeresultattrconfigs[attrname]
@@ -315,13 +315,13 @@ class XYEdgeresultsPlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def show(self):
-        print 'show'
+        print('show')
 
         plt.close("all")
         self.plot_xy()
 
     def plot_xy(self):
-        print 'plot_xy', self.edgeattrname_y, 'vs', self.edgeattrname_x
+        print('plot_xy', self.edgeattrname_y, 'vs', self.edgeattrname_x)
 
         if (self.edgeattrname_x is not "") & (self.edgeattrname_x is not ""):
             resultattrconf_x = getattr(self.parent.edgeresults, self.edgeattrname_x)
@@ -363,7 +363,7 @@ class XYEdgeresultsPlotter(PlotoptionsMixin, Process):
             offset = my - (m*mx)
 
             x_linreg = np.array([np.min(x[inds]), np.max(x[inds])], dtype=np.float)
-            print ' m', m, 'offset', offset
+            print(' m', m, 'offset', offset)
             # print ' x_linreg',offset * x_linreg
             ax.plot(x_linreg, offset + m*x_linreg,
                     label=r'$%.3f+%.3fx$, $R^2=%.3f$' % (offset, m, R2),
@@ -431,7 +431,7 @@ class TraveltimePlotter(PlotoptionsMixin, Process):
         self._init_common('isochoneplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'TraveltimePlotter.__init__', results, self.parent
+        print('TraveltimePlotter.__init__', results, self.parent)
         attrsman = self.get_attrsman()
         scenario = self.get_scenario()
 
@@ -549,8 +549,8 @@ class TraveltimePlotter(PlotoptionsMixin, Process):
                                                        )
         elif self.direction == 'destination':
             title = 'Accumulated travel times to edge ID %d' % (self.id_edge_reference)
-        ids_edge = np.array(edgetimestree.keys(), dtype=np.int32)
-        edgetimes = np.array(edgetimestree.values(), dtype=np.float32)
+        ids_edge = np.array(list(edgetimestree.keys()), dtype=np.int32)
+        edgetimes = np.array(list(edgetimestree.values()), dtype=np.float32)
 
         self.plot_results_on_map(ax, ids_edge=ids_edge,
                                  values=edgetimes,
@@ -559,7 +559,7 @@ class TraveltimePlotter(PlotoptionsMixin, Process):
 
         if 0:  # self.is_isochrone:
 
-            print 'isochrone plot not yet implemented'
+            print('isochrone plot not yet implemented')
 
             times_point = np.zeros(np.max(ids_point)+1)
             for id_point in ids_point:
@@ -620,7 +620,7 @@ class TraveltimePlotter(PlotoptionsMixin, Process):
                     else:
                         isochrone_shapes[i].append([(points.coords[iso_points[np.argmax(iso_points[:, 3]), 1]][0]),
                                                     (points.coords[iso_points[np.argmax(iso_points[:, 3]), 1]][1])])
-        print isochrone_shapes
+        print(isochrone_shapes)
         for isochrone_shape in isochrone_shapes:
             verts = np.array(isochrone_shape)[:, :2].tolist()
             verts.append([0, 0])
@@ -637,9 +637,9 @@ class TraveltimePlotter(PlotoptionsMixin, Process):
 
             if len(isochrone_shape) > 4:
                 zone_shape = isochrone_shape
-                print zone_shape
-                for zone_shape_coords, i in zip(isochrone_shape, range(len(isochrone_shape))):
-                    print i, len(isochrone_shape)
+                print(zone_shape)
+                for zone_shape_coords, i in zip(isochrone_shape, list(range(len(isochrone_shape)))):
+                    print(i, len(isochrone_shape))
                     if i == 0:
                         zone_shape[i] = ((np.array(isochrone_shape[i])+np.array(isochrone_shape[i+1])+np.array(
                             isochrone_shape[-1])+np.array(isochrone_shape[i+2])+np.array(isochrone_shape[-2]))/5.).tolist()

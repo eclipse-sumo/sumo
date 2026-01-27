@@ -42,8 +42,8 @@ try:
 
 except:
     pyproj = None
-    print 'Some of the functions cannot be executed because module pypro or mpl_toolkits.basemap is missing.'
-    print 'Please install these modules if you want to use it.'
+    print('Some of the functions cannot be executed because module pypro or mpl_toolkits.basemap is missing.')
+    print('Please install these modules if you want to use it.')
     # print __doc__
 
 
@@ -52,7 +52,7 @@ except:
 
 class StopAccessProvider(Process):
     def __init__(self,  net, logger=None, **kwargs):
-        print 'StopAccessProvider.__init__'
+        print('StopAccessProvider.__init__')
         self._init_common('stopaccessprovider',
                           parent=net,
                           name='Stop access provider',
@@ -75,7 +75,7 @@ class StopAccessProvider(Process):
         #self.ids_modes_tocomplete = set([MODES["pedestrian"], MODES["delivery"], MODES["bus"]])
 
     def do(self):
-        print 'StopAccessProvider.do'
+        print('StopAccessProvider.do')
 
         self.provide_access()
 
@@ -107,21 +107,21 @@ class StopAccessProvider(Process):
                 # print ' Check access at stop %s lane %d. al='%(id_stop,id_lane)
                 if lanes.get_accesslevel([id_lane], id_mode_ped) == -1:
                     # no pedaccess
-                    print '    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
+                    print('    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge]))
                     lanes.add_access(id_lane, id_mode_ped)
                     n_add_access += 1
 
                 if self.is_bikeaccess:
                     if lanes.get_accesslevel([id_lane], id_mode_bike) == -1:
-                        print '    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
+                        print('    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge]))
                         lanes.add_access(id_lane, id_mode_bike)
                         n_add_access += 1
 
             else:
-                print 'WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (id_stop, id_edge, edges.ids_sumo[id_edge])
+                print('WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (id_stop, id_edge, edges.ids_sumo[id_edge]))
                 # return False
 
-        print '  Added access to %d stops' % n_add_access
+        print('  Added access to %d stops' % n_add_access)
         return True
 
 
@@ -346,7 +346,7 @@ class PtStops(am.ArrayObjman):
         """
         Export stops to SUMO stop xml file.
         """
-        print 'export_sumoxml', filepath, len(self)
+        print('export_sumoxml', filepath, len(self))
         if len(self) == 0:
             return None
 
@@ -356,7 +356,7 @@ class PtStops(am.ArrayObjman):
         try:
             fd = open(filepath, 'w')
         except:
-            print 'WARNING in write_obj_to_xml: could not open', filepath
+            print('WARNING in write_obj_to_xml: could not open', filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
@@ -375,7 +375,7 @@ class PtStops(am.ArrayObjman):
         if filepath is None:
             filepath = self.get_stopfilepath()
 
-        print 'import_sumostops %s ' % (filepath,)
+        print('import_sumostops %s ' % (filepath,))
 
         fd = open(filepath, 'r')
 
@@ -388,7 +388,7 @@ class PtStops(am.ArrayObjman):
                 os.remove(filepath)
 
         except KeyError:
-            print >> sys.stderr, "Error: Problems with reading file %s" % filepath
+            print("Error: Problems with reading file %s" % filepath, file=sys.stderr)
             raise
 
     def update_centroids(self):
@@ -431,12 +431,12 @@ class StopReader(handler.ContentHandler):
             id_lane = self._get_id_lane_from_sumoinfo(id_edge_sumo, int(ind_lane_str.strip()))
             if id_lane != -1:
 
-                if attrs.has_key('startPos'):
+                if 'startPos' in attrs:
                     pos_from = float(attrs['startPos'])
                 else:
                     pos_from = None
 
-                if attrs.has_key('endPos'):
+                if 'endPos' in attrs:
                     pos_to = float(attrs['endPos'])
                 else:
                     pos_to = None
@@ -462,4 +462,4 @@ class StopReader(handler.ContentHandler):
                                  )
 
             else:
-                print 'WARNING in StopReader: stop %s has non-existant lane %s' % (id_stop, attrs['lane'])
+                print('WARNING in StopReader: stop %s has non-existant lane %s' % (id_stop, attrs['lane']))

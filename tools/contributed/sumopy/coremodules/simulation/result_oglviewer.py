@@ -323,7 +323,7 @@ class ResultSelectTool(NetSelectTool):
         edgeresults = results.edgeresults
         attrnames_edgeresults = OrderedDict()
         edgeresultattrconfigs = edgeresults.get_group_attrs('results')
-        edgeresultattrnames = edgeresultattrconfigs.keys()
+        edgeresultattrnames = list(edgeresultattrconfigs.keys())
         # edgeresultattrnames.sort()
         for attrname in edgeresultattrnames:
             attrconfig = edgeresultattrconfigs[attrname]
@@ -728,7 +728,7 @@ class EdgeresultDrawings(Polylines):
         Called by tool.
         """
         self.resultsattr = getattr(self._edgeresults, attrname)
-        print 'configure', self.resultsattr.attrname, is_widthvalue, is_colorvalue
+        print('configure', self.resultsattr.attrname, is_widthvalue, is_colorvalue)
         # used for normalization
         if len(self.resultsattr.get_value()) == 0:
             return
@@ -796,7 +796,7 @@ class Resultviewer(OGleditor):
                  is_menu=False,  # create menu items
                  Debug=0,
                  ):
-        print 'Resultviewer.__init__ parent', parent
+        print('Resultviewer.__init__ parent', parent)
         self._drawing = None
         self.prefix_anim = 'anim_'
         self.layer_anim = 1000.0

@@ -31,7 +31,7 @@ def write_obj_to_xml(obj, filepath,
     try:
         fd = open(filepath, 'w')
     except:
-        print 'WARNING in write_obj_to_xml: could not open', filepath
+        print('WARNING in write_obj_to_xml: could not open', filepath)
         return False
     fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
     indent = 0
@@ -81,7 +81,7 @@ def arr(attr, a, sep=' '):
     if len(a) > 0:
         format = '%s'
         s += '%s="' % attr
-        for i in xrange(len(a)):
+        for i in range(len(a)):
             # print '  a[i]',a[i],type(a[i]),str(a[i]),type(str(a[i]))
             #ss = str(a[i])
             # print '  ',type(s),type(ss),type(sep)
@@ -101,9 +101,9 @@ def mat(attr, m):
     s = ' '
     if len(m) > 0:
         s += '%s="' % attr
-        for i in xrange(len(m)):
+        for i in range(len(m)):
             r = m[i]
-            for j in xrange(len(r)-1):
+            for j in range(len(r)-1):
                 s += '%s,' % r[j]
             s += '%s ' % r[-1]
         return s[:-1]+'"'

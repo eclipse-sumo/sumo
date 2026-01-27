@@ -24,16 +24,16 @@ from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
 from coremodules.scenario.scenario import Scenario
 from coremodules.network import routing
 from coremodules.misc.matplottools import ResultDialog
-import sumo
-import results
+from . import sumo
+from . import results
 
-from result_oglviewer import Resultviewer
+from .result_oglviewer import Resultviewer
 
 try:
-    import results_mpl as results_mpl
+    from . import results_mpl as results_mpl
     is_mpl = True  # we have matplotlib support
 except:
-    print "WARNING: python matplotlib package not installed, no matplotlib plots."
+    print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False
 
 
@@ -82,12 +82,12 @@ class WxGui(ModuleGui):
         Set mainframe and initialize widgets to various places.
         """
         self._mainframe = mainframe
-        print 'SimulationGui.init_widgets'
+        print('SimulationGui.init_widgets')
         # mainframe.browse_obj(self._net)
         self.make_menu()
         self.make_toolbar()
         self._resultviewer = mainframe.add_view("Result viewer", Resultviewer)
-        print '  self._resultviewer', self._resultviewer, self._resultviewer.get_drawing()
+        print('  self._resultviewer', self._resultviewer, self._resultviewer.get_drawing())
 
     def refresh_widgets(self):
         """
@@ -96,11 +96,11 @@ class WxGui(ModuleGui):
         dependent on the availability of data. 
         """
         scenario = self.get_scenario()
-        print 'simulation.WxGui.refresh_widgets', self._simulation != scenario.simulation
+        print('simulation.WxGui.refresh_widgets', self._simulation != scenario.simulation)
         is_refresh = False
 
         if self._simulation != scenario.simulation:
-            print '  id(self._simulation)', id(self._simulation), 'id(scenario.simulation)', id(scenario.simulation), scenario.rootname
+            print('  id(self._simulation)', id(self._simulation), 'id(scenario.simulation)', id(scenario.simulation), scenario.rootname)
             del self._simulation
             self._simulation = scenario.simulation
             is_refresh = True
@@ -110,11 +110,11 @@ class WxGui(ModuleGui):
         # if is_refresh
         if self._simulation.results.is_modified():
             #
-            print '  refresh of _resultviewer'
+            print('  refresh of _resultviewer')
             drawing = self._resultviewer.set_results(self._simulation.results)
         #    canvas = self._neteditor.get_canvas()
         else:
-            print '  no refresh of _resultviewer :('
+            print('  no refresh of _resultviewer :(')
 
     def make_menu(self):
         # print 'make_menu'
@@ -750,7 +750,7 @@ class WxGui(ModuleGui):
 
         # this does not return until the dialog is closed.
         #val = dlg.ShowModal()
-        print 'open_sumodialog_interactive'
+        print('open_sumodialog_interactive')
         dlg.Show()
         dlg.MakeModal(True)
         # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
@@ -789,9 +789,9 @@ class WxGui(ModuleGui):
         results = self._simulation.results
         turnflows = self.get_scenario().demand.turnflows
         ids_edge, flows = turnflows.estimate_entered()
-        print 'on_estimate_entered_turnflows'
-        print 'ids_edge', ids_edge
-        print 'flows', flows
+        print('on_estimate_entered_turnflows')
+        print('ids_edge', ids_edge)
+        print('flows', flows)
         results.edgeresults.add_entered_est(*turnflows.estimate_entered())
         self._mainframe.browse_obj(results.edgeresults)
         self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without

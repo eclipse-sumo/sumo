@@ -86,7 +86,7 @@ def is_string(v):
     if PYTHON3:
         return isinstance(v, str)
     else:
-        return isinstance(v, basestring)
+        return isinstance(v, str)
 
 
 class _Array(array.array):
@@ -160,17 +160,17 @@ class Reader:
                 # print '\n\nReader.__init__: load',args[0]
                 self.load(args[0])
                 return
-        if "shp" in kwargs.keys():
+        if "shp" in list(kwargs.keys()):
             if hasattr(kwargs["shp"], "read"):
                 self.shp = kwargs["shp"]
                 if hasattr(self.shp, "seek"):
                     self.shp.seek(0)
-            if "shx" in kwargs.keys():
+            if "shx" in list(kwargs.keys()):
                 if hasattr(kwargs["shx"], "read"):
                     self.shx = kwargs["shx"]
                     if hasattr(self.shx, "seek"):
                         self.shx.seek(0)
-        if "dbf" in kwargs.keys():
+        if "dbf" in list(kwargs.keys()):
             if hasattr(kwargs["dbf"], "read"):
                 self.dbf = kwargs["dbf"]
                 if hasattr(self.dbf, "seek"):
@@ -224,7 +224,7 @@ class Reader:
             if abs(i) > rmax:
                 raise IndexError("Shape or Record index out of range.")
             if i < 0:
-                i = range(self.numRecords)[i]
+                i = list(range(self.numRecords))[i]
         return i
 
     def __shpHeader(self):

@@ -174,7 +174,7 @@ class PtLines(DemandobjMixin, am.ArrayObjman):
                     if len(ids_edge) > 0:
                         if id_stopedge not in ids_edge:
                             id_edge = ids_edge[0]
-                            print '  initial stop edge %d of line %d disconnected from route edge %d' % (id_stopedge, id_line, id_edge)
+                            print('  initial stop edge %d of line %d disconnected from route edge %d' % (id_stopedge, id_line, id_edge))
                             # print '    before:',ids_edge
                             if id_mode not in map_mode_to_times:
                                 map_mode_to_times[id_mode] = get_times(id_mode=id_mode,
@@ -188,7 +188,7 @@ class PtLines(DemandobjMixin, am.ArrayObjman):
 
                             if len(ids_edges_connect) > 0:
                                 if ids_edges_connect[-1] == id_edge:
-                                    print '      prepend connection', ids_edges_connect
+                                    print('      prepend connection', ids_edges_connect)
                                     self.ids_edges[id_line] = ids_edges_connect[:-1] + ids_edge
                                     # print '    after:',self.ids_edges[id_line]
 
@@ -281,7 +281,7 @@ class PtLines(DemandobjMixin, am.ArrayObjman):
                 # complete route between stops
                 ids_edge = []
                 duration = 0
-                for i in xrange(1, len(ids_stop)):
+                for i in range(1, len(ids_stop)):
                     # print '    route',ids_stopedge[i-1],ids_stopedge[i]
                     time, ids_edges_current = get_mincostroute_edge2edge(
                         ids_stopedge[i-1],
@@ -545,23 +545,23 @@ class PtLinks(am.ArrayObjman):
             id_line = self.ids_line[id_link]
             time_interval = self.parent.periods[id_line]
 
-            print ident*' ', 'PtLink:', id_link, 'line', id_line, '(%s)' % (self.parent.linenames[id_line]), 'from stop', self.ids_fromstop[id_link], 'to stop', self.ids_tostop[id_link], 'T=%ds I=%ds' % (self.durations[id_link], time_interval)
+            print(ident*' ', 'PtLink:', id_link, 'line', id_line, '(%s)' % (self.parent.linenames[id_line]), 'from stop', self.ids_fromstop[id_link], 'to stop', self.ids_tostop[id_link], 'T=%ds I=%ds' % (self.durations[id_link], time_interval))
             #id_link_board = self.get_link_board(id_link)
             # print ident*' ',        'check interval: I=%d, I_board=%d, id_link_board=%d'%(time_interval, self.durations[id_link_board], id_link_board),'ids_link_forward',self.ids_links_forward[id_link_board]
 
             if is_edges:
-                print ident*' ', '      ids_edge=', self.get_ids_edge(id_link)
+                print(ident*' ', '      ids_edge=', self.get_ids_edge(id_link))
 
         elif linktype == 'board':
             id_line = self.ids_line[id_link]
-            print ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'line', id_line, '(%s)' % (self.parent.linenames[id_line]), 'at stop', self.ids_fromstop[id_link]
+            print(ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'line', id_line, '(%s)' % (self.parent.linenames[id_line]), 'at stop', self.ids_fromstop[id_link])
 
         elif linktype == 'walk':
-            print ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'from stop', self.ids_fromstop[id_link], 'to stop', self.ids_tostop[id_link]
+            print(ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'from stop', self.ids_fromstop[id_link], 'to stop', self.ids_tostop[id_link])
 
         else:
 
-            print ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'at stop', self.ids_fromstop[id_link]
+            print(ident*' ', 'PtLink:', id_link, 'type', linktype, 'T=%ds' % (self.durations[id_link]), 'at stop', self.ids_fromstop[id_link])
 
         if is_link_forward:
             # print ident*' ','      ids_link_forward=',self.ids_links_forward[id_link]
@@ -609,7 +609,7 @@ class PtLinks(am.ArrayObjman):
         speed_walk_los is the assumed line of sight walking speed
         between two stops
         """
-        print 'build', self.ident, dist_walk_los, speed_walk_los
+        print('build', self.ident, dist_walk_los, speed_walk_los)
 
         id_stop_debug = 459
 
@@ -659,15 +659,15 @@ class PtLinks(am.ArrayObjman):
         ):
             n_edge = len(ids_edge)
             n_stop = len(ids_stop)
-            print 79*'-'
-            print 'Build links of line', linename, 'id_line', id_line, 'n_edge', n_edge, 'n_stop', n_stop
+            print(79*'-')
+            print('Build links of line', linename, 'id_line', id_line, 'n_edge', n_edge, 'n_stop', n_stop)
             if (len(ids_edge) > 1) & (len(ids_stop) > 2):
 
                 # check if all stop edges are on route and in the correct order:
                 ind_edge = 0
 
                 id_stopedge_next = ids_laneedge[ids_stoplane[ids_stop[1]]]
-                for ind_stop in xrange(1, n_stop):
+                for ind_stop in range(1, n_stop):
                     id_fromstop = ids_stop[ind_stop-1]
                     id_tostop = ids_stop[ind_stop]
                     if id_fromstop != id_tostop:
@@ -686,7 +686,7 @@ class PtLinks(am.ArrayObjman):
                             #    print '      ind_edge,id_stopedge_next,ids_edge[ind_edge]',ind_edge,id_stopedge_next,ids_edge[ind_edge],len(ids_edge)
 
                     #is_mismatch =   (ind_edge == (n_edge-1)) & (ind_stop != (n_stop-1))
-                    print '    ind_stop', ind_stop, 'ind_edge', ind_edge, is_mismatch
+                    print('    ind_stop', ind_stop, 'ind_edge', ind_edge, is_mismatch)
                     if is_mismatch:
                         break
 
@@ -705,12 +705,12 @@ class PtLinks(am.ArrayObjman):
 
                     ids_link = []
                     ind_edge = 0
-                    for ind_stop in xrange(1, len(ids_stop)):
+                    for ind_stop in range(1, len(ids_stop)):
                         id_fromstop = ids_stop[ind_stop-1]
                         id_tostop = ids_stop[ind_stop]
 
                         # if id_fromstop == id_stop_debug:
-                        print '    ind_stop', ind_stop, 'id_fromstop,id_tostop', id_fromstop, id_tostop, 'ind_edge', ind_edge
+                        print('    ind_stop', ind_stop, 'id_fromstop,id_tostop', id_fromstop, id_tostop, 'ind_edge', ind_edge)
 
                         # this prevents error in case two successive stops have
                         # (by editing error) the same ID
@@ -719,7 +719,7 @@ class PtLinks(am.ArrayObjman):
                             # compute length and time between  fromstop and tostop
                             while id_stopedge_next != ids_edge[ind_edge]:
                                 # if id_fromstop == id_stop_debug:
-                                print '      ind_edge', ind_edge, ',id_stopedge_next,ids_edge[ind_edge]', id_stopedge_next, ids_edge[ind_edge]
+                                print('      ind_edge', ind_edge, ',id_stopedge_next,ids_edge[ind_edge]', id_stopedge_next, ids_edge[ind_edge])
                                 ind_edge += 1
                                 length_edge = edgelengths[ids_edge[ind_edge]]
                                 length += length_edge
@@ -745,7 +745,7 @@ class PtLinks(am.ArrayObjman):
 
                             # debugging
                             if id_fromstop == id_stop_debug:
-                                print '    append transit link', id_link
+                                print('    append transit link', id_link)
 
                             stoplinks[id_fromstop]['ids_transit_out'].append(id_link)
                             stoplinks[id_tostop]['ids_transit_in'].append(id_link)
@@ -757,14 +757,14 @@ class PtLinks(am.ArrayObjman):
                                 duration = 0.0
 
                     # create forward links for this line
-                    for i in xrange(1, len(ids_link)):
+                    for i in range(1, len(ids_link)):
                         self.ids_links_forward[ids_link[i-1]] = [ids_link[i]]
                     # put empty link list to line end-stop
                     self.ids_links_forward[ids_link[i]] = []
 
                 else:
-                    print 'WARNING in line', linename, 'id_line', id_line
-                    print '         stop edges not on route, line will not build.'
+                    print('WARNING in line', linename, 'id_line', id_line)
+                    print('         stop edges not on route, line will not build.')
                     ids_ptlines_failed.append(id_line)
 
         # complete stoplink database
@@ -870,15 +870,15 @@ class PtLinks(am.ArrayObjman):
 
             # debugging
             if id_stop == id_stop_debug:
-                print '    Parameters of id_stop', id_stop
-                for key, val in stoplinks[id_stop].iteritems():
+                print('    Parameters of id_stop', id_stop)
+                for key, val in stoplinks[id_stop].items():
                     if key in ['ids_transit_out', 'ids_transit_in', 'ids_board', 'ids_alight']:
-                        print '    ', key, ':'
+                        print('    ', key, ':')
                         for id_link in val:
                             self.print_link(id_link, ident=6)
 
                     else:
-                        print '    ', key, ':', val
+                        print('    ', key, ':', val)
 
         # connect walk links from one stop to board and transfer
         for id_stop in net.ptstops.get_ids():
@@ -887,32 +887,32 @@ class PtLinks(am.ArrayObjman):
                 self.ids_links_forward[id_walk] = [stoplinks[id_tostop]['id_enter']]
         if 0:
             # debugging
-            print 79*'='
+            print(79*'=')
             ids_link = self.get_ids()
             for id_link, linktype, id_fromstop, id_tostop, id_line, duration, ids_link_forward in zip(
                     ids_link, self.types[ids_link], self.ids_fromstop[ids_link], self.ids_tostop[ids_link], self.ids_line[ids_link], self.durations[ids_link], self.ids_links_forward[ids_link]):
                 if id_fromstop == id_stop_debug:
-                    print '  FROM', id_stop_debug, 'TO', id_tostop
+                    print('  FROM', id_stop_debug, 'TO', id_tostop)
                     self.print_link(id_link, ident=4)
-                    print '      ids_link_forward=', ids_link_forward
+                    print('      ids_link_forward=', ids_link_forward)
 
-            print 79*'='
+            print(79*'=')
             for id_link, linktype, id_fromstop, id_tostop, id_line, duration, ids_link_forward in zip(
                     ids_link, self.types[ids_link], self.ids_fromstop[ids_link], self.ids_tostop[ids_link], self.ids_line[ids_link], self.durations[ids_link], self.ids_links_forward[ids_link]):
 
                 if id_tostop == id_stop_debug:
-                    print '  FROM', id_fromstop, 'TO', id_stop_debug
+                    print('  FROM', id_fromstop, 'TO', id_stop_debug)
                     self.print_link(id_link, ident=4)
-                    print '      ids_link_forward=', ids_link_forward
+                    print('      ids_link_forward=', ids_link_forward)
 
         # debug
-        print 'Number of failed Ptlines', len(ids_ptlines_failed), 'of', len(ptlines)
+        print('Number of failed Ptlines', len(ids_ptlines_failed), 'of', len(ptlines))
         for id_line, linename, period in zip(
             ids_ptlines_failed,
             ptlines.linenames[ids_ptlines_failed],
             ptlines.periods[ids_ptlines_failed],
         ):
-            print '    Failed to build line', linename, 'id_line', id_line, 'period', period, 's'
+            print('    Failed to build line', linename, 'id_line', id_line, 'period', period, 's')
 
         return ids_ptlines_failed
 
@@ -937,7 +937,7 @@ class PtLinks(am.ArrayObjman):
         if is_fromstop:
             for id_link, linktype_stop, id_stop in zip(ids, self.types[ids], self.ids_fromstop[ids]):
                 if linktype == linktype_stop:
-                    if map_id_stop_to_ids_link.has_key(id_stop):
+                    if id_stop in map_id_stop_to_ids_link:
                         # print '  append id_transitlink',id_link,linktype,'to id_stop',id_stop
                         map_id_stop_to_ids_link[id_stop].append(id_link)
                     else:
@@ -946,7 +946,7 @@ class PtLinks(am.ArrayObjman):
         if is_tostop:
             for id_link, linktype_stop, id_stop in zip(ids, self.types[ids], self.ids_tostop[ids]):
                 if linktype == linktype_stop:
-                    if map_id_stop_to_ids_link.has_key(id_stop):
+                    if id_stop in map_id_stop_to_ids_link:
                         # print '  append id_transitlink',id_link,linktype,'to id_stop',id_stop
                         map_id_stop_to_ids_link[id_stop].append(id_link)
                     else:
@@ -1046,7 +1046,7 @@ class PtLinks(am.ArrayObjman):
                 line = self.parent.linenames[id_line]
             else:
                 line = 'X'
-            print '%4d %06s  fromstop=%3d tostop=%3d %06s' % (id_link, line, id_fromstop, id_tostop, typemap[id_type])
+            print('%4d %06s  fromstop=%3d tostop=%3d %06s' % (id_link, line, id_fromstop, id_tostop, typemap[id_type]))
 
     def route(self, id_fromstop, id_tostop,
               stops_to_enter=None, stops_to_exit=None,
@@ -1060,7 +1060,7 @@ class PtLinks(am.ArrayObjman):
             ids_tostop      : IDs of stops where each stage  ends
             durations       : Duration of each stage in secs
         """
-        print 'route id_fromstop, id_tostop', id_fromstop, id_tostop
+        print('route id_fromstop, id_tostop', id_fromstop, id_tostop)
         if times is None:
             times = self.get_times()
 
@@ -1166,7 +1166,7 @@ class PtLinks(am.ArrayObjman):
 
 class PtLinefilter(Process):
     def __init__(self, ident='ptlinefilter', ptlines=None,  logger=None, **kwargs):
-        print 'PtLinefilter.__init__'
+        print('PtLinefilter.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -1194,7 +1194,7 @@ class PtLinefilter(Process):
                                                     ))
 
     def do(self):
-        print 'PtLinefilter.do'
+        print('PtLinefilter.do')
         # links
         ptlines = self.parent
 
@@ -1215,14 +1215,14 @@ class PtLinefilter(Process):
             elif period > self.period_max:
                 ids_remove.append(id_line)
 
-        print '  Eliminated %d lines:' % (len(ids_remove))
+        print('  Eliminated %d lines:' % (len(ids_remove)))
 
         for id_line, name, ids_stop, period in zip(ids_remove,
                                                    ptlines.linenames[ids_remove],
                                                    ptlines.ids_stops[ids_remove],
                                                    ptlines.periods[ids_remove]
                                                    ):
-            print '    id_line', id_line, 'name', name, 'period', period, 'n_stops', len(ids_stop)
+            print('    id_line', id_line, 'name', name, 'period', period, 'n_stops', len(ids_stop))
 
         ptlines.del_rows(ids_remove)
 
@@ -1231,7 +1231,7 @@ class PtLinefilter(Process):
 
 class PtNetbuilder(Process):
     def __init__(self, ident='ptnetbuilder', ptlinks=None,  logger=None, **kwargs):
-        print 'PtNetbuilder.__init__'
+        print('PtNetbuilder.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -1294,7 +1294,7 @@ class PtNetbuilder(Process):
                                                       ))
 
     def do(self):
-        print 'VehicleProvider.do'
+        print('VehicleProvider.do')
         # links
 
         #virtualpop = self.parent
