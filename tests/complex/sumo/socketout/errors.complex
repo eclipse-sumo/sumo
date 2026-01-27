@@ -1,18 +1,2 @@
-Exception in thread Thread-2 (<lambda>):
-Traceback (most recent call last):
-  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
-    self.run()
-  File "/usr/lib/python3.10/threading.py", line 953, in run
-    self._target(*self._args, **self._kwargs)
-  File "/scr1/sumo/tests/../tests/complex/sumo/socketout/runner.py", line 64, in <lambda>
-    threading.Thread(target=lambda: main(family=socket.AF_INET6)).start()
-  File "/scr1/sumo/tests/../tests/complex/sumo/socketout/runner.py", line 38, in main
-    serversocket.bind(("localhost", PORT))
-socket.gaierror: [Errno -5] No address associated with hostname
-/usr/lib/python3.10/threading.py:1018: ResourceWarning: unclosed <socket.socket fd=3, family=AddressFamily.AF_INET6, type=SocketKind.SOCK_STREAM, proto=0, laddr=('::', 0, 0, 0)>
-  self._invoke_excepthook(self)
-ResourceWarning: Enable tracemalloc to get the object allocation traceback
-Error: tcpip::Socket::connect() @ socket: Connection refused (host: ::1, port: 8088)
-Quitting (on error).
 Error: send failed: Connection reset by peer
 Quitting (on error).
