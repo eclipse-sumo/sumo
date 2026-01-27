@@ -29,24 +29,26 @@ To apply the imperfect driving functionality for a vehicle it is
 equipped with a **Driver State Device**, see [the description of
 equipment
 procedures](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
-(and use <device name>`=driverstate`). The minimal definition required
-to equip one vehicle with a Driver State has the following form:
+(and use <device name>`=driverstate`). 
+
+An example definition that equips one vehicle with a Driver State is show below.
+At the default parameters, the driverstate models perfect awareness / no errors. To observe effects from this device, the initialAwarenss must be set to a value below 1.
 
 ```xml
 <routes>
     ...
     <vehicle id="v0" route="route0" depart="0">
         <param key="has.driverstate.device" value="true"/>
+        <param key="device.driverstate.initialAwareness" value="0.5"/>
     </vehicle>
     ....
 </routes>
 ```
 
-In this case all parameters ([see below](#modeling_of_perception_errors)) of the driver state
-are set to their default values. The following table gives the full list
-of possible parameters for the Driver State Device. Each of these
-parameters must be specified as a child element of the form
-`<param key=<PARAMETER NAME> value=<PARAMETER VALUE>` of the
+The following table gives the full list
+of possible parameters for the Driver State Device along with their default values.
+Each of these parameters must be specified as a child element of the form
+`<param key="device.driverstate.<PARAMETER NAME>" value="<PARAMETER VALUE>"` of the
 appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`). See [Modeling of Perception
 Errors](#modeling_of_perception_errors) for details of the
 error dynamics.
@@ -64,16 +66,9 @@ error dynamics.
 | minAwareness                             | float | 0.1                         | The minimal value for the driver awareness (a technical parameter to avoid a blow up of the term `1/minAwareness`).   |
 | maximalReactionTime                      | float (s) | original action step length | The value for the driver's actionStepLength attained at minimal awareness. The actionStepLength scales linearly between this and the original value with the awareness between minAwareness and 1.0. |
 
-## Supported carFollowModels
 
-The following models support the driverstate device:
-
-- Krauss
-- IDM
-- CACC
 
 # Modeling of Perception Errors
-
 An underlying
 [Ornstein-Uhlenbeck](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process)
 process drives the errors which are applied to the inputs of the
@@ -85,12 +80,14 @@ traffic situation and the driver state dynamics. We have
 - `errorTimeScale = errorTimeScaleCoefficient*awareness(t)`
 - `errorNoiseIntensity = errorNoiseIntensityCoefficient*(1.-awareness(t))`
 
-The error's state error(t) at time t is scaled and added to input
-parameters of the car-following model as follows
+The error's state `error(t)` at time t is scaled and added to input
+parameters of the car-following model as described below.
 
-- `perceivedSpeedDifference = trueSpeedDifference + speedDifferenceError(t)`, where `speedDifferenceError(t) = speedDifferenceErrorCoefficient*headway(t)*error(t)`
-- `perceivedHeadway = trueHeadway + headwayError(t)`, where
-  `headwayError(t) = headwayErrorCoefficient*headway(t)*error(t)`
+
+## Leader speed difference and gap errors
+
+- `perceivedSpeedDifference = trueSpeedDifference + speedDifferenceErrorCoefficient * headway(t) * error(t)`
+- `perceivedHeadway = trueHeadway + headwayErrorCoefficient * headway(t) * error(t)`
 
 Note that the state `error(t)` of the error process is not directly
 scaled with the awareness, which only controls the errors indirectly by
@@ -110,6 +107,23 @@ Here, the expected quantities are
 
 - `expectedHeadway = lastRecognizedHeadway - expectedSpeedDifference*elapsedTimeSinceLastRecognition`
 - `expectedSpeedDifference = lastRecognizedSpeedDifference`
+
+## Free flow error
+
+The `freeSpeedErrorCofficient` can be used to model imprecision in the perception of the drivers own speed and thereby induce fluctuations in free flow speed.
+The error model is: 
+
+`pereivedSpeed = speed + myFreeSpeedErrorCoefficient * error(t) * sqrt(speed)`
+
+# Supported carFollowModels
+
+All models support the driverstate effect of `freeSpeedError`. Note, that CACC disables the `freeSpeedError` unless parameter `vType`-attribute `applyDriverState="true"` is defined.
+The following models support the driverstate effects speedDifferenceError and headywayError:
+
+- Krauss
+- IDM
+- CACC
+
 
 # Publication
 
