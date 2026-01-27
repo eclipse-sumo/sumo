@@ -332,7 +332,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                     } else if (!foeRS->constraintsAllow(foe.first)) {
                         std::cout << "     foe constrained\n";
                     } else if (!overlap(foeDriveWay)) {
-                        std::cout << "     no overlap\n";
+                        std::cout << "     no overlap with foeDW=" << foeDriveWay.getID() << "\n";
                     } else if (!isFoeOrSubFoe(&foeDriveWay)) {
                         std::cout << "     foeDW=" << foeDriveWay.getID() << " is not a foe to " << getID() << "\n";
                     } else if (canUseSiding(veh.first, &foeDriveWay).first) {
@@ -695,7 +695,8 @@ MSDriveWay::overlap(const MSDriveWay& other) const {
             const MSEdge* edge = myRoute[i];
             const MSEdge* edge2 = other.myRoute[j];
             if (edge->getToJunction() == edge2->getToJunction()
-                    || edge->getToJunction() == edge2->getFromJunction()) {
+                    || edge->getToJunction() == edge2->getFromJunction()
+                    || edge->getFromJunction() == edge2->getFromJunction()) {
                 // XXX might be rail_crossing with parallel tracks
                 return true;
             }
@@ -742,6 +743,17 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
                 return true;
             }
         }
+    }
+    if (myOrigin != nullptr && other.myOrigin != nullptr
+            && myOrigin->getJunction() == other.myOrigin->getJunction()
+            //&& myForward.front()->isInternal() && other.myForward.front()->isInternal()
+            && myOrigin->getJunction()->getLogic() != nullptr
+            && myOrigin->getJunction()->getLogic()->getFoesFor(myOrigin->getIndex()).test(other.myOrigin->getIndex())) {
+        // switch/crossing is also a rail_signal (direct control)
+        if (!(myForward.front()->isInternal() && other.myForward.front()->isInternal())) {
+            return false;
+        }
+        return true;
     }
     return false;
 }
@@ -1732,13 +1744,15 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     bool foundConflict = false;
     bool flankC = false;
     bool zipperC = false;
+    bool crossC = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
-        MSDriveWay tmp(myOrigin, "tmp", true);
+        const MSLink* tmpOrigin = subLast > 0 ? myForward[subLast - 1]->getLinkTo(lane) : myOrigin;
+        MSDriveWay tmp(tmpOrigin, "tmp", true);
         tmp.myForward.push_back(lane);
         flankC = tmp.flankConflict(*foe);
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
-        const bool crossC = tmp.crossingConflict(*foe);
+        crossC = tmp.crossingConflict(*foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
         std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << crossC << " bc=" << bidiConflict << "\n";
 #endif
@@ -1835,10 +1849,18 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         }
     }
     if (route.empty()) {
+        if (subSize == 1 && crossC
+                && forward.front()->getFromJunction() == foe->myForward.front()->getFromJunction()
+                && forward.front()->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            assert(myForward.front()->isInternal());
+            // sub-driveway ends after a single internal lane but since the route cannot be empty we add the next edge
+            route.push_back(foe->myForward.front()->getEdge().getNormalSuccessor());
+        }  else {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID() << " empty subRoute\n";
+            std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID() << " empty subRoute\n";
 #endif
-        return false;
+            return false;
+        }
     }
     if (myRoute.size() > route.size()) {
         // route continues. make sure the subDriveway does not end with a reversal
