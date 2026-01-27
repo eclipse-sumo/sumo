@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-26 19:42+0000\n"
+"PO-Revision-Date: 2026-01-27 08:40+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9928,6 +9928,8 @@ msgstr ""
 msgid ""
 "PT line '%' in relation % has a gap of % stops, only keeping first part."
 msgstr ""
+"La línea de transporte público '%' en la relación % tiene un hueco de % "
+"paradas; solo se conservará la primera parte."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2711
 msgid ""
@@ -9943,26 +9945,28 @@ msgstr "Ignorando la línea de transporte público duplicada '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2732
 msgid "Via-node '%' was not instantiated"
-msgstr ""
+msgstr "El nodo intermedio '%' no fue instanciado"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2738
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
+"No se pudo determinar la arista de origen '%' de la relación de restricción"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2742
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
+"No se pudo determinar la arista destino '%' de la relación de restricción"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2772
 msgid "direction of restriction relation could not be determined%"
-msgstr ""
+msgstr "no se pudo determinar la dirección de la relación de restricción%"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2793
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
-msgstr ""
+msgstr "Referencia de vía '%' ambigua en la relación de restricción"
 
 #: src/netimport/NIImporter_SUMO.cpp:120
 msgid "Could not open sumo-net-file '%'."
@@ -10012,7 +10016,7 @@ msgstr "La arista '%' aparece al menos dos veces en el archivo de entrada."
 
 #: src/netimport/NIImporter_SUMO.cpp:554
 msgid "Unmatched closing tag for tl-logic."
-msgstr ""
+msgstr "Etiqueta de cierre sin coincidencia en la lógica semafórica."
 
 #: src/netimport/NIImporter_SUMO.cpp:557
 msgid "Could not add program '%' for traffic light '%'"
@@ -10203,22 +10207,24 @@ msgid ""
 "Ignoring lane-to-lane connection (not yet implemented for this format "
 "version)"
 msgstr ""
+"Ignorando la conexión carril a carril (aún no implementada para esta versión "
+"del formato)"
 
 #: src/netimport/NIImporter_VISUM.cpp:1112
 msgid "A from-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un número de carril de origen para la arista '%' no es numérico (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1117
 msgid "A from-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un número de carril de origen para la arista '%' no es positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1126
 msgid "A to-lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un número de carril destino para la arista '%' no es numérico (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1131
 msgid "A to-lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un número de carril destino para la arista '%' no es positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1147
 msgid ""
