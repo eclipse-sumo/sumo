@@ -1,11 +1,14 @@
 # additional requirements for a developer system for GUI testing and wheel creation
 bibtexparser
 build>=0.7.0
+delocate; sys.platform == 'darwin'
+dmgbuild; sys.platform == 'darwin'
 flake8
+hatchling
 opencv-python; sys.platform == 'win32'
 pre-commit>=3.5.0
 pyautogui>=0.9.53
 pyinstaller>=6.1.0
 pyperclip>=1.7.0
-scikit-build>=0.12.0
+scikit-build-core
 wheel>=0.37.1
