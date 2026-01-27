@@ -1176,6 +1176,7 @@ MSBaseVehicle::setDepartAndArrivalEdge() {
         if (pars->departEdge >= routeEdges) {
             WRITE_WARNINGF(TL("Ignoring departEdge % for vehicle '%' with % route edges"), toString(pars->departEdge), getID(), toString(routeEdges));
         } else {
+            assert(getRoutePosition() + pars->departEdge < routeEdges);
             myCurrEdge += pars->departEdge;
         }
     }
