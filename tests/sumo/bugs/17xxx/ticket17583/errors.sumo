@@ -1,0 +1,2 @@
+Error: cannot create std::vector larger than max_size()
+Quitting (on error).
