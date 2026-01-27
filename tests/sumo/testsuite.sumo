@@ -27,6 +27,8 @@ junction_model
 
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
+
+# testing bidirectional tracks, signals and other rail specific applications
 rail
 
 # testing opposite-direction driving
