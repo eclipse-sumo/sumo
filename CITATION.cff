@@ -150,7 +150,7 @@ keywords:
   - traffic
 date-released: "2025-11-13"
 version: 1.25.0
-doi: 10.5281/zenodo.17594250
+doi: 10.5281/zenodo.18406080
 repository-code: "https://github.com/eclipse-sumo/sumo"
 type: software
 url: "https://www.eclipse.dev/sumo/"
