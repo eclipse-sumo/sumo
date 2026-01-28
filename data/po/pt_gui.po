@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-28 14:15+0000\n"
+"PO-Revision-Date: 2026-01-28 15:47+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -4921,15 +4921,15 @@ msgstr "criar rotatória"
 
 #: src/netedit/GNENet.cpp:1468
 msgid "Forced computing junctions with volatile options ..."
-msgstr ""
+msgstr "Forçar cálculo das junções com opções voláteis..."
 
 #: src/netedit/GNENet.cpp:1470
 msgid "Forced computing junctions ..."
-msgstr ""
+msgstr "Forçar cálculo das junções..."
 
 #: src/netedit/GNENet.cpp:1477
 msgid "Computing junctions with volatile options ..."
-msgstr ""
+msgstr "Calculando junções com opções voláteis..."
 
 #: src/netedit/GNENet.cpp:1479
 msgid "Computing junctions ..."
@@ -4937,27 +4937,27 @@ msgstr "Calculando junções..."
 
 #: src/netedit/GNENet.cpp:1501
 msgid "Loading of additional file failed: "
-msgstr ""
+msgstr "O carregamento dos elementos adicionais falhou "
 
 #: src/netedit/GNENet.cpp:1503
 msgid "Loading of additional file successfully: "
-msgstr ""
+msgstr "O arquivo de adicionais foi carregado com sucesso "
 
 #: src/netedit/GNENet.cpp:1516
 msgid "Loading of route file failed: "
-msgstr ""
+msgstr "O carregamento do arquivo de rotas falhou "
 
 #: src/netedit/GNENet.cpp:1518
 msgid "Loading of route file successfully: "
-msgstr ""
+msgstr "O arquivo de rotas foi carregado com sucesso "
 
 #: src/netedit/GNENet.cpp:1531
 msgid "Loading of data file failed: "
-msgstr ""
+msgstr "O carregamento do arquivo de dados falhou: "
 
 #: src/netedit/GNENet.cpp:1533
 msgid "Loading of data file successfully: "
-msgstr ""
+msgstr "Arquivo de dados carregado com sucesso: "
 
 #: src/netedit/GNENet.cpp:1546
 msgid "Loading of meandata file failed: "
@@ -5000,7 +5000,7 @@ msgstr ""
 
 #: src/netedit/GNENet.cpp:1658
 msgid "It will be joined with the other selected junctions. Continue?"
-msgstr ""
+msgstr "Ele será unido aos outros cruzamentos selecionados. Continuar?"
 
 #: src/netedit/GNENet.cpp:1762 src/netedit/GNENet.cpp:1768
 msgid "Clear crossings"
@@ -5008,11 +5008,11 @@ msgstr "Limpar cruzamentos"
 
 #: src/netedit/GNENet.cpp:1763
 msgid "There are no invalid crossings to remove."
-msgstr ""
+msgstr "Não há faixas de pedestre inválidas para remover."
 
 #: src/netedit/GNENet.cpp:1769
 msgid "Crossings will be cleared. Continue?"
-msgstr ""
+msgstr "As faixas de pedestre serão removidas. Continuar?"
 
 #: src/netedit/GNENet.cpp:1772
 msgid "clear crossings"
@@ -5036,11 +5036,11 @@ msgstr "ajustar planos de pessoas"
 
 #: src/netedit/GNENet.cpp:1964
 msgid "remove invalid demand elements"
-msgstr ""
+msgstr "remover elementos de demanda inválidos"
 
 #: src/netedit/GNENet.cpp:1979
 msgid "replace junction by geometry"
-msgstr ""
+msgstr "substituir junção por geometria"
 
 #: src/netedit/GNENet.cpp:2015
 msgid "Junction isn't removable"
@@ -5052,7 +5052,7 @@ msgstr "dividir junção"
 
 #: src/netedit/GNENet.cpp:2065
 msgid "Could not rename split node to '%'"
-msgstr ""
+msgstr "Não foi possível renomear o nó dividido para '%'"
 
 #: src/netedit/GNENet.cpp:2107
 msgid "clear junction connections"
@@ -5085,10 +5085,12 @@ msgstr "Duplicar ID"
 #: src/netedit/GNENet.cpp:2947
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
+"O tamanho da rede excede 1 ano-luz. Por favor, reconsidere os seus dados de "
+"entrada."
 
 #: src/netedit/GNENetHelper.cpp:1550
 msgid "Default vType doesn't exist"
-msgstr ""
+msgstr "Tipo de veículo padrão não existe"
 
 #: src/netedit/GNENetHelper.cpp:3514
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:348
@@ -5113,38 +5115,38 @@ msgstr "elementos meanData"
 
 #: src/netedit/GNENetHelper.cpp:3690
 msgid "Redo replace in TLS"
-msgstr ""
+msgstr "Refazer substituição no semáforo"
 
 #: src/netedit/GNENetHelper.cpp:3696
 msgid "Undo replace in TLS"
-msgstr ""
+msgstr "Desfazer substituição no semáforo"
 
 #: src/netedit/GNETagProperties.cpp:260 src/netedit/GNETagProperties.cpp:272
 #: src/netedit/GNETagProperties.cpp:284 src/netedit/GNETagProperties.cpp:296
 #: src/netedit/GNETagProperties.cpp:308 src/netedit/GNETagProperties.cpp:320
 #, c-format
 msgid "Attribute '%' not defined"
-msgstr ""
+msgstr "Atributo '%' não definido"
 
 #: src/netedit/GNETagProperties.cpp:357
 #, c-format
 msgid "Attribute '%' doesn't exist"
-msgstr ""
+msgstr "O atributo '%' não existe"
 
 #: src/netedit/GNETagProperties.cpp:364
 #, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
-msgstr ""
+msgstr "Índice '%' inválido usado em getAttributeProperties(int)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:91
 #, c-format
 msgid "Property for tag '%' not defined"
-msgstr ""
+msgstr "Propriedade para a etiqueta '%' não definida"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:104
 #, c-format
 msgid "TagPropertySet for tag '%' not defined"
-msgstr ""
+msgstr "TagPropertySet para a tag '%' não definido"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:382
 msgid "Root"
@@ -5292,28 +5294,28 @@ msgstr "Junção"
 #: src/netedit/GNETagPropertiesDatabase.cpp:582
 #: src/netedit/GNETagPropertiesDatabase.cpp:1420
 msgid "The x-y-z position of the node on the plane in meters"
-msgstr ""
+msgstr "A posição x-y-z da junção no plano em metros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:587
 msgid "An optional type for the node"
-msgstr ""
+msgstr "Um tipo opcional para a junção"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:593
 msgid "A custom shape for that node"
-msgstr ""
+msgstr "Um formato personalizado para o cruzamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:598
 msgid "Optional turning radius (for all corners) for that node in meters"
-msgstr ""
+msgstr "Raio de giro opcional (para todos os cantos) para esse nó em metros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:604
 msgid ""
 "Whether the junction-blocking-heuristic should be activated at this node"
-msgstr ""
+msgstr "Se a heurística de bloqueio de cruzamento deve ser ativada neste nó"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:610
 msgid "How to compute right of way rules at this node"
-msgstr ""
+msgstr "Como calcular as regras de direito de preferência neste nó"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:617
 msgid "Whether this junction is at the fringe of the network"
@@ -16868,11 +16870,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2077
 msgid "Show Bluetooth range"
-msgstr ""
+msgstr "Mostrar alcance do Bluetooth"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2079
 msgid "Show route index"
-msgstr ""
+msgstr "Mostrar índice da rota"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2081
 msgid "Scale length with geometry"
@@ -16884,11 +16886,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2083
 msgid "Show parking info"
-msgstr ""
+msgstr "Mostrar informações de estacionamento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2086
 msgid "Show charging info"
-msgstr ""
+msgstr "Mostrar informação de carregamento"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2088
 msgid "Draw reversed vehicles in reverse"
@@ -16896,7 +16898,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2133
 msgid "Show person id"
-msgstr ""
+msgstr "Mostrar ID da pessoa"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2134
 msgid "Show person color value"
@@ -16908,11 +16910,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2186
 msgid "Show container id"
-msgstr ""
+msgstr "Mostrar ID do container"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2213
 msgid "Draw junction shape"
-msgstr ""
+msgstr "Desenhar formato da junção"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2215
 msgid "Draw crossings/walkingareas"
@@ -16932,7 +16934,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2223
 msgid "Show junction id"
-msgstr ""
+msgstr "Mostrar ID da junção"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2224
 msgid "Show internal junction id"
@@ -16956,7 +16958,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2229
 msgid "Show junction name"
-msgstr ""
+msgstr "Mostrar nome da junção"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2235
 msgid "Additional"
@@ -16964,11 +16966,11 @@ msgstr "Adicional"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2240
 msgid "Show object id"
-msgstr ""
+msgstr "Mostrar ID do objeto"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2241
 msgid "Show full name"
-msgstr ""
+msgstr "Mostrar nome completo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2248
 msgid "StoppingPlace"
@@ -16997,11 +16999,11 @@ msgstr "Camada customizada"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2342
 msgid "Show poi id"
-msgstr ""
+msgstr "Mostrar ID do ponto de interesse"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2343
 msgid "Show poi type"
-msgstr ""
+msgstr "Mostrar tipo do ponto de interesse"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2344
 msgid "Show poi text param"
@@ -17009,11 +17011,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2379
 msgid "Show polygon id"
-msgstr ""
+msgstr "Mostrar ID do polígono"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2380
 msgid "Show polygon types"
-msgstr ""
+msgstr "Mostrar tipos de polígono"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2394
 msgid "Default Selection Color"
