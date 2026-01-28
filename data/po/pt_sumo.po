@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-27 18:05+0000\n"
+"PO-Revision-Date: 2026-01-28 14:15+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1982,11 +1982,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:359
 msgid "Defines the begin time in seconds; The simulation starts at this time"
-msgstr ""
+msgstr "Define o tempo de início em segundos; A simulação inicia nesse momento"
 
 #: src/microsim/MSFrame.cpp:362
 msgid "Defines the end time in seconds; The simulation ends at this time"
-msgstr ""
+msgstr "Define o tempo de fim em segundos; A simulação termina nesse instante"
 
 #: src/microsim/MSFrame.cpp:365
 msgid "Defines the step duration in seconds"
@@ -2688,7 +2688,7 @@ msgstr "Habilitar sobreposição para reconhecimento de tela"
 
 #: src/microsim/MSFrame.cpp:860
 msgid "Enable output messages during GUI-Testing"
-msgstr ""
+msgstr "Habilitar mensagens de saída durante o teste de GUI"
 
 #: src/microsim/MSFrame.cpp:864
 msgid "Save gui settings in the given settings output file"
