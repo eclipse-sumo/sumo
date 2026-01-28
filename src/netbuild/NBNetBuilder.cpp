@@ -832,7 +832,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             if (from_srs != nullptr && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
-            from.setz(hm.getZ(orig));
+            from.setz(hm.getZ(orig) + GeoConvHelper::getProcessing().getOffset().z());
         }
     }
     const double eps = 1e-6;

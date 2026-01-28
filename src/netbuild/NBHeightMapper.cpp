@@ -90,12 +90,30 @@ NBHeightMapper::getZ(const Position& geo) const {
     }
     for (auto& item : myRasters) {
         const Boundary& boundary = item.boundary;
-        int16_t* raster = item.raster;
+        float* raster = item.raster;
         double result = -1e6;
-        if (boundary.around2D(geo)) {
+
+        double x = geo.x();
+        double y = geo.y(); 
+
+#ifdef HAVE_GDAL
+        // Transform geo coordinates to the coordinate system of this
+        // raster image for lookup in its raster, if applicable.
+        if (item.transform != nullptr) {
+            // Since the input coordinates are always WGS84 (they may be
+            // transformed to it in NBNetBuilder::transformCoordinate), and
+            // WGS84 uses latitude-longitude order (y-x), we have to swap the
+            // input coordinates here.
+            std::swap(x, y);
+
+            item.transform->Transform(1, &x, &y);
+        }
+#endif
+
+        if (boundary.around2D(x, y)) {
             const int xSize = item.xSize;
-            const double normX = (geo.x() - boundary.xmin()) / mySizeOfPixel.x();
-            const double normY = (geo.y() - boundary.ymax()) / mySizeOfPixel.y();
+            const double normX = (x - boundary.xmin()) / mySizeOfPixel.x();
+            const double normY = (y - boundary.ymax()) / mySizeOfPixel.y();
             PositionVector corners;
             corners.push_back(Position(floor(normX) + 0.5, floor(normY) + 0.5, raster[(int)normY * xSize + (int)normX]));
             if (normX - floor(normX) > 0.5) {
@@ -308,7 +326,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
         return 0;
     }
     const int picSize = xSize * ySize;
-    int16_t* raster = (int16_t*)CPLMalloc(sizeof(int16_t) * picSize);
+    float* raster = (float*)CPLMalloc(sizeof(float) * picSize);
     bool ok = true;
     for (int i = 1; i <= poDataset->GetRasterCount(); i++) {
         GDALRasterBand* poBand = poDataset->GetRasterBand(i);
@@ -319,7 +337,7 @@ NBHeightMapper::loadTiff(const std::string& file) {
             break;
         }
         assert(xSize == poBand->GetXSize() && ySize == poBand->GetYSize());
-        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Int16, 0, 0) == CE_Failure) {
+        if (poBand->RasterIO(GF_Read, 0, 0, xSize, ySize, raster, xSize, ySize, GDT_Float32, 0, 0) == CE_Failure) {
             WRITE_ERRORF(TL("Failure in reading %."), file);
             clearData();
             ok = false;
@@ -332,17 +350,28 @@ NBHeightMapper::loadTiff(const std::string& file) {
         min = MIN2(min, (double)raster[i]);
         max = MAX2(max, (double)raster[i]);
     }
+
+    // Make a copy, GDALClose will destroy the original
+    OGRSpatialReference spatialRef(*poDataset->GetSpatialRef());
+
     GDALClose(poDataset);
+
     if (ok) {
         WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
                       + " for geo boundary [" + toString(boundary)
                       + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
-        RasterData rasterData;
-        rasterData.raster = raster;
-        rasterData.boundary = boundary;
-        rasterData.xSize = xSize;
-        rasterData.ySize = ySize;
-        myRasters.push_back(rasterData);
+
+        OGRSpatialReference wgs;
+        wgs.SetWellKnownGeogCS("WGS84");
+
+        myRasters.push_back(RasterData{
+            raster,
+            boundary,
+            xSize,
+            ySize,
+            OGRCreateCoordinateTransformation(&wgs, &spatialRef)
+        });
+
         return picSize;
     } else {
         return 0;
@@ -364,6 +393,9 @@ NBHeightMapper::clearData() {
 #ifdef HAVE_GDAL
     for (auto& item : myRasters) {
         CPLFree(item.raster);
+        if (item.transform != nullptr) {
+            delete item.transform;
+        }
     }
     myRasters.clear();
 #endif
