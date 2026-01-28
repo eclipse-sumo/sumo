@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.26.0 (29.01.2026)
 
 ### Bugfixes
 
@@ -57,7 +57,7 @@ title: ChangeLog
   - Fixed bug where paths in the configuration were absolute when they should have been relative #17446
   - Fixed problem when locking lanes #17514
   - Trying to load waypoints with triggers now issues a warning #17534
-  - Fixed visualization of parkingArea with onRoad=true or lefthand=true #17499, #17538  
+  - Fixed visualization of parkingArea with onRoad=true or lefthand=true #17499, #17538
 
 - sumo-gui
   - saving selection to file no longer uses **--output-prefix** #17368
@@ -65,7 +65,6 @@ title: ChangeLog
   - Fixed invalid positioning of parking spaces #17478
   - Fixed crash when person performs a jump #17506
   - Fixed invalid color when vehicle passes a waypoint and coloring *by speed* is active #17524
-
 
 - netconvert
   - Fixed crash when removing traffic light crossing via xml input #17515
@@ -86,8 +85,9 @@ title: ChangeLog
   - Fixed invalid route when departPos > arrivalPos and from=to #17482
   - stop arrival times for flows are now shifted #17504
 
-- TraCI
+- TraCI / Libsumo
   - function traci.vehicle.rerouteParkingArea now finds looped route from the current edge #17353
+  - libsumo macOS wheels work again #15945
 
 - tools
   - osmGet.py: fixed missing road nodes when using option **--shapes** #17293 (regression in 1.20.0)
@@ -101,7 +101,7 @@ title: ChangeLog
   - driveways2poly.py: fixed crash on rail signals without links #17550
   - remap_additionals.py: fixed bug where wrong edge was picked among parallel edges #17556
   - patchRailConflicts.py: new tool for adding tram rail signals
-  
+
 
 - Options **--output-prefix** and **--output-suffix** can now be freely combined #17545
 
@@ -118,15 +118,15 @@ title: ChangeLog
   - Timeloss is now discounted when braking/accelerating for planned stops. Thus, a punctual public transport vehicle does not have any timeLoss #5287
   - Tram simulation
     - Tram simulation now defaults to moving-block mode. This can be configured with the new option **--railsignal.moving-block-default-classes** #17542
-    - Train insertion in moving-block mode ignores zipper conflicts to improve operations where when rail signals are sparse #17544  
+    - Train insertion in moving-block mode ignores zipper conflicts to improve operations where when rail signals are sparse #17544
     - Rail signals in moving block mode ignore zipper conflicts if they are beyond 200m (configurable with new option **--railsignal.moving-block.max-dist**) #17542
-      
+
 - netedit
   - Automatically sets sumo option **--junction-taz** if at least one vehicle is configured to start/end at a junction #17405
   - The written sumocfg now tracks network file name changes #17314
   - Configurations with unsupported options can now be loaded with warnings instead of errors #17445
   - Added support for junction attribute 'roundabout' #17271
- 
+
 - duarouter
   - The speedFactor configured in a vehicle, trip or flow is now taken into account when computing costs #17424
   - Added option **--max-traveltime** which lets routing fail if traveling takes too long #17422
@@ -143,7 +143,6 @@ title: ChangeLog
   - `traci.vehicle.setSpeedMode` bit 2 (ignoring deceleration constraints) now also applies when validating deceleration for `traci.vehicle.setStop` #17477
   - traci and libsumo python libraries now provide the standard __version__ attribute #17366
 
-
 - tools
   - attributeCompare.py: Now supports special id-attribute @FILE #17334
   - [visum_convertXMLRoutes.py](Tools/Import/VISUM.md#visum_convertxmlroutespy): new tool for importing VISUM routes file #17347
@@ -159,15 +158,15 @@ title: ChangeLog
   - filterElements.py: Added option **--remove-parent** which filters parent element based on child attributes #17539
   - gtfs2pt.py: now warns about large detours (i.e. implausible  routes) #17567
 
-
 ### Miscellaneous
 
 - Fixed invalid meta data in python wheels
-- Windows debug build no longer crashes with parquet output #17275
 - Started Korean Language translation #17420
 - add manylinux_2_28 support #16771
 - dlr-navteq output no longer defaults to option **--numerical-ids** #17520
 - It is no longer possible to end a rail_signal block with a traffic light (this was found to be unsafe in the context of single-track operations). Both types of signaling should only ever be combined in tram simulation which defaults to moving block so no adverse effects are expected #17542
+- the default download location for the nightly wheels changed to https://sumo.dlr.de/daily/ciwheels
+
 
 ## Version 1.25.0 (13.11.2025)
 
