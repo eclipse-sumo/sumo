@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-26 19:42+0000\n"
+"PO-Revision-Date: 2026-01-28 09:54+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11070,7 +11070,7 @@ msgstr "Remover vehículos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:191
 msgid "Remove invalid vehicles and save"
-msgstr ""
+msgstr "Remover vehículos no válidos y guardar"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:195
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:196
@@ -11083,7 +11083,7 @@ msgstr "Seleccionar vehículos no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:201
 msgid "Select invalid vehicles and stop saving"
-msgstr ""
+msgstr "Seleccionar vehículos no válidos y detener el guardado"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:206
 msgid "Remove stops out of vehicle's route"
@@ -11115,7 +11115,7 @@ msgstr "Seleccionar paradas en conflicto"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:315
 msgid "Select conflicted stops and abort saving"
-msgstr ""
+msgstr "Seleccionar paradas conflictivas y detener el guardado"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:320
 msgid "Fix stop positions and save"
@@ -11136,7 +11136,7 @@ msgstr "seleccionar paradas no válidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:405
 msgid "Person/container plans"
-msgstr ""
+msgstr "Planos de personas/contenedores"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:408
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:409
