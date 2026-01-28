@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-27 08:40+0000\n"
+"PO-Revision-Date: 2026-01-28 09:54+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -11979,6 +11979,8 @@ msgstr "Escribir tipos de vehículo usados en el archivo separado FILE"
 #: src/router/ROFrame.cpp:56
 msgid "Keep vTypeDistribution ids when writing vehicles and their types"
 msgstr ""
+"Conservar los IDs de las distribuciones de tipos de vehículo al escribir los "
+"vehículos y sus tipos"
 
 #: src/router/ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
@@ -12023,13 +12025,15 @@ msgstr "Supone que la entrada no está ordenada"
 
 #: src/router/ROFrame.cpp:148
 msgid "generate random departure times for flow input"
-msgstr ""
+msgstr "generar tiempos de partida aleatorios para la entrada de flujos"
 
 #: src/router/ROFrame.cpp:151
 msgid ""
 "Remove loops within the route; Remove turnarounds at start and end of the "
 "route"
 msgstr ""
+"Eliminar bucles dentro de la ruta; Eliminar retornos al inicio y al final de "
+"la ruta"
 
 #: src/router/ROFrame.cpp:154
 msgid "Tries to correct a false route"
@@ -12057,7 +12061,7 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:175
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "Agrupar consultas de enrutamiento con el mismo origen"
 
 #: src/router/ROFrame.cpp:179
 msgid "The number of parallel execution threads used for routing"
