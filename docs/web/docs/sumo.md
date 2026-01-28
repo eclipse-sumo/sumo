@@ -75,6 +75,7 @@ configuration:
 | **--write-license** {{DT_BOOL}} | Include license info into every output file; *default:* **false** |
 | **--write-metadata** {{DT_BOOL}} | Write parsable metadata (configuration etc.) instead of comments; *default:* **false** |
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
+| **--output-suffix** {{DT_STR}} | Suffix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
@@ -229,8 +230,10 @@ configuration:
 | **--tls.delay_based.detector-range** {{DT_FLOAT}} | Sets default range for detecting delayed vehicles; *default:* **100** |
 | **--tls.yellow.min-decel** {{DT_FLOAT}} | Minimum deceleration when braking at yellow; *default:* **3** |
 | **--railsignal-moving-block** {{DT_BOOL}} | Let railsignals operate in moving-block mode by default; *default:* **false** |
+| **--railsignal.moving-block.default-classes** {{DT_STR_LIST}} | List vehicle classes that default to moving-block operations; *default:* **tram,cable_car** |
+| **--railsignal.moving-block.max-dist** {{DT_FLOAT}} | Maximum signal distance above which zipper conflicts are ignored; *default:* **200** |
 | **--railsignal.max-block-length** {{DT_FLOAT}} | Do not build blocks longer than FLOAT and issue a warning instead; *default:* **20000** |
-| **--railsignal.default-classes** {{DT_STR_LIST}} | List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them; *default:* **rail,rail_fast,rail_electric,rail_urban** |
+| **--railsignal.default-classes** {{DT_STR_LIST}} | List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them; *default:* **rail,rail_fast,rail_electric,rail_urban,subway** |
 | **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **180** |
 | **--default.departspeed** {{DT_STR}} | Select default depart speed; *default:* **0** |
 | **--default.departlane** {{DT_STR}} | Select default depart lane; *default:* **first** |
@@ -280,6 +283,7 @@ configuration:
 |--------|-------------|
 | **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
 | **--weights.random-factor** {{DT_FLOAT}} | Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT); *default:* **1** |
+| **--weights.random-factor.dynamic** {{DT_BOOL}} | When using option --weights.random-factor, vary the randomness over time; *default:* **false** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing minimum routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--weights.tls-penalty** {{DT_FLOAT}} | Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights; *default:* **0** |
 | **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |
@@ -620,7 +624,7 @@ configuration:
 | **-S** {{DT_BOOL}}<br> **--start** {{DT_BOOL}} | Start the simulation after loading; *default:* **false** |
 | **-d** {{DT_FLOAT}}<br> **--delay** {{DT_FLOAT}} | Use FLOAT in ms as delay between simulation steps; *default:* **0** |
 | **-B** {{DT_STR_LIST}}<br> **--breakpoints** {{DT_STR_LIST}} | Use TIME[] as times when the simulation should halt |
-| **--edgedata-files** {{DT_FILE}} | Load edge/lane weights for visualization from FILE |
+| **-m** {{DT_FILE}}<br> **--edgedata-files** {{DT_FILE}} | Load edge/lane weights for visualization from FILE |
 | **-N** {{DT_FILE}}<br> **--alternative-net-file** {{DT_FILE}} | Load a secondary road network for abstract visualization from FILE |
 | **--selection-file** {{DT_FILE}} | Load pre-selected elements from FILE |
 | **-D** {{DT_BOOL}}<br> **--demo** {{DT_BOOL}} | Restart the simulation after ending (demo mode); *default:* **false** |

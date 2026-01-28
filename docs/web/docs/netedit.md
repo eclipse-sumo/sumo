@@ -35,12 +35,15 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 ### Input
 | Option | Description |
 |--------|-------------|
+| **--netecfg-file** {{DT_FILE}} | Load netedit config |
 | **--sumocfg-file** {{DT_FILE}} | Load sumo config |
+| **--netccfg-file** {{DT_FILE}} | Load netconvert config |
 | **-a** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Load additional and shapes descriptions from FILE(s) |
 | **-r** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Load demand elements descriptions from FILE(s) |
 | **-d** {{DT_FILE}}<br> **--data-files** {{DT_FILE}} | Load data elements descriptions from FILE(s) |
 | **-m** {{DT_FILE}}<br> **--meandata-files** {{DT_FILE}} | Load meanData descriptions from FILE(s) |
 | **--ignore-missing-inputs** {{DT_BOOL}} | Reset path values (additional, route, data...) after loading netedit config; *default:* **false** |
+| **--autosave-netconvert-file** {{DT_BOOL}} | If enabled, automatically save a netconvert configuration after saving a netedit config; *default:* **false** |
 | **--selection-file** {{DT_FILE}} | Load element selection |
 | **--test-file** {{DT_FILE}} | Test file |
 | **-s** {{DT_FILE}}<br> **--sumo-net-file** {{DT_FILE}} | Read SUMO-net from FILE |
@@ -64,11 +67,12 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 ### Output
 | Option | Description |
 |--------|-------------|
-| **--tls-file** {{DT_STR}} | File in which TLS Programs must be saved |
-| **--edgetypes-file** {{DT_STR}} | File in which edgeTypes must be saved |
+| **--tls-file** {{DT_FILE}} | File in which TLS Programs must be saved |
+| **--edgetypes-file** {{DT_FILE}} | File in which edgeTypes must be saved |
 | **--write-license** {{DT_BOOL}} | Include license info into every output file; *default:* **false** |
 | **--write-metadata** {{DT_BOOL}} | Write parsable metadata (configuration etc.) instead of comments; *default:* **false** |
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
+| **--output-suffix** {{DT_STR}} | Suffix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
@@ -440,7 +444,7 @@ configuration: [sumoConfiguration.xsd](https://sumo.dlr.de/xsd/neteditConfigurat
 | **--ignore.additionalelements** {{DT_BOOL}} | Ignore additional elements during loading of sumo-configs; *default:* **false** |
 | **--ignore.routeelements** {{DT_BOOL}} | Ignore route elements during loading of sumo-configs; *default:* **false** |
 | **--e2.friendlyPos.automatic** {{DT_BOOL}} | If the lane is shorter than the additional, automatically enable friendlyPos; *default:* **true** |
-| **--force-saving** {{DT_BOOL}} | If enabled, elements will be saved regardless of whether they have been edited or not; *default:* **false** |
+| **--force-saving** {{DT_BOOL}} | If enabled, loaded elements will be saved regardless of whether they have been edited or not (usually used in netedit test); *default:* **false** |
 | **--node-prefix** {{DT_STR}} | Prefix for node naming; *default:* **J** |
 | **--edge-prefix** {{DT_STR}} | Prefix for edge naming; *default:* **E** |
 | **--edge-infix** {{DT_STR}} | Enable edge-infix (<fromNodeID><infix><toNodeID>) |

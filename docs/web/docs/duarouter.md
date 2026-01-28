@@ -102,6 +102,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--write-license** {{DT_BOOL}} | Include license info into every output file; *default:* **false** |
 | **--write-metadata** {{DT_BOOL}} | Write parsable metadata (configuration etc.) instead of comments; *default:* **false** |
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
+| **--output-suffix** {{DT_STR}} | Suffix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output) |
@@ -175,6 +176,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
 | **--persontrip.ride-public-line** {{DT_BOOL}} | Only use the intended public transport line rather than any alternative line that stops at the destination; *default:* **false** |
 | **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **1000** |
+| **--max-traveltime** {{DT_TIME}} | Declare routing failure if traveltime exceeds the given positive TIME; *default:* **-1** |
 
 ### Defaults
 
