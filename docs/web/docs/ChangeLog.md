@@ -51,7 +51,7 @@ title: ChangeLog
   - Fixed invalid signal state when using WAUT and loading state #17526
 
 - netedit
-  - lane selection count not updates when selecting with shift-click #17394 (regression in 1.11.0)
+  - lane selection count now updates when selecting with shift-click #17394 (regression in 1.11.0)
   - In move mode, grabbed and merged geometry points are indicated again (with contour instead of color) #17032 (regression in 1.20.0)
   - Fixed crash in calibrator dialog #17398 (regression in 1.25.0)
   - Merging junctions in move mode is working again #17358 (regression in 1.25.0)
@@ -98,15 +98,13 @@ title: ChangeLog
   - osmGet.py: fixed missing road nodes when using option **--shapes** #17293 (regression in 1.20.0)
   - netdiff.py: fixed crash involving removed `<neigh>` attribute #17345
   - generateRerouters.py: Fixed invalid output when no detours are possible #17361
-  - generateRerouters.py: now find notication edges for consecutive closed edges #17360
+  - generateRerouters.py: now find notification edges for consecutive closed edges #17360
   - tazRel2POI.py: fixed invalid error on skipped taz #17379
   - countEdgeUsage.py: Fixed invalid count for vehroute-output involving replaced routes #17401
   - sumolib.xml.parse_fast: No longer yields records for element names that start with the same string as the requested element #17403
   - gtfs2pt.py: Fixed bug that was causing invalid stop assignments and large detours #17540
   - driveways2poly.py: fixed crash on rail signals without links #17550
   - remap_additionals.py: fixed bug where wrong edge was picked among parallel edges #17556
-  - patchRailConflicts.py: new tool for adding tram rail signals
-
 
 - Options **--output-prefix** and **--output-suffix** can now be freely combined #17545
 
@@ -144,7 +142,6 @@ title: ChangeLog
 
 - TraCI
   - function traci.simulation.findRoute now supports optional attributes departPos, arrivalPos #17352
-  - Fixed faulty libsumo wheels for M2 Mac
   - `traci.vehicle.setSpeedMode` bit 2 (ignoring deceleration constraints) now also applies when validating deceleration for `traci.vehicle.setStop` #17477
   - traci and libsumo python libraries now provide the standard __version__ attribute #17366
 
@@ -162,6 +159,7 @@ title: ChangeLog
   - addStops2Routes.py: allows placing stops on vias #14818
   - filterElements.py: Added option **--remove-parent** which filters parent element based on child attributes #17539
   - gtfs2pt.py: now warns about large detours (i.e. implausible  routes) #17567
+  - patchRailConflicts.py: new tool for adding tram rail signals
 
 ### Miscellaneous
 
