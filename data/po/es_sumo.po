@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-28 09:54+0000\n"
+"PO-Revision-Date: 2026-01-29 10:13+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1179,6 +1179,7 @@ msgstr "Cargar matriz origen/destino en formato relación TAZ desde FILE(s)"
 #: src/marouter/ROMAFrame.cpp:93 src/od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
 msgstr ""
+"Definir el atributo de datos para cargar conteos (por defecto es 'count')"
 
 #: src/marouter/ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
@@ -1211,6 +1212,8 @@ msgstr ""
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
 msgstr ""
+"Agrupar consultas de enrutamiento con el mismo origen para distintos tipos "
+"de vehículos"
 
 #: src/marouter/ROMAFrame.cpp:153 src/od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
@@ -1290,15 +1293,15 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
+msgstr "Usar FLOAT como beta del (c-)logit para el factor de comunalidad"
 
 #: src/marouter/ROMAFrame.cpp:227
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
+msgstr "Usar FLOAT como gamma del (c-)logit para el factor de comunalidad"
 
 #: src/marouter/ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "Usar FLOAT como theta del (c-)logit"
 
 #: src/marouter/ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
@@ -1575,7 +1578,7 @@ msgstr "¡El vehículo '%' no podrá llegar a la velocidad indicada!"
 
 #: src/microsim/MSBaseVehicle.cpp:1177
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
-msgstr ""
+msgstr "Ignorando arista de salida % para el vehículo '%' con % aristas de ruta"
 
 #: src/microsim/MSBaseVehicle.cpp:1938
 msgid "Invalid stop index % (has % stops)."
@@ -4494,7 +4497,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Routing.cpp:83
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
-msgstr ""
+msgstr "Establecer opciones de enrutamiento (8 ignora bloqueos temporales)"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:86
 msgid ""
@@ -4607,6 +4610,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:248
 msgid "Specifies the perception reaction time for MDRAC computation."
 msgstr ""
+"Especifica el tiempo de reacción de percepción para el cálculo de MDRAC."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:250
 msgid "Give a global default filename for the SSM output"
@@ -5508,7 +5512,7 @@ msgstr "El detector multicarril e2 aún no soporta la detección de personas"
 
 #: src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
-msgstr ""
+msgstr "Fracción negativa de paso del vehículo para '%' en el carril '%'."
 
 #: src/microsim/output/MSMeanData.cpp:561
 #: src/microsim/output/MSMeanData.cpp:613
@@ -5673,7 +5677,7 @@ msgstr "Se encontró un bloqueo circular después de % (% aristas, longitud %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2153
 msgid "Unknown driveWay '%' with route '%'"
-msgstr ""
+msgstr "Acceso '%' desconocido con ruta '%'"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2163
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
