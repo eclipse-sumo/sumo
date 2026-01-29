@@ -34,6 +34,10 @@ typedef __int16 int16_t;
 #include <utils/geom/Boundary.h>
 #include <utils/common/UtilExceptions.h>
 
+#ifdef HAVE_GDAL
+#include <ogr_spatialref.h>
+#endif
+
 #define TRIANGLE_RTREE_QUAL RTree<NBHeightMapper::Triangle*, NBHeightMapper::Triangle, float, 2, NBHeightMapper::QueryResult>
 
 // ===========================================================================
@@ -124,10 +128,13 @@ public:
 private:
 
     struct RasterData {
-        int16_t* raster;
+        float* raster;
         Boundary boundary;
         int xSize;
         int ySize;
+#ifdef HAVE_GDAL
+        OGRCoordinateTransformation* transform;
+#endif
     };
 
     /// @brief the singleton instance
