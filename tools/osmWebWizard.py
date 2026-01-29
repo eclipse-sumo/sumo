@@ -180,8 +180,10 @@ class Builder(object):
 
     def build(self):
         # output name for the osm file, will be used by osmBuild, can be
-        # deleted after the process
+        # deleted after the process (but should generally be kept for rebuilding)
         self.filename("osm", "_bbox.osm.xml.gz")
+        # configuration for re-downloading the same area from OSM
+        self.filename("ogc", ".ogcfg")
         # output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
         self.filename("net", ".net.xml.gz")
 
@@ -197,6 +199,8 @@ class Builder(object):
                 osmArgs += ["-u", self.data["osmMirror"]]
             if 'roadTypes' in self.data:
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
+            # cannot write config by calling osmGet.get because saving config triggers sys.exit()
+            subprocess.call([osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
             osmGet.get(osmArgs)
 
         if not os.path.exists(self.files["osm"]):
