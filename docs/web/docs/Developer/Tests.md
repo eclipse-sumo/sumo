@@ -44,6 +44,12 @@ For MacOS the following command should install all dependencies:
 
 `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
+You will also need to install a diff viewer and text editor for viewing test results. You can install the recommended tools with:
+
+`brew install tkdiff emacs`
+
+Alternatively, you can install other diff viewers like `meld` or editors like `geany` and configure them in your personal config file (see below).
+
 If the installation was successful, this window will appear after execution of `{{SUMO}}/tests/runAllTests.bat` (Windows) or
 `{{SUMO}}/tests/runTests.sh` (Linux, macOS)
 
