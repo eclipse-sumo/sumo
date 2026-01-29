@@ -629,7 +629,7 @@ def main(options):
                 wizard_path = os.path.join(new_path, 'webWizard')
                 if not os.path.exists(wizard_path):
                     os.makedirs(new_path, exist_ok=True)
-                    shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
+                shutil.copytree(os.path.join(path, "webWizard"), wizard_path, dirs_exist_ok=True)
                 path = new_path
                 os.chdir(path)
             url = "file://" + os.path.join(path, "webWizard", "index.html")
