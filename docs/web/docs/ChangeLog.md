@@ -2,6 +2,11 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
+
 ## Version 1.26.0 (29.01.2026)
 
 ### Bugfixes
