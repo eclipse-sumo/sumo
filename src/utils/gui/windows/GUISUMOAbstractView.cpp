@@ -155,12 +155,22 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
 
 GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.setDefault(myVisualizationSettings->name);
-    gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos(), myChanger->getRotation());
-    gSchemeStorage.saveDecals(myDecals);
     delete myPopup;
     delete myChanger;
     delete myGUIDialogEditViewport;
     delete myGUIDialogViewSettings;
+    
+    // release GPU textures
+    if (makeCurrent()) {
+        for (auto& decal : myDecals) {
+            if (decal.glID > 0) {
+                queueTextureDelete(static_cast<unsigned int>(decal.glID));
+            }
+        }
+        processPendingTextureDeletes();
+        makeNonCurrent();
+    }
+    
     // cleanup decals
     for (auto& decal : myDecals) {
         delete decal.image;
@@ -234,7 +244,24 @@ GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
 
 void
 GUISUMOAbstractView::addDecals(const std::vector<Decal>& decals) {
-    myDecals.insert(myDecals.end(), decals.begin(), decals.end());
+    // insert decals but avoid duplicates
+    FXMutexLock lock(myDecalsLockMutex);
+    for (const auto& d : decals) {
+        bool found = false;
+        for (const auto& existing : myDecals) {
+            if (existing.filename == d.filename &&
+                    existing.centerX == d.centerX &&
+                    existing.centerY == d.centerY &&
+                    existing.centerZ == d.centerZ) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            myDecals.push_back(d);
+            myDecals.back().initialised = false;
+        }
+    }
 }
 
 
@@ -298,6 +325,10 @@ GUISUMOAbstractView::paintGL() {
     if (getWidth() == 0 || getHeight() == 0) {
         return;
     }
+    
+    // process pending texture deletions
+    processPendingTextureDeletes();
+    
     const long start = SysUtils::getCurrentMillis();
 
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
@@ -1707,6 +1738,42 @@ GUISUMOAbstractView::getDecals() {
 FXMutex&
 GUISUMOAbstractView::getDecalsLockMutex() {
     return myDecalsLockMutex;
+}
+
+
+void
+GUISUMOAbstractView::queueTextureDelete(unsigned int textureId) {
+    FXMutexLock lock(myTextureDeleteMutex);
+    myPendingTextureDeletes.push_back(textureId);
+}
+
+
+void
+GUISUMOAbstractView::processPendingTextureDeletes() {
+    FXMutexLock lock(myTextureDeleteMutex);
+    if (!myPendingTextureDeletes.empty()) {
+        glDeleteTextures(
+            static_cast<GLsizei>(myPendingTextureDeletes.size()),
+            myPendingTextureDeletes.data()
+        );
+        myPendingTextureDeletes.clear();
+    }
+}
+
+
+void
+GUISUMOAbstractView::clearDecals() {
+    FXMutexLock lock(myDecalsLockMutex);
+    for (auto& decal : myDecals) {
+        if (decal.glID > 0) {
+            queueTextureDelete(static_cast<unsigned int>(decal.glID));
+            decal.glID = -1;
+        }
+        delete decal.image;
+        decal.image = nullptr;
+        decal.initialised = false;
+    }
+    myDecals.clear();
 }
 
 
