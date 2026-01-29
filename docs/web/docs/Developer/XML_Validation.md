@@ -9,7 +9,7 @@ title: XML Validation
 as part of the regular tool tests with results visible on the [daily
 build page](https://sumo.dlr.de/daily/) (see for instance the schema
 check tests on the very end of the [64bit linux tool tests
-page](https://sumo.dlr.de/daily/gcc4_64report/tools/test_default.html)).
+page](https://sumo.dlr.de/daily/gccreport/tools/test_default.html)).
 - This script uses
 lxml (if
 available) or
