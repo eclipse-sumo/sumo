@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-29 10:13+0000\n"
+"PO-Revision-Date: 2026-01-30 20:36+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6180,6 +6180,8 @@ msgstr ""
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:182
 msgid "Time % was set twice for vss '%'; replacing first entry."
 msgstr ""
+"El tiempo % fue establecido dos veces para la señal de velocidad variable "
+"'%'; se reemplazará la primera entrada."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:354
 #: src/microsim/trigger/MSOverheadWire.cpp:409
@@ -6297,13 +6299,15 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
 msgid "rerouter '%': parkingArea '%' is not known."
-msgstr ""
+msgstr "rerouter '%': la zona de estacionamiento '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para el área de estacionamiento '%' "
+"es negativo (no debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:259
 msgid "rerouter '%': No via edge id given."
@@ -6317,6 +6321,8 @@ msgstr ""
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para la arista intermedia '%' es "
+"negativo (no debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:285
 #, c-format
@@ -6326,7 +6332,7 @@ msgstr "La arista principal '%' a usar por el reenrutador '%' no es conocida."
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:293
 #, c-format
 msgid "The siding edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "La arista secundaria '%' a usar por el reenrutador '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:300
 #, c-format
@@ -7898,7 +7904,7 @@ msgstr "ID de nodo '%' no válido."
 #: src/netbuild/NBNode.cpp:316 src/netbuild/NBNode.cpp:342
 #: src/netbuild/NBNode.cpp:357
 msgid "Invalid position '%' for node '%'"
-msgstr ""
+msgstr "Posición '%' no válida para el nodo '%'"
 
 #: src/netbuild/NBNode.cpp:514
 msgid " Removing self-looping edge '%'"
@@ -8090,7 +8096,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2350
 msgid "Could not build joined tls '%'."
-msgstr ""
+msgstr "No se pudo crear el semáforo combinado '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2395
 msgid "Could not build guessed, joined tls."
@@ -8209,18 +8215,20 @@ msgstr "Parada duplicada '%' nombrada '%' de la linea '%' eliminada."
 #: src/netbuild/NBPTLine.cpp:367
 msgid "Removed stop '%' named '%' from line '%' because edge '%' is missing."
 msgstr ""
+"Se eliminó la parada '%' llamada '%' de la línea '%' porque falta la arista "
+"'%'."
 
 #: src/netbuild/NBPTLine.cpp:375
 msgid "not part of the route"
-msgstr ""
+msgstr "no forma parte de la ruta"
 
 #: src/netbuild/NBPTLine.cpp:376
 msgid "not part of the route downstream of the previous stop"
-msgstr ""
+msgstr "no forma parte de la ruta después de la parada anterior"
 
 #: src/netbuild/NBPTLine.cpp:378
 msgid "Stop '%' named '%' from line '%' on edge '%' is %."
-msgstr ""
+msgstr "La parada '%' llamada '%' de la línea '%' en la arista '%' %."
 
 #: src/netbuild/NBPTLineCont.cpp:121
 msgid ""
