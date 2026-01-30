@@ -548,7 +548,7 @@ on("ready", function(){
                 tram: elem("#pt_tram").checked,
                 subway: elem("#pt_subway").checked,
                 light_rail: elem("#pt_light_rail").checked,
-                rail: elem("#pt_rail").checked,
+                train: elem("#pt_train").checked,
                 trolleybus: elem("#pt_trolleybus").checked,
                 monorail: elem("#pt_monorail").checked,
                 minibus: elem("#pt_minibus").checked,
