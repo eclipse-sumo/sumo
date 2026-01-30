@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-28 14:15+0000\n"
+"PO-Revision-Date: 2026-01-30 12:02+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -11644,7 +11644,7 @@ msgstr "Adiciona imagem de fundo."
 #: src/utils/foxtools/MFXDecalsTable.cpp:158
 #: src/utils/foxtools/MFXDecalsTable.cpp:169
 msgid "Invalid row or column"
-msgstr ""
+msgstr "Linha ou coluna inválida"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:193
 msgid "Invalid row"
