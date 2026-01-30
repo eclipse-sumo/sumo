@@ -114,8 +114,11 @@ GUILane::~GUILane() {
 
 void
 GUILane::updateMesoGUISegments() {
+#ifdef _DEBUG
+    const double origLength = myShape.length();
+#endif
     myShape = splitAtSegments(myShape);
-    assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
+    assert(fabs(myShape.length() - origLength) < POSITION_EPS);
     assert(myShapeSegments.size() == myShape.size());
     initRotations(myShape, myShapeRotations, myShapeLengths, myShapeColors);
 }
