@@ -87,12 +87,6 @@ public:
      */
     void buildSegmentsFor(const MSEdge& e, const OptionsCont& oc);
 
-    /** @brief Update segments after loading meso edge type parameters from
-     * additional file
-     * @param[in] e the edge to update
-     */
-    void updateSegmentsForEdge(const MSEdge& e);
-
     /** @brief Get the segment for a given edge at a given position
      *
      * @param[in] e the edge to get the segment for

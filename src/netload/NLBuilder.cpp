@@ -44,6 +44,7 @@
 #endif
 #include <libsumo/Helper.h>
 #include <mesosim/MEVehicleControl.h>
+#include <mesosim/METypeHandler.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
@@ -200,7 +201,15 @@ NLBuilder::build() {
             }
         }
     }
-
+    // load meso edge types
+    bool haveSeenMesoEdgeType = false;
+    if (MSGlobals::gUseMesoSim) {
+        if (myOptions.isSet("additional-files")) {
+            haveSeenMesoEdgeType = loadMesoEdgeTypes("additional-files");
+        }
+        // meso segment building must be delayed until meso edge types have been read from additional files
+        myNet.getEdgeControl().buildMesoSegments();
+    }
     // load additional net elements (sources, detectors, ...)
     if (myOptions.isSet("additional-files")) {
         if (!load("additional-files")) {
@@ -214,13 +223,14 @@ NLBuilder::build() {
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
         }
-        if (MSGlobals::gUseMesoSim && (myXMLHandler.haveSeenMesoEdgeType() || myXMLHandler.haveSeenTLSParams())) {
-            myNet.getEdgeControl().setMesoTypes();
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
+    }
+    if (MSGlobals::gUseMesoSim) {
+        if (haveSeenMesoEdgeType || myXMLHandler.haveSeenTLSParams()) {
             for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
                 tll->initMesoTLSPenalties();
             }
         }
-        MSTriggeredRerouter::checkParkingRerouteConsistency();
     }
     // init tls after all detectors have been loaded
     myJunctionBuilder.postLoadInitialization();
@@ -446,6 +456,21 @@ NLBuilder::load(const std::string& mmlWhat, const bool isNet) {
         PROGRESS_TIME_MESSAGE(before);
     }
     return true;
+}
+
+
+bool
+NLBuilder::loadMesoEdgeTypes(const std::string& mmlWhat) {
+    if (!myOptions.isUsableFileList(mmlWhat)) {
+        return false;
+    }
+    METypeHandler meTypeHandler("", myNet);
+    for (const std::string& file : myOptions.getStringVector(mmlWhat)) {
+        if (!XMLSubSys::runParser(meTypeHandler, file)) {
+            continue;
+        }
+    }
+    return meTypeHandler.haveSeenMesoEdgeType();
 }
 
 

@@ -188,8 +188,8 @@ public:
     /// @brief apply additional restrictions
     void setAdditionalRestrictions();
 
-    /// @brief update meso edge type parameters
-    void setMesoTypes();
+    /// @brief build meso segments after meso edge types are loaded
+    void buildMesoSegments();
 
     /** @brief Saves the current state into the given stream
      */

@@ -425,6 +425,7 @@ MSNet::getMesoType(const std::string& typeID) {
         edgeType.tlsFlowPenalty = oc.getFloat("meso-tls-flow-penalty");
         edgeType.minorPenalty = string2time(oc.getString("meso-minor-penalty"));
         edgeType.overtaking = oc.getBool("meso-overtaking");
+        edgeType.edgeLength = oc.getFloat("meso-edgelength");
         myMesoEdgeTypes[typeID] = edgeType;
     }
     return myMesoEdgeTypes[typeID];

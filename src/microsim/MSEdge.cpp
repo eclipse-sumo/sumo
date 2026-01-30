@@ -249,14 +249,6 @@ MSEdge::closeBuilding() {
 
 
 void
-MSEdge::updateMesoType() {
-    assert(MSGlobals::gUseMesoSim);
-    if (!myLanes->empty()) {
-        MSGlobals::gMesoNet->updateSegmentsForEdge(*this);
-    }
-}
-
-void
 MSEdge::postLoadInitLaneChanger() {
     if (myLaneChanger != nullptr) {
         myLaneChanger->postloadInitLC();

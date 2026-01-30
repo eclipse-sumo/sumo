@@ -14,6 +14,8 @@ SET(mesosim_STAT_SRCS
    MEVehicle.h
    MEVehicleControl.cpp
    MEVehicleControl.h
+   METypeHandler.cpp
+   METypeHandler.h
 )
 
 add_library(mesosim STATIC ${mesosim_STAT_SRCS})

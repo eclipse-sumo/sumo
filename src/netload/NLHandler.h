@@ -120,10 +120,6 @@ public:
         return myHaveSeenAdditionalSpeedRestrictions;
     }
 
-    bool haveSeenMesoEdgeType() const {
-        return myHaveSeenMesoEdgeType;
-    }
-
     bool haveSeenTLSParams() const {
         return myHaveSeenTLSParams;
     }
@@ -212,11 +208,6 @@ protected:
      * @param[in] objecttype The type (lane/edge) of the parsed mean data definition
      */
     virtual void addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype);
-
-    /** @brief Loads edge type specific meso parameters
-     * @param[in] attrs The attributes that hold the parameters
-     */
-    virtual void addMesoEdgeType(const SUMOSAXAttributes& attrs);
 
     /** @brief Loads deadlock information for preparing additional rail signal checks
      * @param[in] attrs The attributes that hold the parameters
@@ -377,8 +368,6 @@ protected:
     /// @brief whether additional files contained type-specific speed limits
     bool myHaveSeenAdditionalSpeedRestrictions;
 
-    /// @brief whether edge type specific meso parameters were loaded
-    bool myHaveSeenMesoEdgeType;
     /// @brief whether tls params were loaded
     bool myHaveSeenTLSParams;
 

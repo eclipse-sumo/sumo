@@ -133,6 +133,9 @@ MESegment::MESegment(const std::string& id,
     if (multiQueue) {
         if (next == nullptr) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
+                if (edge->isTazConnector()) {
+                    continue;
+                }
                 const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
                 assert(allowed != nullptr);
                 assert(allowed->size() > 0);
@@ -176,8 +179,7 @@ MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const
                     myNextSegment == nullptr && (
                         parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
                         parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
-                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)
-                    && !tlsPenaltyOverride());
+                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
 
     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
     myCheckMinorPenalty = (edgeType.minorPenalty > 0 &&
@@ -879,19 +881,6 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     } else {
         return 0;
     }
-}
-
-
-bool
-MESegment::tlsPenaltyOverride() const {
-    for (const MSLane* lane : myEdge.getLanes()) {
-        for (const MSLink* link : lane->getLinkCont()) {
-            if (link->isTLSControlled() && StringUtils::toBool(link->getTLLogic()->getParameter(OVERRIDE_TLS_PENALTIES, "0"))) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 
