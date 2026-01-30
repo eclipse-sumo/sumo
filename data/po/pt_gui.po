@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-30 13:52+0000\n"
+"PO-Revision-Date: 2026-01-30 14:30+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -16414,7 +16414,7 @@ msgstr "par"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1663
 msgid "by jammed state (segmentwise)"
-msgstr ""
+msgstr "por estado de congestionamento (por segmento)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1663
 msgid "free"
