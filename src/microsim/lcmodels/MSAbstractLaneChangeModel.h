@@ -174,12 +174,12 @@ public:
     }
 
     /// @brief whether start of maneuvers shall be recorede
-    static bool outputLCStarted() {
+    static bool enabledOutputLCStarted() {
         return myLCStartedOutput;
     }
 
     /// @brief whether start of maneuvers shall be recorede
-    static bool outputLCEnded() {
+    static bool enabledOutputLCEnded() {
         return myLCEndedOutput;
     }
 

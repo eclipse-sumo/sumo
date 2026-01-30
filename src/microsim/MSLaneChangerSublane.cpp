@@ -557,7 +557,7 @@ MSLaneChangerSublane::checkChangeToNewLane(MSVehicle* vehicle, const int directi
 
 void
 MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction, double maneuverDist) {
-    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCStarted()
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::enabledOutputLCStarted()
             // non-sublane change started
             && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)
             && ((vehicle->getLaneChangeModel().getOwnState() & LCA_STAY) == 0)
@@ -585,7 +585,7 @@ MSLaneChangerSublane::outputLCStarted(MSVehicle* vehicle, ChangerIt& from, Chang
 
 void
 MSLaneChangerSublane::outputLCEnded(MSVehicle* vehicle, ChangerIt& from, ChangerIt& to, int direction) {
-    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::outputLCEnded()
+    if (MSAbstractLaneChangeModel::haveLCOutput() && MSAbstractLaneChangeModel::enabledOutputLCEnded()
             // non-sublane change ended
             && ((vehicle->getLaneChangeModel().getOwnState() & (LCA_CHANGE_REASONS & ~LCA_SUBLANE)) != 0)) {
         vehicle->getLaneChangeModel().setLeaderGaps(to->aheadNext);
