@@ -49,6 +49,7 @@ title: ChangeLog
   - Fixed invalid vehicle mass for personTrip with car #17551
   - Fixed non-deterministic moving-block simulation #17557
   - Fixed invalid signal state when using WAUT and loading state #17526
+  - Fixed unsave signal state if a junction where rail lines cross is defined as rail_signal #17580
 
 - netedit
   - lane selection count now updates when selecting with shift-click #17394 (regression in 1.11.0)
