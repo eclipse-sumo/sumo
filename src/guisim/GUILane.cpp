@@ -95,11 +95,6 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
     myAmClosed(false),
     myLengthGeometryFactor2(myLengthGeometryFactor),
     myLock(true) {
-    if (MSGlobals::gUseMesoSim) {
-        myShape = splitAtSegments(shape);
-        assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
-        assert(myShapeSegments.size() == myShape.size());
-    }
     initRotations(myShape, myShapeRotations, myShapeLengths, myShapeColors);
     //
     myHalfLaneWidth = myWidth / 2.;
@@ -114,6 +109,15 @@ GUILane::~GUILane() {
     }
     delete myParkingAreas;
     delete myTesselation;
+}
+
+
+void
+GUILane::updateMesoGUISegments() {
+    myShape = splitAtSegments(myShape);
+    assert(fabs(myShape.length() - shape.length()) < POSITION_EPS);
+    assert(myShapeSegments.size() == myShape.size());
+    initRotations(myShape, myShapeRotations, myShapeLengths, myShapeColors);
 }
 
 
@@ -1609,7 +1613,8 @@ GUILane::closeTraffic(bool rebuildAllowed) {
 PositionVector
 GUILane::splitAtSegments(const PositionVector& shape) {
     assert(MSGlobals::gUseMesoSim);
-    int no = MELoop::numSegmentsFor(myLength, OptionsCont::getOptions().getFloat("meso-edgelength"));
+    const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdge().getEdgeType());
+    int no = MELoop::numSegmentsFor(myLength, edgeType.edgeLength);
     const double slength = myLength / no;
     PositionVector result = shape;
     double offset = 0;

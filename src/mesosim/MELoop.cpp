@@ -320,6 +320,9 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
         myEdges2FirstSegments.push_back(0);
     }
     myEdges2FirstSegments[e.getNumericalID()] = newSegment;
+    for (MSLane* lane : e.getLanes()) {
+        lane->updateMesoGUISegments();
+    }
 }
 
 
