@@ -151,7 +151,17 @@ def main(options):
     sumolib.writeXMLHeader(outf_con, "$Id$", "connections", options=options)
 
     for outerNodes, incomingEdges in clusters:
-        for nodeID in sorted([n.getID() for n in outerNodes]):
+        allIncoming = set()
+        for node in outerNodes:
+            allIncoming.update(node.getIncoming())
+        uncontrolled = allIncoming.difference(incomingEdges)
+
+        controlledNodes = []
+        for n in outerNodes:
+            if set(n.getIncoming()).difference(uncontrolled):
+                controlledNodes.append(n.getID())
+
+        for nodeID in sorted(controlledNodes):
             outf_nod.write('    <node id="%s" type="%s"/>\n' % (nodeID, options.junctionType))
         outf_nod.write('\n')
 
@@ -160,10 +170,6 @@ def main(options):
                 outf_edg.write('    <edge id="%s" endOffset="%s"/>\n' % (edgeID, options.endOffset))
             outf_edg.write('\n')
 
-        allIncoming = set()
-        for node in outerNodes:
-            allIncoming.update(node.getIncoming())
-        uncontrolled = allIncoming.difference(incomingEdges)
 
         if uncontrolled:
             for edge in uncontrolled:
