@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-30 13:30+0000\n"
+"PO-Revision-Date: 2026-01-30 13:52+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -16152,11 +16152,11 @@ msgstr "cor da rota dada/atribuida"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1210
 msgid "depart position as HSV"
-msgstr ""
+msgstr "posição de partida como HSV"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1211
 msgid "arrival position as HSV"
-msgstr ""
+msgstr "posição de chegada como HSV"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1212
 msgid "direction/distance as HSV"
@@ -16179,7 +16179,7 @@ msgstr "sem ação"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1224
 msgid "action in next step"
-msgstr ""
+msgstr "ação no passo seguinte"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1225
 msgid "had action step"
@@ -16195,7 +16195,7 @@ msgstr "por tempo de espera"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1233
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1754
 msgid "by accumulated waiting time"
-msgstr ""
+msgstr "por tempo de espera acumulado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1239
 msgid "by time since lane change"
@@ -16238,7 +16238,7 @@ msgstr "por atraso na partida"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1356
 msgid "by relative battery charge"
-msgstr ""
+msgstr "por carga relativa da bateria"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1365
 msgid "by charged energy"
@@ -16257,7 +16257,7 @@ msgstr "por atraso na parada"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1389
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1812
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "por atraso da chegada na parada"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1399
 msgid "by lateral speed"
@@ -16357,7 +16357,7 @@ msgstr "padrão"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1594
 msgid "by average relative speed"
-msgstr ""
+msgstr "por velocidade relativa média"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1621
 msgid "by purpose (streetwise)"
@@ -16374,7 +16374,7 @@ msgstr "interno"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1625
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1707
 msgid "by allowed speed (streetwise)"
-msgstr ""
+msgstr "por velocidade permitida (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1632
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1710
@@ -16384,17 +16384,17 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1635
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1713
 msgid "by current speed (streetwise)"
-msgstr ""
+msgstr "por velocidade atual (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1642
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1716
 msgid "by current flow (streetwise)"
-msgstr ""
+msgstr "por fluxo atual (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1645
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1719
 msgid "by relative speed (streetwise)"
-msgstr ""
+msgstr "por velocidade relativa (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1652
 msgid "by routing device assumed speed"
