@@ -221,7 +221,7 @@ The model parameters described above can be customized for each edge type id by 
     <type id="highway.motorway" ...>
         <meso tauff="1.13" taufj="1.13" taujf="1.73" taujj="1.4" jamThreshold="-1"
              multiQueue="true" junctionControl="false" tlsPenalty="0" tlsFlowPenalty="0"
-             minorPenalty="0" overtaking="false"/>
+             minorPenalty="0" overtaking="false" edgeLength="98"/>
     </type>
 </additional>
 ```
