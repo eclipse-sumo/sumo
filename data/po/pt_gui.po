@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-30 12:01+0000\n"
+"PO-Revision-Date: 2026-01-30 12:31+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -13580,7 +13580,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:291
 msgid "Change Z in selection"
-msgstr ""
+msgstr "Trocar Z na seleção"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:296
 msgid "Z value"
@@ -13612,19 +13612,19 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:543
 msgid "- Num geometry points: "
-msgstr ""
+msgstr "- Pontos geométricos: "
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:544
 msgid "- Selection minimum Z: "
-msgstr ""
+msgstr "- Z mínimo da seleção: "
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:545
 msgid "- Selection maximum Z: "
-msgstr ""
+msgstr "- Z máximo da seleção: "
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:546
 msgid "- Selection average Z: "
-msgstr ""
+msgstr "- Z médio da seleção: "
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:557
 #: src/netedit/frames/common/GNEMoveFrame.cpp:573
@@ -13811,7 +13811,7 @@ msgstr ""
 #: src/netedit/frames/common/GNESelectorFrame.cpp:280
 #: src/utils/gui/settings/GUISettingsHandler.cpp:597
 msgid "Could not open '%'."
-msgstr ""
+msgstr "Não foi possível abrir '%'."
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:317
 msgid "load selection"
@@ -13922,11 +13922,11 @@ msgstr "ID do conjunto de dados inválido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:152
 msgid "Invalid empty dataSet ID"
-msgstr ""
+msgstr "ID de conjunto de dados vazio inválido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:154
 msgid "Invalid duplicated dataSet ID"
-msgstr ""
+msgstr "ID de conjunto de dados duplicado inválido"
 
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:214
 msgid "Create new interval"
@@ -14042,7 +14042,7 @@ msgstr "Criar novo %"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:91
 msgid "Delete current edited %"
-msgstr ""
+msgstr "Deletar % editado atualmente"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:165
 msgid "Distribution selector"
@@ -14058,7 +14058,7 @@ msgstr "Valores de distribuição"
 
 #: src/netedit/frames/demand/GNEDistributionFrame.cpp:404
 msgid "Add new distribution value"
-msgstr ""
+msgstr "Adicionar novo valor de distribuição"
 
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:104
 #: src/netedit/frames/demand/GNEPersonPlanFrame.cpp:121
