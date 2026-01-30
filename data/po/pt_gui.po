@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-30 12:31+0000\n"
+"PO-Revision-Date: 2026-01-30 13:30+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -14097,7 +14097,7 @@ msgstr "arestas consecutivas"
 #: src/netedit/frames/demand/GNEStopFrame.cpp:100
 #: src/netedit/frames/demand/GNEStopFrame.cpp:106
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "Shift+Clique para selecionar elemento pai"
 
 #: src/netedit/frames/demand/GNEStopFrame.cpp:77
 msgid "Click over a bus stop to create a stop."
@@ -14346,11 +14346,11 @@ msgstr "Modificações"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:94
 msgid "Discard connection modifications (Esc)"
-msgstr ""
+msgstr "Descartar modificações nas conexões (Esc)"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:97
 msgid "Save connection modifications (Enter)"
-msgstr ""
+msgstr "Salvar modificações nas conexões (Enter)"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:101
 msgid "Protect routes"
@@ -14362,7 +14362,7 @@ msgstr "Trocar invertidos"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:131
 msgid "Error saving connection operations"
-msgstr ""
+msgstr "Erro ao salvar operações das conexões"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:132
 #, c-format
@@ -14478,7 +14478,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:482
 msgid "Incompatible vehicle class permissions"
-msgstr ""
+msgstr "Permissões de classe de veículo incompatíveis"
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:484
 msgid "Another lane from the same edge already connects to that lane"
@@ -14486,7 +14486,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:495
 msgid "Invalid target for connection"
-msgstr ""
+msgstr "Destino inválido para conexão"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:71
 msgid "Template selector"
@@ -14498,7 +14498,7 @@ msgstr "Criar aresta padrão"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:78
 msgid "Create default edge short"
-msgstr ""
+msgstr "Criar aresta curta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:81
 msgid "Disallow for pedestrians"
@@ -14537,12 +14537,12 @@ msgstr "Criar a partir de um modelo"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:102
 msgid "Create edgeType from template"
-msgstr ""
+msgstr "Criar tipo de aresta a partir de um modelo"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:335
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:385
 msgid "create new edge type"
-msgstr ""
+msgstr "criar novo tipo de aresta"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:357
 msgid "delete edge type"
@@ -14741,7 +14741,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
-msgstr ""
+msgstr "Tem direito de passagem"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
@@ -14765,7 +14765,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
-msgstr ""
+msgstr "Salvar modificações de proibição (Enter)"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
@@ -14793,13 +14793,13 @@ msgstr "Formato: Lat-Lon"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:67
 msgid "Center View after creation"
-msgstr ""
+msgstr "Centrar visualização depois de criar"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:69
 #: src/netedit/frames/network/GNEShapeFrame.cpp:122
 #: src/netedit/frames/network/GNEShapeFrame.cpp:179
 msgid "Create GEO POI (clipboard)"
-msgstr ""
+msgstr "Criar POI geométrico (área de transferência)"
 
 #: src/netedit/frames/network/GNEShapeFrame.cpp:72
 #: src/netedit/frames/network/GNEShapeFrame.cpp:137
@@ -14866,7 +14866,7 @@ msgstr "Estatísticas"
 #: src/netedit/frames/network/GNETAZFrame.cpp:367
 #: src/netedit/frames/network/GNETAZFrame.cpp:1123
 msgid "- Number of edges: "
-msgstr ""
+msgstr "- Número de arestas: "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:368
 #: src/netedit/frames/network/GNETAZFrame.cpp:1128
@@ -14936,7 +14936,7 @@ msgstr "Novo destino"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:499
 msgid "Set zero fringe prob."
-msgstr ""
+msgstr "Definir prob. de margem como zero."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:503
 #: src/netedit/frames/network/GNETAZFrame.cpp:637
@@ -14963,11 +14963,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:579
 msgid "Remove edge from selection"
-msgstr ""
+msgstr "Remover aresta da seleção"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:581
 msgid "Add edge to selection"
-msgstr ""
+msgstr "Adicionar aresta a seleção"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:592
 msgid "Remove "
@@ -14975,7 +14975,7 @@ msgstr "Remover "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:592
 msgid " edges from to selection"
-msgstr ""
+msgstr " arestas da seleção"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:594
 msgid "Add "
@@ -15004,7 +15004,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETAZFrame.cpp:838
 #: src/netedit/frames/network/GNETAZFrame.cpp:841
 msgid "Set weight 0 in "
-msgstr ""
+msgstr "Definir peso 0 em "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:838
 #: src/netedit/frames/network/GNETAZFrame.cpp:841
@@ -15013,7 +15013,7 @@ msgstr " origens e "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:839
 msgid " sinks from TAZ '"
-msgstr ""
+msgstr " destinos da TAZ '"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:842
 msgid " sinks from "
@@ -15026,15 +15026,15 @@ msgstr " Zonas de Tráfego Agregadas?"
 #: src/netedit/frames/network/GNETAZFrame.cpp:845
 #: src/netedit/frames/network/GNETAZFrame.cpp:859
 msgid "Set zero fringe probabilities"
-msgstr ""
+msgstr "Estabelecer probabilidades de margem em zero"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:848
 msgid "set zero fringe probabilities"
-msgstr ""
+msgstr "estabelecer probabilidades de margem em zero"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:859
 msgid "No source/sinks to update."
-msgstr ""
+msgstr "Não há origens/destinos para atualizar."
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:869
 msgid "Selection Statistics"
@@ -15149,7 +15149,7 @@ msgstr "Atribuir detectores E1"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:575
 msgid "Enable assign E1 mode"
-msgstr ""
+msgstr "Ativar modo de atribuição de E1"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:575
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:576
@@ -15158,7 +15158,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:576
 msgid "Disable assign E1 mode"
-msgstr ""
+msgstr "Desativar modo de atribuição de E1"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:884
 msgid "Traffic Light"
@@ -15262,7 +15262,7 @@ msgstr "Reiniciar individual"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1364
 msgid "Reset current TLS program."
-msgstr ""
+msgstr "Reestabelecer programa semafórico atual."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1368
 msgid "Reset all"
@@ -15270,15 +15270,15 @@ msgstr "Reiniciar todos"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1368
 msgid "Reset all TLS programs."
-msgstr ""
+msgstr "Reestabelecer todos os programas semafóricos."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1372
 msgid "Save program modifications. (Enter)"
-msgstr ""
+msgstr "Salvar modificações do programa. (Enter)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1376
 msgid "Discard program modifications. (Esc)"
-msgstr ""
+msgstr "Descartar modificações do programa. (Esc)"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1451
 msgid "Duplicate"
@@ -15292,7 +15292,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1589
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1605
 msgid "TLS cannot be created"
-msgstr ""
+msgstr "O semáforo não pode ser criado"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1580
 msgid "Traffic Light cannot be created because junction must have"
@@ -15402,7 +15402,7 @@ msgstr "coluna inválida"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2558
 msgid "Error deleting phase '"
-msgstr ""
+msgstr "Erro ao deletar a fase '"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2823
 msgid "TLS Program File"
@@ -15426,7 +15426,7 @@ msgstr "Programa atualizado '"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2915
 msgid "' for tlLogic '"
-msgstr ""
+msgstr "' para tLogic '"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2919
 msgid "No programs found for traffic light '"
@@ -15434,7 +15434,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2938
 msgid "Save TLS Program as"
-msgstr ""
+msgstr "Salvar programa semafórico como"
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:71
 msgid "Experimental Part"
@@ -15488,11 +15488,11 @@ msgstr "Selecionar elementos deletados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:139
 msgid "Load shapes for elements"
-msgstr ""
+msgstr "Carregar formato para os elementos"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:142
 msgid "Load shapes for added"
-msgstr ""
+msgstr "Carregar formatos para os elementos adicionados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:145
 msgid "Load shapes for deleted elements"
@@ -15500,7 +15500,7 @@ msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:160
 msgid "load shapes from '"
-msgstr ""
+msgstr "carregar formatos a partir de '"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:164
 #, c-format
@@ -15514,7 +15514,7 @@ msgstr ""
 
 #: src/netedit/tools/GNEPythonTool.cpp:43
 msgid "Execute python tool '"
-msgstr ""
+msgstr "Executar ferramenta python '"
 
 #: src/netedit/tools/GNEPythonTool.cpp:191
 #, c-format
@@ -15548,7 +15548,7 @@ msgstr "Fechar"
 
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:145
 msgid "Errors while loading Selection"
-msgstr ""
+msgstr "Erro durante o carregamento da seleção"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:69
 msgid " time"
@@ -15580,7 +15580,7 @@ msgstr "Dinâmico"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:194
 msgid "Open in new Tracker"
-msgstr ""
+msgstr "Abrir em um novo rastreador"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:223
 msgid "Ignoring item '%' because of invalid type %\n"
@@ -15589,7 +15589,7 @@ msgstr ""
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
 #, c-format
 msgid "Item '%' not found\n"
-msgstr ""
+msgstr "Item '%' não encontrado\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:244
 #, c-format
@@ -15598,7 +15598,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:255
 msgid "Could not open '%'.\n"
-msgstr ""
+msgstr "Não foi possível abrir '%'.\n"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
@@ -15618,7 +15618,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "Não foi possível abrir o coded!"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
@@ -15642,7 +15642,7 @@ msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:175
 msgid "Error sending final frame!"
-msgstr ""
+msgstr "Erro ao enviar o quadro final!"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:183
 msgid "Error during final encoding step!"
@@ -15696,7 +15696,7 @@ msgstr "Adicionar à seleção"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:335
 msgid "Copy name to clipboard"
-msgstr ""
+msgstr "Copiar nome para área de transferência"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:336
 msgid "Copy typed name to clipboard"
@@ -15724,7 +15724,7 @@ msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:382
 msgid "Show cursor geo-position in "
-msgstr ""
+msgstr "Mostrar posição geográfica do cursor em "
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:403
 msgid "Open Manipulator..."
@@ -15745,7 +15745,7 @@ msgstr "Substituindo polígono '%'"
 
 #: src/utils/gui/images/GUIIconSubSys.cpp:1189
 msgid "Instance was previously created"
-msgstr ""
+msgstr "A Instância foi criada previamente"
 
 #: src/utils/gui/images/GUITextureSubSys.cpp:191
 msgid "Undefined texture"
@@ -15774,11 +15774,11 @@ msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:198
 msgid "by param (numerical, streetwise)"
-msgstr ""
+msgstr "por parâmetro (numérico, por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:199
 msgid "by param (numerical, lanewise)"
-msgstr ""
+msgstr "por parâmetro (numérico, por faixa)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:200
 msgid "by param (numerical)"
@@ -15786,7 +15786,7 @@ msgstr "por parâmetro (numérico)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:201
 msgid "by edgeData (numerical, streetwise)"
-msgstr ""
+msgstr "por edgeData (numérico, por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:202
 msgid "by attribute (numerical)"
@@ -15943,7 +15943,7 @@ msgstr "selecionado"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1532
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1865
 msgid "by allowed speed (lanewise)"
-msgstr ""
+msgstr "por velocidade permitida (por faixa)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:995
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1535
@@ -15964,7 +15964,7 @@ msgstr ""
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1544
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1873
 msgid "by lane number (streetwise)"
-msgstr ""
+msgstr "por número da faixa (por rua)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1017
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1256
@@ -16005,23 +16005,23 @@ msgstr "por consumo de combustível"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1065
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1566
 msgid "by noise emissions (Harmonoise)"
-msgstr ""
+msgstr "por emissão de ruído (Harmonoise)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1074
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1570
 msgid "by global travel time"
-msgstr ""
+msgstr "por tempo de viagem"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1078
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1574
 msgid "by global speed percentage"
-msgstr ""
+msgstr "por porcentagem de velocidade global"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1083
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1578
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1877
 msgid "by given length/geometrical length"
-msgstr ""
+msgstr "por comprimento dado/comprimento geométrico"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1091
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1410
@@ -16046,7 +16046,7 @@ msgstr "por prioridade"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1101
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1892
 msgid "by height at start"
-msgstr ""
+msgstr "por altura inicial"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1109
 msgid "by height at geometry-segment start"
@@ -16068,7 +16068,7 @@ msgstr "por velocidade média"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1138
 msgid "by average relative speed "
-msgstr ""
+msgstr "por velocidade relativa média "
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1145
 msgid "by routing device assumed speed "
@@ -16118,7 +16118,7 @@ msgstr "por distância (quilometragem)"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1183
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1931
 msgid "by abs distance (kilometrage)"
-msgstr ""
+msgstr "por distância absoluta (quilometragem)"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1187
 msgid "by reachability (traveltime)"
