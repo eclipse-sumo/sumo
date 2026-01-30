@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-30 12:02+0000\n"
+"PO-Revision-Date: 2026-01-30 12:31+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -10339,7 +10339,7 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
 msgid "Could not open '%'."
-msgstr ""
+msgstr "Não foi possível abrir '%'."
 
 #: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
 #, c-format
