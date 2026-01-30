@@ -621,6 +621,18 @@ def main(options):
                 u'osm': os.path.abspath(options.osmFile),
                 u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
+                u'ptModes': {'bus': True,
+                    'tram': True,
+                    'train': True,
+                    'subway': True,
+                    'light_rail': True,
+                    'monorail': True,
+                    'trolleybus': True,
+                    'minibus': True,
+                    'share_taxi': True,
+                    'aerialway': True,
+                    'ferry': True
+                    },
                 u'leftHand': False,
                 u'decal': False,
                 u'verbose': options.verbose,
