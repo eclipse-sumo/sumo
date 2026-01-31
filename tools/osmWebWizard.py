@@ -233,8 +233,10 @@ class Builder(object):
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
         # if ferry PT mode is requested, aslo include ships typemap for netconvert
-        if "ship" in self.data["vehicles"] or \
-                (self.data.get("publicTransport") and self.data.get("ptModes") and self.data.get("ptModes").get("ferry")):
+        if ("ship" in self.data["vehicles"] or
+            (self.data.get("publicTransport")
+             and self.data.get("ptModes")
+             and self.data.get("ptModes").get("ferry"))):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
@@ -622,17 +624,16 @@ def main(options):
                 u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
                 u'ptModes': {'bus': True,
-                    'tram': True,
-                    'train': True,
-                    'subway': True,
-                    'light_rail': True,
-                    'monorail': True,
-                    'trolleybus': True,
-                    'minibus': True,
-                    'share_taxi': True,
-                    'aerialway': True,
-                    'ferry': True
-                    },
+                             'tram': True,
+                             'train': True,
+                             'subway': True,
+                             'light_rail': True,
+                             'monorail': True,
+                             'trolleybus': True,
+                             'minibus': True,
+                             'share_taxi': True,
+                             'aerialway': True,
+                             'ferry': True},
                 u'leftHand': False,
                 u'decal': False,
                 u'verbose': options.verbose,

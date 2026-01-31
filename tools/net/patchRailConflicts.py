@@ -170,7 +170,6 @@ def main(options):
                 outf_edg.write('    <edge id="%s" endOffset="%s"/>\n' % (edgeID, options.endOffset))
             outf_edg.write('\n')
 
-
         if uncontrolled:
             for edge in uncontrolled:
                 for con in sum(edge.getOutgoing().values(), start=[]):
