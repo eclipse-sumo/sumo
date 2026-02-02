@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-01-28 09:54+0000\n"
+"PO-Revision-Date: 2026-01-30 20:36+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -7236,7 +7236,7 @@ msgstr "aristas"
 #: src/netedit/GNETagPropertiesDatabase.cpp:5002
 #: src/netedit/GNETagPropertiesDatabase.cpp:5012
 msgid "PersonTrip"
-msgstr ""
+msgstr "Viaje de persona"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:4385
 #: src/netedit/GNETagPropertiesDatabase.cpp:4456

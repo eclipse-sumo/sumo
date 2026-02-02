@@ -75,7 +75,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenDefaultLength(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
-    myHaveSeenMesoEdgeType(false),
     myHaveSeenTLSParams(false),
     myNetworkVersion(0, 0),
     myNetIsLoaded(false) {
@@ -280,10 +279,6 @@ NLHandler::myStartElement(int element,
                         myNet.addPreference(routingType, typeName, prio);
                     }
                 }
-                break;
-            }
-            case SUMO_TAG_MESO: {
-                addMesoEdgeType(attrs);
                 break;
             }
             case SUMO_TAG_STOPOFFSET: {
@@ -1714,29 +1709,6 @@ NLHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
     }
 }
 
-
-void
-NLHandler::addMesoEdgeType(const SUMOSAXAttributes& attrs) {
-    bool ok = true;
-    MESegment::MesoEdgeType edgeType = myNet.getMesoType(""); // init defaults
-    edgeType.tauff = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUFF, myCurrentTypeID.c_str(), ok, edgeType.tauff);
-    edgeType.taufj = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUFJ, myCurrentTypeID.c_str(), ok, edgeType.taufj);
-    edgeType.taujf = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUJF, myCurrentTypeID.c_str(), ok, edgeType.taujf);
-    edgeType.taujj = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUJJ, myCurrentTypeID.c_str(), ok, edgeType.taujj);
-    edgeType.jamThreshold = attrs.getOpt<double>(SUMO_ATTR_JAM_DIST_THRESHOLD, myCurrentTypeID.c_str(), ok, edgeType.jamThreshold);
-    edgeType.junctionControl = attrs.getOpt<bool>(SUMO_ATTR_MESO_JUNCTION_CONTROL, myCurrentTypeID.c_str(), ok, edgeType.junctionControl);
-    edgeType.tlsPenalty = attrs.getOpt<double>(SUMO_ATTR_MESO_TLS_PENALTY, myCurrentTypeID.c_str(), ok, edgeType.tlsPenalty);
-    edgeType.tlsFlowPenalty = attrs.getOpt<double>(SUMO_ATTR_MESO_TLS_FLOW_PENALTY, myCurrentTypeID.c_str(), ok, edgeType.tlsFlowPenalty);
-    edgeType.minorPenalty = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_MINOR_PENALTY, myCurrentTypeID.c_str(), ok, edgeType.minorPenalty);
-    edgeType.overtaking = attrs.getOpt<bool>(SUMO_ATTR_MESO_OVERTAKING, myCurrentTypeID.c_str(), ok, edgeType.overtaking);
-
-    if (ok) {
-        myNet.addMesoType(myCurrentTypeID, edgeType);
-    }
-    if (myNetIsLoaded) {
-        myHaveSeenMesoEdgeType = true;
-    }
-}
 
 void
 NLHandler::addDeadlock(const SUMOSAXAttributes& attrs) {

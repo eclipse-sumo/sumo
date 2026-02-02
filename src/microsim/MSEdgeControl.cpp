@@ -25,6 +25,8 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <utils/options/OptionsCont.h>
+#include <mesosim/MELoop.h>
 #include "MSEdgeControl.h"
 #include "MSVehicleControl.h"
 #include "MSGlobals.h"
@@ -374,9 +376,12 @@ MSEdgeControl::setAdditionalRestrictions() {
 }
 
 void
-MSEdgeControl::setMesoTypes() {
+MSEdgeControl::buildMesoSegments() {
+    const OptionsCont& oc = OptionsCont::getOptions();
     for (MSEdge* edge : myEdges) {
-        edge->updateMesoType();
+        if (!edge->getLanes().empty()) {
+            MSGlobals::gMesoNet->buildSegmentsFor(*edge, oc);
+        }
     }
 }
 

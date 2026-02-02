@@ -7,7 +7,7 @@ name = "sumo-data"
 version = "0.0.0"
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
-description = "The python ABI version indpendent part of the traffic simulation Eclipse SUMO"
+description = "The python ABI version independent part of the traffic simulation Eclipse SUMO"
 readme = "README.md"
 keywords = ["traffic", "simulation", "traci"]
 classifiers = [
@@ -29,13 +29,5 @@ build-dir = "_skbuild"
 build.targets = ["install_mo", "install_dll"]
 install.components = ["data", "dll", "proj_data"]
 wheel.install-dir = "sumo_data"
+wheel.platlib = false
 wheel.py-api = "py3"
-
-[tool.cibuildwheel]
-before-all = "build_config/install_dependencies.sh"
-build = ["cp312*manylinux_x86_64", "cp312*manylinux_aarch64", "cp312-win_amd64", "cp312-macosx_arm64"]
-# disable repair, no relocatable binaries inside
-repair-wheel-command = ""
-
-[tool.cibuildwheel.windows]
-before-all = ""

@@ -19,3 +19,6 @@ overtaking_option
 
 # enable overtaking via edge type
 overtaking
+
+# change segment length for some edges
+edgelength

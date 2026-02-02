@@ -119,6 +119,9 @@ protected:
      */
     bool load(const std::string& mmlWhat, const bool isNet = false);
 
+    /// @brief loads meso edge types with a dedicated handler and return whether any were loaded
+    bool loadMesoEdgeTypes(const std::string& mmlWhat);
+
 
     /** @brief Closes the net building process
      *

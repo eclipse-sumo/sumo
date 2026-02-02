@@ -10,19 +10,20 @@ If your publication mentions SUMO, please let us know!
     When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://ieeexplore.ieee.org/document/8569938); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
 
 
-## BibTex
+## BibTeX
 
 ```
-@inproceedings{SUMO2018,
-          title = {Microscopic Traffic Simulation using SUMO},
-         author = {Pablo Alvarez Lopez and Michael Behrisch and Laura Bieker-Walz and Jakob Erdmann and Yun-Pang Fl{\"o}tter{\"o}d and Robert Hilbrich and Leonhard L{\"u}cken and Johannes Rummel and Peter Wagner and Evamarie Wie{\ss}ner},
-      publisher = {IEEE},
-      booktitle = {The 21st IEEE International Conference on Intelligent Transportation Systems},
-           year = {2018},
-        journal = {IEEE Intelligent Transportation Systems Conference (ITSC)},
-       keywords = {traffic simulation, modelling, optimization},
-            url = {https://elib.dlr.de/124092/}
- }
+@INPROCEEDINGS{8569938,
+  author={Lopez, Pablo Alvarez and Behrisch, Michael and Bieker-Walz, Laura and Erdmann, Jakob and Flötteröd, Yun-Pang and Hilbrich, Robert and Lücken, Leonhard and Rummel, Johannes and Wagner, Peter and Wiessner, Evamarie},
+  booktitle={2018 21st International Conference on Intelligent Transportation Systems (ITSC)}, 
+  title={Microscopic Traffic Simulation using SUMO}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={2575-2582},
+  keywords={Tools;Microscopy;Roads;Data models;Urban areas;Vehicle dynamics;Mathematical model},
+  doi={10.1109/ITSC.2018.8569938}
+  }
 ```
 
 ## DOI

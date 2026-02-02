@@ -803,9 +803,6 @@ public:
     /** @brief Remove all transportables before quick-loading state */
     void clearState();
 
-    /// @brief update meso segment parameters
-    void updateMesoType();
-
     void postLoadInitLaneChanger();
 
     static DepartLaneDefinition& getDefaultDepartLaneDefinition() {

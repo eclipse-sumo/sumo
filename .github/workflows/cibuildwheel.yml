@@ -41,11 +41,14 @@ jobs:
 
       - name: Building sumolib and traci wheels
         run: |
-          python -m pip install build
+          sudo apt-get update
+          sudo apt-get install $(cat build_config/build_req_deb.txt)
           python tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
           python -m build
           python tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
           python -m build
+          python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
+          python -m build --wheel
 
       - uses: actions/upload-artifact@v6
         with:
@@ -84,6 +87,12 @@ jobs:
         if: matrix.os == 'windows-latest'
         uses: compnerd/gha-setup-vsdevenv@v6
 
+      - name: "Set up macOS environment"
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: |
+          echo 'CIBW_PROJECT_REQUIRES_PYTHON=>=3.9' >> $GITHUB_ENV
+          echo 'MACOSX_DEPLOYMENT_TARGET=14.0' >> $GITHUB_ENV
+
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
@@ -112,19 +121,13 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          MACOSX_DEPLOYMENT_TARGET: '14.0'
 
-      - name: Preparing wheel sumo-data
-        run: python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
-
-      - name: Building wheel sumo-data
-        uses: pypa/cibuildwheel@v3.3.1
-        env:
-          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
-          CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          MACOSX_DEPLOYMENT_TARGET: '14.0'
+      - name: Building windows platform wheel sumo-data
+        if: matrix.os == 'windows-latest'
+        run: |
+          python -m pip install build
+          python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
+          python -m build --wheel -o wheelhouse
 
       - name: Preparing wheel libsumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/libsumo.toml pyproject.toml
@@ -136,10 +139,8 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: "CMAKE_GENERATOR=Ninja"
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.9"
-          # CIBW_REPAIR_WHEEL_COMMAND_MACOS: ""  # disable repair process to inspect the wheel
+          # CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
-          MACOSX_DEPLOYMENT_TARGET: '14.0'
 
       - uses: actions/upload-artifact@v6
         with:

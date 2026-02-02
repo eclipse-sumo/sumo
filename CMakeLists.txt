@@ -39,7 +39,7 @@ endif ()
 # the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
 cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
-set(PACKAGE_VERSION "1.26.0")
+set(PACKAGE_VERSION "git")
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -682,7 +682,9 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
             PATTERN "__pycache__" EXCLUDE
             PATTERN "*.pyc" EXCLUDE)
     if (PROJ_DATA_DIR)
-        install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL)
+        install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL
+                PATTERN "*.tif" EXCLUDE
+                PATTERN "*.txt" EXCLUDE)
     endif ()
 endif ()
 install(CODE "

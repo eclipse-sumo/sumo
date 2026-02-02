@@ -20,7 +20,7 @@ pipeline {
                 git config --global advice.detachedHead false
 
                 # Cloning JuPedSim
-                git clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
+                git clone -q --filter=tree:0 --branch v1.3.1 https://github.com/PedestrianDynamics/jupedsim.git
 
                 # Building JuPedSim
                 cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
@@ -33,8 +33,7 @@ pipeline {
 
                 # Creating virtual env for Python for the whole process
                 /opt/homebrew/bin/python3.13 -m venv env
-                env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
-                env/bin/python3 -m pip install --quiet dmgbuild delocate
+                env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt -r sumo/tools/req_dev.txt
 
                 # Building SUMO & TraaS
                 export VIRTUAL_ENV=${WORKSPACE}/env

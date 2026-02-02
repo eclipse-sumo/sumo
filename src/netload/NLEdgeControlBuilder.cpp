@@ -216,10 +216,6 @@ NLEdgeControlBuilder::build(const MMVersion& networkVersion) {
     }
     for (MSEdge* const edge : myEdges) {
         edge->rebuildAllowedTargets(false);
-        // segment building depends on the finished list of successors (for multi-queue)
-        if (MSGlobals::gUseMesoSim && !edge->getLanes().empty()) {
-            MSGlobals::gMesoNet->buildSegmentsFor(*edge, OptionsCont::getOptions());
-        }
     }
     // mark internal edges belonging to a roundabout (after all edges are build)
     if (MSGlobals::gUsingInternalLanes) {

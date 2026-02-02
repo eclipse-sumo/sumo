@@ -64,8 +64,10 @@ spec:
       steps {
         container('ubuntu-sumo') {
           sh '''
+            ls -la
+            git describe
             # Cloning JuPedSim
-            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
+            git -c advice.detachedHead=false clone -q --depth 1 --filter=tree:0 --branch v1.3.1 https://github.com/PedestrianDynamics/jupedsim.git
 
             # Building JuPedSim
             cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -B jupedsim-build jupedsim
@@ -78,8 +80,7 @@ spec:
 
             # Creating virtual env for Python for the whole process
             python3 -m venv env
-            env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
-            env/bin/python3 -m pip install --quiet dmgbuild delocate
+            env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt -r sumo/tools/req_dev.txt
 
             # Building SUMO & TraaS
             export VIRTUAL_ENV=${WORKSPACE}/env

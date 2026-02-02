@@ -314,6 +314,7 @@
         <xsd:attribute name="tlsFlowPenalty" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="minorPenalty" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="overtaking" type="boolType" use="optional"/>
+        <xsd:attribute name="edgeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:simpleType name="nodeTypeType">

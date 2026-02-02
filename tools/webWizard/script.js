@@ -322,6 +322,17 @@ on("ready", function(){
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
 
+    // Enable/disable pt mode checkboxes depending on the main publicTransport checkbox
+    var ptModesContainer = elem("#pt-modes");
+    function updatePtModesState() {
+        var enabled = elem("#publicTransport").checked;
+        if(ptModesContainer) {
+            Array.from(ptModesContainer.querySelectorAll("input[type=checkbox]")).forEach(function(ch){ ch.disabled = !enabled; });
+        }
+    }
+    elem("#publicTransport").on("click", updatePtModesState);
+    updatePtModesState();
+
     // function to check or uncheck all checkboxes for a certain roadType
     var checkOrUncheckAll = function() {
         Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
@@ -460,6 +471,27 @@ on("ready", function(){
     var totalSteps;
     var currentStep;
     var presentedErrorLog = false;
+    let progressTimer = null;
+
+    function errorMessage(error) {
+        if (presentedErrorLog == false) {
+            window.alert("Server connection failed (" + error + "). Please (re-)open the OSM Web Wizard by using osmWebWizard.py or the link in your start menu.");
+            presentedErrorLog = true;
+        }
+    }
+
+    async function safeFetch(url, options) {
+        try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            return response;
+        } catch (err) {
+            errorMessage(err);
+            throw err;
+        }
+    }
 
     /**
      * @function
@@ -474,48 +506,59 @@ on("ready", function(){
             socket = new WebSocket("ws://" + address + ":" + PORT);
         } catch(e){
             // connection failed, wait five seconds, then try again
-	    setTimeout(connectSocket, 5000);
+            setTimeout(connectSocket, 5000);
             return;
         }
 
-	socket.onerror = function(error) {
-	    if (presentedErrorLog == false) {
-		window.alert("Socket connection failed. Please open the OSM WebWizard by using osmWebWizard.py or the link in your start menu.");
-		presentedErrorLog = true;
-	    }
-	};
+        socket.onerror = errorMessage;
 
         // whenever the socket closes (e.g. restart) try to reconnect
         socket.addEventListener("close", connectSocket);
-        socket.addEventListener("message", function(evt){
-            var message = evt.data;
-            // get the first space
-            var index = message.indexOf(" ");
-            // split the message type from the message
-            var type = message.substr(0, index);
-            message = message.substr(index + 1);
-
-            if(type === "zip"){
-                showZip(message);
-            } else if(type === "report"){
-                currentStep++;
-                elem("#status > span").textContent = message;
-                elem("#status > div").style.width = (100 * currentStep / totalSteps) + "%";
-
-                if(currentStep === totalSteps){
-                    setTimeout(function(){
-                        elem("#status").style.display = "none";
-                    elem("#export-button").style.display = "block";
-                    }, 2000);
-                }
-            } else if(type === "steps"){
-                totalSteps = parseInt(message);
-                currentStep = 0;
-            }
-        });
+        socket.addEventListener("message", messageHandler);
     }
 
-    connectSocket();
+    function messageHandler(evt){
+        var message = evt.data;
+        // get the first space
+        var index = message.indexOf(" ");
+        // split the message type from the message
+        var type = message.substr(0, index);
+        message = message.substr(index + 1);
+
+        if(type === "zip"){
+            showZip(message);
+        } else if(type === "report"){
+            currentStep++;
+            elem("#status > span").textContent = message;
+            elem("#status > div").style.width = (100 * currentStep / totalSteps) + "%";
+
+            if(currentStep === totalSteps){
+                setTimeout(function(){
+                    elem("#status").style.display = "none";
+                    elem("#export-button").style.display = "block";
+                }, 2000);
+                if (progressTimer) {
+                    clearInterval(progressTimer);
+                    progressTimer = null;
+                }
+            }
+        } else if(type === "steps"){
+            totalSteps = parseInt(message);
+            currentStep = 0;
+        }
+    }
+
+    if (window.location.protocol == "file:") {
+        connectSocket();
+    }
+
+    async function pollProgress() {
+        const r = await fetch("/progress");
+        const d = await r.json();
+        if (d.data) {
+            messageHandler(d);
+        }
+    }
 
     /**
      * @function
@@ -532,6 +575,19 @@ on("ready", function(){
             poly: elem("#polygons").checked,
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
+            ptModes: {
+                bus: elem("#pt_bus").checked,
+                tram: elem("#pt_tram").checked,
+                subway: elem("#pt_subway").checked,
+                light_rail: elem("#pt_light_rail").checked,
+                train: elem("#pt_train").checked,
+                trolleybus: elem("#pt_trolleybus").checked,
+                monorail: elem("#pt_monorail").checked,
+                minibus: elem("#pt_minibus").checked,
+                share_taxi: elem("#pt_share_taxi").checked,
+                ferry: elem("#pt_ferry").checked,
+                aerialway: elem("#pt_aerialway").checked
+            },
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
@@ -575,10 +631,20 @@ on("ready", function(){
             }
         });
 
-        try {
-            socket.send(JSON.stringify(data));
-        } catch(e){
-            return;
+        if (window.location.protocol == "file:") {
+            try {
+                socket.send(JSON.stringify(data));
+            } catch(e){
+                return;
+            }
+        } else {
+            safeFetch("/build", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            // poll for messages
+            progressTimer = setInterval(pollProgress, 500);
         }
 
         elem("#status").style.display = "block";

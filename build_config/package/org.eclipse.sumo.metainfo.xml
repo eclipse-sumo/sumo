@@ -17,6 +17,7 @@
     <url type="homepage">https://eclipse.dev/sumo/</url>
     <url type="help">https://sumo.dlr.de/docs/</url>
     <url type="bugtracker">https://github.com/eclipse-sumo/sumo/issues</url>
+    <url type="vcs-browser">https://github.com/eclipse-sumo/sumo/</url>
     <developer_name>German Aerospace Center and contributors</developer_name>
     <screenshots>
         <screenshot type="default">

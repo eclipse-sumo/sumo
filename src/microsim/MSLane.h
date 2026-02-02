@@ -296,6 +296,7 @@ public:
     }
     ///@}
 
+    virtual void updateMesoGUISegments() {}
 
     /// @name interaction with MSMoveReminder
     /// @{

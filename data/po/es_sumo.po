@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-01-28 09:54+0000\n"
+"PO-Revision-Date: 2026-01-30 20:36+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1179,6 +1179,7 @@ msgstr "Cargar matriz origen/destino en formato relación TAZ desde FILE(s)"
 #: src/marouter/ROMAFrame.cpp:93 src/od2trips_main.cpp:97
 msgid "Define data attribute for loading counts (default 'count')"
 msgstr ""
+"Definir el atributo de datos para cargar conteos (por defecto es 'count')"
 
 #: src/marouter/ROMAFrame.cpp:96
 msgid "The travel time influence of prior intervals"
@@ -1211,6 +1212,8 @@ msgstr ""
 msgid ""
 "Aggregate routing queries with the same origin for different vehicle types"
 msgstr ""
+"Agrupar consultas de enrutamiento con el mismo origen para distintos tipos "
+"de vehículos"
 
 #: src/marouter/ROMAFrame.cpp:153 src/od2trips_main.cpp:137
 msgid "Scales the loaded flows by FLOAT"
@@ -1290,15 +1293,15 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:223
 msgid "Use FLOAT as (c-)logit's beta for the commonality factor"
-msgstr ""
+msgstr "Usar FLOAT como beta del (c-)logit para el factor de comunalidad"
 
 #: src/marouter/ROMAFrame.cpp:227
 msgid "Use FLOAT as (c-)logit's gamma for the commonality factor"
-msgstr ""
+msgstr "Usar FLOAT como gamma del (c-)logit para el factor de comunalidad"
 
 #: src/marouter/ROMAFrame.cpp:231
 msgid "Use FLOAT as (c-)logit's theta"
-msgstr ""
+msgstr "Usar FLOAT como theta del (c-)logit"
 
 #: src/marouter/ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
@@ -1575,7 +1578,7 @@ msgstr "¡El vehículo '%' no podrá llegar a la velocidad indicada!"
 
 #: src/microsim/MSBaseVehicle.cpp:1177
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
-msgstr ""
+msgstr "Ignorando arista de salida % para el vehículo '%' con % aristas de ruta"
 
 #: src/microsim/MSBaseVehicle.cpp:1938
 msgid "Invalid stop index % (has % stops)."
@@ -4494,7 +4497,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Routing.cpp:83
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:51
 msgid "Set routing flags (8 ignores temporary blockages)"
-msgstr ""
+msgstr "Establecer opciones de enrutamiento (8 ignora bloqueos temporales)"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:86
 msgid ""
@@ -4607,6 +4610,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:248
 msgid "Specifies the perception reaction time for MDRAC computation."
 msgstr ""
+"Especifica el tiempo de reacción de percepción para el cálculo de MDRAC."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:250
 msgid "Give a global default filename for the SSM output"
@@ -5508,7 +5512,7 @@ msgstr "El detector multicarril e2 aún no soporta la detección de personas"
 
 #: src/microsim/output/MSMeanData.cpp:160
 msgid "Negative vehicle step fraction for '%' on lane '%'."
-msgstr ""
+msgstr "Fracción negativa de paso del vehículo para '%' en el carril '%'."
 
 #: src/microsim/output/MSMeanData.cpp:561
 #: src/microsim/output/MSMeanData.cpp:613
@@ -5673,7 +5677,7 @@ msgstr "Se encontró un bloqueo circular después de % (% aristas, longitud %)"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2153
 msgid "Unknown driveWay '%' with route '%'"
-msgstr ""
+msgstr "Acceso '%' desconocido con ruta '%'"
 
 #: src/microsim/traffic_lights/MSDriveWay.cpp:2163
 msgid "Unknown parent driveway '%' for subDriveWay '%'"
@@ -6176,6 +6180,8 @@ msgstr ""
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:182
 msgid "Time % was set twice for vss '%'; replacing first entry."
 msgstr ""
+"El tiempo % fue establecido dos veces para la señal de velocidad variable "
+"'%'; se reemplazará la primera entrada."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:354
 #: src/microsim/trigger/MSOverheadWire.cpp:409
@@ -6293,13 +6299,15 @@ msgstr ""
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:238
 msgid "rerouter '%': parkingArea '%' is not known."
-msgstr ""
+msgstr "rerouter '%': la zona de estacionamiento '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:247
 msgid ""
 "rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must "
 "not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para el área de estacionamiento '%' "
+"es negativo (no debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:259
 msgid "rerouter '%': No via edge id given."
@@ -6313,6 +6321,8 @@ msgstr ""
 msgid ""
 "rerouter '%': Attribute 'probability' for via '%' is negative (must not)."
 msgstr ""
+"rerouter '%': El atributo 'probability' para la arista intermedia '%' es "
+"negativo (no debe serlo)."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:285
 #, c-format
@@ -6322,7 +6332,7 @@ msgstr "La arista principal '%' a usar por el reenrutador '%' no es conocida."
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:293
 #, c-format
 msgid "The siding edge '%' to use within rerouter '%' is not known."
-msgstr ""
+msgstr "La arista secundaria '%' a usar por el reenrutador '%' no es conocida."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:300
 #, c-format
@@ -7894,7 +7904,7 @@ msgstr "ID de nodo '%' no válido."
 #: src/netbuild/NBNode.cpp:316 src/netbuild/NBNode.cpp:342
 #: src/netbuild/NBNode.cpp:357
 msgid "Invalid position '%' for node '%'"
-msgstr ""
+msgstr "Posición '%' no válida para el nodo '%'"
 
 #: src/netbuild/NBNode.cpp:514
 msgid " Removing self-looping edge '%'"
@@ -8086,7 +8096,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2350
 msgid "Could not build joined tls '%'."
-msgstr ""
+msgstr "No se pudo crear el semáforo combinado '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2395
 msgid "Could not build guessed, joined tls."
@@ -8205,18 +8215,20 @@ msgstr "Parada duplicada '%' nombrada '%' de la linea '%' eliminada."
 #: src/netbuild/NBPTLine.cpp:367
 msgid "Removed stop '%' named '%' from line '%' because edge '%' is missing."
 msgstr ""
+"Se eliminó la parada '%' llamada '%' de la línea '%' porque falta la arista "
+"'%'."
 
 #: src/netbuild/NBPTLine.cpp:375
 msgid "not part of the route"
-msgstr ""
+msgstr "no forma parte de la ruta"
 
 #: src/netbuild/NBPTLine.cpp:376
 msgid "not part of the route downstream of the previous stop"
-msgstr ""
+msgstr "no forma parte de la ruta después de la parada anterior"
 
 #: src/netbuild/NBPTLine.cpp:378
 msgid "Stop '%' named '%' from line '%' on edge '%' is %."
-msgstr ""
+msgstr "La parada '%' llamada '%' de la línea '%' en la arista '%' %."
 
 #: src/netbuild/NBPTLineCont.cpp:121
 msgid ""

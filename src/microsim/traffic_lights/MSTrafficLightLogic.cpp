@@ -32,6 +32,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
@@ -41,7 +42,6 @@
 // static value definitions
 // ===========================================================================
 const MSTrafficLightLogic::LaneVector MSTrafficLightLogic::myEmptyLaneVector;
-
 
 #define SHORT_EDGE ((SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap) * 2)
 
@@ -520,6 +520,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     const double durationSeconds = STEPS2TIME(duration);
     std::set<const MSJunction*> controlledJunctions;
     std::set<const MSEdge*> shortEdges;;
+    const bool overridePenalty = StringUtils::toBool(getParameter(MESegment::OVERRIDE_TLS_PENALTIES, "0"));
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             MSLink* link = myLinks[j][k];
@@ -540,6 +541,10 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                 if (tlsPenalty > 0 && edge.getLength() < SHORT_EDGE && shortEdges.count(&edge) == 0) {
                     shortEdges.insert(&edge);
                     WRITE_WARNINGF(TL("Edge '%' is shorter than %m (%m) and will cause incorrect flow reduction with option --meso-tls-penalty"), edge.getID(), SHORT_EDGE, edge.getLength());
+                }
+                if (overridePenalty) {
+                    MESegment* last = MSGlobals::gMesoNet->getSegmentForEdge(edge, std::numeric_limits<double>::max()); 
+                    last->overrideTLSPenalty();
                 }
             }
             link->setMesoTLSPenalty(TIME2STEPS(tlsPenalty * penalty[j] / durationSeconds));
