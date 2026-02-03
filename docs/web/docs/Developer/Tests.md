@@ -65,7 +65,6 @@ sudo apt-get install meld geany
 **On Windows:**
 
 Download and install from
-[Meld project page](https://meldmerge.org/) and
 [Geany project page](https://www.geany.org/) by following the provided installation instructions.
 
 After installing these tools, you need to configure TextTest to use them by creating or editing `$HOME/.texttest/config` (see [Customize configuration](#customize-configuration) section below).
