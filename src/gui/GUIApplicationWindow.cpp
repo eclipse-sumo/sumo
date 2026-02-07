@@ -2279,6 +2279,17 @@ GUIApplicationWindow::closeAllWindows() {
     myRunThread->deleteSim();
     // reset the caption
     setTitle(MFXUtils::getTitleText("SUMO " VERSION_STRING));
+    // clear decals and release GPU textures
+    for (GUIGlChildWindow* window : myGLWindows) {
+        GUISUMOAbstractView* view = window->getView();
+        if (view->makeCurrent()) {
+            view->clearDecals();
+            view->processPendingTextureDeletes();
+            GUITextureSubSys::resetTextures();
+            GLHelper::resetFont();
+            view->makeNonCurrent();
+        }
+    }
     // remove trackers and other external windows (must be delayed until deleteSim)
     while (!myGLWindows.empty()) {
         delete myGLWindows.front();
@@ -2300,9 +2311,6 @@ GUIApplicationWindow::closeAllWindows() {
     if (myTestCoordinate) {
         myTestCoordinate->setText(TL("N/A"));
     }
-    //
-    GUITexturesHelper::clearTextures();
-    GLHelper::resetFont();
     update();
 }
 

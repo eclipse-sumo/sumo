@@ -161,6 +161,18 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
     delete myChanger;
     delete myGUIDialogEditViewport;
     delete myGUIDialogViewSettings;
+
+    // release GPU textures
+    if (makeCurrent()) {
+        for (auto& decal : myDecals) {
+            if (decal.glID > 0) {
+                queueTextureDelete(static_cast<unsigned int>(decal.glID));
+            }
+        }
+        processPendingTextureDeletes();
+        makeNonCurrent();
+    }
+
     // cleanup decals
     for (auto& decal : myDecals) {
         delete decal.image;
@@ -298,6 +310,10 @@ GUISUMOAbstractView::paintGL() {
     if (getWidth() == 0 || getHeight() == 0) {
         return;
     }
+
+    // process pending texture deletions
+    processPendingTextureDeletes();
+
     const long start = SysUtils::getCurrentMillis();
 
     if (getTrackedID() != GUIGlObject::INVALID_ID) {
@@ -1707,6 +1723,42 @@ GUISUMOAbstractView::getDecals() {
 FXMutex&
 GUISUMOAbstractView::getDecalsLockMutex() {
     return myDecalsLockMutex;
+}
+
+
+void
+GUISUMOAbstractView::queueTextureDelete(unsigned int textureId) {
+    FXMutexLock lock(myTextureDeleteMutex);
+    myPendingTextureDeletes.push_back(textureId);
+}
+
+
+void
+GUISUMOAbstractView::processPendingTextureDeletes() {
+    FXMutexLock lock(myTextureDeleteMutex);
+    if (!myPendingTextureDeletes.empty()) {
+        glDeleteTextures(
+            static_cast<GLsizei>(myPendingTextureDeletes.size()),
+            myPendingTextureDeletes.data()
+        );
+        myPendingTextureDeletes.clear();
+    }
+}
+
+
+void
+GUISUMOAbstractView::clearDecals() {
+    FXMutexLock lock(myDecalsLockMutex);
+    for (auto& decal : myDecals) {
+        if (decal.glID > 0) {
+            queueTextureDelete(static_cast<unsigned int>(decal.glID));
+            decal.glID = -1;
+        }
+        delete decal.image;
+        decal.image = nullptr;
+        decal.initialised = false;
+    }
+    myDecals.clear();
 }
 
 
