@@ -155,8 +155,6 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
 
 GUISUMOAbstractView::~GUISUMOAbstractView() {
     gSchemeStorage.setDefault(myVisualizationSettings->name);
-    gSchemeStorage.saveViewport(myChanger->getXPos(), myChanger->getYPos(), myChanger->getZPos(), myChanger->getRotation());
-    gSchemeStorage.saveDecals(myDecals);
     delete myPopup;
     delete myChanger;
     delete myGUIDialogEditViewport;
@@ -234,7 +232,24 @@ GUISUMOAbstractView::screenPos2NetPos(int x, int y) const {
 
 void
 GUISUMOAbstractView::addDecals(const std::vector<Decal>& decals) {
-    myDecals.insert(myDecals.end(), decals.begin(), decals.end());
+    // insert decals but avoid duplicates
+    FXMutexLock lock(myDecalsLockMutex);
+    for (const auto& d : decals) {
+        bool found = false;
+        for (const auto& existing : myDecals) {
+            if (existing.filename == d.filename &&
+                    existing.centerX == d.centerX &&
+                    existing.centerY == d.centerY &&
+                    existing.centerZ == d.centerZ) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            myDecals.push_back(d);
+            myDecals.back().initialised = false;
+        }
+    }
 }
 
 

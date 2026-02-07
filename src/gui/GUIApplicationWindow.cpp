@@ -2275,6 +2275,13 @@ GUIApplicationWindow::closeAllWindows() {
             (*it)->hide();
         }
     }
+    // save decals and viewport
+    for (GUIGlChildWindow* window : myGLWindows) {
+        GUISUMOAbstractView* view = window->getView();
+        gSchemeStorage.saveDecals(view->getDecals());
+        gSchemeStorage.saveViewport(view->getChanger().getXPos(), view->getChanger().getYPos(), 
+                                     view->getChanger().getZPos(), view->getChanger().getRotation());
+    }
     // delete the simulation
     myRunThread->deleteSim();
     // reset the caption

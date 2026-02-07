@@ -1034,7 +1034,6 @@ GNEApplicationWindow::onCmdSmartReload(FXObject*, FXSelector sel, void*) {
         }
         // store size, position and viewport
         storeWindowSizeAndPos();
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         // set flag
         myAmLoading = true;
         // get files
@@ -1112,7 +1111,6 @@ GNEApplicationWindow::onCmdReloadNetwork(FXObject*, FXSelector sel, void*) {
         }
         // store size, position and viewport
         storeWindowSizeAndPos();
-        gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
         // set flag
         myAmLoading = true;
         // get network
@@ -1683,6 +1681,10 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     // check if view has to be saved
     if (myViewNet) {
         myViewNet->saveVisualizationSettings();
+        // save decals and viewport for persistence (before they are cleared)
+        gSchemeStorage.saveDecals(myViewNet->getDecals());
+        gSchemeStorage.saveViewport(myViewNet->getChanger().getXPos(), myViewNet->getChanger().getYPos(),
+                                     myViewNet->getChanger().getZPos(), myViewNet->getChanger().getRotation());
         // clear decals
         myViewNet->getDecals().clear();
     }
