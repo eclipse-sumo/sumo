@@ -1,5 +1,7 @@
 Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '537914721').
-Warning: PT line '社区巴士9011路' in relation 8614125 seems to be split, only keeping first part.
-Warning: PT line '社区巴士9004路' in relation 8617761 seems to be split, only keeping first part.
+Warning: PT line '社区巴士9011路' in relation 8614125 has a gap of 8 stops, only keeping first part.
+Warning: PT line '社区巴士9004路' in relation 8617761 has a gap of 3 stops, only keeping first part.
 Warning: Speed of turning connection '69707916#2_0->131443652#2_0' reduced by 22.23 due to turning radius of 5.61 (length=9.42, angle=127.28).
 Warning: Speed of straight connection '69707916#2_0->-451504028#3_0' reduced by 13.05 due to turning radius of 25.97 (length=9.80, angle=37.30).
+Warning: Stop '-5866058279' named '南园宾馆' from line '8614125' on edge '-621164893#1' is not part of the route downstream of the previous stop.
+Warning: Stop '-5866058277' named '南林饭店' from line '8614125' on edge '-621164893#0' is not part of the route downstream of the previous stop.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1002,6 +1002,9 @@ public:
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
 
+    /// @brief whether instant stopping is permitted
+    bool instantStopping() const;
+
     /** @brief Returns whether the vehicle will stop on the current edge
      */
     bool willStop() const;
@@ -1427,6 +1430,10 @@ public:
          */
         void setSpeedTimeLine(const std::vector<std::pair<SUMOTime, double> >& speedTimeLine);
 
+        bool hasSpeedTimeLine(SUMOTime t) const {
+            return !mySpeedTimeLine.empty() && mySpeedTimeLine.front().first >= t;
+        }
+
         /** @brief Activates the gap control with the given parameters, @see GapControlState
          */
         void activateGapController(double originalTau, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, MSVehicle* refVeh = nullptr);
@@ -1538,6 +1545,11 @@ public:
         bool considerSpeedLimit() const {
             // backward compatibility (when we ignore safe velocity we implicitly ignore speed limits as well)
             return myConsiderSpeedLimit && myConsiderSafeVelocity;
+        }
+
+        /// @brief Returns whether safe velocities shall be considered
+        bool considerMaxDeceleration() const {
+            return myConsiderMaxDeceleration;
         }
 
         /** @brief Sets speed-constraining behaviors
@@ -1937,6 +1949,9 @@ protected:
     /// @brief distance to the next stop or doubleMax if there is none
     double myStopDist;
 
+    /// @brief the speed that is needed for a scheduled stop or waypoint
+    double myStopSpeed;
+
     /// @brief amount of time for which the vehicle is immune from collisions
     SUMOTime myCollisionImmunity;
 
@@ -2030,7 +2045,7 @@ protected:
     DriveItemVector::iterator myNextDriveItem;
 
     /// @todo: documentation
-    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, std::pair<double, const MSLink*>& myNextTurn) const;
+    void planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVector& lfLinks, double& myStopDist, double& newStopSpeed, std::pair<double, const MSLink*>& myNextTurn) const;
 
     /// @brief runs heuristic for keeping the intersection clear in case of downstream jamming
     void checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const;

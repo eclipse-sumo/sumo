@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T12:55:22.340587+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
+<!-- generated on 2026-01-17T15:27:47.956508+01:00 by Eclipse SUMO sumo v1_25_0+1020-bc9061141d0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="gneJ8">
         <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
             <driveWay id="gneJ8.0" vehicle="WE0" edges="b c d e">
-                <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0"/>
+                <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0 :gneJ9_0_0 e_0"/>
                 <bidi lanes="-c_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="gneJ5_0"/>

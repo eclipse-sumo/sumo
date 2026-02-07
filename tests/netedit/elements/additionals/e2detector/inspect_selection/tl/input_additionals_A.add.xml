@@ -7,11 +7,4 @@
         <param key="KeyA2" value="valueA3"/>
     </laneAreaDetector>
 
-    <!-- E2 B -->
-    <laneAreaDetector id="E2_B" lane="EdgeCenter0_0" pos="15" length="5" tl="Junction1" file="fileB.txt" name="B" vTypes="Type4 Type5 Type6" timeThreshold="2.00" speedThreshold="3.49" jamThreshold="5.00">
-        <param key="KeyB1" value="valueB1"/>
-        <param key="KeyB3" value="valueB2"/>
-        <param key="KeyB2" value="valueB3"/>
-    </laneAreaDetector>
-
 </additional>

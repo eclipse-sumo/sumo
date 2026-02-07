@@ -1,5 +1,5 @@
 Eclipse SUMO netconvert v1_25_0+0045-28a3daf62ee
- Copyright (C) 2001-2025 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
 
@@ -196,7 +196,7 @@ Processing Options:
                                         turning radii less than
                                         geometry.min-radius (only railways)
   --geometry.junction-mismatch-threshold FLOAT  Warn if the junction shape is
-                                        to far away from the original node
+                                        too far away from the original node
                                         position
   --geometry.check-overlap FLOAT       Warn if edges overlap by more than the
                                         given threshold value

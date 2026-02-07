@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,6 @@
 
 import os
 import plistlib
-import re
 import shutil
 import subprocess
 import sys
@@ -45,57 +44,43 @@ except ImportError:
     sys.exit(1)
 
 
-def transform_pep440_version(version):
-    post_pattern = re.compile(r"^(.*)\.post\d+$")
-    match = post_pattern.match(version)
-    if match:
-        return f"{match.group(1)}-git"
-    else:
-        return version
-
-
 def parse_args(def_dmg_name, def_pkg_name):
-    def_build_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "sumo-build"))
-    def_output_fw_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework"))
-    def_output_apps_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps"))
-    def_output_fw_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "framework-pkg"))
-    def_output_apps_pkg_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "apps-pkg"))
-    def_output_pkg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..",
-                                                       "installer", def_pkg_name))
-    def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
-
     op = ArgumentParser(description="Build an installer for macOS (dmg file)")
 
     # We can set one these actions exclusively
     action_group = op.add_mutually_exclusive_group("Actions")
-    action_group.add_argument("--create-framework-dir", dest="create_framework_dir", action="store_true")
-    action_group.add_argument("--create-framework-pkg", dest="create_framework_pkg", action="store_true")
-    action_group.add_argument("--create-apps-dir", dest="create_apps_dir", action="store_true")
-    action_group.add_argument("--create-apps-pkg", dest="create_apps_pkg", action="store_true")
-    action_group.add_argument("--create-installer-pkg", dest="create_installer_pkg", action="store_true")
-    action_group.add_argument("--create-installer-dmg", dest="create_installer_dmg", action="store_true")
+    action_group.add_argument("--create-framework-dir", action="store_true")
+    action_group.add_argument("--create-framework-pkg", action="store_true")
+    action_group.add_argument("--create-apps-dir", action="store_true")
+    action_group.add_argument("--create-apps-pkg", action="store_true")
+    action_group.add_argument("--create-installer-pkg", action="store_true")
+    action_group.add_argument("--create-installer-dmg", action="store_true")
+    action_group.add_argument("--all", action="store_true")
 
     # ... and supply some arguments
-    op.add_argument("--build-dir", dest="build_dir", default=def_build_dir)
-    op.add_argument("--framework-dir", dest="framework_dir", default=def_output_fw_dir)
-    op.add_argument("--framework-pkg-dir", dest="framework_pkg_dir", default=def_output_fw_pkg_dir)
-    op.add_argument("--apps-dir", dest="apps_dir", default=def_output_apps_dir)
-    op.add_argument("--apps-pkg-dir", dest="apps_pkg_dir", default=def_output_apps_pkg_dir)
-    op.add_argument("--installer-pkg-file", dest="installer_pkg_file", default=def_output_pkg_path)
-    op.add_argument("--installer-dmg-file", dest="installer_dmg_file", default=def_output_dmg_path)
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+    def_output_dmg_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_dmg_name))
+    op.add_argument("--build-dir", default=os.path.join(base_dir, "sumo-build"))
+    op.add_argument("--framework-dir", default=os.path.join(base_dir, "framework"))
+    op.add_argument("--framework-pkg-dir", default=os.path.join(base_dir, "framework-pkg"))
+    op.add_argument("--apps-dir", default=os.path.join(base_dir, "apps"))
+    op.add_argument("--apps-pkg-dir", default=os.path.join(base_dir, "apps-pkg"))
+    op.add_argument("--installer-pkg-file", default=os.path.join(base_dir, "installer", def_pkg_name))
+    op.add_argument("--installer-dmg-file", default=def_output_dmg_path)
+    op.add_argument("--clean", action="store_true")
 
     args = op.parse_args()
 
     # Validate the basic argument logic
-    if args.build_dir is not None and args.create_framework_dir is None:
+    if args.build_dir is not None and args.create_framework_dir is None and args.all is None:
         print("Error: build directory can only be set when creating the framework directory.", file=sys.stderr)
         sys.exit(1)
 
-    if args.framework_pkg_dir is not None and args.create_framework_pkg is None:
+    if args.framework_pkg_dir is not None and args.create_framework_pkg is None and args.all is None:
         print("Error: framework pkg directory can only be set when creating the framework pkg.", file=sys.stderr)
         sys.exit(1)
 
-    if args.apps_dir is not None and args.create_apps_dir is None:
+    if args.apps_dir is not None and args.create_apps_dir is None and args.all is None:
         print("Error: apps directory can only be set when creating the apps.", file=sys.stderr)
         sys.exit(1)
 
@@ -490,7 +475,9 @@ def main():
     base_id = "org.eclipse.sumo"
     default_framework_name = "EclipseSUMO"
     default_framework_long_name = "Eclipse SUMO"
-    version = transform_pep440_version(get_pep440_version())
+    version = get_pep440_version()
+    if ".post" in version:
+        version = "git"
     default_pkg_name = f"sumo-{version}.pkg"
     default_dmg_name = f"sumo-{version}.dmg"
 
@@ -531,8 +518,12 @@ def main():
     # Parse and check the command line arguments
     opts = parse_args(default_dmg_name, default_pkg_name)
 
+    if opts.clean:
+        for d in (opts.framework_dir, opts.framework_pkg_dir, opts.apps_dir, opts.apps_pkg_dir,
+                  os.path.dirname(opts.installer_pkg_file)):
+            shutil.rmtree(d, ignore_errors=True)
     # Let's see what we need to do
-    if opts.create_framework_dir:
+    if opts.all or opts.create_framework_dir:
         if os.path.exists(opts.framework_dir):
             print(f"Directory {opts.framework_dir} already exists. Aborting.")
             sys.exit(1)
@@ -548,7 +539,7 @@ def main():
                              opts.build_dir, opts.framework_dir)
         print(f"Successfully created {default_framework_name} framework directory")
 
-    elif opts.create_framework_pkg:
+    if opts.all or opts.create_framework_pkg:
         if os.path.exists(opts.framework_pkg_dir):
             print(f"Directory {opts.framework_pkg_dir} already exists. Aborting.")
             sys.exit(1)
@@ -562,7 +553,7 @@ def main():
                                                            opts.framework_dir, opts.framework_pkg_dir)
         print(f"Successfully created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
-    elif opts.create_apps_dir:
+    if opts.all or opts.create_apps_dir:
         if os.path.exists(opts.apps_dir):
             print(f"Directory {opts.apps_dir} already exists. Aborting.")
             sys.exit(1)
@@ -578,7 +569,7 @@ def main():
             create_app_dir(app_name, app_binary, app_framework, app_id, app_ver, icon_path, app_dir)
             print(f" - Successfully created app directory for '{app_name}'")
 
-    elif opts.create_apps_pkg:
+    if opts.all or opts.create_apps_pkg:
         if os.path.exists(opts.apps_pkg_dir):
             print(f"Directory {opts.apps_pkg_dir} already exists. Aborting.")
             sys.exit(1)
@@ -591,7 +582,7 @@ def main():
             _, pkg_name, _, _, pkg_size = create_app_pkg(app_name, app_id, app_ver, app_dir, opts.apps_pkg_dir)
             print(f" - Created \"{pkg_name}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
-    elif opts.create_installer_pkg:
+    if opts.all or opts.create_installer_pkg:
         if os.path.exists(os.path.dirname(opts.installer_pkg_file)):
             print(f"Error: pkg output directory '{os.path.dirname(opts.installer_pkg_file)}' exists.",
                   file=sys.stderr)
@@ -614,7 +605,7 @@ def main():
 
         print(f"Installer pkg file created: \"{opts.installer_pkg_file}\" ({pkg_size / (1024 * 1024):.2f} MB)")
 
-    elif opts.create_installer_dmg:
+    if opts.all or opts.create_installer_dmg:
         if not os.path.exists(os.path.dirname(opts.installer_dmg_file)):
             print(f"Error: output directory '{os.path.dirname(opts.installer_dmg_file)}' does not exist.",
                   file=sys.stderr)

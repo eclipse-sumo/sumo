@@ -2,5 +2,5 @@ Error: Attribute 'pos' in definition of a access is empty.
 Error: Could not build access with ID 'containerStop_0' in netedit; Invalid position over lane.
 Error: Could not build access with ID 'containerStop_0' in netedit; Invalid position over lane.
 Error: Could not build containerStop with ID 'containerStop_1' in netedit; Invalid position over lane.
-Error: Could not build access in netedit; doesn't exist a busStop, trainStop or containerStop parent with ID 'containerStop_1'.
+Error: Could not build access in netedit; busStop, trainStop or containerStop parent with ID 'containerStop_1' doesn't exist.
 Error: Loading of 'input_additionals_A.add.xml' failed.

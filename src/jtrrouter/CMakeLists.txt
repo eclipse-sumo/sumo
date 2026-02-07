@@ -18,4 +18,4 @@ set_target_properties(jtrrouter PROPERTIES OUTPUT_NAME_DEBUG jtrrouter${BINARY_S
 target_link_libraries(jtrrouter router ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(jtrrouter generate-version-h install_dll)
 
-install(TARGETS jtrrouter RUNTIME DESTINATION bin)
+install(TARGETS jtrrouter RUNTIME DESTINATION bin COMPONENT runtime)

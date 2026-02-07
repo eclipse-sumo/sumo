@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2013-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2013-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -571,3 +571,8 @@ def intersectsLineSegment(p11, p12, p21, p22, withinDist=0.0, pIntersection=None
         pIntersection[0] = x
         pIntersection[1] = y
     return True
+
+
+def debugPrint(polygon, polyID):
+    """print polygon in a way that can be processed with debug2poly.py"""
+    print("%s=%s" % (polyID, ' '.join(['%s,%s' % p for p in polygon])))

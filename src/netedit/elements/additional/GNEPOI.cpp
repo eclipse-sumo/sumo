@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -74,8 +74,8 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, FileBucket* fileBucket, const
 GNEPOI::GNEPOI(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const RGBColor& color, GNELane* lane, const double posOverLane,
                const bool friendlyPos, const double posLat, POIIcon icon, const double layer, const double angle, const std::string& imgFile, const double width,
                const double height, const std::string& name, const Parameterised::Map& parameters) :
-    Shape(id, type, color, layer, angle, imgFile, name),
-    GNEAdditional(id, net, GNE_TAG_POILANE, fileBucket, ""),
+    Shape(id, type, color, layer, angle, imgFile, ""),
+    GNEAdditional(id, net, GNE_TAG_POILANE, fileBucket, name),
     Parameterised(parameters),
     myPosOverLane(posOverLane),
     myFriendlyPos(friendlyPos),

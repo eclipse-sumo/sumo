@@ -1,0 +1,18 @@
+diff --git a/libsimulator/src/RoutingEngine.cpp b/libsimulator/src/RoutingEngine.cpp
+index ee3bf96ae..f77dab852 100644
+--- a/libsimulator/src/RoutingEngine.cpp
++++ b/libsimulator/src/RoutingEngine.cpp
+@@ -303,12 +303,8 @@ RoutingEngine::straightenPath(Point from, Point to, const std::vector<CDT::Face_
+     waypoints.reserve(path.size() + 1);
+     for(size_t index_portal = 1; index_portal <= portalCount; ++index_portal) {
+         const auto face_from = path[index_portal - 1];
+-        const auto face_to = path[index_portal];
+-        if(face_from->neighbor(0) == face_to) {
+-        }
+-
+         const auto portal =
+-            index_portal < portalCount ? get_edge(face_from, face_to) : LineSegment(to, to);
++            index_portal < portalCount ? get_edge(face_from, path[index_portal]) : LineSegment(to, to);
+ 
+         const auto line_segment_left = portal.p2;
+         const auto line_segment_right = portal.p1;

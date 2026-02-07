@@ -1,10 +1,2 @@
-Error: Opposite lane 'E0_0' does not connect the same nodes as edge '-E0'!
-Warning: Adapting missing opposite lane 'E0_0' for edge '-E0'.
-Error: Opposite lane '-E0_0' does not connect the same nodes as edge 'E0'!
-Warning: Adapting missing opposite lane '-E0_0' for edge 'E0'.
-Error: Opposite lane 'E0_0' does not connect the same nodes as edge '-E0'!
-Warning: Adapting missing opposite lane 'E0_0' for edge '-E0'.
-Error: Opposite lane '-E0_0' does not connect the same nodes as edge 'E0'!
-Warning: Adapting missing opposite lane '-E0_0' for edge 'E0'.
-Error: Opposite lane 'E0_0' does not connect the same nodes as edge '-E0'!
-Warning: Adapting missing opposite lane 'E0_0' for edge '-E0'.
+Warning: Opposite lane 'E0_0' does not reverse-connect the same nodes as edge '-E0'!
+Warning: Opposite lane '-E0_0' does not reverse-connect the same nodes as edge 'E0'!

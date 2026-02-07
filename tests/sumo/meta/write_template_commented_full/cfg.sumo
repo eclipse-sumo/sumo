@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-08T13:11:09.469416+01:00 by Eclipse SUMO sumo v1_25_0+0257-b3edb448106
+<!-- generated on 2026-01-17T17:50:02.717912+01:00 by Eclipse SUMO sumo v1_25_0+1031-30c9dee08ac
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -505,13 +505,19 @@
         <tls.yellow.min-decel value="3" type="FLOAT"/>
 
         <!-- Let railsignals operate in moving-block mode by default -->
-        <railsignal-moving-block value="false" type="BOOL"/>
+        <railsignal-moving-block value="false" synonymes="railsignal.moving-block" type="BOOL"/>
+
+        <!-- List vehicle classes that default to moving-block operations -->
+        <railsignal.moving-block.default-classes value="tram,cable_car" type="STR[]"/>
+
+        <!-- Maximum signal distance above which zipper conflicts are ignored -->
+        <railsignal.moving-block.max-dist value="200" type="FLOAT"/>
 
         <!-- Do not build blocks longer than FLOAT and issue a warning instead -->
         <railsignal.max-block-length value="20000" type="FLOAT"/>
 
         <!-- List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them -->
-        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban" type="STR[]"/>
+        <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban,subway" type="STR[]"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="180" type="TIME"/>
@@ -1469,6 +1475,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

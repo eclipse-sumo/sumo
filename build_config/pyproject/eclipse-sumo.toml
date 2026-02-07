@@ -51,6 +51,7 @@ sumo-gui = "sumo:sumo_gui"
 
 [tool.scikit-build]
 build-dir = "_skbuild"
+install.components = ["runtime", "data", "dll", "proj_data"]
 wheel.packages = ["tools/build_config/sumo"]
 wheel.install-dir = "sumo"
 wheel.py-api = "py3"

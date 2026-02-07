@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-17 09:00:14 by Eclipse SUMO sumo Version v1_23_1+0606-06b23075d04
+<!-- generated on 2026-01-23T17:46:47.777012+01:00 by Eclipse SUMO sumo v1_25_0+1167-e4289d0ddf3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="43869"/>
+        <remote-port value="33705"/>
     </traci_server>
 
     <mesoscopic>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+0606-06b23075d04" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_25_0+1167-e4289d0ddf3" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="1.00"/>
@@ -45,6 +45,7 @@
     </vehicle>
     <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" distance="0 0" speedFactor="1.0104" state="2074 20000 0 0 2 0 49691 39794 9223372036854774807">
         <device id="vehroute_veh2" state="10.10 0.00 0"/>
+        <rem id="vehroute_veh2" time="39794" pos="200.00"/>
     </vehicle>
     <segment id="3/1to2/1:0">
         <vehicles time="-1" blockTime="49954" value="veh1 veh0"/>
@@ -61,19 +62,19 @@
     <segment id="4/1to3/1:3">
         <vehicles time="49955" blockTime="40520" value=""/>
     </segment>
-    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
-    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
-    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000" active="1"/>
 </snapshot>

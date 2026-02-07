@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2022 SUSE LLC
-# Copyright (c) 2001-2025 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2026 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -37,9 +37,8 @@ BuildRequires:  java-devel
 %endif
 %if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
 BuildRequires:  python3-build
+BuildRequires:  python3-hatchling
 BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
 BuildRequires:  pkgconfig(geos)
 BuildRequires:  jupedsim
 %endif
@@ -102,11 +101,10 @@ software using libsumocpp.
 %package -n python3-libsumo
 Summary:        libsumo Python3 module
 Requires:       %{name}
-Provides:       python3-%{name} = %{version}
-Obsoletes:      python3-%{name} < %{version}
 
 %description -n python3-libsumo
-The libsumo python module provides support to connect to and remote control a running sumo simulation.
+The libsumo python module provides support to connect to and remote control
+a running sumo simulation. This package also contains traci, simpla and sumolib.
 %endif
 
 %if 0%{?fedora_version} || 0%{?centos_version}
@@ -126,12 +124,12 @@ rm -rf tools/contributed/sumopy
 mkdir cmake-build
 cd cmake-build
 %if 0%{?centos_version} && 0%{?centos_version} < 800
-cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake3 -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPython_EXECUTABLE=/usr/bin/python3 ..
 %else
 %if 0%{?suse_version}
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DPython_EXECUTABLE=/usr/bin/python3 ..
 %else
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DPython_EXECUTABLE=/usr/bin/python3 ..
 %endif
 %endif
 make %{?_smp_mflags}
@@ -140,26 +138,22 @@ make %{?_smp_mflags} man
 %install
 cd cmake-build
 %make_install
+%if 0%{?centos_version} && 0%{?centos_version} < 800
+DESTDIR=%{buildroot} cmake3 --install . --component linux_integration
+%else
+DESTDIR=%{buildroot} cmake --install . --component linux_integration
+%endif
+%if 0%{?fedora_version} > 36 || 0%{?suse_version} >= 1600
+DESTDIR=%{buildroot} cmake --install . --component python_package
+install -d -m 755 %{buildroot}%{python3_sitearch}
+mv %{buildroot}%{python3_sitelib}/libsumo* %{buildroot}%{python3_sitearch}
+%endif
 cd ..
 rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo %{buildroot}%{_datadir}/sumo/tools/libtraci
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
 ln -s %{_datadir}/sumo/tools/traceExporter.py %{buildroot}%{_bindir}/traceExporter.py
-install -d -m 755 %{buildroot}%{_mandir}/man1
-install -p -m 644 docs/man/*.1 %{buildroot}%{_mandir}/man1
-install -d -m 755 %{buildroot}%{_sysconfdir}/profile.d
-install -p -m 644 build_config/package/*sh %{buildroot}%{_sysconfdir}/profile.d
-install -d -m 755 %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.netedit.desktop %{buildroot}%{_datadir}/applications
-install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.desktop %{buildroot}%{_datadir}/applications
-install -d -m 755 %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.netedit.png %{buildroot}%{_datadir}/pixmaps
-install -p -m 644 build_config/package/org.eclipse.sumo.osmWebWizard.png %{buildroot}%{_datadir}/pixmaps
-install -d -m 755 %{buildroot}%{_datadir}/mime/application
-install -p -m 644 build_config/package/org.eclipse.sumo.xml %{buildroot}%{_datadir}/mime/application
 %fdupes %{buildroot}%{_datadir}
 
 %check
@@ -172,9 +166,9 @@ make %{?_smp_mflags} test
 %files
 %defattr(-,root,root)
 %{_bindir}/*
+%if 0%{?fedora_version} || 0%{?sle_version} >= 150400 || 0%{?suse_version} >= 1600
 %{_libdir}/libsumocs.so
 %{_libdir}/libtracics.so
-%if 0%{?centos_version} == 0
 %{_libdir}/liblibsumojni.so
 %{_libdir}/liblibtracijni.so
 %endif
@@ -203,7 +197,6 @@ make %{?_smp_mflags} test
 %{python3_sitelib}/traci*/
 %{python3_sitelib}/simpla*/
 %{python3_sitearch}/libsumo*/
-%{python3_sitearch}/libtraci*/
 %endif
 
 %changelog

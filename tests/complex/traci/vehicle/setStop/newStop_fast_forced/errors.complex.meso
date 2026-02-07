@@ -1,0 +1,2 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Error: Answered with error to command 0xc4: stop for vehicle 'ego' on lane 'SC_0' is too close to brake.

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -542,8 +542,8 @@ GUIApplicationWindow::fillMenuBar() {
                       TL("Open in netedit"), "Ctrl+T", TL("Opens current simulation in NETEDIT."),
                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO);
     myOpenNetInNetedit = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
-                      TL("Open network in netedit"), "Ctrl+Shift+T", TL("Opens current network in NETEDIT."),
-                      GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_SHIFT_T_OPEN_NET);
+                         TL("Open network in netedit"), "Ctrl+Shift+T", TL("Opens current network in NETEDIT."),
+                         GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_CTRL_SHIFT_T_OPEN_NET);
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
     GUIDesigns::buildFXMenuTitle(myMenuBar, TL("&Settings"), nullptr, mySettingsMenu);

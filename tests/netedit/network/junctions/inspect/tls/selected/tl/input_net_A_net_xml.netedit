@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-15 13:59:54 by Eclipse SUMO netedit Version v1_21_0+1859-19df69cfd21
+<!-- generated on 2026-01-12T15:51:18.805547+01:00 by Eclipse SUMO netedit v1_25_0+0930-8df81cde35d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_additionals_A.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_routes_A.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_datas_A.dat.xml"/>
-        <meandata-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_meandatas_A.add.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -51,16 +53,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jan135847.25128\netedit.gui\network\junctions\inspect\tls\selected\tl\log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -270,24 +272,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="JunctionCenter" type="static" programID="0" offset="0">
-        <phase duration="7"  state="gGgrrrrrrrrrrrGGrrrrrrGGrGrG"/>
-        <phase duration="5"  state="gGgrrrrrrrrrrrGGrrrrrrGGrrrr"/>
-        <phase duration="3"  state="yyyrrrrrrrrrrrGGrrrrrrGGrrrr"/>
-        <phase duration="7"  state="rrrrrrgGgrrrrrGGrrrrrrGGrGrG"/>
-        <phase duration="5"  state="rrrrrrgGgrrrrrGGrrrrrrGGrrrr"/>
-        <phase duration="3"  state="rrrrrryyyrrrrryyrrrrrrGGrrrr"/>
-        <phase duration="7"  state="rrrrrrrrrgGgGGrrrrrrrrGGGrGr"/>
-        <phase duration="5"  state="rrrrrrrrrgGgGGrrrrrrrrGGrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrgGgyyrrrrrrrrGGrrrr"/>
-        <phase duration="7"  state="rrrrrrrrrgGgrrrrGGrrrrGGGrGr"/>
-        <phase duration="5"  state="rrrrrrrrrgGgrrrrGGrrrrGGrrrr"/>
-        <phase duration="3"  state="rrrrrrrrryyyrrrryyrrrryyrrrr"/>
-        <phase duration="7"  state="rrrgGgrrrrrrrrGGrrGGrGrrGrGr"/>
-        <phase duration="5"  state="rrrgGgrrrrrrrrGGrrGGrGrrrrrr"/>
-        <phase duration="3"  state="rrrgGgrrrrrrrrGGrrGyrGrrrrrr"/>
-        <phase duration="7"  state="rrrgGgrrrrrrrrGGrrGrGGrrGrGr"/>
-        <phase duration="5"  state="rrrgGgrrrrrrrrGGrrGrGGrrrrrr"/>
-        <phase duration="3"  state="rrryyyrrrrrrrrGGrryryyrrrrrr"/>
+        <phase duration="12" state="ggGrrrrrrrrrrrGGrrrrrrGG"/>
+        <phase duration="3"  state="yyyrrrrrrrrrrrGGrrrrrrGG"/>
+        <phase duration="12" state="rrrrrrgggrrrrrGGrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrryyyrrrrryyrrrrrrGG"/>
+        <phase duration="12" state="rrrrrrrrrGggGGrrrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrrrGggyyrrrrrrrrGG"/>
+        <phase duration="12" state="rrrrrrrrrGGGrrrrGGrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrrryyyrrrryyrrrryy"/>
+        <phase duration="12" state="rrrGggrrrrrrrrGGrrGGrGrr"/>
+        <phase duration="3"  state="rrrGggrrrrrrrrGGrrGyrGrr"/>
+        <phase duration="12" state="rrrGggrrrrrrrrGGrrGrGGrr"/>
+        <phase duration="3"  state="rrryyyrrrrrrrrGGrryryyrr"/>
     </tlLogic>
 
     <junction id="J0" type="dead_end" x="-25.00" y="25.00" incLanes="E0_0" intLanes="" shape="-25.00,25.00 -21.80,25.00 -25.00,25.00"/>

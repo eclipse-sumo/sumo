@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <edgeData id="dump_25" freq="25" file="aggregated_25.xml" excludeEmpty="defaults" writeAttributes="speed departed entered vaporized"/>
+    <variableSpeedSign id="vss" lanes="left_0">
+        <step time="0" speed="2.8"/>
+        <step time="100" speed="47.22"/>
+    </variableSpeedSign>
+</additional>

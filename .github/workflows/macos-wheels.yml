@@ -15,8 +15,6 @@ on:
     paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
   workflow_dispatch:
-  schedule:
-    - cron:  '25 2 * * *'
 
 jobs:
   call-cibuildwheel:

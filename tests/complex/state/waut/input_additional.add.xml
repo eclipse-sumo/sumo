@@ -1,0 +1,20 @@
+<add>
+
+    <tlLogic id="J1" type="static" programID="pRed" offset="0">
+        <phase duration="3"  state="y"/>
+        <phase duration="97"  state="r"/>
+    </tlLogic>
+    <tlLogic id="J1" type="static" programID="pGreen" offset="0">
+        <phase duration="100"  state="G"/>
+    </tlLogic>
+
+
+    <WAUT refTime="0" id="waut0" startProg="0">
+        <wautSwitch time="0"   to="pRed"></wautSwitch>
+        <wautSwitch time="100" to="pGreen"></wautSwitch>
+        <wautSwitch time="200" to="pRed"></wautSwitch>
+        <wautSwitch time="300" to="pGreen"></wautSwitch>
+    </WAUT>
+
+    <wautJunction junctionID="J1" wautID="waut0"></wautJunction>
+</add>

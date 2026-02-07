@@ -22,6 +22,15 @@ reledge_0
 
 # set relative edge along route
 reledge_random
+
+# set stop on via edge by index
+via_index
+
+# set stop on via edge by index
+via_index_invalid
+
+# set stop on via edge by index
+via_index_random
 duration_random
 
 # assign stops probabilistically
@@ -51,5 +60,5 @@ stationary
 # generate trips that start at the destination stop
 stationary_trips
 
-# generate routes that start at each parkingArea without input route file
+# generate routes that start at each parkingArea without input route file       
 stationary_noRoutes

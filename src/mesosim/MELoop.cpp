@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -304,7 +304,7 @@ void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
     const double length = e.getLength();
-    const int numSegments = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
+    const int numSegments = numSegmentsFor(length, edgeType.edgeLength);
     const double slength = length / (double)numSegments;
     MESegment* newSegment = nullptr;
     MESegment* nextSegment = nullptr;
@@ -320,18 +320,8 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
         myEdges2FirstSegments.push_back(0);
     }
     myEdges2FirstSegments[e.getNumericalID()] = newSegment;
-}
-
-
-void
-MELoop::updateSegmentsForEdge(const MSEdge& e) {
-    if (e.getNumericalID() < (int)myEdges2FirstSegments.size()) {
-        const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
-        MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
-        while (s != nullptr) {
-            s->initSegment(edgeType, e, s->getCapacity());
-            s = s->getNextSegment();
-        }
+    for (MSLane* lane : e.getLanes()) {
+        lane->updateMesoGUISegments();
     }
 }
 

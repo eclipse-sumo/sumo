@@ -1,4 +1,26 @@
 Warning! No mapping library found, falling back to tracemapper.
+Trip 109241 (bus): detour (factor 7.14) to stop index 10, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 109242 (bus): detour (factor 7.14) to stop index 6, fromPos=12673.91,6204.73 toPos=12304.91,5485.74 (airLine=808.15 path=5773.90)
+Trip 109244 (bus): detour (factor 7.14) to stop index 14, fromPos=12673.91,6204.73 toPos=12304.91,5485.74 (airLine=808.15 path=5773.90)
+Trip 280056 (bus): detour (factor 7.14) to stop index 14, fromPos=12673.91,6204.73 toPos=12304.91,5485.74 (airLine=808.15 path=5773.90)
+Trip 280370 (bus): detour (factor 7.14) to stop index 10, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 281591 (bus): detour (factor 7.14) to stop index 10, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 281867 (bus): detour (factor 7.14) to stop index 11, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 285265 (bus): detour (factor 7.14) to stop index 11, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 2437 (bus): detour (factor 7.14) to stop index 2, fromPos=12673.91,6204.73 toPos=12304.91,5485.74 (airLine=808.15 path=5773.90)
+Trip 2442 (bus): detour (factor 7.14) to stop index 7, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 280229 (bus): detour (factor 7.14) to stop index 7, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 282230 (bus): detour (factor 7.14) to stop index 7, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
+Trip 257596 (tram): detour (factor 56.89) to stop index 1, fromPos=4767.48,13741.94 toPos=4783.73,13579.17 (airLine=163.58 path=9306.44)
+Trip 257596 (tram): detour (factor 20.07) to stop index 2, fromPos=4783.73,13579.17 toPos=4848.26,13134.29 (airLine=449.53 path=9020.38)
+Trip 257596 (tram): detour (factor 26.86) to stop index 3, fromPos=4848.26,13134.29 toPos=4931.65,12804.76 (airLine=339.92 path=9129.94)
+Trip 257596 (tram): detour (factor 25.83) to stop index 4, fromPos=4931.65,12804.76 toPos=5007.95,12522.44 (airLine=292.45 path=7555.47)
+Trip 259570 (tram): detour (factor 13.18) to stop index 3, fromPos=4048.94,13014.50 toPos=4229.21,12512.80 (airLine=533.10 path=7025.10)
+Trip 259570 (tram): detour (factor 13.08) to stop index 4, fromPos=4229.21,12512.80 toPos=4422.96,12023.54 (airLine=526.23 path=6884.90)
+Trip 259570 (tram): detour (factor 15.56) to stop index 5, fromPos=4422.96,12023.54 toPos=4545.07,11566.29 (airLine=473.27 path=7366.04)
+Trip 68252 (tram): detour (factor 13.18) to stop index 3, fromPos=4048.94,13014.50 toPos=4229.21,12512.80 (airLine=533.10 path=7025.10)
+Trip 68252 (tram): detour (factor 13.08) to stop index 4, fromPos=4229.21,12512.80 toPos=4422.96,12023.54 (airLine=526.23 path=6884.90)
+Trip 68252 (tram): detour (factor 15.56) to stop index 5, fromPos=4422.96,12023.54 toPos=4545.07,11566.29 (airLine=473.27 path=7366.04)
 Warning! Disconnected route '109241' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
 Warning! Fixed connection 109242 5
 Warning! Disconnected route '109242' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
@@ -13,8 +35,8 @@ Warning! Fixed connection 281591 4
 Warning! Disconnected route '281867' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
 Warning! Fixed connection 281867 4
 Warning! Disconnected route '285265' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
-Warning! Fixed connection 281979 25
-Warning! Fixed connection 284866 25
+Warning! Fixed connection 281979 26
+Warning! Fixed connection 284866 26
 Warning! Disconnected route '2437' between '38415026#2' and '35630851#3', no path found. Keeping longer part.
 Warning! Disconnected route '2442' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.
 Warning! Disconnected route '280229' between '-35630851#3' and '-38415026#2', no path found. Keeping longer part.

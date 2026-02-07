@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -86,12 +86,6 @@ public:
      * @param[in] e the edge to build for
      */
     void buildSegmentsFor(const MSEdge& e, const OptionsCont& oc);
-
-    /** @brief Update segments after loading meso edge type parameters from
-     * additional file
-     * @param[in] e the edge to update
-     */
-    void updateSegmentsForEdge(const MSEdge& e);
 
     /** @brief Get the segment for a given edge at a given position
      *

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -29,9 +29,10 @@ def main():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     SUMO_HOME = os.environ.get("SUMO_HOME", dirname(dirname(dirname(os.path.abspath(__file__)))))
-    version.filter_pep440(join(SUMO_HOME, "build_config", "pyproject", "eclipse-sumo.toml"),
-                          join(SUMO_HOME, "pyproject.toml"))
-    status.log_subprocess([sys.executable, "-m", "build", "--wheel"], cwd=SUMO_HOME)
+    for package in ("eclipse-sumo", "sumo-data", "libsumo"):
+        version.filter_pep440(join(SUMO_HOME, "build_config", "pyproject", package + ".toml"),
+                              join(SUMO_HOME, "pyproject.toml"), package == "sumo-data")
+        status.log_subprocess([sys.executable, "-m", "build", "--wheel"], cwd=SUMO_HOME)
 
 
 if __name__ == "__main__":

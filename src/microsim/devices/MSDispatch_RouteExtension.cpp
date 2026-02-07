@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -89,10 +89,10 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
         const bool dropoff2 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
-            << " from=" << res2->from->getID() << ":" << res2->fromPos << " to=" << res2->to->getID() << ":" << res2->toPos
-            << " pickup=" << pickup << " startFirst=" << pickup2
-            << " dropoff=" << dropoff << " endLast=" << dropoff2
-            << "\n";
+                                               << " from=" << res2->from->getID() << ":" << res2->fromPos << " to=" << res2->to->getID() << ":" << res2->toPos
+                                               << " pickup=" << pickup << " startFirst=" << pickup2
+                                               << " dropoff=" << dropoff << " endLast=" << dropoff2
+                                               << "\n";
 #endif
         if ((pickup || pickup2) && (dropoff || dropoff2)) {
             std::vector<const Reservation*>::iterator resSeqIt = sequence.begin();

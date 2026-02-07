@@ -11,9 +11,4 @@
         <walk to="Edge2" arrivalPos="37.00" speed="12"/>
     </person>
 
-    <person id="p_1" depart="0.00">
-        <walk from="EdgeBike0" to="EdgeCenter0"/>
-        <walk to="Edge5" arrivalPos="11.00" speed="15.3"/>
-    </person>
-
 </routes>

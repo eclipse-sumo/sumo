@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -803,9 +803,6 @@ public:
     /** @brief Remove all transportables before quick-loading state */
     void clearState();
 
-    /// @brief update meso segment parameters
-    void updateMesoType();
-
     void postLoadInitLaneChanger();
 
     static DepartLaneDefinition& getDefaultDepartLaneDefinition() {
@@ -981,7 +978,7 @@ protected:
     /// @brief The original intersection of lane permissions for this edge (before temporary modifications)
     SVCPermissions myOriginalMinimumPermissions = SVCAll;
     /// @brief The original union of lane permissions for this edge (before temporary modifications)
-    SVCPermissions myOriginalCombinedPermissions;
+    SVCPermissions myOriginalCombinedPermissions = SVCAll;
 
     /// @brief whether transient permission changes were applied to this edge or a predecessor
     bool myHaveTransientPermissions;

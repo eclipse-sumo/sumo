@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="bs0" lane="gneE0_0" startPos="140" endPos="160"/>
+    <busStop id="bs0" lane="gneE0_0" startPos="140" endPos="160" lines="foo bar"/>
 </additional>

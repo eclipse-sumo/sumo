@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -240,9 +240,9 @@ public:
     double getPreference(const std::string& routingType, const SUMOVTypeParameter& pars) const;
 
     /// @brief add edge type specific routing preference
-    void addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio); 
+    void addPreference(const std::string& routingType, SUMOVehicleClass svc, double prio);
     /// @brief add edge type specific routing preference
-    void addPreference(const std::string& routingType, std::string vType, double prio); 
+    void addPreference(const std::string& routingType, std::string vType, double prio);
 
     /** @brief Adds edge type specific meso parameters
      * @param[in] id The id of the type
@@ -998,9 +998,6 @@ protected:
 
     /// @brief Whether the network contains bidirectional rail edges
     bool myHasBidiEdges;
-
-    /// @brief Whether the network was built for left-hand traffic
-    bool myLefthand;
 
     /// @brief the network version
     MMVersion myVersion;

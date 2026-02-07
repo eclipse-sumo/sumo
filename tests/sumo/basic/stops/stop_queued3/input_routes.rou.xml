@@ -1,0 +1,6 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="v1" type="DEFAULT_BIKETYPE" begin="0" number="3" period="2" departPos="0">
+        <route edges="SC CN"/>
+        <stop edge="SC" duration="400" startPos="40" endPos="70"/>
+    </flow>
+</routes>

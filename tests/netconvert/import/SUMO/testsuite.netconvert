@@ -21,6 +21,9 @@ traffic_lights_resused_linkIndex
 # whether discarding traffic lights works
 traffic_lights-discard
 
+# whether merging traffic lights works
+traffic_lights-merge
+
 # re-import network with right_on_red logic
 traffic_light_right_on_red
 

@@ -1,0 +1,3 @@
+Warning! Stop 4 for vehicle 36232563 starts earlier (23360) than previous stop (23440)
+Warning! No mapping library found, falling back to tracemapper.
+Trip 36232563 (tram): detour (factor 10.13) to stop index 4, fromPos=1439.55,7321.67 toPos=1220.57,7031.66 (airLine=363.40 path=3680.58)

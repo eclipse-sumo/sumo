@@ -7,6 +7,9 @@ no_persons_until
 # do not stop for schedule 
 no_persons_until_late
 
+# do not stop for schedule. using attribute startPos
+no_persons_until_late2
+
 # there is a person on board but it doesn't want to exit at the stop
 person_noExit
 

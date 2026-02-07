@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -137,15 +137,15 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
 
     // set color depending if charging station is charging
-    RGBColor csColor = (myChargingVehicle)? s.colorSettings.chargingStationColorCharge : s.colorSettings.chargingStationColor;
+    RGBColor csColor = (myChargingVehicle) ? s.colorSettings.chargingStationColorCharge : s.colorSettings.chargingStationColor;
     GLHelper::setColor(csColor);
 
     const double exaggeration = getExaggeration(s);
 
-    if(myParkingArea != nullptr) {
+    if (myParkingArea != nullptr) {
         // draw space background with charging station colors
         const std::vector<MSParkingArea::LotSpaceDefinition>& spaces = myParkingArea->getSpaceOccupancies();
-        for(const auto& space : spaces) {
+        for (const auto& space : spaces) {
             // draw box lines
             GLHelper::drawBoxLine(space.position, space.rotation - 180., space.length, 0.5 * space.width);
         }
@@ -153,9 +153,9 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // redraw spaces from parking area
         GLHelper::pushMatrix();
         glTranslated(0, 0, .1);
-        for(const auto& space : spaces) {
+        for (const auto& space : spaces) {
             GLHelper::drawSpaceOccupancies(exaggeration, space.position, space.rotation,
-                    space.width, space.length, space.vehicle ? true : false);
+                                           space.width, space.length, space.vehicle ? true : false);
         }
         GLHelper::popMatrix();
     } else {
@@ -226,7 +226,7 @@ GUIChargingStation::initAppearance(MSLane& lane, double frompos, double topos) {
     }
     PositionVector tmp = (myParkingArea != nullptr) ? myParkingArea->getShape() : myFGShape;
     const double rotSign = MSGlobals::gLefthand ? -1 : 1;
-    const double offset = (myParkingArea != nullptr)? lane.getWidth() : 1.5;
+    const double offset = (myParkingArea != nullptr) ? lane.getWidth() : 1.5;
     tmp.move2side(offset * rotSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;

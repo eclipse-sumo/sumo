@@ -62,7 +62,7 @@ Testing and implementing suitable measures to reduce traffic-related emissions
 
 - [AutomoVer](https://www.dlr.de/en/fk/research-and-transfer/research-services/market-simulation-vector21/vector21-projects)
 Development of guidance for decision-makers
-- [MAVEN](http://www.maven-its.eu/) Managing Automated Vehicles
+- [MAVEN](https://cordis.europa.eu/project/id/690727) Managing Automated Vehicles
   Enhances Network
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth

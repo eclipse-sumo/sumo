@@ -1,11 +1,11 @@
-Warning: Minor green from edge '27445180' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445016' to edge '27445089' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445181' to edge '27445088' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '-24214694' to edge '27445092' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Connection '27441289_0->7727482_0' is only 0.04m short.
-Warning: Minor green from edge '27445180' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445016' to edge '27445089' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445181' to edge '27445088' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '-24214694' to edge '27445092' exceeds 19.44m/s. Maybe a left-turn lane is missing.
-Warning: Minor green from edge '27445180' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
+Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: 8 total messages of type: Minor green from edge '%' to edge '%' exceeds %m/s. Maybe a left-turn lane is missing.

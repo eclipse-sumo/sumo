@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2007-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2007-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -104,10 +104,10 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                 it = reservations.erase(it);
                 if (unreachable) {
                     WRITE_WARNINGF("Aborting reservation for customers '%' from '%' after waiting time % because no taxi can reach the pickup location, time=%.",
-                            toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                                   toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
                 } else {
                     WRITE_WARNINGF("Aborting reservation for customers '%' to '%' after waiting time % because no taxi can reach the dropoff location, time=%.",
-                            toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
+                                   toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
                 }
                 std::set<const MSTransportable*> persons = res->persons;
                 for (const MSTransportable* p : persons) {

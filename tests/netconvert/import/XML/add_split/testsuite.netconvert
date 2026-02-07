@@ -42,6 +42,9 @@ no_change_keep_node
 # do not change edge properties but add a new traffic_light node
 set_type
 
+# change type of from-node
+set_type_pos0
+
 # modify custom length in proportion so that the total custom length is preserved
 preserve_custom_length
 
@@ -51,8 +54,19 @@ preserve_custom_length2
 # modify custom length in proportion so that the total custom length is preserved (split pos is beyond the end of the geometrical length)
 preserve_custom_length3
 
+# split pos is negative and should count backwards from the custom length
+preserve_custom_length4
+
 # modify custom length in proportion so that the total custom length is preserved even when the split-junction is large
 preserve_custom_length_intersection
+
+# ensure geometry is split at the pre-defined junction and only adapt custom length to given position
+preserve_custom_length_existingNode
+
+# ensure geometry is split at the pre-defined junction and only adapt custom length to given position
+# 
+# the pre-defined junction is not along the original geometry
+preserve_custom_length_existingNode2
 
 # three lanes, changing the speed and changing it back, modifying navteq input
 speed_navteq

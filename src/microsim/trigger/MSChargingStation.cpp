@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -178,7 +178,9 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     double sumReqWh = 0;
     std::vector<Charge*> thisStepCharges;
     for (auto& kv : myChargeValues) {
-        // auto& vid = kv.first;
+        if (MSNet::getInstance()->getVehicleControl().getVehicle(kv.first) == nullptr) {
+            continue;
+        }
         Charge& lastcharge = kv.second.back();
         if (lastcharge.timeStep == currentTime) {
             sumReqWh += lastcharge.WCharged;
@@ -191,9 +193,10 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
     const double capWh = myTotalChargingPower * myEfficiency /*W*/ * TS /*s*/ / 3600.0; // convert to Wh
 #ifdef DEBUG_SIMSTEP
     std::cout << "checkTotalPower: CS="
-        << this->myID << " currentTime=" << currentTime << " myTotalChargingPower=" << myTotalChargingPower;
-    if (sumReqWh > capWh && sumReqWh > 0)
+              << this->myID << " currentTime=" << currentTime << " myTotalChargingPower=" << myTotalChargingPower;
+    if (sumReqWh > capWh && sumReqWh > 0) {
         std::cout << " exceeded, needs rebalancing!";
+    }
     std::cout << std::endl;
 #endif
     if (sumReqWh > capWh && sumReqWh > 0) {
@@ -206,7 +209,7 @@ MSChargingStation::checkTotalPower(SUMOTime currentTime) {
             //  inform also battery device
             MSDevice_Battery* battery = myChargedBatteries[charge->vehicleID];
             double abc = battery->getActualBatteryCapacity();
-            battery->setActualBatteryCapacity(abc - excessWh); 
+            battery->setActualBatteryCapacity(abc - excessWh);
             battery->setEnergyCharged(deliveredWh);
         }
     }

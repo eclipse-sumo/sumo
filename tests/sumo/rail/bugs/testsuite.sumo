@@ -108,3 +108,6 @@ ticket17367
 
 # unsafe insertion
 ticket17453
+
+# crash
+ticket17516

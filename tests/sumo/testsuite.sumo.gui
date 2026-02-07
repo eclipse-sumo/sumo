@@ -1,8 +1,14 @@
+# testing meta processing (not for GUI)
+#meta
+
 # whether specification is implemented
 spec
 
 # handling of basic structures
 basic
+
+# tests for the traffic lights subsystem
+tls
 
 # output tests
 output
@@ -22,6 +28,7 @@ junction_model
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
 
+# testing bidirectional tracks, signals and other rail specific applications
 rail
 
 # testing opposite-direction driving

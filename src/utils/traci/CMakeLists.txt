@@ -8,7 +8,7 @@ set_property(TARGET utils_traci PROPERTY PROJECT_LABEL "z_utils_traci")
 
 if (SUMO_UTILS)
     add_library(traciclient SHARED ${utils_traci_STAT_SRCS})
-    install(TARGETS traciclient DESTINATION lib)
+    install(TARGETS traciclient DESTINATION lib COMPONENT runtime)
     if (CLANG_COMPILER AND WIN32)
         target_link_libraries(traciclient -Wl,--whole-archive foreign_tcpip -Wl,--no-whole-archive)
     elseif (MSVC)

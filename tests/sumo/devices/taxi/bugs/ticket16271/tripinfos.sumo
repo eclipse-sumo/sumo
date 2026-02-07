@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 03:12:18 by Eclipse SUMO sumo Version v1_23_1+0570-960373e9433
+<!-- generated on 2026-01-22T16:25:35.148986+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,14 +43,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="159.00" waitingTime="2.00" timeLoss="19.87" traveltime="157.00">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="159.00" waitingTime="2.00" timeLoss="14.06" traveltime="157.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="220.98" actType="waiting"/>
-        <ride waitingTime="2.00" vehicle="trip_0" depart="2.00" arrival="159.00" arrivalPos="97.22" duration="157.00" routeLength="1051.78" timeLoss="19.87"/>
+        <ride waitingTime="2.00" vehicle="trip_0" depart="2.00" arrival="159.00" arrivalPos="97.22" duration="157.00" routeLength="1051.78" timeLoss="14.06"/>
     </personinfo>
-    <tripinfo id="blocker" depart="100.00" departLane="B1C1_1" departPos="98.00" departSpeed="0.00" departDelay="0.00" arrival="218.00" arrivalLane="B1C1_1" arrivalPos="285.60" arrivalSpeed="12.67" duration="118.00" routeLength="187.60" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="4.12" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="110.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="275.00" waitingTime="97.00" timeLoss="24.08" traveltime="179.00">
+    <tripinfo id="blocker" depart="100.00" departLane="B1C1_1" departPos="98.00" departSpeed="0.00" departDelay="0.00" arrival="218.00" arrivalLane="B1C1_1" arrivalPos="285.60" arrivalSpeed="12.67" duration="118.00" routeLength="187.60" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="2.66" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1" depart="110.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="275.00" waitingTime="97.00" timeLoss="17.12" traveltime="179.00">
         <stop duration="0.00" arrival="110.00" arrivalPos="92.23" actType="waiting"/>
-        <ride waitingTime="96.00" vehicle="trip_0" depart="206.00" arrival="384.00" arrivalPos="220.98" duration="178.00" routeLength="1304.30" timeLoss="23.15"/>
+        <ride waitingTime="96.00" vehicle="trip_0" depart="206.00" arrival="384.00" arrivalPos="220.98" duration="178.00" routeLength="1304.30" timeLoss="16.20"/>
         <walk depart="384.00" departPos="220.98" arrival="385.00" arrivalPos="220.98" duration="1.00" routeLength="0.10" timeLoss="0.93" maxSpeed="1.39" waitingTime="1.00"/>
     </personinfo>
 </tripinfos>

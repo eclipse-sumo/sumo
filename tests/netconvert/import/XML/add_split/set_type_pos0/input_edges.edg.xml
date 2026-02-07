@@ -1,0 +1,7 @@
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="a" from="a" to="0"/>
+	<edge id="1" from="0" to="1">
+		<split pos="0" type="traffic_light" tl="foo"/>
+    </edge>
+    <edge id="b" from="1" to="b"/>
+</edges>

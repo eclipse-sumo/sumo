@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2004-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2004-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -120,7 +120,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
                 strftime(buffer, 80, "%Y-%m-%d-%H-%M-%S", timeinfo);
                 suffix.replace(metaTimeIndex, 4, buffer);
             }
-            name2 = FileHelpers::appendBeforeExtension(name, suffix);
+            name2 = FileHelpers::appendBeforeExtension(name2, suffix);
         }
         name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
         dev = new OutputDevice_File(name2, isParquet);

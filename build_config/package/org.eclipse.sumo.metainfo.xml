@@ -17,6 +17,7 @@
     <url type="homepage">https://eclipse.dev/sumo/</url>
     <url type="help">https://sumo.dlr.de/docs/</url>
     <url type="bugtracker">https://github.com/eclipse-sumo/sumo/issues</url>
+    <url type="vcs-browser">https://github.com/eclipse-sumo/sumo/</url>
     <developer_name>German Aerospace Center and contributors</developer_name>
     <screenshots>
         <screenshot type="default">
@@ -46,6 +47,7 @@
     </screenshots>
     <content_rating type="oars-1.1"/>
     <releases>
+        <release version="v1_26_0" date="2026-01-29"/>
         <release version="v1_25_0" date="2025-11-13"/>
         <release version="v1_24_0" date="2025-07-22"/>
         <release version="v1_23_1" date="2025-05-08"/>

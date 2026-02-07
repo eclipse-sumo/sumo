@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2012-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2012-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -133,7 +133,7 @@ private:
     static int extendBidiEdges(NBEdgeCont& ec, NBNode* node, NBEdge* bidiIn);
 
     /// @brief reverse edges sequences that are to broken nodes on both sides
-    static int reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc);
+    static int reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc);
 
     /// @brief add bidi-edges to connect buffers stops in both directions
     static int addBidiEdgesForBufferStops(NBEdgeCont& ec);

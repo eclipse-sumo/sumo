@@ -2,3 +2,8 @@ Warning: Ignoring track count 2 for edge '326203720'.
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.primary' (first occurrence for edge '5980164').
 Warning: Discarding unusable type 'waterway.river' (first occurrence for edge '156569494').
 Warning: PT stop '698362008' has been moved to edge '-307459757#1'.
+Warning: Stop '-3125935756' named 'Ohligsmühle' from line '2973510' on edge '-326203720' is not part of the route.
+Warning: Stop '-271135683' named 'Robert-Daum-Platz' from line '2973510' on edge '-326203720' is not part of the route.
+Warning: Stop '-271135646' named 'Pestalozzistraße' from line '2973510' on edge '-326203720' is not part of the route.
+Warning: Stop '-1609100922' named 'Westende' from line '2973510' on edge '-326203720' is not part of the route.
+Warning: Stop '-380536713' named 'Varresbecker Straße' from line '2973510' on edge '-326203720' is not part of the route.

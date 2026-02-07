@@ -44,6 +44,33 @@ For MacOS the following command should install all dependencies:
 
 `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
+You will need to install a diff viewer and text editor for viewing and comparing test results. These tools are required on all operating systems.
+
+**Recommended tools** (preferred by SUMO developers):
+- **Diff viewer:** `meld` - for comparing file differences
+- **Text editor:** `geany` - for viewing and editing files
+
+Installation commands:
+
+**On macOS:**
+```
+brew install meld geany
+```
+
+**On Linux (Debian/Ubuntu):**
+```
+sudo apt-get install meld geany
+```
+
+**On Windows:**
+
+Download and install from
+[Geany project page](https://www.geany.org/) by following the provided installation instructions.
+
+After installing these tools, you need to configure TextTest to use them by creating or editing `$HOME/.texttest/config` (see [Customize configuration](#customize-configuration) section below).
+
+**Alternative (TextTest defaults):** If you prefer, you can install `tkdiff` and `emacs` instead, which are TextTest's default programs and don't require additional configuration. However, we recommend using meld and geany for a better experience.
+
 If the installation was successful, this window will appear after execution of `{{SUMO}}/tests/runAllTests.bat` (Windows) or
 `{{SUMO}}/tests/runTests.sh` (Linux, macOS)
 
@@ -52,15 +79,18 @@ If the installation was successful, this window will appear after execution of `
 
 ## Customize configuration
 
-Common options added to the personal config file
-`$HOME/.texttest/config` are the used diff-viewer, editor, and the flag
-to collapse the static test suites on program start. E.g.:
+You need to configure TextTest to use your installed diff viewer and text editor. Create or edit the personal config file
+`$HOME/.texttest/config` (on Windows: `%USERPROFILE%\.texttest\config`) and add the following options:
 
 ```
    diff_program:meld
    view_program:geany
    static_collapse_suites:1
 ```
+
+The `diff_program` setting specifies which tool to use for comparing files, and `view_program` specifies the text editor for viewing files. The `static_collapse_suites` flag collapses the static test suites on program start.
+
+**Note:** If you do not overwrite the `diff_program` and `view_program` lines, TextTest will try to use tkdiff and emacs automatically.
 
 ## Recommended python packages
 
@@ -179,8 +209,8 @@ a different battery output than expected. If the file marked in red was
 *errors.sumo*, it means that our modification of SUMO has caused a
 *runtime error*, and finally if the file marked in red is *output.sumo*,
 it means that SUMO generated some warning during execution.
-Double-clicking on the red box *battery.sumo* opens ''TkDiffv
-automatically, and displays the differences of our battery output with
+Double-clicking on the red box *battery.sumo* opens your configured diff
+viewer (e.g. `meld`) automatically, and displays the differences of our battery output with
 respect to the original *battery output control file*.
 
 ![](../images/TestError3.png "Error in battery.sumo")

@@ -212,3 +212,22 @@ Such a file is loaded by adding the option **-s, --stopinfo-file** to the option
 
 <img src="../images/S46_actual.png" width="800px"/>
 
+# patchRailConflicts.py
+
+This tool modifies junction types, edge offsets and connection attributes in a network to ensure that conflicts between different tracks are guarded by rail signals. It's main use is for patching tram networks where real-world data on signal infrastructure is often lacking.
+The tool works by identifiyng conflict junctions (i.e. switches and crossings) and change their type `rail_signal` and optionally shifting the waiting position to be somewhat ahead of the conflict.
+
+!!! caution
+    Using this tool for convential rail operations is not recommended as these typically have signals well in advance of switches and crossings to account for overrun distance (*Durchrutschweg*)
+
+Example call
+```
+<SUMO_HOME>/tools/net/patchRailConflicts.py -n input_net.net.xml -o output_net.net.xml
+```
+
+The following options are available
+
+- **--vclass** (default *tram*): defines which conflict points are considered for patching
+- **-k**, **--keep-junction-type** (default *traffic_light,traffic_light_unregulated,rail_signal*): defines which junctions are to be kept unmodified
+- **-e**, **--end-offset** (default *0*): If set, the waiting position of trains will be moved back from the conflict point by setting [edge attribute `endOffset`](../Networks/PlainXML.md#edge_descriptions).
+- **-j**, **--join-distance** (default *200*): Identifies clusters of conflict points within the given range and only guards connections that enter the cluster from the outside

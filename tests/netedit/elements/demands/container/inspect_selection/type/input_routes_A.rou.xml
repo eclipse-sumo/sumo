@@ -12,7 +12,4 @@
     <container id="c_0" type="typeA" color="red" departPos="0.00" depart="10.00">
         <tranship from="Edge0" to="Edge2"/>
     </container>
-    <container id="c_1" type="typeB" color="blue" departPos="11.00" depart="12.00">
-        <tranship from="Edge1" to="Edge2"/>
-    </container>
 </routes>

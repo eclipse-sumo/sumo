@@ -5,6 +5,7 @@ appdata=duarouter
 appdata=jtrrouter
 appdata=marouter
 appdata=netconvert
+import/matsim/0_3_0_equil_validation
 appdata=netedit
 appdata=neteditoutput
 appdata=netgen

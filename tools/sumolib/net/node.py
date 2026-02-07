@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -108,6 +108,10 @@ class Node:
 
     def areFoes(self, link1, link2):
         return self._foes[link1][len(self._foes[link1]) - link2 - 1] == '1'
+
+    def hasFoes(self):
+        """whether there are any conflicting connections as this node"""
+        return any(['1' in foes for foes in self._foes.values()])
 
     def getLinkIndex(self, conn):
         ret = 0

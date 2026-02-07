@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 11:35:06 by Eclipse SUMO sumo Version v1_23_1+0570-960373e9433
+<!-- generated on 2026-01-22T16:45:28.081773+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,25 +28,25 @@
     </vehroutes_device>
 
     <traci_server>
-        <remote-port value="45809"/>
+        <remote-port value="38381"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="468.00" waitingTime="211.00" timeLoss="22.37" traveltime="257.00">
-        <ride waitingTime="211.00" vehicle="taxi_0" depart="212.00" arrival="390.00" arrivalPos="894.80" duration="178.00" routeLength="1493.16" timeLoss="14.63"/>
+    <personinfo id="p1" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="468.00" waitingTime="211.00" timeLoss="16.64" traveltime="257.00">
+        <ride waitingTime="211.00" vehicle="taxi_0" depart="212.00" arrival="390.00" arrivalPos="894.80" duration="178.00" routeLength="1493.16" timeLoss="8.90"/>
         <walk depart="390.00" departPos="0.00" arrival="469.00" arrivalPos="100.00" duration="79.00" routeLength="100.00" timeLoss="7.74" maxSpeed="1.40" waitingTime="0.00"/>
         <access stop="stopB_N" depart="469.00" arrival="469.00" duration="0.00" routeLength="0.04"/>
     </personinfo>
-    <personinfo id="p0" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1069.00" waitingTime="650.00" timeLoss="82.47" traveltime="419.00">
+    <personinfo id="p0" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1069.00" waitingTime="650.00" timeLoss="16.66" traveltime="419.00">
         <walk depart="1.00" departPos="900.00" arrival="160.00" arrivalPos="91.90" duration="159.00" routeLength="186.75" timeLoss="15.70" maxSpeed="1.30" waitingTime="0.00"/>
         <access stop="stopC_W" depart="160.00" arrival="160.00" duration="0.00" routeLength="0.70"/>
-        <ride waitingTime="439.00" vehicle="train_train2:1.0" depart="599.00" arrival="711.00" arrivalPos="1450.00" duration="112.00" routeLength="1100.00" timeLoss="32.81"/>
+        <ride waitingTime="439.00" vehicle="train_train2:1.0" depart="599.00" arrival="711.00" arrivalPos="1450.00" duration="112.00" routeLength="1100.00" timeLoss="0.00"/>
         <access stop="stopA_W" depart="711.00" arrival="786.00" duration="75.00" routeLength="98.62"/>
         <walk depart="786.00" departPos="86.23" arrival="790.00" arrivalPos="90.19" duration="4.00" routeLength="3.96" timeLoss="0.96" maxSpeed="1.30" waitingTime="0.00"/>
         <access stop="stopA_N" depart="790.00" arrival="790.00" duration="0.00" routeLength="1.01"/>
-        <ride waitingTime="211.00" vehicle="train_train1:0.1" depart="1001.00" arrival="1070.00" arrivalPos="950.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
+        <ride waitingTime="211.00" vehicle="train_train1:0.1" depart="1001.00" arrival="1070.00" arrivalPos="950.00" duration="69.00" routeLength="500.00" timeLoss="0.00"/>
     </personinfo>
 </tripinfos>

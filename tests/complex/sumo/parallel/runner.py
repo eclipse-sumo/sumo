@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2020-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2020-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -25,7 +25,7 @@ import sumolib  # noqa
 numLanes = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 length = float(sys.argv[2]) if len(sys.argv) > 2 else 1e5
 with open("%s.edg.xml" % numLanes, "w") as edges, open("%s.nod.xml" % numLanes, "w") as nodes, \
-     open("%s.rou.xml" % numLanes, "w") as flows:
+        open("%s.rou.xml" % numLanes, "w") as flows:
     print("<edges>", file=edges)
     print("<nodes>", file=nodes)
     print("<routes>", file=flows)

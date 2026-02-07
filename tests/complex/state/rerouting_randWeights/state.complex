@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T17:56:57.754863+01:00 by Eclipse SUMO sumo v1_25_0+0051-b07f2931f42
+<!-- generated on 2026-01-23T11:04:28.905763+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_25_0+0051-b07f2931f42" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_25_0+1151-2ef687ab93b" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="256" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="441"/>
         <rngLane index="1" state="573"/>
@@ -350,21 +350,21 @@
     <lane id="4/2to4/1_0">
         <vehicles value="13"/>
     </lane>
-    <tlLogic id="0/0" programID="0" phase="0" duration="24000"/>
-    <tlLogic id="0/1" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="0/2" programID="0" phase="0" duration="24000"/>
-    <tlLogic id="1/0" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="1/1" programID="0" phase="4" duration="27000"/>
-    <tlLogic id="1/2" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="2/0" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="2/1" programID="0" phase="4" duration="27000"/>
-    <tlLogic id="2/2" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="3/0" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="3/1" programID="0" phase="4" duration="27000"/>
-    <tlLogic id="3/2" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="4/0" programID="0" phase="0" duration="24000"/>
-    <tlLogic id="4/1" programID="0" phase="2" duration="4000"/>
-    <tlLogic id="4/2" programID="0" phase="0" duration="24000"/>
+    <tlLogic id="0/0" programID="0" phase="0" duration="24000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="0" duration="24000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="27000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="27000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="27000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="0" duration="24000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="2" duration="4000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="0" duration="24000" active="1"/>
     <routingEngine last="500000" index="124">
         <edge id="0/0to0/1" speed="8.70" pastSpeed="8.82 8.90 9.22 8.23 8.56 8.51 8.61 8.65 8.35 8.23 8.65 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 2.44 4.60 6.04 8.26 9.01 8.93 8.80 8.36 8.90 7.92 8.05 8.36 9.15 8.02 8.25 9.20 8.75 8.02 8.21 8.25 8.18 9.18 8.46 8.68 9.02 8.50 8.37 8.65 8.80 8.61 8.32 8.81 8.17 6.39 7.25 7.75 8.62 8.82 9.52 9.13 8.90 8.70 9.11 9.15 9.38 8.86 8.58 8.68 8.72 8.78 8.34 8.46 8.89 8.55 8.71 9.00 8.96 8.53 8.49 8.73 8.67 8.70 8.90 8.81 8.53 8.99 8.88 8.85 8.52 8.13 8.58 8.48 8.30 8.43 8.31 8.28 7.32 7.79 7.06 8.03 8.13 7.76 7.57 7.94 7.70 8.03 7.29 7.56 7.66 7.82 7.21 9.46 10.11 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 2.24 3.81 5.45 7.27 9.02 7.99 8.76 9.13 8.58 9.25 8.52 8.97 8.56 8.04 8.09 8.98 8.08 8.97 9.02 8.82 8.92 8.69 8.87 8.28 8.19 8.87 8.05 8.79 9.25 8.99 8.52 9.20 9.23 9.23 8.07 9.01"/>
         <edge id="0/0to1/0" speed="7.91" pastSpeed="8.96 8.97 8.87 8.84 9.16 8.88 8.94 9.14 8.92 8.83 8.68 8.36 8.40 8.62 8.24 7.67 7.97 8.77 8.99 8.64 8.35 8.31 8.84 8.44 8.94 8.64 8.24 7.75 7.92 7.45 8.41 9.18 9.23 7.02 10.29 10.17 10.31 9.78 10.16 9.45 9.81 10.01 9.34 9.29 10.41 9.92 10.42 9.41 9.37 9.31 9.88 9.95 9.67 9.56 9.97 10.05 9.40 4.90 0.73 0.14 0.01 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 7.19 10.13 9.95 9.79 9.59 9.83 9.24 9.66 10.43 9.83 9.94 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 11.06 4.97 6.46 7.39 8.07 8.88 9.71 9.16 8.97 8.90 9.00 9.24 9.61 8.90 9.35 8.80 8.88 8.88 8.73 9.14 8.78 8.58 9.04 9.03 8.85 9.17 8.90 8.82"/>

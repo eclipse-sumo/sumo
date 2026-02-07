@@ -1,0 +1,17 @@
+Success.
+Success.
+Loading net
+Writing fcd file "fcd\gtfs\bus.fcd.xml"
+Writing fcd file "fcd\gtfs\train.fcd.xml"
+Writing fcd file "fcd\gtfs\tram.fcd.xml"
+Writing fcd file "fcd\gtfs\light_rail.fcd.xml"
+Writing fcd file "fcd\gtfs\monorail.fcd.xml"
+Writing fcd file "fcd\gtfs\subway.fcd.xml"
+Writing fcd file "fcd\gtfs\aerialway.fcd.xml"
+Writing fcd file "fcd\gtfs\ferry.fcd.xml"
+mapping tram
+mapping trace with 5 points ...
+   Found no candidate edges for -69417.388471946,4363.134545731358 (index 1)
+1 Points had no candidates. (7 router calls)
+mapped 1 traces to 1 routes (0 cacheHits)
+Reading resources\gtfs\tram.net.xml

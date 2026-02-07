@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 14:49:58 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
+<!-- generated on 2026-01-22T16:44:51.426194+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,13 +28,13 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_25_0+1143-5cfd67bbee0" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="beg middle end" color="red">
         <stop busStop="busstop" duration="20.00" parking="1"/>
     </route>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 5.10 0 4.62 11000 1 0" pos="60.00 55.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 0 1 5.10 0 0.72 11000 1 0" pos="60.00 55.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <stop busStop="busstop" duration="12.00" parking="1" started="11.00"/>
         <stop busStop="busstop2" duration="20.00" parking="1"/>
         <device id="vehroute_v0" state="0 0.00 0.00 5.10 0"/>

@@ -1,0 +1,7 @@
+Freight
+
+# use custom mass value
+Freight_heavier
+
+# use custom traction and resistance curve
+Freight_custom

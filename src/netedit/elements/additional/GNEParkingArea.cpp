@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    GNEParkingArea.cpp
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    Feb 2018
 ///
 // A lane area vehicles can park at (GNE version)
@@ -104,11 +105,11 @@ GNEParkingArea::updateGeometry() {
     // calculate length
     const double length = (myLength > 0) ? myLength : spaceDim;
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(myWidth);
+    setStoppingPlaceGeometry((myOnRoad)? 0 : myWidth);
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
     // Move shape to side
-    tmpShape.move2side(1.5 * offsetSign + myWidth);
+    tmpShape.move2side(offsetSign * (1.5 + myWidth));
     // Get position of the sign
     mySymbolPosition = tmpShape.getLineCenter();
     // clear LotSpaceDefinitions

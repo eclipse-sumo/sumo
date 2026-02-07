@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-18 09:33:30 by Eclipse SUMO sumo Version v1_21_0+0426-2a6d434165c
+<!-- generated on 2026-01-22T16:46:13.368079+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,7 +18,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="55809"/>
+        <remote-port value="33403"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -27,5 +27,5 @@
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="t2" depart="0.00" departLane="h_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="98.00" arrivalLane="g_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="98.00" routeLength="1349.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_t2 routing_t2" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="13.89" departDelay="0.00" arrival="165.00" arrivalLane="g_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="165.00" routeLength="1391.32" waitingTime="32.00" waitingCount="1" stopTime="0.00" timeLoss="64.17" rerouteNo="1" devices="tripinfo_t0 routing_t0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="t1" depart="118.00" departLane="c_0" departPos="50.10" departSpeed="13.89" departDelay="88.00" arrival="232.00" arrivalLane="g_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="114.00" routeLength="891.32" waitingTime="3.00" waitingCount="1" stopTime="5.00" timeLoss="44.16" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t1" depart="118.00" departLane="c_0" departPos="50.10" departSpeed="13.89" departDelay="88.00" arrival="232.00" arrivalLane="g_0" arrivalPos="400.00" arrivalSpeed="13.89" duration="114.00" routeLength="891.32" waitingTime="3.00" waitingCount="1" stopTime="5.00" timeLoss="23.21" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

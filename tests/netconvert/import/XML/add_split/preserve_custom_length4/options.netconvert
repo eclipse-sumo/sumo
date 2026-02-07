@@ -1,0 +1,2 @@
+--edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml
+--output=net.net.xml --no-internal-links --geometry.remove

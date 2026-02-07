@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -80,10 +80,9 @@ RONet::RONet() :
     myDoPTRouting(!OptionsCont::getOptions().exists("ptline-routing")
                   || OptionsCont::getOptions().getBool("ptline-routing")),
     myKeepFlows(OptionsCont::getOptions().exists("keep-flows")
-                  && OptionsCont::getOptions().getBool("keep-flows")),
+                && OptionsCont::getOptions().getBool("keep-flows")),
     myHasBidiEdges(false),
-    myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1)
-{
+    myMaxTraveltime(OptionsCont::getOptions().exists("max-traveltime") ? STEPS2TIME(string2time(OptionsCont::getOptions().getString("max-traveltime"))) : -1) {
     if (myInstance != nullptr) {
         throw ProcessError(TL("A network was already constructed."));
     }
@@ -665,6 +664,9 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
                     if (stop->until >= 0) {
                         stop->until += depart - pars->depart;
                     }
+                    if (stop->arrival >= 0) {
+                        stop->arrival += depart - pars->depart;
+                    }
                 }
                 pars->incrementFlow(1);
                 // try to build the vehicle
@@ -982,6 +984,45 @@ RONet::addProhibition(const ROEdge* edge, const RouterProhibition& prohibition) 
         throw ProcessError(TLF("Already loaded prohibition for edge '%'. (Only one prohibition per edge is supported)", edge->getID()));
     }
     myProhibitions[edge] = prohibition;
+    myHavePermissions = true;
+}
+
+
+void
+RONet::addLaneProhibition(const ROLane* lane, const RouterProhibition& prohibition) {
+    if (myLaneProhibitions.count(lane) != 0) {
+        throw ProcessError(TLF("Already loaded prohibition for lane '%'. (Only one prohibition per lane is supported)", lane->getID()));
+    }
+    assert(prohibition.end > prohibition.begin);
+    myLaneProhibitions[lane] = prohibition;
+    myLaneProhibitionTimes[prohibition.begin].insert(lane);
+    myHavePermissions = true;
+}
+
+
+void
+RONet::updateLaneProhibitions(SUMOTime begin) {
+    const double beginS = STEPS2TIME(begin);
+    while (myLaneProhibitionTimes.size() > 0 && myLaneProhibitionTimes.begin()->first <= beginS) {
+        const double t = myLaneProhibitionTimes.begin()->first;
+        for (const ROLane* const lane : myLaneProhibitionTimes.begin()->second) {
+            const SVCPermissions orig = lane->getPermissions();
+            assert(myLaneProhibitions.count(lane) != 0);
+            RouterProhibition& rp = myLaneProhibitions[lane];
+            const_cast<ROLane*>(lane)->setPermissions(rp.permissions);
+            lane->getEdge().resetSuccessors();
+            for (ROEdge* pred : lane->getEdge().getPredecessors()) {
+                pred->resetSuccessors();
+            }
+            if (t == rp.begin) {
+                // schedule restoration of original permissions. This works
+                // without a stack because there is at most one prohibition per lane
+                myLaneProhibitionTimes[rp.end].insert(lane);
+                rp.permissions = orig;
+            }
+        }
+        myLaneProhibitionTimes.erase(myLaneProhibitionTimes.begin());
+    }
 }
 
 

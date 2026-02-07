@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1124,8 +1124,8 @@ MSLaneChanger::checkChange(
                 auto api = link->getApproachingPtr(vehicle);
                 if (api != nullptr) {
                     if (!link2->opened(api->arrivalTime, api->arrivalSpeed, api->leaveSpeed, vehicle->getLength(),
-                                vehicle->getImpatience(), vehicle->getCarFollowModel().getMaxDecel(), vehicle->getWaitingTime(), vehicle->getLateralPositionOnLane(),
-                                nullptr, false, vehicle, api->dist)) {
+                                       vehicle->getImpatience(), vehicle->getCarFollowModel().getMaxDecel(), vehicle->getWaitingTime(), vehicle->getLateralPositionOnLane(),
+                                       nullptr, false, vehicle, api->dist)) {
                         //std::cout << SIMTIME << " unsafeLC " << vehicle->getID() << "\n";
                         state |= LCA_BLOCKED;
                     }

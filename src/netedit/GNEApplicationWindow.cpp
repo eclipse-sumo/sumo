@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -3593,14 +3593,14 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
             if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG)) {
                 // get SumoConfig file
                 const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
-                std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
-                if (out.good()) {
+                std::ofstream sumoCfg(StringUtils::transcodeToLocal(sumoConfigFile));
+                if (sumoCfg.good()) {
                     // before saving sumo config, check if force enable option junction-taz
                     if (myNet->getAttributeCarriers()->requireJunctionTazOption()) {
                         mySumoOptions.set("junction-taz", "true");
                     }
                     // write SUMO config
-                    mySumoOptions.writeConfiguration(out, true, false, false, sumoConfigFile, true);
+                    mySumoOptions.writeConfiguration(sumoCfg, true, false, false, sumoConfigFile, true);
                     // write info
                     WRITE_MESSAGE(TLF("SUMO configuration saved in '%'.", sumoConfigFile));
                     // After saving a config successfully, add it into recent configs
@@ -3723,10 +3723,10 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
                 // get netedit config file
                 auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
                 // configuration
-                std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
-                if (out.good()) {
+                std::ofstream neteditCfg(StringUtils::transcodeToLocal(neteditConfigFile));
+                if (neteditCfg.good()) {
                     // write netedit config
-                    neteditOptions.writeConfiguration(out, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
+                    neteditOptions.writeConfiguration(neteditCfg, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);
                     // write info
                     WRITE_MESSAGE(TLF("Netedit configuration saved in '%'.", neteditConfigFile));
                     // config saved

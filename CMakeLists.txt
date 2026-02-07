@@ -124,7 +124,7 @@ if (GNU_COMPILER OR CLANG_COMPILER)
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --param=max-vartrack-size=5000000")
-        if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 10 AND CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
+        if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.9 AND CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64|arm64")
             # see the last bulletpoint about ABI at https://gcc.gnu.org/gcc-10/changes.html#cxx
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-psabi")
         endif()
@@ -216,47 +216,40 @@ if (CMAKE_GENERATOR MATCHES Xcode)
 endif ()
 message(STATUS "")
 
-if ((${CMAKE_SYSTEM_NAME} MATCHES "Linux" AND SKBUILD) OR ${CMAKE_VERSION} VERSION_LESS 3.12.0)
+if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
     find_package(PythonInterp REQUIRED)
-    find_package(PythonLibs)
+    # define variable for compatibility
+    set(Python_EXECUTABLE ${PYTHON_EXECUTABLE} CACHE FILEPATH "Python executable")
+    message(WARNING "Found Python in legacy mode, consider upgrading CMake to at least 3.18: " ${Python_EXECUTABLE})
 else()
-    find_package(Python REQUIRED COMPONENTS Interpreter Development)
-    # define variables for compatibility. refactor once older cmake unsupported
-    if (Python_FOUND)
-        set(PYTHONLIBS_FOUND ${Python_FOUND})
-        set(PYTHON_EXECUTABLE ${Python_EXECUTABLE} CACHE FILEPATH "Python executable")
-        set(PYTHON_LIBRARIES ${Python_LIBRARIES} CACHE FILEPATH "Python libraries")
-        set(PYTHON_INCLUDE_DIRS ${Python_INCLUDE_DIRS} CACHE PATH "Python include folder")
-        set(PYTHON_LIBRARY_DIRS ${Python_LIBRARY_DIRS})
-    endif()
+    # we search for Interpreter _and_ Development to make sure the versions match
+    find_package(Python REQUIRED COMPONENTS Interpreter OPTIONAL_COMPONENTS Development.Module)
 endif()
-message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
+if (${CMAKE_VERSION} VERSION_LESS 3.18.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))
+    message(WARNING "Language bindings require at least CMake 3.18.")
+    set(ENABLE_PYTHON_BINDINGS OFF)
+    set(ENABLE_JAVA_BINDINGS OFF)
+    set(ENABLE_CS_BINDINGS OFF)
+endif()
 if (MSVC AND ENABLE_PYTHON_BINDINGS)
     # recheck that the platform of the generator and python matches
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sys; print(sys.maxsize > 2**32)"
-                    OUTPUT_VARIABLE IS_PYTHON64 OUTPUT_STRIP_TRAILING_WHITESPACE)
-    if (${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
-        if (${IS_PYTHON64} STREQUAL "False")
-            message(WARNING "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
-            set(PYTHON_INCLUDE_DIRS "")
-        endif()
-    else()
-        if (${IS_PYTHON64} STREQUAL "True")
-            message(WARNING "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
-            set(PYTHON_INCLUDE_DIRS "")
-        endif()
+    execute_process(COMMAND ${Python_EXECUTABLE} -c "import sys; print(sys.maxsize > 2**32)"
+                    OUTPUT_VARIABLE _is_python64 OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if (${_is_python64} STREQUAL "False" OR NOT ${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
+        message(WARNING "Python language bindings are only supported for 64 bit.")
+        set(ENABLE_PYTHON_BINDINGS OFF)
     endif()
     if (NOT PYTHON_DEBUG_LIBRARY AND "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
         message(WARNING "Did not find Python debug library. Please reinstall your Python and enable the Python debug libraries in the installer.")
-        set(PYTHON_INCLUDE_DIRS "")
+        set(ENABLE_PYTHON_BINDINGS OFF)
     endif()
 endif()
 
-execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools; import build; import pip; build.__version__"
-                RESULT_VARIABLE PYTHON_SETUPTOOLS_MISSING ERROR_QUIET)
-if (MSVC)
-    # disable the installation of python wheels during "cmake --install" on Windows because they go into a strange location, see #17288
-    set(PYTHON_SETUPTOOLS_MISSING True)
+# hatchling is required for doing a build without access to pypi.org (offline on open build service, launchpad etc.)
+execute_process(COMMAND ${Python_EXECUTABLE} -c "import build, hatchling, pip; build.__version__"
+                RESULT_VARIABLE PYTHON_BUILD_MISSING ERROR_QUIET)
+if (PYTHON_BUILD_MISSING)
+    message(STATUS "Python build, hatchling or pip are missing (sumo packages will not be installable via cmake).")
 endif()
 
 # exclusive from Apple
@@ -669,7 +662,7 @@ if (SKBUILD)
 endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
-        USE_SOURCE_PERMISSIONS
+        USE_SOURCE_PERMISSIONS COMPONENT runtime
         PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
@@ -688,30 +681,42 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
     install(DIRECTORY tools/libsumo/ DESTINATION libsumo COMPONENT tools_libsumo EXCLUDE_FROM_ALL
             PATTERN "__pycache__" EXCLUDE
             PATTERN "*.pyc" EXCLUDE)
+    if (PROJ_DATA_DIR)
+        install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT proj_data EXCLUDE_FROM_ALL
+                PATTERN "*.tif" EXCLUDE
+                PATTERN "*.txt" EXCLUDE)
+    endif ()
 endif ()
-install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)")
+install(CODE "
+    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
+" COMPONENT runtime)
 if (DATA_PATH)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
 endif ()
 
-install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO::)
+install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONENT runtime)
 
 set(SUMO_TOOLS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools")
-if (NOT ${PYTHON_SETUPTOOLS_MISSING})
-    if (NOT VERBOSE_SUB)
-        set(PYTHON_BUILD_OPTS "-C--quiet")
-    endif ()
-    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
-            COMPONENT pysumolib)
-    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py WORKING_DIRECTORY ${SUMO_TOOLS_DIR} COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --no-isolation --wheel . -o ${CMAKE_BINARY_DIR})"
-            COMPONENT pytraci)
-    install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
-            COMPONENT pytraci)
+if (${CMAKE_VERSION} VERSION_GREATER 3.6.0 AND NOT ${PYTHON_BUILD_MISSING})
+    # no isolated build here because we need to be able to do it offline (on open build service, launchpad etc.)
+    # furthermore several commands in the same execute_process are not guaranteed to be executed sequentially
+    install(CODE "
+        execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/sumolib.toml pyproject.toml
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+        execute_process(COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR}
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+        execute_process(COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 build_config/pyproject/traci.toml pyproject.toml
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+        execute_process(COMMAND ${Python_EXECUTABLE} -m build --no-isolation --wheel . -o ${CMAKE_BINARY_DIR}
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+        execute_process(COMMAND ${Python_EXECUTABLE} -m pip install --prefix=\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci
+                        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+    " COMPONENT python_package EXCLUDE_FROM_ALL)
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
     # filter release DLLs
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
+    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
                     OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
     if (ISOLATED_BUILD)
         set(TARGET_DIR ${CMAKE_CURRENT_BINARY_DIR})
@@ -758,27 +763,40 @@ if (SUMO_LIBRARIES AND WIN32)
         install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
-if (PROJ_DATA_DIR)
-    install(DIRECTORY ${PROJ_DATA_DIR}/ DESTINATION ${DATA_PATH}data/proj COMPONENT data)
-endif ()
 # set install dll targets, for non-Windows they depend on nothing
 add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
 add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
 set_property(TARGET install_dll PROPERTY FOLDER "CMake")
 set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
+# installing desktop files and other Linux specific stuff
+if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/profile.d
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*sh" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*.desktop" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pixmaps
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "*.png" PATTERN "jupedsim" EXCLUDE)
+    install(DIRECTORY build_config/package/ DESTINATION ${CMAKE_INSTALL_DATADIR}/mime/application
+            COMPONENT linux_integration EXCLUDE_FROM_ALL
+            FILES_MATCHING PATTERN "org.eclipse.sumo.xml" PATTERN "jupedsim" EXCLUDE)
+endif()
+
 # i18n target
 find_package(Gettext)
 if (Gettext_FOUND)
     if (ISOLATED_BUILD)
         set(LOCALE_DIR ${CMAKE_BINARY_DIR}/data)
-        install(DIRECTORY ${LOCALE_DIR}/locale/ DESTINATION ${DATA_PATH}data/locale)
+        install(DIRECTORY ${LOCALE_DIR}/locale/ DESTINATION ${DATA_PATH}data/locale COMPONENT data)
     else()
         set(LOCALE_DIR ${CMAKE_SOURCE_DIR}/data)
     endif()
     set(I18N_DATA ${LOCALE_DIR}/locale/tr/LC_MESSAGES/sumo.mo)
     add_custom_command(OUTPUT ${I18N_DATA}
-                       COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/i18n.py -m -o ${LOCALE_DIR}
+                       COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/i18n.py -m -o ${LOCALE_DIR}
                        DEPENDS ${CMAKE_SOURCE_DIR}/data/po/tr_gui.po)
 else ()
     message(WARNING "Gettext tools not found, translation files will not be generated.")
@@ -867,6 +885,10 @@ if (HELPMAN_EXECUTABLE)
     set_property(TARGET man PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
     set_property(TARGET man PROPERTY FOLDER "doc")
     set(MAN_TARGET man)
+    if (CMAKE_VERSION VERSION_GREATER 3.6.0 AND CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        install(DIRECTORY docs/man/ DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+                COMPONENT linux_integration EXCLUDE_FROM_ALL)
+    endif()
 endif ()
 
 add_custom_target(doc)
@@ -902,7 +924,7 @@ endif ()
 
 # example and dist targets
 add_custom_target(examples
-    COMMAND ${PYTHON_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
+    COMMAND ${Python_EXECUTABLE} tools/extractTest.py -x -f tests/examples.txt -p docs/examples/runAll.py
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 add_dependencies(examples sumo netconvert dfrouter duarouter jtrrouter)
 set_property(TARGET examples PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
@@ -918,7 +940,7 @@ if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     )
 endif()
 
-add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
+add_test(exampletest ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runAll.py)
 find_package(Git)
 if (GIT_FOUND)
     add_custom_target(dist
@@ -928,10 +950,9 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/tests
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
         COMMAND find tools/contributed/saga/ tools/contributed/traci4matlab -type f | grep -v .git | xargs cp --parents --target-dir sumo-${PACKAGE_VERSION}
-        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/build_config/sumo/__init__.py
-        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/libsumo/__init__.py
-        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/sumolib/version.py
-        COMMAND ${PYTHON_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/traci/__init__.py
+        COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/sumolib/version.py
+        COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/traci/__init__.py
+        COMMAND ${Python_EXECUTABLE} tools/build_config/version.py --pep440 sumo-${PACKAGE_VERSION}/tools/libsumo/__init__.py
         COMMAND mkdir sumo-${PACKAGE_VERSION}/include
         COMMAND cp ${CMAKE_BINARY_DIR}/src/version.h sumo-${PACKAGE_VERSION}/include
         COMMAND zip -rq sumo-src-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}

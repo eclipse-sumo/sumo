@@ -2,6 +2,11 @@ name: docker
 
 on:
   push:
+    paths:
+      - '.github/workflows/docker.yml'
+      - 'build_config/docker/Dockerfile.ubuntu.git'
+    branches:
+      - '**'
     tags:
       - '*'
   workflow_dispatch:

@@ -17,28 +17,24 @@ pipeline {
         stage('Building SUMO & JuPedSim') {
           steps {
               sh '''
-                git config --global advice.detachedHead false
-
                 # Cloning JuPedSim
-                git clone -q --filter=tree:0 --branch v1.2.1 https://github.com/PedestrianDynamics/jupedsim.git
+                git -c advice.detachedHead=false clone -q --depth 1 --branch v1.3.1 https://github.com/PedestrianDynamics/jupedsim.git
 
                 # Building JuPedSim
-                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -D CMAKE_C_COMPILER_LAUNCHER=ccache -D CMAKE_CXX_COMPILER_LAUNCHER=ccache -B jupedsim-build jupedsim
+                cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=jupedsim-install -B jupedsim-build jupedsim
                 cmake --build jupedsim-build -j16 --config Release
                 cmake --install jupedsim-build --config Release
 
                 # Cloning SUMO
-                git clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
+                git -c advice.detachedHead=false clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
                 export SUMO_HOME=\${WORKSPACE}/sumo
 
                 # Creating virtual env for Python for the whole process
-                /opt/homebrew/bin/python3.13 -m venv env
-                env/bin/python3 -m pip install --quiet -r sumo/tools/requirements.txt
-                env/bin/python3 -m pip install --quiet dmgbuild delocate
+                /opt/homebrew/bin/python3.13 -m venv sumo_build_env
+                . sumo_build_env/bin/activate
+                python -m pip install --quiet -r sumo/tools/requirements.txt -r sumo/tools/req_dev.txt
 
                 # Building SUMO & TraaS
-                export VIRTUAL_ENV=${WORKSPACE}/env
-                export PATH=${WORKSPACE}/env/bin:\$PATH
                 cmake -Wno-dev -D CMAKE_INSTALL_PREFIX=sumo-install -B sumo-build sumo
                 cmake --build sumo-build -j16
                 cmake --build sumo-build --target traas
@@ -49,15 +45,16 @@ pipeline {
             steps {
 
                 sh '''
+                    . sumo_build_env/bin/activate
                     # Creating the EclipseSUMO framework directory
                     export DYLD_LIBRARY_PATH="${WORKSPACE}/jupedsim-install/lib"
-                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir \
+                    python sumo/tools/build_config/buildMacOSInstaller.py --create-framework-dir \
                             --build-dir sumo-build \
                             --framework-dir framework
                     zip -q -r --symlinks framework-unsigned.zip framework
 
                     # Creating the EclipseSUMO launcher apps directory
-                    env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-dir --apps-dir apps
+                    python sumo/tools/build_config/buildMacOSInstaller.py --create-apps-dir --apps-dir apps
                     zip -q -r --symlinks apps-unsigned.zip apps
                 '''
                 stash name: 'framework-unsigned', includes: 'framework-unsigned.zip'
@@ -131,6 +128,7 @@ pipeline {
                 unstash 'apps-signed'
                 script {
                     sh """
+                        . sumo_build_env/bin/activate
                         rm -rf framework
                         unzip -q -o framework-signed.zip -d "${WORKSPACE}"
 
@@ -138,13 +136,13 @@ pipeline {
                         unzip -q -o apps-signed.zip -d "${WORKSPACE}"
 
                         rm -rf framework-pkg
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg \
+                        python sumo/tools/build_config/buildMacOSInstaller.py --create-framework-pkg \
                               --framework-dir framework \
                               --framework-pkg-dir framework-pkg
                         zip -q -r --symlinks "framework-pkg-unsigned.zip" framework-pkg
 
                         rm -rf apps-pkg
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-apps-pkg \
+                        python sumo/tools/build_config/buildMacOSInstaller.py --create-apps-pkg \
                               --apps-dir apps \
                               --apps-pkg-dir apps-pkg
                         zip -q -r --symlinks "apps-pkg-unsigned.zip" apps-pkg
@@ -226,6 +224,7 @@ pipeline {
                 unstash 'apps-pkg-signed'
                 script {
                     sh """
+                        . sumo_build_env/bin/activate
                         rm -rf framework-pkg
                         unzip -q -o framework-pkg-signed.zip -d "${WORKSPACE}"
 
@@ -233,7 +232,7 @@ pipeline {
                         unzip -q -o apps-pkg-signed.zip -d "${WORKSPACE}"
 
                         rm -rf installer
-                        env/bin/python3 sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg \
+                        python sumo/tools/build_config/buildMacOSInstaller.py --create-installer-pkg \
                             --framework-pkg-dir framework-pkg \
                             --apps-pkg-dir apps-pkg
                     """

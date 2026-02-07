@@ -1,8 +1,6 @@
 ---
-title: Developer
+title: Developer Documentation
 ---
-
-# Developer Documentation
 
 - [Libraries Licenses](../Libraries_Licenses.md) - which libraries are used and under which licenses
 - [CodeStyle](CodeStyle.md) - information about how the source code should look like
@@ -16,7 +14,6 @@ title: Developer
 - [Managing Publications](Managing_Publications.md) - how to work with the publications bibtex-file
 - [FMI](FMI.md) - information about the current state of the FMI 2.0 support in SUMO
 - [Maven](Maven.md) - information about using libsumo/libtraci in maven builds
-- [How to Update Homebrew Formula](HowToUpdateHomebrewFormula.md) - how to update the macOS Homebrew Formula for a new SUMO release
 - [Translating](Translating.md) - how to add translations for GUI and messaging
 - [Issue Workflow](Workflow.md) - how tickets are being processed
 
@@ -67,6 +64,5 @@ title: Developer
 - [SourceForge project](https://sourceforge.net/projects/sumo/)
 - [Packages on the open build service](https://software.opensuse.org/package/sumo)
 - [Nightly builds on the open build service](https://build.opensuse.org/package/show/science:dlr/sumo_nightly)
-- [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on the Helmholtz RSD](https://helmholtz.software/software/sumo)

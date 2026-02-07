@@ -13,19 +13,21 @@ Warning: Ignoring restriction relation '1727169' with unknown from-way.
 Warning: Ignoring restriction relation '1727169' with unknown to-way.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
-Warning: PT line 'Buslinie 160: Hasselwerderstraße => Siriusstraße' in relation 1119047 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie N60: Flughafen Schönefeld Terminal => S Adlershof' in relation 35040 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 seems to be split, only keeping first part.
-Warning: PT line 'Buslinie 164: S Kaulsdorf => S Flughafen Berlin-Schönefeld' in relation 2064835 seems to be split, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231708 has a gap of 28 stops, only keeping first part.
+Warning: PT line 'Buslinie N60: S Adlershof => Flughafen Schönefeld Terminal' in relation 1231713 has a gap of 8 stops, only keeping first part.
 Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: Edge '-142575745' has a grade of 12.36%.
 Warning: Edge '-172014854#1' has a grade of 11.33%.
 Warning: Edge '-172014854#2' has a grade of 10.78%.
 Warning: Edge '-24214694#1' has a grade of 14.95%.
 Warning: Edge '-24214694#4' has a grade of 13.96%.
+Warning: Stop '837696524' named 'James-Franck-Straße' from line '1119047' on edge '46039050#1' is not part of the route.
+Warning: Stop '1560223236' named 'Rudower Chaussee/Wegedornstraße' from line '1119047' on edge '143308587#1' is not part of the route.
+Warning: Stop '852932398' named 'Wegedornstraße/Semmelweisstraße' from line '1119047' on edge '46150481#0' is not part of the route.
+Warning: Stop '-851572693' named 'Wegedornstraße/Semmelweisstraße' from line '1227007' on edge '-46150481#0' is not part of the route.
+Warning: Stop '464396487' named 'Rudower Chaussee/Wegedornstraße' from line '1227007' on edge '143308542#1' is not part of the route.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network
 Warning: 23 total messages of type: Edge '%' has a grade of %%.
-Warning: 9 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
+Warning: 7 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.

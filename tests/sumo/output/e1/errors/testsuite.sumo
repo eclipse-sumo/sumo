@@ -45,3 +45,4 @@ file_false
 
 # edge does not exist
 nextEdges_invalid
+detectPersons_invalid

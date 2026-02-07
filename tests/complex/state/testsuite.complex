@@ -147,3 +147,11 @@ sortedVehroutes
 
 # remove vehicle on state loading and re-use it's id
 remove_reuse
+
+# see #17526
+waut
+
+# see #17526
+# 
+# save at waut switch time
+waut2

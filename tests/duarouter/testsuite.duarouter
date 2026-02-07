@@ -30,6 +30,7 @@ function
 
 # test route closing
 closing
+closingLane
 
 # routing of pedestrians
 person

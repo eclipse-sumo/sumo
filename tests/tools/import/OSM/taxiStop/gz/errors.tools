@@ -32,5 +32,11 @@ Warning: The rail crossing '4603660237' does not have any roads.
 Warning: The rail crossing 'cluster_8573868516_8573915417' does not have any roads.
 Warning: The traffic light '3820768522' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '3820768522'
+Warning: Stop '1668717159' named 'S Oranienburger Straße' from line '2076228' on edge '143891040#0' is not part of the route.
+Warning: Stop '963600646' named 'Monbijouplatz' from line '2076228' on edge '143891040#2' is not part of the route.
+Warning: Stop '1668717159' named 'S Oranienburger Straße' from line '2076230' on edge '143891040#0' is not part of the route.
+Warning: Stop '963600646' named 'Monbijouplatz' from line '2076230' on edge '143891040#2' is not part of the route.
+Warning: Stop '1661927028' named 'Monbijouplatz' from line '2076231' on edge '154321040#0' is not part of the route.
 Warning: 10 total messages of type: Cannot revise pt stop localization for incomplete pt line '%'. Ignoring!
 Warning: 7 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
+Warning: 10 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.

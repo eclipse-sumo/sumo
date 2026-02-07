@@ -1,0 +1,3 @@
+-f input_routes.rou.xml -o out.rou.xml -t stop -a parkingArea
+--remove-values Marien-A-1.private
+--remove-parent

@@ -1,0 +1,7 @@
+ARG platform=aarch64
+FROM quay.io/pypa/manylinux_2_28_${platform}
+ARG platform
+LABEL description="Dockerfile for a container to build manylinux_2_28 python packages for ${platform}"
+
+COPY install_dependencies.sh /opt/install_dependencies.sh
+RUN cd /opt && ./install_dependencies.sh

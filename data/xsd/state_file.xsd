@@ -247,6 +247,7 @@
         <xsd:attribute name="programID" type="xsd:string" use="required"/>
         <xsd:attribute name="phase" type="xsd:int" use="required"/>
         <xsd:attribute name="duration" type="xsd:integer" use="required"/>
+        <xsd:attribute name="active" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="driveWayStateType">

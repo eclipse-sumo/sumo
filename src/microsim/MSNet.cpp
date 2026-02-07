@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -425,6 +425,7 @@ MSNet::getMesoType(const std::string& typeID) {
         edgeType.tlsFlowPenalty = oc.getFloat("meso-tls-flow-penalty");
         edgeType.minorPenalty = string2time(oc.getString("meso-minor-penalty"));
         edgeType.overtaking = oc.getBool("meso-overtaking");
+        edgeType.edgeLength = oc.getFloat("meso-edgelength");
         myMesoEdgeTypes[typeID] = edgeType;
     }
     return myMesoEdgeTypes[typeID];
@@ -674,7 +675,7 @@ MSNet::writeSummaryOutput(bool finalStep) {
     if (hasOutput || hasPersonOutput) {
         const SUMOTime period = string2time(oc.getString("summary-output.period"));
         const SUMOTime begin = string2time(oc.getString("begin"));
-        if ((period > 0 && (myStep - begin) % period != 0 && !finalStep) 
+        if ((period > 0 && (myStep - begin) % period != 0 && !finalStep)
                 // it's the final step but we already wrote output
                 || (finalStep && (period <= 0 || (myStep - begin) % period == 0))) {
             return;

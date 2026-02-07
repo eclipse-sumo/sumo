@@ -492,6 +492,7 @@
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="power" type="floatType" use="optional"/>
+        <xsd:attribute name="totalPower" type="floatType" use="optional"/>
         <xsd:attribute name="efficiency" type="floatType" use="optional"/>
         <xsd:attribute name="chargeInTransit" type="boolType" use="optional"/>
         <xsd:attribute name="chargeDelay" type="floatType" use="optional"/>

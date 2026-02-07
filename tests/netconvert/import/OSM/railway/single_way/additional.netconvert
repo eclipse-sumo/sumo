@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 15:04:35 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
+<!-- generated on 2026-01-15T12:11:49.693294+01:00 by Eclipse SUMO netconvert v1_25_0+0976-3f75f4984c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -31,12 +31,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="2099899884" name="临顿路" lane="512071975_0" startPos="1908.87" endPos="1923.87" friendlyPos="true" lines="1"/>
     <busStop id="2099903865" name="相门" lane="512071975_0" startPos="2675.78" endPos="2690.78" friendlyPos="true" lines="1"/>
     <busStop id="2101696074" name="养育巷" lane="512071975_0" startPos="262.17" endPos="277.17" friendlyPos="true" lines="1"/>
-    <busStop id="7152453358" name="乐桥" lane="512071975_0" startPos="993.13" endPos="1193.13" friendlyPos="true" lines="1"/>
+    <trainStop id="7152453358" name="乐桥" lane="512071975_0" startPos="993.13" endPos="1193.13" friendlyPos="true" lines="1"/>
 </additional>

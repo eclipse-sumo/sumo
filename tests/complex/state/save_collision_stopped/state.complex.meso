@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-16 08:59:28 by Eclipse SUMO sumo Version v1_23_1+1098-b5f7c6a5135
+<!-- generated on 2026-01-23T11:05:48.117486+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,7 +38,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_23_1+1098-b5f7c6a5135" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_25_0+1151-2ef687ab93b" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <delay number="100" begin="100" end="0" depart="0.000" time="0.000"/>
@@ -143,8 +143,8 @@
     <vehicle id="horizontal.48" type="SUMO_DEFAULT_TYPE" depart="48.000" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 48000 0 0 0 0 54000 48000 9223372036854774807"/>
     <vehicle id="always_right.49" type="SUMO_DEFAULT_TYPE" depart="49.000" route="always_right" distance="0 0" speedFactor="1.0000" state="2210 49000 0 0 0 0 55000 49000 9223372036854774807"/>
     <vehicle id="horizontal.49" type="SUMO_DEFAULT_TYPE" depart="49.000" route="horizontal" distance="0 0" speedFactor="1.0000" state="2210 49000 0 0 0 0 55000 49000 9223372036854774807"/>
-    <flowState id="always_right" type="SUMO_DEFAULT_TYPE" begin="0.000" period="1.000" next="50.000" end="10000.000" route="always_right" done="50" index="50"/>
-    <flowState id="horizontal" type="SUMO_DEFAULT_TYPE" begin="0.000" period="1.000" next="50.000" end="10000.000" route="horizontal" done="50" index="50"/>
+    <flowState id="always_right" type="SUMO_DEFAULT_TYPE" begin="0.000" end="10000.000" period="1" next="50.000" route="always_right" done="50" index="50"/>
+    <flowState id="horizontal" type="SUMO_DEFAULT_TYPE" begin="0.000" end="10000.000" period="1" next="50.000" route="horizontal" done="50" index="50"/>
     <segment id="1si:0">
         <vehicles time="49495" blockTime="-9223372036854775808" value="horizontal.49 horizontal.48 horizontal.47 horizontal.46 horizontal.45 horizontal.44"/>
     </segment>
@@ -179,6 +179,6 @@
         <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
         <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
-    <tlLogic id="0" programID="0" phase="4" duration="5000"/>
-    <tlLogic id="0" programID="freaky" phase="0" duration="50000"/>
+    <tlLogic id="0" programID="0" phase="4" duration="5000" active="0"/>
+    <tlLogic id="0" programID="freaky" phase="0" duration="50000" active="1"/>
 </snapshot>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2014-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2014-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -36,6 +36,8 @@ from zipfile import ZipFile
 import base64
 import ssl
 import collections
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+import time
 
 import osmGet
 import osmBuild
@@ -180,8 +182,10 @@ class Builder(object):
 
     def build(self):
         # output name for the osm file, will be used by osmBuild, can be
-        # deleted after the process
+        # deleted after the process (but should generally be kept for rebuilding)
         self.filename("osm", "_bbox.osm.xml.gz")
+        # configuration for re-downloading the same area from OSM
+        self.filename("ogc", ".ogcfg")
         # output name for the net file, will be used by osmBuild, randomTrips and sumo-gui
         self.filename("net", ".net.xml.gz")
 
@@ -197,6 +201,8 @@ class Builder(object):
                 osmArgs += ["-u", self.data["osmMirror"]]
             if 'roadTypes' in self.data:
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
+            # cannot write config by calling osmGet.get because saving config triggers sys.exit()
+            subprocess.call([sys.executable, osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
             osmGet.get(osmArgs)
 
         if not os.path.exists(self.files["osm"]):
@@ -228,7 +234,11 @@ class Builder(object):
             netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
-        if "ship" in self.data["vehicles"]:
+        # if ferry PT mode is requested, aslo include ships typemap for netconvert
+        if ("ship" in self.data["vehicles"] or
+            (self.data.get("publicTransport")
+             and self.data.get("ptModes")
+             and self.data.get("ptModes").get("ferry"))):
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
@@ -242,7 +252,6 @@ class Builder(object):
             self.filename("ptroutes", "_pt.rou.xml")
             netconvertOptions += ",--ptline-output,%s" % self.files["ptlines"]
             self.additionalFiles.append(self.files["stops"])
-            self.routenames.append(self.files["ptroutes"])
             netconvertOptions += ",--railway.topology.repair"
             typefiles.append(typemaps["aerialway"])
         if self.data["leftHand"]:
@@ -266,6 +275,7 @@ class Builder(object):
         self.report("Converting map data")
         osmBuild.build(options)
         ptOptions = None
+        hasPTFlows = False
         begin = self.data.get("begin", 0)
         if self.data["publicTransport"]:
             self.report("Generating public transport schedule")
@@ -292,7 +302,13 @@ class Builder(object):
                 "--extend-to-fringe",
                 "--verbose",
             ]
-            ptlines2flows.main(ptlines2flows.get_options(ptOptions))
+            # If ptModes is present and none are selected, do NOT call ptlines2flows
+            if self.data.get("ptModes") is not None:
+                types = [t for t, v in self.data.get("ptModes").items() if v]
+                if types:
+                    ptOptions += ["--types", ','.join(types)]
+                    ptlines2flows.main(ptlines2flows.get_options(ptOptions))
+                    hasPTFlows = True
 
         if self.data["decal"]:
             self.report("Downloading background images")
@@ -315,7 +331,7 @@ class Builder(object):
                 self.report("Error while downloading background images: %s" % e)
                 self.decalError = True
 
-        if self.data["vehicles"] or ptOptions:
+        if self.data["vehicles"] or hasPTFlows:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
             randomTripsCalls = []
@@ -336,7 +352,10 @@ class Builder(object):
                     continue
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
-                    options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
+                    addFiles = [self.files["stops"]]
+                    if hasPTFlows:
+                        addFiles.append(self.files["ptroutes"])
+                    options += ["--additional-files", ",".join(addFiles)]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
                     options += ["--duarouter-weights.tls-penalty", "20"]
 
@@ -358,6 +377,10 @@ class Builder(object):
                     self.routenames.append(self.files["trips"])
                     # clean up unused route file (was only used for validation)
                     os.remove(self.files["route"])
+
+            # add generated PT flows to route list only if at least one pt mode was selected
+            if hasPTFlows:
+                self.routenames.append(self.files["ptroutes"])
 
             # create a batch file for reproducing calls to randomTrips.py
             if os.name == "posix":
@@ -553,15 +576,95 @@ class OSMImporterWebSocket(WebSocket):
             print(traceback.format_exc())
             # reset 'Generate Scenario' button
             while self.steps > 0:
-                self.report(str(e) + " Recovering")
+                self.report(str(e) + ", recovering.")
             if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
                 os.rmdir(builder.tmp)
         os.chdir(builder.origDir)
 
 
+class OSMImporterHTTPHandler(SimpleHTTPRequestHandler):
+
+    web_root = os.path.join(os.path.dirname(os.path.realpath(__file__)), "webWizard")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=self.web_root, **kwargs)
+
+    def report(self, message):
+        print(message)
+        self.server.messages.append(u"report " + message)
+        self.server.last_seen = time.time()
+        self.steps -= 1
+
+    def build(self, data):
+        if self.server.output is not None:
+            data['outputDir'] = self.server.output
+        builder = Builder(data, self.server.local)
+        builder.report = self.report
+
+        self.steps = len(data["vehicles"]) + 4
+        self.server.messages.append(u"steps %s" % self.steps)
+
+        try:
+            builder.build()
+            builder.makeConfigFile()
+            builder.createBatch()
+
+            if self.server.local:
+                builder.openSUMO()
+            else:
+                self.server.messages.append(b"zip " + builder.createZip())
+                builder.finalize()
+        except ssl.CertificateError:
+            self.report("Error with SSL certificate, try 'pip install -U certifi'.")
+        except Exception as e:
+            print(traceback.format_exc())
+            # reset 'Generate Scenario' button
+            while self.steps > 0:
+                self.report(str(e) + ", recovering.")
+            if os.path.isdir(builder.tmp) and not os.listdir(builder.tmp):
+                os.rmdir(builder.tmp)
+        os.chdir(builder.origDir)
+
+    def log_message(self, format, *args):
+        pass  # disable default logging
+
+    def do_POST(self):
+        if self.path == "/build":
+            length = int(self.headers.get("Content-Length", 0))
+            data = self.rfile.read(length)
+            threading.Thread(target=self.build, args=(json.loads(data),)).start()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "started"}).encode())
+        else:
+            self.send_error(404)
+
+    def do_GET(self):
+        if self.path == "/progress":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"data": self.server.messages[0] if self.server.messages else ""}).encode())
+            del self.server.messages[:1]
+        else:
+            super().do_GET()
+
+
+def watchdog(server, timeout=3600):
+    while True:
+        time.sleep(60)
+        if time.time() - server.last_seen > timeout:
+            print("No request, shutting down server.")
+            server.shutdown()
+            break
+
+
 def get_options(args=None):
-    parser = sumolib.options.ArgumentParser(description="OSM Web Wizard for SUMO - Websocket Server")
-    parser.add_argument("--remote", action="store_true",
+    parser = sumolib.options.ArgumentParser(description="OSM Web Wizard for SUMO")
+    parser.add_argument("--web-socket", action="store_true", default=False,
+                        help="Create a (legacy) websocket instead of running a http server.")
+    parser.add_argument("--remote", action="store_true", default=False,
                         help="In remote mode, SUMO GUI will not be automatically opened instead a zip file " +
                         "will be generated.")
     parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", help="use input file from path.")
@@ -571,9 +674,9 @@ def get_options(args=None):
     parser.add_argument("--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north.")
     parser.add_argument("-o", "--output", dest="outputDir",
                         help="Write output to the given folder rather than creating a name based on the timestamp")
-    parser.add_argument("--address", default="", help="Address for the Websocket.")
-    parser.add_argument("--port", type=int, default=0,
-                        help="Port for the Websocket. By default a random port is chosen.")
+    parser.add_argument("--address", default="", help="Address for the web socket or server.")
+    parser.add_argument("--port", type=int,
+                        help="Port for the web socket or server. By default a random port is chosen.")
     parser.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     parser.add_argument("-b", "--begin", default=0, type=sumolib.miscutils.parseTime,
                         help="Defines the begin time for the scenario.")
@@ -586,8 +689,8 @@ def get_options(args=None):
 
 
 def main(options):
-    OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
-    OSMImporterWebSocket.outputDir = options.outputDir
+    if options.port is None:
+        options.port = DEFAULT_PORT if options.remote else 0
     if options.testOutputDir is not None:
         demand = collections.defaultdict(dict)
         for mode in options.demand.split(","):
@@ -602,6 +705,17 @@ def main(options):
                 u'osm': os.path.abspath(options.osmFile),
                 u'poly': options.bbox is None,  # reduce download size
                 u'publicTransport': True,
+                u'ptModes': {'bus': True,
+                             'tram': True,
+                             'train': True,
+                             'subway': True,
+                             'light_rail': True,
+                             'monorail': True,
+                             'trolleybus': True,
+                             'minibus': True,
+                             'share_taxi': True,
+                             'aerialway': True,
+                             'ferry': True},
                 u'leftHand': False,
                 u'decal': False,
                 u'verbose': options.verbose,
@@ -616,7 +730,10 @@ def main(options):
         builder.createBatch()
         if not options.remote:
             subprocess.call([sumolib.checkBinary("sumo"), "-c", builder.files["config"]])
-    else:
+    elif options.web_socket:
+        # everything concerning web sockets is considered legacy
+        OSMImporterWebSocket.local = options.testOutputDir is not None or not options.remote
+        OSMImporterWebSocket.outputDir = options.outputDir
         port = DEFAULT_PORT
         if os.name != "nt":
             port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
@@ -629,7 +746,7 @@ def main(options):
                 wizard_path = os.path.join(new_path, 'webWizard')
                 if not os.path.exists(wizard_path):
                     os.makedirs(new_path, exist_ok=True)
-                    shutil.copytree(os.path.join(path, "webWizard"), wizard_path)
+                shutil.copytree(os.path.join(path, "webWizard"), wizard_path, dirs_exist_ok=True)
                 path = new_path
                 os.chdir(path)
             url = "file://" + os.path.join(path, "webWizard", "index.html")
@@ -638,6 +755,19 @@ def main(options):
                 url += "?port=%s" % port
             webbrowser.open(url)
         server.serveforever()
+    else:
+        port = options.port if options.port else sumolib.miscutils.getFreeSocketPort()
+        httpd = HTTPServer((options.address, port), OSMImporterHTTPHandler)
+        httpd.local = options.testOutputDir is not None or not options.remote
+        httpd.output = options.outputDir
+        httpd.messages = []
+        httpd.last_seen = time.time()
+        if options.remote:
+            print("Web server listening on http://%s:%s/ in remote mode." % (httpd.server_name, port))
+        else:
+            webbrowser.open("http://127.0.0.1:%s/" % port)
+            threading.Thread(target=watchdog, args=(httpd,), daemon=True).start()
+        httpd.serve_forever()
 
 
 if __name__ == "__main__":

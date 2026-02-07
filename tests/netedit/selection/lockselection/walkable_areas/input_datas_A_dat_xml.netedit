@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 15:07:55 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2026-01-12T08:48:18.274613+01:00 by Eclipse SUMO netedit v1_25_0+0913-a532ffb70e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,18 +14,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
-    <interval id="set" begin="0.00" end="3600.00">
-        <edgeRelation from="-E0" to="E1"/>
-        <edgeRelation from="-E9" to="-E12"/>
-        <edgeRelation from="E12" to="E9"/>
-        <edgeRelation from="-E1" to="E0"/>
-        <edge id="E10"/>
-        <edge id="E11"/>
-        <edge id="-E6"/>
-        <edge id="-E7"/>
-        <edge id="-E8"/>
-        <edge id="-E2"/>
-        <edge id="-E4"/>
-        <edge id="-E5"/>
+    <interval id="dataSet" begin="0.00" end="3600.00">
+        <edge id="E0"/>
+        <edge id="-E0"/>
+        <edge id="-E1"/>
+        <edge id="E1"/>
+        <edge id="EdgeExternTop"/>
+        <edge id="EdgeExternBot"/>
     </interval>
 </data>

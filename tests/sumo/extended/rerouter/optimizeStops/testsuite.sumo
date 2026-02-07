@@ -6,3 +6,6 @@ grid5x10_129
 
 # close multiple edges
 grid5x10_close23
+
+# use 9 stops, start an end at junction taz
+grid5x10_taz

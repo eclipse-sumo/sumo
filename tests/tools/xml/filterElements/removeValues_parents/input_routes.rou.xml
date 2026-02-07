@@ -1,0 +1,14 @@
+<routes>
+    <trip depart="103748.00" departLane="best" departSpeed="max" id="100019735_100013484_293_0" to="525452872" type="medium" departPos="stop">
+        <stop duration="18000" parkingArea="Marien-A-1.private" />
+    </trip>
+    <trip depart="106014.82" departLane="best" departSpeed="max" id="100612522_100340936_312_0" to="30429265#2" type="medium" departPos="stop">
+        <stop duration="18000" parkingArea="Duerer-B-4.private" />
+    </trip>
+    <trip depart="149363.00" departLane="best" departSpeed="max" id="100026834_100017763_1054_0" to="165574143#0" type="large" departPos="stop">
+        <stop duration="18000" parkingArea="Marien-A-1.private" />
+    </trip>
+    <trip depart="107052.00" departLane="best" departSpeed="max" id="100044898_100028734_339_0" to="447787390#0" type="small" departPos="stop">
+        <stop duration="18000" parkingArea="Wilhelmbode-B-4.private" />
+    </trip>
+</routes>

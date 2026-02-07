@@ -395,6 +395,7 @@ The following options can be used to randomize the added stops:
 
 - **--probability**: Randomly adds a stop for each vehicle with probability in `[0,1]`
 - **--reledge random**: Adds stop on a random edge along the route
+- **--via-index random**: Adds stop on a random edge along the route (including via edges)
 - **--relpos random**: Adds stop on random offset along the edge
 - **--lane random**: Adds stop on random (permitted) lane of the stop edge
 
@@ -409,6 +410,7 @@ Instead of modifying a given route file by adding stops, the tool can also synth
 ## Further Options
 
 - **--parking-areas FILE**: Load additional file with parking area definitions. If the final edge of a vehicle has a parkingArea, this will be used as the destination
+- **--via-index INDEX**: Choose the stop edge by index along the route (0-based, negative allowed). For trips/flows with `via`, the edge list is `[from] + via + [to]`. When set, this overrides **--reledge**.
 - **--person-duration**, **--person-until**: if set, any persons in the input will receive a `<stop>` as the last element of their plan
 - **--start-at-stop**: if set, vehicle routes will be shortened so they start at the final edge. This can be used to define stationary traffic which fills up parkingAreas without driving around.
 

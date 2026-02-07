@@ -1,11 +1,11 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (4ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (2ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (2ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (2ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (3ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (1ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (1ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (1ms).
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test'.
 generating trips...
 Cannot extend route to fringe for line '9445421' (not enough edges given)
 Cannot extend route to fringe for line '9445422' (not enough edges given)
@@ -17,23 +17,23 @@ done.
 creating routes...
 done.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (6ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (15ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (13ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/output.add.xml' ... done (13ms).
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm.bicycle.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.08Oct132326.3845920/tools/import/OSM/webWizard_missingEdges/test/osm.ship.trips.xml'
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (5ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (15ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (14ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/output.add.xml' ... done (13ms).
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm.bicycle.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm.pedestrian.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm.ship.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.30Jan094838.1821459/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml'
 Loading done.
-Simulation version v1_24_0+1273-884b680c2a9 started with time: 0.00.
+Simulation version v1_26_0+0012-ff0dec16a69 started with time: 0.00.
 Simulation ended at time: 1848.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.10s
- Real time factor: 18297
- UPS: 62752.475248
- UPS-Persons: 28960.396040
+ Real time factor: 18117.6
+ UPS: 62137.254902
+ UPS-Persons: 28676.470588
 Vehicles:
  Inserted: 11
  Running: 0
@@ -47,7 +47,7 @@ Statistics (avg of 8):
  Speed: 3.38
  Duration: 746.62
  WaitingTime: 0.25
- TimeLoss: 34.23
+ TimeLoss: 1.00
  DepartDelay: 0.15
 Bike Statistics (avg of 3):
  RouteLength: 679.55

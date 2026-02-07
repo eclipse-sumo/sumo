@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:18 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2026-01-15T12:11:51.528665+01:00 by Eclipse SUMO netconvert v1_25_0+0976-3f75f4984c5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -43,28 +43,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="1861845636" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="26.65" endPos="51.65" friendlyPos="true" lines="27 61 62 68 67 63"/>
-    <busStop id="1863260107" name="Freiheit" lane="107509085#0_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="27 61 62 68 67 63">
+    <trainStop id="1861845636" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="26.65" endPos="51.65" friendlyPos="true" lines="27 61 62 68 67 63"/>
+    <trainStop id="1863260107" name="Freiheit" lane="107509085#0_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="27 61 62 68 67 63">
         <access lane="180892741#0_0" pos="33.91" length="8.91" friendlyPos="1"/>
-        <access lane="180892741#1_0" pos="6.99" length="0.36" friendlyPos="1"/>
+        <access lane="180892741#1_0" pos="6.98" length="0.36" friendlyPos="1"/>
         <access lane="180892741#2_0" pos="0.00" length="6.35" friendlyPos="1"/>
-        <access lane="181020318#0_0" pos="22.63" length="90.85" friendlyPos="1"/>
-        <access lane="181020318#1_0" pos="0.81" length="90.62" friendlyPos="1"/>
-    </busStop>
+        <access lane="181020318#0_0" pos="22.64" length="90.86" friendlyPos="1"/>
+        <access lane="181020318#1_0" pos="0.82" length="90.62" friendlyPos="1"/>
+    </trainStop>
     <busStop id="1907551292" name="Freiheit" lane="180892741#0_0" startPos="12.10" endPos="27.10" friendlyPos="true" lines="164 N90"/>
-    <busStop id="370884692" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="41.23" endPos="66.23" friendlyPos="true" lines="60 61 62 68 63"/>
-    <busStop id="3923335405" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="50.51" endPos="65.51" friendlyPos="true" lines="164 N90"/>
+    <trainStop id="370884692" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="41.23" endPos="66.23" friendlyPos="true" lines="60 61 62 68 63"/>
+    <busStop id="3923335405" name="Bahnhofstraße/Lindenstraße" lane="175772156_1" startPos="50.52" endPos="65.52" friendlyPos="true" lines="164 N90"/>
     <busStop id="3923335406" name="Bahnhofstraße/Lindenstraße" lane="175925602_1" startPos="60.42" endPos="75.42" friendlyPos="true" lines="164 N90"/>
     <busStop id="534413010" name="Bahnhofstraße/Lindenstraße" lane="672958015#2_0" startPos="32.80" endPos="47.80" friendlyPos="true"/>
-    <busStop id="94942335" name="Bahnhofstraße/Lindenstraße" lane="175925594#1_0" startPos="48.42" endPos="73.42" friendlyPos="true" lines="27 60 67">
-        <access lane="175769910_0" pos="9.81" length="8.48" friendlyPos="1"/>
+    <trainStop id="94942335" name="Bahnhofstraße/Lindenstraße" lane="175925594#1_0" startPos="48.42" endPos="73.42" friendlyPos="true" lines="27 60 67">
+        <access lane="175769910_0" pos="9.82" length="8.48" friendlyPos="1"/>
         <access lane="175769919#0_0" pos="0.00" length="87.48" friendlyPos="1"/>
-        <access lane="310306840#0_0" pos="0.00" length="39.36" friendlyPos="1"/>
+        <access lane="310306840#0_0" pos="0.00" length="39.35" friendlyPos="1"/>
         <access lane="310306840#1_0" pos="0.00" length="78.80" friendlyPos="1"/>
-        <access lane="672958015#2_0" pos="47.80" length="23.81" friendlyPos="1"/>
-    </busStop>
+        <access lane="672958015#2_0" pos="47.80" length="23.80" friendlyPos="1"/>
+    </trainStop>
 </additional>

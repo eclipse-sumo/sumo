@@ -21,4 +21,4 @@ if (GNU_COMPILER AND ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS "9.0" AND "cxx_s
 endif()
 add_dependencies(emissionsMap generate-version-h install_dll)
 
-install(TARGETS emissionsDrivingCycle emissionsMap RUNTIME DESTINATION bin)
+install(TARGETS emissionsDrivingCycle emissionsMap RUNTIME DESTINATION bin COMPONENT runtime)

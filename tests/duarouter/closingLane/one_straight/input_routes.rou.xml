@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-12-12T08:23:27.377709+01:00 by Eclipse SUMO netedit v1_25_0+0482-e1712a2661e
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="before_closing" depart="0.00" from="beg" to="end"/>
+    <trip id="close_en_route" depart="990.00" from="beg" to="end"/>
+    <trip id="closed_on_depart" depart="1100" from="beg" to="end"/>
+    <trip id="opened_en_route" depart="1990" from="beg" to="end"/>
+    <trip id="opened_on_depart" depart="2100" from="beg" to="end"/>
+</routes>

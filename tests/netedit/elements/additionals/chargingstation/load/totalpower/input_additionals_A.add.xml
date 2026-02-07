@@ -1,0 +1,14 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- non valid totalPower 1 (missing)-->
+    <chargingStation id="chargingStation_0" lane="EdgeCenter1_1" startPos="0" endPos="2" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid totalPower 2 (dummy)-->
+    <chargingStation id="chargingStation_1" lane="EdgeCenter1_1" startPos="4" endPos="6" totalPower="dummyPower" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- non valid totalPower 2 (negative) -->
+    <chargingStation id="chargingStation_2" lane="EdgeCenter1_1" startPos="8" endPos="10" totalPower="-22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+    <!-- valid totalPower 3-->
+    <chargingStation id="chargingStation_2" lane="EdgeCenter1_1" startPos="8" endPos="10" totalPower="5000.50" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00" name="chargingStation" friendlyPos="false"/>
+
+</additional>

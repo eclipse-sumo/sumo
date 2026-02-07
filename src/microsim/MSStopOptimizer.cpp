@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -83,9 +83,9 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
     }
 #ifdef DEBUG_OPTIMIZE_SKIPPED
     std::cout << SIMTIME << " optimizeSkipped veh=" << myVehicle->getID()
-        << " source=" << source->getID() << " sourcePos=" << sourcePos
-        << " nStops=" << stops.size() << " skipped=" << toString(skipped) << " qSize=" << queue.size()
-        << " minSkipped=" << minSkipped << " totalPrio=" << totalPrio << "\n";
+              << " source=" << source->getID() << " sourcePos=" << sourcePos
+              << " nStops=" << stops.size() << " skipped=" << toString(skipped) << " qSize=" << queue.size()
+              << " minSkipped=" << minSkipped << " totalPrio=" << totalPrio << "\n";
     for (const StopEdgeInfo& stop : stops) {
         std::cout << "   edge=" << stop.edge->getID() << " name=" << stop.nameTag.first << " wasSkipped=" << stop.skipped << " prio=" << stop.priority << "\n";
     }
@@ -98,12 +98,12 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
         queue.pop();
 #ifdef DEBUG_OPTIMIZE_SKIPPED
         std::cout << "  qSize=" << queue.size() << " topNode edge=" << ptr->edge->getID()
-            << " name='" << ptr->nameTag.first << "' skippedPrio=" << ptr->skippedPrio
-            << " trackChanges=" << ptr->trackChanges
-            << " cost=" << ptr->cost
-            << " reachedPrio=" << ptr->reachedPrio
-            << " mandatory=" << ptr->reachedMandatory
-            << " stopIndex=" << ptr->stopIndex << "\n";
+                  << " name='" << ptr->nameTag.first << "' skippedPrio=" << ptr->skippedPrio
+                  << " trackChanges=" << ptr->trackChanges
+                  << " cost=" << ptr->cost
+                  << " reachedPrio=" << ptr->reachedPrio
+                  << " mandatory=" << ptr->reachedMandatory
+                  << " stopIndex=" << ptr->stopIndex << "\n";
 #endif
         auto succ = ptr->getSuccessor(stops, minSkipped);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
@@ -113,11 +113,11 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
             minSkipped = MIN2(minSkipped, totalPrio - ptr->reachedPrio);
 #ifdef DEBUG_OPTIMIZE_SKIPPED
             std::cout << "   newBestNode edge=" << bestNode->edge->getID() << " minSkipped=" << minSkipped
-                        << " orm=" << bestNode->reachedMandatory << " rm=" << ptr->reachedMandatory
-                        << " orp=" << bestNode->reachedPrio << " rp=" << ptr->reachedPrio
-                        << " otc=" << bestNode->trackChanges << " tc=" << ptr->trackChanges
-                        << " oc=" << bestNode->cost << " c=" << ptr->cost
-                        << "\n";
+                      << " orm=" << bestNode->reachedMandatory << " rm=" << ptr->reachedMandatory
+                      << " orp=" << bestNode->reachedPrio << " rp=" << ptr->reachedPrio
+                      << " otc=" << bestNode->trackChanges << " tc=" << ptr->trackChanges
+                      << " oc=" << bestNode->cost << " c=" << ptr->cost
+                      << "\n";
 #endif
             bestNode = ptr;
         }
@@ -145,20 +145,20 @@ MSStopOptimizer::optimizeSkipped(const MSEdge* source, double sourcePos, std::ve
                 } else if (!(*best < *ptr)) {
 #ifdef DEBUG_OPTIMIZE_SKIPPED
                     std::cout << "skip " << ptr->edge->getID()
-                        << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
-                        << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
-                        << " oc=" << best->cost << " c=" << ptr->cost
-                        << "\n";
+                              << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
+                              << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
+                              << " oc=" << best->cost << " c=" << ptr->cost
+                              << "\n";
 #endif
                     continue;
                 } else {
                     bestIntermediate[ptr->edge] = ptr;
 #ifdef DEBUG_OPTIMIZE_SKIPPED
                     std::cout << "newBest " << ptr->edge->getID()
-                        << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
-                        << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
-                        << " oc=" << best->cost << " c=" << ptr->cost
-                        << "\n";
+                              << " orp=" << best->reachedPrio << " rp=" << ptr->reachedPrio
+                              << " otc=" << best->trackChanges << " tc=" << ptr->trackChanges
+                              << " oc=" << best->cost << " c=" << ptr->cost
+                              << "\n";
 #endif
                 }
             }
@@ -291,9 +291,9 @@ MSStopOptimizer::StopPathNode::getSuccessor(const std::vector<StopEdgeInfo>& sto
 
 bool
 MSStopOptimizer::reachableInTime(const MSEdge* from, double fromPos,
-        const MSEdge* to, double toPos,
-        SUMOTime arrival,
-        ConstMSEdgeVector& into, double &cost) const {
+                                 const MSEdge* to, double toPos,
+                                 SUMOTime arrival,
+                                 ConstMSEdgeVector& into, double& cost) const {
     myRouter.compute(from, fromPos, to, toPos, myVehicle, myT, into, true);
     if (into.size() > 0) {
         cost = myRouter.recomputeCostsPos(into, myVehicle, fromPos, toPos, myT);

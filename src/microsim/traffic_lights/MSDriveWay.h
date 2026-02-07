@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2002-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -171,6 +171,10 @@ public:
         return mySubDriveWays;
     }
 
+    bool foundSignal() const {
+        return myFoundSignal;
+    }
+
     static void init();
 
     static bool hasRS(const MSEdge* cur, const MSEdge* next);
@@ -314,6 +318,9 @@ protected:
 
     bool haveSubTrains() const;
 
+    /// @brief compute distance along the forward section up to lastIndex
+    double getForwardDistance(int lastIndex) const;
+
     /* @brief whether the train would have matched this driveway in it's past
      * @return If matching, returns the number of edges the vehicle has gone past the start of the driveway,
      *         Indicate no-match by returning a negative value */
@@ -350,7 +357,7 @@ private:
         double length;
     };
 
-    std::set<SUMOVehicle*> myTrains;
+    std::set<SUMOVehicle*, ComparatorNumericalIdLess> myTrains;
 
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
@@ -370,6 +377,7 @@ private:
 
     static int myGlobalDriveWayIndex;
     static bool myWriteVehicles;
+    static double myMovingBlockMaxDist;
     static std::set<const MSEdge*> myBlockLengthWarnings;
 
     /// @brief all driveways passing the given switch (used to look up flank foes)

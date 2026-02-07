@@ -1,4 +1,14 @@
 Warning! No mapping library found, falling back to tracemapper.
+Trip 257596 (tram): detour (factor 56.89) to stop index 1, fromPos=4767.48,13741.94 toPos=4783.73,13579.17 (airLine=163.58 path=9306.44)
+Trip 257596 (tram): detour (factor 20.07) to stop index 2, fromPos=4783.73,13579.17 toPos=4848.26,13134.29 (airLine=449.53 path=9020.38)
+Trip 257596 (tram): detour (factor 26.86) to stop index 3, fromPos=4848.26,13134.29 toPos=4931.65,12804.76 (airLine=339.92 path=9129.94)
+Trip 257596 (tram): detour (factor 25.83) to stop index 4, fromPos=4931.65,12804.76 toPos=5007.95,12522.44 (airLine=292.45 path=7555.47)
+Trip 259570 (tram): detour (factor 13.18) to stop index 3, fromPos=4048.94,13014.50 toPos=4229.21,12512.80 (airLine=533.10 path=7025.10)
+Trip 259570 (tram): detour (factor 13.08) to stop index 4, fromPos=4229.21,12512.80 toPos=4422.96,12023.54 (airLine=526.23 path=6884.90)
+Trip 259570 (tram): detour (factor 15.56) to stop index 5, fromPos=4422.96,12023.54 toPos=4545.07,11566.29 (airLine=473.27 path=7366.04)
+Trip 68252 (tram): detour (factor 13.18) to stop index 3, fromPos=4048.94,13014.50 toPos=4229.21,12512.80 (airLine=533.10 path=7025.10)
+Trip 68252 (tram): detour (factor 13.08) to stop index 4, fromPos=4229.21,12512.80 toPos=4422.96,12023.54 (airLine=526.23 path=6884.90)
+Trip 68252 (tram): detour (factor 15.56) to stop index 5, fromPos=4422.96,12023.54 toPos=4545.07,11566.29 (airLine=473.27 path=7366.04)
 Warning! Disconnected route '257596' between '319292807' and '107701626', no path found. Keeping longer part.
 Warning! Disconnected route '259570' between '461452916' and '180390329#0', no path found. Keeping longer part.
 Warning! Disconnected route '68252' between '461452916' and '180390329#0', no path found. Keeping longer part.

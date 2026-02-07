@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-12T18:51:29.887909+01:00 by Eclipse SUMO marouter v1_24_0+1792-20e39f02fff
+<!-- generated on 2026-01-28T19:23:48.244513+01:00 by Eclipse SUMO marouter v1_25_0+1221-39583a3f647
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -48,6 +48,7 @@
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output-suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>

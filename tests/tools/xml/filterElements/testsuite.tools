@@ -7,3 +7,6 @@ keepInterval
 
 # remove elements with attributes within a given interval
 removeInterval
+
+# remove parent elements if a child element matches the attribute value
+removeValues_parents

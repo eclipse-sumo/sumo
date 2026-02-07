@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:57:23 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2026-01-12T15:08:32.287538+01:00 by Eclipse SUMO netedit v1_25_0+0930-8df81cde35d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,4 +14,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_2" edges="EdgeExternTop"/>
+    <route id="r_3" edges="EdgeExternBot"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vehicle id="v_2" depart="0.00" route="r_2"/>
+    <vehicle id="v_3" depart="0.00" route="r_3"/>
 </routes>

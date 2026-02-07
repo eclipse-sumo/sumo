@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -20,7 +20,6 @@ from __future__ import print_function
 import os
 import sys
 import datetime
-import fileinput
 
 from .. import version
 from .. import miscutils
@@ -80,21 +79,13 @@ def insertOptionsHeader(filename, options):
     Inserts a comment header with the options used to call the script into an existing file.
     """
     header = buildHeader(options=options)
-    if not filename.endswith('.gz'):
-        fileToPatch = fileinput.FileInput(filename, inplace=True)
-        for lineNbr, line in enumerate(fileToPatch):
-            if lineNbr == 2:
-                print(header, end='')
-            print(line, end='')
-        fileToPatch.close()
-    else:
-        #  fileinput cannot use inplace together with compression
-        tmpfile = "tmp." + filename
-        with miscutils.openz(tmpfile, 'w') as tmpf:
-            with miscutils.openz(filename) as inpf:
-                for lineNbr, line in enumerate(inpf):
-                    if lineNbr == 2:
-                        tmpf.write(header)
-                    tmpf.write(line)
-        os.remove(filename)  # on windows, rename does not overwrite
-        os.rename(tmpfile, filename)
+    fpath, fbase = os.path.split(filename)
+    tmpfile = os.path.join(fpath, "tmp." + fbase)
+    with miscutils.openz(tmpfile, 'w') as tmpf:
+        with miscutils.openz(filename) as inpf:
+            for lineNbr, line in enumerate(inpf):
+                if lineNbr == 2:
+                    tmpf.write(header)
+                tmpf.write(line)
+    os.remove(filename)  # on windows, rename does not overwrite
+    os.rename(tmpfile, filename)

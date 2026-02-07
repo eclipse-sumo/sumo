@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -885,15 +885,22 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             && isRailwayOrShared(myPermissions)) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
+#ifdef DEBUG_INSERTION
+        gDebugFlag4 = DEBUG_COND2(aVehicle) || DEBUG_COND;
+#endif
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
             setParameter("insertionBlocked:" + aVehicle->getID(), dw->getID());
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "   foe of driveway " + dw->getID() + " has occupied edges " + toString(occupied) << "\n";
             }
+            gDebugFlag4 = false;
 #endif
             return false;
         }
+#ifdef DEBUG_INSERTION
+        gDebugFlag4 = false;
+#endif
     }
     // do not insert if the bidirectional edge is occupied
     if (getBidiLane() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {

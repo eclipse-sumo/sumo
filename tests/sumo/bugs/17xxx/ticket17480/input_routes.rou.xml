@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flowA" begin="10.20" end="50.00" number="100" departLane="random" departPos="2.00" departSpeed="12.00" arrivalPos="3.00" arrivalPosLat="3.00" fromJunction="Junction0" toJunction="Junction3">
+    </flow>
+
+    <flow id="flowB" begin="10.20" end="50.00" number="100" departLane="free" departPos="random" departSpeed="speedLimit" arrivalPos="random" fromJunction="Junction2" toJunction="Junction3">
+    </flow>
+</routes>

@@ -1,0 +1,3 @@
+Error: Attribute 'detectPersons' in definition of edgeData 'ed_0' is empty.
+Error: Could not build edgeData with ID 'ed_1' in netedit; Invalid value 'dummy' for detectPersons.
+Error: Loading of input_meandatas_A.add.xml failed.

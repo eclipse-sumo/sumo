@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 16 14:29:22 2021 by Eclipse SUMO netconvert Version v1_9_0+0081-d468d72
+<!-- generated on 2026-01-15T17:23:43.063900+01:00 by Eclipse SUMO netconvert v1_25_0+0982-661d0b37406
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
         <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
         <ptstop-files value="input_ptstops.xml"/>
         <ptline-files value="input_ptlines.xml"/>
     </input>
@@ -24,16 +30,14 @@ SPDX-License-Identifier: EPL-2.0
 
     <railway>
         <railway.topology.repair value="true"/>
-        <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -43,10 +47,10 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="-stopC" name="Kolonnenbrücke" lane="-c_0" startPos="30.00" endPos="80.00" friendlyPos="true">
         <access lane="gneE2_0" pos="38.89" length="151.40" friendlyPos="1"/>
     </busStop>
-    <busStop id="stopA" name="Dudenstraße" lane="a_0" startPos="10.00" endPos="80.00" friendlyPos="true">
+    <busStop id="stopA" name="Dudenstraße" lane="a_0" startPos="10.00" endPos="80.00" friendlyPos="true" lines="140">
         <access lane="gneE2_0" pos="134.46" length="91.76" friendlyPos="1"/>
     </busStop>
-    <busStop id="stopC" name="Kolonnenbrücke" lane="c_0" startPos="20.00" endPos="70.00" friendlyPos="true">
+    <busStop id="stopC" name="Kolonnenbrücke" lane="c_0" startPos="20.00" endPos="70.00" friendlyPos="true" lines="104 N42">
         <access lane="gneE2_0" pos="38.89" length="151.40" friendlyPos="1"/>
     </busStop>
 </additional>

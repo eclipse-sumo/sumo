@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:47:32 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-01-13T17:31:34.997400+01:00 by Eclipse SUMO sumo v1_25_0+0953-851384ba8f7
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,7 +19,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="44135"/>
+        <remote-port value="44521"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -28,5 +28,5 @@
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A1B1_0" pos="49.99" parking="0" started="16.00" ended="111.00" delay="11.00" arrivalDelay="-26.00" tripId="fancyID" line="S42" split="train0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="B1C1_0" pos="64.01" parking="0" started="128.00" ended="228.00" busStop="busStop_B1C1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="C1D1_0" pos="73.66" parking="0" started="239.00" ended="240.00" busStop="busStop_C1D1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="C1D1_0" pos="73.64" parking="0" started="239.00" ended="240.00" busStop="busStop_C1D1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

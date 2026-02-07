@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 19:31:12 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
+<!-- generated on 2026-01-22T13:22:09.394926+01:00 by Eclipse SUMO netconvert v1_25_0+1132-85821d00738
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml.gz"/>
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
@@ -52,9 +52,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="5414156524" name="Ackerstraße"/>
         <busStop id="5708039355" name="Hauptfriedhof"/>
     </ptLine>
-    <ptLine id="3887930" name="Tram 4: Radeklint =&gt; Helmstedter Str." line="4" type="tram" vClass="tram" period="900" color="0,158,227" completeness="0.08" missingBefore="8" missingAfter="4">
+    <ptLine id="3887930" name="Tram 4: Radeklint =&gt; Helmstedter Str." line="4" type="tram" vClass="tram" period="900" color="0,158,227" completeness="0.15" missingBefore="8" missingAfter="3">
         <route edges="310569080#0 310569080#1 310569080#2 310569080#3 310569080#4 310569080#5 310569080#6 310569080#7 310569080#8 310569080#9 310569080#10 310569080#11 310569080#12 600220249#0 600220249#1 600220249#2"/>
         <busStop id="5414156523" name="Ackerstraße"/>
+        <busStop id="5708111211" name="Hauptfriedhof"/>
     </ptLine>
     <ptLine id="6615477" name="Bus 422: Bebelhof =&gt; Lehndorf" line="422" type="bus" vClass="bus" period="1800" color="90,197,242" completeness="0.03" missingBefore="37" missingAfter="2">
         <route edges="361120213 361120217#0 361120217#1 563320576#0 563320576#1 563320576#2 599936773 -382039401#2 -382039401#1 -382039401#0 61302715"/>

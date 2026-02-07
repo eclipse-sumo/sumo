@@ -53,3 +53,20 @@ S5
 
 # keep railway.rail when used for light_rail route but remove it otherwise
 mixed_traffic_filter
+
+# see #17537
+jena_tram
+
+# see #17537
+jena_tram_allBidi
+
+# see #17537
+jena_tram2
+
+# see #17537
+jena_tram2_noBidiStops
+
+# see #17537
+# 
+# includes a road so the tram edge is split differently
+jena_tram2_noBidiStops_split

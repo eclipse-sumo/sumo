@@ -24,3 +24,7 @@ opening-delay
 # train is inserted directly in front of the crossing
 # 
 sudden_insertion
+
+# a single approaching vehicle needs to stop before passing
+# 
+basic_off

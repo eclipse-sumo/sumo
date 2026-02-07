@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -114,7 +114,7 @@ def get_merged_data(options):
 
     trips_routes_merged = pd.merge(trips_on_day, routes, on='route_id')
     merged = pd.merge(stops_merged, trips_routes_merged,
-                      on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
+                      on='trip_id')[['trip_id', 'block_id', 'route_id', 'route_short_name', 'route_type',
                                      'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
                                      'fare_zone', 'fare_token', 'start_char', 'trip_headsign',
                                      'arrival_time', 'departure_time']].drop_duplicates()
@@ -146,7 +146,7 @@ def main(options):
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
     seenModes = set()
-    modes = set(options.modes.split(","))
+    modes = options.modes.split(",")
     for mode in modes:
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")

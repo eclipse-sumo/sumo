@@ -16,12 +16,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- MeanDataLanes -->
-    <laneData id="ld_0" file="ed_0.xml" minSamples=""/>
+    <laneData id="ld_0" file="ed_0.xml" detectPersons=""/>
 
-	<laneData id="ld_1" file="ed_0.xml" minSamples="dummy"/>
+	<laneData id="ld_1" file="ed_0.xml" detectPersons="dummy"/>
 
-	<laneData id="ld_2" file="ed_0.xml" minSamples="-12"/>
-
-	<laneData id="ld_3" file="ed_0.xml" minSamples="7.70"/>
+	<laneData id="ld_2" file="ed_0.xml" detectPersons="taxi"/>
 
 </additional>

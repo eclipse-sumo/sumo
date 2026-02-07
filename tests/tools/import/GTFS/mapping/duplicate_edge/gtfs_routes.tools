@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-16 13:01:08.501164 by Eclipse SUMO gtfs2pt.py v1_25_0+0999-2f5f16dc016
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml.gz"/>
+    <stops value="input_stops.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="36232563" edges="194083373#5 308691084#3 308691084#6 308691084#8 308691084#9 308691084#12">
+        <stop busStop="36232563.0" duration="10" until="0"/> <!-- Jena, Spittelplatz -->
+        <stop busStop="36232563.1" duration="10" until="120"/> <!-- Jena, Nordschule -->
+        <stop busStop="36232563.2" duration="10" until="180"/> <!-- Jena, Scharnhorststraße -->
+        <stop busStop="36232563.3" duration="10" until="260"/> <!-- Jena, Kieshügel -->
+        <stop busStop="36232563.4" duration="10" until="340"/> <!-- Jena, An der Eule -->
+    </route>
+    <vehicle id="36232563.0" route="36232563" type="tram" depart="23090" line="36232563">
+        <param key="gtfs.route_name" value="1"/>
+        <param key="gtfs.trip_headsign" value="Jena, Zwätzen Schleife"/>
+    </vehicle>
+</routes>

@@ -1,4 +1,5 @@
 <configuration>
+    <web-socket value="False" type="bool" help="Create a (legacy) websocket instead of running a http server." category="processing"/>
     <remote value="False" type="bool" help="In remote mode, SUMO GUI will not be automatically opened instead a zip file will be generated." category="processing"/>
     <osm-file value="osm_bbox.osm.xml" type="string" help="use input file from path." category="processing"/>
     <test-output value="None" type="string" help="Run with pre-defined options on file 'osm_bbox.osm.xml' and write output to the given directory." category="processing"/>

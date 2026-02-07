@@ -18,4 +18,4 @@ set_target_properties(marouter PROPERTIES OUTPUT_NAME_DEBUG marouter${BINARY_SUF
 target_link_libraries(marouter router od ${commonvehiclelibs} ${TCMALLOC_LIBRARY})
 add_dependencies(marouter generate-version-h install_dll)
 
-install(TARGETS marouter RUNTIME DESTINATION bin)
+install(TARGETS marouter RUNTIME DESTINATION bin COMPONENT runtime)

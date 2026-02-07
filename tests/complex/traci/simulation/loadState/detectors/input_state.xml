@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-04 11:37:33 by Eclipse SUMO sumo Version v1_20_0+1864-ce7940e5e49
+<!-- generated on 2026-01-23T17:46:05.800228+01:00 by Eclipse SUMO sumo v1_25_0+1167-e4289d0ddf3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="simulation/loadState/detectors/../../../input_net2.net.xml"/>
-        <route-files value="simulation/loadState/detectors/input_routes.rou.xml"/>
+        <net-file value="../../../input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="1"/>
-        <save-state.files value="simulation/loadState/detectors/input_state.xml"/>
+        <save-state.files value="input_state.xml"/>
     </output>
 
 </sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1864-ce7940e5e49" time="1.00" type="micro">
+<snapshot type="micro" version="v1_25_0+1167-e4289d0ddf3" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="WC CE"/>
     <route id="!1" state="0" edges="WC CE"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vehicle id="0" depart="0.00" departLane="0" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262148 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="routing_0" state="0"/>
+        <device id="routing_0" state="0 0"/>
     </vehicle>
     <vehicle id="1" depart="0.00" departLane="1" route="!1" distance="0 0" speedFactor="0.9383" reroute="1" state="262148 0 0 5.10 0 0.00 1000 0 0" pos="5.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="routing_1" state="0"/>
+        <device id="routing_1" state="0 0"/>
     </vehicle>
     <lane id="WC_0">
         <vehicles value="0"/>
@@ -33,5 +33,8 @@
     <lane id="WC_1">
         <vehicles value="1"/>
     </lane>
-    <tlLogic id="C" programID="0" phase="0" duration="1000"/>
+    <tlLogic id="C" programID="0" phase="0" duration="1000" active="1"/>
+    <routingEngine last="1000" index="1">
+        <edge id="WC" speed="13.81" pastSpeed="0.00 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
+    </routingEngine>
 </snapshot>

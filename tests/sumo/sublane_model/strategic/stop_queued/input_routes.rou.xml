@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <route id="1" edges="SC CN"/>
+    <flow begin="0" id="v" number="3" period="2" route="1">
+        <stop lane="SC_0" startPos="40" endPos="70" duration="400"/>
+    </flow>
+</routes>

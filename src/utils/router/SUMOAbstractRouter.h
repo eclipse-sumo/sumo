@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2006-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2006-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -89,10 +89,10 @@ public:
         /// temporary permission change
         SVCPermissions prohibitedPermissions;
 
-        /// the time at which a temporary prohibitione begins
+        /// the time at which a temporary prohibition begins
         double prohibitionBegin;
 
-        /// the time at which a temporary prohibitione ends
+        /// the time at which a temporary prohibition ends
         double prohibitionEnd;
 
         inline void reset() {
@@ -252,7 +252,7 @@ public:
                 && (myEdgeInfos[edge->getNumericalID()].prohibitedPermissions & vehicle->getVClass()) != vehicle->getVClass()
                 && myEdgeInfos[edge->getNumericalID()].prohibitionBegin <= t
                 && myEdgeInfos[edge->getNumericalID()].prohibitionEnd == std::numeric_limits<double>::max())
-            || (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
+               || (myHavePermissions && edge->prohibits(vehicle)) || (myHaveRestrictions && edge->restricts(vehicle));
     }
 
     inline double getTravelTime(const E* const e, const V* const v, const double t, const double effort) const {
@@ -314,12 +314,30 @@ public:
     inline double recomputeCostsPos(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
         double effort = recomputeCosts(edges, v, msTime, lengthp);
         if (!edges.empty()) {
-            double firstEffort = this->getEffort(edges.front(), v, STEPS2TIME(msTime));
-            double lastEffort = this->getEffort(edges.back(), v, STEPS2TIME(msTime));
-            effort -= firstEffort * fromPos / edges.front()->getLength();
-            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
+            const E* first = edges.front();
+            if (first->getLength() == 0) {
+                if (edges.size() > 1 && edges[1]->getLength() > 0) {
+                    first = edges[1];
+                } else {
+                    return effort;
+                }
+            }
+            const E* last = edges.back();
+            if (last->getLength() == 0) {
+                if (edges.size() > 1 && edges[edges.size() - 2]->getLength() > 0) {
+                    last = edges[edges.size() - 2];
+                } else {
+                    return effort;
+                }
+            }
+            assert(first->getLength() > 0);
+            assert(last->getLength() > 0);
+            double firstEffort = this->getEffort(first, v, STEPS2TIME(msTime));
+            double lastEffort = this->getEffort(last, v, STEPS2TIME(msTime));
+            effort -= firstEffort * fromPos / first->getLength();
+            effort -= lastEffort * (last->getLength() - toPos) / last->getLength();
             if (lengthp != nullptr) {
-                (*lengthp) -= fromPos + edges.back()->getLength() - toPos;
+                (*lengthp) -= fromPos + last->getLength() - toPos;
             }
         }
         return effort;

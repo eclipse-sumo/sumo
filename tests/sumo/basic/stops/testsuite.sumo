@@ -42,3 +42,12 @@ stop_param
 
 # error on loading stop which gives an edge instead of a lane
 stop_error
+
+# let multiple vehicles stop with the same stop definition
+stop_queued
+
+# let multiple vehicles stop with the same stop definition
+stop_queued2
+
+# let multiple vehicles stop with the same stop definition
+stop_queued3

@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Subscribing to busstop.VAR_LANEPOSITION.
 Subscribing to busstop.ID_COUNT.
 Subscribing to busstop.TRACI_ID_LIST.
@@ -1121,7 +1122,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                132: 1.7506528308847917,
                135: 0.0,
                137: 0,
-               140: 0.8739630791299645,
+               140: 0.3266719881212339,
                146: True,
                161: '',
                162: -1073741824,

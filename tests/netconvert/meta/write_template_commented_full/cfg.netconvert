@@ -309,7 +309,7 @@
         <!-- Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways) -->
         <geometry.min-radius.fix.railways value="true" type="BOOL"/>
 
-        <!-- Warn if the junction shape is to far away from the original node position -->
+        <!-- Warn if the junction shape is too far away from the original node position -->
         <geometry.junction-mismatch-threshold value="20" type="FLOAT"/>
 
         <!-- Warn if edges overlap by more than the given threshold value -->

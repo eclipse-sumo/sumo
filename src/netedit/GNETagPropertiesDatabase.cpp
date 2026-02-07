@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -617,6 +617,13 @@ GNETagPropertiesDatabase::fillNetworkElements() {
                 TL("Whether this junction is at the fringe of the network"),
                 SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
         fringe->setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
+
+        auto roundabout = new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUNDABOUT,
+                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                TL("Whether this junction may be considered when guessing roundabouts"),
+                SUMOXMLDefinitions::FringeTypeValues.getString(FringeType::DEFAULT));
+        roundabout->setDiscreteValues(SUMOXMLDefinitions::RoundaboutTypeValues.getStrings());
 
         fillNameAttribute(myTagProperties[currentTag]);
 
@@ -1391,7 +1398,7 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_LEFTHAND,
                                    GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("Enable or disable lefthand position"),
+                                   TL("Visual placement to the left of the lane (in righthand networks)"),
                                    GNEAttributeCarrier::FALSE_STR);
 
     }
@@ -6274,7 +6281,7 @@ GNETagPropertiesDatabase::fillCommonStoppingPlaceAttributes(GNETagProperties* ta
     auto reference = new GNEAttributeProperties(tagProperties, GNE_ATTR_REFERENCE,
             GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DISCRETE,
             GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
-            TLF("Reference position used for creating %", tagProperties->getTagStr()));
+            TLF("Longitudinal reference position for creating %", tagProperties->getTagStr()));
     reference->setDiscreteValues(SUMOXMLDefinitions::ReferencePositions.getStrings());
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-15T13:31:28.666341+01:00 by Eclipse SUMO netedit v1_24_0+0791-bfa764d4c7b
+<!-- generated on 2026-01-28T19:23:48.500509+01:00 by Eclipse SUMO netedit v1_25_0+1221-39583a3f647
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -30,12 +30,15 @@
 
     <xsd:complexType name="neteditinputTopicType">
         <xsd:all>
+            <xsd:element name="netecfg-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="sumocfg-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="netccfg-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="data-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="meandata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-missing-inputs" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="autosave-netconvert-file" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="selection-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="test-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="sumo-net-file" type="fileOptionType" minOccurs="0"/>
@@ -60,11 +63,12 @@
 
     <xsd:complexType name="neteditoutputTopicType">
         <xsd:all>
-            <xsd:element name="tls-file" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="edgetypes-file" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="tls-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="edgetypes-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-metadata" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="output-suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="output.compression" type="strOptionType" minOccurs="0"/>

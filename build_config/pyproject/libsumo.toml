@@ -39,3 +39,8 @@ build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64", "cp*-win_amd64", "cp*-ma
 
 [tool.cibuildwheel.windows]
 before-all = ""
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_*"
+inherit.repair-wheel-command = "append"
+repair-wheel-command = '''find {dest_dir} \( -name "*.dylib" -o -name "*.so" \) -exec strip -x -S {} \;'''

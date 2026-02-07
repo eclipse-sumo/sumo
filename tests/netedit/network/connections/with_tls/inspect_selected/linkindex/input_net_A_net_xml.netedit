@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-10 18:13:13 by Eclipse SUMO netedit Version v1_21_0+1849-457291797ff
+<!-- generated on 2026-01-12T15:45:35.887640+01:00 by Eclipse SUMO netedit v1_25_0+0930-8df81cde35d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,20 +14,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_additionals_A.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_routes_A.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_datas_A.dat.xml"/>
-        <meandata-files value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_meandatas_A.add.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="0"/>
@@ -50,16 +52,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.1_from_10Jan165259.15856/netedit.gui/network/connections/with_tls/inspect_selected/linkindex/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -134,9 +136,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="JunctionExtern1" type="dead_end" x="60.00" y="0.00" incLanes="EdgeExternBot_0" intLanes="" shape="60.00,0.00 60.00,-3.00 60.00,0.00"/>
 
     <connection from="-E0" to="E3" fromLane="0" toLane="0" pass="1" keepClear="0" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="15.00" length="6.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" uncontrolled="1" indirect="1" type="custom" via=":Junction5_0_0" dir="s" state="M" visibility="2.00"/>
-    <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":Junction5_3_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
+    <connection from="-E1" to="E2" fromLane="0" toLane="0" via=":Junction5_3_0" tl="Junction5" linkIndex="2" dir="s" state="o"/>
     <connection from="-E2" to="E1" fromLane="0" toLane="0" via=":Junction5_1_0" tl="Junction5" linkIndex="0" dir="s" state="o"/>
-    <connection from="-E3" to="E0" fromLane="0" toLane="0" via=":Junction5_2_0" tl="Junction5" linkIndex="0" dir="s" state="O"/>
+    <connection from="-E3" to="E0" fromLane="0" toLane="0" via=":Junction5_2_0" tl="Junction5" linkIndex="1" dir="s" state="O"/>
 
     <connection from=":Junction5_0" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_1" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>

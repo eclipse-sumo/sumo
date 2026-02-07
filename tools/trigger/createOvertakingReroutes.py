@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2010-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -276,7 +276,7 @@ def filterSidings(options, net, sidings):
                     usableLength += e.getLength()
 
         warningStart = "Discarding candidate siding from '%s' to '%s' for route '%s' because it" % (
-                edges[0], edges[-1], rid)
+            edges[0], edges[-1], rid)
         if foundSignal:
             if usableLength >= options.minLength:
                 mainLength = 0
@@ -316,7 +316,7 @@ def filterSidings(options, net, sidings):
                     for main2 in isOverlappingShorter:
                         rid2, fromIndex2, edges2 = sidings[main2]
                         warningStart2 = "Discarding candidate siding from '%s' to '%s' for route '%s' because it" % (
-                                edges2[0], edges2[-1], rid2)
+                            edges2[0], edges2[-1], rid2)
                         print("%s it is overlapping a shorter siding with the same signal" % warningStart2)
                         del sidings2[main2]
                         del usableLengths[main2[0]][main2]

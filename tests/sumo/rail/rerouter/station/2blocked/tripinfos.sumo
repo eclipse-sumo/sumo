@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-07 09:19:25 by Eclipse SUMO sumo Version v1_23_0+0022-59be8a79842
+<!-- generated on 2026-01-22T16:25:24.820604+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="5.00" departLane="E2_0" departPos="50.10" departSpeed="44.44" departDelay="0.00" arrival="125.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="15.00" duration="120.00" routeLength="1732.02" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="69.65" rerouteNo="1" devices="vehroute_v0 tripinfo_v0" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker2" depart="0.00" departLane="E5b_0" departPos="143.64" departSpeed="0.00" departDelay="0.00" arrival="602.00" arrivalLane="E5b_0" arrivalPos="144.64" arrivalSpeed="0.75" duration="602.00" routeLength="1.00" waitingTime="0.00" waitingCount="0" stopTime="599.00" timeLoss="2.97" rerouteNo="0" devices="vehroute_blocker2 tripinfo_blocker2 routing_blocker2" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker" depart="0.00" departLane="E5_0" departPos="99.00" departSpeed="0.00" departDelay="0.00" arrival="656.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="14.25" duration="656.00" routeLength="401.21" waitingTime="0.00" waitingCount="0" stopTime="599.00" timeLoss="47.70" rerouteNo="0" devices="vehroute_blocker tripinfo_blocker" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="5.00" departLane="E2_0" departPos="50.10" departSpeed="44.44" departDelay="0.00" arrival="125.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="15.00" duration="120.00" routeLength="1732.02" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="1.00" rerouteNo="1" devices="vehroute_v0 tripinfo_v0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker2" depart="0.00" departLane="E5b_0" departPos="143.64" departSpeed="0.00" departDelay="0.00" arrival="602.00" arrivalLane="E5b_0" arrivalPos="144.64" arrivalSpeed="0.75" duration="602.00" routeLength="1.00" waitingTime="0.00" waitingCount="0" stopTime="599.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_blocker2 tripinfo_blocker2 routing_blocker2" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="E5_0" departPos="99.00" departSpeed="0.00" departDelay="0.00" arrival="656.00" arrivalLane="E9_0" arrivalPos="100.00" arrivalSpeed="14.25" duration="656.00" routeLength="401.21" waitingTime="0.00" waitingCount="0" stopTime="599.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_blocker tripinfo_blocker" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

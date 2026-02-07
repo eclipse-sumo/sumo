@@ -1,0 +1,8 @@
+Loading net-file from 'net.net.xml' ... done (1ms).
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_25_0+1023-b926a05e0e2 started with time: 0.00.
+Simulation ended at time: 100.00.
+Reason: The final simulation step has been reached.

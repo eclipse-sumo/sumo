@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -134,10 +134,12 @@ NBPTStopCont::generateBidiStops(NBEdgeCont& ec) {
                 if (myPTStops[id]->getEdgeId() != bidiEdge->getID()) {
                     WRITE_WARNINGF(TL("Could not create reverse-direction stop for superposed edge '%' (origStop '%'). Stop id '%' already in use by stop on edge '%'."),
                                    bidiEdge->getID(), i->first, id, myPTStops[id]->getEdgeId());
+                } else {
+                    existingBidiStops++;
                 }
                 continue;
             }
-            std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(id,
+            std::shared_ptr<NBPTStop> bidiStop = std::make_shared<NBPTStop>(stop->getElement(), id,
                                                  stop->getPosition(),
                                                  bidiEdge->getID(),
                                                  stop->getOrigEdgeId(),
@@ -201,7 +203,7 @@ NBPTStopCont::getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& 
     if (reverse != nullptr) {
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
-            return std::make_shared<NBPTStop>(reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+            return std::make_shared<NBPTStop>(pStop->getElement(), reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
                                               pStop->getLength(), pStop->getName(), pStop->getPermissions());
         } else {
             return myPTStops[reverseID];
@@ -326,10 +328,11 @@ NBPTStopCont::getClosestPlatformToPTStopPosition(std::shared_ptr<NBPTStop> pStop
 NBEdge*
 NBPTStopCont::getReverseEdge(NBEdge* edge) {
     if (edge != nullptr) {
+        const PositionVector rGeom = edge->getGeometry().reverse();
         for (auto it = edge->getToNode()->getOutgoingEdges().begin();
                 it != edge->getToNode()->getOutgoingEdges().end();
                 it++) {
-            if ((*it)->getToNode() == edge->getFromNode()) {
+            if ((*it)->getToNode() == edge->getFromNode() && (*it)->getGeometry() == rGeom) {
                 return (*it);
             }
         }

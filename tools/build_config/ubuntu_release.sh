@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2008-2025 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -24,7 +24,7 @@ dch -d
 dch -r $RELEASE
 dpkg-buildpackage -S
 HEADER=$(head -1 debian/changelog)
-for ubuntu_version in bionic focal jammy plucky questing; do
+for ubuntu_version in bionic focal jammy questing; do
   NEW_HEADER=$(echo $HEADER | sed "s/. $RELEASE/~$ubuntu_version\) $ubuntu_version/")
   sed -i "1 s/.*/$NEW_HEADER/" debian/changelog
   dpkg-buildpackage -S

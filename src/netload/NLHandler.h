@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -120,10 +120,6 @@ public:
         return myHaveSeenAdditionalSpeedRestrictions;
     }
 
-    bool haveSeenMesoEdgeType() const {
-        return myHaveSeenMesoEdgeType;
-    }
-
     bool haveSeenTLSParams() const {
         return myHaveSeenTLSParams;
     }
@@ -212,11 +208,6 @@ protected:
      * @param[in] objecttype The type (lane/edge) of the parsed mean data definition
      */
     virtual void addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype);
-
-    /** @brief Loads edge type specific meso parameters
-     * @param[in] attrs The attributes that hold the parameters
-     */
-    virtual void addMesoEdgeType(const SUMOSAXAttributes& attrs);
 
     /** @brief Loads deadlock information for preparing additional rail signal checks
      * @param[in] attrs The attributes that hold the parameters
@@ -312,6 +303,8 @@ private:
     /// @brief Parses the given character into an enumeration typed link state
     LinkState parseLinkState(const std::string& state);
 
+    int parseDetectPersons(const std::string& detectPersonsString, const std::string& id, bool& ok);
+
 protected:
     /// @brief The net to fill (preinitialised)
     MSNet& myNet;
@@ -375,8 +368,6 @@ protected:
     /// @brief whether additional files contained type-specific speed limits
     bool myHaveSeenAdditionalSpeedRestrictions;
 
-    /// @brief whether edge type specific meso parameters were loaded
-    bool myHaveSeenMesoEdgeType;
     /// @brief whether tls params were loaded
     bool myHaveSeenTLSParams;
 

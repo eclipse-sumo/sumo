@@ -1,2 +1,2 @@
-Error: Vehicle '2' has no valid route. No connection between edge 'beg' and edge 'end'.
-Quitting (on error).
+Warning: No connection between edge 'end' and edge 'end' found.
+Warning: Vehicle '2' ignores arrivalPos 0.00 when driving from edge 'end' to edge 'end'.

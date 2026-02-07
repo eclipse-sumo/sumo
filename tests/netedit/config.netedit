@@ -625,7 +625,7 @@ log:Discarding invalid crossing{LINES 1}
 log:Invalid pedestrian topology{LINES 1}
 
 [floating_point_tolerance]
-net:0.0101
+input_net_A_net_xml:0.0101
 output:0.0101
 errors:0.0101
 meandatas:0.0101

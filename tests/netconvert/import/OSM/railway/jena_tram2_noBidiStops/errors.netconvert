@@ -1,0 +1,16 @@
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '722355891').
+Warning: No way found for reference '313579246' in relation '4209153'
+Warning: No way found for reference '313579244' in relation '4209153'
+Warning: Ignoring restriction relation '4209153' with unknown from-way.
+Warning: Ignoring restriction relation '4209153' with unknown to-way.
+Warning: No way found for reference '1265529641' in relation '4209156'
+Warning: No way found for reference '313579244' in relation '4209156'
+Warning: Ignoring restriction relation '4209156' with unknown from-way.
+Warning: Ignoring restriction relation '4209156' with unknown to-way.
+Warning: No way found for reference '194083415' in relation '4209161'
+Warning: Ignoring restriction relation '4209161' with unknown from-way.
+Warning: Ignoring restriction relation '4209161' with unknown to-way.
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482695' (Steinborn). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482696' (Steinborn). Thus, it will be removed!
+Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590482698' (Gabelsbergerstraße). Thus, it will be removed!
+Warning: 6 total messages of type: No way found for reference '%' in relation '%'

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2011-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2011-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -46,9 +46,10 @@
 MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
         OutputDevice& od, MSLane* const lane, double positionInMeters,
         const std::string name, const std::string& vTypes,
-        const std::string& nextEdges) :
+        const std::string& nextEdges,
+        int detectPersons) :
     MSMoveReminder(id, lane),
-    MSDetectorFileOutput(id, vTypes, nextEdges),
+    MSDetectorFileOutput(id, vTypes, nextEdges, detectPersons),
     myName(name),
     myOutputDevice(od),
     myPosition(positionInMeters), myLastExitTime(-1) {
@@ -58,6 +59,29 @@ MSInstantInductLoop::MSInstantInductLoop(const std::string& id,
 
 
 MSInstantInductLoop::~MSInstantInductLoop() {
+}
+
+bool
+MSInstantInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /*enteredLane*/) {
+    // vehicles must be kept if the "inductionloop" wants to detect passeengers
+    if (!vehicleApplies(veh)) {
+        return false;
+    }
+    if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
+        if (veh.getBackPositionOnLane(myLane) >= myPosition) {
+            return false;
+        }
+        if (veh.getPositionOnLane() >= myPosition) {
+            double entryTime = SIMTIME;
+            if (myLastExitTime >= 0) {
+                write("enter", entryTime, veh, veh.getSpeed(), "gap", entryTime - myLastExitTime);
+            } else {
+                write("enter", entryTime, veh, veh.getSpeed());
+            }
+            myEntryTimes[&veh] = entryTime;
+        }
+    }
+    return true;
 }
 
 

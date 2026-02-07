@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2025 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -731,20 +731,20 @@ MSTLLogicControl::closeWAUT(const std::string& wautid) {
     WAUT* w = myWAUTs.find(wautid)->second;
     std::string initProg = myWAUTs[wautid]->startProg;
     // get the switch to be performed as first
-    std::vector<WAUTSwitch>::const_iterator first = w->switches.end();
-    SUMOTime minExecTime = -1;
-    for (std::vector<WAUTSwitch>::const_iterator i = w->switches.begin(); i != w->switches.end(); ++i) {
-        if ((*i).when > MSNet::getInstance()->getCurrentTimeStep() && (minExecTime == -1 || (*i).when < minExecTime)) {
-            minExecTime = (*i).when;
-            first = i;
+    SUMOTime minExecTime = SUMOTime_MAX;
+    int firstIndex = -1;
+    int i = 0;
+    for (const WAUTSwitch& s : w->switches) {
+        if (s.when >= SIMSTEP && s.when < minExecTime) {
+            minExecTime = s.when;
+            firstIndex = i;
         }
+        i++;
     }
     // activate the first one
-    if (first != w->switches.end()) {
-        std::vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
+    if (firstIndex >= 0) {
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-            new SwitchInitCommand(*this, wautid, (int)distance(mbegin, first)),
-            (*first).when);
+                new SwitchInitCommand(*this, wautid, firstIndex), MAX2(SIMSTEP, minExecTime));
     }
     /*
     // set the current program to all junctions
@@ -826,6 +826,11 @@ MSTLLogicControl::getPhaseDef(const std::string& tlid) const {
 void
 MSTLLogicControl::switchOffAll() {
     for (const auto& logic : myLogics) {
+        if (logic.second->getActive()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
+            // there is no sensible fall-back behavior when switching of rail
+            // signals so they should ignore tls.all-off
+            continue;
+        }
         logic.second->addLogic("off", new MSOffTrafficLightLogic(*this, logic.first), true, true);
     }
 }
@@ -866,7 +871,7 @@ MSTLLogicControl::clearState(SUMOTime time, bool quickReload) {
                     offset -= phases[step]->duration;
                     step++;
                 }
-                logic->loadState(*this, time, step, offset);
+                logic->loadState(*this, time, step, offset, logic->isActive());
             }
         }
     }

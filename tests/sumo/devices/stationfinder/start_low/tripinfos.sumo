@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-17 22:41:54 by Eclipse SUMO sumo Version v1_22_0+1607-0f0378866ac
+<!-- generated on 2026-01-22T16:25:35.311179+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <battery-output.precision value="4"/>
         <chargingstations-output value="chargingstations.xml"/>
+        <chargingstations-output.aggregated value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
@@ -45,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="veh0" depart="0.00" departLane="E2D2_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="763.00" arrivalLane="A3A4_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="763.00" routeLength="3054.53" waitingTime="12.00" waitingCount="2" stopTime="479.00" timeLoss="39.35" rerouteNo="2" devices="vehroute_veh0 tripinfo_veh0 routing_veh0 stationfinder_veh0 battery_veh0" vType="ElectricVehicle1" speedFactor="1.00" vaporized="">
+    <tripinfo id="veh0" depart="0.00" departLane="E2D2_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="763.00" arrivalLane="A3A4_0" arrivalPos="500.00" arrivalSpeed="13.89" duration="763.00" routeLength="3054.53" waitingTime="12.00" waitingCount="2" stopTime="479.00" timeLoss="31.41" rerouteNo="2" devices="vehroute_veh0 tripinfo_veh0 routing_veh0 stationfinder_veh0 battery_veh0" vType="ElectricVehicle1" speedFactor="1.00" vaporized="">
         <battery depleted="0" actualBatteryCapacity="1781.02" totalEnergyConsumed="1931.85" totalEnergyRegenerated="84.61"/>
     </tripinfo>
 </tripinfos>
