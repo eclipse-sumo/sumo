@@ -63,7 +63,8 @@ if __name__ == "__main__":
             subprocess.check_call(["strip", "-S", "-x", libsumo_so] + glob.glob(libsumo_libs + "/*"))
             for lib in get_install_names(libsumo_so):
                 if lib.startswith("@loader_path/.dylibs"):
-                    set_install_name(root, lib, lib.replace("@loader_path/.dylibs", "@loader_path/../sumo_data/.libs"))
+                    set_install_name(libsumo_so, lib,
+                                     lib.replace("@loader_path/.dylibs", "@loader_path/../sumo_data/.libs"))
         else:
             libsumo_libs = os.path.join(f[:-4], base, "libsumo.libs")
             subprocess.check_call(["strip", "--strip-unneeded", libsumo_so] + glob.glob(libsumo_libs + "/*"))
