@@ -45,38 +45,51 @@ def compare_directories(dir1, dir2):
     return True
 
 
+def fix_links_and_strip(binaries, lib_prefix):
+    if sys.platform == "darwin":
+        for bin in binaries:
+            for lib in get_install_names(bin):
+                if lib.startswith("@loader_path/.dylibs"):
+                    set_install_name(bin, lib,
+                                     lib.replace("@loader_path/.dylibs", "@loader_path/../sumo_data/.libs"))
+        lib_dir = os.path.join(lib_prefix, ".dylibs")
+        subprocess.check_call(["strip", "-S", "-x"] + binaries + glob.glob(lib_dir + "/*"))
+    else:
+        for bin in binaries:
+            subprocess.check_call(["patchelf", "--force-rpath", "--add-rpath",
+                                   "$ORIGIN/../sumo_data/.libs", bin])
+        lib_dir = lib_prefix + ".libs"
+        subprocess.check_call(["strip", "--strip-unneeded"] + binaries + glob.glob(lib_dir + "/*"))
+    return lib_dir
+
+
 if __name__ == "__main__":
     root = sys.argv[1]
     sumo_data = glob.glob(root + "/sumo_data*.whl")[0]
-    subprocess.check_call(["wheel", "unpack", "-d", root, glob.glob(root + "/sumo_data*.whl")[0]])
+    subprocess.check_call(["wheel", "unpack", "-d", root, sumo_data])
     pack_dirs = [os.path.join(root, "-".join(os.path.basename(sumo_data).split("-")[:2]))]
     data_libs = os.path.join(pack_dirs[0], "sumo_data", ".libs")
     if os.path.exists(data_libs):
         sys.exit("Data lib dir already exists.")
+
+    sumo = glob.glob(root + "/eclipse_sumo*.whl")[0]
+    subprocess.check_call(["wheel", "unpack", "-d", root, sumo])
+    sumo_dir = os.path.join(root, "-".join(os.path.basename(sumo).split("-")[:2]))
+    pack_dirs.append(sumo_dir)
+    binaries = glob.glob(sumo_dir + "/sumo/bin/*") + glob.glob(sumo_dir + "/sumo/lib/*")
+    sumo_libs = fix_links_and_strip(binaries, os.path.join(sumo_dir, "eclipse_sumo"))
+    os.rename(sumo_libs, data_libs)
+
     for f in glob.glob(root + "/libsumo*.whl"):
         subprocess.check_call(["wheel", "unpack", "-d", f[:-4], f])
-        base = "-".join(os.path.basename(f).split("-")[:2])
-        pack_dirs.append(os.path.join(f[:-4], base))
-        libsumo_so = os.path.join(f[:-4], base, "libsumo", "_libsumo.so")
-        if sys.platform == "darwin":
-            libsumo_libs = os.path.join(f[:-4], base, "libsumo", ".dylibs")
-            subprocess.check_call(["strip", "-S", "-x", libsumo_so] + glob.glob(libsumo_libs + "/*"))
-            for lib in get_install_names(libsumo_so):
-                if lib.startswith("@loader_path/.dylibs"):
-                    set_install_name(libsumo_so, lib,
-                                     lib.replace("@loader_path/.dylibs", "@loader_path/../sumo_data/.libs"))
+        libsumo_dir = os.path.join(f[:-4], "-".join(os.path.basename(f).split("-")[:2]))
+        pack_dirs.append(libsumo_dir)
+        libsumo_so = os.path.join(libsumo_dir, "libsumo", "_libsumo.so")
+        libsumo_libs = fix_links_and_strip([libsumo_so], os.path.join(libsumo_dir, "libsumo"))
+        if compare_directories(data_libs, libsumo_libs):
+            shutil.rmtree(libsumo_libs)
         else:
-            libsumo_libs = os.path.join(f[:-4], base, "libsumo.libs")
-            subprocess.check_call(["strip", "--strip-unneeded", libsumo_so] + glob.glob(libsumo_libs + "/*"))
-            subprocess.check_call(["patchelf", "--force-rpath", "--add-rpath",
-                                   "$ORIGIN/../sumo_data/.libs", libsumo_so])
-        if os.path.exists(data_libs):
-            if compare_directories(data_libs, libsumo_libs):
-                shutil.rmtree(libsumo_libs)
-            else:
-                sys.exit("Lib mismatch.")
-        else:
-            os.rename(libsumo_libs, data_libs)
+            sys.exit("Lib mismatch.")
     dest_dir = os.path.join(root, "relocate")
     os.makedirs(dest_dir)
     for pd in pack_dirs:
