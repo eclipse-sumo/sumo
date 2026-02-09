@@ -36,11 +36,13 @@ def file_hash(path, chunk_size=8192):
 def compare_directories(dir1, dir2):
     entries = sorted(os.listdir(dir1))
     if entries != sorted(os.listdir(dir2)):
+        print(entries, sorted(os.listdir(dir2)))
         return False
     for name in entries:
         path1 = os.path.join(dir1, name)
         path2 = os.path.join(dir2, name)
         if os.path.getsize(path1) != os.path.getsize(path2) or file_hash(path1) != file_hash(path2):
+            print(path1, path2)
             return False
     return True
 
