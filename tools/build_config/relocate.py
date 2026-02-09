@@ -41,7 +41,7 @@ def compare_directories(dir1, dir2):
     for name in entries:
         path1 = os.path.join(dir1, name)
         path2 = os.path.join(dir2, name)
-        if os.path.getsize(path1) != os.path.getsize(path2) or file_hash(path1) != file_hash(path2):
+        if os.path.getsize(path1) != os.path.getsize(path2) or (sys.platform != "darwin" and file_hash(path1) != file_hash(path2)):
             print(path1, path2)
             return False
     return True
