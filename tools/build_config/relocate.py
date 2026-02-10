@@ -51,9 +51,8 @@ def fix_links_and_strip(binaries, lib_dir_prefix):
     if sys.platform == "darwin":
         for bin in binaries:
             for lib in get_install_names(bin):
-                if lib.startswith("@loader_path/.dylibs"):
-                    set_install_name(bin, lib,
-                                     lib.replace("@loader_path/.dylibs", "@loader_path/../sumo_data/.libs"))
+                if lib.startswith(("@loader_path/.dylibs", "@loader_path/../.dylibs")):
+                    set_install_name(bin, lib, lib.replace(".dylibs", "../sumo_data/.libs"))
         lib_dir = os.path.join(lib_dir_prefix, ".dylibs")
         subprocess.check_call(["strip", "-S", "-x"] + binaries + glob.glob(lib_dir + "/*"))
     else:
