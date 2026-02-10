@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-02-06 10:47+0000\n"
+"PO-Revision-Date: 2026-02-09 14:14+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9670,6 +9670,8 @@ msgstr ""
 msgid ""
 "Found a traffic light signal on an unknown edge (original edge id='%')."
 msgstr ""
+"Se encontró una señal de semáforo en una arista desconocida (ID de arista "
+"original='%')."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:957
 msgid ""
@@ -9869,6 +9871,8 @@ msgstr "El valor de railway:position no es numérico ('%') en el nodo '%'."
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
+"Ignorando la información de señalización de giro para % carriles en la "
+"arista % con % carriles"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1527
 msgid ""
@@ -10300,11 +10304,15 @@ msgstr "Un número de carril destino para la arista '%' no es positivo (%)."
 msgid ""
 "A from-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"El número de carril de origen para la arista '%' es mayor que el número de "
+"carriles de la arista (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1151
 msgid ""
 "A to-lane number for edge '%' is larger than the edge's lane number (%)."
 msgstr ""
+"El número de carril destino para la arista '%' es mayor que el número de "
+"carriles de la arista (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:1167
 msgid "Ignoring stopping place '%' without edge id"
@@ -10558,11 +10566,11 @@ msgstr ""
 
 #: src/netimport/NIXMLEdgesHandler.cpp:482
 msgid "Edge '%' has a split at invalid position %."
-msgstr ""
+msgstr "La arista '%' tiene una división en una posición no válida %."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:487
 msgid "Edge '%' has already a split at position %."
-msgstr ""
+msgstr "La arista '%' ya tiene una división en la posición %."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:521
 msgid "Invalid split node id for edge '%' (from- and to-node are forbidden)"
@@ -10678,6 +10686,8 @@ msgstr "La definición de lógica semafórica '%' no se completó."
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:158
 msgid "Cannot load traffic light program for unknown id '%', programID '%'."
 msgstr ""
+"No se puede cargar el programa de semáforo para el ID desconocido '%', ID de "
+"programa '%'."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
@@ -10754,7 +10764,7 @@ msgstr ""
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:262
 #, c-format
 msgid "Would have to split edge '%' to build a prohibition"
-msgstr ""
+msgstr "Habría que dividir la arista '%' para crear una prohibición"
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:237
 #, c-format
@@ -10870,7 +10880,7 @@ msgstr "los semáforos definidos externamente no son soportados (semáforo=%)"
 
 #: src/netimport/vissim/typeloader/NIVissimSingleTypeParser_Simdauer.cpp:49
 msgid "Simulation duration could not be parsed"
-msgstr ""
+msgstr "No se pudo interpretar la duración de la simulación"
 
 #: src/netload/NLBuilder.cpp:86
 msgid "Trying to set the effort for the unknown edge '%'."

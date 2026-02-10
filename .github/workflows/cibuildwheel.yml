@@ -113,6 +113,10 @@ jobs:
 
       - name: Preparing wheel eclipse-sumo
         run: python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
+        # run: |
+        #   git checkout v1_26_0
+        #   git checkout 74027d742c62e3faa47b512dd2f4e2cedae1d987 build_config/pyproject CMakeLists.txt tools/build_config/version.py
+        #   python tools/build_config/version.py --pep440 build_config/pyproject/eclipse-sumo.toml pyproject.toml
 
       - name: Building wheel eclipse-sumo
         uses: pypa/cibuildwheel@v3.3.1
@@ -141,6 +145,14 @@ jobs:
           CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.manylinux }}
           # CIBW_REPAIR_WHEEL_COMMAND: ""  # disable repair process to inspect the wheel
           # CIBW_BUILD_VERBOSITY: 2
+
+      - name: Relocating libs in macos wheels to sumo-data
+        if: ${{ startsWith(matrix.os, 'macos') }}
+        run: |
+          python -m pip install wheel delocate
+          python tools/build_config/relocate.py wheelhouse
+          mv wheelhouse ci_wheelhouse
+          mv ci_wheelhouse/relocate wheelhouse
 
       - uses: actions/upload-artifact@v6
         with:

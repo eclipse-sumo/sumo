@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:53 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2026-02-09T15:58:29.731259+01:00 by Eclipse SUMO netconvert v1_26_0+0097-b533b6e04ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -57,10 +57,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </type>
 
     <edge id=":0_0" function="internal">
-        <lane id=":0_0_0" index="0" allow="passenger" speed="4.59" length="6.08" shape="497.00,517.50 498.15,515.77 499.30,515.20 500.45,515.77 501.25,516.97"/>
+        <lane id=":0_0_0" index="0" allow="passenger" speed="4.59" length="3.53" shape="497.00,517.50 498.15,515.77 499.30,515.20 499.45,515.28"/>
     </edge>
     <edge id=":0_4" function="internal">
-        <lane id=":0_4_0" index="0" allow="passenger" speed="4.59" length="0.64" shape="501.25,516.97 501.60,517.50"/>
+        <lane id=":0_4_0" index="0" allow="passenger" speed="4.59" length="3.19" shape="499.45,515.28 500.45,515.77 501.60,517.50"/>
     </edge>
     <edge id=":0_1" function="internal">
         <lane id=":0_1_0" index="0" allow="passenger" speed="8.95" length="18.08" shape="517.50,512.00 510.54,512.34 505.58,513.38 502.59,515.09 501.60,517.50"/>
@@ -76,23 +76,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":m1_0" function="internal">
         <lane id=":m1_0_0" index="0" allow="passenger" speed="12.50" length="10.80" width="3.00" shape="246.00,496.40 248.88,495.09 250.00,492.20 251.12,489.31 254.00,488.00"/>
-        <lane id=":m1_0_1" index="1" allow="passenger" speed="15.56" length="10.80" width="4.50" shape="246.00,499.00 248.77,497.87 250.00,495.38 251.23,492.88 254.00,491.75"/>
-        <lane id=":m1_0_2" index="2" allow="passenger" speed="20.56" length="10.80" width="6.00" shape="246.00,499.00 248.41,498.69 250.00,498.00 251.59,497.31 254.00,497.00"/>
+        <lane id=":m1_0_1" index="1" allow="passenger" speed="15.55" length="10.80" width="4.50" shape="246.00,499.00 248.77,497.87 250.00,495.38 251.23,492.88 254.00,491.75"/>
+        <lane id=":m1_0_2" index="2" allow="passenger" speed="20.55" length="10.80" width="6.00" shape="246.00,499.00 248.41,498.69 250.00,498.00 251.59,497.31 254.00,497.00"/>
     </edge>
     <edge id=":m2_0" function="internal">
         <lane id=":m2_0_0" index="0" allow="passenger" speed="12.50" length="10.80" width="3.00" shape="754.00,503.60 751.12,504.91 750.00,507.80 748.88,510.69 746.00,512.00"/>
-        <lane id=":m2_0_1" index="1" allow="passenger" speed="15.56" length="10.80" width="4.50" shape="754.00,501.00 751.23,502.13 750.00,504.62 748.77,507.12 746.00,508.25"/>
-        <lane id=":m2_0_2" index="2" allow="passenger" speed="20.56" length="10.80" width="6.00" shape="754.00,501.00 751.59,501.31 750.00,502.00 748.41,502.69 746.00,503.00"/>
+        <lane id=":m2_0_1" index="1" allow="passenger" speed="15.55" length="10.80" width="4.50" shape="754.00,501.00 751.23,502.13 750.00,504.62 748.77,507.12 746.00,508.25"/>
+        <lane id=":m2_0_2" index="2" allow="passenger" speed="20.55" length="10.80" width="6.00" shape="754.00,501.00 751.59,501.31 750.00,502.00 748.41,502.69 746.00,503.00"/>
     </edge>
     <edge id=":m3_0" function="internal">
         <lane id=":m3_0_0" index="0" allow="passenger" speed="12.50" length="10.80" width="3.00" shape="503.60,246.00 504.91,248.88 507.80,250.00 510.69,251.12 512.00,254.00"/>
-        <lane id=":m3_0_1" index="1" allow="passenger" speed="15.56" length="10.80" width="4.50" shape="501.00,246.00 502.13,248.77 504.62,250.00 507.12,251.23 508.25,254.00"/>
-        <lane id=":m3_0_2" index="2" allow="passenger" speed="20.56" length="10.80" width="6.00" shape="501.00,246.00 501.31,248.41 502.00,250.00 502.69,251.59 503.00,254.00"/>
+        <lane id=":m3_0_1" index="1" allow="passenger" speed="15.55" length="10.80" width="4.50" shape="501.00,246.00 502.13,248.77 504.62,250.00 507.12,251.23 508.25,254.00"/>
+        <lane id=":m3_0_2" index="2" allow="passenger" speed="20.55" length="10.80" width="6.00" shape="501.00,246.00 501.31,248.41 502.00,250.00 502.69,251.59 503.00,254.00"/>
     </edge>
     <edge id=":m4_0" function="internal">
         <lane id=":m4_0_0" index="0" allow="passenger" speed="12.50" length="10.80" width="3.00" shape="496.40,754.00 495.09,751.12 492.20,750.00 489.31,748.88 488.00,746.00"/>
-        <lane id=":m4_0_1" index="1" allow="passenger" speed="15.56" length="10.80" width="4.50" shape="499.00,754.00 497.87,751.23 495.38,750.00 492.88,748.77 491.75,746.00"/>
-        <lane id=":m4_0_2" index="2" allow="passenger" speed="20.56" length="10.80" width="6.00" shape="499.00,754.00 498.69,751.59 498.00,750.00 497.31,748.41 497.00,746.00"/>
+        <lane id=":m4_0_1" index="1" allow="passenger" speed="15.55" length="10.80" width="4.50" shape="499.00,754.00 497.87,751.23 495.38,750.00 492.88,748.77 491.75,746.00"/>
+        <lane id=":m4_0_2" index="2" allow="passenger" speed="20.55" length="10.80" width="6.00" shape="499.00,754.00 498.69,751.59 498.00,750.00 497.31,748.41 497.00,746.00"/>
     </edge>
 
     <edge id="1fi" from="1" to="m1" priority="2" type="b">
@@ -145,13 +145,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="17" state="gGrr"/>
-        <phase duration="3"  state="yGrr"/>
-        <phase duration="20" state="rGrr"/>
+        <phase duration="26" state="grGr"/>
+        <phase duration="3"  state="yryr"/>
+        <phase duration="27" state="rGrr"/>
         <phase duration="3"  state="ryrr"/>
-        <phase duration="20" state="rrGr"/>
-        <phase duration="3"  state="rryr"/>
-        <phase duration="20" state="rrrG"/>
+        <phase duration="27" state="rrrG"/>
         <phase duration="3"  state="rrry"/>
         <phase duration="1"  state="rrrr"/>
     </tlLogic>
@@ -189,7 +187,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <junction id=":0_4_0" type="internal" x="501.25" y="516.97" incLanes=":0_0_0 1si_0 2si_0 3si_0" intLanes=":0_1_0 :0_2_0 :0_3_0"/>
+    <junction id=":0_4_0" type="internal" x="499.45" y="515.28" incLanes=":0_0_0 1si_0 2si_0 3si_0" intLanes=":0_1_0 :0_2_0 :0_3_0"/>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" via=":m1_0_0" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="1" via=":m1_0_1" dir="s" state="M"/>

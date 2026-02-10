@@ -159,7 +159,7 @@ class Builder(object):
 
         self.origDir = os.getcwd()
         print("Building scenario in '%s'." % self.tmp)
-
+        
     def report(self, message):
         pass
 
@@ -201,6 +201,8 @@ class Builder(object):
                 osmArgs += ["-u", self.data["osmMirror"]]
             if 'roadTypes' in self.data:
                 osmArgs += ["-r", json.dumps(self.data["roadTypes"])]
+            if self.data.get("verbose"):
+                osmArgs.append("--verbose")
             # cannot write config by calling osmGet.get because saving config triggers sys.exit()
             subprocess.call([sys.executable, osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
             osmGet.get(osmArgs)
@@ -219,7 +221,9 @@ class Builder(object):
 
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
-
+        if self.data.get("verbose"):
+            options.append("--verbose")
+        
         typefiles = [typemaps["net"]]
         # leading space ensures that arguments starting with -- are not
         # misinterpreted as options
@@ -722,7 +726,7 @@ def main(options):
                 u'carOnlyNetwork': False,
                 u'outputDir': options.testOutputDir,
                 u'coords': options.bbox.split(",") if options.bbox else None,
-                u'options': options.netconvert_options
+                u'options': options.netconvert_options,
                 }
         builder = Builder(data, True)
         builder.build()

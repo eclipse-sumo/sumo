@@ -99,6 +99,7 @@ def getOptions(args=None):
                          help="if --xattr is a list concatenate the values")
     optParser.add_option("--join-y", action="store_true", dest="joiny", default=False,
                          help="if --yattr is a list concatenate the values")
+    optParser.add_option("--join", default="|", help="separator to use for joining (default: |)")
     optParser.add_option("--split-x", action="store_true", dest="splitx", default=False,
                          help="interpret the x value as a list of values")
     optParser.add_option("--split-y", action="store_true", dest="splity", default=False,
@@ -196,6 +197,8 @@ def getOptions(args=None):
 
     options.xclampRange = interpretClamp(options.xclamp)
     options.yclampRange = interpretClamp(options.yclamp)
+
+    options.join = options.join.encode("utf-8").decode("unicode_escape")
 
     return options
 
@@ -360,7 +363,7 @@ def getDataStream(options):
                                 continue
                             skip = retrieveValues(index, elem, attrs1, values, skippedLines)
                             if not skip:
-                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY, options.join):
                                     yield toYield
                                     index += 1
 
@@ -376,7 +379,7 @@ def getDataStream(options):
                                 continue
                             skip = parseValues(index, line, mAs1, values, skippedLines)
                             if not skip:
-                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY, options.join):
                                     yield toYield
                                     index += 1
 
@@ -405,7 +408,7 @@ def getDataStream(options):
                             values = {}  # attr -> value
                             skip = retrieveValues(index, elem, allAttrs, values, skippedLines)
                             if not skip:
-                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY, options.join):
                                     yield toYield
                                     index += 1
 
@@ -415,7 +418,7 @@ def getDataStream(options):
                             values = {}  # attr -> value
                             skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
                             if not skip:
-                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY, options.join):
                                     yield toYield
                                     index += 1
 
@@ -467,7 +470,7 @@ def retrieveValues(index, elem, attrs, values, skippedLines):
     return skip
 
 
-def combineValues(attrs, attr2parts, values, splitX, splitY):
+def combineValues(attrs, attr2parts, values, splitX, splitY, separator):
     needSplit = splitX or splitY
     toYield = []
     for a, split in zip(attrs, [False, splitX, splitY]):
@@ -481,9 +484,9 @@ def combineValues(attrs, attr2parts, values, splitX, splitY):
             if needSplit and split:
                 toYield.append(v)
             elif needSplit:
-                toYield.append(['|'.join(v)])
+                toYield.append([separator.join(v)])
             else:
-                toYield.append('|'.join(v))
+                toYield.append(separator.join(v))
 
     if needSplit:
         assert len(toYield) == 3
@@ -498,7 +501,7 @@ def combineValues(attrs, attr2parts, values, splitX, splitY):
                             i += attr2parts[attrs[1]][ix]
                         if len(attr2parts[attrs[2]]) > 1:
                             if i != "":
-                                i += "|"
+                                i += separator
                             i += attr2parts[attrs[2]][iy]
                     yield [i, x, y]
                     splitIndex += 1
@@ -702,6 +705,8 @@ def main(options):
 
     barOffset = 0
     barWidth = options.barbin / (len(data.items()) + 1)
+    barTicks = []  # ticks for non-numeric bar plots
+    barLabels = []  # labels for non-numeric bar plots
     hadData = False
 
     for dataID, d in data.items():
@@ -758,15 +763,16 @@ def main(options):
                         center = [x + barOffset * barWidth for x in xvalues]
                     else:
                         center = [x + barOffset * barWidth for x in range(len(xvalues))]
-                        plt.xticks(range(len(xvalues)), xvalues)
+                        barLabels += xvalues
                     plt.bar(center, yvalues, width=barWidth, label=dataID)
                 else:
                     if numericYCount > 0:
                         center = [y + barOffset * barWidth for y in yvalues]
                     else:
                         center = [y + barOffset * barWidth for y in range(len(yvalues))]
-                        plt.yticks(range(len(yvalues)), yvalues)
+                        barLabels += yvalues
                     plt.barh(center, xvalues, height=barWidth, label=dataID)
+                barTicks += center
                 barOffset += 1
 
             else:
@@ -788,6 +794,11 @@ def main(options):
         else:
             plt.yticks(range(len(labels)), labels)
         plt.boxplot(boxdata, vert=options.xattr == BOX_ATTR)
+
+    elif options.barplot and numericXCount == 0:
+        plt.xticks(barTicks, barLabels)
+    elif options.hbarplot and numericYCount == 0:
+        plt.yticks(barTicks, barLabels)
 
     if options.invertYAxis and hadData:
         plt.axis([minX, maxX, maxY, minY])

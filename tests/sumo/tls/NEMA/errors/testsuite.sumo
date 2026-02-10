@@ -16,3 +16,6 @@ customDetectorsMissing
 
 # crash
 ticket15001
+
+# crash, #17593
+emptyRing

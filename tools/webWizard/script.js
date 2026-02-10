@@ -591,6 +591,7 @@ on("ready", function(){
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
+            verbose: elem("#verbose").checked,
             vehicles: {},
             roadTypes:{}                                                            // sab-inf
         };

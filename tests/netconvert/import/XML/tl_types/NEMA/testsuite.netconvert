@@ -15,6 +15,9 @@ NEMA_4arm
 NEMA_4arm_grouped
 
 # declare a NEMA controller
+NEMA_4arm_noRight
+
+# declare a NEMA controller
 NEMA_3arm_noS
 
 # declare a NEMA controller (no turning lanes)

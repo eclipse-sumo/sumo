@@ -204,7 +204,7 @@ NBOwnTLDef::getBestCombination(const EdgeVector& edges) {
             }
         }
     }
-    if (bestValue <= 0) {
+    if (bestValue < 0 || (bestValue == 0 && !hasStraightConnection(bestPair.first) && !hasStraightConnection(bestPair.second))) {
         // do not group edges
         if (bestPair.first->getPriority() < bestPair.second->getPriority()) {
             std::swap(bestPair.first, bestPair.second);

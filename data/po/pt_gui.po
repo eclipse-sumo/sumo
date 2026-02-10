@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-02-05 20:16+0000\n"
+"PO-Revision-Date: 2026-02-09 14:14+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -6144,7 +6144,7 @@ msgstr "A largura de linha padrão para desenhar um polígono não preenchido"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2202
 msgid "The layer in which the polygon lies"
-msgstr ""
+msgstr "A camada em que o polígono está"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2208
 msgid "A typename for the polygon"
@@ -6153,7 +6153,7 @@ msgstr "Um tipo de polígono"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2216
 #: src/netedit/GNETagPropertiesDatabase.cpp:6332
 msgid "Angle of rendered image in degree"
-msgstr ""
+msgstr "Ângulo da imagem renderizada em graus"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2222
 #: src/netedit/GNETagPropertiesDatabase.cpp:2542
@@ -6163,7 +6163,7 @@ msgstr "Habilitar/desabilitar atributos geográficos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2228
 msgid "A custom geo shape for this polygon"
-msgstr ""
+msgstr "Um formato geométrico personalizado para esse polígono"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2233
 msgid "Toggle close or open shape"
@@ -6184,6 +6184,7 @@ msgstr "Ponto de Interesse em uma faixa"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2280
 msgid "The lateral offset on the named lane at which the POI is located at"
 msgstr ""
+"O deslocamento lateral da faixa em que o ponto de interesse está localizado"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2295
 msgid "PointOfInterestGeo"
@@ -6191,11 +6192,11 @@ msgstr "Ponto de interesse geografico"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2304
 msgid "The longitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "A posição longitudinal do veículo estacionado na visualização"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2309
 msgid "The latitude position of the parking vehicle on the view"
-msgstr ""
+msgstr "A posição latitudinal do veículo estacionado na visualização"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2329
 msgid "TrafficAssignmentZones"
@@ -6211,11 +6212,11 @@ msgstr "Centro da Zona de Tráfego Agregado"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2350
 msgid "An information whether the TAZ shall be filled"
-msgstr ""
+msgstr "Uma informação sobre se a TAZ deve ser preenchida"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2356
 msgid "Use the edges within the shape"
-msgstr ""
+msgstr "Usar as arestas dentro da forma"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2358
 msgid "edges within"
@@ -6227,7 +6228,7 @@ msgstr "TAZ gerador de viagens"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2377
 msgid "Depart weight associated to this Edge"
-msgstr ""
+msgstr "Peso de saída associado a esta aresta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2389
 msgid "TAZ Sink"
@@ -6235,7 +6236,7 @@ msgstr "TAZ atrator de viagens"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2397
 msgid "Arrival weight associated to this Edge"
-msgstr ""
+msgstr "Peso de chegada associado a esta aresta"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2415
 msgid "TractionSubstation"
@@ -6243,11 +6244,11 @@ msgstr "Subestação de tração"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2428
 msgid "Voltage of at connection point for the overhead wire"
-msgstr ""
+msgstr "Tensão no ponto de conexão para a fiação aérea"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2434
 msgid "Current limit of the feeder line"
-msgstr ""
+msgstr "Limite atual da linha de alimentação"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2446
 msgid "WireSection"
@@ -6255,23 +6256,23 @@ msgstr "Seção de fio"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2453
 msgid "Substation to which the circuit is connected"
-msgstr ""
+msgstr "Subestação à qual o circuito está conectado"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2458
 msgid "List of consecutive lanes of the circuit"
-msgstr ""
+msgstr "Lista de faixas consecutivas do circuito"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2463
 msgid "Starting position in the specified lane"
-msgstr ""
+msgstr "Posição inicial na faixa especificada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2469
 msgid "Ending position in the specified lane"
-msgstr ""
+msgstr "Posição final na faixa especificada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2477
 msgid "Inner lanes, where placing of overhead wire is restricted"
-msgstr ""
+msgstr "Faixas internas, em que a inserção de catenárias é restringido"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2488
 msgid "OverheadWireClamp"
@@ -6288,6 +6289,8 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:2500
 msgid "ID of the overhead wire segment lane of overheadWireIDStartClamp"
 msgstr ""
+"ID do segmento de faixa da fiação aérea da braçadeira inicial "
+"(overheadWireIDStartClamp)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2505
 msgid ""
@@ -6300,6 +6303,8 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:2510
 msgid "ID of the overhead wire segment lane of overheadWireIDEndClamp"
 msgstr ""
+"ID do segmento de faixa da fiação aérea da braçadeira final "
+"(overheadWireIDFinalClamp)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2527
 msgid "JuPedSim WalkableArea"
@@ -6307,11 +6312,11 @@ msgstr "Área caminhável do JuPedSim"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2535
 msgid "The shape of the walkable area"
-msgstr ""
+msgstr "O formato da área caminhável"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2548
 msgid "A custom geo shape for this walkable area"
-msgstr ""
+msgstr "Um formato personalizado para essa área caminhável"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2559
 msgid "JuPedSim Obstacle"
@@ -6323,7 +6328,7 @@ msgstr "O formato do obstáculo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2580
 msgid "A custom geo shape for this obstacle"
-msgstr ""
+msgstr "Um formato personalizado para esse obstáculo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2617
 msgid "Route (embedded)"
@@ -6365,19 +6370,20 @@ msgstr "Viagem entre arestas"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2779
 #: src/netedit/GNETagPropertiesDatabase.cpp:2815
 msgid "The id of the vehicle type to use for this trip"
-msgstr ""
+msgstr "O ID do tipo de veículo para ser usado nessa viagem"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2744
 msgid "The ID of the edge the trip starts at"
-msgstr ""
+msgstr "O ID da aresta em que a viagem inicia"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2749
 msgid "The ID of the edge the trip ends at"
-msgstr ""
+msgstr "O ID da aresta em que a viagem termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2754
 msgid "List of intermediate edge ids which shall be part of the trip"
 msgstr ""
+"Lista de IDs das arestas intermediárias que deverão fazer parte do trajeto"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2770
 msgid "TripJunctions"
@@ -6385,11 +6391,11 @@ msgstr "Viagem entre cruzamentos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2785
 msgid "The name of the junction the trip starts at"
-msgstr ""
+msgstr "O nome da junção em que a viagem começa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2790
 msgid "The name of the junction the trip ends at"
-msgstr ""
+msgstr "O nome da junção em que a viagem termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2806
 msgid "TripTAZs"
@@ -6397,11 +6403,11 @@ msgstr "Viagem entre TAZs"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2821
 msgid "The name of the TAZ the trip starts at"
-msgstr ""
+msgstr "O nome da zona de análise de tráfego (TAZ) em que a viagem inicia"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2826
 msgid "The name of the TAZ the trip ends at"
-msgstr ""
+msgstr "O nome da zona de análise de tráfego (TAZ) em que a viagem termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2842
 msgid "VehicleRoute"
@@ -6410,17 +6416,17 @@ msgstr "Rota do veículo"
 #: src/netedit/GNETagPropertiesDatabase.cpp:2851
 #: src/netedit/GNETagPropertiesDatabase.cpp:2892
 msgid "The id of the vehicle type to use for this vehicle"
-msgstr ""
+msgstr "O ID do tipo de veículo para usar nesse veículo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2862
 #: src/netedit/GNETagPropertiesDatabase.cpp:2898
 msgid "The index of the edge within route the vehicle starts at"
-msgstr ""
+msgstr "O índice da aresta em que a rota do veículo inicia"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2867
 #: src/netedit/GNETagPropertiesDatabase.cpp:2903
 msgid "The index of the edge within route the vehicle ends at"
-msgstr ""
+msgstr "O índice da aresta em que a rota do veículo termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2883
 msgid "VehicleEmbeddedRoute"
@@ -6436,19 +6442,20 @@ msgstr "Fluxo entre arestas"
 #: src/netedit/GNETagPropertiesDatabase.cpp:3044
 #: src/netedit/GNETagPropertiesDatabase.cpp:3086
 msgid "The id of the flow type to use for this flow"
-msgstr ""
+msgstr "O ID do tipo de fluxo para usar para esse fluxo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2934
 msgid "The ID of the edge the flow starts at"
-msgstr ""
+msgstr "O ID da aresta em que o fluxo começa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2939
 msgid "The ID of the edge the flow ends at"
-msgstr ""
+msgstr "O ID da aresta em que o fluxo termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2944
 msgid "List of intermediate edge ids which shall be part of the flow"
 msgstr ""
+"Lista de IDs das arestas intermediárias que deverão fazer parte do fluxo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2961
 msgid "FlowJunctions"
@@ -6456,11 +6463,11 @@ msgstr "Fluxo entre cruzamentos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2976
 msgid "The name of the junction the flow starts at"
-msgstr ""
+msgstr "O nome da junção em que o fluxo deve começar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2981
 msgid "The name of the junction the flow ends at"
-msgstr ""
+msgstr "O nome da junção em que o fluxo deve terminar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:2998
 msgid "FlowTAZs"
@@ -6468,11 +6475,11 @@ msgstr "Fluxo entre TAZs"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3013
 msgid "The name of the TAZ the flow starts at"
-msgstr ""
+msgstr "O nome da zona de análise de tráfego (TAZ) em que o fluxo começa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3018
 msgid "The name of the TAZ the flow ends at"
-msgstr ""
+msgstr "O nome da zona de análise de tráfego (TAZ) em que o fluxo termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3035
 msgid "FlowRoute"
@@ -6480,17 +6487,17 @@ msgstr "Fluxo de rota"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3050
 msgid "The id of the route the flow shall drive along"
-msgstr ""
+msgstr "O ID da rota em que o fluxo deve seguir"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3055
 #: src/netedit/GNETagPropertiesDatabase.cpp:3092
 msgid "The index of the edge within route the flow starts at"
-msgstr ""
+msgstr "O índice da aresta dentro da rota em que o fluxo começa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3060
 #: src/netedit/GNETagPropertiesDatabase.cpp:3097
 msgid "The index of the edge within route the flow ends at"
-msgstr ""
+msgstr "O índice da aresta dentro da rota em que o fluxo termina"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3077
 msgid "FlowEmbeddedRoute"
@@ -6505,7 +6512,7 @@ msgstr "Faixa de parada"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6243
 msgid ""
 "The begin position on the lane (the lower position on the lane) in meters"
-msgstr ""
+msgstr "A posição inicial na faixa (a posição mais baixa da faixa) em metros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3133
 #: src/netedit/GNETagPropertiesDatabase.cpp:3290
@@ -6520,7 +6527,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3140
 msgid "The lateral offset on the named lane at which the vehicle must stop"
-msgstr ""
+msgstr "O deslocamento lateral na faixa designada em que o véiculo deve parar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3171
 msgid "StopBusStop"
@@ -6570,6 +6577,8 @@ msgstr "Faixa de ponto de referência"
 msgid ""
 "The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
+"O deslocamento lateral na faixa designada no qual o veículo deve passar por "
+"um ponto de referência"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:3328
 msgid "WaypointBusStop"
@@ -7375,7 +7384,7 @@ msgstr "Parada de pessoas"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6175
 #, c-format
 msgid "Center view over element % after creation"
-msgstr ""
+msgstr "Centralizar a visualização sobre o elemento % depois da criação"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6176
 msgid "center view"
@@ -7386,6 +7395,8 @@ msgid ""
 "The path to the file to save this element (not editable for network "
 "elements)"
 msgstr ""
+"O caminho do arquivo onde o elemento será salvo (não é editável para "
+"elementos de rede)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6185
 #: src/netedit/GNETagPropertiesDatabase.cpp:6192
@@ -7396,10 +7407,12 @@ msgstr "Arquivo"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6190
 msgid "The path to the file to save this element (the same of their parent)"
 msgstr ""
+"O caminho do arquivo onde o elemento será salvo (o mesmo que seu elemento "
+"pai)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6197
 msgid "The path to the file to save this element"
-msgstr ""
+msgstr "O caminho do arquivo onde o elemento será salvo"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6207
 msgid "Toggle front element"
@@ -7425,7 +7438,7 @@ msgstr "parâmetros"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6264
 #, c-format
 msgid "Angle of waiting %s relative to lane angle"
-msgstr ""
+msgstr "Ângulo de espera %s relativo ao ângulo da faixa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6271
 msgid "Length of %"
@@ -7457,11 +7470,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6318
 msgid "Width of rendered image in meters"
-msgstr ""
+msgstr "Largura da imagem renderizada em metros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6324
 msgid "Height of rendered image in meters"
-msgstr ""
+msgstr "Altura da imagem renderizada em metros"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6343
 msgid ""
@@ -7536,7 +7549,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6434
 msgid "The model used for changing lanes"
-msgstr ""
+msgstr "O modelo usado para troca de faixa"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6441
 msgid "The model used for car-following"
@@ -7582,7 +7595,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6498
 msgid "3D model file for this class"
-msgstr ""
+msgstr "arquivo de modelo 3D para essa classe"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6536
 msgid "The lane on which the vehicle shall be inserted"
@@ -7756,10 +7769,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:6773
 msgid "EIDM leader speed estimation error parameter [-]"
 msgstr ""
+"Parâmetro EIDM de erro de estimativa da velocidade do veículo à frente [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6779
 msgid "EIDM gap estimation error parameter [-]"
-msgstr ""
+msgstr "Parâmetro EIDM de erro de estimativa de intervalo [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6785
 msgid "EIDM driving error parameter [-]"
@@ -7774,25 +7788,30 @@ msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) "
 "[m/s^2]"
 msgstr ""
+"Aceleração negativa máxima do EIDM entre dois pontos de ação (limiar) [m/s^2]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6803
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
+"Parâmetro de tempo EIDM até o veículo atingir a aceleração máxima ($a_{max}"
+"$) após a partida ou arranque [s]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6809
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "Parâmetro EIDM de planicidade da curva de arranque/partida [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6815
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "Parâmetro EIDM de deslocamento da curva de arranque/partida [-]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6821
 msgid ""
 "EIDM parameter if model shall include vehicle dynamics into the acceleration"
 " calculation [0/1]"
 msgstr ""
+"Parâmetro EIDM se o modelo deve incluir a dinâmica do veículo no cálculo da "
+"aceleração [0/1]"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6827
 msgid ""
@@ -7858,12 +7877,16 @@ msgid ""
 "Minimum distance to pedestrians that are walking towards the conflict point "
 "with the ego vehicle."
 msgstr ""
+"Distância mínima até pedestres que caminham em direção ao ponto de conflito "
+"com o veículo ego."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6964
 msgid ""
 "The accumulated waiting time after which a vehicle will drive onto an "
 "intersection even though this might cause jamming."
 msgstr ""
+"O tempo de espera acumulado após o qual um veículo entrará em um cruzamento, "
+"mesmo que isso possa causar congestionamento."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6970
 msgid ""
@@ -7886,21 +7909,27 @@ msgid ""
 "This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
 " violating a red light."
 msgstr ""
+"Este valor faz com que os veículos afetados pelo jmDriveAfterRedTime reduzam "
+"a velocidade ao avançar um sinal vermelho."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6988
 msgid ""
 "This value causes vehicles to ignore foe vehicles that have right-of-way "
 "with the given probability."
 msgstr ""
+"Este valor faz com que os veículos ignorem, com a probabilidade dada, "
+"veículos adversários que tenham o direito de passagem."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6994
 msgid "This value is used in conjunction with jmIgnoreFoeProb."
-msgstr ""
+msgstr "Este valor é usado em conjunto com jmIgnoreFoeProb."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6995
 msgid ""
 "Only vehicles with a speed below or equal to the given value may be ignored."
 msgstr ""
+"Apenas veículos com velocidade inferior ou igual ao valor fornecido podem "
+"ser ignorados."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7001
 msgid ""
@@ -7992,6 +8021,9 @@ msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the"
 " left is necessary (relative to right lookahead)."
 msgstr ""
+"Fator para configurar a distância de antecipação estratégica quando é "
+"necessária uma mudança para a esquerda (em relação à antecipação para a "
+"direita)."
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7103
 msgid ""
@@ -10310,7 +10342,7 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:59
 msgid ". There are overlapping intervals."
-msgstr ""
+msgstr ". Existem intervalos sobrepostos."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:76
 msgid "Error updating % of % '%'"
@@ -10358,7 +10390,7 @@ msgstr ""
 
 #: src/netedit/dialogs/elements/GNEVariableSpeedSignDialog.cpp:59
 msgid "Steps has to be sorted."
-msgstr ""
+msgstr "As etapas precisam ser ordenadas."
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:492
 msgid "Invalid row type"
@@ -10765,11 +10797,11 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:107
 #, c-format
 msgid "change % of invalid additionals"
-msgstr ""
+msgstr "alterar % de adicionais inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:115
 msgid "fix positions of invalid additionals"
-msgstr ""
+msgstr "corrigir posições dos elementos adicionais"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:123
 msgid "select invalid additionals"
@@ -10815,7 +10847,7 @@ msgstr "Remover rotas inválidas"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:67
 msgid "Remove invalid routes and save"
-msgstr ""
+msgstr "Remover rotas inválidas e salvar"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:71
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:72
@@ -10856,7 +10888,7 @@ msgstr "Remover veículos inválidos"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:191
 msgid "Remove invalid vehicles and save"
-msgstr ""
+msgstr "Remover veículos inválidos e salvar"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:195
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:196
@@ -11599,7 +11631,7 @@ msgstr "Simplificar forma"
 #: src/netedit/elements/network/GNENetworkElement.cpp:335
 #: src/netedit/elements/network/GNENetworkElement.cpp:346
 msgid "Replace current shape with a rectangle"
-msgstr ""
+msgstr "Substituir formato atual por um retângulo"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:273
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
@@ -11633,7 +11665,7 @@ msgstr "Triangular polígono"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:280
 msgid "Convert the current polygon in triangles"
-msgstr ""
+msgstr "Converter o polígono atual em triângulos"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:291
 msgid "Remove geometry point"
@@ -11675,7 +11707,7 @@ msgstr "Usando formato GEO"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:114
 msgid "' needs at least one edge"
-msgstr ""
+msgstr "' precisa de pelo menos uma aresta"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:250
 #: src/netedit/elements/network/GNELane.cpp:549
@@ -11684,7 +11716,7 @@ msgstr "Definir ponto de geometria personalizado"
 
 #: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:98
 msgid "' needs at least one lane"
-msgstr ""
+msgstr "' precisa de pelo menos uma faixa"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:65
 msgid "add data set"
@@ -11692,7 +11724,7 @@ msgstr "adicionar conjunto de dados"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:89
 msgid "add data set and data interval"
-msgstr ""
+msgstr "Adicionar conjunto de dados e intervalo de dados"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:105
 msgid "add data interval"
@@ -12687,7 +12719,7 @@ msgstr "Abrir janela de elemento"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:86
 msgid "Open specific element edit dialog"
-msgstr ""
+msgstr "Abrir janela de edição do elemento específico"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:92
 msgid "Open help attributes dialog"
@@ -13119,7 +13151,7 @@ msgstr "Clique em:"
 #: src/netedit/frames/GNEPlanCreator.cpp:854
 #: src/netedit/frames/GNEPlanCreator.cpp:894
 msgid "Only two from-to elements are allowed"
-msgstr ""
+msgstr "Apenas elementos from-to são permitidos"
 
 #: src/netedit/frames/GNEPlanCreator.cpp:887
 msgid "Double stoppingPlaces aren't allowed"
@@ -13169,15 +13201,15 @@ msgstr "Coluna inválida"
 
 #: src/netedit/frames/GNETLSTable.cpp:286
 msgid "Invalid row in table test"
-msgstr ""
+msgstr "Fila inválida no teste de mesa"
 
 #: src/netedit/frames/GNETLSTable.cpp:288
 msgid "Invalid column in table test"
-msgstr ""
+msgstr "Coluna inválida no teste de mesa"
 
 #: src/netedit/frames/GNETLSTable.cpp:317
 msgid "Unknown operation in table test"
-msgstr ""
+msgstr "Operação desconhecida no teste de mesa"
 
 #: src/netedit/frames/GNETLSTable.cpp:642
 msgid "Accumulated: "
@@ -13408,7 +13440,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:78
 msgid "Shrink frame to default width"
-msgstr ""
+msgstr "Reduzir o quadro para a largura padrão"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:64
 msgid "Templates"
@@ -16097,7 +16129,7 @@ msgstr "por velocidade relativa média "
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1145
 msgid "by routing device assumed speed "
-msgstr ""
+msgstr "por velocidade assumida do dispositivo de roteamento "
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1152
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1348
@@ -16224,7 +16256,7 @@ msgstr "por tempo de espera acumulado"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1239
 msgid "by time since lane change"
-msgstr ""
+msgstr "por tempo desde a troca de faixa"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1248
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1757
@@ -17016,7 +17048,7 @@ msgstr "Mostrar o índice da fase do semáforo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2228
 msgid "Show traffic light phase name"
-msgstr ""
+msgstr "Mostrar nome da fase do semáforo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2229
 msgid "Show junction name"
@@ -17137,11 +17169,11 @@ msgstr "Desenhar limites"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2527
 msgid "Force draw for rectangle selection"
-msgstr ""
+msgstr "Forçar desenho para a seleção retangular"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2530
 msgid "Disable dotted contours during selection/deletion"
-msgstr ""
+msgstr "Desabilitar contornos pontilhados durante a seleção/exclusão"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2533
 msgid "Recalculate boundaries"
@@ -17157,7 +17189,7 @@ msgstr "Visualização 3D"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2547
 msgid "Ignore color scheme for vehicles"
-msgstr ""
+msgstr "Ignorar esquemas de cores para os veículos"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2549
 msgid "Show TLS link markers"
@@ -17217,7 +17249,7 @@ msgstr "Localizar Estruturas"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "Localizar estruturas na rede."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
@@ -17269,7 +17301,7 @@ msgstr "Mudar idioma para espanhol. (es)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:354
 msgid "Change language to portuguese. (pt)"
-msgstr ""
+msgstr "Trocar idioma para português. (pt)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:356
 msgid "Change language to french. (fr)"
@@ -17293,15 +17325,15 @@ msgstr "Mudar idioma para turco. (tr)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:366
 msgid "Change language to hungarian. (hu)"
-msgstr ""
+msgstr "Trocar idioma para húngaro. (hu)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:368
 msgid "Change language to japanese. (ja)"
-msgstr ""
+msgstr "trocar idioma para japonês. (ja)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "Change language to korean. (ko)"
-msgstr ""
+msgstr "Trocar idioma para coreano. (ko)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "german"

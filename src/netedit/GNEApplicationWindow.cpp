@@ -1685,8 +1685,14 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
         gSchemeStorage.saveDecals(myViewNet->getDecals());
         gSchemeStorage.saveViewport(myViewNet->getChanger().getXPos(), myViewNet->getChanger().getYPos(),
                                      myViewNet->getChanger().getZPos(), myViewNet->getChanger().getRotation());
-        // clear decals
-        myViewNet->getDecals().clear();
+        // clear decals and release GPU textures
+        if (myViewNet->makeCurrent()) {
+            myViewNet->clearDecals();
+            myViewNet->processPendingTextureDeletes();
+            GUITextureSubSys::resetTextures();
+            GLHelper::resetFont();
+            myViewNet->makeNonCurrent();
+        }
     }
     // lock tracker
     myTrackerLock.lock();
@@ -1710,10 +1716,6 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
     myTestCoordinate->setText(TL("N/A"));
     myTestFrame->hide();
     myMessageWindow->unregisterMsgHandlers();
-    // Reset textures
-    GUITextureSubSys::resetTextures();
-    // reset fonts
-    GLHelper::resetFont();
 }
 
 

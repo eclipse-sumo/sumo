@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-02-09T15:31:15.436859+01:00 by Eclipse SUMO netedit v1_26_0+0096-0e9bbd7a0b1
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="CE" from="C" to="E" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="CN" from="C" to="N" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="CS" from="C" to="S" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="CW" from="C" to="W" priority="2" numLanes="1" speed="13.89" spreadType="roadCenter"/>
+    <edge id="EC" from="E" to="C" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter"/>
+    <edge id="NC" from="N" to="C" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter"/>
+    <edge id="SC" from="S" to="C" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter"/>
+    <edge id="WC" from="W" to="C" priority="2" numLanes="2" speed="13.89" spreadType="roadCenter"/>
+</edges>

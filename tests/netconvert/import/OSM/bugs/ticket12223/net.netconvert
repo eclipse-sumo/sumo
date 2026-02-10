@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 17:42:16 by Eclipse SUMO netconvert Version v1_24_0+0112-e2de0a4139d
+<!-- generated on 2026-02-09T15:58:54.767195+01:00 by Eclipse SUMO netconvert v1_26_0+0097-b533b6e04ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -346,24 +346,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="5"  state="rrrr"/>
     </tlLogic>
     <tlLogic id="9886764479" type="static" programID="0" offset="0">
-        <phase duration="27" state="rggGGGrGrrg"/>
-        <phase duration="3"  state="ryyyyyryrrg"/>
-        <phase duration="27" state="GrrrrrGgGGG"/>
-        <phase duration="3"  state="Grrrrryyyyy"/>
-        <phase duration="27" state="GGGGrrrrrrr"/>
-        <phase duration="3"  state="yyyGrrrrrrr"/>
+        <phase duration="42" state="rggGGGrGrrg"/>
+        <phase duration="3"  state="rggyyyryrrg"/>
+        <phase duration="42" state="GggrrrGgGGG"/>
+        <phase duration="3"  state="yggrrrygyyy"/>
     </tlLogic>
     <tlLogic id="cluster_276248266_3363880862_7561495434_7561495435_#2more" type="static" programID="0" offset="0">
-        <phase duration="15" state="GrrrrrGrrrrGrrGrrrrrrgGrrrrr"/>
-        <phase duration="3"  state="yrrrrryrrrryrrGrrrrrryyrrrrr"/>
-        <phase duration="18" state="rGGgGggrrrrrrrGGGggGgrrrrrrr"/>
+        <phase duration="21" state="rrrrrrrGGggGGgGrrrrrrgGrrrrr"/>
+        <phase duration="3"  state="rrrrrrryyyyyygyrrrrrrgyrrrrr"/>
+        <phase duration="6"  state="rrrrrrrrrrrrrGrrrrrrrGrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrryrrrrrrryrrrrrr"/>
+        <phase duration="21" state="rGGgGggrrrrrrrGGGggGgrrrrrrr"/>
         <phase duration="3"  state="ryyyyggrrrrrrryyyyyygrrrrrrr"/>
         <phase duration="6"  state="rrrrrGGrrrrrrrrrrrrrGrrrrrrr"/>
         <phase duration="3"  state="rrrrryyrrrrrrrrrrrrryrrrrrrr"/>
-        <phase duration="18" state="rrrrrrrGGggGGGGGrrgrrrrrrrrr"/>
-        <phase duration="3"  state="rrrrrrryyyyyyyGyrryrrrrrrrrr"/>
-        <phase duration="18" state="rGrGrrrrrrrrrrGrrrrrrrrGGGGG"/>
-        <phase duration="3"  state="ryryrrrrrrrrrrGrrrrrrrryyyyy"/>
+        <phase duration="21" state="GrrrrrrrrrrrrrGrrrrrrrrGGGgg"/>
+        <phase duration="3"  state="yrrrrrrrrrrrrrGrrrrrrrryyyyy"/>
     </tlLogic>
     <tlLogic id="cluster_2874816622_3263667187_3363880863" type="static" programID="0" offset="0">
         <phase duration="42" state="GGrrG"/>

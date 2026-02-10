@@ -994,6 +994,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
         mySettings = &gSchemeStorage.get(settingsName);
     }
     if (handler.hasDecals()) {
+        myParent->clearDecals();
         myParent->getDecalsLockMutex().lock();
         myParent->getDecals() = handler.getDecals();
         myDecalsTable->fillTable();
@@ -1044,14 +1045,15 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
 
 void
 GUIDialog_ViewSettings::loadDecals(const std::string& file) {
-    myParent->getDecalsLockMutex().lock();
+    myParent->clearDecals();
     GUISettingsHandler handler(file);
     if (handler.hasDecals()) {
+        myParent->getDecalsLockMutex().lock();
         myParent->getDecals() = handler.getDecals();
+        myParent->getDecalsLockMutex().unlock();
     }
     myDecalsTable->fillTable();
     myParent->update();
-    myParent->getDecalsLockMutex().unlock();
 }
 
 
@@ -1273,16 +1275,9 @@ GUIDialog_ViewSettings::onCmdSaveXMLDecals(FXObject*, FXSelector, void* /*data*/
 
 long
 GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
-    // lock decals mutex
-    myParent->getDecalsLockMutex().lock();
-    // clear decals
-    myParent->getDecals().clear();
-    // update view
+    myParent->clearDecals();
     myParent->update();
-    // fill table again
     myDecalsTable->fillTable();
-    // unlock decals mutex
-    myParent->getDecalsLockMutex().unlock();
     return 1;
 }
 

@@ -909,7 +909,7 @@ Deadlocks in a scenario can have many causes:
     starting on the same edge).
 4.  invalid routing
   - only shortest path were used instead of [a user assignment algorithm](Demand/Dynamic_User_Assignment.md)
-  - to many vehicles start/end their route with a [turn-around](Simulation/Turnarounds.md). Can be fixed by computing [routes between junctions](Demand/Shortest_or_Optimal_Path_Routing.md#routing_between_junctions) instead of between edges.
+  - too many vehicles start/end their route with a [turn-around (description/mitigations)](Simulation/Turnarounds.md).
 5.  invalid insertion (vehicles being inserted on the wrong lane close
     to the end of an edge where they need to change to another turn
     lane). This can be fixed by setting the vehicle attribute `departLane="best"`

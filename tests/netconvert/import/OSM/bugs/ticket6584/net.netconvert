@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:22 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-02-09T15:58:53.923688+01:00 by Eclipse SUMO netconvert v1_26_0+0097-b533b6e04ac
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -124,13 +124,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_13801788_1696142786_207511329_3548467989_11_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="5.90" length="9.02" shape="255.35,352.66 255.63,350.03 254.97,348.22 253.36,347.23 250.80,347.06"/>
     </edge>
     <edge id=":cluster_13801788_1696142786_207511329_3548467989_12" function="internal">
-        <lane id=":cluster_13801788_1696142786_207511329_3548467989_12_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.11" length="34.45" shape="258.41,353.59 261.05,344.99 264.90,334.48 268.70,325.56 271.19,321.74"/>
+        <lane id=":cluster_13801788_1696142786_207511329_3548467989_12_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.11" length="5.95" shape="258.41,353.59 260.16,347.91"/>
     </edge>
     <edge id=":cluster_13801788_1696142786_207511329_3548467989_13" function="internal">
-        <lane id=":cluster_13801788_1696142786_207511329_3548467989_13_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="1.44" shape="258.41,353.59 259.53,352.68"/>
+        <lane id=":cluster_13801788_1696142786_207511329_3548467989_13_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="1.31" shape="258.41,353.59 259.42,352.77"/>
     </edge>
     <edge id=":cluster_13801788_1696142786_207511329_3548467989_17" function="internal">
-        <lane id=":cluster_13801788_1696142786_207511329_3548467989_17_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="3.24" shape="259.53,352.68 260.41,352.53 261.06,353.15 261.48,354.53"/>
+        <lane id=":cluster_13801788_1696142786_207511329_3548467989_17_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.11" length="28.50" shape="260.16,347.91 261.05,344.99 264.90,334.48 268.70,325.56 271.19,321.74"/>
+    </edge>
+    <edge id=":cluster_13801788_1696142786_207511329_3548467989_18" function="internal">
+        <lane id=":cluster_13801788_1696142786_207511329_3548467989_18_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="3.37" shape="259.42,352.77 259.53,352.68 260.41,352.53 261.06,353.15 261.48,354.53"/>
     </edge>
 
     <edge id="-499284738#2" from="cluster_13801788_1696142786_207511329_3548467989" to="4905840038" priority="3" type="highway.residential" shape="263.28,342.87 260.32,352.56 258.75,358.83 252.37,384.29">
@@ -186,17 +189,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <tlLogic id="GS_cluster_13801788_1696142786_207511329_3548467989" type="static" programID="0" offset="0">
-        <phase duration="22" state="GGGGgrrrGggrrr"/>
+        <phase duration="32" state="GGGGgrrrGggrrr"/>
         <phase duration="3"  state="yyyyyrrrGggrrr"/>
         <phase duration="6"  state="rrrrrrrrGGGrrr"/>
         <phase duration="3"  state="rrrrrrrryyyrrr"/>
         <phase duration="1"  state="rrrrrrrrrrrrrr"/>
-        <phase duration="23" state="GrrrrrrrrrrGGg"/>
-        <phase duration="3"  state="yrrrrrrrrrryyy"/>
+        <phase duration="32" state="rrrrrGGgrrrGgg"/>
+        <phase duration="3"  state="rrrrryygrrrygg"/>
+        <phase duration="6"  state="rrrrrrrGrrrrGG"/>
+        <phase duration="3"  state="rrrrrrryrrrryy"/>
         <phase duration="1"  state="rrrrrrrrrrrrrr"/>
-        <phase duration="23" state="rrrrrGGGrrrrrr"/>
-        <phase duration="3"  state="rrrrryyyrrrrrr"/>
-        <phase duration="2"  state="rrrrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="1637693811" type="priority" x="396.78" y="312.67" incLanes="223276865#1_0" intLanes=":1637693811_0_0 :1637693811_1_0" shape="402.71,313.80 402.46,310.61 401.85,310.52 401.66,310.36 401.54,310.12 401.51,309.81 401.55,309.42 398.76,306.89 397.95,309.24 397.32,310.08 396.54,310.70 395.62,311.09 394.56,311.26 394.85,314.45">
@@ -221,27 +223,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="4905840038" type="priority" x="252.37" y="384.29" incLanes="-499284738#2_0" intLanes=":4905840038_0_0" shape="252.37,384.29 255.47,385.07 252.37,384.29">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="cluster_13801788_1696142786_207511329_3548467989" type="traffic_light" x="264.38" y="332.79" incLanes="498531127_0 498531127_1 23151660#0_0 456889315#0_0 456889315#0_1 456889315#0_2 499284738#0_0 499284738#0_1" intLanes=":cluster_13801788_1696142786_207511329_3548467989_0_0 :cluster_13801788_1696142786_207511329_3548467989_1_0 :cluster_13801788_1696142786_207511329_3548467989_1_1 :cluster_13801788_1696142786_207511329_3548467989_1_2 :cluster_13801788_1696142786_207511329_3548467989_14_0 :cluster_13801788_1696142786_207511329_3548467989_5_0 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_7_0 :cluster_13801788_1696142786_207511329_3548467989_8_0 :cluster_13801788_1696142786_207511329_3548467989_15_0 :cluster_13801788_1696142786_207511329_3548467989_16_0 :cluster_13801788_1696142786_207511329_3548467989_11_0 :cluster_13801788_1696142786_207511329_3548467989_12_0 :cluster_13801788_1696142786_207511329_3548467989_17_0" shape="272.66,345.52 271.10,320.15 269.13,319.48 268.35,318.55 267.72,317.21 267.23,315.47 266.89,313.33 263.68,313.42 262.20,315.76 260.13,316.71 257.17,317.50 253.31,318.15 248.56,318.64 250.93,348.66 252.96,348.92 253.57,349.39 253.92,350.09 254.00,351.03 253.82,352.19 263.01,355.00 263.91,352.22 265.09,349.93 266.55,348.11 268.30,346.77 270.34,345.91">
+    <junction id="cluster_13801788_1696142786_207511329_3548467989" type="traffic_light" x="264.38" y="332.79" incLanes="498531127_0 498531127_1 23151660#0_0 456889315#0_0 456889315#0_1 456889315#0_2 499284738#0_0 499284738#0_1" intLanes=":cluster_13801788_1696142786_207511329_3548467989_0_0 :cluster_13801788_1696142786_207511329_3548467989_1_0 :cluster_13801788_1696142786_207511329_3548467989_1_1 :cluster_13801788_1696142786_207511329_3548467989_1_2 :cluster_13801788_1696142786_207511329_3548467989_14_0 :cluster_13801788_1696142786_207511329_3548467989_5_0 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_7_0 :cluster_13801788_1696142786_207511329_3548467989_8_0 :cluster_13801788_1696142786_207511329_3548467989_15_0 :cluster_13801788_1696142786_207511329_3548467989_16_0 :cluster_13801788_1696142786_207511329_3548467989_11_0 :cluster_13801788_1696142786_207511329_3548467989_17_0 :cluster_13801788_1696142786_207511329_3548467989_18_0" shape="272.66,345.52 271.10,320.15 269.13,319.48 268.35,318.55 267.72,317.21 267.23,315.47 266.89,313.33 263.68,313.42 262.20,315.76 260.13,316.71 257.17,317.50 253.31,318.15 248.56,318.64 250.93,348.66 252.96,348.92 253.57,349.39 253.92,350.09 254.00,351.03 253.82,352.19 263.01,355.00 263.91,352.22 265.09,349.93 266.55,348.11 268.30,346.77 270.34,345.91">
         <request index="0"  response="00000000000000" foes="10001001000000" cont="0"/>
-        <request index="1"  response="00000000000000" foes="01111011000000" cont="0"/>
-        <request index="2"  response="00000000000000" foes="01111011000000" cont="0"/>
-        <request index="3"  response="00000000000000" foes="01111011000000" cont="0"/>
+        <request index="1"  response="01000000000000" foes="01111011000000" cont="0"/>
+        <request index="2"  response="01000000000000" foes="01111011000000" cont="0"/>
+        <request index="3"  response="01000000000000" foes="01111011000000" cont="0"/>
         <request index="4"  response="01000100100000" foes="01000100100000" cont="1"/>
         <request index="5"  response="00000100000000" foes="01000100010000" cont="0"/>
         <request index="6"  response="00001100001111" foes="11001100001111" cont="0"/>
         <request index="7"  response="00001100001110" foes="00011100001110" cont="0"/>
-        <request index="8"  response="00000000000000" foes="01000011110000" cont="0"/>
-        <request index="9"  response="00000000001111" foes="11000011001111" cont="1"/>
+        <request index="8"  response="01000000000000" foes="01000011110000" cont="0"/>
+        <request index="9"  response="01000000001111" foes="11000011001111" cont="1"/>
         <request index="10" response="00000010001110" foes="00000010001110" cont="1"/>
         <request index="11" response="00000000001110" foes="00000000001110" cont="0"/>
-        <request index="12" response="00001101101110" foes="00001101111110" cont="0"/>
+        <request index="12" response="00001101101110" foes="00001101111110" cont="1"/>
         <request index="13" response="00001001000001" foes="00001001000001" cont="1"/>
     </junction>
 
     <junction id=":cluster_13801788_1696142786_207511329_3548467989_14_0" type="internal" x="268.59" y="323.72" incLanes=":cluster_13801788_1696142786_207511329_3548467989_4_0 23151660#0_0 456889315#0_0 499284738#0_1" intLanes=":cluster_13801788_1696142786_207511329_3548467989_5_0 :cluster_13801788_1696142786_207511329_3548467989_8_0 :cluster_13801788_1696142786_207511329_3548467989_12_0"/>
     <junction id=":cluster_13801788_1696142786_207511329_3548467989_15_0" type="internal" x="263.67" y="337.80" incLanes=":cluster_13801788_1696142786_207511329_3548467989_9_0 498531127_0 498531127_1" intLanes=":cluster_13801788_1696142786_207511329_3548467989_0_0 :cluster_13801788_1696142786_207511329_3548467989_1_0 :cluster_13801788_1696142786_207511329_3548467989_1_1 :cluster_13801788_1696142786_207511329_3548467989_1_2 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_7_0 :cluster_13801788_1696142786_207511329_3548467989_12_0 :cluster_13801788_1696142786_207511329_3548467989_13_0"/>
     <junction id=":cluster_13801788_1696142786_207511329_3548467989_16_0" type="internal" x="252.89" y="338.64" incLanes=":cluster_13801788_1696142786_207511329_3548467989_10_0 23151660#0_0 498531127_0 498531127_1 499284738#0_0" intLanes=":cluster_13801788_1696142786_207511329_3548467989_1_0 :cluster_13801788_1696142786_207511329_3548467989_1_1 :cluster_13801788_1696142786_207511329_3548467989_1_2 :cluster_13801788_1696142786_207511329_3548467989_7_0 :cluster_13801788_1696142786_207511329_3548467989_11_0"/>
-    <junction id=":cluster_13801788_1696142786_207511329_3548467989_17_0" type="internal" x="259.53" y="352.68" incLanes=":cluster_13801788_1696142786_207511329_3548467989_13_0 23151660#0_0 456889315#0_1 498531127_0" intLanes=":cluster_13801788_1696142786_207511329_3548467989_0_0 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_9_0"/>
+    <junction id=":cluster_13801788_1696142786_207511329_3548467989_17_0" type="internal" x="260.16" y="347.91" incLanes=":cluster_13801788_1696142786_207511329_3548467989_12_0 23151660#0_0" intLanes=":cluster_13801788_1696142786_207511329_3548467989_1_0 :cluster_13801788_1696142786_207511329_3548467989_1_1 :cluster_13801788_1696142786_207511329_3548467989_1_2 :cluster_13801788_1696142786_207511329_3548467989_4_0 :cluster_13801788_1696142786_207511329_3548467989_5_0 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_8_0 :cluster_13801788_1696142786_207511329_3548467989_9_0"/>
+    <junction id=":cluster_13801788_1696142786_207511329_3548467989_18_0" type="internal" x="259.42" y="352.77" incLanes=":cluster_13801788_1696142786_207511329_3548467989_13_0 23151660#0_0 456889315#0_1 498531127_0" intLanes=":cluster_13801788_1696142786_207511329_3548467989_0_0 :cluster_13801788_1696142786_207511329_3548467989_6_0 :cluster_13801788_1696142786_207511329_3548467989_9_0"/>
 
     <connection from="-499284738#2" to="499284738#0" fromLane="0" toLane="1" via=":4905840038_0_0" dir="t" state="M"/>
     <connection from="223276865#0" to="223276865#1" fromLane="0" toLane="0" via=":4899273284_0_0" dir="s" state="m"/>
@@ -289,8 +292,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":cluster_13801788_1696142786_207511329_3548467989_10" to="543689796" fromLane="0" toLane="2" via=":cluster_13801788_1696142786_207511329_3548467989_16_0" dir="t" state="m"/>
     <connection from=":cluster_13801788_1696142786_207511329_3548467989_16" to="543689796" fromLane="0" toLane="2" dir="t" state="M"/>
     <connection from=":cluster_13801788_1696142786_207511329_3548467989_11" to="543689796" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":cluster_13801788_1696142786_207511329_3548467989_12" to="223276865#0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":cluster_13801788_1696142786_207511329_3548467989_13" to="-499284738#2" fromLane="0" toLane="0" via=":cluster_13801788_1696142786_207511329_3548467989_17_0" dir="t" state="m"/>
-    <connection from=":cluster_13801788_1696142786_207511329_3548467989_17" to="-499284738#2" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":cluster_13801788_1696142786_207511329_3548467989_12" to="223276865#0" fromLane="0" toLane="0" via=":cluster_13801788_1696142786_207511329_3548467989_17_0" dir="l" state="m"/>
+    <connection from=":cluster_13801788_1696142786_207511329_3548467989_17" to="223276865#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":cluster_13801788_1696142786_207511329_3548467989_13" to="-499284738#2" fromLane="0" toLane="0" via=":cluster_13801788_1696142786_207511329_3548467989_18_0" dir="t" state="m"/>
+    <connection from=":cluster_13801788_1696142786_207511329_3548467989_18" to="-499284738#2" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

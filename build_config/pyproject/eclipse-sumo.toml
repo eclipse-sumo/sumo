@@ -10,6 +10,7 @@ build-backend = "scikit_build_core.build"
 [project]
 name = "eclipse-sumo"
 version = "0.0.0"
+dependencies = ["sumo-data>=0.0.0"]
 authors = [{name = "DLR and contributors", email = "sumo@dlr.de"}]
 license = "EPL-2.0 OR GPL-2.0-or-later"
 description = "A microscopic, multi-modal traffic simulation package"

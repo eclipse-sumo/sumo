@@ -5,8 +5,8 @@
     <test-output value="None" type="string" help="Run with pre-defined options on file 'osm_bbox.osm.xml' and write output to the given directory." category="processing"/>
     <bbox value="None" type="string" help="bounding box to retrieve in geo coordinates west,south,east,north." category="processing"/>
     <output value="None" type="string" help="Write output to the given folder rather than creating a name based on the timestamp" category="processing"/>
-    <address value="" type="string" help="Address for the Websocket." category="processing"/>
-    <port value="0" type="int" help="Port for the Websocket. By default a random port is chosen." category="processing"/>
+    <address value="" type="string" help="Address for the web socket or server." category="processing"/>
+    <port value="None" type="int" help="Port for the web socket or server. By default a random port is chosen." category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <begin value="0" type="time" help="Defines the begin time for the scenario." category="processing"/>
     <end value="900" type="time" help="Defines the end time for the scenario." category="processing"/>

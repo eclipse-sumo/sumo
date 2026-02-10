@@ -219,6 +219,9 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
             }
             ringIter++;
         }
+        if (lastPhaseIter >= (int)myPhaseObjs.size()) {
+            throw ProcessError("At traffic signal '" + myID + "', ring " + toString(ringNum + 1) + " contains only '0'");
+        }
         // Set the first to point to the last, wrapping around the ring.
         myPhaseObjs[lastPhaseIter]->setSequentialPriorPhase(myPhaseObjs[lastPhaseIter + phaseIter - 1]);
         // index the ring counter
