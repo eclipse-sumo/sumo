@@ -172,15 +172,14 @@ The following attributes/elements are used within the tlLogic element:
 
 Each phase is defined using the following attributes:
 
-| Attribute Name | Value Type            | Description                |
-| -------------- | --------------------- | -------------------------- |
-| **duration**   | time (int)            | The duration of the phase                                                                                                                                    |
-| **state**      | list of signal states | The traffic light states for this phase, see below                                                                                                           |
-| minDur         | time (int)            | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
-| maxDur         | time (int)            | The maximum duration of the phase when using type **actuated**. Optional, if minDur is not set it defaults to duration , otherwise to 2147483.                                                              |
-| name           | string                | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
-| next           | list of phase indices (int ...)           | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
+| Attribute Name | Value Type                      | Description                |
+| -------------- |---------------------------------| -------------------------- |
 | **duration**   | time (float)                    | The duration of the phase                                                                                                                                    |
+| **state**      | list of signal states           | The traffic light states for this phase, see below                                                                                                           |
+| minDur         | time (int)                      | The minimum duration of the phase when using type **actuated**. Optional, defaults to duration.                                                              |
+| maxDur         | time (int)                      | The maximum duration of the phase when using type **actuated**. Optional, if minDur is not set it defaults to duration , otherwise to 2147483.                                                              |
+| name           | string                          | An optional description for the phase. This can be used to establish the correspondence between SUMO-phase-indexing and traffic engineering phase names.     |
+| next           | list of phase indices (int ...) | The next phase in the cycle after the current. This is useful when adding extra transition phases to a traffic light plan which are not part of every cycle. Traffic lights of type 'actuated' can make use of a list of indices for selecting among alternative successor phases. |
 
 !!! caution
     In a SUMO-TLS definition, time is on the vertical axis and each phase describes all signal states that last for a fixed duration. This differs from typical traffic engineering diagrams where time is on the horizontal axis and each row describes the states for one signal. Another crucial difference is, that in SUMO a new phase is introduced whenever at least one signal changes its state. This means that transitions between green phases can be made up of multiple intermediate phases.
