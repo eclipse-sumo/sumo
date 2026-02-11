@@ -917,7 +917,7 @@ class NetReader(handler.ContentHandler):
                 attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
         elif self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
-                attrs['state'], int(attrs['duration']),
+                attrs['state'], float(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
                 int(attrs['maxDur']) if 'maxDur' in attrs else -1,
                 list(map(int, attrs['next'].split())) if 'next' in attrs else [],
