@@ -90,7 +90,7 @@ MSCFModel_Wiedemann::stopSpeed(const MSVehicle* const veh, const double speed, d
      * does a lousy job of closing in on a stop / junction
      * hence we borrow from Krauss here
      */
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(veh, gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 

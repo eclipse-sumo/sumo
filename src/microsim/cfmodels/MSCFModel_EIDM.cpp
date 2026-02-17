@@ -23,9 +23,9 @@
 ///
 // The Extended Intelligent Driver Model (EIDM) car-following model
 //
-// Publication: Salles, Dominik, S. Kaufmann and H. Reuss. “Extending the Intelligent Driver
+// Publication: Salles, Dominik, S. Kaufmann and H. Reuss. "Extending the Intelligent Driver
 // Model in SUMO and Verifying the Drive Off Trajectories with Aerial
-// Measurements.” (2020).
+// Measurements." (2020).
 /****************************************************************************/
 
 
@@ -81,36 +81,36 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
 MSCFModel_EIDM::~MSCFModel_EIDM() {}
 
 double
-MSCFModel_EIDM::insertionFollowSpeed(const MSVehicle* const /*veh*/, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_EIDM::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+        return maximumSafeFollowSpeed(veh, gap2pred, speed, predSpeed, predMaxDecel, true);
     } else {
         // Not Done/checked yet for the ballistic update model!!!!
         // NOTE: Even for ballistic update, the current speed is irrelevant at insertion, therefore passing 0. (Leo)
-//        return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
-        return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+//        return maximumSafeFollowSpeed(veh, gap2pred, 0., predSpeed, predMaxDecel, true);
+        return maximumSafeFollowSpeed(veh, gap2pred, speed, predSpeed, predMaxDecel, true);
     }
 }
 
 
 double
-MSCFModel_EIDM::insertionStopSpeed(const MSVehicle* const /*veh*/, double speed, double gap) const {
+MSCFModel_EIDM::insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return maximumSafeStopSpeed(gap, myDecel, speed, true, myHeadwayTime);
+        return maximumSafeStopSpeed(veh, gap, myDecel, speed, true, myHeadwayTime);
     } else {
         // Not Done/checked yet for the ballistic update model!!!!
 //        return MIN2(maximumSafeStopSpeed(gap, myDecel, 0., true, 0.), myType->getMaxSpeed());
-        return MIN2(maximumSafeStopSpeed(gap, myDecel, speed, true, myHeadwayTime), myType->getMaxSpeed());
+        return MIN2(maximumSafeStopSpeed(veh, gap, myDecel, speed, true, myHeadwayTime), myType->getMaxSpeed());
     }
 }
 
 double
-MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason /* usage */) const {
+MSCFModel_EIDM::maximumSafeFollowSpeed(const MSVehicle* const veh, double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion, const CalcReason /* usage */) const {
     double x;
     if (gap >= 0 || MSGlobals::gComputeLC) {
         double a = 1.;
-        double b = myHeadwayTime * (2 * sqrt(getCurrentAccel(egoSpeed) * myDecel)) - predSpeed;
-        double c = -sqrt(1 + myDecel / (2 * getCurrentAccel(egoSpeed))) * gap * (2 * sqrt(getCurrentAccel(egoSpeed) * myDecel));
+        double b = myHeadwayTime * (2 * sqrt(getCurrentAccel(egoSpeed, veh) * myDecel)) - predSpeed;
+        double c = -sqrt(1 + myDecel / (2 * getCurrentAccel(egoSpeed, veh))) * gap * (2 * sqrt(getCurrentAccel(egoSpeed, veh) * myDecel));
         // with myDecel/myAccel, the intended deceleration is myDecel
         // with myDecel/(2*myAccel), the intended deceleration is myDecel/2
         // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term v/vMax is not present
@@ -168,7 +168,7 @@ MSCFModel_EIDM::maximumSafeFollowSpeed(double gap, double egoSpeed, double predS
 }
 
 double
-MSCFModel_EIDM::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion, double headway) const {
+MSCFModel_EIDM::maximumSafeStopSpeed(const MSVehicle* const veh, double gap, double decel, double currentSpeed, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         const double g = gap - NUMERICAL_EPS;
@@ -176,8 +176,8 @@ MSCFModel_EIDM::maximumSafeStopSpeed(double gap, double decel, double currentSpe
             return 0;
         }
         double a = 1.;
-        double b = headway * (2 * sqrt(getCurrentAccel(currentSpeed) * myDecel)) - 0.;
-        double c = -sqrt(1 + decel / (2 * getCurrentAccel(currentSpeed))) * g * (2 * sqrt(getCurrentAccel(currentSpeed) * myDecel));
+        double b = headway * (2 * sqrt(getCurrentAccel(currentSpeed, veh) * myDecel)) - 0.;
+        double c = -sqrt(1 + decel / (2 * getCurrentAccel(currentSpeed, veh))) * g * (2 * sqrt(getCurrentAccel(currentSpeed, veh) * myDecel));
         // with decel/myAccel, the intended deceleration is decel
         // with decel/(2*myAccel), the intended deceleration is decel/2
         // with the IIDM, if gap=s, then the acceleration is zero and if gap<s, then the term currentSpeed/vMax is not present
@@ -196,7 +196,7 @@ MSCFModel_EIDM::maximumSafeStopSpeed(double gap, double decel, double currentSpe
 }
 
 double
-MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, double vMax, const VehicleVariables* vars) const {
+MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, const VehicleVariables* vars) const {
     // The default value of SUMO_ATTR_JM_SIGMA_MINOR is sigma, not sigmaerror (used in EIDM),
     // so we do not use SUMO_ATTR_JM_SIGMA_MINOR as parameter here, because this could confuse users...
     //const double sigma = (veh->passingMinor()
@@ -206,12 +206,12 @@ MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, do
     // dawdling/drivingerror is now calculated here (in finalizeSpeed, not in stop-/follow-/freeSpeed anymore):
     // Instead of just multiplying mySigmaerror with vars->myw_error, we add a factor depending on the criticality of the situation,
     // measured with s*/gap. Because when the driver drives "freely" (nothing in front) he may dawdle more than in e.g. congested traffic!
-    double Accel_vMax = getCurrentAccel(vMax);
+    double Accel_vMax = getCurrentAccel(vMax, veh);
     double s = MAX2(0., vars->myv_est * myHeadwayTime + vars->myv_est * (vars->myv_est - vars->myv_est_l) / (2 * sqrt(Accel_vMax * myDecel)));
     if (vars->myrespectMinGap) {
         s += myType->getMinGap() + EIDM_POS_ACC_EPS;
     } else {
-        const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0));
+        const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0, veh));
         s += minGapStop_EPS + EIDM_POS_ACC_EPS;
     }
     const double intensity = MIN3(Accel_vMax, 1.5, MAX2(vMax - 0.5 * Accel_vMax, 0.0));
@@ -249,7 +249,7 @@ MSCFModel_EIDM::slowToStartTerm(MSVehicle* const veh, const double newSpeed, con
         if (currentSpeed < ClutchEngageSpeed && // The start speed is lower than ClutchEngageSpeed m/s
                 vars->t_off + 4. - NUMERICAL_EPS < (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations) && // the last activation is at least 4 seconds ago
                 vars->myap_update == 0 && // the last activation is at least 4 seconds ago AND an Action Point was reached
-                veh->getAcceleration() < MIN2(getCurrentAccel(currentSpeed) / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
+                veh->getAcceleration() < MIN2(getCurrentAccel(currentSpeed, veh) / 4, 0.2)) { // && respectMinGap) { // the driver hasn't started accelerating yet (<0.2)
             vars->t_off = (SIMTIME - remainingDelay - TS * (myIterations - i - 1.) / myIterations); // activate the drive off term
         }
         // Calculation of the Drive Off term
@@ -686,7 +686,7 @@ MSCFModel_EIDM::interactionGap(const MSVehicle* const veh, double vL) const {
     // Resolve the IDM equation to gap. Assume predecessor has
     // speed != 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    const double acc = getCurrentAccel(veh->getSpeed()) * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
+    const double acc = getCurrentAccel(veh->getSpeed(), veh) * (1. - pow(veh->getSpeed() / veh->getLane()->getVehicleMaxSpeed(veh), myDelta));
     const double vNext = veh->getSpeed() + acc;
     const double gap = (vNext - vL) * (veh->getSpeed() + vL) / (2 * myDecel) + vL;
 
@@ -697,16 +697,16 @@ MSCFModel_EIDM::interactionGap(const MSVehicle* const veh, double vL) const {
 }
 
 double
-MSCFModel_EIDM::getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
+MSCFModel_EIDM::getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double /*leaderMaxDecel*/) const {
     // SecureGap depends on v0 and may be higher than just looking at s* (In case of the IDM)
     //VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double delta_v = speed - leaderSpeed;
-    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / (2 * sqrt(getCurrentAccel(speed) * myDecel))); // is calculated without MinGap because it is compared to a gap without MinGap!
+    double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / (2 * sqrt(getCurrentAccel(speed, veh) * myDecel))); // is calculated without MinGap because it is compared to a gap without MinGap!
     // For the IDM: - pow(speed / veh->getLane()->getVehicleMaxSpeed(veh), myDelta)) must be added to (myDecel / myAccel + 1)!
     // For the IIDM: Left out the case check for estSpeed > v0, assuming this is not needed here. The vehicle therefore may brake harder when newSpeed > v0 occurs!
     // The secure gap is calculated using -myDecel as secure maximal acceleration (using myDecel/myAccel)!
 
-    double erg = sqrt((s * s) / (myDecel / getCurrentAccel(speed) + 1.0));
+    double erg = sqrt((s * s) / (myDecel / getCurrentAccel(speed, veh) + 1.0));
     return MIN2(s, erg);
 }
 
@@ -716,7 +716,7 @@ MSCFModel_EIDM::internalsecuregap(const MSVehicle* const veh, const double speed
     // SecureGap depends on v0 and may be higher than just looking at s* (In case of the IDM)
     // internalsecuregap uses a targetDecel instead of myDecel!
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-    double Accel_speed = getCurrentAccel(speed);
+    double Accel_speed = getCurrentAccel(speed, veh);
     const double delta_v = speed - leaderSpeed;
     double s = MAX2(0.0, speed * myHeadwayTime + speed * delta_v / (2 * sqrt(Accel_speed * myDecel))); // is calculated without MinGap because it is compared to a gap without MinGap!
     // For the IDM: - pow(speed / veh->getLane()->getVehicleMaxSpeed(veh), myDelta)) must be added to (myDecel / myAccel + 1)!
@@ -892,7 +892,7 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
     double a_leader = NUMERICAL_EPS; // Default without a leader, should not be 0!
     double newSpeed = egoSpeed;
     bool lastrespectMinGap = respectMinGap;
-    const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0));
+    const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, getCurrentAccel(0.0, veh));
 
     // When doing the Follow-Calculation in adapttoLeader (MSVehicle.cpp) the mingap gets subtracted from the current gap (maybe this is needed for the Krauss-Model!).
     // For the IDM this Mingap is needed or else the vehicle will stop at two times mingap behind the leader!
@@ -960,8 +960,8 @@ MSCFModel_EIDM::_v(const MSVehicle* const veh, const double gap2pred, const doub
         double headwayTime = myHeadwayTime;
         MSVehicle* leader;
 
-        double Accel_estSpeed = getCurrentAccel(estSpeed);
-        double Accel_current_estSpeed = getCurrentAccel(current_estSpeed);
+        double Accel_estSpeed = getCurrentAccel(estSpeed, veh);
+        double Accel_current_estSpeed = getCurrentAccel(current_estSpeed, veh);
 
         double s = MAX2(0., estSpeed * headwayTime + estSpeed * (estSpeed - estleaderSpeed) / (2 * sqrt(Accel_estSpeed * myDecel)));
         if (lastrespectMinGap) {

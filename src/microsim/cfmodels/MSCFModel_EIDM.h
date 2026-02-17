@@ -23,9 +23,9 @@
 ///
 // The Extended Intelligent Driver Model (EIDM) car-following model
 //
-// Publication: Salles, Dominik, S. Kaufmann and H. Reuss. “Extending the Intelligent Driver
+// Publication: Salles, Dominik, S. Kaufmann and H. Reuss. "Extending the Intelligent Driver
 // Model in SUMO and Verifying the Drive Off Trajectories with Aerial
-// Measurements.” (2020).
+// Measurements." (2020).
 /****************************************************************************/
 #ifndef MSCFMODEL_EIDM_H
 #define MSCFMODEL_EIDM_H
@@ -98,7 +98,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
+    double maximumSafeFollowSpeed(const MSVehicle* const veh, double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false, const CalcReason usage = CalcReason::CURRENT) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -107,7 +107,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      */
-    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
+    double maximumSafeStopSpeed(const MSVehicle* const veh, double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
 
     /** @brief Applies interaction with stops and lane changing model influences

@@ -84,8 +84,18 @@ public:
      * \returns The electric power consumption [Wh/s] or 0 for all other emission
      *          types
      */
-    double compute(const SUMOEmissionClass /* c */,
+    double compute(const SUMOEmissionClass c,
                    const PollutantsInterface::EmissionType e, const double v,
                    const double a, const double slope,
                    const EnergyParams* ptr_energyParams) const;
+
+    /** @brief Returns the adapted acceleration value, resulting from the maximum power the engine can deliver.
+     * @param[in] c the emission class
+     * @param[in] v the speed value
+     * @param[in] a the acceleration value
+     * @param[in] slope The road's slope at vehicle's position [deg]
+     * @return the modified acceleration
+     */
+    double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const;
+
 };

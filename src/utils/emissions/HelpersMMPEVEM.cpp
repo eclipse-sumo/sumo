@@ -242,3 +242,12 @@ double HelpersMMPEVEM::compute(const SUMOEmissionClass c,
         return std::nan("");
     }
 }
+
+
+double
+HelpersMMPEVEM::getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param) const {
+    return a;
+}
+
+
+/****************************************************************************/

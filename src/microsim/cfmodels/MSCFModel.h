@@ -297,7 +297,7 @@ public:
     /** @brief Get the vehicle type's maximum acceleration [m/s^2]
      * @return The maximum acceleration (in m/s^2) of vehicles of this class
      */
-    virtual double getCurrentAccel(const double speed) const;
+    virtual double getCurrentAccel(const double speed, const MSVehicle* const veh) const;
 
 
     /** @brief Get the vehicle type's maximum acceleration profile depending on the velocity [m/s^2]
@@ -629,7 +629,7 @@ public:
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @return the safe velocity
      */
-    double maximumSafeFollowSpeed(double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
+    double maximumSafeFollowSpeed(const MSVehicle* const veh, double gap,  double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion = false) const;
 
 
     /** @brief Returns the minimal deceleration for following the given leader safely
@@ -654,7 +654,7 @@ public:
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      * @param[in] relaxEmergency Whether emergency deceleration should be reduced (at the cost of staying in a dangerous situation for longer)
      */
-    double maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1, bool relaxEmergency = true) const;
+    double maximumSafeStopSpeed(const MSVehicle* const veh, double gap, double decel, double currentSpeed, bool onInsertion = false, double headway = -1, bool relaxEmergency = true) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap
@@ -763,6 +763,6 @@ protected:
     /// @brief The vehicle's desired acceleration profile [m/s^2]
     LinearApproxHelpers::LinearApproxMap myDesAccelProfile;
 
-
-
+    /// @brief Information whether the model has reported modified accelerations
+    static bool myHaveModAccelWarned;
 };

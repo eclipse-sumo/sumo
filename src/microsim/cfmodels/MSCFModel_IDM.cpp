@@ -162,7 +162,7 @@ MSCFModel_IDM::stopSpeed(const MSVehicle* const veh, const double speed, double 
     if (gap > 0 && speed < NUMERICAL_EPS && result < NUMERICAL_EPS) {
         // ensure that stops can be reached:
         //std::cout << " switching to krauss: " << veh->getID() << " gap=" << gap << " speed=" << speed << " res1=" << result << " res2=" << maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs())<< "\n";
-        result = maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs());
+        result = maximumSafeStopSpeed(veh, gap, decel, speed, false, veh->getActionStepLengthSecs());
     }
     // avoid overshooting the stop location
     if (gap >= 0) {

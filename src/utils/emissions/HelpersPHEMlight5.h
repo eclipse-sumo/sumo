@@ -81,7 +81,7 @@ public:
      */
     double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
-    /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
+    /** @brief Returns the adapted acceleration value, resulting from the maximum power the engine can deliver.
      * @param[in] c the emission class
      * @param[in] v the speed value
      * @param[in] a the acceleration value

@@ -1932,10 +1932,10 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
                 // can continue from any lane if necessary
                 futureSpeed = vMax;
             } else {
-                futureSpeed = getCarFollowModel().maximumSafeStopSpeed(dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
+                futureSpeed = getCarFollowModel().maximumSafeStopSpeed(&myVehicle, dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
             }
         } else {
-            futureSpeed = getCarFollowModel().maximumSafeFollowSpeed(gap, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), true);
+            futureSpeed = getCarFollowModel().maximumSafeFollowSpeed(&myVehicle, gap, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), true);
         }
     }
     futureSpeed = MIN2(vMax, futureSpeed);

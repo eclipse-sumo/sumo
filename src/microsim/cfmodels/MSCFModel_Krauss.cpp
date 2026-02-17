@@ -104,7 +104,7 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
     applyHeadwayPerceptionError(veh, speed, gap);
     const bool relaxEmergency = usage != FUTURE; // do not relax insertionStopSpeed
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs(), relaxEmergency), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(veh, gap, decel, speed, false, veh->getActionStepLengthSecs(), relaxEmergency), maxNextSpeed(speed, veh));
 }
 
 
@@ -113,7 +113,7 @@ MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double g
     //gDebugFlag1 = DEBUG_COND;
     applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
-    const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
+    const double vsafe = maximumSafeFollowSpeed(veh, gap, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;
     const double vmax = maxNextSpeed(speed, veh);
     if (MSGlobals::gSemiImplicitEulerUpdate) {

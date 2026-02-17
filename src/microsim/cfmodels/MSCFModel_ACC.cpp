@@ -100,7 +100,7 @@ MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2
     }
     const double desSpeed = MIN2(veh->getLane()->getSpeedLimit(), veh->getMaxSpeed());
     const double vACC = _v(veh, gap2pred, speed, predSpeed, desSpeed, true);
-    const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
+    const double vSafe = maximumSafeFollowSpeed(veh, gap2pred, speed, predSpeed, predMaxDecel);
     if (vSafe + myEmergencyThreshold < vACC) {
         //ACCVehicleVariables* vars = (ACCVehicleVariables*)veh->getCarFollowVariables();
         //std::cout << SIMTIME << " veh=" << veh->getID() << " v=" << speed << " vL=" << predSpeed << " gap=" << gap2pred << " vACC=" << vACC << " vSafe=" << vSafe << " cm=" << vars->ACC_ControlMode << "\n";
@@ -118,7 +118,7 @@ MSCFModel_ACC::stopSpeed(const MSVehicle* const veh, const double speed, double 
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(veh, gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 

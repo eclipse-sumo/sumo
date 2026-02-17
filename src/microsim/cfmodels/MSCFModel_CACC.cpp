@@ -125,7 +125,7 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
     const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true, usage);
     // using onInsertion=true disables emergencyOverides emergency deceleration smoothing
-    const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+    const double vSafe = maximumSafeFollowSpeed(veh, gap2pred, speed, predSpeed, predMaxDecel, true);
 
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
@@ -157,7 +157,7 @@ MSCFModel_CACC::stopSpeed(const MSVehicle* const veh, const double speed, double
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=TS, to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=TS.
-    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+    return MIN2(maximumSafeStopSpeed(veh, gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 double
@@ -199,7 +199,7 @@ MSCFModel_CACC::insertionFollowSpeed(const MSVehicle* const veh, double speed, d
     while (n_iter < max_iter) {
         // proposed acceleration
         const double vCACC = _v(veh, pred, gap2pred, res, predSpeed, speed, true);
-        const double vSafe = maximumSafeFollowSpeed(gap2pred, res, predSpeed, predMaxDecel, true);
+        const double vSafe = maximumSafeFollowSpeed(veh, gap2pred, res, predSpeed, predMaxDecel, true);
         const double a = MIN2(vCACC, vSafe) - res;
         res = res + damping * a;
 #if DEBUG_CACC_INSERTION_FOLLOW_SPEED == 1

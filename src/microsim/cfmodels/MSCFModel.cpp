@@ -17,7 +17,7 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
-/// @author  Leonhard Lücken
+/// @author  Leonhard Luecken
 /// @date    Mon, 27 Jul 2009
 ///
 // The car-following model abstraction
@@ -34,6 +34,7 @@
 #include <microsim/MSDriverState.h>
 #include "MSCFModel.h"
 
+
 // ===========================================================================
 // DEBUG constants
 // ===========================================================================
@@ -47,6 +48,11 @@
 //#define DEBUG_COND2 (true)
 #define DEBUG_COND2 (gDebugFlag1)
 
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+bool MSCFModel::myHaveModAccelWarned = false;
 
 
 // ===========================================================================
@@ -311,8 +317,8 @@ MSCFModel::interactionGap(const MSVehicle* const veh, double vL) const {
 
 
 double
-MSCFModel::maxNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
-    return MIN2(speed + (double) ACCEL2SPEED(getCurrentAccel(speed)), myType->getMaxSpeed());
+MSCFModel::maxNextSpeed(double speed, const MSVehicle* const veh) const {
+    return MIN2(speed + (double) ACCEL2SPEED(getCurrentAccel(speed, veh)), myType->getMaxSpeed());
 }
 
 
@@ -351,12 +357,12 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, doub
 
 
 double
-MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
+        return maximumSafeFollowSpeed(veh, gap2pred, speed, predSpeed, predMaxDecel, true);
     } else {
         // NOTE: Even for ballistic update, the current speed is irrelevant at insertion, therefore passing 0. (Leo)
-        return maximumSafeFollowSpeed(gap2pred, 0., predSpeed, predMaxDecel, true);
+        return maximumSafeFollowSpeed(veh, gap2pred, 0., predSpeed, predMaxDecel, true);
     }
 }
 
@@ -366,7 +372,7 @@ MSCFModel::insertionStopSpeed(const MSVehicle* const veh, double speed, double g
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return stopSpeed(veh, speed, gap, CalcReason::FUTURE);
     } else {
-        return MIN2(maximumSafeStopSpeed(gap, myDecel, 0., true, 0., false), myType->getMaxSpeed());
+        return MIN2(maximumSafeStopSpeed(veh, gap, myDecel, 0., true, 0., false), myType->getMaxSpeed());
     }
 }
 
@@ -793,7 +799,7 @@ MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const d
 
 
 double
-MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion, double headway, bool relaxEmergency) const {
+MSCFModel::maximumSafeStopSpeed(const MSVehicle* const veh, double gap, double decel, double currentSpeed, bool onInsertion, double headway, bool relaxEmergency) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         vsafe = maximumSafeStopSpeedEuler(gap, decel, onInsertion, headway);
@@ -944,7 +950,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
 
 /** Returns the SK-vsafe. */
 double
-MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
+MSCFModel::maximumSafeFollowSpeed(const MSVehicle* const veh, double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
     // the speed is safe if allows the ego vehicle to come to a stop behind the leader even if
     // the leaders starts braking hard until stopped
     // unfortunately it is not sufficient to compare stopping distances if the follower can brake harder than the leader
@@ -974,7 +980,7 @@ MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed,
     const double headway = myHeadwayTime;
     double x;
     if (gap >= 0 || MSGlobals::gComputeLC) {
-        x = maximumSafeStopSpeed(gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway, false);
+        x = maximumSafeStopSpeed(veh, gap + brakeGap(predSpeed, MAX2(myDecel, predMaxDecel), 0), myDecel, egoSpeed, onInsertion, headway, false);
     } else {
         x = egoSpeed - ACCEL2SPEED(myEmergencyDecel);
         if (MSGlobals::gSemiImplicitEulerUpdate) {
@@ -1153,8 +1159,13 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
 
 
 double
-MSCFModel::getCurrentAccel(const double speed) const {
+MSCFModel::getCurrentAccel(const double speed, const MSVehicle* const veh) const {
     double result = myAccel;
+    // double result = PollutantsInterface::getModifiedAccel(myType->getEmissionClass(), speed, myAccel, veh->getSlope(), veh->getEmissionParameters());
+    if (!myHaveModAccelWarned && result != myAccel) {
+        WRITE_WARNINGF("Vehicle % got an acceleration modification via its emission model.", veh->getID());
+        myHaveModAccelWarned = true;
+    }
     if (!myDesAccelProfile.empty()) {
         result = MIN2(result, LinearApproxHelpers::getInterpolatedValue(myDesAccelProfile, speed));
     }
@@ -1164,5 +1175,6 @@ MSCFModel::getCurrentAccel(const double speed) const {
     }
     return result;
 }
+
 
 /****************************************************************************/
