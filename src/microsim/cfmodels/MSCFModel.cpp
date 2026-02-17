@@ -1161,9 +1161,11 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
 double
 MSCFModel::getCurrentAccel(const double speed, const MSVehicle* const veh) const {
     double result = myAccel;
-    // double result = PollutantsInterface::getModifiedAccel(myType->getEmissionClass(), speed, myAccel, veh->getSlope(), veh->getEmissionParameters());
+    if (speed != 0. && speed != std::numeric_limits<double>::max()) {
+        result = PollutantsInterface::getModifiedAccel(myType->getEmissionClass(), speed, myAccel, veh->getSlope(), veh->getEmissionParameters());
+    }
     if (!myHaveModAccelWarned && result != myAccel) {
-        WRITE_WARNINGF("Vehicle % got an acceleration modification via its emission model.", veh->getID());
+        WRITE_WARNINGF("Vehicle % got an acceleration modification from % to % at a speed of % via its emission model.", veh->getID(), myAccel, result, speed);
         myHaveModAccelWarned = true;
     }
     if (!myDesAccelProfile.empty()) {
