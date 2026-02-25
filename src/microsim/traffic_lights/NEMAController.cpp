@@ -86,10 +86,11 @@ NEMALogic::~NEMALogic() {
 }
 
 void
-NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coordinates, std::string& ring1, std::string& ring2) {
+NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& barriers2, std::string& coordinates, std::string& ring1, std::string& ring2) {
 
     // read in the barrier and coordinated phases from the XML
     std::vector<int> barrierPhases = readParaFromString(barriers);
+    std::vector<int> barrier2Phases = readParaFromString(barriers2);
     std::vector<int> coordinatePhases = readParaFromString(coordinates);
 
     // create a {{}, {}} vector of phases
@@ -177,9 +178,9 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
                 phase2ControllerLanesMap[p] = laneIDs_vector;
 
                 // Create the Phase Object
-                // find if it is at a barrier
-                bool barrierPhase = vectorContainsPhase(barrierPhases, p) || vectorContainsPhase(coordinatePhases, p);
-                // is it a coordinate phase
+                // find if it is at a barrier (structural position: barrierPhases + barrier2Phases)
+                bool barrierPhase = vectorContainsPhase(barrierPhases, p) || vectorContainsPhase(barrier2Phases, p);
+                // is it a coordinate phase (timing anchor, may differ from barrier in lead-lag configs)
                 bool coordinatePhase = vectorContainsPhase(coordinatePhases, p) && coordinateMode;
                 // is there a minimum or max recall
                 bool minRecall = vectorContainsPhase(VecMinRecall, p);
@@ -230,16 +231,17 @@ NEMALogic::constructTimingAndPhaseDefs(std::string& barriers, std::string& coord
 
     //TODO: set the default phases. This could also be set using dual entry in future
     for (int i = 0; i < 2; i++) {
-        // create the coordinate phase ptr
+        // create the coordinate phase ptr (timing anchor)
         coordinatePhaseObjs[i] = getPhaseObj(coordinatePhases[i], i);
-        defaultBarrierPhases[i][coordinatePhaseObjs[i]->barrierNum] = coordinatePhaseObjs[i];
-        // create the other barrier phase ptr
-        PhasePtr b = getPhaseObj(barrierPhases[i], i);
-        defaultBarrierPhases[i][b->barrierNum] = b;
-        // the barrier 1 and barrier 0 default phase must not have the same barrier number
-        if (b->barrierNum == coordinatePhaseObjs[i]->barrierNum) {
-            throw ProcessError("At traffic signal " + myID + " the barrier and coordinated phases " +
-                               std::to_string(b->phaseName) + ", " + std::to_string(coordinatePhaseObjs[i]->barrierNum) +
+        // create the default barrier phase ptrs from structural barriers
+        PhasePtr b1 = getPhaseObj(barrierPhases[i], i);
+        PhasePtr b2 = getPhaseObj(barrier2Phases[i], i);
+        defaultBarrierPhases[i][b1->barrierNum] = b1;
+        defaultBarrierPhases[i][b2->barrierNum] = b2;
+        // the two barrier phases must not have the same barrier number
+        if (b1->barrierNum == b2->barrierNum) {
+            throw ProcessError("At traffic signal " + myID + " the barrier phases " +
+                               std::to_string(b1->phaseName) + ", " + std::to_string(b2->phaseName) +
                                " are located on the same side of a barrier." +
                                " Please check your configuration file");
         }
@@ -342,7 +344,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     cycleRefPoint = TIME2STEPS(0);
 
     std::string barriers = getParameter("barrierPhases", "");
-    std::string coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases", ""));
+    std::string barriers2 = getParameter("barrier2Phases", "");
+    // coordinatePhases defaults to barrier2Phases for backward compatibility (lead-lead configs)
+    std::string coordinates = getParameter("coordinatePhases", barriers2);
     std::string ring1 = getParameter("ring1", "");
     std::string ring2 = getParameter("ring2", "");
 
@@ -359,6 +363,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     error_handle_not_set(ring1, "ring1");
     error_handle_not_set(ring2, "ring2");
     error_handle_not_set(barriers, "barrierPhases");
+    error_handle_not_set(barriers2, "barrier2Phases");
     error_handle_not_set(coordinates, "barrier2Phases or coordinatePhases");
 
     //print to check
@@ -381,7 +386,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     std::cout << "****************************************\n";
 #endif
     // Construct the NEMA specific timing data types and initial phases
-    constructTimingAndPhaseDefs(barriers, coordinates, ring1, ring2);
+    constructTimingAndPhaseDefs(barriers, barriers2, coordinates, ring1, ring2);
 
     //init the traffic light
     MSTrafficLightLogic::init(nb);
@@ -1696,7 +1701,22 @@ PhaseTransitionLogic::okay(NEMALogic* controller) {
     // creation time
     if (fromPhase == toPhase) {
         // for green rest or green transfer, it cannot return to itself if a transition is active
-        return fromPhase->getCurrentState() >= LightState::Green;
+        if (fromPhase->getCurrentState() >= LightState::Green) {
+            // In lead-lag configurations, the coordinated phase may not be at the barrier.
+            // When the coordinated phase has reached its expected duration (readyToSwitch),
+            // it must NOT self-transition to green rest/transfer if there are other phases
+            // on the same barrier side that have demand — it needs to yield to them.
+            if (fromPhase->coordinatePhase && !fromPhase->isAtBarrier && fromPhase->readyToSwitch) {
+                // Check if any other phase on the same ring and barrier has demand
+                for (auto& p : controller->getPhasesByRing(fromPhase->ringNum)) {
+                    if (p != fromPhase && p->barrierNum == fromPhase->barrierNum && p->callActive()) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
     } else if (fromPhase->coordinatePhase) {
         // if the from phase is a coordinated phase i.e. {2, 6} in a standard setup
         return fromCoord(controller);
@@ -1782,8 +1802,13 @@ PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
 bool
 PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
     if (coordBase(controller)) {
-        // Determine if the other phase is also ready to switch
-        if (controller->getOtherPhase(fromPhase)->readyToSwitch) {
+        // In lead-lag, the coordinated phase may not be at the barrier.
+        // If transitioning within the same barrier section (not a barrier cross),
+        // the other ring's phase does not need to be ready.
+        bool sameBarrier = (fromPhase->barrierNum == toPhase->barrierNum);
+        bool otherPhaseReady = controller->getOtherPhase(fromPhase)->readyToSwitch;
+
+        if (sameBarrier || otherPhaseReady) {
             // Dr. Wang had the Type-170 code setup in a way that it could transition whenever - meaning that it didn't matter if the prior phase could fit or not
             if (controller->isType170()) {
                 return true;
@@ -1794,6 +1819,12 @@ PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
             }
             // now determine if there my prior phase can fit or not. We already know that I can fit.
             NEMAPhase* priorPhase = toPhase->getSequentialPriorPhase();
+            // In lead-lag, priorPhase of the lag phase (e.g. Phase 1) is the coord phase itself (Phase 2).
+            // The prior-phase-fit check is meant for phases BEFORE the toPhase, but when
+            // that's the fromPhase itself, the check is self-referential. Skip it.
+            if (priorPhase == fromPhase) {
+                return true;
+            }
             SUMOTime timeTillForceOff = controller->ModeCycle(priorPhase->forceOffTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
             SUMOTime transitionTime = fromPhase->getTransitionTime(controller);
             // if the time till the force off is less than the min duration ||

@@ -346,12 +346,14 @@ protected:
     /**
      * Construct Timing and Phase Defs
      * @brief constructs phase using the configuration file
-     * @param barriers a string of barrier phases ("4,8")
-     * @param coordinates a string of coordinated phases ("2,6")
-     * @param ring1 a string of phases in ring 1 ("1,2,3,4")
+     * @param barriers a string of barrier phases ("4,8" or "1,6" for lead-lag)
+     * @param barriers2 a string of second barrier phases ("4,8")
+     * @param coordinates a string of coordinated phases ("2,6") - timing anchors
+     * @param ring1 a string of phases in ring 1 ("1,2,3,4" or "2,1,3,4" for lead-lag)
      * @param ring2 a string of phases in ring 2 ("5,6,7,8")
      */
-    void constructTimingAndPhaseDefs(std::string& barriers, std::string& coordinates,
+    void constructTimingAndPhaseDefs(std::string& barriers, std::string& barriers2,
+                                     std::string& coordinates,
                                      std::string& ring1, std::string& ring2);
 
     /** @brief iterates over the two active phases (myActivePhaseObjs) and merges the two active phases
