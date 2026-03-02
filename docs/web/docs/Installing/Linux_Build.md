@@ -301,8 +301,8 @@ sudo rm -r $SUMO_HOME
 If you want to distribute sumolib, traci, libsumo or the whole SUMO package
 as wheels, you can build those directly from the source tree. Please be aware
 that nightly builds of those packages are also available on
-https://sumo.dlr.de/wheels/ (built on the SUMO servers) and
-https://sumo.dlr.de/ciwheels/ (built on GitHub CI, has usually more platforms).
+https://sumo.dlr.de/daily/wheels/ (built on the SUMO servers) and
+https://sumo.dlr.de/daily/ciwheels/ (built on GitHub CI, has usually more platforms).
 
 If you still want to build them all yourself, maybe because you need a custom configuration,
 the easiest way is to call tools/build_config/build_wheels.sh but be aware that this
