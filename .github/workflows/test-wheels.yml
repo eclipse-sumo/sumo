@@ -154,7 +154,7 @@ jobs:
 
     - name: Uploading test results
       if: failure()
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: texttesttmp-${{ matrix.os }}-${{ matrix.manylinux }}-${{ matrix.python_version }}
         path: texttesttmp.zip
