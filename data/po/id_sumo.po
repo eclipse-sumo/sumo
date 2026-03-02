@@ -6923,7 +6923,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:157
 msgid ""
-"Disables building turnarounds except at at junctions with a dedicated "
+"Disables building turnarounds except at junctions with a dedicated "
 "turning lane"
 msgstr ""
 "Menonaktifkan pembangunan putar balik kecuali di persimpangan dengan lajur "

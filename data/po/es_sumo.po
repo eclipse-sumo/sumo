@@ -7060,7 +7060,7 @@ msgstr "Desactiva la creación de retornos, excepto en cruces sin salida"
 
 #: src/netbuild/NBFrame.cpp:157
 msgid ""
-"Disables building turnarounds except at at junctions with a dedicated "
+"Disables building turnarounds except at junctions with a dedicated "
 "turning lane"
 msgstr ""
 "Desactiva la creación de retornos, excepto en cruces con un carril exclusivo "

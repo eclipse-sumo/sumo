@@ -6098,7 +6098,7 @@ msgstr "禁止在终端路口构建掉头(turnarounds)"
 
 #: src/netbuild/NBFrame.cpp:157
 msgid ""
-"Disables building turnarounds except at at junctions with a dedicated "
+"Disables building turnarounds except at junctions with a dedicated "
 "turning lane"
 msgstr "除了在有专用转向车道的路口外,其余禁止构建掉头(turnarounds)"
 

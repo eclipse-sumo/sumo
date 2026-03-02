@@ -154,7 +154,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addDescription("no-turnarounds.except-deadend", "Junctions", TL("Disables building turnarounds except at dead end junctions"));
 
     oc.doRegister("no-turnarounds.except-turnlane", new Option_Bool(false));
-    oc.addDescription("no-turnarounds.except-turnlane", "Junctions", TL("Disables building turnarounds except at at junctions with a dedicated turning lane"));
+    oc.addDescription("no-turnarounds.except-turnlane", "Junctions", TL("Disables building turnarounds except at junctions with a dedicated turning lane"));
 
     oc.doRegister("no-turnarounds.fringe", new Option_Bool(false));
     oc.addDescription("no-turnarounds.fringe", "Junctions", TL("Disables building turnarounds at fringe junctions"));
