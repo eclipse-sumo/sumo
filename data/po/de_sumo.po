@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-02-28 18:42+0000\n"
+"PO-Revision-Date: 2026-03-02 19:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -9348,8 +9348,8 @@ msgstr "Interne Fahrstreifen-Shapes importieren"
 #: src/netimport/NIFrame.cpp:375
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr ""
-"Legt die Kanten ID basierend auf der Straßen ID und dem Versatz in m fest "
-"(Legacy)"
+"Legt die Kanten-ID basierend auf der Straßen-ID und dem Versatz in m fest "
+"(veraltet)"
 
 #: src/netimport/NIFrame.cpp:377
 msgid "Use custom lane shapes to compensate discarded lane types"
@@ -9375,7 +9375,7 @@ msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
-"Alle Eisenbahnsignalinformationen, die aus anderen Formaten als plain-XML "
+"Alle Eisenbahnsignalinformationen, die aus anderen Formaten als PlainXML "
 "geladen wurden, verwerfen"
 
 #: src/netimport/NIFrame.cpp:413
@@ -9407,11 +9407,11 @@ msgstr "Benötigtes Feld '%' (Straßen-ID) fehlt."
 
 #: src/netimport/NIImporter_ArcView.cpp:201
 msgid "Needed field '%' (from node id) is missing."
-msgstr "Benötigtes Feld '%' (Ausgangsknoten ID) fehlt."
+msgstr "Benötigtes Feld '%' (Ausgangsknoten-ID) fehlt."
 
 #: src/netimport/NIImporter_ArcView.cpp:205
 msgid "Needed field '%' (to node id) is missing."
-msgstr "Benötigtes Feld '%' (Endkanten ID) fehlt."
+msgstr "Benötigtes Feld '%' (Endkanten-ID) fehlt."
 
 #: src/netimport/NIImporter_ArcView.cpp:221
 msgid "Unknown type '%' for edge '%'"
@@ -9607,7 +9607,7 @@ msgstr "Die LSA-Kante '%' konnte nicht gefunden werden."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:511
 msgid "Could not allocate tls for '%'."
-msgstr "LSA konnte nicht zu '%' zugewiesen werden."
+msgstr "LSA konnte nicht '%' zugewiesen werden."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:702
 msgid "Could not parse YYYY-MM-DD date '%'"
