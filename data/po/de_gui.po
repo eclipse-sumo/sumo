@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-02-28 18:42+0000\n"
+"PO-Revision-Date: 2026-03-02 19:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -8248,16 +8248,16 @@ msgid ""
 "Parameter to be applied to the vehicle to track the trip id within a "
 "cyclical public transport route"
 msgstr ""
-"Parameter, der auf das Fahrzeug anzuwenden ist, um die Fahrt-ID innerhalb "
-"einer zyklischen ÖPNV-Route zu verfolgen"
+"Auf das Fahrzeug anzuwendender Parameter, um die Fahrt-ID innerhalb einer "
+"zyklischen ÖPNV-Route zu verfolgen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7255
 msgid ""
 "New line attribute to be set on the vehicle when reaching this stop (for "
 "cyclical public transport route)"
 msgstr ""
-"Neues Linienattribut, das beim Erreichen dieser Haltestelle am Fahrzeug "
-"gesetzt werden soll (für zyklische ÖPNV-Route)"
+"Beim Erreichen dieser Haltestelle am Fahrzeug neu zu setzendes "
+"Linienattribut (für zyklische ÖPNV-Route)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7261
 msgid "Speed to be kept while driving between startPos and endPos"
