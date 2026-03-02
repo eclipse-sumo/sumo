@@ -50,7 +50,7 @@ jobs:
           python tools/build_config/version.py --pep440 build_config/pyproject/sumo-data.toml pyproject.toml
           python -m build --wheel
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: cibw-pure-wheels
           path: ./dist/*
@@ -154,7 +154,7 @@ jobs:
           mv wheelhouse ci_wheelhouse
           mv ci_wheelhouse/relocate wheelhouse
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ matrix.manylinux }}
           path: ./wheelhouse/*.whl
