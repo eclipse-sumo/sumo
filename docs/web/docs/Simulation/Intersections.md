@@ -84,7 +84,7 @@ or `<lane>` element. This will shorten the edge/lane by a set amount.
 
 Vehicles from a minor road wait exactly at the end of the lane in order
 to minimize the distance they have to cover when a suitable gap in
-traffic is found. Vehicles waiting at at a traffic light wait with an
+traffic is found. Vehicles waiting at a traffic light wait with an
 offset of 1m ahead of the lane end.
 
 ## Vehicle Class

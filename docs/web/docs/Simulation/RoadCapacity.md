@@ -43,7 +43,7 @@ capacity):
 - *minGap*: the minimum gap between vehicles in a standing queue in m (default 2.5)
 - *tau*: the desired minimum time headway in seconds (default 1)
 
-Assuming that all vehicles are driving at at constant speed *s*, the following
+Assuming that all vehicles are driving at constant speed *s*, the following
 headways hold for 'Krauss':
 
 - `netHeadway = minGap + tau * s`

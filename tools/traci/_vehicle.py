@@ -1212,7 +1212,7 @@ class VehicleDomain(VTypeDomain):
         setRoute(string, list) ->  None
 
         changes the vehicle route to given edges list.
-        The first edge in the list has to be the one that the vehicle is at at the moment.
+        The first edge in the list has to be the one that the vehicle is at the moment.
 
         example usage:
         setRoute('1', ['1', '2', '4', '6', '7'])
