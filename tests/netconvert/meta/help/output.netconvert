@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_25_0+0045-28a3daf62ee
+Eclipse SUMO netconvert v1_26_0+0400-3363c3d90a3
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -449,8 +449,7 @@ Junctions Options:
   --no-turnarounds.except-deadend      Disables building turnarounds except at
                                         dead end junctions
   --no-turnarounds.except-turnlane     Disables building turnarounds except at
-                                        at junctions with a dedicated turning
-                                        lane
+                                        junctions with a dedicated turning lane
   --no-turnarounds.fringe              Disables building turnarounds at fringe
                                         junctions
   --no-left-connections                Disables building connections to left
