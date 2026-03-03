@@ -8,14 +8,14 @@ The purpose of traffic light modelling in SUMO is threefold:
 
 1. provide comfortable ways to set up plausible traffic signals for a whole city 
 2. provide functionality to replicate an existing traffic light with high fidelity 
-3. provide functionality to simulate any conceivable traffic light algorithm for research purpose
+3. provide functionality to simulate any conceivable traffic light algorithm for research purposes
 
 The first aim is supported by a deep pool of heuristics that construct traffic lights and programs.
 The other aims are supported by the following capabilities:
 
-  - parameterization of the built-in-algorithms
-  - loading custom algorithms directly into the simulation with a mini-programming language tailored to traffic light operations
-  - attaching arbitrary external code to a running simulation via a process-coupling interface (TraCI)
+- parameterization of the [built-in-algorithms](#defining_new_tls-programs)
+- loading custom algorithms directly into the simulation with a [mini-programming language](#type_actuated_with_custom_switching_rules) tailored to traffic light operations
+- attaching arbitrary external code to a running simulation via a [process-coupling interface (TraCI)](#controlling_traffic_lights_via_traci)
 
 # Workflow
 
@@ -1181,3 +1181,7 @@ The following additional features may be activated via checkboxes:
 
 ![track_phases.png](../images/track_phases.png
 "Track Phases Window")
+
+# Miscellaneous
+
+- [LiSUM](../Tools/LiSuM.hmd) LiSuM is a middleware that couples LISA+ and SUMO, making it easier to use Software-in-the-Loop for existing virtual controller definitions (i.e. as used in VISSIM)execute more complex traffic
