@@ -170,33 +170,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge = myEdgeCont.retrieve(myCurrentID);
     // check deprecated (unused) attributes
     // use default values, first
-    myCurrentType = myOptions.getString("default.type");
-    myCurrentPriority = myTypeCont.getEdgeTypePriority(myCurrentType);
-    myCurrentLaneNo = myTypeCont.getEdgeTypeNumLanes(myCurrentType);
-    myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
-    if (myCurrentEdge != nullptr) {
-        // update existing edge. only update lane-specific settings when explicitly requested
-        myIsUpdate = true;
-        myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
-        myCurrentFriction = NBEdge::UNSPECIFIED_FRICTION;
-        myPermissions = SVC_UNSPECIFIED;
-        myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
-        myCurrentType = myCurrentEdge->getTypeID();
-        myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
-    } else {
-        // this is a completely new edge. get the type specific defaults
-        myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
-        myCurrentFriction = myTypeCont.getEdgeTypeFriction(myCurrentType);
-        myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
-        myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
-        myLanesSpread = myTypeCont.getEdgeTypeSpreadType(myCurrentType);
-    }
-    myShape = PositionVector();
-    myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
-    myCurrentStreetName = "";
-    myReinitKeepEdgeShape = false;
-    mySidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
-    myBikeLaneWidth = NBEdge::UNSPECIFIED_WIDTH;
+    myCurrentType = myCurrentEdge == nullptr ? myOptions.getString("default.type") : myCurrentEdge->getTypeID();
     // check whether a type's values shall be used
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         myCurrentType = attrs.get<std::string>(SUMO_ATTR_TYPE, myCurrentID.c_str(), ok);
@@ -207,7 +181,24 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             WRITE_ERRORF("Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).", myCurrentType, myCurrentID);
             return;
         }
+    }
+    myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
+    if (myCurrentEdge != nullptr) {
+        // update existing edge. only update lane-specific settings when explicitly requested
+        myIsUpdate = true;
+        myCurrentSpeed = NBEdge::UNSPECIFIED_SPEED;
+        myCurrentFriction = NBEdge::UNSPECIFIED_FRICTION;
+        myCurrentPriority = myCurrentEdge->getPriority();
+        myCurrentLaneNo = myCurrentEdge->getNumLanes();
+        myPermissions = SVC_UNSPECIFIED;
+        myCurrentWidth = NBEdge::UNSPECIFIED_WIDTH;
+        myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
+        mySidewalkWidth = NBEdge::UNSPECIFIED_WIDTH;
+        myBikeLaneWidth = NBEdge::UNSPECIFIED_WIDTH;
+    } else {
+        // this is a completely new edge. get the type specific defaults
         myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
+        myCurrentFriction = myTypeCont.getEdgeTypeFriction(myCurrentType);
         myCurrentPriority = myTypeCont.getEdgeTypePriority(myCurrentType);
         myCurrentLaneNo = myTypeCont.getEdgeTypeNumLanes(myCurrentType);
         myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
@@ -216,6 +207,11 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         mySidewalkWidth = myTypeCont.getEdgeTypeSidewalkWidth(myCurrentType);
         myBikeLaneWidth = myTypeCont.getEdgeTypeBikeLaneWidth(myCurrentType);
     }
+    myShape = PositionVector();
+    myLength = NBEdge::UNSPECIFIED_LOADED_LENGTH;
+    myCurrentStreetName = "";
+    myReinitKeepEdgeShape = false;
+
     // use values from the edge to overwrite if existing, then
     if (myIsUpdate) {
         if (!myHaveReportedAboutOverwriting) {
@@ -233,13 +229,10 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             myCurrentEdge = nullptr;
             return;
         }
-        myCurrentPriority = myCurrentEdge->getPriority();
-        myCurrentLaneNo = myCurrentEdge->getNumLanes();
         if (!myCurrentEdge->hasDefaultGeometry()) {
             myShape = myCurrentEdge->getGeometry();
             myReinitKeepEdgeShape = true;
         }
-        myLanesSpread = myCurrentEdge->getLaneSpreadFunction();
         if (myCurrentEdge->hasLoadedLength()) {
             myLength = myCurrentEdge->getLoadedLength();
         }
