@@ -2492,12 +2492,14 @@ GNETLSEditorFrame::TLSPhases::buildDefaultPhase(const int row) {
         }
     }
     // fix continuous green states
-    const int nextIndex = (myPhaseTable->getNumRows() > newIndex) ? newIndex : 0;
-    const std::string state2 = myPhaseTable->getItemText(nextIndex, (TLSStatic ? 2 : 4));
-    for (int i = 0; i < (int)state.size(); i++) {
-        if (((oldState[i] == LINKSTATE_TL_GREEN_MAJOR) || (oldState[i] == LINKSTATE_TL_GREEN_MINOR)) &&
-                ((state2[i] == LINKSTATE_TL_GREEN_MAJOR) || (state2[i] == LINKSTATE_TL_GREEN_MINOR))) {
-            state[i] = oldState[i];
+    if (myPhaseTable->getNumRows() > 1) {
+        const int nextIndex = (myPhaseTable->getNumRows() > newIndex) ? newIndex : 0;
+        const std::string state2 = myPhaseTable->getItemText(nextIndex, (TLSStatic ? 2 : 4));
+        for (int i = 0; i < (int)state.size(); i++) {
+            if (((oldState[i] == LINKSTATE_TL_GREEN_MAJOR) || (oldState[i] == LINKSTATE_TL_GREEN_MINOR)) &&
+                    ((state2[i] == LINKSTATE_TL_GREEN_MAJOR) || (state2[i] == LINKSTATE_TL_GREEN_MINOR))) {
+                state[i] = oldState[i];
+            }
         }
     }
     // add new step
