@@ -1,0 +1,8 @@
+<edgedata>
+    <interval begin="0.0" end="0.0" id="routeStats">
+        <edge id="A" departed="1" arrived="0" delta="-1"/>
+        <edge id="B" departed="0" arrived="1" delta="1"/>
+        <edge id="C" departed="1" arrived="0" delta="-1"/>
+        <edge id="D" departed="0" arrived="1" delta="1"/>
+    </interval>
+</edgedata>

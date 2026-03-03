@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flowAB" from="A" to="B" begin="0" end="50" period="exp(0.01)"/>
+    <flow id="flowCD" from="C" to="D" begin="0" end="10" probability="0.15"/>
+
+</routes>

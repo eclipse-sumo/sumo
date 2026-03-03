@@ -57,4 +57,7 @@ flow
 flow_poisson
 
 # Tests for <SUMO_DIST>/tools/countEdgeUsage.py
+flow_fractional
+
+# Tests for <SUMO_DIST>/tools/countEdgeUsage.py
 replacedRoutes
