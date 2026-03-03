@@ -837,7 +837,8 @@ class VehicleDomain(VTypeDomain):
 
     def getReferenceDistance(self, vehID):
         """getReferenceDistance(string) -> double
-        Returns the distance along the linear reference system in which the current edge takes part (i.e. kilometrage/mile markers)
+        Returns the distance along the linear reference system
+        in which the current edge takes part (i.e. kilometrage/mile markers)
         """
         return self._getUniversal(tc.VAR_REFERENCE_DISTANCE, vehID)
 
