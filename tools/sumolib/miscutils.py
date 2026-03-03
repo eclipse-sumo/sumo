@@ -316,17 +316,28 @@ def getFlowNumber(flow):
     if flow.end is not None:
         duration = parseTime(flow.end) - parseTime(flow.begin)
         period = 0
+        isFractional = False
         if flow.period is not None:
             if 'exp' in flow.period:
                 # use expected value
                 period = 1 / float(flow.period[4:-1])
+                isFractional = True
             else:
                 period = float(flow.period)
+        elif flow.probability is not None:
+            # use expected value
+            period = 1 / float(flow.probability)
+            isFractional = True
         for attr in ['perHour', 'vehsPerHour']:
             if flow.hasAttribute(attr):
                 period = 3600 / float(flow.getAttribute(attr))
         if period > 0:
-            return math.ceil(duration / period)
+            count = duration / period
+            if isFractional:
+                return count
+            else:
+                # flows with a regular period always start at least one vehicle at the begin time
+                return math.ceil(count)
         else:
             return 1
 
