@@ -52,5 +52,8 @@ plain_geo
 
 # test .net.xml.gz as input
 input_gz
+
+# only change is edgeType
+edgeType
 save_config
 load_config
