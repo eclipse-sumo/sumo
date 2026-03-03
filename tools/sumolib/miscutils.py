@@ -403,3 +403,16 @@ def short_names(filenames, noEmpty):
         base = os.path.basename(prefix)
         shortened = [base + f for f in shortened]
     return shortened
+
+def getBaseName(filename):
+    """strip extensions such as .net.xml.gz"""
+    if filename[-11:] == ".net.xml.gz" and len(filename) > 11:
+        return filename[:-11]
+    elif filename[-8:] == ".net.xml" and len(filename) > 8:
+        return filename[:-8]
+    elif filename[-7:] == ".xml.gz" and len(filename) > 7:
+        return filename[:-7]
+    elif filename[-4:] == ".xml" and len(filename) > 4:
+        return filename[:-4]
+    else:
+        return filename
