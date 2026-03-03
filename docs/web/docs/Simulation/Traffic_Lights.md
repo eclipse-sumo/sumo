@@ -2,6 +2,23 @@
 title: Traffic Lights
 ---
 
+# High level Overview
+
+The purpose of traffic light modelling in SUMO is threefold:
+
+1. provide comfortable ways to set up plausible traffic signals for a whole city 
+2. provide functionality to replicate an existing traffic light with high fidelity 
+3. provide functionality to simulate any conceivable traffic light algorithm for research purpose
+
+The first aim is supported by a deep pool of heuristics that construct traffic lights and programs.
+The other aims are supported by the following capabilities:
+
+  - parameterization of the built-in-algorithms
+  - loading custom algorithms directly into the simulation with a mini-programming language tailored to traffic light operations
+  - attaching arbitrary external code to a running simulation via a process-coupling interface (TraCI)
+
+# Workflow
+
 Normally, [netconvert](../netconvert.md) and
 [netgenerate](../netgenerate.md) generate traffic lights and
 programs for junctions during the computation of the networks. Still,
@@ -11,8 +28,9 @@ to run [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) with
 additional program definitions. Also,
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) allow loading
 definitions which describe when and how a set of traffic lights can
-switch from one program to another. Both will be discussed in the
-following subchapters. Another possibility is to edit traffic light plans
+[switch from one program to another](#defining_program_switch_times_and_procedure).
+Both will be discussed in the following subchapters.
+Another possibility is to edit traffic light plans
 visually in [netedit](../Netedit/editModesNetwork.md#traffic_lights).
 
 # Automatically Generated TLS-Programs
