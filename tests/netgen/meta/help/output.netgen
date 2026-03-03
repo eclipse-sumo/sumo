@@ -404,7 +404,7 @@ Junctions Options:
                                         other (recommended for OSM import)
   --junctions.join-dist FLOAT          Determines the maximal distance for
                                         joining junctions (defaults to 10)
-  --junctions.join.parallel-threshold FLOAT  The angular threshold in degress
+  --junctions.join.parallel-threshold FLOAT  The angular threshold in degrees
                                         for rejection of parallel edges when
                                         joining junctions
   --junctions.join-same FLOAT          Joins junctions that have similar

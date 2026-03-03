@@ -287,7 +287,7 @@ See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/
 | **--no-left-connections** {{DT_BOOL}} | Disables building connections to left; *default:* **false** |
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
-| **--junctions.join.parallel-threshold** {{DT_FLOAT}} | The angular threshold in degress for rejection of parallel edges when joining junctions; *default:* **30** |
+| **--junctions.join.parallel-threshold** {{DT_FLOAT}} | The angular threshold in degrees for rejection of parallel edges when joining junctions; *default:* **30** |
 | **--junctions.join-same** {{DT_FLOAT}} | Joins junctions that have similar coordinates even if not connected; *default:* **-1** |
 | **--max-join-ids** {{DT_INT}} | Abbreviate junction or TLS id if it joins more than INT junctions; *default:* **4** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |

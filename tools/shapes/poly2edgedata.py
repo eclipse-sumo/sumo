@@ -63,7 +63,7 @@ def get_options(args=None):
     op.add_option("--shapecut", type=float, default=40,
                   help="Shorten polygon and edge shapes to FLOAT to increase robustness of angular comparison")
     op.add_option("--angle-tolerance", type=float, default=20, dest="atol",
-                  help="Match polygons and edges if their angle differs by no more than DEGRESS")
+                  help="Match polygons and edges if their angle differs by no more than DEGREES")
     op.add_option("--min-length", type=float, default=10, dest="minLength",
                   help="minimum edge length that may be mapped to")
     op.add_option("-s", "--split-attributes", dest="splitAttrs",

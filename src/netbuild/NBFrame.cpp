@@ -352,7 +352,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("junctions.join.parallel-threshold", new Option_Float(30));
     oc.addDescription("junctions.join.parallel-threshold", "Junctions",
-                      "The angular threshold in degress for rejection of parallel edges when joining junctions");
+                      "The angular threshold in degrees for rejection of parallel edges when joining junctions");
 
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_StringVector());

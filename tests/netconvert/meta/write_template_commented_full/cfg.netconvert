@@ -705,7 +705,7 @@
         <!-- Determines the maximal distance for joining junctions (defaults to 10) -->
         <junctions.join-dist value="10" type="FLOAT"/>
 
-        <!-- The angular threshold in degress for rejection of parallel edges when joining junctions -->
+        <!-- The angular threshold in degrees for rejection of parallel edges when joining junctions -->
         <junctions.join.parallel-threshold value="30" type="FLOAT"/>
 
         <!-- Interprets STR[] as list of junctions to exclude from joining -->

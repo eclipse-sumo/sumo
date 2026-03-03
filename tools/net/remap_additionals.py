@@ -47,7 +47,7 @@ def get_options(args=None):
     ap.add_argument("--shapecut", type=float, default=40,
                     help="Shorten polygon and edge shapes to FLOAT to increase robustness of angular comparison")
     ap.add_argument("--angle-tolerance", type=float, default=20, dest="atol",
-                    help="Match polygons and edges if their angle differs by no more than DEGRESS")
+                    help="Match polygons and edges if their angle differs by no more than DEGREES")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                     default=False, help="tell me what you are doing")
     options = ap.parse_args()
