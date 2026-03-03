@@ -197,8 +197,8 @@ Other useful cmake configuration options:
   include EPL compatible licensed code)
 - `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
   debugging the release build or using a different profiler
-- `-D PROJ_LIBRARY=` disable PROJ
-- `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
+- `-D ENABLE_PROJ=OFF` disable PROJ
+- `-D ENABLE_FOX=OFF` disable FOX toolkit (GUI and multithreading)
 - `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
 - `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
 - `-D ENABLE_CS_BINDINGS=ON` enable C# bindings when compiling libsumo / libtraci
@@ -262,7 +262,7 @@ before calling the executable.
 Many of the project features are optional. To test a minimal setup, the following build configuration can be used:
 
 ```
-cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF -DFMI=OFF -B build.
+cmake -DENABLE_FOX=OFF -DENABLE_PROJ=OFF -DCHECK_OPTIONAL_LIBS=OFF -DENABLE_FMI=OFF -B build .
 ```
 
 ## Installing the SUMO binaries

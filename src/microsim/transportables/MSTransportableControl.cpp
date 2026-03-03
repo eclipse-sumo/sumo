@@ -30,7 +30,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
-#ifdef JPS_VERSION
+#ifdef HAVE_JUPEDSIM
 #include <microsim/transportables/MSPModel_JuPedSim.h>
 #endif
 #include <microsim/transportables/MSPModel_Striping.h>
@@ -67,7 +67,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         const std::string& model = oc.getString("pedestrian.model");
         if (model == "striping") {
             myMovementModel = new MSPModel_Striping(oc, net);
-#ifdef JPS_VERSION
+#ifdef HAVE_JUPEDSIM
         } else if (model == "jupedsim") {
             myMovementModel = new MSPModel_JuPedSim(oc, net);
 #endif

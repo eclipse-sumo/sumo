@@ -57,6 +57,9 @@
 #include <libsumo/Helper.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
+#ifdef HAVE_PARQUET
+#include <arrow/util/config.h>
+#endif
 #ifdef HAVE_LIBSUMOGUI
 #include "GUI.h"
 #endif
@@ -935,13 +938,13 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
                                  + "'. Use an empty id for buildConfig parameters");
         }
         if (key == "buildConfig.ARROW_SO_VERSION") {
-#ifdef ARROW_SO_VERSION
+#ifdef HAVE_PARQUET
             return ARROW_SO_VERSION;
 #else
             return "";
 #endif
         } else if (key == "buildConfig.JPS_VERSION") {
-#ifdef JPS_VERSION
+#ifdef HAVE_JUPEDSIM
             return toString(JPS_VERSION);
 #else
             return "";

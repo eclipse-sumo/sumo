@@ -606,7 +606,7 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.walkingarea-detail", new Option_Integer(4));
     oc.addDescription("pedestrian.striping.walkingarea-detail", "Processing", TL("Generate INT intermediate points to smooth out lanes within the walkingarea"));
 
-#ifdef JPS_VERSION
+#ifdef HAVE_JUPEDSIM
     oc.doRegister("pedestrian.jupedsim.step-length", new Option_String("0.01", "TIME"));
     oc.addDescription("pedestrian.jupedsim.step-length", "Processing", TL("The update interval of the JuPedSim simulation (in seconds)"));
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
@@ -1122,7 +1122,7 @@ MSFrame::checkOptions() {
         WRITE_WARNING(TL("The option --threads has known problems and does NOT provide meaningful speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). Using it is not recommended!"));
     }
 
-#ifdef JPS_VERSION
+#ifdef HAVE_JUPEDSIM
     const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
     const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
     if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {

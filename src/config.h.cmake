@@ -201,11 +201,14 @@
 /* defined and set to version if JuPedSim is available */
 #cmakedefine JPS_VERSION @JPS_VERSION@
 
+/* defined if JuPedSim is available */
+#cmakedefine HAVE_JUPEDSIM
+
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
 
-/* defined and set to version if Arrow / Parquet is available */
-#cmakedefine ARROW_SO_VERSION "@ARROW_SO_VERSION@"
+/* defined if Parquet is available */
+#cmakedefine HAVE_PARQUET
 
 /* defined if Boost is available */
 #cmakedefine HAVE_BOOST
@@ -215,6 +218,9 @@
 
 /* set to proj.h, proj_api.h or empty depending on which proj is available */
 #cmakedefine PROJ_API_FILE "@PROJ_API_FILE@"
+
+/* defined if PROJ is available */
+#cmakedefine HAVE_PROJ
 
 /* defined if python is available */
 #cmakedefine HAVE_PYTHON
