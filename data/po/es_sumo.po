@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-02 13:51+0000\n"
+"PO-Revision-Date: 2026-03-03 09:01+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -13862,6 +13862,8 @@ msgid ""
 "Landmark % is not reachable from % edges and is unable to reach % out of % "
 "total edges."
 msgstr ""
+"El punto de referencia % no es alcanzable desde % aristas y no puede "
+"alcanzar % de un total de % aristas."
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
@@ -13999,32 +14001,40 @@ msgstr "Error al cargar formas desde %."
 
 #: src/utils/tests/InternalTest.cpp:318
 msgid "Could not open attributes enum file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo de enumeración de atributos '%'."
 
 #: src/utils/tests/InternalTest.cpp:332
 #, c-format
 msgid "In internal test file, value '%' cannot be parsed to int."
 msgstr ""
+"En el archivo de prueba interno, el valor '%' no se pudo convertir a número "
+"entero."
 
 #: src/utils/tests/InternalTest.cpp:349 src/utils/tests/InternalTest.cpp:399
 #: src/utils/tests/InternalTest.cpp:434
 msgid "Could not open view positions file '%'."
-msgstr ""
+msgstr "No se pudo abrir el archivo de posiciones de vista '%'."
 
 #: src/utils/tests/InternalTest.cpp:377
 #, c-format
 msgid "In internal test file, mainMenu value '%' cannot be parsed to int."
 msgstr ""
+"En el archivo de prueba interno, el valor del menú principal '%' no se pudo "
+"convertir a número entero."
 
 #: src/utils/tests/InternalTest.cpp:379
 #, c-format
 msgid "In internal test file, subMenuA value '%' cannot be parsed to int."
 msgstr ""
+"En el archivo de prueba interno, el valor subMenuA '%' no se pudo convertir "
+"a número entero."
 
 #: src/utils/tests/InternalTest.cpp:381
 #, c-format
 msgid "In internal test file, subMenuB value '%' cannot be parsed to int."
 msgstr ""
+"En el archivo de prueba interno, el valor subMenuB '%' no se pudo convertir "
+"a número entero."
 
 #: src/utils/tests/InternalTest.cpp:415 src/utils/tests/InternalTest.cpp:454
 #, c-format
@@ -14048,11 +14058,12 @@ msgstr "El nodo: '%' ya existe."
 
 #: src/utils/traction_wire/Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
-msgstr ""
+msgstr "El índice del nodo renumerado superó el número reducido de ecuaciones."
 
 #: src/utils/traction_wire/Circuit.cpp:250
 msgid "Index of renumbered element exceeded the reduced number of equations."
 msgstr ""
+"El índice del elemento renumerado superó el número reducido de ecuaciones."
 
 #: src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
@@ -14089,6 +14100,8 @@ msgid ""
 "Cannot assign unambigous electric current value to two voltage sources "
 "connected in parallel at the same node."
 msgstr ""
+"No se puede asignar un valor de corriente eléctrica inequívoco a dos fuentes "
+"de tensión conectadas en paralelo al mismo nodo."
 
 #: src/utils/traction_wire/Circuit.cpp:793
 msgid ""
