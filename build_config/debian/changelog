@@ -1,3 +1,9 @@
+sumo (1.26.0-1) noble; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Thu, 29 Jan 2026 09:19:14 +0100
+
 sumo (1.25.0-1) noble; urgency=medium
 
   * new upstream version
