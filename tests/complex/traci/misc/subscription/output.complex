@@ -480,6 +480,7 @@ Subscribing to vehicle.LAST_STEP_PERSON_ID_LIST.
 Subscribing to vehicle.VAR_PERSON_NUMBER.
 Subscribing to vehicle.VAR_POSITION.
 Subscribing to vehicle.VAR_POSITION3D.
+Subscribing to vehicle.VAR_REFERENCE_DISTANCE.
 Subscribing to vehicle.VAR_ROAD_ID.
 Subscribing to vehicle.VAR_EDGES.
 Subscribing to vehicle.VAR_ROUTE_ID.
@@ -1124,6 +1125,7 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                137: 0,
                140: 0.3266719881212339,
                146: True,
+               149: 6.850652830884791,
                161: '',
                162: -1073741824,
                177: 1.750652830884792,
