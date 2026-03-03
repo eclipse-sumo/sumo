@@ -113,8 +113,6 @@ PLAIN_TYPES = [
 #     parsing in netconvert becomes tedious
 # CAVEAT5 - phases must maintain their order
 # CAVEAT6 - identical phases may occur multiple times, thus OrderedMultiSet
-# CAVEAT7 - changing edge type triggers 'type override'
-#     (all attributes defined for the edge type are applied. This must be avoided)
 # CAVEAT8 - TAG_TLL must always be written before TAG_CONNECTION
 # CAVEAT9 - when TAG_NEIGH is removed, <neigh lane=""/> must written into the diff to indicate removal
 # CAVEAT10 - when a connection element is written without 'to' it describes an edge without connections.
@@ -349,9 +347,7 @@ class AttributeStore:
             return names, values, dchildren
 
     def diff(self, tag, name, sourceValue, destValue):
-        if (sourceValue == destValue or
-                # CAVEAT7
-                (tag == TAG_EDGE and name == "type")):
+        if sourceValue == destValue:
             return None
         elif destValue is None:
             destValue = DEFAULT_VALUES[name]
