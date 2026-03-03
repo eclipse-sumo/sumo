@@ -1184,4 +1184,4 @@ The following additional features may be activated via checkboxes:
 
 # Miscellaneous
 
-- [LiSUM](../Tools/LiSuM.hmd) LiSuM is a middleware that couples LISA+ and SUMO, making it easier to use Software-in-the-Loop for existing virtual controller definitions (i.e. as used in VISSIM)execute more complex traffic
+- [LiSUM](../Tools/LiSuM.md) LiSuM is a middleware that couples LISA+ and SUMO, making it easier to use Software-in-the-Loop for existing virtual controller definitions (i.e. as used in VISSIM)execute more complex traffic
