@@ -167,6 +167,7 @@ def getAllowedEdge(validEdgesNodes, vClass):
                 if edge2.allows(vClass):
                     return edge2
 
+
 def getTripEdges(validEdgesNodes, vClass):
     result = [getAllowedEdge(validEdgesNodes, vClass),
               getAllowedEdge(reversed(validEdgesNodes), vClass)]
