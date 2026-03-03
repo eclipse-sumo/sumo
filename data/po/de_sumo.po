@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-02 19:46+0000\n"
+"PO-Revision-Date: 2026-03-04 09:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10490,7 +10490,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_VISUM.cpp:1167
 msgid "Ignoring stopping place '%' without edge id"
-msgstr "Ignoriere Haltepunkt '%' ohne Kanten ID"
+msgstr "Ignoriere Haltepunkt '%' ohne Kanten-ID"
 
 #: src/netimport/NIImporter_VISUM.cpp:1169
 msgid "Ignoring stopping place '%' without node information"
@@ -10505,7 +10505,7 @@ msgid ""
 "Could not find edge with from-node '%' and base id '%' for stopping place "
 "'%'"
 msgstr ""
-"Konnte Kante mit Ausgangsknoten '%' und Basis-ID '%' für Halteplatz '%' "
+"Konnte Kante mit Ausgangsknoten '%' und Basis-ID '%' für Haltepunkt '%' "
 "nicht finden"
 
 #: src/netimport/NIImporter_VISUM.cpp:1184
@@ -10706,8 +10706,7 @@ msgstr "Shape für die walkingArea am Knoten '%' kann nicht projiziert werden."
 #: src/netimport/NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
-"Doppelte Kanten-ID aufgetreten ('%'); nehme eine gewünschte Überschreibung "
-"an."
+"Doppelte Kanten-ID aufgetreten ('%'); es wird die zweite Kante verwendet."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
@@ -10801,7 +10800,7 @@ msgstr "Unbekanntes LSA-Layout '%' für den Knoten '%'."
 
 #: src/netimport/NIXMLNodesHandler.cpp:344
 msgid "Changing traffic light type '%' to '%' for tl '%'."
-msgstr "Änderung des LSA-Typs '%' in '%' an LSA '%'."
+msgstr "Änderung des LSA-Typs von '%' zu '%' an LSA '%'."
 
 #: src/netimport/NIXMLPTHandler.cpp:166
 #, c-format
@@ -10982,7 +10981,7 @@ msgstr "Was ist mit Verteilung '%'"
 #, c-format
 msgid "Could not set tls signal at edge '%' - the edge was not built."
 msgstr ""
-"Konnte LSA-Signal an Kante '%' nicht anwenden - die Kante wurde nicht "
+"Konnte LSA-Signal nicht an Kante '%' platzieren - die Kante wurde nicht "
 "erstellt."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:152
@@ -10995,7 +10994,7 @@ msgid ""
 " Must be a multiple id ('%')"
 msgstr ""
 "Fehler beim Hinzufügen einer LSA\n"
-"Muss eine mehrfache ID sein ('%')"
+"Es muss sich um mehrfache ID handeln ('%')"
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
@@ -11007,7 +11006,7 @@ msgstr "Das Signal '%' konnte der LSA '%' nicht zugeordnet werden."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr "Konnte nicht % von % LSAs anwenden."
+msgstr "Konnte % von % LSA nicht anwenden."
 
 #: src/netimport/vissim/tempstructs/NIVissimTL.cpp:402
 #, c-format
@@ -11185,7 +11184,7 @@ msgstr ""
 #: src/netload/NLHandler.cpp:589
 #, c-format
 msgid "Another lane with the id '%' exists."
-msgstr "Ein anderer Fahrstreifen mit der ID '%' existiert."
+msgstr "Ein anderer Fahrstreifen mit der ID '%' existiert bereits."
 
 #: src/netload/NLHandler.cpp:659
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
@@ -11231,7 +11230,7 @@ msgid ""
 "Trying to specify detector's lane by the given id since the argument 'lane' "
 "is missing."
 msgstr ""
-"Es wird versucht den Fahrstreifen-Detektor anhand der gegeben ID zu "
+"Es wird versucht, den Fahrstreifendetektor anhand der gegebenen ID zu "
 "spezifizieren, da das Argument 'lane' fehlt."
 
 #: src/netload/NLHandler.cpp:1152
@@ -12139,7 +12138,7 @@ msgstr "Definiert, in welcher Spalte die ID zu finden ist"
 
 #: src/polyconvert/polyconvert_main.cpp:138
 msgid "Defines which columns form the type id (comma separated list)"
-msgstr "Definiert, welche Spalten die Typ ID bilden (kommaseparierte Liste)"
+msgstr "Definiert, welche Spalten die Typ-ID bilden (kommaseparierte Liste)"
 
 #: src/polyconvert/polyconvert_main.cpp:141
 msgid "A running number will be used as id"
