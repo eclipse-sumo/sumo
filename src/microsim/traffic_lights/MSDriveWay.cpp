@@ -1374,8 +1374,10 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myFlank.begin(), dw->myFlank.end());
     dw->addBidiFoes(rs, false);
     dw->addBidiFoes(rs, true);
-    // add driveways that start on the same signal / lane
-    dw->addParallelFoes(link, *first);
+    if (!movingBlock) {
+        // add driveways that start on the same signal / lane
+        dw->addParallelFoes(link, *first);
+    }
     // add driveways that reverse along this driveways route
     dw->addReversalFoes(movingBlock);
     // make foes unique and symmetrical
