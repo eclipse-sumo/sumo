@@ -323,24 +323,24 @@ endif ()
 if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
-    file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-3.?.?")
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-?.?.*")
-    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-?.?.?")
-    file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-?.?.??")
-    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-2.??.?")
-    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-3.?.?")
-    file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-?.??")
-    file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-??.?.?")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-?.??.?")       # needed for Arrow
-    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-?.?.?")      # needed for Arrow
-    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-?.?.?")    # needed for Arrow
-    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-?.??.?") # needed for Arrow
-    file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
-    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
-    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-?.?.?")
-    file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-?.?.?")
-    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-?.??.?")
-    file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-?.??.?")
+    file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-*")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-*")
+    file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-*")
+    file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-*")
+    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-*")
+    file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
+    file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
+    file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*")        # needed for Arrow
+    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*")      # needed for Arrow
+    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*")    # needed for Arrow
+    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*")  # needed for Arrow
+    file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-*")
+    file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-*")
+    file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
+    file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-*")
+    file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
+    file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
 
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
@@ -354,8 +354,8 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/*.dll"
+                             "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
@@ -413,7 +413,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif(INSTALL_DLL_RUNTIMES)
     if (MSVC_VERSION GREATER 1919)
         # fmt in SUMOLibraries only works with MSVC 2019 and later
-        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/fmt-??.?.?")
+        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/fmt-*")
     endif ()
     if (ENABLE_GTEST)
         # declare flag for use google test
