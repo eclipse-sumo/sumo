@@ -620,7 +620,6 @@ void
 MSNet::writeStatistics(const SUMOTime start, const long now) const {
     const long duration = now - mySimBeginMillis;
     OutputDevice& od = OutputDevice::getDeviceByOption("statistic-output");
-    od.setExpectedAttributes(0);
     od.openTag("performance");
     od.writeAttr("clockBegin", time2string(mySimBeginMillis));
     od.writeAttr("clockEnd", time2string(now));

@@ -210,7 +210,7 @@ private:
     std::vector<std::shared_ptr<arrow::Scalar> > myValues;
 
     /// @brief the maximum depth of the XML hierarchy
-    int myMaxDepth = 0;
+    int myMaxDepth = 2;
 
     /// @brief whether the schema has been constructed completely
     bool myWroteHeader = false;

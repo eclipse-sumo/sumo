@@ -102,7 +102,6 @@ MSDevice_Emissions::initOnce() {
             myWrittenAttributes.set(attr);
         }
     }
-    OutputDevice::getDeviceByOption("emission-output").setExpectedAttributes(0);
 }
 
 
