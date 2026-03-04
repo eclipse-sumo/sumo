@@ -12,3 +12,6 @@ switches_bidi
 
 # a complex intersection with multiple conflict points 
 dual_track_T
+
+# two tracks cross each other
+mixed_permissions
