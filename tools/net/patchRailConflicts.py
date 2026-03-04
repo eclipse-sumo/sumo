@@ -64,7 +64,6 @@ def get_options():
     elif outputBase[-11:] == ".net.xml.gz":
         outputBase = outputBase[:-11]
 
-    options.vclass = [options.vclass]
     options.keepJunctionType = set(options.keepJunctionType.split(','))
     options.output_nodes = outputBase + ".nod.xml"
     options.output_edges = outputBase + ".edg.xml"
@@ -126,12 +125,19 @@ def main(options):
     net = sumolib.net.readNet(options.netfile)
     crossingNodes = []
     skipped = defaultdict(lambda: 0)
+    warnMixed = defaultdict(lambda: 0)
+    warnMixedEdge = {}
 
     for node in net.getNodes():
-        if any([e.getPermissions() != options.vclass for e in node.getIncoming() + node.getOutgoing()]):
+        if any([options.vclass not in e.getPermissions() for e in node.getIncoming() + node.getOutgoing()]):
             continue
         if not node.hasFoes():
             continue
+        for e in node.getIncoming() + node.getOutgoing():
+            if e.getPermissions() != [options.vclass]:
+                warnMixed[tuple(e.getPermissions())] += 1
+                warnMixedEdge[tuple(e.getPermissions())] = e.getID()
+
         nIn = len(node.getIncoming())
         nOut = len(node.getOutgoing())
         nBidi = len([e for e in node.getIncoming() + node.getOutgoing() if e.getBidi() is not None]) / 2
@@ -184,6 +190,10 @@ def main(options):
     outf_nod.close()
     outf_edg.close()
     outf_con.close()
+
+    for p, count in warnMixed.items():
+        print("Warning: %s occurences of mixed permissions '%s' (example edge '%s')" % (
+            count, ' '.join(p), warnMixedEdge[p]), file=sys.stderr)
 
     if options.verbose:
         if skipped:
