@@ -26,6 +26,9 @@ intermediate_insertion
 # see #17683
 intermediate_arrival
 
+# see #17683
+intermediate_arrival2
+
 # see #17623
 intermediate_insertion_circle
 
