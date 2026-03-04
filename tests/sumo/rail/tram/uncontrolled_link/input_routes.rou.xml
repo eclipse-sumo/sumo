@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-04T14:00:32.116117+01:00 by Eclipse SUMO netedit v1_26_0+0442-ecba1946454
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="tram" vClass="tram"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" type="tram" depart="0.00" from="E5" to="E2"/>
+    <trip id="t_1" type="tram" depart="7.00" from="E3" to="E4"/>
+</routes>
