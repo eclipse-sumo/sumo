@@ -144,11 +144,13 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
 bool
 OutputDevice::createDeviceByOption(const std::string& optionName,
                                    const std::string& rootElement,
-                                   const std::string& schemaFile) {
+                                   const std::string& schemaFile,
+                                   const int maximumDepth) {
     if (!OptionsCont::getOptions().isSet(optionName)) {
         return false;
     }
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
+    dev.setExpectedAttributes(0, maximumDepth);
     if (rootElement != "") {
         dev.writeXMLHeader(rootElement, schemaFile);
     }

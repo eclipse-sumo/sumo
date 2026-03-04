@@ -887,7 +887,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("overheadwiresegments-output", "overheadWireSegments-export");
     OutputDevice::createDeviceByOption("substations-output", "substations-export");
     OutputDevice::createDeviceByOption("full-output", "full-export", "full_file.xsd");
-    OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd");
+    OutputDevice::createDeviceByOption("queue-output", "queue-export", "queue_file.xsd", 3);
     OutputDevice::createDeviceByOption("amitran-output", "trajectories", "amitran/trajectories.xsd\" timeStepSize=\"" + toString(STEPS2MS(DELTA_T)));
 
     //OutputDevice::createDeviceByOption("vtk-output", "vtk-export");
