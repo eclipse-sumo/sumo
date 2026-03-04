@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-04 09:55+0000\n"
+"PO-Revision-Date: 2026-03-05 08:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -12304,7 +12304,7 @@ msgstr "FILE als SUMO-Netz für Routen verwenden"
 
 #: src/router/ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
-msgstr "Fahrzeuge, die Routen anhand ihrer ID referenzieren schreiben"
+msgstr "Fahrzeuge, die Routen anhand ihrer ID referenzieren, schreiben"
 
 #: src/router/ROFrame.cpp:73
 msgid "Read additional network data (districts, bus stops) from FILE(s)"
