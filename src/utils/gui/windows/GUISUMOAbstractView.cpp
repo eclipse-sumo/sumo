@@ -1801,7 +1801,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
             const double horizontalSize = xSize * adfGeoTransform[1];
             const double verticalSize = ySize * adfGeoTransform[5];
             Position bottomRight(topLeft.x() + horizontalSize, topLeft.y() + verticalSize);
-            if (GeoConvHelper::getFinal().x2cartesian_const(topLeft) && GeoConvHelper::getFinal().x2cartesian_const(bottomRight)) {
+            if (GeoConvHelper::getFinal().usingGeoProjection() && GeoConvHelper::getFinal().x2cartesian_const(topLeft) && GeoConvHelper::getFinal().x2cartesian_const(bottomRight)) {
                 //WRITE_MESSAGE("proj: " + toString(poDataset->GetProjectionRef()) + " dim: " + toString(d.width) + "," + toString(d.height) + " center: " + toString(d.centerX) + "," + toString(d.centerY));
             } else {
                 WRITE_WARNINGF(TL("Could not transform coordinates from WGS84 in decal %, assuming UTM."), d.filename);
