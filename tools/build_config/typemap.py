@@ -28,10 +28,11 @@ from os.path import dirname, exists, getmtime, join
 
 
 def writeTypeMap(typemapFile, typemap):
-    with open(typemapFile, 'w') as f:
+    # there are some latin1 characters in the default visum typemap but they seem to survive utf8 decoding / encoding just fine
+    with open(typemapFile, 'w', encoding="utf8") as f:
         for format, mapFile in sorted(typemap.items()):
             print("const std::string %sTypemap =" % format, file=f)
-            for line in open(mapFile):
+            for line in open(mapFile, encoding="utf8"):
                 print('"%s"' %
                       line.replace('"', r'\"').replace('\n', r'\n'), file=f)
             print(";", file=f)
