@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-03-02 19:46+0000\n"
+"PO-Revision-Date: 2026-03-05 08:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -12299,7 +12299,7 @@ msgstr ""
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2686
 msgid "% with id '%' doesn't exist in % '%'"
-msgstr "% mit der ID '%' existiert nicht in % '%'"
+msgstr "% mit der ID '%' existiert in % '%' nicht"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2692
 msgid "invalid probability % in % '%'"
