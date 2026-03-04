@@ -754,6 +754,23 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
         }
         return true;
     }
+    if (other.myOrigin != nullptr && other.myForward.front()->isInternal()) {
+        for (int i = 0; i < (int)myForward.size() - 1; i++) {
+            const MSLane* lane = myForward[i];
+            if (lane->getToJunction() == other.myOrigin->getJunction()) {
+                const MSLane* next = myForward[i + 1];
+                const MSLink* link = lane->getLinkTo(next);
+                if (link && link->getTLLogic() == nullptr) {
+                    // switch/crossing is also a rail_signal (direct control) but own link is uncontrolled
+                    if (lane->getToJunction()->getLogic() != nullptr
+                            && lane->getToJunction()->getLogic()->getFoesFor(link->getIndex()).test(other.myOrigin->getIndex())) {
+                        // and links are in conflict
+                        return true;
+                    }
+                }
+            }
+        }
+    }
     return false;
 }
 
