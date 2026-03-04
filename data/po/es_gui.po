@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-02-12 15:28+0000\n"
+"PO-Revision-Date: 2026-03-04 09:55+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -8325,7 +8325,7 @@ msgstr "ID del cruce inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7374
 msgid "BusStop start ID"
-msgstr ""
+msgstr "ID de la parada de bus inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7380
 msgid "TrainStop start ID"
@@ -8337,11 +8337,11 @@ msgstr "ID de la parada de contenedor inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7392
 msgid "ChargingStation start ID"
-msgstr ""
+msgstr "ID de la estación de carga inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7398
 msgid "ParkingArea start ID"
-msgstr ""
+msgstr "ID de la zona de estacionamiento inicial"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7405
 msgid "Edge end ID"
@@ -8366,23 +8366,23 @@ msgstr "ID del cruce final"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7437
 msgid "BusStop end ID"
-msgstr ""
+msgstr "ID de la parada de bus destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7443
 msgid "TrainStop end ID"
-msgstr ""
+msgstr "ID de la parada de tren destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7449
 msgid "ContainerStop end ID"
-msgstr ""
+msgstr "ID de la parada de contenedor destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7455
 msgid "ChargingStation end ID"
-msgstr ""
+msgstr "ID de la estación de carga destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7461
 msgid "ParkingArea end ID"
-msgstr ""
+msgstr "ID de la zona de estacionamiento destino"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7474
 msgid ""
