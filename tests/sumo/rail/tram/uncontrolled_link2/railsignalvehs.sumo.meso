@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-04T15:27:29.242336+01:00 by Eclipse SUMO sumo v1_26_0+0449-f6a569ae817
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
+    </output>
+
+    <processing>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
+        <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<railsignal-vehicle-output>
+    <railSignal id="J0">
+        <link linkIndex="0" from="E5_0" to="E0_0">
+            <driveWay id="J0.0">
+                <entry id="t_0" time="8.00" reason="junction"/>
+                <exit id="t_0" time="22.00" reason="arrived"/>
+            </driveWay>
+            <subDriveWay id="J0.0.0"/>
+            <driveWay id="J0.1">
+                <entry id="t_1" time="58.00" reason="junction"/>
+                <exit id="t_1" time="208.00" reason="arrived"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J1">
+        <link linkIndex="0" from="E3_0" to="E4_0">
+            <driveWay id="J1.0">
+                <entry id="t_2" time="64.00" reason="junction"/>
+                <exit id="t_2" time="71.00" reason="arrived"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <departJunction id="J4">
+        <driveWay id="J4.d0">
+            <entry id="t_2" time="57.00" reason="departed"/>
+            <exit id="t_2" time="64.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J6">
+        <driveWay id="J6.d0">
+            <entry id="t_0" time="0.00" reason="departed"/>
+            <exit id="t_0" time="8.00" reason="junction"/>
+        </driveWay>
+        <driveWay id="J6.d1">
+            <entry id="t_1" time="50.00" reason="departed"/>
+            <exit id="t_1" time="58.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+</railsignal-vehicle-output>

@@ -23,3 +23,6 @@ bidi_conflict_insertion_tls
 
 # see #17684
 uncontrolled_link
+
+# see #17681
+uncontrolled_link2
