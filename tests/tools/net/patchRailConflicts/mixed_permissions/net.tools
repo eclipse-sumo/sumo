@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-04T09:18:58.774308+01:00 by Eclipse SUMO netconvert v1_26_0+0428-15d044b5073
+<!-- generated on 2026-03-04T09:26:32.166781+01:00 by Eclipse SUMO netconvert v1_26_0+0428-15d044b5073
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -61,7 +61,7 @@
     </edge>
 
     <junction id="J0" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,1.60 -100.00,-1.60"/>
-    <junction id="J1" type="priority" x="0.00" y="0.00" incLanes="E0_0 E2_0" intLanes=":J1_0_0 :J1_1_0" shape="5.36,1.60 5.36,-1.60 4.65,-1.72 4.50,-1.87 4.50,-2.07 4.64,-2.34 4.92,-2.66 2.66,-4.92 0.29,-3.08 -1.01,-2.43 -2.38,-1.97 -3.83,-1.69 -5.36,-1.60 -5.36,1.60 -4.65,1.72 -4.50,1.87 -4.50,2.07 -4.64,2.34 -4.92,2.66 -2.66,4.92 -0.29,3.08 1.01,2.43 2.38,1.97 3.83,1.69">
+    <junction id="J1" type="rail_signal" x="0.00" y="0.00" incLanes="E0_0 E2_0" intLanes=":J1_0_0 :J1_1_0" shape="5.36,1.60 5.36,-1.60 4.65,-1.72 4.50,-1.87 4.50,-2.07 4.64,-2.34 4.92,-2.66 2.66,-4.92 0.29,-3.08 -1.01,-2.43 -2.38,-1.97 -3.83,-1.69 -5.36,-1.60 -5.36,1.60 -4.65,1.72 -4.50,1.87 -4.50,2.07 -4.64,2.34 -4.92,2.66 -2.66,4.92 -0.29,3.08 1.01,2.43 2.38,1.97 3.83,1.69">
         <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
@@ -69,8 +69,8 @@
     <junction id="J3" type="dead_end" x="-100.00" y="100.00" incLanes="" intLanes="" shape="-98.87,101.13 -101.13,98.87"/>
     <junction id="J4" type="dead_end" x="100.00" y="-100.00" incLanes="E3_0" intLanes="" shape="98.87,-101.13 101.13,-98.87"/>
 
-    <connection from="E0" to="E1" fromLane="0" toLane="0" via=":J1_0_0" dir="s" state="M"/>
-    <connection from="E2" to="E3" fromLane="0" toLane="0" via=":J1_1_0" dir="s" state="M"/>
+    <connection from="E0" to="E1" fromLane="0" toLane="0" via=":J1_0_0" tl="J1" linkIndex="0" dir="s" state="O"/>
+    <connection from="E2" to="E3" fromLane="0" toLane="0" via=":J1_1_0" tl="J1" linkIndex="1" dir="s" state="o"/>
 
     <connection from=":J1_0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":J1_1" to="E3" fromLane="0" toLane="0" dir="s" state="M"/>
