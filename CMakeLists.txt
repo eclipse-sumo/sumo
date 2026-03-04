@@ -346,25 +346,33 @@ if (SUMO_LIBRARIES AND WIN32)
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
-                                 "${PROJ_PATH}/bin/*.dll"
-                                 "${FOX_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  )
-    if (ENABLE_GDAL)
-        file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
-                             "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
+    if (ENABLE_GDAL OR ENABLE_PROJ)
+        file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                             )
+        list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
+    endif ()
+    if (ENABLE_FOX)
+        file(GLOB _FOX_DLLS "${FOX_PATH}/bin/*.dll"
+                            "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                            )
+        list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS})
+    endif ()
+    if (ENABLE_GDAL)
+        file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
+                             "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/freexl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"

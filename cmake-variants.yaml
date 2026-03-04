@@ -15,7 +15,7 @@ buildType:
       settings:
         CMAKE_BUILD_TYPE: Release
         CHECK_OPTIONAL_LIBS: OFF
-        FOX_CONFIG: ''
+        ENABLE_FOX: ''
         BINARY_SUFFIX: M
     profiling:
       short: Profiling
