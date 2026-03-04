@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-03 09:01+0000\n"
+"PO-Revision-Date: 2026-03-04 09:55+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5481,7 +5481,7 @@ msgstr ""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
-msgstr ""
+msgstr "Tipo de mapa de motor no válido. Por ahora solo se admite \"poly\""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
@@ -5528,6 +5528,7 @@ msgstr "Fracción negativa de paso del vehículo para '%' en el carril '%'."
 #: src/microsim/output/MSMeanData.cpp:613
 msgid "aggregated meanData output not yet implemented for trackVehicles"
 msgstr ""
+"la salida agregada de meanData aún no está implementada para trackVehicles"
 
 #: src/microsim/output/MSStopOut.cpp:100
 msgid ""
