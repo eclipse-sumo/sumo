@@ -1577,6 +1577,13 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
 #endif
                 return false;
             }
+            if (myForward.back()->isInternal() && myForward.back()->getNextNormal() != (*itRoute)) {
+                // driveway is part of a direct-control conflict and continues elsewhere
+#ifdef DEBUG_MATCH
+                std::cout << getID() << " back=" << myForward.back()->getID() << " noMatch route " << toString(ConstMSEdgeVector(firstIt, itRoute)) << " (direct control)\n";
+#endif
+                return false;
+            }
         }
         return true;
     }
