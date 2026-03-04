@@ -7,7 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - fixed invalid driveWay foes in moving-block mode #17623
+  - fixed invalid driveWay foes in moving-block mode #17623, #17683
   - fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
   - stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed failure to group taxi passengers when the dispatch-period is low #17644
@@ -19,6 +19,7 @@ title: ChangeLog
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
 
 - netedit
+  - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
@@ -29,6 +30,10 @@ title: ChangeLog
   - Fixed interpretation of some geo-projection strings #17655
   - Fixed invalid connections in visum import (non-german version) #17660
   - Fixed invalid edge permissions in visum import #17659
+  - Fixed invalid changes to loaded edge attributes when patching edge type #17678
+
+- duarouter
+  - Fixed invalid vehicle departure times when defining poisson flow (very noticable at low rate) #17663
 
 - TraCI
   - `trafficlight.getSpentDuration` now works correctly after calling `setRedYellowGreenState` #17598
@@ -36,9 +41,11 @@ title: ChangeLog
 - tools
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
   - patchRailConflicts.py: no longer declaring rail signals that do not control any links #17588
+  - patchRailConflicts.py: now works for mixed-permission networks (i.e. tram on road) #17682
   - plotXMLAttributes.py: fixed missing labels on barplots with a non-numerical axis #17611
   - countEdgeUsage.py: fixed interpretation of (expected) poisson flow count #17657
-
+  - countEdgeUsage.py: now returns fractional counts for random flows (very noticable at low rate) #17664
+  - netdiff.py: now handles aribtrary network file names, now includes modified edge type in diff. #17676
 
 ### Enhancements
 
@@ -63,6 +70,10 @@ title: ChangeLog
   - Now importing geo-projection from visum networks #17658
   - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659
   - OSM networks now assign routingType *narrow* to one-lane edges to permit post-processing and [routing](Simulation/Routing.md#routing_by_travel_time_and_routingtype) or capacity adaptations. #17661
+  - connection files (*.con.xml) now support attribute `reset="true"` to trigger connection guessing when patching a network #17668
+
+- TraCI
+  - Added function `vehicle.getReferenceDistance` to retrieve the position of the vehicle in the underlying [linear referenced system](Simulation/Distances.md#defining_and_using_linear_coordinates) #10572
 
 - tools
   - osmWebWizard.py: now automatically saves osmGet configuration for easier updating of a scenario #17570
@@ -72,6 +83,9 @@ title: ChangeLog
   - plotXMLAttrbutes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
   - generateStationEdges.py: added option **--build** to automatically create the extended network #13383
+  - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
+  - visum_convertXMLRoute.py: now use demand time range when interpreting volume #17667
+
 
 
 
