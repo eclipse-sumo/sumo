@@ -404,6 +404,7 @@ def short_names(filenames, noEmpty):
         shortened = [base + f for f in shortened]
     return shortened
 
+
 def getBaseName(filename):
     """strip extensions such as .net.xml.gz"""
     if filename[-11:] == ".net.xml.gz" and len(filename) > 11:
