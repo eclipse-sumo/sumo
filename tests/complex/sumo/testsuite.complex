@@ -19,6 +19,9 @@ socketout
 # testing protobuf conversion and roundtrip
 protobuf
 
+# testing parquet output
+parquet
+
 # chaining amitran output and emission calculation
 emission
 

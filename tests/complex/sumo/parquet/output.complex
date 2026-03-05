@@ -1,0 +1,31 @@
+Testing fcd (fcd-output, end=120s)...
+  note: parquet has extra columns not in XML: ['vehicle_edge']
+[OK]    fcd: 214 rows match
+
+Testing emissions (emission-output, end=120s)...
+[OK]    emissions: 214 rows match
+
+Testing tripinfo (tripinfo-output, end=1000s)...
+[OK]    tripinfo: 175 rows match
+
+Testing summary (summary-output, end=1000s)...
+[OK]    summary: 1000 rows match
+
+Testing vehroutes (vehroute-output, end=1000s)...
+[OK]    vehroutes: 175 rows match
+
+Testing queue (queue-output, end=200s)...
+[OK]    queue: 250 rows match
+
+Testing lanechanges (lanechange-output, end=1000s)...
+  Failed to read xml CSV: No columns to parse from file
+[SKIP]  lanechanges: both are empty
+Testing edgedata (edgedata-output, end=1000s)...
+  note: parquet has extra columns not in XML: ['edge_teleported', 'edge_vaporized']
+[OK]    edgedata: 12 rows match
+
+Testing lanedata (lanedata-output, end=1000s)...
+  note: parquet has extra columns not in XML: ['lane_teleported', 'lane_vaporized']
+[OK]    lanedata: 20 rows match
+
+Result: PASSED (all outputs match, 1 skipped)
