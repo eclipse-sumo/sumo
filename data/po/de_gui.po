@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-03-05 08:02+0000\n"
+"PO-Revision-Date: 2026-03-06 07:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -15473,7 +15473,7 @@ msgstr "Ausgewählte Verkehrsumlegungszonenkante"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1170
 msgid "Color by Source"
-msgstr "EInfärbung nach Quelle"
+msgstr "Einfärbung nach Quelle"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1172
 msgid "Color by Sink"
@@ -15514,7 +15514,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:245
 msgid "tlLogic '%', program '%' could not be built"
-msgstr "Konnte LSA-Logik '%', Programm '%' nicht erstellen"
+msgstr "Konnte LSA-Logik '%' (Programm '%') nicht erstellen"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:258
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2910
@@ -17244,7 +17244,7 @@ msgstr "Minimale Größe"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2005
 msgid "Show edge id"
-msgstr "Kanten ID anzeigen"
+msgstr "Kanten-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2006
 msgid "Show street name"
@@ -17299,7 +17299,7 @@ msgstr "Skalengröße"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2062
 msgid "Show vehicle id"
-msgstr "Fahrzeug ID anzeigen"
+msgstr "Fahrzeug-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2063
 msgid "Show vehicle color value"
@@ -17355,7 +17355,7 @@ msgstr "Umgedrehte Fahrzeuge auch umgedreht zeichnen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2133
 msgid "Show person id"
-msgstr "Personen ID zeigen"
+msgstr "Personen-ID zeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2134
 msgid "Show person color value"
@@ -17367,7 +17367,7 @@ msgstr "JuPedSim-Fußgängernetz anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2186
 msgid "Show container id"
-msgstr "Container ID anzeigen"
+msgstr "Container-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2213
 msgid "Draw junction shape"
@@ -17391,19 +17391,19 @@ msgstr "Verbindungsindex anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2223
 msgid "Show junction id"
-msgstr "Knotenpunkt ID anzeigen"
+msgstr "Knotenpunkt-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2224
 msgid "Show internal junction id"
-msgstr "Interne Knotenpunkt ID anzeigen"
+msgstr "ID des internen Knotenpunkts anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2225
 msgid "Show internal edge id"
-msgstr "Interne Kanten ID anzeigen"
+msgstr "ID der internen Kante anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2226
 msgid "Show crossing and walkingarea id"
-msgstr "Fußgängerfurt und walkingArea ID anzeigen"
+msgstr "ID von Fußgängerfurten und walkingArea anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2227
 msgid "Show traffic light phase index"
@@ -17411,7 +17411,7 @@ msgstr "LSA-Phasenindex anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2228
 msgid "Show traffic light phase name"
-msgstr "LSA-Phasenname anzeigen"
+msgstr "LSA-Phasennamen anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2229
 msgid "Show junction name"
@@ -17423,7 +17423,7 @@ msgstr "Weitere"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2240
 msgid "Show object id"
-msgstr "Objekt ID anzeigen"
+msgstr "Objekt-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2241
 msgid "Show full name"
@@ -17456,7 +17456,7 @@ msgstr "Individuelle Ebene"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2342
 msgid "Show poi id"
-msgstr "Pol ID anzeigen"
+msgstr "Pol-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2343
 msgid "Show poi type"
@@ -17468,7 +17468,7 @@ msgstr "Poltextparameter anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2379
 msgid "Show polygon id"
-msgstr "Polygon ID anzeigen"
+msgstr "Polygon-ID anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2380
 msgid "Show polygon types"
