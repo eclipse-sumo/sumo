@@ -121,6 +121,9 @@ public:
 
         void switchTo(MSTLLogicControl& tlc, const std::string& programID);
 
+        /// @brief set current program upon loading saved state
+        void switchToLoaded(MSTrafficLightLogic* tl);
+
         /* @brief get logic by programID. For the special case "off"
          * instantiate an MSOffTrafficLightLogic */
         MSTrafficLightLogic* getLogicInstantiatingOff(MSTLLogicControl& tlc,

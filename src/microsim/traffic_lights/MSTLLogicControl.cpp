@@ -246,6 +246,16 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::s
 
 
 void
+MSTLLogicControl::TLSLogicVariants::switchToLoaded(MSTrafficLightLogic* tl) {
+    // setting tl as active and updating signal states happens on the calling side (MSTrafficLightLogic::loadState)
+    if (myCurrentProgram != tl) {
+        myCurrentProgram->deactivateProgram();
+        myCurrentProgram = tl;
+    }
+}
+
+
+void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const {
     for (std::vector<OnSwitchAction*>::const_iterator i = mySwitchActions.begin(); i != mySwitchActions.end(); ++i) {
         (*i)->execute();

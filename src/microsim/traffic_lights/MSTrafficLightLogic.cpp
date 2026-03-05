@@ -652,6 +652,7 @@ MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step
     changeStepAndDuration(tlcontrol, t, step, remaining);
     if (myAmActive) {
         setTrafficLightSignals(t - spentDuration);
+        tlcontrol.get(getID()).switchToLoaded(this);
     }
 }
 
