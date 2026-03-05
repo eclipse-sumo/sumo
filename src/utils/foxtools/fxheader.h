@@ -22,10 +22,10 @@
 
 // Avoid warnings for external headers
 #ifdef __clang__
-#pragma clang system_header
+#pragma clang diagnostic ignored "-Wdeprecated-enum-enum-conversion"
 #endif
 #ifdef __GNUC__
-#pragma GCC system_header
+#pragma GCC diagnostic ignored "-Wdeprecated-enum-enum-conversion"
 #endif
 #include <fx.h>
 
