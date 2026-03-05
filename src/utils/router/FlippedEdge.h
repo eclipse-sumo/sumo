@@ -24,7 +24,7 @@
 #include <config.h>
 #include <utils/common/SUMOVehicleClass.h>
 #ifdef HAVE_FOX
-#include <utils/foxtools/MsgHandlerSynchronized.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 #include "ReversedEdge.h"
 

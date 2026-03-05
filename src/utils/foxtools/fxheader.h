@@ -20,16 +20,14 @@
 #pragma once
 
 
-// Avoid warnings for external headers in MSVC
-#ifdef _MSC_VER
-// avoid warnings in clang
+// Avoid warnings for external headers
 #ifdef __clang__
 #pragma clang system_header
 #endif
-#include <fx.h>
-#else
-#include <fx.h>
+#ifdef __GNUC__
+#pragma GCC system_header
 #endif
+#include <fx.h>
 
 // More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/
 
