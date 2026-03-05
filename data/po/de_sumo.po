@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-05 08:02+0000\n"
+"PO-Revision-Date: 2026-03-06 07:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -14388,7 +14388,7 @@ msgid ""
 "of the section (with substation '%')."
 msgstr ""
 "Stromkreisknoten mit der ID '-1' ist nicht auf Masse, bitte passe die "
-"Definition des Abschnitts an (mit Unterstation '%')."
+"Definition des Abschnitts an (mit Unterwerk '%')."
 
 #: src/utils/traction_wire/Circuit.cpp:961
 msgid ""
@@ -14405,9 +14405,8 @@ msgid ""
 "the definition of the section (with substation '%')."
 msgstr ""
 "Der Schaltungsknoten oder die Spannungsquelle mit der internen ID '%' wurde "
-"während der Prüfung der Schaltung nicht besucht. Der Stromkreis ist "
-"getrennt, bitte passe die Definition des Abschnitts an (mit Unterstation "
-"'%')."
+"während der Prüfung der Schaltung übergangen. Der Stromkreis ist getrennt, "
+"bitte passe die Definition des Abschnitts an (mit Unterwerk '%')."
 
 #: src/utils/traction_wire/Element.cpp:53
 msgid "Undefined element type for '%'."
@@ -14492,11 +14491,11 @@ msgstr "Undefiniertes Ende für % '%', standardmäßig 24 Stunden Dauer."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:403
 msgid "Invalid % id '%'."
-msgstr "Ungültig % ID '%'."
+msgstr "Ungültige %-ID '%'."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:405
 msgid "Invalid % id '%'. Contains invalid characters."
-msgstr "Ungültig % ID '%'. Beinhaltet ungültige Zeichen."
+msgstr "Ungültige %-ID '%'. Beinhaltet ungültige Zeichen."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:996
 msgid "Lane change model 'JE2013' is deprecated. Using default model instead."
