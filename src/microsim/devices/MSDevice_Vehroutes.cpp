@@ -67,6 +67,10 @@ MSDevice_Vehroutes::init() {
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("vehroute-output")) {
         OutputDevice::createDeviceByOption("vehroute-output", "routes", "routes_file.xsd");
+        OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
+        if (!od.isXML()) {
+            WRITE_WARNING("Vehroute output does not fully support tabular formats. Sorting and stop output will not work.");
+        }
         mySaveExits = oc.getBool("vehroute-output.exit-times");
         myLastRouteOnly = oc.getBool("vehroute-output.last-route");
         myDUAStyle = oc.getBool("vehroute-output.dua");
@@ -79,7 +83,7 @@ MSDevice_Vehroutes::init() {
         myWriteStopPriorEdges = oc.getBool("vehroute-output.stop-edges");
         myWriteInternal = oc.getBool("vehroute-output.internal");
         MSNet::getInstance()->addVehicleStateListener(&myStateListener);
-        myRouteInfos.routeOut = &OutputDevice::getDeviceByOption("vehroute-output");
+        myRouteInfos.routeOut = &od;
     }
 }
 
@@ -327,7 +331,8 @@ void
 MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     const OptionsCont& oc = OptionsCont::getOptions();
     OutputDevice& routeOut = OutputDevice::getDeviceByOption("vehroute-output");
-    OutputDevice_String od(1);
+    OutputDevice_String stringOut(1);
+    OutputDevice& od = mySorted && routeOut.isXML() ? stringOut : routeOut;
     SUMOVehicleParameter tmp = myHolder.getParameter();
     tmp.depart = myIntendedDepart ? myHolder.getParameter().depart : myHolder.getDeparture();
     if (!MSGlobals::gUseMesoSim) {
@@ -422,15 +427,15 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             writeXMLRoute(od);
         }
     }
-    od << myStopOut.getString();
+    if (routeOut.isXML()) {
+        od << myStopOut.getString();
+    }
     myHolder.getParameter().writeParams(od);
     od.closeTag();
     od.lf();
-    if (mySorted) {
+    if (mySorted && routeOut.isXML()) {
         // numerical id reflects loading order
-        writeSortedOutput(&myRouteInfos, tmp.depart, toString(myHolder.getNumericalID()), od.getString());
-    } else {
-        routeOut << od.getString();
+        writeSortedOutput(&myRouteInfos, tmp.depart, myHolder.getNumericalID(), stringOut.getString());
     }
 }
 
@@ -529,7 +534,7 @@ MSDevice_Vehroutes::registerTransportableDepart(SUMOTime depart) {
 
 
 void
-MSDevice_Vehroutes::writeSortedOutput(MSDevice_Vehroutes::SortedRouteInfo* routeInfo, SUMOTime depart, const std::string& id, const std::string& xmlOutput) {
+MSDevice_Vehroutes::writeSortedOutput(MSDevice_Vehroutes::SortedRouteInfo* routeInfo, SUMOTime depart, const SUMOTrafficObject::NumericalID id, const std::string& xmlOutput) {
     if (routeInfo->routeOut == myRouteInfos.routeOut) {
         routeInfo = &myRouteInfos;
     }

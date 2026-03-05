@@ -151,12 +151,12 @@ public:
         /// @brief Map needed to sort vehicles by departure time
         std::map<const SUMOTime, int> departureCounts;
 
-        /// @brief pregenerated route output sorted by time
-        std::map<const SUMOTime, std::map<const std::string, std::string> > routeXML;
+        /// @brief pregenerated route output sorted by time and creation
+        std::map<const SUMOTime, std::map<const SUMOTrafficObject::NumericalID, std::string> > routeXML;
     };
 
     static void registerTransportableDepart(SUMOTime depart);
-    static void writeSortedOutput(SortedRouteInfo* routeInfo, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
+    static void writeSortedOutput(SortedRouteInfo* routeInfo, SUMOTime depart, const SUMOTrafficObject::NumericalID id, const std::string& xmlOutput);
 
 private:
     /** @brief Constructor

@@ -158,6 +158,10 @@ public:
      */
     void close();
 
+    bool isXML() const {
+        return myFormatter->getType() == OutputFormatterType::XML;
+    }
+
     void setFormatter(OutputFormatter* formatter) {
         delete myFormatter;
         myFormatter = formatter;
