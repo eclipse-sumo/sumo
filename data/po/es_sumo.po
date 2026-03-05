@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-04 09:55+0000\n"
+"PO-Revision-Date: 2026-03-05 08:22+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -10980,7 +10980,7 @@ msgstr "Cargando estado desde '%'"
 
 #: src/netload/NLBuilder.cpp:290
 msgid "Loading route-files incrementally from '%'"
-msgstr ""
+msgstr "Cargando archivos de rutas de forma incremental desde '%'"
 
 #: src/netload/NLBuilder.cpp:298
 msgid "Loading done."
@@ -11004,6 +11004,8 @@ msgid ""
 "LaneData requested for mesoscopic simulation but --meso-lane-queue is not "
 "active. Falling back to edgeData."
 msgstr ""
+"Se solicitó LaneData para la simulación mesoscópica, pero --meso-lane-queue "
+"no está activo. Se usará edgeData en su lugar."
 
 #: src/netload/NLDetectorBuilder.cpp:533
 msgid ""
@@ -11138,34 +11140,36 @@ msgid ""
 "LaneData '%' requested for mesoscopic simulation but --meso-lane-queue is "
 "not active. Falling back to edgeData."
 msgstr ""
+"Se solicitó LaneData '%' para la simulación mesoscópica, pero --meso-lane-"
+"queue no está activo. Se usará edgeData en su lugar."
 
 #: src/netload/NLHandler.cpp:1438
 #, c-format
 msgid "Unknown from-edge '%' in connection."
-msgstr ""
+msgstr "Arista de origen '%' desconocida en la conexión."
 
 #: src/netload/NLHandler.cpp:1444
 #, c-format
 msgid "Unknown to-edge '%' in connection."
-msgstr ""
+msgstr "Arista destino '%' desconocida en la conexión."
 
 #: src/netload/NLHandler.cpp:1449
 msgid "Invalid lane index in connection from '%' to '%'."
-msgstr ""
+msgstr "Índice de carril no válido en la conexión de '%' a '%'."
 
 #: src/netload/NLHandler.cpp:1530
 #, c-format
 msgid "Unknown from-edge '%' in conflict."
-msgstr ""
+msgstr "Arista de origen '%' desconocida en el conflicto."
 
 #: src/netload/NLHandler.cpp:1535
 #, c-format
 msgid "Unknown to-edge '%' in conflict."
-msgstr ""
+msgstr "Arista destino '%' desconocida en el conflicto."
 
 #: src/netload/NLHandler.cpp:1540
 msgid "Invalid lane index in conflict with '%' to '%'."
-msgstr ""
+msgstr "Índice de carril no válido en el conflicto de '%' a '%'."
 
 #: src/netload/NLHandler.cpp:1592
 msgid ""
@@ -11321,6 +11325,8 @@ msgstr ""
 #: src/netload/NLTriggerBuilder.cpp:535
 msgid "Ignoring invalid access from non-pedestrian lane '%' in busStop '%'."
 msgstr ""
+"Ignorando acceso no válido desde el carril no peatonal '%' en la parada de "
+"bus '%'."
 
 #: src/netload/NLTriggerBuilder.cpp:735
 msgid ""
