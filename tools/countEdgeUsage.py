@@ -319,16 +319,13 @@ def parseTimed(outf, options):
 
 def main():
     options = parse_args()
-    outf = open(options.outfile, 'w')
-    outf.write("<edgedata>\n")
-
-    if options.elements2:
-        parseTimed(outf, options)
-    else:
-        parseSimple(outf, options)
-
-    outf.write("</edgedata>\n")
-    outf.close()
+    with sumolib.openz(options.outfile, 'w') as outf:
+        sumolib.writeXMLHeader(outf, "$Id$", "edgedata", options=options)
+        if options.elements2:
+            parseTimed(outf, options)
+        else:
+            parseSimple(outf, options)
+        outf.write("</edgedata>\n")
 
 
 if __name__ == "__main__":
