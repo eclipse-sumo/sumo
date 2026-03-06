@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-06 08:09+0000\n"
+"PO-Revision-Date: 2026-03-06 08:17+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5048,6 +5048,8 @@ msgid ""
 "Set a charging strategy to alter time and charging load from the set: [none,"
 " balanced, latest]"
 msgstr ""
+"Establecer una estrategia de carga para modificar el tiempo y la potencia de "
+"carga - seleccionar entre: [none, balanced, latest]"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:97
 msgid ""
@@ -5135,10 +5137,13 @@ msgstr "El parámetro '%' no es soportado por el dispositivo de tipo '%'"
 #: src/microsim/devices/MSDevice_StationFinder.cpp:787
 msgid "Setting parameter '%' requires a number for device of type '%'"
 msgstr ""
+"Establecer el parámetro '%' requiere un número, para el dispositivo de tipo "
+"'%'"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:802
 msgid "Setting parameter '%' is not supported for device of type '%'"
 msgstr ""
+"Establecer el parámetro '%' no es compatible para el dispositivo de tipo '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:86
 msgid ""
@@ -5239,6 +5244,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:119
 msgid "Recovery rate for the driver's awareness after a ToC."
 msgstr ""
+"Tasa de recuperación de la atención del conductor después de una transición "
+"de control (ToC)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:121
 msgid ""
