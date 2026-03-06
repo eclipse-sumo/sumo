@@ -72,7 +72,7 @@ def main():
     options = parse_args()
     intervals = parseCalibrators(options)
     with sumolib.openz(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "edgedata", options=options, schemaPath="datamode_file.xsd")
+        sumolib.writeXMLHeader(outf, "$Id$", "data", options=options, schemaPath="datamode_file.xsd")
         for begin, end in sorted(intervals.keys()):
             outf.write('    <interval id="fromCalibrators" begin="%s" end="%s">\n' % (
                 humanReadableTime(begin), humanReadableTime(end)))
@@ -80,7 +80,7 @@ def main():
                 outf.write(' ' * 8 + '<edge id="%s" %s/>\n' % (
                     edge, ' '.join(['%s="%s"' % av for av in attrs.items()])))
             outf.write("    </interval>\n")
-        outf.write("</edgedata>\n")
+        outf.write("</data>\n")
 
 
 if __name__ == "__main__":
