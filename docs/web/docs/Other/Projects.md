@@ -75,7 +75,7 @@ Development of guidance for decision-makers
   developing additional car following models
 - [Urban Mobility](https://web.archive.org/web/20180329070141/http://www.urmo.info/) Intermodal routing and
   modeling of transfer between vehicles in SUMO
-- [Mobility Inside](https://www.mobility-inside.de/) Using SUMO's
+- [Mobility Inside](https://web.archive.org/web/20251008224332/https://www.mobility-inside.de/) Using SUMO's
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
@@ -107,7 +107,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
-- [MENDEL](https://ikt-em-projekte.de/projekte/mendel-minimal-belastung-elektrischer-netze/) modeling electric
+- [MENDEL](https://web.archive.org/web/20250616152941/https://ikt-em-projekte.de/projekte/mendel-minimal-belastung-elektrischer-netze/) modeling electric
   buses and optimizing charging with respect to grid load
 
 ## At other Institutions
