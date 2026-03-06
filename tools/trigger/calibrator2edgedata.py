@@ -63,6 +63,8 @@ def parseCalibrators(options):
                 for attr, value in flow.getAttributes():
                     if attr not in excludeEdgeAttrs:
                         attrs[attr] = value
+                if 'vehsPerHour' in attrs:
+                    attrs['count'] = float(attrs['vehsPerHour']) * (end - begin) / 3600
     return intervals          
 
 
@@ -70,7 +72,7 @@ def main():
     options = parse_args()
     intervals = parseCalibrators(options)
     with sumolib.openz(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "edgedata", options=options)
+        sumolib.writeXMLHeader(outf, "$Id$", "edgedata", options=options, schemaPath="datamode_file.xsd")
         for begin, end in sorted(intervals.keys()):
             outf.write('    <interval id="fromCalibrators" begin="%s" end="%s">\n' % (
                 humanReadableTime(begin), humanReadableTime(end)))
