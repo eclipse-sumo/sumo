@@ -37,7 +37,7 @@ The following Dockerfiles provide build environments:
 
 ### Available Images in the registry
 
-SUMO publishes images to the [GitHub container registry](https://ghcr.io/eclipse-sumo/sumo), which can be pulled and
+SUMO publishes images to the [GitHub container registry](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo), which can be pulled and
 used immediately.
 The published images are built from the `Dockerfile.ubuntu.git` Dockerfile.
 

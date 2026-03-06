@@ -33,7 +33,7 @@ title: Changes in the 2011 releases (versions 0.12.3, 0.13.0 and 0.13.1)
   - added importer for openDRIVE files, see
     [Networks/Import/OpenDRIVE](../Networks/Import/OpenDRIVE.md);
     many thanks go to Marius Dupuis from
-    [VIRES](https://hexagon.com/products/virtual-test-drive) for allowing to use the example
+    [VIRES](https://www.cadence.com/en_US/home/tools/msc-software/virtual-test-drive.html) for allowing to use the example
     files for tests
   - added importer for matSIM files, see
     [Networks/Import/MATsim](../Networks/Import/MATsim.md)

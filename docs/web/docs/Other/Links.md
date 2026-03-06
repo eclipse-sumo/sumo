@@ -35,7 +35,7 @@ title: Links
 - [Trafix](https://trafix.sourceforge.net/) A road traffic simulation
   based on cellular automata written in C++. \[not revised\].
 - [Visual Traffic
-  Simulation](https://mysite.wanadoo-members.co.uk/tomfotherby/Contents/Uni/Project/index.html)
+  Simulation](https://web.archive.org/web/20071017061139/https://mysite.wanadoo-members.co.uk/tomfotherby/Contents/Uni/Project/index.html)
   A java application which allows to build own networks and simulate
   them. \[not revised\].
 - [MITRASIM-2000](https://www.maerivoet.org/index.php?page=traffic-mitrasim-2000)

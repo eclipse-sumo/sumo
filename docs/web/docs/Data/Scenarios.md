@@ -130,7 +130,7 @@ There is further information about
 
 # TAVF-Hamburg
 
-A scenario from the [TAVF](https://tavf.hamburg/en/) test track for automated and
+A scenario from the [TAVF](https://new-mobility-solutions.de/en/tavf/) test track for automated and
 connected driving in Hamburg.
 
 - [TAVF-Hamburg Scenario on GitHub](https://github.com/DLR-TS/sumo-scenarios/tree/main/TAVF-Hamburg)

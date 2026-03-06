@@ -33,7 +33,7 @@ formats. Following files can be generated, sorted by application:
 - [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language)
 - [Kepler-JSON](https://kepler.gl/)
 - IPG Traces (experimental)
-- [SSAM trajectories](https://github.com/OSADP/SSAM)
+- [SSAM trajectories](https://www.fhwa.dot.gov/publications/research/safety/08049/), see also [a partial archive of the GitHub repo](https://web.archive.org/web/20250322014725/https://github.com/OSADP/SSAM)
 - [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
   (can visualize GPS distortions and sampling in
   [sumo-gui](../sumo-gui.md))
