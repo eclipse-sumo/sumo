@@ -152,7 +152,7 @@ def compare(df_xml, df_parquet):
         except (ValueError, TypeError):
             try:
                 pd.testing.assert_series_equal(
-                    s_xml.where(s_xml.notna(), None).astype(str),
+                    s_xml.where(s_xml.notna(), None).astype(str).replace('nan', None),
                     s_pq.astype(str).replace('', None),
                     check_names=False,
                 )
@@ -177,7 +177,7 @@ def compare(df_xml, df_parquet):
 
 def main():
     tmpdir = "sumo_parquet_test"
-    os.makedirs(tmpdir)
+    os.makedirs(tmpdir, exist_ok=True)
     errors = 0
     skipped = 0
 
