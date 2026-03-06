@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-05 08:22+0000\n"
+"PO-Revision-Date: 2026-03-06 08:02+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -14226,10 +14226,14 @@ msgstr "Valor de tiempo '%' no válido para el parámetro '%' en % '%'."
 msgid ""
 "Invalid size of % table for vType '%' (at least 2 values are required)."
 msgstr ""
+"Tamaño no válido de la tabla % para el tipo de vehículo '%' (se requieren al "
+"menos 2 valores)."
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
 msgstr ""
+"El tamaño de la tabla de velocidad (%) no coincide con el de la tabla % (%) "
+"para el tipo de vehículo '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:716
 msgid "Invalid % % given for %. Using edge end instead."
@@ -14303,6 +14307,8 @@ msgid ""
 "Invalid Car-Following-Model Attribute %. Cannot be parsed as a vector of "
 "<speed accel> pairs"
 msgstr ""
+"Atributo % no válido de modelo de seguimiento vehicular. No se puede "
+"interpretar como un vector de pares <velocidad aceleración>"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1327
 msgid ""
