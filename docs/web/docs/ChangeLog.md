@@ -12,7 +12,7 @@ title: ChangeLog
   - stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed failure to group taxi passengers when the dispatch-period is low #17644
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
-
+  - less crashes with parquet output (especially summary output) #17656
 
 - sumo-gui
   - Fixed crash when drawing persons #17616
@@ -23,7 +23,7 @@ title: ChangeLog
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
-  
+
 - netconvert
   - NEMA computation now works for 4-arm junction without right-turns (also affects some signal plans of non-NEMA junctions) #17610
   - Zipper junctions no longer feature internal junctions (which could cause deadlock in the simulation) #17650
@@ -86,7 +86,8 @@ title: ChangeLog
   - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
   - visum_convertXMLRoute.py: now use demand time range when interpreting volume #17667
 
-
+- no more HTML tables in the docs
+- the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 
 
 ## Version 1.26.0 (29.01.2026)
