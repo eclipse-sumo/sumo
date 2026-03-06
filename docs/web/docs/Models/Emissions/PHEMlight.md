@@ -128,98 +128,73 @@ The following tables show the available classes. Some classes
 
 ## PHEMlight Emission Classes for Light Vehicles running on Diesel or Gasoline
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th colspan="2">Passenger Cars</th><th colspan="6">Light Duty Vehicles</th></tr>
-  <tr><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td></tr>
-  <tr><td>PKW_D_EU0</td><td>PC_D_EU0</td><td>LNF_D_EU0_I</td><td>LCV_I_D_EU0</td><td>LNF_D_EU0_II</td><td>LCV_II_D_EU0</td><td>LNF_D_EU0_III</td><td>LCV_III_D_EU0</td></tr>
-  <tr><td>PKW_D_EU1</td><td>PC_D_EU1</td><td>LNF_D_EU1_I</td><td>LCV_I_D_EU1</td><td>LNF_D_EU1_II</td><td>LCV_II_D_EU1</td><td>LNF_D_EU1_III</td><td>LCV_III_D_EU1</td></tr>
-  <tr><td>PKW_D_EU2</td><td>PC_D_EU2</td><td>LNF_D_EU2_I</td><td>LCV_I_D_EU2</td><td>LNF_D_EU2_II</td><td>LCV_II_D_EU2</td><td>LNF_D_EU2_III</td><td>LCV_III_D_EU2</td></tr>
-  <tr><td>PKW_D_EU3</td><td>PC_D_EU3</td><td>LNF_D_EU3_I</td><td>LCV_I_D_EU3</td><td>LNF_D_EU3_II</td><td>LCV_II_D_EU3</td><td>LNF_D_EU3_III</td><td>LCV_III_D_EU3</td></tr>
-  <tr><td>PKW_D_EU4</td><td>PC_D_EU4</td><td>LNF_D_EU4_I</td><td>LCV_I_D_EU4</td><td>LNF_D_EU4_II</td><td>LCV_II_D_EU4</td><td>LNF_D_EU4_III</td><td>LCV_III_D_EU4</td></tr>
-  <tr><td>PKW_D_EU5</td><td>PC_D_EU5</td><td>LNF_D_EU5_I</td><td>LCV_I_D_EU5</td><td>LNF_D_EU5_II</td><td>LCV_II_D_EU5</td><td>LNF_D_EU5_III</td><td>LCV_III_D_EU5</td></tr>
-  <tr><td>PKW_D_EU6</td><td>PC_D_EU6</td><td>LNF_D_EU6_I</td><td>LCV_I_D_EU6</td><td>LNF_D_EU6_II</td><td>LCV_II_D_EU6</td><td>LNF_D_EU6_III</td><td>LCV_III_D_EU6</td></tr>
-  <tr><td></td><td>PC_D_EU6c</td><td></td><td>LCV_I_D_EU6c</td><td></td><td>LCV_II_D_EU6c</td><td></td><td>LCV_III_D_EU6c</td></tr>
-  <tr><td>PKW_G_EU0</td><td>PC_G_EU0</td><td>LNF_G_EU0_I</td><td>LCV_I_G_EU0</td><td>LNF_G_EU0_II</td><td>LCV_II_G_EU0</td><td>LNF_G_EU0_III</td><td>LCV_III_G_EU0</td></tr>
-  <tr><td>PKW_G_EU1</td><td>PC_G_EU1</td><td>LNF_G_EU1_I</td><td>LCV_I_G_EU1</td><td>LNF_G_EU1_II</td><td>LCV_II_G_EU1</td><td>LNF_G_EU1_III</td><td>LCV_III_G_EU1</td></tr>
-  <tr><td>PKW_G_EU2</td><td>PC_G_EU2</td><td>LNF_G_EU2_I</td><td>LCV_I_G_EU2</td><td>LNF_G_EU2_II</td><td>LCV_II_G_EU2</td><td>LNF_G_EU2_III</td><td>LCV_III_G_EU2</td></tr>
-  <tr><td>PKW_G_EU3</td><td>PC_G_EU3</td><td>LNF_G_EU3_I</td><td>LCV_I_G_EU3</td><td>LNF_G_EU3_II</td><td>LCV_II_G_EU3</td><td>LNF_G_EU3_III</td><td>LCV_III_G_EU3</td></tr>
-  <tr><td>PKW_G_EU4</td><td>PC_G_EU4</td><td>LNF_G_EU4_I</td><td>LCV_I_G_EU4</td><td>LNF_G_EU4_II</td><td>LCV_II_G_EU4</td><td>LNF_G_EU4_III</td><td>LCV_III_G_EU4</td></tr>
-  <tr><td>PKW_G_EU5</td><td>PC_G_EU5</td><td>LNF_G_EU5_I</td><td>LCV_I_G_EU5</td><td>LNF_G_EU5_II</td><td>LCV_II_G_EU5</td><td>LNF_G_EU5_III</td><td>LCV_III_G_EU5</td></tr>
-  <tr><td>PKW_G_EU6</td><td>PC_G_EU6</td><td>LNF_G_EU6_I</td><td>LCV_I_G_EU6</td><td>LNF_G_EU6_II</td><td>LCV_II_G_EU6</td><td>LNF_G_EU6_III</td><td>LCV_III_G_EU6</td></tr>
-  <tr><td></td><td>PC_G_EU6c</td><td></td><td>LCV_I_G_EU6c</td><td></td><td>LCV_II_G_EU6c</td><td></td><td>LCV_III_G_EU6c</td></tr>
-</table>
+*PC = Passenger Cars; LDV = Light Duty Vehicles (I/II/III = weight categories)*
+
+| PC (old) | PC (2.0.0.0) | LDV I (old) | LDV I (2.0.0.0) | LDV II (old) | LDV II (2.0.0.0) | LDV III (old) | LDV III (2.0.0.0) |
+|----------|:------------:|-------------|:---------------:|--------------|:----------------:|---------------|:-----------------:|
+| PKW_D_EU0 | PC_D_EU0 | LNF_D_EU0_I | LCV_I_D_EU0 | LNF_D_EU0_II | LCV_II_D_EU0 | LNF_D_EU0_III | LCV_III_D_EU0 |
+| PKW_D_EU1 | PC_D_EU1 | LNF_D_EU1_I | LCV_I_D_EU1 | LNF_D_EU1_II | LCV_II_D_EU1 | LNF_D_EU1_III | LCV_III_D_EU1 |
+| PKW_D_EU2 | PC_D_EU2 | LNF_D_EU2_I | LCV_I_D_EU2 | LNF_D_EU2_II | LCV_II_D_EU2 | LNF_D_EU2_III | LCV_III_D_EU2 |
+| PKW_D_EU3 | PC_D_EU3 | LNF_D_EU3_I | LCV_I_D_EU3 | LNF_D_EU3_II | LCV_II_D_EU3 | LNF_D_EU3_III | LCV_III_D_EU3 |
+| PKW_D_EU4 | PC_D_EU4 | LNF_D_EU4_I | LCV_I_D_EU4 | LNF_D_EU4_II | LCV_II_D_EU4 | LNF_D_EU4_III | LCV_III_D_EU4 |
+| PKW_D_EU5 | PC_D_EU5 | LNF_D_EU5_I | LCV_I_D_EU5 | LNF_D_EU5_II | LCV_II_D_EU5 | LNF_D_EU5_III | LCV_III_D_EU5 |
+| PKW_D_EU6 | PC_D_EU6 | LNF_D_EU6_I | LCV_I_D_EU6 | LNF_D_EU6_II | LCV_II_D_EU6 | LNF_D_EU6_III | LCV_III_D_EU6 |
+| | PC_D_EU6c | | LCV_I_D_EU6c | | LCV_II_D_EU6c | | LCV_III_D_EU6c |
+| PKW_G_EU0 | PC_G_EU0 | LNF_G_EU0_I | LCV_I_G_EU0 | LNF_G_EU0_II | LCV_II_G_EU0 | LNF_G_EU0_III | LCV_III_G_EU0 |
+| PKW_G_EU1 | PC_G_EU1 | LNF_G_EU1_I | LCV_I_G_EU1 | LNF_G_EU1_II | LCV_II_G_EU1 | LNF_G_EU1_III | LCV_III_G_EU1 |
+| PKW_G_EU2 | PC_G_EU2 | LNF_G_EU2_I | LCV_I_G_EU2 | LNF_G_EU2_II | LCV_II_G_EU2 | LNF_G_EU2_III | LCV_III_G_EU2 |
+| PKW_G_EU3 | PC_G_EU3 | LNF_G_EU3_I | LCV_I_G_EU3 | LNF_G_EU3_II | LCV_II_G_EU3 | LNF_G_EU3_III | LCV_III_G_EU3 |
+| PKW_G_EU4 | PC_G_EU4 | LNF_G_EU4_I | LCV_I_G_EU4 | LNF_G_EU4_II | LCV_II_G_EU4 | LNF_G_EU4_III | LCV_III_G_EU4 |
+| PKW_G_EU5 | PC_G_EU5 | LNF_G_EU5_I | LCV_I_G_EU5 | LNF_G_EU5_II | LCV_II_G_EU5 | LNF_G_EU5_III | LCV_III_G_EU5 |
+| PKW_G_EU6 | PC_G_EU6 | LNF_G_EU6_I | LCV_I_G_EU6 | LNF_G_EU6_II | LCV_II_G_EU6 | LNF_G_EU6_III | LCV_III_G_EU6 |
+| | PC_G_EU6c | | LCV_I_G_EU6c | | LCV_II_G_EU6c | | LCV_III_G_EU6c |
 
 ## PHEMlight Emission Classes for Light Vehicles running on alternative fuels
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th colspan="2">Passenger Cars</th><th colspan="3">Light Duty Vehicles<br></th></tr>
-  <tr><td></td><td style="background-color:#34ff34">2.0.0.0</td><td style="background-color:#34ff34">2.0.0.0</td><td style="background-color:#34ff34">2.0.0.0</td><td style="background-color:#34ff34">2.0.0.0</td></tr>
-  <tr><td></td><td>PC_BEV</td><td>LCV_I_BEV</td><td>LCV_II_BEV</td><td>LCV_III_BEV</td></tr>
-  <tr><td></td><td>PC_CNG_EU5</td><td>LCV_I_CNG_EU5</td><td>LCV_II_CNG_EU5</td><td>LCV_III_CNG_EU5</td></tr>
-  <tr><td></td><td>PC_CNG_EU6</td><td>LCV_I_CNG_EU6</td><td>LCV_II_CNG_EU6</td><td>LCV_III_CNG_EU6</td></tr>
-  <tr><td></td><td>PC_CNG_EU6c</td><td>LCV_I_CNG_EU6c</td><td>LCV_II_CNG_EU6c</td><td>LCV_III_CNG_EU6c</td></tr>
-  <tr><td>H_PKW_D_EU5</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>H_PKW_D_EU6</td><td>PC_D_HEV_EU6</td><td>LCV_I_D_HEV_EU6</td><td>LCV_II_D_HEV_EU6</td><td>LCV_III_D_HEV_EU6</td></tr>
-  <tr><td></td><td>PC_D_HEV_EU6c</td><td>LCV_I_D_HEV_EU6c</td><td>LCV_II_D_HEV_EU6c</td><td>LCV_III_D_HEV_EU6c</td></tr>
-  <tr><td>H_PKW_G_EU5</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>H_PKW_G_EU6</td><td>PC_G_HEV_EU6</td><td>LCV_I_G_HEV_EU6</td><td>LCV_II_G_HEV_EU6</td><td>LCV_III_G_HEV_EU6</td></tr>
-  <tr><td></td><td>PC_G_HEV_EU6c</td><td>LCV_I_G_HEV_EU6c</td><td>LCV_II_G_HEV_EU6c</td><td>LCV_III_G_HEV_EU6c</td></tr>
-</table>
+*PC = Passenger Cars; LDV = Light Duty Vehicles (I/II/III = weight categories)*
+
+| PC (old) | PC (2.0.0.0) | LDV I (2.0.0.0) | LDV II (2.0.0.0) | LDV III (2.0.0.0) |
+|----------|:------------:|:---------------:|:----------------:|:-----------------:|
+| | PC_BEV | LCV_I_BEV | LCV_II_BEV | LCV_III_BEV |
+| | PC_CNG_EU5 | LCV_I_CNG_EU5 | LCV_II_CNG_EU5 | LCV_III_CNG_EU5 |
+| | PC_CNG_EU6 | LCV_I_CNG_EU6 | LCV_II_CNG_EU6 | LCV_III_CNG_EU6 |
+| | PC_CNG_EU6c | LCV_I_CNG_EU6c | LCV_II_CNG_EU6c | LCV_III_CNG_EU6c |
+| H_PKW_D_EU5 | | | | |
+| H_PKW_D_EU6 | PC_D_HEV_EU6 | LCV_I_D_HEV_EU6 | LCV_II_D_HEV_EU6 | LCV_III_D_HEV_EU6 |
+| | PC_D_HEV_EU6c | LCV_I_D_HEV_EU6c | LCV_II_D_HEV_EU6c | LCV_III_D_HEV_EU6c |
+| H_PKW_G_EU5 | | | | |
+| H_PKW_G_EU6 | PC_G_HEV_EU6 | LCV_I_G_HEV_EU6 | LCV_II_G_HEV_EU6 | LCV_III_G_HEV_EU6 |
+| | PC_G_HEV_EU6c | LCV_I_G_HEV_EU6c | LCV_II_G_HEV_EU6c | LCV_III_G_HEV_EU6c |
 
 ## PHEMlight Emission Classes for Motor Cycles
 
 Motor cycles are only available for the old data set (pre 2016)
 
-<table>
-  <tr>
-    <th>Two-Wheelers</th>
-    <th colspan="2">Motor Cycles</th>
-  </tr>
-  <tr>
-    <td>KKR_G_EU0</td>
-    <td>MR_G_EU0_2T</td>
-    <td>MR_G_EU0_4T</td>
-  </tr>
-  <tr>
-    <td>KKR_G_EU1</td>
-    <td>MR_G_EU1_2T</td>
-    <td>MR_G_EU1_4T</td>
-  </tr>
-  <tr>
-    <td>KKR_G_EU2</td>
-    <td>MR_G_EU2_2T</td>
-    <td>MR_G_EU2_4T</td>
-  </tr>
-  <tr>
-    <td>KKR_G_EU3</td>
-    <td>MR_G_EU3_2T</td>
-    <td>MR_G_EU3_4T</td>
-  </tr>
-  <tr>
-    <td>KKR_G_EU4</td>
-    <td>MR_G_EU4_2T</td>
-    <td>MR_G_EU4_4T</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>MR_G_EU5_2T</td>
-    <td>MR_G_EU5_4T</td>
-  </tr>
-</table>
+| Two-Wheelers | Motor Cycles (2T) | Motor Cycles (4T) |
+|--------------|:-----------------:|:-----------------:|
+| KKR_G_EU0 | MR_G_EU0_2T | MR_G_EU0_4T |
+| KKR_G_EU1 | MR_G_EU1_2T | MR_G_EU1_4T |
+| KKR_G_EU2 | MR_G_EU2_2T | MR_G_EU2_4T |
+| KKR_G_EU3 | MR_G_EU3_2T | MR_G_EU3_4T |
+| KKR_G_EU4 | MR_G_EU4_2T | MR_G_EU4_4T |
+| | MR_G_EU5_2T | MR_G_EU5_4T |
 
 ## PHEMlight Emission Classes for Heavy Vehicles
 
-<table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th colspan="2">Tractor/Trailor</th><th colspan="2">Coach</th><th colspan="2">Urban and Inter Urban Buses</th><th colspan="4">Trucks</th></tr>
-  <tr><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td><td></td><td style="background-color:#34ff34">2.0.0.0</td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_BEV</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_CNG_EU6</td><td></td><td></td><td></td><td></td></tr>
-  <tr><td>LSZ_D_EU0</td><td>LSZ_D_EU0</td><td>RB_D_EU0</td><td>HDV_CO_D_EU0</td><td>LB_D_EU0</td><td>HDV_CB_D_EU0</td><td>SOLO_LKW_D_EU0_I</td><td>HDV_RT_I_D_EU0</td><td>SOLO_LKW_D_EU0_II</td><td>HDV_RT_II_D_EU0</td></tr>
-  <tr><td>LSZ_D_EU1</td><td>HDV_TT_D_EU1</td><td>RB_D_EU1</td><td>HDV_CO_D_EU1</td><td>LB_D_EU1</td><td>HDV_CB_D_EU1</td><td>SOLO_LKW_D_EU1_I</td><td>HDV_RT_I_D_EU1</td><td>SOLO_LKW_D_EU1_II</td><td>HDV_RT_II_D_EU1</td></tr>
-  <tr><td>LSZ_D_EU2</td><td>HDV_TT_D_EU2</td><td>RB_D_EU2</td><td>HDV_CO_D_EU2</td><td>LB_D_EU2</td><td>HDV_CB_D_EU2</td><td>SOLO_LKW_D_EU2_I</td><td>HDV_RT_I_D_EU2</td><td>SOLO_LKW_D_EU2_II</td><td>HDV_RT_II_D_EU2</td></tr>
-  <tr><td>LSZ_D_EU3</td><td>HDV_TT_D_EU3</td><td>RB_D_EU3</td><td>HDV_CO_D_EU3</td><td>LB_D_EU3</td><td>HDV_CB_D_EU3</td><td>SOLO_LKW_D_EU3_I</td><td>HDV_RT_I_D_EU3</td><td>SOLO_LKW_D_EU3_II</td><td>HDV_RT_II_D_EU3</td></tr>
-  <tr><td>LSZ_D_EU4</td><td>HDV_TT_D_EU4</td><td>RB_D_EU4</td><td>HDV_CO_D_EU4</td><td>LB_D_EU4</td><td>HDV_CB_D_EU4</td><td>SOLO_LKW_D_EU4_I</td><td>HDV_RT_I_D_EU4</td><td>SOLO_LKW_D_EU4_II</td><td>HDV_RT_II_D_EU4</td></tr>
-  <tr><td>LSZ_D_EU5</td><td>HDV_TT_D_EU5</td><td>RB_D_EU5</td><td>HDV_CO_D_EU5</td><td>LB_D_EU5</td><td>HDV_CB_D_EU5</td><td>SOLO_LKW_D_EU5_I</td><td>HDV_RT_I_D_EU5</td><td>SOLO_LKW_D_EU5_II</td><td>HDV_RT_II_D_EU5</td></tr>
-  <tr><td>LSZ_D_EU6</td><td>HDV_TT_D_EU6</td><td>RB_D_EU6</td><td>HDV_CO_D_EU6</td><td>LB_D_EU6</td><td>HDV_CB_D_EU6</td><td>SOLO_LKW_D_EU6_I</td><td>HDV_RT_I_D_EU6</td><td>SOLO_LKW_D_EU6_II</td><td>HDV_RT_II_D_EU6</td></tr>
-  <tr><td></td><td></td><td></td><td></td><td></td><td>HDV_CB_D_HEV_EU6</td><td></td><td></td><td></td><td></td></tr>
-</table>
+*TT = Tractor/Trailer; Bus = Urban and Inter Urban Buses; Truck I/II = weight categories*
+
+| TT (old) | TT (2.0.0.0) | Coach (old) | Coach (2.0.0.0) | Bus (old) | Bus (2.0.0.0) | Truck I (old) | Truck I (2.0.0.0) | Truck II (old) | Truck II (2.0.0.0) |
+|----------|:------------:|-------------|:---------------:|-----------|:-------------:|---------------|:-----------------:|----------------|:-----------------:|
+| | | | | | HDV_CB_BEV | | | | |
+| | | | | | HDV_CB_CNG_EU6 | | | | |
+| LSZ_D_EU0 | LSZ_D_EU0 | RB_D_EU0 | HDV_CO_D_EU0 | LB_D_EU0 | HDV_CB_D_EU0 | SOLO_LKW_D_EU0_I | HDV_RT_I_D_EU0 | SOLO_LKW_D_EU0_II | HDV_RT_II_D_EU0 |
+| LSZ_D_EU1 | HDV_TT_D_EU1 | RB_D_EU1 | HDV_CO_D_EU1 | LB_D_EU1 | HDV_CB_D_EU1 | SOLO_LKW_D_EU1_I | HDV_RT_I_D_EU1 | SOLO_LKW_D_EU1_II | HDV_RT_II_D_EU1 |
+| LSZ_D_EU2 | HDV_TT_D_EU2 | RB_D_EU2 | HDV_CO_D_EU2 | LB_D_EU2 | HDV_CB_D_EU2 | SOLO_LKW_D_EU2_I | HDV_RT_I_D_EU2 | SOLO_LKW_D_EU2_II | HDV_RT_II_D_EU2 |
+| LSZ_D_EU3 | HDV_TT_D_EU3 | RB_D_EU3 | HDV_CO_D_EU3 | LB_D_EU3 | HDV_CB_D_EU3 | SOLO_LKW_D_EU3_I | HDV_RT_I_D_EU3 | SOLO_LKW_D_EU3_II | HDV_RT_II_D_EU3 |
+| LSZ_D_EU4 | HDV_TT_D_EU4 | RB_D_EU4 | HDV_CO_D_EU4 | LB_D_EU4 | HDV_CB_D_EU4 | SOLO_LKW_D_EU4_I | HDV_RT_I_D_EU4 | SOLO_LKW_D_EU4_II | HDV_RT_II_D_EU4 |
+| LSZ_D_EU5 | HDV_TT_D_EU5 | RB_D_EU5 | HDV_CO_D_EU5 | LB_D_EU5 | HDV_CB_D_EU5 | SOLO_LKW_D_EU5_I | HDV_RT_I_D_EU5 | SOLO_LKW_D_EU5_II | HDV_RT_II_D_EU5 |
+| LSZ_D_EU6 | HDV_TT_D_EU6 | RB_D_EU6 | HDV_CO_D_EU6 | LB_D_EU6 | HDV_CB_D_EU6 | SOLO_LKW_D_EU6_I | HDV_RT_I_D_EU6 | SOLO_LKW_D_EU6_II | HDV_RT_II_D_EU6 |
+| | | | | | HDV_CB_D_HEV_EU6 | | | | |
 
 ## Special Classes
 

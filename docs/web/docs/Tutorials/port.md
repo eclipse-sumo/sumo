@@ -84,23 +84,17 @@ Use the inspect mode (<kbd>I</kbd>): Locate the waterways that extend beyond the
 <kbd><img src="../images/tutorialport9.png" width="600"></kbd>
 
 Use the select mode (<kbd>S</kbd>):  Select the waterways far from the port and delete them.
-<table><tr>
-	<td>Before</td>
-	<td>After</td>
-</tr><tr>
-	<td><img title="Before" alt="net before cutting the waterways" src="../images/tutorialport10.png" width="100%"></td>
-	<td><img title="after" alt="net after cutting and deleting the waterways" src="../images/tutorialport11.png" width="100%"></td>
-</tr></table>
+
+| Before | After |
+| ------ | ----- |
+| ![net before cutting the waterways](../images/tutorialport10.png) | ![net after cutting and deleting the waterways](../images/tutorialport11.png) |
 
 ### 2) Delete everything that is superfluous
 Use the select mode (<kbd>S</kbd>): Select all superfluous edges and delete them.
-<table><tr>
-	<td>Before</td>
-	<td>After</td>
-</tr><tr>
-	<td><img src="../images/tutorialport12.png" width="500"></td>
-	<td><img src="../images/tutorialport13.png" width="500"></td>
-</tr></table>
+
+| Before | After |
+| ------ | ----- |
+| ![](../images/tutorialport12.png) | ![](../images/tutorialport13.png) |
 
 ### 3) Add the missing connections between the piers and the waterways
 Use the inspect mode (<kbd>I</kbd>): Split the waterway edge in both directions at the position where you want to add the connection to the pier.

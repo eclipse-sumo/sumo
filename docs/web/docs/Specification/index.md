@@ -82,187 +82,32 @@ deceleration and maximum speed and give a list of categories cars of
 this type belong to. All these parameters are identical among all
 vehicles of a type.
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Attribute</p></th>
-<th><p>Type</p></th>
-<th><p>Range</p></th>
-<th><p>Default</p></th>
-<th><p>Remark</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>id</p></td>
-<td><p>string</p></td>
-<td><p>valid XML ids</p></td>
-<td><p>-</p></td>
-<td><p>This attribute is mandatory.</p></td>
-</tr>
-<tr class="even">
-<td><p>vClass</p></td>
-<td><p>string</p></td>
-<td><p>list of category ids</p></td>
-<td><p>empty list</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>accel</p></td>
-<td><p>float(m/s<sup>2</sup>)</p></td>
-<td><p>≥0</p></td>
-<td><p>2.6</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>decel</p></td>
-<td><p>float(m/s<sup>2</sup>)</p></td>
-<td><p>≥0</p></td>
-<td><p>4.5</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>sigma</p></td>
-<td><p>float</p></td>
-<td><p>0≤sigma≤1</p></td>
-<td><p>0.5</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>length</p></td>
-<td><p>float(m)</p></td>
-<td><p>&gt;0</p></td>
-<td><p>5</p></td>
-<td><p>The physical length of the vehicle</p></td>
-</tr>
-<tr class="odd">
-<td><p>minGap</p></td>
-<td><p>float(m)</p></td>
-<td><p>&gt;0</p></td>
-<td><p>2.5</p></td>
-<td><p>The minimum gap between this vehicle and the vehicle before it</p></td>
-</tr>
-<tr class="even">
-<td><p>maxSpeed</p></td>
-<td><p>float(m/s)</p></td>
-<td><p>&gt;0</p></td>
-<td><p>70</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>color</p></td>
-<td>&lt;COLOR&gt;</td>
-<td></td>
-<td></td>
-<td><p>the color to use for vehicles of this type.</p></td>
-</tr>
-<tr class="even">
-<td><p>tau</p></td>
-<td><p>float</p></td>
-<td><p>&gt;0</p></td>
-<td><p>1</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td style="background:red;"><p>carFollowModel</p></td>
-<td><p>string</p></td>
-<td></td>
-<td></td>
-<td style="background:red;"><p>not yet implemented (see #663")</p></td>
-</tr>
-<tr class="even">
-<td><p>laneChangeModel</p></td>
-<td><p>string</p></td>
-<td><p>"DK2008", "LC2013", "JE2013"</p></td>
-<td><p>"LC2013"</p></td>
-<td><p>model used for lane changing behavior</p></td>
-</tr>
-<tr class="odd">
-<td><p>speedFactor</p></td>
-<td><p>float/distribution</p></td>
-<td><p>&gt;0</p></td>
-<td><p>1</p></td>
-<td><p>the factor by which the driver multiplies the speed read from street signs to estimate "real" maximum allowed speed</p></td>
-</tr>
-<tr class="even">
-<td><p>speedDev</p></td>
-<td><p>float</p></td>
-<td><p>≥0</p></td>
-<td><p>0</p></td>
-<td><p>the standard deviation of the speed factor (deprecated in favor of a real distribution).</p></td>
-</tr>
-<tr class="odd">
-<td><p>emissionClass</p></td>
-<td><p>string</p></td>
-<td></td>
-<td><p>P_7_7</p></td>
-<td><p>the emission class, see <a href="../Models/Emissions.html">Models/Emissions</a>.</p></td>
-</tr>
-<tr class="even">
-<td><p>probability</p></td>
-<td><p>float</p></td>
-<td><p>&gt;0</p></td>
-<td><p>1</p></td>
-<td><p>this is only useful in distributions</p></td>
-</tr>
-<tr class="odd">
-<td><p>guiShape</p></td>
-<td><p>string (enum)</p></td>
-<td></td>
-<td><p>"unknown"</p></td>
-<td><p>How this vehicle is rendered</p></td>
-</tr>
-<tr class="even">
-<td><p>width</p></td>
-<td><p>float</p></td>
-<td><p>&gt;0</p></td>
-<td><p>2.0</p></td>
-<td><p>The vehicle's width [m] (only used for drawing);</p></td>
-</tr>
-<tr class="odd">
-<td><p>imgFile</p></td>
-<td><p>string</p></td>
-<td></td>
-<td></td>
-<td><p>Image file for rendering vehicles of this type (should be grayscale to allow functional coloring);</p></td>
-</tr>
-<tr class="even">
-<td style="background:yellow;"><p>osgFile</p></td>
-<td><p>string</p></td>
-<td></td>
-<td></td>
-<td><p>3D-Model file rendering vehicles of this type - internal experimental branch;</p></td>
-</tr>
-<tr class="odd">
-<td><p>personCapacity</p></td>
-<td><p>int</p></td>
-<td><p>≥0</p></td>
-<td><p>4</p></td>
-<td><p>the number of persons (excluding an autonomous driver) the vehicle can transport</p></td>
-</tr>
-<tr class="even">
-<td><p>containerCapacity</p></td>
-<td><p>int</p></td>
-<td><p>≥0</p></td>
-<td><p>0</p></td>
-<td><p>the number of containers the vehicle can transport</p></td>
-</tr>
-<tr class="odd">
-<td><p>boardingDuration</p></td>
-<td><p>float</p></td>
-<td><p>≥0</p></td>
-<td><p>0.5</p></td>
-<td><p>the time required by a person to board the vehicle</p></td>
-</tr>
-<tr class="even">
-<td><p>loadingDuration</p></td>
-<td><p>float</p></td>
-<td><p>≥0</p></td>
-<td><p>30.0</p></td>
-<td><p>the time required to load a container onto the vehicle</p></td>
-</tr>
-</tbody>
-</table>
+| Attribute         | Type                   | Range                         | Default    | Remark                                                                                              |
+| ----------------- | ---------------------- | ----------------------------- | ---------- | --------------------------------------------------------------------------------------------------- |
+| id                | string                 | valid XML ids                 | -          | This attribute is mandatory.                                                                        |
+| vClass            | string                 | list of category ids          | empty list |                                                                                                     |
+| accel             | float(m/s<sup>2</sup>) | ≥0                            | 2.6        |                                                                                                     |
+| decel             | float(m/s<sup>2</sup>) | ≥0                            | 4.5        |                                                                                                     |
+| sigma             | float                  | 0≤sigma≤1                     | 0.5        |                                                                                                     |
+| length            | float(m)               | \>0                           | 5          | The physical length of the vehicle                                                                  |
+| minGap            | float(m)               | \>0                           | 2.5        | The minimum gap between this vehicle and the vehicle before it                                      |
+| maxSpeed          | float(m/s)             | \>0                           | 70         |                                                                                                     |
+| color             | \<COLOR\>              |                               |            | the color to use for vehicles of this type.                                                         |
+| tau               | float                  | \>0                           | 1          |                                                                                                     |
+| carFollowModel    | string                 | "Krauss", "IDM", ...          | "Krauss"   | [model used for car following](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following-models) |
+| laneChangeModel   | string                 | "DK2008", "LC2013", "JE2013"  | "LC2013"   | model used for lane changing behavior                                                               |
+| speedFactor       | float/distribution     | \>0                           | 1          | the factor by which the driver multiplies the speed read from street signs to estimate "real" maximum allowed speed |
+| speedDev          | float                  | ≥0                            | 0          | the standard deviation of the speed factor (deprecated in favor of a real distribution).            |
+| emissionClass     | string                 |                               | PC_petrol_Euro-4      | the emission class, see [Models/Emissions](../Models/Emissions.md).                                 |
+| probability       | float                  | \>0                           | 1          | this is only useful in distributions                                                                |
+| guiShape          | string (enum)          |                               | "unknown"  | How this vehicle is rendered                                                                        |
+| width             | float                  | \>0                           | 2.0        | The vehicle's width [m] (only used for drawing);                                                    |
+| imgFile           | string                 |                               |            | Image file for rendering vehicles of this type (should be grayscale to allow functional coloring);  |
+| osgFile           | string                 |                               |            | 3D-Model file rendering vehicles of this type - internal experimental branch;                       |
+| personCapacity    | int                    | ≥0                            | 4          | the number of persons (excluding an autonomous driver) the vehicle can transport                    |
+| containerCapacity | int                    | ≥0                            | 0          | the number of containers the vehicle can transport                                                  |
+| boardingDuration  | float                  | ≥0                            | 0.5        | the time required by a person to board the vehicle                                                  |
+| loadingDuration   | float                  | ≥0                            | 30.0       | the time required to load a container onto the vehicle                                              |
 
 There is a default type defined with the id "DEFAULT_VEHTYPE", having
 all the default parameters above, which may be redefined once but only

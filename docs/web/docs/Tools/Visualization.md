@@ -438,39 +438,10 @@ emissions](../Simulation/Output/Lane-_or_Edge-based_Emissions_Measures.md),
 or [edgelane
 noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Plot_net_dump.png" title="plot_net_dump.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --measures entered,entered --xlabel [m] --ylabel [m] \</code><br />
-<code> --default-width 1 -i base-jr.xml,base-jr.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 -\</code><br />
-<code> --default-width .5 --default-color #606060 \</code><br />
-<code> --min-color-value -1000 --max-color-value 1000 \</code><br />
-<code> --max-width-value 1000 --min-width-value -1000  \</code><br />
-<code> --max-width 3 --min-width .5 \</code><br />
-<code> --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"</code></p>
-<p>It shows the shift in traffic in the city of Brunswick, Tuesday-Thursday week type after establishing an environmental zone.</p></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="../images/Plot_net_dump2.png" title="plot_net_dump2.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_dump.py -v -n bs.net.xml \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \</code><br />
-<code> --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
-<code> --default-width .5 --default-color #606060 \</code><br />
-<code> --min-color-value -.1 --max-color-value .1 \</code><br />
-<code> --max-width-value .1  --max-width 3 --min-width .5 \</code><br />
-<code> --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"</code></p>
-<p>Showing the according changes in NOx emissions.</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![plot_net_dump.png](../images/Plot_net_dump.png) | `python plot_net_dump.py -v -n bs.net.xml \`<br>`  --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \`<br>` --measures entered,entered --xlabel [m] --ylabel [m] \`<br>` --default-width 1 -i base-jr.xml,base-jr.xml \`<br>` --xlim 7000,14000 --ylim 9000,16000 -\`<br>` --default-width .5 --default-color #606060 \`<br>` --min-color-value -1000 --max-color-value 1000 \`<br>` --max-width-value 1000 --min-width-value -1000  \`<br>` --max-width 3 --min-width .5 \`<br>` --colormap "#0:#0000c0,.25:#404080,.5:#808080,.75:#804040,1:#c00000"`<br><br>It shows the shift in traffic in the city of Brunswick, Tuesday-Thursday week type after establishing an environmental zone. |
+| ![plot_net_dump2.png](../images/Plot_net_dump2.png) | `python plot_net_dump.py -v -n bs.net.xml \`<br>` --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \`<br>` --measures NOx_normed,NOx_normed --xlabel [m] --ylabel [m] \`<br>` --default-width 1 -i HBEFA_base-jr.xml,HBEFA_base-jr.xml \`<br>` --xlim 7000,14000 --ylim 9000,16000 \`<br>` --default-width .5 --default-color #606060 \`<br>` --min-color-value -.1 --max-color-value .1 \`<br>` --max-width-value .1  --max-width 3 --min-width .5 \`<br>` --colormap "#0:#00c000,.25:#408040,.5:#808080,.75:#804040,1:#c00000"`<br><br>Showing the according changes in NOx emissions. |
 
 - both, **--dump-inputs** {{DT_FILE}},{{DT_FILE}} as well as **--measures** {{DT_STR}},{{DT_STR}} expect two entries being divided by a ','. The
   first is used for the edges' color, the second for their widths. But
@@ -509,22 +480,9 @@ written by [sumo-gui](../sumo-gui.md). It plots the road network,
 choosing a different color and width for the edges which are within the
 selection (all edge with at least one lane in the selection).
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
-<code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
-<code> -i selection_environmental_zone.txt \</code><br />
-<code> --xlabel [m] --ylabel [m] \</code><br />
-<code> --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \</code><br />
-<code> --selected-width 1 --edge-width .5 -o selected_ez.png \</code><br />
-<code> --edge-color #606060 --selected-color #800000 </code></p>
-<p>The example shows the selection of an "environmental zone".</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![plot_net_selection.png](../images/Plot_net_selection.png) | `python plot_net_selection.py -n bs.net.xml \`<br>` --xlim 7000,14000 --ylim 9000,16000 \`<br>` -i selection_environmental_zone.txt \`<br>` --xlabel [m] --ylabel [m] \`<br>` --xticks 7000,14001,2000,16 --yticks 9000,16001,1000,16 \`<br>` --selected-width 1 --edge-width .5 -o selected_ez.png \`<br>` --edge-color #606060 --selected-color #800000`<br><br>The example shows the selection of an "environmental zone". |
 
 **Options**
 
@@ -544,20 +502,9 @@ plot_net_speeds.py reads a road network and plots it using the allowed
 speeds to color the edges. It is rather an example for using measures
 read from the network file.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Plot_net_speeds.png" title="plot_net_speeds.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \</code><br />
-<code> --ylim 2000,26000 --edge-width .5 -o speeds2.png \</code><br />
-<code> --minV 0 --maxV 60 --xticks 16 --yticks 16 \</code><br />
-<code> --xlabel [m] --ylabel [m] --xlabelsize 16 --ylabelsize 16 \</code><br />
-<code> --colormap jet</code></p>
-<p>The example colors the streets in Brunswick, Germany by their maximum allowed speed.</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![plot_net_speeds.png](../images/Plot_net_speeds.png) | `python plot_speeds.py -n bs.net.xml --xlim 1000,25000 \`<br>` --ylim 2000,26000 --edge-width .5 -o speeds2.png \`<br>` --minV 0 --maxV 60 --xticks 16 --yticks 16 \`<br>` --xlabel [m] --ylabel [m] --xlabelsize 16 --ylabelsize 16 \`<br>` --colormap jet`<br><br>The example colors the streets in Brunswick, Germany by their maximum allowed speed. |
 
 **Options**
 
@@ -576,20 +523,9 @@ plot_net_trafficLights.py reads a road network and plots it and
 additionally adds dots/markers at the position of traffic lights that
 are part of the net.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Plot_net_trafficLights.png" title="plot_net_trafficLights.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_trafficLights.py -n bs.net.xml \</code><br />
-<code> --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \</code><br />
-<code> --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \ </code><br />
-<code> --xlabelsize 16 --ylabelsize 16 --width 5 \</code><br />
-<code> --edge-color #606060</code></p>
-<p>The example shows the traffic lights in Brunswick.</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![plot_net_trafficLights.png](../images/Plot_net_trafficLights.png) | `python plot_trafficLights.py -n bs.net.xml \`<br>` --xlim 1000,25000 --ylim 2000,26000 --edge-width .5 \`<br>` --xticks 16 --yticks 16 --xlabel [m] --ylabel [m] \`<br>` --xlabelsize 16 --ylabelsize 16 --width 5 \`<br>` --edge-color #606060`<br><br>The example shows the traffic lights in Brunswick. |
 
 **Options**
 
@@ -610,22 +546,9 @@ selected measure (attribute of the read
 [summary-files](../Simulation/Output/Summary.md)). The measure is
 visualised as a time line along the simulation time.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Summary_running.png" title="summary_running.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_summary.py </code><br />
-<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
-<code> -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000 </code><br />
-<code> -o sumodocs/summary_running.png --yticks 0,10001,2000,14 \</code><br />
-<code> --xticks 0,86401,14400,14 --xtime1 --ygrid \</code><br />
-<code> --ylabel "running vehicles [#]" --xlabel "time" \</code><br />
-<code> --title "running vehicles over time" --adjust .14,.1 </code></p>
-<p>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/Summary.html">summary-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![summary_running.png](../images/Summary_running.png) | `python plot_summary.py`<br>` -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \`<br>` -l Mo,Di-Do,Fr,Sa,So --xlim 0,86400 --ylim 0,10000`<br>` -o sumodocs/summary_running.png --yticks 0,10001,2000,14 \`<br>` --xticks 0,86401,14400,14 --xtime1 --ygrid \`<br>` --ylabel "running vehicles [#]" --xlabel "time" \`<br>` --title "running vehicles over time" --adjust .14,.1`<br><br>The example shows the numbers of vehicles running in a large-scale scenario of the city of Brunswick over the day for the standard week day classes. "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are [summary-files](../Simulation/Output/Summary.md) resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively. |
 
 **Options**
 
@@ -645,35 +568,10 @@ selected measure (attribute of the read
 visualised as vertical bars that represent the numbers of occurrences of
 the measure (vehicles) that fall into a bin.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Tripinfo_distribution_duration.png" title="tripinfo_distribution_duration.png" width="500" alt="" />
-</figure></td>
-<td><p><code>python plot_tripinfo_distributions.py \</code><br />
-<code> -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \</code><br />
-<code> -o tripinfo_distribution_duration.png -v -m duration \</code><br />
-<code> --minV 0 --maxV 3600 --bins 10 --xticks 0,3601,360,14 \</code><br />
-<code> --xlabel "duration [s]" --ylabel "number [#]" \</code><br />
-<code> --title "duration distribution" \</code><br />
-<code> --yticks 14 --xlabelsize 14 --ylabelsize 14 --titlesize 16 \</code><br />
-<code> -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600</code></p>
-<p>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are <a href="../Simulation/Output/TripInfo.html">tripinfo-files</a> resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively.</p></td>
-</tr>
-<tr class="even">
-<td><figure>
-<img src="../images/stopCountDist.png" title="stopCountDist.png" width="500" alt="" />
-</figure></td>
-<td><p><code>python plot_tripinfo_distributions.py -i tripinfo.xml -o stopCountDist.png \</code><br/>
-<code> --measure waitingCount --bins 10 --maxV 10 \</code><br/>
-<code> --xlabel "number of stops [-]" --ylabel "count [-]" \</code><br/>
-<code> --title "distribution of number of stops" --colors blue -b --no-legend</code></p>
-<p>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 9 stops are added to the last bin of the histogram.
-</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![tripinfo_distribution_duration.png](../images/Tripinfo_distribution_duration.png) | `python plot_tripinfo_distributions.py \`<br>` -i mo.xml,dido.xml,fr.xml,sa.xml,so.xml \`<br>` -o tripinfo_distribution_duration.png -v -m duration \`<br>` --minV 0 --maxV 3600 --bins 10 --xticks 0,3601,360,14 \`<br>` --xlabel "duration [s]" --ylabel "number [#]" \`<br>` --title "duration distribution" \`<br>` --yticks 14 --xlabelsize 14 --ylabelsize 14 --titlesize 16 \`<br>` -l mon,tue-thu,fri,sat,sun --adjust .14,.1 --xlim 0,3600`<br><br>The example shows the travel time distribution for the vehicles of different week day classes (Braunschweig scenario). "mo.xml", "dido.xml", "fr.xml", "sa.xml", and "so.xml" are [tripinfo-files](../Simulation/Output/TripInfo.md) resulting from simulations of the weekday-types Monday, Tuesday-Thursday, Friday, Saturday, and Sunday, respectively. |
+| ![stopCountDist.png](../images/stopCountDist.png) | `python plot_tripinfo_distributions.py -i tripinfo.xml -o stopCountDist.png \`<br>` --measure waitingCount --bins 10 --maxV 10 \`<br>` --xlabel "number of stops [-]" --ylabel "count [-]" \`<br>` --title "distribution of number of stops" --colors blue -b --no-legend`<br><br>The example shows the distribution of stops the vehicles had to make during their trip. Vehicles with more than 9 stops are added to the last bin of the histogram. |
 
 **Options**
 
@@ -692,21 +590,9 @@ the measure (vehicles) that fall into a bin.
 plot_csv_timeline.py reads a .csv file and plots columns selected
 using the **--columns** {{DT_INT}}\[,{{DT_INT}}\]\* option. The values are visualised as lines.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Nefz.png" title="nefz.png" width="500" alt="" /></figure></td>
-<td><p><code>plot_csv_timeline.py \</code><br />
-<code> -i nefz.csv -c 1 --no-legend --xlabel "time [s]" \</code><br />
-<code> --ylabel "velocity [km/h]" --xlabelsize 14 --ylabelsize 14 \</code><br />
-<code> --xticks 14 --yticks 14 --colors k --ylim 0,125 \</code><br />
-<code> --output nefz.png \</code><br />
-<code> --title "New European Driving Cycle (NEDC)" --titlesize 16</code></p>
-<p>The example shows the <a href="Emissions.html#driving_cycles">New European Driving Cycle (NEDC)</a>.</p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![nefz.png](../images/Nefz.png) | `plot_csv_timeline.py \`<br>` -i nefz.csv -c 1 --no-legend --xlabel "time [s]" \`<br>` --ylabel "velocity [km/h]" --xlabelsize 14 --ylabelsize 14 \`<br>` --xticks 14 --yticks 14 --colors k --ylim 0,125 \`<br>` --output nefz.png \`<br>` --title "New European Driving Cycle (NEDC)" --titlesize 16`<br><br>The example shows the [New European Driving Cycle (NEDC)](Emissions.md#driving_cycles). |
 
 **Options**
 
@@ -722,17 +608,9 @@ plot_csv_pie.py reads a .csv file that is assumed to contain a name in
 the first and an according value in the second column. The read
 name/value-pairs are visualised as a pie chart.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Paradigm.png" title="paradigm.png" width="500" alt="" />
-</figure></td>
-<td><p><code>plot_csv_pie.py \</code><br />
-<code> -i paradigm.csv -b --colormap Accent --no-legend -s 6,6 </code></p><br><br><b>Note:</b> Please note that you should set the width and the height to the same value using the <b>--size</b> &lt;FLOAT&gt;,&lt;FLOAT&gt; option, see <a href="#common_options">#common options</a>. Otherwise you'll get an oval.</td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![paradigm.png](../images/Paradigm.png) | `plot_csv_pie.py \`<br>` -i paradigm.csv -b --colormap Accent --no-legend -s 6,6`<br><br><b>Note:</b> Please note that you should set the width and the height to the same value using the **--size** \<FLOAT\>,\<FLOAT\> option, see [#common options](#common_options). Otherwise you'll get an oval. |
 
 **Options**
 
@@ -752,19 +630,9 @@ plot_csv_bars.py reads a .csv file that is assumed to contain a name
 in the first and an according value in the second column. The read
 name/value-pairs are visualised as a bar chart.
 
-<table>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="../images/Nox_effects_bars.png" title="nox_effects_bars.png" width="500" alt="" />
-</figure></td>
-<td><p><code>plot_csv_bars.py \</code><br />
-<code> -i nox_effects.txt --colormap RdYlGn --no-legend --width .4 \</code><br />
-<code> -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 \</code><br />
-<code> --adjust .28,.1,.95,.9 --show-values </code></p></td>
-</tr>
-</tbody>
-</table>
+| Output | Command |
+|---|---|
+| ![nox_effects_bars.png](../images/Nox_effects_bars.png) | `plot_csv_bars.py \`<br>` -i nox_effects.txt --colormap RdYlGn --no-legend --width .4 \`<br>` -s 8,4 --revert --xlim 0,50 --xticks 0,51,10,16 --yticks 16 \`<br>` --adjust .28,.1,.95,.9 --show-values` |
 
 **Options**
 
@@ -878,7 +746,7 @@ After that, you need to do the following settings:
 <img width="332" height="453" alt="1" src="https://github.com/user-attachments/assets/e6ebd7f2-5edd-4bb5-ac8a-71be7c53f8c5" />
 
 * Choose the data type and recalibrate the interval thresholds for coloring:
-   
+
 <img width="492" height="327" alt="2" src="https://github.com/user-attachments/assets/73372922-2c11-4722-bed2-51c9501ea17a" />
 
 * Set color edge legend (optional):

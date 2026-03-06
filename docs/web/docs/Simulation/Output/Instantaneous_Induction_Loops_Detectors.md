@@ -75,17 +75,9 @@ teleported a leave event without occupancy is generated.
 
 ## Visualisation
 
-<table style="border: 0 !important"><thead><tr><td style="border: none; vertical-align:middle; text-align:center;">
-<figure>
-<img src="../../images/Instantaneous_loops.svg" alt="" />
-<figcaption>A scenario with induction loops</figcaption>
-</figure>
-</td><td style="border: none; vertical-align:middle; text-align:center;">
-<figure>
-<img src="../../images/Instantaneous_loop_closeup.svg" alt="" />
-<figcaption>A close-up view at an induction loop</figcaption>
-</figure>
-</td></tr></thead></table>
+| A scenario with induction loops | A close-up view at an induction loop |
+|:---:|:---:|
+| ![A scenario with induction loops](../../images/Instantaneous_loops.svg) | ![A close-up view at an induction loop](../../images/Instantaneous_loop_closeup.svg) |
 
 ## Further Notes
 

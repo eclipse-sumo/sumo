@@ -119,171 +119,93 @@ uncomfortable in comparison to other simulation packages. As there are
 still other things to do, we are not thinking of a redesign towards an
 integrated approach by now.
 
-## Contributors and Participants
+## Main Contributors
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Org.</p></th>
-<th><p>Name</p></th>
-<th><p>Topics / Contribution</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><figure>
-<img src="images/Zaik_small.gif" alt="Zaik_small.gif" />
-</figure></td>
-<td><p>Christian Rössel</p></td>
-<td><p>Initial microsimulation core; initial detectors implementation</p></td>
-</tr>
-<tr class="even">
-<td rowspan="11"><figure>
-<img src="images/Dlr_small.gif" title="dlr_small.gif" alt="" />
-</figure></td>
-<td><p>Peter Wagner</p></td>
-<td><p>Models, organization, spiritual lead</p></td>
-</tr>
-<tr class="odd">
-<td><p>Daniel Krajzewicz</p></td>
-<td><p>Everything</p></td>
-</tr>
-<tr class="even">
-<td><p>Julia Ringel</p></td>
-<td><p>Traffic Light &amp; WAUT Algorithms</p></td>
-</tr>
-<tr class="odd">
-<td><p>Eric Nicolay</p></td>
-<td><p>Everything</p></td>
-</tr>
-<tr class="even">
-<td><p>Michael Behrisch</p></td>
-<td><p>Everything</p></td>
-</tr>
-<tr class="odd">
-<td><p>Yun-Pang Wang</p></td>
-<td><p>User Assignment</p></td>
-</tr>
-<tr class="even">
-<td><p>Danilot Teta Boyom</p></td>
-<td><p>Vehicular Communication Model (removed from the source)</p></td>
-</tr>
-<tr class="odd">
-<td><p>Sascha Krieg</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>Lena Kalleske</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><p>Laura Bieker</p></td>
-<td><p>Tests, Python scripts</p></td>
-</tr>
-<tr class="even">
-<td><p>Jakob Erdmann</p></td>
-<td><p>network import, <a href="netedit.html">netedit</a></p></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Andreas Gaubatz</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Maik Drozdzynski</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td rowspan="3"><p>Uni Lübeck</p></td>
-<td><p>Axel Wegener</p></td>
-<td><p>TraCI initiator</p></td>
-</tr>
-<tr class="even">
-<td><p>Thimor Bohn</p></td>
-<td><p>TraCI</p></td>
-</tr>
-<tr class="odd">
-<td><p>Friedemann Wesner</p></td>
-<td><p>TraCI</p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Felix Brack</p></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><p>Tino Morenz</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td rowspan="4"><p><img src="images/Uni_erlangen.png" title="fig:uni_erlangen.png" width="149" alt="uni_erlangen.png" /><br />
-<br />
-<img src="images/Uibk-small.png" title="fig:uibk-small.png" width="64" alt="uibk-small.png" /><br />
-<br />
-<img src="images/Logo_cmu.png" title="fig:logo_cmu.png" width="100" alt="logo_cmu.png" /><br />
-<br />
-<img src="images/Logo_ucla.png" title="fig:logo_ucla.png" width="100" alt="logo_ucla.png" /></p></td>
-<td><p>Christoph Sommer</p></td>
-<td><p>TraCI merge with <a href="https://veins.car2x.org/">Veins</a>, Subscription Interface, Misc.</p></td>
-</tr>
-<tr class="odd">
-<td><p>David Eckhoff</p></td>
-<td><p>TraCI, deterministic simulation behavior</p></td>
-</tr>
-<tr class="even">
-<td><p>Falko Dressler</p></td>
-<td><p>TraCI</p></td>
-</tr>
-<tr class="odd">
-<td><p>Tobias Mayer</p></td>
-<td><p>Traffic model abstraction, IDM model port</p></td>
-</tr>
-<tr class="even">
-<td><p>HU Berlin</p></td>
-<td><p>Matthias Heppner</p></td>
-<td><p>Unittests</p></td>
-</tr>
-<tr class="odd">
-<td rowspan="3"><figure>
-<img src="images/Tum-logo.png" title="tum-logo.png" alt="" />
-</figure></td>
-<td><p>Piotr Woznica</p></td>
-<td><p><a href="activitygen.html">activitygen</a></p></td>
-</tr>
-<tr class="even">
-<td><p>Walter Bamberger</p></td>
-<td><p>Development of <a href="activitygen.html">activitygen</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="https://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Matthew Fullerton</p></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><p>IIT Bombay, India</p></td>
-<td><p>Ashutosh Bajpai</p></td>
-<td><p>randomDepart.py, a python script to generate the real traffic pattern by exponential Distribution.</p></td>
-</tr>
-<tr class="odd">
-<td><figure>
-<img src="images/Torino_small.gif" title="torino_small.gif" alt="" />
-</figure></td>
-<td><p>Enrico Gueli</p></td>
-<td><p><a href="https://sourceforge.net/projects/traci4j/">TraCI4J</a></p></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><p>Leontios Papaleontiou</p></td>
-<td><p><a href="Contributed/SUMO_Traffic_Modeler.html">Contributed/SUMO Traffic Modeler</a></p></td>
-</tr>
-<tr class="odd">
-<td><figure>
-<img src="images/Wroclaw_university_small.jpg" title="Wroclaw_university_small.jpg" alt="" />
-</figure></td>
-<td><p>Karol Stosiek</p></td>
-<td><p>Documentation, network building</p></td>
-</tr>
-</tbody>
-</table>
+### ZAIK ![](images/Zaik_small.gif)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Christian Rössel | Initial microsimulation core; initial detectors implementation |
+
+### DLR ![](images/Dlr_small.gif)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Peter Wagner | Models, organization, spiritual lead |
+| Daniel Krajzewicz | Everything |
+| Julia Ringel | Traffic Light & WAUT Algorithms |
+| Eric Nicolay | Everything |
+| Michael Behrisch | Everything |
+| Yun-Pang Flötteröd (Wang) | User Assignment |
+| Danilot Teta Boyom | Vehicular Communication Model (removed from the source) |
+| Sascha Krieg | |
+| Lena Kalleske | |
+| Laura Bieker | Tests, Python scripts |
+| Jakob Erdmann | more than everything |
+| Andreas Gaubatz | |
+| Maik Drozdzynski | |
+| Ronald Nippold | |
+| Pablo Alvarez Lopez | [netedit](Netedit/index.md) |
+| Robert Hilbrich | |
+| Gregor Lämmel | |
+| Leonhard Lücken | |
+| Giuliana Armellini | |
+| Matthias Schwamborn | |
+| Benjamin Coueraud | |
+| Mirko Barthauer | |
+
+### Uni Lübeck
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Axel Wegener | TraCI initiator |
+| Thimor Bohn | TraCI |
+| Friedemann Wesner | TraCI |
+| Felix Brack | |
+| Tino Morenz | |
+
+### Uni Erlangen / UIBK / CMU / UCLA
+
+![](images/Uni_erlangen.png) ![](images/Uibk-small.png) ![](images/Logo_cmu.png) ![](images/Logo_ucla.png)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Christoph Sommer | TraCI merge with [Veins](https://veins.car2x.org/), Subscription Interface, Misc. |
+| David Eckhoff | TraCI, deterministic simulation behavior |
+| Falko Dressler | TraCI |
+| Tobias Mayer | Traffic model abstraction, IDM model port |
+
+### TU Munich ![](images/Tum-logo.png)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Piotr Woznica | [activitygen](activitygen.md) |
+| Walter Bamberger | Development of [activitygen](activitygen.md) as a base for the evaluation of trust scenarios in VANETs. The work is part of the project [Fidens: Trust between Cooperative Systems](https://www.ldv.ei.tum.de/fidens/) featuring trusted probabilistic knowledge processing in vehicular networks. |
+| Matthew Fullerton | |
+
+### IIT Bombay, India
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Ashutosh Bajpai | randomDepart.py, a python script to generate the real traffic pattern by exponential distribution. |
+
+### Torino ![](images/Torino_small.gif)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Enrico Gueli | [TraCI4J](https://sourceforge.net/projects/traci4j/) |
+
+### Wroclaw University ![](images/Wroclaw_university_small.jpg)
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Karol Stosiek | Documentation, network building |
+
+### Other
+
+| Name | Topics / Contribution |
+|------|-----------------------|
+| Leontios Papaleontiou | [Contributed/SUMO Traffic Modeler](Contributed/SUMO_Traffic_Modeler.md) |
+| Matthias Heppner | Unittests (Thesis at Humboldt University Berlin) |
 
 and many [other contributors]({{Source}}AUTHORS).

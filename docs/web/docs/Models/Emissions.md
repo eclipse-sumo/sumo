@@ -61,101 +61,16 @@ modeled using the HBEFA3 based model).
     Please note that the unit of fuel-related outputs changed with SUMO 1.14.0 from liters to milligram.
 	For the old behavior use the option **--emissions.volumetric-fuel**.
 
-<table class="tg">
-  <tr>
-    <th class="tg-uzvj" rowspan="2">model</th>
-    <th class="tg-7btt" colspan="7">pollutant / measurement</th>
-  </tr>
-  <tr>
-    <td class="tg-7btt">CO<sub>2</sub></td>
-    <td class="tg-7btt">CO</td>
-    <td class="tg-7btt">HC</td>
-    <td class="tg-7btt">NO<sub>x</sub></td>
-    <td class="tg-7btt">PM<sub>x</sub></td>
-    <td class="tg-7btt">fuel consumption</td>
-    <td class="tg-uzvj">electricity consumption</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">HBEFA v2.1-based<br><code>emissionClass="HBEFA/..."</code></td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">-</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">HBEFA v3.1-based<br><code>emissionClass="HBEFA3/..."</code></td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">-</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">HBEFA v4.2-based<br><code>emissionClass="HBEFA4/..."</code></td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight/..."</code></td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">(x)</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight5/..."</code></td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">x</td>
-    <td class="tg-c3ow">(x)</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">Electric Vehicle Model<br><code>emissionClass="Energy"</code></td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">x</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">MMP's Electric Vehicle Emission Model<br><code>emissionClass="MMPEVEM"</code></td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">x</td>
-  </tr>
-  <tr>
-    <td class="tg-lboi">No Emissions<br><code>emissionClass="Zero"</code></td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-c3ow">-</td>
-    <td class="tg-9wq8">-</td>
-  </tr>
-</table>
+| model | CO<sub>2</sub> | CO | HC | NO<sub>x</sub> | PM<sub>x</sub> | fuel consumption | electricity consumption |
+|-------|:---:|:--:|:--:|:---:|:---:|:----------------:|:-----------------------:|
+| HBEFA v2.1-based<br>`emissionClass="HBEFA/..."` | x | x | x | x | x | x | - |
+| HBEFA v3.1-based<br>`emissionClass="HBEFA3/..."` | x | x | x | x | x | x | - |
+| HBEFA v4.2-based<br>`emissionClass="HBEFA4/..."` | x | x | x | x | x | x | x |
+| PHEMlight<br>`emissionClass="PHEMlight/..."` | x | x | x | x | x | x | (x) |
+| PHEMlight5<br>`emissionClass="PHEMlight5/..."` | x | x | x | x | x | x | (x) |
+| Electric Vehicle Model<br>`emissionClass="Energy"` | - | - | - | - | - | - | x |
+| MMP's Electric Vehicle Emission Model<br>`emissionClass="MMPEVEM"` | - | - | - | - | - | - | x |
+| No Emissions<br>`emissionClass="Zero"` | - | - | - | - | - | - | - |
 
 PHEMlight and PHEMlight5 generate electricity consumption values only if the
 data files for battery powered or hybrid vehicles are available (which are not part of

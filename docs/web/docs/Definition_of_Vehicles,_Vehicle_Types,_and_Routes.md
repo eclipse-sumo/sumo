@@ -480,7 +480,7 @@ These values have the following meanings:
 | speedDev          | float                             | 0.1                                                                 | The deviation of the speedFactor; see below for details (some vClasses use a different default)     |
 | color             | [RGB-color](#colors)   | "1,1,0" (yellow)                                                    | This vehicle type's color                                                                                                                                                                                              |
 | vClass            | class (enum)                      | "passenger"                                                         | An abstract [vehicle class (see below)](#abstract_vehicle_class). By default vehicles represent regular passenger cars.                                                                                     |
-| emissionClass     | emission class (enum)             | ["PC_G_EU4"](Models/Emissions/HBEFA3-based.md)            | An [emission class (see below)](#vehicle_emission_classes). By default a gasoline passenger car conforming to emission standard *EURO 4* is used.                                                           |
+| emissionClass     | emission class (enum)             | ["PC_petrol_Euro-4"](Models/Emissions/HBEFA4-based.md)            | An [emission class (see below)](#vehicle_emission_classes). By default a gasoline passenger car conforming to emission standard *EURO 4* is used.                                                           |
 | guiShape          | shape (enum)                      | "unknown"                                                           | [a vehicle shape for drawing](#visualization). By default a standard passenger car body is drawn.                                                                                                           |
 | width             | float                             | 1.8                                                                 | The vehicle's width \[m\] (used only for visualization with the default model, affects [sublane model](Simulation/SublaneModel.md))                                                                            |
 | height            | float                             | 1.5                                                                 | The vehicle's height \[m\]                                                                            |
@@ -667,11 +667,11 @@ The following vehicle classes exist:
 | rail_fast      | 22                     | [High-speed-rail](https://en.wikipedia.org/wiki/High-speed_rail)                                                                                                  |
 | ship           | 23                     | basic class for navigating waterways                                                                                                                              |
 | container      | 24                     | used for modelling transhipping
-| cable_car      | 25                     | 
-| subway         | 26                     | 
-| aircraft       | 27                     | 
-| wheelchair     | 28                     | 
-| scooter        | 29                     | 
+| cable_car      | 25                     |
+| subway         | 26                     |
+| aircraft       | 27                     |
+| wheelchair     | 28                     |
+| scooter        | 29                     |
 | drone          | 30                     | reserved for custom air mobility
 | custom1        | 31                     | reserved for user-defined semantics                                                                                                                               |
 | custom2        | 32                     | reserved for user-defined semantics                                                                                                                               |
@@ -764,7 +764,7 @@ length look quite odd, buses with 2m length, too.
 !!! caution
     Not all of these named shapes have a distinct visualization.
 
-## Carriages, custom visualization 
+## Carriages, custom visualization
 
 Further parameters can be used to achieve visualization of [individual rail carriages](Simulation/Railways.md#trains) and configure exiting behavior at stations.
 ```xml
@@ -1326,7 +1326,7 @@ placeholder `<DEVICENAME>` below
 - [rerouting](Demand/Automatic_Routing.md): dynamic route changes
 - [ssm](Simulation/Output/SSM_Device.md): surrogate safety measures
 - [toc](ToC_Device.md): transition of control between automated and manual driving
-- [driverstate](Driver_State.md): randomized driver perception errors 
+- [driverstate](Driver_State.md): randomized driver perception errors
 - [fcd](Simulation/Output/FCDOutput.md): recording of vehicle positions and other attributes per step
 - [fcdreplay](Simulation/FCDReplay.md): replaying vehicle positions
 - [tripinfo](Simulation/Output/TripInfo.md): vehicle-based traffic data aggregation

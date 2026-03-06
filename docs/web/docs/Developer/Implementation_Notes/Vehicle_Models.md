@@ -45,67 +45,14 @@ represented. Some facts and needs (unsorted):
 
 ## Possible Descriptions
 
-<table>
-<thead>
-<tr class="header">
-<th><p>Index</p></th>
-<th><p>Sample</p></th>
-<th><p>pros/cons</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>A</p></td>
-<td><p>&lt;vtype cfModel="xxx" xxxParam1="..." xxxParam2="..." ...</p></td>
-<td><ul>
-<li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li>
-</ul></td>
-</tr>
-<tr class="even">
-<td><p>B</p></td>
-<td><p>&lt;vtype-XXX xxxParam1="..." xxxParam2="..." ...</p></td>
-<td><ul>
-<li>(-) large number of different elements needed</li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td><p>C</p></td>
-<td><p>&lt;cfmodel id="#id" model="xxx" param1="..." param2="..." .../&gt;<br>
-    &lt;vtype cfModelId="#id" .../&gt;</p></td>
-<td><ul>
-<li>(+) straight forward; many combinations possible</li>
-<li>(+) is similar to how every vehicle references its vtype</li>
-<li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li>
-</ul></td>
-</tr>
-<tr class="even">
-<td><p>D</p></td>
-<td><p>&lt;vtype cfModel="xxx" param1="..." param2="..." ...&gt;</p></td>
-<td><ul>
-<li>(--) parameter sets differ between models</li>
-<li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li>
-</ul></td>
-</tr>
-<tr class="odd">
-<td><p>E</p></td>
-<td><p>&lt;vtype ...&gt;<br>&lt;cfmodel model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
-<td><ul>
-<li>(+) straight forward</li>
-<li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li>
-<li><strong>1 vote (Mayer)</strong></li>
-</ul></td>
-</tr>
-<tr class="even">
-<td><p>F</p></td>
-<td><p>&lt;vtype ...&gt;<br>&lt;cfmodel-XXX model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
-<td><ul>
-<li>(+) straight forward</li>
-<li>(-) large number of different elements needed</li>
-<li><strong>2 votes (Behrisch, Krajzewicz)</strong></li>
-</ul></td>
-</tr>
-</tbody>
-</table>
+| Index | Sample | pros/cons |
+| ----- | ------ | --------- |
+| A | `<vtype cfModel="xxx" xxxParam1="..." xxxParam2="..." ...` | <ul><li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li></ul> |
+| B | `<vtype-XXX xxxParam1="..." xxxParam2="..." ...` | <ul><li>(-) large number of different elements needed</li></ul> |
+| C | `<cfmodel id="#id" model="xxx" param1="..." param2="..." .../>` <br> `<vtype cfModelId="#id" .../>` | <ul><li>(+) straight forward; many combinations possible</li><li>(+) is similar to how every vehicle references its vtype</li><li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li></ul> |
+| D | `<vtype cfModel="xxx" param1="..." param2="..." ...>` | <ul><li>(--) parameter sets differ between models</li><li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li></ul> |
+| E | `<vtype ...>` <br> `<cfmodel model="xxx" param1="..." param2="..." .../>` | <ul><li>(+) straight forward</li><li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li><li><strong>1 vote (Mayer)</strong></li></ul> |
+| F | `<vtype ...>` <br> `<cfmodel-XXX model="xxx" param1="..." param2="..." .../>` | <ul><li>(+) straight forward</li><li>(-) large number of different elements needed</li><li><strong>2 votes (Behrisch, Krajzewicz)</strong></li></ul> |
 
 ## (currently) Chosen Description
 
