@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-06 12:14:02.403001 by Eclipse SUMO countEdgeUsage.py v1_26_0+0481-badb18c6016
+<!-- generated on 2026-03-06 12:19:21.162473 by Eclipse SUMO countEdgeUsage.py v1_26_0+0483-f141f398917
 <configuration>
     <output-file value="out.rou.xml"/>
     <subpart-file value="data.txt"/>
@@ -8,9 +8,9 @@
 </configuration>
 -->
 
-<edgedata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval begin="0" end="1000000" id="routeStats">
         <edge id="a" departed="1" arrived="0" delta="-1"/>
         <edge id="d" departed="0" arrived="1" delta="1"/>
     </interval>
-</edgedata>
+</data>
