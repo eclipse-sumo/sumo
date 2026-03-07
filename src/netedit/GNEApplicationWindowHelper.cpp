@@ -2280,8 +2280,6 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     }
     neteditOptions.set("additional-files", sumoOptions.getString("additional-files"));
     neteditOptions.set("route-files", sumoOptions.getString("route-files"));
-    // relocate files
-    neteditOptions.relocateFiles(mySumoConfigFile);
     return true;
 }
 
