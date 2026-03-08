@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-02-28 18:42+0000\n"
+"PO-Revision-Date: 2026-03-08 11:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2298 src/gui/GUIApplicationWindow.cpp:2299
@@ -7430,7 +7430,7 @@ msgstr "Corsa"
 #: src/netedit/GNETagPropertiesDatabase.cpp:6147
 #: src/netedit/GNETagPropertiesDatabase.cpp:6158
 msgid "PersonStop"
-msgstr ""
+msgstr "Fermata per persone"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6175
 #, c-format
@@ -8455,11 +8455,11 @@ msgstr ""
 #: src/netedit/GNETagPropertiesDatabase.cpp:7597
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:72
 msgid "DataSet"
-msgstr ""
+msgstr "Insieme di dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7612
 msgid "DataInterval"
-msgstr ""
+msgstr "Intervallo di dati"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7622
 msgid "Data interval begin time"
@@ -12493,7 +12493,7 @@ msgstr "posizione di %"
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:513
 #, c-format
 msgid " %'s size"
-msgstr ""
+msgstr " grandezza di %"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:35
 msgid "lane start"
@@ -12564,6 +12564,8 @@ msgstr "Non ho potuto impostare l'attributo '%' (il semaforo è invalido)"
 #: src/netedit/elements/network/GNEConnection.cpp:944
 msgid "Cannot restore attribute '%=%' for computed connection from lane '%'"
 msgstr ""
+"L'attributo '%=%' non può essere recuperato per il collegamento calcolato "
+"che ha inizio alla corsia '%'"
 
 #: src/netedit/elements/network/GNECrossing.cpp:86
 msgid "Crossing's edges don't support pedestrians"
@@ -12960,7 +12962,7 @@ msgstr "Sposta l'elemento una corsia più giù"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:632
 msgid "Reparent"
-msgstr ""
+msgstr "Riassegna elemento padre"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:633
 msgid "Change parent of this element"
