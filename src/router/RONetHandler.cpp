@@ -315,7 +315,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         return;
     }
-    if (shape.size() < 2) {
+    if (shape.size() < 2 && myCurrentEdge->getFunction() != SumoXMLEdgeFunc::WALKINGAREA) {
         WRITE_ERRORF(TL("Ignoring lane '%' with broken shape."), id);
         return;
     }
