@@ -756,16 +756,16 @@ StringUtils::wrapText(const std::string s, int width) {
             } else {
                 line += " ";
             }
-            line = line + p;
+            line += p;
         } else {
             if (firstLine) {
                 firstLine = false;
             } else {
                 result += "\n";
             }
-            result = result + line;
+            result += line;
             line.clear();
-            firstWord = true;
+            line += p;
         }
     }
     if (line.size() > 0) {
@@ -774,7 +774,7 @@ StringUtils::wrapText(const std::string s, int width) {
         } else {
             result += "\n";
         }
-        result = result + line;
+        result += line;
     }
     return result;
 }
