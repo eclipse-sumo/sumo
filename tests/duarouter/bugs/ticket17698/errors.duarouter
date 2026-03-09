@@ -1,3 +1,2 @@
-Error: Ignoring lane ':835805600_w0_0' with broken shape.
-Error: invalid fromLane '0' in connection from ':835805600_w0'.
+Error: No route input specified or all routes were invalid.
 Quitting (on error).
