@@ -12,6 +12,7 @@ title: ChangeLog
   - fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
   - stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed failure to group taxi passengers when the dispatch-period is low #17644
+  - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
   - less crashes with parquet output (especially summary output) #17656
   - Fixed invalid signal state when loading from saved state and using WAUT #17675
@@ -55,8 +56,7 @@ title: ChangeLog
 
 ### Enhancements
 
-- sumo
-  - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
+- sumo  
   - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627
   - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
   - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which avoids multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628
