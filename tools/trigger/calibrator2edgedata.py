@@ -16,9 +16,10 @@
 # @date    2026-03-06
 
 """
-Converts calibrator definitions to edgeData. In principle this could also be done by running a simulation and letting
-it write edgeData output. The main purpose of this tool is to fuse data from the sumo-live-data-loop inputs
-https://github.com/DLR-TS/SUMOLiveDataLoop where calibrators flows overlap in time for intializing repeated predictive simulations
+Converts calibrator definitions to edgeData. In principle this could also be done by running a
+simulation and letting it write edgeData output. The main purpose of this tool is to fuse data from
+the sumo-live-data-loop inputs https://github.com/DLR-TS/SUMOLiveDataLoop where calibrators flows
+overlap in time for intializing repeated predictive simulations
 """
 from __future__ import print_function
 from __future__ import absolute_import
@@ -31,6 +32,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 from sumolib.miscutils import parseTime,humanReadableTime  # noqa
 from sumolib.net import lane2edge  # noqa
+
 
 def parse_args():
     op = sumolib.options.ArgumentParser(description="convert calibrators (possibly overlapping) to edgedata")
@@ -59,13 +61,13 @@ def parseCalibrators(options):
                 begin = parseTime(flow.begin)
                 end = parseTime(flow.end)
                 attrs = intervals[(begin, end)][edge]
-                attrs.clear() # last version should count for overlapping calibrators
+                attrs.clear() #  last version should count for overlapping calibrators
                 for attr, value in flow.getAttributes():
                     if attr not in excludeEdgeAttrs:
                         attrs[attr] = value
                 if 'vehsPerHour' in attrs:
                     attrs['count'] = float(attrs['vehsPerHour']) * (end - begin) / 3600
-    return intervals          
+    return intervals
 
 
 def main():
