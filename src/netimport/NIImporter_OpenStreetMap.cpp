@@ -510,6 +510,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         extra = extra & ~SVC_BUS;
     }
     SVCPermissions permissions = (defaultPermissions & ~extraDis) | extra;
+    if (!myImportBikeAccess && permissions == (SVC_PEDESTRIAN | SVC_BICYCLE)
+            && (e->myExtraDisallowed & SVC_BICYCLE) != 0
+            && (e->myExtraAllowed & SVC_BICYCLE) == 0) {
+        // remove bicyle permissions where they affect network building the most
+        permissions = SVC_PEDESTRIAN;
+        defaultsToOneWay = true;
+    }
     if (defaultPermissions == SVC_SHIP) {
         // extra permission apply to the ships operating on the route rather than the waterway
         permissions = defaultPermissions;
