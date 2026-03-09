@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-09T12:20:21.471146+01:00 by Eclipse SUMO netconvert v1_26_0+0487-b2e659efa8d
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="reduced2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-348649.33,-5781477.85" convBoundary="49092.44,29496.93,49123.25,29516.07" origBoundary="12.785091,52.178410,13.913079,52.827270" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="835804237" x="49118.70" y="29514.96" type="dead_end"/>
+    <node id="835804539" x="49092.44" y="29496.93" type="dead_end"/>
+    <node id="835804613" x="49112.71" y="29516.07" type="dead_end"/>
+    <node id="835805310" x="49103.55" y="29506.34" type="dead_end"/>
+    <node id="835805600" x="49108.82" y="29502.03" type="dead_end"/>
+    <node id="914485797" x="49104.78" y="29505.45" type="dead_end"/>
+</nodes>

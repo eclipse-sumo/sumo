@@ -36,3 +36,6 @@ ticket17098
 
 # warn when loading nan values
 ticket17161
+
+# invalid walkingarea shape built
+ticket17689

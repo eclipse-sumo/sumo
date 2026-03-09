@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-09T12:20:21.471474+01:00 by Eclipse SUMO netconvert v1_26_0+0487-b2e659efa8d
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="reduced2.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-348649.33,-5781477.85" convBoundary="49092.44,29496.93,49123.25,29516.07" origBoundary="12.785091,52.178410,13.913079,52.827270" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-77761465" from="835805600" to="914485797" priority="1" type="highway.path" numLanes="1" speed="5.56" width="0.10" allow="pedestrian"/>
+    <edge id="69923031#0" from="835805310" to="914485797" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="0.20" allow="pedestrian"/>
+    <edge id="69923031#1" from="914485797" to="835804237" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="49104.78,29505.45 49111.03,29508.49 49123.25,29512.17 49118.70,29514.96" spreadType="center" width="0.20" allow="pedestrian"/>
+    <edge id="69923060#1" from="835804613" to="835805310" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="49112.71,29516.07 49108.94,29510.73 49103.55,29506.34" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="69923060#2" from="835805310" to="835804539" priority="1" type="highway.footway" numLanes="1" speed="2.78" spreadType="center" width="2.00" allow="pedestrian"/>
+    <edge id="77761465" from="914485797" to="835805600" priority="1" type="highway.path" numLanes="1" speed="5.56" width="0.10" allow="pedestrian"/>
+</edges>

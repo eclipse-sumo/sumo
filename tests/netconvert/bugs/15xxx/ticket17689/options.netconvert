@@ -1,0 +1,4 @@
+-e input_plain.edg.xml
+-n input_plain.nod.xml
+--walkingareas
+--offset.disable-normalization
