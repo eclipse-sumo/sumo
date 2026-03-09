@@ -30,6 +30,9 @@ departtime_dist
 
 # Use the input as a starting point for sampling
 keep_input
+
+# Use the input as a starting point for sampling (with multiple data intervals)
+keep_input_intervals
 verbose
 
 # save configuration file
