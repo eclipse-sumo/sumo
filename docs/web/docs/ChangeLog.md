@@ -84,17 +84,18 @@ title: ChangeLog
 - tools
   - osmWebWizard.py: now automatically saves osmGet configuration for easier updating of a scenario #17570
   - osmWebWizard.py: now permits selection of public transport modes to import #8628
-  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forward to all applications #17573
+  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573
   - osmGet.py: now attempts to download again after timeout and tries to use proxies (also affects osmWebWizard) #17597
   - plotXMLAttrbutes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
   - generateStationEdges.py: added option **--build** to automatically create the extended network #13383
   - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
-  - visum_convertXMLRoute.py: now use demand time range when interpreting volume #17667
-  - countEdgeUsage.py: Now writes option header and supports gz output #17685
+  - visum_convertXMLRoutes.py: now use demand time range when interpreting volume #17667
+  - countEdgeUsage.py: Now writes option header and supports .gz output #17685
 
-- no more HTML tables in the docs
-- the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
+- Miscellaneous
+  - no more HTML tables in the docs
+  - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 
 
 ## Version 1.26.0 (29.01.2026)
