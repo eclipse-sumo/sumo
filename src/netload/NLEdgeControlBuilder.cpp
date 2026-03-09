@@ -266,4 +266,13 @@ void NLEdgeControlBuilder::addCrossingEdges(const std::vector<std::string>& cros
 }
 
 
+SumoXMLEdgeFunc
+NLEdgeControlBuilder::getCurrentEdgeFunction() const {
+    if (myActiveEdge == nullptr) {
+        return SumoXMLEdgeFunc::UNKNOWN;
+    } else {
+        return myActiveEdge->getFunction();
+    }
+}
+
 /****************************************************************************/

@@ -151,6 +151,8 @@ public:
      */
     virtual void addCrossingEdges(const std::vector<std::string>&);
 
+    SumoXMLEdgeFunc getCurrentEdgeFunction() const;
+
 protected:
     /// @brief A running number for lane numbering
     int myCurrentNumericalLaneID;
