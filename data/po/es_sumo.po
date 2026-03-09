@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-06 08:17+0000\n"
+"PO-Revision-Date: 2026-03-09 15:33+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2092,6 +2092,8 @@ msgstr "Guardar los bloques de señales de ferrocarril en FILE"
 msgid ""
 "Record entry and exit times of vehicles for railsignal blocks into FILE"
 msgstr ""
+"Guardar en FILE los tiempos de entrada y salida de los vehículos para "
+"bloques de señales ferroviarias"
 
 #: src/microsim/MSFrame.cpp:295
 msgid ""
@@ -2152,7 +2154,7 @@ msgstr "Escribir estadísticas generales en FILE"
 
 #: src/microsim/MSFrame.cpp:327
 msgid "Write reports on deadlocks FILE"
-msgstr ""
+msgstr "Guardar el reporte sobre bloqueos en FILE"
 
 #: src/microsim/MSFrame.cpp:331
 msgid "Save movereminder states of selected vehicles into FILE"
@@ -2424,7 +2426,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:465
 msgid "Minimum consecutive waiting time before applying startupDelay"
-msgstr ""
+msgstr "Tiempo mínimo de espera consecutiva antes de aplicar un startupDelay"
 
 #: src/microsim/MSFrame.cpp:468
 msgid ""
@@ -2445,6 +2447,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:474
 msgid "Whether each vehicle is checked separately for insertion on an edge"
 msgstr ""
+"Si cada vehículo se verifica por separado para su inserción en una arista"
 
 #: src/microsim/MSFrame.cpp:477
 msgid ""
@@ -2487,10 +2490,14 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:498
 msgid "Sets default jam-threshold parameter for all actuation detectors"
 msgstr ""
+"Establece el parámetro de umbral de atasco (jam-threshold) para todos los "
+"detectores de actuación"
 
 #: src/microsim/MSFrame.cpp:501
 msgid "Sets default detector length parameter for all actuation detectors"
 msgstr ""
+"Establece la longitud de detector predeterminada, para todos los detectores "
+"de actuación"
 
 #: src/microsim/MSFrame.cpp:504
 msgid "Sets default range for detecting delayed vehicles"
