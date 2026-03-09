@@ -7,14 +7,18 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - fixed invalid driveWay foes in moving-block mode #17623, #17683
+  - fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
+  - fixed invalid driveway assignment involving uncontrolled links at complex junctions of type rail_signal #17681
   - fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
   - stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed failure to group taxi passengers when the dispatch-period is low #17644
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
   - less crashes with parquet output (especially summary output) #17656
+  - Fixed invalid signal state when loading from saved state and using WAUT #17675
+  - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
 
 - sumo-gui
+  - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
   - Fixed crash when drawing persons #17616
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
 
@@ -23,6 +27,7 @@ title: ChangeLog
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
+  - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
 
 - netconvert
   - NEMA computation now works for 4-arm junction without right-turns (also affects some signal plans of non-NEMA junctions) #17610
@@ -31,6 +36,7 @@ title: ChangeLog
   - Fixed invalid connections in visum import (non-german version) #17660
   - Fixed invalid edge permissions in visum import #17659
   - Fixed invalid changes to loaded edge attributes when patching edge type #17678
+  - Fixed invalid permissions in OSM import when bicycles are explicitly forbidden on a pedestrian path #17691
 
 - duarouter
   - Fixed invalid vehicle departure times when defining poisson flow (very noticable at low rate) #17663
@@ -85,6 +91,7 @@ title: ChangeLog
   - generateStationEdges.py: added option **--build** to automatically create the extended network #13383
   - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
   - visum_convertXMLRoute.py: now use demand time range when interpreting volume #17667
+  - countEdgeUsage.py: Now writes option header and supports gz output #17685
 
 - no more HTML tables in the docs
 - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
