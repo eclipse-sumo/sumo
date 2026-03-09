@@ -32,3 +32,6 @@ ticket17583
 
 # zipper deadlock
 ticket17650
+
+# load network with 1-point walkingarea shape
+ticket17689

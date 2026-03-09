@@ -81,3 +81,6 @@ ticket16091
 
 # invalid warning
 ticket16899
+
+# load 1-point walkingarea shape
+ticket17698

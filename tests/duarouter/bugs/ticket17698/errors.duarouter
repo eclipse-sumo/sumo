@@ -1,0 +1,3 @@
+Error: Ignoring lane ':835805600_w0_0' with broken shape.
+Error: invalid fromLane '0' in connection from ':835805600_w0'.
+Quitting (on error).

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-09T12:21:03.057697+01:00 by Eclipse SUMO netconvert v1_26_0+0487-b2e659efa8d
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="reduced2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-348649.33,-5781477.85" convBoundary="49092.44,29496.93,49123.25,29516.07" origBoundary="12.785091,52.178410,13.913079,52.827270" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="5.56" allow="pedestrian bicycle" oneway="0" width="2.00"/>
+
+    <edge id=":835805310_w0" function="walkingarea">
+        <lane id=":835805310_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.46" width="2.00" shape="49104.37,29508.30 49105.63,29506.75 49105.68,29504.92 49105.57,29504.76 49103.06,29504.61 49101.77,29506.14"/>
+    </edge>
+    <edge id=":835805600_w0" function="walkingarea">
+        <lane id=":835805600_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.10" width="1.00" shape="49108.82,29502.03"/>
+    </edge>
+    <edge id=":914485797_w0" function="walkingarea">
+        <lane id=":914485797_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.51" width="1.00" shape="49106.22,29506.26 49106.31,29506.08 49105.69,29505.61 49105.59,29505.35 49105.62,29505.07 49105.79,29504.77 49106.11,29504.46 49105.98,29504.31 49103.46,29506.28 49103.57,29506.45"/>
+    </edge>
+    <edge id="-77761465" from="835805600" to="914485797" priority="1" type="highway.path">
+        <lane id="-77761465_0" index="0" allow="pedestrian" speed="5.56" length="3.64" width="0.10" shape="49108.85,29502.07 49106.07,29504.42"/>
+    </edge>
+    <edge id="69923031#0" from="835805310" to="914485797" priority="1" type="highway.footway" spreadType="center">
+        <lane id="69923031#0_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="0.20" shape="49104.49,29505.66 49104.65,29505.54"/>
+    </edge>
+    <edge id="69923031#1" from="914485797" to="835804237" priority="1" type="highway.footway" spreadType="center" shape="49104.78,29505.45 49111.03,29508.49 49123.25,29512.17 49118.70,29514.96">
+        <lane id="69923031#1_0" index="0" allow="pedestrian" speed="2.78" length="23.40" width="0.20" shape="49106.27,29506.17 49111.03,29508.49 49123.25,29512.17 49118.70,29514.96"/>
+    </edge>
+    <edge id="69923060#1" from="835804613" to="835805310" priority="1" type="highway.footway" spreadType="center" shape="49112.71,29516.07 49108.94,29510.73 49103.55,29506.34">
+        <lane id="69923060#1_0" index="0" allow="pedestrian" speed="2.78" length="11.62" width="2.00" shape="49112.71,29516.07 49108.94,29510.73 49105.00,29507.52"/>
+    </edge>
+    <edge id="69923060#2" from="835805310" to="835804539" priority="1" type="highway.footway" spreadType="center">
+        <lane id="69923060#2_0" index="0" allow="pedestrian" speed="2.78" length="13.07" width="2.00" shape="49102.41,29505.38 49092.44,29496.93"/>
+    </edge>
+    <edge id="77761465" from="914485797" to="835805600" priority="1" type="highway.path">
+        <lane id="77761465_0" index="0" allow="pedestrian" speed="5.56" length="3.64" width="0.10" shape="49106.01,29504.34 49108.79,29501.99"/>
+    </edge>
+
+    <junction id="835804237" type="dead_end" x="49118.70" y="29514.96" incLanes="69923031#1_0" intLanes="" shape="49118.75,29515.05 49118.65,29514.87"/>
+    <junction id="835804539" type="dead_end" x="49092.44" y="29496.93" incLanes="69923060#2_0" intLanes="" shape="49091.79,29497.69 49093.09,29496.17"/>
+    <junction id="835804613" type="dead_end" x="49112.71" y="29516.07" incLanes="" intLanes="" shape="49113.53,29515.49 49111.89,29516.65"/>
+    <junction id="835805310" type="dead_end" x="49103.55" y="29506.34" incLanes="69923060#1_0" intLanes="" shape="49104.37,29508.30 49105.63,29506.75 49105.68,29504.92 49105.57,29504.76 49103.06,29504.61 49101.77,29506.14"/>
+    <junction id="835805600" type="dead_end" x="49108.82" y="29502.03" incLanes="77761465_0" intLanes="" shape="49108.82,29502.03"/>
+    <junction id="914485797" type="dead_end" x="49104.78" y="29505.45" incLanes="-77761465_0 69923031#0_0" intLanes="" shape="49106.22,29506.26 49106.31,29506.08 49105.69,29505.61 49105.59,29505.35 49105.62,29505.07 49105.79,29504.77 49106.11,29504.46 49105.98,29504.31 49103.46,29506.28 49103.57,29506.45"/>
+
+    <connection from=":835805310_w0" to="69923031#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":835805310_w0" to="69923060#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="69923060#1" to=":835805310_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":835805600_w0" to="-77761465" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="77761465" to=":835805600_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":914485797_w0" to="77761465" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":914485797_w0" to="69923031#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="69923031#0" to=":914485797_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-77761465" to=":914485797_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>
