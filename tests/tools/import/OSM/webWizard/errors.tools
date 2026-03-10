@@ -87,13 +87,11 @@ Warning: The rail crossing '4567083494' does not have any roads.
 Warning: The rail crossing '4603453625' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
-Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_#9more' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_#9more' has a high cycle time of 213.00.
 Warning: Connection '-442921387#0_0->196844845_0' is only 0.00m short.
 Warning: Connection '-6228154#0_0->30719903#0_0' is only 0.00m short.
+Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702047#4_0' and lane '374734389#2_2' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702047#4_0' and lane '-111251382#2_2' (increase junction radius to avoid this).
 Warning: Intersecting left turns at junction 'cluster_1673527224_1673527227_21487161_303436603_#9more' from lane '388702039#11_0' and lane '-111251382#2_2' (increase junction radius to avoid this).
-Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_#9more' cannot be adapted to a cycle time of 90.00.
-Warning: The traffic light 'cluster_1673527224_1673527227_21487161_303436603_#9more' has a high cycle time of 215.00.
 Warning: Stop '366500582' named 'Berlin Friedrichstraße' from line '300432' on edge '25946661' is not part of the route.
 Warning: Stop '366500582' named 'Berlin Friedrichstraße' from line '6593455' on edge '25946661' is not part of the route.
 Warning: 30 total messages of type: Ambiguity in turnarounds computation at junction '%'.
@@ -119,5 +117,6 @@ Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#
 Warning: At actuated tlLogic 'cluster_1827996421_1827996431_1827996455_2121324874_#10more', linkIndex 16 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,7,8,9,10,31,32,33,34 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
-Warning: Person 'ped135' aborted waiting for ANY at busStop '-3867910429'.
-Warning: Person 'ped134' aborted waiting for ANY at trainStop '4673135647'.
+Warning: Vehicle 'pt_tram_M5:3.0' performs emergency braking on lane '22962554#2_0' with decel=7.00, wished=3.00, severity=1.00, time=639.00.
+Warning: Person 'ped133' aborted waiting for ANY at trainStop '4673135647'.
+Warning: Person 'ped141' aborted waiting for ANY at trainStop '4673135647'.

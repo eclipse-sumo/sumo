@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-26T09:08:28.158567+01:00 by Eclipse SUMO netconvert v1_26_0+0334-fe2209085d0
+<!-- generated on 2026-03-10T07:26:32.032411+01:00 by Eclipse SUMO netconvert v1_26_0+0486-49ec0de4dff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -378,7 +378,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="1108591095" from="26807332" to="2500446883" priority="10" type="highway.tertiary">
         <lane id="1108591095_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="2.17" shape="261.56,48.22 263.71,47.93"/>
     </edge>
-    <edge id="143722134#0" from="1598294947" to="26807332" priority="3" type="highway.residential" shape="244.59,0.00 248.91,22.14 251.83,40.67 254.14,50.82">
+    <edge id="143722134#0" from="1598294947" to="26807332" priority="3" type="highway.residential" spreadType="roadCenter" shape="244.59,0.00 248.91,22.14 251.83,40.67 254.14,50.82">
         <lane id="143722134#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.33" length="44.44" shape="246.16,-0.31 250.49,21.86 253.40,40.37 254.09,43.41"/>
     </edge>
     <edge id="146778067#0" from="1600183684" to="1600183682" priority="3" type="highway.residential" shape="26.04,120.73 24.67,117.07 24.13,110.17 23.12,78.58 22.23,65.91">

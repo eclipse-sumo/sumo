@@ -50,7 +50,7 @@ Warning: Could not build program '0' for traffic light '3319201701'
 Warning: The traffic light '5708137319' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '5708137319'
 Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.14 due to turning radius of 10.93 (length=7.13, angle=55.34).
-Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.13 due to turning radius of 6.04 (length=1.76, angle=34.22).
+Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 6.71 due to turning radius of 9.38 (length=2.88, angle=34.22).
 Warning: Stop '5428806610' named 'Ackerstraße' from line '1518915' on edge '563320574#0' is not part of the route.
 Warning: Stop '5708039355' named 'Hauptfriedhof' from line '31272' on edge '291757758#1' is not part of the route downstream of the previous stop.
 Warning: Stop '5428806609' named 'Ackerstraße' from line '6615477' on edge '563320575#1' is not part of the route.

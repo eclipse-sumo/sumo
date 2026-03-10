@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:23 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-03-10T08:26:51.099684+01:00 by Eclipse SUMO netconvert v1_26_0+0486-49ec0de4dff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -3152,31 +3152,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-27844151#3" from="150506713" to="2964072765" priority="1" type="highway.path">
         <lane id="-27844151#3_0" index="0" allow="pedestrian bicycle" speed="5.56" length="5.65" width="2.00" shape="94.82,179.94 89.55,181.96"/>
     </edge>
-    <edge id="-28682845#0" from="28581626" to="28581602" priority="10" type="highway.tertiary">
+    <edge id="-28682845#0" from="28581626" to="28581602" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#0_0" index="0" allow="bus bicycle" speed="13.89" length="57.94" width="3.25" shape="276.03,212.23 254.16,158.58"/>
     </edge>
-    <edge id="-28682845#1" from="3946827990" to="28581626" priority="10" type="highway.tertiary">
+    <edge id="-28682845#1" from="3946827990" to="28581626" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#1_0" index="0" allow="bus bicycle" speed="13.89" length="44.89" width="3.25" shape="297.91,265.83 280.95,224.27"/>
     </edge>
-    <edge id="-28682845#2" from="2261078859" to="3946827990" priority="10" type="highway.tertiary">
+    <edge id="-28682845#2" from="2261078859" to="3946827990" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#2_0" index="0" allow="bus bicycle" speed="13.89" length="0.20" width="3.25" shape="299.34,269.31 299.27,269.13"/>
     </edge>
-    <edge id="-28682845#3" from="52726923" to="2261078859" priority="10" type="highway.tertiary">
+    <edge id="-28682845#3" from="52726923" to="2261078859" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#3_0" index="0" allow="bus bicycle" speed="13.89" length="28.20" width="3.25" shape="314.04,305.11 303.35,279.02"/>
     </edge>
-    <edge id="-28682845#4" from="28581686" to="52726923" priority="10" type="highway.tertiary">
+    <edge id="-28682845#4" from="28581686" to="52726923" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#4_0" index="0" allow="bus bicycle" speed="13.89" length="18.82" width="3.25" shape="325.22,332.65 318.15,315.21"/>
     </edge>
-    <edge id="-28682845#5" from="843205119" to="28581686" priority="10" type="highway.tertiary">
+    <edge id="-28682845#5" from="843205119" to="28581686" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#5_0" index="0" allow="bus bicycle" speed="13.89" length="3.54" width="3.25" shape="330.20,344.71 328.84,341.44"/>
     </edge>
-    <edge id="-28682845#6" from="30826051" to="843205119" priority="10" type="highway.tertiary" shape="345.53,377.87 342.56,370.83 331.76,344.22">
+    <edge id="-28682845#6" from="30826051" to="843205119" priority="10" type="highway.tertiary" spreadType="roadCenter" shape="345.53,377.87 342.56,370.83 331.76,344.22">
         <lane id="-28682845#6_0" index="0" allow="bus bicycle" speed="13.89" length="30.67" width="3.25" shape="341.87,373.37 341.06,371.45 330.31,344.97"/>
     </edge>
-    <edge id="-28682845#7" from="3944993724" to="30826051" priority="10" type="highway.tertiary">
+    <edge id="-28682845#7" from="3944993724" to="30826051" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#7_0" index="0" allow="bus bicycle" speed="13.89" length="8.87" width="3.25" shape="349.51,391.92 346.15,383.70"/>
     </edge>
-    <edge id="-28682845#8" from="28137447" to="3944993724" priority="10" type="highway.tertiary">
+    <edge id="-28682845#8" from="28137447" to="3944993724" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="-28682845#8_0" index="0" allow="bus bicycle" speed="13.89" length="0.20" width="3.25" shape="351.06,396.19 351.00,396.00"/>
     </edge>
     <edge id="-28943823#0" from="318215421" to="318214827" priority="1" type="highway.service">
@@ -3950,31 +3950,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="28216744" from="6165393447" to="936942693" priority="1" type="highway.footway" spreadType="center">
         <lane id="28216744_0" index="0" allow="pedestrian" speed="2.78" length="2.03" width="2.00" shape="311.02,128.38 312.28,129.97"/>
     </edge>
-    <edge id="28682845#0" from="28581602" to="28581626" priority="10" type="highway.tertiary">
+    <edge id="28682845#0" from="28581602" to="28581626" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="57.94" width="3.25" shape="257.17,157.35 279.04,211.00"/>
     </edge>
-    <edge id="28682845#1" from="28581626" to="3946827990" priority="10" type="highway.tertiary">
+    <edge id="28682845#1" from="28581626" to="3946827990" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="44.89" width="3.25" shape="283.96,223.04 300.92,264.60"/>
     </edge>
-    <edge id="28682845#2" from="3946827990" to="2261078859" priority="10" type="highway.tertiary">
+    <edge id="28682845#2" from="3946827990" to="2261078859" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.20" width="3.25" shape="302.27,267.88 302.34,268.06"/>
     </edge>
-    <edge id="28682845#3" from="2261078859" to="52726923" priority="10" type="highway.tertiary">
+    <edge id="28682845#3" from="2261078859" to="52726923" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.20" width="3.25" shape="306.35,277.78 317.04,303.87"/>
     </edge>
-    <edge id="28682845#4" from="52726923" to="28581686" priority="10" type="highway.tertiary">
+    <edge id="28682845#4" from="52726923" to="28581686" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="18.82" width="3.25" shape="321.17,313.99 328.24,331.43"/>
     </edge>
-    <edge id="28682845#5" from="28581686" to="843205119" priority="10" type="highway.tertiary">
+    <edge id="28682845#5" from="28581686" to="843205119" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="3.54" width="3.25" shape="331.83,340.19 333.20,343.46"/>
     </edge>
-    <edge id="28682845#6" from="843205119" to="30826051" priority="10" type="highway.tertiary" shape="331.76,344.22 342.56,370.83 345.53,377.87">
+    <edge id="28682845#6" from="843205119" to="30826051" priority="10" type="highway.tertiary" spreadType="roadCenter" shape="331.76,344.22 342.56,370.83 345.53,377.87">
         <lane id="28682845#6_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="30.62" width="3.25" shape="333.32,343.75 344.06,370.21 344.86,372.11"/>
     </edge>
-    <edge id="28682845#7" from="30826051" to="3944993724" priority="10" type="highway.tertiary">
+    <edge id="28682845#7" from="30826051" to="3944993724" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.87" width="3.25" shape="349.16,382.47 352.51,390.69"/>
     </edge>
-    <edge id="28682845#8" from="3944993724" to="28137447" priority="10" type="highway.tertiary">
+    <edge id="28682845#8" from="3944993724" to="28137447" priority="10" type="highway.tertiary" spreadType="roadCenter">
         <lane id="28682845#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.20" width="3.25" shape="354.10,395.02 354.16,395.21"/>
     </edge>
     <edge id="28943823#0" from="318214827" to="318215421" priority="1" type="highway.service">
