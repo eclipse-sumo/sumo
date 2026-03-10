@@ -10,3 +10,6 @@ close2_file
 # load closed edges from input file
 close2_fileNoEdges
 no_detour
+
+# see #17706
+close_forbidden

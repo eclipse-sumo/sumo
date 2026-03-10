@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tools/generateRerouters.py", line 155, in <module>
+    main(get_options())
+  File "/scr1/sumo/tests/../tools/generateRerouters.py", line 136, in main
+    rerouterEdges = findNotifcationEdges(options, net, closedEdges)
+  File "/scr1/sumo/tests/../tools/generateRerouters.py", line 78, in findNotifcationEdges
+    p.remove(options.vclass)
+KeyError: 'passenger'
