@@ -259,6 +259,9 @@ ROFrame::checkOptions(OptionsCont& oc) {
         return false;
     }
 #endif
+    if (oc.exists("mapmatch.junctions") && oc.getBool("mapmatch.junctions") && oc.isDefault("junction-taz")) {
+        oc.setDefault("junction-taz", "true");
+    }
     return true;
 }
 

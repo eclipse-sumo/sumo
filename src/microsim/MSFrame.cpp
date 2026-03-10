@@ -1121,6 +1121,9 @@ MSFrame::checkOptions() {
     if (oc.getInt("threads") > 1) {
         WRITE_WARNING(TL("The option --threads has known problems and does NOT provide meaningful speedup at this time (https://github.com/eclipse-sumo/sumo/issues/4767). Using it is not recommended!"));
     }
+    if (oc.getBool("mapmatch.junctions") && oc.isDefault("junction-taz")) {
+        oc.setDefault("junction-taz", "true");
+    }
 
 #ifdef HAVE_JUPEDSIM
     const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
