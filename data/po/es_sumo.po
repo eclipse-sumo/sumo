@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-09 15:33+0000\n"
+"PO-Revision-Date: 2026-03-10 10:34+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7414,6 +7414,8 @@ msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Conservar solo las aristas en STR[] o aquellas que se mantengan debido a "
+"otras opciones keep-edges o remove-edges"
 
 #: src/netbuild/NBFrame.cpp:669
 msgid ""
@@ -7460,10 +7462,12 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:687
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr ""
+"Conservar solo las aristas que permitan alguna de las clases de vehículo en "
+"STR[]"
 
 #: src/netbuild/NBFrame.cpp:690
 msgid "Remove edges which allow only vclasses from STR[]"
-msgstr ""
+msgstr "Eliminar las aristas que permitan solo clases de vehículo de STR[]"
 
 #: src/netbuild/NBFrame.cpp:693
 msgid "Only keep edges where type is in STR[]"
@@ -7483,7 +7487,7 @@ msgstr "Remueve aristas aisladas"
 
 #: src/netbuild/NBFrame.cpp:707
 msgid "Only keep lanes with width in meters > FLOAT"
-msgstr ""
+msgstr "Conservar solo los carriles con ancho (en metros) > FLOAT"
 
 #: src/netbuild/NBFrame.cpp:713
 msgid "All nodes will be unregulated"
@@ -7506,6 +7510,8 @@ msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr ""
+"Adivinar rampas de entrada y marcar carriles de aceleración si existen, pero "
+"sin agregar carriles nuevos"
 
 #: src/netbuild/NBFrame.cpp:735
 msgid "Treat edges with speed > FLOAT as no ramps"
@@ -7691,6 +7697,8 @@ msgstr "Índice de carril no válido '%' para el carril '%'."
 #, c-format
 msgid "Could not patch tlLogic '%' for changed crossings"
 msgstr ""
+"No se pudo ajustar la lógica de semáforo '%' para los pasos peatonales "
+"modificados"
 
 #: src/netbuild/NBLoadedSUMOTLDef.cpp:916
 msgid "Unused state in tlLogic '%', program '%' at tl-index %"
@@ -7749,7 +7757,7 @@ msgstr " Se eliminaron % aristas debido a la clase de vehículo."
 #: src/netbuild/NBNetBuilder.cpp:131
 #, c-format
 msgid " Removed % edges because of lane width."
-msgstr ""
+msgstr " Se eliminaron % aristas debido al ancho de carril."
 
 #: src/netbuild/NBNetBuilder.cpp:137
 #, c-format
@@ -7851,7 +7859,7 @@ msgstr "Se estimaron % aceras."
 #: src/netbuild/NBNetBuilder.cpp:416
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
-msgstr ""
+msgstr "Se remapearon % IDs de aristas y % IDs de nodos."
 
 #: src/netbuild/NBNetBuilder.cpp:432
 msgid "Sorting nodes' edges"
@@ -8005,6 +8013,7 @@ msgstr " Eliminando la arista en bucle '%'"
 #: src/netbuild/NBNode.cpp:822
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr ""
+"No se pudo calcular la forma del giro indirecto a la izquierda en el nodo '%'"
 
 #: src/netbuild/NBNode.cpp:838
 #, c-format
