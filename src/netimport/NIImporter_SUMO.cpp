@@ -302,7 +302,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
-    if (!myHaveSeenInternalEdge && oc.isWriteable("no-internal-links")) {
+    if (!myHaveSeenInternalEdge && oc.isDefault("no-internal-links")) {
         oc.set("no-internal-links", "true");
     }
     if (oc.isWriteable("lefthand")) {
