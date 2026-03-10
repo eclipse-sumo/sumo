@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-10 17:23:18.157172 by Eclipse SUMO generateRerouters.py v1_26_0+0519-a5ea1370586
+<!-- generated on 2026-03-10 17:24:17.066650 by Eclipse SUMO generateRerouters.py v1_26_0+0520-f5372860673
 <configuration>
     <net-file value="net.net.xml"/>
     <output-file value="out.add.xml"/>
@@ -9,3 +9,9 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+   <rerouter id="rr" edges="E0">
+      <interval begin="0" end="86400">
+          <closingReroute id="E0" allow="authority"/>
+       </interval>
+   </rerouter>
+</additional>
