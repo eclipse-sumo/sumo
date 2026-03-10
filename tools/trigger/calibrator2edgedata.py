@@ -61,7 +61,7 @@ def parseCalibrators(options):
                 begin = parseTime(flow.begin)
                 end = parseTime(flow.end)
                 attrs = intervals[(begin, end)][edge]
-                attrs.clear() #  last version should count for overlapping calibrators
+                attrs.clear()  # last version should count for overlapping calibrators
                 for attr, value in flow.getAttributes():
                     if attr not in excludeEdgeAttrs:
                         attrs[attr] = value
