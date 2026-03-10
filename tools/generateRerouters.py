@@ -47,9 +47,9 @@ def get_options(args=None):
                   help="vClasses that shall be permitted on the closed edge")
     op.add_option("--disallow", category="processing",
                   help="vClasses that shall be prohibited on the closed edge")
-    op.add_option("-b", "--begin", category="time", default=0, type=float,
+    op.add_option("-b", "--begin", category="time", default=0, type=op.time,
                   help="begin time for the closing")
-    op.add_option("-e", "--end", category="time", default=86400, type=float,
+    op.add_option("-e", "--end", category="time", default=86400, type=op.time,
                   help="end time for the closing (default 86400)")
     options = op.parse_args(args=args)
     if not options.netfile or (not options.closedEdges and not options.closedEdgesFile):
@@ -75,7 +75,7 @@ def findNotifcationEdges(options, net, closedEdges):
     for e in closedEdges:
         for lane in e.getLanes():
             p = set(lane.getPermissions())
-            p.remove(options.vclass)
+            p.discard(options.vclass)
             lane.setPermissions(p)
 
     reachable = set()
