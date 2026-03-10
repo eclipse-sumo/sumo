@@ -462,6 +462,7 @@ void
 GUIEdge::setColor(const GUIVisualizationSettings& s) const {
     myMesoColor = RGBColor(0, 0, 0); // default background color when using multiColor
     const GUIColorer& c = s.edgeColorer;
+    mySegmentColors.clear();
     if (!setFunctionalColor(c) && !setMultiColor(c)) {
         myMesoColor = c.getScheme().getColor(getColorValue(s, c.getActive()));
     }
@@ -493,7 +494,6 @@ GUIEdge::setFunctionalColor(const GUIColorer& c) const {
 bool
 GUIEdge::setMultiColor(const GUIColorer& c) const {
     const int activeScheme = c.getActive();
-    mySegmentColors.clear();
     switch (activeScheme) {
         case 10: // alternating segments
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
