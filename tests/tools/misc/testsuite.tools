@@ -2,9 +2,6 @@ averageTripStatistics
 createVehTypeDistribution
 generateParkingAreas
 generateParkingLots
-generateParkingAreaRerouters
-generateRerouters
-generateContinuousRerouters
 extractTest
 runSeeds
 distributeChargingStations

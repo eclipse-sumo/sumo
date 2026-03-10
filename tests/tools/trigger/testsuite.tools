@@ -1,3 +1,7 @@
+generateParkingAreaRerouters
+generateRerouters
+generateContinuousRerouters
+
 # generating variable speed signs from CSV detector data
 csv2vss
 
