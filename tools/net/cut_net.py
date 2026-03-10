@@ -41,11 +41,11 @@ def parse_args():
                            type=argParser.file, help="The network output file name")
     argParser.add_argument("-p", "--polygon-output-file", category="output",
                            type=argParser.file, help="The polygon output file name")
-    return argParser.parse_args()
+    return argParser.parse_known_args()
 
 
 if __name__ == "__main__":
-    options = parse_args()
+    options, nc_args = parse_args()
     with open(options.geojson) as jsonf:
         geo = json.load(jsonf)
     for feat in geo.get("features", []):
@@ -56,13 +56,10 @@ if __name__ == "__main__":
         options.output_file = options.input_net_file.replace(".net.xml", "_cut.net.xml")
 
     cmd = [sumolib.checkBinary("netconvert"), "-s", options.input_net_file, "-o", options.output_file,
-           "--keep-edges.in-geo-boundary", ",".join(["%s,%s" % (lon,lat) for lon,lat in shape])]
-    print(" ".join(cmd))
+           "--keep-edges.in-geo-boundary", ",".join(["%s,%s" % (lon,lat) for lon,lat in shape])] + nc_args
     if options.netconvert_configuration:
         cmd += ["-c", options.netconvert_configuration]
-    print(cmd)
     subprocess.check_call(cmd)
-    # subprocess.check_call([sumolib.checkBinary("netconvert"), "test.netccfg"])
     if options.polygon_output_file:
         with open(options.polygon_output_file, 'w') as outf:
             sumolib.xml.writeHeader(outf, root="additional")
