@@ -25,3 +25,6 @@ allow_multiple
 
 # see #17707
 loopback
+
+# see #17707
+multiple_upstream_paths
