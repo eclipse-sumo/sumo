@@ -1,0 +1,4 @@
+-n net.net.xml -o out.add.xml 
+-x E0
+--terminate-unreachable
+tools/generateRerouters.py
