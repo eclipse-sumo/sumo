@@ -19,3 +19,6 @@ close_forbidden
 
 # see #17707
 multiple_detours
+
+# see #17710
+allow_multiple
