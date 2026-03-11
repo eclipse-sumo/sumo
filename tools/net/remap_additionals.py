@@ -198,6 +198,8 @@ def remap_edge(options, obj, edgeID, pos=None, size=None):
         edge2shapelen = gh.polyLength(edge2.getShape())
         pos2 = gh.polygonOffsetWithMinimumDistanceToPoint((x2, y2), edge2.getShape())
         pos2 = pos2 / edge2shapelen * edge2.getLength()
+    else:
+        pos2 = None
 
     return edge2, pos2
 
