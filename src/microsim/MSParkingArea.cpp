@@ -628,7 +628,7 @@ MSParkingArea::getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) 
     const bool reservedRemote = myRemoteReservedVehicles.count(forVehicle) != 0;
     return ((int)myEndPositions.size()
         + (reservedLocal ? 0 : myReservations)
-        + (reservedRemote ? 0 : myRemoteReservedVehicles.size()));
+        + (reservedRemote ? 0 : (int)myRemoteReservedVehicles.size()));
 }
 
 

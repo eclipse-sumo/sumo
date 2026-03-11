@@ -345,7 +345,7 @@ MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reser
         return SUMOTime_MAX;
     } else {
         if (originDiffers) {
-            assert(from = *(taxi->getHolder().getCurrentRouteEdge() + 1));
+            assert(from == *(taxi->getHolder().getCurrentRouteEdge() + 1));
             edges.insert(edges.begin(), taxi->getHolder().getEdge());
         }
         return TIME2STEPS(router.recomputeCostsPos(edges, &taxi->getHolder(), fromPos, res.fromPos, t));

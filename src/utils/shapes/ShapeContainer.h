@@ -237,6 +237,7 @@ private:
  */
 class ShapeListener {
 public:
+    virtual ~ShapeListener() {};
     virtual void polygonChanged(const SUMOPolygon* const poly, const bool added, const bool removed) {
         UNUSED_PARAMETER(poly);
         UNUSED_PARAMETER(added);
