@@ -132,9 +132,9 @@ def main(options):
 
     allowDisallow = ""
     if options.disallow is not None:
-        allowDisallow = ' disallow="%s"' % options.disallow
+        allowDisallow = ' disallow="%s"' % ' '.join(options.disallow.split(','))
     elif options.allow != "":
-        allowDisallow = ' allow="%s"' % options.allow
+        allowDisallow = ' allow="%s"' % ' '.join(options.allow.split(','))
 
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
