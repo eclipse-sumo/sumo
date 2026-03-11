@@ -226,7 +226,7 @@ The attributes used within a destProbReroute are:
 | **probability** | float (should be between 0 and 1) | The probability with which a vehicle will use the given edge as destination; the probabilities are automatically normalized to sum to 1             |
 
 !!! note
-      It is possible to combine **closingReroute** and **destProbReroute** within the same interval. In this case, only vehicles which cannot reach their original destination draw new destinations from the probability distribution.
+      It is possible to combine **closingReroute** and **destProbReroute** within the same interval. In this case, only vehicles which cannot reach their original destination (because it is closed or disconnected by the closing) draw new destinations from the probability distribution. Alternative destinations will be drawn until a reachable destination is found or the special value `terminateRoute` (see below) is drawn. The latter will force the vehicle to wait before the closed edge until the closing ends.
 
 ### Special Destination Values
 
