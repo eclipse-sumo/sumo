@@ -354,7 +354,9 @@ parseVehicleClasses(const std::string& allowedS) {
         while (sta.hasNext()) {
             const std::string s = sta.next();
             if (!SumoVehicleClassStrings.hasString(s)) {
-                if (gIgnoreUnknownVClass) {
+                if (!SUMOXMLDefinitions::isValidNetID(s)) {
+                    WRITE_ERRORF(TL("Invalid character in vehicle class '%' encountered."), s);
+                } else if (gIgnoreUnknownVClass) {
                     WRITE_WARNINGF(TL("Unknown vehicle class '%' ignored."), s);
                 } else {
                     WRITE_ERRORF(TL("Unknown vehicle class '%' encountered."), s);
