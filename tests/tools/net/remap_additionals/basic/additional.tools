@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-18 18:50:22.972488 by Eclipse SUMO remap_additionals.py v1_25_0+1064-ec3b3dd4208
+<!-- generated on 2026-03-11 21:33:29.101987 by Eclipse SUMO remap_additionals.py v1_26_0+0547-32e3ac0c384
 <configuration>
     <orig-net value="net.net.xml"/>
     <target-net value="net2.net.xml"/>
@@ -17,6 +17,7 @@
         <access lane="22_0" pos="10.80" friendlyPos="True"/>
         <access lane="12_0" pos="0.00" friendlyPos="True"/>
     </busStop>
+    <busStop id="bs_4" lane="39_1"/>
     <parkingArea id="pa_0" lane="5_1" startPos="35.57" endPos="65.57" roadsideCapacity="5" length="6.00" angle="45.00" friendlyPos="True"/>
     <parkingArea id="pa_1" lane="9_1" startPos="21.77" endPos="31.77" width="2.00" length="6.00" angle="90.00" friendlyPos="True">
         <space x="-10.12" y="144.69"/>
