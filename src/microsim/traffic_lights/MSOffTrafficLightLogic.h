@@ -52,7 +52,7 @@ public:
      * @param[in] nb The detector builder
      * @param[in] edgeContinuations Information about edge predecessors/successors
      */
-    virtual void init(NLDetectorBuilder& nb);
+    virtual void init(NLDetectorBuilder& nb) override;
 
 
     /// @brief Destructor
@@ -66,7 +66,7 @@ public:
      * @param[in] logic The logic to use the information about controlled links/lanes from
      * @see MSTrafficLightLogic::adaptLinkInformationFrom
      */
-    void adaptLinkInformationFrom(const MSTrafficLightLogic& logic);
+    void adaptLinkInformationFrom(const MSTrafficLightLogic& logic) override;
     /// @}
 
 
@@ -78,7 +78,7 @@ public:
      * @return The time of the next switch (always 120)
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch() {
+    SUMOTime trySwitch() override {
         return 120 * DELTA_T;
     }
 
@@ -92,14 +92,14 @@ public:
      * @return The number of this tls program's phases
      * @see MSTrafficLightLogic::getPhaseNumber
      */
-    int getPhaseNumber() const;
+    int getPhaseNumber() const override;
 
 
     /** @brief Returns the phases of this tls program
      * @return The phases of this tls program
      * @see MSTrafficLightLogic::getPhases
      */
-    const Phases& getPhases() const;
+    const Phases& getPhases() const override;
 
 
     /** @brief Returns the definition of the phase from the given position within the plan
@@ -107,7 +107,7 @@ public:
      * @return The definition of the phase at the given position
      * @see MSTrafficLightLogic::getPhase
      */
-    const MSPhaseDefinition& getPhase(int givenstep) const;
+    const MSPhaseDefinition& getPhase(int givenstep) const override;
 
     /** @brief Returns the type of the logic as a string
      * @return The type of the logic
@@ -126,18 +126,18 @@ public:
      * @return The index of the current phase within the tls
      * @see MSTrafficLightLogic::getCurrentPhaseIndex
      */
-    int getCurrentPhaseIndex() const;
+    int getCurrentPhaseIndex() const override;
 
 
     /** @brief Returns the definition of the current phase
      * @return The current phase
      * @see MSTrafficLightLogic::getCurrentPhaseDef
      */
-    const MSPhaseDefinition& getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const override;
     /// @}
 
 
-    void resetLastSwitch(SUMOTime t); 
+    void resetLastSwitch(SUMOTime t) override;
 
     /// @name Conversion between time and phase
     /// @{
@@ -146,7 +146,7 @@ public:
      * @return The (estimated) index of the tls at the given simulation time step
      * @see MSTrafficLightLogic::getPhaseIndexAtTime
      */
-    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const;
+    SUMOTime getPhaseIndexAtTime(SUMOTime simStep) const override;
 
 
     /** @brief Returns the position (start of a phase during a cycle) from of a given step
@@ -154,7 +154,7 @@ public:
      * @return The begin time of the phase
      * @see MSTrafficLightLogic::getOffsetFromIndex
      */
-    SUMOTime getOffsetFromIndex(int index) const;
+    SUMOTime getOffsetFromIndex(int index) const override;
 
 
     /** @brief Returns the step (the phasenumber) of a given position of the cycle
@@ -162,7 +162,7 @@ public:
      * @return The according phase
      * @see MSTrafficLightLogic::getIndexFromOffset
      */
-    int getIndexFromOffset(SUMOTime offset) const;
+    int getIndexFromOffset(SUMOTime offset) const override;
     /// @}
 
 
@@ -177,7 +177,7 @@ public:
      * @param[in] stepDuration The left duration of the phase
      * @see MSTrafficLightLogic::changeStepAndDuration
      */
-    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep, int step, SUMOTime stepDuration) {
+    void changeStepAndDuration(MSTLLogicControl& tlcontrol, SUMOTime simStep, int step, SUMOTime stepDuration) override {
         UNUSED_PARAMETER(tlcontrol);
         UNUSED_PARAMETER(simStep);
         UNUSED_PARAMETER(step);

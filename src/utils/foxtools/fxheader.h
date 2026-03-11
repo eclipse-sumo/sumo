@@ -23,6 +23,7 @@
 // Avoid warnings for external headers
 #ifdef __clang__
 #pragma clang diagnostic ignored "-Wdeprecated-enum-enum-conversion"
+#pragma clang diagnostic ignored "-Wdeprecated-anon-enum-enum-conversion"
 #endif
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wdeprecated-enum-enum-conversion"

@@ -2629,7 +2629,7 @@ Vehicle::highlight(const std::string& vehID, const TraCIColor& col, double size,
     // Layer
     double lyr = 0.;
     if (MSNet::getInstance()->isGUINet()) {
-        lyr = GLO_VEHICLE + 0.01;
+        lyr = (double)GLO_VEHICLE + 0.01;
         lyr += (type + 1) / 257.;
     }
     // Make Polygon
