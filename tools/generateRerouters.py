@@ -101,6 +101,7 @@ def findNotifcationEdges(options, net, closedEdges):
                     found = unreachable[cand].intersection(reachable)
                     pred_unreachable = set(unreachable[cand])
                     pred_unreachable.difference_update(found)
+                    found.discard(pred)
                     if found:
                         #print(cand.getID(), pred.getID(), [e.getID() for e in found])
                         result.add(pred)
