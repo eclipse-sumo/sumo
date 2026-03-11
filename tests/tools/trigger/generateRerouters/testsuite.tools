@@ -22,3 +22,6 @@ multiple_detours
 
 # see #17710
 allow_multiple
+
+# see #17707
+loopback
