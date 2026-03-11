@@ -75,8 +75,9 @@ def findNotifcationEdges(options, net, closedEdges):
     result = set()
     # edges that were reachable before the closing but are no longer reachable after the closing
     unreachable = defaultdict(set)
+    cache = {}
     for e in closedEdges:
-        unreachable[e] = net.getReachable(e, options.vclass) if e.allows(options.vclass) else set()
+        unreachable[e] = net.getReachable(e, options.vclass, cache=cache) if e.allows(options.vclass) else set()
 
     # close edges in the network
     for e in closedEdges:
@@ -85,7 +86,7 @@ def findNotifcationEdges(options, net, closedEdges):
             p.discard(options.vclass)
             lane.setPermissions(p)
 
-    cache = {}
+    cache.clear()
     seen = set()
     toCheck = list(unreachable.keys())
     while toCheck:
@@ -96,7 +97,7 @@ def findNotifcationEdges(options, net, closedEdges):
         for pred in cand.getIncoming().keys():
             if pred.allows(options.vclass):
                 if pred not in seen:
-                    reachable = net.getReachable(pred, options.vclass)
+                    reachable = net.getReachable(pred, options.vclass, cache=cache)
                     found = unreachable[cand].intersection(reachable)
                     pred_unreachable = set(unreachable[cand])
                     pred_unreachable.difference_update(found)
