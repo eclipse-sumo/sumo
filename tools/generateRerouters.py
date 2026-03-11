@@ -51,6 +51,8 @@ def get_options(args=None):
                   help="begin time for the closing")
     op.add_option("-e", "--end", category="time", default=86400, type=op.time,
                   help="end time for the closing (default 86400)")
+    op.add_option("-t", "--terminate-unreachable", action="store_true", default=False, dest="terminate",
+                  help="Let vehicles that cannot reach their destination terminate their route at the notification edge")
     options = op.parse_args(args=args)
     if not options.netfile or (not options.closedEdges and not options.closedEdgesFile):
         op.print_help()
@@ -146,6 +148,9 @@ def main(options):
         for e in closedEdges:
             outf.write('          <closingReroute id="%s"%s/>\n' % (e.getID(), allowDisallow))
 
+        if options.terminate:
+            outf.write('          <!-- only affects vehicles that cannot reach their destination -->\n')
+            outf.write('          <destProbReroute id="terminateRoute"/>\n')
         outf.write('       </interval>\n')
         outf.write('   </rerouter>\n')
         outf.write('</additional>\n')
