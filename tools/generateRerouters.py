@@ -23,6 +23,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -72,6 +73,10 @@ def get_options(args=None):
 
 def findNotifcationEdges(options, net, closedEdges):
     result = set()
+    # edges that were reachable before the closing but are no longer reachable after the closing
+    unreachable = defaultdict(set)
+    for e in closedEdges:
+        unreachable[e] = net.getReachable(e, options.vclass) if e.allows(options.vclass) else set()
 
     # close edges in the network
     for e in closedEdges:
@@ -80,35 +85,33 @@ def findNotifcationEdges(options, net, closedEdges):
             p.discard(options.vclass)
             lane.setPermissions(p)
 
-    reachable = set()
-    for e in closedEdges:
-        for succ in e.getOutgoing().keys():
-            if succ.allows(options.vclass):
-                reachable.update(net.getReachable(succ, options.vclass))
-
-    upstream = []
-    for e in closedEdges:
-        for pred in e.getIncoming().keys():
-            if pred.allows(options.vclass):
-                upstream.append(pred)
-
-    seen = set()
     cache = {}
-    while upstream and reachable:
-        cand = upstream.pop(0)
+    seen = set()
+    toCheck = list(unreachable.keys())
+    while toCheck:
+        cand = toCheck.pop(0)
         if cand in seen:
             continue
         seen.add(cand)
-        reachable2 = net.getReachable(cand, options.vclass, cache=cache)
-        found = reachable2.intersection(reachable)
-        if found:
-            result.add(cand)
-            reachable.difference_update(found)
         for pred in cand.getIncoming().keys():
             if pred.allows(options.vclass):
                 if pred not in seen:
-                    upstream.append(pred)
-
+                    reachable = net.getReachable(pred, options.vclass)
+                    found = unreachable[cand].intersection(reachable)
+                    pred_unreachable = set(unreachable[cand])
+                    pred_unreachable.difference_update(found)
+                    if found:
+                        #print(cand.getID(), pred.getID(), [e.getID() for e in found])
+                        result.add(pred)
+                        if pred_unreachable:
+                            unreachable[pred] = pred_unreachable
+                            toCheck.append(pred)
+                    else:
+                        unreachable[pred] = pred_unreachable
+                        toCheck.append(pred)
+                        if options.terminate and cand in closedEdges:
+                            #print(cand.getID(), pred.getID(), "terminate")
+                            result.add(pred)
     return result
 
 
@@ -135,7 +138,7 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
 
-        rerouterEdges = findNotifcationEdges(options, net, closedEdges)
+        rerouterEdges = findNotifcationEdges(options, net, set(closedEdges))
         if not rerouterEdges:
             print("Warning: No detours found. Rerouter will only close edges.", file=sys.stderr)
             rerouterEdges = closedEdges
