@@ -91,29 +91,28 @@ def findNotifcationEdges(options, net, closedEdges):
     toCheck = list(unreachable.keys())
     while toCheck:
         cand = toCheck.pop(0)
-        if cand in seen:
-            continue
-        seen.add(cand)
         for pred in cand.getIncoming().keys():
+            if (cand, pred) in seen:
+                continue
+            seen.add((cand, pred))
             if pred.allows(options.vclass):
-                if pred not in seen:
-                    reachable = net.getReachable(pred, options.vclass, cache=cache)
-                    found = unreachable[cand].intersection(reachable)
-                    pred_unreachable = set(unreachable[cand])
-                    pred_unreachable.difference_update(found)
-                    found.discard(pred)
-                    if found:
-                        #print(cand.getID(), pred.getID(), [e.getID() for e in found])
-                        result.add(pred)
-                        if pred_unreachable:
-                            unreachable[pred] = pred_unreachable
-                            toCheck.append(pred)
-                    else:
+                reachable = net.getReachable(pred, options.vclass, cache=cache)
+                found = unreachable[cand].intersection(reachable)
+                pred_unreachable = set(unreachable[cand])
+                pred_unreachable.difference_update(found)
+                found.discard(pred)
+                if found:
+                    #print(cand.getID(), pred.getID(), [e.getID() for e in found])
+                    result.add(pred)
+                    if pred_unreachable:
                         unreachable[pred] = pred_unreachable
                         toCheck.append(pred)
-                        if options.terminate and cand in closedEdges:
-                            #print(cand.getID(), pred.getID(), "terminate")
-                            result.add(pred)
+                else:
+                    unreachable[pred] = pred_unreachable
+                    toCheck.append(pred)
+                    if options.terminate and cand in closedEdges:
+                        #print(cand.getID(), pred.getID(), "terminate")
+                        result.add(pred)
     return result
 
 
