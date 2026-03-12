@@ -280,6 +280,10 @@ binary downloads above which already contain the runtime dependencies.
 - [traffic data](Data/Traffic_Data.md)
 - [Test cases](Tutorials/index.md#using_examples_from_the_test_suite)
 
+## Logos
+
+Visit the [Logos and Branding Page](https://sumo.dlr.de/logo) to download official logo files and other brand assets.
+
 # Note on Licensing
 
 SUMO is licensed under the
