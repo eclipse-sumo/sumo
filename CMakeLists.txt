@@ -572,7 +572,7 @@ endif()
 
 # Eigen (for overhead wire / electric circuit simulation)
 if (ENABLE_EIGEN)
-    find_package(Eigen3 3.2)
+    find_package(Eigen3)
     if (EIGEN3_FOUND)
         include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
         set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
