@@ -92,6 +92,14 @@ DETECTOR_OUTPUTS = [
      os.path.join(TOOLS_OUTPUT, "generateDetectors.py"),
      ["-t", "instantInductionLoop"],
      500),
+    ("e2detector",
+     os.path.join(TOOLS_OUTPUT, "generateTLSE2Detectors.py"),
+     ["-f", "100", "-l", "100"],
+     500),
+    ("e3detector",
+     os.path.join(TOOLS_OUTPUT, "generateTLSE3Detectors.py"),
+     ["-f", "100", "-l", "100"],
+     500),
 ]
 
 # Absolute tolerance for floating-point comparison.
