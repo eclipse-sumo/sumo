@@ -75,8 +75,10 @@ def write_diff(options):
                     (interval_old.begin, interval_old.end,
                         interval_new.id, options.new,
                         interval_old.id, options.orig))
-            interval_new_edges = dict([(e.id, e) for e in interval_new.edge])
+            interval_new_edges = dict([(e.id, e) for e in interval_new.edge]) if interval_new.edge else {}
             hourFraction = getHourFraction(options, parseTime(interval_old.begin), parseTime(interval_old.end))
+            if interval_old.edge is None:
+                continue
             for edge_old in interval_old.edge:
                 edge_new = interval_new_edges.get(edge_old.id, None)
                 if edge_new is None:
