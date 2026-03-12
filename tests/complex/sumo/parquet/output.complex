@@ -28,4 +28,14 @@ Testing lanedata (lanedata-output, end=1000s)...
   note: parquet has extra columns not in XML: ['lane_teleported', 'lane_vaporized']
 [OK]    lanedata: 20 rows match
 
+Testing statistic (statistic-output, end=1000s)...
+[OK]    statistic: 6 rows match
+
+Testing e1detector (detector, end=500s)...
+[OK]    e1detector: 60 rows match
+
+Testing e1instant (detector, end=500s)...
+  note: parquet has extra columns not in XML: ['instantOut_gap', 'instantOut_occupancy']
+[OK]    e1instant: 1887 rows match
+
 Result: PASSED (all outputs match, 1 skipped)
