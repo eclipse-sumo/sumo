@@ -35,3 +35,6 @@ ticket17650
 
 # load network with 1-point walkingarea shape
 ticket17689
+
+# invalid continuation behavior
+ticket17714
