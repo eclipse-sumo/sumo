@@ -65,8 +65,7 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
     myUseInverseProjection(inverse),
     myFlatten(flatten),
     myOrigBoundary(orig),
-    myConvBoundary(conv) 
-{
+    myConvBoundary(conv) {
     // older PROJ libraries fail to construct inverse projection if this
     // string is present
     myProjString = StringUtils::replace(myProjString, "+type=crs", "");
@@ -108,6 +107,7 @@ GeoConvHelper::initProj(const std::string& proj) {
 #ifdef PROJ_VERSION_MAJOR
     myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
     checkError(myProjection);
+#if PROJ_VERSION_MAJOR > 5
     if (myProjection != nullptr) {
         const PJ_TYPE type = proj_get_type(myProjection);
         if (type != PJ_TYPE_TRANSFORMATION
@@ -115,12 +115,12 @@ GeoConvHelper::initProj(const std::string& proj) {
                 && type != PJ_TYPE_OTHER_COORDINATE_OPERATION) {
             // handle PROJCS WKT (i.e. from Visum) which doesn't define a transformation but only CRS
             proj_destroy(myProjection);
-            PJ_CONTEXT *ctx = proj_context_create();
+            PJ_CONTEXT* ctx = proj_context_create();
             proj_context_use_proj4_init_rules(ctx, 1);
             myProjection = proj_create_crs_to_crs(ctx,
-                    "+proj=longlat +datum=WGS84 +type=crs +no_defs",
-                    proj.c_str(),
-                    NULL);
+                                                  "+proj=longlat +datum=WGS84 +type=crs +no_defs",
+                                                  proj.c_str(),
+                                                  NULL);
             checkError(myProjection);
             // "modern" proj doesn't default to radians but traditional proj strings do
             myRadians = false;
@@ -132,6 +132,7 @@ GeoConvHelper::initProj(const std::string& proj) {
             //printf("Has Inverse: %s\n", info.has_inverse ? "Yes" : "No");
         }
     }
+#endif
 #else
     myProjection = pj_init_plus(proj.c_str());
 #endif
