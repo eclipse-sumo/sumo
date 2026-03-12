@@ -623,4 +623,4 @@ between Cooperative Systems](https://web.archive.org/web/20120313075112/https://
 trusted probabilistic knowledge processing in vehicular networks. For
 further documentation on the internals of the model, refer to the source
 code in [{{SUMO}}/src/activitygen]({{Source}}src/activitygen) or ask the [original
-authors](../SUMO_at_a_Glance.md#contributors_and_participants).
+authors](../SUMO_at_a_Glance.md#main_contributors).

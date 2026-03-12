@@ -94,7 +94,7 @@ vehicles of a type.
 | maxSpeed          | float(m/s)             | \>0                           | 70         |                                                                                                     |
 | color             | \<COLOR\>              |                               |            | the color to use for vehicles of this type.                                                         |
 | tau               | float                  | \>0                           | 1          |                                                                                                     |
-| carFollowModel    | string                 | "Krauss", "IDM", ...          | "Krauss"   | [model used for car following](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following-models) |
+| carFollowModel    | string                 | "Krauss", "IDM", ...          | "Krauss"   | [model used for car following](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models) |
 | laneChangeModel   | string                 | "DK2008", "LC2013", "JE2013"  | "LC2013"   | model used for lane changing behavior                                                               |
 | speedFactor       | float/distribution     | \>0                           | 1          | the factor by which the driver multiplies the speed read from street signs to estimate "real" maximum allowed speed |
 | speedDev          | float                  | ≥0                            | 0          | the standard deviation of the speed factor (deprecated in favor of a real distribution).            |
