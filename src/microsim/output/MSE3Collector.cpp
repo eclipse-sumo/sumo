@@ -33,6 +33,8 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPModel.h>
+#include <utils/common/StringUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "MSE3Collector.h"
 
 //#define DEBUG_E3_NOTIFY_MOVE
@@ -476,7 +478,8 @@ MSE3Collector::leave(const SUMOTrafficObject& veh, const double leaveTimestep, c
 void
 MSE3Collector::writeXMLOutput(OutputDevice& dev,
                               SUMOTime startTime, SUMOTime stopTime) {
-    dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << myID << "\" ";
+    dev.openTag(SUMO_TAG_INTERVAL).writeTime(SUMO_ATTR_BEGIN, startTime).writeTime(SUMO_ATTR_END, stopTime);
+    dev.writeAttr(SUMO_ATTR_ID, myID);
     // collect values about vehicles that have left the area
     myLastVehicleSum = (int) myLeftContainer.size();
     myLastMeanTravelTime = 0;
@@ -543,21 +546,21 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     meanTimeLossWithin = vehicleSumWithin != 0 ? meanTimeLossWithin / (double) vehicleSumWithin : -1;
 
     // write values
-    dev << "meanTravelTime=\"" << myLastMeanTravelTime
-        << "\" meanOverlapTravelTime=\"" << meanOverlapTravelTime
-        << "\" meanSpeed=\"" << meanSpeed
-        << "\" meanHaltsPerVehicle=\"" << myLastMeanHaltsPerVehicle
-        << "\" meanTimeLoss=\"" << myLastMeanTimeLoss
-        << "\" vehicleSum=\"" << myLastVehicleSum
-        << "\" meanSpeedWithin=\"" << meanSpeedWithin
-        << "\" meanHaltsPerVehicleWithin=\"" << meanHaltsPerVehicleWithin
-        << "\" meanDurationWithin=\"" << meanDurationWithin
-        << "\" vehicleSumWithin=\"" << vehicleSumWithin
-        << "\" meanIntervalSpeedWithin=\"" << meanIntervalSpeedWithin
-        << "\" meanIntervalHaltsPerVehicleWithin=\"" << meanIntervalHaltsPerVehicleWithin
-        << "\" meanIntervalDurationWithin=\"" << meanIntervalDurationWithin
-        << "\" meanTimeLossWithin=\"" << meanTimeLossWithin
-        << "\"/>\n";
+    dev.writeAttr("meanTravelTime", myLastMeanTravelTime)
+    .writeAttr("meanOverlapTravelTime", meanOverlapTravelTime)
+    .writeAttr("meanSpeed", meanSpeed)
+    .writeAttr("meanHaltsPerVehicle", myLastMeanHaltsPerVehicle)
+    .writeAttr("meanTimeLoss", myLastMeanTimeLoss)
+    .writeAttr("vehicleSum", myLastVehicleSum)
+    .writeAttr("meanSpeedWithin", meanSpeedWithin)
+    .writeAttr("meanHaltsPerVehicleWithin", meanHaltsPerVehicleWithin)
+    .writeAttr("meanDurationWithin", meanDurationWithin)
+    .writeAttr("vehicleSumWithin", vehicleSumWithin)
+    .writeAttr("meanIntervalSpeedWithin", meanIntervalSpeedWithin)
+    .writeAttr("meanIntervalHaltsPerVehicleWithin", meanIntervalHaltsPerVehicleWithin)
+    .writeAttr("meanIntervalDurationWithin", meanIntervalDurationWithin)
+    .writeAttr("meanTimeLossWithin", meanTimeLossWithin)
+    .closeTag();
 }
 
 
