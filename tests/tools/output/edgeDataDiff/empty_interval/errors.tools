@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/output/edgeDataDiff.py", line 123, in <module>
-    write_diff(get_options())
-  File "/scr1/sumo/tests/../tools/output/edgeDataDiff.py", line 78, in write_diff
-    interval_new_edges = dict([(e.id, e) for e in interval_new.edge])
-TypeError: 'NoneType' object is not iterable
