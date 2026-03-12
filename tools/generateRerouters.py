@@ -53,7 +53,8 @@ def get_options(args=None):
     op.add_option("-e", "--end", category="time", default=86400, type=op.time,
                   help="end time for the closing (default 86400)")
     op.add_option("-t", "--terminate-unreachable", action="store_true", default=False, dest="terminate",
-                  help="Let vehicles that cannot reach their destination terminate their route at the notification edge")
+                  help="Let vehicles that cannot reach their destination "
+                       "terminate their route at the notification edge")
     options = op.parse_args(args=args)
     if not options.netfile or (not options.closedEdges and not options.closedEdgesFile):
         op.print_help()
@@ -102,7 +103,7 @@ def findNotifcationEdges(options, net, closedEdges):
                 pred_unreachable.difference_update(found)
                 found.discard(pred)
                 if found:
-                    #print(cand.getID(), pred.getID(), [e.getID() for e in found])
+                    # print(cand.getID(), pred.getID(), [e.getID() for e in found])
                     result.add(pred)
                     if pred_unreachable:
                         unreachable[pred] = pred_unreachable
@@ -111,7 +112,7 @@ def findNotifcationEdges(options, net, closedEdges):
                     unreachable[pred] = pred_unreachable
                     toCheck.append(pred)
                     if options.terminate and cand in closedEdges:
-                        #print(cand.getID(), pred.getID(), "terminate")
+                        # print(cand.getID(), pred.getID(), "terminate")
                         result.add(pred)
     return result
 

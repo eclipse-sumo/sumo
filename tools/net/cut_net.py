@@ -56,12 +56,13 @@ if __name__ == "__main__":
         options.output_file = options.input_net_file.replace(".net.xml", "_cut.net.xml")
 
     cmd = [sumolib.checkBinary("netconvert"), "-s", options.input_net_file, "-o", options.output_file,
-           "--keep-edges.in-geo-boundary", ",".join(["%s,%s" % (lon,lat) for lon,lat in shape])] + nc_args
+           "--keep-edges.in-geo-boundary", ",".join(["%s,%s" % (lon, lat) for lon, lat in shape])] + nc_args
     if options.netconvert_configuration:
         cmd += ["-c", options.netconvert_configuration]
     subprocess.check_call(cmd)
     if options.polygon_output_file:
         with open(options.polygon_output_file, 'w') as outf:
             sumolib.xml.writeHeader(outf, root="additional")
-            outf.write('   <poly id="cut" shape="%s" color="blue" geo="true" layer="100"/>\n' % (" ".join(["%s,%s" % (lon,lat) for lon,lat in shape])))
+            outf.write('   <poly id="cut" shape="%s" color="blue" geo="true" layer="100"/>\n' %
+                       (" ".join(["%s,%s" % (lon, lat) for lon, lat in shape])))
             outf.write('</additional>\n')
