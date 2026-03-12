@@ -1,5 +1,8 @@
 simple
 
+# see #17715
+empty_interval
+
 # compare custom attributes
 custom_attrs
 geh
