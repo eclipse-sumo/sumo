@@ -747,8 +747,8 @@ Vehicle::getReferenceDistance(const std::string& vehID) {
         double lanePos = veh->getPositionOnLane();
         MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
         if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
-            lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0], microVeh->getLane(),
-                    microVeh->getRoutePosition());
+            lanePos = microVeh->getRoute().getDistanceBetween(0., lanePos, microVeh->getEdge()->getLanes()[0],
+                      microVeh->getLane(), microVeh->getRoutePosition());
         }
         return veh->getEdge()->getDistanceAt(lanePos);
     } else {
@@ -1234,7 +1234,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         }
         const SUMOVehicleParameter::Stop& pars = (nextStopIndex >= 0
                 ? vehicle->getStop(nextStopIndex).pars
-                : vehicle->getPastStops()[vehicle->getPastStops().size() + nextStopIndex]);
+                : vehicle->getPastStops()[(int)vehicle->getPastStops().size() + nextStopIndex]);
         if (customParam) {
             // custom user parameter
             return pars.getParameter(param, "");
@@ -1268,7 +1268,7 @@ Vehicle::getStopParameter(const std::string& vehID, int nextStopIndex, const std
         } else if (param == toString(SUMO_ATTR_EXTENSION)) {
             return pars.extension < 0 ? "-1" : time2string(pars.extension);
         } else if (param == toString(SUMO_ATTR_INDEX)) {
-            return toString(nextStopIndex + vehicle->getPastStops().size());
+            return toString(nextStopIndex + (int)vehicle->getPastStops().size());
         } else if (param == toString(SUMO_ATTR_PARKING)) {
             return toString(pars.parking);
         } else if (param == toString(SUMO_ATTR_TRIGGERED)) {
