@@ -38,3 +38,6 @@ ticket17689
 
 # invalid continuation behavior
 ticket17714
+
+# invalid continuation behavior (changeLeft forbidden)
+ticket17714b
