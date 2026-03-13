@@ -19,6 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#ifdef HAVE_FMT
+#include <fmt/ostream.h>
+#endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "CSVFormatter.h"
@@ -37,14 +40,11 @@ CSVFormatter::CSVFormatter(const std::string& columnNames, const char separator)
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
-    myCurrentDepth++;
-    if (myCurrentDepth > (int)myXMLStack.size()) {
-        myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
-    }
+    myXMLStack.push_back((int)myValues.size());
     if (!myWroteHeader) {
         myCurrentTag = xmlElement;
     }
-    if (myMaxDepth == myCurrentDepth && myWroteHeader && myCurrentTag != xmlElement) {
+    if (myMaxDepth == (int)myXMLStack.size() && myWroteHeader && myCurrentTag != xmlElement) {
         WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myCurrentTag, xmlElement);
     }
 }
@@ -52,14 +52,11 @@ CSVFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
-    myCurrentDepth++;
-    if (myCurrentDepth > (int)myXMLStack.size()) {
-        myXMLStack.emplace_back(std::unique_ptr<std::ostringstream>(new std::ostringstream()));
-    }
+    myXMLStack.push_back((int)myValues.size());
     if (!myWroteHeader) {
         myCurrentTag = toString(xmlElement);
     }
-    if (myMaxDepth == myCurrentDepth && myWroteHeader && myCurrentTag != toString(xmlElement)) {
+    if (myMaxDepth == (int)myXMLStack.size() && myWroteHeader && myCurrentTag != toString(xmlElement)) {
         WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myCurrentTag, toString(xmlElement));
     }
 }
@@ -68,37 +65,42 @@ CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
 bool
 CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
     if (myMaxDepth == 0) {
-        myMaxDepth = myCurrentDepth;
+        // the auto detection case: the first closed tag determines the depth
+        myMaxDepth = (int)myXMLStack.size();
     }
-    if (myMaxDepth == myCurrentDepth && !myWroteHeader) {
+    if ((myMaxDepth == (int)myXMLStack.size() || myXMLStack.empty()) && !myWroteHeader) {
+        // First complete row or EOF: write the header
         if (!myCheckColumns) {
             WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
         }
+#ifdef HAVE_FMT
+        fmt::print(into, "{}\n", fmt::join(myHeader, std::string_view(&mySeparator, 1)));
+#else
         into << joinToString(myHeader, mySeparator) << "\n";
+#endif
         myWroteHeader = true;
     }
-    if (myCurrentDepth == myMaxDepth) {
-        if (myCheckColumns && myExpectedAttrs != mySeenAttrs) {
-            WRITE_ERRORF("Incomplete attribute set '%', this file format does not support CSV output yet.", toString(mySeenAttrs));
-        }
-        for (auto it = myXMLStack.begin(); it != myXMLStack.end() - 1; ++it) {
-            into << (*it)->str();
-        }
-        // remove the final separator
-        std::string final = myXMLStack[myCurrentDepth - 1]->str();
-        final[final.size() - 1] = '\n';
-        into << final;
+    if (myNeedsWrite) {
+#ifdef HAVE_FMT
+        const std::string row = fmt::format("{}", fmt::join(myValues, std::string_view(&mySeparator, 1)));
+#else
+        const std::string row = joinToString(myValues, mySeparator);
+#endif
+        myBufferedRows.emplace_back(row);
         mySeenAttrs.reset();
+        myNeedsWrite = false;
     }
-    if (myCurrentDepth > 0) {
-        if (!myWroteHeader) {
-            const std::string text = myXMLStack[myCurrentDepth - 1]->str();
-            const int count = (int)std::count(text.begin(), text.end(), mySeparator);
-            myHeader.resize(myHeader.size() - count);
+    if (myWroteHeader && !myBufferedRows.empty()) {
+        for (const std::string& row : myBufferedRows) {
+            into << row << '\n';
         }
-        myXMLStack[myCurrentDepth - 1]->str("");
-        myXMLStack[myCurrentDepth - 1]->clear();
-        myCurrentDepth--;
+        myBufferedRows.clear();
+    }
+    if (!myXMLStack.empty()) {
+        if ((int)myValues.size() > myXMLStack.back()) {
+            myValues.resize(myXMLStack.back());
+        }
+        myXMLStack.pop_back();
     }
     return false;
 }

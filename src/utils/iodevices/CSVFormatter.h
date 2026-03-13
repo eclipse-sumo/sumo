@@ -21,10 +21,6 @@
 #include <config.h>
 
 #include <memory>
-#ifdef HAVE_FMT
-#include <fmt/ostream.h>
-#endif
-
 #include "OutputFormatter.h"
 
 
@@ -75,30 +71,24 @@ public:
     template <class T>
     void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
         checkAttr(attr);
-        *myXMLStack[myCurrentDepth - 1] << toString(val, into.precision()) << mySeparator;
+        myValues.emplace_back(toString(val, into.precision()));
     }
 
     template <class T>
     void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
         assert(!myCheckColumns);
-        if (!myWroteHeader) {
-            if (std::find(myHeader.begin(), myHeader.end(), attr) != myHeader.end()) {
-                myHeader.push_back(myCurrentTag + "_" + attr);
-            } else {
-                myHeader.push_back(attr);
-            }
-        }
-        *myXMLStack[myCurrentDepth - 1] << toString(val, into.precision()) << mySeparator;
+        checkHeader(attr);
+        myValues.emplace_back(toString(val, into.precision()));
     }
 
     void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
         checkAttr(attr);
-        *myXMLStack[myCurrentDepth - 1] << mySeparator;
+        myValues.emplace_back("");
     }
 
     void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) {
         checkAttr(attr);
-        *myXMLStack[myCurrentDepth - 1] << time2string(val) << mySeparator;
+        myValues.emplace_back(time2string(val));
     }
 
     bool wroteHeader() const {
@@ -119,18 +109,31 @@ private:
      * @param[in] attr The attribute (name)
      */
     inline void checkAttr(const SumoXMLAttr attr) {
-        if (myCheckColumns && myMaxDepth == myCurrentDepth) {
+        if (myCheckColumns && myMaxDepth == (int)myXMLStack.size()) {
             mySeenAttrs.set(attr);
             if (!myExpectedAttrs.test(attr)) {
                 throw ProcessError(TLF("Unexpected attribute '%', this file format does not support CSV output yet.", toString(attr)));
             }
         }
+        checkHeader(attr);
+    }
+
+    template <class ATTR_TYPE>
+    inline void checkHeader(const ATTR_TYPE& attr) {
+        myNeedsWrite = true;
         if (!myWroteHeader) {
-            const std::string attrString = toString(attr);
-            if (myHeaderFormat == "plain" || (myHeaderFormat == "auto" && std::find(myHeader.begin(), myHeader.end(), attrString) == myHeader.end())) {
-                myHeader.push_back(attrString);
-            } else {
-                myHeader.push_back(myCurrentTag + "_" + attrString);
+            std::string headerName = toString(attr);
+            if (myHeaderFormat != "plain" && !(myHeaderFormat == "auto" && std::find(myHeader.begin(), myHeader.end(), headerName) == myHeader.end())) {
+                headerName = myCurrentTag + "_" + headerName;
+            }
+            if (std::find(myHeader.begin(), myHeader.end(), headerName) == myHeader.end()) {
+                for (std::string& row : myBufferedRows) {
+                    row += mySeparator;
+                }
+                while (myValues.size() < myHeader.size()) {
+                    myValues.emplace_back("");
+                }
+                myHeader.emplace_back(headerName);
             }
         }
     }
@@ -147,17 +150,23 @@ private:
     /// @brief the currently read tag (only valid when generating the header)
     std::string myCurrentTag;
 
-    /// @brief The attributes to write for each begun xml element (excluding the root element)
-    std::vector<std::unique_ptr<std::ostringstream>> myXMLStack;
+    /// @brief The number of attributes in the currently open XML elements
+    std::vector<int> myXMLStack;
+
+    /// @brief the current attribute / column values
+    std::vector<std::string> myValues;
 
     /// @brief the maximum depth of the XML hierarchy (excluding the root element)
-    int myMaxDepth = 0;
-
-    /// @brief the current depth of the XML hierarchy (excluding the root element)
-    int myCurrentDepth = 0;
+    int myMaxDepth = 2;
 
     /// @brief whether the CSV header line has been written
     bool myWroteHeader = false;
+
+    /// @brief whether any attribute has been written since the last row was emitted
+    bool myNeedsWrite = false;
+
+    /// @brief partial rows buffered before the schema is known (depth < myMaxDepth)
+    std::vector<std::string> myBufferedRows;
 
     /// @brief whether the columns should be checked for completeness
     bool myCheckColumns = false;
@@ -168,24 +177,3 @@ private:
     /// @brief which CSV columns have been set (just for checking completeness)
     SumoXMLAttrMask mySeenAttrs;
 };
-
-
-// ===========================================================================
-// specialized template implementations (for speedup)
-// ===========================================================================
-template <>
-inline void CSVFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
-    checkAttr(attr);
-#ifdef HAVE_FMT
-    fmt::print(*myXMLStack[myCurrentDepth - 1], "{:.{}f}{}", val, into.precision(), mySeparator);
-#else
-    *myXMLStack[myCurrentDepth - 1] << toString(val, into.precision()) << mySeparator;
-#endif
-}
-
-
-template <>
-inline void CSVFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const std::string& val) {
-    checkAttr(attr);
-    *myXMLStack[myCurrentDepth - 1] << val << mySeparator;
-}

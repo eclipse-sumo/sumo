@@ -21,10 +21,6 @@
 #pragma once
 #include <config.h>
 
-#ifdef HAVE_FMT
-#include <fmt/ostream.h>
-#endif
-
 #include "OutputFormatter.h"
 
 
@@ -141,22 +137,3 @@ private:
     /// @brief whether a closing ">" might be missing
     bool myHavePendingOpener;
 };
-
-
-// ===========================================================================
-// specialized template implementations (for speedup)
-// ===========================================================================
-template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
-#ifdef HAVE_FMT
-    fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
-#else
-    into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
-#endif
-}
-
-
-template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val) {
-    into << " " << toString(attr) << "=\"" << val << "\"";
-}

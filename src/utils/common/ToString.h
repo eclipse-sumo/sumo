@@ -27,6 +27,9 @@
 #include <iomanip>
 #include <algorithm>
 #include <list>
+#ifdef HAVE_FMT
+#include <fmt/format.h>
+#endif
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
@@ -49,6 +52,27 @@ inline std::string toString(const T& t, std::streamsize accuracy = gPrecision) {
     oss << std::setprecision(accuracy);
     oss << t;
     return oss.str();
+}
+
+
+template <>
+inline std::string toString(const double& val, std::streamsize accuracy) {
+#ifdef HAVE_FMT
+    return fmt::format("{:.{}f}", val, accuracy);
+#else
+    std::ostringstream oss;
+    oss.setf(std::ios::fixed, std::ios::floatfield);
+    oss << std::setprecision(accuracy);
+    oss << t;
+    return oss.str();
+#endif
+}
+
+
+template <>
+inline std::string toString(const std::string& val, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return val;
 }
 
 
