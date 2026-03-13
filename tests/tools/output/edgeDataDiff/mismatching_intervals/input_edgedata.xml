@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="100" end="200" id="XYZ">
+        <edge id="1" attr="22"/>
+    </interval>
+    <interval begin="200" end="300" id="XYZ">
+        <edge id="1" attr="33"/>
+    </interval>
+    <interval begin="300" end="400" id="XYZ">
+        <edge id="1" attr="44"/>
+    </interval>
+    <interval begin="400" end="500" id="XYZ">
+        <edge id="1" attr="55"/>
+    </interval>
+</meandata>

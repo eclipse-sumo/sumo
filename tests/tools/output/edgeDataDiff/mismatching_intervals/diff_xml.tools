@@ -1,0 +1,14 @@
+<meandata>
+    <interval begin="0" end="100" id="XYZ@input_edgedata.xml - XYZ@input_data.xml">
+        <edge id="1" attr="14.0"/>
+    </interval>
+    <interval begin="100" end="200" id="XYZ@input_edgedata.xml - XYZ@input_data.xml">
+        <edge id="1" attr="15.0"/>
+    </interval>
+    <interval begin="200" end="300" id="XYZ@input_edgedata.xml - XYZ@input_data.xml">
+        <edge id="1" attr="16.0"/>
+    </interval>
+    <interval begin="300" end="400" id="XYZ@input_edgedata.xml - XYZ@input_data.xml">
+        <edge id="1" attr="17.0"/>
+    </interval>
+</meandata>

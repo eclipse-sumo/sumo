@@ -6,3 +6,6 @@ empty_interval
 # compare custom attributes
 custom_attrs
 geh
+
+# see #17716
+mismatching_intervals
