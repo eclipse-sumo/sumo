@@ -55,6 +55,8 @@ def get_options(args=None):
             sys.exit(1)
     return options
 
+def getIntervalTime(i):
+    return (parseTime(i.begin), parseTime(i.end))
 
 def write_diff(options):
 
@@ -68,9 +70,17 @@ def write_diff(options):
 
     with open(options.out, 'w') as f:
         f.write("<meandata>\n")
-        for interval_old, interval_new in zip(
-                parse(options.orig, 'interval', heterogeneous=True),
-                parse(options.new, 'interval', heterogeneous=True)):
+        oldIntervals = {}
+        unmatched_new = []
+        for interval_old in parse(options.orig, 'interval'):
+            oldIntervals[getIntervalTime(interval_old)] = interval_old
+        for interval_new in parse(options.new, 'interval'):
+            time = getIntervalTime(interval_new)
+            interval_old = oldIntervals.get(time)
+            if interval_old is None:
+                unmatched_new.append(time)
+                continue
+            del oldIntervals[time]
             f.write('    <interval begin="%s" end="%s" id="%s@%s - %s@%s">\n' %
                     (interval_old.begin, interval_old.end,
                         interval_new.id, options.new,
@@ -114,6 +124,16 @@ def write_diff(options):
             f.write("    </interval>\n")
 
         f.write("</meandata>\n")
+        if unmatched_new:
+            print("%s intervals from %s where not found %s (earliest %s, latest %s)" % (
+                len(unmatched_new), options.new, options.orig, unmatched_new[0], unmatched_new[-1]),
+                file=sys.stderr)
+        unmatched_old = list(oldIntervals.keys())
+        if unmatched_old:
+            print("%s intervals from %s where not found %s (earliest %s, latest %s)" % (
+                len(unmatched_old), options.orig, options.new, unmatched_old[0], unmatched_old[-1]),
+                file=sys.stderr)
+
         for attr, stats in diffStats.items():
             stats.label = attr
             if not options.geh:
