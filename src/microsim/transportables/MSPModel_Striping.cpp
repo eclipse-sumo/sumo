@@ -384,18 +384,16 @@ MSPModel_Striping::getWalkingAreaPath(const MSEdge* walkingArea, const MSLane* b
     const auto pathIt = myWalkingAreaPaths.find(std::make_pair(before, after));
     if (pathIt != myWalkingAreaPaths.end()) {
         return &pathIt->second;
-    } else {
-        // this can happen in case of moveToXY where before can point anywhere
-        const MSEdgeVector& preds = walkingArea->getPredecessors();
-        if (preds.size() > 0) {
-            const MSEdge* const pred = walkingArea->getPredecessors().front();
-            const auto pathIt2 = myWalkingAreaPaths.find(std::make_pair(getSidewalk<MSEdge, MSLane>(pred), after));
-            assert(pathIt2 != myWalkingAreaPaths.end());
+    }
+    // this can happen in case of moveToXY where before can point anywhere
+    // or when a person starts directly on a walking area (before == nullptr)
+    for (const MSEdge* const pred : walkingArea->getPredecessors()) {
+        const auto pathIt2 = myWalkingAreaPaths.find(std::make_pair(getSidewalk<MSEdge, MSLane>(pred), after));
+        if (pathIt2 != myWalkingAreaPaths.end()) {
             return &pathIt2->second;
-        } else {
-            return getArbitraryPath(walkingArea);
         }
     }
+    return getArbitraryPath(walkingArea);
 }
 
 
