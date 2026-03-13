@@ -6173,16 +6173,18 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 } else {
                     (*j).bestLaneOffset = bestThisMaxIndex - index;
                 }
-                if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
-                                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
-                                                || requiredChangeRightForbidden)) {
-                    // this lane and all further lanes to the left cannot be used
-                    requiredChangeRightForbidden = true;
-                    (*j).length = 0;
-                } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
-                                                       || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
-                    // this lane and all previous lanes to the right cannot be used
-                    requireChangeToLeftForbidden = (*j).lane->getIndex();
+                if (!(*j).allowsContinuation) {
+                    if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
+                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
+                                || requiredChangeRightForbidden)) {
+                        // this lane and all further lanes to the left cannot be used
+                        requiredChangeRightForbidden = true;
+                        (*j).length = 0;
+                    } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
+                                || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
+                        // this lane and all previous lanes to the right cannot be used
+                        requireChangeToLeftForbidden = (*j).lane->getIndex();
+                    }
                 }
             }
         }
@@ -6318,18 +6320,20 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     // try to move away from the lower-priority lane before it ends
                     (*j).length = (*j).currentLength;
                 }
-                if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
-                                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
-                                                || requiredChangeRightForbidden)) {
-                    // this lane and all further lanes to the left cannot be used
-                    requiredChangeRightForbidden = true;
-                    if ((*j).length == (*j).currentLength) {
-                        (*j).length = 0;
+                if (!(*j).allowsContinuation) {
+                    if ((*j).bestLaneOffset < 0 && (!(*j).lane->allowsChangingRight(getVClass())
+                                || !(*j).lane->getParallelLane(-1, false)->allowsVehicleClass(getVClass())
+                                || requiredChangeRightForbidden)) {
+                        // this lane and all further lanes to the left cannot be used
+                        requiredChangeRightForbidden = true;
+                        if ((*j).length == (*j).currentLength) {
+                            (*j).length = 0;
+                        }
+                    } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
+                                || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
+                        // this lane and all previous lanes to the right cannot be used
+                        requireChangeToLeftForbidden = (*j).lane->getIndex();
                     }
-                } else if ((*j).bestLaneOffset > 0 && (!(*j).lane->allowsChangingLeft(getVClass())
-                                                       || !(*j).lane->getParallelLane(1, false)->allowsVehicleClass(getVClass()))) {
-                    // this lane and all previous lanes to the right cannot be used
-                    requireChangeToLeftForbidden = (*j).lane->getIndex();
                 }
             } else {
                 (*j).bestLaneOffset = 0;
