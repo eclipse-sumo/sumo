@@ -7,6 +7,9 @@ person_by_options_and_param
 # Copy of person_attributes
 person_attributes
 
+# write all person attributes
+all_attributes
+
 # output not from every person
 riding
 

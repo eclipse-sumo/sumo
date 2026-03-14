@@ -1,0 +1,19 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="noFCD" vClass="pedestrian">
+        <param key="has.fcd.device" value="false"/>
+    </vType>
+    <person id="default" depart="0">
+        <walk edges="4/1to3/1"/>
+    </person>
+    <person id="noFCDByType" depart="0" type="noFCD">
+        <walk edges="3/1to2/1"/>
+    </person>
+    <person id="noFCDByParam" depart="0">
+        <walk edges="2/1to1/1"/>
+        <param key="has.fcd.device" value="false"/>
+    </person>
+    <person id="noFCDByTypeEnableViaParam" depart="0" type="noFCD">
+        <walk edges="1/1to0/1"/>
+        <param key="has.fcd.device" value="true"/>
+    </person>
+</routes>
