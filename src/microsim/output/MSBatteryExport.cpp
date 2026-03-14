@@ -69,7 +69,7 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
                 // Write Maximum battery capacity
                 of.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, batteryToExport->getMaximumBatteryCapacity());
                 // Write Charging Station ID
-                of.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, batteryToExport->getChargingStationID());
+                of.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, batteryToExport->getChargingStationID(), batteryToExport->getChargingStation() == nullptr);
                 // Write Charge charged in the Battery
                 of.writeAttr(SUMO_ATTR_ENERGYCHARGED, batteryToExport->getEnergyCharged());
                 // Write ChargeInTransit
