@@ -208,8 +208,8 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                 of.writeFuncAttr(SUMO_ATTR_TAG, [ = ]() {
                     return toString(SUMO_TAG_VEHICLE);
                 }, mask);
-                of.writeOptionalAttr(SUMO_ATTR_PERSON_NUMBER, microVeh->getPersonNumber(), mask);
-                of.writeOptionalAttr(SUMO_ATTR_CONTAINER_NUMBER, microVeh->getContainerNumber(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_PERSON_NUMBER, veh->getPersonNumber(), mask);
+                of.writeOptionalAttr(SUMO_ATTR_CONTAINER_NUMBER, veh->getContainerNumber(), mask);
                 MSEmissionExport::writeEmissions(of, static_cast<const MSBaseVehicle*>(veh), false, mask);
                 of.closeTag();
             }
