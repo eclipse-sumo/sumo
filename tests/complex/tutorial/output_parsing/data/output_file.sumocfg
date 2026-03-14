@@ -12,7 +12,7 @@
     </input>
 
     <output>
-        <netstate-dump value="dump.xml"/>
+        <fcd-output value="dump.xml"/>
     </output>
 
     <time>

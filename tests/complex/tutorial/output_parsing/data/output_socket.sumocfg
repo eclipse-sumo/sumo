@@ -12,7 +12,7 @@
     </input>
 
     <output>
-        <netstate-dump value="localhost:54321"/>
+        <fcd-output value="localhost:54321"/>
     </output>
 
     <time>
