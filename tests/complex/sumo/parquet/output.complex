@@ -60,6 +60,18 @@ Testing stopout (stop-output, end=1000s)...
 [OK]    stopout (parquet): 56 rows match
 [OK]    stopout (csv): 56 rows match
 
+Testing personsummary (person-summary-output, end=1000s)...
+[OK]    personsummary (parquet): 1000 rows match
+[OK]    personsummary (csv): 1000 rows match
+
+Testing link (link-output, end=120s)...
+[OK]    link (parquet): 419 rows match
+[OK]    link (csv): 419 rows match
+
+Testing battery (battery-output, end=120s)...
+[OK]    battery (parquet): 214 rows match
+[OK]    battery (csv): 214 rows match
+
 Testing e1detector (detector, end=500s)...
 [OK]    e1detector (parquet): 60 rows match
 [OK]    e1detector (csv): 60 rows match
