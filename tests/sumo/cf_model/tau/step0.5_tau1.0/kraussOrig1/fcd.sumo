@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T07:43:50.167187+01:00 by Eclipse SUMO sumo v1_26_0+0586-69dd46f7418
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane,edge"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="leader" speed="0.00" pos="5.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="leader" speed="1.30" pos="5.75" lane="beg_0"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="leader" speed="2.60" pos="7.05" lane="beg_0"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="leader" speed="3.90" pos="9.00" lane="beg_0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="follower" speed="0.00" pos="5.10" lane="beg_0"/>
+        <vehicle id="leader" speed="5.20" pos="11.60" lane="beg_0"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="follower" speed="1.30" pos="5.75" lane="beg_0"/>
+        <vehicle id="leader" speed="6.50" pos="14.85" lane="beg_0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="follower" speed="2.60" pos="7.05" lane="beg_0"/>
+        <vehicle id="leader" speed="7.80" pos="18.75" lane="beg_0"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="follower" speed="3.90" pos="9.00" lane="beg_0"/>
+        <vehicle id="leader" speed="9.10" pos="23.30" lane="beg_0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="follower" speed="5.20" pos="11.60" lane="beg_0"/>
+        <vehicle id="leader" speed="10.40" pos="28.50" lane="beg_0"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="follower" speed="6.50" pos="14.85" lane="beg_0"/>
+        <vehicle id="leader" speed="11.70" pos="34.35" lane="beg_0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="follower" speed="7.80" pos="18.75" lane="beg_0"/>
+        <vehicle id="leader" speed="13.00" pos="40.85" lane="beg_0"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="follower" speed="9.10" pos="23.30" lane="beg_0"/>
+        <vehicle id="leader" speed="14.30" pos="48.00" lane="beg_0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="follower" speed="10.40" pos="28.50" lane="beg_0"/>
+        <vehicle id="leader" speed="15.60" pos="55.80" lane="beg_0"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="follower" speed="11.70" pos="34.35" lane="beg_0"/>
+        <vehicle id="leader" speed="16.90" pos="64.25" lane="beg_0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="follower" speed="13.00" pos="40.85" lane="beg_0"/>
+        <vehicle id="leader" speed="18.20" pos="73.35" lane="beg_0"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="follower" speed="14.30" pos="48.00" lane="beg_0"/>
+        <vehicle id="leader" speed="19.50" pos="83.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="follower" speed="15.60" pos="55.80" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="93.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="follower" speed="16.90" pos="64.25" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="103.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="follower" speed="18.20" pos="73.35" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="113.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="follower" speed="19.50" pos="83.10" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="123.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="follower" speed="20.80" pos="93.50" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="133.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="follower" speed="22.10" pos="104.55" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="143.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="follower" speed="22.37" pos="115.74" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="153.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="follower" speed="22.17" pos="126.82" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="163.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="follower" speed="21.99" pos="137.82" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="173.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="follower" speed="21.82" pos="148.73" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="183.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="follower" speed="21.66" pos="159.56" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="193.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="13.50">
+        <vehicle id="follower" speed="21.52" pos="170.32" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="203.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="follower" speed="21.39" pos="181.02" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="213.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="14.50">
+        <vehicle id="follower" speed="21.27" pos="191.65" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="223.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="follower" speed="21.16" pos="202.23" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="233.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="15.50">
+        <vehicle id="follower" speed="21.06" pos="212.76" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="243.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="follower" speed="20.96" pos="223.24" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="253.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="16.50">
+        <vehicle id="follower" speed="20.88" pos="233.68" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="263.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="follower" speed="20.80" pos="244.08" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="273.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="17.50">
+        <vehicle id="follower" speed="20.73" pos="254.44" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="283.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="follower" speed="20.66" pos="264.77" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="293.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="18.50">
+        <vehicle id="follower" speed="20.60" pos="275.07" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="303.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="follower" speed="20.55" pos="285.35" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="313.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="19.50">
+        <vehicle id="follower" speed="20.50" pos="295.60" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="323.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="follower" speed="20.46" pos="305.83" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="333.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="20.50">
+        <vehicle id="follower" speed="20.41" pos="316.03" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="343.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="follower" speed="20.38" pos="326.22" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="353.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="21.50">
+        <vehicle id="follower" speed="20.34" pos="336.39" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="363.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="follower" speed="20.31" pos="346.55" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="373.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="22.50">
+        <vehicle id="follower" speed="20.28" pos="356.69" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="383.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="follower" speed="20.26" pos="366.82" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="393.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="23.50">
+        <vehicle id="follower" speed="20.23" pos="376.94" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="403.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="follower" speed="20.21" pos="387.04" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="413.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="24.50">
+        <vehicle id="follower" speed="20.19" pos="397.14" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="423.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="follower" speed="20.18" pos="407.23" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="433.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="25.50">
+        <vehicle id="follower" speed="20.16" pos="417.31" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="443.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="follower" speed="20.15" pos="427.38" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="453.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="26.50">
+        <vehicle id="follower" speed="20.13" pos="437.45" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="463.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="follower" speed="20.12" pos="447.51" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="473.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="27.50">
+        <vehicle id="follower" speed="20.11" pos="457.56" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="483.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="follower" speed="20.10" pos="467.61" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="493.10" lane="beg_0"/>
+    </timestep>
+    <timestep time="28.50">
+        <vehicle id="follower" speed="20.09" pos="477.65" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="3.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="follower" speed="20.08" pos="487.70" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="13.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="29.50">
+        <vehicle id="follower" speed="20.07" pos="497.73" lane="beg_0"/>
+        <vehicle id="leader" speed="20.00" pos="23.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="follower" speed="20.07" pos="7.77" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="33.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="30.50">
+        <vehicle id="follower" speed="20.06" pos="17.80" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="43.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="follower" speed="20.06" pos="27.82" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="53.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="31.50">
+        <vehicle id="follower" speed="20.05" pos="37.85" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="63.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="follower" speed="20.05" pos="47.87" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="73.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="32.50">
+        <vehicle id="follower" speed="20.04" pos="57.89" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="83.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="follower" speed="20.04" pos="67.91" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="93.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="33.50">
+        <vehicle id="follower" speed="20.03" pos="77.93" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="103.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="follower" speed="20.03" pos="87.95" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="113.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="34.50">
+        <vehicle id="follower" speed="20.03" pos="97.96" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="123.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="follower" speed="20.03" pos="107.97" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="133.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="35.50">
+        <vehicle id="follower" speed="20.02" pos="117.98" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="143.10" lane="middle_0"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="follower" speed="20.02" pos="127.99" lane="middle_0"/>
+        <vehicle id="leader" speed="18.57" pos="152.39" lane="middle_0"/>
+    </timestep>
+    <timestep time="36.50">
+        <vehicle id="follower" speed="18.73" pos="137.36" lane="middle_0"/>
+        <vehicle id="leader" speed="16.68" pos="160.73" lane="middle_0"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="follower" speed="17.04" pos="145.88" lane="middle_0"/>
+        <vehicle id="leader" speed="14.83" pos="168.14" lane="middle_0"/>
+    </timestep>
+    <timestep time="37.50">
+        <vehicle id="follower" speed="15.39" pos="153.58" lane="middle_0"/>
+        <vehicle id="leader" speed="13.02" pos="174.65" lane="middle_0"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="follower" speed="13.79" pos="160.47" lane="middle_0"/>
+        <vehicle id="leader" speed="11.26" pos="180.28" lane="middle_0"/>
+    </timestep>
+    <timestep time="38.50">
+        <vehicle id="follower" speed="12.24" pos="166.59" lane="middle_0"/>
+        <vehicle id="leader" speed="9.56" pos="185.06" lane="middle_0"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="follower" speed="10.76" pos="171.97" lane="middle_0"/>
+        <vehicle id="leader" speed="7.94" pos="189.03" lane="middle_0"/>
+    </timestep>
+    <timestep time="39.50">
+        <vehicle id="follower" speed="9.35" pos="176.65" lane="middle_0"/>
+        <vehicle id="leader" speed="6.41" pos="192.24" lane="middle_0"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="follower" speed="8.01" pos="180.65" lane="middle_0"/>
+        <vehicle id="leader" speed="4.99" pos="194.73" lane="middle_0"/>
+    </timestep>
+    <timestep time="40.50">
+        <vehicle id="follower" speed="6.77" pos="184.04" lane="middle_0"/>
+        <vehicle id="leader" speed="3.73" pos="196.60" lane="middle_0"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="follower" speed="5.61" pos="186.84" lane="middle_0"/>
+        <vehicle id="leader" speed="2.63" pos="197.91" lane="middle_0"/>
+    </timestep>
+    <timestep time="41.50">
+        <vehicle id="follower" speed="4.55" pos="189.11" lane="middle_0"/>
+        <vehicle id="leader" speed="2.25" pos="199.04" lane="middle_0"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="follower" speed="3.84" pos="191.04" lane="middle_0"/>
+        <vehicle id="leader" speed="1.93" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="42.50">
+        <vehicle id="follower" speed="3.22" pos="192.65" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="follower" speed="1.94" pos="193.62" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="43.50">
+        <vehicle id="follower" speed="2.25" pos="194.74" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="follower" speed="0.52" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="44.50">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="45.50">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="46.50">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="0.00" pos="200.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="47.50">
+        <vehicle id="follower" speed="0.00" pos="195.00" lane="middle_0"/>
+        <vehicle id="leader" speed="1.30" pos="200.65" lane="middle_0"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="follower" speed="0.77" pos="195.39" lane="middle_0"/>
+        <vehicle id="leader" speed="2.60" pos="201.95" lane="middle_0"/>
+    </timestep>
+    <timestep time="48.50">
+        <vehicle id="follower" speed="1.91" pos="196.34" lane="middle_0"/>
+        <vehicle id="leader" speed="3.90" pos="203.90" lane="middle_0"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="follower" speed="3.15" pos="197.92" lane="middle_0"/>
+        <vehicle id="leader" speed="5.20" pos="206.50" lane="middle_0"/>
+    </timestep>
+    <timestep time="49.50">
+        <vehicle id="follower" speed="4.42" pos="200.13" lane="middle_0"/>
+        <vehicle id="leader" speed="6.50" pos="209.75" lane="middle_0"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="follower" speed="5.70" pos="202.98" lane="middle_0"/>
+        <vehicle id="leader" speed="7.80" pos="213.65" lane="middle_0"/>
+    </timestep>
+    <timestep time="50.50">
+        <vehicle id="follower" speed="7.00" pos="206.48" lane="middle_0"/>
+        <vehicle id="leader" speed="9.10" pos="218.20" lane="middle_0"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="follower" speed="8.29" pos="210.62" lane="middle_0"/>
+        <vehicle id="leader" speed="10.40" pos="223.40" lane="middle_0"/>
+    </timestep>
+    <timestep time="51.50">
+        <vehicle id="follower" speed="9.59" pos="215.41" lane="middle_0"/>
+        <vehicle id="leader" speed="11.70" pos="229.25" lane="middle_0"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="follower" speed="10.88" pos="220.86" lane="middle_0"/>
+        <vehicle id="leader" speed="13.00" pos="235.75" lane="middle_0"/>
+    </timestep>
+    <timestep time="52.50">
+        <vehicle id="follower" speed="12.18" pos="226.95" lane="middle_0"/>
+        <vehicle id="leader" speed="14.30" pos="242.90" lane="middle_0"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="follower" speed="13.48" pos="233.69" lane="middle_0"/>
+        <vehicle id="leader" speed="15.60" pos="250.70" lane="middle_0"/>
+    </timestep>
+    <timestep time="53.50">
+        <vehicle id="follower" speed="14.78" pos="241.08" lane="middle_0"/>
+        <vehicle id="leader" speed="16.90" pos="259.15" lane="middle_0"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="follower" speed="16.08" pos="249.12" lane="middle_0"/>
+        <vehicle id="leader" speed="18.20" pos="268.25" lane="middle_0"/>
+    </timestep>
+    <timestep time="54.50">
+        <vehicle id="follower" speed="17.38" pos="257.81" lane="middle_0"/>
+        <vehicle id="leader" speed="19.50" pos="278.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="follower" speed="18.68" pos="267.15" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="288.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="55.50">
+        <vehicle id="follower" speed="19.23" pos="276.76" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="298.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="follower" speed="19.30" pos="286.41" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="308.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="56.50">
+        <vehicle id="follower" speed="19.37" pos="296.09" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="318.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="follower" speed="19.43" pos="305.81" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="328.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="57.50">
+        <vehicle id="follower" speed="19.48" pos="315.54" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="338.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="follower" speed="19.53" pos="325.31" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="348.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="58.50">
+        <vehicle id="follower" speed="19.57" pos="335.10" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="358.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="follower" speed="19.61" pos="344.90" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="368.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="59.50">
+        <vehicle id="follower" speed="19.65" pos="354.73" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="378.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="follower" speed="19.68" pos="364.57" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="388.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="60.50">
+        <vehicle id="follower" speed="19.71" pos="374.42" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="398.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="follower" speed="19.74" pos="384.29" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="408.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="61.50">
+        <vehicle id="follower" speed="19.76" pos="394.17" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="418.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="follower" speed="19.78" pos="404.06" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="428.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="62.50">
+        <vehicle id="follower" speed="19.80" pos="413.97" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="438.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="follower" speed="19.82" pos="423.88" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="448.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="63.50">
+        <vehicle id="follower" speed="19.84" pos="433.80" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="458.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="follower" speed="19.85" pos="443.72" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="468.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="64.50">
+        <vehicle id="follower" speed="19.87" pos="453.66" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="478.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="follower" speed="19.88" pos="463.60" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="488.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="65.50">
+        <vehicle id="follower" speed="19.89" pos="473.54" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="498.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="follower" speed="19.90" pos="483.49" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="508.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="66.50">
+        <vehicle id="follower" speed="19.91" pos="493.45" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="518.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="follower" speed="19.92" pos="503.41" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="528.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="67.50">
+        <vehicle id="follower" speed="19.93" pos="513.37" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="538.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="follower" speed="19.93" pos="523.33" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="548.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="68.50">
+        <vehicle id="follower" speed="19.94" pos="533.30" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="558.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="follower" speed="19.94" pos="543.28" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="568.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="69.50">
+        <vehicle id="follower" speed="19.95" pos="553.25" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="578.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="follower" speed="19.95" pos="563.23" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="588.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="70.50">
+        <vehicle id="follower" speed="19.96" pos="573.21" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="598.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="follower" speed="19.96" pos="583.19" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="608.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="71.50">
+        <vehicle id="follower" speed="19.97" pos="593.17" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="618.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="follower" speed="19.97" pos="603.16" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="628.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="72.50">
+        <vehicle id="follower" speed="19.97" pos="613.14" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="638.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="follower" speed="19.97" pos="623.13" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="648.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="73.50">
+        <vehicle id="follower" speed="19.98" pos="633.12" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="658.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="follower" speed="19.98" pos="643.11" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="668.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="74.50">
+        <vehicle id="follower" speed="19.98" pos="653.10" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="678.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="follower" speed="19.98" pos="663.09" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="688.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="75.50">
+        <vehicle id="follower" speed="19.98" pos="673.08" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="698.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="follower" speed="19.99" pos="683.07" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="708.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="76.50">
+        <vehicle id="follower" speed="19.99" pos="693.07" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="718.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="follower" speed="19.99" pos="703.06" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="728.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="77.50">
+        <vehicle id="follower" speed="19.99" pos="713.05" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="738.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="follower" speed="19.99" pos="723.05" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="748.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="78.50">
+        <vehicle id="follower" speed="19.99" pos="733.05" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="758.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="follower" speed="19.99" pos="743.04" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="768.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="79.50">
+        <vehicle id="follower" speed="19.99" pos="753.04" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="778.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="follower" speed="19.99" pos="763.03" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="788.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="80.50">
+        <vehicle id="follower" speed="19.99" pos="773.03" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="798.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="follower" speed="19.99" pos="783.03" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="808.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="81.50">
+        <vehicle id="follower" speed="20.00" pos="793.03" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="818.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="follower" speed="20.00" pos="803.02" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="828.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="82.50">
+        <vehicle id="follower" speed="20.00" pos="813.02" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="838.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="follower" speed="20.00" pos="823.02" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="848.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="83.50">
+        <vehicle id="follower" speed="20.00" pos="833.02" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="858.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="follower" speed="20.00" pos="843.02" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="868.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="84.50">
+        <vehicle id="follower" speed="20.00" pos="853.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="878.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="follower" speed="20.00" pos="863.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="888.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="85.50">
+        <vehicle id="follower" speed="20.00" pos="873.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="898.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="follower" speed="20.00" pos="883.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="908.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="86.50">
+        <vehicle id="follower" speed="20.00" pos="893.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="918.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="follower" speed="20.00" pos="903.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="928.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="87.50">
+        <vehicle id="follower" speed="20.00" pos="913.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="938.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="follower" speed="20.00" pos="923.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="948.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="88.50">
+        <vehicle id="follower" speed="20.00" pos="933.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="958.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="follower" speed="20.00" pos="943.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="968.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="89.50">
+        <vehicle id="follower" speed="20.00" pos="953.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="978.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="90.00">
+        <vehicle id="follower" speed="20.00" pos="963.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="988.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="90.50">
+        <vehicle id="follower" speed="20.00" pos="973.01" lane="middle_0"/>
+        <vehicle id="leader" speed="20.00" pos="998.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="91.00">
+        <vehicle id="follower" speed="20.00" pos="983.00" lane="middle_0"/>
+    </timestep>
+    <timestep time="91.50">
+        <vehicle id="follower" speed="21.30" pos="993.65" lane="middle_0"/>
+    </timestep>
+    <timestep time="92.00"/>
+</fcd-export>

@@ -1,5 +1,5 @@
 --no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
 --tripinfo-output tripinfos.xml
 --lanechange-output lanechanges.xml
---netstate-output rawdump.xml
+--fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge,posLat,speedLat
 --lateral-resolution 0.8

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T09:57:22.324711+01:00 by Eclipse SUMO sumo v1_26_0+0588-d6d4e06ecd2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.sumo"/>
+        <fcd-output.attributes value="angle,pos,edge,stage"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.dawdling value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <person id="2" angle="180.00" pos="0.00" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="1.00">
+        <person id="2" angle="180.00" pos="1.39" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="2.00">
+        <person id="2" angle="180.00" pos="2.78" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="3.00">
+        <person id="2" angle="180.00" pos="4.17" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="4.00">
+        <person id="2" angle="180.00" pos="5.56" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="5.00">
+        <person id="2" angle="180.00" pos="6.94" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="6.00">
+        <person id="2" angle="180.00" pos="8.33" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="7.00">
+        <person id="2" angle="180.00" pos="9.72" edge="NC" stage="walking"/>
+    </timestep>
+    <timestep time="8.00">
+        <person id="2" angle="90.00" pos="10.00" edge="NC" stage="waiting for foo"/>
+    </timestep>
+    <timestep time="9.00">
+        <person id="2" angle="90.00" pos="10.00" edge="NC" stage="waiting for foo"/>
+    </timestep>
+</fcd-export>

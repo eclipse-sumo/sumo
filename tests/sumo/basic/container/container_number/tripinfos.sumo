@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:24:59.875084+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-03-14T07:28:16.662402+01:00 by Eclipse SUMO sumo v1_26_0+0586-69dd46f7418
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,7 +21,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
-        <netstate-dump value="rawdump.xml"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="angle,speed,pos,lane,edge,stage"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
@@ -46,5 +47,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="125.00" waitingTime="106.00" timeLoss="1.17" traveltime="19.00">
         <transport waitingTime="106.00" vehicle="vehicle1" depart="106.00" arrival="125.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="1.17"/>
     </containerinfo>
-    <tripinfo id="vehicle1" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="226.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="226.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="1.17" rerouteNo="0" devices="tripinfo_vehicle1 container_vehicle1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle1" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="226.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="226.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="1.17" rerouteNo="0" devices="tripinfo_vehicle1 fcd_vehicle1 container_vehicle1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

@@ -1,3 +1,4 @@
 --no-step-log --no-duration-log --net-file=net.net.xml -r=input_routes.rou.xml
--a input_additional.add.xml --netstate-dump rawdump.xml -e 20
+-a input_additional.add.xml -e 20
 --lanechange-output lanechanges.xml
+ --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge

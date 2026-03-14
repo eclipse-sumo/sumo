@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T10:07:04.989961+01:00 by Eclipse SUMO sumo v1_26_0+0590-07d0d1f31e9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <precision value="4"/>
+        <netstate-dump value="rawdump.xml"/>
+        <netstate-dump.precision value="4"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane,edge"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="50"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="1.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="2.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="3.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="4.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="5.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="6.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="7.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="8.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="9.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="10.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="11.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="12.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="13.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="14.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="15.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="16.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="100.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="17.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="18.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="19.000">
+        <vehicle id="0" speed="10.0000" pos="200.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="20.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="21.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="22.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="23.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="24.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="25.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="26.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="27.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="200.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="28.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="29.000">
+        <vehicle id="0" speed="10.0000" pos="300.0000" edge="4/1to3/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="30.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="31.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="32.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="33.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="34.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="35.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="36.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="37.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="38.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="300.0000" edge="4/1to3/1"/>
+    </timestep>
+    <timestep time="39.000">
+        <vehicle id="0" speed="10.0000" pos="0.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="40.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="41.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="42.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="43.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="44.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="45.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="46.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="47.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="48.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+    <timestep time="49.000">
+        <vehicle id="0" speed="10.0000" pos="100.0000" edge="3/1to2/1"/>
+        <vehicle id="1" speed="9.0000" pos="0.0000" edge="3/1to2/1"/>
+    </timestep>
+</fcd-export>

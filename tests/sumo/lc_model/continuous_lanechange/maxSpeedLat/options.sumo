@@ -1,2 +1,3 @@
 --no-step-log --no-duration-log -n net.net.xml -r input_routes.rou.xml
---netstate-dump rawdump.xml --step-length 0.5 --lanechange.duration 3 
+ --step-length 0.5 --lanechange.duration 3 
+ --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge,posLat,speedLat

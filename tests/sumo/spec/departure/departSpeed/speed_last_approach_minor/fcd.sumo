@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T06:08:07.434500+01:00 by Eclipse SUMO sumo v1_26_0+0586-69dd46f7418
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane,edge"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="441" speed="11.17" pos="9980.00" lane="1to22.17_0"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="441" speed="11.13" pos="9991.13" lane="1to22.17_0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="441" speed="6.63" pos="9997.77" lane="1to22.17_0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="441" speed="9.23" pos="7.00" lane=":2_1_0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="441" speed="11.83" pos="9.83" lane="out_0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="441" speed="14.43" pos="24.26" lane="out_0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="441" speed="17.03" pos="41.30" lane="out_0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="441" speed="19.63" pos="60.93" lane="out_0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="441" speed="22.23" pos="83.16" lane="out_0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="441" speed="24.83" pos="108.00" lane="out_0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="441" speed="27.43" pos="135.43" lane="out_0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="441" speed="30.00" pos="165.43" lane="out_0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="441" speed="30.00" pos="195.43" lane="out_0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="441" speed="26.30" pos="221.73" lane="out_0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="441" speed="21.80" pos="243.53" lane="out_0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="441" speed="17.30" pos="260.83" lane="out_0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="441" speed="12.80" pos="4.14" lane=":3_0_0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="441" speed="8.30" pos="4.23" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="441" speed="8.30" pos="12.53" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="441" speed="8.30" pos="20.83" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="441" speed="8.30" pos="29.13" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="441" speed="8.30" pos="37.43" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="441" speed="8.30" pos="45.73" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="441" speed="8.30" pos="54.03" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="441" speed="8.30" pos="62.33" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="441" speed="8.30" pos="70.63" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="441" speed="8.30" pos="78.93" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="441" speed="8.30" pos="87.23" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="441" speed="8.30" pos="95.53" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="441" speed="8.30" pos="103.83" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="441" speed="8.30" pos="112.13" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="441" speed="8.30" pos="120.43" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="441" speed="8.30" pos="128.73" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="441" speed="8.30" pos="137.03" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="441" speed="8.30" pos="145.33" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="441" speed="8.30" pos="153.63" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="441" speed="8.30" pos="161.93" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="441" speed="8.30" pos="170.23" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="441" speed="8.30" pos="178.53" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="441" speed="8.30" pos="186.83" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="441" speed="8.30" pos="195.13" lane="gneE4_0"/>
+    </timestep>
+    <timestep time="41.00"/>
+</fcd-export>

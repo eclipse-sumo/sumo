@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T06:22:00.075191+01:00 by Eclipse SUMO sumo v1_26_0+0586-69dd46f7418
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane,edge"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="1" speed="0.00" pos="5.10" lane="beg_1"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="1" speed="2.03" pos="7.13" lane="beg_1"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="1" speed="3.98" pos="11.11" lane="beg_1"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="1" speed="6.54" pos="17.66" lane="beg_1"/>
+        <vehicle id="2" speed="0.00" pos="5.10" lane="beg_1"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="1" speed="8.27" pos="25.93" lane="beg_1"/>
+        <vehicle id="2" speed="1.42" pos="6.52" lane="beg_1"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="1" speed="9.95" pos="35.88" lane="beg_1"/>
+        <vehicle id="2" speed="3.08" pos="9.61" lane="beg_1"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="1" speed="11.34" pos="47.22" lane="beg_1"/>
+        <vehicle id="2" speed="4.83" pos="14.44" lane="beg_1"/>
+        <vehicle id="3" speed="0.00" pos="5.10" lane="beg_1"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="1" speed="13.46" pos="60.67" lane="beg_1"/>
+        <vehicle id="2" speed="6.21" pos="20.65" lane="beg_1"/>
+        <vehicle id="3" speed="1.69" pos="6.79" lane="beg_1"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="1" speed="15.21" pos="75.89" lane="beg_1"/>
+        <vehicle id="2" speed="7.64" pos="28.29" lane="beg_1"/>
+        <vehicle id="3" speed="3.44" pos="10.23" lane="beg_1"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="1" speed="16.81" pos="92.69" lane="beg_1"/>
+        <vehicle id="2" speed="9.06" pos="37.35" lane="beg_1"/>
+        <vehicle id="3" speed="6.00" pos="16.23" lane="beg_1"/>
+    </timestep>
+</fcd-export>

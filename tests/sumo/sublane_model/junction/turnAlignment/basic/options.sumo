@@ -1,2 +1,2 @@
--n net.net.xml -r input_routes.rou.xml --lateral-resolution 0.8 --ndump rawdump.xml
+-n net.net.xml -r input_routes.rou.xml --lateral-resolution 0.8 --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge,posLat,speedLat
 --no-step-log

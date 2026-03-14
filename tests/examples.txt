@@ -36,7 +36,6 @@ sumo/output/examples/cross3ltl_meandata_constrained;../docs/examples/sumo/output
 sumo/output/examples/cross3ltl_meandata_edges;../docs/examples/sumo/output/cross3ltl_meandata_edges
 sumo/output/examples/cross3ltl_meandata_lanes;../docs/examples/sumo/output/cross3ltl_meandata_lanes
 sumo/output/examples/cross3ltl_queue;../docs/examples/sumo/output/cross3ltl_queue
-sumo/output/examples/cross3ltl_rawdump;../docs/examples/sumo/output/cross3ltl_rawdump
 sumo/output/examples/cross3ltl_summary;../docs/examples/sumo/output/cross3ltl_summary
 sumo/output/examples/cross3ltl_tripinfo;../docs/examples/sumo/output/cross3ltl_tripinfo
 sumo/output/examples/cross3ltl_vehroutes;../docs/examples/sumo/output/cross3ltl_vehroutes

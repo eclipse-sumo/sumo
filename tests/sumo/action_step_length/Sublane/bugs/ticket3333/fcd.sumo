@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T09:43:56.639466+01:00 by Eclipse SUMO sumo v1_26_0+0588-d6d4e06ecd2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane,edge,posLat,speedLat"/>
+    </output>
+
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.2"/>
+        <default.action-step-length value="1.0"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="ego" speed="10.00" pos="6.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="10.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.10">
+        <vehicle id="ego" speed="10.00" pos="7.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="11.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.20">
+        <vehicle id="ego" speed="10.00" pos="8.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="12.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.30">
+        <vehicle id="ego" speed="10.00" pos="9.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="13.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.40">
+        <vehicle id="ego" speed="10.00" pos="10.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="14.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="ego" speed="10.00" pos="11.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="15.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.60">
+        <vehicle id="ego" speed="10.00" pos="12.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="16.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.70">
+        <vehicle id="ego" speed="10.00" pos="13.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="17.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.80">
+        <vehicle id="ego" speed="10.00" pos="14.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="18.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="0.90">
+        <vehicle id="ego" speed="10.00" pos="15.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="19.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="ego" speed="10.00" pos="16.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="20.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.10">
+        <vehicle id="ego" speed="10.00" pos="17.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="21.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.20">
+        <vehicle id="ego" speed="10.00" pos="18.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="22.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.30">
+        <vehicle id="ego" speed="10.00" pos="19.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="23.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.40">
+        <vehicle id="ego" speed="10.00" pos="20.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="24.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="ego" speed="10.00" pos="21.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="25.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.60">
+        <vehicle id="ego" speed="10.00" pos="22.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="26.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.70">
+        <vehicle id="ego" speed="10.00" pos="23.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="27.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.80">
+        <vehicle id="ego" speed="10.00" pos="24.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="28.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.90">
+        <vehicle id="ego" speed="10.00" pos="25.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="29.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="ego" speed="10.00" pos="26.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="30.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.10">
+        <vehicle id="ego" speed="10.00" pos="27.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="31.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.20">
+        <vehicle id="ego" speed="10.00" pos="28.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="32.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.30">
+        <vehicle id="ego" speed="10.00" pos="29.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="33.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.40">
+        <vehicle id="ego" speed="10.00" pos="30.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="34.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="ego" speed="10.00" pos="31.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="35.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.60">
+        <vehicle id="ego" speed="10.00" pos="32.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="36.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.70">
+        <vehicle id="ego" speed="10.00" pos="33.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="37.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.80">
+        <vehicle id="ego" speed="10.00" pos="34.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="38.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.90">
+        <vehicle id="ego" speed="10.00" pos="35.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="39.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="ego" speed="10.00" pos="36.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="40.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.10">
+        <vehicle id="ego" speed="10.00" pos="37.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="41.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.20">
+        <vehicle id="ego" speed="10.00" pos="38.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="42.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.30">
+        <vehicle id="ego" speed="10.00" pos="39.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="43.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.40">
+        <vehicle id="ego" speed="10.00" pos="40.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="44.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="ego" speed="10.00" pos="41.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="45.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.60">
+        <vehicle id="ego" speed="10.00" pos="42.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="46.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.70">
+        <vehicle id="ego" speed="10.00" pos="43.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="47.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.80">
+        <vehicle id="ego" speed="10.00" pos="44.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="48.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.90">
+        <vehicle id="ego" speed="10.00" pos="45.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="49.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="ego" speed="10.00" pos="46.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="50.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.10">
+        <vehicle id="ego" speed="10.00" pos="47.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="51.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.20">
+        <vehicle id="ego" speed="10.00" pos="48.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="52.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.30">
+        <vehicle id="ego" speed="10.00" pos="49.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="53.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.40">
+        <vehicle id="ego" speed="10.00" pos="50.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="54.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="ego" speed="10.00" pos="51.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="55.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.60">
+        <vehicle id="ego" speed="10.00" pos="52.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="56.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.70">
+        <vehicle id="ego" speed="10.00" pos="53.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="57.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.80">
+        <vehicle id="ego" speed="10.00" pos="54.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="58.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.90">
+        <vehicle id="ego" speed="10.00" pos="55.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="59.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="ego" speed="10.00" pos="56.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="60.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.10">
+        <vehicle id="ego" speed="10.00" pos="57.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="61.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.20">
+        <vehicle id="ego" speed="10.00" pos="58.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="62.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.30">
+        <vehicle id="ego" speed="10.00" pos="59.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="63.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.40">
+        <vehicle id="ego" speed="10.00" pos="60.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="64.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="ego" speed="10.00" pos="61.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="65.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.60">
+        <vehicle id="ego" speed="10.00" pos="62.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="66.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.70">
+        <vehicle id="ego" speed="10.00" pos="63.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="67.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.80">
+        <vehicle id="ego" speed="10.00" pos="64.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="68.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.90">
+        <vehicle id="ego" speed="10.00" pos="65.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="69.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="ego" speed="10.00" pos="66.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="70.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.10">
+        <vehicle id="ego" speed="10.00" pos="67.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="71.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.20">
+        <vehicle id="ego" speed="10.00" pos="68.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="72.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.30">
+        <vehicle id="ego" speed="10.00" pos="69.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="73.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.40">
+        <vehicle id="ego" speed="10.00" pos="70.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="74.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="ego" speed="10.00" pos="71.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="75.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.60">
+        <vehicle id="ego" speed="10.00" pos="72.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="76.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.70">
+        <vehicle id="ego" speed="10.00" pos="73.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="77.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.80">
+        <vehicle id="ego" speed="10.00" pos="74.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="78.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.90">
+        <vehicle id="ego" speed="10.00" pos="75.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="79.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="ego" speed="10.00" pos="76.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="80.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.10">
+        <vehicle id="ego" speed="10.00" pos="77.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="81.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.20">
+        <vehicle id="ego" speed="10.00" pos="78.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="82.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.30">
+        <vehicle id="ego" speed="10.00" pos="79.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="83.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.40">
+        <vehicle id="ego" speed="10.00" pos="80.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="84.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="ego" speed="10.00" pos="81.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="85.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.60">
+        <vehicle id="ego" speed="10.00" pos="82.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="86.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.70">
+        <vehicle id="ego" speed="10.00" pos="83.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="87.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.80">
+        <vehicle id="ego" speed="10.00" pos="84.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="88.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="7.90">
+        <vehicle id="ego" speed="10.00" pos="85.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="89.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="ego" speed="10.00" pos="86.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="90.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.10">
+        <vehicle id="ego" speed="10.00" pos="87.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="91.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.20">
+        <vehicle id="ego" speed="10.00" pos="88.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="92.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.30">
+        <vehicle id="ego" speed="10.00" pos="89.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="93.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.40">
+        <vehicle id="ego" speed="10.00" pos="90.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="94.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="ego" speed="10.00" pos="91.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="95.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.60">
+        <vehicle id="ego" speed="10.00" pos="92.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="96.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.70">
+        <vehicle id="ego" speed="10.00" pos="93.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="97.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.80">
+        <vehicle id="ego" speed="10.00" pos="94.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="98.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="8.90">
+        <vehicle id="ego" speed="10.00" pos="95.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="99.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="ego" speed="10.00" pos="96.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="100.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.10">
+        <vehicle id="ego" speed="10.00" pos="97.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="101.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.20">
+        <vehicle id="ego" speed="10.00" pos="98.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="102.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.30">
+        <vehicle id="ego" speed="10.00" pos="99.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="103.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.40">
+        <vehicle id="ego" speed="10.00" pos="100.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="104.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="ego" speed="10.00" pos="101.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="105.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.60">
+        <vehicle id="ego" speed="10.00" pos="102.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="106.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.70">
+        <vehicle id="ego" speed="10.00" pos="103.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="107.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.80">
+        <vehicle id="ego" speed="10.00" pos="104.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="108.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="9.90">
+        <vehicle id="ego" speed="10.00" pos="105.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="109.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="ego" speed="10.00" pos="106.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="110.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.10">
+        <vehicle id="ego" speed="10.00" pos="107.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="111.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.20">
+        <vehicle id="ego" speed="10.00" pos="108.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="112.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.30">
+        <vehicle id="ego" speed="10.00" pos="109.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="113.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.40">
+        <vehicle id="ego" speed="10.00" pos="110.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="114.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="ego" speed="10.00" pos="111.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="115.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.60">
+        <vehicle id="ego" speed="10.00" pos="112.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="116.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.70">
+        <vehicle id="ego" speed="10.00" pos="113.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="117.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.80">
+        <vehicle id="ego" speed="10.00" pos="114.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="118.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.90">
+        <vehicle id="ego" speed="10.00" pos="115.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="119.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="ego" speed="10.00" pos="116.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="120.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.10">
+        <vehicle id="ego" speed="10.00" pos="117.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="121.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.20">
+        <vehicle id="ego" speed="10.00" pos="118.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="122.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.30">
+        <vehicle id="ego" speed="10.00" pos="119.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="123.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.40">
+        <vehicle id="ego" speed="10.00" pos="120.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="124.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="ego" speed="10.00" pos="121.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="125.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.60">
+        <vehicle id="ego" speed="10.00" pos="122.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="126.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.70">
+        <vehicle id="ego" speed="10.00" pos="123.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="127.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.80">
+        <vehicle id="ego" speed="10.00" pos="124.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="128.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.90">
+        <vehicle id="ego" speed="10.00" pos="125.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="129.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="ego" speed="10.00" pos="126.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="130.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.10">
+        <vehicle id="ego" speed="10.00" pos="127.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="131.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.20">
+        <vehicle id="ego" speed="10.00" pos="128.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="132.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.30">
+        <vehicle id="ego" speed="10.00" pos="129.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="133.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.40">
+        <vehicle id="ego" speed="10.00" pos="130.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="134.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="ego" speed="10.00" pos="131.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="135.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.60">
+        <vehicle id="ego" speed="10.00" pos="132.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="136.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.70">
+        <vehicle id="ego" speed="10.00" pos="133.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="137.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.80">
+        <vehicle id="ego" speed="10.00" pos="134.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="138.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="12.90">
+        <vehicle id="ego" speed="10.00" pos="135.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="139.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="ego" speed="10.00" pos="136.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="140.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.10">
+        <vehicle id="ego" speed="10.00" pos="137.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="141.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.20">
+        <vehicle id="ego" speed="10.00" pos="138.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="142.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.30">
+        <vehicle id="ego" speed="10.00" pos="139.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="143.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.40">
+        <vehicle id="ego" speed="10.00" pos="140.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="144.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.50">
+        <vehicle id="ego" speed="10.00" pos="141.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="145.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.60">
+        <vehicle id="ego" speed="10.00" pos="142.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="146.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.70">
+        <vehicle id="ego" speed="10.00" pos="143.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="147.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.80">
+        <vehicle id="ego" speed="10.00" pos="144.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="148.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="13.90">
+        <vehicle id="ego" speed="10.00" pos="145.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="149.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="ego" speed="10.00" pos="146.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="150.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.10">
+        <vehicle id="ego" speed="10.00" pos="147.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="151.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.20">
+        <vehicle id="ego" speed="10.00" pos="148.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="152.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.30">
+        <vehicle id="ego" speed="10.00" pos="149.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="153.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.40">
+        <vehicle id="ego" speed="10.00" pos="150.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="154.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.50">
+        <vehicle id="ego" speed="10.00" pos="151.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="155.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.60">
+        <vehicle id="ego" speed="10.00" pos="152.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="156.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.70">
+        <vehicle id="ego" speed="10.00" pos="153.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="157.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.80">
+        <vehicle id="ego" speed="10.00" pos="154.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="158.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="14.90">
+        <vehicle id="ego" speed="10.00" pos="155.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="159.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="ego" speed="10.00" pos="156.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="160.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.10">
+        <vehicle id="ego" speed="10.00" pos="157.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="161.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.20">
+        <vehicle id="ego" speed="10.00" pos="158.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="162.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.30">
+        <vehicle id="ego" speed="10.00" pos="159.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="163.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.40">
+        <vehicle id="ego" speed="10.00" pos="160.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="164.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.50">
+        <vehicle id="ego" speed="10.00" pos="161.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="165.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.60">
+        <vehicle id="ego" speed="10.00" pos="162.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="166.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.70">
+        <vehicle id="ego" speed="10.00" pos="163.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="167.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.80">
+        <vehicle id="ego" speed="10.00" pos="164.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="168.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="15.90">
+        <vehicle id="ego" speed="10.00" pos="165.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="169.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="ego" speed="10.00" pos="166.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="170.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.10">
+        <vehicle id="ego" speed="10.00" pos="167.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="171.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.20">
+        <vehicle id="ego" speed="10.00" pos="168.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="172.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.30">
+        <vehicle id="ego" speed="10.00" pos="169.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="173.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.40">
+        <vehicle id="ego" speed="10.00" pos="170.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="174.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.50">
+        <vehicle id="ego" speed="10.00" pos="171.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="175.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.60">
+        <vehicle id="ego" speed="10.00" pos="172.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="176.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.70">
+        <vehicle id="ego" speed="10.00" pos="173.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="177.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.80">
+        <vehicle id="ego" speed="10.00" pos="174.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="178.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="16.90">
+        <vehicle id="ego" speed="10.00" pos="175.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="179.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="ego" speed="10.00" pos="176.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="180.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.10">
+        <vehicle id="ego" speed="10.00" pos="177.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="181.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.20">
+        <vehicle id="ego" speed="10.00" pos="178.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="182.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.30">
+        <vehicle id="ego" speed="10.00" pos="179.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="183.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.40">
+        <vehicle id="ego" speed="10.00" pos="180.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="184.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.50">
+        <vehicle id="ego" speed="10.00" pos="181.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="185.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.60">
+        <vehicle id="ego" speed="10.00" pos="182.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="186.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.70">
+        <vehicle id="ego" speed="10.00" pos="183.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="187.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.80">
+        <vehicle id="ego" speed="10.00" pos="184.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="188.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="17.90">
+        <vehicle id="ego" speed="10.00" pos="185.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="189.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="ego" speed="10.00" pos="186.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="190.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.10">
+        <vehicle id="ego" speed="10.00" pos="187.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="191.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.20">
+        <vehicle id="ego" speed="10.00" pos="188.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="192.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.30">
+        <vehicle id="ego" speed="10.00" pos="189.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="193.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.40">
+        <vehicle id="ego" speed="10.00" pos="190.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="194.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.50">
+        <vehicle id="ego" speed="10.00" pos="191.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="195.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.60">
+        <vehicle id="ego" speed="10.00" pos="192.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="196.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.70">
+        <vehicle id="ego" speed="10.00" pos="193.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="197.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.80">
+        <vehicle id="ego" speed="10.00" pos="194.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="198.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="18.90">
+        <vehicle id="ego" speed="10.00" pos="195.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+        <vehicle id="other" speed="10.00" pos="199.00" lane="beg_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="ego" speed="10.00" pos="196.00" lane="beg_1" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="19.10">
+        <vehicle id="ego" speed="10.00" pos="197.00" lane="beg_1" posLat="-0.01" speedLat="-0.10"/>
+    </timestep>
+    <timestep time="19.20">
+        <vehicle id="ego" speed="10.00" pos="198.00" lane="beg_1" posLat="-0.03" speedLat="-0.20"/>
+    </timestep>
+    <timestep time="19.30">
+        <vehicle id="ego" speed="10.00" pos="199.00" lane="beg_1" posLat="-0.06" speedLat="-0.30"/>
+    </timestep>
+    <timestep time="19.40"/>
+</fcd-export>

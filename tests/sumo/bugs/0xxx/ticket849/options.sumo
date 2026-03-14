@@ -1,1 +1,2 @@
---no-step-log --no-duration-log --net-file=net.net.xml --route-files=input_routes.rou.xml --netstate-dump rawdump.xml -e 51
+--no-step-log --no-duration-log --net-file=net.net.xml --route-files=input_routes.rou.xml -e 51
+ --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge
