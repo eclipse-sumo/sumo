@@ -172,7 +172,7 @@ MSXMLRawOut::writeTransportable(OutputDevice& of, const MSTransportable* p, Sumo
     of.writeAttr(SUMO_ATTR_ID, p->getID());
     of.writeAttr(SUMO_ATTR_POSITION, p->getEdgePos());
     of.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()));
-    of.writeAttr("stage", p->getCurrentStageDescription());
+    of.writeAttr(SUMO_ATTR_STAGE, p->getCurrentStageDescription());
     of.closeTag();
 }
 

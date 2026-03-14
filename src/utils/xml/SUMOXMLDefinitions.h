@@ -841,33 +841,34 @@ enum SumoXMLAttr {
     SUMO_ATTR_ODOMETER           = 61,
     SUMO_ATTR_POSITION_LAT       = 62,
     SUMO_ATTR_SPEED_LAT          = 63,
+    SUMO_ATTR_STAGE              = 64,
 
     // only usable with SumoXMLAttrMask
-    SUMO_ATTR_ARRIVALDELAY       = 64,
+    SUMO_ATTR_ARRIVALDELAY       = 65,
 
     // emission-output
-    SUMO_ATTR_CO                 = 65,
-    SUMO_ATTR_CO2                = 66,
-    SUMO_ATTR_HC                 = 67,
-    SUMO_ATTR_PMX                = 68,
-    SUMO_ATTR_NOX                = 69,
-    SUMO_ATTR_FUEL               = 70,
-    SUMO_ATTR_ELECTRICITY        = 71,
-    SUMO_ATTR_ROUTE              = 72,
-    SUMO_ATTR_ECLASS             = 73,
-    SUMO_ATTR_WAITING            = 74,
+    SUMO_ATTR_CO                 = 66,
+    SUMO_ATTR_CO2                = 67,
+    SUMO_ATTR_HC                 = 68,
+    SUMO_ATTR_PMX                = 69,
+    SUMO_ATTR_NOX                = 70,
+    SUMO_ATTR_FUEL               = 71,
+    SUMO_ATTR_ELECTRICITY        = 72,
+    SUMO_ATTR_ROUTE              = 73,
+    SUMO_ATTR_ECLASS             = 74,
+    SUMO_ATTR_WAITING            = 75,
 
     // meso-attributes
-    SUMO_ATTR_SEGMENT            = 75,
-    SUMO_ATTR_QUEUE              = 76,
-    SUMO_ATTR_ENTRYTIME          = 77,
-    SUMO_ATTR_EVENTTIME          = 78,
-    SUMO_ATTR_BLOCKTIME          = 79,
+    SUMO_ATTR_SEGMENT            = 76,
+    SUMO_ATTR_QUEUE              = 77,
+    SUMO_ATTR_ENTRYTIME          = 78,
+    SUMO_ATTR_EVENTTIME          = 79,
+    SUMO_ATTR_BLOCKTIME          = 80,
 
     // write the tag name
-    SUMO_ATTR_TAG                = 80,
-    SUMO_ATTR_OVERLAPDENSITY     = 81,
-    SUMO_ATTR_FLOW               = 82,
+    SUMO_ATTR_TAG                = 81,
+    SUMO_ATTR_OVERLAPDENSITY     = 82,
+    SUMO_ATTR_FLOW               = 83,
 
     /// @}
 

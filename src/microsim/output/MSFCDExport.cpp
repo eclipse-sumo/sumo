@@ -299,6 +299,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const M
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SLOPE, e->getLanes()[0]->getShape().slopeDegreeAtOffset(p->getEdgePos()), mask);
     of.writeOptionalAttr(SUMO_ATTR_VEHICLE, v == nullptr ? "" : v->getID(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_STAGE, p->getCurrentStageDescription(), mask);
     of.writeOptionalAttr(SUMO_ATTR_TAG, toString(tag), mask);
     of.closeTag();
 }
