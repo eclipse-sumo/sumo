@@ -424,6 +424,10 @@ public:
         return this->myProhibited.size() > 0;
     }
 
+    virtual bool supportsProhibitions() const {
+        return true;
+    }
+
     /// Builds the path from marked edges
     void buildPathFrom(const typename SUMOAbstractRouter<E, V>::EdgeInfo* rbegin, std::vector<const E*>& edges) {
         std::vector<const E*> tmp;

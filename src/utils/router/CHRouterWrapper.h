@@ -86,6 +86,11 @@ public:
         }
     }
 
+    virtual bool supportsProhibitions() const {
+        WRITE_WARNINGF(TL("Routing algorithm CHWrapper does not support dynamic closing of edges and lanes%"), "");
+        return false;
+    }
+
     virtual SUMOAbstractRouter<E, V>* clone() {
         CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, this->myHavePermissions, myMaxNumInstances);
         for (const auto& item : myRouters) {

@@ -273,6 +273,10 @@ public:
         }
     }
 
+    virtual bool supportsProhibitions() const {
+        WRITE_WARNINGF(TL("Routing algorithm CH does not support dynamic closing of edges and lanes%"), "");
+        return false;
+    }
 
     /// trigger hierarchy rebuild
     virtual void reset(const V* const vehicle) {

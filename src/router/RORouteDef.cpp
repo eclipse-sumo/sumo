@@ -197,10 +197,12 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     RONet* net = RONet::getInstance();
     const int initialSize = (int)oldEdges.size();
     const bool hasRestrictions = RONet::getInstance()->hasParamRestrictions();
-    if (net->getProhibitions().size() > 0 && !router.hasProhibitions()) {
-        router.prohibit(net->getProhibitions());
+    if (net->hasProhibitions() && router.supportsProhibitions()) {
+        if (net->getProhibitions().size() > 0 && !router.hasProhibitions()) {
+            router.prohibit(net->getProhibitions());
+        }
+        net->updateLaneProhibitions(begin);
     }
-    net->updateLaneProhibitions(begin);
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input

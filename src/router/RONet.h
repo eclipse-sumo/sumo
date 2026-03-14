@@ -463,6 +463,10 @@ public:
         return myMaxTraveltime;
     }
 
+    bool hasProhibitions() const {
+        return !myProhibitions.empty() || !myLaneProhibitions.empty();
+    }
+
     const Prohibitions& getProhibitions() const {
         return myProhibitions;
     }
