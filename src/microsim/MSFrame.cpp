@@ -868,7 +868,9 @@ MSFrame::fillOptions() {
 void
 MSFrame::buildStreams() {
     // standard outputs
-    OutputDevice::createDeviceByOption("netstate-dump", "netstate", "netstate_file.xsd");
+    if (OutputDevice::createDeviceByOption("netstate-dump", "netstate", "netstate_file.xsd")) {
+        WRITE_WARNING(TL("Raw netstate dumps are deprecated. Use fcd-output instead."));
+    }
     OutputDevice::createDeviceByOption("summary-output", "summary", "summary_file.xsd");
     OutputDevice::createDeviceByOption("person-summary-output", "personSummary", "person_summary_file.xsd");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos", "tripinfo_file.xsd");
