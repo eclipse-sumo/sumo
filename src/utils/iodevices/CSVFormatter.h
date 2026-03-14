@@ -69,21 +69,16 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool isNull) {
         checkAttr(attr);
-        myValues.emplace_back(toString(val, into.precision()));
+        myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
 
     template <class T>
-    void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+    void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool isNull) {
         assert(!myCheckColumns);
         checkHeader(attr);
-        myValues.emplace_back(toString(val, into.precision()));
-    }
-
-    void writeNull(std::ostream& /* into */, const SumoXMLAttr attr) {
-        checkAttr(attr);
-        myValues.emplace_back("");
+        myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
 
     void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) {

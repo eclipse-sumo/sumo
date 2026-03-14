@@ -101,17 +101,17 @@ public:
      * @param[in] isNull The given value is not set
      */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull = false) {
+    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull) {
         checkAttr(attr);
         checkBuilder<SumoXMLAttr, arrow::StringBuilder>(attr, arrow::utf8);
         myValues.push_back(isNull ? nullptr : std::make_shared<arrow::StringScalar>(toString(val)));
     }
 
     template <class T>
-    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val) {
+    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val, const bool isNull) {
         assert(!myCheckColumns);
         checkBuilder<std::string, arrow::StringBuilder>(attr, arrow::utf8);
-        myValues.push_back(std::make_shared<arrow::StringScalar>(toString(val)));
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::StringScalar>(toString(val)));
     }
 
     void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) {
@@ -120,7 +120,7 @@ public:
             myValues.push_back(std::make_shared<arrow::DoubleScalar>(STEPS2TIME(val)));
             return;
         }
-        writeAttr(into, attr, time2string(val));
+        writeAttr(into, attr, time2string(val), false);
     }
 
     bool wroteHeader() const {
@@ -252,20 +252,20 @@ inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLA
 }
 
 template <>
-inline void ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val) {
+inline void ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull) {
     assert(!myCheckColumns);
     if (into.precision() > 2) {
         checkBuilder<std::string, arrow::DoubleBuilder>(attr, arrow::float64);
-        myValues.push_back(std::make_shared<arrow::DoubleScalar>(val));
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::DoubleScalar>(val));
     } else {
         checkBuilder<std::string, arrow::FloatBuilder>(attr, arrow::float32);
-        myValues.push_back(std::make_shared<arrow::FloatScalar>((float)val));
+        myValues.push_back(isNull ? nullptr : std::make_shared<arrow::FloatScalar>((float)val));
     }
 }
 
 template <>
-inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val) {
+inline void ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val, const bool isNull) {
     assert(!myCheckColumns);
     checkBuilder<std::string, arrow::Int32Builder>(attr, arrow::int32);
-    myValues.push_back(std::make_shared<arrow::Int32Scalar>(val));
+    myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));
 }

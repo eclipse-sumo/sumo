@@ -236,18 +236,19 @@ public:
      *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] isNull Whether the value should be represented as None / null in output formats which support it
      * @return The OutputDevice for further processing
      */
-    template <typename T>
-    OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
+    template <typename T, class ATTR_TYPE>
+    OutputDevice& writeAttr(const ATTR_TYPE& attr, const T& val, const bool isNull = false) {
         if (myFormatter->getType() == OutputFormatterType::XML) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
 #ifdef HAVE_PARQUET
         } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
 #endif
         } else {
-            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
+            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
         }
         return *this;
     }
@@ -269,6 +270,7 @@ public:
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      * @param[in] attributeMask The filter that specifies whether the attribute shall be written
+     * @param[in] isNull Whether the value should be represented as None / null in output formats which support it
      * @return The OutputDevice for further processing
      */
     template <typename T>
@@ -284,11 +286,7 @@ public:
                 static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
 #endif
             } else {
-                if (isNull) {
-                    static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
-                } else {
-                    static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
-                }
+                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
             }
         }
         return *this;
@@ -307,32 +305,8 @@ public:
                 static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc(), isNull);
 #endif
             } else {
-                if (isNull) {
-                    static_cast<CSVFormatter*>(myFormatter)->writeNull(getOStream(), attr);
-                } else {
-                    static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc());
-                }
+                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, valFunc(), isNull);
             }
-        }
-        return *this;
-    }
-
-    /** @brief writes an arbitrary attribute
-     *
-     * @param[in] attr The attribute (name)
-     * @param[in] val The attribute value
-     * @return The OutputDevice for further processing
-     */
-    template <typename T>
-    OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        if (myFormatter->getType() == OutputFormatterType::XML) {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-#ifdef HAVE_PARQUET
-        } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-            static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
-#endif
-        } else {
-            static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val);
         }
         return *this;
     }
