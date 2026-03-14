@@ -45,8 +45,7 @@ MSDispatch::MSDispatch(const Parameterised::Map& params) :
     Parameterised(params),
     myOutput(nullptr),
     myReservationCount(0),
-    myRoutingMode(StringUtils::toInt(getParameter("routingMode", "1")))
-{
+    myRoutingMode(StringUtils::toInt(getParameter("routingMode", "1"))) {
     const std::string opt = "device.taxi.dispatch-algorithm.output";
     if (OptionsCont::getOptions().isSet(opt)) {
         OutputDevice::createDeviceByOption(opt, "DispatchInfo");
@@ -191,17 +190,16 @@ MSDispatch::removeReservation(MSTransportable* person,
         auto it2 = myRunningReservations.find(group);
         if (it2 != myRunningReservations.end()) {
             for (auto item : it2->second) {
-                const Reservation* res = item.first;
+                const Reservation* const res = item.first;
                 if (res->persons.count(person) != 0
                         && res->from == from
                         && res->to == to
                         && res->fromPos == fromPos
                         && res->toPos == toPos) {
-                    MSDevice_Taxi* taxi = item.second;
-                    taxi->cancelCustomer(person);
-                    if (res->persons.empty()) {
+                    if (res->persons.size() == 1) {
                         removedID = res->id;
                     }
+                    item.second->cancelCustomer(person);  // will delete res via fulfilledReservation if necessary
                     break;
                 }
             }
