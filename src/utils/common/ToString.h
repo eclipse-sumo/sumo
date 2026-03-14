@@ -63,7 +63,7 @@ inline std::string toString(const double& val, std::streamsize accuracy) {
     std::ostringstream oss;
     oss.setf(std::ios::fixed, std::ios::floatfield);
     oss << std::setprecision(accuracy);
-    oss << t;
+    oss << val;
     return oss.str();
 #endif
 }
