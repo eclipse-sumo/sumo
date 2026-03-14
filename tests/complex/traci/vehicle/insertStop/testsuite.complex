@@ -60,7 +60,7 @@ third_later
 # insert stop after the last stop
 last
 
-# replace all stops after the vehicle has departed
+# add multiple stops after the vehicle has departed
 all
 
 # replace stop with invalid index
