@@ -30,6 +30,10 @@ Testing lanechanges (lanechange-output, end=1000s)...
   Failed to read xml CSV: No columns to parse from file
 [SKIP]  lanechanges: both are empty
 
+Testing lanechanges (lanechange-output, end=1000s)...
+[OK]    lanechanges (parquet): 168 rows match
+[OK]    lanechanges (csv): 168 rows match
+
 Testing edgedata (edgedata-output, end=1000s)...
   note: parquet has extra columns not in XML: ['edge_teleported', 'edge_vaporized']
 [OK]    edgedata (parquet): 12 rows match
@@ -45,6 +49,16 @@ Testing lanedata (lanedata-output, end=1000s)...
 Testing statistic (statistic-output, end=1000s)...
 [OK]    statistic (parquet): 6 rows match
 [OK]    statistic (csv): 6 rows match
+
+Testing stopout (stop-output, end=1000s)...
+  Failed to read xml CSV: No columns to parse from file
+[SKIP]  stopout: both are empty
+  Failed to read xml CSV: No columns to parse from file
+[SKIP]  stopout: both are empty
+
+Testing stopout (stop-output, end=1000s)...
+[OK]    stopout (parquet): 56 rows match
+[OK]    stopout (csv): 56 rows match
 
 Testing e1detector (detector, end=500s)...
 [OK]    e1detector (parquet): 60 rows match
@@ -64,4 +78,8 @@ Testing e3detector (detector, end=500s)...
 [OK]    e3detector (parquet): 20 rows match
 [OK]    e3detector (csv): 20 rows match
 
-Result: PASSED (all outputs match, 1 skipped)
+Testing routeprobe (routeprobe, end=1000s)...
+[OK]    routeprobe (parquet): 23 rows match
+[OK]    routeprobe (csv): 23 rows match
+
+Result: PASSED (all outputs match, 2 skipped)

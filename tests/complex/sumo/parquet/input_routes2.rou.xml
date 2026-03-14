@@ -5,7 +5,9 @@
     <route id="vertical" edges="3fi 3si 4o 4fi 4si 3o 3fi"/>
 
     <flow id="always_left" route="always_left" begin="100" end="1110" period="10"/>
-    <flow id="always_right" route="always_right" begin="100" end="1110" period="10"/>
+    <flow id="always_right" route="always_right" begin="100" end="1110" period="10">
+        <stop lane="3si_1" endPos="100" duration="10"/>
+    </flow>
     <flow id="horizontal" route="horizontal" begin="100" end="1110" period="10"/>
     <flow id="vertical" route="vertical" begin="100" end="1110" period="10"/>
 </routes>
