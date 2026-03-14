@@ -1,1 +1,1 @@
---vehroute-output=vehroutes.xml --no-step-log --net-file net.net.xml --route-files routes.rou.xml --additional-files additional.xml --netstate-dump netstate_dump.xml 
+--vehroute-output=vehroutes.xml --no-step-log --net-file net.net.xml --route-files routes.rou.xml --additional-files additional.xml --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane 

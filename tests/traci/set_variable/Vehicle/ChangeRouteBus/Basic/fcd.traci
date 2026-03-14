@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T17:58:55.270091+01:00 by Eclipse SUMO sumo v1_26_0+0596-598a13ff2c9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+        <additional-files value="additional.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="41411"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="bus_1" speed="0.00" pos="0.00" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="bus_1" speed="1.96" pos="1.96" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="bus_1" speed="4.44" pos="6.40" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="bus_1" speed="5.83" pos="12.23" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="bus_1" speed="5.92" pos="18.15" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="bus_1" speed="1.42" pos="19.57" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="bus_1" speed="0.23" pos="19.80" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="bus_1" speed="0.16" pos="19.96" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="bus_1" speed="0.02" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="bus_1" speed="0.00" pos="19.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="bus_1" speed="1.34" pos="21.33" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="bus_1" speed="3.55" pos="24.87" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="bus_1" speed="5.69" pos="30.56" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="bus_1" speed="8.06" pos="38.62" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="bus_1" speed="9.70" pos="48.33" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="bus_1" speed="11.15" pos="59.47" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="bus_1" speed="13.05" pos="72.53" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="bus_1" speed="15.45" pos="87.98" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="bus_1" speed="17.62" pos="105.60" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="bus_1" speed="19.31" pos="124.90" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="bus_1" speed="21.46" pos="146.36" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="bus_1" speed="23.46" pos="169.82" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="bus_1" speed="25.20" pos="195.02" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="bus_1" speed="26.74" pos="221.76" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="bus_1" speed="28.37" pos="250.14" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="bus_1" speed="30.30" pos="280.44" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="bus_1" speed="32.77" pos="313.21" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="bus_1" speed="35.17" pos="348.38" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="bus_1" speed="37.10" pos="385.47" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="bus_1" speed="39.25" pos="424.72" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="bus_1" speed="41.04" pos="465.76" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="bus_1" speed="42.49" pos="8.25" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="bus_1" speed="44.81" pos="53.05" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="bus_1" speed="47.27" pos="100.32" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="bus_1" speed="49.00" pos="149.32" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="bus_1" speed="50.79" pos="200.11" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="bus_1" speed="52.48" pos="252.58" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="bus_1" speed="54.74" pos="307.33" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="bus_1" speed="56.23" pos="363.55" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="bus_1" speed="58.44" pos="422.00" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="bus_1" speed="58.89" pos="480.88" lane="e_m6_0"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="bus_1" speed="59.60" pos="40.48" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="bus_1" speed="59.16" pos="99.64" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="bus_1" speed="59.88" pos="159.52" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="bus_1" speed="59.36" pos="218.87" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="bus_1" speed="59.83" pos="278.71" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="bus_1" speed="58.82" pos="337.53" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="bus_1" speed="58.81" pos="396.34" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="bus_1" speed="58.90" pos="455.24" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="bus_1" speed="59.87" pos="515.11" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="bus_1" speed="59.24" pos="574.34" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="bus_1" speed="60.00" pos="634.34" lane="e_shape0_0"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="bus_1" speed="59.59" pos="693.93" lane="e_shape0_0"/>
+    </timestep>
+</fcd-export>

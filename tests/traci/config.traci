@@ -48,5 +48,6 @@ log:Simulation.*started with{REPLACE Simulation started with}
 [floating_point_tolerance]
 testclient_out:0.0101
 net_state:0.0101
+fcd:0.0101
 detector:0.0101
 tripinfos:0.0101

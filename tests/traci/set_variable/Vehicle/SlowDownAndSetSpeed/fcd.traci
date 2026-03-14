@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T17:58:57.058636+01:00 by Eclipse SUMO sumo v1_26_0+0596-598a13ff2c9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="39019"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="veh0" speed="0.00" pos="0.00" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="veh0" speed="0.60" pos="0.60" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh0" speed="1.37" pos="1.97" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh0" speed="1.79" pos="3.76" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh0" speed="2.53" pos="6.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh0" speed="10.00" pos="16.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="veh0" speed="10.00" pos="26.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="veh0" speed="10.00" pos="36.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="veh0" speed="10.00" pos="46.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="veh0" speed="10.00" pos="56.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="veh0" speed="10.00" pos="66.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="veh0" speed="10.00" pos="76.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="veh0" speed="10.00" pos="86.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="veh0" speed="10.00" pos="96.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="veh0" speed="10.00" pos="106.29" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="veh0" speed="5.50" pos="111.79" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="veh0" speed="5.00" pos="116.79" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="veh0" speed="5.54" pos="122.33" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="veh0" speed="6.09" pos="128.42" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="veh0" speed="6.75" pos="135.17" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="veh0" speed="7.47" pos="142.64" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="veh0" speed="8.03" pos="150.67" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="veh0" speed="8.74" pos="159.40" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="veh0" speed="9.50" pos="168.91" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="veh0" speed="9.97" pos="178.88" lane="e_m5_0"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="veh0" speed="10.42" pos="189.30" lane="e_m5_0"/>
+    </timestep>
+</fcd-export>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="veh0" x="0.00" y="492.00" speed="0.00" pos="0.00" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="veh0" x="0.80" y="492.00" speed="0.80" pos="0.80" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh0" x="2.40" y="492.00" speed="1.60" pos="2.40" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh0" x="4.80" y="492.00" speed="2.40" pos="4.80" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh0" x="8.00" y="492.00" speed="3.20" pos="8.00" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh0" x="1980.00" y="728.00" speed="17.67" pos="8.00" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.00"/>
+    <timestep time="7.00"/>
+    <timestep time="8.00"/>
+    <timestep time="9.00"/>
+    <timestep time="10.00"/>
+    <timestep time="11.00"/>
+</fcd-export>

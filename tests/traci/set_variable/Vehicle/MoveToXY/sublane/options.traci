@@ -1,2 +1,2 @@
 --no-step-log --net-file net.net.xml --route-files routes.rou.xml
---netstate-dump netstate_dump.xml --lateral-resolution 0.8
+--fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,posLat,speedLat --lateral-resolution 0.8

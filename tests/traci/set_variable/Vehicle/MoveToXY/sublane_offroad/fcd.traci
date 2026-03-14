@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="veh0" x="0.00" y="492.00" speed="0.00" pos="0.00" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="veh0" x="0.80" y="492.00" speed="0.80" pos="0.80" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="veh0" x="2.40" y="492.00" speed="1.60" pos="2.40" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="veh0" x="4.80" y="492.00" speed="2.40" pos="4.80" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="veh0" x="8.00" y="492.00" speed="3.20" pos="8.00" lane="e_m0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="veh0" x="1980.00" y="728.00" speed="17.67" pos="272.36" lane="e_vo0_0" posLat="-2.10" speedLat="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="veh0" x="1994.10" y="710.61" speed="17.67" pos="290.03" lane="e_vo0_0" posLat="-1.10" speedLat="1.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="veh0" x="1995.10" y="693.23" speed="17.67" pos="307.70" lane="e_vo0_0" posLat="-0.10" speedLat="1.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="veh0" x="1995.20" y="675.84" speed="17.67" pos="325.37" lane="e_vo0_0" posLat="0.00" speedLat="0.10"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="veh0" x="1995.20" y="658.45" speed="17.67" pos="343.04" lane="e_vo0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="veh0" x="1995.20" y="641.06" speed="17.67" pos="360.71" lane="e_vo0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="veh0" x="1995.20" y="623.68" speed="17.67" pos="378.38" lane="e_vo0_0" posLat="0.00" speedLat="0.00"/>
+    </timestep>
+</fcd-export>

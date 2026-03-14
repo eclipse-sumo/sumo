@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-14T17:58:54.605101+01:00 by Eclipse SUMO sumo v1_26_0+0596-598a13ff2c9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,pos,lane"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="37619"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="overtaking" speed="0.00" pos="0.00" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="overtaking" speed="2.60" pos="2.60" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="overtaking" speed="4.79" pos="7.39" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="overtaking" speed="6.47" pos="13.86" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="overtaking" speed="8.22" pos="22.08" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="overtaking" speed="9.93" pos="32.01" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="overtaking" speed="11.30" pos="43.31" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="overtaking" speed="13.50" pos="56.82" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="overtaking" speed="12.88" pos="69.69" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="overtaking" speed="13.79" pos="83.48" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="overtaking" speed="13.01" pos="96.50" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="overtaking" speed="13.30" pos="109.80" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="overtaking" speed="12.88" pos="122.68" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="overtaking" speed="13.52" pos="136.20" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="overtaking" speed="12.82" pos="149.02" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="overtaking" speed="13.29" pos="162.30" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="overtaking" speed="13.00" pos="175.31" lane="VODUGES_beg_0"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="overtaking" speed="13.44" pos="188.75" lane="VODUGES_beg_0"/>
+    </timestep>
+</fcd-export>
