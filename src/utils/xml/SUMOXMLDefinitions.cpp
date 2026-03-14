@@ -672,6 +672,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "tag",                    SUMO_ATTR_TAG },
     { "overlapDensity",         SUMO_ATTR_OVERLAPDENSITY },
     { "flow",                   SUMO_ATTR_FLOW },
+    { "personNumber",           SUMO_ATTR_PERSON_NUMBER },
+    { "containerNumber",        SUMO_ATTR_CONTAINER_NUMBER },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },
@@ -1009,8 +1011,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "personCapacity",         SUMO_ATTR_PERSON_CAPACITY },
     { "containerCapacity",      SUMO_ATTR_CONTAINER_CAPACITY },
     { "parkingLength",          SUMO_ATTR_PARKING_LENGTH },
-    { "personNumber",           SUMO_ATTR_PERSON_NUMBER },
-    { "containerNumber",        SUMO_ATTR_CONTAINER_NUMBER },
     { "modes",                  SUMO_ATTR_MODES },
     { "walkFactor",             SUMO_ATTR_WALKFACTOR },
 
