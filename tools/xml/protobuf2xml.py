@@ -72,7 +72,7 @@ def msg2xml(desc, cont, out, depth=1):
 #    print(depth, cont)
     for attr, value in cont.ListFields():
         if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-            if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+            if attr.is_repeated if hasattr(attr, 'is_repeated') else attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
                 haveChildren = True
                 for item in value:
                     msg2xml(attr, item, out, depth + 1)
@@ -101,7 +101,7 @@ def writeXml(root, module, options):
                 obj.ParseFromString(read_n(inputf, length))
                 for attr, value in obj.ListFields():
                     if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-                        if attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+                        if attr.is_repeated if hasattr(attr, 'is_repeated') else attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
                             for item in value:
                                 msg2xml(attr, item, outputf)
                     elif first:
