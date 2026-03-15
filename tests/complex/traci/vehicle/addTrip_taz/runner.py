@@ -33,7 +33,7 @@ traci.start([sumoBinary,
              '-a', 'input_additional.add.xml',
              '--vehroute-output', 'vehroutes.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 vehID = "ego"
 routeID = "trip0"

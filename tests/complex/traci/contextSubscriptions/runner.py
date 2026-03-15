@@ -27,6 +27,8 @@ if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 import traci  # noqa
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
 
 
 def dist2(v, w):
@@ -49,7 +51,7 @@ def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
-    traci.start([sumolib.checkBinary(sys.argv[1]), '-Q', "-c", "sumo.sumocfg"])
+    traci.start([sumolib.checkBinary(positionalArgs[0]), '-Q', "-c", "sumo.sumocfg"] + sumoOptions)
     traci.poi.add("poi", 400, 500, (1, 0, 0, 0))
     traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
     subscribed = False
@@ -129,17 +131,17 @@ def runSingle(traciEndTime, viewRange, module, objID):
 
 
 sys.stdout.flush()
-if sys.argv[3] == "vehicle":
-    runSingle(1000, float(sys.argv[2]), traci.vehicle, "ego")
-elif sys.argv[3] == "edge":
-    runSingle(1000, float(sys.argv[2]), traci.edge, "1fi")
-elif sys.argv[3] == "lane":
-    runSingle(1000, float(sys.argv[2]), traci.lane, "2si_0")
-elif sys.argv[3] == "junction":
-    runSingle(1000, float(sys.argv[2]), traci.junction, "0")
-elif sys.argv[3] == "poi":
-    runSingle(1000, float(sys.argv[2]), traci.poi, "poi")
-elif sys.argv[3] == "polygon":
-    runSingle(1000, float(sys.argv[2]), traci.polygon, "poly")
-elif sys.argv[3] == "person":
-    runSingle(1000, float(sys.argv[2]), traci.person, "p0")
+if positionalArgs[2] == "vehicle":
+    runSingle(1000, float(positionalArgs[1]), traci.vehicle, "ego")
+elif positionalArgs[2] == "edge":
+    runSingle(1000, float(positionalArgs[1]), traci.edge, "1fi")
+elif positionalArgs[2] == "lane":
+    runSingle(1000, float(positionalArgs[1]), traci.lane, "2si_0")
+elif positionalArgs[2] == "junction":
+    runSingle(1000, float(positionalArgs[1]), traci.junction, "0")
+elif positionalArgs[2] == "poi":
+    runSingle(1000, float(positionalArgs[1]), traci.poi, "poi")
+elif positionalArgs[2] == "polygon":
+    runSingle(1000, float(positionalArgs[1]), traci.polygon, "poly")
+elif positionalArgs[2] == "person":
+    runSingle(1000, float(positionalArgs[1]), traci.person, "p0")

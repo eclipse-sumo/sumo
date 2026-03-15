@@ -32,10 +32,12 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 egoID = "ego"
 
@@ -116,8 +118,8 @@ def runSingle(traciEndTime, lateralDist, downstreamDist, upstreamDist, foeDistTo
     sys.stdout.flush()
 
 
-if len(sys.argv) < 6:
+if len(positionalArgs) < 5:
     print("Usage: runner <sumo/sumo-gui> <lateralDistance> <downstreamDistance> <upstreamDistance> <foeDistToJunction>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(100, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]))
+runSingle(100, float(positionalArgs[1]), float(positionalArgs[2]), float(positionalArgs[3]), float(positionalArgs[4]))

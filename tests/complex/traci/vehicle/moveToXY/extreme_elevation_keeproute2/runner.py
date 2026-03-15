@@ -34,7 +34,7 @@ traci.start([sumoBinary,
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
              # '-S', '-Q'
-             ])
+             ] + sys.argv[1:])
 
 
 vehID = 'v0'

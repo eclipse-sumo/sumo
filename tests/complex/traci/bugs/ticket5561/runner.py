@@ -27,7 +27,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'])
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'] + sys.argv[1:])
 
 step = 0
 done = False

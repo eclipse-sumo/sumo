@@ -29,7 +29,7 @@ import sumolib  # noqa
 cmd = [sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '--duration-log.disable', 'false', '-v', '-S', '-Q']
 
 vehID = "v0"
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")

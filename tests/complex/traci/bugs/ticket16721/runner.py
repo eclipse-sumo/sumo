@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-n', 'input_net.net.xml',
              '-r', 'input_routes.rou.xml',
              '-a', 'input_additional.add.xml',
-             ])
+             ] + sys.argv[1:])
 
 while traci.simulation.getMinExpectedNumber() > 0:
 

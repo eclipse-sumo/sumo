@@ -27,7 +27,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '--fcd-output', 'fcd.xml', '-S', '-Q'])
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg', '--fcd-output', 'fcd.xml', '-S', '-Q'] + sys.argv[1:])
 traci.simulationStep()
 for i in range(45):
     traci.simulationStep()

@@ -35,7 +35,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '--tripinfo-output', 'tripinfo.xml',
              '--save-state.transportables',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 traci.simulationStep()
 traci.simulation.saveState("state.xml")

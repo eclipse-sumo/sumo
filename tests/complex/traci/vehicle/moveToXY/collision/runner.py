@@ -39,7 +39,7 @@ traci.start([sumolib.checkBinary("sumo"),
              '--collision.action', 'warn',
              '--collision.mingap-factor', '0',
              '--step-length', '0.1',
-             '--no-step-log'])
+             '--no-step-log'] + sys.argv[1:])
 
 traci.simulationStep()
 traci.route.add("r0", ["SC", "CN"])

@@ -28,7 +28,9 @@ import sumolib  # noqa
 import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
-sumoBinary = sumolib.checkBinary(sys.argv[1])
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+sumoBinary = sumolib.checkBinary(positionalArgs[0])
 
 
 def runSingle(sumoEndTime, traciEndTime, label):
@@ -38,7 +40,7 @@ def runSingle(sumoEndTime, traciEndTime, label):
     fdi.close()
     fdo.close()
     step = 0
-    traci.start([sumoBinary, "-c", "used.sumocfg", "-S", "-Q"], port=PORT, label=str(label), stdout=sys.stdout)
+    traci.start([sumoBinary, "-c", "used.sumocfg", "-S", "-Q"] + sumoOptions, port=PORT, label=str(label), stdout=sys.stdout)
     while not step > traciEndTime:
         traci.simulationStep()
         vehs = traci.vehicle.getIDList()

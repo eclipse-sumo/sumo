@@ -27,7 +27,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'])
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'] + sys.argv[1:])
 
 traci.simulationStep()
 traci.vehicle.moveTo("ego", "SC_1", 25)

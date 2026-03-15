@@ -28,10 +28,12 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 
 def runSingle(traciEndTime, laneIndex, vehID):
@@ -74,4 +76,4 @@ def runSingle(traciEndTime, laneIndex, vehID):
 
 sys.stdout.flush()
 sys.stderr.flush()
-runSingle(50, int(sys.argv[2]), "collider")
+runSingle(50, int(positionalArgs[1]), "collider")

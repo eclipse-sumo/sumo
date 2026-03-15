@@ -33,7 +33,7 @@ conns = []
 sumoProcess = []
 try:
     for i in range(2):
-        traci.start([sumoBinary, "-c", "sumo.sumocfg"], label=str(i))
+        traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label=str(i))
         conns.append(traci.getConnection(str(i)))
     for c in conns:
         for step in range(3):

@@ -28,7 +28,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 polygonID = "0"
 print("adding", polygonID)
 shape = [(x, x) for x in range(300)]

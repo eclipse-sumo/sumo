@@ -30,7 +30,7 @@ import traci.constants as tc  # noqa
 
 traci.start([sumolib.checkBinary("sumo"),
              '-n', 'input_net2.net.xml',
-             '--no-step-log', '-S', '-Q'])
+             '--no-step-log', '-S', '-Q'] + sys.argv[1:])
 
 red = (255, 0, 0)
 traci.poi.add("poi0", 0, 0, red)

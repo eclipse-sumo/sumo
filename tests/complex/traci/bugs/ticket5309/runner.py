@@ -34,7 +34,7 @@ cmd = [sumolib.checkBinary('sumo'),
        '--no-step-log',
        ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 while traci.simulation.getMinExpectedNumber() > 0:
 

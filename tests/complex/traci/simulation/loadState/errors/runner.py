@@ -29,7 +29,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml", "--no-step-log"])
+traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml", "--no-step-log"] + sys.argv[1:])
 
 # missing file
 try:

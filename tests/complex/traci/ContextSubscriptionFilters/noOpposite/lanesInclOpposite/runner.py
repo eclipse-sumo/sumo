@@ -27,10 +27,12 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 
 def runSingle(traciEndTime, viewRange, objID):
@@ -69,4 +71,4 @@ def runSingle(traciEndTime, viewRange, objID):
 
 
 sys.stdout.flush()
-runSingle(100, float(sys.argv[2]), "ego")
+runSingle(100, float(positionalArgs[1]), "ego")

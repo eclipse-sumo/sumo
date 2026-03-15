@@ -46,7 +46,7 @@ def run(mode, fname):
                  "--fcd-output.attributes", "speed",
                  "--default.speeddev", "0",
                  "--step-length", "0.5",
-                 "--no-step-log"])
+                 "--no-step-log"] + sys.argv[1:])
 
     traci.vehicle.setParameter("ego", "carFollowModel.caccCommunicationsOverrideMode", str(mode))
     print("Set OverrideMode: %s , get OverrideMode: %s" % (

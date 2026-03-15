@@ -32,7 +32,7 @@ import sumolib  # noqa
 traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net3.net.xml",
              "--no-step-log"
-             ])
+             ] + sys.argv[1:])
 
 print(traci.simulation.convertRoad(120.44, 106.40))
 traci.close()

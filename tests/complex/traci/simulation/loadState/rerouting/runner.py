@@ -31,7 +31,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "--no-step-log",
-             "--load-state", "input_state.xml"])
+             "--load-state", "input_state.xml"] + sys.argv[1:])
 
 
 for i in range(100):

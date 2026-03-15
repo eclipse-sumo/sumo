@@ -32,7 +32,7 @@ import sumolib  # noqa
 traci.start([sumolib.checkBinary('sumo-gui'),
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
-             "-S", "-Q"])
+             "-S", "-Q"] + sys.argv[1:])
 
 trackedVehIDs = []
 

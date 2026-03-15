@@ -27,7 +27,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"] + sys.argv[1:])
 traci.simulationStep()
 print("Mass default:", traci.vehicletype.getMass("DEFAULT_VEHTYPE"))
 print("Mass t1:", traci.vehicletype.getMass("t1"))

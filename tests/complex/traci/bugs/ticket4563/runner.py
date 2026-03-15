@@ -43,7 +43,7 @@ traci.start([sumolib.checkBinary('sumo'),
              "--fcd-output.signals",
              "--step-length", "0.2",
              "--default.speeddev", "0",
-             ])
+             ] + sys.argv[1:])
 
 lead = "lead"
 follow = "follow"

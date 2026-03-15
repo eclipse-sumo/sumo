@@ -29,7 +29,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 traci.simulationStep()
 
 # cause an error and catch it
@@ -43,7 +43,7 @@ traci.simulationStep()
 traci.close()
 
 
-traci.start([sumolib.checkBinary('sumo'), "-S", "-Q", "-c", "sumo.sumocfg", "-l", "log.txt"])
+traci.start([sumolib.checkBinary('sumo'), "-S", "-Q", "-c", "sumo.sumocfg", "-l", "log.txt"] + sys.argv[1:])
 for i in range(3):
     traci.simulationStep()
     print("step=%s departed=%s" % (traci.simulation.getTime(),

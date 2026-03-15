@@ -31,7 +31,7 @@ traci.start([sumolib.checkBinary('sumo'),
              "-a", "input_additional.add.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             "--tripinfo-output", "tripinfo.xml"])
+             "--tripinfo-output", "tripinfo.xml"] + sys.argv[1:])
 
 vehicle_id = "v_0"
 route_id = "r_0"

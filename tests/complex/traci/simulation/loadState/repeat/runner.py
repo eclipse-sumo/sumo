@@ -31,7 +31,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "--no-step-log",
-             "--fcd-output", "fcd.xml"])
+             "--fcd-output", "fcd.xml"] + sys.argv[1:])
 
 for i in range(5):
     traci.simulation.loadState("input_state.xml")

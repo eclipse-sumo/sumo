@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional.add.xml',
              '--tripinfo-output', 'tripinfo.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 t = 0
 while t < 60:

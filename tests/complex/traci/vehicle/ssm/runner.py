@@ -27,6 +27,8 @@ import sys
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import traci  # noqa
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
 import sumolib  # noqa
 
 traci.setLegacyGetLeader(False)
@@ -48,7 +50,7 @@ def checkSSM(vehID):
         curTTC))
 
 
-repeat = 2 if len(sys.argv) > 1 else 1
+repeat = 2 if len(positionalArgs) > 0 else 1
 for _ in range(repeat):
     traci.start([
         sumolib.checkBinary('sumo'),

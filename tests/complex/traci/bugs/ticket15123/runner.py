@@ -29,7 +29,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "--no-step-log",
-             "--vehroute-output", "vehroutes.xml"])
+             "--vehroute-output", "vehroutes.xml"] + sys.argv[1:])
 
 vehID = "ego"
 traci.vehicle.add(vehID, "")

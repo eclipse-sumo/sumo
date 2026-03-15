@@ -36,7 +36,7 @@ traci.start([sumolib.checkBinary("sumo"),
              '--fcd-output', 'fcd.xml',
              '--no-step-log',
              # '-C', 'debug.sumocfg'
-             ])
+             ] + sys.argv[1:])
 traci.simulationStep()
 vehID = traci.vehicle.getIDList()[0]
 

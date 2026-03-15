@@ -36,7 +36,7 @@ def checkMiddleEdges():
 
 
 vehID = "ego"
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 traci.simulationStep()
 checkMiddleEdges()
 traci.edge.adaptTraveltime("middle", 20, 300, 600)

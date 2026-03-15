@@ -41,7 +41,7 @@ traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 veh = "v0"
 traci.simulation.saveState("state.xml")

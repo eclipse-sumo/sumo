@@ -42,7 +42,7 @@ INVALID = traci.constants.INVALID_DOUBLE_VALUE
 
 vehID = "ego"
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep()
 x, y = traci.vehicle.getPosition(vehID)
 for dy in [1, 1, 1, 2, 2, 2, 0, 0, 0, 1, 1, 1, 2, 2, 2, 0, 0, 0, -1, -1, -1, 1, 1, 1]:

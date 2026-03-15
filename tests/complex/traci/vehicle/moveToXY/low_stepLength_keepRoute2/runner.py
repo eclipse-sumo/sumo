@@ -37,7 +37,7 @@ TS = 0.01
 
 traci.start([sumolib.checkBinary("sumo"),
              '-n', 'input_net2.net.xml',
-             '--no-step-log', '--step-length', str(TS)])
+             '--no-step-log', '--step-length', str(TS)] + sys.argv[1:])
 
 traci.simulationStep()
 traci.route.add("r0", ["SC", "CN"])

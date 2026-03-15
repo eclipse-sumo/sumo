@@ -32,7 +32,7 @@ cmd = [
     '-n', 'input_net2.net.xml',
     '--no-step-log', ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.route.add("trip", ["SC", "NC"])
 traci.vehicle.add("tripTest", "trip")
 print("route initial:", traci.vehicle.getRoute("tripTest"))

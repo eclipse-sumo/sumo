@@ -37,7 +37,7 @@ traci.start([sumoBinary,
              '--weights.random-factor.dynamic',  # cause frequent rerouting
              '--vehroute-output', 'vehroutes.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 vehID = "ego"
 traci.vehicle.setMaxSpeed(vehID, 5)

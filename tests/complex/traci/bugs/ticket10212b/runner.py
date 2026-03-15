@@ -35,7 +35,7 @@ cmd = [sumolib.checkBinary("sumo"),
 
 vehID = "blocker2"
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     if vehID in traci.vehicle.getIDList():

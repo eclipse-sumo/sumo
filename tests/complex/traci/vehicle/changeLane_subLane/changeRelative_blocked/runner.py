@@ -32,7 +32,7 @@ traci.start([sumoBinary,
              "--fcd-output", "fcd.xml",
              "--lateral-resolution", "0.8",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 vehID = "v0"
 traci.vehicle.setLaneChangeMode("push", 0)
 traci.simulationStep()

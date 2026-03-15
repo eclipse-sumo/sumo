@@ -28,10 +28,12 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 egoID = "ego"
 
@@ -59,8 +61,8 @@ def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
                   (downstreamDist, foeDistToJunction))
             sys.stdout.flush()
             traci.vehicle.addSubscriptionFilterTurn(downstreamDist, foeDistToJunction)
-            laneList = list(map(int, sys.argv[4].strip('[]').split(',')))
-            noOpposite = (sys.argv[5] == "True")
+            laneList = list(map(int, positionalArgs[3].strip('[]').split(',')))
+            noOpposite = (positionalArgs[4] == "True")
             print("Adding lanes filter ... \n(laneList=%s, noOpposite=%s)" % (str(laneList), str(noOpposite)))
             traci.vehicle.addSubscriptionFilterLanes(laneList, noOpposite, downstreamDist, 0.0)
             subscribed = True
@@ -78,8 +80,8 @@ def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
     sys.stdout.flush()
 
 
-if len(sys.argv) < 6:
+if len(positionalArgs) < 5:
     print("Usage: runner <sumo/sumo-gui> <downstreamDist> <foeDistToJunction> <laneList> <noOpposite>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(100, float(sys.argv[2]), float(sys.argv[3]))
+runSingle(100, float(positionalArgs[1]), float(positionalArgs[2]))

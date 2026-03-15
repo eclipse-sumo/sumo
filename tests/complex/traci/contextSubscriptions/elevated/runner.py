@@ -36,7 +36,7 @@ traci.start([sumoBinary,
              "-a", "input_additional.add.xml",
              "--default.speeddev", "0",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 traci.poi.subscribeContext("poi0", tc.CMD_GET_VEHICLE_VARIABLE, 50,
                            [tc.VAR_SPEED, tc.VAR_LANE_ID, tc.VAR_POSITION])

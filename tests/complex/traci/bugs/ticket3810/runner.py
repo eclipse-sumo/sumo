@@ -32,7 +32,7 @@ cmd = [
     '-r', 'input_routes.rou.xml',
     '--no-step-log', ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep()  # insert vehicles
 vehs = ['stratLeft', 'stratRight']
 for vehID in vehs:

@@ -41,7 +41,7 @@ def runSim():
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "-r", "input_routes.rou.xml",
              "--route-steps", "10",
-             "--no-step-log"])
+             "--no-step-log"] + sys.argv[1:])
 
 traci.simulation.saveState("state.xml")
 arrived = runSim()

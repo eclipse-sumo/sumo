@@ -34,7 +34,7 @@ traci.start([sumoBinary,
              "--default.speeddev", "0",
              "--tripinfo-output", "tripinfos.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 vehID = "v0"
 try:
     traci.vehicle.add(vehID, "r0", departLane="1", departSpeed="14")

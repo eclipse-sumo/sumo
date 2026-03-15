@@ -43,7 +43,7 @@ cmd = [sumolib.checkBinary('sumo'),
              "--no-step-log",
        ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 veh = "v0"
 tlID = "C"
@@ -53,7 +53,7 @@ tlState2 = 'G' * len(tlState)
 traci.trafficlight.setRedYellowGreenState(tlID, tlState2)
 traci.simulation.saveState("state.xml")
 traci.close()
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 for i in range(2):
     traci.simulation.loadState("state.xml")
     traci.simulationStep()

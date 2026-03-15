@@ -33,7 +33,7 @@ cmd = [
     "-r", "input_routes.rou.xml",
     "--fcd-output", "fcd.xml",
     "--no-step-log"]
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 
 def step():

@@ -38,7 +38,7 @@ class ExampleListener(traci.StepListener):
         return True
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--ignore-route-errors"] + sys.argv[1:])
 listener = ExampleListener()
 traci.addStepListener(listener)
 for i in range(5):

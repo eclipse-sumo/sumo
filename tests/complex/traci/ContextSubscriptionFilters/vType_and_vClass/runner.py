@@ -28,10 +28,12 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui')]  # , '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui')] + sumoOptions  # , '-S', '-Q']
 
 egoID = "ego"
 
@@ -80,19 +82,19 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite, vType
     sys.stdout.flush()
 
 
-if len(sys.argv) < 8:
+if len(positionalArgs) < 7:
     print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> " +
           "<opposite{0,1}> <vTypes> <vClasses>")
     sys.exit("")
 sys.stdout.flush()
-opposite = bool(int(sys.argv[5]))
-lanes = [int(s.strip()) for s in sys.argv[4].split(",")]
-if sys.argv[6].strip() != "":
-    vTypes = [s.strip() for s in sys.argv[6].split(",")]
+opposite = bool(int(positionalArgs[4]))
+lanes = [int(s.strip()) for s in positionalArgs[3].split(",")]
+if positionalArgs[5].strip() != "":
+    vTypes = [s.strip() for s in positionalArgs[5].split(",")]
 else:
     vTypes = []
-if sys.argv[7].strip() != "":
-    vClasses = [s.strip() for s in sys.argv[7].split(",")]
+if positionalArgs[6].strip() != "":
+    vClasses = [s.strip() for s in positionalArgs[6].split(",")]
 else:
     vClasses = []
-runSingle(1, float(sys.argv[2]), float(sys.argv[3]), lanes, opposite, vTypes, vClasses)
+runSingle(1, float(positionalArgs[1]), float(positionalArgs[2]), lanes, opposite, vTypes, vClasses)

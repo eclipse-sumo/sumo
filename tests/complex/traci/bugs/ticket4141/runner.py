@@ -37,7 +37,7 @@ cmd = [
     '-a', 'input_additional.add.xml',
     '--no-step-log', ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 ppStages("shortcut via trainStop:", traci.simulation.findIntermodalRoute("beg2left", "beg2left2"))
 ppStages("train ride", traci.simulation.findIntermodalRoute("beg2left", "left2end", modes="public"))
 traci.close()

@@ -32,7 +32,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional.add.xml,input_additional2.add.xml,input_additional3.add.xml',
              '--vehroute-output', 'vehroutes.xml',
              # '-S', '-Q',
-             ])
+             ] + sys.argv[1:])
 
 egoID = "ego.0"
 

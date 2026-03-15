@@ -38,7 +38,7 @@ def step():
     return s
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 lead = "lead"
 follow = "follow"

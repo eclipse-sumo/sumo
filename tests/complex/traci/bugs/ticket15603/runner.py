@@ -29,7 +29,7 @@ import sumolib  # noqa
 traci.start([sumolib.checkBinary('sumo'),
              "-n", "net.net.xml",
              "-r", "input_routes.rou.xml",
-             "--no-step-log"])
+             "--no-step-log"] + sys.argv[1:])
 
 
 vehicle_id = "t_0"

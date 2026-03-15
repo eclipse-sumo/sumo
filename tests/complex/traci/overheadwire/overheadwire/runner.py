@@ -32,7 +32,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional2.add.xml',
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 print("overheadwires", traci.overheadwire.getIDList())
 print("overheadwire count", traci.overheadwire.getIDCount())

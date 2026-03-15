@@ -51,7 +51,7 @@ def traciLoop():
 
 
 if __name__ == '__main__':
-    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
+    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"] + sys.argv[1:])
     threads = []
     for _ in range(3):
         threads.append(threading.Thread(target=traciLoop))

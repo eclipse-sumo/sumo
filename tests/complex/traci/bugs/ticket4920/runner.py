@@ -31,7 +31,7 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "-b", "2147400",  # ~ 2**31 / 1000
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 for i in range(100):
     traci.simulationStep()

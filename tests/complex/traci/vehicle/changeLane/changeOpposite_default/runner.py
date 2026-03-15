@@ -31,7 +31,7 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "--fcd-output", "fcd.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 for i in range(5):

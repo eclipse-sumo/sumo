@@ -28,13 +28,14 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
+sumoOptions = [a for a in sys.argv[1:] if a.startswith("--")]
 sumoBinary = sumolib.checkBinary('sumo')
-subprocess.call([sumoBinary, "save_state.sumocfg"])
+subprocess.call([sumoBinary, "save_state.sumocfg"] + sumoOptions)
 # LOAD
 loadParams = ["-c", "sumo.sumocfg"]
 print("Starting...")
 print("loadParams: %s" % str(loadParams))
-v = traci.start([sumoBinary] + loadParams)
+v = traci.start([sumoBinary] + sumoOptions + loadParams)
 while traci.simulation.getTime() < 300:
     traci.simulationStep()
 print(traci.simulation.getTime())

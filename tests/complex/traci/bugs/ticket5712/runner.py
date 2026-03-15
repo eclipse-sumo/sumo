@@ -33,7 +33,7 @@ cmd = [sumolib.checkBinary('sumo'),
        '--stop-output', 'stops.xml',
        '--no-step-log',
        ]
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 veh = "veh0"
 traci.simulationStep()

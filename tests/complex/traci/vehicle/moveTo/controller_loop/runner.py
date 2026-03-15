@@ -42,7 +42,7 @@ cmd = [
 if not WATCH:
     cmd += ['-S', '-Q']
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 vehID = "ego"
 vehInSim = False

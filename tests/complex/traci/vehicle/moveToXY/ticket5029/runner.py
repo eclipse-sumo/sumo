@@ -30,7 +30,7 @@ traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.setLaneChangeMode(vehID, 0)

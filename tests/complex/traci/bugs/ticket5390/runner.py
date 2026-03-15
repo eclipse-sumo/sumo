@@ -32,7 +32,7 @@ cmd = [sumolib.checkBinary('sumo'),
        '--no-step-log',
        ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.vehicle.add("ego", "")
 traci.vehicle.setRoute("ego", [":C_3"])
 

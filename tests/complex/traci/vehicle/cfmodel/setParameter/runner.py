@@ -40,7 +40,7 @@ from sumolib import checkBinary
 sumoBinary = checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net.net.xml",
-             "--no-step-log"])
+             "--no-step-log"] + sys.argv[1:])
 
 traci.vehicle.add("ego", "")
 try:

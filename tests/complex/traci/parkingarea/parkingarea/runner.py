@@ -32,7 +32,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional2.add.xml',
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 print("parkingareas", traci.parkingarea.getIDList())
 print("parkingarea count", traci.parkingarea.getIDCount())

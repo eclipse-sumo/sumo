@@ -32,7 +32,7 @@ cmd = [sumolib.checkBinary('sumo'),
        '-r', 'input_routes.rou.xml',
        '--no-step-log',
        ]
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 while traci.simulation.getTime() < 4:
     persons = traci.person.getIDList()

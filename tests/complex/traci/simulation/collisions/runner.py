@@ -35,7 +35,7 @@ traci.start([sumolib.checkBinary('sumo'),
              "--collision.check-junctions",
              "--collision-output", "collisions.xml",
              "--no-step-log"
-             ])
+             ] + sys.argv[1:])
 traci.simulationStep()
 
 while traci.simulation.getMinExpectedNumber() > 0:

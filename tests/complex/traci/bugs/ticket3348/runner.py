@@ -28,7 +28,7 @@ import sumolib  # noqa
 
 
 traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml',
-             '-r', 'input_routes.rou.xml', '--no-step-log', '-S', '-Q'])
+             '-r', 'input_routes.rou.xml', '--no-step-log', '-S', '-Q'] + sys.argv[1:])
 vehID = "v0"
 stopPos = traci.lane.getLength("beg_0") * 0.9
 while traci.simulation.getMinExpectedNumber() > 0:

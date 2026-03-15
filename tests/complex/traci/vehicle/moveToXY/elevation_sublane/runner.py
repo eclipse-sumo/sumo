@@ -33,7 +33,7 @@ traci.start([sumoBinary,
              '-n', 'input_net.net.xml',
              '--no-step-log',
              # '-S', '-Q'
-             ])
+             ] + sys.argv[1:])
 
 ANGLE_UNDEF = traci.constants.INVALID_DOUBLE_VALUE
 INVALID = traci.constants.INVALID_DOUBLE_VALUE

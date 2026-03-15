@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary("sumo"),
              '--no-step-log',
              # '-C', 'debug.sumocfg',
              '-S', '-Q'
-             ])
+             ] + sys.argv[1:])
 
 vehID = "ego"
 locations = []

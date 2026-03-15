@@ -30,7 +30,7 @@ traci.start([sumoBinary,
              "-n", "input_net.net.xml", "-r",
              "input_routes.rou.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 vehHasLeft = False
 vehHasArrived = False

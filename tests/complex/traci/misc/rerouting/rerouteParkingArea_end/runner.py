@@ -31,7 +31,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-c', 'sumo.sumocfg',
              '-n', 'input_net4.net.xml',
              '-a', 'input_additional.add.xml'
-             ])
+             ] + sys.argv[1:])
 
 traci.simulationStep()
 traci.vehicle.rerouteParkingArea("ego", 'parkB1B2')

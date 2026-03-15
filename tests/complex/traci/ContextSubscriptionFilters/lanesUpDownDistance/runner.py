@@ -28,10 +28,12 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 
 def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, vTypes, vClasses, objID):
@@ -81,11 +83,11 @@ def runSingle(traciEndTime, viewRange, laneList, upDist, downDist, vTypes, vClas
 
 
 sys.stdout.flush()
-viewRange = float(sys.argv[2])
-laneList = laneList = list(map(int, sys.argv[3].strip('[]').split(',')))
-upDist = float(sys.argv[4])
-downDist = float(sys.argv[5])
-vTypes = [x for x in sys.argv[6].split(',') if x] if len(sys.argv) > 6 else []
-vClasses = [x for x in sys.argv[7].split(',') if x] if len(sys.argv) > 7 else []
+viewRange = float(positionalArgs[1])
+laneList = laneList = list(map(int, positionalArgs[2].strip('[]').split(',')))
+upDist = float(positionalArgs[3])
+downDist = float(positionalArgs[4])
+vTypes = [x for x in positionalArgs[5].split(',') if x] if len(positionalArgs) > 5 else []
+vClasses = [x for x in positionalArgs[6].split(',') if x] if len(positionalArgs) > 6 else []
 
 runSingle(100, viewRange, laneList, upDist, downDist, vTypes, vClasses,  "ego")

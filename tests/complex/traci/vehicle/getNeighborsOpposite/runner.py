@@ -60,7 +60,7 @@ def printNeighInfo():
     sys.stdout.flush()
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 for i in range(1):
     print("step", step())

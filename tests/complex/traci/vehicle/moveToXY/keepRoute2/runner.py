@@ -53,7 +53,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment):
         pass
 
 
-traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '--no-step-log'])
+traci.start([sumolib.checkBinary("sumo"), '-n', 'input_net.net.xml', '--no-step-log'] + sys.argv[1:])
 traci.simulationStep()
 traci.route.add("beg", ["beg"])
 traci.vehicle.add(vehID, "beg")

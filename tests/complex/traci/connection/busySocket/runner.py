@@ -30,8 +30,10 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-sumoBinary = sumolib.checkBinary(sys.argv[1])
-if sys.argv[1] == "sumo":
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+sumoBinary = sumolib.checkBinary(positionalArgs[0])
+if positionalArgs[0] == "sumo":
     addOption = ["-c", "sumo.sumocfg"]
 else:
     addOption = ["-S", "-Q", "-c", "sumo_log.sumocfg"]
@@ -39,7 +41,7 @@ PORT = sumolib.miscutils.getFreeSocketPort()
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('', PORT))
 
-sumoProc = subprocess.Popen([sumoBinary, "--remote-port", str(PORT)] + addOption,
+sumoProc = subprocess.Popen([sumoBinary, "--remote-port", str(PORT)] + addOption + sumoOptions,
                             stdout=sys.stdout)
 try:
     traci.init(PORT, numRetries=5)

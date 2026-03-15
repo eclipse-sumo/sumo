@@ -31,7 +31,7 @@ import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
              "--no-step-log",
-             "-r", "input_routes.rou.xml"])
+             "-r", "input_routes.rou.xml"] + sys.argv[1:])
 
 for i in range(10):
     traci.simulationStep()

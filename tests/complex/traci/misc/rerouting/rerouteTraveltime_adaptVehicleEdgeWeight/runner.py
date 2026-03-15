@@ -27,7 +27,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 vehID = "ego"
 traci.simulationStep()
 traci.vehicle.setAdaptedTraveltime(vehID, "middle", 20, 0, 3600)

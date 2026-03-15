@@ -36,7 +36,7 @@ def run():
                  "-r", "input_routes.rou.xml",
                  "--default.speeddev", "0",
                  "--no-step-log",
-                 ])
+                 ] + sys.argv[1:])
     vehID = "v0"
     print(traci.simulation.getTime(), "arrived", traci.simulation.getArrivedIDList())
     print(traci.simulation.getTime(), "departed", traci.simulation.getDepartedIDList())

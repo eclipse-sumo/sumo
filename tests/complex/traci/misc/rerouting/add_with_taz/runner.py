@@ -27,7 +27,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 traci.simulationStep()
 traci.vehicle.add("betweenTAZ", "", fromTaz="A", toTaz="C")
 traci.route.add("A3B3", ["A3B3"])

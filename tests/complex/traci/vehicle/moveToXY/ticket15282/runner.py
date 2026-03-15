@@ -31,7 +31,7 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "--step-length", "0.1",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.simulationStep()

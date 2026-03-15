@@ -29,7 +29,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml", "-v"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml", "-v"] + sys.argv[1:])
 
 for i in range(10):
     traci.simulationStep()

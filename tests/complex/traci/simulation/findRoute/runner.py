@@ -33,7 +33,7 @@ import sumolib  # noqa
 version = traci.start([sumolib.checkBinary('sumo'),
                        "-n", "input_net4.net.xml",
                        "--no-step-log",
-                       ])
+                       ] + sys.argv[1:])
 
 print("findRoute", traci.simulation.findRoute("A0B0", "C0D0"))
 print("findRoute", traci.simulation.findRoute("A0B0", "C0D0", departPos=50))

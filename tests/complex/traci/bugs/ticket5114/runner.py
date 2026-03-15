@@ -31,7 +31,7 @@ sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 print("getDistanceRoad (no connection):",
       traci.simulation.getDistanceRoad("gneE0", 100, "gneE1", 100, isDriving=True))

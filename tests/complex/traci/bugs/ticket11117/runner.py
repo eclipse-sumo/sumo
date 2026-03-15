@@ -34,7 +34,7 @@ cmd = [sumolib.checkBinary("sumo"),
 
 vehID = "ego"
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     if traci.simulation.getTime() == 10:

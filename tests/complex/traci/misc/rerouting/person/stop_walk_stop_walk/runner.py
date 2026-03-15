@@ -35,7 +35,7 @@ cmd = [
     "--vehroute-output", "vehroutes.xml",
     "--default.speeddev", "0",
     "--no-step-log"]
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 
 
 def step():

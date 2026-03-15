@@ -31,7 +31,7 @@ import traci.constants as tc  # noqa
 traci.start([sumolib.checkBinary("sumo"),
              '-n', 'input_net2.net.xml',
              '-r', 'input_routes2.rou.xml',
-             '--no-step-log', '-S', '-Q'])
+             '--no-step-log', '-S', '-Q'] + sys.argv[1:])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

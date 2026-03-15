@@ -65,7 +65,7 @@ print("loaded?", traci.isLoaded())
 version = traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
                        "--ignore-route-errors",
                        "--end", "42",
-                       "--log", "log.txt"])
+                       "--log", "log.txt"] + sys.argv[1:])
 print("version at start", version)
 print("version", traci.getVersion())
 print("loaded?", traci.isLoaded())

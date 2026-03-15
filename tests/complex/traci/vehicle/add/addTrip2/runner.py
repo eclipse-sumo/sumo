@@ -33,7 +33,7 @@ cmd = [
     '--no-step-log', ]
 
 vehID = "tripTest"
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.route.add("trip", ["SC", "NC"])
 traci.vehicle.add(vehID, "trip", departSpeed="desired", departPos="-1")
 traci.vehicle.moveTo(vehID, "SC_1", traci.lane.getLength("SC_1") - 1)

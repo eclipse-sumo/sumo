@@ -37,7 +37,7 @@ vehID = "v0"
 traci.start([sumolib.checkBinary("sumo"),
              '-n', 'input_net.net.xml',
              '-r', 'input_routes.rou.xml',
-             '--no-step-log'])
+             '--no-step-log'] + sys.argv[1:])
 traci.simulationStep()
 x, y = traci.vehicle.getPosition(vehID)
 for x in range(0, 400, 10):

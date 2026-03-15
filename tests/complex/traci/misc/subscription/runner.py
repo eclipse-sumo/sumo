@@ -35,7 +35,7 @@ else:
     pure_traci = traci
 
 try:
-    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml"])
+    traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg", "+a", "input_additional.add.xml"] + sys.argv[1:])
     traci.simulationStep()
     for dt in pure_traci.DOMAINS:
         if dt._name == "gui":

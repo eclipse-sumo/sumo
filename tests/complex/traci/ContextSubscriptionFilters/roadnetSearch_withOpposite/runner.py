@@ -28,10 +28,12 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui'), '-S', '-Q'] + sumoOptions
 
 egoID = "ego"
 
@@ -75,10 +77,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist, lanes, opposite):
     sys.stdout.flush()
 
 
-if len(sys.argv) < 6:
+if len(positionalArgs) < 5:
     print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist> <lanes(csv)> <opposite{0,1}>")
     sys.exit("")
 sys.stdout.flush()
-opposite = bool(int(sys.argv[5]))
-lanes = [int(s.strip()) for s in sys.argv[4].split(",")]
-runSingle(1, float(sys.argv[2]), float(sys.argv[3]), lanes, opposite)
+opposite = bool(int(positionalArgs[4]))
+lanes = [int(s.strip()) for s in positionalArgs[3].split(",")]
+runSingle(1, float(positionalArgs[1]), float(positionalArgs[2]), lanes, opposite)

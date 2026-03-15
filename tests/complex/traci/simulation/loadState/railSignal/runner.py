@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
              '--tripinfo-output', 'tripinfo.xml',
-             ])
+             ] + sys.argv[1:])
 
 for i in range(50):
     traci.simulationStep()

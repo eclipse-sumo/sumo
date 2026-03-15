@@ -26,7 +26,9 @@ if "SUMO_HOME" in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 import traci.constants as tc  # noqa
-sumoBinary = sumolib.checkBinary(sys.argv[1])
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+sumoBinary = sumolib.checkBinary(positionalArgs[0])
 
 # id of vehicle that is controlled
 followerID = "follower"
@@ -40,7 +42,7 @@ POSITIONAL_EPS = 0.1
 
 def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDecel, refVehID):
     step = 0
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sumoOptions)
     # traci.init(port=54321)
     dt = traci.simulation.getDeltaT()
 
@@ -140,14 +142,14 @@ def runSingle(targetTimeHeadway, targetSpaceHeadway, duration, changeRate, maxDe
 
 
 sys.stdout.flush()
-targetTimeHeadway = float(sys.argv[2])
-targetSpaceHeadway = float(sys.argv[3])
-duration = float(sys.argv[4])
-changeRate = float(sys.argv[5])
-if (len(sys.argv) > 6):
-    maxDecel = float(sys.argv[6])
-    if (len(sys.argv) > 7):
-        refVehID = sys.argv[7]
+targetTimeHeadway = float(positionalArgs[1])
+targetSpaceHeadway = float(positionalArgs[2])
+duration = float(positionalArgs[3])
+changeRate = float(positionalArgs[4])
+if (len(positionalArgs) > 5):
+    maxDecel = float(positionalArgs[5])
+    if (len(positionalArgs) > 6):
+        refVehID = positionalArgs[6]
     else:
         refVehID = ""
 else:

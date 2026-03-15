@@ -31,7 +31,7 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "--lanechange-output", "lanechanges.xml",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 
 def reportState(vehID, direction):

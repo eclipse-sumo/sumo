@@ -45,7 +45,7 @@ cmd = [
     '--default.action-step-length', '1.0',
     "--default.speeddev", "0"]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep()
 vehID = "v0"
 traci.vehicle.setLaneChangeMode(vehID, 0b0100000000)

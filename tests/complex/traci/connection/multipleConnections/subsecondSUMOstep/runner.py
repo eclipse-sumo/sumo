@@ -34,7 +34,9 @@ import traci  # noqa
 
 PORT = sumolib.miscutils.getFreeSocketPort()
 DELTA_T = 1000
-sumoBinary = sumolib.checkBinary(sys.argv[1])
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+sumoBinary = sumolib.checkBinary(positionalArgs[0])
 
 
 def traciLoop(port, traciEndTime, index, SUMOsteplength, steplength=0):
@@ -84,8 +86,7 @@ def runSingle(sumoEndTime, traciEndTime, numClients, steplengths, runNr, SUMOste
     fdi.close()
     fdo.close()
     sumoProcess = subprocess.Popen(
-        "%s -v --num-clients %s -c used.sumocfg -S -Q --remote-port %s" %
-        (sumoBinary, numClients, PORT), shell=True, stdout=sys.stdout)
+        [sumoBinary, "-v", "--num-clients", str(numClients), "-c", "used.sumocfg", "-S", "-Q", "--remote-port", str(PORT)] + sumoOptions, stdout=sys.stdout)
     # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else list(reversed(range(numClients)))
     procs = [multiprocessing.Process(target=traciLoop,

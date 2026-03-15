@@ -40,7 +40,7 @@ def printAggregated():
           traci.multientryexit.getLastIntervalVehicleSum(detID))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 for step in range(4):
     print("step", step)
     traci.simulationStep()

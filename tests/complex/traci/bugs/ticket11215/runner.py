@@ -39,7 +39,7 @@ for dom in traci.DOMAINS:
             dom.getIDList()
     except traci.FatalTraCIError:
         print("Error as expected.")
-traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
 for dom in traci.DOMAINS:
     d = str(dom).replace("<traci._", "")
     d = d.replace("<class 'libsumo.libsumo.", "").replace("<class 'libtraci.libtraci.", "")

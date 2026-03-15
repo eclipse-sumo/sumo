@@ -24,6 +24,8 @@ if "SUMO_HOME" in os.environ:
 
 import traci  # noqa
 import sumolib  # noqa
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
@@ -32,10 +34,10 @@ traci.start([sumoBinary,
              "--lanechange-output", "lanechanges.xml",
              "--lateral-resolution", "0.8",
              "--no-step-log",
-             ])
+             ] + sumoOptions)
 
-departLane = sys.argv[1]
-latDist = float(sys.argv[2])
+departLane = positionalArgs[0]
+latDist = float(positionalArgs[1])
 
 
 def reportState(vehID):

@@ -35,7 +35,7 @@ traci.start([sumoBinary,
              "-r", "input_routes.rou.xml",
              "--default.speeddev", "0",
              "--no-step-log",
-             ])
+             ] + sys.argv[1:])
 
 vehID = "ego"
 traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE, 50,

@@ -47,7 +47,7 @@ def check(vehID, steps=1):
 
 
 vehID = "v0"
-traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'])
+traci.start([sumolib.checkBinary("sumo"), '-c', 'sumo.sumocfg'] + sys.argv[1:])
 traci.simulationStep()
 check(vehID)
 try:

@@ -33,7 +33,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-n', 'input_net2.net.xml',
              '-a', 'input_routes.rou.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 traci.simulationStep()
 traci.simulation.saveState("state.xml")

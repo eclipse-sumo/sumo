@@ -33,7 +33,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional2.add.xml',
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 print("chargingstations", traci.chargingstation.getIDList())
 print("chargingstation count", traci.chargingstation.getIDCount())

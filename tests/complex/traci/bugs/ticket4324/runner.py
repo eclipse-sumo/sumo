@@ -34,7 +34,7 @@ cmd = [
 
 tlsID = "C"
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 program = traci.trafficlight.getAllProgramLogics(tlsID)[0]
 # make actuated
 green_index = 1

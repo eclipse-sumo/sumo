@@ -29,12 +29,12 @@ import sumolib  # noqa
 cmd = [sumolib.checkBinary("sumo"), '-n', 'input_net2.net.xml', '--no-step-log']
 
 print("start first")
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 print("close first")
 traci.close()
 
 print("start second")
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 print("close second")
 traci.close()
 

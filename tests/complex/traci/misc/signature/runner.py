@@ -50,7 +50,7 @@ for dt in traci.DOMAINS:
                                     print(".".join([dt._name, ft[0]]), "traci:", sigt, "libsumo:", sigl)
 if not traci.isLibsumo():
     try:
-        traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"])
+        traci.start([sumolib.checkBinary("sumo"), "-c", "sumo.sumocfg"] + sys.argv[1:])
         traci.simulationStep()
         if not traci.isLibtraci():
             traci.vehicle.setLaneChangeMode("horiz", lcm=0)

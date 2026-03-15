@@ -28,10 +28,12 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-if sys.argv[1] == "sumo":
-    sumoCall = [sumolib.checkBinary('sumo')]
+sumoOptions = [a for a in sys.argv[1:] if a.startswith('--')]
+positionalArgs = [a for a in sys.argv[1:] if not a.startswith('--')]
+if positionalArgs[0] == "sumo":
+    sumoCall = [sumolib.checkBinary('sumo')] + sumoOptions
 else:
-    sumoCall = [sumolib.checkBinary('sumo-gui')]  # , '-S', '-Q']
+    sumoCall = [sumolib.checkBinary('sumo-gui')] + sumoOptions  # , '-S', '-Q']
 
 egoID = "ego"
 
@@ -72,8 +74,8 @@ def runSingle(traciEndTime, range, openingAngle, testWithIncompatibleFilter):
     sys.stdout.flush()
 
 
-if len(sys.argv) != 5:
+if len(positionalArgs) != 4:
     print("Usage: runner <sumo/sumo-gui> <range> <openingAngle> <testWithIncompatibleFilter (0/1)>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(1, float(sys.argv[2]), float(sys.argv[3]), bool(int(sys.argv[4])))
+runSingle(1, float(positionalArgs[1]), float(positionalArgs[2]), bool(int(positionalArgs[3])))

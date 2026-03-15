@@ -32,7 +32,7 @@ cmd = [
     '-r', 'input_routes.rou.xml',
     '--no-step-log', ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep()
 vehID = "v0"
 while traci.simulation.getMinExpectedNumber() > 0:

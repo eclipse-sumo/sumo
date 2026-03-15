@@ -30,14 +30,14 @@ import sumolib  # noqa
 
 try:
     sumoBinary = sumolib.checkBinary('sumo')
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
     conn = traci.getConnection('default')
     conn.simulationStep()
     conn.close()
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"])
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
     traci.close()
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label="2nd")
     traci.close()
-    traci.start([sumoBinary, "-c", "sumo.sumocfg"], label="2nd")
+    traci.start([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:], label="2nd")
 finally:
     traci.close()

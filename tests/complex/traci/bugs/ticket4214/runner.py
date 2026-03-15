@@ -37,7 +37,7 @@ cmd = [
     '-n', 'input_net.net.xml',
     '--no-step-log', ]
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.simulationStep(1.)
 print("step", traci.simulation.getTime())
 traci.close()

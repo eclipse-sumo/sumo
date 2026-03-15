@@ -70,7 +70,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment, edgeHint="",
           )
 
 
-traci.start(cmd)
+traci.start(cmd + sys.argv[1:])
 traci.setLegacyGetLeader(False)
 traci.simulationStep()
 traci.route.add("SE", ["SC", "CE"])
