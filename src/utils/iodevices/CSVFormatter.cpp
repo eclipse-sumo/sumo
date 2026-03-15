@@ -21,6 +21,7 @@
 
 #ifdef HAVE_FMT
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
