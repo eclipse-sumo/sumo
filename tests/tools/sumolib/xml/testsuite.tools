@@ -25,6 +25,15 @@ parse_fast
 # parsing optional attributes
 parse_fast_optional
 
+# parsing with XSD auto-detection (attrnames=None)
+parse_fast_xsd
+
+# parsing nested XML with XSD auto-detection (attrnames=None)
+parse_nested_xsd
+
+# parsing nested XML with different child elements and XSD auto-detection (attrnames=None)
+parse_structured_xsd
+
 # parsing XML and  writing xml
 toXML
 
