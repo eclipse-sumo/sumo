@@ -23,7 +23,7 @@ import os
 import subprocess
 
 
-def run(suffix, args, guiTests=False, chrouter=True):
+def run(suffix, args, guiTests=False, chrouter=True, apps=None):
     if type(args) is list:
         args = " ".join(args)
     if os.name != "posix":
@@ -50,18 +50,19 @@ def run(suffix, args, guiTests=False, chrouter=True):
                    "dfrouter", "duarouter", "jtrrouter", "marouter",
                    "netconvert", "netedit", "netgenerate",
                    "od2trips", "polyconvert", "sumo"):
-        env[binary.upper() + "_BINARY"] = os.path.join(root, "..", "bin", binary + suffix)
-    env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
-    apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,"
-            "sumo.agg.ballistic,sumo.agg.idm,sumo.agg.sublanes,"
-            "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"
-            "complex.meso,complex.libsumo,complex.libtraci,tools.extra")
-    if chrouter:
-        apps += ",duarouter.chrouter,duarouter.chwrapper"
-    if guiTests:
-        apps += ",sumo.meso.gui,sumo.gui.osg"
-        if os.name == "posix":
-            apps += ",complex.libsumo.gui"
+        env[binary.upper() + "_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", binary + suffix)
+    env["GUISIM_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", "sumo-gui" + suffix)
+    if not apps:
+        apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,"
+                "sumo.agg.ballistic,sumo.agg.idm,sumo.agg.sublanes,"
+                "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"
+                "complex.meso,complex.libsumo,complex.libtraci,tools.extra")
+        if chrouter:
+            apps += ",duarouter.chrouter,duarouter.chwrapper"
+        if guiTests:
+            apps += ",sumo.meso.gui,sumo.gui.osg"
+            if os.name == "posix":
+                apps += ",complex.libsumo.gui"
     process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:
@@ -74,5 +75,6 @@ if __name__ == "__main__":
     optParser = argparse.ArgumentParser()
     optParser.add_argument("-s", "--suffix", default="", help="suffix to the fileprefix")
     optParser.add_argument("-g", "--gui", default=False, action="store_true", help="run gui tests")
+    optParser.add_argument("-a", "--apps", help="run the given apps")
     options, args = optParser.parse_known_args()
-    run(options.suffix, ["-" + a for a in args], options.gui)
+    run(options.suffix, ["-" + a for a in args], options.gui, True, options.apps)
