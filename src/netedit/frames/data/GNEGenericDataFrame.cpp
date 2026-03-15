@@ -101,18 +101,22 @@ GNEGenericDataFrame::DataSetSelector::refreshDataSetSelector(const GNEDataSet* c
     // clear items
     myDataSetsComboBox->clearItems();
     // declare item index
-    int currentItemIndex = -1;
+    int currentDataSetIndex = -1;
     // fill myDataSetsComboBox with all DataSets
     for (const auto& dataSet : myGenericDataFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDataSets()) {
         // check if we have to set currentItemIndex
-        if ((currentItemIndex == -1) && (dataSet.second == currentDataSet)) {
-            currentItemIndex = myDataSetsComboBox->getNumItems();
+        if ((currentDataSetIndex == -1) && (dataSet.second == currentDataSet)) {
+            currentDataSetIndex = myDataSetsComboBox->getNumItems();
         }
         myDataSetsComboBox->appendIconItem(dataSet.second->getID().c_str(), dataSet.second->getACIcon());
     }
+    // if in this point, if currentDataSetIndex is not set, then use the first comboBox
+    if ((currentDataSetIndex == -1) && (myDataSetsComboBox->getNumItems() > 0)) {
+        currentDataSetIndex = 0;
+    }
     // check if we have to set current element
-    if (currentItemIndex != -1) {
-        myDataSetsComboBox->setCurrentItem(currentItemIndex, FALSE);
+    if (currentDataSetIndex != -1) {
+        myDataSetsComboBox->setCurrentItem(currentDataSetIndex, FALSE);
         if (myGenericDataFrameParent->getIntervalSelector()) {
             myGenericDataFrameParent->getIntervalSelector()->enableContents();
         }
