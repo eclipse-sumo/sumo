@@ -204,12 +204,24 @@ GenericSAXHandler::convertTag(const std::string& tag) const {
 std::string
 GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
     std::ostringstream buf;
-    char* pMsg = XERCES_CPP_NAMESPACE::XMLString::transcode(exception.getMessage());
-    buf << pMsg << std::endl;
-    buf << TL(" In file '") << getFileName() << "'" << std::endl;
+    const XMLCh* const sysId = exception.getSystemId();
+    if (sysId != nullptr) {
+        const std::string url = StringUtils::transcode(sysId);
+        if (StringUtils::startsWith(url, "http:") || StringUtils::startsWith(url, "https:")) {
+            buf << "Failed to read " << url << ".\n";
+        }
+    }
+    if (StringUtils::transcode(exception.getMessage()).find("NetAccessor") != std::string::npos) {
+        buf << "No network access.\n";
+    }
+    if (buf.tellp() == 0) {
+        char* pMsg = XERCES_CPP_NAMESPACE::XMLString::transcode(exception.getMessage());
+        buf << pMsg << "\n";
+        XERCES_CPP_NAMESPACE::XMLString::release(&pMsg);
+    }
+    buf << TL(" In file '") << getFileName() << "'\n";
     buf << TL(" At line/column ") << exception.getLineNumber() + 1
-        << '/' << exception.getColumnNumber() << "." << std::endl;
-    XERCES_CPP_NAMESPACE::XMLString::release(&pMsg);
+        << '/' << exception.getColumnNumber() << ".\n";
     return buf.str();
 }
 

@@ -198,7 +198,6 @@ public:
     void fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
     //@}
 
-
     void setSection(const int element, const bool seen) {
         mySection = element;
         mySectionSeen = seen;
@@ -224,7 +223,6 @@ public:
     // Reader needs access to myStartElement, myEndElement
     friend class SUMOSAXReader;
 
-
 protected:
     /**
      * @brief Builds an error message
@@ -237,7 +235,6 @@ protected:
      */
     std::string buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseException& exception);
 
-
     /**
      * @brief Callback method for an opening tag to implement by derived classes
      *
@@ -249,7 +246,6 @@ protected:
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
 
-
     /**
      * @brief Callback method for characters to implement by derived classes
      *
@@ -260,7 +256,6 @@ protected:
      */
     virtual void myCharacters(int element,
                               const std::string& chars);
-
 
     /** @brief Callback method for a closing tag to implement by derived classes
      *
@@ -283,7 +278,6 @@ private:
      */
     XMLCh* convert(const std::string& name) const;
 
-
     /**
      * @brief Converts a tag from its string into its numerical representation
      *
@@ -293,7 +287,6 @@ private:
      * @return The int-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
      */
     int convertTag(const std::string& tag) const;
-
 
 private:
     /// @name attributes parsing
@@ -354,6 +347,7 @@ private:
     bool mySectionOpen = false;
 
     std::pair<int, SUMOSAXAttributes*> myNextSectionStart;
+
 
 private:
     /// @brief invalidated copy constructor
