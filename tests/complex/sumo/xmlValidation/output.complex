@@ -135,14 +135,14 @@ XML schema: blub XML element: trip SUMO_HOME: None --xml-validation local
 Warning: Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups.
 XML schema: blub XML element: trip SUMO_HOME: None --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
 Quitting (on error).
 XML schema: blub XML element: trip SUMO_HOME: None --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -157,7 +157,7 @@ Error: invalid document structure
 Quitting (on error).
 XML schema: blub XML element: trip SUMO_HOME: <environ> --xml-validation auto
 Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -169,7 +169,7 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'http://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -177,7 +177,7 @@ Quitting (on error).
 XML schema: blub XML element: trip SUMO_HOME: http://sumo.dlr.de --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'http://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -188,7 +188,7 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'https://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -196,7 +196,7 @@ Quitting (on error).
 XML schema: blub XML element: trip SUMO_HOME: https://sumo.dlr.de --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'https://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -207,7 +207,7 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -215,7 +215,7 @@ Quitting (on error).
 XML schema: blub XML element: trip SUMO_HOME: blafasel --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -225,14 +225,14 @@ XML schema: blub XML element: tri SUMO_HOME: None --xml-validation local
 Warning: Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups.
 XML schema: blub XML element: tri SUMO_HOME: None --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
 Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: None --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -247,7 +247,7 @@ Error: invalid document structure
 Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: <environ> --xml-validation auto
 Warning: Cannot read local schema '/home/micha/sumo/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -264,7 +264,7 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'http://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -272,7 +272,7 @@ Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: http://sumo.dlr.de --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'http://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -283,7 +283,7 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'https://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: Failed to read http://sumo.dlr.de/xsd/blub.
  In file 'routes.rou.xml'
  At line/column 2/50.
 
@@ -291,9 +291,9 @@ Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: https://sumo.dlr.de --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'https://sumo.dlr.de/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: No network access.
  In file 'routes.rou.xml'
- At line/column 2/50.
+ At line/column 1/0.
 
 Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation never
@@ -302,16 +302,16 @@ Warning: Environment variable SUMO_HOME is not set properly, disabling XML valid
 XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation auto
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: No network access.
  In file 'routes.rou.xml'
- At line/column 2/50.
+ At line/column 1/0.
 
 Quitting (on error).
 XML schema: blub XML element: tri SUMO_HOME: blafasel --xml-validation always
 Warning: Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups.
 Warning: Cannot read local schema 'blafasel/data/xsd/blub', will try website lookup.
-Error: whitespace expected
+Error: No network access.
  In file 'routes.rou.xml'
- At line/column 2/50.
+ At line/column 1/0.
 
 Quitting (on error).
