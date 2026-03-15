@@ -19,6 +19,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
 import re
 import gzip
@@ -551,19 +552,47 @@ def _comment_filter(stream):
             yield line
 
 
-def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8", line_filter=None):
+def _attrs_from_xsd_url(schema_url, element_name):
+    """Given a noNamespaceSchemaLocation URL and element name, return XSD attribute names or None."""
+    xsd_filename = schema_url.split('/')[-1]
+    sumo_home = os.environ.get('SUMO_HOME', os.path.normpath(
+        os.path.join(os.path.dirname(__file__), '..', '..', '..')))
+    xsd_path = os.path.join(sumo_home, 'data', 'xsd', xsd_filename)
+    if not os.path.isfile(xsd_path):
+        return None
+    xsd_struc = xsd.XsdStructure(xsd_path)
+    element = xsd_struc._namedElements.get(element_name)
+    if element is None:
+        return None
+    return [a.name for a in element.attributes]
+
+
+def parse_fast(xmlfile, element_name, attrnames=None, warn=False, optional=False, encoding="utf8", line_filter=None):
     """
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
     the given order. If you set "optional=True", missing attributes will be set to None.
     Make sure that you list all (potential) attributes (even the ones you are not interested in)
     in this case. You can only leave out attributes at the end.
+    If attrnames is None, the attribute list is read from the XSD schema referenced in the
+    XML file header (detected while reading); in this case optional is forced to True.
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
+    @Example: parse_fast('fcd.xml', 'vehicle')
     """
-    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
+    reprog = None
+    if attrnames is not None:
+        Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         for line in _comment_filter(xmlfile):
+            if reprog is None:
+                m_schema = re.search(r'noNamespaceSchemaLocation="([^"]*)"', line)
+                if m_schema:
+                    detected = _attrs_from_xsd_url(m_schema.group(1), element_name)
+                    if detected is not None:
+                        Record, reprog = _createRecordAndPattern(element_name, detected, warn, True)
+                if reprog is None:
+                    continue
             m = reprog.search(line)
             if m:
                 if line_filter is not None and line_filter(line):
@@ -574,7 +603,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
             xmlfile.close()
 
 
-def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
+def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None, attrnames2=None,
                       warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name
@@ -582,16 +611,34 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     If you set "optional=True", missing attributes will be set to None.
     Make sure that you list all (potential) attributes (even the ones you are not interested in)
     in this case. You can only leave out attributes at the end.
+    If attrnames or attrnames2 is None, the attribute list is read from the XSD schema
+    referenced in the XML file header (detected while reading); in this case optional is forced to True.
     @Note: The element must be on its own line and the attributes must appear in
     the given order.
     @Example: parse_fast_nested('fcd.xml', 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
+    @Example: parse_fast_nested('fcd.xml', 'timestep', None, 'vehicle', None):
     """
-    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
-    record = None
+    reprog = reprog2 = None
+    if attrnames is not None:
+        Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
+    if attrnames2 is not None:
+        Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         for line in _comment_filter(xmlfile):
+            if reprog is None or reprog2 is None:
+                m_schema = re.search(r'noNamespaceSchemaLocation="([^"]*)"', line)
+                if m_schema:
+                    if reprog is None:
+                        detected = _attrs_from_xsd_url(m_schema.group(1), element_name)
+                        if detected is not None:
+                            Record, reprog = _createRecordAndPattern(element_name, detected, warn, True)
+                    if reprog2 is None:
+                        detected2 = _attrs_from_xsd_url(m_schema.group(1), element_name2)
+                        if detected2 is not None:
+                            Record2, reprog2 = _createRecordAndPattern(element_name2, detected2, warn, True)
+                if reprog is None or reprog2 is None:
+                    continue
             m2 = reprog2.search(line)
             if record and m2:
                 yield record, Record2(**m2.groupdict())
@@ -606,7 +653,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
             xmlfile.close()
 
 
-def parse_fast_structured(xmlfile, element_name, attrnames, nested,
+def parse_fast_structured(xmlfile, element_name, attrnames=None, nested=None,
                           warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name and nested elements of level 1.
@@ -616,17 +663,38 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
     If you set "optional=True", missing attributes will be set to None.
     Make sure that you list all (potential) attributes (even the ones you are not interested in)
     in this case. You can only leave out attributes at the end.
+    If attrnames or any value in nested is None, the attribute list is read from the XSD schema
+    referenced in the XML file header (detected while reading); in this case optional is forced to True.
     @Note: Every element must be on its own line and the attributes must appear in the given order.
     @Example: parse_fast_structured('fcd.xml', 'timestep', ['time'],
                                     {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
+    @Example: parse_fast_structured('fcd.xml', 'timestep', None, {'vehicle': None, 'person': None}):
     """
-    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional, nested.keys())
-    re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
+    if nested is None:
+        nested = {}
+    reprog = record = None
+    if attrnames is not None and all(v is not None for v in nested.values()):
+        Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional, nested.keys())
+        re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
     finalizer = "</%s>" % element_name
-    record = None
     xmlfile, close_source = _check_file_like(xmlfile)
     try:
         for line in _comment_filter(xmlfile):
+            if reprog is None:
+                m_schema = re.search(r'noNamespaceSchemaLocation="([^"]*)"', line)
+                if m_schema:
+                    resolved = attrnames if attrnames is not None else _attrs_from_xsd_url(
+                        m_schema.group(1), element_name)
+                    resolved_nested = {name: (attrs if attrs is not None else _attrs_from_xsd_url(m_schema.group(1), name))
+                                       for name, attrs in nested.items()}
+                    if resolved is not None and all(v is not None for v in resolved_nested.values()):
+                        opt_parent = optional if attrnames is not None else True
+                        Record, reprog = _createRecordAndPattern(
+                            element_name, resolved, warn, opt_parent, resolved_nested.keys())
+                        re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional if nested[elem] is not None else True)
+                               for elem, attr in resolved_nested.items()]
+                if reprog is None:
+                    continue
             if record:
                 for name2, Record2, reprog2 in re2:
                     m2 = reprog2.search(line)
