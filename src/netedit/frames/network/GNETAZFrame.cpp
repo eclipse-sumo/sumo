@@ -1511,10 +1511,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
                 // enable save changes button
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // remove Source and Sinks using GNEChange_TAZElement
-                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.source->getGUIGlObject(), false)) {
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveTAZSourceSink(TAZEdgeColor.source, false)) {
                     myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.source, false), true);
                 }
-                if (myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(TAZEdgeColor.sink->getGUIGlObject(), false)) {
+                if (myViewNet->getNet()->getAttributeCarriers()->retrieveTAZSourceSink(TAZEdgeColor.sink, false)) {
                     myViewNet->getUndoList()->add(new GNEChange_TAZSourceSink(TAZEdgeColor.sink, false), true);
                 }
                 // always refresh TAZ Edges after removing TAZSources/Sinks
