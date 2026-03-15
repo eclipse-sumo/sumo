@@ -618,7 +618,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames=None, element_name2=None,
     @Example: parse_fast_nested('fcd.xml', 'timestep', ['time'], 'vehicle', ['id', 'speed', 'lane']):
     @Example: parse_fast_nested('fcd.xml', 'timestep', None, 'vehicle', None):
     """
-    reprog = reprog2 = None
+    reprog = reprog2 = record = None
     if attrnames is not None:
         Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     if attrnames2 is not None:
