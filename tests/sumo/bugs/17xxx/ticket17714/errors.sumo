@@ -1,6 +1,0 @@
-Warning: Teleporting vehicle 'f_1.0'; waited too long (wrong lane), lane='E3_0', time=310.00.
-Warning: Vehicle 'f_1.0' ends teleporting on edge 'E1', time=310.00.
-Warning: Teleporting vehicle 'f_1.1'; waited too long (wrong lane), lane='E3_0', time=1511.00.
-Warning: Vehicle 'f_1.1' ends teleporting on edge 'E1', time=1511.00.
-Warning: Teleporting vehicle 'f_1.2'; waited too long (wrong lane), lane='E3_0', time=2710.00.
-Warning: Vehicle 'f_1.2' ends teleporting on edge 'E1', time=2710.00.
