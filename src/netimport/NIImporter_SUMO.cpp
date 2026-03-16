@@ -102,6 +102,12 @@ NIImporter_SUMO::~NIImporter_SUMO() {
         delete ed;
     }
     delete myLocation;
+    if (myCurrentEdge != nullptr) {
+        for (LaneAttrs* const lane : myCurrentEdge->lanes) {
+            delete lane;
+        }
+        delete myCurrentEdge;
+    }
 }
 
 
