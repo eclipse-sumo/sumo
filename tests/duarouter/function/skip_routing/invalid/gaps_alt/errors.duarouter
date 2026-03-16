@@ -1,3 +1,5 @@
 Error: Edge 'beg2left' not connected to edge 'left2end' for vehicle 'left_gap'.
+Error: The vehicle 'left_gap' has no valid route.
 Error: Edge 'middle' not connected to edge 'rend' for vehicle 'middle_gap'.
+Error: The vehicle 'middle_gap' has no valid route.
 Quitting (on error).

@@ -1,2 +1,4 @@
 Warning: Edge 'left' not connected to edge 'end' for vehicle 'left_gap'.
+Warning: The vehicle 'left_gap' has no valid route.
 Warning: Edge 'middle' not connected to edge 'rend' for vehicle 'middle_gap'.
+Warning: The vehicle 'middle_gap' has no valid route.
