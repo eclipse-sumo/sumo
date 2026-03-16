@@ -302,52 +302,52 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 NBConnection(prohibitedFrom, prohibitedTo));
         }
     }
-    if (!myHaveSeenInternalEdge && oc.isWriteable("no-internal-links") && oc.isDefault("no-internal-links")) {
+    if (oc.isWriteable("no-internal-links") && oc.isDefault("no-internal-links") && !myHaveSeenInternalEdge) {
         oc.set("no-internal-links", "true");
     }
-    if (oc.isWriteable("lefthand")) {
+    if (oc.isWriteable("lefthand") && oc.isDefault("lefthand") && myAmLefthand) {
         oc.set("lefthand", toString(myAmLefthand));
     }
-    if (oc.isWriteable("junctions.corner-detail")) {
+    if (oc.isWriteable("junctions.corner-detail") && oc.isDefault("junctions.corner-detail")) {
         oc.set("junctions.corner-detail", toString(myCornerDetail));
     }
-    if (oc.isWriteable("junctions.internal-link-detail") && myLinkDetail > 0) {
+    if (oc.isWriteable("junctions.internal-link-detail") && oc.isDefault("junctions.internal-link-detail") && myLinkDetail > 0) {
         oc.set("junctions.internal-link-detail", toString(myLinkDetail));
     }
-    if (oc.isWriteable("rectangular-lane-cut")) {
+    if (oc.isWriteable("rectangular-lane-cut") && oc.isDefault("rectangular-lane-cut") && oc.getBool("rectangular-lane-cut") != myRectLaneCut) {
         oc.set("rectangular-lane-cut", toString(myRectLaneCut));
     }
-    if (oc.isWriteable("walkingareas")) {
+    if (oc.isWriteable("walkingareas") && oc.isDefault("walkingareas") && oc.getBool("walkingareas") != myWalkingAreas) {
         oc.set("walkingareas", toString(myWalkingAreas));
     }
-    if (oc.isWriteable("junctions.limit-turn-speed")) {
+    if (oc.isWriteable("junctions.limit-turn-speed") && oc.isDefault("junctions.limit-turn-speed") && oc.getFloat("junctions.limit-turn-speed") != myLimitTurnSpeed) {
         oc.set("junctions.limit-turn-speed", toString(myLimitTurnSpeed));
     }
-    if (oc.isWriteable("check-lane-foes.all") && oc.getBool("check-lane-foes.all") != myCheckLaneFoesAll) {
+    if (oc.isWriteable("check-lane-foes.all") && oc.isDefault("check-lane-foes.all") && oc.getBool("check-lane-foes.all") != myCheckLaneFoesAll) {
         oc.set("check-lane-foes.all", toString(myCheckLaneFoesAll));
     }
-    if (oc.isWriteable("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
+    if (oc.isWriteable("check-lane-foes.roundabout") && oc.isDefault("check-lane-foes.roundabout") && oc.getBool("check-lane-foes.roundabout") != myCheckLaneFoesRoundabout) {
         oc.set("check-lane-foes.roundabout", toString(myCheckLaneFoesRoundabout));
     }
-    if (oc.isWriteable("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
+    if (oc.isWriteable("tls.ignore-internal-junction-jam") && oc.isDefault("tls.ignore-internal-junction-jam") && oc.getBool("tls.ignore-internal-junction-jam") != myTlsIgnoreInternalJunctionJam) {
         oc.set("tls.ignore-internal-junction-jam", toString(myTlsIgnoreInternalJunctionJam));
     }
-    if (oc.isWriteable("default.spreadtype") && oc.getString("default.spreadtype") != myDefaultSpreadType) {
+    if (oc.isWriteable("default.spreadtype") && oc.isDefault("default.spreadtype") && oc.getString("default.spreadtype") != myDefaultSpreadType) {
         oc.set("default.spreadtype", myDefaultSpreadType);
     }
-    if (oc.isWriteable("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap") != myGeomAvoidOverlap) {
+    if (oc.isWriteable("geometry.avoid-overlap") && oc.isDefault("geometry.avoid-overlap") && oc.getBool("geometry.avoid-overlap") != myGeomAvoidOverlap) {
         oc.set("geometry.avoid-overlap", toString(myGeomAvoidOverlap));
     }
-    if (oc.isWriteable("junctions.higher-speed") && oc.getBool("junctions.higher-speed") != myJunctionsHigherSpeed) {
+    if (oc.isWriteable("junctions.higher-speed") && oc.isDefault("junctions.higher-speed") && oc.getBool("junctions.higher-speed") != myJunctionsHigherSpeed) {
         oc.set("junctions.higher-speed", toString(myJunctionsHigherSpeed));
     }
-    if (oc.isWriteable("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
+    if (oc.isWriteable("internal-junctions.vehicle-width") && oc.isDefault("internal-junctions.vehicle-width") && oc.getFloat("internal-junctions.vehicle-width") != myInternalJunctionsVehicleWidth) {
         oc.set("internal-junctions.vehicle-width", toString(myInternalJunctionsVehicleWidth));
     }
-    if (oc.isWriteable("junctions.minimal-shape") && oc.getBool("junctions.minimal-shape") != myJunctionsMinimalShape) {
+    if (oc.isWriteable("junctions.minimal-shape") && oc.isDefault("junctions.minimal-shape") && oc.getBool("junctions.minimal-shape") != myJunctionsMinimalShape) {
         oc.set("junctions.minimal-shape", toString(myJunctionsMinimalShape));
     }
-    if (oc.isWriteable("junctions.endpoint-shape") && oc.getBool("junctions.endpoint-shape") != myJunctionsEndpointShape) {
+    if (oc.isWriteable("junctions.endpoint-shape") && oc.isDefault("junctions.endpoint-shape") && oc.getBool("junctions.endpoint-shape") != myJunctionsEndpointShape) {
         oc.set("junctions.endpoint-shape", toString(myJunctionsEndpointShape));
     }
     if (!deprecatedVehicleClassesSeen.empty()) {
