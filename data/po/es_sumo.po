@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-10 10:34+0000\n"
+"PO-Revision-Date: 2026-03-16 13:49+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9645,10 +9645,13 @@ msgid ""
 "Ignoring invalid geometry for inner edge '%' (xodr road '%') in junction "
 "'%'."
 msgstr ""
+"Ignorando geometría no válida para la arista interna '%' (vía xodr '%') en "
+"el cruce '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:284
 msgid "Inner edge '%' (xodr road '%') in junction '%' has no geometry."
 msgstr ""
+"La arista interna '%' (vía xodr '%') en el cruce '%' no tiene geometría."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:293
 #, c-format
@@ -9701,6 +9704,8 @@ msgstr "Al configurar conexiones: no se conoce la arista de llegada '%'."
 #: src/netimport/NIImporter_OpenDrive.cpp:749
 msgid "Could not find fromEdge representation of '%' in connection '%'."
 msgstr ""
+"No se pudo encontrar la representación de la arista de salida para '%' en la "
+"conexión '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:802
 #, c-format
@@ -11204,6 +11209,8 @@ msgstr ""
 #: src/netload/NLHandler.cpp:1622
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr ""
+"Reemplazando zona de análisis de tráfico de cruce '%' con la zona de "
+"análisis de tráfico cargada."
 
 #: src/netload/NLHandler.cpp:1665
 msgid "Skipping visualization of taz '%', polygon already exists."
