@@ -170,9 +170,11 @@ main(int argc, char** argv) {
         if (!oc.isSet("output-file") && (oc.isSet("timeline-file") || !oc.isSet("emission-output"))) {
             throw ProcessError(TL("The output file must be given."));
         }
+        std::unique_ptr<std::ostream> outOwner;
         std::ostream* out = nullptr;
         if (oc.isSet("output-file")) {
-            out = new std::ofstream(oc.getString("output-file").c_str());
+            outOwner.reset(new std::ofstream(oc.getString("output-file").c_str()));
+            out = outOwner.get();
         }
         long long int attributes = 0;
         if (oc.isSet("output.attributes")) {
@@ -199,9 +201,9 @@ main(int argc, char** argv) {
         } else if (out == nullptr) {
             out = &std::cout;
         }
-        std::ostream* sumOut = nullptr;
+        std::unique_ptr<std::ostream> sumOut(nullptr);
         if (oc.isSet("sum-output")) {
-            sumOut = new std::ofstream(oc.getString("sum-output").c_str());
+            sumOut.reset(new std::ofstream(oc.getString("sum-output").c_str()));
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
@@ -234,6 +236,9 @@ main(int argc, char** argv) {
             energyParams = std::unique_ptr<EnergyParams>(new EnergyParams(vTypeIt->second));
         } else {
             energyParams = std::unique_ptr<EnergyParams>(new EnergyParams());
+        }
+        for (auto& vt : vTypes) {
+            delete vt.second;
         }
 
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
@@ -302,10 +307,6 @@ main(int argc, char** argv) {
         }
         if (!quiet) {
             handler.writeSums(std::cout, "");
-        }
-        delete sumOut;
-        if (out != &std::cout) {
-            delete out;
         }
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
