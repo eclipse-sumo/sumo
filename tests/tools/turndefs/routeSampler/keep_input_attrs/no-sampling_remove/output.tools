@@ -1,0 +1,4 @@
+  Removed 4 routes from input to reduce overflow
+Wrote 94 routes (94 distinct) achieving total count 827 (107.26%) at 82 locations. GEH<5 for 86.59%
+Warning: underflow locations: count 2, min 7.00 (('131',)), max 10.00 (('-123.121.42',)), mean 8.50, Q1 7.00, median 10.00, Q3 10.00 (total 17)
+Warning: overflow locations: count 42, min -5.00 (('-55.80.00',)), max -1.00 (('45',)), mean -1.74, Q1 -2.00, median -1.00, Q3 -1.00 (total -73)
