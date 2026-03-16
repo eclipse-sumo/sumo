@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
   - fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
   - fixed invalid driveway assignment involving uncontrolled links at complex junctions of type rail_signal #17681
   - fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
@@ -17,14 +18,18 @@ title: ChangeLog
   - less crashes with parquet output (especially summary output) #17656
   - Fixed invalid signal state when loading from saved state and using WAUT #17675
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
+  - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
 
 - sumo-gui
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
   - Fixed crash when drawing persons #17616
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
+  - Fixed invalid lane color when switching from (meso) segment colors to functional color (i.e. TAZ) #17704
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
+  - edgedata mode: clicking on intervals in works again #17686 (regression in 1.22.0)
+  - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
@@ -47,12 +52,20 @@ title: ChangeLog
 
 - tools
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
+  - osmWebWizard.py: starting two instances at the same time is now working #16663
   - patchRailConflicts.py: no longer declaring rail signals that do not control any links #17588
   - patchRailConflicts.py: now works for mixed-permission networks (i.e. tram on road) #17682
   - plotXMLAttributes.py: fixed missing labels on barplots with a non-numerical axis #17611
   - countEdgeUsage.py: fixed interpretation of (expected) poisson flow count #17657
   - countEdgeUsage.py: now returns fractional counts for random flows (very noticable at low rate) #17664
   - netdiff.py: now handles aribtrary network file names, now includes modified edge type in diff. #17676
+  - generateRerouters.py: fixed crash when trying to close edges that do not permit vClass #17706
+  - generateRerouters.py: fixed invalid placement of notification edges #17707
+  - generateRerouters.py: fixed invalid allow / disallow in output when list of vClasses is given #17710
+  - remap_additionals.py: fixed crash when object has no position attribute #17711
+  - edgeDataDiff.py: fixed crash on empty interval #17715
+  - edgeDataDiff.py: fixed invalid output when inputs have different interval times #17716
+
 
 ### Enhancements
 
@@ -77,6 +90,12 @@ title: ChangeLog
   - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659
   - OSM networks now assign routingType *narrow* to one-lane edges to permit post-processing and [routing](Simulation/Routing.md#routing_by_travel_time_and_routingtype) or capacity adaptations. #17661
   - connection files (*.con.xml) now support attribute `reset="true"` to trigger connection guessing when patching a network #17668
+  - Improved geometry when adding opposite direction bikepath #17699
+  - Improved interpretation of OSM tag `oneway=no` in connection with rail (especially tram) #17690
+
+- duarouter
+  - Option **--mapmatch.junctions** now automatically sets option **--junction.taz** #17688
+
 
 - TraCI
   - Added function `vehicle.getReferenceDistance` to retrieve the position of the vehicle in the underlying [linear referenced system](Simulation/Distances.md#defining_and_using_linear_coordinates) #10572
@@ -84,7 +103,7 @@ title: ChangeLog
 - tools
   - osmWebWizard.py: now automatically saves osmGet configuration for easier updating of a scenario #17570
   - osmWebWizard.py: now permits selection of public transport modes to import #8628
-  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573
+  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573  
   - osmGet.py: now attempts to download again after timeout and tries to use proxies (also affects osmWebWizard) #17597
   - plotXMLAttrbutes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
@@ -92,10 +111,12 @@ title: ChangeLog
   - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
   - visum_convertXMLRoutes.py: now use demand time range when interpreting volume #17667
   - countEdgeUsage.py: Now writes option header and supports .gz output #17685
+  - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
 
 - Miscellaneous
   - no more HTML tables in the docs
   - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
+  - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
 
 
 ## Version 1.26.0 (29.01.2026)
