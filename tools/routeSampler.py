@@ -123,6 +123,8 @@ def get_options(args=None):
                     help="set optimization method level (full, INT boundary)")
     op.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                     help="Skip resampling and run optimize directly on the input routes")
+    op.add_argument("--keep-attributes", dest="keepAttrs", action="store_true", default=False,
+                    help="use loaded vehicle attributes when writing used routes")
     op.add_argument("--init-input", dest="initInput", action="store_true", default=False,
                     help="use loaded routes as initialization for the used routes")
     op.add_argument("--init-input.remove-overflow", dest="initInputRemove", action="store_true", default=False,
@@ -226,11 +228,14 @@ class Routes:
         self.vehAttrs = []
         self.namedRoutes = {}  # id -> index in all
         self.namedRouteStops = {}  # id -> stops
+        self.vTypes = []
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
             for tag in sumolib.xml.parse(routefile):
+                edges = None
                 stops = []
+                attrs = None
                 prob = 1
                 if tag.name == 'route':
                     self.namedRoutes[tag.id] = len(self.all)
@@ -247,6 +252,7 @@ class Routes:
                         print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
                         prob = 0
                 elif tag.name == 'vehicle' or tag.name == 'flow':
+                    attrs = tuple(tag.getAttributes())
                     if tag.hasAttribute('route'):
                         edges = self.all[self.namedRoutes[tag.route]]
                         stops = self.namedRouteStops[tag.route]
@@ -279,11 +285,15 @@ class Routes:
                                 print("Warning: Ignoring walks beyond the first for person %s in file '%s'." % (
                                     tag.id, routefile), file=sys.stderr)
                                 warned = True
+                elif tag.name == 'vType':
+                    self.vTypes.append(tag)
 
-                self.all.append(edges)
-                self.edgeProbs[edges] += prob
-                if keepStops and stops:
-                    self.routeStops[edges].append(stops)
+                if edges:
+                    self.all.append(edges)
+                    self.vehAttrs.append(attrs)
+                    self.edgeProbs[edges] += prob
+                    if keepStops and stops:
+                        self.routeStops[edges].append(stops)
 
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.uniqueSets = [set(edges) for edges in self.unique]
@@ -293,6 +303,7 @@ class Routes:
             print("Error: no input routes loaded", file=sys.stderr)
             sys.exit()
         self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
+        self.unique2all = None
 
     def write(self, outf, prefix, intervalPrefix, routeIndex, count, writeDist=False):
         edges = self.unique[routeIndex]
@@ -320,6 +331,47 @@ class Routes:
             for stop in stops:
                 outf.write(stop.toXML(indent + ' ' * 4))
             outf.write('%s</route>\n' % indent)
+
+
+    def sampleAttrs(self, rng, vehID, depart, uniqueIndex):
+        if self.unique2all is None:
+            # init once
+            nUnique = len(self.unique)
+            self.usedIDs = set()
+            self.unique2all = [set() for i in range(nUnique)]
+            self.unique2allUsed = [set() for i in range(nUnique)]
+            for i, edges in enumerate(self.all):
+                i2 = self.edges2index[edges]
+                self.unique2all[i2].add(i)
+                self.unique2allUsed[i2].add(i)
+
+        unused = self.unique2allUsed[uniqueIndex]
+        if not unused:
+            unused.update(self.unique2all[uniqueIndex])
+
+        allIndex = rng.choice(tuple(unused))
+        unused.remove(allIndex)
+        result = []
+        duplicate = False
+        origDepart = depart
+        attrs = self.vehAttrs[allIndex];
+        if attrs is None:
+            return vehID, depart, ''
+        for a,v in attrs:
+            if a == 'id':
+                vehID = v
+                i = 1
+                while vehID in self.usedIDs:
+                    duplicate = True
+                    vehID = "%s#%s" % (v, i)
+                    i += 1
+                self.usedIDs.add(vehID)
+            elif a == 'depart':
+                origDepart = parseTime(v)
+            else:
+                result.append(' %s="%s"' % (a, v))
+        return vehID, depart if duplicate else origDepart, ' '.join(result)
+            
 
 
 class DepartDist:
@@ -1179,20 +1231,29 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
         else:
             departs = [rng.uniform(begin, end) for ri in usedRoutes]
         departs.sort()
+        objects = []  # sort again if keepAttrs is active
         for i, routeIndex in enumerate(usedRoutes):
             if options.writeRouteIDs:
                 routeID = routeIndex
             vehID = options.prefix + intervalPrefix + str(i)
             depart = departs[i]
+            attrs = options.vehattrs
+            if options.keepAttrs:
+                vehID, depart, attrs = routes.sampleAttrs(rng, vehID, depart, routeIndex)
+            objects.append((depart, vehID, attrs, routeID, routeIndex))
+        if options.keepAttrs:
+            objects.sort()
+        for depart, vehID, attrs, routeID, routeIndex in objects:
             if routeID is not None:
+                fullRouteID = "%s%s%s" % (options.prefix, intervalPrefix, routeID)
                 if options.pedestrians:
                     outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
                         vehID, depart, options.vehattrs))
-                    outf.write('        <walk route="%s%s%s"/>\n' % (options.prefix, intervalPrefix, routeID))
+                    outf.write('        <walk route="%s"/>\n' % fullRouteID)
                     outf.write('    </person>\n')
                 else:
-                    outf.write('    <vehicle id="%s" depart="%.2f" route="%s%s%s"%s/>\n' % (
-                        vehID, depart, options.prefix, intervalPrefix, routeID, options.vehattrs))
+                    outf.write('    <vehicle id="%s" depart="%.2f" route="%s"%s/>\n' % (
+                        vehID, depart, fullRouteID, attrs))
             else:
                 if options.pedestrians:
                     outf.write('    <person id="%s" depart="%.2f"%s>\n' % (
@@ -1201,7 +1262,7 @@ def writeRoutes(options, rng, outf, routes, routeCounts, begin, end, intervalPre
                     outf.write('    </person>\n')
                 else:
                     outf.write('    <vehicle id="%s" depart="%.2f"%s>\n' % (
-                        vehID, depart, options.vehattrs))
+                        vehID, depart, attrs))
                     routes.write(outf, None, None, routeIndex, None)
                     outf.write('    </vehicle>\n')
     else:
@@ -1365,6 +1426,9 @@ def main(options):
 
     with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
+        if options.keepAttrs:
+            for vType in routes.vTypes:
+                outf.write(vType.toXML(' ' * 4))
         if options.threads > 1:
             # call the multiprocessing function
             results = multi_process(options.threads, intervals,
