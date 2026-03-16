@@ -314,10 +314,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (oc.isWriteable("lefthand") && oc.isDefault("lefthand") && myAmLefthand) {
         oc.set("lefthand", toString(myAmLefthand));
     }
-    if (oc.isWriteable("junctions.corner-detail") && oc.isDefault("junctions.corner-detail")) {
+    if (oc.isWriteable("junctions.corner-detail") && oc.isDefault("junctions.corner-detail") && oc.getInt("junctions.corner-detail") != myCornerDetail) {
         oc.set("junctions.corner-detail", toString(myCornerDetail));
     }
-    if (oc.isWriteable("junctions.internal-link-detail") && oc.isDefault("junctions.internal-link-detail") && myLinkDetail > 0) {
+    if (oc.isWriteable("junctions.internal-link-detail") && oc.isDefault("junctions.internal-link-detail") && oc.getInt("junctions.internal-link-detail") != myLinkDetail && myLinkDetail > 0) {
         oc.set("junctions.internal-link-detail", toString(myLinkDetail));
     }
     if (oc.isWriteable("rectangular-lane-cut") && oc.isDefault("rectangular-lane-cut") && oc.getBool("rectangular-lane-cut") != myRectLaneCut) {
