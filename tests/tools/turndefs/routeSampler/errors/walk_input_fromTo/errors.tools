@@ -1,2 +1,2 @@
-Warning: Ignoring walk in file 'input_routes.rou.xml' because it does not contain edges.
+Warning: Ignoring walk for person 0 in file 'input_routes.rou.xml' because it does not contain edges.
 Error: no input routes loaded
