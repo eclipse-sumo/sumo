@@ -39,11 +39,7 @@ found by following its link.
 
 ## vehicle-based information, disaggregated
 
-- [raw vehicle positions dump](RawDump.md):
-  all vehicle positions over time
-  *contains*: positions and speeds for all vehicles for all simulated
-  time steps
-  *used for*: obtaining movements of nodes (V2V, for ns-2)
+
 - [emission output](EmissionOutput.md):
   emission values of all vehicles for every simulation step
 - [full output](FullOutput.md): various
@@ -67,6 +63,13 @@ found by following its link.
 - [vehicle type probe](VTypeProbe.md):
   positions of vehicles over time for a certain vehicle type
   (deprecated, use vType filters with FCD-output instead)
+- [raw vehicle positions dump](RawDump.md):
+  all vehicle positions over time
+  *contains*: positions and speeds for all vehicles for all simulated
+  time steps
+  *used for*: obtaining movements of nodes (V2V, for ns-2)
+  !!! caution
+      deprecated in favor of fcd-output
 
 ## simulated detectors
 
