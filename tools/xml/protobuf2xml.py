@@ -66,13 +66,20 @@ def read_n(inputf, n):
     return buf
 
 
+def _is_repeated(attr):
+    # protobuf 6.31 introduced "is_repeated" and 6.33 removed "label", this convoluted check works with both
+    if hasattr(attr, 'is_repeated'):
+        return attr.is_repeated
+    return attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED
+
+
 def msg2xml(desc, cont, out, depth=1):
     out.write(u">\n%s<%s" % (depth * '    ', desc.name))
     haveChildren = False
 #    print(depth, cont)
     for attr, value in cont.ListFields():
         if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-            if attr.is_repeated if hasattr(attr, 'is_repeated') else attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+            if _is_repeated(attr):
                 haveChildren = True
                 for item in value:
                     msg2xml(attr, item, out, depth + 1)
@@ -101,7 +108,7 @@ def writeXml(root, module, options):
                 obj.ParseFromString(read_n(inputf, length))
                 for attr, value in obj.ListFields():
                     if attr.type == google.protobuf.descriptor.FieldDescriptor.TYPE_MESSAGE:
-                        if attr.is_repeated if hasattr(attr, 'is_repeated') else attr.label == google.protobuf.descriptor.FieldDescriptor.LABEL_REPEATED:
+                        if _is_repeated(attr):
                             for item in value:
                                 msg2xml(attr, item, outputf)
                     elif first:
