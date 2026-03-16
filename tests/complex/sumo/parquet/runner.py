@@ -275,8 +275,8 @@ def compare(df_xml, df_parquet, skip_cols=None):
         except (ValueError, TypeError):
             try:
                 pd.testing.assert_series_equal(
-                    s_xml.where(s_xml.notna(), None).astype(str).replace('nan', None),
-                    s_pq.astype(str).replace('', None),
+                    s_xml.astype(str).replace((None, 'None', 'nan'), ''),
+                    s_pq.astype(str).replace((None, 'None', 'nan'), ''),
                     check_names=False,
                 )
             except AssertionError as e:
