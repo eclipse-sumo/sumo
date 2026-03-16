@@ -11,5 +11,5 @@ REM or later which is available at
 REM https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-call %~dp0\testEnv.bat %1
-start %TEXTTESTPY%
+IF NOT "%1" == "" SET BIN_SUFFIX=-s %1
+start pythonw %~dp0\runExtraTests.py -a all %BIN_SUFFIX%

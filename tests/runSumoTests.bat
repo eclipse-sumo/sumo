@@ -12,4 +12,4 @@ REM https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 REM SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 IF NOT "%1" == "" SET BIN_SUFFIX=-s %1
-start pythonw %~dp0\runExtraTests.py -a sumo %BIN_SUFFIX%
+start pythonw %~dp0\runExtraTests.py -a sumo,sumo.gui,sumo.meso,sumo.meso.gui %BIN_SUFFIX%
