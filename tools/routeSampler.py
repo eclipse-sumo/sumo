@@ -38,7 +38,7 @@ except ImportError:
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime, humanReadableTime, Benchmarker  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime, Benchmarker, getFlowNumber  # noqa
 from sumolib.statistics import setPrecision  # noqa
 
 PRESERVE_INPUT_COUNT = 'input'
@@ -223,32 +223,67 @@ class Routes:
         self.edgeIDs = {}
         self.withProb = 0
         self.routeStops = defaultdict(list)  # list of list of stops for the given edges
+        self.vehAttrs = []
+        self.namedRoutes = {}  # id -> index in all
+        self.namedRouteStops = {}  # id -> stops
         for routefile in routefiles:
             warned = False
             # not all routes may have specified probability, in this case use their number of occurrences
-            for r in sumolib.xml.parse(routefile, ['route', 'walk'], heterogeneous=True):
-                if r.edges is None:
-                    if not warned:
-                        print("Warning: Ignoring walk in file '%s' because it does not contain edges." % routefile,
-                              file=sys.stderr)
-                        warned = True
-                    continue
-                edges = tuple(r.edges.split())
+            for tag in sumolib.xml.parse(routefile):
+                stops = []
+                prob = 1
+                if tag.name == 'route':
+                    self.namedRoutes[tag.id] = len(self.all)
+                    edges = tuple(tag.edges.split())
+                    self.edgeIDs[edges] = tag.id
+                    self.namedRoutes[tag.id] = len(self.all)
+                    if tag.stop:
+                        stops = list(tag.stop)
+                        self.namedRouteStops[tag.id] = stops
+                    if tag.hasAttribute("probability"):
+                        self.withProb += 1
+                        prob = float(tag.probability)
+                    if prob <= 0:
+                        print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
+                        prob = 0
+                elif tag.name == 'vehicle' or tag.name == 'flow':
+                    if tag.hasAttribute('route'):
+                        edges = self.all[self.namedRoutes[tag.route]]
+                        stops = self.namedRouteStops[tag.route]
+                    elif tag.hasChild('route'):
+                        edges = tuple(tag.route[0].edges.split())
+                        if tag.route[0].stop:
+                            stops = list(tag.route[0].stop)
+                        if tag.route[0].hasAttribute("probability"):
+                            self.withProb += 1
+                            prob = float(tag.route[0].probability)
+                    else:
+                        if not warned:
+                            print("Warning: Ignoring %s in file '%s' because it does not contain edges." % (
+                                tag.name, routefile), file=sys.stderr)
+                            warned = True
+                        continue
+                    if tag.stop:
+                        stops += list(tag.stop)
+                elif tag.name == 'person':
+                    if tag.walk:
+                        if tag.walk[0].edges is None:
+                            if not warned:
+                                print("Warning: Ignoring walk for person %s in file '%s' because it does not contain edges." % (
+                                    tag.id, routefile), file=sys.stderr)
+                                warned = True
+                            continue
+                        edges = tuple(tag.walk[0].edges.split())
+                        if len(tag.walk) > 1:
+                            if not warned:
+                                print("Warning: Ignoring walks beyond the first for person %s in file '%s'." % (
+                                    tag.id, routefile), file=sys.stderr)
+                                warned = True
+
                 self.all.append(edges)
-                prob = float(r.getAttributeSecure("probability", 1))
-                if r.hasAttribute("probability"):
-                    self.withProb += 1
-                    prob = float(r.probability)
-                else:
-                    prob = 1
-                if prob <= 0:
-                    print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
-                    prob = 0
-                if r.hasAttribute("id"):
-                    self.edgeIDs[edges] = r.id
                 self.edgeProbs[edges] += prob
-                if keepStops and r.stop:
-                    self.routeStops[edges].append(list(r.stop))
+                if keepStops and stops:
+                    self.routeStops[edges].append(stops)
 
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.uniqueSets = [set(edges) for edges in self.unique]
