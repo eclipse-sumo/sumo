@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-16T06:43:01.130343+01:00 by Eclipse SUMO netconvert v1_26_0+0620-d76cfa51f1c
+<!-- generated on 2026-03-16T18:08:09.308847+01:00 by Eclipse SUMO netconvert v1_26_0+0630-9eccf635619
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
     </junctions>
 
     <report>
