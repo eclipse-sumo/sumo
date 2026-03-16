@@ -66,10 +66,16 @@ NLEdgeControlBuilder::beginEdgeParsing(
     double distance) {
     // closeEdge might not have been called because the last edge had an error, so we clear the lane storage
     myLaneStorage->clear();
-    myActiveEdge = buildEdge(id, function, streetName, edgeType, routingType, priority, distance);
+    // if the previous edge was broken (never registered in the static dict), remove and delete it
+    if (myActiveEdge != nullptr && MSEdge::dictionary(myActiveEdge->getID()) != myActiveEdge) {
+        myEdges.pop_back();
+        delete myActiveEdge;
+        myActiveEdge = nullptr;
+    }
     if (MSEdge::dictionary(id) != nullptr) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
+    myActiveEdge = buildEdge(id, function, streetName, edgeType, routingType, priority, distance);
     myEdges.push_back(myActiveEdge);
     if (bidi != "") {
         myBidiEdges[myActiveEdge] = bidi;

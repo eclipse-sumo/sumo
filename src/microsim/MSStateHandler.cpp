@@ -595,6 +595,14 @@ MSStateHandler::closeVehicle() {
 
         myVehicleParameter = nullptr;
         myRemoved++;
+        while (!myDeviceAttrs.empty()) {
+            delete myDeviceAttrs.back();
+            myDeviceAttrs.pop_back();
+        }
+        while (!myReminderAttrs.empty()) {
+            delete myReminderAttrs.back();
+            myReminderAttrs.pop_back();
+        }
     }
     delete myAttrs;
 }
