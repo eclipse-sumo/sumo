@@ -152,10 +152,11 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         }
         return;
     }
-    if ((RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation()
-            || OptionsCont::getOptions().getBool("remove-loops"))
-            && (skipTripRouting || myAlternatives[myLastUsed]->isValid(veh, ignoreErrors))) {
-        myPrecomputed = myAlternatives[myLastUsed];
+    if (RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation()
+            || OptionsCont::getOptions().getBool("remove-loops")) {
+        if (skipTripRouting || myAlternatives[myLastUsed]->isValid(veh, ignoreErrors)) {
+            myPrecomputed = myAlternatives[myLastUsed];
+        }
     } else {
         // build a new route to test whether it is better
         ConstROEdgeVector oldEdges({getOrigin(), getDestination()});

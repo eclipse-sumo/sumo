@@ -87,7 +87,7 @@ RORoute::isValid(const ROVehicle& veh, bool ignoreErrors, MsgHandler* mh) const 
         const ROEdge* cur = *i;
         if (!prev->isConnectedTo(*cur, veh.getVClass())) {
             mh->informf("Edge '%' not connected to edge '%' for vehicle '%'.", prev->getID(), cur->getID(), veh.getID());
-            return ignoreErrors;
+            return false;
         }
     }
     return true;
