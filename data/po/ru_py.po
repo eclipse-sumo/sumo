@@ -24,124 +24,124 @@ msgstr "Интерактивный светофор"
 
 #: tools/game/runner.py:68
 msgid "Railway Control"
-msgstr ""
+msgstr "Управление железной дорогой"
 
 #: tools/game/runner.py:69
 msgid "Railway Control (Demo)"
-msgstr ""
+msgstr "Управление железной дорогой (Демо)"
 
 #: tools/game/runner.py:70
 msgid "Research intersection Braunschweig (Demo)"
-msgstr ""
+msgstr "Исследовательский перекрёсток Брауншвейг (Демо)"
 
 #: tools/game/runner.py:71
 msgid "Research intersection Ingolstadt"
-msgstr ""
+msgstr "Исследовательский перекрёсток Ингольштадт"
 
 #: tools/game/runner.py:72
 msgid "Simple Junction"
-msgstr ""
+msgstr "Простой перекрёсток"
 
 #: tools/game/runner.py:73
 msgid "Simple Junction (Demo)"
-msgstr ""
+msgstr "Простой перекрёсток (Демо)"
 
 #: tools/game/runner.py:74
 msgid "Four Junctions"
-msgstr ""
+msgstr "Четыре перекрёстка"
 
 #: tools/game/runner.py:75
 msgid "Six Junctions"
-msgstr ""
+msgstr "Шесть перекрёстков"
 
 #: tools/game/runner.py:76
 msgid "Prof. Kühne"
-msgstr ""
+msgstr "Проф. Кюне"
 
 #: tools/game/runner.py:77
 msgid "3D Junction Virtual World"
-msgstr ""
+msgstr "3D-перекрёсток виртуальный мир"
 
 #: tools/game/runner.py:78
 msgid "3D Junction OpenStreetMap"
-msgstr ""
+msgstr "3D-перекрёсток OpenStreetMap"
 
 #: tools/game/runner.py:79
 msgid "Highway Ramp"
-msgstr ""
+msgstr "Съезд с автомагистрали"
 
 #: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
-msgstr ""
+msgstr "Комбинированный въезд и съезд с автомагистрали"
 
 #: tools/game/runner.py:81
 msgid "Corridor"
-msgstr ""
+msgstr "Коридор"
 
 #: tools/game/runner.py:82
 msgid "Highway Ramp A10"
-msgstr ""
+msgstr "Съезд с автомагистрали A10"
 
 #: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
-msgstr ""
+msgstr "Транспорт по требованию (новый)"
 
 #: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
-msgstr ""
+msgstr "DRT — Продвинутый (новый)"
 
 #: tools/game/runner.py:85
 msgid "DRT - Demo"
-msgstr ""
+msgstr "DRT — Демо"
 
 #: tools/game/runner.py:86 tools/game/runner.py:96
 msgid "Highscore"
-msgstr ""
+msgstr "Рекорды"
 
 #: tools/game/runner.py:87
 msgid "Reset Highscore"
-msgstr ""
+msgstr "Сбросить рекорды"
 
 #: tools/game/runner.py:88
 msgid "German"
-msgstr ""
+msgstr "Немецкий"
 
 #: tools/game/runner.py:89
 msgid "English"
-msgstr ""
+msgstr "Английский"
 
 #: tools/game/runner.py:90
 msgid "Italian"
-msgstr ""
+msgstr "Итальянский"
 
 #: tools/game/runner.py:91
 msgid "Spanish"
-msgstr ""
+msgstr "Испанский"
 
 #: tools/game/runner.py:92
 msgid "French"
-msgstr ""
+msgstr "Французский"
 
 #: tools/game/runner.py:93
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Китайский (упрощённый)"
 
 #: tools/game/runner.py:94
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Китайский (традиционный)"
 
 #: tools/game/runner.py:95
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
 #: tools/game/runner.py:97
 msgid "Congratulations!"
-msgstr ""
+msgstr "Поздравляем!"
 
 #: tools/game/runner.py:98
 msgid "Your Score"
-msgstr ""
+msgstr "Ваш счёт"
 
 #: tools/game/runner.py:99
 msgid "Continue"
-msgstr ""
+msgstr "Продолжить"
