@@ -55,8 +55,10 @@ def get_options(args=None):
             sys.exit(1)
     return options
 
+
 def getIntervalTime(i):
     return (parseTime(i.begin), parseTime(i.end))
+
 
 def write_diff(options):
 

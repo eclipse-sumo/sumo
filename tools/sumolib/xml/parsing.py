@@ -685,13 +685,14 @@ def parse_fast_structured(xmlfile, element_name, attrnames=None, nested=None,
                 if m_schema:
                     resolved = attrnames if attrnames is not None else _attrs_from_xsd_url(
                         m_schema.group(1), element_name)
-                    resolved_nested = {name: (attrs if attrs is not None else _attrs_from_xsd_url(m_schema.group(1), name))
+                    resolved_nested = {name: (attrs if attrs is not None
+                                              else _attrs_from_xsd_url(m_schema.group(1), name))
                                        for name, attrs in nested.items()}
                     if resolved is not None and all(v is not None for v in resolved_nested.values()):
                         opt_parent = optional if attrnames is not None else True
                         Record, reprog = _createRecordAndPattern(
                             element_name, resolved, warn, opt_parent, resolved_nested.keys())
-                        re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional if nested[elem] is not None else True)
+                        re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional if nested[elem] is not None else True)  # noqa
                                for elem, attr in resolved_nested.items()]
                 if reprog is None:
                     continue
