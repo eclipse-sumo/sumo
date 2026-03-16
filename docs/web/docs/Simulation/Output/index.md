@@ -68,8 +68,7 @@ found by following its link.
   *contains*: positions and speeds for all vehicles for all simulated
   time steps
   *used for*: obtaining movements of nodes (V2V, for ns-2)
-  !!! caution
-      deprecated in favor of fcd-output
+  **caution: this output deprecated in favor of fcd-output**
 
 ## simulated detectors
 
