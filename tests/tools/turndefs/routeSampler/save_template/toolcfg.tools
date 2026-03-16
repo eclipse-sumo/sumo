@@ -34,6 +34,7 @@
     <weighted value="False" type="bool" help="Sample routes according to their probability (or count)" category="processing"/>
     <optimize value="None" type="string" help="set optimization method level (full, INT boundary)" category="processing"/>
     <optimize-input value="False" type="bool" help="Skip resampling and run optimize directly on the input routes" category="processing"/>
+    <keep-attributes value="False" type="bool" help="use loaded vehicle attributes when writing used routes" category="processing"/>
     <init-input value="False" type="bool" help="use loaded routes as initialization for the used routes" category="processing"/>
     <init-input.remove-overflow value="False" type="bool" help="use loaded routes as initialization but remove those that are responsible for overflow" category="processing"/>
     <no-sampling value="False" type="bool" help="Skip sampling of routes" category="processing"/>

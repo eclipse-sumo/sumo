@@ -28,40 +28,44 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00">
+    <vType id="t0"/>
+    <vType id="t1"/>
+    <vType id="t2"/>
+
+    <vehicle id="0" depart="0.00" type="t0">
         <route edges="60.80.00 75 75.121.42 -75"/>
     </vehicle>
-    <vehicle id="1" depart="1.00">
+    <vehicle id="1" depart="1.00" type="t0">
         <route edges="-43.80.00 -27 -27.80.00 -71 -55 -55.80.00"/>
     </vehicle>
-    <vehicle id="2" depart="2.00">
+    <vehicle id="2" depart="2.00" type="t0">
         <route edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/>
     </vehicle>
-    <vehicle id="3" depart="3.00">
+    <vehicle id="3" depart="3.00" type="t0">
         <route edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
     </vehicle>
-    <vehicle id="4" depart="4.00">
+    <vehicle id="4" depart="4.00" type="t1">
         <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
     </vehicle>
-    <vehicle id="5" depart="5.00">
+    <vehicle id="5" depart="5.00" type="t1">
         <route edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/>
     </vehicle>
-    <vehicle id="6" depart="6.00">
+    <vehicle id="6" depart="6.00" type="t1">
         <route edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
     </vehicle>
-    <vehicle id="7" depart="7.00">
+    <vehicle id="7" depart="7.00" type="t1">
         <route edges="64.80.00 120 120.180.00 131 131.180.00 -131"/>
     </vehicle>
-    <vehicle id="8" depart="8.00">
+    <vehicle id="8" depart="8.00" type="t2">
         <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/>
     </vehicle>
-    <vehicle id="9" depart="9.00">
+    <vehicle id="9" depart="9.00" type="t2">
         <route edges="-11.80.00 3 3.180.00 27 27.80.00 55 71"/>
     </vehicle>
-    <vehicle id="10" depart="10.00">
+    <vehicle id="10" depart="10.00" type="t2">
         <route edges="-123.121.42 131"/>
     </vehicle>
-    <vehicle id="11" depart="11.00">
+    <vehicle id="11" depart="11.00" type="t2">
         <route edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
     </vehicle>
     <vehicle id="12" depart="12.00">
