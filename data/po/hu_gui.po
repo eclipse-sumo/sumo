@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-03-17 09:39+0000\n"
+"PO-Revision-Date: 2026-03-17 11:05+0000\n"
 "Last-Translator: Dániel Takács <1takacsdaniel@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/hu/>\n"
@@ -44,7 +44,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:345
 #: src/netedit/GNEApplicationWindow.cpp:610
 msgid "Ready."
-msgstr ""
+msgstr "Kész."
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindow.cpp:1451
@@ -54,27 +54,27 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:470
 #: src/netedit/GNEApplicationWindowHelper.cpp:206
 msgid "New Window"
-msgstr ""
+msgstr "Új ablak"
 
 #: src/gui/GUIApplicationWindow.cpp:470
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "Új sumo-gui ablak nyitása."
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Szimuláció megnyitása..."
 
 #: src/gui/GUIApplicationWindow.cpp:474
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Szimuláció megnyitása (Konfigurációs fájl)."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open &Network..."
-msgstr ""
+msgstr "Megnyitás &Hálózat..."
 
 #: src/gui/GUIApplicationWindow.cpp:477
 msgid "Open a network."
-msgstr ""
+msgstr "Hálózat megnyitása."
 
 #: src/gui/GUIApplicationWindow.cpp:480
 msgid "Open Shapes "
@@ -86,7 +86,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Open EdgeData "
-msgstr ""
+msgstr "EdgeData megnyitása "
 
 #: src/gui/GUIApplicationWindow.cpp:483
 msgid "Load edge related data for visualization."
@@ -99,51 +99,51 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:486
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Szimuláció / hálózat újratöltése."
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Gyors újratöltés"
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Szimuláció újratöltése (nem a hálóztaté)."
 
 #: src/gui/GUIApplicationWindow.cpp:493
 msgid "Save Configuration"
-msgstr ""
+msgstr "Konfiguráció mentése"
 
 #: src/gui/GUIApplicationWindow.cpp:493
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Jelenlegi mentése konfigurációs fájlként."
 
 #: src/gui/GUIApplicationWindow.cpp:496
 #: src/netedit/GNEApplicationWindowHelper.cpp:314
 msgid "Close"
-msgstr ""
+msgstr "Bezárás"
 
 #: src/gui/GUIApplicationWindow.cpp:496
 msgid "Close the simulation."
-msgstr ""
+msgstr "Szimuláció bezárása."
 
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "&Quit"
-msgstr ""
+msgstr "&Kilépés"
 
 #: src/gui/GUIApplicationWindow.cpp:504
 #: src/netedit/GNEApplicationWindow.cpp:1471
 msgid "Quit the Application."
-msgstr ""
+msgstr "Kilépés az alkalmazásból."
 
 #: src/gui/GUIApplicationWindow.cpp:513
 #: src/netedit/GNEApplicationWindow.cpp:1486
 msgid "&Edit"
-msgstr ""
+msgstr "&Szerkesztés"
 
 #: src/gui/GUIApplicationWindow.cpp:515 src/gui/GUIApplicationWindow.cpp:887
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Kijelölt szerkesztése..."
 
 #: src/gui/GUIApplicationWindow.cpp:515
 msgid "Opens a dialog for editing the list of selected items."
@@ -1979,11 +1979,11 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:560
 msgid "total lane length [km]"
-msgstr ""
+msgstr "teljes vonal hossza [km]"
 
 #: src/guisim/GUINet.cpp:561
 msgid "network version "
-msgstr ""
+msgstr "hálózat verzió "
 
 #: src/guisim/GUINet.cpp:676
 msgid "Trying to set data value for the unknown edge '%'."
