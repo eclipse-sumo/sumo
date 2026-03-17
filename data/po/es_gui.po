@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:16+0100\n"
-"PO-Revision-Date: 2026-03-16 13:49+0000\n"
+"PO-Revision-Date: 2026-03-17 09:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10638,7 +10638,7 @@ msgstr "Error al copiar archivo"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:242
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:260
 msgid "Unable to copy file: %"
-msgstr ""
+msgstr "No se pudo copiar el archivo: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:243
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:289
@@ -10654,7 +10654,7 @@ msgstr "Sobrescribir archivo"
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:249
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:295
 msgid "The destination file: %"
-msgstr ""
+msgstr "El archivo destino: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:250
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:296
@@ -10699,7 +10699,7 @@ msgstr "Error al eliminar archivo"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:334
 msgid "Unable to delete file: %"
-msgstr ""
+msgstr "No se pudo eliminar el archivo: %"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:335
 msgid "Check file permissions"
@@ -10987,7 +10987,7 @@ msgstr ""
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:107
 #, c-format
 msgid "change % of invalid additionals"
-msgstr ""
+msgstr "cambiar % de elementos adicionales no válidos"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:115
 msgid "fix positions of invalid additionals"
