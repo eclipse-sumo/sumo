@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:07:08.893061+01:00 by Eclipse SUMO netgenerate v1_25_0+0045-28a3daf62ee
+<!-- generated on 2026-03-17T17:37:02.928384+01:00 by Eclipse SUMO netgenerate v1_26_0+0660-3a1980018da
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -599,6 +599,9 @@
 
         <!-- Joins junctions that have similar coordinates even if not connected -->
         <junctions.join-same value="-1" type="FLOAT"/>
+
+        <!-- Reset connections for joined junctions -->
+        <junctions.join-reset value="false" type="BOOL"/>
 
         <!-- Abbreviate junction or TLS id if it joins more than INT junctions -->
         <max-join-ids value="4" type="INT"/>

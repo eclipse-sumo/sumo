@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:47.605373+01:00 by Eclipse SUMO netconvert v1_25_0+0045-28a3daf62ee
+<!-- generated on 2026-03-17T17:37:02.600949+01:00 by Eclipse SUMO netconvert v1_26_0+0660-3a1980018da
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -713,6 +713,9 @@
 
         <!-- Joins junctions that have similar coordinates even if not connected -->
         <junctions.join-same value="-1" type="FLOAT"/>
+
+        <!-- Reset connections for joined junctions -->
+        <junctions.join-reset value="false" type="BOOL"/>
 
         <!-- Attach junction to the closest edge within FLOAT distance that has it&apos;s id in param removedNodeIDs (for joining networks) -->
         <junctions.attach-removed value="-1" type="FLOAT"/>

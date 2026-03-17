@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:22.226003+01:00 by Eclipse SUMO netconvert v1_25_0+0045-28a3daf62ee
+<!-- generated on 2026-03-17T17:37:02.630116+01:00 by Eclipse SUMO netconvert v1_26_0+0660-3a1980018da
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -262,6 +262,7 @@
         <junctions.join.parallel-threshold value="30" type="FLOAT" help="The angular threshold in degrees for rejection of parallel edges when joining junctions"/>
         <junctions.join-exclude value="" type="STR[]" help="Interprets STR[] as list of junctions to exclude from joining"/>
         <junctions.join-same value="-1" type="FLOAT" help="Joins junctions that have similar coordinates even if not connected"/>
+        <junctions.join-reset value="false" type="BOOL" help="Reset connections for joined junctions"/>
         <junctions.attach-removed value="-1" type="FLOAT" help="Attach junction to the closest edge within FLOAT distance that has it&apos;s id in param removedNodeIDs (for joining networks)"/>
         <max-join-ids value="4" type="INT" help="Abbreviate junction or TLS id if it joins more than INT junctions"/>
         <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
