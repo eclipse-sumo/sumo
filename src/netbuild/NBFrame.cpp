@@ -340,19 +340,19 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("edges.join", new Option_Bool(false));
     oc.addDescription("edges.join", "Processing",
-                      "Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)");
+                      TL("Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"));
 
     oc.doRegister("junctions.join", new Option_Bool(false));
     oc.addDescription("junctions.join", "Junctions",
-                      "Joins junctions that are close to each other (recommended for OSM import)");
+                      TL("Joins junctions that are close to each other (recommended for OSM import)"));
 
     oc.doRegister("junctions.join-dist", new Option_Float(10));
     oc.addDescription("junctions.join-dist", "Junctions",
-                      "Determines the maximal distance for joining junctions (defaults to 10)");
+                      TL("Determines the maximal distance for joining junctions (defaults to 10)"));
 
     oc.doRegister("junctions.join.parallel-threshold", new Option_Float(30));
     oc.addDescription("junctions.join.parallel-threshold", "Junctions",
-                      "The angular threshold in degrees for rejection of parallel edges when joining junctions");
+                      TL("The angular threshold in degrees for rejection of parallel edges when joining junctions"));
 
     if (!forNetgen) {
         oc.doRegister("junctions.join-exclude", new Option_StringVector());
@@ -361,16 +361,19 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("junctions.join-same", new Option_Float(-1));
     oc.addDescription("junctions.join-same", "Junctions",
-                      "Joins junctions that have similar coordinates even if not connected");
+                      TL("Joins junctions that have similar coordinates even if not connected"));
+
+    oc.doRegister("junctions.join-reset", new Option_Bool(false));
+    oc.addDescription("junctions.join-reset", "Junctions", TL("Reset connections for joined junctions"));
 
     if (!forNetgen) {
         oc.doRegister("junctions.attach-removed", new Option_Float(-1));
         oc.addDescription("junctions.attach-removed", "Junctions",
-                          "Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks)");
+                          TL("Attach junction to the closest edge within FLOAT distance that has it's id in param removedNodeIDs (for joining networks)"));
     }
 
     oc.doRegister("max-join-ids", new Option_Integer(4));
-    oc.addDescription("max-join-ids", "Junctions", "Abbreviate junction or TLS id if it joins more than INT junctions");
+    oc.addDescription("max-join-ids", "Junctions", TL("Abbreviate junction or TLS id if it joins more than INT junctions"));
 
     if (!forNetgen) {
         oc.doRegister("speed.offset", new Option_Float(0));
@@ -384,7 +387,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
         oc.doRegister("edges.join-tram-dist", new Option_Float(-1));
         oc.addDescription("edges.join-tram-dist", "Processing",
-                          "Joins tram edges into road lanes with similar geometry (within FLOAT distance)");
+                          TL("Joins tram edges into road lanes with similar geometry (within FLOAT distance)"));
     }
 
     oc.doRegister("junctions.corner-detail", new Option_Integer(5));
@@ -398,110 +401,110 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("junctions.join-turns", new Option_Bool(false));
     oc.addDescription("junctions.join-turns", "Junctions",
-                      "Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning");
+                      TL("Builds common edges for turning connections with common from- and to-edge. This causes discrepancies between geometrical length and assigned length due to averaging but enables lane-changing while turning"));
 
     oc.doRegister("junctions.limit-turn-speed", new Option_Float(5.5));
     oc.addDescription("junctions.limit-turn-speed", "Junctions",
-                      "Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2)");
+                      TL("Limits speed on junctions to an average lateral acceleration of at most FLOAT (m/s^2)"));
 
     oc.doRegister("junctions.limit-turn-speed.min-angle", new Option_Float(15));
     oc.addDescription("junctions.limit-turn-speed.min-angle", "Junctions",
-                      "Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius.");
+                      TL("Do not limit turn speed for angular changes below FLOAT (degrees). The value is subtracted from the geometric angle before computing the turning radius."));
 
     oc.doRegister("junctions.limit-turn-speed.min-angle.railway", new Option_Float(35));
     oc.addDescription("junctions.limit-turn-speed.min-angle.railway", "Junctions",
-                      "Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius.");
+                      TL("Do not limit turn speed for angular changes below FLOAT (degrees) on railway edges. The value is subtracted from the geometric angle before computing the turning radius."));
 
     oc.doRegister("junctions.limit-turn-speed.warn.straight", new Option_Float(5));
     oc.addDescription("junctions.limit-turn-speed.warn.straight", "Junctions",
-                      "Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT");
+                      TL("Warn about turn speed limits that reduce the speed of straight connections by more than FLOAT"));
 
     oc.doRegister("junctions.limit-turn-speed.warn.turn", new Option_Float(22));
     oc.addDescription("junctions.limit-turn-speed.warn.turn", "Junctions",
-                      "Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT");
+                      TL("Warn about turn speed limits that reduce the speed of turning connections (no u-turns) by more than FLOAT"));
 
     oc.doRegister("junctions.small-radius", new Option_Float(1.5));
     oc.addDescription("junctions.small-radius", "Junctions",
-                      "Default radius for junctions that do not require wide vehicle turns");
+                      TL("Default radius for junctions that do not require wide vehicle turns"));
 
     oc.doRegister("junctions.higher-speed", new Option_Bool(false));
     oc.addDescription("junctions.higher-speed", "Junctions",
-                      "Use maximum value of incoming and outgoing edge speed on junction instead of average");
+                      TL("Use maximum value of incoming and outgoing edge speed on junction instead of average"));
 
     oc.doRegister("junctions.minimal-shape", new Option_Bool(false));
     oc.addDescription("junctions.minimal-shape", "Junctions",
-                      "Build junctions with minimal shapes (ignoring edge overlap)");
+                      TL("Build junctions with minimal shapes (ignoring edge overlap)"));
 
     oc.doRegister("junctions.endpoint-shape", new Option_Bool(false));
     oc.addDescription("junctions.endpoint-shape", "Junctions",
-                      "Build junction shapes based on edge endpoints (ignoring edge overlap)");
+                      TL("Build junction shapes based on edge endpoints (ignoring edge overlap)"));
 
     oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
     oc.addDescription("internal-junctions.vehicle-width", "Junctions",
-                      "Assumed vehicle width for computing internal junction positions");
+                      TL("Assumed vehicle width for computing internal junction positions"));
 
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
     oc.addDescription("rectangular-lane-cut", "Junctions", TL("Forces rectangular cuts between lanes and intersections"));
 
     oc.doRegister("check-lane-foes.roundabout", new Option_Bool(true));
     oc.addDescription("check-lane-foes.roundabout", "Junctions",
-                      "Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)");
+                      TL("Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts)"));
 
     oc.doRegister("check-lane-foes.all", new Option_Bool(false));
     oc.addDescription("check-lane-foes.all", "Junctions",
-                      "Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)");
+                      TL("Allow driving onto a multi-lane road if there are foes on other lanes (everywhere)"));
 
     oc.doRegister("sidewalks.guess", new Option_Bool(false));
     oc.addDescription("sidewalks.guess", "Pedestrian",
-                      "Guess pedestrian sidewalks based on edge speed");
+                      TL("Guess pedestrian sidewalks based on edge speed"));
 
     oc.doRegister("sidewalks.guess.max-speed", new Option_Float((double) 13.89));
     oc.addDescription("sidewalks.guess.max-speed", "Pedestrian",
-                      "Add sidewalks for edges with a speed equal or below the given limit");
+                      TL("Add sidewalks for edges with a speed equal or below the given limit"));
 
     oc.doRegister("sidewalks.guess.min-speed", new Option_Float((double) 5.8));
     oc.addDescription("sidewalks.guess.min-speed", "Pedestrian",
-                      "Add sidewalks for edges with a speed above the given limit");
+                      TL("Add sidewalks for edges with a speed above the given limit"));
 
     oc.doRegister("sidewalks.guess.from-permissions", new Option_Bool(false));
     oc.addDescription("sidewalks.guess.from-permissions", "Pedestrian",
-                      "Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed");
+                      TL("Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"));
 
     oc.doRegister("sidewalks.guess.exclude", new Option_StringVector());
     oc.addDescription("sidewalks.guess.exclude", "Pedestrian",
-                      "Do not guess sidewalks for the given list of edges");
+                      TL("Do not guess sidewalks for the given list of edges"));
 
     oc.doRegister("bikelanes.guess", new Option_Bool(false));
     oc.addDescription("bikelanes.guess", "Bicycle",
-                      "Guess bike lanes based on edge speed");
+                      TL("Guess bike lanes based on edge speed"));
 
     oc.doRegister("bikelanes.guess.max-speed", new Option_Float((double) 22.22));
     oc.addDescription("bikelanes.guess.max-speed", "Bicycle",
-                      "Add bike lanes for edges with a speed equal or below the given limit");
+                      TL("Add bike lanes for edges with a speed equal or below the given limit"));
 
     oc.doRegister("bikelanes.guess.min-speed", new Option_Float((double) 5.8));
     oc.addDescription("bikelanes.guess.min-speed", "Bicycle",
-                      "Add bike lanes for edges with a speed above the given limit");
+                      TL("Add bike lanes for edges with a speed above the given limit"));
 
     oc.doRegister("bikelanes.guess.from-permissions", new Option_Bool(false));
     oc.addDescription("bikelanes.guess.from-permissions", "Bicycle",
-                      "Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed");
+                      TL("Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed"));
 
     oc.doRegister("bikelanes.guess.exclude", new Option_StringVector());
     oc.addDescription("bikelanes.guess.exclude", "Bicycle",
-                      "Do not guess bikelanes for the given list of edges");
+                      TL("Do not guess bikelanes for the given list of edges"));
 
     oc.doRegister("crossings.guess", new Option_Bool(false));
     oc.addDescription("crossings.guess", "Pedestrian",
-                      "Guess pedestrian crossings based on the presence of sidewalks");
+                      TL("Guess pedestrian crossings based on the presence of sidewalks"));
 
     oc.doRegister("crossings.guess.speed-threshold", new Option_Float(13.89));
     oc.addDescription("crossings.guess.speed-threshold", "Pedestrian",
-                      "At uncontrolled nodes, do not build crossings across edges with a speed above the threshold");
+                      TL("At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"));
 
     oc.doRegister("crossings.guess.roundabout-priority", new Option_Bool(true));
     oc.addDescription("crossings.guess.roundabout-priority", "Pedestrian",
-                      "Give priority to guessed crossings at roundabouts");
+                      TL("Give priority to guessed crossings at roundabouts"));
 
     oc.doRegister("walkingareas", new Option_Bool(false));
     oc.addDescription("walkingareas", "Pedestrian", TL("Always build walking areas even if there are no crossings"));
@@ -513,144 +516,144 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     // explicit tls
     oc.doRegister("tls.set", new Option_StringVector());
     oc.addSynonyme("tls.set", "explicite-tls", true);
-    oc.addDescription("tls.set", "TLS Building", "Interprets STR[] as list of junctions to be controlled by TLS");
+    oc.addDescription("tls.set", "TLS Building", TL("Interprets STR[] as list of junctions to be controlled by TLS"));
 
     oc.doRegister("tls.unset", new Option_StringVector());
     oc.addSynonyme("tls.unset", "explicite-no-tls", true);
-    oc.addDescription("tls.unset", "TLS Building", "Interprets STR[] as list of junctions to be not controlled by TLS");
+    oc.addDescription("tls.unset", "TLS Building", TL("Interprets STR[] as list of junctions to be not controlled by TLS"));
 
     // tls-guessing
     oc.doRegister("tls.guess", new Option_Bool(false));
     oc.addSynonyme("tls.guess", "guess-tls", true);
-    oc.addDescription("tls.guess", "TLS Building", "Turns on TLS guessing");
+    oc.addDescription("tls.guess", "TLS Building", TL("Turns on TLS guessing"));
 
     oc.doRegister("tls.guess.threshold", new Option_Float(250 / 3.6));
-    oc.addDescription("tls.guess.threshold", "TLS Building", "Sets minimum value for the sum of all incoming lane speeds when guessing TLS");
+    oc.addDescription("tls.guess.threshold", "TLS Building", TL("Sets minimum value for the sum of all incoming lane speeds when guessing TLS"));
 
     if (!forNetgen) {
         oc.doRegister("tls.taz-nodes", new Option_Bool(false));
         oc.addSynonyme("tls.taz-nodes", "tls-guess.district-nodes", true);
-        oc.addDescription("tls.taz-nodes", "TLS Building", "Sets district nodes as tls-controlled"); // !!! describe
+        oc.addDescription("tls.taz-nodes", "TLS Building", TL("Sets district nodes as tls-controlled")); // !!! describe
     }
 
     oc.doRegister("tls.guess.joining", new Option_Bool(false));
     oc.addSynonyme("tls.guess.joining", "tls-guess.joining", true);
-    oc.addDescription("tls.guess.joining", "TLS Building", "Includes node clusters into guess"); // !!! describe
+    oc.addDescription("tls.guess.joining", "TLS Building", TL("Includes node clusters into guess")); // !!! describe
 
     oc.doRegister("tls.join", new Option_Bool(false));
     oc.addSynonyme("tls.join", "try-join-tls", true);
-    oc.addDescription("tls.join", "TLS Building", "Tries to cluster tls-controlled nodes"); // !!! describe
+    oc.addDescription("tls.join", "TLS Building", TL("Tries to cluster tls-controlled nodes")); // !!! describe
 
     oc.doRegister("tls.join-dist", new Option_Float(20));
     oc.addDescription("tls.join-dist", "TLS Building",
-                      "Determines the maximal distance for joining traffic lights (defaults to 20)");
+                      TL("Determines the maximal distance for joining traffic lights (defaults to 20)"));
 
     oc.doRegister("tls.join-exclude", new Option_StringVector());
     oc.addDescription("tls.join-exclude", "TLS Building", TL("Interprets STR[] as list of tls ids to exclude from joining"));
 
     oc.doRegister("tls.uncontrolled-within", new Option_Bool(false));
     oc.addDescription("tls.uncontrolled-within", "TLS Building",
-                      "Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used");
+                      TL("Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"));
 
     oc.doRegister("tls.ignore-internal-junction-jam", new Option_Bool(false));
     oc.addDescription("tls.ignore-internal-junction-jam", "TLS Building",
-                      "Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended");
+                      TL("Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended"));
 
     if (!forNetgen) {
         oc.doRegister("tls.guess-signals", new Option_Bool(false));
-        oc.addDescription("tls.guess-signals", "TLS Building", "Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks");
+        oc.addDescription("tls.guess-signals", "TLS Building", TL("Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"));
 
         oc.doRegister("tls.guess-signals.dist", new Option_Float(25));
-        oc.addDescription("tls.guess-signals.dist", "TLS Building", "Distance for interpreting nodes as signal locations");
+        oc.addDescription("tls.guess-signals.dist", "TLS Building", TL("Distance for interpreting nodes as signal locations"));
 
         oc.doRegister("tls.guess-signals.slack", new Option_Integer(0));
-        oc.addDescription("tls.guess-signals.slack", "TLS Building", "Number of uncontrolled entry edges to accept and still consider the central node as a traffic light");
+        oc.addDescription("tls.guess-signals.slack", "TLS Building", TL("Number of uncontrolled entry edges to accept and still consider the central node as a traffic light"));
     }
 
 
     // computational
     oc.doRegister("tls.cycle.time", new Option_Integer(90));
-    oc.addDescription("tls.cycle.time", "TLS Building", "Use INT as cycle duration");
+    oc.addDescription("tls.cycle.time", "TLS Building", TL("Use INT as cycle duration"));
 
     oc.doRegister("tls.green.time", new Option_Integer(31));
     oc.addSynonyme("tls.green.time", "traffic-light-green", true);
-    oc.addDescription("tls.green.time", "TLS Building", "Use INT as green phase duration");
+    oc.addDescription("tls.green.time", "TLS Building", TL("Use INT as green phase duration"));
 
     oc.doRegister("tls.yellow.min-decel", 'D', new Option_Float(3.0));
     oc.addSynonyme("tls.yellow.min-decel", "min-decel", true);
-    oc.addDescription("tls.yellow.min-decel", "TLS Building", "Defines smallest vehicle deceleration");
+    oc.addDescription("tls.yellow.min-decel", "TLS Building", TL("Defines smallest vehicle deceleration"));
 
     oc.doRegister("tls.yellow.patch-small", new Option_Bool(false));
     oc.addSynonyme("tls.yellow.patch-small", "patch-small-tyellow", true);
-    oc.addDescription("tls.yellow.patch-small", "TLS Building", "Given yellow times are patched even if being too short");
+    oc.addDescription("tls.yellow.patch-small", "TLS Building", TL("Given yellow times are patched even if being too short"));
 
     oc.doRegister("tls.yellow.time", new Option_Integer(-1));
     oc.addSynonyme("tls.yellow.time", "traffic-light-yellow", true);
-    oc.addDescription("tls.yellow.time", "TLS Building", "Set INT as fixed time for yellow phase durations");
+    oc.addDescription("tls.yellow.time", "TLS Building", TL("Set INT as fixed time for yellow phase durations"));
 
     oc.doRegister("tls.red.time", new Option_Integer(5));
-    oc.addDescription("tls.red.time", "TLS Building", "Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow");
+    oc.addDescription("tls.red.time", "TLS Building", TL("Set INT as fixed time for red phase duration at traffic lights that do not have a conflicting flow"));
 
     oc.doRegister("tls.allred.time", new Option_Integer(0));
-    oc.addDescription("tls.allred.time", "TLS Building", "Set INT as fixed time for intermediate red phase after every switch");
+    oc.addDescription("tls.allred.time", "TLS Building", TL("Set INT as fixed time for intermediate red phase after every switch"));
 
     oc.doRegister("tls.minor-left.max-speed", new Option_Float(19.44)); // 70km/h
-    oc.addDescription("tls.minor-left.max-speed", "TLS Building", "Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles");
+    oc.addDescription("tls.minor-left.max-speed", "TLS Building", TL("Use FLOAT as threshold for allowing left-turning vehicles to move in the same phase as oncoming straight-going vehicles"));
 
     oc.doRegister("tls.left-green.time", new Option_Integer(6));
-    oc.addDescription("tls.left-green.time", "TLS Building", "Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases");
+    oc.addDescription("tls.left-green.time", "TLS Building", TL("Use INT as green phase duration for left turns (s). Setting this value to 0 disables additional left-turning phases"));
 
     oc.doRegister("tls.nema.vehExt", new Option_Integer(2));
-    oc.addDescription("tls.nema.vehExt", "TLS Building", "Set INT as fixed time for intermediate vehext phase after every switch");
+    oc.addDescription("tls.nema.vehExt", "TLS Building", TL("Set INT as fixed time for intermediate vehext phase after every switch"));
 
     oc.doRegister("tls.nema.yellow", new Option_Integer(3));
-    oc.addDescription("tls.nema.yellow", "TLS Building", "Set INT as fixed time for intermediate NEMA yellow phase after every switch");
+    oc.addDescription("tls.nema.yellow", "TLS Building", TL("Set INT as fixed time for intermediate NEMA yellow phase after every switch"));
 
     oc.doRegister("tls.nema.red", new Option_Integer(2));
-    oc.addDescription("tls.nema.red", "TLS Building", "Set INT as fixed time for intermediate NEMA red phase after every switch");
+    oc.addDescription("tls.nema.red", "TLS Building", TL("Set INT as fixed time for intermediate NEMA red phase after every switch"));
 
     oc.doRegister("tls.crossing-min.time", new Option_Integer(4));
-    oc.addDescription("tls.crossing-min.time", "TLS Building", "Use INT as minimum green duration for pedestrian crossings (s).");
+    oc.addDescription("tls.crossing-min.time", "TLS Building", TL("Use INT as minimum green duration for pedestrian crossings (s)."));
 
     oc.doRegister("tls.crossing-clearance.time", new Option_Integer(5));
-    oc.addDescription("tls.crossing-clearance.time", "TLS Building", "Use INT as clearance time for pedestrian crossings (s).");
+    oc.addDescription("tls.crossing-clearance.time", "TLS Building", TL("Use INT as clearance time for pedestrian crossings (s)."));
 
     oc.doRegister("tls.scramble.time", new Option_Integer(5));
-    oc.addDescription("tls.scramble.time", "TLS Building", "Use INT as green phase duration for pedestrian scramble phase (s).");
+    oc.addDescription("tls.scramble.time", "TLS Building", TL("Use INT as green phase duration for pedestrian scramble phase (s)."));
 
     // tls-shifts
     oc.doRegister("tls.half-offset", new Option_StringVector());
     oc.addSynonyme("tls.half-offset", "tl-logics.half-offset", true);
-    oc.addDescription("tls.half-offset", "TLS Building", "TLSs in STR[] will be shifted by half-phase");
+    oc.addDescription("tls.half-offset", "TLS Building", TL("TLSs in STR[] will be shifted by half-phase"));
 
     oc.doRegister("tls.quarter-offset", new Option_StringVector());
     oc.addSynonyme("tls.quarter-offset", "tl-logics.quarter-offset", true);
-    oc.addDescription("tls.quarter-offset", "TLS Building", "TLSs in STR[] will be shifted by quarter-phase");
+    oc.addDescription("tls.quarter-offset", "TLS Building", TL("TLSs in STR[] will be shifted by quarter-phase"));
 
     // tls type
     oc.doRegister("tls.default-type", new Option_String("static"));
-    oc.addDescription("tls.default-type", "TLS Building", "TLSs with unspecified type will use STR as their algorithm");
+    oc.addDescription("tls.default-type", "TLS Building", TL("TLSs with unspecified type will use STR as their algorithm"));
 
     oc.doRegister("tls.layout", new Option_String("opposites"));
-    oc.addDescription("tls.layout", "TLS Building", "Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']");
+    oc.addDescription("tls.layout", "TLS Building", TL("Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']"));
 
     oc.doRegister("tls.no-mixed", new Option_Bool(false));
-    oc.addDescription("tls.no-mixed", "TLS Building", "Avoid phases with green and red signals for different connections from the same lane");
+    oc.addDescription("tls.no-mixed", "TLS Building", TL("Avoid phases with green and red signals for different connections from the same lane"));
 
     oc.doRegister("tls.min-dur", new Option_Integer(5));
-    oc.addDescription("tls.min-dur", "TLS Building", "Default minimum phase duration for traffic lights with variable phase length");
+    oc.addDescription("tls.min-dur", "TLS Building", TL("Default minimum phase duration for traffic lights with variable phase length"));
 
     oc.doRegister("tls.max-dur", new Option_Integer(50));
-    oc.addDescription("tls.max-dur", "TLS Building", "Default maximum phase duration for traffic lights with variable phase length");
+    oc.addDescription("tls.max-dur", "TLS Building", TL("Default maximum phase duration for traffic lights with variable phase length"));
 
     oc.doRegister("tls.group-signals", new Option_Bool(false));
-    oc.addDescription("tls.group-signals", "TLS Building", "Assign the same tls link index to connections that share the same states");
+    oc.addDescription("tls.group-signals", "TLS Building", TL("Assign the same tls link index to connections that share the same states"));
 
     oc.doRegister("tls.ungroup-signals", new Option_Bool(false));
-    oc.addDescription("tls.ungroup-signals", "TLS Building", "Assign a distinct tls link index to every connection");
+    oc.addDescription("tls.ungroup-signals", "TLS Building", TL("Assign a distinct tls link index to every connection"));
 
     oc.doRegister("tls.rebuild", new Option_Bool(false));
-    oc.addDescription("tls.rebuild", "TLS Building", "rebuild all traffic light plans in the network");
+    oc.addDescription("tls.rebuild", "TLS Building", TL("rebuild all traffic light plans in the network"));
 
     // edge pruning
     oc.doRegister("keep-edges.min-speed", new Option_Float(-1));

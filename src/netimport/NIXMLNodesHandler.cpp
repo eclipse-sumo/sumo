@@ -275,7 +275,7 @@ NIXMLNodesHandler::addJoinCluster(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_Z)) {
         pos.setz(attrs.get<double>(SUMO_ATTR_Z, myID.c_str(), ok));
     }
-    const bool reset = attrs.getOpt<bool>(SUMO_ATTR_RESET, myID.c_str(), ok, false);
+    const bool reset = attrs.getOpt<bool>(SUMO_ATTR_RESET, myID.c_str(), ok, OptionsCont::getOptions().getBool("junctions.join-reset"));
 
     NBNode* node = processNodeType(attrs, nullptr, myID, pos, false, myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
     if (ok) {
