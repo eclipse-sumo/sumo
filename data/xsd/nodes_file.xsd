@@ -92,6 +92,7 @@
             <xsd:extension base="nodeTypeWithoutID">
                 <xsd:attribute name="nodes" type="xsd:string" use="required"/>
                 <xsd:attribute name="id" type="idType" use="optional"/>
+                <xsd:attribute name="reset" type="boolType" use="optional"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
