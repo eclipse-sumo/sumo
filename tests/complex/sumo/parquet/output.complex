@@ -72,6 +72,10 @@ Testing battery (battery-output, end=120s)...
 [OK]    battery (parquet): 214 rows match
 [OK]    battery (csv): 214 rows match
 
+Testing bt (bt-output, end=120s)...
+[OK]    bt (parquet): 16 rows match
+[OK]    bt (csv): 16 rows match
+
 Testing e1detector (detector, end=500s)...
 [OK]    e1detector (parquet): 60 rows match
 [OK]    e1detector (csv): 60 rows match
