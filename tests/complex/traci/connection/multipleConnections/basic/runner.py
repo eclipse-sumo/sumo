@@ -86,7 +86,9 @@ def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
     fdi.close()
     fdo.close()
     sumoProcess = subprocess.Popen(
-        [sumoBinary, "-v", "--num-clients", str(numClients), "-c", "used.sumocfg", "-S", "-Q", "--remote-port", str(PORT)] + sumoOptions, stdout=sys.stdout)  # Alternate ordering
+        [sumoBinary, "-v", "--num-clients", str(numClients),
+         "-c", "used.sumocfg", "-S", "-Q", "--remote-port", str(PORT)] + sumoOptions, stdout=sys.stdout)
+    # Alternate ordering
     indexRange = range(numClients) if (runNr % 2 == 0) else reversed(range(numClients))
     procs = [multiprocessing.Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1))) for i in indexRange]
     for p in procs:

@@ -98,7 +98,9 @@ def traciLoop(port, traciEndTime, i, runNr, steplength=0):
 
 def runSingle(sumoEndTime, traciEndTime, numClients, runNr):
     sumoProcess = subprocess.Popen(
-        [sumoBinary, "-v", "--num-clients", str(numClients), "-c", "sumo.sumocfg", "-S", "-Q", "--remote-port", str(PORT)] + sumoOptions, stdout=sys.stdout)  # Alternate ordering
+        [sumoBinary, "-v", "--num-clients", str(numClients),
+         "-c", "sumo.sumocfg", "-S", "-Q", "--remote-port", str(PORT)] + sumoOptions, stdout=sys.stdout)
+    # Alternate ordering
     procs = [multiprocessing.Process(target=traciLoop, args=(PORT, traciEndTime, (i + 1), runNr))
              for i in range(numClients)]
     for p in procs:

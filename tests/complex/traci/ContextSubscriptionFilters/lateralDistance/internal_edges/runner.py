@@ -82,4 +82,5 @@ if len(positionalArgs) != 6:
           "<testWithIncompatibleFilter (0/1)>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(12, float(positionalArgs[1]), float(positionalArgs[2]), float(positionalArgs[3]), float(positionalArgs[4]), bool(int(positionalArgs[5])))
+runSingle(12, float(positionalArgs[1]), float(positionalArgs[2]),
+          float(positionalArgs[3]), float(positionalArgs[4]), bool(int(positionalArgs[5])))

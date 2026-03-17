@@ -29,14 +29,16 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import traci  # noqa
 import sumolib  # noqa
 
+args = [sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--remote-port"]
+
 sumoPort = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--remote-port", str(sumoPort)] + sys.argv[1:])
+sumoProcess = subprocess.Popen(args + [str(sumoPort)] + sys.argv[1:])
 conn = traci.connect(sumoPort, proc=sumoProcess)
 conn.simulationStep()
 conn.close()
 
 sumoPort = sumolib.miscutils.getFreeSocketPort()
-sumoProcess = subprocess.Popen([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--remote-port", str(sumoPort)] + sys.argv[1:])
+sumoProcess = subprocess.Popen((args + [str(sumoPort)] + sys.argv[1:]))
 conn = traci.connect(sumoPort, label="yo", proc=sumoProcess)
 conn.simulationStep()
 conn.close()
