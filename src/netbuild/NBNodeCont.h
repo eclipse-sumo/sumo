@@ -60,6 +60,11 @@ public:
     /// @brief Definition of a node cluster container
     typedef std::vector<NodeSet> NodeClusters;
     typedef std::pair<NBNode*, double> NodeAndDist;
+    struct JoinCluster {
+        std::set<std::string> cluster;
+        NBNode* node;
+        bool resetConnections;
+    };
 
     /// @brief Constructor
     NBNodeCont() {}
@@ -151,7 +156,7 @@ public:
     /** @brief add ids of nodes which shall be joined into a single node
      * @param[in] cluster The cluster to add
      */
-    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node);
+    void addCluster2Join(const std::set<std::string>& cluster, NBNode* node, const bool resetConnections=false);
 
     /// @brief Joins loaded junction clusters (see NIXMLNodesHandler)
     int joinLoadedClusters(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc);
@@ -452,7 +457,7 @@ private:
     std::set<std::string> myJoinExclusions;
 
     /// @brief loaded sets of node ids to join (cleared after use)
-    std::vector<std::pair<std::set<std::string>, NBNode*> > myClusters2Join;
+    std::vector<JoinCluster> myClusters2Join;
 
     /// @brief sets of node ids which were joined
     std::vector<std::set<std::string> > myJoinedClusters;
