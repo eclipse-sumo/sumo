@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-01-25 14:04+0100\n"
-"PO-Revision-Date: 2026-03-16 13:49+0000\n"
+"PO-Revision-Date: 2026-03-17 09:39+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -11732,11 +11732,11 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:442
 msgid "End of file while reading %."
-msgstr ""
+msgstr "Fin del archivo al leer %."
 
 #: src/od/ODMatrix.cpp:469
 msgid "Broken period definition '%'."
-msgstr ""
+msgstr "Definición de período '%' no válida."
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
@@ -11848,7 +11848,7 @@ msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:314
 msgid "Unsupported shape type occurred (id='%')."
-msgstr ""
+msgstr "Se encontró un tipo de forma no compatible (ID='%')."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:71
 msgid "Could not open dlr-navteq-poi-file '%'."
@@ -12198,7 +12198,7 @@ msgstr "Reducir el número de alternativas a INT"
 
 #: src/router/ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
-msgstr ""
+msgstr "Usar zonas de origen y destino (distritos) para entrada y salida"
 
 #: src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
@@ -12239,6 +12239,7 @@ msgstr ""
 #: src/router/ROFrame.cpp:163
 msgid "Backtrack on route if the detour is longer than the gap by FACTOR"
 msgstr ""
+"Retroceder en la ruta si el desvío es más largo que la brecha por FACTOR"
 
 #: src/router/ROFrame.cpp:175
 msgid "Aggregate routing queries with the same origin"
@@ -12385,6 +12386,8 @@ msgstr ""
 msgid ""
 "Bulking different vehicle classes ('%' and '%') may lead to invalid routes."
 msgstr ""
+"Agrupar distintas clases de vehículos ('%' y '%') puede generar rutas no "
+"válidas."
 
 #: src/router/RONet.cpp:716
 #, c-format
