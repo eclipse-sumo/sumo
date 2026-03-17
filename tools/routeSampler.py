@@ -249,7 +249,7 @@ class Routes:
                         self.withProb += 1
                         prob = float(tag.probability)
                     if prob <= 0:
-                        print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
+                        print("Warning: probability must be positive for route '%s'" % tag.id, file=sys.stderr)
                         prob = 0
                 elif tag.name == 'vehicle' or tag.name == 'flow':
                     attrs = tuple(tag.getAttributes())
@@ -263,6 +263,10 @@ class Routes:
                         if tag.route[0].hasAttribute("probability"):
                             self.withProb += 1
                             prob = float(tag.route[0].probability)
+                        if prob <= 0:
+                            print("Warning: probability must be positive for route in vehicle '%s'" % tag.id,
+                                  file=sys.stderr)
+                            prob = 0
                     else:
                         if not warned:
                             print("Warning: Ignoring %s in file '%s' because it does not contain edges." % (
@@ -332,7 +336,6 @@ class Routes:
                 outf.write(stop.toXML(indent + ' ' * 4))
             outf.write('%s</route>\n' % indent)
 
-
     def sampleAttrs(self, rng, vehID, depart, uniqueIndex):
         if self.unique2all is None:
             # init once
@@ -354,10 +357,10 @@ class Routes:
         result = []
         duplicate = False
         origDepart = depart
-        attrs = self.vehAttrs[allIndex];
+        attrs = self.vehAttrs[allIndex]
         if attrs is None:
             return vehID, depart, ''
-        for a,v in attrs:
+        for a, v in attrs:
             if a == 'id':
                 vehID = v
                 i = 1
@@ -371,7 +374,6 @@ class Routes:
             else:
                 result.append(' %s="%s"' % (a, v))
         return vehID, depart if duplicate else origDepart, ' '.join(result)
-            
 
 
 class DepartDist:

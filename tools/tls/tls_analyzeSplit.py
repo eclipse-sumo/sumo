@@ -11,10 +11,9 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    tls_check.py
-# @author  Daniel Krajzewicz
-# @author  Michael Behrisch
-# @date    2009-08-01
+# @file    tls_analyzeSplit.py
+# @author  Jakob Erdmann
+# @date    2026-03-16
 
 """
 Compute the green split for all traffic light programs in the given file.
@@ -44,7 +43,7 @@ for tlLogic in parse(sys.argv[1], 'tlLogic'):
             durationsG = [0] * len(phase.state)
         d = float(phase.duration)
         cycle += d
-        for i,s in enumerate(phase.state):
+        for i, s in enumerate(phase.state):
             if s in 'Gg':
                 durationsGg[i] += d
             if s == 'G':
@@ -55,4 +54,3 @@ for tlLogic in parse(sys.argv[1], 'tlLogic'):
         tlLogic.id, tlLogic.programID, cycle,
         relativeG,
         relativeGg))
-
