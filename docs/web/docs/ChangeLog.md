@@ -45,7 +45,7 @@ title: ChangeLog
   - Fixed invalid permissions in OSM import when bicycles are explicitly forbidden on a pedestrian path #17691
 
 - duarouter
-  - Fixed invalid vehicle departure times when defining poisson flow (very noticable at low rate) #17663
+  - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
 
 - TraCI
   - `trafficlight.getSpentDuration` now works correctly after calling `setRedYellowGreenState` #17598
@@ -57,8 +57,8 @@ title: ChangeLog
   - patchRailConflicts.py: now works for mixed-permission networks (i.e. tram on road) #17682
   - plotXMLAttributes.py: fixed missing labels on barplots with a non-numerical axis #17611
   - countEdgeUsage.py: fixed interpretation of (expected) poisson flow count #17657
-  - countEdgeUsage.py: now returns fractional counts for random flows (very noticable at low rate) #17664
-  - netdiff.py: now handles aribtrary network file names, now includes modified edge type in diff. #17676
+  - countEdgeUsage.py: now returns fractional counts for random flows (very noticeable at low rate) #17664
+  - netdiff.py: now handles arbitrary network file names, now includes modified edge type in diff. #17676
   - generateRerouters.py: fixed crash when trying to close edges that do not permit vClass #17706
   - generateRerouters.py: fixed invalid placement of notification edges #17707
   - generateRerouters.py: fixed invalid allow / disallow in output when list of vClasses is given #17710
@@ -105,7 +105,7 @@ title: ChangeLog
   - osmWebWizard.py: now permits selection of public transport modes to import #8628
   - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573  
   - osmGet.py: now attempts to download again after timeout and tries to use proxies (also affects osmWebWizard) #17597
-  - plotXMLAttrbutes.py: added option **--join** to configure the separator when joining values or labels #17612
+  - plotXMLAttributes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
   - generateStationEdges.py: added option **--build** to automatically create the extended network #13383
   - visum_convertXMLRoutes.py: added option **--trips** to write unvalidated trips #17666
@@ -127,7 +127,7 @@ title: ChangeLog
   - Fixed deadlock in roundabout #17330 (regression in 1.24.0)
   - Fixed inconsistent computation of attribute flow in edgeData output #17349
   - Fixed invalid braking when trying to avoid junction blockage #17318
-  - Fixed incosistent lane-changing inside roundabout while on an internal lane #17336
+  - Fixed inconsistent lane-changing inside roundabout while on an internal lane #17336
   - Fixed emergency braking in roundabout #17306
   - Fixed invalid warning after train rerouting #17343
   - Fixed problems when configuring calibrator with period > 1 (period now truncated to 1) #6589, #17371
