@@ -16,9 +16,6 @@ join_loaded
 # specify which nodes to join via input file and set additional attributes for the new node
 join_loaded_attributes
 
-# specify which nodes to join via input file and override the type of the new junction
-join_loaded_type
-
 # make sure that a sequence of short edges does not lead to a giant cluster
 long_tail
 
@@ -75,3 +72,9 @@ footpaths_around
 
 # do not join appendages of multiple short edges between side roads
 noisy_fringe
+
+# resetting connections for a single junction
+join_junctions_reset
+
+# resetting all connections
+join_junctions_reset_all
