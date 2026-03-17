@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2025-10-06 11:40+0200\n"
-"PO-Revision-Date: 2023-05-11 18:10+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-17 11:05+0000\n"
+"Last-Translator: Dániel Takács <1takacsdaniel@gmail.com>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"python-tools/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: tools/game/runner.py:67
 msgid "Interactive Traffic Light"
@@ -67,27 +69,27 @@ msgstr ""
 
 #: tools/game/runner.py:79
 msgid "Highway Ramp"
-msgstr ""
+msgstr "Autópálya felhajtó"
 
 #: tools/game/runner.py:80
 msgid "Combined Highway On and Off Ramp"
-msgstr ""
+msgstr "Kombinált autópálya le- és felhajtó"
 
 #: tools/game/runner.py:81
 msgid "Corridor"
-msgstr ""
+msgstr "Korridor"
 
 #: tools/game/runner.py:82
 msgid "Highway Ramp A10"
-msgstr ""
+msgstr "Autópálya felhajtó A10"
 
 #: tools/game/runner.py:83
 msgid "Demand Responsive Transport (new)"
-msgstr ""
+msgstr "Igényvezérelt közlekedés (új)"
 
 #: tools/game/runner.py:84
 msgid "DRT - Advanced (new)"
-msgstr ""
+msgstr "Dinamikus útválasztási táblázat (DRT) - Haladó (új)"
 
 #: tools/game/runner.py:85
 msgid "DRT - Demo"
@@ -103,44 +105,44 @@ msgstr ""
 
 #: tools/game/runner.py:88
 msgid "German"
-msgstr ""
+msgstr "Német"
 
 #: tools/game/runner.py:89
 msgid "English"
-msgstr ""
+msgstr "Angol"
 
 #: tools/game/runner.py:90
 msgid "Italian"
-msgstr ""
+msgstr "Olasz"
 
 #: tools/game/runner.py:91
 msgid "Spanish"
-msgstr ""
+msgstr "Spanyol"
 
 #: tools/game/runner.py:92
 msgid "French"
-msgstr ""
+msgstr "Francia"
 
 #: tools/game/runner.py:93
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Kínai (egyszerűsített)"
 
 #: tools/game/runner.py:94
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Kínai (hagyományos)"
 
 #: tools/game/runner.py:95
 msgid "Quit"
-msgstr ""
+msgstr "Kilépés"
 
 #: tools/game/runner.py:97
 msgid "Congratulations!"
-msgstr ""
+msgstr "Gratulálok!"
 
 #: tools/game/runner.py:98
 msgid "Your Score"
-msgstr ""
+msgstr "Pontja"
 
 #: tools/game/runner.py:99
 msgid "Continue"
-msgstr ""
+msgstr "Folytatás"
