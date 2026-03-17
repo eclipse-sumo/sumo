@@ -280,7 +280,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popName();
     // (optionally) draw the name and/or the street name
     GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
-    const GUIGlObject* selCheck = gSelected.isSelected(this) ? (GUIGlObject*)this : (GUIGlObject*)lane2;
+    const GUIGlObject* selCheck = gSelected.isSelected(this) ? (GUIGlObject*)this : (GUIGlObject*)anySelectedLane();
     const bool drawEdgeName = s.edgeName.show(selCheck) && myFunction == SumoXMLEdgeFunc::NORMAL;
     const bool drawInternalEdgeName = s.internalEdgeName.show(selCheck) && myFunction == SumoXMLEdgeFunc::INTERNAL;
     const bool drawCwaEdgeName = s.cwaEdgeName.show(selCheck) && (myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA);
@@ -672,5 +672,18 @@ GUIEdge::getClickPriority() const {
         return INVALID_PRIORITY;
     }
     return GLO_EDGE;
+}
+
+
+GUILane*
+GUIEdge::anySelectedLane() const {
+    MSLane* result = myLanes->back();
+    for (MSLane* lane : *myLanes) {
+        if (lane->isSelected()) {
+            result = lane;
+            break;
+        }
+    }
+    return dynamic_cast<GUILane*>(result);
 }
 /****************************************************************************/

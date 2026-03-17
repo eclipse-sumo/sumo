@@ -241,6 +241,11 @@ public:
     /// @brief get number of vehicles waiting for departure on this edge
     double getPendingEmits() const;
 
+protected:
+
+    /// @brief return any selected lane or the last lane if none are selected
+    GUILane* anySelectedLane() const;
+
 private:
     /// @brief invalidated copy constructor
     GUIEdge(const GUIEdge& s);
