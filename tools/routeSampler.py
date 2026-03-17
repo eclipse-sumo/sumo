@@ -279,8 +279,8 @@ class Routes:
                     if tag.walk:
                         if tag.walk[0].edges is None:
                             if not warned:
-                                print("Warning: Ignoring walk for person %s in file '%s' because it does not contain edges." % (
-                                    tag.id, routefile), file=sys.stderr)
+                                print("Warning: Ignoring walk for person %s in file '%s' "
+                                      "because it does not contain edges." % (tag.id, routefile), file=sys.stderr)
                                 warned = True
                             continue
                         edges = tuple(tag.walk[0].edges.split())
