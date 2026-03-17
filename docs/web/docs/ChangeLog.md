@@ -69,7 +69,7 @@ title: ChangeLog
 
 ### Enhancements
 
-- sumo  
+- sumo
   - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627
   - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
   - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which avoids multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628
@@ -103,7 +103,7 @@ title: ChangeLog
 - tools
   - osmWebWizard.py: now automatically saves osmGet configuration for easier updating of a scenario #17570
   - osmWebWizard.py: now permits selection of public transport modes to import #8628
-  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573  
+  - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573
   - osmGet.py: now attempts to download again after timeout and tries to use proxies (also affects osmWebWizard) #17597
   - plotXMLAttributes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
@@ -113,10 +113,12 @@ title: ChangeLog
   - countEdgeUsage.py: Now writes option header and supports .gz output #17685
   - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
 
-- Miscellaneous
-  - no more HTML tables in the docs
-  - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
-  - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
+
+### Miscellaneous
+
+- no more HTML tables in the docs
+- the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
+- Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
 
 
 ## Version 1.26.0 (29.01.2026)
