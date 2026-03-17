@@ -1834,6 +1834,7 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
     if (predefined != nullptr) {
         if (predefined->getType() != SumoXMLNodeType::UNKNOWN) {
             nodeType = predefined->getType();
+            setTL = predefined->isTLControlled();
         }
         Position ppos = predefined->getPosition();
         if (ppos.x() != Position::INVALID.x()) {
