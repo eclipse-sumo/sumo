@@ -38,15 +38,16 @@ egoID = "ego"
 
 
 def determineFMUFilename():
-    FMU_FILENAME = 'sumo-fmi2.fmu'
-    BITS = '64' if sys.maxsize > 2**32 else '32'
+    bits = '64' if sys.maxsize > 2**32 else '32'
     if os.name == 'posix':
-        FMU_FILENAME = 'sumo-fmi2-linux' + BITS + '.fmu'
+        fmu_filename = 'sumo-fmi2-linux' + bits + '.fmu'
     elif os.name == 'nt':
-        FMU_FILENAME = 'sumo-fmi2-win' + BITS + '.fmu'
+        fmu_filename = 'sumo-fmi2-win' + bits + '.fmu'
     else:
-        FMU_FILENAME = 'sumo-fmi2-darwin' + BITS + '.fmu'
-    return FMU_FILENAME
+        fmu_filename = 'sumo-fmi2-darwin' + bits + '.fmu'
+    if os.path.basename(os.environ.get("SUMO_BINARY", "sumo")).startswith("sumoD"):
+        fmu_filename = fmu_filename.replace("-fmi2-", "-fmi2D-")
+    return fmu_filename
 
 
 def runSingle(startTime, endTime, validate, scalarVariable):
