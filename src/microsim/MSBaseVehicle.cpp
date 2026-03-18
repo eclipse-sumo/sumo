@@ -2299,19 +2299,20 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
         // assume that two stops at the same position indicate a looped route
         startPos += POSITION_EPS;
         stop.index = STOP_INDEX_REPEAT;
+    } else if (!hasDeparted()) {
+        stop.index = STOP_INDEX_END;
     }
 
     MSRouteIterator itSentintel = itEnd + 1;
     MSRouteIterator onRouteStart = itStart + (needLoop ? 1 : 0);
     const bool onRoute = std::find(onRouteStart, itSentintel, stopEdge) != itSentintel;
     if (onRoute) {
-        std::string error;
         if (!hasDeparted() && (int)myParameter->stops.size() >= nextStopIndex) {
             // stops will be rebuilt from scratch so we must patch the stops in myParameter
             auto it = myParameter->stops.begin() + nextStopIndex;
             const_cast<SUMOVehicleParameter*>(myParameter)->stops.insert(it, stop);
         }
-        const bool ok = addStop(stop, error, 0, &onRouteStart);
+        const bool ok = addStop(stop, errorMsg, 0, &onRouteStart);
         if (ok) {
             updateBestLanes(true, !hasDeparted() ? (*myCurrEdge)->getLanes().front() : 0);
         }
