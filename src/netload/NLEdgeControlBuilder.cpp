@@ -52,6 +52,9 @@ NLEdgeControlBuilder::NLEdgeControlBuilder()
 
 NLEdgeControlBuilder::~NLEdgeControlBuilder() {
     delete myLaneStorage;
+    if (myActiveEdge != nullptr && MSEdge::dictionary(myActiveEdge->getID()) != myActiveEdge) {
+        delete myActiveEdge;
+    }
 }
 
 
@@ -176,7 +179,9 @@ NLEdgeControlBuilder::closeEdge() {
     myLaneStorage->clear();
     myActiveEdge->initialize(lanes);
     myCurrentDefaultStopOffset.reset();
-    return myActiveEdge;
+    MSEdge* result = myActiveEdge;
+    myActiveEdge = nullptr;
+    return result;
 }
 
 
