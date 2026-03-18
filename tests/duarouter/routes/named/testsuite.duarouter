@@ -19,6 +19,9 @@ withparams
 # Checks whether stop passing works
 with_stops
 
+# Checks whether stop passing works
+with_stops_named_routes_out
+
 # Checks whether stop passing works (stop on edge)
 with_stops_edge
 
