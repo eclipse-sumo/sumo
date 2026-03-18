@@ -371,42 +371,14 @@ The supported attributes for element `<join>` are described below.
 
 ### Connections after joining nodes
 
-!!! caution
-    After merging nodes, the lane-to-lane connections are recalculated. You can override them by resorting to a 2-step process:
+The connections at joined junctions depend on the loaded connection definitions and on further attributes and options
 
-        # 1. Merging the junctions.
-        netconvert --sumo-net-file berlin-separated-junctions.net.xml \
-          --output-file berlin-joined-junctions.net.xml \
-          --junctions.join
-        # 2. Resetting the connections.
-        netconvert --sumo-net-file berlin-joined-junctions.net.xml \
-          --output-file berlin-with-fixed-connections.net.xml \
-          --connection-files berlin-new-connections.con.xml
-
-    See [#Connection Descriptions](#connection_descriptions) on how to define connections in **\*.con.xml** format.
-
-When loading networks with defined connections, the results of joining
-nodes may be quite surprising. Please note the - quite pathologic -
-network on the left side and compare it to the one on the right. You may
-note some big differences in lane-to-lane connections, especially for
-the edge coming from the south.
-
-[<img src="../images/JunctionJoin_before.svg" alt="junction before joining" width="400" />](../images/JunctionJoin_before.svg
-"junctionJoin_before.svg")
-[<img src="../images/JunctionJoin_after.svg" alt="junction after joining" width="400" />](../images/JunctionJoin_after.svg
-"junctionJoin_after.svg")
-
-The reason is that during joining, edges are subsequently merged, and
-the connections are tried to be kept. In the case of the straight
-connection on the left lane of the road from south, it is propagated
-along the intersection - along all four edges that are lying within the
-intersection - yielding in a further right-turning connection.
-
-To avoid surprises like this, you should first join the nodes. Then, set
-the connections.
+- if no connections are loaded, the connections will be guessed for the joined junction (this applies to most junctions imported from OSM where explicit connection data is often missing)
+- if any connections are loaded, they connections at the joined node will be re-created to match the loaded connectivity
+  - unless option `<join>`-attribute `reset="true"` or option **--junctions.join-reset** is set in which guess all connections will be guessed again
 
 !!! note
-    If you use the option **--junctions.join** during OSM import, the connections are guessed based on the joined junctions and no pathologies should occur.
+Re-guessing loaded connections is useful when joining junctions while merging networks.
 
 # Edge Descriptions
 
