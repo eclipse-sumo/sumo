@@ -239,37 +239,6 @@ NGFrame::checkOptions() {
         WRITE_ERROR(TL("You may specify only one type of network to generate at once."));
         ok = false;
     }
-    // check whether the junction type to use is properly set
-    if (oc.isSet("default-junction-type")) {
-        std::string type = oc.getString("default-junction-type");
-        if (type != toString(SumoXMLNodeType::TRAFFIC_LIGHT) &&
-                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) &&
-                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) &&
-                type != toString(SumoXMLNodeType::PRIORITY) &&
-                type != toString(SumoXMLNodeType::PRIORITY_STOP) &&
-                type != toString(SumoXMLNodeType::ALLWAY_STOP) &&
-                type != toString(SumoXMLNodeType::ZIPPER) &&
-                type != toString(SumoXMLNodeType::NOJUNCTION) &&
-                type != toString(SumoXMLNodeType::RAIL_SIGNAL) &&
-                type != toString(SumoXMLNodeType::RAIL_CROSSING) &&
-                type != toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) &&
-                type != toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT)) {
-            WRITE_ERROR("Only the following junction types are known: " +
-                        toString(SumoXMLNodeType::TRAFFIC_LIGHT) + ", " +
-                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) + ", " +
-                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) + ", " +
-                        toString(SumoXMLNodeType::PRIORITY) + ", " +
-                        toString(SumoXMLNodeType::PRIORITY_STOP) + ", " +
-                        toString(SumoXMLNodeType::ALLWAY_STOP) + ", " +
-                        toString(SumoXMLNodeType::ZIPPER) + ", " +
-                        toString(SumoXMLNodeType::NOJUNCTION) + ", " +
-                        toString(SumoXMLNodeType::RAIL_SIGNAL) + ", " +
-                        toString(SumoXMLNodeType::RAIL_CROSSING) + ", " +
-                        toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) + ", " +
-                        toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT));
-            ok = false;
-        }
-    }
     if (oc.getBool("random-type") && !oc.isSet("type-files")) {
         WRITE_WARNING(TL("Option 'random-type' takes no effect unless 'type-files' are loaded"));
     }

@@ -100,6 +100,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("default.junctions.radius", new Option_Float(4));
     oc.addDescription("default.junctions.radius", "Building Defaults", TL("The default turning radius of intersections"));
 
+    oc.doRegister("default.junctions.type", 'j', new Option_String());
+    oc.addSynonyme("default.junctions.type", "default-junction-type"); // default netgenerate option name
+    oc.addDescription("default.junctions.type", "Building Defaults", TL("[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default junction type (see wiki/Networks/PlainXML#Node_types)"));
+
     oc.doRegister("default.connection-length", new Option_Float((double) NBEdge::UNSPECIFIED_LOADED_LENGTH));
     oc.addDescription("default.connection-length", "Building Defaults", TL("The default length when overriding connection lengths"));
 
@@ -851,6 +855,40 @@ NBFrame::checkOptions(OptionsCont& oc) {
     if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
         WRITE_ERRORF(TL("Unknown value for default.spreadtype '%'."), oc.getString("default.spreadtype"));
         ok = false;
+    }
+    // check whether the junction type to use is properly set
+    if (oc.isSet("default.junctions.type")) {
+        std::string type = oc.getString("default.junctions.type");
+        if (type != toString(SumoXMLNodeType::TRAFFIC_LIGHT) &&
+                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) &&
+                type != toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) &&
+                type != toString(SumoXMLNodeType::PRIORITY) &&
+                type != toString(SumoXMLNodeType::PRIORITY_STOP) &&
+                type != toString(SumoXMLNodeType::ALLWAY_STOP) &&
+                type != toString(SumoXMLNodeType::ZIPPER) &&
+                type != toString(SumoXMLNodeType::NOJUNCTION) &&
+                type != toString(SumoXMLNodeType::RAIL_SIGNAL) &&
+                type != toString(SumoXMLNodeType::RAIL_CROSSING) &&
+                type != toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) &&
+                type != toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT) &&
+                type != toString(SumoXMLNodeType::NOJUNCTION) &&
+                type != toString(SumoXMLNodeType::UNKNOWN)) {
+            WRITE_ERROR("Only the following junction types are known: " +
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT) + ", " +
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION) + ", " +
+                        toString(SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) + ", " +
+                        toString(SumoXMLNodeType::PRIORITY) + ", " +
+                        toString(SumoXMLNodeType::PRIORITY_STOP) + ", " +
+                        toString(SumoXMLNodeType::ALLWAY_STOP) + ", " +
+                        toString(SumoXMLNodeType::ZIPPER) + ", " +
+                        toString(SumoXMLNodeType::NOJUNCTION) + ", " +
+                        toString(SumoXMLNodeType::RAIL_SIGNAL) + ", " +
+                        toString(SumoXMLNodeType::RAIL_CROSSING) + ", " +
+                        toString(SumoXMLNodeType::LEFT_BEFORE_RIGHT) + ", " +
+                        toString(SumoXMLNodeType::RIGHT_BEFORE_LEFT) + ", " +
+                        toString(SumoXMLNodeType::UNKNOWN));
+            ok = false;
+        }
     }
     return ok;
 }
