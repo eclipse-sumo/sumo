@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-17 22:41:54 by Eclipse SUMO sumo Version v1_22_0+1607-0f0378866ac
+<!-- generated on 2026-03-18T17:50:07.435020+01:00 by Eclipse SUMO sumo v1_26_0+0707-c63b252403d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <battery-output.precision value="4"/>
         <chargingstations-output value="chargingstations.xml"/>
+        <chargingstations-output.aggregated value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
@@ -46,10 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="veh0" type="ElectricVehicle1" depart="0.00" arrival="763.00">
-        <routeDistribution>
-            <route replacedOnEdge="D2C2" replacedOnIndex="1" reason="stationfinder:search" replacedAtTime="69.00" probability="0" edges="E2D2 D2C2 C2B2 B2A2 A2A3 A3A4"/>
-            <route edges="E2D2 D2C2 C2B2 B2A2 A2A3 A3A4"/>
-        </routeDistribution>
+        <route edges="E2D2 D2C2 C2B2 B2A2 A2A3 A3A4"/>
         <stop chargingStation="CS2" duration="478.13"/>
         <param key="device.battery.chargeLevel" value="2300"/>
         <param key="device.stationfinder.emptyThreshold" value="0.03"/>
