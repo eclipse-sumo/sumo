@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-18T17:36:21.061348+01:00 by Eclipse SUMO sumo v1_26_0+0707-6e99c2f4f5f
+<!-- generated on 2026-03-18T22:42:01.424004+01:00 by Eclipse SUMO sumo v1_26_0+0712-8ed663e08bc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,23 +18,24 @@
     </report>
 
     <traci_server>
-        <remote-port value="33091"/>
+        <remote-port value="36479"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="ego" depart="0.00" arrival="434.00">
+    <vehicle id="ego" depart="0.00" arrival="393.00">
         <routeDistribution>
             <route replacedOnEdge="" reason="traci:insertStop" replacedAtTime="0.00" probability="0" edges="A1B1 B1C1 C1D1"/>
             <route replacedOnEdge="" reason="traci:insertStop" replacedAtTime="0.00" probability="0" edges="A1B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1D1"/>
-            <route edges="A1B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1D1"/>
+            <route replacedOnEdge="" reason="traci:insertStop" replacedAtTime="0.00" probability="0" edges="A1B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1D1"/>
+            <route edges="A1B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1C2 C2B2 B2B1 B1C1 C1D1"/>
         </routeDistribution>
-        <stop busStop="busStop_B1C1" duration="30.00" until="180.00"/>
         <stop busStop="busStop_B1C1" duration="30.00" until="60.00"/>
-        <stop busStop="busStop_C2B2" duration="30.00" until="240.00"/>
         <stop busStop="busStop_C2B2" duration="30.00" until="120.00"/>
+        <stop busStop="busStop_B1C1" duration="30.00" until="180.00"/>
+        <stop busStop="busStop_C2B2" duration="30.00" until="240.00"/>
         <stop busStop="busStop_B1C1" duration="30.00" until="300.00"/>
         <stop busStop="busStop_C2B2" duration="30.00" until="360.00"/>
     </vehicle>
