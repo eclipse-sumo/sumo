@@ -71,7 +71,9 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
 }
 
-MSCFModel_CC::~MSCFModel_CC() {}
+MSCFModel_CC::~MSCFModel_CC() {
+    delete myHumanDriver;
+}
 
 MSCFModel::VehicleVariables*
 MSCFModel_CC::createVehicleVariables() const {
