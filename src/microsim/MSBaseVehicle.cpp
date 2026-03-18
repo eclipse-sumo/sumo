@@ -2305,6 +2305,11 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     const bool onRoute = std::find(onRouteStart, itSentintel, stopEdge) != itSentintel;
     if (onRoute) {
         std::string error;
+        if (!hasDeparted() && (int)myParameter->stops.size() >= nextStopIndex) {
+            // stops will be rebuilt from scratch so we must patch the stops in myParameter
+            auto it = myParameter->stops.begin() + nextStopIndex;
+            const_cast<SUMOVehicleParameter*>(myParameter)->stops.insert(it, stop);
+        }
         return addStop(stop, error, 0, &onRouteStart);
     }
 
