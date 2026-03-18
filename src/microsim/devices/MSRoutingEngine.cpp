@@ -114,8 +114,8 @@ MSRoutingEngine::initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption, in
     if (lastAdaption >= 0) {
         myLastAdaptation = lastAdaption;
     }
-    if (index >= 0) {
-        assert(index < (int)myPastEdgeSpeeds.size());
+    if (index >= 0 && myAdaptationSteps > 0) {
+        assert(index < myAdaptationSteps);
         myAdaptationStepsIndex = index;
     }
 }
