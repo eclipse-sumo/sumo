@@ -78,6 +78,9 @@ non_looped_routes_3same_stops
 # insert multiple stops that imply a looped route on a non-looped initial route (#17718)
 non_looped_routes_3same_stops_init
 
+# insert multiple stops that imply a looped route on a non-looped initial route (#17718)
+non_looped_routes_6_stops_init
+
 # replace stop with invalid index
 invalid
 
