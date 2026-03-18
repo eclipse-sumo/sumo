@@ -25,6 +25,7 @@ title: ChangeLog
   - Fixed crash when drawing persons #17616
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
   - Fixed invalid lane color when switching from (meso) segment colors to functional color (i.e. TAZ) #17704
+  - Shift-click to select lanes now reliably activates edge annotations that are restricted to "only for selected" #17734
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
@@ -43,9 +44,12 @@ title: ChangeLog
   - Fixed invalid edge permissions in visum import #17659
   - Fixed invalid changes to loaded edge attributes when patching edge type #17678
   - Fixed invalid permissions in OSM import when bicycles are explicitly forbidden on a pedestrian path #17691
+  - Fixed bug where config options where ignored when contrary to options set in the .net.xml #17703
+  - Fixed bug where the node type of a `<join>` element was ignored and replaced by "traffic_light" #17732
 
 - duarouter
   - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
+  - Using options **--skip-new-routes --ignore-errors** now longer writes invalid routes #17726
 
 - TraCI
   - `trafficlight.getSpentDuration` now works correctly after calling `setRedYellowGreenState` #17598
@@ -92,6 +96,9 @@ title: ChangeLog
   - connection files (*.con.xml) now support attribute `reset="true"` to trigger connection guessing when patching a network #17668
   - Improved geometry when adding opposite direction bikepath #17699
   - Improved interpretation of OSM tag `oneway=no` in connection with rail (especially tram) #17690
+  - Element `<join>` (in *.nod.xml*) now supports attribute `reset` to force recomputation of all connections at the new node. Also added option **--junctions.join-reset** which triggers recomputation of all connections at all joins #17733
+  - Added option **--default.junctions.type** to override type-guessing when types are not defined in the input. This option also applies junctions created in netedit #17736
+
 
 - duarouter
   - Option **--mapmatch.junctions** now automatically sets option **--junction.taz** #17688
@@ -112,6 +119,8 @@ title: ChangeLog
   - visum_convertXMLRoutes.py: now use demand time range when interpreting volume #17667
   - countEdgeUsage.py: Now writes option header and supports .gz output #17685
   - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
+  - routeSampler.py: Added option **--keep-attributes** to preserve vehicle attributes loaded from route input including departure time (unless the route of that vehicle is used more than once) #16114
+  - patchRailConflicts.py: Added option **--split-offset** which splits rail edges before traffic_light junctions if these junctions also have a rail conflict #17740
 
 
 ### Miscellaneous
