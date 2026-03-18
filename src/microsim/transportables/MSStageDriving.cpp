@@ -684,11 +684,8 @@ SUMOTime
 MSStageDriving::BookReservation::execute(SUMOTime currentTime) {
     MSDevice_Taxi::addReservation(myTransportable, myStage->getLines(), currentTime, currentTime, myEarliestPickupTime,
                                   myStage->myOrigin, myStage->myWaitingPos, myStage->myOriginStop, myStage->getDestination(), myStage->getArrivalPos(), myStage->myDestinationStop, myStage->myGroup);
-    // clear the pointer before the event control deletes this object (return 0)
-    myStage->myReservationCommand = nullptr;
     // do not repeat if execution fails
     return 0;
 }
-
 
 /****************************************************************************/
