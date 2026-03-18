@@ -66,6 +66,15 @@ all
 # insert a single stop on a looped route (#17741)
 looped
 
+# insert multiple stops on a looped route (#17718)
+looped2
+
+# insert multiple stops that imply a looped route on a non-looped initial route (#17718)
+non_looped_routes_2same_stops
+
+# insert multiple stops that imply a looped route on a non-looped initial route (#17718)
+non_looped_routes_3same_stops
+
 # replace stop with invalid index
 invalid
 
