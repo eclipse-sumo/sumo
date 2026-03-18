@@ -721,7 +721,12 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
             }
 #endif
             if (*searchStart != &iter->lane->getEdge()
-                    || endPos + NUMERICAL_EPS < lastPos) {
+                    // loop required to reach upstream position
+                    || endPos + NUMERICAL_EPS < lastPos
+                    // loop requested at duplicate pos
+                    || (endPos == lastPos && iter->pars.index == STOP_INDEX_REPEAT)
+                    // index encodes a skip
+                    || iter->pars.index > (int)myPastStops.size() + stopIndex) {
                 if (searchStart != edges.end() && !iter->reached) {
                     searchStart++;
                 }
@@ -1514,6 +1519,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         std::cout << "addStop desc=" << stop.getDescription() << " stopEdge=" << stopEdge->getID()
                   << " searchStart=" << ((*searchStart) == myRoute->end() ? "END" : (**searchStart)->getID())
                   << " index=" << (int)((*searchStart) - myRoute->begin()) << " route=" << toString(myRoute->getEdges())
+                  << " stopParIndex=" << stopPar.index
                   << "\n";
     }
 #endif
@@ -2287,14 +2293,19 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
     const bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
-    if (nextStopIndex > 0 && *itStart == stopEdge && stops[nextStopIndex - 1].pars.endPos > stop.endPos) {
-        itStart += 1;
+    const bool needLoop = nextStopIndex > 0 && *itStart == stopEdge && startPos >= stop.endPos;
+    if (needLoop && startPos == stop.endPos) {
+        // assume that two stops at the same position indicate a looped route
+        startPos += POSITION_EPS;
+        stop.index = STOP_INDEX_REPEAT;
     }
+
     MSRouteIterator itSentintel = itEnd + 1;
-    const bool onRoute = std::find(itStart, itSentintel, stopEdge) != itSentintel;
+    MSRouteIterator onRouteStart = itStart + (needLoop ? 1 : 0);
+    const bool onRoute = std::find(onRouteStart, itSentintel, stopEdge) != itSentintel;
     if (onRoute) {
         std::string error;
-        return addStop(stop, error, 0, &itStart);
+        return addStop(stop, error, 0, &onRouteStart);
     }
 
     ConstMSEdgeVector toNewStop;
