@@ -344,8 +344,7 @@ joinable node clusters works like this:
 
 ### Specifying and excluding explicit joins
 
-More fine grained control over joining can be achieved by using the
-following syntax within a nodes-file
+More fine grained control over joining can be achieved by using elements `<join>` and `<joinExclude>` within a nodes-file
 
 ```xml
 <nodes>
@@ -357,11 +356,17 @@ following syntax within a nodes-file
 This will cause the nodes *id0*,*id23* and *id24* to be joined into a
 single junction. It will also prevent the nodes *id13* and *id17* from
 being joined. The **joinExclude**-tag is only useful together with the
-option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
-excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
+option **--junctions.join** but the **join**-tag can also be used all by itself.
 
-!!! note
-    The `<join>`-element supports all attributes that are also supported by the `<node>`-element. This allows overriding the attributes of the created node.
+Element `<joinExclude>` only supports attribute `nodes` and works in the same way as option **--junctions.join-exclude id,[id\]+**.
+The supported attributes for element `<join>` are described below.
+
+| Attribute Name  | Value Type                                | Description                  |
+| --------------- | ----------------------------------------- | ------------------------------------------------------------------------- |
+| **nodes*        | id list (string)                          | The ids of nodes to join                                                  |
+| reset           | bool (default: *false*)                   | Whether all connections at the created node should be re-guessed          |
+| <any [node node attriutes](#node_descriptions)>             | Sets attributes on the new node (i.e. its `id` or `type`)                 |
+
 
 ### Connections after joining nodes
 
