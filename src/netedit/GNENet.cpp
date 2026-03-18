@@ -283,14 +283,17 @@ GNENet::addZValueInBoundary(const double z) {
 
 GNEJunction*
 GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
+    const OptionsCont& oc = OptionsCont::getOptions();
     // get junction prefix
-    const std::string junctionPrefix = OptionsCont::getOptions().getString("prefix") + OptionsCont::getOptions().getString("node-prefix");
+    const std::string junctionPrefix = oc.getString("prefix") + oc.getString("node-prefix");
     // generate new ID
     while (myAttributeCarriers->getJunctions().count(junctionPrefix + toString(myJunctionIDCounter)) != 0) {
         myJunctionIDCounter++;
     }
+    SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.hasString(oc.getString("default.junctions.type"))
+            ? SUMOXMLDefinitions::NodeTypes.get(oc.getString("default.junctions.type")) : SumoXMLNodeType::UNKNOWN;
     // create new NBNode
-    NBNode* nbn = new NBNode(junctionPrefix + toString(myJunctionIDCounter), pos);
+    NBNode* nbn = new NBNode(junctionPrefix + toString(myJunctionIDCounter), pos, type);
     GNEJunction* junction = new GNEJunction(this, nbn);
     undoList->add(new GNEChange_Junction(junction, true), true);
     return junction;
