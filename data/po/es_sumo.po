@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-17 09:39+0000\n"
+"PO-Revision-Date: 2026-03-18 08:51+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7692,7 +7692,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:635
 msgid "TLSs with unspecified type will use STR as their algorithm"
-msgstr ""
+msgstr "Los semáforos sin tipo especificado usarán STR como su algoritmo"
 
 #: src/netbuild/NBFrame.cpp:638
 msgid ""
@@ -7705,29 +7705,37 @@ msgid ""
 "Avoid phases with green and red signals for different connections from the "
 "same lane"
 msgstr ""
+"Evitar fases con señales verdes y rojas para distintas conexiones desde el "
+"mismo carril"
 
 #: src/netbuild/NBFrame.cpp:644
 msgid ""
 "Default minimum phase duration for traffic lights with variable phase length"
 msgstr ""
+"Duración mínima predeterminada de fase para semáforos con duración de fase "
+"variable"
 
 #: src/netbuild/NBFrame.cpp:647
 msgid ""
 "Default maximum phase duration for traffic lights with variable phase length"
 msgstr ""
+"Duración máxima predeterminada de fase para semáforos con duración de fase "
+"variable"
 
 #: src/netbuild/NBFrame.cpp:650
 msgid ""
 "Assign the same tls link index to connections that share the same states"
 msgstr ""
+"Asignar el mismo índice de enlace de semáforo a las conexiones que comparten "
+"los mismos estados"
 
 #: src/netbuild/NBFrame.cpp:653
 msgid "Assign a distinct tls link index to every connection"
-msgstr ""
+msgstr "Asignar un índice de enlace de semáforo distinto a cada conexión"
 
 #: src/netbuild/NBFrame.cpp:656
 msgid "rebuild all traffic light plans in the network"
-msgstr ""
+msgstr "Reconstruir todos los planes de semáforos en la red"
 
 #: src/netbuild/NBFrame.cpp:661
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -13215,7 +13223,7 @@ msgstr "StopOffset requiere un valor de desplazamiento"
 #: src/utils/common/SUMOVehicleClass.cpp:358
 #, c-format
 msgid "Invalid character in vehicle class '%' encountered."
-msgstr ""
+msgstr "Se encontró un carácter no válido en la clase de vehículo '%'."
 
 #: src/utils/common/SUMOVehicleClass.cpp:360
 #, c-format
@@ -14214,6 +14222,8 @@ msgstr ""
 msgid ""
 "Routing algorithm CH does not support dynamic closing of edges and lanes%"
 msgstr ""
+"El algoritmo de enrutamiento CH no admite el cierre dinámico de aristas y "
+"carriles%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
@@ -14226,6 +14236,8 @@ msgid ""
 "Routing algorithm CHWrapper does not support dynamic closing of edges and "
 "lanes%"
 msgstr ""
+"El algoritmo de enrutamiento CHWrapper no admite el cierre dinámico de "
+"aristas y carriles%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
