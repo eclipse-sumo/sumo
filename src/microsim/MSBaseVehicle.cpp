@@ -2286,7 +2286,16 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
-    bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
+    const bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
+    if (nextStopIndex > 0 && *itStart == stopEdge && stops[nextStopIndex - 1].pars.endPos > stop.endPos) {
+        itStart += 1;
+    }
+    MSRouteIterator itSentintel = itEnd + 1;
+    const bool onRoute = std::find(itStart, itSentintel, stopEdge) != itSentintel;
+    if (onRoute) {
+        std::string error;
+        return addStop(stop, error, 0, &itStart);
+    }
 
     ConstMSEdgeVector toNewStop;
     if (!teleport) {
