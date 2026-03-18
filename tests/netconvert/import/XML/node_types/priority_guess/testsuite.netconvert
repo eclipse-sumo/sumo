@@ -1,6 +1,10 @@
 # The default (node will be a priority-node)
 default
 
+# change default type with option
+# 
+default_option_tls
+
 # The node is marked as a priority node
 priority_overwrite
 
@@ -9,4 +13,3 @@ rbl_overwrite
 
 # The node is marked as a traffic-light node
 tls_overwrite
-
