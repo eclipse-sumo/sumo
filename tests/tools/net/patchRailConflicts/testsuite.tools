@@ -8,6 +8,12 @@ endOffset
 switches
 
 # a siding
+switches_zipper
+
+# a siding
+switches_zipper_exclude
+
+# a siding
 switches_bidi
 
 # a complex intersection with multiple conflict points 
@@ -15,3 +21,6 @@ dual_track_T
 
 # two tracks cross each other
 mixed_permissions
+
+# a junction with mixed permissions but no rail conflict
+mixed_permissions_no_conflict
