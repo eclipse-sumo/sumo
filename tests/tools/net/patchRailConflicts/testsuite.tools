@@ -24,3 +24,6 @@ mixed_permissions
 
 # a junction with mixed permissions but no rail conflict
 mixed_permissions_no_conflict
+
+# test option --split-offset
+split_at_tls
