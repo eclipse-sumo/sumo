@@ -831,6 +831,11 @@ public:
         return false;
     }
 
+    virtual void updateBestLanes(bool forceRebuild = false, const MSLane* startLane = 0) {
+        UNUSED_PARAMETER(forceRebuild);
+        UNUSED_PARAMETER(startLane);
+    }
+
     /// @brief @return The index of the vehicle's associated RNG
     int getRNGIndex() const;
 

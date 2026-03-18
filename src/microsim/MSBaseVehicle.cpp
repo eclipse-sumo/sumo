@@ -2311,7 +2311,11 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
             auto it = myParameter->stops.begin() + nextStopIndex;
             const_cast<SUMOVehicleParameter*>(myParameter)->stops.insert(it, stop);
         }
-        return addStop(stop, error, 0, &onRouteStart);
+        const bool ok = addStop(stop, error, 0, &onRouteStart);
+        if (ok) {
+            updateBestLanes(true, !hasDeparted() ? (*myCurrEdge)->getLanes().front() : 0);
+        }
+        return ok;
     }
 
     ConstMSEdgeVector toNewStop;
