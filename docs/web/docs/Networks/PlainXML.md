@@ -75,8 +75,6 @@ available as XML Schema Definitions:
 
 # Node Descriptions
 
-<center>
-
 | Node Descriptions  |                                 |
 |--------------------|---------------------------------|
 | Filename extension | .nod.xml                        |
@@ -84,8 +82,6 @@ available as XML Schema Definitions:
 | Open format?       | Yes                             |
 | SUMO specific?     | Yes                             |
 | XML Schema         | [nodes_file.xsd](https://sumo.dlr.de/xsd/nodes_file.xsd)                  |
-
-</center>
 
 Within the nodes-files, normally having the extension ".nod.xml" (see
 [Known Extensions](../Other/File_Extensions.md)), every node is
