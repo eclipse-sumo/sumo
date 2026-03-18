@@ -29,7 +29,7 @@ title: ChangeLog
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
-  - edgedata mode: clicking on intervals in works again #17686 (regression in 1.22.0)
+  - edgedata mode: clicking on intervals works again #17686 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
