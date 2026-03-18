@@ -98,6 +98,9 @@ void single(const OptionsCont& oc, const std::string& of, const std::string& cla
     } else {
         energyParams = std::unique_ptr<EnergyParams>(new EnergyParams());
     }
+    for (auto& vt : vTypes) {
+        delete vt.second;
+    }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
