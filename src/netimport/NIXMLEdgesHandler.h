@@ -253,6 +253,9 @@ private:
 
     bool myHaveWarnedAboutDeprecatedLaneId;
 
+    /// @brief the default node type for splits
+    SumoXMLNodeType myDefaultNodeType;
+
     /// @brief Whether the edge shape shall be kept generally
     const bool myKeepEdgeShape;
 

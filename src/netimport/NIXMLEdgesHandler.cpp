@@ -66,6 +66,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont& nc,
     myHaveReportedAboutOverwriting(false),
     myHaveReportedAboutTypeOverride(false),
     myHaveWarnedAboutDeprecatedLaneId(false),
+    myDefaultNodeType(SUMOXMLDefinitions::NodeTypes.hasString(options.getString("default.junctions.type"))
+            ? SUMOXMLDefinitions::NodeTypes.get(options.getString("default.junctions.type")) : SumoXMLNodeType::UNKNOWN),
     myKeepEdgeShape(!options.getBool("plain.extend-edge-shape")) {
 }
 
@@ -526,7 +528,7 @@ void NIXMLEdgesHandler::addSplit(const SUMOSAXAttributes& attrs) {
             myNodeCont.insert(e.node);
         }
         NIXMLNodesHandler::processNodeType(attrs, e.node, e.node->getID(), e.node->getPosition(), false,
-                                           myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
+                                           myDefaultNodeType, myNodeCont, myEdgeCont, myTLLogicCont, myLocation);
         mySplits.push_back(e);
     }
 }

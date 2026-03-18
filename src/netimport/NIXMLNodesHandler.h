@@ -69,6 +69,7 @@ public:
      */
     static NBNode* processNodeType(const SUMOSAXAttributes& attrs, NBNode* node, const std::string& nodeID, const Position& position,
                                    bool updateEdgeGeometries,
+                                   SumoXMLNodeType type,
                                    NBNodeCont& nc, NBEdgeCont& ec,
                                    NBTrafficLightLogicCont& tlc,
                                    GeoConvHelper* from_srs = nullptr);
@@ -154,6 +155,9 @@ private:
 
     /// @brief The coordinate transformation which was used compute the node coordinates
     GeoConvHelper* myLocation;
+
+    /// @brief the default node type
+    SumoXMLNodeType myDefaultNodeType;
 
     /// @brief last item the could receive parameters
     Parameterised* myLastParameterised;
