@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-17T17:37:02.600949+01:00 by Eclipse SUMO netconvert v1_26_0+0660-3a1980018da
+<!-- generated on 2026-03-18T08:54:20.497692+01:00 by Eclipse SUMO netconvert v1_26_0+0671-ff4ec946b20
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -440,6 +440,9 @@
 
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="4" type="FLOAT"/>
+
+        <!-- [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default junction type (see wiki/Networks/PlainXML#Node_types) -->
+        <default.junctions.type value="" synonymes="default-junction-type j" type="STR"/>
 
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_26_0+0660-3a1980018da
+Eclipse SUMO netconvert v1_26_0+0671-ff4ec946b20
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -272,6 +272,7 @@ Building Defaults Options:
                                         by default
   --default.junctions.radius FLOAT     The default turning radius of
                                         intersections
+  -j, --default.junctions.type STR     [traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default junction type (see wiki/Networks/PlainXML#Node_types)
   --default.connection-length FLOAT    The default length when overriding
                                         connection lengths
   --default.connection.cont-pos FLOAT  Whether/where connections should have an
