@@ -63,6 +63,9 @@ last
 # add multiple stops after the vehicle has departed
 all
 
+# insert a single stop on a looped route (#17741)
+looped
+
 # replace stop with invalid index
 invalid
 
