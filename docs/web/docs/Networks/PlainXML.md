@@ -86,7 +86,12 @@ available as XML Schema Definitions:
 Within the nodes-files, normally having the extension ".nod.xml" (see
 [Known Extensions](../Other/File_Extensions.md)), every node is
 described in a single line which looks like this:
-`<node id="<STRING>" x="<FLOAT>" y="<FLOAT>" [type="<TYPE>"]/>` - the straight brackets ('\[' and '\]')
+
+```xml
+   <node id="<STRING>" x="<FLOAT>" y="<FLOAT>" [type="<TYPE>"]/>
+````
+
+the straight brackets ('\[' and '\]')
 indicate that the parameter is optional. Each of these attributes has a
 certain meaning and value range:
 
