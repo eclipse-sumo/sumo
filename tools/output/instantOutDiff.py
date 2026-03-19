@@ -43,8 +43,9 @@ def get_options(args=None):
     argParser.add_argument("--combine-lanes", action="store_true", dest="combineLanes",
                            default=False, help="do not distinguish detectors by lane id")
     argParser.add_argument("--filter-ids", dest="filterIDs",
-                           help="only use detector ids with the given substring")
+                           help="only use detector ids from the given list")
     options = argParser.parse_args(args=args)
+    options.filter = None if options.filterIDs is None else set(options.filterIDs.split(',')) 
     return options
 
 
@@ -53,8 +54,12 @@ def parseTimes(fname, options):
     for event in sumolib.xml.parse_fast(fname, 'instantOut', ['id', 'time', 'state']):
         if event.state == options.eType:
             detID = event.id
+            if options.filter and detID not in options.filter:
+                continue
             if options.combineLanes:
                 detID = lane2edge(detID)
+                if options.filter and detID not in options.filter:
+                    continue
             detTimes[detID].append(parseTime(event.time))
     return detTimes
 
