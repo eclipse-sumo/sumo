@@ -353,31 +353,30 @@ void
 MSDevice_BTreceiver::BTreceiverUpdate::writeOutput(const std::string& id, const std::map<std::string, std::vector<SeenDevice*> >& seen, bool allRecognitions) {
     OutputDevice& os = OutputDevice::getDeviceByOption("bt-output");
     os.openTag("bt").writeAttr("id", id);
-    for (std::map<std::string, std::vector<SeenDevice*> >::const_iterator j = seen.begin(); j != seen.end(); ++j) {
-        const std::vector<SeenDevice*>& sts = (*j).second;
-        for (std::vector<SeenDevice*>::const_iterator k = sts.begin(); k != sts.end(); ++k) {
-            os.openTag("seen").writeAttr("id", (*j).first);
-            const MSDevice_BTsender::VehicleState& obsBeg = (*k)->meetingBegin.observerState;
-            const MSDevice_BTsender::VehicleState& seenBeg = (*k)->meetingBegin.seenState;
-            os.writeAttr("tBeg", (*k)->meetingBegin.t)
+    for (const auto& item : seen) {
+        for (const SeenDevice* const device : item.second) {
+            os.openTag("seen").writeAttr("id", item.first);
+            const MSDevice_BTsender::VehicleState& obsBeg = device->meetingBegin.observerState;
+            const MSDevice_BTsender::VehicleState& seenBeg = device->meetingBegin.seenState;
+            os.writeAttr("tBeg", device->meetingBegin.t)
             .writeAttr("observerPosBeg", obsBeg.position).writeAttr("observerSpeedBeg", obsBeg.speed)
             .writeAttr("observerLaneIDBeg", obsBeg.laneID).writeAttr("observerLanePosBeg", obsBeg.lanePos)
             .writeAttr("seenPosBeg", seenBeg.position).writeAttr("seenSpeedBeg", seenBeg.speed)
             .writeAttr("seenLaneIDBeg", seenBeg.laneID).writeAttr("seenLanePosBeg", seenBeg.lanePos);
-            const MSDevice_BTsender::VehicleState& obsEnd = (*k)->meetingEnd->observerState;
-            const MSDevice_BTsender::VehicleState& seenEnd = (*k)->meetingEnd->seenState;
-            os.writeAttr("tEnd", (*k)->meetingEnd->t)
+            const MSDevice_BTsender::VehicleState& obsEnd = device->meetingEnd->observerState;
+            const MSDevice_BTsender::VehicleState& seenEnd = device->meetingEnd->seenState;
+            os.writeAttr("tEnd", device->meetingEnd->t)
             .writeAttr("observerPosEnd", obsEnd.position).writeAttr("observerSpeedEnd", obsEnd.speed)
             .writeAttr("observerLaneIDEnd", obsEnd.laneID).writeAttr("observerLanePosEnd", obsEnd.lanePos)
             .writeAttr("seenPosEnd", seenEnd.position).writeAttr("seenSpeedEnd", seenEnd.speed)
             .writeAttr("seenLaneIDEnd", seenEnd.laneID).writeAttr("seenLanePosEnd", seenEnd.lanePos)
-            .writeAttr("observerRoute", (*k)->receiverRoute).writeAttr("seenRoute", (*k)->senderRoute);
-            for (std::vector<MeetingPoint*>::iterator l = (*k)->recognitionPoints.begin(); l != (*k)->recognitionPoints.end(); ++l) {
-                os.openTag("recognitionPoint").writeAttr("t", (*l)->t)
-                .writeAttr("observerPos", (*l)->observerState.position).writeAttr("observerSpeed", (*l)->observerState.speed)
-                .writeAttr("observerLaneID", (*l)->observerState.laneID).writeAttr("observerLanePos", (*l)->observerState.lanePos)
-                .writeAttr("seenPos", (*l)->seenState.position).writeAttr("seenSpeed", (*l)->seenState.speed)
-                .writeAttr("seenLaneID", (*l)->seenState.laneID).writeAttr("seenLanePos", (*l)->seenState.lanePos)
+            .writeAttr("observerRoute", device->receiverRoute).writeAttr("seenRoute", device->senderRoute);
+            for (const MeetingPoint* const mp : device->recognitionPoints) {
+                os.openTag("recognitionPoint").writeAttr("t", mp->t)
+                .writeAttr("observerPos", mp->observerState.position).writeAttr("observerSpeed", mp->observerState.speed)
+                .writeAttr("observerLaneID", mp->observerState.laneID).writeAttr("observerLanePos", mp->observerState.lanePos)
+                .writeAttr("seenPos", mp->seenState.position).writeAttr("seenSpeed", mp->seenState.speed)
+                .writeAttr("seenLaneID", mp->seenState.laneID).writeAttr("seenLanePos", mp->seenState.lanePos)
                 .closeTag();
                 if (!allRecognitions) {
                     break;
