@@ -49,6 +49,9 @@ aggregateBatteryOutput
 vehrouteCountValidation
 fcdDiff
 edgeDataDiff
+
+# tools for comparing instant detector data files
+instantOutDiff
 analyze_pedestrian_jam
 
 # Copy of analyze_pedestrian_jam

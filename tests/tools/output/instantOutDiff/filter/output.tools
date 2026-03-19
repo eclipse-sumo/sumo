@@ -1,0 +1,3 @@
+Count mismatch: count 10, min -2.00 (A2B2_0), max 4.00 (C2D2_0), mean 0.30, Q1 0.00, median 0.00, Q3 0.00
+Count mismatch (absolute): count 10, min 0.00 (E0D0_0), max 4.00 (C2D2_0), mean 0.70, Q1 0.00, median 0.00, Q3 1.00
+Avg Time mismatch: count 170, min 0.04 (C2D2_0,130.25), max 20.79 (A3A4_0,377.78), mean 3.05, Q1 0.52, median 1.63, Q3 3.43
