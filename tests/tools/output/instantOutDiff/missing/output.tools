@@ -1,0 +1,5 @@
+Count mismatch: count 6, min -1.00 (A2B2_0), max 1.00 (A4B4_0), mean 0.00, Q1 -1.00, median 0.00, Q3 1.00
+Count mismatch (absolute): count 6, min 0.00 (B3C3_0), max 1.00 (A2B2_0), mean 0.67, Q1 0.00, median 1.00, Q3 1.00
+Avg Time mismatch: count 5, min 0.25 (A0B0_0,22.31), max 1.89 (B3C3_0,32.56), mean 0.68, Q1 0.26, median 0.46, Q3 0.52
+2 detectors with 2 events are only in the first file
+2 detectors with 4 events are only in the second file

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-19 12:22:23.252720 by Eclipse SUMO instantOutDiff.py v1_26_0+0720-fe70f907ee8
+<configuration>
+    <orig value="input_data.xml"/>
+    <new value="input_data2.xml"/>
+    <output value="diff.xml"/>
+</configuration>
+-->
+
+<instantOutDiff>
+    <statistic description="B3C3_0" delta="0" count="2" min="0.26" minLabel="17.18" max="1.89" maxLabel="32.56" mean="1.07" Q1="0.26" median="1.89" Q3="1.89" meanAbs="1.07" medianAbs="1.89"/>
+    <statistic description="A2B2_0" delta="-1" count="1" min="0.52" minLabel="19.38" max="0.52" maxLabel="19.38" mean="0.52" Q1="0.52" median="0.52" Q3="0.52" meanAbs="0.52" medianAbs="0.52"/>
+    <statistic description="E0D0_0" delta="-1" count="1" min="0.46" minLabel="20.07" max="0.46" maxLabel="20.07" mean="0.46" Q1="0.46" median="0.46" Q3="0.46" meanAbs="0.46" medianAbs="0.46"/>
+    <statistic description="A0B0_0" delta="0" count="1" min="0.25" minLabel="22.31" max="0.25" maxLabel="22.31" mean="0.25" Q1="0.25" median="0.25" Q3="0.25" meanAbs="0.25" medianAbs="0.25"/>
+</instantOutDiff>
