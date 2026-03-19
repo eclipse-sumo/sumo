@@ -138,7 +138,6 @@ def main(options):
         if not node.hasFoes():
             continue
 
-
         inVClass = [e for e in node.getIncoming() if options.vclass in e.getPermissions()]
         outVClass = [e for e in node.getOutgoing() if options.vclass in e.getPermissions()]
         nIn = len(inVClass)
@@ -202,7 +201,6 @@ def main(options):
                     outf_edg.write('    <edge id="%s">\n' % e.getID())
                     outf_edg.write('       <split pos="%s" type="rail_signal"/>\n' % -options.splitOffset)
                     outf_edg.write('    </edge>\n')
-
 
         if uncontrolled:
             for edge in uncontrolled:
