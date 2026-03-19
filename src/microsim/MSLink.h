@@ -28,6 +28,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include "MSLane.h"
 
 
 // ===========================================================================
@@ -223,6 +224,15 @@ public:
         double startPos;
         double endPos;
     };
+
+    /// @brief Function-object for stable sorting MSLinks with numerical lane ids
+    struct ComparatorNumericalLaneIdLess {
+        bool operator()(const MSLink* const a, const MSLink* const b) const {
+            return (a->getLane()->getNumericalID() < b->getLane()->getNumericalID())
+                   || (a->getLane()->getNumericalID() == b->getLane()->getNumericalID() && a->getIndex() < b->getIndex());
+        }
+    };
+
 
     /** @brief Constructor for simulation which uses internal lanes
      *

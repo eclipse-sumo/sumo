@@ -267,17 +267,18 @@ protected:
      *
      * returns edge that is assumed to safe from oncoming-deadlock or nullptr
      */
-    void buildRoute(const MSLink* origin, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited, std::set<MSLink*>&);
+    void buildRoute(const MSLink* origin, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited, std::set<MSLink*, MSLink::ComparatorNumericalLaneIdLess>&);
 
     /* @brief find switches that threaten this driveway
      * @param[out] flankSwitches collect the switches
      */
-    void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, bool movingBlock, std::set<MSLink*>& flankSwitches) const;
+    void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited,
+                     bool allFoes, bool movingBlock, std::set<MSLink*, MSLink::ComparatorNumericalLaneIdLess>& flankSwitches) const;
 
     /* @brief find links that cross the driveway without entering it
      * @param[out] flankSwitches collect the switches
      */
-    void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::set<MSLink*>& flankSwitches) const;
+    void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::set<MSLink*, MSLink::ComparatorNumericalLaneIdLess>& flankSwitches) const;
 
     /* @brief find upstream protection from the given link
      * @param[out] flank: the stored flank lanes
