@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-06 07:33+0000\n"
+"PO-Revision-Date: 2026-03-19 20:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3076,7 +3076,7 @@ msgstr "Gui-Settings in der gegebene Setting-Ausgabedatei speichern"
 
 #: src/microsim/MSFrame.cpp:872
 msgid "Raw netstate dumps are deprecated. Use fcd-output instead."
-msgstr ""
+msgstr "Rohe netstate-Auszüge sind veraltet. Nutze stattdessen fcd-output."
 
 #: src/microsim/MSFrame.cpp:920
 msgid "No network file (-n) specified."
@@ -7391,21 +7391,28 @@ msgid ""
 "Merges edges which connect the same nodes and are close to each other "
 "(recommended for VISSIM import)"
 msgstr ""
+"Vereint jene Kanten, welche die gleichen Knoten miteinander verbinden und "
+"nah beieinander liegen (für VISSIM-Import empfohlen)"
 
 #: src/netbuild/NBFrame.cpp:347
 msgid ""
 "Joins junctions that are close to each other (recommended for OSM import)"
 msgstr ""
+"Vereint nah beieinander gelegene Knotenpunkte (für OSM-Import empfohlen)"
 
 #: src/netbuild/NBFrame.cpp:351
 msgid "Determines the maximal distance for joining junctions (defaults to 10)"
 msgstr ""
+"Bestimmt die maximale Entfernung zwischen zwei zu vereinigenden "
+"Knotenpunkten (standardmäßig 10)"
 
 #: src/netbuild/NBFrame.cpp:355
 msgid ""
 "The angular threshold in degrees for rejection of parallel edges when "
 "joining junctions"
 msgstr ""
+"Der Winkel in Grad, ab dem Kanten beim Vereinigen von Knotenpunkten nicht "
+"mehr als parallel angesehen werden"
 
 #: src/netbuild/NBFrame.cpp:359
 msgid "Interprets STR[] as list of junctions to exclude from joining"
@@ -7416,20 +7423,27 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:364
 msgid "Joins junctions that have similar coordinates even if not connected"
 msgstr ""
+"Vereinigt Knotenpunkte mit ähnlichen Koordinaten, selbst wenn sie nicht "
+"verbunden sind"
 
 #: src/netbuild/NBFrame.cpp:367
 msgid "Reset connections for joined junctions"
-msgstr ""
+msgstr "Verbindungen der vereinigten Knotenpunkte zurücksetzen"
 
 #: src/netbuild/NBFrame.cpp:372
 msgid ""
 "Attach junction to the closest edge within FLOAT distance that has it's id "
 "in param removedNodeIDs (for joining networks)"
 msgstr ""
+"Knotenpunkt an die nächstgelegene Kante innerhalb einer Entfernung von FLOAT "
+"anheften, welche die Knotenpunkt-ID im param removedNodeIDs enthält (zum "
+"Zusammenfügen von Netzen gedacht)"
 
 #: src/netbuild/NBFrame.cpp:376
 msgid "Abbreviate junction or TLS id if it joins more than INT junctions"
 msgstr ""
+"Knotenpunkt oder LSA-ID abkürzen, falls mehr als INT Knotenpunkte vereinigt "
+"werden"
 
 #: src/netbuild/NBFrame.cpp:380
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -7449,6 +7463,8 @@ msgid ""
 "Joins tram edges into road lanes with similar geometry (within FLOAT "
 "distance)"
 msgstr ""
+"Vereint Straßenbahnkanten mit anderen Straßenkanten ähnlicher Geometrie "
+"innerhalb einer Entfernung von FLOAT"
 
 #: src/netbuild/NBFrame.cpp:394
 msgid "Generate INT intermediate points to smooth out intersection corners"
