@@ -349,6 +349,15 @@ on("ready", function(){
     // avoid cross domain resource sharing issues (#3991)
     // (https://gis.stackexchange.com/questions/83953/openlayers-maps-issue-with-ssl)
     var map = new OpenLayers.Map("map");
+    // remove the default attribution (hidden by our sidebar), in order to use one defined in index.html
+    map.controls.slice().forEach(function(control) {
+        if (control instanceof OpenLayers.Control.Attribution) {
+            map.removeControl(control);
+            if (control.div && control.div.parentNode) {
+                control.div.parentNode.removeChild(control.div);
+            }
+        }
+    });
     var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap",
     // Official OSM tileset as protocol-independent URLs
     [
