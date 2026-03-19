@@ -2192,20 +2192,17 @@ NBEdgeCont::getUsedTypes() const {
 int
 NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
     EdgeSet toRemove;
-    for (auto item : myEdges) {
+    for (const auto& item : myEdges) {
         NBEdge* edge = item.second;
         // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
-        if (edge->getSpeed() < myEdgesMinSpeed) {
+        // explicit whitelist overrides removal
+        if (edge->getSpeed() < myEdgesMinSpeed && myEdges2Keep.count(edge->getID()) == 0) {
             toRemove.insert(edge);
         }
     }
-    int numRemoved = 0;
+    const int numRemoved = (int)toRemove.size();
     for (NBEdge* edge : toRemove) {
-        // explicit whitelist overrides removal
-        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
-            extract(dc, edge);
-            numRemoved++;
-        }
+        erase(dc, edge);
     }
     return numRemoved;
 }
@@ -2214,24 +2211,22 @@ NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
 int
 NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
     EdgeSet toRemove;
-    for (auto item : myEdges) {
+    for (const auto& item : myEdges) {
         NBEdge* edge = item.second;
         // check whether the edge shall be removed because it does not allow any of the wished classes
-        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+        // explicit whitelist overrides removal
+        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0 && myEdges2Keep.count(edge->getID()) == 0) {
             toRemove.insert(edge);
         }
         // check whether the edge shall be removed due to allowing unwished classes only
-        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+        // explicit whitelist overrides removal
+        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove && myEdges2Keep.count(edge->getID()) == 0) {
             toRemove.insert(edge);
         }
     }
-    int numRemoved = 0;
+    const int numRemoved = (int)toRemove.size();
     for (NBEdge* edge : toRemove) {
-        // explicit whitelist overrides removal
-        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
-            extract(dc, edge);
-            numRemoved++;
-        }
+        erase(dc, edge);
     }
     return numRemoved;
 }
