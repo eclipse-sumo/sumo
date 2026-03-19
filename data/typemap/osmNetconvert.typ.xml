@@ -38,7 +38,7 @@
     <type id="railway.subway"         numLanes="1" speed="27.78" priority="18" oneway="true"  allow="subway"/>
     <type id="railway.light_rail"     numLanes="1" speed="27.78" priority="19" oneway="true"  allow="rail_urban"/>
     <type id="railway.rail"           numLanes="1" speed="44.44" priority="20" oneway="true"  allow="rail"/>
-    <type id="railway.highspeed"      numLanes="1" speed="69.44" priority="21" oneway="true"  allow="rail_fast"/>
+    <type id="railway.highspeed"      numLanes="1" speed="69.44" priority="21" oneway="true"  allow="rail_fast rail rail_electric"/>
 
     <type id="highway.construction"   numLanes="1" speed="13.89" priority="4"  oneway="false" disallow="rail rail_urban rail_electric rail_fast tram tram drone aircraft scooter container wheelchair subway cable_car ship" discard="true"/>
     <type id="railway.construction"   numLanes="1" speed="13.89" priority="20"  oneway="true" allow="rail" discard="true"/>
