@@ -11,5 +11,7 @@ tlsCoordinator
 tlsAdaptation
 tls_csvSignalGroups
 buildTransitions
-
 createTlsCsv
+
+# compute how much green time (percent) each link receives in a signal plan or recording
+tls_analyzeSplit

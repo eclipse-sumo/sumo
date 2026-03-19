@@ -1,0 +1,12 @@
+# The following tests are based on the network from
+#  tests\netconvert\import\XML\connections\cross3l_no_tls_turnarounds
+# The same networks are used in \tests\sumo\errors\traffic_lights
+
+# compute splits from a network file
+net
+
+# compute splits from an additional file
+additional
+
+# compute splits from a tls log
+log
