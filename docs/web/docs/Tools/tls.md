@@ -399,3 +399,21 @@ will be set to the appropriate transition phase.
 ```
 python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
 ```
+
+# tls_analyzeSplit.py
+
+Compute how much time each controlled link of a traffic light spent in the green state (in percent).
+
+```
+python tools/tls/tls_analyzeSplit.py FILE
+```
+
+Any input file with `<tlLogic>` elements is supported (*.net.xml*, *.add.xml* and [traffic light logs](../Simulation/Output/Traffic_Lights.md#tls_programs) in `SaveTLSProgram` format).
+
+The output is one line per traffic light program:
+
+```
+tlLogic=0 program=0 cycle=138.0 G=[22, 22, 4, 4, 22, 22, 4, 4, 22, 22, 4, 4, 22, 22, 4, 4] Gg=[22, 22, 38, 38, 22, 22, 38, 38, 22, 22, 38, 38, 22, 22, 38, 38]
+```
+
+Where the element `G` gives percentages in state `G` (major green, no foes) and element `Gg` gives percentages in stage `G` or `g` (including minor green, green with some foes).
