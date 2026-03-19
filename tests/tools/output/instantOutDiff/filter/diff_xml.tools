@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-19 11:23:11.110375 by Eclipse SUMO instantOutDiff.py v1_26_0+0716-65bcfefcde7
+<!-- generated on 2026-03-19 11:30:32.908494 by Eclipse SUMO instantOutDiff.py v1_26_0+0717-13df481f231
 <configuration>
     <orig value="input_data.xml"/>
     <new value="input_data2.xml"/>
     <output value="diff.xml"/>
+    <filter-ids value="A0B0_0,A2B2_0"/>
 </configuration>
 -->
 
 <instantOutDiff>
-    <statistic description="B3C3_0" count="26" min="0.06" minLabel="183.48" max="14.19" maxLabel="132.19" mean="2.20" Q1="0.49" median="1.40" Q3="3.12" meanAbs="2.20" medianAbs="1.40"/>
     <statistic description="A2B2_0" count="18" min="0.08" minLabel="93.89" max="6.44" maxLabel="226.26" mean="1.85" Q1="0.48" median="1.52" Q3="2.86" meanAbs="1.85" medianAbs="1.52"/>
-    <statistic description="E0D0_0" count="18" min="0.29" minLabel="308.01" max="8.99" maxLabel="279.12" mean="2.19" Q1="0.57" median="1.84" Q3="2.25" meanAbs="2.19" medianAbs="1.84"/>
     <statistic description="A0B0_0" count="11" min="0.25" minLabel="22.31" max="4.99" maxLabel="109.45" mean="1.15" Q1="0.28" median="0.64" Q3="1.33" meanAbs="1.15" medianAbs="0.64"/>
-    <statistic description="C3C4_0" count="16" min="0.19" minLabel="113.7" max="7.77" maxLabel="241.88" mean="2.65" Q1="1.12" median="1.86" Q3="3.82" meanAbs="2.65" medianAbs="1.86"/>
-    <statistic description="B1C1_0" count="26" min="0.06" minLabel="224.03" max="19.88" maxLabel="261.19" mean="2.65" Q1="0.46" median="1.05" Q3="2.79" meanAbs="2.65" medianAbs="1.05"/>
-    <statistic description="B3B4_0" count="14" min="0.24" minLabel="169.17" max="10.89" maxLabel="299.71" mean="3.36" Q1="0.48" median="3.12" Q3="5.58" meanAbs="3.36" medianAbs="3.12"/>
-    <statistic description="A3A4_0" count="12" min="0.07" minLabel="151.39" max="20.79" maxLabel="377.78" mean="5.97" Q1="1.30" median="3.82" Q3="11.57" meanAbs="5.97" medianAbs="3.82"/>
-    <statistic description="C2D2_0" count="18" min="0.04" minLabel="130.25" max="16.54" maxLabel="151.65" mean="5.43" Q1="1.51" median="5.60" Q3="7.84" meanAbs="5.43" medianAbs="5.60"/>
-    <statistic description="A4B4_0" count="11" min="0.60" minLabel="80.53" max="14.29" maxLabel="345.17" mean="4.34" Q1="1.48" median="2.53" Q3="8.15" meanAbs="4.34" medianAbs="2.53"/>
 </instantOutDiff>
