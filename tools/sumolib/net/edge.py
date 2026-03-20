@@ -58,6 +58,9 @@ class Edge:
         self._selected = False
         self._lengthGeometryFactor = 1
 
+    def __lt__(self, other):
+        return self.getID() < other.getID()
+
     def getName(self):
         return self._name
 
