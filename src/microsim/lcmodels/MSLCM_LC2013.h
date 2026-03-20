@@ -200,13 +200,13 @@ protected:
     typedef std::pair<double, int> Info;
 
     /// @brief a value for tracking the probability that a change to that side is beneficial
-    double mySpeedGainProbabilityLeft;
-    double mySpeedGainProbabilityRight;
+    long long int mySpeedGainProbabilityLeft;
+    long long int mySpeedGainProbabilityRight;
 
     /* @brief a value for tracking the probability of following the/"Rechtsfahrgebot"
      * A larger negative value indicates higher probability for moving to the
      * right (as in mySpeedGainProbability) */
-    double myKeepRightProbability;
+    long long int myKeepRightProbability;
 
     double myLeadingBlockerLength;
     double myLeftSpace;
@@ -255,7 +255,7 @@ protected:
     /// @name derived parameters
     //@{
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
-    double myChangeProbThresholdRight;
-    double myChangeProbThresholdLeft;
+    long long int myChangeProbThresholdRight;
+    long long int myChangeProbThresholdLeft;
     //@}
 };
