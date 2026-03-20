@@ -45,7 +45,7 @@ def get_options(args=None):
     argParser.add_argument("--filter-ids", dest="filterIDs",
                            help="only use detector ids from the given list")
     options = argParser.parse_args(args=args)
-    options.filter = None if options.filterIDs is None else set(options.filterIDs.split(',')) 
+    options.filter = None if options.filterIDs is None else set(options.filterIDs.split(','))
     return options
 
 
