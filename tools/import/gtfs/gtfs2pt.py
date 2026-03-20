@@ -115,6 +115,8 @@ def get_options(args=None):
     ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
     ap.add_argument("--min-stops", default=1, type=int, category="input",
                     help="minimum number of stops a public transport line must have to be imported")
+    ap.add_argument("--maxcache", default=1000, type=int, category="processing",
+                    help="Set maximum cache size for route computation")
 
     options = ap.parse_args(args)
 
@@ -223,7 +225,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         if options.verbose:
             print("mapping", mode)
-        net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"))
+        net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"), maxcache=options.maxcache)
         mode_edges = set([e.getID() for e in net.getEdges()])
         netBox = net.getBBoxXY()
         numTraces = 0
