@@ -85,8 +85,10 @@ These tutorials use the [Python-TraCI Library](../TraCI/Interfacing_TraCI_from_P
 
 # Other
 
-## Curso de Simulação em Mobilidade
-[Udemy tutorial](https://www.udemy.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/) in Portuguese courtesy of Ednardo Ferreira.
+## External courses and tutorials
+
+- [Curso de Simulação em Mobilidade](https://www.udemy.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/): A Udemy tutorial in Portuguese courtesy of Ednardo Ferreira.
+- [Traffic Simulation for Planning Applications](https://roadwayvr.com/TrafficSimulationforPlanningApplications/) - Use traffic simulation as a planning decision tool to model, test, and justify better designs: A free 12-week course by Ahmad Mohammadi.
 
 ## ITSC 2015
 
