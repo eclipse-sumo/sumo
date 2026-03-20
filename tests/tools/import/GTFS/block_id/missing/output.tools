@@ -1,0 +1,4 @@
+function import_gtfs called at Fri, 20 Mar 2026 01:04:55 +0000
+function discover_direction called at Fri, 20 Mar 2026 01:04:55 +0000
+function discover_direction finished after 0.004688 seconds
+function import_gtfs finished after 0.016608 seconds
