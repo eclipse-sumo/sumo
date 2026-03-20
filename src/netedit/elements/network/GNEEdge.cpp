@@ -2900,15 +2900,18 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualization
             // override with special colors (unless the color scheme is based on selection)
             geometryPointColor = s.colorSettings.selectedEdgeColor.changedBrightness(-20);
         }
-        // set color
-        GLHelper::setColor(geometryPointColor);
-        // iterate over NBEdge geometry
-        for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
+        // never draw when at full transparency
+        if (geometryPointColor.alpha() != 0) {
+          // set color
+          GLHelper::setColor(geometryPointColor);
+          // iterate over NBEdge geometry
+          for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
             // calculate line between previous and current geometry point
             PositionVector line = {myNBEdge->getGeometry()[i - 1], myNBEdge->getGeometry()[i]};
             line.move2side(0.2);
             // draw box line
             GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
+          }
         }
         // pop draw matrix
         GLHelper::popMatrix();

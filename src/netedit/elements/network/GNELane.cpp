@@ -992,31 +992,33 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
     // translate to layer
     drawInLayer(layer);
     // set lane colors
-    setLaneColor(s);
-    // Check if lane has to be draw as railway and if isn't being drawn for selecting
-    if (myDrawingConstants->drawAsRailway()) {
+    RGBColor laneColor = setLaneColor(s);
+    // never draw when at full transparency
+    if (laneColor.alpha() != 0) {
+      // Check if lane has to be draw as railway and if isn't being drawn for selecting
+      if (myDrawingConstants->drawAsRailway()) {
         // draw as railway
         drawLaneAsRailway();
-    } else if (myShapeColors.size() > 0) {
+      } else if (myShapeColors.size() > 0) {
         // draw geometry with own colors
         GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
-                                  myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
-    } else {
+            myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
+      } else {
         // draw geometry with current color
         const GUIVisualizationSettings::Detail d = myDrawingConstants->getDetail();
         double drawingWidth = myDrawingConstants->getDrawingWidth();
         if (d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
-            drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
+          drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
         }
         GUIGeometry::drawGeometry(d, myLaneGeometry, drawingWidth,
-                                  myDrawingConstants->getOffset());
-    }
-    // if lane is selected, draw a second lane over it
-    drawSelectedLane(s);
-    // draw start end shape points
-    drawStartEndGeometryPoints(s);
-    // check if draw details
-    if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+            myDrawingConstants->getOffset());
+      }
+      // if lane is selected, draw a second lane over it
+      drawSelectedLane(s);
+      // draw start end shape points
+      drawStartEndGeometryPoints(s);
+      // check if draw details
+      if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
         // draw markings
         drawMarkingsAndBoundings(s);
         // Draw direction indicators
@@ -1031,9 +1033,10 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
         drawTLSLinkNo(s);
         // draw stopOffsets
         drawLaneStopOffset(s);
+      }
+      // draw shape edited
+      drawShapeEdited(s);
     }
-    // draw shape edited
-    drawShapeEdited(s);
     // Pop layer matrix
     GLHelper::popMatrix();
 }
