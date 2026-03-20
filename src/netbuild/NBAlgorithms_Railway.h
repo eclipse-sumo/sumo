@@ -135,6 +135,9 @@ private:
     /// @brief reverse edges sequences that are to broken nodes on both sides
     static int reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc);
 
+    /// @brief reverse a single edge
+    static void reverseEdge(NBEdge* e);
+
     /// @brief add bidi-edges to connect buffers stops in both directions
     static int addBidiEdgesForBufferStops(NBEdgeCont& ec);
 

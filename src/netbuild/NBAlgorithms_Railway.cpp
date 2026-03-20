@@ -666,12 +666,8 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
             affectedEndpoints.insert(seqEnd);
             //WRITE_MESSAGE("  reversed seq=" + toString(seq));
             for (NBEdge* e : seq) {
-                e->reinitNodes(e->getToNode(), e->getFromNode());
-                e->setGeometry(e->getGeometry().reverse());
+                reverseEdge(e);
                 reversedIDs.insert(e->getID());
-                if (e->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
-                    e->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
-                }
             }
             seqLengths[(int)seq.size()]++;
             numReversed++;
@@ -686,6 +682,16 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLi
         }
     }
     return numReversed;
+}
+
+
+void
+NBRailwayTopologyAnalyzer::reverseEdge(NBEdge* e) {
+    e->reinitNodes(e->getToNode(), e->getFromNode());
+    e->setGeometry(e->getGeometry().reverse());
+    if (e->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
+        e->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+    }
 }
 
 
@@ -1071,13 +1077,19 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBEdgeCont& ec, NBPTLineCont& lc
     }
     for (NBEdge* edge : addBidiEdges) {
         if (!edge->isBidiRail()) {
-            NBEdge* e2 = addBidiEdge(ec, edge);
-            //std::cout << " add bidiEdge for stop at edge " << edge->getID() << "\n";
-            if (e2 != nullptr) {
-                added++;
-                if (!minimal) {
-                    added += extendBidiEdges(ec, edge->getToNode(), edge);
-                    added += extendBidiEdges(ec, edge->getFromNode(), e2);
+            if (edge->getFromNode()->getIncomingEdges().size() == 0
+                    && edge->getToNode()->getOutgoingEdges().size() == 0) {
+                // flip a single broken edge instead of adding the reverse
+                reverseEdge(edge);
+            } else {
+                NBEdge* e2 = addBidiEdge(ec, edge);
+                //std::cout << " add bidiEdge for stop at edge " << edge->getID() << "\n";
+                if (e2 != nullptr) {
+                    added++;
+                    if (!minimal) {
+                        added += extendBidiEdges(ec, edge->getToNode(), edge);
+                        added += extendBidiEdges(ec, edge->getFromNode(), e2);
+                    }
                 }
             }
         }
