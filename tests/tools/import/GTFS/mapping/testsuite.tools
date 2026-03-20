@@ -43,5 +43,8 @@ duplicate_edge
 # warn about large detour (#17567)
 detour
 
+# remove trip with large detour (#17757)
+detour_remove
+
 # warn about large detour (#17567)
 detour_edgeNotFound
