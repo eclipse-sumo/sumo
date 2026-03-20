@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 13 08:48:51 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on 2026-03-20T13:03:07.355348+01:00 by Eclipse SUMO sumo v1_26_0+0736-a86b6e37931
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -16,10 +21,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <precision value="3"/>
-        <netstate-dump.precision value="3"/>
-        <emission-output.precision value="3"/>
-        <battery-output.precision value="3"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
@@ -38,13 +39,9 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
-    <gui_only>
-        <tracker-interval value="0.001"/>
-    </gui_only>
-
-</configuration>
+</sumoConfiguration>
 -->
 
 <lanechanges>
-    <change id="v0" type="t0" time="7.143" from="beg_1" to="beg_0" dir="-1" speed="13.890" pos="104.316" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="t0" time="7.001" from="beg_1" to="beg_0" dir="-1" speed="13.890" pos="102.344" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

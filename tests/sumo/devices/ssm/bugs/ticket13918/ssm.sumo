@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-25T13:45:53.370375+01:00 by Eclipse SUMO sumo v1_24_0+0988-90d076c371e
+<!-- generated on 2026-03-20T13:03:14.145426+01:00 by Eclipse SUMO sumo v1_26_0+0736-a86b6e37931
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,10 +64,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <conflict begin="326.00" end="330.00" ego="flow_0.47" foe="flow_1.67">
         <minTTC time="329.50" position="4217.01,101.79" type="20" value="0.40" speed="22.29"/>
     </conflict>
-    <conflict begin="461.25" end="462.25" ego="flow_1.101" foe="flow_0.80">
-        <minTTC time="461.75" position="3672.93,101.83" type="20" value="2.25" speed="30.11"/>
+    <conflict begin="461.25" end="462.00" ego="flow_1.101" foe="flow_0.80">
+        <minTTC time="461.50" position="3674.12,101.83" type="20" value="2.49" speed="30.15"/>
     </conflict>
-    <conflict begin="461.25" end="462.25" ego="flow_0.80" foe="flow_1.101">
-        <minTTC time="461.75" position="3672.93,101.83" type="20" value="2.25" speed="20.11"/>
+    <conflict begin="461.25" end="462.00" ego="flow_0.80" foe="flow_1.101">
+        <minTTC time="461.50" position="3674.12,101.83" type="20" value="2.49" speed="20.35"/>
     </conflict>
 </SSMLog>

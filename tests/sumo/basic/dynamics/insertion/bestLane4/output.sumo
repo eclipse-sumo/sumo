@@ -1,21 +1,21 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_24_0+0988-90d076c371e started with time: 0.00.
+Simulation version v1_26_0+0736-a86b6e37931 started with time: 0.00.
 Simulation ended at time: 3600.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 0.42s
- Real time factor: 8633.09
- UPS: 346585.131894
+ Duration: 0.26s
+ Real time factor: 13953.5
+ UPS: 558426.356589
 Vehicles:
  Inserted: 7997 (Loaded: 7998)
- Running: 41
+ Running: 39
  Waiting: 0
-Statistics (avg of 7956):
+Statistics (avg of 7958):
  RouteLength: 494.90
- Speed: 27.47
- Duration: 18.11
+ Speed: 27.56
+ Duration: 18.06
  WaitingTime: 0.00
- TimeLoss: 2.66
- DepartDelay: 0.62
+ TimeLoss: 2.60
+ DepartDelay: 0.65
