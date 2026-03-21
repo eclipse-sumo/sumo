@@ -189,8 +189,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("railway.topology.direction-priority") && oc.getBool("railway.topology.direction-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
         NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, true);
-    } else if (oc.exists("railway.topology.extend-priority") && oc.getBool("railway.topology.extend-priority")) {
+    } else if (oc.exists("railway.topology.extend-priority")
+            && (oc.getBool("railway.topology.extend-priority") || oc.getStringVector("railway.topology.ptline-priority").size() > 0)) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
+        if (oc.getStringVector("railway.topology.ptline-priority").size() > 0) {
+            SVCPermissions vClasses = parseVehicleClasses(oc.getStringVector("railway.topology.ptline-priority"));
+            NBRailwayTopologyAnalyzer::setPTLinePriority(myEdgeCont, myPTLineCont, vClasses);
+        }
         NBRailwayTopologyAnalyzer::extendDirectionPriority(myEdgeCont, false);
     }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {

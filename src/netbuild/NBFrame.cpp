@@ -263,6 +263,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("railway.topology.direction-priority", new Option_Bool(false));
         oc.addDescription("railway.topology.direction-priority", "Railway", TL("Set edge priority values based on estimated main direction"));
 
+        oc.doRegister("railway.topology.ptline-priority", new Option_StringVector());
+        oc.addDescription("railway.topology.ptline-priority", "Railway", TL("Set edge priority values based on public transport lines for the given list of vClasses"));
+
         oc.doRegister("railway.topology.extend-priority", new Option_Bool(false));
         oc.addDescription("railway.topology.extend-priority", "Railway", TL("Extend loaded edge priority values based on estimated main direction"));
 

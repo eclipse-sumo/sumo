@@ -51,6 +51,7 @@ public:
     static void analyzeTopology(NBEdgeCont& ec);
     static int repairTopology(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& lc);
     static int makeAllBidi(NBEdgeCont& ec);
+    static void setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, SVCPermissions vClasses);
     static void extendDirectionPriority(NBEdgeCont& ec, bool fromUniDir);
 
     /// routing edge

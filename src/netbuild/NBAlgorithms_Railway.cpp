@@ -1215,6 +1215,25 @@ NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const N
 
 
 void
+NBRailwayTopologyAnalyzer::setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, SVCPermissions vClasses) {
+    for (NBEdge* edge : ec.getAllEdges()) {
+        SVCPermissions p = edge->getPermissions();
+        if (isRailway(p) && (p & vClasses) != 0) {
+            edge->setPriority(-1);
+        }
+    }
+    for (const auto& item : lc.getLines()) {
+        if ((item.second->getVClass() & vClasses) == 0) {
+            continue;
+        }
+        for (NBEdge* edge : item.second->getEdges()) {
+            edge->setPriority(4);
+        }
+    }
+}
+
+
+void
 NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniDir) {
     // if fromUniDir=true, assign priority value for each railway edge:
     // 4: edge is unidirectional
