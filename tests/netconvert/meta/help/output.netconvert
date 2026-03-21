@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_26_0+0671-ff4ec946b20
+Eclipse SUMO netconvert v1_26_0+0744-284654a523f
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -582,6 +582,9 @@ Railway Options:
                                         FILE usable in both direction
   --railway.topology.direction-priority  Set edge priority values based on
                                         estimated main direction
+  --railway.topology.ptline-priority STR[]  Set edge priority values based on
+                                        public transport lines for the given
+                                        list of vClasses
   --railway.topology.extend-priority   Extend loaded edge priority values based
                                         on estimated main direction
   --railway.geometry.straighten        Move junctions to straighten a sequence

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-18T08:54:20.564984+01:00 by Eclipse SUMO netconvert v1_26_0+0671-ff4ec946b20
+<!-- generated on 2026-03-21T07:33:15.855337+01:00 by Eclipse SUMO netconvert v1_26_0+0744-284654a523f
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -316,6 +316,7 @@
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
         <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
+        <railway.topology.ptline-priority value="" type="STR[]" help="Set edge priority values based on public transport lines for the given list of vClasses"/>
         <railway.topology.extend-priority value="false" type="BOOL" help="Extend loaded edge priority values based on estimated main direction"/>
         <railway.geometry.straighten value="false" type="BOOL" help="Move junctions to straighten a sequence of rail edges"/>
         <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
