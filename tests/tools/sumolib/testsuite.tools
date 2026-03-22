@@ -45,6 +45,9 @@ getShortestRoute_rail
 # finding fastest routes
 getFastestRoute
 
+# test using routingType to influence results. refs #17560
+getOptimalPath_routingType
+
 # testing statistics
 statistics
 
