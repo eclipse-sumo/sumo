@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2025-12-04 08:10+0000\n"
+"PO-Revision-Date: 2026-03-22 19:05+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -151,7 +151,7 @@ msgstr "Otevře dialogové okno pro úpravu výběru objektů."
 
 #: src/gui/GUIApplicationWindow.cpp:517
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Vyberte pruhy, které umožňují..."
 
 #: src/gui/GUIApplicationWindow.cpp:518
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
