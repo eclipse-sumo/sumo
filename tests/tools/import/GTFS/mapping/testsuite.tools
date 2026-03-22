@@ -48,3 +48,6 @@ detour_remove
 
 # warn about large detour (#17567)
 detour_edgeNotFound
+
+# see #17560
+sbahn_routingType

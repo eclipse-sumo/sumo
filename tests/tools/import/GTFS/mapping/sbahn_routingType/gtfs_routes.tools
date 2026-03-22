@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-22 21:11:36.088376 by Eclipse SUMO gtfs2pt.py v1_26_0+0755-6751af3ef2c
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="200.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="255711950" edges="18 17 16 15 23 24 22">
+        <stop busStop="255711950.0" duration="00:00:10" until="00:00:00"/> <!-- S Attilastr.  (Berlin) -->
+        <stop busStop="255711950.1" duration="00:00:10" until="00:02:42"/> <!-- S Priesterweg (Berlin) -->
+    </route>
+    <vehicle id="255711950.0" route="255711950" type="light_rail" depart="05:11:20" line="255711950">
+        <param key="gtfs.route_name" value="S2"/>
+        <param key="gtfs.trip_headsign" value="dummy2"/>
+    </vehicle>
+</routes>

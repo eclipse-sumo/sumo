@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-22T21:08:18.429097+01:00 by Eclipse SUMO netconvert v1_26_0+0750-500139ba429
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+        <ptstop-files value="input_stops.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+        <ptstop-output value="input_stops.xml"/>
+    </output>
+
+    <processing>
+        <numerical-ids value="true"/>
+        <numerical-ids.node-start value="1000"/>
+        <numerical-ids.edge-start value="0"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="-ts_0" lane="4_0" startPos="29.47" endPos="39.47" friendlyPos="true"/>
+    <trainStop id="-ts_1" lane="12_0" startPos="11.86" endPos="21.86" friendlyPos="true"/>
+    <trainStop id="ts_0" lane="18_0" startPos="29.31" endPos="39.31" friendlyPos="true"/>
+    <trainStop id="ts_1" lane="22_0" startPos="5.93" endPos="15.93" friendlyPos="true"/>
+</additional>
