@@ -243,7 +243,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         traces = tracemapper.readFCD(filePath, net, True)
         traceCache = {}
         preferences = {}
-        if mode in ['rail', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
+        if mode in ['train', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
             for i in range(5):
                 alpha = (4 - i) / 4
                 preferences[str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
