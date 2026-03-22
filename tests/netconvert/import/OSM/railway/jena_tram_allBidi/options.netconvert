@@ -2,4 +2,5 @@
 --ptstop-output additional.xml
 --ptline-output ptlines.xml
 --railway.topology.all-bidi
+--railway.topology.ptline-priority tram
 --no-internal-links
