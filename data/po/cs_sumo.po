@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-01-04 17:03+0000\n"
+"PO-Revision-Date: 2026-03-22 19:05+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/cs/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -25,11 +25,11 @@ msgstr "Čtení vstupu"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr ""
+msgstr "Statistiky konsolidace"
 
 #: src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Vytváření reprezentace ulice"
 
 #: src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
@@ -37,23 +37,23 @@ msgstr ""
 
 #: src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Vytváření autobusových linek"
 
 #: src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "Generování populace"
 
 #: src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Přidělování škol"
 
 #: src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Přidělování pracovišť"
 
 #: src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Přidělování parkovacích míst"
 
 #: src/activitygen/AGActivityGenHandler.cpp:174
 #: src/activitygen/AGActivityGenHandler.cpp:181
