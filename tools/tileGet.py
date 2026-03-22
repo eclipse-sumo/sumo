@@ -33,6 +33,12 @@ except ImportError:
     import urllib
     from urllib2 import HTTPError as urlerror
 
+try:
+    from osgeo import gdal
+    HAVE_GDAL = True
+except ImportError:
+    HAVE_GDAL = False
+
 import sumolib  # noqa
 
 MERCATOR_RANGE = 256
@@ -77,6 +83,49 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
+def reprojectTiles(options, tile_list, zoom, net, decals):
+    """Merge downloaded tiles and reproject from EPSG:3857 to the network projection."""
+    R = 6378137.0  # Web Mercator radius
+    tile_size_m = 2 * math.pi * R / (2 ** zoom)
+
+    # Assign EPSG:3857 bounds to each tile and copy to vsimem
+    vsimem_paths = []
+    for x, y, filename in tile_list:
+        x_min = -math.pi * R + x * tile_size_m
+        y_max = math.pi * R - y * tile_size_m
+        vpath = '/vsimem/%s_%d_%d.tif' % (options.prefix, x, y)
+        gdal.Translate(vpath, filename,
+                       options=gdal.TranslateOptions(
+                           options="-a_ullr %f %f %f %f -a_srs EPSG:3857" %
+                                   (x_min, y_max, x_min + tile_size_m, y_max - tile_size_m)))
+        vsimem_paths.append(vpath)
+    vrt_path = '/vsimem/%s.vrt' % options.prefix
+    gdal.BuildVRT(vrt_path, vsimem_paths)
+
+    out_path = os.path.join(options.output_dir, options.prefix + ".jpg")
+    out_ds = gdal.Warp(out_path, vrt_path,
+                       options=gdal.WarpOptions(dstSRS=net._location["projParameter"],
+                                                resampleAlg=gdal.GRA_Bilinear,
+                                                format="JPEG"))
+    if out_ds is None:
+        print("Error: reprojection with gdal.Warp failed.", file=sys.stderr)
+    else:
+        gt = out_ds.GetGeoTransform()
+        img_width = gt[1] * out_ds.RasterXSize
+        img_height = -gt[5] * out_ds.RasterYSize
+        center_x = gt[0] + img_width / 2 + net.getLocationOffset()[0]
+        center_y = gt[3] - img_height / 2 + net.getLocationOffset()[1]
+        print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+              (os.path.basename(out_path), center_x, center_y,
+               img_width, img_height, options.layer), file=decals)
+
+    for vpath in vsimem_paths:
+        gdal.Unlink(vpath)
+    gdal.Unlink(vrt_path)
+    for x, y, filename in tile_list:
+        os.unlink(filename)
+
+
 def worker(options, request, filename):
     if options.simulate:
         print(request, filename)
@@ -84,6 +133,22 @@ def worker(options, request, filename):
         urllib.urlretrieve(request, filename)
         if os.stat(filename).st_size < options.min_file_size:
             raise ValueError("small file")
+
+
+def writeSettings(options, net, tile_list, zoom, decals):
+    if net is None:
+        print("Warning: No network given, will not try reprojection or writing a decal file.", file=sys.stderr)
+    if options.reproject:
+        reprojectTiles(options, tile_list, zoom, net, decals)
+    else:
+        for x, y, filename in tile_list:
+            lat, lon = fromTileToLatLon(x, y, zoom)
+            nw = net.convertLonLat2XY(lon, lat)
+            lat, lon = fromTileToLatLon(x + 1, y + 1, zoom)
+            se = net.convertLonLat2XY(lon, lat)
+            print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                  (os.path.basename(filename), (nw[0] + se[0]) / 2, (nw[1] + se[1]) / 2,
+                   se[0] - nw[0], nw[1] - se[1], options.layer), file=decals)
 
 
 def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, is_retina):
@@ -100,6 +165,7 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, i
         opener.addheaders = [('User-agent', options.user_agent)]
         urllib.install_opener(opener)
 
+    tile_list = []
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
             scale = '@2x' if is_retina and "cartodb" in options.url else ''
@@ -107,14 +173,8 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, i
 
             filename = os.path.join(options.output_dir, "%s%s_%s.png" % (options.prefix, x, y))
             worker(options, request, filename)
-            if net is not None:
-                lat, lon = fromTileToLatLon(x, y, zoom)
-                upperLeft = net.convertLonLat2XY(lon, lat)
-                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                      (os.path.basename(filename), center[0], center[1],
-                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+            tile_list.append((x, y, filename))
+    writeSettings(options, net, tile_list, zoom, decals)
 
 
 def retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern):
@@ -136,6 +196,7 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
         signal.signal(signal.SIGINT, original_sigint_handler)
 
     futures = []
+    tile_list = []
     for x in range(sx, ex + 1):
         for y in range(sy, ey + 1):
             request = options.url + pattern.format(z=zoom, y=y, x=x)
@@ -145,16 +206,10 @@ def retrieveMapServerTiles(options, west, south, east, north, decals, net, patte
                 worker(options, request, filename)
             else:
                 futures.append((x, y, pool.apply_async(worker, (options, request, filename))))
-            if net is not None:
-                lat, lon = fromTileToLatLon(x, y, zoom)
-                upperLeft = net.convertLonLat2XY(lon, lat)
-                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-                center = net.convertLonLat2XY(lon, lat)
-                print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-                      (os.path.basename(filename), center[0], center[1],
-                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), options.layer), file=decals)
+            tile_list.append((x, y, filename))
     for x, y, future in futures:
         future.get()
+    writeSettings(options, net, tile_list, zoom, decals)
 
 
 def get_options(args=None):
@@ -189,12 +244,16 @@ def get_options(args=None):
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
+    optParser.add_option("--reproject", action="store_true", default=False,
+                         help="reproject tiles from EPSG:3857 (Web Mercator) to the network projection "
+                              "using gdal, fixing grid-convergence gaps between tiles (requires osgeo.gdal "
+                              "and a net file). Output is a single GeoTIFF instead of per-tile PNGs.")
 
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
         "mapquest": "https://www.mapquestapi.com/staticmap/v5/map",
         "google": "https://maps.googleapis.com/maps/api/staticmap",
-        "berlin2024": "https://tiles.codefor.de/berlin-2026-dop20rgbi",
+        "berlin": "https://tiles.codefor.de/berlin/geoportal/luftbilder/2025-dop20rgb/",
         "osm": "https://tile.openstreetmap.org",
         "osm_hot": "https://a.tile.openstreetmap.fr/hot",
         "cartodb_dark": "https://cartodb-basemaps-a.global.ssl.fastly.net/dark_nolabels/",
@@ -215,6 +274,10 @@ def get_options(args=None):
         west, south, east, north = [float(v) for v in options.bbox.split(',')]
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
+    if options.reproject and not HAVE_GDAL:
+        print("Warning: --reproject requested but osgeo.gdal is not available, falling back to unprojected tiles.",
+              file=sys.stderr)
+        options.reproject = False
     return options
 
 
