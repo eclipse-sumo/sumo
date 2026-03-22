@@ -231,7 +231,7 @@ class Net:
         self._routingCache = None
 
     def initRoutingCache(self, maxsize=1000):
-        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty: {})  # noqa
+        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
 
     def getVersion(self):
         return self._version
@@ -593,7 +593,7 @@ class Net:
 
     def getOptimalPath(self, fromEdge, toEdge, fastest=False, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=None, toPos=None):
+                       fromPos=None, toPos=None, preferences={}):
         """
         Finds the optimal (shortest or fastest) path for vClass from fromEdge to toEdge
         by using using Dijkstra's algorithm.
@@ -604,10 +604,23 @@ class Net:
         The path itself does not include internal edges except for the case
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
+        The preferences declare a mapping from the 'routingType' of each edge to divisor
+        that is applied to the computed cost of that edge (i.e. a preference of 2 reduces cost by a factor of 0.5).
         """
 
-        def speedFunc(edge):
-            return edge.getSpeed() if fastest else 1.0
+        if preferences:
+            if fastest:
+                def speedFunc(edge):
+                    return preferences.get(edge.getRoutingType(), 1.0) * edge.getSpeed()
+            else:
+                def speedFunc(edge):
+                    return preferences.get(edge.getRoutingType(), 1.0)
+        elif fastest:
+            def speedFunc(edge):
+                return edge.getSpeed()
+        else:
+            def speedFunc(edge):
+                return 1.0
 
         def remainder(edge, pos):
             if pos < 0:
@@ -680,7 +693,8 @@ class Net:
                     path, cost = self.getOptimalPath(e2, toEdge, fastest=fastest, maxCost=maxCost, vClass=vClass,
                                                      reversalPenalty=reversalPenalty,
                                                      includeFromToCost=includeFromToCost,
-                                                     withInternal=withInternal, fromPos=0, toPos=toPos)
+                                                     withInternal=withInternal, fromPos=0, toPos=toPos,
+                                                     preferences=preferences)
                     if path is not None and cost < bestCost:
                         bestPath = path
                         bestCost = cost
@@ -699,7 +713,8 @@ class Net:
                 else:
                     return None, 1e400
 
-            dist = self._routingCache(fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty)
+            dist = self._routingCache(fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty,
+                                      tuple(preferences.items()))
             if toEdge in dist:
                 return constructPath(dist)
             else:
@@ -750,7 +765,7 @@ class Net:
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
                         includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                        fromPos=None, toPos=None):
+                        fromPos=None, toPos=None, preferences={}):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -759,14 +774,17 @@ class Net:
         The path itself does not include internal edges except for the case
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
+        The preferences declare a mapping from the 'routingType' of each edge to divisor
+        that is applied to the lenght of that edge (i.e. a preference of 2 reduces reduces effective length by a factor of 0.5).
         """
 
         return self.getOptimalPath(fromEdge, toEdge, False, maxCost, vClass, reversalPenalty,
-                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
+                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos,
+                                   preferences)
 
     def getFastestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
-                       fromPos=None, toPos=None):
+                       fromPos=None, toPos=None, preferences={}):
         """
         Finds the fastest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -775,10 +793,13 @@ class Net:
         The path itself does not include internal edges except for the case
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
+        The preferences declare a mapping from the 'routingType' of each edge to divisor
+        that is applied to the computed traveltime of that edge (i.e. a preference of 2 reduces effective traveltime by a factor of 0.5).
         """
 
         return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,
-                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos)
+                                   includeFromToCost, withInternal, ignoreDirection, fromPos, toPos,
+                                   preferences)
 
     def getReachable(self, source, vclass=None, useIncoming=False, cache=None):
         if vclass is not None and not source.allows(vclass):
