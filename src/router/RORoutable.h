@@ -182,6 +182,17 @@ public:
     }
 
 
+    /// @brief modify paramters if the route was extended
+    void routeStretched(int at, int by) {
+        if (myParameter.departEdge > at) {
+            myParameter.departEdge += by;
+        }
+        if (myParameter.arrivalEdge > at) {
+            myParameter.arrivalEdge += by;
+        }
+    }
+
+
 protected:
     /** @brief Saves the complete routable description.
      *

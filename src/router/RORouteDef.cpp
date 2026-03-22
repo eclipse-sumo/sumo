@@ -340,6 +340,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                             WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                         }
                     }
+                    const_cast<ROVehicle&>(veh).routeStretched(numEdgesBefore, (int)newEdges.size() - numEdgesBefore - 2);
                 }
             }
             if (*i == nextMandatory->edge) {
