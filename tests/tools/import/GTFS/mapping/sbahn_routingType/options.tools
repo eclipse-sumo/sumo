@@ -2,4 +2,5 @@
 --stops input_stops.xml
 -H
 --radius 200
+--rail-priority-factor 1
 tools/import/gtfs/gtfs2pt.py
