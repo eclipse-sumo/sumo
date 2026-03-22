@@ -80,7 +80,7 @@ def get_options(args=None):
     ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
                     help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
     ap.add_argument("--remove-detour-factor", default=0, type=float, dest="detourRemoveFactor",
-                    help="Disable trips with implausible routes (path distance exceeds airline distance by factor FLOAT)")
+                    help="Disable trips with implausible routes (path distance exceeds airline distance by factor FLOAT)")  # noqa
 
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
@@ -280,7 +280,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                                 msgStart = "Removing trip"
                                 mappedRoute = ()
                             print("%s %s (%s): detour (factor %.2f) to stop index %s, fromPos=%.2f,%.2f toPos=%.2f,%.2f (airLine=%.2f path=%.2f)" %  # noqa
-                                  (msgStart, tid, mode, detour, i, fx, fy, tx, ty, airLine, detour * airLine), file=sys.stderr)
+                                  (msgStart, tid, mode, detour, i, fx, fy, tx, ty, airLine, detour * airLine), file=sys.stderr)  # noqa
 
                     traceCache[trace] = mappedRoute
 

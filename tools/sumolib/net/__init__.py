@@ -231,7 +231,7 @@ class Net:
         self._routingCache = None
 
     def initRoutingCache(self, maxsize=1000):
-        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty: {})
+        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty: {})  # noqa
 
     def getVersion(self):
         return self._version
@@ -646,7 +646,8 @@ class Net:
             path = [toEdge]
             while pred is not None:
                 if self.hasInternal and withInternal:
-                    viaPath, minInternalCost = self.getInternalPath(pred.getAllowedOutgoing(vClass).get(path[-1], []), fastest=fastest)
+                    viaPath, minInternalCost = self.getInternalPath(pred.getAllowedOutgoing(vClass).get(path[-1], []),
+                                                                    fastest=fastest)
                     if viaPath is not None:
                         path += reversed(viaPath)
                 path.append(pred)
@@ -661,12 +662,11 @@ class Net:
                     return [e for e in path if e.getFunction() == ''], cost
             return tuple(path), cost
 
-
         needLoop = (fromEdge == toEdge
-                   and fromPos is not None
-                   and toPos is not None
-                   and fromPos > toPos
-                   and not ignoreDirection)
+                    and fromPos is not None
+                    and toPos is not None
+                    and fromPos > toPos
+                    and not ignoreDirection)
 
         seen = set()
         dist = {}
@@ -678,15 +678,17 @@ class Net:
                 bestPath = None
                 for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
                     path, cost = self.getOptimalPath(e2, toEdge, fastest=fastest, maxCost=maxCost, vClass=vClass,
-                                                reversalPenalty=reversalPenalty, includeFromToCost=includeFromToCost,
-                                                withInternal=withInternal, fromPos=0, toPos=toPos)
-                    if path is not None and cost < bestCost: 
+                                                     reversalPenalty=reversalPenalty,
+                                                     includeFromToCost=includeFromToCost,
+                                                     withInternal=withInternal, fromPos=0, toPos=toPos)
+                    if path is not None and cost < bestCost:
                         bestPath = path
                         bestCost = cost
                 if bestPath is not None:
                     path = [fromEdge]
                     if self.hasInternal and withInternal:
-                        viaPath, minInternalCost = self.getInternalPath(fromEdge.getAllowedOutgoing(vClass).get(path[0], []), fastest=fastest)
+                        viaPath, minInternalCost = self.getInternalPath(fromEdge.getAllowedOutgoing(vClass).get(path[0], []),
+                                                                        fastest=fastest)
                         if viaPath is not None:
                             path += viaPath
                             bestCost += minInternalCost
