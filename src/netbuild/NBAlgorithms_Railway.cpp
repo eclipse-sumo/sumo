@@ -1228,6 +1228,7 @@ NBRailwayTopologyAnalyzer::setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, S
         }
         for (NBEdge* edge : item.second->getEdges()) {
             edge->setPriority(4);
+            edge->setRoutingType("4");
         }
     }
 }
