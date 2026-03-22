@@ -75,6 +75,8 @@ def get_options(args=None):
                     help="files with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
+    ap.add_argument("--rail-priority-factor", category="processing", type=float, dest="rpFactor",
+                    help="Take into account edge routingType values scaled by FLOAT (routingTypes must correspond to integers in [0,4])")  # noqa
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
     ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
@@ -240,6 +242,12 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
             return []
         traces = tracemapper.readFCD(filePath, net, True)
         traceCache = {}
+        preferences = {}
+        if mode in ['rail', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
+            for i in range(5):
+                alpha = (4 - i) / 4
+                preferences[str(i)] = alpha * 1 / (1 + options.rpFactor) + (1 - alpha)
+
         for tid, trace in traces:
             trace = tuple(trace)
             numTraces += 1
@@ -267,7 +275,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                                                          vClass=vclass, vias=vias,
                                                          fastest=True,
                                                          reversalPenalty=1000.,
-                                                         resultDetours=detours)
+                                                         resultDetours=detours,
+                                                         preferences=preferences)
                     assert len(detours) == len(trace)
                     for i in range(1, len(trace)):
                         detour = detours[i]
