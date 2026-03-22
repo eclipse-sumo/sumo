@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="t_0" depart="0.00" departEdge="4" arrivalEdge="6">
+        <route edges="0 1 dummy 2 3 4 5 6 7 8"/>
+    </vehicle>
+</routes>

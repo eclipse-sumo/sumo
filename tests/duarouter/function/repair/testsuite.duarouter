@@ -53,3 +53,6 @@ detour
 
 # route around missing connection
 detour_noBackTracking
+
+# test for shifting vehicle attributes if the route length changes
+departEdge_arrivalEdge

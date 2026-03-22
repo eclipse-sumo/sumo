@@ -1,0 +1,14 @@
+# update if repair made the route longer 
+shift_downstream
+
+# update if repair made the route shorter
+shift_upstream
+
+# depart on the next valid edge
+depart_invalid
+
+# arrival on the previous edge
+arrival_invalid
+
+# repair made the route longer but this is beyond depart and arrival edge
+longer_noshift
