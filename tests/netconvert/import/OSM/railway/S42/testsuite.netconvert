@@ -1,0 +1,6 @@
+# see #13431
+default
+S42_all_signals
+
+# Copy of S42_all_signals
+S42_custom_signals
