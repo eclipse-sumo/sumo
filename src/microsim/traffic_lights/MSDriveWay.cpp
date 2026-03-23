@@ -941,7 +941,6 @@ MSDriveWay::buildRoute(const MSLink* origin,
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
     const std::string warnID = origin ? "rail signal " + getClickableTLLinkID(origin) : "insertion lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    gDebugFlag4 = DEBUG_COND_DW2;
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
@@ -1146,7 +1145,7 @@ void
 MSDriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited,
                         bool allFoes, bool movingBlock, std::set<MSLink*, MSLink::ComparatorNumericalLaneIdLess>& flankSwitches) const {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << " checkFlanks lanes=" << toString(lanes) << " allFoes=" << allFoes << "\n";
+    if (gDebugFlag4) std::cout << " checkFlanks lanes=" << toString(lanes) << " allFoes=" << allFoes << "\n";
 #endif
     const MSLink* reverseOriginLink = originLink != nullptr && originLink->getLane()->getBidiLane() != nullptr && originLink->getLaneBefore()->getBidiLane() != nullptr
                                       ? originLink->getLane()->getBidiLane()->getLinkTo(originLink->getLaneBefore()->getBidiLane())
@@ -1173,7 +1172,7 @@ MSDriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane
             }
             if (ili.lane != prev && ili.lane != next) {
 #ifdef DEBUG_CHECK_FLANKS
-                std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << " iLane=" << ili.lane->getID() << " prev=" << Named::getIDSecure(prev) <<  " targetLane=" << lane->getID() << " next=" << Named::getIDSecure(next) << "\n";
+                if (gDebugFlag4) std::cout << " add flankSwitch junction=" << ili.viaLink->getJunction()->getID() << " index=" << ili.viaLink->getIndex() << " iLane=" << ili.lane->getID() << " prev=" << Named::getIDSecure(prev) <<  " targetLane=" << lane->getID() << " next=" << Named::getIDSecure(next) << "\n";
 #endif
                 flankSwitches.insert(ili.viaLink);
             } else if (allFoes) {
@@ -1188,7 +1187,7 @@ MSDriveWay::checkFlanks(const MSLink* originLink, const std::vector<const MSLane
 void
 MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::set<MSLink*, MSLink::ComparatorNumericalLaneIdLess>& flankSwitches) const {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << "  checkCrossingFlanks  dwLink=" << dwLink->getDescription() << " visited=" << formatVisitedMap(visited) << "\n";
+    if (gDebugFlag4) std::cout << "  checkCrossingFlanks  dwLink=" << dwLink->getDescription() << " visited=" << formatVisitedMap(visited) << "\n";
 #endif
     const MSJunction* junction = dwLink->getJunction();
     if (junction == nullptr) {
@@ -1209,7 +1208,7 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
                     if (link->getIndex() >= 0 && logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
                             && visited.count(link->getLane()) == 0) {
 #ifdef DEBUG_CHECK_FLANKS
-                        std::cout << " add crossing flankSwitch junction=" << junction->getID() << " index=" << link->getIndex() << "\n";
+                        if (gDebugFlag4) std::cout << " add crossing flankSwitch junction=" << junction->getID() << " index=" << link->getIndex() << "\n";
 #endif
                         if (link->getViaLane() == nullptr) {
                             flankSwitches.insert(link);
@@ -1226,13 +1225,13 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
 void
 MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<const MSLane*>& flank) {
 #ifdef DEBUG_CHECK_FLANKS
-    std::cout << "  findFlankProtection link=" << link->getDescription() << " origLink=" << origLink->getDescription() << "\n";
+    if (gDebugFlag4) std::cout << "  findFlankProtection link=" << link->getDescription() << " origLink=" << origLink->getDescription() << "\n";
 #endif
     if (link->getCorrespondingEntryLink()->getTLLogic() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         MSLink* entry = const_cast<MSLink*>(link->getCorrespondingEntryLink());
         // guarded by signal
 #ifdef DEBUG_CHECK_FLANKS
-        std::cout << "   flank guarded by " << entry->getTLLogic()->getID() << "\n";
+        if (gDebugFlag4) std::cout << "   flank guarded by " << entry->getTLLogic()->getID() << "\n";
 #endif
         // @note, technically it's enough to collect links from foe driveways
         // but this also adds "unused" conflict links which may aid comprehension
@@ -1249,7 +1248,7 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
         if (predLinks.size() > 1) {
             // this is a switch
 #ifdef DEBUG_ADD_FOES
-            std::cout << "    predecessors of " << link->getDescription() << " isSwitch\n";
+            if (gDebugFlag4) std::cout << "    predecessors of " << link->getDescription() << " isSwitch\n";
 #endif
             for (MSLink* pred : predLinks) {
                 addSwitchFoes(pred);
@@ -1267,12 +1266,12 @@ MSDriveWay::findFlankProtection(MSLink* link, MSLink* origLink, std::vector<cons
             for (MSDriveWay* foe : myDepartureDriveways[&lane->getEdge()]) {
                 if (flankConflict(*foe) || crossingConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  foe " << foe->getID() << " departs on flank=" << lane->getID() << "\n";
+                    if (gDebugFlag4) std::cout << "  foe " << foe->getID() << " departs on flank=" << lane->getID() << "\n";
 #endif
                     myFoes.push_back(foe);
                 } else {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  cand foe " << foe->getID() << " departs on flank=" << lane->getID() << " rejected\n";
+                    if (gDebugFlag4) std::cout << "  cand foe " << foe->getID() << " departs on flank=" << lane->getID() << " rejected\n";
 #endif
                 }
             }
@@ -1286,19 +1285,19 @@ MSDriveWay::addSwitchFoes(MSLink* link) {
     auto it = mySwitchDriveWays.find(link);
     if (it != mySwitchDriveWays.end()) {
 #ifdef DEBUG_ADD_FOES
-        std::cout << "   driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
+        if (gDebugFlag4) std::cout << "   driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
 #endif
         for (MSDriveWay* foe : it->second) {
             if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->myID
+                if (gDebugFlag4) std::cout << "   foe=" << foe->myID
                           << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
                           << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
 #endif
                 myFoes.push_back(foe);
             } else {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   cand=" << foe->myID << "\n";
+                if (gDebugFlag4) std::cout << "   cand=" << foe->myID << "\n";
 #endif
             }
         }
@@ -1343,6 +1342,9 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     if (fromBidi != nullptr) {
         before.push_back(fromBidi);
     }
+#ifdef DEBUG_BUILD_DRIVEWAY
+    gDebugFlag4 = DEBUG_COND_DW(dw);
+#endif
     dw->buildRoute(link, first, end, visited, flankSwitches);
     dw->myCoreSize = (int)dw->myRoute.size();
 
@@ -1490,6 +1492,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     if (DEBUG_COND_DW(dw)) {
         std::cout << dw->myID << " mb=" << movingBlock << " finalFoes " << toString(dw->myFoes) << "\n";
     }
+    gDebugFlag4 = false;
 #endif
     return dw;
 }
@@ -1594,17 +1597,17 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
 void
 MSDriveWay::addFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addFoes for link " << link->getDescription() << "\n";
+    if (gDebugFlag4) std::cout << "driveway " << myID << " addFoes for link " << link->getDescription() << "\n";
 #endif
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
         for (MSDriveWay* foe : rs->retrieveDriveWays(link->getTLIndex())) {
 #ifdef DEBUG_ADD_FOES
-            std::cout << "  cand foe=" << foe->myID << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this) << " cc1=" << crossingConflict(*foe) << " cc2=" <<  foe->crossingConflict(*this) << "\n";
+            if (gDebugFlag4) std::cout << "  cand foe=" << foe->myID << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this) << " cc1=" << crossingConflict(*foe) << " cc2=" <<  foe->crossingConflict(*this) << "\n";
 #endif
             if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->myID << "\n";
+                if (gDebugFlag4) std::cout << "   foe=" << foe->myID << "\n";
 #endif
                 myFoes.push_back(foe);
             }
@@ -1616,7 +1619,7 @@ MSDriveWay::addFoes(const MSLink* link) {
 void
 MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addBidiFoes extended=" << extended << "\n";
+    if (gDebugFlag4) std::cout << "driveway " << myID << " addBidiFoes extended=" << extended << "\n";
 #endif
     const std::vector<const MSLane*>& bidiLanes = extended ? myBidiExtended : myBidi;
     for (const MSLane* bidi : bidiLanes) {
@@ -1632,12 +1635,12 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
             for (MSDriveWay* foe : myDepartureDriveways[bidiEdge]) {
                 if (flankConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << "\n";
+                    if (gDebugFlag4) std::cout << "  foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << "\n";
 #endif
                     myFoes.push_back(foe);
                 } else {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  cand foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << " rejected\n";
+                    if (gDebugFlag4) std::cout << "  cand foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << " rejected\n";
 #endif
                 }
             }
@@ -1646,12 +1649,12 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
             for (MSDriveWay* foe : myDepartureDrivewaysEnds[bidiEdge]) {
                 if (flankConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << "\n";
+                    if (gDebugFlag4) std::cout << "  foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << "\n";
 #endif
                     myFoes.push_back(foe);
                 } else {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  cand foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << " rejected\n";
+                    if (gDebugFlag4) std::cout << "  cand foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << " rejected\n";
 #endif
                 }
             }
@@ -1663,7 +1666,7 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
 void
 MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addParallelFoes\n";
+    if (gDebugFlag4) std::cout << "driveway " << myID << " addParallelFoes\n";
 #endif
     if (link) {
         addFoes(link);
@@ -1672,7 +1675,7 @@ MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
         if (it != myDepartureDriveways.end()) {
             for (MSDriveWay* foe : it->second) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "  foe " << foe->getID() << " departs on first=" << first->getID() << "\n";
+                if (gDebugFlag4) std::cout << "  foe " << foe->getID() << " departs on first=" << first->getID() << "\n";
 #endif
                 myFoes.push_back(foe);
             }
@@ -1684,7 +1687,7 @@ MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
 void
 MSDriveWay::addReversalFoes(bool movingBlock) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addReversalFoes\n";
+    if (gDebugFlag4) std::cout << "driveway " << myID << " addReversalFoes\n";
 #endif
     std::set<const MSEdge*> forward;
     for (const MSLane* lane : myForward) {
@@ -1722,7 +1725,7 @@ MSDriveWay::addReversalFoes(bool movingBlock) {
                         }
                     }
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  reversal cand=" << foe->getID() << " foeForward " << toString(foeForward) << "\n";
+                    if (gDebugFlag4) std::cout << "  reversal cand=" << foe->getID() << " foeForward " << toString(foeForward) << "\n";
 #endif
                     if (foe->forwardRouteConflict(foeForward, *this, true)) {
 #ifdef DEBUG_ADD_FOES
@@ -1732,7 +1735,7 @@ MSDriveWay::addReversalFoes(bool movingBlock) {
                     }
                 } else if (movingBlock && foe == this) {
 #ifdef DEBUG_ADD_FOES
-                    std::cout << "  dw " << getID() << " reverses on forward edge=" << e->getID() << " (movingBlock)\n";
+                    if (gDebugFlag4) std::cout << "  dw " << getID() << " reverses on forward edge=" << e->getID() << " (movingBlock)\n";
 #endif
                     myFoes.push_back(foe);
                 }
@@ -1756,7 +1759,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (myForward.size() < foe->myForward.size() &&
             myForward == std::vector<const MSLane*>(foe->myForward.begin(), foe->myForward.begin() + myForward.size())) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " is subpart of foe=" << foe->getID() << "\n";
+        if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " is subpart of foe=" << foe->getID() << "\n";
 #endif
         foe->myFoes.push_back(this);
         return true;
@@ -1767,7 +1770,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
-        std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
+        if (gDebugFlag4) std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
     }
 #endif
     bool foundConflict = false;
@@ -1783,7 +1786,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
         crossC = tmp.crossingConflict(*foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << crossC << " bc=" << bidiConflict << "\n";
+        if (gDebugFlag4) std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << flankC << " cc=" << crossC << " bc=" << bidiConflict << "\n";
 #endif
         if (flankC || crossC || bidiConflict) {
             foundConflict = true;
@@ -1797,11 +1800,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
                 zipperC = true;
                 foundConflict = false;
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-                std::cout << "     ignored movingBlock zipperConflict\n";
+                if (gDebugFlag4) std::cout << "     ignored movingBlock zipperConflict\n";
 #endif
                 if (!flankC && crossC) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-                    std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+                    if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
 #endif
                     return false;
                 }
@@ -1815,19 +1818,19 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         subLast--;
     }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-    std::cout << "  subLastFina=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
+    if (gDebugFlag4) std::cout << "  subLastFinal=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
 #endif
     if (subLast < 0) {
         if (movingBlock && zipperC) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " movingBlock-save\n";
 #endif
             return false;
         } else if (&myForward.back()->getEdge() == myRoute.back() && foe->forwardEndOnRoute(this)) {
             // driveway ends in the middle of the block and only the final edge overlaps with the foe driveWay
             foe->myFoes.push_back(this);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " foe endsOnForward\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " foe endsOnForward\n";
 #endif
         } else if (foe->myTerminateRoute) {
             if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
@@ -1836,21 +1839,21 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
                 addSidings(foe, true);
             }
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " terminates\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " terminates\n";
 #endif
         } else if (myTerminateRoute && myBidi.size() <= myForward.size()) {
             foe->myFoes.push_back(this);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terminates, foe=" << foe->getID() << "\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terminates, foe=" << foe->getID() << "\n";
 #endif
             return true;
         } else if (foe->myReversals.size() % 2 == 1) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " has " << foe->myReversals.size() << " reversals\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " has " << foe->myReversals.size() << " reversals\n";
 #endif
         } else {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " failed\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " failed\n";
 #endif
 #ifdef SUBDRIVEWAY_WARN_NOCONFLICT
             WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
@@ -1865,7 +1868,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             foe->myFoes.push_back(cand);
             cand->myFoes.push_back(foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " useExisting=" << cand->getID() << "\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " useExisting=" << cand->getID() << "\n";
 #endif
             return true;
         }
@@ -1886,7 +1889,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             route.push_back(foe->myForward.front()->getEdge().getNormalSuccessor());
         }  else {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID() << " empty subRoute\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID() << " empty subRoute\n";
 #endif
             return false;
         }
@@ -1897,7 +1900,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         const MSEdge* nextNormal = myRoute[route.size()];
         if (lastNormal->getBidiEdge() == nextNormal) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID()
+            if (gDebugFlag4) std::cout << SIMTIME << " abort subFoe dw=" << getID() << " foe=" << foe->getID()
                       << " lastNormal=" << lastNormal->getID() << " nextNormal=" << nextNormal->getID() << " endWithReversal\n";
 #endif
             return false;
@@ -1931,7 +1934,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     sub->myFoes.push_back(foe);
     mySubDriveWays.push_back(sub);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-    std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
+    if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
 #endif
     return true;
 }
@@ -1959,7 +1962,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     }
     if (forwardNormals == (int)foe->myRoute.size()) {
 #ifdef DEBUG_BUILD_SIDINGS
-        std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
+        if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
 #endif
         return;
     }
@@ -1981,7 +1984,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     }
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
-    std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+    if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
 #endif
     i--;
     for (; i >= 0; i--) {
@@ -1996,7 +1999,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
             if (itFind != foeSearchEnd) {
 #ifdef DEBUG_BUILD_SIDINGS
-                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << toString(length) << "\n";
+                if (gDebugFlag4) std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << toString(length) << "\n";
 #endif
                 const int firstIndex = i + 1;
                 if (addToFoe) {
