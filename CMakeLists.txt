@@ -900,7 +900,7 @@ set_property(TARGET doxygen PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
 set_property(TARGET doxygen PROPERTY FOLDER "doc")
 
 add_custom_target(userdoc
-    COMMAND ../../tools/build_config/buildPyDoc.py ../pydoc --clean
+    COMMAND ${Python_EXECUTABLE} ../../tools/build_config/buildPyDoc.py ../pydoc --clean
     COMMAND mkdocs build -d ../userdoc
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs/web)
 set_property(TARGET userdoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)

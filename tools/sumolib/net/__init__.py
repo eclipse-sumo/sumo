@@ -37,7 +37,11 @@ from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
 from itertools import chain
-from functools import lru_cache
+try:
+    from functools import lru_cache
+    HAVE_LRU_CACHE = True
+except ImportError:
+    HAVE_LRU_CACHE = False
 
 try:
     import lxml.etree
@@ -702,7 +706,7 @@ class Net:
                     path = [fromEdge]
                     if self.hasInternal and withInternal:
                         viaPath, minInternalCost = self.getInternalPath(
-                                fromEdge.getAllowedOutgoing(vClass).get(path[0], []), fastest=fastest)
+                            fromEdge.getAllowedOutgoing(vClass).get(path[0], []), fastest=fastest)
                         if viaPath is not None:
                             path += viaPath
                             bestCost += minInternalCost
@@ -1129,6 +1133,6 @@ def readNet(filename, **others):
         parse(source, netreader)
     net = netreader.getNet()
     maxcache = others.get('maxcache', 1000)
-    if maxcache is not None and maxcache > 0:
+    if HAVE_LRU_CACHE and maxcache is not None and maxcache > 0:
         net.initRoutingCache(maxcache)
     return net
