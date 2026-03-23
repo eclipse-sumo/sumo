@@ -289,35 +289,21 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
         const double length,
         const MSMeanData* const parent)
     : MSMeanData::MeanDataValues(lane, length, true, parent) {
-    myCurrentData.push_back(new TrackerEntry(parent->createValues(lane, length, false)));
+    myCurrentData.push_back(std::make_shared<TrackerEntry>(parent->createValues(lane, length, false)));
 }
 
 
-MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {
-    std::list<TrackerEntry*>::iterator i;
-    for (i = myCurrentData.begin(); i != myCurrentData.end(); i++) {
-        delete *i;
-    }
-
-    // FIXME: myTrackedData may still hold some undeleted TrackerEntries. When to delete those? (Leo), refers to #2251
-    // code below fails
-
-//	std::map<SUMOTrafficObject*, TrackerEntry*>::iterator j;
-//	for(j=myTrackedData.begin(); j!=myTrackedData.end();j++){
-//		delete j->second;
-//	}
-}
+MSMeanData::MeanDataValueTracker::~MeanDataValueTracker() {}
 
 
 void
 MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
     if (afterWrite) {
-        if (myCurrentData.begin() != myCurrentData.end()) {
-            // delete myCurrentData.front();
+        if (!myCurrentData.empty()) {
             myCurrentData.pop_front();
         }
     } else {
-        myCurrentData.push_back(new TrackerEntry(myParent->createValues(myLane, myLaneLength, false)));
+        myCurrentData.push_back(std::make_shared<TrackerEntry>(myParent->createValues(myLane, myLaneLength, false)));
     }
 }
 
@@ -390,8 +376,8 @@ MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
 int
 MSMeanData::MeanDataValueTracker::getNumReady() const {
     int result = 0;
-    for (std::list<TrackerEntry*>::const_iterator it = myCurrentData.begin(); it != myCurrentData.end(); ++it) {
-        if ((*it)->myNumVehicleEntered == (*it)->myNumVehicleLeft) {
+    for (const auto& it : myCurrentData) {
+        if (it->myNumVehicleEntered == it->myNumVehicleLeft) {
             result++;
         } else {
             break;

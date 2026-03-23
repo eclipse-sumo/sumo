@@ -295,10 +295,10 @@ public:
         };
 
         /// @brief The map of vehicles to data entries
-        std::map<const SUMOTrafficObject*, TrackerEntry*> myTrackedData;
+        std::map<const SUMOTrafficObject*, std::shared_ptr<TrackerEntry> > myTrackedData;
 
         /// @brief The currently active meandata "intervals"
-        std::list<TrackerEntry*> myCurrentData;
+        std::list<std::shared_ptr<TrackerEntry> > myCurrentData;
 
     };
 

@@ -386,7 +386,7 @@ MSDevice_ToC::~MSDevice_ToC() {
     }
     if (myExecuteMRMCommand != nullptr) {
         myExecuteMRMCommand->deschedule();
-        resetDeliberateLCs();
+        // skip resetDeliberateLCs(): vehicle is being destroyed
     }
     if (myPrepareToCCommand != nullptr) {
         myPrepareToCCommand->deschedule();
