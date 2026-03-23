@@ -355,6 +355,12 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
     }
 }
 
+
+double
+GUITrafficLightLogicWrapper::getClickPriority() const {
+    return GLO_VEHICLE - 1;
+}
+
 MSTrafficLightLogic*
 GUITrafficLightLogicWrapper::getActiveTLLogic() const {
     return myTLLogicControl.getActive(myTLLogic.getID());
