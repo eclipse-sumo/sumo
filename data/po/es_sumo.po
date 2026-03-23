@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-18 08:51+0000\n"
+"PO-Revision-Date: 2026-03-23 12:13+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7456,10 +7456,12 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:440
 msgid "Build junction shapes based on edge endpoints (ignoring edge overlap)"
 msgstr ""
+"Construir las formas de los cruces a partir de los extremos de las aristas "
+"(ignora la superposición de aristas)"
 
 #: src/netbuild/NBFrame.cpp:444
 msgid "Assumed vehicle width for computing internal junction positions"
-msgstr ""
+msgstr "Ancho de vehículo asumido para calcular posiciones internas en el cruce"
 
 #: src/netbuild/NBFrame.cpp:447
 msgid "Forces rectangular cuts between lanes and intersections"
