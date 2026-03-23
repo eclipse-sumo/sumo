@@ -1445,7 +1445,8 @@ StringBijection<SumoXMLEdgeFunc>::Entry SUMOXMLDefinitions::sumoEdgeFuncValues[]
 StringBijection<LaneSpreadFunction>::Entry SUMOXMLDefinitions::laneSpreadFunctionValues[] = {
     {"right",      LaneSpreadFunction::RIGHT }, // default: geometry is left edge border, lanes flare to the right
     {"roadCenter", LaneSpreadFunction::ROADCENTER }, // geometry is center of the bidirectional road
-    {"center",     LaneSpreadFunction::CENTER } // geometry is center of the edge (must be the last one)
+    {"center",     LaneSpreadFunction::CENTER }, // geometry is center of the edge (must be the last one)
+    {"unknown",    LaneSpreadFunction::SPREAD_UNKNOWN } // geometry is not defined in typemap (must be the last one)
 };
 
 StringBijection<ParkingType>::Entry SUMOXMLDefinitions::parkingTypeValues[] = {
@@ -1842,7 +1843,7 @@ StringBijection<SumoXMLEdgeFunc> SUMOXMLDefinitions::EdgeFunctions(
     SUMOXMLDefinitions::sumoEdgeFuncValues, SumoXMLEdgeFunc::INTERNAL);
 
 StringBijection<LaneSpreadFunction> SUMOXMLDefinitions::LaneSpreadFunctions(
-    SUMOXMLDefinitions::laneSpreadFunctionValues, LaneSpreadFunction::CENTER);
+    SUMOXMLDefinitions::laneSpreadFunctionValues, LaneSpreadFunction::SPREAD_UNKNOWN);
 
 StringBijection<ParkingType> SUMOXMLDefinitions::ParkingTypes(
     SUMOXMLDefinitions::parkingTypeValues, ParkingType::OPPORTUNISTIC);

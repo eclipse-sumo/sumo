@@ -78,7 +78,10 @@ NGEdge::buildNBEdge(NBNetBuilder& nb, std::string type, const bool reversed) con
 
     SVCPermissions permissions = nb.getTypeCont().getEdgeTypePermissions(type);
     LaneSpreadFunction lsf = nb.getTypeCont().getEdgeTypeSpreadType(type);
-    if (isRailway(permissions) &&  nb.getTypeCont().getEdgeTypeIsOneWay(type)) {
+    if (lsf == LaneSpreadFunction::SPREAD_UNKNOWN) {
+        lsf = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
+    }
+    if (isRailway(permissions) && nb.getTypeCont().getEdgeTypeIsOneWay(type)) {
         lsf = LaneSpreadFunction::CENTER;
     }
     const double maxSegmentLength = oc.getFloat("geometry.max-segment-length");

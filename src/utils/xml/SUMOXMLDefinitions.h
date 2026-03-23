@@ -1954,7 +1954,8 @@ enum class SumoXMLEdgeFunc {
 enum class LaneSpreadFunction {
     RIGHT = 0,
     ROADCENTER = 1,
-    CENTER = 2
+    CENTER = 2,
+    SPREAD_UNKNOWN = 3
 };
 
 /**

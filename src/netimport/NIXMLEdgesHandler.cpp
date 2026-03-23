@@ -206,6 +206,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
         myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
         myLanesSpread = myTypeCont.getEdgeTypeSpreadType(myCurrentType);
+        if (myLanesSpread == LaneSpreadFunction::SPREAD_UNKNOWN) {
+            myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
+        }
         mySidewalkWidth = myTypeCont.getEdgeTypeSidewalkWidth(myCurrentType);
         myBikeLaneWidth = myTypeCont.getEdgeTypeBikeLaneWidth(myCurrentType);
     }

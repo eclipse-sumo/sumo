@@ -816,7 +816,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (addForward && addBackward && lsf == LaneSpreadFunction::RIGHT && explicitOneWay) {
             lsf = LaneSpreadFunction::ROADCENTER;
         }
-        if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::RIGHT) {
+        if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::SPREAD_UNKNOWN) {
             // user defined value overrides defaults
             lsf = tc.getEdgeTypeSpreadType(type);
         }
