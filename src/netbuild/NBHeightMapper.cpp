@@ -94,7 +94,7 @@ NBHeightMapper::getZ(const Position& geo) const {
         double result = -1e6;
 
         double x = geo.x();
-        double y = geo.y(); 
+        double y = geo.y();
 
 #ifdef HAVE_GDAL
         // Transform geo coordinates to the coordinate system of this
@@ -352,7 +352,12 @@ NBHeightMapper::loadTiff(const std::string& file) {
     }
 
     // Make a copy, GDALClose will destroy the original
+#if GDAL_VERSION_MAJOR < 3
+    OGRSpatialReference spatialRef;
+    spatialRef.importFromWkt(poDataset->GetProjectionRef());
+#else
     OGRSpatialReference spatialRef(*poDataset->GetSpatialRef());
+#endif
 
     GDALClose(poDataset);
 
