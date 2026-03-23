@@ -1,0 +1,4 @@
+# this is only needed on windows, on Linux `apt install python3-gdal` is the way to go
+# be careful when updating because v2026.2.26 does not provide python 3.11 wheels anymore
+--find-links https://github.com/cgohlke/geospatial-wheels/releases/expanded_assets/v2025.10.25
+gdal
