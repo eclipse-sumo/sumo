@@ -1567,8 +1567,8 @@ MSLCM_LC2013::_wantsChange(
     // - high occupancy on the neighboring lane while in a roundabout
 
     double inconvenience = laneOffset < 0
-                           ? mySpeedGainProbabilityLeft / myChangeProbThresholdRight
-                           : mySpeedGainProbabilityRight / myChangeProbThresholdLeft;
+                           ? (double)mySpeedGainProbabilityLeft / (double)myChangeProbThresholdRight
+                           : (double)mySpeedGainProbabilityRight / (double)myChangeProbThresholdLeft;
 
     const double relSpeedDiff = thisLaneVSafe == 0 ? 0 : (thisLaneVSafe - neighLaneVSafe) / MAX2(thisLaneVSafe, neighLaneVSafe);
     inconvenience = MAX2(relSpeedDiff, inconvenience);
