@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-23 12:13+0000\n"
+"PO-Revision-Date: 2026-03-23 13:44+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7362,7 +7362,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:376
 msgid "Abbreviate junction or TLS id if it joins more than INT junctions"
-msgstr ""
+msgstr "Abreviar el ID del cruce o semáforo si combinan más de INT cruces"
 
 #: src/netbuild/NBFrame.cpp:380
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -7452,6 +7452,7 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:436
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
 msgstr ""
+"Construir los cruces con formas básicas (ignora la superposición de aristas)"
 
 #: src/netbuild/NBFrame.cpp:440
 msgid "Build junction shapes based on edge endpoints (ignoring edge overlap)"
