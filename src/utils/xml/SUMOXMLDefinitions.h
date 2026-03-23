@@ -844,33 +844,34 @@ enum SumoXMLAttr {
     SUMO_ATTR_STAGE              = 64,
 
     // only usable with SumoXMLAttrMask
-    SUMO_ATTR_ARRIVALDELAY       = 65,
+    SUMO_ATTR_DELAY              = 65,
+    SUMO_ATTR_ARRIVALDELAY       = 66,
 
     // emission-output
-    SUMO_ATTR_CO                 = 66,
-    SUMO_ATTR_CO2                = 67,
-    SUMO_ATTR_HC                 = 68,
-    SUMO_ATTR_PMX                = 69,
-    SUMO_ATTR_NOX                = 70,
-    SUMO_ATTR_FUEL               = 71,
-    SUMO_ATTR_ELECTRICITY        = 72,
-    SUMO_ATTR_ROUTE              = 73,
-    SUMO_ATTR_ECLASS             = 74,
-    SUMO_ATTR_WAITING            = 75,
+    SUMO_ATTR_CO                 = 67,
+    SUMO_ATTR_CO2                = 68,
+    SUMO_ATTR_HC                 = 69,
+    SUMO_ATTR_PMX                = 70,
+    SUMO_ATTR_NOX                = 71,
+    SUMO_ATTR_FUEL               = 72,
+    SUMO_ATTR_ELECTRICITY        = 73,
+    SUMO_ATTR_ROUTE              = 74,
+    SUMO_ATTR_ECLASS             = 75,
+    SUMO_ATTR_WAITING            = 76,
 
     // meso-attributes
-    SUMO_ATTR_SEGMENT            = 76,
-    SUMO_ATTR_QUEUE              = 77,
-    SUMO_ATTR_ENTRYTIME          = 78,
-    SUMO_ATTR_EVENTTIME          = 79,
-    SUMO_ATTR_BLOCKTIME          = 80,
+    SUMO_ATTR_SEGMENT            = 77,
+    SUMO_ATTR_QUEUE              = 78,
+    SUMO_ATTR_ENTRYTIME          = 79,
+    SUMO_ATTR_EVENTTIME          = 80,
+    SUMO_ATTR_BLOCKTIME          = 81,
 
     // write the tag name
-    SUMO_ATTR_TAG                = 81,
-    SUMO_ATTR_OVERLAPDENSITY     = 82,
-    SUMO_ATTR_FLOW               = 83,
-    SUMO_ATTR_PERSON_NUMBER      = 84,
-    SUMO_ATTR_CONTAINER_NUMBER   = 85,
+    SUMO_ATTR_TAG                = 82,
+    SUMO_ATTR_OVERLAPDENSITY     = 83,
+    SUMO_ATTR_FLOW               = 84,
+    SUMO_ATTR_PERSON_NUMBER      = 85,
+    SUMO_ATTR_CONTAINER_NUMBER   = 86,
 
     /// @}
 

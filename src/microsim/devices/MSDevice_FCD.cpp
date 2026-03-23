@@ -208,6 +208,7 @@ MSDevice_FCD::initOnce() {
     misc.set(SUMO_ATTR_LEADER_ID);
     misc.set(SUMO_ATTR_LEADER_SPEED);
     misc.set(SUMO_ATTR_ARRIVALDELAY);
+    misc.set(SUMO_ATTR_DELAY);
     misc.set(SUMO_ATTR_SEGMENT);
     misc.set(SUMO_ATTR_QUEUE);
     misc.set(SUMO_ATTR_ENTRYTIME);

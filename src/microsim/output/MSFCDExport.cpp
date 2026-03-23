@@ -187,6 +187,14 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     }
                     return arrivalDelay;
                 }, mask);
+                of.writeFuncAttr(SUMO_ATTR_DELAY, [ = ]() {
+                    const double delay = static_cast<const MSBaseVehicle*>(veh)->getStopDelay();
+                    if (delay < 0) {
+                        // no upcoming stop also means that there is no delay
+                        return 0.;
+                    }
+                    return delay;
+                }, mask);
                 if (MSGlobals::gUseMesoSim) {
                     const MEVehicle* mesoVeh = static_cast<const MEVehicle*>(veh);
                     of.writeFuncAttr(SUMO_ATTR_SEGMENT, [ = ]() {
