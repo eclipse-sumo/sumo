@@ -102,22 +102,37 @@ def reprojectTiles(options, tile_list, zoom, net, decals):
     vrt_path = '/vsimem/%s.vrt' % options.prefix
     gdal.BuildVRT(vrt_path, vsimem_paths)
 
+    warp_args = {'format': 'MEM', 'dstSRS': net._location["projParameter"], 'resampleAlg': gdal.GRA_Bilinear}
+    # Warp to MEM to get the full geotransform reliably (JPEG has no native georef support)
+    mem_ds = gdal.Warp('', vrt_path, options=gdal.WarpOptions(**warp_args))
     out_path = os.path.join(options.output_dir, options.prefix + ".jpg")
-    out_ds = gdal.Warp(out_path, vrt_path,
-                       options=gdal.WarpOptions(dstSRS=net._location["projParameter"],
-                                                resampleAlg=gdal.GRA_Bilinear,
-                                                format="JPEG"))
-    if out_ds is None:
-        print("Error: reprojection with gdal.Warp failed.", file=sys.stderr)
+    if mem_ds is None:
+        print("Error: reprojection failed.", file=sys.stderr)
+        return
+    gt = mem_ds.GetGeoTransform()
+    w, h = gt[1] * mem_ds.RasterXSize, -gt[5] * mem_ds.RasterYSize
+    if options.crop_margin:
+        m = list(map(float, options.crop_margin.split(",")))
+        if len(m) == 1:
+            m = 4 * m
+        warp_args['outputBounds'] = (gt[0] + m[0], gt[3] - h + m[1], gt[0] + w - m[2], gt[3] - m[3])
+        mem_ds = gdal.Warp('', vrt_path, options=gdal.WarpOptions(**warp_args))
+        gt = mem_ds.GetGeoTransform()
+        w, h = gt[1] * mem_ds.RasterXSize, -gt[5] * mem_ds.RasterYSize
+    if mem_ds is None or gdal.Translate(out_path, mem_ds, format='JPEG') is None:
+        print("Error: reprojection failed.", file=sys.stderr)
     else:
-        gt = out_ds.GetGeoTransform()
-        img_width = gt[1] * out_ds.RasterXSize
-        img_height = -gt[5] * out_ds.RasterYSize
-        center_x = gt[0] + img_width / 2 + net.getLocationOffset()[0]
-        center_y = gt[3] - img_height / 2 + net.getLocationOffset()[1]
+        mem_ds = None
+        if options.background_factor != 1.0:
+            from PIL import Image, ImageEnhance
+            img = Image.open(out_path)
+            for Enhancer in (ImageEnhance.Color, ImageEnhance.Brightness, ImageEnhance.Contrast):
+                img = Enhancer(img).enhance(options.background_factor)
+            img.save(out_path)
+        center_x = gt[0] + w / 2 + net.getLocationOffset()[0]
+        center_y = gt[3] - h / 2 + net.getLocationOffset()[1]
         print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-              (os.path.basename(out_path), center_x, center_y,
-               img_width, img_height, options.layer), file=decals)
+              (os.path.basename(out_path), center_x, center_y, w, h, options.layer), file=decals)
 
     for vpath in vsimem_paths:
         gdal.Unlink(vpath)
@@ -245,9 +260,13 @@ def get_options(args=None):
     optParser.add_option("-r", "--retina", action="store_true", default=False,
                          help="set 'true' for double resolution tiles (applies to cartodb only).")
     optParser.add_option("--reproject", action="store_true", default=False,
-                         help="reproject tiles from EPSG:3857 (Web Mercator) to the network projection "
-                              "using gdal, fixing grid-convergence gaps between tiles (requires osgeo.gdal "
-                              "and a net file). Output is a single GeoTIFF instead of per-tile PNGs.")
+                         help="reproject tiles from EPSG:3857 (Web Mercator) to the network projection")
+    optParser.add_option("--crop-margin",
+                         help="when using --reproject, shrink the output image by this many meters on each side "
+                              "(either one value or west,south,east,north)")
+    optParser.add_option("--background-factor", type=float, default=1.0,
+                         help="reduce saturation, brightness and contrast of the reprojected image by "
+                              "this factor (requires Pillow); 1.0 is unchanged, 0.8 looks fine.")
 
     URL_SHORTCUTS = {
         "arcgis": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
