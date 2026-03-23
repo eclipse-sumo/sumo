@@ -170,8 +170,43 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         }
     }
     // add built route
-    routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
+    RORoute* replaced = routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
+    if (replaced != nullptr) {
+        if (getParameter().departEdge > 0) {
+            updateIndex(replaced, current, getParameterMutable().departEdge);
+        }
+        if (getParameter().arrivalEdge >= 0) {
+            updateIndex(replaced, current, getParameterMutable().arrivalEdge);
+        }
+        delete replaced;
+    }
     myRoutingSuccess = true;
+}
+
+
+void
+ROVehicle::updateIndex(const RORoute* replaced, const RORoute* current, int& attr) {
+    const ConstROEdgeVector& oldRoute = replaced->getEdgeVector();
+    if ((int)oldRoute.size() > attr) {
+        const ROEdge* old = oldRoute[attr];
+        int skips = 0;
+        for (int i = 0; i < attr; i++) {
+            if (oldRoute[i] == old) {
+                skips++;
+            }
+        }
+        int i = 0;
+        for (const ROEdge* cand : current->getEdgeVector()) {
+            if (cand == old) {
+                if (skips > 0) {
+                    skips--;
+                } else {
+                    attr = i;
+                }
+            }
+            i++;
+        }
+    }
 }
 
 

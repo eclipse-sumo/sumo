@@ -295,6 +295,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     newEdges.push_back(*i);
                     //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
                 } else {
+                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
+                        std::cout << " beforeRepair newEdges=" << toString(newEdges) << " last=" << last->getID() << "\n";
+                    }
 
                     int numEdgesBefore = (int)newEdges.size();
                     //                router.setHint(targets.begin(), i, &veh, begin);
@@ -340,7 +343,9 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                             WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                         }
                     }
-                    const_cast<ROVehicle&>(veh).routeStretched(numEdgesBefore, (int)newEdges.size() - numEdgesBefore - 2);
+                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
+                        std::cout << " at=" << numEdgesBefore << " before=" << numEdgesBefore << " after=" << newEdges.size() << " new=" << toString(newEdges) << "\n";
+                    }
                 }
             }
             if (*i == nextMandatory->edge) {
@@ -384,16 +389,18 @@ RORouteDef::backTrack(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
 }
 
 
-void
+RORoute*
 RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                            const ROVehicle* const veh, RORoute* current, SUMOTime begin,
                            MsgHandler* errorHandler) {
+    RORoute* replaced = nullptr;
     if (myTryRepair || myUsingJTRR) {
         if (myNewRoute) {
-            delete myAlternatives[0];
+            replaced = myAlternatives[0];
             myAlternatives[0] = current;
         }
         if (!router.isValid(current->getEdgeVector(), veh, STEPS2TIME(begin))) {
+            delete replaced;
             throw ProcessError("Route '" + getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
         }
         double costs = router.recomputeCosts(current->getEdgeVector(), veh, begin);
@@ -403,7 +410,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             costs += STEPS2TIME(veh->getJumpTime());
         }
         current->setCosts(costs);
-        return;
+        return replaced;
     }
     // add the route when it's new
     if (myAlternatives.back()->getProbability() < 0 || !myAlternatives.back()->isPermitted(veh, errorHandler)) {
@@ -493,11 +500,12 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         for (const RORoute* const alt : myAlternatives) {
             chosen -= alt->getProbability();
             if (chosen <= 0) {
-                return;
+                return nullptr;
             }
             myLastUsed++;
         }
     }
+    return nullptr;
 }
 
 const ROEdge*

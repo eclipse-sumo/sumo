@@ -92,9 +92,10 @@ public:
                             bool isTrip = false) const;
 
     /** @brief Adds an alternative to the list of routes
+     * and returns the route that was replaced or nullptr
     *
      * (This may be the new route) */
-    void addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+    RORoute* addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         const ROVehicle* const, RORoute* current, SUMOTime begin,
                         MsgHandler* errorHandler);
 

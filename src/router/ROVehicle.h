@@ -36,6 +36,7 @@
 // ===========================================================================
 class OutputDevice;
 class ROEdge;
+class RORoute;
 class RONet;
 class RORouteDef;
 
@@ -149,6 +150,9 @@ private:
      */
     void addStop(const SUMOVehicleParameter::Stop& stopPar,
                  const RONet* net, MsgHandler* errorHandler);
+
+    /// @brief update departEdge / arrivalEdge
+    void updateIndex(const RORoute* replaced, const RORoute* current, int& attr);
 
 private:
     /// @brief The route the vehicle takes

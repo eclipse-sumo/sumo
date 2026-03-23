@@ -76,6 +76,9 @@ public:
         return myParameter;
     }
 
+    inline SUMOVehicleParameter& getParameterMutable() {
+        return myParameter;
+    }
 
     /** @brief Returns the type of the routable
      *
@@ -179,17 +182,6 @@ public:
 
     inline bool getRoutingSuccess() const {
         return myRoutingSuccess;
-    }
-
-
-    /// @brief modify paramters if the route was extended
-    void routeStretched(int at, int by) {
-        if (myParameter.departEdge > at) {
-            myParameter.departEdge += by;
-        }
-        if (myParameter.arrivalEdge > at) {
-            myParameter.arrivalEdge += by;
-        }
     }
 
 
