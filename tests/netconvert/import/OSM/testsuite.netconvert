@@ -98,6 +98,9 @@ vehicle_lanes2
 # change default to roadCenter
 spreadType
 
+# change default to roadCenter (but edges should have 'center'). see #17755
+spreadType2
+
 # additional bike access
 bike_access
 
