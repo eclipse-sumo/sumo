@@ -1069,7 +1069,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 //    std::cout << "   obs=" << p.getPerson()->getID() << "  y=" << p.getPosLat() << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
                 //}
                 Obstacle o(p);
-                if (p.getDirection() != dir && p.getSpeed(*p.getStage()) == 0.) {
+                if (p.getDirection() != dir && p.getSpeed() == 0.) {
                     // ensure recognition of oncoming
                     o.speed = (p.getDirection() == FORWARD ? 0.1 : -0.1);
                 }
@@ -1480,7 +1480,7 @@ MSPModel_Striping::Obstacle::Obstacle(int dir, double dist) :
 MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
     xFwd(ped.getMaxX()),
     xBack(ped.getMinX()),
-    speed(ped.getDirection() * ped.getSpeed(*ped.getStage())),
+    speed(ped.getDirection() * ped.getSpeed()),
     type(ped.getOType()),
     description(ped.getID()) {
     assert(!ped.isWaitingToEnter());

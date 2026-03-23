@@ -158,6 +158,11 @@ public:
         return myTotalWaitingTime;
     }
 
+    /// @brief return the current speed of the transportable, we need to be able to do this for vehicles as well, so we cannot refer to the stage
+    inline double getSpeed() const {
+        return mySpeed;
+    }
+
     /// @brief return the current speed of the transportable
     inline double getSpeed(const MSStageMoving& /* stage */) const {
         return mySpeed;
