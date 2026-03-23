@@ -1729,7 +1729,7 @@ MSDriveWay::addReversalFoes(bool movingBlock) {
 #endif
                     if (foe->forwardRouteConflict(foeForward, *this, true)) {
 #ifdef DEBUG_ADD_FOES
-                        std::cout << "  foe " << foe->getID() << " reverses on edge=" << e->getID() << "\n";
+                        if (gDebugFlag4) std::cout << "  foe " << foe->getID() << " reverses on edge=" << e->getID() << "\n";
 #endif
                         myFoes.push_back(foe);
                     }
