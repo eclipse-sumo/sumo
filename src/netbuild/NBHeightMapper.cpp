@@ -358,29 +358,17 @@ NBHeightMapper::loadTiff(const std::string& file) {
 #else
     OGRSpatialReference spatialRef(*poDataset->GetSpatialRef());
 #endif
-
     GDALClose(poDataset);
-
     if (ok) {
         WRITE_MESSAGE("Read geotiff heightmap with size " + toString(xSize) + "," + toString(ySize)
                       + " for geo boundary [" + toString(boundary)
                       + "] with elevation range [" + toString(min) + "," + toString(max) + "].");
-
         OGRSpatialReference wgs;
         wgs.SetWellKnownGeogCS("WGS84");
-
-        myRasters.push_back(RasterData{
-            raster,
-            boundary,
-            xSize,
-            ySize,
-            OGRCreateCoordinateTransformation(&wgs, &spatialRef)
-        });
-
+        myRasters.push_back(RasterData{raster, boundary, xSize, ySize, OGRCreateCoordinateTransformation(&wgs, &spatialRef)});
         return picSize;
-    } else {
-        return 0;
     }
+    return 0;
 #else
     UNUSED_PARAMETER(file);
     WRITE_ERROR(TL("Cannot load GeoTIFF file since SUMO was compiled without GDAL support."));
