@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-23 13:44+0000\n"
+"PO-Revision-Date: 2026-03-23 14:00+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3050,6 +3050,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:872
 msgid "Raw netstate dumps are deprecated. Use fcd-output instead."
 msgstr ""
+"Los volcados sin procesar de netstate están obsoletos. Use fcd-output en su "
+"lugar."
 
 #: src/microsim/MSFrame.cpp:920
 msgid "No network file (-n) specified."
@@ -7324,15 +7326,19 @@ msgid ""
 "Merges edges which connect the same nodes and are close to each other "
 "(recommended for VISSIM import)"
 msgstr ""
+"Combinar aristas que conecten a los mismos nodos y estén cerca entre sí "
+"(recomendado para la importación de VISSIM)"
 
 #: src/netbuild/NBFrame.cpp:347
 msgid ""
 "Joins junctions that are close to each other (recommended for OSM import)"
 msgstr ""
+"Combinar cruces que estén cerca entre sí (recomendado para la importación de "
+"OSM)"
 
 #: src/netbuild/NBFrame.cpp:351
 msgid "Determines the maximal distance for joining junctions (defaults to 10)"
-msgstr ""
+msgstr "Determina la distancia máxima para combinar cruces (por defecto: 10)"
 
 #: src/netbuild/NBFrame.cpp:355
 msgid ""
@@ -7348,11 +7354,11 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:364
 msgid "Joins junctions that have similar coordinates even if not connected"
-msgstr ""
+msgstr "Combinar cruces con coordenadas similares (aunque no estén conectados)"
 
 #: src/netbuild/NBFrame.cpp:367
 msgid "Reset connections for joined junctions"
-msgstr ""
+msgstr "Restablecer conexiones en los cruces combinados"
 
 #: src/netbuild/NBFrame.cpp:372
 msgid ""
