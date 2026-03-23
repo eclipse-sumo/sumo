@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-21 16:15+0000\n"
+"PO-Revision-Date: 2026-03-23 19:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7519,28 +7519,37 @@ msgid ""
 "edges. The value is subtracted from the geometric angle before computing the "
 "turning radius."
 msgstr ""
+"Abbiegegeschwindigkeit für Abbiegewinkel unter FLOAT (Grad) auf "
+"Eisenbahnkanten nicht begrenzen. Der Wert wird vom geometrischen Winkel vor "
+"der Berechnung des Abbiegeradius abgezogen."
 
 #: src/netbuild/NBFrame.cpp:420
 msgid ""
 "Warn about turn speed limits that reduce the speed of straight connections "
 "by more than FLOAT"
 msgstr ""
+"Vor Geschwindigkeitsbegrenzungen auf geraden Verbindungen mit einer "
+"Differenz von mehr als FLOAT gegenüber benachbarten Kanten warnen"
 
 #: src/netbuild/NBFrame.cpp:424
 msgid ""
 "Warn about turn speed limits that reduce the speed of turning connections "
 "(no u-turns) by more than FLOAT"
 msgstr ""
+"Vor Geschwindigkeitsbegrenzungen auf Abbiegerverbindungen (ohne Kehrtwenden) "
+"mit einer Differenz von mehr als FLOAT gegenüber benachbarten Kanten warnen"
 
 #: src/netbuild/NBFrame.cpp:428
 msgid "Default radius for junctions that do not require wide vehicle turns"
-msgstr ""
+msgstr "Standardradius für Knotenpunkte ohne Bedarf an großen Abbiegeradien"
 
 #: src/netbuild/NBFrame.cpp:432
 msgid ""
 "Use maximum value of incoming and outgoing edge speed on junction instead of "
 "average"
 msgstr ""
+"Maximum der erlaubten Geschwindigkeit der eingehenden und der ausgehenden "
+"Kante anstatt des Mittelwerts nutzen"
 
 #: src/netbuild/NBFrame.cpp:436
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
