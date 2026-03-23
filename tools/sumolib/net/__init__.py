@@ -701,8 +701,8 @@ class Net:
                 if bestPath is not None:
                     path = [fromEdge]
                     if self.hasInternal and withInternal:
-                        viaPath, minInternalCost = self.getInternalPath(fromEdge.getAllowedOutgoing(vClass).get(path[0], []),
-                                                                        fastest=fastest)
+                        viaPath, minInternalCost = self.getInternalPath(
+                                fromEdge.getAllowedOutgoing(vClass).get(path[0], []), fastest=fastest)
                         if viaPath is not None:
                             path += viaPath
                             bestCost += minInternalCost
@@ -775,7 +775,8 @@ class Net:
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
         The preferences declare a mapping from the 'routingType' of each edge to divisor
-        that is applied to the lenght of that edge (i.e. a preference of 2 reduces reduces effective length by a factor of 0.5).
+        that is applied to the lenght of that edge
+        (i.e. a preference of 2 reduces reduces effective length by a factor of 0.5).
         """
 
         return self.getOptimalPath(fromEdge, toEdge, False, maxCost, vClass, reversalPenalty,
@@ -794,7 +795,8 @@ class Net:
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
         The preferences declare a mapping from the 'routingType' of each edge to divisor
-        that is applied to the computed traveltime of that edge (i.e. a preference of 2 reduces effective traveltime by a factor of 0.5).
+        that is applied to the computed traveltime of that edge
+        (i.e. a preference of 2 reduces effective traveltime by a factor of 0.5).
         """
 
         return self.getOptimalPath(fromEdge, toEdge, True, maxCost, vClass, reversalPenalty,

@@ -33,6 +33,7 @@ def ppResult(description, pathCost):
     path, cost = pathCost
     print(description, [e.getID() for e in path], "%2f" % cost)
 
+
 net = sumolib.net.readNet(sys.argv[1])
 source = net.getEdge("beg")
 dest = net.getEdge("rend")
