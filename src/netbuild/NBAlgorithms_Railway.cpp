@@ -1221,6 +1221,8 @@ NBRailwayTopologyAnalyzer::setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, S
         if (isRailway(p) && (p & vClasses) != 0) {
             if (edge->getRoutingType() == "") {
                 edge->setPriority(-1);
+            } else if (StringUtils::isInt(edge->getRoutingType())) {
+                edge->setPriority(StringUtils::toInt(edge->getRoutingType()));
             }
         }
     }
