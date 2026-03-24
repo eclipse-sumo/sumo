@@ -87,8 +87,8 @@ def get_options(args=None):
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
                     help="directory to write generated networks to")
-    ap.add_argument("--network-split-vclass", action="store_true", default=False, category="processing",
-                    help="use the allowed vclass instead of the edge type to split the network")
+    ap.add_argument("--network-split-vclass", action="store_true", default=True, category="processing",
+                    help="use the allowed vclass instead of the edge type to split the network (always active, option kept for backward compatibility")  # noqa
     ap.add_argument("--warn-unmapped", action="store_true", default=False, category="processing",
                     help="warn about unmapped routes")
     ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar", category="input",
@@ -175,19 +175,8 @@ def splitNet(options):
         mode = os.path.basename(inp)[:-8]
         if not options.modes or mode in options.modes.split(","):
             netPrefix = os.path.join(options.network_split, mode)
-            if options.network_split_vclass:
-                vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
-                edgeFilter = ["--keep-edges.by-vclass", vclass] if vclass else None
-            else:
-                edgeFilter = ["--keep-edges.by-type", mode] if mode in seenTypes else None
-                if "rail" in mode or mode == "subway":
-                    if "railway." + mode in seenTypes:
-                        edgeFilter = ["--keep-edges.by-type", "railway." + mode]
-                elif mode == "train":
-                    if "railway.rail" in seenTypes or "railway.light_rail" in seenTypes:
-                        edgeFilter = ["--keep-edges.by-type", "railway.rail,railway.light_rail"]
-                elif mode in ("tram", "bus"):
-                    edgeFilter = ["--keep-edges.by-vclass", mode]
+            vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
+            edgeFilter = ["--keep-edges.by-vclass", vclass] if vclass else None
             if edgeFilter:
                 if (os.path.exists(netPrefix + ".net.xml") and
                         os.path.getmtime(netPrefix + ".net.xml") > os.path.getmtime(numIdNet)):
