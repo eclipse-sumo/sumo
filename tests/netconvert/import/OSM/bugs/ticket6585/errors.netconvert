@@ -3,3 +3,5 @@ Warning: Ignoring restriction relation '4136388' with unknown from-way.
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '5107768728' (Seniorenzentrum Riehl). Thus, it will be removed!
 Warning: The traffic light '2644504709' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '2644504709'
+Warning: Speed of straight connection '686711713_0->686711712_0' reduced by 5.51 due to turning radius of 28.61 (length=27.93, angle=72.53).
+Warning: Speed of straight connection '686711713_1->686711712_1' reduced by 6.41 due to turning radius of 24.64 (length=23.94, angle=72.53).
