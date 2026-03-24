@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-23 19:53+0000\n"
+"PO-Revision-Date: 2026-03-24 19:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7554,14 +7554,18 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:436
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
 msgstr ""
+"Knotenpunkte mit minimalen Shapes erstellen (überlappende Kanten ignorieren)"
 
 #: src/netbuild/NBFrame.cpp:440
 msgid "Build junction shapes based on edge endpoints (ignoring edge overlap)"
 msgstr ""
+"Knotenpunkt-Shapes anhand der Kantenendpunkte erstellen (überlappende Kanten "
+"ignorieren)"
 
 #: src/netbuild/NBFrame.cpp:444
 msgid "Assumed vehicle width for computing internal junction positions"
 msgstr ""
+"Angenommene Fahrzeugbreite zur Berechnung von Haltepositionen im Knotenpunkt"
 
 #: src/netbuild/NBFrame.cpp:447
 msgid "Forces rectangular cuts between lanes and intersections"
@@ -7582,28 +7586,35 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:459
 msgid "Guess pedestrian sidewalks based on edge speed"
 msgstr ""
+"Begleitende Fußwege anhand der Geschwindigkeitsbegrenzung von Kanten raten"
 
 #: src/netbuild/NBFrame.cpp:463
 msgid "Add sidewalks for edges with a speed equal or below the given limit"
 msgstr ""
+"Fußwege an Kanten mit einer Geschwindigkeitsbegrenzung bis zu dem gegebenen "
+"Wert hinzufügen"
 
 #: src/netbuild/NBFrame.cpp:467
 msgid "Add sidewalks for edges with a speed above the given limit"
 msgstr ""
+"Fußwege an Kanten mit einer Geschwindigkeitsbegrenzung über dem gegebenen "
+"Wert hinzufügen"
 
 #: src/netbuild/NBFrame.cpp:471
 msgid ""
 "Add sidewalks for edges that allow pedestrians on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Fußwege jenen Kanten hinzufügen, die Fußgänger unabhängig von "
+"Geschwindigkeitsbegrenzungen auf einem ihrer Fahrstreifen erlauben"
 
 #: src/netbuild/NBFrame.cpp:475
 msgid "Do not guess sidewalks for the given list of edges"
-msgstr ""
+msgstr "Die gegebene Aufzählung an Kanten von der Fußwegheuristik ausschließen"
 
 #: src/netbuild/NBFrame.cpp:479
 msgid "Guess bike lanes based on edge speed"
-msgstr ""
+msgstr "Radstreifen nach Geschwindigkeitsbegrenzung der Kante raten"
 
 #: src/netbuild/NBFrame.cpp:483
 msgid "Add bike lanes for edges with a speed equal or below the given limit"
