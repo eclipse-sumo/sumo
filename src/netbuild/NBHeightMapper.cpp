@@ -354,7 +354,8 @@ NBHeightMapper::loadTiff(const std::string& file) {
     // Make a copy, GDALClose will destroy the original
 #if GDAL_VERSION_MAJOR < 3
     OGRSpatialReference spatialRef;
-    spatialRef.importFromWkt(poDataset->GetProjectionRef());
+    char* wkt = const_cast<char*>(poDataset->GetProjectionRef());
+    spatialRef.importFromWkt(&wkt);
 #else
     OGRSpatialReference spatialRef(*poDataset->GetSpatialRef());
 #endif
