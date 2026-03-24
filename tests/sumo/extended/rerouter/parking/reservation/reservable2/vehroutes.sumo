@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-12T17:47:23.387325+01:00 by Eclipse SUMO sumo v1_26_0+0181-fd7ac0cdd86
+<!-- generated on 2026-03-24T15:17:40.792460+01:00 by Eclipse SUMO sumo v1_26_0+0801-7c060613526
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,10 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </vehicle>
 
     <vehicle id="v.1" depart="2.00" arrival="445.00">
-        <routeDistribution>
-            <route cost="36.19" savings="0.00" replacedOnEdge="E1" replacedOnIndex="1" reason="rr_0:parkingAreaReroute" replacedAtTime="12.00" probability="0" edges="E0 E1 E2 E3 E4"/>
-            <route cost="28.94" savings="0.00" edges="E0 E1 E2 E3 E4"/>
-        </routeDistribution>
+        <route cost="36.19" savings="0.00" edges="E0 E1 E2 E3 E4"/>
         <stop parkingArea="pa_0" duration="200.00"/>
     </vehicle>
 
