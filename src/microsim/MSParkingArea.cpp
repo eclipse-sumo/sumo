@@ -634,8 +634,8 @@ MSParkingArea::getOccupancyIncludingReservations(const SUMOVehicle* forVehicle) 
 
 int
 MSParkingArea::getOccupancyIncludingRemoteReservations(const SUMOVehicle* forVehicle) const {
-    const bool reservedRemote = myRemoteReservedVehicles.count(forVehicle) != 0;
-    return getOccupancy() + (int)myRemoteReservedVehicles.size() - (reservedRemote ? 1 : 0);
+    const int reservedRemote = myRemoteReservedVehicles.count(forVehicle) != 0;
+    return getOccupancy() + (int)myRemoteReservedVehicles.size() - reservedRemote;
 }
 
 
@@ -647,8 +647,8 @@ MSParkingArea::getLastStepOccupancy() const {
 
 int
 MSParkingArea::getLastStepOccupancyIncludingRemoteReservations(const SUMOVehicle* forVehicle) const {
-    const bool reservedRemote = myLastRemoteReservedVehicles.count(forVehicle) != 0;
-    return myLastStepOccupancy + (int)myLastRemoteReservedVehicles.size() - (reservedRemote ? 1 : 0);
+    const int reservedRemote = myLastRemoteReservedVehicles.count(forVehicle) != 0;
+    return myLastStepOccupancy + (int)myLastRemoteReservedVehicles.size() - reservedRemote;
 }
 
 
