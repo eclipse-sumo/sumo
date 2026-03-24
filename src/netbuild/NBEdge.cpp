@@ -4849,13 +4849,20 @@ NBEdge::shiftPositionAtNode(NBNode* node, NBEdge* other) {
         const double neededOffset = getTotalWidth() / 2;
         const double dist2 = MIN2(myGeom.distance2D(other->getGeometry()[i2]),
                                   other->getGeometry().distance2D(myGeom[i]));
-        const double neededOffset2 = neededOffset + (other->getTotalWidth()) / 2;
-        if (dist < neededOffset && dist2 < neededOffset2) {
+        const double neededOffset2 = neededOffset + (other->getLaneSpreadFunction() == LaneSpreadFunction::CENTER
+                ? (other->getTotalWidth()) / 2 : 0);
+        const double missing = neededOffset - dist;
+        const double missing2 = neededOffset2 - dist2;
+        double shift = 0;
+        if (missing > 0 && missing2 > 0) {
+            shift = MIN2(missing, missing2);
+        } else if (missing2) {
+            shift = missing2;
+        }
+        if (shift > 0) {
             PositionVector tmp = myGeom;
-            // @note this doesn't work well for vissim networks
-            //tmp.move2side(MIN2(neededOffset - dist, neededOffset2 - dist2));
             try {
-                tmp.move2side(neededOffset - dist);
+                tmp.move2side(shift);
                 tmp[i].round(gPrecision);
                 myGeom[i] = tmp[i];
                 computeAngle();
