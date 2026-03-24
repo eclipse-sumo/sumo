@@ -75,10 +75,14 @@ protected:
      */
     enum WayType {
         WAY_NONE = 0,
+        // technically possible
         WAY_FORWARD = 1,
         WAY_BACKWARD = 2,
         WAY_BOTH = WAY_FORWARD | WAY_BACKWARD,
-        WAY_UNKNOWN = 4
+        WAY_UNKNOWN = 4,
+        // recommended for routing
+        WAY_PREFER_FORWARD = 8,
+        WAY_PREFER_BACKWARD = 16,
     };
 
     /** @brief An internal representation of an OSM-node
@@ -228,7 +232,7 @@ protected:
         /// @brief Information about the kind of sidwalk along this road
         WayType mySidewalkType;
         /// @brief Information about the direction(s) of railway usage
-        WayType myRailDirection;
+        int myRailDirection;
         /// @brief Information about road-side parking
         int myParkingType;
         /// @brief Information about change prohibitions (forward direction

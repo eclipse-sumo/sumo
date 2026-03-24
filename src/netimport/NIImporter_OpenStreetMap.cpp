@@ -599,7 +599,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 #endif
     if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
             && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
-        //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
+        //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << " from=" << from->getID() << " to=" << to->getID() << "\n";
         // heuristic: assume that the mapped way direction indicates
         // potential driving direction
         e->myRailDirection = WAY_BOTH;
@@ -644,10 +644,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     bool addBackward = true;
     const bool explicitOneWay = StringUtils::isBool(e->myIsOneWay) && StringUtils::toBool(e->myIsOneWay);
     const bool explicitTwoWay = StringUtils::isBool(e->myIsOneWay) && !StringUtils::toBool(e->myIsOneWay);
-    if ((explicitOneWay || (defaultsToOneWay && (!explicitTwoWay || isRailway(permissions)))) && e->myRailDirection != WAY_BOTH) {
+    if ((explicitOneWay || (defaultsToOneWay && (!explicitTwoWay || isRailway(permissions)))) && (e->myRailDirection & WAY_BACKWARD) == 0) {
         addBackward = false;
     }
-    if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse" || e->myRailDirection == WAY_BACKWARD) {
+    if (e->myIsOneWay == "-1" || e->myIsOneWay == "reverse"
+            || ((e->myRailDirection & WAY_BACKWARD) != 0 && (e->myRailDirection & WAY_FORWARD) == 0)) {
         // one-way in reversed direction of way
         addForward = false;
         addBackward = true;
@@ -963,7 +964,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     }
                 }
             }
-            nbe->setRoutingType(routingType);
+            if ((e->myRailDirection & WAY_PREFER_FORWARD) != 0 && isRailway(forwardPermissions)) {
+                //nbe->setRoutingType("4");
+            } else {
+                nbe->setRoutingType(routingType);
+            }
 
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -1017,7 +1022,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                     }
                 }
             }
-            nbe->setRoutingType(routingType);
+            if ((e->myRailDirection & WAY_PREFER_BACKWARD) != 0 && isRailway(backwardPermissions)) {
+                //nbe->setRoutingType("4");
+            } else {
+                nbe->setRoutingType(routingType);
+            }
 
             if (!ec.insert(nbe)) {
                 delete nbe;
@@ -2228,17 +2237,15 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             }
         } else if (key == "railway:preferred_direction") {
             if (value == "both") {
-                myCurrentEdge->myRailDirection = WAY_BOTH;
-            } else if (myCurrentEdge->myRailDirection == WAY_UNKNOWN) {
-                if (value == "backward") {
-                    myCurrentEdge->myRailDirection = WAY_BACKWARD;
-                } else if (value == "forward") {
-                    myCurrentEdge->myRailDirection = WAY_FORWARD;
-                }
+                myCurrentEdge->myRailDirection = WAY_BOTH | WAY_PREFER_FORWARD | WAY_PREFER_BACKWARD;
+            } else if (value == "backward") {
+                myCurrentEdge->myRailDirection = (myCurrentEdge->myRailDirection | WAY_BACKWARD | WAY_PREFER_BACKWARD) & ~WAY_UNKNOWN;
+            } else if (value == "forward") {
+                myCurrentEdge->myRailDirection = (myCurrentEdge->myRailDirection | WAY_FORWARD | WAY_PREFER_FORWARD) & ~WAY_UNKNOWN;
             }
         } else if (key == "railway:bidirectional") {
             if (value == "regular") {
-                myCurrentEdge->myRailDirection = WAY_BOTH;
+                myCurrentEdge->myRailDirection = (myCurrentEdge->myRailDirection | WAY_BOTH) & ~WAY_UNKNOWN;
             }
         } else if (key == "electrified" || key == "segregated") {
             if (value != "no") {
