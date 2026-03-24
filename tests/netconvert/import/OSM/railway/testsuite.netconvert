@@ -64,5 +64,8 @@ jena_tram2_noBidiStops
 # includes a road so the tram edge is split differently
 jena_tram2_noBidiStops_split
 
+# see #17766
+bs_tram
+
 # tests using S42 (Berlin)
 S42

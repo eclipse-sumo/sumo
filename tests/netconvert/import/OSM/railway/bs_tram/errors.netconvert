@@ -1,0 +1,12 @@
+Warning: The referenced geometry information (ref='1365387246') is not known
+Warning: The referenced geometry information (ref='1737937285') is not known
+Warning: The referenced geometry information (ref='3882542191') is not known
+Warning: The referenced geometry information (ref='1737937283') is not known
+Warning: The referenced geometry information (ref='3882542188') is not known
+Warning: Discarding way '61568975' because it has only 1 node(s)
+Warning: Discarding way '61568976' because it has only 1 node(s)
+Warning: Discarding unusable type 'railway.platform' (first occurrence for edge '61996462').
+Warning: Discarding way '308958254' because it has only 1 node(s)
+Warning: Converting invalid rail_crossing to priority junction '1408801147'.
+Warning: Converting invalid rail_crossing to priority junction '3144404388'.
+Warning: 151 total messages of type: The referenced geometry information (ref='%') is not known
