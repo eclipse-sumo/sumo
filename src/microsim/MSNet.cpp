@@ -337,6 +337,10 @@ MSNet::~MSNet() {
     }
     myIntermodalRouter.clear();
     myLanesRTree.second.RemoveAll();
+    for (MSTractionSubstation* sub : myTractionSubstations) {
+        delete sub;
+    }
+    myTractionSubstations.clear();
     clearAll();
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
@@ -1596,17 +1600,6 @@ MSNet::findTractionSubstation(const std::string& substationId) {
         }
     }
     return nullptr;
-}
-
-
-bool
-MSNet::existTractionSubstation(const std::string& substationId) {
-    for (std::vector<MSTractionSubstation*>::iterator it = myTractionSubstations.begin(); it != myTractionSubstations.end(); ++it) {
-        if ((*it)->getID() == substationId) {
-            return true;
-        }
-    }
-    return false;
 }
 
 

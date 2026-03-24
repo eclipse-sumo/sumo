@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <cassert>
+#include <memory>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
@@ -340,7 +341,9 @@ MSVehicleType::build(SUMOVTypeParameter& from, const std::string& fileName) {
             from.parametersSet |= VTYPEPARS_MASS_SET;
         }
     }
-    MSVehicleType* vtype = new MSVehicleType(from);
+    // the unique_ptr ensures the type is deleted if an exception occurs
+    std::unique_ptr<MSVehicleType> vtypeOwner(new MSVehicleType(from));
+    MSVehicleType* vtype = vtypeOwner.get();
     const double decel = from.getCFParam(SUMO_ATTR_DECEL, SUMOVTypeParameter::getDefaultDecel(from.vehicleClass));
     const double emergencyDecel = from.getCFParam(SUMO_ATTR_EMERGENCYDECEL, SUMOVTypeParameter::getDefaultEmergencyDecel(from.vehicleClass, decel, MSGlobals::gDefaultEmergencyDecel));
     // by default decel and apparentDecel are identical
@@ -409,7 +412,7 @@ MSVehicleType::build(SUMOVTypeParameter& from, const std::string& fileName) {
     }
     // init Rail visualization parameters
     vtype->myParameter.initRailVisualizationParameters(fileName);
-    return vtype;
+    return vtypeOwner.release();
 }
 
 SUMOTime
