@@ -78,26 +78,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myName(name),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
-    myJamDistanceThreshold(jamDistThreshold),
-    myNumberOfEnteredVehicles(0),
-    myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0),
-    myCurrentVehicleSamples(0),
-    myCurrentOccupancy(0),
-    myCurrentMeanSpeed(0),
-    myCurrentMeanLength(0),
-    myCurrentJamNo(0),
-    myCurrentMaxJamLengthInMeters(0),
-    myCurrentJamLengthInMeters(0),
-    myCurrentJamLengthInVehicles(0),
-    myCurrentHaltingsNumber(0),
-    myPreviousMeanOccupancy(0),
-    myPreviousMeanSpeed(0),
-    myPreviousMeanTimeLoss(0),
-    myPreviousMaxJamLengthInMeters(0),
-    myPreviousNumberOfSeenVehicles(0),
-    myOverrideVehNumber(-1) {
-    reset();
+    myJamDistanceThreshold(jamDistThreshold) {
 
 #ifdef DEBUG_E2_CONSTRUCTOR
     if (DEBUG_COND) {
@@ -186,26 +167,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myEndPos(endPos),
     myJamHaltingSpeedThreshold(haltingSpeedThreshold),
     myJamHaltingTimeThreshold(haltingTimeThreshold),
-    myJamDistanceThreshold(jamDistThreshold),
-    myNumberOfEnteredVehicles(0),
-    myNumberOfSeenVehicles(0),
-    myNumberOfLeftVehicles(0),
-    myCurrentVehicleSamples(0),
-    myCurrentOccupancy(0),
-    myCurrentMeanSpeed(0),
-    myCurrentMeanLength(0),
-    myCurrentJamNo(0),
-    myCurrentJamLengthInMeters(0),
-    myCurrentJamLengthInVehicles(0),
-    myCurrentJamDuration(0),
-    myCurrentHaltingsNumber(0),
-    myPreviousMeanOccupancy(0),
-    myPreviousMeanSpeed(0),
-    myPreviousMeanTimeLoss(0),
-    myPreviousMaxJamLengthInMeters(0),
-    myPreviousNumberOfSeenVehicles(0),
-    myOverrideVehNumber(-1) {
-    reset();
+    myJamDistanceThreshold(jamDistThreshold) {
 
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
         assert((*i) != 0);

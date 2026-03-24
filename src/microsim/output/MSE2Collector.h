@@ -768,86 +768,86 @@ private:
     /// @name Values generated for aggregated file output
     /// @{
     /// @brief The number of collected samples [time x vehicle] since the last reset
-    double myVehicleSamples;
+    double myVehicleSamples = 0.;
     /// @brief The total amount of all time losses [time x vehicle] since the last reset
-    double myTotalTimeLoss;
+    double myTotalTimeLoss = 0.;
     /// @brief The sum of collected vehicle speeds [m/s]
-    double mySpeedSum;
+    double mySpeedSum = 0.;
     /// @brief The number of started halts [#]
-    double myStartedHalts;
+    int myStartedHalts = 0;
     /// @brief The sum of jam lengths [m]
-    double myJamLengthInMetersSum;
+    double myJamLengthInMetersSum = 0.;
     /// @brief The sum of jam lengths [#veh]
-    int myJamLengthInVehiclesSum;
+    int myJamLengthInVehiclesSum = 0;
     /// @brief The current aggregation duration [#steps]
-    int myTimeSamples;
+    int myTimeSamples = 0;
     /// @brief The sum of occupancies [%]
-    double myOccupancySum;
+    double myOccupancySum = 0.;
     /// @brief The maximum occupancy [%]
-    double myMaxOccupancy;
+    double myMaxOccupancy = 0.;
     /// @brief The mean jam length [#veh]
-    int myMeanMaxJamInVehicles;
+    int myMeanMaxJamInVehicles = 0;
     /// @brief The mean jam length [m]
-    double myMeanMaxJamInMeters;
+    double myMeanMaxJamInMeters = 0.;
     /// @brief The max jam length [#veh]
-    int myMaxJamInVehicles;
+    int myMaxJamInVehicles = 0;
     /// @brief The max jam length [m]
-    double myMaxJamInMeters;
+    double myMaxJamInMeters = 0.;
     /// @brief The mean number of vehicles [#veh]
-    int myMeanVehicleNumber;
+    int myMeanVehicleNumber = 0;
     /// @}
 
 
     /// @name Values generated describing the current state
     /// @{
     /// @brief The number of vehicles, which have entered the detector since the last reset
-    int myNumberOfEnteredVehicles;
+    int myNumberOfEnteredVehicles = 0;
     /// @brief The number of vehicles, present on the detector at the last reset
-    int myNumberOfSeenVehicles;
+    int myNumberOfSeenVehicles = 0;
     /// @brief The number of vehicles, which have left the detector since the last reset
-    int myNumberOfLeftVehicles;
+    int myNumberOfLeftVehicles = 0;
     /// @brief The maximal number of vehicles located on the detector simultaneously since the last reset
-    int myMaxVehicleNumber;
+    int myMaxVehicleNumber = 0;
 
     /// @brief The current vehicle samples
-    double myCurrentVehicleSamples;
+    double myCurrentVehicleSamples = 0.;
     /// @brief The current occupancy
-    double myCurrentOccupancy;
+    double myCurrentOccupancy = 0.;
     /// @brief The current mean speed
-    double myCurrentMeanSpeed;
+    double myCurrentMeanSpeed = 0.;
     /// @brief The current mean timeLoss
-    double myCurrentMeanTimeLoss;
+    double myCurrentMeanTimeLoss = 0.;
     /// @brief The current mean length
-    double myCurrentMeanLength;
+    double myCurrentMeanLength = 0.;
     /// @brief The current jam number
-    int myCurrentJamNo;
+    int myCurrentJamNo = 0;
     /// @brief the current maximum jam length in meters
-    double myCurrentMaxJamLengthInMeters;
+    double myCurrentMaxJamLengthInMeters = 0.;
     /// @brief The current maximum jam length in vehicles
-    int myCurrentMaxJamLengthInVehicles;
+    int myCurrentMaxJamLengthInVehicles = 0;
     /// @brief The overall jam length in meters
-    double myCurrentJamLengthInMeters;
+    double myCurrentJamLengthInMeters = 0.;
     /// @brief The overall jam length in vehicles
-    int myCurrentJamLengthInVehicles;
+    int myCurrentJamLengthInVehicles = 0;
     /// @brief The overall jam duration in s
-    double myCurrentJamDuration;
+    double myCurrentJamDuration = 0.;
     /// @brief The number of started halts in the last step
-    int myCurrentStartedHalts;
+    int myCurrentStartedHalts = 0;
     /// @brief The number of halted vehicles [#]
-    int myCurrentHaltingsNumber;
+    int myCurrentHaltingsNumber = 0;
     /// @}
 
     /// @name Values generated describing the previous interval state
     /// @{
-    double myPreviousMeanOccupancy;
-    double myPreviousMeanSpeed;
-    double myPreviousMeanTimeLoss;
-    double myPreviousMaxJamLengthInMeters;
-    int myPreviousNumberOfSeenVehicles;
+    double myPreviousMeanOccupancy = 0.;
+    double myPreviousMeanSpeed = 0.;
+    double myPreviousMeanTimeLoss = 0.;
+    double myPreviousMaxJamLengthInMeters = 0.;
+    int myPreviousNumberOfSeenVehicles = 0;
     /// @}
 
     /// @brief stores the overriden (via Traci) number of vehicles on detector
-    int myOverrideVehNumber;
+    int myOverrideVehNumber = -1;
 
 private:
     /// @brief Invalidated copy constructor.
