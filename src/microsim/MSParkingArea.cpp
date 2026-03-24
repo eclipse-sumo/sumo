@@ -648,7 +648,7 @@ MSParkingArea::getLastStepOccupancy() const {
 int
 MSParkingArea::getLastStepOccupancyIncludingRemoteReservations(const SUMOVehicle* forVehicle) const {
     const bool reservedRemote = myLastRemoteReservedVehicles.count(forVehicle) != 0;
-    return myLastStepOccupancy - (int)myLastRemoteReservedVehicles.size() + (reservedRemote ? 1 : 0);
+    return myLastStepOccupancy + (int)myLastRemoteReservedVehicles.size() - (reservedRemote ? 1 : 0);
 }
 
 
