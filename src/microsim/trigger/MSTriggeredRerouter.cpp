@@ -866,17 +866,17 @@ MSTriggeredRerouter::getUserProbability() const {
 
 double
 MSTriggeredRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* sp, const SUMOVehicle* veh) {
-    return (double)(sp->getElement() == SUMO_TAG_PARKING_AREA
-                    ? dynamic_cast<MSParkingArea*>(sp)->getOccupancyIncludingRemoteReservations(veh)
-                    : sp->getStoppedVehicles().size());
+    return (sp->getElement() == SUMO_TAG_PARKING_AREA
+                    ? (double)dynamic_cast<MSParkingArea*>(sp)->getOccupancyIncludingRemoteReservations(veh)
+                    : (double)sp->getStoppedVehicles().size());
 }
 
 
 double
 MSTriggeredRerouter::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* sp, const SUMOVehicle* veh) {
-    return (double)(sp->getElement() == SUMO_TAG_PARKING_AREA
-                    ? dynamic_cast<MSParkingArea*>(sp)->getLastStepOccupancyIncludingRemoteReservations(veh)
-                    : sp->getStoppedVehicles().size());
+    return (sp->getElement() == SUMO_TAG_PARKING_AREA
+                    ? (double)dynamic_cast<MSParkingArea*>(sp)->getLastStepOccupancyIncludingRemoteReservations(veh)
+                    : (double)sp->getStoppedVehicles().size());
 }
 
 
