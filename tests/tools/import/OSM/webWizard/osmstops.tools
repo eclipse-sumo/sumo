@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-10T08:47:31.935888+01:00 by Eclipse SUMO netconvert v1_26_0+0486-49ec0de4dff
+<!-- generated on 2026-03-24T14:40:06.534397+01:00 by Eclipse SUMO netconvert v1_26_0+0793-810e0a12553
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/micha/.texttest/tmp/dynamic_gui.10Mar084724.1727034/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.24Mar144004.39762/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -144,10 +144,10 @@
         <access lane="36892597#2_0" pos="0.00" length="11.43" friendlyPos="1"/>
         <access lane="522374555#1_0" pos="0.00" length="8.08" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="0.00" endPos="24.21" friendlyPos="true" lines="M1">
+    <trainStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="0.91" endPos="25.91" friendlyPos="true" lines="M1">
         <access lane="54618192#2_0" pos="0.77" length="48.59" friendlyPos="1"/>
         <access lane="59286191_0" pos="12.91" length="28.94" friendlyPos="1"/>
-        <access lane="59286499_0" pos="0.00" length="22.46" friendlyPos="1"/>
+        <access lane="59286499_0" pos="0.00" length="22.48" friendlyPos="1"/>
         <access lane="59286500#0_0" pos="2.55" length="13.50" friendlyPos="1"/>
         <access lane="59286500#2_0" pos="0.00" length="14.21" friendlyPos="1"/>
     </trainStop>
@@ -235,8 +235,8 @@
         <access lane="463898978_0" pos="26.25" length="2.72" friendlyPos="1"/>
     </trainStop>
     <trainStop id="2071423352" name="U Französische Straße" lane="169724406_0" startPos="193.88" endPos="393.88" friendlyPos="true" lines="U6">
-        <access lane="171423001#2_0" pos="23.23" length="14.69" friendlyPos="1"/>
-        <access lane="196850609#0_0" pos="15.62" length="2.18" friendlyPos="1"/>
+        <access lane="171423001#2_0" pos="21.79" length="16.46" friendlyPos="1"/>
+        <access lane="196850609#0_0" pos="15.61" length="2.19" friendlyPos="1"/>
         <access lane="196850626#4_0" pos="21.86" length="5.15" friendlyPos="1"/>
         <access lane="373866703#1_0" pos="0.11" length="19.18" friendlyPos="1"/>
         <access lane="463898977_0" pos="21.54" length="17.50" friendlyPos="1"/>
@@ -535,7 +535,7 @@
     </busStop>
     <busStop id="3867910441" name="U Weinmeisterstraße/Gipsstraße" lane="36892597#2_1" startPos="2.74" endPos="17.74" friendlyPos="true" lines="N65 N2 N8 N40 N42"/>
     <busStop id="3869306759" name="Deutsches Theater" lane="176043807#1_1" startPos="33.41" endPos="48.41" friendlyPos="true" lines="147"/>
-    <busStop id="3869306762" name="Friedrichstraße/Reinhardtstraße" lane="111251382#2_1" startPos="13.09" endPos="28.09" friendlyPos="true" lines="147"/>
+    <busStop id="3869306762" name="Friedrichstraße/Reinhardtstraße" lane="111251382#2_1" startPos="7.22" endPos="22.22" friendlyPos="true" lines="147"/>
     <busStop id="3869306764" name="S+U Friedrichstraße" lane="4402228_1" startPos="0.00" endPos="15.00" friendlyPos="true" lines="147 N6"/>
     <busStop id="3869306767" name="U Französische Straße" lane="35557143#1_1" startPos="27.77" endPos="42.77" friendlyPos="true" lines="147"/>
     <trainStop id="3869306769" name="S+U Friedrichstraße" lane="295376548_0" startPos="91.24" endPos="291.24" friendlyPos="true" lines="U6">
@@ -551,12 +551,12 @@
     <busStop id="3870475228" name="Staatsoper" lane="340498982#3_1" startPos="20.89" endPos="35.89" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3907105048" name="Littenstraße" lane="289966845_2" startPos="4.61" endPos="19.61" friendlyPos="true" lines="248"/>
     <busStop id="3907105049" name="U Alexanderplatz" lane="301241681#0_2" startPos="23.20" endPos="38.20" friendlyPos="true" lines="N65 N5"/>
-    <busStop id="3918673888" name="U Oranienburger Tor" lane="388702039#10_0" startPos="0.00" endPos="7.42" friendlyPos="true" lines="N6">
-        <access lane="374734394#1_0" pos="28.25" length="14.96" friendlyPos="1"/>
-        <access lane="374734394#8_0" pos="0.00" length="15.67" friendlyPos="1"/>
+    <busStop id="3918673888" name="U Oranienburger Tor" lane="388702039#10_0" startPos="0.00" endPos="7.80" friendlyPos="true" lines="N6">
+        <access lane="374734394#1_0" pos="25.28" length="13.63" friendlyPos="1"/>
         <access lane="442577417#2_0" pos="0.17" length="12.92" friendlyPos="1"/>
+        <access lane="442577417#3_0" pos="0.00" length="14.89" friendlyPos="1"/>
         <access lane="442577419_0" pos="0.20" length="15.81" friendlyPos="1"/>
-        <access lane="478432725_0" pos="7.07" length="12.41" friendlyPos="1"/>
+        <access lane="478432725_0" pos="7.17" length="12.21" friendlyPos="1"/>
     </busStop>
     <trainStop id="3922258748" name="Universitätsstraße" lane="144014237#2_0" startPos="60.28" endPos="85.28" friendlyPos="true" lines="12 M1">
         <access lane="-340498976#0_0" pos="23.87" length="6.84" friendlyPos="1"/>
@@ -624,10 +624,10 @@
         <access lane="533594858#1_0" pos="6.17" length="30.49" friendlyPos="1"/>
     </trainStop>
     <trainStop id="990017251" name="U Oranienburger Tor" lane="388702047#2_0" startPos="25.23" endPos="50.23" friendlyPos="true" lines="12 M1">
-        <access lane="374734389#2_0" pos="54.07" length="21.13" friendlyPos="1"/>
+        <access lane="374734389#2_0" pos="54.09" length="21.13" friendlyPos="1"/>
         <access lane="374734394#10_0" pos="23.66" length="20.62" friendlyPos="1"/>
-        <access lane="374734394#1_0" pos="13.10" length="14.75" friendlyPos="1"/>
-        <access lane="478432725_0" pos="22.05" length="14.93" friendlyPos="1"/>
-        <access lane="6227658#1_0" pos="0.00" length="32.19" friendlyPos="1"/>
+        <access lane="374734394#1_0" pos="10.18" length="11.63" friendlyPos="1"/>
+        <access lane="478432725_0" pos="22.11" length="14.44" friendlyPos="1"/>
+        <access lane="6227658#1_0" pos="0.00" length="31.72" friendlyPos="1"/>
     </trainStop>
 </additional>

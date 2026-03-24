@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-26T11:32:58.480117+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
+<!-- generated on 2026-03-24T11:05:17.648446+01:00 by Eclipse SUMO netconvert v1_26_0+0793-810e0a12553
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,10 +41,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-603290.08,-5791690.31" convBoundary="0.00,0.00,444.39,364.45" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":468444799_0" function="internal">
-        <lane id=":468444799_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="0.10" shape="120.84,180.03 120.81,179.99"/>
+        <lane id=":468444799_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="0.30" shape="121.02,180.20 120.81,179.99"/>
     </edge>
     <edge id=":468444799_1" function="internal">
-        <lane id=":468444799_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="0.19" shape="122.92,177.58 122.95,177.62 122.98,177.65 123.00,177.68 123.04,177.72"/>
+        <lane id=":468444799_1_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="0.44" shape="122.94,177.55 123.02,177.66 123.07,177.73 123.13,177.80 123.22,177.89"/>
     </edge>
     <edge id=":5689801350_0" function="internal">
         <lane id=":5689801350_0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="319.39,363.28 319.72,364.69 319.47,365.54 318.63,365.85 317.21,365.62"/>
@@ -128,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-39140174#4" from="5689801350" to="468444799" name="Neuer Weg" priority="3" type="highway.residential" shape="318.30,364.45 288.41,336.51 255.46,305.08 195.78,248.24 158.02,213.06 149.26,204.91 121.78,178.72">
-        <lane id="-39140174#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="270.20" shape="317.21,365.62 287.31,337.67 254.36,306.24 194.68,249.40 156.93,214.23 148.16,206.07 120.84,180.03"/>
+        <lane id="-39140174#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="269.95" shape="317.21,365.62 287.31,337.67 254.36,306.24 194.68,249.40 156.93,214.23 148.16,206.07 121.02,180.20"/>
     </edge>
     <edge id="138330831#14" from="Gueldenstr" to="3833322970" priority="17" type="railway.tram" spreadType="center" shape="81.21,130.10 89.42,126.45 101.81,118.43 104.48,116.77 112.25,112.74 116.59,111.01 120.85,109.31 129.72,106.24 138.77,103.83 147.29,101.34 157.75,98.75 168.37,96.94 175.51,96.12 189.67,94.82 203.78,93.90 218.27,93.01 282.89,89.03 365.54,85.21 405.61,83.59 421.60,82.82 426.08,82.42 428.49,82.21 440.03,80.64">
         <lane id="138330831#14_0" index="0" allow="tram" speed="13.89" length="341.82" shape="102.44,118.04 104.48,116.77 112.25,112.74 116.59,111.01 120.85,109.31 129.72,106.24 138.77,103.83 147.29,101.34 157.75,98.75 168.37,96.94 175.51,96.12 189.67,94.82 203.78,93.90 218.27,93.01 282.89,89.03 365.54,85.21 405.61,83.59 421.60,82.82 426.08,82.42 428.49,82.21 440.03,80.64"/>
@@ -168,13 +168,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="376743572#0_4" index="4" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="116.40" shape="42.07,0.38 38.63,20.31 42.90,44.85 46.50,58.98 48.68,66.39 51.58,74.53 57.31,88.96 64.33,104.15 66.15,108.39 69.88,116.35"/>
     </edge>
     <edge id="39140174#0" from="468444799" to="5689801350" name="Neuer Weg" priority="3" type="highway.residential" shape="121.78,178.72 149.26,204.91 158.02,213.06 195.78,248.24 255.46,305.08 288.41,336.51 318.30,364.45">
-        <lane id="39140174#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="270.17" shape="123.04,177.72 150.36,203.75 159.11,211.89 196.88,247.08 256.56,303.92 289.51,335.35 319.39,363.28"/>
+        <lane id="39140174#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="269.92" shape="123.22,177.89 150.36,203.75 159.11,211.89 196.88,247.08 256.56,303.92 289.51,335.35 319.39,363.28"/>
     </edge>
     <edge id="5134789#0" from="468444799" to="Gueldenstr" name="Neuer Weg" priority="3" type="highway.residential" spreadType="center" shape="120.81,179.99 102.52,163.99 94.07,154.60 93.00,153.39 90.97,151.06 89.67,149.67 87.68,148.08 81.97,143.32">
         <lane id="5134789#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="48.82" shape="120.81,179.99 102.52,163.99 94.07,154.60 93.00,153.39 90.97,151.06 89.67,149.67 87.68,148.08 85.58,146.33"/>
     </edge>
-    <edge id="515351950#0" from="Gueldenstr" to="468444799" name="Neuer Weg" priority="3" type="highway.residential" spreadType="center" shape="111.50,127.25 109.16,131.04 102.82,136.58 100.93,141.02 100.98,144.65 101.47,148.40 103.30,152.54 123.09,177.80">
-        <lane id="515351950#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="48.06" shape="102.62,137.05 100.93,141.02 100.98,144.65 101.47,148.40 103.30,152.54 122.92,177.58"/>
+    <edge id="515351950#0" from="Gueldenstr" to="468444799" name="Neuer Weg" priority="3" type="highway.residential" spreadType="center" shape="111.50,127.25 109.16,131.04 102.82,136.58 100.93,141.02 100.98,144.65 101.47,148.40 103.30,152.54 123.12,177.78">
+        <lane id="515351950#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="48.05" shape="102.62,137.05 100.93,141.02 100.98,144.65 101.47,148.40 103.30,152.54 122.94,177.55"/>
     </edge>
     <edge id="60922609#0" from="469443715" to="Gueldenstr" name="Radeklint" priority="11" type="highway.secondary" spreadType="center" shape="0.00,175.91 55.72,139.71 58.58,138.18 69.40,129.85">
         <lane id="60922609#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="76.10" shape="-2.62,171.88 53.28,135.57 55.97,134.13 60.73,130.47"/>
@@ -205,7 +205,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="3404653526" type="dead_end" x="0.91" y="196.57" incLanes="30424335#0_0 30424335#0_1" intLanes="" shape="2.87,199.10 -1.05,194.04"/>
     <junction id="380479927" type="dead_end" x="444.39" y="83.32" incLanes="" intLanes="" shape="444.12,81.74 444.66,84.90"/>
     <junction id="3833322970" type="dead_end" x="440.03" y="80.64" incLanes="138330831#14_0" intLanes="" shape="439.81,79.05 440.25,82.23"/>
-    <junction id="468444799" type="priority" x="121.78" y="178.72" incLanes="-39140174#4_0 515351950#0_0" intLanes=":468444799_0_0 :468444799_1_0" shape="119.73,181.19 124.15,176.56 124.08,176.49 124.02,176.40 119.76,181.19">
+    <junction id="468444799" type="priority" x="121.78" y="178.72" incLanes="-39140174#4_0 515351950#0_0" intLanes=":468444799_0_0 :468444799_1_0" shape="119.91,181.36 124.33,176.73 124.20,176.59 124.16,176.54 124.08,176.41 124.01,176.33 119.76,181.19 119.82,181.25 119.88,181.33">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
