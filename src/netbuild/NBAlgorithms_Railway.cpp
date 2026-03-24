@@ -1219,7 +1219,9 @@ NBRailwayTopologyAnalyzer::setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, S
     for (NBEdge* edge : ec.getAllEdges()) {
         SVCPermissions p = edge->getPermissions();
         if (isRailway(p) && (p & vClasses) != 0) {
-            edge->setPriority(-1);
+            if (edge->getRoutingType() == "") {
+                edge->setPriority(-1);
+            }
         }
     }
     for (const auto& item : lc.getLines()) {
@@ -1227,8 +1229,10 @@ NBRailwayTopologyAnalyzer::setPTLinePriority(NBEdgeCont& ec, NBPTLineCont& lc, S
             continue;
         }
         for (NBEdge* edge : item.second->getEdges()) {
-            edge->setPriority(4);
-            edge->setRoutingType("4");
+            if (edge->getRoutingType() == "") {
+                edge->setPriority(4);
+                edge->setRoutingType("4");
+            }
         }
     }
 }

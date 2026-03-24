@@ -965,7 +965,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 }
             }
             if ((e->myRailDirection & WAY_PREFER_FORWARD) != 0 && isRailway(forwardPermissions)) {
-                //nbe->setRoutingType("4");
+                nbe->setRoutingType("4");
             } else {
                 nbe->setRoutingType(routingType);
             }
@@ -1023,7 +1023,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 }
             }
             if ((e->myRailDirection & WAY_PREFER_BACKWARD) != 0 && isRailway(backwardPermissions)) {
-                //nbe->setRoutingType("4");
+                nbe->setRoutingType("4");
             } else {
                 nbe->setRoutingType(routingType);
             }
