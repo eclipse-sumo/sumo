@@ -165,6 +165,13 @@ protected:
         CHANGE_NO = 3
     };
 
+    enum class PlacementType {
+        NONE = 0,
+        LEFT_OF = 1,
+        RIGHT_OF = 2,
+        MIDDLE_OF = 3
+    };
+
     /** @brief An internal definition of a loaded edge
      */
     class Edge : public Parameterised {
@@ -185,6 +192,8 @@ protected:
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
             myAmInRoundabout(false),
+            myPlacement(PlacementType::NONE),
+            myPlacementLane(-1),
             myWidth(-1)
         { }
 
@@ -251,6 +260,10 @@ protected:
         /// @brief turning direction (arrows printed on the road)
         std::vector<int> myTurnSignsForward;
         std::vector<int> myTurnSignsBackward;
+        /// @brief placement of the OSM way geometry relative to lanes
+        PlacementType myPlacement;
+        /// @brief 1-based lane index for placement specification
+        int myPlacementLane;
         /// @brief Information on lane width
         std::vector<double> myWidthLanesForward;
         std::vector<double> myWidthLanesBackward;
@@ -326,6 +339,12 @@ private:
 
     /// @brief whether edges should carry information on the use of typemap defaults
     bool myAnnotateDefaults;
+
+    /// @brief number of placement skips due to non-explicit oneway
+    int myPlacementSkippedNonExplicitOneWay = 0;
+
+    /// @brief number of placement skips due to generated opposite-direction auxiliary edges
+    int myPlacementSkippedAuxOppositeDirection = 0;
 
     /// @brief whether additional way and node attributes shall be imported
     static bool myAllAttributes;
@@ -544,6 +563,8 @@ protected:
         int interpretChangeType(const std::string& value) const;
 
         void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, const bool forward) const;
+
+        bool interpretPlacement(const std::string& value, NIImporter_OpenStreetMap::PlacementType& placement, int& laneIndex) const;
 
         void addType(const std::string& singleTypeID);
 

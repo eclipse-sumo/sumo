@@ -18,6 +18,7 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @author  Mirko Barthauer
+/// @author  William Harrison Davis
 /// @date    Mon, 14.04.2008
 ///
 // Importer for networks stored in OpenStreetMap format
@@ -91,6 +92,12 @@ public:
         if (e1->myIsOneWay != e2->myIsOneWay) {
             return e1->myIsOneWay > e2->myIsOneWay;
         }
+        if (e1->myPlacement != e2->myPlacement) {
+            return (int)e1->myPlacement > (int)e2->myPlacement;
+        }
+        if (e1->myPlacementLane != e2->myPlacementLane) {
+            return e1->myPlacementLane > e2->myPlacementLane;
+        }
         return e1->myCurrentNodes > e2->myCurrentNodes;
     }
 };
@@ -142,6 +149,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportCrossings = oc.getBool("osm.crossings");
     myOnewayDualSidewalk = oc.getBool("osm.oneway-reverse-sidewalk");
     myAnnotateDefaults = oc.getBool("osm.annotate-defaults");
+    myPlacementSkippedNonExplicitOneWay = 0;
+    myPlacementSkippedAuxOppositeDirection = 0;
 
     myAllAttributes = OptionsCont::getOptions().getBool("osm.all-attributes");
     std::vector<std::string> extra = OptionsCont::getOptions().getStringVector("osm.extra-attributes");
@@ -268,6 +277,12 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             running = -1;
         }
         insertEdge(e, running, currentFrom, last, passed, nb, first, last);
+    }
+    if (myPlacementSkippedNonExplicitOneWay > 0 || myPlacementSkippedAuxOppositeDirection > 0) {
+        WRITE_MESSAGEF(TL("Skipped applying OSM placement on % edge(s): % due to non-explicit one-way and % due to opposite-direction auxiliary edges."),
+                       myPlacementSkippedNonExplicitOneWay + myPlacementSkippedAuxOppositeDirection,
+                       myPlacementSkippedNonExplicitOneWay,
+                       myPlacementSkippedAuxOppositeDirection);
     }
 
     /* Collect edges which explicitly are part of a roundabout and store the edges of each
@@ -804,6 +819,70 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
 
+    bool applyPlacement = false;
+    double placementOffset = 0;
+    if (e->myPlacement != PlacementType::NONE) {
+        if (!explicitOneWay) {
+            if (index <= 0) {
+                myPlacementSkippedNonExplicitOneWay++;
+            }
+        } else if (!(addForward && !addBackward)) {
+            if (index <= 0) {
+                myPlacementSkippedAuxOppositeDirection++;
+            }
+        } else if (numLanesForward <= 0) {
+            if (index <= 0) {
+                WRITE_WARNINGF(TL("Ignoring placement for edge '%' because lane count is invalid."), id);
+            }
+        } else {
+            const double defaultPlacementWidth = forwardWidth == NBEdge::UNSPECIFIED_WIDTH || forwardWidth <= 0
+                                                 ? SUMO_const_laneWidth : forwardWidth;
+            std::vector<double> laneWidths((size_t)numLanesForward, defaultPlacementWidth);
+            if (!OptionsCont::getOptions().getBool("ignore-widths")
+                    && (int)e->myWidthLanesForward.size() == numLanesForward) {
+                for (int i = 0; i < numLanesForward; ++i) {
+                    laneWidths[(size_t)i] = e->myWidthLanesForward[(size_t)i] > 0
+                                            ? e->myWidthLanesForward[(size_t)i] : defaultPlacementWidth;
+                }
+            }
+            if (e->myPlacementLane < 1 || e->myPlacementLane > numLanesForward) {
+                if (index <= 0) {
+                    WRITE_WARNINGF(TL("Ignoring placement for edge '%' because lane index '%' is out of range [1, %]."),
+                                   id, e->myPlacementLane, numLanesForward);
+                }
+            } else {
+                const int laneIndex = e->myPlacementLane - 1;
+                double leftOffset = 0;
+                for (int i = 0; i < laneIndex; ++i) {
+                    leftOffset += laneWidths[(size_t)i];
+                }
+                double placementRefOffset = leftOffset;
+                if (e->myPlacement == PlacementType::RIGHT_OF) {
+                    placementRefOffset += laneWidths[(size_t)laneIndex];
+                } else if (e->myPlacement == PlacementType::MIDDLE_OF) {
+                    placementRefOffset += laneWidths[(size_t)laneIndex] / 2.;
+                }
+                double totalWidth = 0;
+                for (double laneWidth : laneWidths) {
+                    totalWidth += laneWidth;
+                }
+                placementOffset = totalWidth / 2. - placementRefOffset;
+                applyPlacement = true;
+            }
+        }
+    }
+    if (applyPlacement && fabs(placementOffset) > POSITION_EPS) {
+        try {
+            shape.move2side(placementOffset);
+        } catch (InvalidArgument&) {
+            if (index <= 0) {
+                WRITE_WARNINGF(TL("Ignoring placement for edge '%' because offset shape computation failed."), id);
+            }
+            applyPlacement = false;
+        }
+    }
+
+
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
     if (ok) {
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -819,6 +898,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::SPREAD_UNKNOWN) {
             // user defined value overrides defaults
             lsf = tc.getEdgeTypeSpreadType(type);
+        }
+        if (applyPlacement) {
+            // placement references the directional edge centerline for one-way edges
+            lsf = LaneSpreadFunction::CENTER;
         }
         if (defaults.size() > 0) {
             e->setParameter("osmDefaults", joinToString(defaults, " "));
@@ -1844,6 +1927,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "oneway:bicycle"
                 && key != "oneway:bus"
                 && key != "oneway:psv"
+                && key != "placement"
                 && key != "bus:lanes"
                 && key != "bus:lanes:forward"
                 && key != "bus:lanes:backward"
@@ -2055,6 +2139,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             if (value == "no") {
                 // need to add a bus way in reversed direction of way
                 myCurrentEdge->myBuswayType = WAY_BACKWARD;
+            }
+        } else if (key == "placement") {
+            if (!interpretPlacement(value, myCurrentEdge->myPlacement, myCurrentEdge->myPlacementLane)) {
+                WRITE_WARNINGF(TL("Ignoring unsupported placement value '%' for edge '%'."), value, myCurrentEdge->id);
             }
         } else if (key == "lanes") {
             try {
@@ -2308,6 +2396,40 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretChangeType(const std::string& v
     }
     //std::cout << " way=" << myCurrentEdge->id << " value=" << value << " result=" << std::bitset<32>(result) << "\n";
     return result;
+}
+
+
+bool
+NIImporter_OpenStreetMap::EdgesHandler::interpretPlacement(const std::string& value, NIImporter_OpenStreetMap::PlacementType& placement, int& laneIndex) const {
+    placement = NIImporter_OpenStreetMap::PlacementType::NONE;
+    laneIndex = -1;
+    const std::vector<std::string> tokens = StringTokenizer(value, ":").getVector();
+    if (tokens.size() != 2) {
+        return false;
+    }
+    const std::string where = StringUtils::prune(tokens[0]);
+    if (where == "left_of") {
+        placement = NIImporter_OpenStreetMap::PlacementType::LEFT_OF;
+    } else if (where == "right_of") {
+        placement = NIImporter_OpenStreetMap::PlacementType::RIGHT_OF;
+    } else if (where == "middle_of") {
+        placement = NIImporter_OpenStreetMap::PlacementType::MIDDLE_OF;
+    } else {
+        return false;
+    }
+    try {
+        laneIndex = StringUtils::toInt(StringUtils::prune(tokens[1]));
+    } catch (ProcessError&) {
+        placement = NIImporter_OpenStreetMap::PlacementType::NONE;
+        laneIndex = -1;
+        return false;
+    }
+    if (laneIndex <= 0) {
+        placement = NIImporter_OpenStreetMap::PlacementType::NONE;
+        laneIndex = -1;
+        return false;
+    }
+    return true;
 }
 
 
