@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-10T08:26:48.589360+01:00 by Eclipse SUMO netconvert v1_26_0+0486-49ec0de4dff
+<!-- generated on 2026-03-24T23:28:11.339863+01:00 by Eclipse SUMO netconvert v1_26_0+0808-9a5c1bacf63
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
 
-    <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" spreadType="center" shape="0.00,0.00 42.79,16.97 87.96,30.54 178.56,46.39">
+    <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="0.00,0.00 42.79,16.97 87.96,30.54 178.56,46.39">
         <lane id="50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.17" shape="-0.00,-0.00 42.79,16.97 87.96,30.54 178.56,46.39"/>
         <param key="railway:track_ref" value="1"/>
     </edge>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:22 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-03-24T23:28:13.826054+01:00 by Eclipse SUMO netconvert v1_26_0+0808-9a5c1bacf63
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -383,10 +383,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="394014663" from="3970600252" to="5672130262" priority="1" type="highway.footway" spreadType="center" shape="401.70,327.35 424.19,341.80 427.47,343.94">
         <lane id="394014663_0" index="0" allow="pedestrian" speed="2.78" length="30.65" width="2.00" shape="401.70,327.35 424.24,341.83"/>
     </edge>
-    <edge id="40020450#0" from="54142971" to="cluster_1100375051_1100375072" priority="17" type="railway.tram" spreadType="center" shape="401.36,583.49 394.66,609.51 390.10,622.18 386.46,635.14 384.13,646.32">
+    <edge id="40020450#0" from="54142971" to="cluster_1100375051_1100375072" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="401.36,583.49 394.66,609.51 390.10,622.18 386.46,635.14 384.13,646.32">
         <lane id="40020450#0_0" index="0" allow="tram" speed="13.89" length="66.81" shape="389.98,622.61 386.46,635.14 384.83,642.95"/>
     </edge>
-    <edge id="40020450#1" from="cluster_1100375051_1100375072" to="54142985" priority="17" type="railway.tram" spreadType="center" shape="384.13,646.32 380.99,670.23 375.54,731.48 374.99,736.67 374.24,743.84 373.55,750.46 372.34,756.77 371.22,759.68 369.72,762.34 366.81,766.28 364.32,768.74 362.97,770.21 361.18,771.22 358.21,773.09">
+    <edge id="40020450#1" from="cluster_1100375051_1100375072" to="54142985" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="384.13,646.32 380.99,670.23 375.54,731.48 374.99,736.67 374.24,743.84 373.55,750.46 372.34,756.77 371.22,759.68 369.72,762.34 366.81,766.28 364.32,768.74 362.97,770.21 361.18,771.22 358.21,773.09">
         <lane id="40020450#1_0" index="0" allow="tram" speed="13.89" length="132.78" shape="383.30,652.63 380.99,670.23 375.54,731.48 374.99,736.67 374.24,743.84 373.55,750.46 372.34,756.77 371.22,759.68 369.72,762.34 366.81,766.28 364.32,768.74 362.97,770.21 361.18,771.22 359.66,772.18"/>
     </edge>
     <edge id="408405956#0" from="1831187462" to="54142974" priority="1" type="highway.footway" spreadType="center">
@@ -442,49 +442,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="72845555" from="3970517484" to="89151807" priority="1" type="highway.footway" spreadType="center" shape="436.87,292.34 439.08,292.41 471.12,311.15 477.00,312.02">
         <lane id="72845555_0" index="0" allow="pedestrian" speed="2.78" length="45.17" width="2.00" shape="440.23,293.08 471.12,311.15 471.78,311.25"/>
     </edge>
-    <edge id="859066427#2" from="cluster_152662591_2525484945_2525484950_30263419_#5more" to="8007877014" priority="17" type="railway.tram" spreadType="center" shape="428.72,330.84 436.96,253.46 454.74,67.85 458.28,0.00">
+    <edge id="859066427#2" from="cluster_152662591_2525484945_2525484950_30263419_#5more" to="8007877014" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="428.72,330.84 436.96,253.46 454.74,67.85 458.28,0.00">
         <lane id="859066427#2_0" index="0" allow="tram" speed="13.89" length="341.46" shape="429.08,327.50 436.96,253.46 454.74,67.85 458.28,0.00"/>
     </edge>
-    <edge id="859066429#0" from="8007877017" to="7847344753" priority="17" type="railway.tram" spreadType="center" shape="436.82,283.67 433.31,318.15 432.10,328.05">
+    <edge id="859066429#0" from="8007877017" to="7847344753" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="436.82,283.67 433.31,318.15 432.10,328.05">
         <lane id="859066429#0_0" index="0" allow="tram" speed="13.89" length="44.63" shape="436.82,283.67 433.31,318.15 432.12,327.90"/>
     </edge>
-    <edge id="859066429#1" from="7847344753" to="cluster_152662591_2525484945_2525484950_30263419_#5more" priority="17" type="railway.tram" spreadType="center" shape="432.10,328.05 431.58,332.52">
+    <edge id="859066429#1" from="7847344753" to="cluster_152662591_2525484945_2525484950_30263419_#5more" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="432.10,328.05 431.58,332.52">
         <lane id="859066429#1_0" index="0" allow="tram" speed="13.89" length="11.96" shape="432.13,327.82 432.08,328.20"/>
     </edge>
-    <edge id="859066429#3" from="cluster_152662591_2525484945_2525484950_30263419_#5more" to="5672130263" priority="17" type="railway.tram" spreadType="center" shape="430.75,339.01 430.46,342.10 430.12,345.74">
+    <edge id="859066429#3" from="cluster_152662591_2525484945_2525484950_30263419_#5more" to="5672130263" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="430.75,339.01 430.46,342.10 430.12,345.74">
         <lane id="859066429#3_0" index="0" allow="tram" speed="13.89" length="6.88" shape="430.24,344.46 430.22,344.66"/>
     </edge>
-    <edge id="859066430#1" from="5672130263" to="cluster_2525484869_366041397" priority="17" type="railway.tram" spreadType="center" shape="430.12,345.74 425.20,398.23">
+    <edge id="859066430#1" from="5672130263" to="cluster_2525484869_366041397" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="430.12,345.74 425.20,398.23">
         <lane id="859066430#1_0" index="0" allow="tram" speed="13.89" length="53.05" shape="429.81,349.08 425.44,395.65"/>
     </edge>
-    <edge id="859066430#2" from="cluster_2525484869_366041397" to="54142971" priority="17" type="railway.tram" spreadType="center" shape="425.20,398.23 415.87,487.09 410.90,532.74 406.27,558.98 404.93,566.05 401.36,583.49">
+    <edge id="859066430#2" from="cluster_2525484869_366041397" to="54142971" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="425.20,398.23 415.87,487.09 410.90,532.74 406.27,558.98 404.93,566.05 401.36,583.49">
         <lane id="859066430#2_0" index="0" allow="tram" speed="13.89" length="187.37" shape="424.94,400.71 415.87,487.09 410.90,532.74 406.27,558.98 404.93,566.05 401.67,581.98"/>
     </edge>
-    <edge id="859066431#1" from="cluster_2525484869_366041397" to="7847344754" priority="17" type="railway.tram" spreadType="center" shape="422.25,397.82 426.09,356.62 426.88,349.33">
+    <edge id="859066431#1" from="cluster_2525484869_366041397" to="7847344754" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="422.25,397.82 426.09,356.62 426.88,349.33">
         <lane id="859066431#1_0" index="0" allow="tram" speed="13.89" length="49.18" shape="422.48,395.37 426.09,356.62 426.86,349.48"/>
     </edge>
-    <edge id="859066431#2" from="7847344754" to="5672130262" priority="17" type="railway.tram" spreadType="center">
+    <edge id="859066431#2" from="7847344754" to="5672130262" priority="17" type="railway.tram" routingType="4" spreadType="center">
         <lane id="859066431#2_0" index="0" allow="tram" speed="13.89" length="5.42" shape="426.90,349.18 427.09,347.40"/>
     </edge>
-    <edge id="859066431#3" from="5672130262" to="cluster_152662591_2525484945_2525484950_30263419_#5more" priority="17" type="railway.tram" spreadType="center" shape="427.47,343.94 427.73,340.88 428.03,337.36">
+    <edge id="859066431#3" from="5672130262" to="cluster_152662591_2525484945_2525484950_30263419_#5more" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="427.47,343.94 427.73,340.88 428.03,337.36">
         <lane id="859066431#3_0" index="0" allow="tram" speed="13.89" length="7.14" shape="427.49,343.64 427.51,343.44"/>
     </edge>
-    <edge id="859066433#1" from="1882498697" to="54142985" priority="17" type="railway.tram" spreadType="center" shape="378.56,744.21 378.27,747.01 377.64,751.23 376.95,754.57 376.29,756.97 375.37,759.59 372.91,762.96 370.25,766.03 367.71,768.24 364.91,770.13 358.21,773.09">
+    <edge id="859066433#1" from="1882498697" to="54142985" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="378.56,744.21 378.27,747.01 377.64,751.23 376.95,754.57 376.29,756.97 375.37,759.59 372.91,762.96 370.25,766.03 367.71,768.24 364.91,770.13 358.21,773.09">
         <lane id="859066433#1_0" index="0" allow="tram" speed="13.89" length="38.06" shape="378.30,746.74 378.27,747.01 377.64,751.23 376.95,754.57 376.29,756.97 375.37,759.59 372.91,762.96 370.25,766.03 367.71,768.24 364.91,770.13 359.80,772.39"/>
     </edge>
-    <edge id="859066433#2" from="54142985" to="1100375067" priority="17" type="railway.tram" spreadType="center" shape="358.21,773.09 354.91,774.05 351.69,774.64 349.43,774.93 346.63,774.87 341.48,774.03 337.31,772.61 333.24,770.48 329.43,767.94 326.11,764.52 323.55,760.93 321.42,756.83 319.84,752.15 319.40,747.73 319.32,744.80 319.79,740.65 320.68,736.57 322.51,732.80 325.09,727.34 334.07,713.26 346.93,691.81 369.04,653.38 373.00,644.19">
+    <edge id="859066433#2" from="54142985" to="1100375067" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="358.21,773.09 354.91,774.05 351.69,774.64 349.43,774.93 346.63,774.87 341.48,774.03 337.31,772.61 333.24,770.48 329.43,767.94 326.11,764.52 323.55,760.93 321.42,756.83 319.84,752.15 319.40,747.73 319.32,744.80 319.79,740.65 320.68,736.57 322.51,732.80 325.09,727.34 334.07,713.26 346.93,691.81 369.04,653.38 373.00,644.19">
         <lane id="859066433#2_0" index="0" allow="tram" speed="13.89" length="171.33" shape="356.55,773.57 354.91,774.05 351.69,774.64 349.43,774.93 346.63,774.87 341.48,774.03 337.31,772.61 333.24,770.48 329.43,767.94 326.11,764.52 323.55,760.93 321.42,756.83 319.84,752.15 319.40,747.73 319.32,744.80 319.79,740.65 320.68,736.57 322.51,732.80 325.09,727.34 334.07,713.26 346.93,691.81 369.04,653.38 371.10,648.59"/>
     </edge>
-    <edge id="859066433#3" from="1100375067" to="cluster_2525484869_366041397" priority="17" type="railway.tram" spreadType="center" shape="373.00,644.19 376.30,637.13 385.88,615.08 393.74,593.10 400.46,570.35 404.13,554.85 407.90,534.22 410.72,505.46 421.64,403.50 422.25,397.82">
+    <edge id="859066433#3" from="1100375067" to="cluster_2525484869_366041397" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="373.00,644.19 376.30,637.13 385.88,615.08 393.74,593.10 400.46,570.35 404.13,554.85 407.90,534.22 410.72,505.46 421.64,403.50 422.25,397.82">
         <lane id="859066433#3_0" index="0" allow="tram" speed="13.89" length="253.32" shape="374.68,640.59 376.30,637.13 385.88,615.08 393.74,593.10 400.46,570.35 404.13,554.85 407.90,534.22 410.72,505.46 421.64,403.50 421.97,400.40"/>
     </edge>
-    <edge id="859066434#1" from="54142971" to="cluster_1100375051_1100375072" priority="17" type="railway.tram" spreadType="center" shape="401.36,583.49 390.56,636.83 388.99,649.11">
+    <edge id="859066434#1" from="54142971" to="cluster_1100375051_1100375072" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="401.36,583.49 390.56,636.83 388.99,649.11">
         <lane id="859066434#1_0" index="0" allow="tram" speed="13.89" length="66.48" shape="393.28,623.37 390.56,636.83 389.65,643.96"/>
     </edge>
-    <edge id="859066434#2" from="cluster_1100375051_1100375072" to="54142974" priority="17" type="railway.tram" spreadType="center" shape="388.99,649.11 384.95,674.52">
+    <edge id="859066434#2" from="cluster_1100375051_1100375072" to="54142974" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="388.99,649.11 384.95,674.52">
         <lane id="859066434#2_0" index="0" allow="tram" speed="13.89" length="27.33" shape="388.30,653.43 385.36,671.93"/>
     </edge>
-    <edge id="859066434#3" from="54142974" to="1882498697" priority="17" type="railway.tram" spreadType="center" shape="384.95,674.52 380.99,717.09 379.25,735.80 378.56,744.21">
+    <edge id="859066434#3" from="54142974" to="1882498697" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="384.95,674.52 380.99,717.09 379.25,735.80 378.56,744.21">
         <lane id="859066434#3_0" index="0" allow="tram" speed="13.89" length="69.98" shape="384.72,676.99 380.99,717.09 379.25,735.80 378.78,741.54"/>
     </edge>
 

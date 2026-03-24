@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2026-03-24T23:28:11.239880+01:00 by Eclipse SUMO netconvert v1_26_0+0808-9a5c1bacf63
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
 
     <edge id=":2440504398_0" function="internal">
-        <lane id=":2440504398_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="1.41,0.00 1.41,0.00"/>
+        <lane id=":2440504398_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="1.41,-0.00 1.41,-0.00"/>
     </edge>
     <edge id=":2440513258_0" function="internal">
         <lane id=":2440513258_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="178.69,47.18 178.69,47.18"/>
@@ -48,33 +48,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":245981493_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="178.56,52.13 178.56,52.13"/>
     </edge>
     <edge id=":245981495_0" function="internal">
-        <lane id=":245981495_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="0.00,5.75 0.00,5.75"/>
+        <lane id=":245981495_0_0" index="0" allow="rail rail_electric rail_fast" speed="0.10" length="0.10" shape="-0.00,5.75 -0.00,5.75"/>
     </edge>
 
     <edge id="-235976545" from="2440504398" to="2440513258" priority="20" type="railway.rail" spreadType="center" shape="1.41,0.00 44.31,17.47 89.55,31.25 178.69,47.18" bidi="235976545">
-        <lane id="-235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="1.41,0.00 44.31,17.47 89.55,31.25 178.69,47.18"/>
+        <lane id="-235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.17" shape="1.41,-0.00 44.31,17.47 89.55,31.25 178.69,47.18"/>
         <param key="railway:track_ref" value="2"/>
     </edge>
     <edge id="-50495070" from="245981493" to="245981495" priority="20" type="railway.rail" spreadType="center" shape="178.56,52.13 87.96,36.29 42.79,22.72 0.00,5.75" bidi="50495070">
-        <lane id="-50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.17" shape="178.56,52.13 87.96,36.29 42.79,22.72 0.00,5.75"/>
+        <lane id="-50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.17" shape="178.56,52.13 87.96,36.29 42.79,22.72 -0.00,5.75"/>
         <param key="railway:track_ref" value="1"/>
     </edge>
-    <edge id="235976545" from="2440513258" to="2440504398" priority="20" type="railway.rail" spreadType="center" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,0.00" bidi="-235976545">
-        <lane id="235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.16" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,0.00"/>
+    <edge id="235976545" from="2440513258" to="2440504398" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,0.00" bidi="-235976545">
+        <lane id="235976545_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="184.17" shape="178.69,47.18 89.55,31.25 44.31,17.47 1.41,-0.00"/>
         <param key="railway:track_ref" value="2"/>
     </edge>
-    <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" spreadType="center" shape="0.00,5.75 42.79,22.72 87.96,36.29 178.56,52.13" bidi="-50495070">
-        <lane id="50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.17" shape="0.00,5.75 42.79,22.72 87.96,36.29 178.56,52.13"/>
+    <edge id="50495070" from="245981495" to="245981493" priority="20" type="railway.rail" routingType="4" spreadType="center" shape="0.00,5.75 42.79,22.72 87.96,36.29 178.56,52.13" bidi="-50495070">
+        <lane id="50495070_0" index="0" allow="rail rail_electric rail_fast" speed="25.00" length="185.17" shape="-0.00,5.75 42.79,22.72 87.96,36.29 178.56,52.13"/>
         <param key="railway:track_ref" value="1"/>
     </edge>
 
-    <junction id="2440504398" type="priority" x="1.41" y="0.00" incLanes="235976545_0" intLanes=":2440504398_0_0" shape="0.81,1.48 2.02,-1.48 0.81,1.48 2.02,-1.48">
+    <junction id="2440504398" type="priority" x="1.41" y="0.00" incLanes="235976545_0" intLanes=":2440504398_0_0" shape="0.81,1.48 2.01,-1.48 0.81,1.48 2.01,-1.48">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="2440513258" type="priority" x="178.69" y="47.18" incLanes="-235976545_0" intLanes=":2440513258_0_0" shape="178.97,45.60 178.41,48.75 178.97,45.60 178.41,48.75">
+    <junction id="2440513258" type="priority" x="178.69" y="47.18" incLanes="-235976545_0" intLanes=":2440513258_0_0" shape="178.97,45.60 178.41,48.76 178.97,45.60 178.41,48.76">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="245981493" type="priority" x="178.56" y="52.13" incLanes="50495070_0" intLanes=":245981493_0_0" shape="178.83,50.56 178.28,53.71 178.83,50.56 178.28,53.71">
+    <junction id="245981493" type="priority" x="178.56" y="52.13" incLanes="50495070_0" intLanes=":245981493_0_0" shape="178.84,50.55 178.28,53.71 178.84,50.55 178.28,53.71">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="245981495" type="priority" x="0.00" y="5.75" incLanes="-50495070_0" intLanes=":245981495_0_0" shape="-0.59,7.24 0.59,4.26 -0.59,7.24 0.59,4.26">
