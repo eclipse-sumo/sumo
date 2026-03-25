@@ -551,9 +551,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (useDistance) {
         // negative sign denotes counting in the other direction
         if (distanceStart < distanceEnd) {
-            distanceStart *= -1;
-        } else {
             distanceEnd *= -1;
+        } else {
+            distanceStart *= -1;
         }
     } else {
         distanceStart = 0;
