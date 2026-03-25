@@ -169,16 +169,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
     // analyze and fix railway topology
+    NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
     int numAddedBidi = 0;
     if (oc.exists("railway.topology.all-bidi") && oc.getBool("railway.topology.all-bidi")) {
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(myEdgeCont);
     } else if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
         // correct railway angles for angle-based connectivity heuristic
         myEdgeCont.checkGeometries(0, false,
                                    oc.getFloat("geometry.min-radius"), false,
                                    oc.getBool("geometry.min-radius.fix.railways"), true);
-        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(myEdgeCont, myPTStopCont, myPTLineCont);
     }
     NBRailwaySignalGuesser::guessRailSignals(myEdgeCont, myPTStopCont);

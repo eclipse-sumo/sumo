@@ -4031,7 +4031,7 @@ NBNode::geometryLike() const {
 bool
 NBNode::geometryLike(const EdgeVector& incoming, const EdgeVector& outgoing) {
     if (incoming.size() == 1 && outgoing.size() == 1) {
-        return true;
+        return incoming.front()->getBidiEdge() != outgoing.front();
     }
     if (incoming.size() == 2 && outgoing.size() == 2) {
         // check whether the incoming and outgoing edges are pairwise (near) parallel and
