@@ -1,3 +1,5 @@
+Error: No edges loaded.
+Quitting (on error).
 Warning! No mapping library found, falling back to tracemapper.
 Trip 109241 (bus): detour (factor 7.14) to stop index 10, fromPos=12304.91,5485.74 toPos=12673.91,6204.73 (airLine=808.15 path=5773.73)
 Trip 109242 (bus): detour (factor 7.14) to stop index 6, fromPos=12673.91,6204.73 toPos=12304.91,5485.74 (airLine=808.15 path=5773.90)
