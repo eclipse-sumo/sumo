@@ -1,0 +1,640 @@
+tags: [] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert
+    sidewalk: False peds_on_road: False
+tags: [] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml
+    sidewalk: False peds_on_road: False
+tags: [] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: True
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: True
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks
+    sidewalk: False peds_on_road: False
+tags: [] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'yes'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'no'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'both'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'left'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'right'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'separate'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'yes')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'no')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'designated')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
+tags: [('sidewalk', 'none'), ('foot', 'use_sidepath')] netconvert --type-files /data/typemap/osmNetconvertPedestrians.typ.xml --osm.sidewalks --sidewalks.guess
+    sidewalk: True peds_on_road: False
