@@ -192,6 +192,8 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
                                 edge, edge->getGeometry().reverse());
         if (edge->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "forward") {
             e2->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+        } else if (edge->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "backward") {
+            e2->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
         }
         ec.insert(e2);
         if (ec.retrieve(id2) == nullptr) {
