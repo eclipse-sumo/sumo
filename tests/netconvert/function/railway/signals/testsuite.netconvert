@@ -10,3 +10,6 @@ discard
 
 # guess rail signals from loaded stops
 guess.by-stops
+
+# see #17779
+guess.by-stops2
