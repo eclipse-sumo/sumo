@@ -19,6 +19,7 @@ title: ChangeLog
   - Fixed invalid signal state when loading from saved state and using WAUT #17675
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
   - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
+  - Fixed platform dependency in lane changer #17747
 
 - sumo-gui
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
@@ -35,8 +36,10 @@ title: ChangeLog
   - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
   - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
+  - Transparent junctions no longer show up as white in view #17751
 
 - netconvert
+  - Fixed superfluous bidi-edges when repairing ptLine #17754 (regression in 1.26.0)
   - NEMA computation now works for 4-arm junction without right-turns (also affects some signal plans of non-NEMA junctions) #17610
   - Zipper junctions no longer feature internal junctions (which could cause deadlock in the simulation) #17650
   - Fixed interpretation of some geo-projection strings #17655
@@ -46,15 +49,23 @@ title: ChangeLog
   - Fixed invalid permissions in OSM import when bicycles are explicitly forbidden on a pedestrian path #17691
   - Fixed bug where config options where ignored when contrary to options set in the .net.xml #17703
   - Fixed bug where the node type of a `<join>` element was ignored and replaced by "traffic_light" #17732
+  - Fixed excessive shifting from **--geometry.avoid-overlap** #17772
+  - OSM: interpretation of railway tag 'highspeed' no longer breaks rail connectivity #17748
+  - OSM: fixed invalid spreadType of one-way roads when setting **--default.spreadtype=roadCenter** #17755
 
 - duarouter
   - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
   - Using options **--skip-new-routes --ignore-errors** now longer writes invalid routes #17726
+  - Vehicle attributes `departEdge` and `arrivalEdge` are now updated when repairing route #17763
 
 - TraCI
   - `trafficlight.getSpentDuration` now works correctly after calling `setRedYellowGreenState` #17598
+  - Fixed bug where `vehicle.insertStop` shortens looped route #17741
+  - Fixed bug where `vehicle.insertStop` ignores nextStopIndex for looped route that stops repeatedly on the same edge #17718
 
 - tools
+  - gtfs2pt.py: fixed invalid error when block_id is missing #17750 (regression in 1.26.0)
+  - gtfs2pt.py: fixed missing rail edges when mapping routes #17749
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
   - osmWebWizard.py: starting two instances at the same time is now working #16663
   - patchRailConflicts.py: no longer declaring rail signals that do not control any links #17588
@@ -69,6 +80,7 @@ title: ChangeLog
   - remap_additionals.py: fixed crash when object has no position attribute #17711
   - edgeDataDiff.py: fixed crash on empty interval #17715
   - edgeDataDiff.py: fixed invalid output when inputs have different interval times #17716
+  - sumollib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
 
 
 ### Enhancements
@@ -81,6 +93,7 @@ title: ChangeLog
   - carFollowModel *ACC* now supports driverstate device (but it is only active when setting vType attribute `applyDriverState="1"`) #17633
   - Option **--vtk-output** now supports writing data at sub-second simulation step-length #17645
   - edgeData and laneData-output now support attribute `excludeEmpty="modified"` which writes unused edges but only if their speed was modified with calibrators or variableSpeedSigns. #17587
+  - fcd-output now supports attribute `stopDelay` #17767
 
 - meso
   - edge-type specific meso parameters now support `edgeLength` #17582
@@ -89,6 +102,9 @@ title: ChangeLog
 - netedit
   - Edge attribute routingType is now supported #17095
 
+- sumo-gui
+  - traffic lights now have a higher right-click priority than busstops #17761
+    
 - netconvert
   - Now importing geo-projection from visum networks #17658
   - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659
@@ -98,6 +114,9 @@ title: ChangeLog
   - Improved interpretation of OSM tag `oneway=no` in connection with rail (especially tram) #17690
   - Element `<join>` (in *.nod.xml*) now supports attribute `reset` to force recomputation of all connections at the new node. Also added option **--junctions.join-reset** which triggers recomputation of all connections at all joins #17733
   - Added option **--default.junctions.type** to override type-guessing when types are not defined in the input. This option also applies junctions created in netedit #17736
+  - Added option **--railway.topology.ptline-priority** to set railway routingType from ptlines #17558
+  - OSM: the railway routingType is no set based on tag `railway:preferred_direction` #17774
+  - OSM: tag `placement` is now supported for better geometry of one-way roads #17728
 
 
 - duarouter
@@ -121,6 +140,11 @@ title: ChangeLog
   - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
   - routeSampler.py: Added option **--keep-attributes** to preserve vehicle attributes loaded from route input including departure time (unless the route of that vehicle is used more than once) #16114
   - patchRailConflicts.py: Added option **--split-offset** which splits rail edges before traffic_light junctions if these junctions also have a rail conflict #17740
+  - [instantOutDiff.py](Tools/Output.md#instantoutdiffpy): added tool for comparing instantInductionLoop output from two simulation runs #16524
+  - [tls_analyzeSplit.py](Tools/tls.md#tls_analyzesplitpy): added tool to analyze green split of static signal plans (or plan-like logs of dynamic plans) #17730
+  - sumolib.net.getOptimalPath now uses caching by default (configurable with `readNet` attribute `maxcache`) and runs much faster in one-to-many routings (i.e. gtfs2pty.py). #17753
+  - gtfs2pt.py: Added option **--remove-detour-factor** to filter out trips with implausible routes #17757
+  - gtfs2pt.py: Added option **--rail-priority-factor** to consider routingType when mapmatching railways #17560
 
 
 ### Miscellaneous
@@ -128,6 +152,8 @@ title: ChangeLog
 - no more HTML tables in the docs
 - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
+- The OpenStreetMap Attribution of OSMWebWizard is no longer hidden behind the sidebar #17743
+- Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
 
 
 ## Version 1.26.0 (29.01.2026)
