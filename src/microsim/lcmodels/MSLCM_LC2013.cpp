@@ -1760,7 +1760,8 @@ MSLCM_LC2013::_wantsChange(
                 fullSpeedDrivingSeconds = MIN2(fullSpeedDrivingSeconds, fullSpeedGap / (vMax - leader.first->getSpeed()));
             }
 
-            const double deltaProb = ((double)myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
+            const double deltaProb = (myChangeProbThresholdRight == std::numeric_limits<long long int>::max()) ? 0 :
+                ((double)myChangeProbThresholdRight * (fullSpeedDrivingSeconds / acceptanceTime) / KEEP_RIGHT_TIME);
             myKeepRightProbability -= (long long int)(myVehicle.getActionStepLengthSecs() * deltaProb);
 
             //std::cout << STEPS2TIME(currentTime)
