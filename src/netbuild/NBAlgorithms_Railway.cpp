@@ -195,6 +195,9 @@ NBRailwayTopologyAnalyzer::addBidiEdge(NBEdgeCont& ec, NBEdge* edge, bool update
         } else if (edge->getParameter(NBTrafficLightDefinition::OSM_DIRECTION) == "backward") {
             e2->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
         }
+        if (edge->getDistance() != 0) {
+            e2->setDistance(-edge->getDistance() - edge->getLoadedLength());
+        }
         ec.insert(e2);
         if (ec.retrieve(id2) == nullptr) {
             WRITE_WARNINGF(TL("Bidi-edge '%' prevented by filtering rules."), id2);
