@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-30 09:41:04 by Eclipse SUMO netconvert Version v1_21_0+2125-f7884de39c4
+<!-- generated on 2026-03-25T15:41:45.711069+01:00 by Eclipse SUMO netconvert v1_26_0+0831-8ede5493a43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,9 +48,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="-7307151972" name="Albertusstraße" lane="-5067106#3_0" startPos="9.35" endPos="24.35" friendlyPos="true" lines="737 738"/>
-    <busStop id="1234643991" name="Chausseestraße" lane="26216780#2_0" startPos="87.51" endPos="102.51" friendlyPos="true" lines="737 738"/>
+    <busStop id="-7307151972" name="Albertusstraße" lane="-5067106#3_0" startPos="9.36" endPos="24.36" friendlyPos="true" lines="737 738"/>
+    <busStop id="1234643991" name="Chausseestraße" lane="26216780#2_0" startPos="87.51" endPos="102.51" friendlyPos="true" lines="737 738">
+        <access lane="-219822399#0_0" pos="50.18" length="41.35" friendlyPos="1"/>
+        <access lane="-219822416#0_0" pos="17.35" length="42.84" friendlyPos="1"/>
+        <access lane="-219822416#4_0" pos="43.89" length="18.56" friendlyPos="1"/>
+        <access lane="219822399#0_0" pos="32.10" length="36.55" friendlyPos="1"/>
+        <access lane="219822416#4_0" pos="23.93" length="23.36" friendlyPos="1"/>
+    </busStop>
     <busStop id="1643085195" name="A10 Center" lane="782661618#3_0" startPos="44.06" endPos="59.06" friendlyPos="true" lines="737 738"/>
-    <busStop id="32500319" name="Chausseestraße" lane="4935299#0_0" startPos="172.98" endPos="187.98" friendlyPos="true"/>
+    <busStop id="32500319" name="Chausseestraße" lane="4935299#0_0" startPos="172.98" endPos="187.98" friendlyPos="true">
+        <access lane="-714677615#1_0" pos="7.61" length="49.34" friendlyPos="1"/>
+        <access lane="-866713606#1_0" pos="345.55" length="38.54" friendlyPos="1"/>
+        <access lane="714677615#0_0" pos="0.00" length="44.62" friendlyPos="1"/>
+        <access lane="866713606#0_0" pos="0.00" length="46.34" friendlyPos="1"/>
+        <access lane="866713606#1_0" pos="22.77" length="33.74" friendlyPos="1"/>
+    </busStop>
     <busStop id="7307151973" name="Albertusstraße" lane="5067106#4_0" startPos="20.50" endPos="35.50" friendlyPos="true"/>
 </additional>

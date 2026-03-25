@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 13:22:22 by Eclipse SUMO netconvert Version v1_24_0+0105-e209ab84cb0
+<!-- generated on 2026-03-25T15:41:45.464288+01:00 by Eclipse SUMO netconvert v1_26_0+0831-8ede5493a43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -76,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="17"/>
     </edge>
     <edge id="-576411466" from="2281952941" to="109909983" priority="12" type="highway.primary">
-        <lane id="-576411466_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="216.61,601.10 216.45,601.20"/>
+        <lane id="-576411466_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="216.61,601.10 216.45,601.20"/>
         <param key="ref" value="17"/>
     </edge>
     <edge id="-91644291#0" from="5705189069" to="1064701127" priority="1" type="highway.service">
@@ -255,8 +255,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="563803514#2_0" index="0" allow="pedestrian" speed="2.78" length="248.27" width="2.00" shape="196.35,588.17 192.56,575.61 173.36,532.35 162.16,505.32 158.99,497.67 143.60,462.60 142.08,460.74 140.32,459.90 138.07,459.72 136.43,459.85 134.98,460.61 133.93,461.38 116.70,476.09 94.95,494.13 72.15,511.17 57.12,522.43"/>
     </edge>
     <edge id="576411466" from="109909983" to="2281952941" priority="12" type="highway.primary">
-        <lane id="576411466_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="212.95,595.85 213.12,595.74"/>
-        <lane id="576411466_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="214.70,598.52 214.87,598.42"/>
+        <lane id="576411466_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="212.95,595.85 213.12,595.74"/>
+        <lane id="576411466_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.90" shape="214.70,598.52 214.87,598.42"/>
         <param key="ref" value="17"/>
     </edge>
     <edge id="599784510#0" from="5705189074" to="5432865163" priority="1" type="highway.footway" spreadType="center" shape="214.79,568.81 218.36,577.37 220.22,580.25">

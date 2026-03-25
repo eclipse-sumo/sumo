@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-27 08:42:11 by Eclipse SUMO netconvert Version v1_14_1+1242-57b0522bf9b
+<!-- generated on 2026-03-25T15:41:45.068462+01:00 by Eclipse SUMO netconvert v1_26_0+0831-8ede5493a43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="input_types.typ.xml"/>
@@ -36,10 +36,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="41.45" friendlyPos="true" lines="31"/>
-    <busStop id="905659723" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="41.45" friendlyPos="true" lines="31"/>
+    <busStop id="4014639411" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="41.46" friendlyPos="true" lines="31">
+        <access lane="102414459#0_0" pos="112.89" length="14.66" friendlyPos="1"/>
+        <access lane="102414459#1_0" pos="0.00" length="27.98" friendlyPos="1"/>
+        <access lane="122677127_0" pos="163.82" length="28.00" friendlyPos="1"/>
+        <access lane="125869023_0" pos="99.13" length="28.26" friendlyPos="1"/>
+        <access lane="26408493#3_0" pos="11.01" length="14.30" friendlyPos="1"/>
+    </busStop>
+    <busStop id="905659723" name="Hallesche Allee" lane="412820207_0" startPos="0.00" endPos="41.46" friendlyPos="true" lines="31">
+        <access lane="102414459#0_0" pos="110.41" length="10.21" friendlyPos="1"/>
+        <access lane="102414459#1_0" pos="0.00" length="29.41" friendlyPos="1"/>
+        <access lane="122677127_0" pos="163.82" length="28.21" friendlyPos="1"/>
+        <access lane="26408493#3_0" pos="13.43" length="18.82" friendlyPos="1"/>
+        <access lane="3788462#0_0" pos="0.00" length="32.89" friendlyPos="1"/>
+    </busStop>
 </additional>

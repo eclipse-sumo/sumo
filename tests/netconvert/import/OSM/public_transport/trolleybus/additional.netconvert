@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-15T12:11:50.308702+01:00 by Eclipse SUMO netconvert v1_25_0+0976-3f75f4984c5
+<!-- generated on 2026-03-25T15:41:45.209791+01:00 by Eclipse SUMO netconvert v1_26_0+0831-8ede5493a43
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -75,7 +75,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="590532030_0" pos="74.18" length="6.29" friendlyPos="1"/>
         <access lane="623555244#0_0" pos="238.61" length="87.59" friendlyPos="1"/>
     </trainStop>
-    <busStop id="378729047" name="Kempfhofsteig" lane="1096073140#0_0" startPos="8.41" endPos="23.41" friendlyPos="true" lines="46 N4"/>
+    <busStop id="378729047" name="Kempfhofsteig" lane="1096073140#0_0" startPos="8.41" endPos="23.41" friendlyPos="true" lines="46 N4">
+        <access lane="285333384_0" pos="24.83" length="11.51" friendlyPos="1"/>
+        <access lane="590200752_0" pos="3.61" length="13.29" friendlyPos="1"/>
+        <access lane="623555244#2_0" pos="8.06" length="12.38" friendlyPos="1"/>
+        <access lane="623555244#3_0" pos="2.14" length="6.41" friendlyPos="1"/>
+        <access lane="623555248#1_0" pos="9.55" length="6.66" friendlyPos="1"/>
+    </busStop>
     <trainStop id="4885628503" name="Alte Trotte" lane="1279971412_0" startPos="246.40" endPos="271.40" friendlyPos="true" lines="13">
         <access lane="-1096073141_0" pos="159.66" length="99.39" friendlyPos="1"/>
         <access lane="1096073141_0" pos="132.49" length="104.19" friendlyPos="1"/>
