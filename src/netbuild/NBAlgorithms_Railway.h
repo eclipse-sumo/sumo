@@ -163,7 +163,7 @@ private:
 class NBRailwaySignalGuesser {
 
 public:
-    static int guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc);
+    static int guessRailSignals(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc);
 
 private:
     static int guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength);

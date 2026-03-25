@@ -1370,11 +1370,12 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
 // ---------------------------------------------------------------------------
 
 int
-NBRailwaySignalGuesser::guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc) {
+NBRailwaySignalGuesser::guessRailSignals(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc) {
     const OptionsCont& oc = OptionsCont::getOptions();
     int addedSignals = 0;
     if (oc.exists("railway.signal.guess.by-stops")) {
         if (oc.getBool("railway.signal.guess.by-stops")) {
+            NBTurningDirectionsComputer::computeTurnDirections(nc, false);
             const double minLength = oc.getFloat("osm.stop-output.length.train");
             addedSignals += guessByStops(ec, sc, minLength);
         }
