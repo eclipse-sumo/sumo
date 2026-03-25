@@ -7,8 +7,8 @@
         <!-- Layout -->
         <param key="ring1" value="1,2,3,4"/>
         <param key="ring2" value="5,6,3,4"/>
-        <param key="barrier2Phases" value="2,6"/>
-        <param key="barrierPhases" value="4,4"/>
+        <param key="barrier2Phases" value="4,4"/>
+        <param key="barrierPhases" value="2,6"/>
         
         <param key="show-detectors" value="true"/>
         <param key="whetherOutputState" value="true"/>

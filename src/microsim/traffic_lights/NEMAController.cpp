@@ -1776,6 +1776,19 @@ PhaseTransitionLogic::coordBase(NEMALogic* controller) {
 
 bool
 PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
+    // FIX: In coordinate mode, always allow transitions to the coordinated phase
+    // on the same barrier side without requiring detector demand. The coordinated
+    // phase must never be skipped — it is the timing anchor for the cycle.
+    // This mirrors the exemption already present in coordBase() but was missing here,
+    // which caused the coordinated phase to be skipped when transitioning from a
+    // barrier phase (e.g. in lead-lag configurations where the barrier phase serves
+    // first and then needs to return to the coordinated phase).
+    if (controller->coordinateMode && toPhase->coordinatePhase
+            && fromPhase->barrierNum == toPhase->barrierNum
+            && fromPhase->readyToSwitch) {
+        return true;
+    }
+
     if (freeBase(controller)) {
         if (fromPhase->barrierNum == toPhase->barrierNum) {
             // same barrier side so we are good.
@@ -1803,12 +1816,19 @@ bool
 PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
     if (coordBase(controller)) {
         // In lead-lag, the coordinated phase may not be at the barrier.
-        // If transitioning within the same barrier section (not a barrier cross),
+        // If transitioning within the same barrier section (not a barrier cross)
+        // AND the coordinated phase is not at the barrier (lead-lag only),
         // the other ring's phase does not need to be ready.
+        // IMPORTANT: This exemption must NOT apply when the coordinated phase IS
+        // at the barrier (standard config), otherwise the coord phase can
+        // incorrectly transition to earlier phases on the same barrier side
+        // (e.g. phase 6 -> phase 5) when the other ring isn't ready, causing
+        // the coordinated phase to be skipped.
         bool sameBarrier = (fromPhase->barrierNum == toPhase->barrierNum);
+        bool sameBarrierLeadLag = sameBarrier && !fromPhase->isAtBarrier;
         bool otherPhaseReady = controller->getOtherPhase(fromPhase)->readyToSwitch;
 
-        if (sameBarrier || otherPhaseReady) {
+        if (sameBarrierLeadLag || otherPhaseReady) {
             // Dr. Wang had the Type-170 code setup in a way that it could transition whenever - meaning that it didn't matter if the prior phase could fit or not
             if (controller->isType170()) {
                 return true;
