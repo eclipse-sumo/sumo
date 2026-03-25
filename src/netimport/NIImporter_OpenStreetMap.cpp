@@ -2020,7 +2020,10 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             if (key == "sidewalk") {
                 if (value == "no" || value == "none" || value == "separate") {
                     myCurrentEdge->mySidewalkType = WAY_NONE;
-                } else if (value == "both") {
+                    if (value == "separate") {
+                        myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
+                    }
+                } else if (value == "both" || value == "yes") {
                     myCurrentEdge->mySidewalkType = WAY_BOTH;
                 } else if (value == "right") {
                     myCurrentEdge->mySidewalkType = WAY_FORWARD;

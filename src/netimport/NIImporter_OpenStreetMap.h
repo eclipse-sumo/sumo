@@ -70,8 +70,8 @@ public:
 
 protected:
 
-    /** @enum CycleWayType
-     * @brief details on the kind of cycleway along this road
+    /** @enum WayType
+     * @brief details on the kind of sidewalk, cycleway, busway along this road
      */
     enum WayType {
         WAY_NONE = 0,
