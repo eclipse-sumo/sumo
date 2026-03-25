@@ -67,5 +67,11 @@ jena_tram2_noBidiStops_split
 # see #17766
 bs_tram
 
+# see #17781
+signal_dir_unpreferred
+
+# see #17781
+signal_dir_unpreferred_allBidi
+
 # tests using S42 (Berlin)
 S42
