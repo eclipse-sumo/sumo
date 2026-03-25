@@ -2051,6 +2051,9 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 if (myCurrentEdge->mySidewalkType == WAY_UNKNOWN) {
                     if (value == "no" || value == "none" || value == "separate") {
                         myCurrentEdge->mySidewalkType = WAY_NONE;
+                        if (value == "separate") {
+                            myCurrentEdge->myExtraDisallowed |= SVC_PEDESTRIAN;
+                        }
                     }
                     if (value == "yes") {
                         myCurrentEdge->mySidewalkType = WAY_BOTH;
