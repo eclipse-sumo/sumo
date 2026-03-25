@@ -2408,6 +2408,13 @@ enum class NetconvertConfigFileExtension {
     ALL,
 };
 
+/// @brief netconvert file extension
+enum class NetconvertPlainFileExtension {
+    EDGXML,
+    XML,
+    ALL,
+};
+
 /// @brief OSM file extension
 enum class OSMFileExtension {
     OSM,
@@ -2602,6 +2609,9 @@ public:
     /// @brief netconvert config file extensions
     static StringBijection<NetconvertConfigFileExtension> NetconvertConfigFileExtensions;
 
+    /// @brief netconvert config file extensions
+    static StringBijection<NetconvertPlainFileExtension> NetconvertPlainFileExtensions;
+
     /// @brief OSM file extensions
     static StringBijection<OSMFileExtension> OSMFileExtensions;
 
@@ -2794,6 +2804,9 @@ private:
 
     /// @brief netconvert config file extension values
     static StringBijection<NetconvertConfigFileExtension>::Entry netconvertConfigFileExtensionValues[];
+
+    /// @brief netconvert config file extension values
+    static StringBijection<NetconvertPlainFileExtension>::Entry netconvertPlainFileExtensionValues[];
 
     /// @brief OSM file extension values
     static StringBijection<OSMFileExtension>::Entry osmFileExtensionValues[];

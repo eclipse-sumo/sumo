@@ -3501,7 +3501,7 @@ long
 GNEApplicationWindow::onCmdSavePlainXMLAs(FXObject* sender, FXSelector sel, void* ptr) {
     // get neteditConfig filename
     const GNEFileDialog plainXMLFileDialog(this, TL("plain XML file"),
-                                           SUMOXMLDefinitions::NetconvertConfigFileExtensions.getStrings(),
+                                           SUMOXMLDefinitions::NetconvertPlainFileExtensions.getStrings(),
                                            GNEFileDialog::OpenMode::SAVE,
                                            GNEFileDialog::ConfigType::NETEDIT,
                                            myFileBucketHandler->getConfigDirectory());

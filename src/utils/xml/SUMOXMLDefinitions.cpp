@@ -1769,8 +1769,14 @@ StringBijection<NeteditConfigFileExtension>::Entry SUMOXMLDefinitions::neteditCo
 
 StringBijection<NetconvertConfigFileExtension>::Entry SUMOXMLDefinitions::netconvertConfigFileExtensionValues[] = {
     {TL("Netconvert config files") + std::string(" (*.netccfg)"),   NetconvertConfigFileExtension::NETCCFG},
-    {TL("XML files") + std::string(" (*.xml"),                      NetconvertConfigFileExtension::XML},
+    {TL("XML files") + std::string(" (*.xml)"),                     NetconvertConfigFileExtension::XML},
     {TL("All files") + std::string(" (*)"),                         NetconvertConfigFileExtension::ALL} //< must be the last one
+};
+
+StringBijection<NetconvertPlainFileExtension>::Entry SUMOXMLDefinitions::netconvertPlainFileExtensionValues[] = {
+    {TL("Netconvert plain-xml files") + std::string(" (*.edg.xml)"),     NetconvertPlainFileExtension::EDGXML},
+    {TL("XML files") + std::string(" (*.xml)"),                           NetconvertPlainFileExtension::XML},
+    {TL("All files") + std::string(" (*)"),                              NetconvertPlainFileExtension::ALL} //< must be the last one
 };
 
 StringBijection<OSMFileExtension>::Entry SUMOXMLDefinitions::osmFileExtensionValues[] = {
@@ -1938,6 +1944,9 @@ StringBijection<NeteditConfigFileExtension> SUMOXMLDefinitions::NeteditConfigFil
 
 StringBijection<NetconvertConfigFileExtension> SUMOXMLDefinitions::NetconvertConfigFileExtensions(
     SUMOXMLDefinitions::netconvertConfigFileExtensionValues, NetconvertConfigFileExtension::ALL, false);
+
+StringBijection<NetconvertPlainFileExtension> SUMOXMLDefinitions::NetconvertPlainFileExtensions(
+    SUMOXMLDefinitions::netconvertPlainFileExtensionValues, NetconvertPlainFileExtension::ALL, false);
 
 StringBijection<OSMFileExtension> SUMOXMLDefinitions::OSMFileExtensions(
     SUMOXMLDefinitions::osmFileExtensionValues, OSMFileExtension::ALL, false);
