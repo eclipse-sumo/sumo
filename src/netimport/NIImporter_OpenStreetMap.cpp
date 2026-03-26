@@ -745,6 +745,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double speedBackward = speed;
     if (e->myMaxSpeedBackward != MAXSPEED_UNGIVEN) {
         speedBackward = e->myMaxSpeedBackward;
+        addBackward = true;
     }
     if (speed <= 0 || speedBackward <= 0) {
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
