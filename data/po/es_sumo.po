@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-25 08:49+0000\n"
+"PO-Revision-Date: 2026-03-26 20:46+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -12760,7 +12760,7 @@ msgstr ""
 #: src/router/RONetHandler.cpp:407
 #, c-format
 msgid "unknown via-edge '%' in connection"
-msgstr ""
+msgstr "Arista intermedia '%' no conocida en la conexión"
 
 #: src/router/RONetHandler.cpp:468
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
@@ -12772,7 +12772,7 @@ msgstr "Se reparó la ruta del vehículo '%'."
 
 #: src/router/RORouteDef.cpp:249
 msgid "Removing invalid edge '%' from route for vehicle '%'."
-msgstr ""
+msgstr "Eliminando la arista no válida '%' de la ruta para el vehículo '%'."
 
 #: src/router/RORouteDef.cpp:257
 msgid ""
@@ -13136,7 +13136,7 @@ msgstr "¡No se pueden obtener atributos de archivo para el archivo '%'!"
 
 #: src/utils/common/FileHelpers.h:320
 msgid "Invalid follower index in route '%'!"
-msgstr ""
+msgstr "¡Índice de seguidor no válido en la ruta '%'!"
 
 #: src/utils/common/FileHelpers.h:330
 #, c-format
@@ -13348,6 +13348,7 @@ msgstr "Incluir información de licencia en cada archivo de salida"
 #: src/utils/common/SystemFrame.cpp:125
 msgid "Write parsable metadata (configuration etc.) instead of comments"
 msgstr ""
+"Escribir metadatos procesables (configuración, etc.) en lugar de comentarios"
 
 #: src/utils/common/SystemFrame.cpp:128
 msgid ""
@@ -13362,6 +13363,8 @@ msgid ""
 "Suffix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Sufijo que se aplica a todos los archivos de salida. La cadena especial "
+"'TIME' se reemplaza por la hora actual."
 
 #: src/utils/common/SystemFrame.cpp:134
 msgid "Defines the number of digits after the comma for floating point output"
@@ -13380,6 +13383,8 @@ msgid ""
 "Defines the standard compression algorithm (currently only for parquet "
 "output)"
 msgstr ""
+"Define el algoritmo de compresión estándar (actualmente solo para salida "
+"Parquet)"
 
 #: src/utils/common/SystemFrame.cpp:143
 msgid ""
