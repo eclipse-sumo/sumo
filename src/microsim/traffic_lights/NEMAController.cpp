@@ -1839,12 +1839,6 @@ PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
             }
             // now determine if there my prior phase can fit or not. We already know that I can fit.
             NEMAPhase* priorPhase = toPhase->getSequentialPriorPhase();
-            // In lead-lag, priorPhase of the lag phase (e.g. Phase 1) is the coord phase itself (Phase 2).
-            // The prior-phase-fit check is meant for phases BEFORE the toPhase, but when
-            // that's the fromPhase itself, the check is self-referential. Skip it.
-            if (priorPhase == fromPhase) {
-                return true;
-            }
             SUMOTime timeTillForceOff = controller->ModeCycle(priorPhase->forceOffTime - controller->getTimeInCycle(), controller->getCurrentCycleLength());
             SUMOTime transitionTime = fromPhase->getTransitionTime(controller);
             // if the time till the force off is less than the min duration ||
