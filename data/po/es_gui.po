@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-17 09:39+0000\n"
+"PO-Revision-Date: 2026-03-26 20:46+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11756,7 +11756,7 @@ msgstr "agregar punto de interés '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1693
 msgid "add POI lane '%'"
-msgstr ""
+msgstr "agregar punto de interés de carril '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
 #, c-format
@@ -11769,7 +11769,7 @@ msgstr "La red requiere de una proyección geográfica."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1736
 msgid "add POI GEO '%'"
-msgstr ""
+msgstr "agregar punto de interés geográfico '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1763
 msgid "add jps walkable area '"
@@ -11783,7 +11783,7 @@ msgstr "agregar obstáculo JuPedSim '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2029
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2572
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
-msgstr ""
+msgstr "No se pudo crear % con ID '%' en netedit; % con ID '%' no existe."
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:268
 #: src/netedit/elements/additional/GNECalibrator.cpp:527
@@ -11825,7 +11825,7 @@ msgstr "Transformar en punto de interés (POI)"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:346
 msgid "Transform to POI Geo"
-msgstr ""
+msgstr "Transformar a punto de interés geográfico"
 
 #: src/netedit/elements/additional/GNEPOI.cpp:414
 #: src/netedit/elements/additional/GNEPOI.cpp:420
