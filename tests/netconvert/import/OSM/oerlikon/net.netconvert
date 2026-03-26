@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-25T15:41:45.605155+01:00 by Eclipse SUMO netconvert v1_26_0+0831-8ede5493a43
+<!-- generated on 2026-03-26T16:13:30.896881+01:00 by Eclipse SUMO netconvert v1_26_0+0836-efd6d529f4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -6122,7 +6122,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="90648872" from="1052078755" to="1504204877" priority="3" type="highway.residential" spreadType="center" shape="401.67,156.66 396.36,153.13 392.73,151.00 390.01,150.06 388.34,149.75 386.29,149.88 382.42,151.06 380.64,152.22 377.45,155.40 375.35,159.77">
-        <lane id="90648872_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.16" shape="388.26,149.75 386.29,149.88 384.20,150.52">
+        <lane id="90648872_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.16" shape="388.26,149.75 386.29,149.88 384.20,150.52">
             <param key="origId" value="90648872"/>
         </lane>
     </edge>
