@@ -203,8 +203,12 @@ NBPTStopCont::getReverseStop(std::shared_ptr<NBPTStop> pStop, const NBEdgeCont& 
     if (reverse != nullptr) {
         const std::string reverseID = getReverseID(pStop->getID());
         if (myPTStops.count(reverseID) == 0) {
-            return std::make_shared<NBPTStop>(pStop->getElement(), reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
+            std::shared_ptr<NBPTStop> result = std::make_shared<NBPTStop>(pStop->getElement(), reverseID, pStop->getPosition(), reverse->getID(), reverse->getID(),
                                               pStop->getLength(), pStop->getName(), pStop->getPermissions());
+            for (const std::string& line : pStop->getLines()) {
+                result->addLine(line);
+            }
+            return result;
         } else {
             return myPTStops[reverseID];
         }
