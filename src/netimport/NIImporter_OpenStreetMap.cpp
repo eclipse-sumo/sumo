@@ -560,8 +560,15 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         distanceEnd = 0;
     }
     // get additional direction information
-    int nodeDirection = myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection |
-                        myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection;
+    int nodeDirection = WAY_UNKNOWN;
+    const NIOSMNode* fn = myOSMNodes.find(StringUtils::toLong(from->getID()))->second;
+    const NIOSMNode* ft = myOSMNodes.find(StringUtils::toLong(to->getID()))->second;
+    if (fn->railwaySignal) {
+        nodeDirection |= fn->myRailDirection;
+    }
+    if (ft->railwaySignal) {
+        nodeDirection |= ft->myRailDirection;
+    }
 
     std::vector<std::shared_ptr<NBPTStop> > ptStops;
     for (long long i : passed) {
@@ -587,23 +594,23 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
     }
-#ifdef DEBUG_LAYER_ELEVATION
-    if (e->id == "DEBUGID") {
-        std::cout
-                << " id=" << id << " from=" << from->getID() << " fromRailDirection=" << myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection
-                << " to=" << to->getID() << " toRailDirection=" << myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection
-                << " origRailDirection=" << e->myRailDirection
-                << " nodeDirection=" << nodeDirection
-                << "\n";
-    }
-#endif
-    if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
-            && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
-        //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << " from=" << from->getID() << " to=" << to->getID() << "\n";
-        // heuristic: assume that the mapped way direction indicates
-        // potential driving direction
+    //if (e->id == DEBUGID) {
+    //    std::cout
+    //            << " id=" << id << " from=" << from->getID() << " fromRailDirection=" << myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection
+    //            << " to=" << to->getID() << " toRailDirection=" << myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection
+    //            << " origRailDirection=" << e->myRailDirection
+    //            << " nodeDirection=" << nodeDirection
+    //            << "\n";
+    //}
+    if (e->myRailDirection == WAY_UNKNOWN && (nodeDirection & WAY_BACKWARD) != 0) {
+        // legacy behavior seems to have handled missing tags quite well
         e->myRailDirection = WAY_BOTH;
+        //std::cout << " id=" << id << " newRailDir=" << e->myRailDirection << "\n";
+    } else if (nodeDirection != WAY_UNKNOWN) {
+        // additional direction information can just be added
+        e->myRailDirection = (e->myRailDirection | nodeDirection) & ~WAY_UNKNOWN;
     }
+
     if (!NBNetBuilder::transformCoordinates(shape)) {
         WRITE_ERRORF("Unable to project coordinates for edge '%'.", id);
     }
