@@ -51,3 +51,6 @@ detour_edgeNotFound
 
 # see #17560
 sbahn_routingType
+
+# sanitize stop names to ensure valid xml outputs (#17791)
+normalization
