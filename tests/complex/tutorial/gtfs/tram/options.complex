@@ -3,6 +3,7 @@
 --stops data/osm_stops.add.xml
 --radius 300
 --sort
+-H
 --mapperlib tracemapper
 --rail-priority-factor 5
 --remove-detour-factor 5

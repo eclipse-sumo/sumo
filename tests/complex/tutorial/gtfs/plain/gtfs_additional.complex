@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26 14:20:49.311520 by Eclipse SUMO gtfs2pt.py v1_26_0+0849-cdc0cb8e0b6
+<!-- generated on 2026-03-26 14:34:43.968070 by Eclipse SUMO gtfs2pt.py v1_26_0+0850-12fe2f0576f
 <configuration>
     <merged-csv value="data/data.csv"/>
+    <human-readable-time value="True"/>
     <network value="data/osm.net.xml.gz"/>
     <sort value="True"/>
     <stops value="data/osm_stops.add.xml"/>
     <rail-priority-factor value="5.0"/>
-    <radius value="300.0"/>
+    <radius value="500.0"/>
     <remove-detour-factor value="5.0"/>
     <mapperlib value="tracemapper"/>
 </configuration>
@@ -28,7 +29,6 @@
     </busStop>
     <busStop id="236778.2" lane="1013501323_0" startPos="39.53" endPos="54.53" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)"/>
     <busStop id="236778.3" lane="1449474922_0" startPos="10.94" endPos="25.94" friendlyPos="true" name="Lübbenauer Weg (Berlin)"/>
-    <busStop id="236778.4" lane="1449474922_0" startPos="426.40" endPos="439.40" friendlyPos="true" name="Schappachstr. (Berlin)"/>
     <busStop id="109241.6" lane="1198308222_0" startPos="129.27" endPos="142.27" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-11452526_0" pos="50.28" length="29.58"/>
         <access friendlyPos="true" lane="-4463780#1_0" pos="86.27" length="60.25"/>
@@ -37,7 +37,7 @@
         <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
         <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
     </busStop>
-    <busStop id="109244.0" lane="837291681_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="S Zeuthen">
+    <busStop id="109244.0" lane="-7723382#0_0" startPos="5.80" endPos="20.80" friendlyPos="true" name="S Zeuthen">
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
     </busStop>
@@ -47,14 +47,8 @@
         <access friendlyPos="true" lane="1021062335_0" pos="0.00" length="118.38"/>
         <access friendlyPos="true" lane="8068139_0" pos="0.00" length="71.22"/>
     </busStop>
-    <busStop id="109244.3" lane="-797340925#0_0" startPos="67.78" endPos="82.78" friendlyPos="true" name="Zeuthen, Havellandstr."/>
-    <busStop id="109244.4" lane="-4045247#0_0" startPos="67.93" endPos="82.93" friendlyPos="true" name="Eichwalde, Friedenstr."/>
-    <busStop id="109244.5" lane="4068154#2_0" startPos="17.61" endPos="32.61" friendlyPos="true" name="Eichwalde, Tschaikowskistr.">
-        <access friendlyPos="true" lane="-24275810#0_0" pos="206.48" length="15.45"/>
-        <access friendlyPos="true" lane="-24275825#1_0" pos="0.00" length="16.02"/>
-        <access friendlyPos="true" lane="24275810#0_0" pos="0.00" length="17.19"/>
-        <access friendlyPos="true" lane="24275825#1_0" pos="120.00" length="19.22"/>
-    </busStop>
+    <busStop id="109244.3" lane="797340924#1_0" startPos="105.16" endPos="120.16" friendlyPos="true" name="Zeuthen, Havellandstr."/>
+    <busStop id="109244.4" lane="4068154#2_0" startPos="17.61" endPos="32.61" friendlyPos="true" name="Eichwalde, Friedenstr."/>
     <busStop id="109244.6" lane="355736431_0" startPos="23.29" endPos="38.29" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str.">
         <access friendlyPos="true" lane="-1010000354_0" pos="0.00" length="127.65"/>
         <access friendlyPos="true" lane="-1453600260_0" pos="55.92" length="140.99"/>
@@ -67,19 +61,9 @@
         <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
         <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
     </busStop>
-    <busStop id="109244.8" lane="383790135_0" startPos="37.67" endPos="52.67" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
-    <busStop id="280370.6" lane="-11452526_0" startPos="37.28" endPos="50.28" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
-    <busStop id="280370.7" lane="1010110055_0" startPos="39.70" endPos="54.70" friendlyPos="true" name="Zum Seeblick (Berlin)">
+    <busStop id="280370.7" lane="-4068154#4_0" startPos="40.37" endPos="55.37" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
         <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
-    </busStop>
-    <busStop id="280370.8" lane="-4068154#4_0" startPos="40.37" endPos="55.37" friendlyPos="true" name="Eichwalde, Schmöckwitzer Str.">
-        <access friendlyPos="true" lane="-1010000354_0" pos="0.00" length="127.65"/>
-        <access friendlyPos="true" lane="-1453600260_0" pos="55.92" length="140.99"/>
-        <access friendlyPos="true" lane="-4935236_0" pos="5.59" length="92.89"/>
-        <access friendlyPos="true" lane="1010000354_0" pos="0.20" length="122.87"/>
-        <access friendlyPos="true" lane="4935236_0" pos="87.15" length="95.30"/>
-        <access friendlyPos="true" lane="80342203#1_0" pos="56.72" length="138.60"/>
     </busStop>
     <busStop id="280370.9" lane="-4068154#2_0" startPos="257.42" endPos="272.42" friendlyPos="true" name="Eichwalde, Tschaikowskistr.">
         <access friendlyPos="true" lane="-24275810#0_0" pos="206.48" length="15.45"/>
@@ -88,53 +72,26 @@
         <access friendlyPos="true" lane="24275825#1_0" pos="120.00" length="19.22"/>
     </busStop>
     <busStop id="280370.10" lane="-4068154#0_0" startPos="165.54" endPos="180.54" friendlyPos="true" name="Eichwalde, Friedenstr."/>
-    <busStop id="280370.11" lane="797340925#0_0" startPos="13.02" endPos="28.02" friendlyPos="true" name="Zeuthen, Havellandstr."/>
-    <busStop id="280370.12" lane="-8068171_0" startPos="237.89" endPos="252.89" friendlyPos="true" name="Zeuthen, Maxim-Gorki-Str.">
+    <busStop id="280370.12" lane="1042111969_0" startPos="385.04" endPos="400.04" friendlyPos="true" name="Zeuthen, Maxim-Gorki-Str.">
         <access friendlyPos="true" lane="-1021333181_0" pos="0.00" length="16.60"/>
         <access friendlyPos="true" lane="8068139_0" pos="349.00" length="12.46"/>
     </busStop>
-    <busStop id="280370.13" lane="-810189346_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="S Zeuthen">
-        <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
-        <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
-    </busStop>
-    <busStop id="281591.12" lane="1312568317_0" startPos="41.77" endPos="56.77" friendlyPos="true" name="Zeuthen, Seegarten"/>
-    <busStop id="109298.5" lane="415907064#2_0" startPos="15.87" endPos="30.87" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str.">
+    <busStop id="109298.4" lane="-4930561_0" startPos="78.21" endPos="93.21" friendlyPos="true" name="Schulzendorf (LDS), Puschkinstr."/>
+    <busStop id="109306.0" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
+    <busStop id="109306.1" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str.">
         <access friendlyPos="true" lane="4920444_0" pos="0.00" length="22.09"/>
         <access friendlyPos="true" lane="4930526_0" pos="0.00" length="53.12"/>
     </busStop>
-    <busStop id="109298.6" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
-    <busStop id="109298.7" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str.">
-        <access friendlyPos="true" lane="4920444_0" pos="0.00" length="22.09"/>
-        <access friendlyPos="true" lane="4930526_0" pos="0.00" length="53.12"/>
-    </busStop>
-    <busStop id="109298.8" lane="-4930561_0" startPos="78.21" endPos="93.21" friendlyPos="true" name="Schulzendorf (LDS), Dohlenstieg">
-        <access friendlyPos="true" lane="-4920483_0" pos="134.88" length="145.16"/>
-        <access friendlyPos="true" lane="4920483_0" pos="263.01" length="147.56"/>
-    </busStop>
-    <busStop id="109298.9" lane="4920483_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben"/>
-    <busStop id="109328.1" lane="4920444_0" startPos="364.41" endPos="377.41" friendlyPos="true" name="Schulzendorf (LDS), K.-Marx-Str."/>
-    <busStop id="109329.27" lane="-4920483_0" startPos="384.08" endPos="397.08" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben"/>
-    <busStop id="109329.28" lane="4930561_0" startPos="238.78" endPos="253.78" friendlyPos="true" name="Schulzendorf (LDS), Dohlenstieg">
-        <access friendlyPos="true" lane="-4920483_0" pos="134.88" length="145.16"/>
-        <access friendlyPos="true" lane="4920483_0" pos="263.01" length="147.56"/>
-    </busStop>
-    <busStop id="280055.4" lane="-783261313_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Miersdorf, Hankelweg"/>
-    <busStop id="280055.5" lane="944187063#1_0" startPos="93.99" endPos="108.99" friendlyPos="true" name="S Zeuthen">
-        <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
-        <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
-    </busStop>
-    <busStop id="281066.0" lane="114441235#1_0" startPos="159.00" endPos="174.00" friendlyPos="true" name="S Zeuthen">
-        <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
-        <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
-    </busStop>
-    <busStop id="281066.1" lane="1031560365_0" startPos="61.75" endPos="76.75" friendlyPos="true" name="Zeuthen, Miersdorfer Chaussee">
-        <access friendlyPos="true" lane="-1028116055#0_0" pos="63.54" length="135.64"/>
-        <access friendlyPos="true" lane="-1056562944_0" pos="0.00" length="115.86"/>
-        <access friendlyPos="true" lane="1434638942_0" pos="43.89" length="130.84"/>
-        <access friendlyPos="true" lane="36478925_0" pos="20.21" length="113.12"/>
-        <access friendlyPos="true" lane="7941957_0" pos="209.87" length="144.71"/>
+    <busStop id="281065.1" lane="797340925#0_0" startPos="13.02" endPos="28.02" friendlyPos="true" name="Eichwalde, Friedenstr."/>
+    <busStop id="281065.3" lane="-8068171_0" startPos="237.89" endPos="252.89" friendlyPos="true" name="Zeuthen, Maxim-Gorki-Str.">
+        <access friendlyPos="true" lane="-1021333181_0" pos="0.00" length="16.60"/>
+        <access friendlyPos="true" lane="8068139_0" pos="349.00" length="12.46"/>
     </busStop>
     <trainStop id="250372.0" lane="25881424_0" startPos="853.43" endPos="878.43" friendlyPos="true" name="Krampenburg (Berlin)"/>
+    <trainStop id="250389.0" lane="25881424_0" startPos="0.00" endPos="25.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
+        <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
+        <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
+    </trainStop>
     <trainStop id="92988.1" lane="1236950970_0" startPos="0.00" endPos="170.92" friendlyPos="true" name="S Zeuthen">
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
@@ -145,21 +102,9 @@
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
     </trainStop>
-    <trainStop id="259570.3" lane="170799109_0" startPos="0.78" endPos="60.78" friendlyPos="true" name="Schappachstr. (Berlin)">
+    <trainStop id="259570.3" lane="170799109_0" startPos="485.72" endPos="510.72" friendlyPos="true" name="Schappachstr. (Berlin)">
         <access friendlyPos="true" lane="-1449474929_0" pos="0.00" length="20.76"/>
         <access friendlyPos="true" lane="1449474922_0" pos="439.40" length="21.37"/>
-    </trainStop>
-    <trainStop id="259570.4" lane="170799109_0" startPos="485.72" endPos="510.72" friendlyPos="true" name="Lübbenauer Weg (Berlin)">
-        <access friendlyPos="true" lane="-116171834_0" pos="0.00" length="64.94"/>
-        <access friendlyPos="true" lane="-1449400470_0" pos="97.08" length="58.85"/>
-        <access friendlyPos="true" lane="-1449407016#0_0" pos="0.00" length="121.18"/>
-        <access friendlyPos="true" lane="-1449474929_0" pos="411.48" length="2.21"/>
-        <access friendlyPos="true" lane="-21721173#0_0" pos="0.00" length="54.70"/>
-        <access friendlyPos="true" lane="116171834_0" pos="272.80" length="65.34"/>
-        <access friendlyPos="true" lane="1449407016#1_0" pos="57.11" length="49.94"/>
-        <access friendlyPos="true" lane="1449407019_0" pos="89.26" length="118.54"/>
-        <access friendlyPos="true" lane="1449474922_0" pos="27.04" length="7.02"/>
-        <access friendlyPos="true" lane="21721173#3_0" pos="0.00" length="54.42"/>
     </trainStop>
     <trainStop id="259570.5" lane="158537642#1_0" startPos="77.76" endPos="102.76" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)">
         <access friendlyPos="true" lane="-1449474913#0_0" pos="76.95" length="13.23"/>

@@ -1,8 +1,9 @@
 -n data/osm.net.xml.gz
 --merged-csv data/data.csv
 --stops data/osm_stops.add.xml
---radius 300
+--radius 500
 --sort
+-H
 --mapperlib tracemapper
 --rail-priority-factor 5
 --remove-detour-factor 5

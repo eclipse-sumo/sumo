@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26 14:20:49.798561 by Eclipse SUMO gtfs2pt.py v1_26_0+0849-cdc0cb8e0b6
+<!-- generated on 2026-03-26 14:34:44.326803 by Eclipse SUMO gtfs2pt.py v1_26_0+0850-12fe2f0576f
 <configuration>
     <merged-csv value="data/data.csv"/>
+    <human-readable-time value="True"/>
     <network value="data/osm.net.xml.gz"/>
     <sort value="True"/>
     <stops value="data/osm_stops.add.xml"/>
     <rail-priority-factor value="5.0"/>
-    <radius value="300.0"/>
+    <radius value="500.0"/>
     <remove-detour-factor value="5.0"/>
     <mapperlib value="tracemapper"/>
 </configuration>
@@ -15,1862 +16,1666 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="236759" edges="1198308222">
-        <stop busStop="236759.0" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="236759.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
     </route>
     <route id="236778" edges="1198308222 1013489670 4463780#0 4463780#2 240539088 1010110067 240539089#0 176187579 183254465 240539087 1013501323 1449474913#1 875861324 116171834 1449474922">
-        <stop busStop="236759.0" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="236778.1" duration="10" until="0"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="236778.2" duration="10" until="60"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="236778.3" duration="10" until="120"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="236778.4" duration="10" until="120"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="236759.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="236778.1" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="236778.2" duration="00:00:10" until="00:01:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="236778.3" duration="00:00:10" until="00:02:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="236778.3" duration="00:00:10" until="00:02:00"/> <!-- Schappachstr. (Berlin) -->
     </route>
     <route id="109241" edges="1198308222">
-        <stop busStop="109241.6" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="109241.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
     </route>
     <route id="109242" edges="1198308222">
-        <stop busStop="236759.0" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="236759.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
     </route>
-    <route id="109244" edges="837291681 240389771 -4045248#0 -124266876#4 -124266876#3 -124266876#2 -124266876#1 -124266876#0 -797340923 -240389818#1 -240389818#0 -27002651#1 1015159005 8068344#1 8068345 642952736#1 8068343 -797340925#0 -4045247#3 -4045247#2 -4045247#1 -4045247#0 4068154#0 4068154#1 4068154#2 4068154#3 4068154#4 355736431 1453600261 37825300 -355736433 -182599168#2 -1010110067 -240539088 -4463780#2 -4463780#1 -1013489670 383790135">
-        <stop busStop="109244.0" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="109244.1" duration="10" until="240"/> <!-- Zeuthen, Schillerstr. -->
-        <stop busStop="109244.1" duration="10" until="300"/> <!-- Zeuthen, Heinrich-Heine-Str. -->
-        <stop busStop="109244.3" duration="10" until="360"/> <!-- Zeuthen, Havellandstr. -->
-        <stop busStop="109244.4" duration="10" until="420"/> <!-- Eichwalde, Friedenstr. -->
-        <stop busStop="109244.5" duration="10" until="480"/> <!-- Eichwalde, Tschaikowskistr. -->
-        <stop busStop="109244.6" duration="10" until="540"/> <!-- Eichwalde, Schmöckwitzer Str. -->
-        <stop busStop="109244.7" duration="10" until="600"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="109244.8" duration="10" until="960"/> <!-- Alt-Schmöckwitz (Berlin) -->
+    <route id="109244" edges="-7723382#0 -797340923 -240389818#1 -240389818#0 -27002651#1 -27002651#0 1010908219 797340924#1 4935200#0 4935200#1 4935200#2 -1011368938 -1322454341#3 -1322454341#2 -1322454341#1 -1322454341#0 4068154#0 4068154#1 4068154#2 4068154#3 4068154#4 355736431 1453600261 37825300 -355736433 -182599168#2 240539089#0 176187579 183254465">
+        <stop busStop="109244.0" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="109244.1" duration="00:00:10" until="00:04:00"/> <!-- Zeuthen, Schillerstr. -->
+        <stop busStop="109244.1" duration="00:00:10" until="00:05:00"/> <!-- Zeuthen, Heinrich-Heine-Str. -->
+        <stop busStop="109244.3" duration="00:00:10" until="00:06:00"/> <!-- Zeuthen, Havellandstr. -->
+        <stop busStop="109244.4" duration="00:00:10" until="00:07:00"/> <!-- Eichwalde, Friedenstr. -->
+        <stop busStop="109244.4" duration="00:00:10" until="00:08:00"/> <!-- Eichwalde, Tschaikowskistr. -->
+        <stop busStop="109244.6" duration="00:00:10" until="00:09:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
+        <stop busStop="109244.7" duration="00:00:10" until="00:10:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="109244.7" duration="00:00:10" until="00:16:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
     </route>
-    <route id="280370" edges="-11452526 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.7" duration="10" until="300"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="280370.8" duration="10" until="300"/> <!-- Eichwalde, Schmöckwitzer Str. -->
-        <stop busStop="280370.9" duration="10" until="360"/> <!-- Eichwalde, Tschaikowskistr. -->
-        <stop busStop="280370.10" duration="10" until="360"/> <!-- Eichwalde, Friedenstr. -->
-        <stop busStop="280370.11" duration="10" until="420"/> <!-- Zeuthen, Havellandstr. -->
-        <stop busStop="280370.12" duration="10" until="540"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
-        <stop busStop="280370.13" duration="10" until="660"/> <!-- S Zeuthen -->
+    <route id="280370" edges="355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 1198308223 1322454341#1 1322454341#2 1322454341#3 1322454341#4 1322454341#5 24280330#1 24280335 -833907802 833914071 239924885 589757249 27002651#0 27002651#1 27002651#2 240389818#1 797340923 1042111969 -7723382#0">
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
+        <stop busStop="280370.9" duration="00:00:10" until="00:01:00"/> <!-- Eichwalde, Tschaikowskistr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:01:00"/> <!-- Eichwalde, Friedenstr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:02:00"/> <!-- Zeuthen, Havellandstr. -->
+        <stop busStop="280370.12" duration="00:00:10" until="00:04:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
+        <stop busStop="109244.0" duration="00:00:10" until="00:06:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="281591" edges="-11452526 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 1015059912 8068347 203010184 1312568317 -1015030679 -1015030680 -8068346 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.7" duration="10" until="300"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="280370.8" duration="10" until="300"/> <!-- Eichwalde, Schmöckwitzer Str. -->
-        <stop busStop="280370.9" duration="10" until="360"/> <!-- Eichwalde, Tschaikowskistr. -->
-        <stop busStop="280370.10" duration="10" until="420"/> <!-- Eichwalde, Friedenstr. -->
-        <stop busStop="280370.11" duration="10" until="480"/> <!-- Zeuthen, Havellandstr. -->
-        <stop busStop="281591.12" duration="10" until="600"/> <!-- Zeuthen, Seegarten -->
-        <stop busStop="280370.12" duration="10" until="840"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
-        <stop busStop="280370.13" duration="10" until="960"/> <!-- S Zeuthen -->
+    <route id="281591" edges="355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 1198308223 1322454341#1 1322454341#2 1322454341#3 1322454341#4 1322454341#5 24280330#1 24280335 -833907802 833914071 239924885 589757249 27002651#0 27002651#1 27002651#2 240389818#1 797340923 1042111969 -7723382#0">
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
+        <stop busStop="280370.9" duration="00:00:10" until="00:01:00"/> <!-- Eichwalde, Tschaikowskistr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:02:00"/> <!-- Eichwalde, Friedenstr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:03:00"/> <!-- Zeuthen, Havellandstr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:05:00"/> <!-- Zeuthen, Seegarten -->
+        <stop busStop="280370.12" duration="00:00:10" until="00:09:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
+        <stop busStop="109244.0" duration="00:00:10" until="00:11:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="109298" edges="4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561 4920483">
-        <stop busStop="109298.5" duration="10" until="0"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="360"/> <!-- S Eichwalde -->
-        <stop busStop="109298.7" duration="10" until="480"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.8" duration="10" until="600"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109298.9" duration="10" until="660"/> <!-- Schulzendorf (LDS), Flutgraben -->
+    <route id="109251" edges="-27004036#0">
     </route>
-    <route id="109300" edges="4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561 4920483">
-        <stop busStop="109298.5" duration="10" until="0"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="360"/> <!-- S Eichwalde -->
-        <stop busStop="109298.7" duration="10" until="480"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.8" duration="10" until="600"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109298.9" duration="10" until="660"/> <!-- Schulzendorf (LDS), Flutgraben -->
+    <route id="109261" edges="-27004036#0">
     </route>
-    <route id="109306" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561 4920483">
-        <stop busStop="109298.6" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="109298.7" duration="10" until="120"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.8" duration="10" until="240"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109298.9" duration="10" until="300"/> <!-- Schulzendorf (LDS), Flutgraben -->
+    <route id="282164" edges="-27004036#0">
     </route>
-    <route id="109328" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2 4920444">
-        <stop busStop="109298.6" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="109328.1" duration="10" until="180"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
+    <route id="109264" edges="-27004036#0">
     </route>
-    <route id="109329" edges="-4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 4920444">
-        <stop busStop="109329.27" duration="10" until="0"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="60"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="120"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="180"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="660"/> <!-- S Eichwalde -->
-        <stop busStop="109328.1" duration="10" until="840"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
+    <route id="281979" edges="-27004036#0">
     </route>
-    <route id="109337" edges="-4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639">
-        <stop busStop="109329.27" duration="10" until="0"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="60"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="120"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="180"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="240"/> <!-- S Eichwalde -->
+    <route id="284866" edges="-27004036#0">
     </route>
-    <route id="109347" edges="-4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 4920444">
-        <stop busStop="109329.27" duration="10" until="0"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="60"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="120"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="180"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="660"/> <!-- S Eichwalde -->
-        <stop busStop="109328.1" duration="10" until="840"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
+    <route id="109298" edges="-415907064#2 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561">
+        <stop busStop="109298.4" duration="00:00:10" until="00:00:00"/> <!-- Schulzendorf (LDS), Puschkinstr. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:02:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:10:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:12:00"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:13:00"/> <!-- Schulzendorf (LDS), Flutgraben -->
     </route>
-    <route id="109349" edges="-4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 4920444">
-        <stop busStop="109329.27" duration="10" until="0"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="60"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="120"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="180"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="660"/> <!-- S Eichwalde -->
-        <stop busStop="109328.1" duration="10" until="840"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
+    <route id="109300" edges="-415907064#2 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561">
+        <stop busStop="109298.4" duration="00:00:10" until="00:00:00"/> <!-- Schulzendorf (LDS), Puschkinstr. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:02:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:10:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:12:00"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:13:00"/> <!-- Schulzendorf (LDS), Flutgraben -->
     </route>
-    <route id="281710" edges="4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561 4920483">
-        <stop busStop="109298.5" duration="10" until="0"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="360"/> <!-- S Eichwalde -->
-        <stop busStop="109298.7" duration="10" until="480"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.8" duration="10" until="600"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109298.9" duration="10" until="660"/> <!-- Schulzendorf (LDS), Flutgraben -->
+    <route id="109306" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561">
+        <stop busStop="109306.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="109306.1" duration="00:00:10" until="00:02:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:04:00"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:05:00"/> <!-- Schulzendorf (LDS), Flutgraben -->
     </route>
-    <route id="280055" edges="-783261313 1031560366 944187063#1">
-        <stop busStop="280055.4" duration="10" until="0"/> <!-- Miersdorf, Hankelweg -->
-        <stop busStop="280055.5" duration="10" until="240"/> <!-- S Zeuthen -->
+    <route id="109328" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2">
+        <stop busStop="109306.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="109306.1" duration="00:00:10" until="00:03:00"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
     </route>
-    <route id="281066" edges="114441235#1 797340922 23717761#0 23717761#1 1031560365">
-        <stop busStop="281066.0" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="281066.1" duration="10" until="180"/> <!-- Zeuthen, Miersdorfer Chaussee -->
+    <route id="281710" edges="-415907064#2 415907064#2 24275214 1419116833 782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561">
+        <stop busStop="109298.4" duration="00:00:10" until="00:00:00"/> <!-- Schulzendorf (LDS), Puschkinstr. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:02:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:10:00"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:12:00"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:13:00"/> <!-- Schulzendorf (LDS), Flutgraben -->
     </route>
-    <route id="281759" edges="-783261313 -23717761#1 -23717761#0 -797340922 -797340921 114441235#1">
-        <stop busStop="280055.4" duration="10" until="0"/> <!-- Miersdorf, Hankelweg -->
-        <stop busStop="281066.0" duration="10" until="60"/> <!-- Zeuthen, Forstallee -->
-        <stop busStop="281066.0" duration="10" until="240"/> <!-- S Zeuthen -->
+    <route id="284865" edges="-27004036#0">
     </route>
-    <route id="286316" edges="-783261313 1031560366 944187063#1">
-        <stop busStop="280055.4" duration="10" until="0"/> <!-- Miersdorf, Hankelweg -->
-        <stop busStop="280055.5" duration="10" until="240"/> <!-- S Zeuthen -->
+    <route id="281065" edges="782804639 -927307082 -1419116833 1016203847 4930555#1 4930555#2 1016264032#0 589702685#1 239924883 4930543#0 4930543#1 126100196#0 126100196#2 126100196#3 126100196#4 126654659 34607579#1 833907802 24280332#0 -24280330#1 -1322454341#5 -1322454341#4 4935189 849717249#0 849717249#1 4935223#1 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 1042111969 -7723382#0">
+        <stop busStop="109306.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="281065.1" duration="00:00:10" until="00:08:00"/> <!-- Eichwalde, Friedenstr. -->
+        <stop busStop="281065.1" duration="00:00:10" until="00:09:00"/> <!-- Zeuthen, Havellandstr. -->
+        <stop busStop="281065.3" duration="00:00:10" until="00:11:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
+        <stop busStop="109244.0" duration="00:00:10" until="00:12:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="280371" edges="114441235#1 797340922 23717761#0 23717761#1 1031560365 -783261313 -23717761#1 -23717761#0 -7941954 -798975829 -112698780#0 -27003048#1 -27003048#0 -1131225468 -441932175 -835767192 970307950 1008923691 24280507#0 24280507#1 1008923708 1009022952 1008923707 -1009022936 -1009022944 4930530#1 4930530#2 -239924769#1 -239924769#0 -239924882 -4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639">
-        <stop busStop="281066.0" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="281066.1" duration="10" until="180"/> <!-- Zeuthen, Miersdorfer Chaussee -->
-        <stop busStop="109329.27" duration="10" until="960"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="1020"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="1080"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="1140"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="1200"/> <!-- S Eichwalde -->
+    <route id="281758" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2 -415907064#1 -415907064#0 415907050 -4930561">
+        <stop busStop="109306.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="109306.1" duration="00:00:10" until="00:03:00"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
+        <stop busStop="109298.4" duration="00:00:10" until="00:07:00"/> <!-- Schulzendorf (LDS), Flutgraben -->
     </route>
-    <route id="281065" edges="782804639 -927307082 -1419116833 1016203847 4930555#1 4930555#2 1016264032#0 589702685#1 239924883 4930543#0 4930543#1 126100196#0 126100196#2 126100196#3 126100196#4 126654659 34607579#1 833907802 24280332#0 -24280330#1 -1322454341#5 -1322454341#4 -1322454341#3 -1322454341#2 -1322454341#1 -1322454341#0 4045247#0 -4045247#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="109298.6" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="109244.4" duration="10" until="480"/> <!-- Eichwalde, Friedenstr. -->
-        <stop busStop="280370.11" duration="10" until="540"/> <!-- Zeuthen, Havellandstr. -->
-        <stop busStop="280370.12" duration="10" until="660"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
-        <stop busStop="280370.13" duration="10" until="720"/> <!-- S Zeuthen -->
+    <route id="284973" edges="355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 1198308223 1322454341#1 1322454341#2 1322454341#3 1322454341#4 1322454341#5 24280330#1 24280335 -833907802 833914071 239924885 589757249 27002651#0 27002651#1 27002651#2 240389818#1 797340923 1042111969 -7723382#0">
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:00:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
+        <stop busStop="280370.9" duration="00:00:10" until="00:01:00"/> <!-- Eichwalde, Tschaikowskistr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:01:00"/> <!-- Eichwalde, Friedenstr. -->
+        <stop busStop="280370.10" duration="00:00:10" until="00:02:00"/> <!-- Zeuthen, Havellandstr. -->
+        <stop busStop="280370.12" duration="00:00:10" until="00:04:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
+        <stop busStop="109244.0" duration="00:00:10" until="00:06:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="281153" edges="-4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639">
-        <stop busStop="109329.27" duration="10" until="0"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="60"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="120"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="180"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="240"/> <!-- S Eichwalde -->
-    </route>
-    <route id="281592" edges="114441235#1 -797340921 114441235#1 -1028578751 -1419116827 1419116826 -27003048#1 -27003048#0 -1131225468 -441932175 -835767192 970307950 1008923691 24280507#0 24280507#1 1008923708 1009022952 1008923707 -1009022936 -1009022944 4930530#1 4930530#2 -239924769#1 -239924769#0 -239924882 -4920483 4930561 -415907050 415907064#0 415907064#1 415907064#2 24275214 1419116833 782804639">
-        <stop busStop="281066.0" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="281066.0" duration="10" until="240"/> <!-- Zeuthen, Forstallee -->
-        <stop busStop="109329.27" duration="10" until="1080"/> <!-- Schulzendorf (LDS), Flutgraben -->
-        <stop busStop="109329.28" duration="10" until="1140"/> <!-- Schulzendorf (LDS), Dohlenstieg -->
-        <stop busStop="109329.28" duration="10" until="1200"/> <!-- Schulzendorf (LDS), K.-Liebknecht-Str. -->
-        <stop busStop="109298.5" duration="10" until="1260"/> <!-- Schulzendorf (LDS), R.-Breitscheid-Str. -->
-        <stop busStop="109298.6" duration="10" until="1320"/> <!-- S Eichwalde -->
-    </route>
-    <route id="281758" edges="782804639 -927307082 -1419116833 -24275214 -415907064#2 4920444">
-        <stop busStop="109298.6" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="109328.1" duration="10" until="180"/> <!-- Schulzendorf (LDS), K.-Marx-Str. -->
-    </route>
-    <route id="284973" edges="-11452526 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.7" duration="10" until="180"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="280370.8" duration="10" until="180"/> <!-- Eichwalde, Schmöckwitzer Str. -->
-        <stop busStop="280370.9" duration="10" until="240"/> <!-- Eichwalde, Tschaikowskistr. -->
-        <stop busStop="280370.10" duration="10" until="240"/> <!-- Eichwalde, Friedenstr. -->
-        <stop busStop="280370.11" duration="10" until="300"/> <!-- Zeuthen, Havellandstr. -->
-        <stop busStop="280370.12" duration="10" until="420"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
-        <stop busStop="280370.13" duration="10" until="540"/> <!-- S Zeuthen -->
-    </route>
-    <route id="284974" edges="114441235#1 797340922 23717761#0 23717761#1 1031560365">
-        <stop busStop="281066.0" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="281066.1" duration="10" until="180"/> <!-- Zeuthen, Miersdorfer Chaussee -->
-    </route>
-    <route id="250372" edges="25881424">
-        <stop busStop="250372.0" duration="10" until="0"/> <!-- Krampenburg (Berlin) -->
+    <route id="250372" edges="25881424 -25881424 25881424">
+        <stop busStop="250372.0" duration="00:00:10" until="00:00:00"/> <!-- Krampenburg (Berlin) -->
     </route>
     <route id="250389" edges="25881424">
-        <stop busStop="250372.0" duration="10" until="0"/> <!-- Krampenburg (Berlin) -->
+        <stop busStop="250389.0" duration="00:00:10" until="00:00:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="250372.0" duration="00:00:10" until="00:07:00"/> <!-- Krampenburg (Berlin) -->
     </route>
-    <route id="92988" edges="1236950970 1236950968#1 441932169#1 441932169#2 441932169#3 441932169#4 441932169#5 1236950975#1 1236950975#2 1236950975#3 1236950973">
-        <stop busStop="92988.1" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="92988.2" duration="10" until="180"/> <!-- S Eichwalde -->
+    <route id="92988" edges="-153134060#5 -153134060#4 -153134060#3 -153134060#2 -153134060#1 -153134060#0 42220072#0 42220072#1 1236950970 1236950968#1 441932169#1 441932169#2 441932169#3 441932169#4 441932169#5 1236950975#1 1236950975#2 1236950975#3 1236950973">
+        <stop busStop="92988.1" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="92988.2" duration="00:00:10" until="00:03:00"/> <!-- S Eichwalde -->
     </route>
-    <route id="93347" edges="1236950972 1236950974#0 1236950974#1 1236950974#2 441932166#1 441932166#2 441932166#3 441932166#4 1236950969#1">
-        <stop busStop="93347.0" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="93347.1" duration="10" until="240"/> <!-- S Zeuthen -->
+    <route id="93347" edges="1236950972 1236950974#0 1236950974#1 1236950974#2 441932166#1 441932166#2 441932166#3 441932166#4 1236950969#1 1236950971 36853643#0 36853643#1 153134060#0 153134060#1 153134060#2 153134060#3 153134060#4 153134060#5">
+        <stop busStop="93347.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="93347.1" duration="00:00:10" until="00:04:00"/> <!-- S Zeuthen -->
     </route>
-    <route id="92929" edges="1236950970 1236950968#1 441932169#1 441932169#2 441932169#3 441932169#4 441932169#5 1236950975#1 1236950975#2 1236950975#3 1236950973">
-        <stop busStop="92988.1" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="92988.2" duration="10" until="180"/> <!-- S Eichwalde -->
+    <route id="92929" edges="-153134060#5 -153134060#4 -153134060#3 -153134060#2 -153134060#1 -153134060#0 42220072#0 42220072#1 1236950970 1236950968#1 441932169#1 441932169#2 441932169#3 441932169#4 441932169#5 1236950975#1 1236950975#2 1236950975#3 1236950973">
+        <stop busStop="92988.1" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="92988.2" duration="00:00:10" until="00:03:00"/> <!-- S Eichwalde -->
     </route>
-    <route id="93224" edges="1236950972 1236950974#0 1236950974#1 1236950974#2 441932166#1 441932166#2 441932166#3 441932166#4 1236950969#1">
-        <stop busStop="93347.0" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="93347.1" duration="10" until="240"/> <!-- S Zeuthen -->
+    <route id="93224" edges="1236950972 1236950974#0 1236950974#1 1236950974#2 441932166#1 441932166#2 441932166#3 441932166#4 1236950969#1 1236950971 36853643#0 36853643#1 153134060#0 153134060#1 153134060#2 153134060#3 153134060#4 153134060#5">
+        <stop busStop="93347.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="93347.1" duration="00:00:10" until="00:04:00"/> <!-- S Zeuthen -->
     </route>
     <route id="96476" edges="1236950970 1236950968#1 441932169#1 441932169#2 441932169#3 441932169#4 441932169#5 1236950975#1 1236950975#2 1236950975#3 1236950973">
-        <stop busStop="92988.1" duration="10" until="0"/> <!-- S Zeuthen -->
-        <stop busStop="92988.2" duration="10" until="180"/> <!-- S Eichwalde -->
+        <stop busStop="92988.1" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="92988.2" duration="00:00:10" until="00:03:00"/> <!-- S Eichwalde -->
     </route>
     <route id="96602" edges="1236950972 1236950974#0 1236950974#1 1236950974#2 441932166#1 441932166#2 441932166#3 441932166#4 1236950969#1">
-        <stop busStop="93347.0" duration="10" until="0"/> <!-- S Eichwalde -->
-        <stop busStop="93347.1" duration="10" until="180"/> <!-- S Zeuthen -->
+        <stop busStop="93347.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
+        <stop busStop="93347.1" duration="00:00:10" until="00:03:00"/> <!-- S Zeuthen -->
     </route>
     <route id="259570" edges="170799109 1484004608#1 158537642#1 1484004605#2 169008810#1 169008810#3 806903751#0 806903751#1 806903751#2 158512978#0 158512978#1 806903752#0">
-        <stop busStop="259570.3" duration="10" until="0"/> <!-- Schappachstr. (Berlin) -->
-        <stop busStop="259570.4" duration="10" until="60"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="259570.5" duration="10" until="120"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="259570.6" duration="10" until="240"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="259570.7" duration="10" until="300"/> <!-- Alt-Schmöckwitz. (Berlin) -->
-        <stop busStop="259570.8" duration="10" until="360"/> <!-- Alt- -Schmöckwitz (Berlin) -->
+        <stop busStop="259570.3" duration="00:00:10" until="00:00:00"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259570.3" duration="00:00:10" until="00:01:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.5" duration="00:00:10" until="00:02:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.6" duration="00:00:10" until="00:04:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.7" duration="00:00:10" until="00:05:00"/> <!-- Alt-Schmöckwitz. (Berlin) -->
+        <stop busStop="259570.8" duration="00:00:10" until="00:06:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
     </route>
     <route id="259632.trimmed" edges="170799109 1484004608#1 158537642#1 1484004605#2 169008810#1 169008810#3 806903751#0 806903751#1 806903751#2 158512978#0 158512978#1 806903752#0">
-        <stop busStop="259570.4" duration="10" until="0"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="259570.5" duration="10" until="60"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="259570.6" duration="10" until="180"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="259570.7" duration="10" until="240"/> <!-- Alt-Schmöckwitz. (Berlin) -->
-        <stop busStop="259570.8" duration="10" until="300"/> <!-- Alt- -Schmöckwitz (Berlin) -->
+        <stop busStop="259570.3" duration="00:00:10" until="00:00:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.5" duration="00:00:10" until="00:01:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.6" duration="00:00:10" until="00:03:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.7" duration="00:00:10" until="00:04:00"/> <!-- Alt-Schmöckwitz. (Berlin) -->
+        <stop busStop="259570.8" duration="00:00:10" until="00:05:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
     </route>
     <route id="259780" edges="806903752#1 1484004606#0 1484004606#1 1484004606#3 1484004606#4 1484004606#6 1484004606#7 1484004607#2 1484004607#3 1484004610#1">
-        <stop busStop="259780.0" duration="10" until="0"/> <!-- Alt- -Schmöckwitz (Berlin) -->
-        <stop busStop="259780.0" duration="10" until="60"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="259780.2" duration="10" until="120"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="259780.3" duration="10" until="240"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="259780.4" duration="10" until="300"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="259780.5" duration="10" until="360"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259780.0" duration="00:00:10" until="00:00:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
+        <stop busStop="259780.0" duration="00:00:10" until="00:01:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="259780.2" duration="00:00:10" until="00:02:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259780.3" duration="00:00:10" until="00:04:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259780.4" duration="00:00:10" until="00:05:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259780.5" duration="00:00:10" until="00:06:00"/> <!-- Schappachstr. (Berlin) -->
     </route>
     <route id="68252" edges="170799109 1484004608#1 158537642#1 1484004605#2 169008810#1 169008810#3">
-        <stop busStop="259570.3" duration="10" until="0"/> <!-- Schappachstr. (Berlin) -->
-        <stop busStop="259570.4" duration="10" until="120"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="259570.5" duration="10" until="180"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="259570.6" duration="10" until="300"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="259570.7" duration="10" until="420"/> <!-- Alt-Schmöckwitz. (Berlin) -->
+        <stop busStop="259570.3" duration="00:00:10" until="00:00:00"/> <!-- Schappachstr. (Berlin) -->
+        <stop busStop="259570.3" duration="00:00:10" until="00:02:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259570.5" duration="00:00:10" until="00:03:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259570.6" duration="00:00:10" until="00:05:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259570.7" duration="00:00:10" until="00:07:00"/> <!-- Alt-Schmöckwitz. (Berlin) -->
     </route>
-    <route id="68332" edges="806903752#1 1484004606#0 1484004606#1 1484004606#3 1484004606#4 1484004606#6 1484004606#7 1484004607#2 1484004607#3 1484004610#1">
-        <stop busStop="259780.0" duration="10" until="0"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="259780.2" duration="10" until="60"/> <!-- Zum Seeblick (Berlin) -->
-        <stop busStop="259780.3" duration="10" until="240"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
-        <stop busStop="259780.4" duration="10" until="300"/> <!-- Lübbenauer Weg (Berlin) -->
-        <stop busStop="259780.5" duration="10" until="360"/> <!-- Schappachstr. (Berlin) -->
+    <route id="68332" edges="1484004606#7 1484004607#2 1484004607#3 1484004610#1">
+        <stop busStop="259780.2" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="259780.2" duration="00:00:10" until="00:01:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="259780.3" duration="00:00:10" until="00:04:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
+        <stop busStop="259780.4" duration="00:00:10" until="00:05:00"/> <!-- Lübbenauer Weg (Berlin) -->
+        <stop busStop="259780.5" duration="00:00:10" until="00:06:00"/> <!-- Schappachstr. (Berlin) -->
     </route>
-    <vehicle id="54175.0" route="236778" type="bus" depart="11210" line="236778">
+    <vehicle id="54175.0" route="236778" type="bus" depart="03:06:50" line="236778">
         <param key="gtfs.route_name" value="N68"/>
         <param key="gtfs.trip_headsign" value="S Adlershof"/>
     </vehicle>
-    <vehicle id="236778.0" route="236778" type="bus" depart="13010" line="236778">
+    <vehicle id="236778.0" route="236778" type="bus" depart="03:36:50" line="236778">
         <param key="gtfs.route_name" value="N68"/>
         <param key="gtfs.trip_headsign" value="S Adlershof"/>
     </vehicle>
-    <vehicle id="236781.0" route="236778" type="bus" depart="14810" line="236778">
+    <vehicle id="236781.0" route="236778" type="bus" depart="04:06:50" line="236778">
         <param key="gtfs.route_name" value="N68"/>
         <param key="gtfs.trip_headsign" value="S Adlershof"/>
     </vehicle>
-    <vehicle id="92988.0" route="92988" type="light_rail" depart="14870" line="92988">
+    <vehicle id="92988.0" route="92988" type="light_rail" depart="04:07:50" line="92988">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend, in Bln-Grünau bitte umsteigen"/>
     </vehicle>
-    <vehicle id="68258.0" route="259570" type="tram" depart="15590" line="259570">
+    <vehicle id="68258.0" route="259570" type="tram" depart="04:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93224.0" route="93224" type="light_rail" depart="15830" line="93224">
+    <vehicle id="93224.0" route="93224" type="light_rail" depart="04:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92990.0" route="92988" type="light_rail" depart="16070" line="92988">
+    <vehicle id="92990.0" route="92988" type="light_rail" depart="04:27:50" line="92988">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend, in Bln-Grünau bitte umsteigen"/>
     </vehicle>
-    <vehicle id="68364.0" route="259780" type="tram" depart="16190" line="259780">
+    <vehicle id="68364.0" route="259780" type="tram" depart="04:29:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259570.0" route="259570" type="tram" depart="16790" line="259570">
+    <vehicle id="259570.0" route="259570" type="tram" depart="04:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93225.0" route="93224" type="light_rail" depart="17030" line="93224">
+    <vehicle id="93225.0" route="93224" type="light_rail" depart="04:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92929.0" route="92929" type="light_rail" depart="17270" line="92929">
+    <vehicle id="92929.0" route="92929" type="light_rail" depart="04:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259865.0" route="259780" type="tram" depart="17390" line="259780">
+    <vehicle id="259865.0" route="259780" type="tram" depart="04:49:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="109347.0" route="109347" type="bus" depart="17870" line="109347">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259572.0" route="259570" type="tram" depart="17990" line="259570">
+    <vehicle id="259572.0" route="259570" type="tram" depart="04:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109315.0" route="109300" type="bus" depart="18230" line="109300">
+    <vehicle id="109315.0" route="109300" type="bus" depart="05:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93359.0" route="93224" type="light_rail" depart="18230" line="93224">
+    <vehicle id="93359.0" route="93224" type="light_rail" depart="05:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92930.0" route="92929" type="light_rail" depart="18470" line="92929">
+    <vehicle id="92930.0" route="92929" type="light_rail" depart="05:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259868.0" route="259780" type="tram" depart="18590" line="259780">
+    <vehicle id="259868.0" route="259780" type="tram" depart="05:09:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68248.0" route="259570" type="tram" depart="18590" line="259570">
+    <vehicle id="68248.0" route="259570" type="tram" depart="05:09:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="96700.0" route="96602" type="light_rail" depart="18770" line="96602">
+    <vehicle id="96700.0" route="96602" type="light_rail" depart="05:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96490.0" route="96476" type="light_rail" depart="19190" line="96476">
+    <vehicle id="96490.0" route="96476" type="light_rail" depart="05:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="68294.0" route="259570" type="tram" depart="19190" line="259570">
+    <vehicle id="68294.0" route="259570" type="tram" depart="05:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93351.0" route="93224" type="light_rail" depart="19430" line="93224">
+    <vehicle id="93351.0" route="93224" type="light_rail" depart="05:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92931.0" route="92929" type="light_rail" depart="19670" line="92929">
+    <vehicle id="92931.0" route="92929" type="light_rail" depart="05:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68376.0" route="259780" type="tram" depart="19670" line="259780">
+    <vehicle id="68376.0" route="259780" type="tram" depart="05:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96607.0" route="96602" type="light_rail" depart="19970" line="96602">
+    <vehicle id="96607.0" route="96602" type="light_rail" depart="05:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96478.0" route="96476" type="light_rail" depart="20390" line="96476">
+    <vehicle id="96478.0" route="96476" type="light_rail" depart="05:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259672.0" route="259570" type="tram" depart="20390" line="259570">
+    <vehicle id="259672.0" route="259570" type="tram" depart="05:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93352.0" route="93224" type="light_rail" depart="20630" line="93224">
+    <vehicle id="93352.0" route="93224" type="light_rail" depart="05:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92932.0" route="92929" type="light_rail" depart="20870" line="92929">
+    <vehicle id="92932.0" route="92929" type="light_rail" depart="05:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259919.0" route="259780" type="tram" depart="20870" line="259780">
+    <vehicle id="259919.0" route="259780" type="tram" depart="05:47:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="280055.0" route="280055" type="bus" depart="21110" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96608.0" route="96602" type="light_rail" depart="21170" line="96602">
+    <vehicle id="96608.0" route="96602" type="light_rail" depart="05:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="280056.0" route="109244" type="bus" depart="21350" line="109244">
+    <vehicle id="280056.0" route="109244" type="bus" depart="05:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109348.0" route="109347" type="bus" depart="21470" line="109347">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96491.0" route="96476" type="light_rail" depart="21590" line="96476">
+    <vehicle id="96491.0" route="96476" type="light_rail" depart="05:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="68268.0" route="259570" type="tram" depart="21650" line="259570">
+    <vehicle id="68268.0" route="259570" type="tram" depart="06:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109313.0" route="109300" type="bus" depart="21830" line="109300">
+    <vehicle id="109313.0" route="109300" type="bus" depart="06:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93285.0" route="93224" type="light_rail" depart="21830" line="93224">
+    <vehicle id="93285.0" route="93224" type="light_rail" depart="06:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="280370.0" route="280370" type="bus" depart="21890" line="280370">
+    <vehicle id="92933.0" route="92929" type="light_rail" depart="06:07:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259922.0" route="259780" type="tram" depart="06:07:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="280370.0" route="280370" type="bus" depart="06:09:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92933.0" route="92929" type="light_rail" depart="22070" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259922.0" route="259780" type="tram" depart="22070" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="96609.0" route="96602" type="light_rail" depart="22370" line="96602">
+    <vehicle id="96609.0" route="96602" type="light_rail" depart="06:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="280371.0" route="280371" type="bus" depart="22550" line="280371">
-        <param key="gtfs.route_name" value="731"/>
-        <param key="gtfs.trip_headsign" value="S Eichwalde"/>
-    </vehicle>
-    <vehicle id="96492.0" route="96476" type="light_rail" depart="22790" line="96476">
+    <vehicle id="96492.0" route="96476" type="light_rail" depart="06:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259578.0" route="259570" type="tram" depart="22850" line="259570">
+    <vehicle id="259578.0" route="259570" type="tram" depart="06:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93286.0" route="93224" type="light_rail" depart="23030" line="93224">
+    <vehicle id="93286.0" route="93224" type="light_rail" depart="06:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92934.0" route="92929" type="light_rail" depart="23270" line="92929">
+    <vehicle id="92934.0" route="92929" type="light_rail" depart="06:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259925.0" route="259780" type="tram" depart="23270" line="259780">
+    <vehicle id="259925.0" route="259780" type="tram" depart="06:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68252.0" route="68252" type="tram" depart="23450" line="68252">
+    <vehicle id="68252.0" route="68252" type="tram" depart="06:30:50" line="68252">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="96610.0" route="96602" type="light_rail" depart="23570" line="96602">
+    <vehicle id="96610.0" route="96602" type="light_rail" depart="06:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96479.0" route="96476" type="light_rail" depart="23990" line="96476">
+    <vehicle id="96479.0" route="96476" type="light_rail" depart="06:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259580.0" route="259570" type="tram" depart="24050" line="259570">
+    <vehicle id="259580.0" route="259570" type="tram" depart="06:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="281065.0" route="281065" type="bus" depart="24230" line="281065">
+    <vehicle id="281065.0" route="281065" type="bus" depart="06:43:50" line="281065">
         <param key="gtfs.route_name" value="731"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="93287.0" route="93224" type="light_rail" depart="24230" line="93224">
+    <vehicle id="93287.0" route="93224" type="light_rail" depart="06:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92935.0" route="92929" type="light_rail" depart="24470" line="92929">
+    <vehicle id="92935.0" route="92929" type="light_rail" depart="06:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259928.0" route="259780" type="tram" depart="24470" line="259780">
+    <vehicle id="259928.0" route="259780" type="tram" depart="06:47:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="280859.0" route="280055" type="bus" depart="24710" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96611.0" route="96602" type="light_rail" depart="24770" line="96602">
+    <vehicle id="96611.0" route="96602" type="light_rail" depart="06:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="280860.0" route="109244" type="bus" depart="24950" line="109244">
+    <vehicle id="280860.0" route="109244" type="bus" depart="06:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281066.0" route="281066" type="bus" depart="24950" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="109351.0" route="109349" type="bus" depart="25070" line="109349">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="68397.0" route="68332" type="tram" depart="25130" line="68332">
+    <vehicle id="68397.0" route="68332" type="tram" depart="06:58:50" line="68332">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96493.0" route="96476" type="light_rail" depart="25190" line="96476">
+    <vehicle id="96493.0" route="96476" type="light_rail" depart="06:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259582.0" route="259570" type="tram" depart="25250" line="259570">
+    <vehicle id="259582.0" route="259570" type="tram" depart="07:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="281710.0" route="281710" type="bus" depart="25430" line="281710">
+    <vehicle id="281710.0" route="281710" type="bus" depart="07:01:50" line="281710">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="S Wildau"/>
     </vehicle>
-    <vehicle id="93288.0" route="93224" type="light_rail" depart="25430" line="93224">
+    <vehicle id="93288.0" route="93224" type="light_rail" depart="07:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281591.0" route="281591" type="bus" depart="25490" line="281591">
+    <vehicle id="92936.0" route="92929" type="light_rail" depart="07:07:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259931.0" route="259780" type="tram" depart="07:07:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="281591.0" route="281591" type="bus" depart="07:09:50" line="281591">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92936.0" route="92929" type="light_rail" depart="25670" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259931.0" route="259780" type="tram" depart="25670" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="96612.0" route="96602" type="light_rail" depart="25970" line="96602">
+    <vehicle id="96612.0" route="96602" type="light_rail" depart="07:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="281153.0" route="281153" type="bus" depart="26150" line="281153">
-        <param key="gtfs.route_name" value="731"/>
-        <param key="gtfs.trip_headsign" value="S Eichwalde"/>
-    </vehicle>
-    <vehicle id="96494.0" route="96476" type="light_rail" depart="26390" line="96476">
+    <vehicle id="96494.0" route="96476" type="light_rail" depart="07:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="281592.0" route="281592" type="bus" depart="26450" line="281592">
-        <param key="gtfs.route_name" value="731"/>
-        <param key="gtfs.trip_headsign" value="S Eichwalde"/>
-    </vehicle>
-    <vehicle id="259584.0" route="259570" type="tram" depart="26450" line="259570">
+    <vehicle id="259584.0" route="259570" type="tram" depart="07:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93289.0" route="93224" type="light_rail" depart="26630" line="93224">
+    <vehicle id="93289.0" route="93224" type="light_rail" depart="07:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92937.0" route="92929" type="light_rail" depart="26870" line="92929">
+    <vehicle id="92937.0" route="92929" type="light_rail" depart="07:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259934.0" route="259780" type="tram" depart="26870" line="259780">
+    <vehicle id="259934.0" route="259780" type="tram" depart="07:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="281758.0" route="281758" type="bus" depart="27050" line="281758">
+    <vehicle id="281758.0" route="281758" type="bus" depart="07:30:50" line="281758">
         <param key="gtfs.route_name" value="731"/>
         <param key="gtfs.trip_headsign" value="Schulzendorf (LDS), Miersdorfer Str."/>
     </vehicle>
-    <vehicle id="96613.0" route="96602" type="light_rail" depart="27170" line="96602">
+    <vehicle id="96613.0" route="96602" type="light_rail" depart="07:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96480.0" route="96476" type="light_rail" depart="27590" line="96476">
+    <vehicle id="96480.0" route="96476" type="light_rail" depart="07:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259586.0" route="259570" type="tram" depart="27650" line="259570">
+    <vehicle id="259586.0" route="259570" type="tram" depart="07:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93290.0" route="93224" type="light_rail" depart="27830" line="93224">
+    <vehicle id="93290.0" route="93224" type="light_rail" depart="07:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281867.0" route="280370" type="bus" depart="27890" line="280370">
-        <param key="gtfs.route_name" value="733"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="92938.0" route="92929" type="light_rail" depart="28070" line="92929">
+    <vehicle id="92938.0" route="92929" type="light_rail" depart="07:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259937.0" route="259780" type="tram" depart="28070" line="259780">
+    <vehicle id="259937.0" route="259780" type="tram" depart="07:47:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="109328.0" route="109328" type="bus" depart="28130" line="109328">
+    <vehicle id="109328.0" route="109328" type="bus" depart="07:48:50" line="109328">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="281995.0" route="109328" type="bus" depart="28130" line="109328">
+    <vehicle id="281995.0" route="109328" type="bus" depart="07:48:50" line="109328">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
     </vehicle>
-    <vehicle id="68266.0" route="68252" type="tram" depart="28250" line="68252">
+    <vehicle id="281867.0" route="280370" type="bus" depart="07:49:50" line="280370">
+        <param key="gtfs.route_name" value="733"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="68266.0" route="68252" type="tram" depart="07:50:50" line="68252">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="281759.0" route="281759" type="bus" depart="28310" line="281759">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96614.0" route="96602" type="light_rail" depart="28370" line="96602">
+    <vehicle id="96614.0" route="96602" type="light_rail" depart="07:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="109244.0" route="109244" type="bus" depart="28550" line="109244">
+    <vehicle id="109244.0" route="109244" type="bus" depart="07:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281760.0" route="109244" type="bus" depart="28550" line="109244">
+    <vehicle id="281760.0" route="109244" type="bus" depart="07:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="281868.0" route="281066" type="bus" depart="28550" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109349.0" route="109349" type="bus" depart="28670" line="109349">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96495.0" route="96476" type="light_rail" depart="28790" line="96476">
+    <vehicle id="96495.0" route="96476" type="light_rail" depart="07:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259588.0" route="259570" type="tram" depart="28850" line="259570">
+    <vehicle id="259588.0" route="259570" type="tram" depart="08:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109312.0" route="109300" type="bus" depart="29030" line="109300">
+    <vehicle id="109312.0" route="109300" type="bus" depart="08:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93291.0" route="93224" type="light_rail" depart="29030" line="93224">
+    <vehicle id="93291.0" route="93224" type="light_rail" depart="08:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92939.0" route="92929" type="light_rail" depart="29270" line="92929">
+    <vehicle id="92939.0" route="92929" type="light_rail" depart="08:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259940.0" route="259780" type="tram" depart="29270" line="259780">
+    <vehicle id="259940.0" route="259780" type="tram" depart="08:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96615.0" route="96602" type="light_rail" depart="29570" line="96602">
+    <vehicle id="96615.0" route="96602" type="light_rail" depart="08:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="68332.0" route="68332" type="tram" depart="29930" line="68332">
+    <vehicle id="68332.0" route="68332" type="tram" depart="08:18:50" line="68332">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
-    <vehicle id="96496.0" route="96476" type="light_rail" depart="29990" line="96476">
+    <vehicle id="96496.0" route="96476" type="light_rail" depart="08:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259590.0" route="259570" type="tram" depart="30050" line="259570">
+    <vehicle id="259590.0" route="259570" type="tram" depart="08:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93292.0" route="93224" type="light_rail" depart="30230" line="93224">
+    <vehicle id="93292.0" route="93224" type="light_rail" depart="08:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92940.0" route="92929" type="light_rail" depart="30470" line="92929">
+    <vehicle id="92940.0" route="92929" type="light_rail" depart="08:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259943.0" route="259780" type="tram" depart="30470" line="259780">
+    <vehicle id="259943.0" route="259780" type="tram" depart="08:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96616.0" route="96602" type="light_rail" depart="30770" line="96602">
+    <vehicle id="96616.0" route="96602" type="light_rail" depart="08:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96481.0" route="96476" type="light_rail" depart="31190" line="96476">
+    <vehicle id="96481.0" route="96476" type="light_rail" depart="08:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="68296.0" route="259570" type="tram" depart="31190" line="259570">
+    <vehicle id="68296.0" route="259570" type="tram" depart="08:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93293.0" route="93224" type="light_rail" depart="31430" line="93224">
+    <vehicle id="93293.0" route="93224" type="light_rail" depart="08:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="282214.0" route="280370" type="bus" depart="31490" line="280370">
-        <param key="gtfs.route_name" value="733"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="92941.0" route="92929" type="light_rail" depart="31670" line="92929">
+    <vehicle id="92941.0" route="92929" type="light_rail" depart="08:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259946.0" route="259780" type="tram" depart="31670" line="259780">
+    <vehicle id="259946.0" route="259780" type="tram" depart="08:47:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="282226.0" route="280055" type="bus" depart="31910" line="280055">
-        <param key="gtfs.route_name" value="734"/>
+    <vehicle id="282214.0" route="280370" type="bus" depart="08:49:50" line="280370">
+        <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96617.0" route="96602" type="light_rail" depart="31970" line="96602">
+    <vehicle id="96617.0" route="96602" type="light_rail" depart="08:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="282227.0" route="109244" type="bus" depart="32150" line="109244">
+    <vehicle id="282227.0" route="109244" type="bus" depart="08:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="282215.0" route="281066" type="bus" depart="32150" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109350.0" route="109349" type="bus" depart="32270" line="109349">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96497.0" route="96476" type="light_rail" depart="32390" line="96476">
+    <vehicle id="96497.0" route="96476" type="light_rail" depart="08:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259674.0" route="259570" type="tram" depart="32390" line="259570">
+    <vehicle id="259674.0" route="259570" type="tram" depart="08:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109300.0" route="109300" type="bus" depart="32630" line="109300">
+    <vehicle id="109300.0" route="109300" type="bus" depart="09:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93294.0" route="93224" type="light_rail" depart="32630" line="93224">
+    <vehicle id="93294.0" route="93224" type="light_rail" depart="09:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92942.0" route="92929" type="light_rail" depart="32870" line="92929">
+    <vehicle id="92942.0" route="92929" type="light_rail" depart="09:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259949.0" route="259780" type="tram" depart="32870" line="259780">
+    <vehicle id="259949.0" route="259780" type="tram" depart="09:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259676.0" route="259570" type="tram" depart="33590" line="259570">
+    <vehicle id="259676.0" route="259570" type="tram" depart="09:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93295.0" route="93224" type="light_rail" depart="33830" line="93224">
+    <vehicle id="93295.0" route="93224" type="light_rail" depart="09:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92943.0" route="92929" type="light_rail" depart="34070" line="92929">
+    <vehicle id="92943.0" route="92929" type="light_rail" depart="09:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68391.0" route="259780" type="tram" depart="34070" line="259780">
+    <vehicle id="68391.0" route="259780" type="tram" depart="09:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68304.0" route="259570" type="tram" depart="34790" line="259570">
+    <vehicle id="68304.0" route="259570" type="tram" depart="09:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93296.0" route="93224" type="light_rail" depart="35030" line="93224">
+    <vehicle id="93296.0" route="93224" type="light_rail" depart="09:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="282672.0" route="280370" type="bus" depart="35090" line="280370">
+    <vehicle id="92944.0" route="92929" type="light_rail" depart="09:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259982.0" route="259780" type="tram" depart="09:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="282672.0" route="280370" type="bus" depart="09:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92944.0" route="92929" type="light_rail" depart="35270" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259982.0" route="259780" type="tram" depart="35270" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="282518.0" route="280055" type="bus" depart="35510" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="282519.0" route="109244" type="bus" depart="35750" line="109244">
+    <vehicle id="282519.0" route="109244" type="bus" depart="09:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="282673.0" route="281066" type="bus" depart="35750" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109344.0" route="109329" type="bus" depart="35870" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259692.0" route="259570" type="tram" depart="35990" line="259570">
+    <vehicle id="259692.0" route="259570" type="tram" depart="09:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109301.0" route="109300" type="bus" depart="36230" line="109300">
+    <vehicle id="109301.0" route="109300" type="bus" depart="10:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93297.0" route="93224" type="light_rail" depart="36230" line="93224">
+    <vehicle id="93297.0" route="93224" type="light_rail" depart="10:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92945.0" route="92929" type="light_rail" depart="36470" line="92929">
+    <vehicle id="63277.0" route="250389" type="ferry" depart="10:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92945.0" route="92929" type="light_rail" depart="10:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259985.0" route="259780" type="tram" depart="36470" line="259780">
+    <vehicle id="259985.0" route="259780" type="tram" depart="10:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259694.0" route="259570" type="tram" depart="37190" line="259570">
+    <vehicle id="259694.0" route="259570" type="tram" depart="10:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93298.0" route="93224" type="light_rail" depart="37430" line="93224">
+    <vehicle id="93298.0" route="93224" type="light_rail" depart="10:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92946.0" route="92929" type="light_rail" depart="37670" line="92929">
+    <vehicle id="92946.0" route="92929" type="light_rail" depart="10:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259988.0" route="259780" type="tram" depart="37670" line="259780">
+    <vehicle id="259988.0" route="259780" type="tram" depart="10:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259696.0" route="259570" type="tram" depart="38390" line="259570">
+    <vehicle id="250389.0" route="250389" type="ferry" depart="10:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="259696.0" route="259570" type="tram" depart="10:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93299.0" route="93224" type="light_rail" depart="38630" line="93224">
+    <vehicle id="93299.0" route="93224" type="light_rail" depart="10:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283045.0" route="280370" type="bus" depart="38690" line="280370">
+    <vehicle id="92947.0" route="92929" type="light_rail" depart="10:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259991.0" route="259780" type="tram" depart="10:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="283045.0" route="280370" type="bus" depart="10:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92947.0" route="92929" type="light_rail" depart="38870" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259991.0" route="259780" type="tram" depart="38870" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="283060.0" route="280055" type="bus" depart="39110" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="283061.0" route="109244" type="bus" depart="39350" line="109244">
+    <vehicle id="283061.0" route="109244" type="bus" depart="10:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283046.0" route="281066" type="bus" depart="39350" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109345.0" route="109329" type="bus" depart="39470" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259698.0" route="259570" type="tram" depart="39590" line="259570">
+    <vehicle id="259698.0" route="259570" type="tram" depart="10:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109302.0" route="109300" type="bus" depart="39830" line="109300">
+    <vehicle id="109302.0" route="109300" type="bus" depart="11:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93300.0" route="93224" type="light_rail" depart="39830" line="93224">
+    <vehicle id="93300.0" route="93224" type="light_rail" depart="11:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92948.0" route="92929" type="light_rail" depart="40070" line="92929">
+    <vehicle id="250390.0" route="250389" type="ferry" depart="11:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92948.0" route="92929" type="light_rail" depart="11:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259994.0" route="259780" type="tram" depart="40070" line="259780">
+    <vehicle id="259994.0" route="259780" type="tram" depart="11:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259700.0" route="259570" type="tram" depart="40790" line="259570">
+    <vehicle id="259700.0" route="259570" type="tram" depart="11:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93301.0" route="93224" type="light_rail" depart="41030" line="93224">
+    <vehicle id="93301.0" route="93224" type="light_rail" depart="11:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92949.0" route="92929" type="light_rail" depart="41270" line="92929">
+    <vehicle id="92949.0" route="92929" type="light_rail" depart="11:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259997.0" route="259780" type="tram" depart="41270" line="259780">
+    <vehicle id="259997.0" route="259780" type="tram" depart="11:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259702.0" route="259570" type="tram" depart="41990" line="259570">
+    <vehicle id="250391.0" route="250389" type="ferry" depart="11:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="259702.0" route="259570" type="tram" depart="11:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93302.0" route="93224" type="light_rail" depart="42230" line="93224">
+    <vehicle id="93302.0" route="93224" type="light_rail" depart="11:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283480.0" route="280370" type="bus" depart="42290" line="280370">
+    <vehicle id="92950.0" route="92929" type="light_rail" depart="11:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="260000.0" route="259780" type="tram" depart="11:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="283480.0" route="280370" type="bus" depart="11:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92950.0" route="92929" type="light_rail" depart="42470" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="260000.0" route="259780" type="tram" depart="42470" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="283299.0" route="280055" type="bus" depart="42710" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="283300.0" route="109244" type="bus" depart="42950" line="109244">
+    <vehicle id="283300.0" route="109244" type="bus" depart="11:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283481.0" route="281066" type="bus" depart="42950" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109346.0" route="109329" type="bus" depart="43070" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259704.0" route="259570" type="tram" depart="43190" line="259570">
+    <vehicle id="259704.0" route="259570" type="tram" depart="11:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93303.0" route="93224" type="light_rail" depart="43430" line="93224">
+    <vehicle id="93303.0" route="93224" type="light_rail" depart="12:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109307.0" route="109300" type="bus" depart="43610" line="109300">
+    <vehicle id="109307.0" route="109300" type="bus" depart="12:04:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="92951.0" route="92929" type="light_rail" depart="43670" line="92929">
+    <vehicle id="250392.0" route="250389" type="ferry" depart="12:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92951.0" route="92929" type="light_rail" depart="12:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260003.0" route="259780" type="tram" depart="43670" line="259780">
+    <vehicle id="260003.0" route="259780" type="tram" depart="12:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259706.0" route="259570" type="tram" depart="44390" line="259570">
+    <vehicle id="259706.0" route="259570" type="tram" depart="12:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93304.0" route="93224" type="light_rail" depart="44630" line="93224">
+    <vehicle id="93304.0" route="93224" type="light_rail" depart="12:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92952.0" route="92929" type="light_rail" depart="44870" line="92929">
+    <vehicle id="92952.0" route="92929" type="light_rail" depart="12:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260006.0" route="259780" type="tram" depart="44870" line="259780">
+    <vehicle id="260006.0" route="259780" type="tram" depart="12:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259708.0" route="259570" type="tram" depart="45590" line="259570">
+    <vehicle id="250393.0" route="250389" type="ferry" depart="12:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="259708.0" route="259570" type="tram" depart="12:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93305.0" route="93224" type="light_rail" depart="45830" line="93224">
+    <vehicle id="93305.0" route="93224" type="light_rail" depart="12:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283895.0" route="280370" type="bus" depart="45890" line="280370">
+    <vehicle id="92953.0" route="92929" type="light_rail" depart="12:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="260009.0" route="259780" type="tram" depart="12:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="283895.0" route="280370" type="bus" depart="12:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92953.0" route="92929" type="light_rail" depart="46070" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="260009.0" route="259780" type="tram" depart="46070" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="283910.0" route="280055" type="bus" depart="46310" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="283911.0" route="109244" type="bus" depart="46550" line="109244">
+    <vehicle id="283911.0" route="109244" type="bus" depart="12:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="283896.0" route="281066" type="bus" depart="46550" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109329.0" route="109329" type="bus" depart="46670" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259710.0" route="259570" type="tram" depart="46790" line="259570">
+    <vehicle id="259710.0" route="259570" type="tram" depart="12:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93312.0" route="93224" type="light_rail" depart="47030" line="93224">
+    <vehicle id="93312.0" route="93224" type="light_rail" depart="13:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109308.0" route="109300" type="bus" depart="47210" line="109300">
+    <vehicle id="109308.0" route="109300" type="bus" depart="13:04:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="92954.0" route="92929" type="light_rail" depart="47270" line="92929">
+    <vehicle id="250394.0" route="250389" type="ferry" depart="13:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92954.0" route="92929" type="light_rail" depart="13:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260012.0" route="259780" type="tram" depart="47270" line="259780">
+    <vehicle id="260012.0" route="259780" type="tram" depart="13:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259712.0" route="259570" type="tram" depart="47990" line="259570">
+    <vehicle id="259712.0" route="259570" type="tram" depart="13:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93313.0" route="93224" type="light_rail" depart="48230" line="93224">
+    <vehicle id="93313.0" route="93224" type="light_rail" depart="13:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92963.0" route="92929" type="light_rail" depart="48470" line="92929">
+    <vehicle id="92963.0" route="92929" type="light_rail" depart="13:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260015.0" route="259780" type="tram" depart="48470" line="259780">
+    <vehicle id="260015.0" route="259780" type="tram" depart="13:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259714.0" route="259570" type="tram" depart="49190" line="259570">
+    <vehicle id="250395.0" route="250389" type="ferry" depart="13:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="259714.0" route="259570" type="tram" depart="13:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93314.0" route="93224" type="light_rail" depart="49430" line="93224">
+    <vehicle id="93314.0" route="93224" type="light_rail" depart="13:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="284493.0" route="280370" type="bus" depart="49490" line="280370">
+    <vehicle id="92964.0" route="92929" type="light_rail" depart="13:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="260018.0" route="259780" type="tram" depart="13:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="284493.0" route="280370" type="bus" depart="13:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92964.0" route="92929" type="light_rail" depart="49670" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="260018.0" route="259780" type="tram" depart="49670" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="284326.0" route="281759" type="bus" depart="49910" line="281759">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="284327.0" route="109244" type="bus" depart="50150" line="109244">
+    <vehicle id="284327.0" route="109244" type="bus" depart="13:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="284494.0" route="281066" type="bus" depart="50150" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109330.0" route="109329" type="bus" depart="50270" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259716.0" route="259570" type="tram" depart="50390" line="259570">
+    <vehicle id="259716.0" route="259570" type="tram" depart="13:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93315.0" route="93224" type="light_rail" depart="50630" line="93224">
+    <vehicle id="93315.0" route="93224" type="light_rail" depart="14:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109309.0" route="109300" type="bus" depart="50810" line="109300">
+    <vehicle id="109309.0" route="109300" type="bus" depart="14:04:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="92965.0" route="92929" type="light_rail" depart="50870" line="92929">
+    <vehicle id="250396.0" route="250389" type="ferry" depart="14:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92965.0" route="92929" type="light_rail" depart="14:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260021.0" route="259780" type="tram" depart="50870" line="259780">
+    <vehicle id="260021.0" route="259780" type="tram" depart="14:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259718.0" route="259570" type="tram" depart="51590" line="259570">
+    <vehicle id="259718.0" route="259570" type="tram" depart="14:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93316.0" route="93224" type="light_rail" depart="51830" line="93224">
+    <vehicle id="93316.0" route="93224" type="light_rail" depart="14:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92966.0" route="92929" type="light_rail" depart="52070" line="92929">
+    <vehicle id="92966.0" route="92929" type="light_rail" depart="14:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260024.0" route="259780" type="tram" depart="52070" line="259780">
+    <vehicle id="260024.0" route="259780" type="tram" depart="14:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68270.0" route="259570" type="tram" depart="52850" line="259570">
+    <vehicle id="250397.0" route="250389" type="ferry" depart="14:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="68270.0" route="259570" type="tram" depart="14:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93317.0" route="93224" type="light_rail" depart="53030" line="93224">
+    <vehicle id="93317.0" route="93224" type="light_rail" depart="14:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="284973.0" route="284973" type="bus" depart="53210" line="284973">
+    <vehicle id="92967.0" route="92929" type="light_rail" depart="14:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="68394.0" route="259780" type="tram" depart="14:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="284973.0" route="284973" type="bus" depart="14:49:50" line="284973">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92967.0" route="92929" type="light_rail" depart="53270" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="68394.0" route="259780" type="tram" depart="53270" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="284993.0" route="281759" type="bus" depart="53510" line="281759">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96618.0" route="96602" type="light_rail" depart="53570" line="96602">
+    <vehicle id="96618.0" route="96602" type="light_rail" depart="14:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="284994.0" route="109244" type="bus" depart="53750" line="109244">
+    <vehicle id="284994.0" route="109244" type="bus" depart="14:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="284974.0" route="284974" type="bus" depart="53750" line="284974">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109331.0" route="109329" type="bus" depart="53870" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96498.0" route="96476" type="light_rail" depart="53990" line="96476">
+    <vehicle id="96498.0" route="96476" type="light_rail" depart="14:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259592.0" route="259570" type="tram" depart="54050" line="259570">
+    <vehicle id="259592.0" route="259570" type="tram" depart="15:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93318.0" route="93224" type="light_rail" depart="54230" line="93224">
+    <vehicle id="93318.0" route="93224" type="light_rail" depart="15:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109310.0" route="109300" type="bus" depart="54410" line="109300">
+    <vehicle id="109310.0" route="109300" type="bus" depart="15:04:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="92968.0" route="92929" type="light_rail" depart="54470" line="92929">
+    <vehicle id="250398.0" route="250389" type="ferry" depart="15:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92968.0" route="92929" type="light_rail" depart="15:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68379.0" route="259780" type="tram" depart="54470" line="259780">
+    <vehicle id="68379.0" route="259780" type="tram" depart="15:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96619.0" route="96602" type="light_rail" depart="54770" line="96602">
+    <vehicle id="96619.0" route="96602" type="light_rail" depart="15:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96499.0" route="96476" type="light_rail" depart="55190" line="96476">
+    <vehicle id="96499.0" route="96476" type="light_rail" depart="15:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259594.0" route="259570" type="tram" depart="55250" line="259570">
+    <vehicle id="259594.0" route="259570" type="tram" depart="15:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93319.0" route="93224" type="light_rail" depart="55430" line="93224">
+    <vehicle id="93319.0" route="93224" type="light_rail" depart="15:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92969.0" route="92929" type="light_rail" depart="55670" line="92929">
+    <vehicle id="92969.0" route="92929" type="light_rail" depart="15:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259952.0" route="259780" type="tram" depart="55670" line="259780">
+    <vehicle id="259952.0" route="259780" type="tram" depart="15:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96620.0" route="96602" type="light_rail" depart="55970" line="96602">
+    <vehicle id="96620.0" route="96602" type="light_rail" depart="15:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96482.0" route="96476" type="light_rail" depart="56390" line="96476">
+    <vehicle id="250399.0" route="250389" type="ferry" depart="15:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="96482.0" route="96476" type="light_rail" depart="15:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259596.0" route="259570" type="tram" depart="56450" line="259570">
+    <vehicle id="259596.0" route="259570" type="tram" depart="15:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93320.0" route="93224" type="light_rail" depart="56630" line="93224">
+    <vehicle id="93320.0" route="93224" type="light_rail" depart="15:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92970.0" route="92929" type="light_rail" depart="56870" line="92929">
+    <vehicle id="92970.0" route="92929" type="light_rail" depart="15:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259955.0" route="259780" type="tram" depart="56870" line="259780">
+    <vehicle id="259955.0" route="259780" type="tram" depart="15:47:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="285265.0" route="280370" type="bus" depart="56990" line="280370">
+    <vehicle id="96621.0" route="96602" type="light_rail" depart="15:52:50" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="285265.0" route="280370" type="bus" depart="15:54:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="285271.0" route="281759" type="bus" depart="57110" line="281759">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96621.0" route="96602" type="light_rail" depart="57170" line="96602">
-        <param key="gtfs.route_name" value="S8"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="285272.0" route="109244" type="bus" depart="57350" line="109244">
+    <vehicle id="285272.0" route="109244" type="bus" depart="15:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="285266.0" route="281066" type="bus" depart="57350" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109332.0" route="109329" type="bus" depart="57470" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96500.0" route="96476" type="light_rail" depart="57590" line="96476">
+    <vehicle id="96500.0" route="96476" type="light_rail" depart="15:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259598.0" route="259570" type="tram" depart="57650" line="259570">
+    <vehicle id="259598.0" route="259570" type="tram" depart="16:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109303.0" route="109300" type="bus" depart="57830" line="109300">
+    <vehicle id="109303.0" route="109300" type="bus" depart="16:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93321.0" route="93224" type="light_rail" depart="57830" line="93224">
+    <vehicle id="93321.0" route="93224" type="light_rail" depart="16:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92971.0" route="92929" type="light_rail" depart="58070" line="92929">
+    <vehicle id="250400.0" route="250389" type="ferry" depart="16:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92971.0" route="92929" type="light_rail" depart="16:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259958.0" route="259780" type="tram" depart="58070" line="259780">
+    <vehicle id="259958.0" route="259780" type="tram" depart="16:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96622.0" route="96602" type="light_rail" depart="58370" line="96602">
+    <vehicle id="96622.0" route="96602" type="light_rail" depart="16:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96501.0" route="96476" type="light_rail" depart="58790" line="96476">
+    <vehicle id="96501.0" route="96476" type="light_rail" depart="16:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259600.0" route="259570" type="tram" depart="58850" line="259570">
+    <vehicle id="259600.0" route="259570" type="tram" depart="16:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93322.0" route="93224" type="light_rail" depart="59030" line="93224">
+    <vehicle id="93322.0" route="93224" type="light_rail" depart="16:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92972.0" route="92929" type="light_rail" depart="59270" line="92929">
+    <vehicle id="92972.0" route="92929" type="light_rail" depart="16:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260027.0" route="259780" type="tram" depart="59270" line="259780">
+    <vehicle id="260027.0" route="259780" type="tram" depart="16:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96623.0" route="96602" type="light_rail" depart="59570" line="96602">
+    <vehicle id="96623.0" route="96602" type="light_rail" depart="16:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96483.0" route="96476" type="light_rail" depart="59990" line="96476">
+    <vehicle id="250401.0" route="250389" type="ferry" depart="16:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="96483.0" route="96476" type="light_rail" depart="16:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259602.0" route="259570" type="tram" depart="60050" line="259570">
+    <vehicle id="259602.0" route="259570" type="tram" depart="16:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93323.0" route="93224" type="light_rail" depart="60230" line="93224">
+    <vehicle id="93323.0" route="93224" type="light_rail" depart="16:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="285698.0" route="280370" type="bus" depart="60290" line="280370">
+    <vehicle id="92973.0" route="92929" type="light_rail" depart="16:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="68382.0" route="259780" type="tram" depart="16:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="285698.0" route="280370" type="bus" depart="16:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92973.0" route="92929" type="light_rail" depart="60470" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="68382.0" route="259780" type="tram" depart="60470" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="285712.0" route="280055" type="bus" depart="60710" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96624.0" route="96602" type="light_rail" depart="60770" line="96602">
+    <vehicle id="96624.0" route="96602" type="light_rail" depart="16:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="285713.0" route="109244" type="bus" depart="60950" line="109244">
+    <vehicle id="285713.0" route="109244" type="bus" depart="16:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="285699.0" route="281066" type="bus" depart="60950" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109333.0" route="109329" type="bus" depart="61070" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96502.0" route="96476" type="light_rail" depart="61190" line="96476">
+    <vehicle id="96502.0" route="96476" type="light_rail" depart="16:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259604.0" route="259570" type="tram" depart="61250" line="259570">
+    <vehicle id="259604.0" route="259570" type="tram" depart="17:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109304.0" route="109300" type="bus" depart="61430" line="109300">
+    <vehicle id="109304.0" route="109300" type="bus" depart="17:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93324.0" route="93224" type="light_rail" depart="61430" line="93224">
+    <vehicle id="93324.0" route="93224" type="light_rail" depart="17:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92974.0" route="92929" type="light_rail" depart="61670" line="92929">
+    <vehicle id="250402.0" route="250389" type="ferry" depart="17:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92974.0" route="92929" type="light_rail" depart="17:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259961.0" route="259780" type="tram" depart="61670" line="259780">
+    <vehicle id="259961.0" route="259780" type="tram" depart="17:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96625.0" route="96602" type="light_rail" depart="61970" line="96602">
+    <vehicle id="96625.0" route="96602" type="light_rail" depart="17:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96503.0" route="96476" type="light_rail" depart="62390" line="96476">
+    <vehicle id="96503.0" route="96476" type="light_rail" depart="17:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259606.0" route="259570" type="tram" depart="62450" line="259570">
+    <vehicle id="259606.0" route="259570" type="tram" depart="17:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93325.0" route="93224" type="light_rail" depart="62630" line="93224">
+    <vehicle id="93325.0" route="93224" type="light_rail" depart="17:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92975.0" route="92929" type="light_rail" depart="62870" line="92929">
+    <vehicle id="92975.0" route="92929" type="light_rail" depart="17:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259964.0" route="259780" type="tram" depart="62870" line="259780">
+    <vehicle id="259964.0" route="259780" type="tram" depart="17:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96626.0" route="96602" type="light_rail" depart="63170" line="96602">
+    <vehicle id="96626.0" route="96602" type="light_rail" depart="17:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96484.0" route="96476" type="light_rail" depart="63590" line="96476">
+    <vehicle id="250403.0" route="250389" type="ferry" depart="17:34:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="96484.0" route="96476" type="light_rail" depart="17:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259608.0" route="259570" type="tram" depart="63650" line="259570">
+    <vehicle id="259608.0" route="259570" type="tram" depart="17:40:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93326.0" route="93224" type="light_rail" depart="63830" line="93224">
+    <vehicle id="93326.0" route="93224" type="light_rail" depart="17:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="285921.0" route="280370" type="bus" depart="63890" line="280370">
+    <vehicle id="92976.0" route="92929" type="light_rail" depart="17:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259967.0" route="259780" type="tram" depart="17:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="285921.0" route="280370" type="bus" depart="17:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92976.0" route="92929" type="light_rail" depart="64070" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259967.0" route="259780" type="tram" depart="64070" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="285960.0" route="280055" type="bus" depart="64310" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96627.0" route="96602" type="light_rail" depart="64370" line="96602">
+    <vehicle id="96627.0" route="96602" type="light_rail" depart="17:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="285961.0" route="109244" type="bus" depart="64550" line="109244">
+    <vehicle id="285961.0" route="109244" type="bus" depart="17:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="285922.0" route="281066" type="bus" depart="64550" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109334.0" route="109329" type="bus" depart="64670" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96504.0" route="96476" type="light_rail" depart="64790" line="96476">
+    <vehicle id="96504.0" route="96476" type="light_rail" depart="17:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259610.0" route="259570" type="tram" depart="64850" line="259570">
+    <vehicle id="259610.0" route="259570" type="tram" depart="18:00:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109305.0" route="109300" type="bus" depart="65030" line="109300">
+    <vehicle id="109305.0" route="109300" type="bus" depart="18:01:50" line="109300">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, Gewerbepark Süd"/>
     </vehicle>
-    <vehicle id="93327.0" route="93224" type="light_rail" depart="65030" line="93224">
+    <vehicle id="93327.0" route="93224" type="light_rail" depart="18:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92977.0" route="92929" type="light_rail" depart="65270" line="92929">
+    <vehicle id="250404.0" route="250389" type="ferry" depart="18:04:50" line="250389">
+        <param key="gtfs.route_name" value="F21"/>
+        <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="92977.0" route="92929" type="light_rail" depart="18:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260030.0" route="259780" type="tram" depart="65270" line="259780">
+    <vehicle id="260030.0" route="259780" type="tram" depart="18:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96602.0" route="96602" type="light_rail" depart="65570" line="96602">
+    <vehicle id="96602.0" route="96602" type="light_rail" depart="18:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96487.0" route="96476" type="light_rail" depart="65990" line="96476">
+    <vehicle id="96487.0" route="96476" type="light_rail" depart="18:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259612.0" route="259570" type="tram" depart="66050" line="259570">
+    <vehicle id="259612.0" route="259570" type="tram" depart="18:20:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93328.0" route="93224" type="light_rail" depart="66230" line="93224">
+    <vehicle id="93328.0" route="93224" type="light_rail" depart="18:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92978.0" route="92929" type="light_rail" depart="66470" line="92929">
+    <vehicle id="92978.0" route="92929" type="light_rail" depart="18:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68385.0" route="259780" type="tram" depart="66470" line="259780">
+    <vehicle id="68385.0" route="259780" type="tram" depart="18:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96603.0" route="96602" type="light_rail" depart="66770" line="96602">
+    <vehicle id="96603.0" route="96602" type="light_rail" depart="18:32:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96476.0" route="96476" type="light_rail" depart="67190" line="96476">
+    <vehicle id="96476.0" route="96476" type="light_rail" depart="18:39:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="68298.0" route="259570" type="tram" depart="67190" line="259570">
+    <vehicle id="68298.0" route="259570" type="tram" depart="18:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93329.0" route="93224" type="light_rail" depart="67430" line="93224">
+    <vehicle id="93329.0" route="93224" type="light_rail" depart="18:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="286201.0" route="280370" type="bus" depart="67490" line="280370">
+    <vehicle id="92979.0" route="92929" type="light_rail" depart="18:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="259970.0" route="259780" type="tram" depart="18:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="286201.0" route="280370" type="bus" depart="18:49:50" line="280370">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="92979.0" route="92929" type="light_rail" depart="67670" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259970.0" route="259780" type="tram" depart="67670" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="286204.0" route="280055" type="bus" depart="67910" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96604.0" route="96602" type="light_rail" depart="67970" line="96602">
+    <vehicle id="96604.0" route="96602" type="light_rail" depart="18:52:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="286205.0" route="109244" type="bus" depart="68150" line="109244">
+    <vehicle id="286205.0" route="109244" type="bus" depart="18:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="286202.0" route="281066" type="bus" depart="68150" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
-    </vehicle>
-    <vehicle id="109335.0" route="109329" type="bus" depart="68270" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="96488.0" route="96476" type="light_rail" depart="68390" line="96476">
+    <vehicle id="96488.0" route="96476" type="light_rail" depart="18:59:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="259678.0" route="259570" type="tram" depart="68390" line="259570">
+    <vehicle id="259678.0" route="259570" type="tram" depart="18:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109298.0" route="109298" type="bus" depart="68630" line="109298">
+    <vehicle id="109298.0" route="109298" type="bus" depart="19:01:50" line="109298">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, A10 Center"/>
     </vehicle>
-    <vehicle id="93330.0" route="93224" type="light_rail" depart="68630" line="93224">
+    <vehicle id="93330.0" route="93224" type="light_rail" depart="19:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92980.0" route="92929" type="light_rail" depart="68870" line="92929">
+    <vehicle id="92980.0" route="92929" type="light_rail" depart="19:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259973.0" route="259780" type="tram" depart="68870" line="259780">
+    <vehicle id="259973.0" route="259780" type="tram" depart="19:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="96605.0" route="96602" type="light_rail" depart="69170" line="96602">
+    <vehicle id="96605.0" route="96602" type="light_rail" depart="19:12:50" line="96602">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="96489.0" route="96476" type="light_rail" depart="69590" line="96476">
-        <param key="gtfs.route_name" value="S8"/>
-        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
-    </vehicle>
-    <vehicle id="68306.0" route="259570" type="tram" depart="69590" line="259570">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
-    </vehicle>
-    <vehicle id="93331.0" route="93224" type="light_rail" depart="69830" line="93224">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
-    </vehicle>
-    <vehicle id="92981.0" route="92929" type="light_rail" depart="70070" line="92929">
-        <param key="gtfs.route_name" value="S46"/>
-        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
-    </vehicle>
-    <vehicle id="259976.0" route="259780" type="tram" depart="70070" line="259780">
-        <param key="gtfs.route_name" value="68"/>
-        <param key="gtfs.trip_headsign" value="S Köpenick"/>
-    </vehicle>
-    <vehicle id="96606.0" route="96602" type="light_rail" depart="70370" line="96602">
-        <param key="gtfs.route_name" value="S8"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="96477.0" route="96476" type="light_rail" depart="70790" line="96476">
+    <vehicle id="96489.0" route="96476" type="light_rail" depart="19:19:50" line="96476">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="68300.0" route="259570" type="tram" depart="70790" line="259570">
+    <vehicle id="68306.0" route="259570" type="tram" depart="19:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93332.0" route="93224" type="light_rail" depart="71030" line="93224">
+    <vehicle id="93331.0" route="93224" type="light_rail" depart="19:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="286347.0" route="280370" type="bus" depart="71090" line="280370">
-        <param key="gtfs.route_name" value="733"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="92982.0" route="92929" type="light_rail" depart="71270" line="92929">
+    <vehicle id="92981.0" route="92929" type="light_rail" depart="19:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="260033.0" route="259780" type="tram" depart="71270" line="259780">
+    <vehicle id="259976.0" route="259780" type="tram" depart="19:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="286316.0" route="286316" type="bus" depart="71510" line="286316">
-        <param key="gtfs.route_name" value="734"/>
+    <vehicle id="96606.0" route="96602" type="light_rail" depart="19:32:50" line="96602">
+        <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
-    <vehicle id="286317.0" route="109244" type="bus" depart="71750" line="109244">
-        <param key="gtfs.route_name" value="733"/>
-        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    <vehicle id="96477.0" route="96476" type="light_rail" depart="19:39:50" line="96476">
+        <param key="gtfs.route_name" value="S8"/>
+        <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
     </vehicle>
-    <vehicle id="286348.0" route="281066" type="bus" depart="71750" line="281066">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
-    </vehicle>
-    <vehicle id="109336.0" route="109329" type="bus" depart="71870" line="109329">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
-    </vehicle>
-    <vehicle id="259680.0" route="259570" type="tram" depart="71990" line="259570">
+    <vehicle id="68300.0" route="259570" type="tram" depart="19:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="109299.0" route="109298" type="bus" depart="72230" line="109298">
+    <vehicle id="93332.0" route="93224" type="light_rail" depart="19:43:50" line="93224">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="92982.0" route="92929" type="light_rail" depart="19:47:50" line="92929">
+        <param key="gtfs.route_name" value="S46"/>
+        <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
+    </vehicle>
+    <vehicle id="260033.0" route="259780" type="tram" depart="19:47:50" line="259780">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="286347.0" route="280370" type="bus" depart="19:49:50" line="280370">
+        <param key="gtfs.route_name" value="733"/>
+        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="286317.0" route="109244" type="bus" depart="19:55:50" line="109244">
+        <param key="gtfs.route_name" value="733"/>
+        <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
+    </vehicle>
+    <vehicle id="259680.0" route="259570" type="tram" depart="19:59:50" line="259570">
+        <param key="gtfs.route_name" value="68"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
+    <vehicle id="109299.0" route="109298" type="bus" depart="20:01:50" line="109298">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, A10 Center"/>
     </vehicle>
-    <vehicle id="93333.0" route="93224" type="light_rail" depart="72230" line="93224">
+    <vehicle id="93333.0" route="93224" type="light_rail" depart="20:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92983.0" route="92929" type="light_rail" depart="72470" line="92929">
+    <vehicle id="92983.0" route="92929" type="light_rail" depart="20:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68388.0" route="259780" type="tram" depart="72470" line="259780">
+    <vehicle id="68388.0" route="259780" type="tram" depart="20:07:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259682.0" route="259570" type="tram" depart="73190" line="259570">
+    <vehicle id="259682.0" route="259570" type="tram" depart="20:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93334.0" route="93224" type="light_rail" depart="73430" line="93224">
+    <vehicle id="93334.0" route="93224" type="light_rail" depart="20:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92984.0" route="92929" type="light_rail" depart="73670" line="92929">
+    <vehicle id="92984.0" route="92929" type="light_rail" depart="20:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259979.0" route="259780" type="tram" depart="73670" line="259780">
+    <vehicle id="259979.0" route="259780" type="tram" depart="20:27:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259684.0" route="259570" type="tram" depart="74390" line="259570">
+    <vehicle id="259684.0" route="259570" type="tram" depart="20:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93335.0" route="93224" type="light_rail" depart="74630" line="93224">
+    <vehicle id="93335.0" route="93224" type="light_rail" depart="20:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92985.0" route="92929" type="light_rail" depart="74870" line="92929">
+    <vehicle id="92985.0" route="92929" type="light_rail" depart="20:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="68367.0" route="259780" type="tram" depart="74990" line="259780">
+    <vehicle id="68367.0" route="259780" type="tram" depart="20:49:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="286496.0" route="280055" type="bus" depart="75170" line="280055">
-        <param key="gtfs.route_name" value="734"/>
-        <param key="gtfs.trip_headsign" value="S Zeuthen"/>
-    </vehicle>
-    <vehicle id="286497.0" route="109244" type="bus" depart="75350" line="109244">
+    <vehicle id="286497.0" route="109244" type="bus" depart="20:55:50" line="109244">
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="109337.0" route="109337" type="bus" depart="75470" line="109337">
-        <param key="gtfs.route_name" value="738"/>
-        <param key="gtfs.trip_headsign" value="S Eichwalde"/>
-    </vehicle>
-    <vehicle id="259720.0" route="259570" type="tram" depart="75590" line="259570">
+    <vehicle id="259720.0" route="259570" type="tram" depart="20:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93336.0" route="93224" type="light_rail" depart="75830" line="93224">
+    <vehicle id="93336.0" route="93224" type="light_rail" depart="21:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92962.0" route="92929" type="light_rail" depart="76070" line="92929">
+    <vehicle id="92962.0" route="92929" type="light_rail" depart="21:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="109306.0" route="109306" type="bus" depart="76190" line="109306">
+    <vehicle id="109306.0" route="109306" type="bus" depart="21:09:50" line="109306">
         <param key="gtfs.route_name" value="738"/>
         <param key="gtfs.trip_headsign" value="Wildau, A10 Center"/>
     </vehicle>
-    <vehicle id="259871.0" route="259780" type="tram" depart="76190" line="259780">
+    <vehicle id="259871.0" route="259780" type="tram" depart="21:09:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68274.0" route="259570" type="tram" depart="76790" line="259570">
+    <vehicle id="68274.0" route="259570" type="tram" depart="21:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68330.0" route="259780" type="tram" depart="76790" line="259780">
+    <vehicle id="68330.0" route="259780" type="tram" depart="21:19:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
-    <vehicle id="93337.0" route="93224" type="light_rail" depart="77030" line="93224">
+    <vehicle id="93337.0" route="93224" type="light_rail" depart="21:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92955.0" route="92929" type="light_rail" depart="77270" line="92929">
+    <vehicle id="92955.0" route="92929" type="light_rail" depart="21:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259874.0" route="259780" type="tram" depart="77390" line="259780">
+    <vehicle id="259874.0" route="259780" type="tram" depart="21:29:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259618.0" route="259570" type="tram" depart="77990" line="259570">
+    <vehicle id="259618.0" route="259570" type="tram" depart="21:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93338.0" route="93224" type="light_rail" depart="78230" line="93224">
+    <vehicle id="93338.0" route="93224" type="light_rail" depart="21:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92956.0" route="92929" type="light_rail" depart="78470" line="92929">
+    <vehicle id="92956.0" route="92929" type="light_rail" depart="21:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259877.0" route="259780" type="tram" depart="78590" line="259780">
+    <vehicle id="259877.0" route="259780" type="tram" depart="21:49:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259620.0" route="259570" type="tram" depart="79190" line="259570">
+    <vehicle id="259620.0" route="259570" type="tram" depart="21:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93339.0" route="93224" type="light_rail" depart="79430" line="93224">
+    <vehicle id="93339.0" route="93224" type="light_rail" depart="22:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92957.0" route="92929" type="light_rail" depart="79670" line="92929">
+    <vehicle id="92957.0" route="92929" type="light_rail" depart="22:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259880.0" route="259780" type="tram" depart="79790" line="259780">
+    <vehicle id="259880.0" route="259780" type="tram" depart="22:09:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259622.0" route="259570" type="tram" depart="80390" line="259570">
+    <vehicle id="259622.0" route="259570" type="tram" depart="22:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93340.0" route="93224" type="light_rail" depart="80630" line="93224">
+    <vehicle id="93340.0" route="93224" type="light_rail" depart="22:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92958.0" route="92929" type="light_rail" depart="80870" line="92929">
+    <vehicle id="92958.0" route="92929" type="light_rail" depart="22:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259883.0" route="259780" type="tram" depart="80990" line="259780">
+    <vehicle id="259883.0" route="259780" type="tram" depart="22:29:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259624.0" route="259570" type="tram" depart="81590" line="259570">
+    <vehicle id="259624.0" route="259570" type="tram" depart="22:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93311.0" route="93224" type="light_rail" depart="81830" line="93224">
+    <vehicle id="93311.0" route="93224" type="light_rail" depart="22:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92959.0" route="92929" type="light_rail" depart="82070" line="92929">
+    <vehicle id="92959.0" route="92929" type="light_rail" depart="22:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259886.0" route="259780" type="tram" depart="82190" line="259780">
+    <vehicle id="259886.0" route="259780" type="tram" depart="22:49:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259626.0" route="259570" type="tram" depart="82790" line="259570">
+    <vehicle id="259626.0" route="259570" type="tram" depart="22:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93306.0" route="93224" type="light_rail" depart="83030" line="93224">
+    <vehicle id="93306.0" route="93224" type="light_rail" depart="23:03:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92960.0" route="92929" type="light_rail" depart="83270" line="92929">
+    <vehicle id="92960.0" route="92929" type="light_rail" depart="23:07:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259889.0" route="259780" type="tram" depart="83390" line="259780">
+    <vehicle id="259889.0" route="259780" type="tram" depart="23:09:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259628.0" route="259570" type="tram" depart="83990" line="259570">
+    <vehicle id="259628.0" route="259570" type="tram" depart="23:19:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93307.0" route="93224" type="light_rail" depart="84230" line="93224">
+    <vehicle id="93307.0" route="93224" type="light_rail" depart="23:23:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="92961.0" route="92929" type="light_rail" depart="84470" line="92929">
+    <vehicle id="92961.0" route="92929" type="light_rail" depart="23:27:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Westend (Berlin)"/>
     </vehicle>
-    <vehicle id="259892.0" route="259780" type="tram" depart="84590" line="259780">
+    <vehicle id="259892.0" route="259780" type="tram" depart="23:29:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259630.0" route="259570" type="tram" depart="85190" line="259570">
+    <vehicle id="259630.0" route="259570" type="tram" depart="23:39:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="93308.0" route="93224" type="light_rail" depart="85430" line="93224">
+    <vehicle id="93308.0" route="93224" type="light_rail" depart="23:43:50" line="93224">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
-    <vehicle id="93017.0" route="92929" type="light_rail" depart="85670" line="92929">
+    <vehicle id="93017.0" route="92929" type="light_rail" depart="23:47:50" line="92929">
         <param key="gtfs.route_name" value="S46"/>
         <param key="gtfs.trip_headsign" value="S Charlottenburg Bhf (Berlin)"/>
     </vehicle>
-    <vehicle id="259895.0" route="259780" type="tram" depart="85790" line="259780">
+    <vehicle id="259895.0" route="259780" type="tram" depart="23:49:50" line="259780">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="259632.0" route="259570" type="tram" depart="86390" line="259570">
+    <vehicle id="259632.0" route="259570" type="tram" depart="23:59:50" line="259570">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
