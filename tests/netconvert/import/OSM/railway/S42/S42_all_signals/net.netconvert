@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-25T23:04:25.866265+01:00 by Eclipse SUMO netconvert v1_26_0+0837-77e9f8af1b2
+<!-- generated on 2026-03-26T08:44:49.756585+01:00 by Eclipse SUMO netconvert v1_26_0+0844-48fe99c0a9f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -608,10 +608,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-375331614#3_0" index="0" allow="rail_urban" speed="22.22" length="6.68" shape="12371.78,6502.91 12377.48,6500.03"/>
     </edge>
     <edge id="-375331627#0" from="4264708622" to="3787008857" priority="19" type="railway.light_rail" spreadType="center" bidi="375331627#0">
-        <lane id="-375331627#0_0" index="0" allow="rail_urban" speed="22.22" length="12.42" shape="12859.49,6029.82 12863.72,6018.42"/>
+        <lane id="-375331627#0_0" index="0" allow="rail_urban" speed="19.44" length="12.42" shape="12859.49,6029.82 12863.72,6018.42"/>
     </edge>
     <edge id="-375331627#1" from="21385746" to="4264708622" priority="19" type="railway.light_rail" spreadType="center" shape="12821.79,6147.77 12835.53,6105.25 12843.67,6078.75 12859.45,6029.92" bidi="375331627#1">
-        <lane id="-375331627#1_0" index="0" allow="rail_urban" speed="22.22" length="123.72" shape="12821.83,6147.65 12835.53,6105.25 12843.67,6078.75 12859.42,6030.02"/>
+        <lane id="-375331627#1_0" index="0" allow="rail_urban" speed="19.44" length="123.72" shape="12821.83,6147.65 12835.53,6105.25 12843.67,6078.75 12859.42,6030.02"/>
     </edge>
     <edge id="-375348223#0" from="10210547238" to="322939594" priority="19" type="railway.light_rail" spreadType="center" bidi="375348223#0">
         <lane id="-375348223#0_0" index="0" allow="rail_urban" speed="19.44" length="4.30" shape="9759.00,8934.50 9762.08,8931.93"/>
