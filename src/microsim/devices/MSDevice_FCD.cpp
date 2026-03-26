@@ -205,6 +205,7 @@ MSDevice_FCD::initOnce() {
     misc.set(SUMO_ATTR_ODOMETER);
     misc.set(SUMO_ATTR_POSITION_LAT);
     misc.set(SUMO_ATTR_SPEED_LAT);
+    misc.set(SUMO_ATTR_SPEEDREL);
     misc.set(SUMO_ATTR_LEADER_ID);
     misc.set(SUMO_ATTR_LEADER_SPEED);
     misc.set(SUMO_ATTR_ARRIVALDELAY);
@@ -234,6 +235,9 @@ MSDevice_FCD::initOnce() {
     myWrittenAttributes.set(SUMO_ATTR_ACCELERATION_LAT, myWrittenAttributes.test(SUMO_ATTR_ACCELERATION) && MSGlobals::gSublane);
     if (oc.getBool("fcd-output.distance")) {
         myWrittenAttributes.set(SUMO_ATTR_DISTANCE);
+    }
+    if (oc.getBool("fcd-output.speed-relative")) {
+        myWrittenAttributes.set(SUMO_ATTR_SPEEDREL);
     }
 
     if (oc.isSet("fcd-output.filter-shapes")) {
