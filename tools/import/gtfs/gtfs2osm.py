@@ -518,7 +518,7 @@ def getAccess(net, lon, lat, radius, lane_id, max_access=10):
     lane = net.getLane(lane_id)
     access = []
     if not lane.getEdge().allows("pedestrian"):
-        for access_edge, _ in sorted(net.getNeighboringEdges(x, y, radius), key=lambda i: i[1]):
+        for access_edge, _ in sorted(net.getNeighboringEdges(x, y, radius), key=lambda i: (i[1], i[0].getID())):
             if access_edge.allows("pedestrian"):
                 access_lane_idx, access_pos, access_dist = access_edge.getClosestLanePosDist((x, y))
                 if not access_edge.getLane(access_lane_idx).allows("pedestrian"):
