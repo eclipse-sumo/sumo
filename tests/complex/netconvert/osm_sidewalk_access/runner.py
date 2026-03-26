@@ -13,6 +13,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
+# @author  Michael Behrisch
 # @date    2026-03-25
 
 """
@@ -55,6 +56,7 @@ OSM_TEMPLATE = """\
 </osm>
 """
 
+
 def _is_sidewalk_lane(lane):
     """True if the lane is a dedicated sidewalk (pedestrian-only lane)."""
     return lane.getPermissions().issubset({"pedestrian", "wheelchair"})
@@ -83,11 +85,11 @@ def run_case(extra_tags, use_osm_sidewalks, guess_sidewalks, typemap):
     any_ped_on_road = False
     for edge in net.getEdges():
         lanes = edge.getLanes()
-        sidewalk_lanes = [l for l in lanes if _is_sidewalk_lane(l)]
-        road_lanes = [l for l in lanes if not _is_sidewalk_lane(l)]
+        sidewalk_lanes = [la for la in lanes if _is_sidewalk_lane(la)]
+        road_lanes = [la for la in lanes if not _is_sidewalk_lane(la)]
         if sidewalk_lanes:
             any_sidewalk = True
-        if any(l.allows("pedestrian") for l in road_lanes):
+        if any(la.allows("pedestrian") for la in road_lanes):
             any_ped_on_road = True
     print("tags:", extra_tags, " ".join(["netconvert"] + cmd[5:]).replace(os.environ["SUMO_HOME"], ""))
     print("    sidewalk:", any_sidewalk, "peds_on_road:", any_ped_on_road)
