@@ -106,6 +106,10 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                 of.writeFuncAttr(SUMO_ATTR_SPEED, [ = ]() {
                     return veh->getSpeed();
                 }, mask);
+                of.writeFuncAttr(SUMO_ATTR_SPEEDREL, [ = ]() {
+                    const double speedLimit = veh->getEdge()->getSpeedLimit();
+                    return speedLimit > 0 ? veh->getSpeed() / speedLimit : 0.;
+                }, mask);
                 of.writeFuncAttr(SUMO_ATTR_POSITION, [ = ]() {
                     return veh->getPositionOnLane();
                 }, mask);
@@ -304,6 +308,7 @@ MSFCDExport::writeTransportable(OutputDevice& of, const MSEdge* const e, const M
     of.writeOptionalAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(p->getAngle()), mask);
     of.writeOptionalAttr(SUMO_ATTR_TYPE, p->getVehicleType().getID(), mask);
     of.writeOptionalAttr(SUMO_ATTR_SPEED, p->getSpeed(), mask);
+    of.writeOptionalAttr(SUMO_ATTR_SPEEDREL, e->getSpeedLimit() > 0 ? p->getSpeed() / e->getSpeedLimit() : 0., mask);
     of.writeOptionalAttr(SUMO_ATTR_POSITION, p->getEdgePos(), mask);
     of.writeOptionalAttr(SUMO_ATTR_LANE, "", mask, true);
     of.writeOptionalAttr(SUMO_ATTR_EDGE, e->getID(), mask);
