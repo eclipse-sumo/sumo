@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26 14:34:43.968070 by Eclipse SUMO gtfs2pt.py v1_26_0+0850-12fe2f0576f
+<!-- generated on 2026-03-26 16:12:37.995919 by Eclipse SUMO gtfs2pt.py v1_26_0+0851-2f1bee1a60f
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -136,8 +136,8 @@
         <access friendlyPos="true" lane="1122590760#0_0" pos="0.20" length="119.45"/>
         <access friendlyPos="true" lane="1122590760#1_0" pos="23.07" length="82.06"/>
         <access friendlyPos="true" lane="1122590760#2_0" pos="19.68" length="48.58"/>
+        <access friendlyPos="true" lane="1122590773_0" pos="11.65" length="131.68"/>
         <access friendlyPos="true" lane="1453605555#1_0" pos="6.37" length="32.92"/>
-        <access friendlyPos="true" lane="1453609781_0" pos="37.58" length="134.16"/>
         <access friendlyPos="true" lane="383790135_0" pos="52.67" length="92.94"/>
         <access friendlyPos="true" lane="421231594#1_0" pos="0.00" length="29.12"/>
         <access friendlyPos="true" lane="44170716#0_0" pos="24.39" length="69.32"/>
@@ -148,8 +148,8 @@
         <access friendlyPos="true" lane="1122590760#0_0" pos="0.20" length="119.45"/>
         <access friendlyPos="true" lane="1122590760#1_0" pos="23.07" length="82.06"/>
         <access friendlyPos="true" lane="1122590760#2_0" pos="19.68" length="48.58"/>
+        <access friendlyPos="true" lane="1122590773_0" pos="11.65" length="131.68"/>
         <access friendlyPos="true" lane="1453605555#1_0" pos="6.37" length="32.92"/>
-        <access friendlyPos="true" lane="1453609781_0" pos="37.58" length="134.16"/>
         <access friendlyPos="true" lane="383790135_0" pos="52.67" length="92.94"/>
         <access friendlyPos="true" lane="421231594#1_0" pos="0.00" length="29.12"/>
         <access friendlyPos="true" lane="44170716#0_0" pos="24.39" length="69.32"/>
@@ -171,10 +171,10 @@
         <access friendlyPos="true" lane="-1449400470_0" pos="97.08" length="58.85"/>
         <access friendlyPos="true" lane="-1449407016#0_0" pos="0.00" length="121.18"/>
         <access friendlyPos="true" lane="-1449474929_0" pos="411.48" length="2.21"/>
+        <access friendlyPos="true" lane="-20397088#2_0" pos="0.00" length="116.91"/>
         <access friendlyPos="true" lane="-21721173#0_0" pos="0.00" length="54.70"/>
         <access friendlyPos="true" lane="116171834_0" pos="272.80" length="65.34"/>
         <access friendlyPos="true" lane="1449407016#1_0" pos="57.11" length="49.94"/>
-        <access friendlyPos="true" lane="1449407019_0" pos="89.26" length="118.54"/>
         <access friendlyPos="true" lane="1449474922_0" pos="27.04" length="7.02"/>
         <access friendlyPos="true" lane="21721173#3_0" pos="0.00" length="54.42"/>
     </trainStop>
