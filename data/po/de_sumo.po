@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-24 19:30+0000\n"
+"PO-Revision-Date: 2026-03-26 20:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7576,12 +7576,16 @@ msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes (at "
 "roundabouts)"
 msgstr ""
+"Erlauben, in eine mehrstreifige Straße einzufahren, auch wenn sich auf "
+"anderen Fahrstreifen (des Kreisverkehrs) Fahrzeuge befinden"
 
 #: src/netbuild/NBFrame.cpp:455
 msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes "
 "(everywhere)"
 msgstr ""
+"Erlauben, in eine mehrstreifige Straße einzufahren, auch wenn sich auf "
+"anderen Fahrstreifen Fahrzeuge befinden"
 
 #: src/netbuild/NBFrame.cpp:459
 msgid "Guess pedestrian sidewalks based on edge speed"
@@ -7619,34 +7623,44 @@ msgstr "Radstreifen nach Geschwindigkeitsbegrenzung der Kante raten"
 #: src/netbuild/NBFrame.cpp:483
 msgid "Add bike lanes for edges with a speed equal or below the given limit"
 msgstr ""
+"Kanten mit einer Geschwindigkeitsbegrenzung bis zu dem gegebenen Wert "
+"Radfahrstreifen hinzufügen"
 
 #: src/netbuild/NBFrame.cpp:487
 msgid "Add bike lanes for edges with a speed above the given limit"
 msgstr ""
+"Kanten mit einer Geschwindigkeitsbegrenzung über dem gegebenen Wert "
+"Radfahrstreifen hinzufügen"
 
 #: src/netbuild/NBFrame.cpp:491
 msgid ""
 "Add bike lanes for edges that allow bicycles on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Radfahrstreifen jenen Kanten hinzufügen, die Fahrräder unabhängig von "
+"Geschwindigkeitsbegrenzungen auf einem ihrer Fahrstreifen erlauben"
 
 #: src/netbuild/NBFrame.cpp:495
 msgid "Do not guess bikelanes for the given list of edges"
 msgstr ""
+"Die gegebene Aufzählung an Kanten von der Radfahrstreifenheuristik "
+"ausschließen"
 
 #: src/netbuild/NBFrame.cpp:499
 msgid "Guess pedestrian crossings based on the presence of sidewalks"
-msgstr ""
+msgstr "Fußgängerüberwege anhand vorhandener Fußwege raten"
 
 #: src/netbuild/NBFrame.cpp:503
 msgid ""
 "At uncontrolled nodes, do not build crossings across edges with a speed "
 "above the threshold"
 msgstr ""
+"Keine Fußgängerüberwege an Knotenpunkten ohne Vorfahrtregelung und "
+"Geschwindigkeitsbegrenzung über diesem Wert erstellen"
 
 #: src/netbuild/NBFrame.cpp:507
 msgid "Give priority to guessed crossings at roundabouts"
-msgstr ""
+msgstr "An Kreisverkehren geratenen Fußgängerüberwegen Vorrang geben"
 
 #: src/netbuild/NBFrame.cpp:510
 msgid "Always build walking areas even if there are no crossings"
