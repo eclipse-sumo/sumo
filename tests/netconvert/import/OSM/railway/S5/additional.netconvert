@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-15T12:11:50.418727+01:00 by Eclipse SUMO netconvert v1_25_0+0976-3f75f4984c5
+<!-- generated on 2026-03-26T08:16:54.234899+01:00 by Eclipse SUMO netconvert v1_26_0+0840-e6e5834aec0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="-1117011616" name="Wuhletal" lane="-550965669_0" startPos="0.00" endPos="175.03" friendlyPos="true"/>
     <trainStop id="-1117011642" name="Strausberg Nord" lane="-550961652_0" startPos="0.00" endPos="100.99" friendlyPos="true" lines="S5"/>
     <trainStop id="-1117011644" name="Petershagen Nord" lane="-217562762_0" startPos="2263.19" endPos="2463.19" friendlyPos="true" lines="S5"/>
     <trainStop id="-1117011661" name="Hegermühle" lane="-23256161#0_0" startPos="59.49" endPos="259.49" friendlyPos="true" lines="S5"/>
@@ -64,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <trainStop id="-5316085166" name="Ostkreuz" lane="-520764261#2_0" startPos="0.00" endPos="19.92" friendlyPos="true" lines="S5"/>
     <trainStop id="1117011604" name="Kaulsdorf" lane="396007085_0" startPos="401.78" endPos="601.78" friendlyPos="true" lines="S5"/>
     <trainStop id="1117011616" name="Wuhletal" lane="550965669_0" startPos="0.00" endPos="175.03" friendlyPos="true" lines="S5"/>
-    <trainStop id="1117011619" name="Biesdorf" lane="4699426_0" startPos="1241.27" endPos="1441.27" friendlyPos="true" lines="S5"/>
+    <trainStop id="1117011619" name="Biesdorf" lane="4699426_0" startPos="1240.54" endPos="1440.54" friendlyPos="true" lines="S5"/>
     <trainStop id="1117011628" name="Mahlsdorf" lane="550340843_0" startPos="0.00" endPos="164.75" friendlyPos="true" lines="S5"/>
     <trainStop id="1117011631" name="Birkenstein" lane="36789617_0" startPos="1635.68" endPos="1835.68" friendlyPos="true" lines="S5"/>
     <trainStop id="1117011642" name="Strausberg Nord" lane="550961652_0" startPos="0.00" endPos="100.99" friendlyPos="true" lines="S5"/>
