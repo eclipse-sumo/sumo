@@ -502,6 +502,12 @@ class StopLookup:
             return []
 
 
+def removeDoubleHypen(string):
+    while '--' in string:
+        string = string.replace('--', '- -')
+    return string
+
+
 def main(options):
     if options.verbose:
         print('Loading net')
@@ -591,7 +597,8 @@ def main(options):
                         if offset is None:
                             offset = stop[1]
                         rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s/> <!-- %s -->\n' %
-                                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking, stop[2]))
+                                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking,
+                                    removeDoubleHypen(stop[2])))
                     rout.write(u'    </route>\n')
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
