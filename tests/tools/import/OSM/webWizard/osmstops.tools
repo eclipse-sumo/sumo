@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-24T14:40:06.534397+01:00 by Eclipse SUMO netconvert v1_26_0+0793-810e0a12553
+<!-- generated on 2026-03-26T08:33:37.452668+01:00 by Eclipse SUMO netconvert v1_26_0+0842-d04a789bc5c
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.24Mar144004.39762/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.26Mar083321.2032220/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -57,7 +57,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="-1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="-148458500#1_0" startPos="9.37" endPos="34.37" friendlyPos="true">
+    <trainStop id="-1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="-148458500#1_0" startPos="9.37" endPos="34.37" friendlyPos="true" lines="M2">
         <access lane="-72157168#4_0" pos="0.00" length="18.72" friendlyPos="1"/>
         <access lane="-72157168#5_0" pos="38.51" length="14.56" friendlyPos="1"/>
         <access lane="272795478_0" pos="14.42" length="8.92" friendlyPos="1"/>
