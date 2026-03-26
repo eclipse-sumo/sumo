@@ -1,1 +1,10 @@
--n data/eichwalde.net.xml.gz --modes tram --gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2016.zip --date 20160713 tools/import/gtfs/gtfs2pt.py
+-n data/osm.net.xml.gz
+--merged-csv data/data.csv
+--stops data/osm_stops.add.xml
+--radius 300
+--sort
+--mapperlib tracemapper
+--rail-priority-factor 5
+--remove-detour-factor 5
+--modes tram
+tools/import/gtfs/gtfs2pt.py

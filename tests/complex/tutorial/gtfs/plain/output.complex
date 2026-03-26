@@ -1,7 +1,5 @@
-function import_gtfs called at Wed, 25 Mar 2026 07:42:58 +0000
-function import_gtfs finished after 4.647160 seconds
 Success.
 Success.
 Success.
 Success.
-Error generating resources/gtfs/ferry.net.xml, maybe it does not contain infrastructure for 'ferry'.
+Success.

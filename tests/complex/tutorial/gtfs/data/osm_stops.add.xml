@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-26T14:06:13.992080+01:00 by Eclipse SUMO netconvert v1_26_0+0846-ac97b382e3f
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml.gz"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.ptline-priority value="rail,rail_urban,tram"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1234120230" name="Rudolf-Breitscheid-Straße" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" lines="734">
+        <access lane="24280472_0" pos="0.00" length="222.51" friendlyPos="1"/>
+        <access lane="4920444_0" pos="0.00" length="53.25" friendlyPos="1"/>
+        <access lane="4930526_0" pos="0.00" length="94.37" friendlyPos="1"/>
+        <access lane="4930563_0" pos="305.86" length="194.29" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-1234120342" name="Dohlenstieg" lane="-4930561_0" startPos="78.21" endPos="93.21" friendlyPos="true" lines="734 738">
+        <access lane="-4920483_0" pos="134.88" length="151.01" friendlyPos="1"/>
+        <access lane="24280472_0" pos="204.73" length="288.98" friendlyPos="1"/>
+        <access lane="4920483_0" pos="263.02" length="153.42" friendlyPos="1"/>
+        <access lane="4930563_0" pos="61.13" length="427.36" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-1242393340" name="Schmöckwitzer Forst" lane="-10587012_0" startPos="707.64" endPos="722.64" friendlyPos="true" lines="168"/>
+    <busStop id="-1242394011" name="Fährallee" lane="-389273284#0_0" startPos="0.00" endPos="10.06" friendlyPos="true" lines="168"/>
+    <busStop id="-1242394060" name="Schmöckwitzer Damm" lane="-10587012_0" startPos="2012.76" endPos="2027.76" friendlyPos="true" lines="168"/>
+    <busStop id="-1383533517" name="Friedenstraße" lane="-4045247#0_0" startPos="67.93" endPos="82.93" friendlyPos="true" lines="733">
+        <access lane="4935242_0" pos="291.38" length="310.18" friendlyPos="1"/>
+        <access lane="4935245_0" pos="235.80" length="154.08" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-1383533518" name="Friedenstraße" lane="-4068154#0_0" startPos="165.54" endPos="180.54" friendlyPos="true" lines="733">
+        <access lane="-251256520_0" pos="1.81" length="215.60" friendlyPos="1"/>
+        <access lane="251256520_0" pos="205.38" length="213.19" friendlyPos="1"/>
+        <access lane="4935242_0" pos="172.28" length="321.19" friendlyPos="1"/>
+        <access lane="4935245_0" pos="181.03" length="168.10" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-1383533542" name="Havellandstraße" lane="-797340925#0_0" startPos="67.78" endPos="82.78" friendlyPos="true" lines="733"/>
+    <busStop id="-1383533623" name="Schmöckwitzer Straße" lane="-4068154#4_0" startPos="40.37" endPos="55.37" friendlyPos="true" lines="733">
+        <access lane="-24275739_0" pos="3.86" length="246.74" friendlyPos="1"/>
+        <access lane="-4935236_0" pos="0.00" length="90.08" friendlyPos="1"/>
+        <access lane="-80342203#0_0" pos="0.00" length="238.78" friendlyPos="1"/>
+        <access lane="4935236_0" pos="92.67" length="90.45" friendlyPos="1"/>
+        <access lane="80342203#0_0" pos="264.51" length="236.39" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-1400047294" name="Schillerstraße" lane="-8068171_0" startPos="564.75" endPos="579.75" friendlyPos="true" lines="731 733">
+        <access lane="-1021062331_0" pos="689.99" length="178.77" friendlyPos="1"/>
+        <access lane="-1021333181_0" pos="339.08" length="104.81" friendlyPos="1"/>
+        <access lane="1021062335_0" pos="0.00" length="182.81" friendlyPos="1"/>
+        <access lane="8068139_0" pos="10.49" length="109.61" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-309303051" name="Alt-Schmöckwitz" lane="1198308222_0" startPos="103.18" endPos="118.18" friendlyPos="true" lines="168 733">
+        <access lane="-11452526_0" pos="31.46" length="66.93" friendlyPos="1"/>
+        <access lane="383790135_0" pos="22.10" length="71.73" friendlyPos="1"/>
+        <access lane="421231594#1_0" pos="50.16" length="93.71" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="0.00" length="94.54" friendlyPos="1"/>
+        <access lane="4463780#0_0" pos="0.00" length="104.31" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-32497495" name="Tschaikowskistraße" lane="-4068154#2_0" startPos="257.42" endPos="272.42" friendlyPos="true" lines="733">
+        <access lane="-24275810#0_0" pos="206.48" length="22.28" friendlyPos="1"/>
+        <access lane="-24275825#1_0" pos="0.00" length="24.79" friendlyPos="1"/>
+        <access lane="1011222056_0" pos="0.00" length="198.27" friendlyPos="1"/>
+        <access lane="24275810#0_0" pos="0.00" length="20.06" friendlyPos="1"/>
+        <access lane="24275825#1_0" pos="120.00" length="20.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-3561043008" name="Alt-Schmöckwitz" lane="-11452526_0" startPos="30.01" endPos="45.01" friendlyPos="true" lines="N68"/>
+    <busStop id="-5341554433" name="Zum Seeblick" lane="-355736433_0" startPos="39.58" endPos="54.58" friendlyPos="true" lines="733">
+        <access lane="-1010000354_0" pos="0.00" length="239.86" friendlyPos="1"/>
+        <access lane="-1453600260_0" pos="0.00" length="223.78" friendlyPos="1"/>
+        <access lane="-1453868940_0" pos="100.87" length="196.95" friendlyPos="1"/>
+        <access lane="1013489691_0" pos="0.00" length="193.64" friendlyPos="1"/>
+        <access lane="80342203#1_0" pos="112.60" length="224.68" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-60356685" name="Zeuthen, Gemeindeverwaltung" lane="-240389818#0_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="731">
+        <access lane="-27002909_0" pos="71.50" length="210.57" friendlyPos="1"/>
+        <access lane="-8169910#0_0" pos="0.00" length="222.92" friendlyPos="1"/>
+        <access lane="-8169910#1_0" pos="0.00" length="13.91" friendlyPos="1"/>
+        <access lane="27002909_0" pos="0.00" length="215.35" friendlyPos="1"/>
+        <access lane="8169910#1_0" pos="126.43" length="17.69" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-7457308823" name="Schillerstraße" lane="-240389818#1_0" startPos="27.03" endPos="42.03" friendlyPos="true" lines="731">
+        <access lane="-1021062331_0" pos="689.99" length="135.80" friendlyPos="1"/>
+        <access lane="-1021333181_0" pos="349.67" length="148.51" friendlyPos="1"/>
+        <access lane="1021062335_0" pos="0.00" length="138.44" friendlyPos="1"/>
+        <access lane="8068139_0" pos="0.00" length="153.06" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-7574740501" name="S Zeuthen" lane="-810189346_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="731 733">
+        <access lane="-7941955_0" pos="68.72" length="53.53" friendlyPos="1"/>
+        <access lane="-8067883_0" pos="0.00" length="77.58" friendlyPos="1"/>
+        <access lane="1021026393_0" pos="26.26" length="73.79" friendlyPos="1"/>
+        <access lane="7941955_0" pos="0.00" length="55.92" friendlyPos="1"/>
+        <access lane="8067762_0" pos="41.67" length="221.62" friendlyPos="1"/>
+        <param key="stationRef" value="BZTH"/>
+    </busStop>
+    <busStop id="-7776568386" name="Heinrich-Heine-Straße" lane="-8068171_0" startPos="237.89" endPos="252.89" friendlyPos="true" lines="731 733"/>
+    <busStop id="-8015965779" name="Schulstraße" lane="-7723382#0_0" startPos="5.80" endPos="20.80" friendlyPos="true" lines="733">
+        <access lane="-1021062331_0" pos="162.59" length="192.14" friendlyPos="1"/>
+        <access lane="-8068116_0" pos="9.99" length="153.66" friendlyPos="1"/>
+        <access lane="1021062335_0" pos="528.97" length="196.94" friendlyPos="1"/>
+        <access lane="8068116_0" pos="77.81" length="148.86" friendlyPos="1"/>
+        <access lane="8068117_0" pos="0.00" length="201.55" friendlyPos="1"/>
+    </busStop>
+    <busStop id="101972468" name="Alt-Schmöckwitz" lane="383790135_0" startPos="37.67" endPos="52.67" friendlyPos="true" lines="N68 168"/>
+    <trainStop id="1095078266" name="Eichwalde" lane="1236950973_0" startPos="0.00" endPos="195.76" friendlyPos="true" lines="S8 S46">
+        <access lane="-782804638_0" pos="0.00" length="186.52" friendlyPos="1"/>
+        <access lane="782804638_0" pos="141.94" length="182.10" friendlyPos="1"/>
+        <param key="stationRef" value="BEIW"/>
+    </trainStop>
+    <busStop id="12311485782" name="Bahnstraße" lane="944187063#1_0" startPos="93.99" endPos="108.99" friendlyPos="true" lines="734">
+        <access lane="-7941956_0" pos="0.00" length="130.30" friendlyPos="1"/>
+        <access lane="-8050277_0" pos="93.21" length="181.56" friendlyPos="1"/>
+        <access lane="114441236_0" pos="172.72" length="123.42" friendlyPos="1"/>
+        <access lane="7941956_0" pos="51.04" length="134.87" friendlyPos="1"/>
+        <access lane="8050281_0" pos="109.76" length="131.41" friendlyPos="1"/>
+    </busStop>
+    <trainStop id="123139240" name="Adlergestell/Vetschauer Allee" lane="158537642#1_0" startPos="77.76" endPos="102.76" friendlyPos="true" lines="68">
+        <access lane="-1449474913#0_0" pos="53.80" length="9.37" friendlyPos="1"/>
+        <access lane="-1449474913#1_0" pos="22.77" length="102.70" friendlyPos="1"/>
+        <access lane="-519138223_0" pos="0.00" length="92.09" friendlyPos="1"/>
+        <access lane="1013501323_0" pos="22.38" length="14.17" friendlyPos="1"/>
+        <access lane="519138223_0" pos="88.49" length="96.78" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="123139267" name="Lübbenauer Weg" lane="170799109_0" startPos="485.72" endPos="510.72" friendlyPos="true" lines="68">
+        <access lane="-1449400470_0" pos="97.08" length="27.32" friendlyPos="1"/>
+        <access lane="-1449474929_0" pos="432.12" length="10.36" friendlyPos="1"/>
+        <access lane="1449407016#1_0" pos="57.11" length="28.88" friendlyPos="1"/>
+        <access lane="1449474922_0" pos="6.12" length="15.16" friendlyPos="1"/>
+        <access lane="21721173#3_0" pos="0.00" length="23.05" friendlyPos="1"/>
+    </trainStop>
+    <busStop id="1234119980" name="Rudolf-Breitscheid-Straße" lane="415907064#2_0" startPos="15.87" endPos="30.87" friendlyPos="true" lines="738">
+        <access lane="24280472_0" pos="0.00" length="218.62" friendlyPos="1"/>
+        <access lane="4920444_0" pos="0.00" length="44.75" friendlyPos="1"/>
+        <access lane="4930526_0" pos="0.00" length="85.71" friendlyPos="1"/>
+        <access lane="4930563_0" pos="311.62" length="193.84" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1234120045" name="S Eichwalde" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" lines="738 731 734">
+        <access lane="-782804638_0" pos="11.92" length="166.03" friendlyPos="1"/>
+        <access lane="782804638_0" pos="130.03" length="161.23" friendlyPos="1"/>
+        <param key="stationRef" value="BEIW"/>
+    </busStop>
+    <busStop id="1234120192" name="Dohlenstieg" lane="4930561_0" startPos="238.78" endPos="253.78" friendlyPos="true" lines="738">
+        <access lane="-4920483_0" pos="134.65" length="159.48" friendlyPos="1"/>
+        <access lane="24280472_0" pos="208.34" length="267.84" friendlyPos="1"/>
+        <access lane="4920483_0" pos="263.08" length="161.88" friendlyPos="1"/>
+        <access lane="4930563_0" pos="57.73" length="406.14" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1234120230" name="Rudolf-Breitscheid-Straße" lane="415907064#2_0" startPos="21.69" endPos="36.69" friendlyPos="true" lines="734 738">
+        <access lane="24280472_0" pos="0.00" length="222.51" friendlyPos="1"/>
+        <access lane="4920444_0" pos="0.00" length="53.25" friendlyPos="1"/>
+        <access lane="4930526_0" pos="0.00" length="94.37" friendlyPos="1"/>
+        <access lane="4930563_0" pos="305.86" length="194.29" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1242394106" name="Fährallee" lane="389273284#1_0" startPos="25.52" endPos="40.52" friendlyPos="true" lines="168"/>
+    <busStop id="1242394286" name="Schmöckwitzer Damm" lane="10587012_0" startPos="633.09" endPos="648.09" friendlyPos="true" lines="168"/>
+    <busStop id="1242394317" name="Schmöckwitzer Forst" lane="10587012_0" startPos="1942.21" endPos="1957.21" friendlyPos="true" lines="168"/>
+    <busStop id="1383533467" name="Adlergestell/Vetschauer Allee" lane="1013501323_0" startPos="39.53" endPos="54.53" friendlyPos="true" lines="N68"/>
+    <busStop id="1383533539" name="Havellandstraße" lane="797340925#0_0" startPos="13.02" endPos="28.02" friendlyPos="true" lines="731 733"/>
+    <busStop id="1383533544" name="Heinrich-Heine-Straße" lane="1008258219_0" startPos="421.62" endPos="436.62" friendlyPos="true" lines="733"/>
+    <trainStop id="1383533562" name="Lübbenauer Weg" lane="1484004610#1_0" startPos="5.20" endPos="30.20" friendlyPos="true" lines="68">
+        <access lane="-1449474929_0" pos="420.56" length="7.20" friendlyPos="1"/>
+        <access lane="-21721173#0_0" pos="0.00" length="44.01" friendlyPos="1"/>
+        <access lane="1449407016#1_0" pos="57.11" length="39.50" friendlyPos="1"/>
+        <access lane="1449474922_0" pos="17.68" length="12.00" friendlyPos="1"/>
+        <access lane="21721173#3_0" pos="0.00" length="40.45" friendlyPos="1"/>
+    </trainStop>
+    <busStop id="1383533632" name="Tschaikowskistraße" lane="4068154#2_0" startPos="17.61" endPos="32.61" friendlyPos="true" lines="733">
+        <access lane="-24275810#0_0" pos="206.48" length="49.10" friendlyPos="1"/>
+        <access lane="-24275825#1_0" pos="0.00" length="52.02" friendlyPos="1"/>
+        <access lane="1011222056_0" pos="0.00" length="199.66" friendlyPos="1"/>
+        <access lane="24275810#0_0" pos="0.00" length="46.71" friendlyPos="1"/>
+        <access lane="24275825#1_0" pos="120.00" length="47.33" friendlyPos="1"/>
+    </busStop>
+    <trainStop id="1707193581" name="Adlergestell/Vetschauer Allee" lane="1484004607#2_0" startPos="33.69" endPos="58.69" friendlyPos="true" lines="68">
+        <access lane="-1449474913#0_0" pos="31.40" length="4.67" friendlyPos="1"/>
+        <access lane="-1449474913#1_0" pos="22.77" length="68.85" friendlyPos="1"/>
+        <access lane="-519138223_0" pos="0.00" length="58.43" friendlyPos="1"/>
+        <access lane="1013501323_0" pos="44.79" length="9.47" friendlyPos="1"/>
+        <access lane="519138223_0" pos="88.49" length="63.05" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="1809302376" name="Zum Seeblick" lane="1484004606#7_0" startPos="60.81" endPos="85.81" friendlyPos="true" lines="68">
+        <access lane="-1453868940_0" pos="94.17" length="117.90" friendlyPos="1"/>
+        <access lane="-1453869867_0" pos="18.77" length="176.36" friendlyPos="1"/>
+        <access lane="-22480711#0_0" pos="0.00" length="198.28" friendlyPos="1"/>
+        <access lane="1013489691_0" pos="6.73" length="122.70" friendlyPos="1"/>
+        <access lane="22480711#1_0" pos="41.24" length="181.16" friendlyPos="1"/>
+    </trainStop>
+    <busStop id="2045908036" name="Krampenburg" lane="25881424_0" startPos="853.43" endPos="878.43" friendlyPos="true" lines="F21"/>
+    <trainStop id="2078713387" name="Alt-Schmöckwitz" lane="806903752#1_0" startPos="0.00" endPos="24.48" friendlyPos="true" lines="68">
+        <access lane="-11452526_0" pos="37.14" length="1.10" friendlyPos="1"/>
+        <access lane="383790135_0" pos="16.42" length="5.90" friendlyPos="1"/>
+        <access lane="421231594#1_0" pos="50.16" length="66.74" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="0.00" length="65.76" friendlyPos="1"/>
+        <access lane="4463780#0_0" pos="0.00" length="69.58" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="2078713395" name="Zum Seeblick" lane="1484004605#2_0" startPos="975.27" endPos="1000.27" friendlyPos="true" lines="68">
+        <access lane="-1453868940_0" pos="100.87" length="68.07" friendlyPos="1"/>
+        <access lane="-1453869867_0" pos="53.11" length="175.12" friendlyPos="1"/>
+        <access lane="-22480711#0_0" pos="0.00" length="180.81" friendlyPos="1"/>
+        <access lane="1013489691_0" pos="0.00" length="72.87" friendlyPos="1"/>
+        <access lane="22480711#1_0" pos="6.90" length="179.92" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="2267525549" name="Schappachstraße" lane="170799109_0" startPos="79.23" endPos="104.23" friendlyPos="true" lines="68">
+        <access lane="-1449474929_0" pos="17.11" length="12.09" friendlyPos="1"/>
+        <access lane="-21721172_0" pos="2.52" length="198.12" friendlyPos="1"/>
+        <access lane="1449474922_0" pos="422.29" length="16.89" friendlyPos="1"/>
+        <access lane="1449865412_0" pos="380.42" length="193.32" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="2267525550" name="Schappachstraße" lane="1484004610#1_0" startPos="447.23" endPos="472.23" friendlyPos="true" lines="68">
+        <access lane="-1449474929_0" pos="0.00" length="34.88" friendlyPos="1"/>
+        <access lane="-21721172_0" pos="0.00" length="208.41" friendlyPos="1"/>
+        <access lane="1449474922_0" pos="439.40" length="36.33" friendlyPos="1"/>
+        <access lane="1449865412_0" pos="382.94" length="203.79" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="247120025" name="Eichwalde" lane="1236950972_0" startPos="28.81" endPos="228.81" friendlyPos="true" lines="S8 S46">
+        <access lane="-1017493399_0" pos="0.00" length="284.61" friendlyPos="1"/>
+        <access lane="-4930531_0" pos="0.00" length="308.18" friendlyPos="1"/>
+        <access lane="1017493399_0" pos="2.52" length="286.78" friendlyPos="1"/>
+        <access lane="4930531_0" pos="127.12" length="310.03" friendlyPos="1"/>
+        <param key="stationRef" value="BEIW"/>
+    </trainStop>
+    <busStop id="2475741812" name="Max-Liebermann-Straße" lane="969627877_0" startPos="4.33" endPos="19.33" friendlyPos="true" lines="731">
+        <access lane="-1009022936_0" pos="0.00" length="28.65" friendlyPos="1"/>
+        <access lane="-1009022942_0" pos="0.00" length="67.83" friendlyPos="1"/>
+        <access lane="1008923711_0" pos="0.00" length="120.21" friendlyPos="1"/>
+        <access lane="1009022945_0" pos="220.79" length="33.25" friendlyPos="1"/>
+        <access lane="1009022946_0" pos="157.35" length="63.07" friendlyPos="1"/>
+    </busStop>
+    <busStop id="262150017" name="Alt-Schmöckwitz" lane="1013489665#1_0" startPos="35.94" endPos="50.94" friendlyPos="true" lines="733">
+        <access lane="-11452526_0" pos="32.15" length="64.87" friendlyPos="1"/>
+        <access lane="383790135_0" pos="21.41" length="69.67" friendlyPos="1"/>
+        <access lane="421231594#1_0" pos="50.16" length="92.75" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="0.00" length="93.53" friendlyPos="1"/>
+        <access lane="4463780#0_0" pos="0.00" length="102.17" friendlyPos="1"/>
+    </busStop>
+    <busStop id="262882408" name="Zum Seeblick" lane="25881424_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="F21">
+        <access lane="-1453908426_0" pos="194.77" length="156.22" friendlyPos="1"/>
+        <access lane="301687329_0" pos="0.00" length="161.01" friendlyPos="1"/>
+    </busStop>
+    <trainStop id="296020395" name="Zeuthen" lane="1236950970_0" startPos="0.00" endPos="170.92" friendlyPos="true" lines="S8 S46">
+        <access lane="-7941955_0" pos="0.00" length="99.51" friendlyPos="1"/>
+        <access lane="-8067883_0" pos="3.76" length="188.42" friendlyPos="1"/>
+        <access lane="1021026393_0" pos="22.05" length="183.62" friendlyPos="1"/>
+        <access lane="7941955_0" pos="68.73" length="101.78" friendlyPos="1"/>
+        <access lane="7941956_0" pos="0.00" length="189.39" friendlyPos="1"/>
+        <param key="stationRef" value="BZTH"/>
+    </trainStop>
+    <busStop id="309303051" name="Alt-Schmöckwitz" lane="1013489665#1_0" startPos="37.47" endPos="52.47" friendlyPos="true" lines="168">
+        <access lane="-11452526_0" pos="31.46" length="66.93" friendlyPos="1"/>
+        <access lane="383790135_0" pos="22.10" length="71.73" friendlyPos="1"/>
+        <access lane="421231594#1_0" pos="50.16" length="93.71" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="0.00" length="94.54" friendlyPos="1"/>
+        <access lane="4463780#0_0" pos="0.00" length="104.31" friendlyPos="1"/>
+    </busStop>
+    <busStop id="32496420" name="Regensburger Straße" lane="797340924#1_0" startPos="105.16" endPos="120.16" friendlyPos="true" lines="731"/>
+    <busStop id="3842353337" name="Forstallee" lane="131942154_0" startPos="268.27" endPos="283.27" friendlyPos="true" lines="734"/>
+    <trainStop id="3895352486" name="Alt-Schmöckwitz" lane="169008810#3_0" startPos="454.70" endPos="479.70" friendlyPos="true" lines="68">
+        <access lane="1122590760#1_0" pos="13.68" length="63.09" friendlyPos="1"/>
+        <access lane="1122590773_0" pos="0.00" length="59.88" friendlyPos="1"/>
+        <access lane="1453609781_0" pos="0.00" length="63.30" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="71.25" length="1.41" friendlyPos="1"/>
+        <access lane="44170716#1_0" pos="0.00" length="31.41" friendlyPos="1"/>
+    </trainStop>
+    <busStop id="4014152368" name="Schmöckwitzer Straße" lane="355736431_0" startPos="23.29" endPos="38.29" friendlyPos="true" lines="733">
+        <access lane="-1010000354_0" pos="0.00" length="113.94" friendlyPos="1"/>
+        <access lane="-4935236_0" pos="11.51" length="103.36" friendlyPos="1"/>
+        <access lane="1010000354_0" pos="0.20" length="109.16" friendlyPos="1"/>
+        <access lane="4935236_0" pos="81.16" length="105.76" friendlyPos="1"/>
+        <access lane="80342203#1_0" pos="62.47" length="129.88" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5329733278" name="Zum Seeblick" lane="183254465_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="N68">
+        <access lane="-1453868940_0" pos="94.76" length="111.23" friendlyPos="1"/>
+        <access lane="-1453869867_0" pos="23.05" length="175.38" friendlyPos="1"/>
+        <access lane="-22480711#0_0" pos="0.00" length="194.61" friendlyPos="1"/>
+        <access lane="1013489691_0" pos="6.14" length="116.03" friendlyPos="1"/>
+        <access lane="22480711#1_0" pos="36.96" length="180.18" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5341269122" name="Alt-Schmöckwitz" lane="421231594#1_0" startPos="12.82" endPos="27.82" friendlyPos="true" lines="168"/>
+    <trainStop id="5341310303" name="Alt-Schmöckwitz" lane="806903752#0_0" startPos="0.00" endPos="25.00" friendlyPos="true" lines="68">
+        <access lane="-11452526_0" pos="0.00" length="34.52" friendlyPos="1"/>
+        <access lane="-1453605556_0" pos="121.46" length="76.25" friendlyPos="1"/>
+        <access lane="383790135_0" pos="52.67" length="36.07" friendlyPos="1"/>
+        <access lane="421231594#1_0" pos="34.47" length="8.02" friendlyPos="1"/>
+        <access lane="44170716#0_0" pos="10.53" length="18.96" friendlyPos="1"/>
+    </trainStop>
+    <busStop id="5341554434" name="Zum Seeblick" lane="1010110055_0" startPos="39.70" endPos="54.70" friendlyPos="true" lines="733">
+        <access lane="-1010000354_0" pos="0.20" length="219.46" friendlyPos="1"/>
+        <access lane="-1453600260_0" pos="0.00" length="199.08" friendlyPos="1"/>
+        <access lane="-1453868940_0" pos="100.87" length="198.00" friendlyPos="1"/>
+        <access lane="1013489691_0" pos="0.00" length="195.23" friendlyPos="1"/>
+        <access lane="80342203#1_0" pos="112.60" length="200.14" friendlyPos="1"/>
+    </busStop>
+    <trainStop id="59143907" name="Zeuthen" lane="1236950969#1_0" startPos="0.00" endPos="132.64" friendlyPos="true" lines="S8 S46">
+        <access lane="-7941956_0" pos="51.03" length="46.70" friendlyPos="1"/>
+        <access lane="-8067758_0" pos="178.49" length="249.38" friendlyPos="1"/>
+        <access lane="114441236_0" pos="198.69" length="120.83" friendlyPos="1"/>
+        <access lane="7941956_0" pos="0.00" length="44.59" friendlyPos="1"/>
+        <access lane="8050281_0" pos="109.76" length="158.98" friendlyPos="1"/>
+        <param key="stationRef" value="BZTH"/>
+    </trainStop>
+    <busStop id="6418195107" name="S Zeuthen" lane="837291681_0" startPos="0.00" endPos="15.00" friendlyPos="true" lines="734 733 731">
+        <access lane="-7941955_0" pos="68.72" length="44.52" friendlyPos="1"/>
+        <access lane="-8067883_0" pos="0.00" length="68.29" friendlyPos="1"/>
+        <access lane="1021026393_0" pos="26.26" length="64.53" friendlyPos="1"/>
+        <access lane="7941955_0" pos="0.00" length="46.89" friendlyPos="1"/>
+        <access lane="8067762_0" pos="41.67" length="218.94" friendlyPos="1"/>
+        <param key="stationRef" value="BZTH"/>
+    </busStop>
+    <busStop id="7457137234" name="Seegarten" lane="1312568317_0" startPos="41.77" endPos="56.77" friendlyPos="true" lines="731 733">
+        <access lane="-27002449_0" pos="240.67" length="225.25" friendlyPos="1"/>
+        <access lane="-4935226#0_0" pos="90.48" length="150.27" friendlyPos="1"/>
+        <access lane="-4935250_0" pos="0.00" length="207.05" friendlyPos="1"/>
+        <access lane="1015374845_0" pos="171.67" length="204.74" friendlyPos="1"/>
+        <access lane="4935226#0_0" pos="0.00" length="152.64" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7457137235" name="Zeuthen, Delmenhorster Straße" lane="114441235#1_0" startPos="159.00" endPos="174.00" friendlyPos="true" lines="731">
+        <access lane="114441236_0" pos="49.49" length="219.11" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7779965045" name="Schillerstraße" lane="1008258219_0" startPos="14.63" endPos="29.63" friendlyPos="true" lines="733">
+        <access lane="-1021062331_0" pos="689.99" length="158.56" friendlyPos="1"/>
+        <access lane="-1021333181_0" pos="349.67" length="95.38" friendlyPos="1"/>
+        <access lane="1021062335_0" pos="0.00" length="162.68" friendlyPos="1"/>
+        <access lane="8068139_0" pos="0.00" length="100.18" friendlyPos="1"/>
+    </busStop>
+    <busStop id="7922280480" name="Miersdorfer Chaussee" lane="1031560365_0" startPos="61.75" endPos="76.75" friendlyPos="true" lines="734">
+        <access lane="-1028116055#0_0" pos="69.88" length="113.03" friendlyPos="1"/>
+        <access lane="-1056562944_0" pos="0.00" length="95.51" friendlyPos="1"/>
+        <access lane="1434638942_0" pos="37.54" length="108.23" friendlyPos="1"/>
+        <access lane="36478925_0" pos="20.21" length="93.32" friendlyPos="1"/>
+        <access lane="7941957_0" pos="209.87" length="126.59" friendlyPos="1"/>
+    </busStop>
+    <busStop id="8015965778" name="Schulstraße" lane="1042111969_0" startPos="385.04" endPos="400.04" friendlyPos="true" lines="731 733">
+        <access lane="-1021062331_0" pos="215.52" length="203.66" friendlyPos="1"/>
+        <access lane="-8068116_0" pos="89.08" length="146.53" friendlyPos="1"/>
+        <access lane="-8068117_0" pos="109.43" length="144.40" friendlyPos="1"/>
+        <access lane="8068116_0" pos="0.00" length="141.79" friendlyPos="1"/>
+        <access lane="8068117_0" pos="0.00" length="145.38" friendlyPos="1"/>
+    </busStop>
+    <busStop id="8979297948" name="Otto-Nagel-Allee" lane="970307950_0" startPos="104.26" endPos="119.26" friendlyPos="true" lines="731">
+        <access lane="-143420334_0" pos="0.00" length="68.70" friendlyPos="1"/>
+        <access lane="143420334_0" pos="240.55" length="63.90" friendlyPos="1"/>
+    </busStop>
+    <busStop id="94483147" name="Lübbenauer Weg" lane="1449474922_0" startPos="10.94" endPos="25.94" friendlyPos="true" lines="N68"/>
+</additional>
