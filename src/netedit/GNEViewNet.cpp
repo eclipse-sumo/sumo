@@ -1828,6 +1828,7 @@ GNEViewNet::hotkeyDel() {
             }
         }
     }
+    getViewParent()->getInspectorFrame()->clearInspection();
 }
 
 
