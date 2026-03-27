@@ -913,6 +913,7 @@ Deadlocks in a scenario can have many causes:
 5.  invalid insertion (vehicles being inserted on the wrong lane close
     to the end of an edge where they need to change to another turn
     lane). This can be fixed by setting the vehicle attribute `departLane="best"`
+6. vehicles inserted with the wrong speed (default is *0*). Change vehicle attributes or set option **----default.departspeed** to increase [insertion flow](Simulation/RoadCapacity.md#insertion_capacity_on_a_2-lane_road).
 
 If the network was imported from OpenStreetMap, it is highly recommended
 to use the [recommended import options](Networks/Import/OpenStreetMap.md#recommended_netconvert_options).
