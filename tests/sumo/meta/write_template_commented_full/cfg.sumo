@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-17T17:50:02.717912+01:00 by Eclipse SUMO sumo v1_25_0+1031-30c9dee08ac
+<!-- generated on 2026-03-27T09:25:14.528957+01:00 by Eclipse SUMO sumo v1_26_0+0861-7db7c5cab6d
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -161,6 +161,9 @@
 
         <!-- Add acceleration to the FCD output -->
         <fcd-output.acceleration value="false" type="BOOL"/>
+
+        <!-- Add relative speed (vehicle speed / edge speed limit) to the FCD output -->
+        <fcd-output.speed-relative value="false" type="BOOL"/>
 
         <!-- Add leader vehicle information to the FCD output (within the given distance) -->
         <fcd-output.max-leader-distance value="-1" type="FLOAT"/>

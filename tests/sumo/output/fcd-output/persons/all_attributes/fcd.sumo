@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-14T07:04:17.849421+01:00 by Eclipse SUMO sumo v1_26_0+0586-69dd46f7418
+<!-- generated on 2026-03-27T09:25:20.295973+01:00 by Eclipse SUMO sumo v1_26_0+0861-7db7c5cab6d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,11 +43,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <person id="noFCDByTypeEnableViaParam" x="395.25" y="402.93" angle="270.00" type="noFCD" speed="0.00" pos="0.00" edge="1/1to0/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
-        <person id="default" x="1595.25" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="4/1to3/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
+        <person id="noFCDByTypeEnableViaParam" x="395.25" y="402.93" angle="270.00" type="noFCD" speed="0.00" speedRelative="0.00" pos="0.00" edge="1/1to0/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
+        <person id="default" x="1595.25" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" speedRelative="0.00" pos="0.00" edge="4/1to3/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
     </timestep>
     <timestep time="1.00">
-        <person id="noFCDByTypeEnableViaParam" x="394.11" y="402.93" angle="270.00" type="noFCD" speed="1.14" pos="1.14" edge="1/1to0/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
-        <person id="default" x="1594.00" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.25" pos="1.25" edge="4/1to3/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
+        <person id="noFCDByTypeEnableViaParam" x="394.11" y="402.93" angle="270.00" type="noFCD" speed="1.14" speedRelative="0.11" pos="1.14" edge="1/1to0/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
+        <person id="default" x="1594.00" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.25" speedRelative="0.13" pos="1.25" edge="4/1to3/1" slope="0.00" vehicle="" stage="walking" tag="person"/>
     </timestep>
 </fcd-export>
