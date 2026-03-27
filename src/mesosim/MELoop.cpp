@@ -153,7 +153,8 @@ MELoop::checkCar(MEVehicle* veh) {
             return;
         }
     }
-    if (veh->getBlockTime() == SUMOTime_MAX && !veh->isStopped()) {
+    if (veh->getBlockTime() == SUMOTime_MAX && (!veh->isStopped()
+                || (!veh->isStoppedTriggered() && veh->isStoppedParking()))) {
         veh->setBlockTime(leaveTime);
     }
     if (nextEntry == SUMOTime_MAX) {

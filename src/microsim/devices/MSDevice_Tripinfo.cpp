@@ -230,6 +230,13 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
 
 
 void
+MSDevice_Tripinfo::recordMesoParkingTimeLoss(SUMOTime waitingTime) {
+    myMesoTimeLoss += waitingTime;
+    myWaitingTime += waitingTime;
+    myWaitingCount++;
+}
+
+void
 MSDevice_Tripinfo::updateParkingStopTime() {
     if (myParkingStarted >= 0) {
         myStoppingTime += (MSNet::getInstance()->getCurrentTimeStep() - myParkingStarted);

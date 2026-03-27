@@ -360,6 +360,13 @@ MEVehicle::processStop() {
         resumeFromStopping();
         hadStop = true;
     }
+    if (getWaitingTime() > 0) {
+        // entry back onto the road was blocked for some time
+        MSDevice_Tripinfo* tripinfoDevice = static_cast<MSDevice_Tripinfo*>(getDevice(typeid(MSDevice_Tripinfo)));
+        if (tripinfoDevice != nullptr) {
+            tripinfoDevice->recordMesoParkingTimeLoss(getWaitingTime());
+        }
+    }
     mySegment->getEdge().removeWaiting(this);
 }
 

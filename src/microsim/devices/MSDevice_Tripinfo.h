@@ -194,6 +194,8 @@ public:
     /// @brief try to retrieve the given parameter from the global statistics. Throw exception for unsupported key
     static std::string getGlobalParameter(const std::string& prefixedKey);
 
+    void recordMesoParkingTimeLoss(SUMOTime waitingTime);
+
 private:
     /** @brief Constructor
      *
