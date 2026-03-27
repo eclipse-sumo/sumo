@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-26 20:46+0000\n"
+"PO-Revision-Date: 2026-03-28 16:09+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -13714,12 +13714,16 @@ msgstr "Los parámetros no se pueden definir dentro de otro parámetro."
 #, c-format
 msgid "Error parsing key from % generic parameter. Key cannot be empty"
 msgstr ""
+"Error al procesar la clave del parámetro genérico de %. La clave no puede "
+"estar vacía"
 
 #: src/utils/handlers/CommonHandler.cpp:105
 #, c-format
 msgid ""
 "Error parsing key from % generic parameter. Key contains invalid characters"
 msgstr ""
+"Error al procesar la clave del parámetro genérico de %. La clave contiene "
+"caracteres no válidos"
 
 #: src/utils/handlers/CommonHandler.cpp:143
 msgid "'%' must be defined within the definition of a %."
@@ -13931,6 +13935,7 @@ msgstr "Análisis no válido del tipo de vehículo incrustado"
 #: src/utils/handlers/RouteHandler.cpp:1190
 msgid "Attributes '%' and '%' cannot be loaded simultaneously. Ignoring '%'"
 msgstr ""
+"Los atributos '%' y '%' no pueden cargarse simultáneamente. Ignorando '%'"
 
 #: src/utils/handlers/RouteHandler.cpp:1238
 msgid "A stop must be defined either with an edge or with an lane, not both"
