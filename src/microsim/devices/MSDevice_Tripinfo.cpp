@@ -226,6 +226,10 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
         myMesoTimeLoss += TIME2STEPS(timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax);
     }
     myWaitingTime += veh.getWaitingTime();
+    if (veh.getWaitingTime() >= TIME2STEPS(1)) {
+        // waiting counts the time spent waiting to enter the next link (when it's occupied).
+        myWaitingCount++;
+    }
 }
 
 
