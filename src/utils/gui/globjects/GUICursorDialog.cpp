@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -223,8 +224,9 @@ GUICursorDialog::buildDialogElements(GUISUMOAbstractView* view, const FXString t
         new FXMenuSeparator(this);
     }
     // create a menu command for every object
-    for (const auto& GLObject : objects) {
-        myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, GLObject->getMicrosimID(), GLObject->getGLIcon(), this, sel), GLObject));
+    for (const auto& glo : objects) {
+        const std::string selStatus = gSelected.isSelected(glo) ? " (selected)" : "";
+        myMenuCommandGLObjects.push_back(std::make_pair(GUIDesigns::buildFXMenuCommand(this, glo->getMicrosimID() + selStatus, glo->getGLIcon(), this, sel), glo));
     }
     // check if create move down menu command
     if (objects.size() > NUM_VISIBLE_ITEMS) {
