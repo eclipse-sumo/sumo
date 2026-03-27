@@ -2198,13 +2198,14 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
         MSEdge::parseEdgesList(edges, route, id);
     }
+    // missing driveways and subdriveways can be ignored. They may have been created
+    // for vehicles that are not relevant at state loading time
     MSDriveWay* dw = nullptr;
     if (tag == SUMO_TAG_DRIVEWAY) {
         auto it = myDriveWayRouteLookup.find(route);
         if (it == myDriveWayRouteLookup.end()) {
             //WRITE_WARNING(TLF("Unknown driveWay '%' with route '%'", id, edges));
-            //return;
-            throw ProcessError(TLF("Unknown driveWay '%' with route '%'", id, edges));
+            return;
         }
         dw = it->second;
         myDriveWayLookup[id] = dw;
@@ -2213,8 +2214,7 @@ MSDriveWay::loadState(const SUMOSAXAttributes& attrs, int tag) {
         auto it = myDriveWayLookup.find(parentID);
         if (it == myDriveWayLookup.end()) {
             //WRITE_WARNING(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
-            //return;
-            throw ProcessError(TLF("Unknown parent driveway '%' for subDriveWay '%'", parentID, id));
+            return;
         }
         MSDriveWay* parent = it->second;
         for (MSDriveWay* sub : parent->mySubDriveWays) {
