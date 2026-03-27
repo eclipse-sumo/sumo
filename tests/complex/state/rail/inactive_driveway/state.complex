@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-28T00:11:11.247741+01:00 by Eclipse SUMO sumo v1_26_0+0868-c9ff84c7a9f
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="80"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_26_0+0868-c9ff84c7a9f" time="80.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="!train2" state="0" edges="a b c"/>
+    <delay number="1" begin="2" end="1" depart="0.00" time="21.00"/>
+    <vType id="train" length="20.00" vClass="rail" accel="2"/>
+    <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="100.1 0" speedFactor="1.0000" state="18 60000 1 20.10 0 0.00 79000 0 0" pos="172.60 152.60 9.11" speed="9.11 10.41" angle="90.00" posLat="0.00" waitingTime="100000 0">
+        <stop edge="b" startPos="199.80" endPos="200.00" until="80.00"/>
+    </vehicle>
+    <lane id="b_0">
+        <vehicles value="train2"/>
+    </lane>
+    <driveWay id="A.d0" edges="b c" vehicles="train2"/>
+    <driveWay id="gneJ0.d0" edges="a b c" vehicles="train2"/>
+</snapshot>

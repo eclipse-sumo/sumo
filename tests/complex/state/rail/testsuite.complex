@@ -14,3 +14,6 @@ save_rail_signal_approach_steplength
 
 # restore further lanes according to previous route when loading state
 rail_furtherLane
+
+# save and load a driveway that is not actively needed at state saving time (and doesn't get recreated on loading). see #17796
+inactive_driveway
