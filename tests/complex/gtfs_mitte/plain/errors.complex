@@ -52,12 +52,13 @@ Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
 Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
-Warning: Teleporting vehicle '6_bus_170:0'; waited too long (jam), lane='318282850#2_2', time=25696.00.
-Warning: Vehicle '6_bus_170:0' ends teleporting on edge '318282850#3', time=25696.00.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25795.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25795.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25883.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25883.00.
+Warning: Teleporting vehicle '8_bus_N1385:0'; waited too long (jam), lane='318282850#2_2', time=25697.00.
+Warning: Vehicle '8_bus_N1385:0' ends teleporting on edge '318282850#3', time=25697.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25796.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25796.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25836.00.
+Warning: Vehicle '81_subway_U2:0' skips stop on lane '384294422#1_0' time=25836.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25836.00.
 Warning: 18 total messages of type: At actuated tlLogic '%', actuated phase % has no controlling detector.
 Warning: 9 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
