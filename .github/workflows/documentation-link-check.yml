@@ -16,5 +16,6 @@ jobs:
     - name: Lychee Link Checker
       uses: lycheeverse/lychee-action@v2
       with:
+        lycheeVersion: nightly  # to be removed once --accept-timeouts got released
         fail: true
         args: --accept-timeouts -c docs/web/lychee.toml -n docs/web/docs/
