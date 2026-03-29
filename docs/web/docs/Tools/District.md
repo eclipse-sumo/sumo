@@ -117,7 +117,7 @@ python tools/district/stationDistricts.py -n <net-file> -s <stop-file> -o <outpu
 
 ## tazRel2POI.py
 
-Load a TAZ (district) file together with a [tazRelation file](../Demand/Importing_O/D_Matrices.md#tazrelation_format) and generate a [POI]()(../Simulation/Shapes.md) for each TAZ.
+Load a TAZ (district) file together with a [tazRelation file](../Demand/Importing_O/D_Matrices.md#tazrelation_format) and generate a [POI](../Simulation/Shapes.md) for each TAZ.
 The size of the POI is used to indicate aggregated statistics about incoming/outgoing/all tazRelations.
 
 Example call:

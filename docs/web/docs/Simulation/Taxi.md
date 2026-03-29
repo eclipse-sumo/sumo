@@ -219,7 +219,7 @@ If another vehicle approaches the end of the queue and cannot park (due to lack 
 
 ## Customer Stops
 
-Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters]() `<vType>` or `<vehicle>` definition of the taxi:
+Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters](GenericParameters.md) in the `<vType>` or `<vehicle>` definition of the taxi:
 
 ```xml
     <vType id="taxi" vClass="taxi">

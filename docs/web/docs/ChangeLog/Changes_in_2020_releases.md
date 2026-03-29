@@ -171,7 +171,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Added [traceExporter.py](../Tools/TraceExporter.md) option **--shift** which allows shifting output coordinates by a fixed amount (i.e. to avoid negative values).
    Added [traceExporter.py](../Tools/TraceExporter.md) now supports option **--ipg-output** for generating car-maker tracefiles. Issue #6190
   - [routeSampler.py](../Tools/Turns.md#routesamplerpy) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
-  - Added new tool [osmTaxiStop.py]() to import taxi stands from OSM data. Issue #7729
+  - Added new tool [osmTaxiStop.py](../Tools/Import/OSM.md#osmtaxistoppy) to import taxi stands from OSM data. Issue #7729
   - Added new tool [checkStopOrder.py](../Tools/Routes.md#checkstoporderpy) to detect inconsistent times in a public transport schedule. Issue #7458
   - added osmWebWizard option **--output** to set a custom output directory. Issue #7672
 
