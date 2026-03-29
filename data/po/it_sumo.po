@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:40+0100\n"
-"PO-Revision-Date: 2026-03-04 09:55+0000\n"
+"PO-Revision-Date: 2026-03-29 19:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3081,7 +3081,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:872
 msgid "Raw netstate dumps are deprecated. Use fcd-output instead."
-msgstr ""
+msgstr "Gli estratti grezzi netstate non si usano più. Invece usa fcd-output."
 
 #: src/microsim/MSFrame.cpp:920
 msgid "No network file (-n) specified."
@@ -7458,21 +7458,29 @@ msgid ""
 "Merges edges which connect the same nodes and are close to each other "
 "(recommended for VISSIM import)"
 msgstr ""
+"Combina archi che collegano gli stessi nodi e che sono vicini uno all'altro "
+"(raccommandato per l'importaziona da VISSIM)"
 
 #: src/netbuild/NBFrame.cpp:347
 msgid ""
 "Joins junctions that are close to each other (recommended for OSM import)"
 msgstr ""
+"Combina incroci che sono vicini l'uno all'altro (raccommandato per "
+"l'importazione da OSM)"
 
 #: src/netbuild/NBFrame.cpp:351
 msgid "Determines the maximal distance for joining junctions (defaults to 10)"
 msgstr ""
+"Definisce la distanza massima per combinare degli incroci (valore standard: "
+"10)"
 
 #: src/netbuild/NBFrame.cpp:355
 msgid ""
 "The angular threshold in degrees for rejection of parallel edges when "
 "joining junctions"
 msgstr ""
+"Il valore soglia dell'angolo in gradi tra due archi per non considerarli "
+"come paralleli nel processo di combinazione di incroci"
 
 #: src/netbuild/NBFrame.cpp:359
 msgid "Interprets STR[] as list of junctions to exclude from joining"
