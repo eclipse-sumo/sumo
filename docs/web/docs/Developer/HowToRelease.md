@@ -121,8 +121,8 @@ following things need to be in the S:\daily directory:
   - eclipse-sumo and libsumo for Windows, macOS, Linux x64 and Linux aarch64 (libsumo for all current python versions)
   - sumolib, traci
 - check the Maven build https://ci.eclipse.org/sumo/job/maven-artifacts/ and ensure that the artifacts have been uploaded to:
-  - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libtraci and
-  - https://repo.eclipse.org/content/repositories/sumo-releases/org/eclipse/sumo/libsumo/
+  - https://repo.eclipse.org/service/rest/repository/browse/sumo-maven2-releases/org/eclipse/sumo/libtraci/ and
+  - https://repo.eclipse.org/service/rest/repository/browse/sumo-maven2-releases/org/eclipse/sumo/libsumo/
 
 
 If everything is fine:
