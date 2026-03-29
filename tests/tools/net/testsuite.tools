@@ -30,4 +30,7 @@ remap_renamed
 remap_network
 netduplicate
 patchRailConflicts
+
+# set new priorities in network based on loaded routes
+patchRailPriorities
 generateStationEdges
