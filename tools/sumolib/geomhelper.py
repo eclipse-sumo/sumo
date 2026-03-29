@@ -264,6 +264,10 @@ def dotProduct(a, b):
     return a[0] * b[0] + a[1] * b[1]
 
 
+def crossProduct2D(a, b):
+    return a[0] * b[1] - a[1] * b[0]
+
+
 def orthoIntersection(a, b):
     c = add(a, b)
     quot = dotProduct(c, a)

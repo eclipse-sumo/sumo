@@ -42,10 +42,10 @@ def get_options(args=None):
     # input
     op.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=op.net_file,
                     help="define the net file (mandatory)")
-    op.add_argument("-r", "--route-files", category="input", dest="routes", required=True,  type=op.route_file,
+    op.add_argument("-r", "--route-files", category="input", dest="routes", required=True,  type=op.route_file_list,
                     help="define additional files to be loaded by the router")
     # output
-    op.add_argument("-o", "--output-file", category="output", dest="outfile", required=True, type=op.route_file,
+    op.add_argument("-o", "--output-file", category="output", dest="outfile", required=True, type=op.additional_file,
                     help="define the output filename")
     # processing
     op.add_argument("--vclass", default="rail",
@@ -85,8 +85,8 @@ def parseRoutes(options):
     # assign unique ids (vehicles, flows and routes have separate namespace)
     ids = set()
     for rfile in options.routes:
-        for veh in sumolib.xml.parse(rfile, ['vehicle', 'flow']):
-            count = 1 if veh.name == 'vehicle' else getFlowNumber(veh)
+        for veh in sumolib.xml.parse(rfile, ['vehicle', 'flow', 'ptLine']):
+            count = getFlowNumber(veh) if veh.name in 'flow' else 1
             if veh.hasChild('route'):
                 edges = tuple(veh.getChild('route')[0].edges.split())
                 rid = "%s:%s" % (veh.name, veh.id)
@@ -218,7 +218,7 @@ def findSidings(options, routes, switches, net, edgeUsage):
             if e.getPriority() >= options.minPrio:
                 permitted.add(e.getID())
     # collect sidings after routing
-    sidings = dict()  # main -> siding
+    sidings = dict()  # main -> (rid, fromIndex, sidingEdges)
     sidingRoutes = defaultdict(lambda: [])  # main -> [(rid1, fromIndex1), ...]
     warnings = set()
     for route in sumolib.xml.parse(tmpOut, ['route']):
