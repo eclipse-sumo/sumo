@@ -92,7 +92,7 @@ def filterBidiSidings(options, net, sidings, edgeUsage):
             if net.hasEdge(eid):
                 e = net.getEdge(eid)
                 b = e.getBidi()
-                if edgeUsage[b.getID()] > 0:
+                if b is not None and edgeUsage.get(b.getID(), 0) > 0:
                     sidings2[main] = (rid, fromIndex, siding)
                     break
     return sidings2;
