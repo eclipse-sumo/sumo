@@ -44,6 +44,7 @@ Subscribing to chargingstation.VAR_NAME.
 Subscribing to chargingstation.VAR_PARAMETER.
 Subscribing to chargingstation.VAR_PARAMETER_WITH_KEY.
 Subscribing to chargingstation.VAR_POSITION.
+Subscribing to chargingstation.VAR_CS_TOTAL_POWER.
 Subscribing to chargingstation.VAR_STOP_STARTING_VEHICLES_NUMBER.
 Subscribing to chargingstation.VAR_STOP_STARTING_VEHICLES_IDS.
 Expecting failure for chargingstation.ADD subscription.
@@ -589,7 +590,8 @@ Could not add subscription. Get Vehicle Type Variable: unsupported variable 0x80
                        151: 22000.0,
                        152: 0.95,
                        153: 0,
-                       154: 0.0}}
+                       154: 0.0,
+                       156: -1.0}}
 {'1si': {0: ('1fi',
              '1o',
              '1si',
