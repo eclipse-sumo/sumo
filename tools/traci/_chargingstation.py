@@ -99,6 +99,13 @@ class ChargingStationDomain(Domain):
         """
         return self._getUniversal(tc.VAR_CS_CHARGE_IN_TRANSIT, stopID)
 
+    def getTotalPower(self, stopID):
+        """getTotalPower(string) -> double
+
+        Get the total charging power limit for all vehicles.
+        """
+        return self._getUniversal(tc.VAR_CS_TOTAL_POWER, stopID)
+
     def setChargingPower(self, stopID, power):
         """setChargingPower(string, double) -> None
 
@@ -121,8 +128,15 @@ class ChargingStationDomain(Domain):
         self._setCmd(tc.VAR_CS_CHARGE_DELAY, stopID, "d", delay)
 
     def setChargeInTransit(self, stopID, inTransit):
-        """setEfficiency(string, integer) -> None
+        """setChargeInTransit(string, integer) -> None
 
         Sets whether this charging station allows charging while still driving (0=no, 1=yes).
         """
         self._setCmd(tc.VAR_CS_CHARGE_IN_TRANSIT, stopID, "i", inTransit)
+
+    def setTotalPower(self, stopID, totalPower):
+        """setTotalPower(string, double) -> None
+
+        Sets the total charging power limit for all vehicles in this charging station.
+        """
+        self._setCmd(tc.VAR_CS_TOTAL_POWER, stopID, "d", totalPower)

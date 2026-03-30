@@ -130,6 +130,12 @@ MSChargingStation::getParkingArea() const {
 }
 
 
+double
+MSChargingStation::getTotalChargingPower() const {
+    return myTotalChargingPower;
+}
+
+
 void
 MSChargingStation::setChargingPower(double chargingPower) {
     myNominalChargingPower = chargingPower;
@@ -162,6 +168,20 @@ void
 MSChargingStation::setChargingVehicle(bool value) {
     myChargingVehicle = value;
     if (myTotalChargingPower > 0 && myChargingVehicle && myTotalPowerCheckEvent == nullptr) {
+        myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
+        MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
+    }
+}
+
+
+void
+MSChargingStation::setTotalChargingPower(double totalPower) {
+    if (totalPower <= 0) {
+        return;
+    }
+    const bool hadLimit = myTotalChargingPower > 0;
+    myTotalChargingPower = totalPower;
+    if (!hadLimit && (myChargeInTransit || myChargingVehicle) && myTotalPowerCheckEvent == nullptr) {
         myTotalPowerCheckEvent = new WrappingCommand<MSChargingStation>(this, &MSChargingStation::checkTotalPower);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myTotalPowerCheckEvent);
     }

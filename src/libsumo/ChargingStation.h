@@ -50,6 +50,7 @@ public:
     static double getEfficiency(const std::string& stopID);
     static double getChargeDelay(const std::string& stopID);
     static int getChargeInTransit(const std::string& stopID);
+    static double getTotalPower(const std::string& stopID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
@@ -58,6 +59,7 @@ public:
     static void setEfficiency(const std::string& stopID, double efficiency);
     static void setChargeDelay(const std::string& stopID, double delay);
     static void setChargeInTransit(const std::string& stopID, bool inTransit);
+    static void setTotalPower(const std::string& stopID, double totalPower);
 
 #ifndef LIBTRACI
 #ifndef SWIG
