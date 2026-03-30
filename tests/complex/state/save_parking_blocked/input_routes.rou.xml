@@ -1,0 +1,15 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <vehicle id="v0" type="t0" route="r0" depart="0">
+        <!-- the vehicle is stopped here when saving state -->
+        <stop lane="middle_0" until="150" endPos="120" parking="true"/>
+    </vehicle>
+
+    <vehicle id="blocker" type="t0" route="r0" depart="0">
+        <stop lane="middle_0" duration="600" endPos="195"/>
+    </vehicle>
+    <flow id="b" type="t0" route="r0" begin="0" period="2" number="16"/>
+
+</routes>
