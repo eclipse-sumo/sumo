@@ -2147,7 +2147,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
-        myLFLinkLanesPrev = myLFLinkLanes;
+        myLFLinkLanesPrev.swap(myLFLinkLanes);
         if (myInfluencer != nullptr) {
             myInfluencer->updateRemoteControlRoute(this);
         }
@@ -3684,6 +3684,7 @@ MSVehicle::getDeltaPos(const double accel) const {
 void
 MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeMinDist) {
 
+    const MSCFModel& cfModel = getCarFollowModel();
     // Speed limit due to zipper merging
     double vSafeZipper = std::numeric_limits<double>::max();
 
@@ -3716,8 +3717,8 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             const LinkState ls = link->getState();
             // vehicles should brake when running onto a yellow light if the distance allows to halt in front
             const bool yellow = link->haveYellow();
-            const bool canBrake = (dpi.myDistance > getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0.)
-                                   || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(getCarFollowModel().getMaxDecel())));
+            const bool canBrake = (dpi.myDistance > cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0.)
+                                   || (MSGlobals::gSemiImplicitEulerUpdate && myState.mySpeed < ACCEL2SPEED(cfModel.getMaxDecel())));
             assert(link->getLaneBefore() != nullptr);
             const bool beyondStopLine = dpi.myDistance < link->getLaneBefore()->getVehicleStopOffset(this);
             const bool ignoreRedLink = ignoreRed(link, canBrake) || beyondStopLine;
@@ -3737,7 +3738,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                            || link->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                            getVehicleType().getLength(),
                                            canBrake ? getImpatience() : 1,
-                                           getCarFollowModel().getMaxDecel(),
+                                           cfModel.getMaxDecel(),
                                            getWaitingTimeFor(link), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this, dpi.myDistance));
@@ -3748,7 +3749,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                                     myLane->getWidth() + myLaneChangeModel->getShadowLane()->getWidth());
                     opened = yellow || influencerPrio || (opened && parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
-                                                          getCarFollowModel().getMaxDecel(),
+                                                          cfModel.getMaxDecel(),
                                                           getWaitingTimeFor(link), shadowLatPos, nullptr,
                                                           ignoreRedLink, this, dpi.myDistance));
 #ifdef DEBUG_EXEC_MOVE
@@ -3803,9 +3804,9 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     // could appear on a major foe link and cause a collision. Refs. #1845, #2123
                     vSafeMinDist = dpi.myDistance; // distance that must be covered
                     if (MSGlobals::gSemiImplicitEulerUpdate) {
-                        vSafeMin = MIN3((double)DIST2SPEED(vSafeMinDist + POSITION_EPS), dpi.myVLinkPass, getCarFollowModel().maxNextSafeMin(getSpeed(), this));
+                        vSafeMin = MIN3((double)DIST2SPEED(vSafeMinDist + POSITION_EPS), dpi.myVLinkPass, cfModel.maxNextSafeMin(getSpeed(), this));
                     } else {
-                        vSafeMin = MIN3((double)DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), dpi.myVLinkPass, getCarFollowModel().maxNextSafeMin(getSpeed(), this));
+                        vSafeMin = MIN3((double)DIST2SPEED(2 * vSafeMinDist + NUMERICAL_EPS) - getSpeed(), dpi.myVLinkPass, cfModel.maxNextSafeMin(getSpeed(), this));
                     }
                     canBrakeVSafeMin = canBrake;
 #ifdef DEBUG_EXEC_MOVE
@@ -3818,7 +3819,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
             // have waited; may pass if opened...
             if (opened) {
                 vSafe = dpi.myVLinkPass;
-                if (vSafe < getCarFollowModel().getMaxDecel() && vSafe <= dpi.myVLinkWait && vSafe < getCarFollowModel().maxNextSpeed(getSpeed(), this)) {
+                if (vSafe < cfModel.getMaxDecel() && vSafe <= dpi.myVLinkWait && vSafe < cfModel.maxNextSpeed(getSpeed(), this)) {
                     // this vehicle is probably not gonna drive across the next junction (heuristic)
                     myHaveToWaitOnNextLink = true;
 #ifdef DEBUG_CHECKREWINDLINKLANES
@@ -3837,7 +3838,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                        // always brake hard for traffic lights (since an emergency stop is necessary anyway)
                        && link->getTLLogic() == nullptr
                        // cannot brake even with emergency deceleration
-                       && dpi.myDistance < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0.)) {
+                       && dpi.myDistance < cfModel.brakeGap(myState.mySpeed, cfModel.getEmergencyDecel(), 0.)) {
 #ifdef DEBUG_EXEC_MOVE
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " too fast to brake for closed link\n";
@@ -4622,23 +4623,24 @@ MSVehicle::executeMove() {
     // Determine vNext = speed after current sim step (ballistic), resp. in current simstep (euler)
     // Call to finalizeSpeed applies speed reduction due to dawdling / lane changing but ensures minimum safe speed
     double vNext = vSafe;
+    const MSCFModel& cfModel = getCarFollowModel();
     const double rawAccel = SPEED2ACCEL(MAX2(vNext, 0.) - myState.mySpeed);
     if (vNext <= SUMO_const_haltingSpeed * TS && myWaitingTime > MSGlobals::gStartupWaitThreshold && rawAccel <= accelThresholdForWaiting() && myActionStep) {
         myTimeSinceStartup = 0;
     } else if (isStopped()) {
         // do not apply startupDelay for waypoints
-        if (getCarFollowModel().startupDelayStopped() && getNextStop().pars.speed <= 0) {
+        if (cfModel.startupDelayStopped() && getNextStop().pars.speed <= 0) {
             myTimeSinceStartup = DELTA_T;
         } else {
             // do not apply startupDelay but signal that a stop has taken place
-            myTimeSinceStartup = getCarFollowModel().getStartupDelay() + DELTA_T;
+            myTimeSinceStartup = cfModel.getStartupDelay() + DELTA_T;
         }
     } else {
         // identify potential startup (before other effects reduce the speed again)
         myTimeSinceStartup += DELTA_T;
     }
     if (myActionStep) {
-        vNext = getCarFollowModel().finalizeSpeed(this, vSafe);
+        vNext = cfModel.finalizeSpeed(this, vSafe);
         if (vNext > 0) {
             vNext = MAX2(vNext, vSafeMin);
         }
