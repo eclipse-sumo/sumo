@@ -2,4 +2,3 @@ Warning: Teleporting vehicle 'b.12'; waited too long, from edge 'middle':0, time
 Warning: Vehicle 'b.12' teleports beyond arrival edge 'end', time=449.42.
 Warning: Teleporting vehicle 'b.12'; waited too long, from edge 'middle':0, time=435.02.
 Warning: Vehicle 'b.12' teleports beyond arrival edge 'end', time=449.42.
-Warning: Teleporting vehicle 'v0'; waited too long, from edge 'middle':1, time=450.00.
