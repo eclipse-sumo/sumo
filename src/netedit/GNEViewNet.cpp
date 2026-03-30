@@ -5938,8 +5938,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_MOVE: {
-            // editing lane shapes in move mode isn't finished, then always filter lanes
-            myViewObjectsSelector.filterLanes();
+            if (myEditNetworkElementShapes.getEditedNetworkElement() == nullptr ||
+                    myEditNetworkElementShapes.getEditedNetworkElement()->getType() != GLO_LANE) {
+                myViewObjectsSelector.filterLanes();
+            }
             // filter locked elements
             myViewObjectsSelector.filterLockedElements({GLO_WALKINGAREA});
             // check if we're editing a shape
