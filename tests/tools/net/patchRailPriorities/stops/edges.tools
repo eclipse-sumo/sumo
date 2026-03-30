@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30 19:19:44.419240 by Eclipse SUMO patchRailPriorities.py v1_26_0+0895-beb6dcb1279
+<!-- generated on 2026-03-30 23:15:29.490932 by Eclipse SUMO patchRailPriorities.py v1_26_0+0900-ea6b7f9498e
 <configuration>
     <net-file value="input_net.net.xml"/>
     <route-files value="input_routes.rou.xml"/>
@@ -17,7 +17,6 @@
     <edge id="-E10b" priority="0" routingType="0"/>
     <edge id="-E11" priority="4" routingType="4"/>
     <edge id="-E11b" priority="0" routingType="0"/>
-    <edge id="-E4" priority="4" routingType="4"/>
     <edge id="-E4b" priority="0" routingType="0"/>
     <edge id="-E5" priority="4" routingType="4"/>
     <edge id="-E5b" priority="0" routingType="0"/>
@@ -32,7 +31,6 @@
     <edge id="E10b" priority="4" routingType="4"/>
     <edge id="E11" priority="0" routingType="0"/>
     <edge id="E11b" priority="4" routingType="4"/>
-    <edge id="E4" priority="0" routingType="0"/>
     <edge id="E4b" priority="4" routingType="4"/>
     <edge id="E5" priority="0" routingType="0"/>
     <edge id="E5b" priority="4" routingType="4"/>
