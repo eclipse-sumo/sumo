@@ -1073,10 +1073,8 @@ MSEdge::getRoutingSpeed() const {
 
 bool
 MSEdge::dictionary(const std::string& id, MSEdge* ptr) {
-    const DictType::iterator it = myDict.lower_bound(id);
-    if (it == myDict.end() || it->first != id) {
-        // id not in myDict
-        myDict.emplace_hint(it, id, ptr);
+    const auto [it, inserted] = myDict.try_emplace(id, ptr);
+    if (inserted) {
         while (ptr->getNumericalID() >= (int)myEdges.size()) {
             myEdges.push_back(nullptr);
         }
@@ -1128,9 +1126,11 @@ MSEdge::clear() {
 
 void
 MSEdge::insertIDs(std::vector<std::string>& into) {
-    for (DictType::iterator i = myDict.begin(); i != myDict.end(); ++i) {
-        into.push_back((*i).first);
+    const size_t prevSize = into.size();
+    for (const auto& i : myDict) {
+        into.push_back(i.first);
     }
+    std::sort(into.begin() + prevSize, into.end());
 }
 
 

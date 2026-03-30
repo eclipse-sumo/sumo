@@ -2493,13 +2493,8 @@ MSLane::getFirstInternalInConnection(double& offset) const {
 // ------ Static (sic!) container methods  ------
 bool
 MSLane::dictionary(const std::string& id, MSLane* ptr) {
-    const DictType::iterator it = myDict.lower_bound(id);
-    if (it == myDict.end() || it->first != id) {
-        // id not in myDict
-        myDict.emplace_hint(it, id, ptr);
-        return true;
-    }
-    return false;
+    const auto [it, inserted] = myDict.try_emplace(id, ptr);
+    return inserted;
 }
 
 

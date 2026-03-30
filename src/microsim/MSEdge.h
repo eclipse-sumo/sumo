@@ -26,6 +26,7 @@
 
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <iostream>
 #ifdef HAVE_FOX
@@ -1032,7 +1033,7 @@ protected:
     /// @{
 
     /// @brief definition of the static dictionary type
-    typedef std::map< std::string, MSEdge* > DictType;
+    typedef std::unordered_map< std::string, MSEdge* > DictType;
 
     /** @brief Static dictionary to associate string-ids with objects.
      * @deprecated Move to MSEdgeControl, make non-static

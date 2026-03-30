@@ -25,6 +25,7 @@
 #include <cmath>
 #include <string>
 #include <map>
+#include <unordered_map>
 #include <set>
 #ifdef HAVE_FOX
 #include <utils/foxtools/fxheader.h>
@@ -71,7 +72,7 @@ class MSEdge;
 class MSVehicleControl {
 public:
     /// @brief Definition of the internal vehicles map iterator
-    typedef std::map<std::string, SUMOVehicle*>::const_iterator constVehIt;
+    typedef std::unordered_map<std::string, SUMOVehicle*>::const_iterator constVehIt;
 
     /// @brief possible origins of a vehicle definition
     enum VehicleDefinitionSource {
@@ -653,7 +654,7 @@ protected:
     /// @{
 
     /// @brief Vehicle dictionary type
-    typedef std::map< std::string, SUMOVehicle* > VehicleDictType;
+    typedef std::unordered_map< std::string, SUMOVehicle* > VehicleDictType;
     /// @brief Dictionary of vehicles
     VehicleDictType myVehicleDict;
     /// @}
@@ -676,12 +677,12 @@ private:
     /// @{
 
     /// @brief Vehicle type dictionary type
-    typedef std::map< std::string, MSVehicleType* > VTypeDictType;
+    typedef std::unordered_map< std::string, MSVehicleType* > VTypeDictType;
     /// @brief Dictionary of vehicle types
     VTypeDictType myVTypeDict;
 
     /// @brief Vehicle type distribution dictionary type
-    typedef std::map< std::string, RandomDistributor<MSVehicleType*>* > VTypeDistDictType;
+    typedef std::unordered_map< std::string, RandomDistributor<MSVehicleType*>* > VTypeDistDictType;
     /// @brief A distribution of vehicle types (probability->vehicle type)
     VTypeDistDictType myVTypeDistDict;
 

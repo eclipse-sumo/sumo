@@ -30,6 +30,7 @@
 #include <memory>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <deque>
 #include <cassert>
 #include <utils/common/Named.h>
@@ -1627,7 +1628,7 @@ protected:
     int myRNGIndex;
 
     /// definition of the static dictionary type
-    typedef std::map< std::string, MSLane* > DictType;
+    typedef std::unordered_map< std::string, MSLane* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;

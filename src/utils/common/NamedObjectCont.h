@@ -22,6 +22,7 @@
 #pragma once
 #include <config.h>
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -41,7 +42,7 @@ template<class T>
 class NamedObjectCont {
 public:
     /// @brief Definition of the key to pointer map type
-    typedef std::map< std::string, T > IDMap;
+    typedef std::unordered_map< std::string, T > IDMap;
 
     ///@brief Constructor
     NamedObjectCont() {}
@@ -64,12 +65,8 @@ public:
      * @return If the item could be added (no item with the same id was within the container before)
      */
     bool add(const std::string& id, T item) {
-        const auto it = myMap.lower_bound(id);
-        if (it == myMap.end() || it->first != id) {
-            myMap.emplace_hint(it, id, item);
-            return true;
-        }
-        return false;
+        const auto [it, inserted] = myMap.try_emplace(id, item);
+        return inserted;
     }
 
     /** @brief Removes an item
@@ -123,9 +120,11 @@ public:
      * @param[in] into The container to fill
      */
     void insertIDs(std::vector<std::string>& into) const {
-        for (auto i : myMap) {
+        const size_t prevSize = into.size();
+        for (const auto& i : myMap) {
             into.push_back(i.first);
         }
+        std::sort(into.begin() + prevSize, into.end());
     }
 
     /// @brief change ID of a stored object

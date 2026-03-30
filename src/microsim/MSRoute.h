@@ -26,6 +26,7 @@
 
 #include <string>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <algorithm>
 #include <memory>
@@ -315,7 +316,7 @@ private:
 
 private:
     /// Definition of the dictionary container
-    typedef std::map<std::string, ConstMSRoutePtr> RouteDict;
+    typedef std::unordered_map<std::string, ConstMSRoutePtr> RouteDict;
 
     /// The dictionary container
     static RouteDict myDict;
