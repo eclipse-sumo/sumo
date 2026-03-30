@@ -197,7 +197,7 @@ public:
 
     /** @brief Reconstruct the current state
      */
-    void setActiveLanes(std::list<MSLane*> lanes);
+    void setActiveLanes(std::vector<MSLane*> lanes);
 
 
 #ifndef THREAD_POOL
@@ -272,7 +272,7 @@ private:
     LaneUsageVector myLanes;
 
     /// @brief The list of active (not empty) lanes
-    std::list<MSLane*> myActiveLanes;
+    std::vector<MSLane*> myActiveLanes;
 
     /// @brief A storage for lanes which shall be integrated because vehicles have moved onto them
     MFXSynchQue<MSLane*, std::vector<MSLane*> > myWithVehicles2Integrate;
