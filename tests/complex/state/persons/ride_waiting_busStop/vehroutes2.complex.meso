@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:54.310807+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-03-30T17:19:54.421832+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -10,8 +10,14 @@
     </input>
 
     <output>
-        <vehroute-output value="vehroutes.xml"/>
+        <fcd-output value="fcd2.xml"/>
+        <vehroute-output value="vehroutes2.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
     </output>
+
+    <time>
+        <end value="10"/>
+    </time>
 
     <report>
         <duration-log.disable value="true"/>
@@ -26,13 +32,14 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="persontrip_car" depart="2.00" departPos="10.00" arrival="130.00">
-        <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="400.00" lines="v0"/>
-    </person>
-
-    <vehicle id="v0" depart="0.00" arrival="130.00">
+    <vehicle id="v0" depart="0.00">
         <route edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
         <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="10.00" started="0.00"/>
     </vehicle>
+
+    <person id="persontrip_car" depart="2.00" departPos="10.00">
+        <stop busStop="bs0" duration="0.00"/>
+        <ride from="3/1to2/1" to="1/1to0/1" lines="v0"/>
+    </person>
 
 </routes>
