@@ -9,3 +9,6 @@ no_signals
 
 # add missing signals to input network
 no_signals_add
+
+# add missing signals to input network
+no_signals_add_stops

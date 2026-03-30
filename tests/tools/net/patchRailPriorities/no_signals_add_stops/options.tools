@@ -1,3 +1,5 @@
 -n input_net2.net.xml 
 -r input_routes.rou.xml
+-s input_additional.add.xml
+-O out_stops.add.xml
 --add-stop-signals
