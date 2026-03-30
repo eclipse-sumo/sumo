@@ -204,9 +204,9 @@ class Builder(object):
             if self.data.get("verbose"):
                 osmArgs.append("--verbose")
             # cannot write config by calling osmGet.get because saving config triggers sys.exit()
-            subprocess.call([sys.executable, osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
+            # TODO: re-enable config saving without triggering a second download
+            # subprocess.call([sys.executable, osmGet.__file__] + osmArgs + ['-C', self.files['ogc']])
             osmGet.get(osmArgs)
-
         if not os.path.exists(self.files["osm"]):
             raise RuntimeError("Download failed")
 
