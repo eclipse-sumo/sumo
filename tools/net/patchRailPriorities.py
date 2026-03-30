@@ -88,20 +88,47 @@ def get_options():
         options.prefix = sumolib.miscutils.getBaseName(options.outfile)
     options.edges_file = options.prefix + ".edg.xml"
     options.nodes_file = options.prefix + ".nod.xml"
+    options.connections_file = options.prefix + ".con.xml"
     return options
 
 
-def filterNoSignalidings(options, net, sidings, noSignal):
-    """keep only sidings that have a signal of that have a stop on the main track"""
+def filterNoSignalidings(options, net, sidings, noSignal, stops):
+    """keep only sidings that have a signal or that have a stop on the main track"""
     sidings2 = {}
+    signalNodes = set()
+    controlledFromEdges = set()
+    controlledToEdges = set()
     for main, (rid, fromIndex, siding) in sidings.items():
-        for eid in main:
-            if net.hasEdge(eid):
-                e = net.getEdge(eid)
-                b = e.getBidi()
-                if b is not None and edgeUsage.get(b.getID(), 0) > 0:
-                    sidings2[main] = (rid, fromIndex, siding)
-                    break
+        hasNoSignal = tuple(main) in noSignal
+        if hasNoSignal and not any([e in stops for e in main]):
+            continue
+        sidings2[main] = (rid, fromIndex, siding)
+
+        if hasNoSignal:
+            last = net.getEdge(siding[-1])
+            signalNodes.add(last.getToNode())
+            controlledFromEdges.add(last)
+            first = net.getEdge(siding[0])
+            signalNodes.add(first.getFromNode())
+            controlledToEdges.add(first)
+
+    with open(options.nodes_file, 'w') as outf, open(options.connections_file, 'w') as outf2:
+        sumolib.writeXMLHeader(outf, "$Id$", "nodes", options=options)
+        sumolib.writeXMLHeader(outf2, "$Id$", "connections", options=options)
+
+        for n in sorted(signalNodes, key=lambda n: n.getID()):
+            outf.write('    <node id="%s" type="rail_signal"/>\n' % n.getID())
+            for inEdge in n.getIncoming():
+                for outEdge, conns in inEdge.getOutgoing().items():
+                    for conn in conns:
+                        if inEdge not in controlledFromEdges and outEdge not in controlledToEdges:
+                            outf2.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s" uncontrolled="true"/>\n' % (  # noqa
+                                        inEdge.getID(), outEdge.getID(),
+                                        conn.getFromLane().getIndex(), conn.getToLane().getIndex()))
+
+        outf.write("</nodes>\n")
+        outf2.write("</connections>\n")
+
     return sidings2;
 
 
@@ -137,7 +164,7 @@ def isSidingRight(net, main, siding):
     return directions[len(directions) // 2] < 0
 
 
-def writePatch(options, net, sidings):
+def writeEdgePatch(options, net, sidings):
     rTypes = dict() # eid -> routingType
     for main, (rid, fromIndex, siding) in sidings.items():
         if isSidingRight(net, main, siding) != options.useLeft:
@@ -264,14 +291,14 @@ def main(options):
     sidings = filterSidings(options, net, sidings, noSignal)
     # print("\n".join(map(str, sidings.items())))
 
-    if options.addStopSignals and stopIDs:
+    if options.addStopSignals:
         sidings = filterNoSignalidings(options, net, sidings, noSignal, stops)
-        extraArgs += ['-n', options.nodes_file]
+        extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
         # print("\n".join(map(str, sidings.items())))
 
     sidings = filterBidiSidings(options, net, sidings, edgeUsage)
     # print("\n".join(map(str, sidings.items())))
-    writePatch(options, net, sidings)
+    writeEdgePatch(options, net, sidings)
     writeStops(options, net, sidings, stopIDs, stops)
 
     if options.verbose:
@@ -282,9 +309,6 @@ def main(options):
            '-s', options.netfile,
            '-e', options.edges_file,
            '-o', options.outfile] + extraArgs
-
-    if options.addStopSignals:
-        add
 
     subprocess.call(args, stdout=subprocess.DEVNULL)
 
