@@ -570,6 +570,8 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myEventTime);
     internals.push_back(myLastEntryTime);
     internals.push_back(myBlockTime);
+    internals.push_back(isStopped());
+    internals.push_back(myPastStops.size());
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -605,6 +607,8 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         throw ProcessError(TL("Error: Invalid vehicles in state (may be a micro state)!"));
     }
     int routeOffset;
+    bool stopped;
+    int pastStops;
     int segIndex;
     int queIndex;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
@@ -617,6 +621,8 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myEventTime;
     bis >> myLastEntryTime;
     bis >> myBlockTime;
+    bis >> stopped;
+    bis >> pastStops;
     myDepartPos /= 1000.; // was stored as mm
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
@@ -633,6 +639,13 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myEventTime -= offset;
         myLastEntryTime -= offset;
         myCurrEdge = myRoute->begin() + routeOffset;
+        // fix stops
+        while (pastStops > 0) {
+            myPastStops.push_back(myStops.front().pars);
+            myPastStops.back().routeIndex = (int)(myStops.front().edge - myRoute->begin());
+            myStops.pop_front();
+            pastStops--;
+        }
         if (segIndex >= 0) {
             MESegment* seg = MSGlobals::gMesoNet->getSegmentForEdge(**myCurrEdge);
             while (seg->getIndex() != (int)segIndex) {
@@ -644,6 +657,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             setSegment(seg, queIndex);
             if (queIndex == MESegment::PARKING_QUEUE) {
                 MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
+                getCurrentEdge()->getLanes()[0]->addParking(this);
             }
         } else {
             // on teleport
@@ -661,6 +675,10 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     }
     std::istringstream dis(attrs.getString(SUMO_ATTR_DISTANCE));
     dis >> myOdometer >> myNumberReroutes;
+    if (stopped) {
+        myStops.front().startedFromState = true;
+        myStops.front().reached = true;
+    }
 }
 
 
