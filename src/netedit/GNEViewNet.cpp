@@ -531,7 +531,8 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
     // swap selected objects (needed after selecting)
     gViewObjectsHandler.reverseSelectedObjects();
     // check if filter edges that have the mouse over their geometry points
-    if (myEditModes.isCurrentSupermodeNetwork() && myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+    if (myEditModes.isCurrentSupermodeNetwork() && myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE
+            && myEditNetworkElementShapes.getEditedNetworkElement() == nullptr) {
         gViewObjectsHandler.isolateEdgeGeometryPoints();
     }
     // restore draw for view objects handler (this calculate the contours)
