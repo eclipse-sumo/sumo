@@ -137,21 +137,19 @@ def filterBidiSidings(options, net, sidings, edgeUsage):
     sidings2 = {}
     for main, (rid, fromIndex, siding) in sidings.items():
         for eid in main:
-            if net.hasEdge(eid):
-                e = net.getEdge(eid)
-                b = e.getBidi()
-                if b is not None and edgeUsage.get(b.getID(), 0) > 0:
-                    sidings2[main] = (rid, fromIndex, siding)
-                    break
+            e = net.getEdge(eid)
+            b = e.getBidi()
+            if b is not None and edgeUsage.get(b.getID(), 0) > 0:
+                sidings2[main] = (rid, fromIndex, siding)
+                break
     return sidings2;
 
 
 def getGeom(net, edges):
     result = []
     for eid in edges:
-        if net.hasEdge(eid):
-            e = net.getEdge(eid)
-            result += e.getShape(True)
+        e = net.getEdge(eid)
+        result += e.getShape(True)
     return result
 
 
@@ -164,7 +162,7 @@ def isSidingRight(net, main, siding):
     return directions[len(directions) // 2] < 0
 
 
-def writeEdgePatch(options, net, sidings):
+def writeEdgePatch(options, net, sidings, edgeUsage):
     rTypes = dict() # eid -> routingType
     for main, (rid, fromIndex, siding) in sidings.items():
         if isSidingRight(net, main, siding) != options.useLeft:
@@ -174,18 +172,20 @@ def writeEdgePatch(options, net, sidings):
             rtMain = "4"
             rtSiding = "0"
         for eid in main:
-            rTypes[eid] = rtMain
+            e = net.getEdge(eid)
+            b = e.getBidi()
+            if b is not None and edgeUsage.get(b.getID(), 0) > 0:
+                rTypes[eid] = rtMain
         for eid in siding:
             rTypes[eid] = rtSiding
 
     rTypes2 = dict()
     for eid, rt in rTypes.items():
-        if net.hasEdge(eid):
-            e = net.getEdge(eid)
-            b = e.getBidi()
-            if b is not None:
-                if b.getID() not in rTypes:
-                    rTypes2[b.getID()] = rtMain if rt == rtSiding else rtSiding
+        e = net.getEdge(eid)
+        b = e.getBidi()
+        if b is not None:
+            if b.getID() not in rTypes:
+                rTypes2[b.getID()] = rtMain if rt == rtSiding else rtSiding
     rTypes.update(rTypes2)
 
     with open(options.edges_file, 'w') as outf:
@@ -279,26 +279,26 @@ def main(options):
 
     routes, edgeUsage = parseRoutes(options)
     stopIDs, stops = parseStops(options)
-    # print("\n".join(map(str, routes.items())))
+    #  print("\n".join(map(str, routes.items())))
     switches = findSwitches(options, routes, net)
-    # print("\n".join(map(str, switches.items())))
+    #  print("\n".join(map(str, switches.items())))
     sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
-    # print("\n".join(map(str, sidings.items())))
+    #  print("\n".join(map(str, sidings.items())))
 
     if options.addStopSignals:
         noSignal = set()
 
     sidings = filterSidings(options, net, sidings, noSignal)
-    # print("\n".join(map(str, sidings.items())))
+    #  print("\n".join(map(str, sidings.items())))
 
     if options.addStopSignals:
         sidings = filterNoSignalidings(options, net, sidings, noSignal, stops)
         extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
-        # print("\n".join(map(str, sidings.items())))
+        #  print("\n".join(map(str, sidings.items())))
 
     sidings = filterBidiSidings(options, net, sidings, edgeUsage)
-    # print("\n".join(map(str, sidings.items())))
-    writeEdgePatch(options, net, sidings)
+    #  print("\n".join(map(str, sidings.items())))
+    writeEdgePatch(options, net, sidings, edgeUsage)
     writeStops(options, net, sidings, stopIDs, stops)
 
     if options.verbose:
