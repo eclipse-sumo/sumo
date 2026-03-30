@@ -19,7 +19,7 @@
 Identifies single-track routes and attempts to find sidings for passing in
 opposite directions. For found sidings
 - the routingType and priorities in the network are patched so that trains prefer driving on the right
-- if there is a ptStop on the main line but not on the siding, a new ptStop is added 
+- if there is a ptStop on the main line but not on the siding, a new ptStop is added
 
 """
 
@@ -55,6 +55,8 @@ def get_options():
                     help="The file to road stops from")
     ap.add_argument("-o", "--output-file", category="output", dest="outfile", required=True, type=ap.net_file,
                     help="output network file")
+    ap.add_argument("-p", "--patchfile-prefix", category="output", dest="prefix",
+                    help="prefix for generated patch files")
     ap.add_argument("-O", "--stop-output", category="output", dest="stopOutput", type=ap.additional_file,
                     help="stop output file (requires stop-file)")
     ap.add_argument("--vclass", default="rail",
@@ -75,20 +77,39 @@ def get_options():
                     type=float, help="Set penalty for reversals, by default sidings with reversals are forbidden")
     ap.add_argument("--use-left", action="store_true", default=False, dest="useLeft",
                     help="Drive on the left instead of on the right")
+    ap.add_argument("--add-stop-signals", action="store_true", default=False, dest="addStopSignals",
+                    help="If a siding has a stop on the mainline, add signals in case they are missing")
     ap.add_argument("-v", "--verbose", action="store_true", default=False,
                     help="tell me what you are doing")
     options = ap.parse_args()
 
     options.routes = options.routes.split(',')
-    options.edges_file = sumolib.miscutils.getBaseName(options.outfile) + ".edg.xml"
+    if options.prefix is None:
+        options.prefix = sumolib.miscutils.getBaseName(options.outfile)
+    options.edges_file = options.prefix + ".edg.xml"
+    options.nodes_file = options.prefix + ".nod.xml"
     return options
 
 
-def filterBidiSidings(options, net, sidings, edgeUsage):
-    """find sidings where the main track is used in both directions"""
+def filterNoSignalidings(options, net, sidings, noSignal):
+    """keep only sidings that have a signal of that have a stop on the main track"""
     sidings2 = {}
     for main, (rid, fromIndex, siding) in sidings.items():
-        for eid in main: 
+        for eid in main:
+            if net.hasEdge(eid):
+                e = net.getEdge(eid)
+                b = e.getBidi()
+                if b is not None and edgeUsage.get(b.getID(), 0) > 0:
+                    sidings2[main] = (rid, fromIndex, siding)
+                    break
+    return sidings2;
+
+
+def filterBidiSidings(options, net, sidings, edgeUsage):
+    """keep only sidings where the main track is used in both directions"""
+    sidings2 = {}
+    for main, (rid, fromIndex, siding) in sidings.items():
+        for eid in main:
             if net.hasEdge(eid):
                 e = net.getEdge(eid)
                 b = e.getBidi()
@@ -139,7 +160,7 @@ def writePatch(options, net, sidings):
                 if b.getID() not in rTypes:
                     rTypes2[b.getID()] = rtMain if rt == rtSiding else rtSiding
     rTypes.update(rTypes2)
-            
+
     with open(options.edges_file, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
         for eid in sorted(rTypes.keys()):
@@ -183,14 +204,8 @@ def getClosest(net, stopEdge, startPos, endPos, siding):
     return bestEdge, max(0, bestPos - halfLength), min(bestPos + halfLength, bestLength)
 
 
-def writeStops(options, net, sidings):
+def writeStops(options, net, sidings, stopIDs, stops):
     if options.stopfile and options.stopOutput:
-        stopIDs = set()
-        stops = defaultdict(list)  # stopEdge -> object
-        for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
-            stops[lane2edge(stop.lane)].append(stop)
-            stopIDs.add(stop.id)
-
         sidingDict = defaultdict(set)  # mainEdge -> [siding, ]
         for main, (rid, fromIndex, siding) in sidings.items():
             for e in main:
@@ -220,30 +235,58 @@ def writeStops(options, net, sidings):
             outf.write("</additional>\n")
 
 
+def parseStops(options):
+    stopIDs = set()
+    stops = defaultdict(list)  # stopEdge -> object
+    if options.stopfile:
+        for stop in sumolib.xml.parse(options.stopfile, ['busStop', 'trainStop']):
+            stops[lane2edge(stop.lane)].append(stop)
+            stopIDs.add(stop.id)
+    return stopIDs, stops
+
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
+    noSignal = None
+    extraArgs = []
 
     routes, edgeUsage = parseRoutes(options)
+    stopIDs, stops = parseStops(options)
     # print("\n".join(map(str, routes.items())))
     switches = findSwitches(options, routes, net)
     # print("\n".join(map(str, switches.items())))
     sidings, sidingRoutes = findSidings(options, routes, switches, net, edgeUsage)
     # print("\n".join(map(str, sidings.items())))
-    sidings = filterSidings(options, net, sidings)
+
+    if options.addStopSignals:
+        noSignal = set()
+
+    sidings = filterSidings(options, net, sidings, noSignal)
     # print("\n".join(map(str, sidings.items())))
+
+    if options.addStopSignals and stopIDs:
+        sidings = filterNoSignalidings(options, net, sidings, noSignal, stops)
+        extraArgs += ['-n', options.nodes_file]
+        # print("\n".join(map(str, sidings.items())))
+
     sidings = filterBidiSidings(options, net, sidings, edgeUsage)
     # print("\n".join(map(str, sidings.items())))
     writePatch(options, net, sidings)
-    writeStops(options, net, sidings)
+    writeStops(options, net, sidings, stopIDs, stops)
 
     if options.verbose:
         print("Building new net")
     sys.stderr.flush()
-    subprocess.call([NETCONVERT,
-                     '-s', options.netfile,
-                     '-e', options.edges_file,
-                     '-o', options.outfile,
-                     ], stdout=subprocess.DEVNULL)
+
+    args =[NETCONVERT,
+           '-s', options.netfile,
+           '-e', options.edges_file,
+           '-o', options.outfile] + extraArgs
+
+    if options.addStopSignals:
+        add
+
+    subprocess.call(args, stdout=subprocess.DEVNULL)
 
 
 if __name__ == "__main__":

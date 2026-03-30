@@ -259,7 +259,13 @@ def usesRoute(routes, rid, fromIndex, toIndex, edges):
     return False
 
 
-def filterSidings(options, net, sidings):
+def filterSidings(options, net, sidings, noSignal=None):
+    """filter sidings that are too short, too long, are too much of a detour or
+    lack a signal.
+    If noSignal is a set instead of None, then sidings without signal are
+    allowed and their main edges are recorded in noSignal.
+    """
+     
     sidings2 = {}
     usableLengths = defaultdict(dict)  # mainFirst -> main -> usableLength
     for main, (rid, fromIndex, edges) in sidings.items():
@@ -274,6 +280,10 @@ def filterSidings(options, net, sidings):
                     foundSignal = True
                 if foundSignal:
                     usableLength += e.getLength()
+        if not foundSignal and noSignal is not None:
+            foundSignal = True
+            usableLength = sidingLength
+            noSignal.add(tuple(main))
 
         warningStart = "Discarding candidate siding from '%s' to '%s' for route '%s' because it" % (
             edges[0], edges[-1], rid)
