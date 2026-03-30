@@ -237,7 +237,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_EDGECONTROL: {
             bool ok;
-            std::list<MSLane*> activeLanes;
+            std::vector<MSLane*> activeLanes;
             const std::vector<std::string>& laneIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_LANES, nullptr, ok, false);
             for (const std::string& laneID : laneIDs) {
                 MSLane* lane = MSLane::dictionary(laneID);

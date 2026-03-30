@@ -107,7 +107,7 @@ MSEdgeControl::~MSEdgeControl() {
 }
 
 void
-MSEdgeControl::setActiveLanes(std::list<MSLane*> lanes) {
+MSEdgeControl::setActiveLanes(std::vector<MSLane*> lanes) {
     myActiveLanes = lanes;
     for (MSLane* lane : lanes) {
         myLanes[lane->getNumericalID()].amActive = true;
@@ -120,12 +120,7 @@ MSEdgeControl::patchActiveLanes() {
         LaneUsage& lu = myLanes[(*i)->getNumericalID()];
         // if the lane was inactive but is now...
         if (!lu.amActive && (*i)->getVehicleNumber() > 0) {
-            // ... add to active lanes and mark as such
-            if (lu.haveNeighbors) {
-                myActiveLanes.push_front(*i);
-            } else {
-                myActiveLanes.push_back(*i);
-            }
+            myActiveLanes.push_back(*i);
             lu.amActive = true;
         }
     }
@@ -141,32 +136,35 @@ MSEdgeControl::planMovements(SUMOTime t) {
 #ifdef THREAD_POOL
     std::vector<std::future<void>> results;
 #endif
-    for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        const int vehNum = (*i)->getVehicleNumber();
-        if (vehNum == 0) {
-            myLanes[(*i)->getNumericalID()].amActive = false;
-            i = myActiveLanes.erase(i);
-        } else {
+    {
+        size_t writeIdx = 0;
+        for (size_t readIdx = 0; readIdx < myActiveLanes.size(); ++readIdx) {
+            MSLane* const lane = myActiveLanes[readIdx];
+            if (lane->getVehicleNumber() == 0) {
+                myLanes[lane->getNumericalID()].amActive = false;
+            } else {
 #ifdef THREAD_POOL
-            if (MSGlobals::gNumSimThreads > 1) {
-                results.push_back(myThreadPool.executeAsync([i, t](int) {
-                    (*i)->planMovements(t);
-                }, (*i)->getRNGIndex() % MSGlobals::gNumSimThreads));
-                ++i;
-                continue;
-            }
+                if (MSGlobals::gNumSimThreads > 1) {
+                    results.push_back(myThreadPool.executeAsync([lane, t](int) {
+                        lane->planMovements(t);
+                    }, lane->getRNGIndex() % MSGlobals::gNumSimThreads));
+                    myActiveLanes[writeIdx++] = lane;
+                    continue;
+                }
 #else
 #ifdef HAVE_FOX
-            if (MSGlobals::gNumSimThreads > 1) {
-                myThreadPool.add((*i)->getPlanMoveTask(t), (*i)->getRNGIndex() % myThreadPool.size());
-                ++i;
-                continue;
+                if (MSGlobals::gNumSimThreads > 1) {
+                    myThreadPool.add(lane->getPlanMoveTask(t), lane->getRNGIndex() % myThreadPool.size());
+                    myActiveLanes[writeIdx++] = lane;
+                    continue;
+                }
+#endif
+#endif
+                lane->planMovements(t);
+                myActiveLanes[writeIdx++] = lane;
             }
-#endif
-#endif
-            (*i)->planMovements(t);
-            ++i;
         }
+        myActiveLanes.resize(writeIdx);
     }
 #ifdef THREAD_POOL
     for (auto& r : results) {
@@ -221,20 +219,24 @@ MSEdgeControl::executeMovements(SUMOTime t) {
 #endif
 #endif
 #endif
-    for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        if (
+    {
+        size_t writeIdx = 0;
+        for (size_t readIdx = 0; readIdx < myActiveLanes.size(); ++readIdx) {
+            MSLane* const lane = myActiveLanes[readIdx];
+            if (
 #ifdef PARALLEL_EXEC_MOVE
-            MSGlobals::gNumSimThreads <= 1 &&
+                MSGlobals::gNumSimThreads <= 1 &&
 #endif
-            (*i)->getVehicleNumber() > 0) {
-            (*i)->executeMovements(t);
+                lane->getVehicleNumber() > 0) {
+                lane->executeMovements(t);
+            }
+            if (lane->getVehicleNumber() == 0) {
+                myLanes[lane->getNumericalID()].amActive = false;
+            } else {
+                myActiveLanes[writeIdx++] = lane;
+            }
         }
-        if ((*i)->getVehicleNumber() == 0) {
-            myLanes[(*i)->getNumericalID()].amActive = false;
-            i = myActiveLanes.erase(i);
-        } else {
-            ++i;
-        }
+        myActiveLanes.resize(writeIdx);
     }
     for (MSLane* lane : wasActive) {
         lane->updateLengthSum();
@@ -253,11 +255,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
         if (wasInactive && lane->getVehicleNumber() > 0) {
             LaneUsage& lu = myLanes[lane->getNumericalID()];
             if (!lu.amActive) {
-                if (lu.haveNeighbors) {
-                    myActiveLanes.push_front(lane);
-                } else {
-                    myActiveLanes.push_back(lane);
-                }
+                myActiveLanes.push_back(lane);
                 lu.amActive = true;
             }
         }
@@ -306,8 +304,6 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                 }
 #endif
             }
-        } else {
-            break;
         }
     }
 
@@ -331,7 +327,7 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
 
     MSGlobals::gComputeLC = false;
     for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
-        myActiveLanes.push_front(*i);
+        myActiveLanes.push_back(*i);
     }
 }
 
