@@ -1,0 +1,6 @@
+Discarding candidate siding from '-E11b' to '-E9b' for route 'vehicle:v_0' because it has no rail_signal
+Discarding candidate siding from '-E15b' to '-E13b' for route 'vehicle:v_0' because it has no rail_signal
+Discarding candidate siding from 'E13b' to 'E15b' for route 'route:r_main' because it has no rail_signal
+Discarding candidate siding from 'E4b' to 'E11b' for route 'route:r_main' because it has no rail_signal
+Discarding candidate siding from 'E4b' to 'E6b' for route 'route:r_main' because it has no rail_signal
+Discarding candidate siding from 'E9b' to 'E11b' for route 'route:r_main' because it has no rail_signal

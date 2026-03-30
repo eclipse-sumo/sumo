@@ -1,3 +1,4 @@
+-n input_net.net.xml 
 -r input_routes.rou.xml
 -s input_additional.add.xml
 -O out_stops.add.xml
