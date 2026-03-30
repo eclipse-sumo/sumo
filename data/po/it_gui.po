@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-17 09:39+0000\n"
+"PO-Revision-Date: 2026-03-30 17:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2044,11 +2044,11 @@ msgstr "tessere di accesso"
 
 #: src/guisim/GUIParkingArea.cpp:118
 msgid "reservations [#]"
-msgstr ""
+msgstr "prenotazioni [#]"
 
 #: src/guisim/GUIParkingArea.cpp:119
 msgid "reservation ids"
-msgstr ""
+msgstr "codici identificativi delle prenotazioni"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
@@ -3008,7 +3008,7 @@ msgstr "Il salvataggio degli elementi addizionali è fallito"
 
 #: src/netedit/GNEApplicationWindow.cpp:4050
 msgid "Additional elements as"
-msgstr ""
+msgstr "Elementi addizionali in"
 
 #: src/netedit/GNEApplicationWindow.cpp:4070
 msgid "Additional elements in unified file"
@@ -5505,7 +5505,7 @@ msgstr "Se questo arco fa parte di una rotatoria"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:864
 msgid "The name of a routingType"
-msgstr ""
+msgstr "Il nome di un tipo di instradamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:876
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
