@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-23T11:12:09.290685+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
+<!-- generated on 2026-03-30T17:19:54.197352+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_25_0+1151-2ef687ab93b" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="2" routeHandler="38" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -102,35 +102,35 @@
     <vType id="v1" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.40" accel="1.8" decel="4.5" sigma="0"/>
     <vType id="v2" length="3.00" minGap="2.00" maxSpeed="10.00" probability="0.60" accel="2.8" decel="4.5" sigma="0"/>
     <vTypeDistribution id="v" vTypes="v1 v2" probabilities="0.40 0.60"/>
-    <vehicle id="0" type="v2" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2074 0 1 0 0 0 50000 40000 9223372036854774807">
+    <vehicle id="0" type="v2" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0600" state="2074 0 1 0 0 0 50000 40000 9223372036854774807 0 0">
         <device id="vehroute_0" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="1" type="v1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0827" state="2074 5000 1 0 0 0 55000 45000 9223372036854774807">
+    <vehicle id="1" type="v1" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" distance="400 0" speedFactor="1.0827" state="2074 5000 1 0 0 0 55000 45000 9223372036854774807 0 0">
         <device id="vehroute_1" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="f.0" type="v2" depart="30.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.8310" state="2226 30000 0 0 1 0 54068 42034 9223372036854774807">
+    <vehicle id="f.0" type="v2" depart="30.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.8310" state="2226 30000 0 0 1 0 54068 42034 9223372036854774807 0 0">
         <device id="vehroute_f.0" state="8.31 0.00 0"/>
         <rem id="vehroute_f.0" time="42034" pos="100.00"/>
     </vehicle>
-    <vehicle id="f.1" type="v2" depart="33.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.9954" state="2226 33000 0 0 1 0 55698 43664 9223372036854774807">
+    <vehicle id="f.1" type="v2" depart="33.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.9954" state="2226 33000 0 0 1 0 55698 43664 9223372036854774807 0 0">
         <device id="vehroute_f.1" state="9.38 0.00 0"/>
         <rem id="vehroute_f.1" time="43664" pos="100.00"/>
     </vehicle>
-    <vehicle id="f.2" type="v2" depart="36.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.8860" state="2226 36000 0 0 1 0 58574 47287 9223372036854774807">
+    <vehicle id="f.2" type="v2" depart="36.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.8860" state="2226 36000 0 0 1 0 58574 47287 9223372036854774807 0 0">
         <device id="vehroute_f.2" state="8.86 0.00 0"/>
         <rem id="vehroute_f.2" time="47287" pos="100.00"/>
     </vehicle>
-    <vehicle id="f.3" type="v1" depart="39.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0131" state="2226 39000 0 0 1 0 60204 49000 9223372036854774807">
+    <vehicle id="f.3" type="v1" depart="39.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0131" state="2226 39000 0 0 1 0 60204 49000 9223372036854774807 0 0">
         <device id="vehroute_f.3" state="10.00 0.00 0"/>
         <rem id="vehroute_f.3" time="49000" pos="100.00"/>
     </vehicle>
-    <vehicle id="f.4" type="v2" depart="42.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0907" state="2226 42000 0 0 0 0 52000 42000 9223372036854774807">
+    <vehicle id="f.4" type="v2" depart="42.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.0907" state="2226 42000 0 0 0 0 52000 42000 9223372036854774807 0 0">
         <device id="vehroute_f.4" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="f.5" type="v2" depart="45.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.9228" state="2226 45000 0 0 0 0 55837 45000 9223372036854774807">
+    <vehicle id="f.5" type="v2" depart="45.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.9228" state="2226 45000 0 0 0 0 55837 45000 9223372036854774807 0 0">
         <device id="vehroute_f.5" state="9.23 0.00 0"/>
     </vehicle>
-    <vehicle id="f.6" type="v1" depart="48.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.1229" state="2226 48000 0 0 0 0 58000 48000 9223372036854774807">
+    <vehicle id="f.6" type="v1" depart="48.00" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.1229" state="2226 48000 0 0 0 0 58000 48000 9223372036854774807 0 0">
         <device id="vehroute_f.6" state="10.00 0.00 0"/>
     </vehicle>
     <flowState id="f" type="v" begin="30.00" end="90.00" period="3" departSpeed="avg" next="21.00" route="r1" done="7" index="7"/>

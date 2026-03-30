@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-23T11:05:48.534144+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
+<!-- generated on 2026-03-30T17:19:56.205172+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,14 +31,14 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_25_0+1151-2ef687ab93b" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC CN"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="9.00"/>
     <vType id="car" sigma="0"/>
-    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 34618 27563 9223372036854774807">
+    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 34618 27563 9223372036854774807 0 0">
         <device id="vehroute_cali.0.1" state="31.27 0.00 0"/>
     </vehicle>
-    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33282 26730 9223372036854774807">
+    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33282 26730 9223372036854774807 0 0">
         <device id="vehroute_cali.0.2" state="33.68 0.00 0"/>
     </vehicle>
     <segment id="CN:0">

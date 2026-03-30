@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-23T11:05:48.182871+01:00 by Eclipse SUMO sumo v1_25_0+1151-2ef687ab93b
+<!-- generated on 2026-03-30T17:19:55.769726+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,25 +36,25 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_25_0+1151-2ef687ab93b" time="1576800330.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="1576800330.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="A0toB0 B0toC0 C0toD0 D0toE0 E0toF0 F0toF1 F1toE1 E1toD1 D1toC1 C1toB1 B1toA1 A1toA0 A0toA1 A1toA0"/>
     <delay number="13" begin="20" end="5" depart="1120.00" time="1144.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="flow.5" depart="1576800010.00" route="r1" distance="102 0" speedFactor="1.0000" state="2240 1576800010000 12 0 0 0 1576800329683 1576800316013 1576800316625"/>
-    <vehicle id="flow.6" depart="1576800012.00" route="r1" distance="93.5 0" speedFactor="1.0000" state="2240 1576800012000 11 0 0 0 1576800329682 1576800316070 1576800317682"/>
-    <vehicle id="flow.7" depart="1576800014.00" route="r1" distance="85 0" speedFactor="1.0000" state="2240 1576800014000 10 0 0 0 1576800329739 1576800316458 1576800317739"/>
-    <vehicle id="flow.8" depart="1576800016.00" route="r1" distance="68 0" speedFactor="1.0000" state="2240 1576800016000 8 0 0 0 1576800329515 1576800317234 1576800318515"/>
-    <vehicle id="flow.9" depart="1576800018.00" route="r1" distance="59.5 0" speedFactor="1.0000" state="2240 1576800018000 7 0 0 0 1576800329903 1576800317622 1576800318903"/>
-    <vehicle id="flow.10" depart="1576800020.00" route="r1" distance="59.5 0" speedFactor="1.0000" state="2240 1576800020000 9 0 0 0 1576800329127 1576800316846 1576800318127"/>
-    <vehicle id="flow.11" depart="1576800022.00" route="r1" distance="51 0" speedFactor="1.0000" state="2240 1576800022000 6 0 0 0 1576800329291 1576800317679 1576800319291"/>
-    <vehicle id="flow.12" depart="1576800024.00" route="r1" distance="42.5 0" speedFactor="1.0000" state="2240 1576800024000 5 0 0 0 1576800329348 1576800318398 1576800319348"/>
-    <vehicle id="flow.13" depart="1576800026.00" route="r1" distance="34 0" speedFactor="1.0000" state="2240 1576800114000 4 0 0 0 1576800329067 1576800318786 1576800320067"/>
-    <vehicle id="flow.14" depart="1576800028.00" route="r1" distance="25.5 0" speedFactor="1.0000" state="2240 1576800217000 3 0 0 0 1576800329455 1576800319174 1576800320455"/>
-    <vehicle id="flow.15" depart="1576800030.00" route="r1" distance="17 0" speedFactor="1.0000" state="2240 1576800300000 2 0 0 0 1576800329843 1576800319893 1576800320843"/>
-    <vehicle id="flow.16" depart="1576800032.00" route="r1" distance="8.5 0" speedFactor="1.0000" state="2240 1576800319000 1 0 0 0 1576800329562 1576800319950 1576800321562"/>
-    <vehicle id="flow.17" depart="1576800034.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 1576800320000 0 0 0 0 1576800329619 1576800320000 1576800321619"/>
-    <vehicle id="flow.18" depart="1576800036.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807"/>
-    <vehicle id="flow.19" depart="1576800038.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807"/>
+    <vehicle id="flow.5" depart="1576800010.00" route="r1" distance="102 0" speedFactor="1.0000" state="2240 1576800010000 12 0 0 0 1576800329683 1576800316013 1576800316625 0 0"/>
+    <vehicle id="flow.6" depart="1576800012.00" route="r1" distance="93.5 0" speedFactor="1.0000" state="2240 1576800012000 11 0 0 0 1576800329682 1576800316070 1576800317682 0 0"/>
+    <vehicle id="flow.7" depart="1576800014.00" route="r1" distance="85 0" speedFactor="1.0000" state="2240 1576800014000 10 0 0 0 1576800329739 1576800316458 1576800317739 0 0"/>
+    <vehicle id="flow.8" depart="1576800016.00" route="r1" distance="68 0" speedFactor="1.0000" state="2240 1576800016000 8 0 0 0 1576800329515 1576800317234 1576800318515 0 0"/>
+    <vehicle id="flow.9" depart="1576800018.00" route="r1" distance="59.5 0" speedFactor="1.0000" state="2240 1576800018000 7 0 0 0 1576800329903 1576800317622 1576800318903 0 0"/>
+    <vehicle id="flow.10" depart="1576800020.00" route="r1" distance="59.5 0" speedFactor="1.0000" state="2240 1576800020000 9 0 0 0 1576800329127 1576800316846 1576800318127 0 0"/>
+    <vehicle id="flow.11" depart="1576800022.00" route="r1" distance="51 0" speedFactor="1.0000" state="2240 1576800022000 6 0 0 0 1576800329291 1576800317679 1576800319291 0 0"/>
+    <vehicle id="flow.12" depart="1576800024.00" route="r1" distance="42.5 0" speedFactor="1.0000" state="2240 1576800024000 5 0 0 0 1576800329348 1576800318398 1576800319348 0 0"/>
+    <vehicle id="flow.13" depart="1576800026.00" route="r1" distance="34 0" speedFactor="1.0000" state="2240 1576800114000 4 0 0 0 1576800329067 1576800318786 1576800320067 0 0"/>
+    <vehicle id="flow.14" depart="1576800028.00" route="r1" distance="25.5 0" speedFactor="1.0000" state="2240 1576800217000 3 0 0 0 1576800329455 1576800319174 1576800320455 0 0"/>
+    <vehicle id="flow.15" depart="1576800030.00" route="r1" distance="17 0" speedFactor="1.0000" state="2240 1576800300000 2 0 0 0 1576800329843 1576800319893 1576800320843 0 0"/>
+    <vehicle id="flow.16" depart="1576800032.00" route="r1" distance="8.5 0" speedFactor="1.0000" state="2240 1576800319000 1 0 0 0 1576800329562 1576800319950 1576800321562 0 0"/>
+    <vehicle id="flow.17" depart="1576800034.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 1576800320000 0 0 0 0 1576800329619 1576800320000 1576800321619 0 0"/>
+    <vehicle id="flow.18" depart="1576800036.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0"/>
+    <vehicle id="flow.19" depart="1576800038.00" route="r1" distance="0 0" speedFactor="1.0000" state="2240 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0"/>
     <segment id="A0toA1:0">
         <vehicles time="1576800315625" blockTime="1576800317681" value="flow.5"/>
     </segment>
