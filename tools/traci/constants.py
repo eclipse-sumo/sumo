@@ -1460,6 +1460,9 @@ VAR_CS_CHARGE_DELAY = 0x9a
 #  parking area access permissions
 VAR_ACCESS_BADGE = 0x9b
 
+#  charging station total power
+VAR_CS_TOTAL_POWER = 0x9c
+
 # @name currently wanted lane-change action
 # @{
 # @brief No action desired

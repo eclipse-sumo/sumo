@@ -41,7 +41,8 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
             variable != libsumo::VAR_CS_POWER &&
             variable != libsumo::VAR_CS_EFFICIENCY &&
             variable != libsumo::VAR_CS_CHARGE_DELAY &&
-            variable != libsumo::VAR_CS_CHARGE_IN_TRANSIT) {
+            variable != libsumo::VAR_CS_CHARGE_IN_TRANSIT &&
+            variable != libsumo::VAR_CS_TOTAL_POWER) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Change ChargingStation State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -71,6 +72,10 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
             break;
             case libsumo::VAR_CS_CHARGE_IN_TRANSIT: {
                 libsumo::ChargingStation::setChargeInTransit(id, StoHelp::readTypedInt(inputStorage, "Setting charge in transit requires an integer.") != 0);
+            }
+            break;
+            case libsumo::VAR_CS_TOTAL_POWER: {
+                libsumo::ChargingStation::setTotalPower(id, StoHelp::readTypedDouble(inputStorage, "Setting totalPower requires a double."));
             }
             break;
             default:

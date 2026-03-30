@@ -137,6 +137,12 @@ public:
     /// @brief set charging in transit
     void setChargeInTransit(bool value);
 
+    /// @brief Get charging station's total power
+    double getTotalChargingPower() const;
+
+    /// @brief set charging station's total power
+    void setTotalChargingPower(double totalPower);
+
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
 

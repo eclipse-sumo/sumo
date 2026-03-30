@@ -1479,6 +1479,9 @@ TRACI_CONST int VAR_CS_CHARGE_DELAY = 0x9a;
 // parking area access permissions
 TRACI_CONST int VAR_ACCESS_BADGE = 0x9b;
 
+// charging station total power
+TRACI_CONST int VAR_CS_TOTAL_POWER = 0x9c;
+
 } // namespace libsumo
 
 #undef TRACI_CONST
