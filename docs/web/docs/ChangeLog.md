@@ -20,6 +20,7 @@ title: ChangeLog
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
   - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
   - Fixed platform dependency in lane changer #17747
+  - Fixed invalid error when loading railway state #17796
 
 - sumo-gui
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
@@ -30,12 +31,15 @@ title: ChangeLog
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
+  - Editing custom lane and junction shapes on top of edges is working again #17806 (regression in 1.20.0)
   - edgedata mode: clicking on intervals works again #17686 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
-  - fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
+  - Fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
+  - Fixed crash after deleting an object from a group of overlapped objects #17795
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
   - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
+  - Fixed invalid default extension when saving plain-xml #17778 (regression in 1.26.0)
   - Transparent junctions no longer show up as white in view #17751
 
 - netconvert
@@ -50,8 +54,16 @@ title: ChangeLog
   - Fixed bug where config options where ignored when contrary to options set in the .net.xml #17703
   - Fixed bug where the node type of a `<join>` element was ignored and replaced by "traffic_light" #17732
   - Fixed excessive shifting from **--geometry.avoid-overlap** #17772
+  - No longer adding rail signals at network fringe with option **--railway.signal.guess.by-stops** #17779
+  - Fixed missing line annotations for added reverse stops #17787
   - OSM: interpretation of railway tag 'highspeed' no longer breaks rail connectivity #17748
   - OSM: fixed invalid spreadType of one-way roads when setting **--default.spreadtype=roadCenter** #17755
+  - OSM: fixed bug that was causing invalid rail signals to be generated #17781
+  - OSM: fixed invalid distances (kilometrage) #17784
+
+- meso
+  - parking vehicles that cannot enter the road now collect waitingTime #17797
+  - fixed crash when loading state with parked vehicle #17805
 
 - duarouter
   - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
@@ -66,6 +78,7 @@ title: ChangeLog
 - tools
   - gtfs2pt.py: fixed invalid error when block_id is missing #17750 (regression in 1.26.0)
   - gtfs2pt.py: fixed missing rail edges when mapping routes #17749
+  - gtfs2pt.py: fixed invalid output when gtfs input contains double hyphen in stop name #17791
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
   - osmWebWizard.py: starting two instances at the same time is now working #16663
   - patchRailConflicts.py: no longer declaring rail signals that do not control any links #17588
@@ -94,13 +107,17 @@ title: ChangeLog
   - Option **--vtk-output** now supports writing data at sub-second simulation step-length #17645
   - edgeData and laneData-output now support attribute `excludeEmpty="modified"` which writes unused edges but only if their speed was modified with calibrators or variableSpeedSigns. #17587
   - fcd-output now supports attribute `stopDelay` #17767
+  - fcd-output now supports attribute `speedRelative` (can also be activated by option **--fcd-output.speed-relative**) #17234
+
 
 - meso
   - edge-type specific meso parameters now support `edgeLength` #17582
   - now supporting battery device #13843
+  - tripinfo-output now tracks waitingCount #17799
 
 - netedit
   - Edge attribute routingType is now supported #17095
+  - Element context menu for multiple objects at the same spot now shows selection status (also in sumo-gui) #17731
 
 - sumo-gui
   - traffic lights now have a higher right-click priority than busstops #17761
@@ -117,7 +134,8 @@ title: ChangeLog
   - Added option **--railway.topology.ptline-priority** to set railway routingType from ptlines #17558
   - OSM: the railway routingType is no set based on tag `railway:preferred_direction` #17774
   - OSM: tag `placement` is now supported for better geometry of one-way roads #17728
-
+  - OSM: adding more bidi edges based on signal direction #17782
+  - OSM: deriving more bidi edges from maxspeed:backward #17785
 
 - duarouter
   - Option **--mapmatch.junctions** now automatically sets option **--junction.taz** #17688
