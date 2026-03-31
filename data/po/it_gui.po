@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-30 17:13+0000\n"
+"PO-Revision-Date: 2026-03-31 19:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13778,19 +13778,21 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
-msgstr ""
+msgstr "     '=' coincide se la sequenza di caratteri è esattamente uguale."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:332
 msgid "     '!' matches if string is not a substring."
 msgstr ""
+"     '!' coincide se la sequenza di caratteri non fa parte del valore di "
+"attributo corrisposto."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:333
 msgid "     '^' matches if string is not an exact match."
-msgstr ""
+msgstr "     '^' coincide se la sequenza di caratteri non è esattamente uguale."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:335
 msgid "- Examples:"
-msgstr ""
+msgstr "- Esempi:"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:336
 msgid ""
