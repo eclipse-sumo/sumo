@@ -492,3 +492,14 @@ To following effects occur:
 
 When the departure edge for a vehicle is closed, vehicles will ignore this for
 'soft' closing. For a 'hard' closing the simulation will raise an error. If **--ignore-route-errors** is set, the vehicle will be discarded with a warning.
+
+## Skipping stops and optimizing reached stops
+
+When a vehicle reroutes that has one or more remainign stops on it's route, The default behavior is to find a route that reaches all stops. If some stops are unreachable, rerouting fails and the vehicle must wait at the closed edge until the closing ends.
+By setting attribute `priority` in the [stop definitions](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) of the vehicle, an algorithm that optimizes reachable stops is activated:
+
+- stops with priority >= 0 are skipped if they cannot be reached anymore
+- stops that define attribute `arrival` and which cannot be reached with an arrivalDelay below a configurable threshold (due to the required detour) are skipped. The threshold is configurable with a [generic vehicle param](GenericParameters.md) `key="closingReroute.maxDelay"` and defaults to 7200s
+- the chosen route minimizes the total priority value of all stops that can be reached within the delay threshold
+- stops without priority may never be skipped
+- a warning is issued for every stop that is skipped in this way
