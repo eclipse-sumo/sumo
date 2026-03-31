@@ -702,6 +702,8 @@ used. The attribute `source` must be set to the ID of the junction the rail sign
 - The tool [scheduleStats.py](../Tools/Railways.md#schedulestatspy) can be used to check how closely simulated train behavior conforms to a loaded rail schedule w.r.t. punctuality and expected traveltimes between stops.
 - The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy) counts reversals per vehicle and per edge to identify potentially problematic train routes.
 - The tool [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy) adds missing rail signals to a network (intended for tram simulation)
+- The tool [patchRailPriorities.py](../Tools/Railways.html#patchrailprioritiespy) helps find sensible train routes on single-track lines that make use of passing loops (sidings) by adapting the [routingType](Routing.md#routing_by_travel_time_and_routingtype) of railway-edges so that trains in different directions use different tracks when possible.
+- The tool [createOvertakingReroutes.py](../Tools/Railways.md#createovertakingreroutespy) is used to generate [rerouter definitions for automatic train overtaking](Rerouter.md#rerouting_to_a_railroad_siding_to_be_overtaken_by_a_faster_train)
 - The tool [plotStops.py](../Tools/Railways.md#plotstopspy) can render schedule diagrams for a given route
 
 <img src="../images/S46_actual.png" width="800px"/>
