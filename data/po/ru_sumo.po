@@ -14119,7 +14119,7 @@ msgstr "Ребро-ориентир '%' does не существует в сет
 
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at '%'"
-msgstr ""
+msgstr "Недопустимая координата в файле ориентиров, не найдено ребро в '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format
@@ -14515,7 +14515,8 @@ msgstr "Недопустимое значение времени '%' для па
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:675
 msgid "Invalid size of % table for vType '%' (at least 2 values are required)."
-msgstr ""
+msgstr "Недопустимый размер таблицы % для vType '%' (требуется как минимум 2 "
+"значения)."
 
 #: src/utils/vehicle/SUMOVTypeParameter.cpp:677
 msgid "Mismatching size of speedTable (%) and % table (%) for vType '%'."
@@ -15109,12 +15110,3 @@ msgstr "Произошла неуказанная ошибка при разбо
 
 #~ msgid " client connected"
 #~ msgstr " клиент подключён"
-
-#~ msgid "Invalid coordinate in landmark file, could not find edge at '%'"
-#~ msgstr "Недопустимая координата в файле ориентиров, не найдено ребро в '%'"
-
-#~ msgid ""
-#~ "Invalid size of % table for vType '%' (at least 2 values are required.:"
-#~ msgstr ""
-#~ "Недопустимый размер таблицы % для vType '%' (требуется как минимум 2 "
-#~ "значения)."
