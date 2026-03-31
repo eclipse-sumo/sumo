@@ -59,6 +59,10 @@ def get_options():
                     help="prefix for generated patch files")
     ap.add_argument("-O", "--stop-output", category="output", dest="stopOutput", type=ap.additional_file,
                     help="stop output file (requires stop-file)")
+    ap.add_argument("--rt-use", default="4", dest="rtUse",
+                    help="The routing type for edges that should be used (default '4')")
+    ap.add_argument("--rt-avoid", default="0", dest="rtAvoid",
+                    help="The routing type for edges that should be avoided (default '0')")
     ap.add_argument("--vclass", default="rail",
                     help="only consider edges which permit the given vehicle class")
     ap.add_argument("--min-length", dest="minLength", metavar="FLOAT", default=100.0,
@@ -96,8 +100,6 @@ def filterNoSignalidings(options, net, sidings, noSignal, stops):
     """keep only sidings that have a signal or that have a stop on the main track"""
     sidings2 = {}
     signalNodes = set()
-    controlledFromEdges = set()
-    controlledToEdges = set()
     for main, (rid, fromIndex, siding) in sidings.items():
         hasNoSignal = tuple(main) in noSignal
         if hasNoSignal and not any([e in stops for e in main]):
@@ -107,29 +109,10 @@ def filterNoSignalidings(options, net, sidings, noSignal, stops):
         if hasNoSignal:
             last = net.getEdge(siding[-1])
             signalNodes.add(last.getToNode())
-            controlledFromEdges.add(last)
             first = net.getEdge(siding[0])
             signalNodes.add(first.getFromNode())
-            controlledToEdges.add(first)
 
-    with open(options.nodes_file, 'w') as outf, open(options.connections_file, 'w') as outf2:
-        sumolib.writeXMLHeader(outf, "$Id$", "nodes", options=options)
-        sumolib.writeXMLHeader(outf2, "$Id$", "connections", options=options)
-
-        for n in sorted(signalNodes, key=lambda n: n.getID()):
-            outf.write('    <node id="%s" type="rail_signal"/>\n' % n.getID())
-            for inEdge in n.getIncoming():
-                for outEdge, conns in inEdge.getOutgoing().items():
-                    for conn in conns:
-                        if inEdge not in controlledFromEdges and outEdge not in controlledToEdges:
-                            outf2.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s" uncontrolled="true"/>\n' % (  # noqa
-                                        inEdge.getID(), outEdge.getID(),
-                                        conn.getFromLane().getIndex(), conn.getToLane().getIndex()))
-
-        outf.write("</nodes>\n")
-        outf2.write("</connections>\n")
-
-    return sidings2
+    return sidings2, signalNodes
 
 
 def filterBidiSidings(options, net, sidings, edgeUsage):
@@ -162,15 +145,15 @@ def isSidingRight(net, main, siding):
     return directions[len(directions) // 2] < 0
 
 
-def writeEdgePatch(options, net, sidings, edgeUsage):
+def writePatches(options, net, sidings, edgeUsage, signalNodes):
     rTypes = dict()  # eid -> routingType
     for main, (rid, fromIndex, siding) in sidings.items():
         if isSidingRight(net, main, siding) != options.useLeft:
-            rtMain = "0"
-            rtSiding = "4"
+            rtMain = options.rtAvoid
+            rtSiding = options.rtUse
         else:
-            rtMain = "4"
-            rtSiding = "0"
+            rtMain = options.rtUse
+            rtSiding = options.rtAvoid
         for eid in main:
             e = net.getEdge(eid)
             b = e.getBidi()
@@ -195,6 +178,24 @@ def writeEdgePatch(options, net, sidings, edgeUsage):
             outf.write('    <edge id="%s" priority="%s" routingType="%s"/>\n' % (
                 eid, routingType, routingType))
         outf.write("</edges>\n")
+
+    if signalNodes:
+        with open(options.nodes_file, 'w') as outf, open(options.connections_file, 'w') as outf2:
+            sumolib.writeXMLHeader(outf, "$Id$", "nodes", options=options)
+            sumolib.writeXMLHeader(outf2, "$Id$", "connections", options=options)
+
+            for n in sorted(signalNodes, key=lambda n: n.getID()):
+                outf.write('    <node id="%s" type="rail_signal"/>\n' % n.getID())
+                for inEdge in n.getIncoming():
+                    for outEdge, conns in inEdge.getOutgoing().items():
+                        for conn in conns:
+                            if (rTypes.get(inEdge.getID()) != options.rtUse and
+                                rTypes.get(outEdge.getID()) != options.rtUse):
+                                outf2.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s" uncontrolled="true"/>\n' % (  # noqa
+                                            inEdge.getID(), outEdge.getID(),
+                                            conn.getFromLane().getIndex(), conn.getToLane().getIndex()))
+            outf.write("</nodes>\n")
+            outf2.write("</connections>\n")
 
 
 def getUnique(baseID, stopIDs):
@@ -276,6 +277,7 @@ def parseStops(options):
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     noSignal = None
+    signalNodes = set()
     extraArgs = []
 
     routes, edgeUsage = parseRoutes(options)
@@ -287,19 +289,20 @@ def main(options):
     #  print("\n".join(map(str, sidings.items())))
 
     if options.addStopSignals:
-        noSignal = set()
+        noSignal = set()  # tuples of main-edges
 
     sidings = filterSidings(options, net, sidings, noSignal)
     #  print("\n".join(map(str, sidings.items())))
 
     if options.addStopSignals:
-        sidings = filterNoSignalidings(options, net, sidings, noSignal, stops)
-        extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
+        sidings, signalNodes = filterNoSignalidings(options, net, sidings, noSignal, stops)
+        if signalNodes:
+            extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
         #  print("\n".join(map(str, sidings.items())))
 
     sidings = filterBidiSidings(options, net, sidings, edgeUsage)
     #  print("\n".join(map(str, sidings.items())))
-    writeEdgePatch(options, net, sidings, edgeUsage)
+    writePatches(options, net, sidings, edgeUsage, signalNodes)
     writeStops(options, net, sidings, stopIDs, stops)
 
     if options.verbose:
