@@ -1,4 +1,4 @@
  fastest ['beg', 'middle'] 35.997120
-shortest ['beg', 'middle'] -428.005760
+shortest ['beg', 'middle'] 500.000000
  fastest (avoid badSurface) ['beg', 'middle'] 179.985601
-shortest (avoid badSurface) ['beg', 'middle'] 643.988481
+shortest (avoid badSurface) ['beg', 'middle'] 2500.000000

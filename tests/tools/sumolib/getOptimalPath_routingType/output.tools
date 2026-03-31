@@ -1,4 +1,4 @@
  fastest ['beg', 'middle', 'end', 'rend'] 179.985601
-shortest ['beg', 'middle', 'end', 'rend'] 643.988481
+shortest ['beg', 'middle', 'end', 'rend'] 2500.000000
  fastest (avoid badSurface) ['beg', 'beg2left', 'left', 'left2end', 'end', 'rend'] 251.745860
-shortest (avoid badSurface) ['beg', 'beg2left', 'left', 'left2end', 'end', 'rend'] 715.748740
+shortest (avoid badSurface) ['beg', 'beg2left', 'left', 'left2end', 'end', 'rend'] 3496.750000
