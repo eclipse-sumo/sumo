@@ -35,7 +35,7 @@ import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.geomhelper import sub, crossProduct2D, positionAtShapeOffset, polygonOffsetAndDistanceToPoint  # noqa
 from sumolib.net import lane2edge  # noqa
-from createOvertakingReroutes import parseRoutes, findSwitches, findSidings, filterSidings
+from createOvertakingReroutes import parseRoutes, findSwitches, findSidings, filterSidings  # noqa
 
 try:
     sys.stdout.reconfigure(encoding='utf-8')
@@ -129,7 +129,7 @@ def filterNoSignalidings(options, net, sidings, noSignal, stops):
         outf.write("</nodes>\n")
         outf2.write("</connections>\n")
 
-    return sidings2;
+    return sidings2
 
 
 def filterBidiSidings(options, net, sidings, edgeUsage):
@@ -142,7 +142,7 @@ def filterBidiSidings(options, net, sidings, edgeUsage):
             if b is not None and edgeUsage.get(b.getID(), 0) > 0:
                 sidings2[main] = (rid, fromIndex, siding)
                 break
-    return sidings2;
+    return sidings2
 
 
 def getGeom(net, edges):
@@ -163,7 +163,7 @@ def isSidingRight(net, main, siding):
 
 
 def writeEdgePatch(options, net, sidings, edgeUsage):
-    rTypes = dict() # eid -> routingType
+    rTypes = dict()  # eid -> routingType
     for main, (rid, fromIndex, siding) in sidings.items():
         if isSidingRight(net, main, siding) != options.useLeft:
             rtMain = "0"
@@ -215,13 +215,13 @@ def getClosest(net, stopEdge, startPos, endPos, siding):
         endPos += e.getLength()
     pos = (startPos + endPos) / 2
     halfLength = (endPos - startPos) / 2
-    x,y = positionAtShapeOffset(e.getShape(True), pos)
+    x, y = positionAtShapeOffset(e.getShape(True), pos)
     bestDist = 1e400
     bestEdge = None
     bestPos = None
     for sEdge in siding:
         se = net.getEdge(sEdge)
-        sPos, dist = polygonOffsetAndDistanceToPoint((x,y), se.getShape(True))
+        sPos, dist = polygonOffsetAndDistanceToPoint((x, y), se.getShape(True))
         if dist < bestDist:
             bestDist = dist
             bestEdge = sEdge
@@ -251,7 +251,8 @@ def writeStops(options, net, sidings, stopIDs, stops):
                     sidingEdges = set()
                     for siding in sidingDict[stopEdge]:
                         sid = getUnique(stop.id, stopIDs)
-                        sidingEdge, startPos, endPos = getClosest(net, stopEdge, float(stop.startPos), float(stop.endPos), siding)
+                        sidingEdge, startPos, endPos = getClosest(
+                                net, stopEdge, float(stop.startPos), float(stop.endPos), siding)
                         if sidingEdge in sidingEdges:
                             continue
                         sidingEdges.add(sidingEdge)
@@ -305,7 +306,7 @@ def main(options):
         print("Building new net")
     sys.stderr.flush()
 
-    args =[NETCONVERT,
+    args = [NETCONVERT,
            '-s', options.netfile,
            '-e', options.edges_file,
            '-o', options.outfile] + extraArgs
