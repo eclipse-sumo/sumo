@@ -385,6 +385,28 @@ The current state of the parkingSearch can be accessed via calls to `traci.vehic
 
 Test cases can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/extended/rerouter/parking/parkingSearch)
 
+## Rerouting to a railroad siding to be overtaken by a faster train
+
+```xml
+<rerouter>
+   <interval begin="<BEGIN_TIME>" end="<END_TIME>">
+      <overtakingReroute main="E4 E5 E6" siding="E4b E5b E6b"/>
+   </interval>
+</rerouter>
+```
+
+## Rerouting to an alternative stop of the same station
+
+```xml
+<rerouter>
+   <interval begin="<BEGIN_TIME>" end="<END_TIME>">
+      <stationReroute id="ts_5"/>
+      <stationReroute id="ts_5b"/>
+      <stationReroute id="ts_5c"/>      
+   </interval>
+</rerouter>
+```
+
 # Vehicle Behavior when closing a street
 The interaction of vehicles with reroutes is complex and depends on many
 different factors. Below we give a description of each of the factors and then
