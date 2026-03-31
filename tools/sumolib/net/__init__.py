@@ -235,7 +235,7 @@ class Net:
         self._routingCache = None
 
     def initRoutingCache(self, maxsize=1000):
-        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
+        self._routingCache = lru_cache(maxsize=maxsize)(lambda fromEdge, fromPos, fastest, vClass, ignoreDirection, reversalPenalty, preferences: {})  # noqa
 
     def getVersion(self):
         return self._version
@@ -654,7 +654,7 @@ class Net:
                 removeTo = 0. if toPos is None else remainder(toEdge, toPos)
             else:
                 removeTo = toEdge.getLength() if len(path) > 1 else 0.
-            cost -= removeTo / speedFunc(fromEdge)
+            cost -= removeTo / speedFunc(toEdge)
             return cost
 
         def constructPath(dist):
@@ -672,6 +672,7 @@ class Net:
 
             path.reverse()
             cost = finalizeCost(cost, path)
+            assert(cost >= 0)
             if self.hasInternal:
                 if appendix:
                     return tuple(path + appendix), cost + appendixCost
@@ -717,7 +718,7 @@ class Net:
                 else:
                     return None, 1e400
 
-            dist = self._routingCache(fromEdge, fromPos, vClass, ignoreDirection, reversalPenalty,
+            dist = self._routingCache(fromEdge, fromPos, fastest, vClass, ignoreDirection, reversalPenalty,
                                       tuple(preferences.items()))
             if toEdge in dist:
                 return constructPath(dist)
@@ -753,9 +754,9 @@ class Net:
             for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
                                   e1.getIncoming().items() if ignoreDirection else [],
                                   getToNormalIncoming(e1) if ignoreDirection and not self.hasWalkingArea else []):
-                # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength() / speedFunc(e2)
+                    #  print(cost, newCost, e2.getID(), speedFunc(e2))
                     if e2 == e1.getBidi():
                         newCost += reversalPenalty
                     if self.hasInternal and conn is not None:
