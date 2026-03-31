@@ -386,7 +386,7 @@ met:
   !!! note
       When netconvert has loaded public transport stops (either during OSM import or from option **--ptstop-files**) then option **--railway.topology.repair.stop-turn** can be used to add a turn-around connection at every rail public transport stop and thus make it possible for trains to reverse at each stop.
 
-!!! caution   
+!!! caution
     Undesirable train reversals may occur due to invalid stop assignment (i.e. assigning the reverse stop). The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy) can be used to search for unexpected reversals.
 
 # Portion working
@@ -503,15 +503,15 @@ Constraints can be generated using the tool [generateRailSignalConstraints.py](.
 
 ## Tram Behavior
 
-Operationally, there are many similarities between tram and conventional/heavy rail operations with regard to track networks and signaling at conflict points. 
+Operationally, there are many similarities between tram and conventional/heavy rail operations with regard to track networks and signaling at conflict points.
 The main difference is that trams are not separated by blocks when following each other. To reflect this in sumo, rail signals on tram tracks are automatically put into [moving block mode](#moving_block_mode) (This is configured with option **--railsignal.moving-block.default-classes**). Tram rail signals are still needed to regulate bidirectional access to single-track sections and they can be used to guard crossing and merging conflicts. However, fewer rail signals are needed compared to a convential rail simulation because block length is not a critical efficiency factor in one-directional operations.
 
 ## Tram Network modelling
 
 In many parts of the world, OSM data does not provide information of signaling infrastructure for tram networks. To achieve smooth operations at conflict points without rail signals, [netconvert](../netconvert.md) sets merging conflicts to junction type 'zipper'. The vehicle classes elible for this behavior are configured with netconvert option **--railway.signal.permit-unsignalized** (default *tram,cable_car*).
 
-For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool 
-[patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy). 
+For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool
+[patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy).
 
 To simplify tram simulations where rail signals have been added selectively and some conflicts are regulared with zipper junctions, sumo option **--railsignal.moving-block.max-dist** (default *200*) can be used. Rail signal in moving block mode will disregard conflicts at junction type `zipper` if they are beyond the configured maximum distance.
 
@@ -628,7 +628,7 @@ The following Objects provide extra information in their context menu to help un
   - **param:insertionBlocked:VEHICLE_ID**: The driveway requested by VEHICLE_ID on which insertion is currently blocked
   - **blocking DRIVEWAY_ID**: The list of foe vehicles which are blocking the insertion driveway with DRIVEWAY_ID
   - **driveWays blocking DRIVEWAY_ID**: the list of foe driveways which are blocking the requested driveway with DRIVEWAY_ID
- 
+
 !!! note
     Street coloring mode [*by insertion backlog*](../sumo-gui.md#edgelane_visualisation_settings) helps to identify the tracks on which insertion is currently blocked.
 
@@ -657,7 +657,7 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 | driveway / **id**         | id (string)                               | The if of the driveWay. See below for interpretation  |
 | driveway/ vehicle         | id                                        | The id of the first train that used this driveWay   |
 | driveway / edges          | list of edgeIDs                           | The complete route of the vehicle that first used this drivway   |
-| forward / lanes           | list of laneIDs                           | The list of lanes up to the next signal or the network border | 
+| forward / lanes           | list of laneIDs                           | The list of lanes up to the next signal or the network border |
 | bidi / lanes              | list of laneIDs                           | The list of oncoming lanes that are in conflict with this driveway |
 | flank / lanes             | list of laneIDs                           | The list of flanking lanes that are in conflict with this driveway |
 | conflictLinks / signals   | list of strings                           | The list of short signal link names (<RAILSIGNAL_ID>_<LINK_INDEX>) that are in conflict with this driveway |
@@ -702,7 +702,7 @@ used. The attribute `source` must be set to the ID of the junction the rail sign
 - The tool [scheduleStats.py](../Tools/Railways.md#schedulestatspy) can be used to check how closely simulated train behavior conforms to a loaded rail schedule w.r.t. punctuality and expected traveltimes between stops.
 - The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy) counts reversals per vehicle and per edge to identify potentially problematic train routes.
 - The tool [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy) adds missing rail signals to a network (intended for tram simulation)
-- The tool [patchRailPriorities.py](../Tools/Railways.html#patchrailprioritiespy) helps find sensible train routes on single-track lines that make use of passing loops (sidings) by adapting the [routingType](Routing.md#routing_by_travel_time_and_routingtype) of railway-edges so that trains in different directions use different tracks when possible.
+- The tool [patchRailPriorities.py](../Tools/Railways.md#patchrailprioritiespy) helps find sensible train routes on single-track lines that make use of passing loops (sidings) by adapting the [routingType](Routing.md#routing_by_travel_time_and_routingtype) of railway-edges so that trains in different directions use different tracks when possible.
 - The tool [createOvertakingReroutes.py](../Tools/Railways.md#createovertakingreroutespy) is used to generate [rerouter definitions for automatic train overtaking](Rerouter.md#rerouting_to_a_railroad_siding_to_be_overtaken_by_a_faster_train)
 - The tool [plotStops.py](../Tools/Railways.md#plotstopspy) can render schedule diagrams for a given route
 
