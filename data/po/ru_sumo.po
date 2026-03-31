@@ -6941,7 +6941,7 @@ msgstr "Радиус поворота перекрёстков по умолча
 msgid ""
 "[traffic_light|priority|right_before_left|left_before_right|"
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default "
-"junction type (see wiki/Networks/PlainXML#Node_types)"
+"junction type (see docs/Networks/PlainXML#node_types)"
 msgstr ""
 
 #: src/netbuild/NBFrame.cpp:108
@@ -15027,7 +15027,7 @@ msgstr "Произошла неуказанная ошибка при разбо
 #~ msgid ""
 #~ "[traffic_light|priority|right_before_left|left_before_right|"
 #~ "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
-#~ "junction type (see wiki/Networks/PlainXML#Node_types)"
+#~ "junction type (see docs/Networks/PlainXML#node_types)"
 #~ msgstr ""
 #~ "[traffic_light|priority|right_before_left|left_before_right|"
 #~ "traffic_light_right_on_red|priority_stop|allway_stop|...]\n"

@@ -102,7 +102,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     oc.doRegister("default.junctions.type", 'j', new Option_String());
     oc.addSynonyme("default.junctions.type", "default-junction-type"); // default netgenerate option name
-    oc.addDescription("default.junctions.type", "Building Defaults", TL("[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default junction type (see wiki/Networks/PlainXML#Node_types)"));
+    oc.addDescription("default.junctions.type", "Building Defaults", TL("[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default junction type (see docs/Networks/PlainXML#node_types)"));
 
     oc.doRegister("default.connection-length", new Option_Float((double) NBEdge::UNSPECIFIED_LOADED_LENGTH));
     oc.addDescription("default.connection-length", "Building Defaults", TL("The default length when overriding connection lengths"));
