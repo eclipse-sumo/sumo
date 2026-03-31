@@ -383,8 +383,8 @@ met:
 - There is a "turn-around" connection from the current train edge to
   the reverse direction edge
 
-  !!! note
-      When netconvert has loaded public transport stops (either during OSM import or from option **--ptstop-files**) then option **--railway.topology.repair.stop-turn** can be used to add a turn-around connection at every rail public transport stop and thus make it possible for trains to reverse at each stop.
+!!! note
+    When netconvert has loaded public transport stops (either during OSM import or from option **--ptstop-files**) then option **--railway.topology.repair.stop-turn** can be used to add a turn-around connection at every rail public transport stop and thus make it possible for trains to reverse at each stop.
 
 !!! caution
     Undesirable train reversals may occur due to invalid stop assignment (i.e. assigning the reverse stop). The tool [checkReversals.py](../Tools/Railways.md#checkreversalspy) can be used to search for unexpected reversals.
