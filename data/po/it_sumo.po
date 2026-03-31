@@ -14479,9 +14479,9 @@ msgid "Landmark edge '%' does not exist in the network."
 msgstr "La rete non contiene l'arco cippo '%'."
 
 #: src/utils/router/AStarLookupTable.h:170
-msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
+msgid "Invalid coordinate in landmark file, could not find edge at '%'"
 msgstr ""
-"Coordinate invalide nel file di cippi - non ho incontrato l'arco a  '%'"
+"Coordinate invalide nel file di cippi - non ho incontrato l'arco a '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format

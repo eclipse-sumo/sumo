@@ -12865,8 +12865,8 @@ msgid "Landmark edge '%' does not exist in the network."
 msgstr "地标路段 '%' 不存在于路网內。"
 
 #: src/utils/router/AStarLookupTable.h:170
-msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
-msgstr "地标文件中的坐标无效，无法找到路段在  '%'"
+msgid "Invalid coordinate in landmark file, could not find edge at '%'"
+msgstr "地标文件中的坐标无效，无法找到路段在 '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format

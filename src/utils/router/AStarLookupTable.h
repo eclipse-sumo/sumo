@@ -167,7 +167,7 @@ public:
                     bool ok;
                     mapMatcher->parseGeoEdges(PositionVector({Position(lon, lat)}), true, SVC_IGNORING, mapped, "LMLT", false, ok, true);
                     if (mapped.size() != 1) {
-                        throw ProcessError(TLF("Invalid coordinate in landmark file, could not find edge at  '%'", line));
+                        throw ProcessError(TLF("Invalid coordinate in landmark file, could not find edge at '%'", line));
                     }
                     std::string lm = mapped.front()->getID();
                     const auto& it = numericID.find(lm);

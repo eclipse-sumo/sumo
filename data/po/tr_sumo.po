@@ -13540,7 +13540,7 @@ msgid "Landmark edge '%' does not exist in the network."
 msgstr "İşaret kesimi '%' ağda mevcut değil."
 
 #: src/utils/router/AStarLookupTable.h:170
-msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
+msgid "Invalid coordinate in landmark file, could not find edge at '%'"
 msgstr ""
 
 #: src/utils/router/AStarLookupTable.h:182

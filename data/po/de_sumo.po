@@ -14425,7 +14425,7 @@ msgid "Landmark edge '%' does not exist in the network."
 msgstr "Landmark-Kante '%' existiert nicht im Netz."
 
 #: src/utils/router/AStarLookupTable.h:170
-msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
+msgid "Invalid coordinate in landmark file, could not find edge at '%'"
 msgstr ""
 "Ungültige Koordinate in der Landmark-Datei - die Kante in Zeile '%' konnte "
 "nicht gefunden werden"

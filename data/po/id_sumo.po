@@ -14043,7 +14043,7 @@ msgid "Landmark edge '%' does not exist in the network."
 msgstr "Tepi landmark '%' tidak ada dalam jaringan."
 
 #: src/utils/router/AStarLookupTable.h:170
-msgid "Invalid coordinate in landmark file, could not find edge at  '%'"
+msgid "Invalid coordinate in landmark file, could not find edge at '%'"
 msgstr ""
 "Koordinat tidak valid dalam file landmark, tidak dapat menemukan tepi di '%'"
 
