@@ -48,6 +48,9 @@ getFastestRoute
 # test using routingType to influence results. refs #17560
 getOptimalPath_routingType
 
+# test using routingType to influence results. refs #17560
+getOptimalPath_routingType2
+
 # testing statistics
 statistics
 
