@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-21T07:33:15.934436+01:00 by Eclipse SUMO netconvert v1_26_0+0744-284654a523f
+<!-- generated on 2026-04-01T00:10:46.281667+01:00 by Eclipse SUMO netconvert v1_26_0+0915-c030b39bdd3
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -869,6 +869,9 @@
 
         <!-- Guess signals that guard public transport stops -->
         <railway.signal.guess.by-stops value="false" type="BOOL"/>
+
+        <!-- Split edges to improve positioning of guessed signals and prevent switches as rail_signals -->
+        <railway.signal.guess.by-stops.split value="false" type="BOOL"/>
 
         <!-- List rail classes that may run without rail signals -->
         <railway.signal.permit-unsignalized value="tram,cable_car" type="STR[]"/>

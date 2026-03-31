@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert v1_26_0+0744-284654a523f
+Eclipse SUMO netconvert v1_26_0+0915-c030b39bdd3
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -591,6 +591,9 @@ Railway Options:
                                         of rail edges
   --railway.signal.guess.by-stops      Guess signals that guard public
                                         transport stops
+  --railway.signal.guess.by-stops.split  Split edges to improve positioning of
+                                        guessed signals and prevent switches as
+                                        rail_signals
   --railway.signal.permit-unsignalized STR[]  List rail classes that may run
                                         without rail signals
   --railway.access-distance FLOAT      The search radius for finding suitable
