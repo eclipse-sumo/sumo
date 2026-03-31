@@ -62,6 +62,8 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 - customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area) and [charging station search](Stationfinder.md#charging_station_target_function)
+- customizing the algorithm [for optimizing routes with scheduled stops under network disruptions](Rerouter.md#skipping_stops_and_optimizing_reached_stops)
+- customizing [automated train overtaking](Rerouter.md#rerouting_to_a_railroad_siding_to_be_overtaken_by_a_faster_train)
 - customizing emission model [PHEMlight5 parameters](../Models/Emissions/PHEMlight5.md#dynamic_modification_of_parameters)
 - customizing emission behavior with respect to [engine-shutoff](../Models/Emissions.md#standing_vehicles)
 - configuring [parameters of carFollowModel and laneChangeModel  via TraCI](../TraCI/Change_Vehicle_State.md#supported_lanechangemodel_parameters)
