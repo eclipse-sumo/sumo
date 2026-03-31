@@ -395,6 +395,37 @@ Test cases can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sum
 </rerouter>
 ```
 
+The attributes used within such definitions are:
+
+| Attribute Name | Value Type              | Description                                                                                                                                                                                                                |
+| -------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **main**       | edge ids (stringList)   | The ids of consecutive edges that a train must take at some point after the rerouter edge to be considered for being overtaken | 
+| **siding**     | edge ids (stringList)   | The ids of consecutive edges that will be used instead of the main edges for waiting to be overtaken.    |
+| minSaving      | float                   | The minimum time saving in seconds to trigger an overtaking maneuver (see below for the saving computation)  |
+| defer          | bool                    | Whether a slow train may elect to be overtaking at some downstream location (defaults to *true* if more than one `<overtakingReroute>` element is defined within the rerouter)   |
+
+Requirements for the siding:
+- one of the edges of the saiding must have a rail_signal at it's end
+- the siding must be long enough to accomodate the train being overtaken ahead of the rail signal
+
+Definitions for `<overtakingReroute>` can be created with the tool [createOvertakingReroutes.py](../Tools/Railways.md#createovertakingreroutespy).
+
+### Computing the time saved by an overtaking maneuver
+
+To be overtaken, a train A must be followed by a **faster** train B. Train B may not be delayed by more than a delay threshold. This threshold is configured with [generic param](GenericParameters.md) `key="overtakingReroute.maxDelay"` (default 7200s). The savings computation compares two cases:
+
+1. train A continues along the main track and train B must follow until the routes of A and B diverge. This implies that the speed of train B is reduced to that of train A after train B has caught up.
+2. train B diverges onto the siding and waits until train B has caught up and passed the main edges. Train A can continue at it's full speed and potentially reaches it's destination faster whereas train B must wait at the exit signal of the siding and suffers timeLoss
+
+When comparing both cases, train A may save some time while train B typically loses some time in case 2. The savings and timeLoss are weighted according to the respective train priorities defined with [generic param](GenericParameters.md) `key="overtakingReroute.prio"` (which defaults to *1* for the faster train and to *0.001* for the slower train).
+The net saving is computed as:
+
+```
+netSaving = prioFast * (savingFast - accelTimeLossFast) - prioSlow * (lossSlow + accelTimeLossSlow);
+```
+
+The value of *accelTimeLossFast* is non-zero, only if the faster train reaches the signal block of the slow train before that latter has fully entered the siding. The value of *accelTimeLossSlow* is non-zero if the fast train has not left the main section before the slow train reaches the siding signal (this ignores the impact of the length of the block after the siding).
+
 ## Rerouting to an alternative stop of the same station
 
 ```xml
