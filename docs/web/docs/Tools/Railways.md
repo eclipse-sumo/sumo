@@ -252,3 +252,18 @@ The following options are available
 - **-k**, **--keep-junction-type** (default *traffic_light,traffic_light_unregulated,rail_signal*): defines which junctions are to be kept unmodified
 - **-e**, **--end-offset** (default *0*): If set, the waiting position of trains will be moved back from the conflict point by setting [edge attribute `endOffset`](../Networks/PlainXML.md#edge_descriptions).
 - **-j**, **--join-distance** (default *200*): Identifies clusters of conflict points within the given range and only guards connections that enter the cluster from the outside
+
+# patchRailPriorities.py
+
+Identifies single-track rail lines that are used in both directions and attempts to find sidings for passing in
+opposite directions. For found sidings
+- the routingType and priorities in the network are patched so that trains prefer driving on the right
+- if there is a ptStop on the main line but not on the siding, a new ptStop is added
+- if the new stop is not guarded by rail signals, new signals are added to the network
+
+Example call
+```
+<SUMO_HOME>/tools/net/patchRailConflicts.py -n input_net.net.xml -r input_routes.rou.xml -s input_stops.add.xml -o output_net.net.xml -O output_stops.add.xml --add-stop-signals
+```
+
+The algorithm for finding and filtering sidings uses the same options as [createOvertakingReroutes.py](#createovertakingreroutespy). If option **--add-stop-signals** is set, sidings are also accepted if they do not have a signal yet.
