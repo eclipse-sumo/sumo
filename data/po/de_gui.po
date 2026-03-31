@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-06 07:33+0000\n"
+"PO-Revision-Date: 2026-03-31 19:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -2041,11 +2041,11 @@ msgstr "Zugangsausweise"
 
 #: src/guisim/GUIParkingArea.cpp:118
 msgid "reservations [#]"
-msgstr ""
+msgstr "Reservierungen [#]"
 
 #: src/guisim/GUIParkingArea.cpp:119
 msgid "reservation ids"
-msgstr ""
+msgstr "Reservierungs-IDs"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
@@ -12508,7 +12508,7 @@ msgstr "% > Fahrstreifenlänge"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:224
 msgid "% > (length of lane - EPS)"
-msgstr ""
+msgstr "% > (Fahrstreifenlänge - EPS)"
 
 #: src/netedit/elements/moving/GNEMoveElementPlan.cpp:127
 #: src/netedit/elements/moving/GNEMoveElementVehicle.cpp:193
@@ -12957,7 +12957,7 @@ msgstr "Element einen Fahrstreifen zurückschieben"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:632
 msgid "Reparent"
-msgstr ""
+msgstr "Anderes Elternelement wählen"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:633
 msgid "Change parent of this element"
@@ -14180,7 +14180,7 @@ msgstr "Liste ausgewählte Elemente speichern"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:365
 msgid "Storing Selection failed"
-msgstr ""
+msgstr "Die Auswahl konnte nicht gespeichert werden"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:397
 msgid "clear selection"
@@ -14196,7 +14196,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:606
 msgid "Confirm selection operation"
-msgstr ""
+msgstr "Auswahloperation bestätigen"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:607
 msgid "There are locked elements in the current selection."
@@ -14348,7 +14348,7 @@ msgstr "Zielverkehrsumlegungszone"
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within a dataSet."
-msgstr ""
+msgstr "Es muss ein % innerhalb eines Datensatzes definiert sein."
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
 #, c-format
