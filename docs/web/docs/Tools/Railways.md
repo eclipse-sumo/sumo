@@ -212,13 +212,34 @@ Such a file is loaded by adding the option **-s, --stopinfo-file** to the option
 
 <img src="../images/S46_actual.png" width="800px"/>
 
+# createOvertakingReroutes.py
+
+Parses a network and routefile to find overtaking locations and create <overtakingReroute> elements
+This tool is meant to generate rerouter definitions for automated and dynamic [train-overtaking](../Simulation/Rerouter.md#rerouting_to_a_railroad_siding_to_be_overtaken_by_a_faster_train).
+
+Example call
+```
+<SUMO_HOME>/tools/trigger/createOvertakingReroutes.py -n net.net.xml -r input_routes.rou.xml -o out.add.xml
+```
+
+The tool analyzes the rail network along loaded routes to find passing loops (sidings) that match a range of criteria:
+
+- there must be a signal that guards the exit of the siding
+- the total length of the siding may not exceed a configurable threshold (**--max-length**)
+- the length of the siding before the signal must have a minimum track length (**----min-length**)
+- the may not be used by oncoming traffic (configurable with **--exclude-reverse-usage**)
+- they may not be used heavily by the loaded routes (configurable with **--exclude-usage**)
+- the sequence of tracks that form the siding may not include a train reversal (configurable with **--reversal-penalty**)
+
+For every siding that is found an new rerouter element is created. Since trains that can be overtaken may elect to wait at downstream siding, each rerouter may have more than one `<overtakingReroute>`-definition. This permits a runtime choice of using the current or a later siding (which may again present another choice).
+
 # patchRailConflicts.py
 
 This tool modifies junction types, edge offsets and connection attributes in a network to ensure that conflicts between different tracks are guarded by rail signals. It's main use is for patching tram networks where real-world data on signal infrastructure is often lacking.
 The tool works by identifiyng conflict junctions (i.e. switches and crossings) and change their type `rail_signal` and optionally shifting the waiting position to be somewhat ahead of the conflict.
 
 !!! caution
-    Using this tool for convential rail operations is not recommended as these typically have signals well in advance of switches and crossings to account for overrun distance (*Durchrutschweg*)
+    When using this tool for convential rail operations, option **--split-offset** should be set to ensure that signals are created well in advance of switches and crossings to account for overrun distance (*Durchrutschweg*).
 
 Example call
 ```
