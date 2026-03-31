@@ -144,6 +144,10 @@ public:
         return myIsLoose;
     }
 
+    double getStartPos() const {
+        return myStartPos;
+    }
+
     double getEndPos() const {
         return myEndPos;
     }

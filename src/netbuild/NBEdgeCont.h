@@ -277,6 +277,9 @@ public:
                  int noLanesFirstEdge, int noLanesSecondEdge,
                  const double speed = -1., const double friction = 1., const int changedLeft = 0);
     /// @}
+    
+    /// @brief if base is an existing edge id, find a unused id of the form base + sep + INT
+    std::string createUnusedID(const std::string& base, const std::string& sep);
 
     /// @name container access methods
     /// @{

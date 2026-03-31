@@ -181,7 +181,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
         numAddedBidi = NBRailwayTopologyAnalyzer::repairTopology(myEdgeCont, myPTStopCont, myPTLineCont);
     }
-    NBRailwaySignalGuesser::guessRailSignals(myNodeCont, myEdgeCont, myPTStopCont);
+    NBRailwaySignalGuesser::guessRailSignals(myNodeCont, myEdgeCont, myPTStopCont, myDistrictCont);
     if (numAddedBidi > 0) {
         // update routes
         myPTLineCont.process(myEdgeCont, myPTStopCont, true);

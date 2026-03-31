@@ -133,6 +133,9 @@ public:
      */
     void addJoinExclusion(const std::vector<std::string>& ids);
 
+    /// @brief if base is an existing node id, find a unused id of the form base + sep + INT
+    std::string createUnusedID(const std::string& base, const std::string& sep);
+
     /** @brief generate id from cluster node ids
      * @param[in] cluster The cluster ids
      * @param[in] prefix The cluster prefix

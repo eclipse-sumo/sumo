@@ -274,6 +274,8 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
         oc.doRegister("railway.signal.guess.by-stops", new Option_Bool(false));
         oc.addDescription("railway.signal.guess.by-stops", "Railway", TL("Guess signals that guard public transport stops"));
+        oc.doRegister("railway.signal.guess.by-stops.split", new Option_Bool(false));
+        oc.addDescription("railway.signal.guess.by-stops.split", "Railway", TL("Split edges to improve positioning of guessed signals and prevent switches as rail_signals"));
 
         oc.doRegister("railway.signal.permit-unsignalized", new Option_StringVector({"tram", "cable_car"}));
         oc.addDescription("railway.signal.permit-unsignalized", "Railway", TL("List rail classes that may run without rail signals"));

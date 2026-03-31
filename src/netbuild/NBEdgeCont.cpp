@@ -739,6 +739,17 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
 }
 
 
+std::string
+NBEdgeCont::createUnusedID(const std::string& base, const std::string& sep) {
+    std::string result = base;
+    int i = 0;
+    while (myEdges.find(result) != myEdges.end()) {
+        result = base + sep + toString(i++);
+    }
+    return result;
+}
+
+
 void
 NBEdgeCont::patchRoundabouts(NBEdge* orig, NBEdge* part1, NBEdge* part2, std::set<EdgeSet>& roundabouts) {
     std::set<EdgeSet> addLater;

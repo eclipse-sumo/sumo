@@ -707,6 +707,17 @@ NBNodeCont::addJoinExclusion(const std::vector<std::string>& ids) {
 
 
 std::string
+NBNodeCont::createUnusedID(const std::string& base, const std::string& sep) {
+    std::string result = base;
+    int i = 0;
+    while (myNodes.find(result) != myNodes.end()) {
+        result = base + sep + toString(i++);
+    }
+    return result;
+}
+
+
+std::string
 NBNodeCont::createClusterId(const std::set<std::string>& cluster, const std::string& prefix) {
     int maxIds = OptionsCont::getOptions().getInt("max-join-ids");
     if (maxIds <= 0) {
