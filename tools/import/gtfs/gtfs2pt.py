@@ -103,6 +103,8 @@ def get_options(args=None):
                     help="parameter template for the mapper library")
     ap.add_argument("--poly-output", category="output", type=ap.file,
                     help="file to write the generated polygon files to")
+    ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
+                    help="file to write the input stop coordinates to")
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
     ap.add_argument("--skip-fcd", action="store_true", default=False, category="processing",
@@ -230,6 +232,16 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         if not os.path.exists(filePath):
             return []
         traces = tracemapper.readFCD(filePath, net, True)
+        if options.poiOut is not None:
+            colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
+            with open(options.poiOut, 'w') as outf:
+                sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
+                for tid, trace in traces:
+                    for idx, pos in enumerate(trace):
+                        outf.write('    <poi id="%s:%s" x="%s" y="%s" color="%s"/>\n' % (
+                            tid, idx, pos[0], pos[1], colorgen()))
+                outf.write('</additional\n')
+
         traceCache = {}
         preferences = {}
         if mode in ['train', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
