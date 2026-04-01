@@ -33,7 +33,7 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools', 'trigger'))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.geomhelper import sub, crossProduct2D, positionAtShapeOffset, polygonOffsetAndDistanceToPoint  # noqa
+import sumolib.geomhelper as gh  # noqa
 from sumolib.net import lane2edge  # noqa
 from createOvertakingReroutes import parseRoutes, findSwitches, findSidings, filterSidings  # noqa
 
@@ -139,8 +139,13 @@ def getGeom(net, edges):
 def isSidingRight(net, main, siding):
     geom = getGeom(net, main)
     geom2 = getGeom(net, siding)
-    mainDir = sub(geom[-1], geom[0])
-    directions = [crossProduct2D(mainDir, sub(p, geom[0])) for p in geom2]
+    mainOffsets = [gh.polygonOffsetWithMinimumDistanceToPoint(p, geom) for p in geom2]
+    indices = [gh.indexAtShapeOffset(geom, of)[0] for of in mainOffsets]
+    mainDirs = [gh.sub(geom[i + 1], geom[i]) if i is not None else None for i in indices]
+    directions = []
+    for i, p in enumerate(geom2):
+        if indices[i] is not None:
+            directions.append(gh.crossProduct2D(mainDirs[i], gh.sub(p, geom[indices[i]])))
     directions.sort()
     return directions[len(directions) // 2] < 0
 
@@ -216,13 +221,13 @@ def getClosest(net, stopEdge, startPos, endPos, siding):
         endPos += e.getLength()
     pos = (startPos + endPos) / 2
     halfLength = (endPos - startPos) / 2
-    x, y = positionAtShapeOffset(e.getShape(True), pos)
+    x, y = gh.positionAtShapeOffset(e.getShape(True), pos)
     bestDist = 1e400
     bestEdge = None
     bestPos = None
     for sEdge in siding:
         se = net.getEdge(sEdge)
-        sPos, dist = polygonOffsetAndDistanceToPoint((x, y), se.getShape(True))
+        sPos, dist = gh.polygonOffsetAndDistanceToPoint((x, y), se.getShape(True))
         if dist < bestDist:
             bestDist = dist
             bestEdge = sEdge
