@@ -600,6 +600,9 @@ public:
      */
     const LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
 
+    /// @brief same as getLeaderInfo but appends to an existing vector (avoids allocation)
+    void getLeaderInfo(const MSVehicle* ego, double dist, LinkLeaders& result, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
+
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                           SUMOTime arrivalTime,

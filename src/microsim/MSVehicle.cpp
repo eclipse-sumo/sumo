@@ -3530,7 +3530,10 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
         gDebugFlag1 = true;    // See MSLink::getLeaderInfo
     }
 #endif
-    const MSLink::LinkLeaders linkLeaders = link->getLeaderInfo(this, seen, nullptr, isShadowLink);
+    // Use a reusable buffer to avoid allocating a new vector per call
+    static thread_local MSLink::LinkLeaders linkLeaders;
+    linkLeaders.clear();
+    link->getLeaderInfo(this, seen, linkLeaders, nullptr, isShadowLink);
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
     if (DEBUG_COND) {
         gDebugFlag1 = false;    // See MSLink::getLeaderInfo

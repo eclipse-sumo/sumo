@@ -1538,11 +1538,18 @@ MSLink::isInternalJunctionLink() const {
 __attribute__((hot)) const MSLink::LinkLeaders
 MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers, bool isShadowLink) const {
     LinkLeaders result;
+    getLeaderInfo(ego, dist, result, collectBlockers, isShadowLink);
+    return result;
+}
+
+
+__attribute__((hot)) void
+MSLink::getLeaderInfo(const MSVehicle* ego, double dist, LinkLeaders& result, std::vector<const MSPerson*>* collectBlockers, bool isShadowLink) const {
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)
     // or it must be queried by the pedestrian model (ego == 0)
     if (ego != nullptr && (!fromInternalLane() || ego->getLaneChangeModel().isOpposite())) {
         // ignore link leaders
-        return result;
+        return;
     }
     //gDebugFlag1 = true;
     if (gDebugFlag1) {
@@ -1556,7 +1563,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (gDebugFlag1) {
                 std::cout << "   ignore linkLeaders beyond red light\n";
             }
-            return result;
+            return;
         }
     }
     // this is an exit link
@@ -1961,7 +1968,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             }
         }
     }
-    return result;
 }
 
 
