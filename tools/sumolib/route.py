@@ -17,7 +17,7 @@
 
 from __future__ import print_function
 from .miscutils import euclidean
-from .geomhelper import polygonOffsetWithMinimumDistanceToPoint
+from .geomhelper import polygonOffsetWithMinimumDistanceToPoint, positionAtShapeOffset
 
 try:
     basestring
@@ -91,7 +91,7 @@ def _getMinPath(paths, detoursOut=None):
 
 def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1,
              debug=False, direction=False, vClass=None, vias=None, reversalPenalty=0.,
-             fastest=False, resultDetours=None, preferences={}):
+             fastest=False, resultDetours=None, preferences={}, distPenalty=2):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -112,9 +112,17 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             candidates = []
             for edgeID in vias[idx]:
                 if net.hasEdge(edgeID):
-                    candidates.append((net.getEdge(edgeID), 0.))
+                    edge = net.getEdge(edgeID)
+                    offset = polygonOffsetWithMinimumDistanceToPoint(pos, edge.getShape())
+                    offsetPos = positionAtShapeOffset(edge.getShape(), offset)
+                    candidates.append((net.getEdge(edgeID), euclidean(pos, offsetPos)))
                 else:
                     print("Unknown via edge %s for %s,%s" % (edgeID, x, y))
+            if candidates:
+                # normalize distances depending on the minimum value in the candidate set
+                minLocError = min([d for e, d in candidates])
+                candidates = [(e, d - minLocError) for e, d in candidates]
+
             # print("idx %s: vias=%s, candidates=%s (%s)" % (idx, len(vias[idx]),
             #    len(candidates), [ed[0].getID() for ed in candidates]))
         else:
@@ -183,7 +191,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 print("---------- extension path: %s, cost: %.2f, pathCost: %.2f" %
                                       (" ".join([e.getID() for e in extension]),
                                           cost, pathCost))
-                        dist += d * d + pathCost
+                        dist += d ** distPenalty + pathCost
                         if direction:
                             dist += baseDiff * baseDiff
                         if dist < minDist:

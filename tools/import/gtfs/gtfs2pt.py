@@ -26,6 +26,7 @@ from __future__ import absolute_import
 from __future__ import division
 import os
 import sys
+import random
 import glob
 import subprocess
 import collections
@@ -79,6 +80,9 @@ def get_options(args=None):
                     help="Take into account edge routingType values scaled by FLOAT (routingTypes must correspond to integers in [0,4])")  # noqa
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
+    ap.add_argument("--distance-penalty", default=None, category="input", type=float, dest="distPenalty",
+                    help=("Raise the distance between mapped location and input location to FLOAT power and add as penalty when comparing path costs." +  # noqa
+                          "Defaults to '1' when setting option --stops and '2' otherwise."))
     ap.add_argument("--warn-detour-factor", default=5, type=float, dest="detourWarnFactor",
                     help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
     ap.add_argument("--remove-detour-factor", default=0, type=float, dest="detourRemoveFactor",
@@ -123,6 +127,8 @@ def get_options(args=None):
                     help="minimum number of stops a public transport line must have to be imported")
     ap.add_argument("--maxcache", default=1000, type=int, category="processing",
                     help="Set maximum cache size for route computation")
+    ap.add_argument("-s", "--seed", default=42, type=int,
+                    help="random seed for coloring of pois and polygons")
 
     options = ap.parse_args(args)
 
@@ -142,7 +148,10 @@ def get_options(args=None):
         options.network_split = os.path.join('resources', options.region)
     if options.detourRemoveFactor > 0 and options.detourRemoveFactor < options.detourWarnFactor:
         options.detourWarnFactor = options.detourRemoveFactor
+    if options.distPenalty is None:
+        options.distPenalty = 1 if options.stops else 2
 
+    random.seed(options.seed)
     return options
 
 
@@ -276,7 +285,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                                                          fastest=True,
                                                          reversalPenalty=1000.,
                                                          resultDetours=detours,
-                                                         preferences=preferences)
+                                                         preferences=preferences,
+                                                         distPenalty=options.distPenalty)
                     assert len(detours) == len(trace)
                     for i in range(1, len(trace)):
                         detour = detours[i]
