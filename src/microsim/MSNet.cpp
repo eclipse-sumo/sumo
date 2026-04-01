@@ -183,13 +183,7 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
 // ---------------------------------------------------------------------------
 // MSNet - methods
 // ---------------------------------------------------------------------------
-MSNet*
-MSNet::getInstance(void) {
-    if (myInstance != nullptr) {
-        return myInstance;
-    }
-    throw ProcessError(TL("A network was not yet constructed."));
-}
+// getInstance() is now inlined in MSNet.h
 
 void
 MSNet::initStatic() {

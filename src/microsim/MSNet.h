@@ -134,9 +134,10 @@ public:
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance
-     * @exception ProcessError If a network was not yet constructed
      */
-    static MSNet* getInstance();
+    static inline MSNet* getInstance() {
+        return myInstance;
+    }
 
     /**
      * @brief Returns whether this is a GUI Net
