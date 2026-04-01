@@ -39,3 +39,6 @@ crossings
 
 # test for #14502
 crossings_stayRed
+
+# lead lag coordinated phase tests
+lead_lag_basic

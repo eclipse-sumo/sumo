@@ -1776,17 +1776,45 @@ PhaseTransitionLogic::coordBase(NEMALogic* controller) {
 
 bool
 PhaseTransitionLogic::fromBarrier(NEMALogic* controller) {
-    // FIX: In coordinate mode, always allow transitions to the coordinated phase
-    // on the same barrier side without requiring detector demand. The coordinated
-    // phase must never be skipped — it is the timing anchor for the cycle.
-    // This mirrors the exemption already present in coordBase() but was missing here,
-    // which caused the coordinated phase to be skipped when transitioning from a
-    // barrier phase (e.g. in lead-lag configurations where the barrier phase serves
-    // first and then needs to return to the coordinated phase).
-    if (controller->coordinateMode && toPhase->coordinatePhase
-            && fromPhase->barrierNum == toPhase->barrierNum
-            && fromPhase->readyToSwitch) {
-        return true;
+    // FIX: In coordinate mode, allow transitions to the coordinated phase
+    // without requiring detector demand, because the coordinated phase is
+    // the timing anchor and must never be skipped.
+    //
+    // Two cases must be distinguished:
+    //
+    // (a) Cross-barrier transition to the coord phase (e.g. sidestreet barrier
+    //     phase 4 -> coord phase 2). This is allowed whenever both rings are
+    //     ready to switch, mirroring the exemption in coordBase().
+    //
+    // (b) Same-barrier wrap-back to the coord phase (e.g. lead-lag barrier
+    //     phase 1 -> coord phase 2). This should ONLY be allowed when there
+    //     is no demand on the other side of the barrier. If sidestreet demand
+    //     exists, the barrier phase must NOT wrap back — it should instead
+    //     self-transition into green transfer and wait for the other ring's
+    //     coordinated phase to reach its force-off, enabling a synchronized
+    //     barrier cross.
+    if (controller->coordinateMode && toPhase->coordinatePhase && fromPhase->readyToSwitch) {
+        if (fromPhase->barrierNum != toPhase->barrierNum) {
+            // Case (a): cross-barrier to coord phase — allow if other ring is also ready
+            if (controller->getOtherPhase(fromPhase)->readyToSwitch) {
+                return true;
+            }
+        } else {
+            // Case (b): same-barrier wrap to coord phase — only if no cross-barrier demand
+            bool crossBarrierDemand = false;
+            for (auto& p : controller->getPhaseObjs()) {
+                if (p->barrierNum != fromPhase->barrierNum && p->callActive()) {
+                    crossBarrierDemand = true;
+                    break;
+                }
+            }
+            if (!crossBarrierDemand) {
+                return true;
+            }
+            // If there IS cross-barrier demand, fall through. The self-transition
+            // will be selected instead, putting this phase into green transfer
+            // until the other ring is ready for the barrier cross.
+        }
     }
 
     if (freeBase(controller)) {
