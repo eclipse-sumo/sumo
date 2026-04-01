@@ -4087,6 +4087,7 @@ GNEApplicationWindow::onCmdSaveAdditionalElementsUnified(FXObject* sender, FXSel
         // end undoList operation
         myUndoList->end();
         // save additionals
+        myNet->getSavingStatus()->requireSaveAdditionals();
         return onCmdSaveAdditionalElements(sender, sel, ptr);
     } else {
         return 0;
@@ -4295,6 +4296,7 @@ GNEApplicationWindow::onCmdSaveDemandElementsUnified(FXObject* sender, FXSelecto
         // end undoList operation
         myUndoList->end();
         // save demand elements
+        myNet->getSavingStatus()->requireSaveDemandElements();
         return onCmdSaveDemandElements(sender, sel, ptr);
     } else {
         return 0;
@@ -4474,6 +4476,7 @@ GNEApplicationWindow::onCmdSaveDataElementsUnified(FXObject* sender, FXSelector 
         // end undoList operation
         myUndoList->end();
         // save data elements
+        myNet->getSavingStatus()->requireSaveDataElements();
         return onCmdSaveDataElements(sender, sel, ptr);
     } else {
         return 0;
@@ -4649,6 +4652,7 @@ GNEApplicationWindow::onCmdSaveMeanDataElementsUnified(FXObject* sender, FXSelec
         // end undoList operation
         myUndoList->end();
         // save meanDatas
+        myNet->getSavingStatus()->requireSaveMeanDatas();
         return onCmdSaveMeanDataElements(sender, sel, ptr);
     } else {
         return 0;
