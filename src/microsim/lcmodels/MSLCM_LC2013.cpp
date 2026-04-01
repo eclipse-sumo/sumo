@@ -1091,7 +1091,7 @@ MSLCM_LC2013::resetState() {
 }
 
 
-int
+__attribute__((hot)) int
 MSLCM_LC2013::_wantsChange(
     int laneOffset,
     MSAbstractLaneChangeModel::MSLCMessager& msgPass,

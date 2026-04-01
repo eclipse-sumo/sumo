@@ -795,7 +795,7 @@ MSLaneChanger::checkChangeWithinEdge(
     return checkChange(laneOffset, target->lane, leader, follower, neighLead, neighFollow, preb);
 }
 
-int
+__attribute__((hot)) int
 MSLaneChanger::checkChange(
     int laneOffset,
     const MSLane* targetLane,

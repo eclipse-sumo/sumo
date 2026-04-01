@@ -88,7 +88,7 @@ MSCFModel::brakeGap(const double speed, const double decel, const double headway
 }
 
 
-double
+__attribute__((hot)) double
 MSCFModel::brakeGapEuler(const double speed, const double decel, const double headwayTime) {
     /* one possibility to speed this up is to calculate speedReduction * steps * (steps+1) / 2
        for small values of steps (up to 10 maybe) and store them in an array */
@@ -845,7 +845,7 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 }
 
 
-double
+__attribute__((hot)) double
 MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, bool /* onInsertion */, double headway) const {
     // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
     const double g = gap - NUMERICAL_EPS;
@@ -943,7 +943,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double curren
 
 
 /** Returns the SK-vsafe. */
-double
+__attribute__((hot)) double
 MSCFModel::maximumSafeFollowSpeed(double gap, double egoSpeed, double predSpeed, double predMaxDecel, bool onInsertion) const {
     // the speed is safe if allows the ego vehicle to come to a stop behind the leader even if
     // the leaders starts braking hard until stopped

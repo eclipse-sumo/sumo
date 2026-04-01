@@ -1535,7 +1535,7 @@ MSLink::isInternalJunctionLink() const {
 }
 
 
-const MSLink::LinkLeaders
+__attribute__((hot)) const MSLink::LinkLeaders
 MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers, bool isShadowLink) const {
     LinkLeaders result;
     // this link needs to start at an internal lane (either an exit link or between two internal lanes)

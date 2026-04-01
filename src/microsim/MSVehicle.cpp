@@ -3125,7 +3125,7 @@ MSVehicle::getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed
 }
 
 
-void
+__attribute__((hot)) void
 MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                           const double seen, DriveProcessItem* const lastLink,
                           const MSLane* const lane, double& v, double& vLinkPass) const {
@@ -3521,7 +3521,7 @@ MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* l
 
 }
 
-void
+__attribute__((hot)) void
 MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                            DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
                            bool isShadowLink) const {
@@ -4571,7 +4571,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
 
 
 
-bool
+__attribute__((hot)) bool
 MSVehicle::executeMove() {
 #ifdef DEBUG_EXEC_MOVE
     if (DEBUG_COND) {
