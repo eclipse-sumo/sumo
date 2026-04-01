@@ -298,6 +298,8 @@ def main(options):
 
     sidings = filterSidings(options, net, sidings, noSignal)
     #  print("\n".join(map(str, sidings.items())))
+    sidings = filterBidiSidings(options, net, sidings, edgeUsage)
+    #  print("\n".join(map(str, sidings.items())))
 
     if options.addStopSignals:
         sidings, signalNodes = filterNoSignalidings(options, net, sidings, noSignal, stops)
@@ -305,8 +307,6 @@ def main(options):
             extraArgs += ['-n', options.nodes_file, '-x', options.connections_file]
         #  print("\n".join(map(str, sidings.items())))
 
-    sidings = filterBidiSidings(options, net, sidings, edgeUsage)
-    #  print("\n".join(map(str, sidings.items())))
     writePatches(options, net, sidings, edgeUsage, signalNodes)
     writeStops(options, net, sidings, stopIDs, stops)
 
