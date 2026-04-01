@@ -1383,6 +1383,10 @@ NBRailwaySignalGuesser::guessRailSignals(NBNodeCont& nc, NBEdgeCont& ec, NBPTSto
             NBTurningDirectionsComputer::computeTurnDirections(nc, false);
             const double minLength = oc.getFloat("osm.stop-output.length.train");
             const bool split = oc.getBool("railway.signal.guess.by-stops.split");
+            if (split) {
+                // needed for finding and splitting bidi-edges
+                NBTurningDirectionsComputer::computeTurnDirections(nc, false);
+            }
             addedSignals += guessByStops(nc, ec, sc, dc, minLength, split);
         }
     }
@@ -1402,22 +1406,34 @@ NBRailwaySignalGuesser::canBeSignal(const NBNode* node) {
 
 int
 NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc, NBDistrictCont& dc, double minLength, bool split) {
+    const double splitOffset = 10;
+    const double splitOffsetSlack = 200;
     int addedSignals = 0;
     for (auto& item : sc.getStops()) {
         NBEdge* stopEdge = ec.retrieve(item.second->getEdgeId());
         if (stopEdge != nullptr && isRailway(stopEdge->getPermissions())) {
             NBNode* to = stopEdge->getToNode();
             if (canBeSignal(to)) {
-                if (split) {
+                const double stopEnd = item.second->getEndPos();
+                if (split && (!to->geometryLike() || stopEdge->getLength() - stopEnd > splitOffsetSlack)) {
                     const double stopEnd = item.second->getEndPos();
-                    const double splitPos = MIN2(stopEnd + 1, MAX2(stopEdge->getLength() - 1, stopEdge->getLength() / 2));
-                    const std::string nodeID = nc.createUnusedID(stopEdge->getID() + "_" + item.first, "_");
-                    NBNode* n = new NBNode(nodeID, stopEdge->getGeometry().positionAtOffset(splitPos));
+                    const double splitPos = MIN2(stopEnd + 1, MAX2(stopEdge->getLength() - splitOffset, stopEdge->getLength() / 2));
+                    const std::string nodeID = nc.createUnusedID(stopEdge->getID() + "_" + item.first, "#");
+                    NBNode* n = new NBNode(nodeID, stopEdge->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
                     nc.insert(n);
                     const std::string edgeID = ec.createUnusedID(stopEdge->getID() + "." + toString(int(splitPos)), "#");
-                    if (ec.splitAt(dc, stopEdge, n, stopEdge->getID(), edgeID, stopEdge->getNumLanes(), stopEdge->getNumLanes())) {
+                    const std::string stopEdgeID = stopEdge->getID();
+                    NBEdge* bidi = const_cast<NBEdge*>(stopEdge->getBidiEdge());
+                    if (ec.splitAt(dc, stopEdge, n, stopEdgeID, edgeID, stopEdge->getNumLanes(), stopEdge->getNumLanes())) {
+                        if (bidi != nullptr) {
+                            const std::string edgeID2 = ec.createUnusedID(bidi->getID() + "." + toString(int(splitPos)), "#");
+                            ec.splitAt(dc, bidi, n, edgeID2, bidi->getID(), bidi->getNumLanes(), bidi->getNumLanes());
+                        }
                         addedSignals++;
                         item.second->findLaneAndComputeBusStopExtent(stopEdge);
+                        stopEdge = ec.retrieve(stopEdgeID);
+                        NBTurningDirectionsComputer::computeTurnDirectionsForNode(stopEdge->getFromNode(), false);
+                        NBTurningDirectionsComputer::computeTurnDirectionsForNode(stopEdge->getToNode(), false);
                     }
                 } else {
                     to->reinit(to->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
@@ -1425,35 +1441,46 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
                 }
             }
             NBNode* from = stopEdge->getFromNode();
+            NBEdge* curr = stopEdge;
             double searchDist = minLength - stopEdge->getLoadedLength();
             while (searchDist > 0 && from->geometryLike() && from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
                 for (NBEdge* in : from->getIncomingEdges()) {
-                    if (in->getFromNode() != stopEdge->getToNode()) {
+                    if (in->getFromNode() != curr->getToNode()) {
                         // found edge that isn't a bidi predecessor
-                        stopEdge = in;
+                        curr = in;
                         break;
                     }
                 }
-                if (stopEdge->getFromNode() == from) {
+                if (curr->getFromNode() == from) {
                     // bidi edge without predecessor
                     break;
                 } else {
-                    from = stopEdge->getFromNode();
+                    from = curr->getFromNode();
                 }
-                searchDist -= stopEdge->getLoadedLength();
+                searchDist -= curr->getLoadedLength();
             }
             if (canBeSignal(from)) {
-                if (split) {
-                    const double splitPos = searchDist >= 0
-                        ? MIN2(1.0, stopEdge->getLength() / 2)
-                        : MAX2(1.0, MIN2(item.second->getStartPos(), -searchDist - 10));
-                    const std::string nodeID = nc.createUnusedID(stopEdge->getID() + "_" + item.first, "_");
-                    NBNode* n = new NBNode(nodeID, stopEdge->getGeometry().positionAtOffset(splitPos));
+                const double minPos = MIN2(splitOffset, curr->getLength() / 2);
+                const double splitPos = searchDist >= 0
+                    ? minPos
+                    : MAX2(minPos, MIN2(item.second->getStartPos(), -searchDist - 10));
+                if (split && (!from->geometryLike() || splitPos > splitOffsetSlack)) {
+                    const std::string nodeID = nc.createUnusedID(curr->getID() + "_" + item.first, "#");
+                    NBNode* n = new NBNode(nodeID, curr->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
                     nc.insert(n);
-                    const std::string edgeID = ec.createUnusedID(stopEdge->getID() + "." + toString(int(splitPos)), "#");
-                    if (ec.splitAt(dc, stopEdge, n, edgeID, stopEdge->getID(), stopEdge->getNumLanes(), stopEdge->getNumLanes())) {
+                    const std::string edgeID = ec.createUnusedID(curr->getID() + "." + toString(int(splitPos)), "#");
+                    const std::string currID = curr->getID();
+                    NBEdge* bidi = const_cast<NBEdge*>(curr->getBidiEdge());
+                    if (ec.splitAt(dc, curr, n, edgeID, curr->getID(), curr->getNumLanes(), curr->getNumLanes())) {
+                        if (bidi != nullptr) {
+                            const std::string edgeID2 = ec.createUnusedID(bidi->getID() + "." + toString(int(splitPos)), "#");
+                            ec.splitAt(dc, bidi, n, bidi->getID(), edgeID2, bidi->getNumLanes(), bidi->getNumLanes());
+                        }
                         addedSignals++;
                         item.second->findLaneAndComputeBusStopExtent(stopEdge);
+                        curr = ec.retrieve(currID);
+                        NBTurningDirectionsComputer::computeTurnDirectionsForNode(curr->getFromNode(), false);
+                        NBTurningDirectionsComputer::computeTurnDirectionsForNode(curr->getToNode(), false);
                     }
                 } else {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
