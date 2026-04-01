@@ -234,13 +234,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         traces = tracemapper.readFCD(filePath, net, True)
         if options.poiOut is not None:
             colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
-            with open(options.poiOut, 'w') as outf:
-                sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
-                for tid, trace in traces:
-                    for idx, pos in enumerate(trace):
-                        outf.write('    <poi id="%s:%s" x="%s" y="%s" color="%s"/>\n' % (
-                            tid, idx, pos[0], pos[1], colorgen()))
-                outf.write('</additional\n')
+            outf = open(options.poiOut, 'w')
+            sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
 
         traceCache = {}
         preferences = {}
@@ -251,6 +246,10 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
 
         for tid, trace in traces:
             trace = tuple(trace)
+            if options.poiOut is not None:
+                for idx, pos in enumerate(trace):
+                    outf.write('    <poi id="%s:%s" x="%s" y="%s" color="%s"/>\n' % (
+                        tid, idx, pos[0], pos[1], colorgen()))
             numTraces += 1
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
@@ -301,6 +300,10 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         if options.verbose:
             print("mapped %s traces to %s routes (%s cacheHits)" % (
                 numTraces, numRoutes, cacheHits))
+
+        if options.poiOut is not None:
+            outf.write('</additional>\n')
+            outf.close()
     return routes
 
 
