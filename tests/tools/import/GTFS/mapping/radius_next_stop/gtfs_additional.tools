@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-01 12:44:32.350775 by Eclipse SUMO gtfs2pt.py v1_26_0+0937-0f58a1f47be
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="500.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="54175.0" lane="E1_0" startPos="197.01" endPos="207.01" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
+</additional>

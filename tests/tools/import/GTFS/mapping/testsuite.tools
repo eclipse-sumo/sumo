@@ -54,3 +54,6 @@ sbahn_routingType
 
 # sanitize stop names to ensure valid xml outputs (#17791)
 normalization
+
+# radius is high enough to add candidate stops from the subsequent location
+radius_next_stop

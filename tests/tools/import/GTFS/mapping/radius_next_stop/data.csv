@@ -1,0 +1,3 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+54175;30908;423;N68;700;9185001;Alt-Schmöckwitz (Berlin);52.375918;13.649118;1.0;;;;S Adlershof;11220;11220
+54175;30908;423;N68;700;9185501;Zum Seeblick (Berlin);52.379177;13.644231;2.0;;;;S Adlershof;11220;11220
