@@ -257,7 +257,7 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
             trace = tuple(trace)
             if options.poiOut is not None:
                 for idx, pos in enumerate(trace):
-                    outf.write('    <poi id="%s:%s" x="%s" y="%s" color="%s"/>\n' % (
+                    outf.write('    <poi id="%s:%s" x="%.2f" y="%.2f" color="%s"/>\n' % (
                         tid, idx, pos[0], pos[1], colorgen()))
             numTraces += 1
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
