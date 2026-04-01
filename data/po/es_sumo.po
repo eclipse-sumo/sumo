@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-01 10:40+0000\n"
+"PO-Revision-Date: 2026-04-01 11:28+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7650,15 +7650,15 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
-msgstr ""
+msgstr "Usar INT como duración del ciclo"
 
 #: src/netbuild/NBFrame.cpp:587
 msgid "Use INT as green phase duration"
-msgstr ""
+msgstr "Usar INT como duración de la fase verde"
 
 #: src/netbuild/NBFrame.cpp:591
 msgid "Defines smallest vehicle deceleration"
-msgstr ""
+msgstr "Define la desaceleración mínima de vehículo"
 
 #: src/netbuild/NBFrame.cpp:595
 msgid "Given yellow times are patched even if being too short"
@@ -7666,17 +7666,21 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:599
 msgid "Set INT as fixed time for yellow phase durations"
-msgstr ""
+msgstr "Establecer INT como tiempo fijo para la duración de las fases amarillas"
 
 #: src/netbuild/NBFrame.cpp:602
 msgid ""
 "Set INT as fixed time for red phase duration at traffic lights that do not "
 "have a conflicting flow"
 msgstr ""
+"Establecer INT como tiempo fijo para la duración de la fase roja en "
+"semáforos que no tienen flujo en conflicto"
 
 #: src/netbuild/NBFrame.cpp:605
 msgid "Set INT as fixed time for intermediate red phase after every switch"
 msgstr ""
+"Establecer INT como tiempo fijo para la fase roja intermedia después de cada "
+"cambio"
 
 #: src/netbuild/NBFrame.cpp:608
 msgid ""
