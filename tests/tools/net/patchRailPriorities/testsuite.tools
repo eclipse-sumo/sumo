@@ -12,6 +12,7 @@ bidi_not_used
 
 # input network has no signals
 no_signals
+bidi_not_used_no_signal
 
 # add missing signals to input network
 no_signals_add

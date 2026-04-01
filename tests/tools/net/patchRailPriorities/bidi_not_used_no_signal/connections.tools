@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-01 17:00:58.757968 by Eclipse SUMO patchRailPriorities.py v1_26_0+0947-bcf887e7f64
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <stop-file value="input_additional.add.xml"/>
+    <output-file value="net.net.xml"/>
+    <patchfile-prefix value="out"/>
+    <stop-output value="out_stops.add.xml"/>
+    <exclude-reverse-usage value="1"/>
+    <add-stop-signals value="True"/>
+</configuration>
+-->
+
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="E11" to="E12" fromLane="0" toLane="0" uncontrolled="true"/>
+    <connection from="E11b" to="E12" fromLane="0" toLane="0" uncontrolled="true"/>
+    <connection from="E3" to="E4b" fromLane="0" toLane="0" uncontrolled="true"/>
+    <connection from="E3" to="E4" fromLane="0" toLane="0" uncontrolled="true"/>
+</connections>
