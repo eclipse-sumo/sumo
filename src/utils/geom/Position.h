@@ -186,7 +186,7 @@ public:
 
     /// @brief output operator
     friend std::ostream& operator<<(std::ostream& os, const Position& p) {
-        os << p.x() << "," << p.y();
+        os << (p.x() + 0.0) << "," << (p.y() + 0.0);
         if (p.z() != double(0.0)) {
             os << "," << p.z();
         }
