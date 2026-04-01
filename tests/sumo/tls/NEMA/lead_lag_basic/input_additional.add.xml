@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Lead-lag basic test: Phase 2 leads, Phase 1 lags on ring 1.
+     Ring order: 2,1,3,4 means Phase 2 (coord) serves first, then Phase 1 (barrier).
+     coordinatePhases explicitly set to "2,6" (timing anchors).
+     barrierPhases set to "1,6" (structural barrier positions in lead-lag).
+     barrier2Phases remains "4,8".
+     Verifies: correct lead-lag sequencing (2->1 on ring1, then barrier cross to 3,4/7,8).
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="0" programID="01" type="NEMA" offset="0">
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="85"/>
+        <!-- Lead-lag ring structure: phase 2 leads on ring 1 -->
+        <param key="ring1" value="2,1,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <!-- Structural barriers: phase 1 is at the barrier on ring 1 (lag position) -->
+        <param key="barrierPhases" value="1,6"/>
+        <param key="barrier2Phases" value="4,8"/>
+        <!-- Timing anchors: phases 2,6 are the coordinated phases -->
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="controllerType" value="TS2"/>
+        <param key="minRecall" value=""/>
+        <param key="maxRecall" value=""/>
+        <param key="fixForceOff" value="false"/>
+        <param key="whetherOutputState" value="false"/>
+
+        <!-- Phase definitions: name is the NEMA phase number, state is the link control string -->
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="1" state="rrrrrGrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="2" state="rrrrrrrrrGGr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="3" state="rrrrrrrrGrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="4" state="GGrrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="5" state="rrrrrrrrrrrG"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="6" state="rrrGGrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="7" state="rrGrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="8" state="rrrrrrGGrrrr"/>
+    </tlLogic>
+
+    <!-- TLS state switch output for verification -->
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+</additional>

@@ -1,0 +1,38 @@
+<!-- Moderate traffic on all approaches to exercise every phase in the lead-lag sequence.
+     Flows start at t=0 and run through the full simulation to ensure multiple cycles.
+
+     Edge mapping:
+       1fi/1si = West approach inbound,  1o = West outbound
+       2fi/2si = East approach inbound,  2o = East outbound
+       3fi/3si = South approach inbound, 3o = South outbound
+       4fi/4si = North approach inbound, 4o = North outbound
+
+     NEMA phase -> movement mapping:
+       Phase 2: West through/right  (1si, links 9,10)
+       Phase 6: East through/right  (2si, links 3,4)
+       Phase 1: East left turn      (2si, link 5)
+       Phase 5: West left turn      (1si, link 11)
+       Phase 4: North through/right (4si, links 0,1)
+       Phase 8: South through/right (3si, links 6,7)
+       Phase 3: South left turn     (3si, link 8)
+       Phase 7: North left turn     (4si, link 2)
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" length="4.5" maxSpeed="25" accel="2.6" decel="4.5"/>
+
+    <!-- Mainstreet through movements (phases 2 and 6) -->
+    <flow id="f_WB_thru" type="car" from="1fi" to="2o" begin="0" end="3600" probability="0.10"/>
+    <flow id="f_EB_thru" type="car" from="2fi" to="1o" begin="0" end="3600" probability="0.10"/>
+
+    <!-- Mainstreet left turns (phases 5 and 1) -->
+    <flow id="f_WB_left" type="car" from="1fi" to="4o" begin="0" end="3600" probability="0.04"/>
+    <flow id="f_EB_left" type="car" from="2fi" to="3o" begin="0" end="3600" probability="0.04"/>
+
+    <!-- Sidestreet through movements (phases 4 and 8) -->
+    <flow id="f_NB_thru" type="car" from="4fi" to="3o" begin="0" end="3600" probability="0.06"/>
+    <flow id="f_SB_thru" type="car" from="3fi" to="4o" begin="0" end="3600" probability="0.06"/>
+
+    <!-- Sidestreet left turns (phases 7 and 3) -->
+    <flow id="f_NB_left" type="car" from="4fi" to="2o" begin="0" end="3600" probability="0.03"/>
+    <flow id="f_SB_left" type="car" from="3fi" to="1o" begin="0" end="3600" probability="0.03"/>
+</routes>
