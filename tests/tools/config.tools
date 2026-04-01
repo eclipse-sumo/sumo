@@ -417,6 +417,7 @@ xmlstats:0.0101
 aggregatebattery:0.0101
 additional:0.0001
 tripinfos:0.0101
+pois:0.0001
 
 [unordered_text]
 errors:ERROR:SCHEMA
