@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-01 13:35:47.647403 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
+<!-- generated on 2026-04-01 13:43:27.527928 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -8,10 +8,10 @@
     <network value="net.net.xml"/>
     <stops value="input_stops.xml"/>
     <radius value="500.0"/>
+    <distance-penalty value="0.0"/>
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="54175.0" lane="E0_0" startPos="50.13" endPos="60.13" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)"/>
-    <busStop id="54175.1" lane="E1_0" startPos="197.01" endPos="207.01" friendlyPos="true" name="Zum Seeblick (Berlin)"/>
 </additional>

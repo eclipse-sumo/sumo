@@ -1,24 +1,17 @@
-Removing trip 154196 (bus): detour (factor 6.32) to stop index 1, fromPos=4157.82,6984.48 toPos=4615.87,6090.09 (airLine=1004.86 path=6350.17)
-Removing trip 154260 (bus): detour (factor 6.34) to stop index 5, fromPos=4615.87,6090.09 toPos=4157.82,6984.48 (airLine=1004.86 path=6366.88)
-Removing trip 109329 (bus): detour (factor 13.40) to stop index 19, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 109329 (bus): detour (factor 5.84) to stop index 29, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 109337 (bus): detour (factor 13.40) to stop index 17, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 109337 (bus): detour (factor 5.84) to stop index 27, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 109347 (bus): detour (factor 13.40) to stop index 17, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 109347 (bus): detour (factor 5.84) to stop index 27, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 109349 (bus): detour (factor 13.40) to stop index 18, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 109349 (bus): detour (factor 5.84) to stop index 28, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 280055 (bus): detour (factor 13.07) to stop index 3, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5769.40)
-Removing trip 281066 (bus): detour (factor 13.40) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 281759 (bus): detour (factor 13.07) to stop index 3, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5769.40)
-Removing trip 286316 (bus): detour (factor 13.07) to stop index 1, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5769.40)
-Removing trip 280371 (bus): detour (factor 13.40) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 280371 (bus): detour (factor 5.84) to stop index 10, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 281153 (bus): detour (factor 5.84) to stop index 3, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
-Removing trip 281592 (bus): detour (factor 13.40) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5914.77)
-Removing trip 281592 (bus): detour (factor 5.84) to stop index 10, fromPos=1262.05,5959.17 toPos=1306.59,6068.35 (airLine=117.91 path=688.67)
+Removing trip 154196 (bus): detour (factor 6.37) to stop index 1, fromPos=4157.82,6984.48 toPos=4615.87,6090.09 (airLine=1004.86 path=6397.34)
+Removing trip 154260 (bus): detour (factor 6.37) to stop index 5, fromPos=4615.87,6090.09 toPos=4157.82,6984.48 (airLine=1004.86 path=6398.47)
+Removing trip 109329 (bus): detour (factor 12.32) to stop index 19, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 109337 (bus): detour (factor 12.32) to stop index 17, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 109347 (bus): detour (factor 12.32) to stop index 17, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 109349 (bus): detour (factor 12.32) to stop index 18, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 280055 (bus): detour (factor 12.31) to stop index 3, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5434.85)
+Removing trip 281066 (bus): detour (factor 12.32) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 281759 (bus): detour (factor 12.31) to stop index 3, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5434.85)
+Removing trip 286316 (bus): detour (factor 12.31) to stop index 1, fromPos=1178.08,2971.39 toPos=1590.74,3128.35 (airLine=441.50 path=5434.85)
+Removing trip 280371 (bus): detour (factor 12.32) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
+Removing trip 281592 (bus): detour (factor 12.32) to stop index 3, fromPos=1590.74,3128.35 toPos=1178.08,2971.39 (airLine=441.50 path=5437.27)
 Warning! Disconnected route '109298' between '-4930561' and '-4920745', no path found. Keeping longer part.
 Warning! Disconnected route '109300' between '-4930561' and '-4920745', no path found. Keeping longer part.
 Warning! Disconnected route '109306' between '-4930561' and '-4920745', no path found. Keeping longer part.
 Warning! Disconnected route '281710' between '-4930561' and '-4920745', no path found. Keeping longer part.
-Warning! Fixed connection 281758 5
+Warning! Fixed connection 281758 7

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26 14:34:51.756459 by Eclipse SUMO gtfs2pt.py v1_26_0+0850-12fe2f0576f
+<!-- generated on 2026-04-01 13:43:53.985044 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
 <configuration>
     <merged-csv value="data/data.csv"/>
     <modes value="tram"/>
@@ -31,9 +31,9 @@
         <stop busStop="259570.7" duration="00:00:10" until="00:04:00"/> <!-- Alt-Schmöckwitz. (Berlin) -->
         <stop busStop="259570.8" duration="00:00:10" until="00:05:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
     </route>
-    <route id="259780" edges="806903752#1 1484004606#0 1484004606#1 1484004606#3 1484004606#4 1484004606#6 1484004606#7 1484004607#2 1484004607#3 1484004610#1">
-        <stop busStop="259780.0" duration="00:00:10" until="00:00:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
-        <stop busStop="259780.0" duration="00:00:10" until="00:01:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+    <route id="259780" edges="806903752#0 806903752#1 1484004606#0 1484004606#1 1484004606#3 1484004606#4 1484004606#6 1484004606#7 1484004607#2 1484004607#3 1484004610#1">
+        <stop busStop="259570.8" duration="00:00:10" until="00:00:00"/> <!-- Alt- -Schmöckwitz (Berlin) -->
+        <stop busStop="259780.1" duration="00:00:10" until="00:01:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
         <stop busStop="259780.2" duration="00:00:10" until="00:02:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="259780.3" duration="00:00:10" until="00:04:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
         <stop busStop="259780.4" duration="00:00:10" until="00:05:00"/> <!-- Lübbenauer Weg (Berlin) -->
@@ -47,7 +47,7 @@
         <stop busStop="259570.7" duration="00:00:10" until="00:07:00"/> <!-- Alt-Schmöckwitz. (Berlin) -->
     </route>
     <route id="68332" edges="806903752#1 1484004606#0 1484004606#1 1484004606#3 1484004606#4 1484004606#6 1484004606#7 1484004607#2 1484004607#3 1484004610#1">
-        <stop busStop="259780.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="259780.1" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
         <stop busStop="259780.2" duration="00:00:10" until="00:01:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="259780.3" duration="00:00:10" until="00:04:00"/> <!-- Adlergestell/Vetschauer Allee (Berlin) -->
         <stop busStop="259780.4" duration="00:00:10" until="00:05:00"/> <!-- Lübbenauer Weg (Berlin) -->

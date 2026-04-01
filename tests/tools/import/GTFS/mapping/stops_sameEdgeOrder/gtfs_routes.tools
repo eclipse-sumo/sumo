@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-14 11:22:32.266416 by gtfs2pt.py v1_22_0+0836-dd9a190b73a
+<!-- generated on 2026-04-01 13:35:46.019299 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -12,7 +12,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="t1" edges="beg E0 E1">
+    <route id="t1" edges="beg E0 E1 E2 beg">
         <stop busStop="t1.0" duration="10" until="0"/> <!-- stopname1 -->
         <stop busStop="t1.1" duration="10" until="50"/> <!-- stopname2 -->
     </route>

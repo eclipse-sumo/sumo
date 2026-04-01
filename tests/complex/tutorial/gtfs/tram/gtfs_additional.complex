@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26 14:21:42.509350 by Eclipse SUMO gtfs2pt.py v1_26_0+0849-cdc0cb8e0b6
+<!-- generated on 2026-04-01 13:43:53.940665 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
 <configuration>
     <merged-csv value="data/data.csv"/>
     <modes value="tram"/>
+    <human-readable-time value="True"/>
     <network value="data/osm.net.xml.gz"/>
     <sort value="True"/>
     <stops value="data/osm_stops.add.xml"/>
@@ -67,17 +68,13 @@
         <access friendlyPos="true" lane="421231594#1_0" pos="0.00" length="29.12"/>
         <access friendlyPos="true" lane="44170716#0_0" pos="24.39" length="69.32"/>
     </trainStop>
-    <trainStop id="259780.0" lane="806903752#1_0" startPos="0.00" endPos="24.48" friendlyPos="true" name="Alt--Schmöckwitz (Berlin)">
-        <access friendlyPos="true" lane="-11452526_0" pos="0.00" length="90.75"/>
-        <access friendlyPos="true" lane="-1453605556_0" pos="114.86" length="28.10"/>
-        <access friendlyPos="true" lane="1122590760#0_0" pos="0.20" length="119.45"/>
-        <access friendlyPos="true" lane="1122590760#1_0" pos="23.07" length="82.06"/>
-        <access friendlyPos="true" lane="1122590760#2_0" pos="19.68" length="48.58"/>
-        <access friendlyPos="true" lane="1122590773_0" pos="11.65" length="131.68"/>
-        <access friendlyPos="true" lane="1453605555#1_0" pos="6.37" length="32.92"/>
-        <access friendlyPos="true" lane="383790135_0" pos="52.67" length="92.94"/>
-        <access friendlyPos="true" lane="421231594#1_0" pos="0.00" length="29.12"/>
-        <access friendlyPos="true" lane="44170716#0_0" pos="24.39" length="69.32"/>
+    <trainStop id="259780.1" lane="806903752#1_0" startPos="0.00" endPos="24.48" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
+        <access friendlyPos="true" lane="-11452526_0" pos="50.28" length="29.58"/>
+        <access friendlyPos="true" lane="-4463780#1_0" pos="86.27" length="60.25"/>
+        <access friendlyPos="true" lane="383790135_0" pos="3.46" length="34.38"/>
+        <access friendlyPos="true" lane="421231594#1_0" pos="50.16" length="94.35"/>
+        <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
+        <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
     </trainStop>
     <trainStop id="259780.2" lane="1484004606#7_0" startPos="60.81" endPos="85.81" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
