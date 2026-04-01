@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-03-31 08:18+0000\n"
+"PO-Revision-Date: 2026-04-01 10:40+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2859,7 +2859,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:710
 msgid "Replay exact rerouting sequence from vehroute-output"
-msgstr ""
+msgstr "Reproducir la secuencia exacta de reenrutamiento desde vehroute-output"
 
 #: src/microsim/MSFrame.cpp:715 src/router/ROFrame.cpp:59
 #: src/tools/emissionsDrivingCycle_main.cpp:132
@@ -7581,10 +7581,13 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of junctions to be controlled by TLS"
 msgstr ""
+"Interpreta STR[] como una lista de cruces que serán controlados por semáforos"
 
 #: src/netbuild/NBFrame.cpp:530
 msgid "Interprets STR[] as list of junctions to be not controlled by TLS"
 msgstr ""
+"Interpreta STR[] como una lista de cruces que no serán controlados por "
+"semáforos"
 
 #: src/netbuild/NBFrame.cpp:535
 msgid "Turns on TLS guessing"
@@ -7605,12 +7608,12 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:552
 msgid "Tries to cluster tls-controlled nodes"
-msgstr ""
+msgstr "Intenta agrupar nodos controlados por semáforos"
 
 #: src/netbuild/NBFrame.cpp:556
 msgid ""
 "Determines the maximal distance for joining traffic lights (defaults to 20)"
-msgstr ""
+msgstr "Determina la distancia máxima para combinar semáforos (por defecto: 20)"
 
 #: src/netbuild/NBFrame.cpp:559
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
