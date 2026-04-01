@@ -1913,7 +1913,7 @@ GNEAdditionalHandler::checkLaneDoublePosition(double from, double to, const doub
     if ((from < 0) || (from > laneLength)) {
         return false;
     }
-    if ((to < 0) || (to > laneLength)) {
+    if ((to < 0) || (to > laneLength && (toString(to) != toString(laneLength)))) {
         return false;
     }
     return true;
