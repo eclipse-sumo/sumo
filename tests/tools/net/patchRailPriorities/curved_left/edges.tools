@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-01 14:32:14.561689 by Eclipse SUMO patchRailPriorities.py v1_26_0+0944-57deed7ce26
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="net.net.xml"/>
+    <patchfile-prefix value="out"/>
+    <exclude-reverse-usage value="1"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-E4" priority="4" routingType="4"/>
+    <edge id="-E4b" priority="0" routingType="0"/>
+    <edge id="-E5" priority="4" routingType="4"/>
+    <edge id="-E5b" priority="0" routingType="0"/>
+    <edge id="-E6" priority="4" routingType="4"/>
+    <edge id="-E6b" priority="0" routingType="0"/>
+    <edge id="E4" priority="0" routingType="0"/>
+    <edge id="E4b" priority="4" routingType="4"/>
+    <edge id="E5" priority="0" routingType="0"/>
+    <edge id="E5b" priority="4" routingType="4"/>
+    <edge id="E6" priority="0" routingType="0"/>
+    <edge id="E6b" priority="4" routingType="4"/>
+</edges>

@@ -1,5 +1,11 @@
 plain
 
+# prefer driving on the left
+left
+
+# main track and siding are curved
+curved_left
+
 # also add stops on sidings
 stops
 bidi_not_used
