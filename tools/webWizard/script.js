@@ -345,69 +345,94 @@ on("ready", function(){
         element.addEventListener("click", checkOrUncheckAll);
     });
 
-    // OSM map
-    // avoid cross domain resource sharing issues (#3991)
-    // (https://gis.stackexchange.com/questions/83953/openlayers-maps-issue-with-ssl)
-    var map = new OpenLayers.Map("map");
-    // remove the default attribution (hidden by our sidebar), in order to use one defined in index.html
-    map.controls.slice().forEach(function(control) {
-        if (control instanceof OpenLayers.Control.Attribution) {
-            map.removeControl(control);
-            if (control.div && control.div.parentNode) {
-                control.div.parentNode.removeChild(control.div);
-            }
-        }
+    // Base map (using Leaflet)
+    var worldBounds = L.latLngBounds(
+        L.latLng(-85, -180),
+        L.latLng(85, 180)
+    );
+
+    var map = L.map("map", {
+        maxBounds: worldBounds,
+        worldCopyJump: false,
+        zoomControl: true,
+        minZoom: 3,
+        maxZoom: 17, // the highest zoom level available for the OpenTopoMap tile layer
+        attributionControl: false
     });
-    var maplayer = new OpenLayers.Layer.OSM("OpenStreetMap",
-    // Official OSM tileset as protocol-independent URLs
-    [
-        'https://tile.openstreetmap.org/${z}/${x}/${y}.png'
-    ], null);
-    map.addLayer(maplayer);
+
+    L.control.attribution({
+        position: "bottomleft",
+        prefix: false
+    }).addTo(map);
+
+    var tileLayers = {
+        "OpenStreetMap": L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            noWrap: true,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'
+        }),
+        "OpenStreetMap Deutschland": L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", {
+            noWrap: true,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'
+        }),
+        "OpenTopoMap": L.tileLayer("https://a.tile.opentopomap.org/{z}/{x}/{y}.png", {
+            noWrap: true,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | DEM: <a href="http://viewfinderpanoramas.org/" target="_blank">SRTM</a>, <a href="https://sonny.4lima.de/" target="_blank">Sonny</a> | Map style: &copy; <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC-BY-SA</a>)'
+        }),
+        "ÖPNVKarte (public transport facilities)": L.tileLayer("https://tile.memomaps.de/tilegen/{z}/{x}/{y}.png", {
+            noWrap: true,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a> | &copy; <a href="https://memomaps.de/" target="_blank">MeMoMaps</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA</a>)'
+        }),
+    };
+
+    tileLayers["OpenStreetMap"].addTo(map);
+
+    L.control.layers(tileLayers, null, {
+        collapsed: true,
+        position: "topleft"
+    }).addTo(map);
 
     function setPosition(lon, lat){
         if(!lon || !lat){
-            latLon = elem("#lat_lon").value.split(" ")
+            var latLon = elem("#lat_lon").value.split(" ");
             lon = parseFloat(latLon[1]);
             lat = parseFloat(latLon[0]);
         } else {
             elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
-        var leftHandBounds = [new OpenLayers.Bounds(-11,50,1,60), // British Isles
-                              new OpenLayers.Bounds(0.774536,50.986099,1.779785,53.146770), // British Isles (part2)
-                              new OpenLayers.Bounds(66, 3, 90, 30), // India, Pakistan
-                              new OpenLayers.Bounds(95, -45, 179, 2), // Australia, Indonesia
-                              new OpenLayers.Bounds(-20, -35, 40, -15), // Southern Africa
-                              new OpenLayers.Bounds(135, 30, 150, 42), // Japan
-                             ];
+        var leftHandBounds = [
+            [[50, -11], [60, 1]], // British Isles
+            [[50.986099, 0.774536], [53.146770, 1.779785]], // British Isles (part2)
+            [[3, 66], [30, 90]], // India, Pakistan
+            [[-45, 95], [2, 179]], // Australia, Indonesia
+            [[-35, -20], [-15, 40]], // Southern Africa
+            [[30, 135], [42, 150]] // Japan
+        ];
+
         elem("#leftHand").checked = false;
         for (var i = 0; i < leftHandBounds.length; i++) {
-            if (leftHandBounds[i].contains(lon, lat)) {
+            if (
+                lat >= leftHandBounds[i][0][0] && lat <= leftHandBounds[i][1][0] &&
+                lon >= leftHandBounds[i][0][1] && lon <= leftHandBounds[i][1][1]
+            ) {
                 elem("#leftHand").checked = true;
                 break;
             }
         }
 
-        var lonLat = new OpenLayers.LonLat(lon, lat);
-        lonLat.transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-        );
-
-        map.setCenter(lonLat, 16);
+        map.setView([lat, lon], 16);
     }
 
     function setPositionByString() {
-        query = elem("#address").value
+        var query = elem("#address").value;
         $.ajax({
         url: "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback",
         cache: false,
         dataType: "json",
             success: function(data) {
                 var result = data[0];
-                lon = parseFloat(result.lon);
-                lat = parseFloat(result.lat);
+                var lon = parseFloat(result.lon);
+                var lat = parseFloat(result.lat);
                 setPosition(lon, lat);
             },
             error: function (request, status, err) {
@@ -422,7 +447,7 @@ on("ready", function(){
         }
     });
 
-    var getJSON = function(url, callback) {
+/*     var getJSON = function(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'json';
@@ -435,8 +460,7 @@ on("ready", function(){
           }
         };
         xhr.send();
-    };
-
+    }; */
 
     // set default position to center Berlin
     setPosition(13.4, 52.52);
@@ -464,14 +488,10 @@ on("ready", function(){
      * @listener
      * whenever the map coordinates changes, update the input boxes
      */
-    map.events.register("move", map, function(){
-        var cor = map.getExtent();
-        cor.transform(
-            map.getProjectionObject(), // from Spherical Mercator Projection
-            new OpenLayers.Projection("EPSG:4326")
-        );
-        lat = (cor.top + (cor.bottom - cor.top) / 2);
-        lon = (cor.left + (cor.right - cor.left) / 2);
+    map.on("move", function(){
+        var center = map.getCenter();
+        var lat = center.lat;
+        var lon = center.lng;
 
         elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
     });
@@ -574,11 +594,13 @@ on("ready", function(){
      * generate and send the data to the websocket
      */
     function startBuild(){
-        var cor = map.getExtent();
-        cor.transform(
-            map.getProjectionObject(), // from Spherical Mercator Projection
-            new OpenLayers.Projection("EPSG:4326")
-        );
+        var bounds = map.getBounds();
+        var cor = {
+            left: bounds.getWest(),
+            bottom: bounds.getSouth(),
+            right: bounds.getEast(),
+            top: bounds.getNorth()
+        };
 
         var data = {
             poly: elem("#polygons").checked,
