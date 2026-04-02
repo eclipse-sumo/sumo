@@ -674,7 +674,6 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             addBackward = true;
         }
     }
-    bool ok = true;
     // if we had been able to extract the number of lanes, override the highway type default
     if (e->myNoLanes > 0) {
         if (addForward && !addBackward) {
@@ -697,7 +696,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     } else if (e->myNoLanes == 0) {
         WRITE_WARNINGF(TL("Skipping edge '%' because it has zero lanes."), id);
-        ok = false;
+        return newIndex;
     } else {
         // the total number of lanes is not known but at least one direction
         if (e->myNoLanesForward > 0) {
@@ -749,7 +748,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     if (speed <= 0 || speedBackward <= 0) {
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
-        ok = false;
+        return newIndex;
     }
     if (e->myNoLanes == 1 && addForward && addBackward) {
         // narrow road which now receives a total of 2 lanes but has less capacity than implied
@@ -891,177 +890,174 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
     }
 
-
     const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? toString(e->id) : "";
-    if (ok) {
-        const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-        const int offsetFactor = lefthand ? -1 : 1;
-        LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
-                                 (e->myRailDirection == WAY_UNKNOWN || explicitTwoWay)  ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
-        if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
-            lsf = LaneSpreadFunction::ROADCENTER;
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    const int offsetFactor = lefthand ? -1 : 1;
+    LaneSpreadFunction lsf = (addBackward || OptionsCont::getOptions().getBool("osm.oneway-spread-right")) &&
+                             (e->myRailDirection == WAY_UNKNOWN || explicitTwoWay)  ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
+    if (addBackward && lsf == LaneSpreadFunction::RIGHT && OptionsCont::getOptions().getString("default.spreadtype") == toString(LaneSpreadFunction::ROADCENTER)) {
+        lsf = LaneSpreadFunction::ROADCENTER;
+    }
+    if (addForward && addBackward && lsf == LaneSpreadFunction::RIGHT && explicitOneWay) {
+        lsf = LaneSpreadFunction::ROADCENTER;
+    }
+    if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::SPREAD_UNKNOWN) {
+        // user defined value overrides defaults
+        lsf = tc.getEdgeTypeSpreadType(type);
+    }
+    if (applyPlacement) {
+        // placement references the directional edge centerline for one-way edges
+        lsf = LaneSpreadFunction::CENTER;
+    }
+    if (defaults.size() > 0) {
+        e->setParameter("osmDefaults", joinToString(defaults, " "));
+    }
+
+    id = StringUtils::escapeXML(id);
+    const std::string reverseID = "-" + id;
+    const bool markOSMDirection =  from->getType() == SumoXMLNodeType::RAIL_SIGNAL || to->getType() == SumoXMLNodeType::RAIL_SIGNAL;
+    if (addForward) {
+        assert(numLanesForward > 0);
+        NBEdge* nbe = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, numLanesForward, tc.getEdgeTypePriority(type),
+                                 forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
+                                 StringUtils::escapeXML(streetName), origID, true);
+        if (markOSMDirection) {
+            nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
         }
-        if (addForward && addBackward && lsf == LaneSpreadFunction::RIGHT && explicitOneWay) {
-            lsf = LaneSpreadFunction::ROADCENTER;
+        nbe->setPermissions(forwardPermissions, -1);
+        if ((e->myBuswayType & WAY_FORWARD) != 0) {
+            nbe->setPermissions(SVC_BUS, 0);
         }
-        if (tc.getEdgeTypeSpreadType(type) != LaneSpreadFunction::SPREAD_UNKNOWN) {
-            // user defined value overrides defaults
-            lsf = tc.getEdgeTypeSpreadType(type);
+        applyChangeProhibition(nbe, e->myChangeForward);
+        applyLaneUse(nbe, e, true);
+        applyTurnSigns(nbe, e->myTurnSignsForward);
+        nbe->setTurnSignTarget(last->getID());
+        if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
+            nbe->addBikeLane(bikeLaneWidth * offsetFactor);
+        } else if (nbe->getPermissions(0) == SVC_BUS) {
+            // bikes drive on buslanes if no separate cycle lane is available
+            nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
         }
-        if (applyPlacement) {
-            // placement references the directional edge centerline for one-way edges
-            lsf = LaneSpreadFunction::CENTER;
+        if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0))
+                || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
+            nbe->addSidewalk(sidewalkWidth * offsetFactor);
         }
-        if (defaults.size() > 0) {
-            e->setParameter("osmDefaults", joinToString(defaults, " "));
+        if (!addBackward && (e->myExtraAllowed & SVC_PEDESTRIAN) != 0 && (nbe->getPermissions(0) & SVC_PEDESTRIAN) == 0) {
+            // Pedestrians are explicitly allowed (maybe through foot="yes") but did not get a sidewalk (maybe through sidewalk="no").
+            // Since we do not have a backward edge, we need to make sure they can at least walk somewhere, see #14124
+            nbe->setPermissions(nbe->getPermissions(0) | SVC_PEDESTRIAN, 0);
+        }
+        nbe->updateParameters(e->getParametersMap());
+        nbe->setDistance(distanceStart);
+        if (e->myAmInRoundabout) {
+            // ensure roundabout edges have the precedence
+            nbe->setJunctionPriority(to, NBEdge::JunctionPriority::ROUNDABOUT);
+            nbe->setJunctionPriority(from, NBEdge::JunctionPriority::ROUNDABOUT);
         }
 
-        id = StringUtils::escapeXML(id);
-        const std::string reverseID = "-" + id;
-        const bool markOSMDirection =  from->getType() == SumoXMLNodeType::RAIL_SIGNAL || to->getType() == SumoXMLNodeType::RAIL_SIGNAL;
-        if (addForward) {
-            assert(numLanesForward > 0);
-            NBEdge* nbe = new NBEdge(id, from, to, type, speed, NBEdge::UNSPECIFIED_FRICTION, numLanesForward, tc.getEdgeTypePriority(type),
-                                     forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape, lsf,
-                                     StringUtils::escapeXML(streetName), origID, true);
-            if (markOSMDirection) {
-                nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "forward");
-            }
-            nbe->setPermissions(forwardPermissions, -1);
-            if ((e->myBuswayType & WAY_FORWARD) != 0) {
-                nbe->setPermissions(SVC_BUS, 0);
-            }
-            applyChangeProhibition(nbe, e->myChangeForward);
-            applyLaneUse(nbe, e, true);
-            applyTurnSigns(nbe, e->myTurnSignsForward);
-            nbe->setTurnSignTarget(last->getID());
-            if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
-                nbe->addBikeLane(bikeLaneWidth * offsetFactor);
-            } else if (nbe->getPermissions(0) == SVC_BUS) {
-                // bikes drive on buslanes if no separate cycle lane is available
-                nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
-            }
-            if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0))
-                    || (myImportSidewalks && (sidewalkType & WAY_FORWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
-                nbe->addSidewalk(sidewalkWidth * offsetFactor);
-            }
-            if (!addBackward && (e->myExtraAllowed & SVC_PEDESTRIAN) != 0 && (nbe->getPermissions(0) & SVC_PEDESTRIAN) == 0) {
-                // Pedestrians are explicitly allowed (maybe through foot="yes") but did not get a sidewalk (maybe through sidewalk="no").
-                // Since we do not have a backward edge, we need to make sure they can at least walk somewhere, see #14124
-                nbe->setPermissions(nbe->getPermissions(0) | SVC_PEDESTRIAN, 0);
-            }
-            nbe->updateParameters(e->getParametersMap());
-            nbe->setDistance(distanceStart);
-            if (e->myAmInRoundabout) {
-                // ensure roundabout edges have the precedence
-                nbe->setJunctionPriority(to, NBEdge::JunctionPriority::ROUNDABOUT);
-                nbe->setJunctionPriority(from, NBEdge::JunctionPriority::ROUNDABOUT);
-            }
-
-            // process forward lanes width
-            const int numForwardLanesFromWidthKey = (int)e->myWidthLanesForward.size();
-            if (numForwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
-                if ((int)nbe->getLanes().size() != numForwardLanesFromWidthKey) {
-                    WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."),
-                                   id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
-                } else {
-                    for (int i = 0; i < numForwardLanesFromWidthKey; i++) {
-                        const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
-                        const int laneIndex = lefthand ? i : numForwardLanesFromWidthKey - i - 1;
-                        nbe->setLaneWidth(laneIndex, actualWidth);
-                    }
-                }
-            }
-            if ((e->myRailDirection & WAY_PREFER_FORWARD) != 0 && isRailway(forwardPermissions)) {
-                nbe->setRoutingType("4");
+        // process forward lanes width
+        const int numForwardLanesFromWidthKey = (int)e->myWidthLanesForward.size();
+        if (numForwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
+            if ((int)nbe->getLanes().size() != numForwardLanesFromWidthKey) {
+                WRITE_WARNINGF(TL("Forward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:forward key ('%'). Using default width values."),
+                               id, nbe->getLanes().size(), numForwardLanesFromWidthKey);
             } else {
-                nbe->setRoutingType(routingType);
-            }
-
-            if (!ec.insert(nbe)) {
-                delete nbe;
-                throw ProcessError(TLF("Could not add edge '%'.", id));
-            }
-        }
-        if (addBackward) {
-            assert(numLanesBackward > 0);
-            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, NBEdge::UNSPECIFIED_FRICTION, numLanesBackward, tc.getEdgeTypePriority(type),
-                                     backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), lsf,
-                                     StringUtils::escapeXML(streetName), origID, true);
-            if (markOSMDirection) {
-                nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
-            }
-            nbe->setPermissions(backwardPermissions);
-            if ((e->myBuswayType & WAY_BACKWARD) != 0) {
-                nbe->setPermissions(SVC_BUS, 0);
-            }
-            applyChangeProhibition(nbe, e->myChangeBackward);
-            applyLaneUse(nbe, e, false);
-            applyTurnSigns(nbe, e->myTurnSignsBackward);
-            nbe->setTurnSignTarget(first->getID());
-            if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
-                nbe->addBikeLane(bikeLaneWidth * offsetFactor);
-            } else if (nbe->getPermissions(0) == SVC_BUS) {
-                // bikes drive on buslanes if no separate cycle lane is available
-                nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
-            }
-            if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0))
-                    || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
-                nbe->addSidewalk(sidewalkWidth * offsetFactor);
-            }
-            nbe->updateParameters(e->getParametersMap());
-            nbe->setDistance(distanceEnd);
-            if (e->myAmInRoundabout) {
-                // ensure roundabout edges have the precedence
-                nbe->setJunctionPriority(from, NBEdge::JunctionPriority::ROUNDABOUT);
-                nbe->setJunctionPriority(to, NBEdge::JunctionPriority::ROUNDABOUT);
-            }
-            // process backward lanes width
-            const int numBackwardLanesFromWidthKey = (int)e->myWidthLanesBackward.size();
-            if (numBackwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
-                if ((int)nbe->getLanes().size() != numBackwardLanesFromWidthKey) {
-                    WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."),
-                                   id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);
-                } else {
-                    for (int i = 0; i < numBackwardLanesFromWidthKey; i++) {
-                        const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
-                        const int laneIndex = lefthand ? i : numBackwardLanesFromWidthKey - i - 1;
-                        nbe->setLaneWidth(laneIndex, actualWidth);
-                    }
+                for (int i = 0; i < numForwardLanesFromWidthKey; i++) {
+                    const double actualWidth = e->myWidthLanesForward[i] <= 0 ? forwardWidth : e->myWidthLanesForward[i];
+                    const int laneIndex = lefthand ? i : numForwardLanesFromWidthKey - i - 1;
+                    nbe->setLaneWidth(laneIndex, actualWidth);
                 }
             }
-            if ((e->myRailDirection & WAY_PREFER_BACKWARD) != 0 && isRailway(backwardPermissions)) {
-                nbe->setRoutingType("4");
+        }
+        if ((e->myRailDirection & WAY_PREFER_FORWARD) != 0 && isRailway(forwardPermissions)) {
+            nbe->setRoutingType("4");
+        } else {
+            nbe->setRoutingType(routingType);
+        }
+
+        if (!ec.insert(nbe)) {
+            delete nbe;
+            throw ProcessError(TLF("Could not add edge '%'.", id));
+        }
+    }
+    if (addBackward) {
+        assert(numLanesBackward > 0);
+        NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, NBEdge::UNSPECIFIED_FRICTION, numLanesBackward, tc.getEdgeTypePriority(type),
+                                 backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), lsf,
+                                 StringUtils::escapeXML(streetName), origID, true);
+        if (markOSMDirection) {
+            nbe->setParameter(NBTrafficLightDefinition::OSM_DIRECTION, "backward");
+        }
+        nbe->setPermissions(backwardPermissions);
+        if ((e->myBuswayType & WAY_BACKWARD) != 0) {
+            nbe->setPermissions(SVC_BUS, 0);
+        }
+        applyChangeProhibition(nbe, e->myChangeBackward);
+        applyLaneUse(nbe, e, false);
+        applyTurnSigns(nbe, e->myTurnSignsBackward);
+        nbe->setTurnSignTarget(first->getID());
+        if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
+            nbe->addBikeLane(bikeLaneWidth * offsetFactor);
+        } else if (nbe->getPermissions(0) == SVC_BUS) {
+            // bikes drive on buslanes if no separate cycle lane is available
+            nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
+        }
+        if ((addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0))
+                || (myImportSidewalks && (sidewalkType & WAY_BACKWARD) != 0 && defaultPermissions != SVC_PEDESTRIAN)) {
+            nbe->addSidewalk(sidewalkWidth * offsetFactor);
+        }
+        nbe->updateParameters(e->getParametersMap());
+        nbe->setDistance(distanceEnd);
+        if (e->myAmInRoundabout) {
+            // ensure roundabout edges have the precedence
+            nbe->setJunctionPriority(from, NBEdge::JunctionPriority::ROUNDABOUT);
+            nbe->setJunctionPriority(to, NBEdge::JunctionPriority::ROUNDABOUT);
+        }
+        // process backward lanes width
+        const int numBackwardLanesFromWidthKey = (int)e->myWidthLanesBackward.size();
+        if (numBackwardLanesFromWidthKey > 0 && !OptionsCont::getOptions().getBool("ignore-widths")) {
+            if ((int)nbe->getLanes().size() != numBackwardLanesFromWidthKey) {
+                WRITE_WARNINGF(TL("Backward lanes count for edge '%' ('%') is not matching the number of lanes defined in width:lanes:backward key ('%'). Using default width values."),
+                               id, nbe->getLanes().size(), numBackwardLanesFromWidthKey);
             } else {
-                nbe->setRoutingType(routingType);
-            }
-
-            if (!ec.insert(nbe)) {
-                delete nbe;
-                throw ProcessError(TLF("Could not add edge '-%'.", id));
-            }
-        }
-        if ((e->myParkingType & PARKING_BOTH) != 0 && OptionsCont::getOptions().isSet("parking-output")) {
-            if ((e->myParkingType & PARKING_RIGHT) != 0) {
-                if (addForward) {
-                    nb.getParkingCont().push_back(NBParking(id, id));
-                } else {
-                    /// XXX parking area should be added on the left side of a reverse one-way street
-                    if ((e->myParkingType & PARKING_LEFT) == 0 && !addBackward) {
-                        /// put it on the wrong side (better than nothing)
-                        nb.getParkingCont().push_back(NBParking(reverseID, reverseID));
-                    }
+                for (int i = 0; i < numBackwardLanesFromWidthKey; i++) {
+                    const double actualWidth = e->myWidthLanesBackward[i] <= 0 ? backwardWidth : e->myWidthLanesBackward[i];
+                    const int laneIndex = lefthand ? i : numBackwardLanesFromWidthKey - i - 1;
+                    nbe->setLaneWidth(laneIndex, actualWidth);
                 }
             }
-            if ((e->myParkingType & PARKING_LEFT) != 0) {
-                if (addBackward) {
+        }
+        if ((e->myRailDirection & WAY_PREFER_BACKWARD) != 0 && isRailway(backwardPermissions)) {
+            nbe->setRoutingType("4");
+        } else {
+            nbe->setRoutingType(routingType);
+        }
+
+        if (!ec.insert(nbe)) {
+            delete nbe;
+            throw ProcessError(TLF("Could not add edge '-%'.", id));
+        }
+    }
+    if ((e->myParkingType & PARKING_BOTH) != 0 && OptionsCont::getOptions().isSet("parking-output")) {
+        if ((e->myParkingType & PARKING_RIGHT) != 0) {
+            if (addForward) {
+                nb.getParkingCont().push_back(NBParking(id, id));
+            } else {
+                /// XXX parking area should be added on the left side of a reverse one-way street
+                if ((e->myParkingType & PARKING_LEFT) == 0 && !addBackward) {
+                    /// put it on the wrong side (better than nothing)
                     nb.getParkingCont().push_back(NBParking(reverseID, reverseID));
-                } else {
-                    /// XXX parking area should be added on the left side of an one-way street
-                    if ((e->myParkingType & PARKING_RIGHT) == 0 && !addForward) {
-                        /// put it on the wrong side (better than nothing)
-                        nb.getParkingCont().push_back(NBParking(id, id));
-                    }
+                }
+            }
+        }
+        if ((e->myParkingType & PARKING_LEFT) != 0) {
+            if (addBackward) {
+                nb.getParkingCont().push_back(NBParking(reverseID, reverseID));
+            } else {
+                /// XXX parking area should be added on the left side of an one-way street
+                if ((e->myParkingType & PARKING_RIGHT) == 0 && !addForward) {
+                    /// put it on the wrong side (better than nothing)
+                    nb.getParkingCont().push_back(NBParking(id, id));
                 }
             }
         }
