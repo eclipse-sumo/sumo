@@ -126,7 +126,7 @@ separation from those without, and special road like living streets and
 pedestrian areas. There is no direct connection to the importance of a
 road. However in OpenStreetMap, a motorway is supposed to have such a
 central barrier separation per default
-[\[1\]]()(https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway). As a
+[\[1\]](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dmotorway). As a
 consequence, the speed value only varies between rural and urban
 contexts but not between road types, except for motorways, living
 streets and pedestrian areas. The two SUMO edge type files are given
