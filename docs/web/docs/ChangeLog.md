@@ -36,7 +36,8 @@ title: ChangeLog
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - Fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
-  - Fixed crash after deleting an object from a group of overlapped objects #17795
+  - Fixed crash after deleting an object from a group of overlapped objects #17795 (regression in 1.25.0)
+  - Saving of loaded unmodified additionals to a new file name is working again #17814 (regression in 1.26.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
   - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
   - Fixed invalid default extension when saving plain-xml #17778 (regression in 1.26.0)
@@ -132,6 +133,7 @@ title: ChangeLog
   - Element `<join>` (in *.nod.xml*) now supports attribute `reset` to force recomputation of all connections at the new node. Also added option **--junctions.join-reset** which triggers recomputation of all connections at all joins #17733
   - Added option **--default.junctions.type** to override type-guessing when types are not defined in the input. This option also applies junctions created in netedit #17736
   - Added option **--railway.topology.ptline-priority** to set railway routingType from ptlines #17558
+  - Added option **--railway.signal.guess.by-stops.split** to optionally split edges when setting **--railway.signals.guess.by-stops**. The default behavior of **--railway.signals.guess.by-stops** was changed to allow direct control of switches to ensure smooth operations on single tracks. The new option splits at the stop to give sufficent overlap (Durchrutschweg). #15820
   - OSM: the railway routingType is no set based on tag `railway:preferred_direction` #17774
   - OSM: tag `placement` is now supported for better geometry of one-way roads #17728
   - OSM: adding more bidi edges based on signal direction #17782
@@ -148,6 +150,7 @@ title: ChangeLog
   - osmWebWizard.py: now automatically saves osmGet configuration for easier updating of a scenario #17570
   - osmWebWizard.py: now permits selection of public transport modes to import #8628
   - osmWebWizard.py: now permits to set a 'verbose' checkbox which gets forwarded to all applications #17573
+  - osmWebWizard.py: adds menu for changing the tileset (i.e. OpenTopoMap and öpnvkarte / public transportability) #17746
   - osmGet.py: now attempts to download again after timeout and tries to use proxies (also affects osmWebWizard) #17597
   - plotXMLAttributes.py: added option **--join** to configure the separator when joining values or labels #17612
   - generateStationEdges.py: added option **--join-stations** to generate a single access edge for all stops with the same name #17625
@@ -163,7 +166,9 @@ title: ChangeLog
   - sumolib.net.getOptimalPath now uses caching by default (configurable with `readNet` attribute `maxcache`) and runs much faster in one-to-many routings (i.e. gtfs2pty.py). #17753
   - gtfs2pt.py: Added option **--remove-detour-factor** to filter out trips with implausible routes #17757
   - gtfs2pt.py: Added option **--rail-priority-factor** to consider routingType when mapmatching railways #17560
-
+  - gtfs2pt.py: Added option **--poi-output** to visualize loaded stop coordinates as pois #17812
+  - gtfs2pt.py: Added option **--distance-penalty** which makes the (exponent) of the penalty for matching accuracy configurable. The penalty is now also active when using option **--stops** #17813
+  - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766
 
 ### Miscellaneous
 
