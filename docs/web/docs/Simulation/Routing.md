@@ -61,9 +61,15 @@ Setting the routing mode (to ignore blockage) can be accomplished in the followi
 # Travel-time values for routing
 
 By default, the route with the least travel time is chosen. The travel
-time depends on the current routing mode (configurable via
-*traci.vehicle.setRoutingMode*) or via the explicit *routingMode*
-argument to *traci.simulation.findRoute*.
+time depends on the current routing mode which is set via any of the following:
+
+- *traci.vehicle.setRoutingMode*
+- the explicit *routingMode* argument to *traci.simulation.findRoute*.
+- [generic vehicle param](GenericParameters.md) `key="device.rerouting.mode"`
+- option **--device.rerouting.mode**
+
+!!! note
+    when a vehicle is using ROUTING_MODE_AGGREGATED or ROUTING_MODE_AGGREGATED_CUSTOM, collection of [aggregated/smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) will be activated and used for [location triggered rerouting](Rerouter.md) and [event triggered rerouting](Stationfinder.md).
 
 ## Routing Mode *traci.constants.ROUTING_MODE_DEFAULT*
 
@@ -85,6 +91,16 @@ The following order of steps is taken to retrieve the travel time for each edge.
 
 The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
 the *rerouting device* are used. Note, that these can also be modified via TraCI.
+
+## Routing Mode *traci.constants.ROUTING_MODE_AGGREGATED_CUSTOM*
+
+The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
+the *rerouting device* are used. Note, that these can also be modified via TraCI. Additionally, the following features are applied if configured:
+
+- **--weights.random-factor** (randomized noise for traveltimes)
+- **--weights.priority-factor** ([factoring edge priority into route choice](#routing_by_travel_time_and_edge_priority))
+- using edge routingType according to [routing preferences](#routing_by_travel_time_and_routingtype)
+
 
 ## Randomized travel times
 
