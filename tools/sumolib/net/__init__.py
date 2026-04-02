@@ -672,7 +672,7 @@ class Net:
 
             path.reverse()
             cost = finalizeCost(cost, path)
-            assert(cost >= 0)
+            assert cost >= 0
             if self.hasInternal:
                 if appendix:
                     return tuple(path + appendix), cost + appendixCost

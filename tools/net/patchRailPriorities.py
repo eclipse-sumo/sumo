@@ -194,8 +194,8 @@ def writePatches(options, net, sidings, edgeUsage, signalNodes):
                 for inEdge in n.getIncoming():
                     for outEdge, conns in inEdge.getOutgoing().items():
                         for conn in conns:
-                            if (rTypes.get(inEdge.getID()) != options.rtUse and
-                                rTypes.get(outEdge.getID()) != options.rtUse):
+                            if ((rTypes.get(inEdge.getID()) != options.rtUse and
+                                 rTypes.get(outEdge.getID()) != options.rtUse)):
                                 outf2.write('    <connection from="%s" to="%s" fromLane="%s" toLane="%s" uncontrolled="true"/>\n' % (  # noqa
                                             inEdge.getID(), outEdge.getID(),
                                             conn.getFromLane().getIndex(), conn.getToLane().getIndex()))
@@ -315,9 +315,9 @@ def main(options):
     sys.stderr.flush()
 
     args = [NETCONVERT,
-           '-s', options.netfile,
-           '-e', options.edges_file,
-           '-o', options.outfile] + extraArgs
+            '-s', options.netfile,
+            '-e', options.edges_file,
+            '-o', options.outfile] + extraArgs
 
     subprocess.call(args, stdout=subprocess.DEVNULL)
 
