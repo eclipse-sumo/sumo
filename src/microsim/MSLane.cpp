@@ -901,15 +901,34 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         gDebugFlag4 = false;
 #endif
     }
-    // do not insert if the bidirectional edge is occupied
-    if (getBidiLane() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
-        if ((insertionChecks & (int)InsertionCheck::BIDI) != 0) {
+    if (getBidiLane() != nullptr && isRail) {
+        // do not insert if the bidirectional edge is occupied
+        if (getBidiLane()->getVehicleNumberWithPartials() > 0 && (insertionChecks & (int)InsertionCheck::BIDI) != 0) {
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
                 std::cout << "   bidi-lane occupied\n";
             }
 #endif
             return false;
+        }
+        // do not insert the back of the train would be put onto an occupied bidi-lane
+        double backLength = aVehicle->getLength() - pos;
+        if (backLength > 0 && (insertionChecks & (int)InsertionCheck::BIDI) != 0) {
+            MSLane* pred = getLogicalPredecessorLane();
+            MSLane* bidi = pred == nullptr ? nullptr : pred->getBidiLane();
+            while (backLength > 0 && bidi != nullptr) {
+                if (bidi->getVehicleNumberWithPartials() > 0) {
+#ifdef DEBUG_INSERTION
+                    if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                        std::cout << "   bidi-lane furtherLanes occupied\n";
+                    }
+#endif
+                    return false;
+                }
+                backLength -= bidi->getLength();
+                pred = pred->getLogicalPredecessorLane();
+                bidi = pred == nullptr ? nullptr : pred->getBidiLane();
+            }
         }
     }
     MSLink* firstRailSignal = nullptr;
