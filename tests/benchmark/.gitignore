@@ -1,0 +1,5 @@
+# Generated files — regenerate with: bash generate.sh
+grid.net.xml
+routes.xml
+trips.xml
+*.alt.xml

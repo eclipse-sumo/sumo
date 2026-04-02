@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sumoConfiguration>
+    <input>
+        <net-file value="grid.net.xml"/>
+        <route-files value="routes.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="4000"/>
+    </time>
+    <processing>
+        <time-to-teleport value="300"/>
+    </processing>
+    <report>
+        <no-step-log value="true"/>
+    </report>
+</sumoConfiguration>
