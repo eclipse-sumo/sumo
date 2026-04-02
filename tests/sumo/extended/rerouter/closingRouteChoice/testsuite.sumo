@@ -9,3 +9,15 @@ jam_reroutingMode9
 
 # the faster detour is jammed
 jam_reroutingMode12
+
+# the slower detour has higher priority
+prioFactor_default
+
+# the slower detour has higher priority
+prioFactor_routingDevice
+
+# the slower detour has higher priority
+prioFactor_routingMode9
+
+# the slower detour has higher priority
+prioFactor_routingMode12
