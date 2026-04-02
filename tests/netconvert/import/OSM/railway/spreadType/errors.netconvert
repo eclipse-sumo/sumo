@@ -1,0 +1,2 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '258833669').
+Warning: Ambiguous railway kilometrage direction for way '373635022' (assuming forward)
