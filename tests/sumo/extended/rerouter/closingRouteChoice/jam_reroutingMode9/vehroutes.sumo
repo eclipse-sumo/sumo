@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-02T11:51:04.745578+01:00 by Eclipse SUMO sumo v1_26_0+0969-ff156bce291
+<!-- generated on 2026-04-02T12:08:22.944115+01:00 by Eclipse SUMO sumo v1_26_0+0971-f90614006cc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="blocker" depart="0.00" departPos="300.00" arrival="356.00">
         <route edges="left"/>
         <stop edge="left" endPos="300.00" duration="300.00"/>
-        <param key="has.rerouting.device" value="true"/>
     </vehicle>
 
     <vehicle id="v_0" depart="100.00" arrival="371.00">

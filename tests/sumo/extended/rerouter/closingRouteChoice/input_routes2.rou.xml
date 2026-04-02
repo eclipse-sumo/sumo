@@ -8,8 +8,6 @@
     <vehicle id="blocker" depart="0.00" departPos="stop">
         <route edges="left"/>
         <stop edge="left" endPos="300" duration="300"/>
-        <!-- at least one vehicle needs to have a routing device to enable weight aggregation -->
-        <param key="has.rerouting.device" value="true"/>
     </vehicle>
     <vehicle id="v_0" depart="100.00">
         <route edges="beg middle end rend"/>
