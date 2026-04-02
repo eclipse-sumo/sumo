@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-26 20:46+0000\n"
+"PO-Revision-Date: 2026-04-02 09:46+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10501,7 +10501,7 @@ msgstr "No hay rutas en la red"
 
 #: src/netedit/dialogs/elements/GNEDistributionRefDialog.cpp:59
 msgid "Add % reference"
-msgstr ""
+msgstr "Agregar referencia %"
 
 #: src/netedit/dialogs/elements/GNEDistributionRefDialog.cpp:150
 #: src/netedit/elements/demand/GNERouteHandler.cpp:260
@@ -10519,11 +10519,11 @@ msgstr "añadir % en '%'"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:58
 msgid "Rerouter intervals of % '%' cannot be saved"
-msgstr ""
+msgstr "Los intervalos de reenrutador de % '%' no se pueden guardar"
 
 #: src/netedit/dialogs/elements/GNERerouterDialog.cpp:59
 msgid ". There are overlapping intervals."
-msgstr ""
+msgstr ". Hay intervalos superpuestos."
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:76
 msgid "Error updating % of % '%'"
@@ -10531,7 +10531,7 @@ msgstr "Error al actualizar % de % '%'"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:77
 msgid "% of % '%' cannot be updated because"
-msgstr ""
+msgstr "% de % '%' no se puede actualizar porque"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:83
 #, c-format
@@ -10553,7 +10553,7 @@ msgstr "Rerouter tiene mas de una arista"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:259
 msgid "No parkingAreas in net"
-msgstr ""
+msgstr "No hay zonas de estacionamiento en la red"
 
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:37
 #: src/netedit/dialogs/elements/GNETemplateElementDialog.h:49
@@ -11914,7 +11914,7 @@ msgstr "Polígono ya simplificado"
 
 #: src/netedit/elements/additional/GNEPoly.cpp:552
 msgid "Using GEO Shape"
-msgstr ""
+msgstr "Usando forma geográfica"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:114
 msgid "' needs at least one edge"
@@ -11943,7 +11943,7 @@ msgstr "agregar intervalo de datos"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:136
 msgid "There is already a edgeRel defined in edge '%'."
-msgstr ""
+msgstr "Ya existe una edgeRel definida en la arista '%'."
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:141
 #: src/netedit/elements/data/GNEDataHandler.cpp:183
