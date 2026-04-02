@@ -54,6 +54,7 @@ function/crossings/guessed/joined_TLS
 function/fringe/guess
 function/spreadType/default_center
 function/railway/signals/guess.by-stops
+function/railway/signals/guess.by-stops_split
 bugs/0xxx/ticket1907
 bugs/0xxx/ticket2141
 bugs/10xxx/ticket13542b
