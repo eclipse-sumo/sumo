@@ -6,6 +6,10 @@
 # - rerouter edge (detour sign) encountered before alternative route branches off  vs not encountered
 # - ignore-route-errors on/off
 closingReroute
+
+# test algorithms for picking an alternative route when the main route is closed
+# see #17815, #17816
+closingRouteChoice
 optimizeStops
 closingLaneReroute
 routeProb
