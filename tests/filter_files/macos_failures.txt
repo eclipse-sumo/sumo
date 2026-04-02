@@ -59,6 +59,7 @@ function/crossings/guessed/4_rw_elongated_with_sidepaths
 function/crossings/guessed/adlershof_dlr
 function/crossings/guessed/joined_TLS
 function/spreadType/default_center
+function/railway/signals/guess.by-stops_split
 bugs/0xxx/ticket1907
 bugs/0xxx/ticket2141
 bugs/10xxx/ticket13542b
