@@ -173,8 +173,16 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
     if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
     }
-    if (veh != nullptr && (veh->getRoutingMode() & libsumo::ROUTING_MODE_AGGREGATED_CUSTOM) != 0) {
-        return MSRoutingEngine::getEffortExtra(e, v, t);
+    if (veh != nullptr) {
+        if ((veh->getRoutingMode() & libsumo::ROUTING_MODE_AGGREGATED_CUSTOM) != 0) {
+            return MSRoutingEngine::getEffortExtra(e, v, t);
+        } else if ((veh->getRoutingMode() & libsumo::ROUTING_MODE_AGGREGATED) != 0) {
+            if (MSRoutingEngine::hasBikeSpeeds() && v->getVClass() == SVC_BICYCLE) {
+                return MSRoutingEngine::getEffortBike(e, v, t);
+            } else {
+                return MSRoutingEngine::getEffort(e, v, t);
+            }
+        }
     }
     return e->getMinimumTravelTime(v);
 }

@@ -116,6 +116,11 @@ public:
     static MSTransportableRouter& getIntermodalRouterTT(const int rngIndex,
             const Prohibitions& prohibited = {});
 
+    /// @brief whether the router collects bicycle speeds
+    static bool hasBikeSpeeds() {
+        return myBikeSpeeds;
+    }
+
     /** @brief Returns the effort to pass an edge
     *
     * This method is given to the used router in order to obtain the efforts
