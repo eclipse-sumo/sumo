@@ -2711,6 +2711,11 @@ MSBaseVehicle::initTransientModelParams() {
         int routingMode = StringUtils::toInt(routingModeStr);
         if (routingMode != libsumo::ROUTING_MODE_DEFAULT) {
             setRoutingMode(routingMode);
+            if ((routingMode & (libsumo::ROUTING_MODE_AGGREGATED | libsumo::ROUTING_MODE_AGGREGATED_CUSTOM)) != 0) {
+                // vehicles wishes to use traffic-dependent routing weights on triggere rerouting
+                // (initWeightUpdate would be triggered anyway when equipped with device.rerouting)
+                MSRoutingEngine::initWeightUpdate();
+            }
         }
     } catch (NumberFormatException&) {
         // @todo interpret symbolic constants
