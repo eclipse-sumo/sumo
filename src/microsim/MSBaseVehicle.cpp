@@ -2715,6 +2715,7 @@ MSBaseVehicle::initTransientModelParams() {
                 // vehicles wishes to use traffic-dependent routing weights on triggere rerouting
                 // (initWeightUpdate would be triggered anyway when equipped with device.rerouting)
                 MSRoutingEngine::initWeightUpdate();
+                MSRoutingEngine::initEdgeWeights(getVClass());
             }
         }
     } catch (NumberFormatException&) {
