@@ -47,21 +47,6 @@ TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 
 def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, filename):
-
-    # initiate delay function for retrying download in case of specific errors
-    base_delay = options.retry_delay
-
-    def retry_delay(error_code, idx):
-        if error_code == 429:
-            delay = base_delay * 2 ** idx
-        elif error_code in (502, 504):
-            delay = base_delay + idx
-        elif error_code == 503:
-            delay = base_delay * 2 * (idx + 1)
-        else:
-            delay = base_delay
-        return delay
-
     # generate query string for each road-type category
     queryStringNode = []
 
@@ -178,17 +163,15 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
         try:
             req = Request(url, data=finalQuery.encode(), headers=headers)
             with urlopen(req, context=context) as response:
+                if options.verbose:
+                    print(response.status, response.reason)
                 if response.getheader('Content-Encoding') == 'gzip':
                     lines = gzip.decompress(response.read())
                 else:
                     lines = response.read()
                 # validate before injecting SUMO header
                 if b"<osm" not in lines[:1000]:
-                    print("Removing %s from list of valid servers (returned non-OSM content)." % url, flush=True)
-                    urls = [u for u in urls if u != url]
-                    if urls:
-                        continue
-                    raise RuntimeError("All servers returned non-OSM content after %d attempts." % (idx + 1))
+                    raise ValueError("Server %s returned non-OSM content" % url)
                 declClose = lines.find(b'>') + 1
                 lines = (lines[:declClose]
                          + b"\n"
@@ -199,14 +182,13 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
                         out.write(gzip.compress(lines))
                     else:
                         out.write(lines)
-                print("Downloaded from %s (%s %s)" % (url, response.status, response.reason), flush=True)
                 break
         except HTTPError as e:
             if idx < options.retries:
                 if e.code in [429, 502, 503, 504]:
-                    delay = retry_delay(e.code, idx)
-                    print("Download from %s failed (%s %s), retrying in %ds." % (url, e.code, e.msg, delay), flush=True)
-                    time.sleep(delay)
+                    if options.verbose:
+                        print("Download from %s failed (%s %s), retrying in %ds." % (url, e.code, e.msg, options.retry_delay))
+                    time.sleep(options.retry_delay)
                     continue
                 urls = [u for u in urls if u != url]
                 if urls:
@@ -248,9 +230,8 @@ def get_options(args):
     optParser.add_argument("--config-output", category="output",
                            help="write configuration to the given FILE and not as comment into the output file")
     optParser.add_argument("--retries", type=int, default=5,
-                           help="How many attempts to download if a server error is encountered")
-    optParser.add_argument("--retry-delay", type=int, default=3,
-                           help="Base delay between download attempts (adaptive based on error type)")
+                           help="How many attempts to download if a 504 is encountered")
+    optParser.add_argument("--retry-delay", type=int, default=3, help="Delay between download attempts")
     optParser.add_argument("-v", "--verbose", action="store_true",
                            default=False, help="tell me what you are doing")
     options = optParser.parse_args(args=args)
