@@ -124,22 +124,24 @@ MSRoutingEngine::initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption, in
 
 void
 MSRoutingEngine::initWeightConstants(const OptionsCont& oc) {
+    if (oc.getFloat("weights.priority-factor") != 0) {
+        myPriorityFactor = oc.getFloat("weights.priority-factor");
+        if (myPriorityFactor < 0) {
+            throw ProcessError(TL("weights.priority-factor cannot be negative."));
+        }
+        myMinEdgePriority = std::numeric_limits<double>::max();
+        double maxEdgePriority = -std::numeric_limits<double>::max();
+        for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
+            maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
+            myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
+        }
+        myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
+        if (myEdgePriorityRange == 0) {
+            WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
+            myPriorityFactor = 0;
+        }
+    }
     myDynamicRandomness = oc.getBool("weights.random-factor.dynamic");
-    myPriorityFactor = oc.getFloat("weights.priority-factor");
-    if (myPriorityFactor < 0) {
-        throw ProcessError(TL("weights.priority-factor cannot be negative."));
-    }
-    myMinEdgePriority = std::numeric_limits<double>::max();
-    double maxEdgePriority = -std::numeric_limits<double>::max();
-    for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
-        maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
-        myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
-    }
-    myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
-    if (myEdgePriorityRange == 0) {
-        WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
-        myPriorityFactor = 0;
-    }
     myHaveExtras = gRoutingPreferences || myPriorityFactor != 0 || gWeightsRandomFactor != 0;
 }
 

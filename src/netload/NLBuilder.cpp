@@ -136,10 +136,6 @@ NLBuilder::build() {
         WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
     }
     buildNet();
-    if (myOptions.getFloat("weights.priority-factor") != 0) {
-        MSRoutingEngine::initWeightConstants(myOptions);
-    }
-
     if (myOptions.isSet("alternative-net-file")) {
         for (std::string fname : myOptions.getStringVector("alternative-net-file")) {
             const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading alternative net from '" + fname + "'");
@@ -237,6 +233,8 @@ NLBuilder::build() {
             }
         }
     }
+    // init after preferences have been loaded from additional-files
+    MSRoutingEngine::initWeightConstants(myOptions);
     // init tls after all detectors have been loaded
     myJunctionBuilder.postLoadInitialization();
     // declare meandata set by options
