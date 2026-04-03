@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-03-22 19:05+0000\n"
+"PO-Revision-Date: 2026-04-04 04:10+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/cs/>\n"
@@ -119,7 +119,7 @@ msgstr ""
 
 #: src/activitygen/activitygen_main.cpp:68 src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Načítání sítě"
 
 #: src/activitygen/activitygen_main.cpp:78
 #: src/netload/NLEdgeControlBuilder.cpp:245 src/router/ROLoader.cpp:129
@@ -2983,7 +2983,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:1015
 msgid "Interrupted."
-msgstr ""
+msgstr "Přerušeno."
 
 #: src/microsim/MSNet.cpp:1017
 msgid "Too many teleports."
@@ -3007,7 +3007,7 @@ msgstr ""
 #: src/tools/emissionsMap_main.cpp:84
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "Načítání % selhalo."
 
 #: src/microsim/MSNet.cpp:1797
 #, c-format
@@ -7434,11 +7434,11 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:2618 src/netbuild/NBNodeCont.cpp:2710
 msgid "-----------------------------------------------------"
-msgstr ""
+msgstr "-----------------------------------------------------"
 
 #: src/netbuild/NBNodeCont.cpp:2619
 msgid "Summary:"
-msgstr ""
+msgstr "Souhrn:"
 
 #: src/netbuild/NBNodeCont.cpp:2677
 msgid " Node type statistics:"
@@ -11655,11 +11655,11 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:286
 msgid "Warning: "
-msgstr ""
+msgstr "Varování: "
 
 #: src/utils/common/MsgHandler.cpp:287
 msgid "Error: "
-msgstr ""
+msgstr "Chyba: "
 
 #: src/utils/common/Parameterised.cpp:106
 msgid "Invalid conversion from string to double (%)"
@@ -12468,7 +12468,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
-msgstr ""
+msgstr "Použití: "
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
