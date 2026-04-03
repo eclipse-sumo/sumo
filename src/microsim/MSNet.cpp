@@ -182,6 +182,10 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
             } else {
                 return MSRoutingEngine::getEffort(e, v, t);
             }
+        } else if (MSRoutingEngine::haveExtras()) {
+            double tt = e->getMinimumTravelTime(v);
+            MSRoutingEngine::applyExtras(e, v, TIME2STEPS(t), tt);
+            return tt;
         }
     }
     return e->getMinimumTravelTime(v);

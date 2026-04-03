@@ -87,8 +87,8 @@ public:
         return myLastAdaptation;
     }
 
-    static double getPriorityFactor() {
-        return myPriorityFactor;
+    static bool haveExtras() {
+        return myHaveExtras;
     }
 
     /// @brief apply cost modifications from randomness, priorityFactor and preferences
@@ -301,6 +301,9 @@ private:
 
     /// @brief whether randomness varies over time
     static bool myDynamicRandomness;
+
+    /// @brief whether extra routing cost modifications are configured
+    static bool myHaveExtras;
 
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing the route cache

@@ -70,6 +70,7 @@ double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
 bool MSRoutingEngine::myDynamicRandomness(false);
+bool MSRoutingEngine::myHaveExtras(false);
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
@@ -139,6 +140,7 @@ MSRoutingEngine::initWeightConstants(const OptionsCont& oc) {
         WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
         myPriorityFactor = 0;
     }
+    myHaveExtras = gRoutingPreferences || myPriorityFactor != 0 || gWeightsRandomFactor != 0;
 }
 
 
