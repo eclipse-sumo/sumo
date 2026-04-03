@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-22 19:05+0000\n"
+"PO-Revision-Date: 2026-04-04 04:10+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/cs/>\n"
@@ -280,7 +280,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1354
 #: src/netedit/GNEApplicationWindowHelper.cpp:2017
 msgid "&Edges"
-msgstr ""
+msgstr "&Okraje"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 #: src/netedit/GNEApplicationWindowHelper.cpp:2017
@@ -302,7 +302,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1424
 #: src/netedit/GNEApplicationWindowHelper.cpp:2026
 msgid "&Persons"
-msgstr ""
+msgstr "&Lidé"
 
 #: src/gui/GUIApplicationWindow.cpp:572
 #: src/netedit/GNEApplicationWindowHelper.cpp:2026
@@ -311,7 +311,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:575
 msgid "&Container"
-msgstr ""
+msgstr "&Kontejner"
 
 #: src/gui/GUIApplicationWindow.cpp:575
 #: src/netedit/GNEApplicationWindowHelper.cpp:2029
@@ -321,7 +321,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "&TLS"
-msgstr ""
+msgstr "&SSZ"
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2038
@@ -332,7 +332,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:636
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "&Additional"
-msgstr ""
+msgstr "&Další"
 
 #: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:2041
@@ -342,7 +342,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:584
 #: src/netedit/GNEApplicationWindowHelper.cpp:2044
 msgid "P&oI"
-msgstr ""
+msgstr "P&oI"
 
 #: src/gui/GUIApplicationWindow.cpp:584
 #: src/netedit/GNEApplicationWindowHelper.cpp:2044
@@ -352,7 +352,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:587
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
 msgid "Po&lygon"
-msgstr ""
+msgstr "Po&lygon"
 
 #: src/gui/GUIApplicationWindow.cpp:587
 #: src/netedit/GNEApplicationWindowHelper.cpp:2047
@@ -387,12 +387,12 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Simulation"
-msgstr ""
+msgstr "Simulace"
 
 #: src/gui/GUIApplicationWindow.cpp:600 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
 msgid "Run"
-msgstr ""
+msgstr "Spustit"
 
 #: src/gui/GUIApplicationWindow.cpp:600
 msgid "Start/ Resume the simulation."
@@ -401,7 +401,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:603
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "Zastavit"
 
 #: src/gui/GUIApplicationWindow.cpp:603
 msgid "Halt the simulation."
@@ -409,7 +409,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Step"
-msgstr ""
+msgstr "Krok"
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Perform one simulation step."
@@ -417,7 +417,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:609
 msgid "Delay+"
-msgstr ""
+msgstr "Zpoždění+"
 
 #: src/gui/GUIApplicationWindow.cpp:609
 msgid "Increase simulation step delay."
@@ -425,7 +425,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Delay-"
-msgstr ""
+msgstr "Zpoždění-"
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Decrease simulation step delay."
@@ -438,7 +438,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2832
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:71
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: src/gui/GUIApplicationWindow.cpp:613
 msgid "Save the current simulation state to a file."
@@ -450,7 +450,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2829
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load"
-msgstr ""
+msgstr "Načíst"
 
 #: src/gui/GUIApplicationWindow.cpp:616
 msgid "Load simulation state for the current network from file."
@@ -459,7 +459,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:620
 #: src/netedit/GNEApplicationWindow.cpp:1591
 msgid "&Window"
-msgstr ""
+msgstr "&Okno"
 
 #: src/gui/GUIApplicationWindow.cpp:621 src/gui/GUIApplicationWindow.cpp:768
 msgid "Open new view"
@@ -471,11 +471,11 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:623 src/gui/GUIApplicationWindow.cpp:771
 msgid "Open new 3D view"
-msgstr ""
+msgstr "Otevřít nový 3D pohled"
 
 #: src/gui/GUIApplicationWindow.cpp:623 src/gui/GUIApplicationWindow.cpp:771
 msgid "Open a new 3D view."
-msgstr ""
+msgstr "Otevřít nový 3D pohled."
 
 #: src/gui/GUIApplicationWindow.cpp:626
 msgid "Tile &Horizontally"
@@ -505,7 +505,7 @@ msgstr ""
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:101
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
 msgid "&Close"
-msgstr ""
+msgstr "&Zavřít"
 
 #: src/gui/GUIApplicationWindow.cpp:636
 msgid "Close the selected view."
@@ -513,7 +513,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:646
 msgid "&Others..."
-msgstr ""
+msgstr "&Další..."
 
 #: src/gui/GUIApplicationWindow.cpp:649
 #: src/netedit/GNEApplicationWindowHelper.cpp:2148
@@ -562,59 +562,59 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:664
 #: src/netedit/GNEApplicationWindow.cpp:1597
 msgid "&Help"
-msgstr ""
+msgstr "&Pomoc"
 
 #: src/gui/GUIApplicationWindow.cpp:666
 msgid "&Online Documentation"
-msgstr ""
+msgstr "&Online Dokumentace"
 
 #: src/gui/GUIApplicationWindow.cpp:666
 #: src/netedit/GNEApplicationWindowHelper.cpp:2171
 msgid "Open Online documentation."
-msgstr ""
+msgstr "Otevřít Online dokumentaci."
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&Changelog"
-msgstr ""
+msgstr "&Seznam změn"
 
 #: src/gui/GUIApplicationWindow.cpp:669
 #: src/netedit/GNEApplicationWindowHelper.cpp:2174
 msgid "Open Changelog."
-msgstr ""
+msgstr "Otevřít Seznam změn."
 
 #: src/gui/GUIApplicationWindow.cpp:671
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&Klávesové zkratky"
 
 #: src/gui/GUIApplicationWindow.cpp:671
 #: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Open Hotkeys."
-msgstr ""
+msgstr "Otevřít Klávesové zkratky."
 
 #: src/gui/GUIApplicationWindow.cpp:673
 msgid "&Tutorial"
-msgstr ""
+msgstr "&Tutoriál"
 
 #: src/gui/GUIApplicationWindow.cpp:673
 #: src/netedit/GNEApplicationWindowHelper.cpp:2178
 msgid "Open Tutorial."
-msgstr ""
+msgstr "Otevřít tutoriál."
 
 #: src/gui/GUIApplicationWindow.cpp:675
 msgid "&Feedback"
-msgstr ""
+msgstr "&Zpětná vazba"
 
 #: src/gui/GUIApplicationWindow.cpp:675
 msgid "Open feedback dialog."
-msgstr ""
+msgstr "Otevřít dialog zpětné vazby."
 
 #: src/gui/GUIApplicationWindow.cpp:678
 msgid "&About"
-msgstr ""
+msgstr "&Informace"
 
 #: src/gui/GUIApplicationWindow.cpp:678
 msgid "About sumo-gui."
-msgstr ""
+msgstr "Informace o sumo-gui."
 
 #: src/gui/GUIApplicationWindow.cpp:693
 msgid "\tOpen simulation\tOpen a simulation (Configuration file)."
@@ -672,7 +672,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:792
 msgid "Time Loss:"
-msgstr ""
+msgstr "Časová ztráta:"
 
 #: src/gui/GUIApplicationWindow.cpp:792
 msgid ""
@@ -681,7 +681,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:803
 msgid "Distance (km):"
-msgstr ""
+msgstr "Vzdálenost (km):"
 
 #: src/gui/GUIApplicationWindow.cpp:803
 msgid "Total distance driven by DRT vehicles"
@@ -698,82 +698,82 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:839
 #: src/netedit/GNEApplicationWindowHelper.cpp:156
 msgid "Cl&ear Recent Networks"
-msgstr ""
+msgstr "V&yčistit Nedávné sítě"
 
 #: src/gui/GUIApplicationWindow.cpp:840
 #: src/netedit/GNEApplicationWindowHelper.cpp:157
 msgid "No Recent Networks"
-msgstr ""
+msgstr "Žádné Nedávné sítě"
 
 #: src/gui/GUIApplicationWindow.cpp:844
 #: src/netedit/GNEApplicationWindowHelper.cpp:161
 msgid "Recent Networks"
-msgstr ""
+msgstr "Nedávné sítě"
 
 #: src/gui/GUIApplicationWindow.cpp:862
 #: src/netedit/GNEApplicationWindowHelper.cpp:179
 msgid "Cl&ear Recent Configs"
-msgstr ""
+msgstr "V&yčistit Nedávné konfigurace"
 
 #: src/gui/GUIApplicationWindow.cpp:863
 #: src/netedit/GNEApplicationWindowHelper.cpp:180
 msgid "No Recent Configs"
-msgstr ""
+msgstr "Žádné Nedávné konfigurace"
 
 #: src/gui/GUIApplicationWindow.cpp:867
 #: src/netedit/GNEApplicationWindowHelper.cpp:184
 msgid "Recent Configs"
-msgstr ""
+msgstr "Nedávné konfigurace"
 
 #: src/gui/GUIApplicationWindow.cpp:1031 src/gui/GUIApplicationWindow.cpp:1057
 msgid "Running %."
-msgstr ""
+msgstr "Spouštění %."
 
 #: src/gui/GUIApplicationWindow.cpp:1067
 msgid "Open Simulation Configuration"
-msgstr ""
+msgstr "Otevřít Konfiguraci Simulace"
 
 #: src/gui/GUIApplicationWindow.cpp:1087
 msgid "Open Network"
-msgstr ""
+msgstr "Otevřít Síť"
 
 #: src/gui/GUIApplicationWindow.cpp:1107
 msgid "Open Shapes"
-msgstr ""
+msgstr "Otevřít Tvary"
 
 #: src/gui/GUIApplicationWindow.cpp:1121 src/gui/GUIApplicationWindow.cpp:1149
 #, c-format
 msgid "Loading of % failed."
-msgstr ""
+msgstr "Načítání % selhalo."
 
 #: src/gui/GUIApplicationWindow.cpp:1138
 msgid "Open EdgeData"
-msgstr ""
+msgstr "Otevřít EdgeData"
 
 #: src/gui/GUIApplicationWindow.cpp:1173
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "Znovu načítání (automaticky)."
 
 #: src/gui/GUIApplicationWindow.cpp:1173
 msgid "TraCI-Loading."
-msgstr ""
+msgstr "TraCI-Načítání."
 
 #: src/gui/GUIApplicationWindow.cpp:1175
 msgid "Reloading."
-msgstr ""
+msgstr "Znovu načítání."
 
 #: src/gui/GUIApplicationWindow.cpp:1186
 msgid "Quick-Reloading."
-msgstr ""
+msgstr "Znovu načítání (rychle)."
 
 #: src/gui/GUIApplicationWindow.cpp:1196
 #: src/netedit/GNEApplicationWindow.cpp:1154
 msgid "Already loading!"
-msgstr ""
+msgstr "Již se načítá!"
 
 #: src/gui/GUIApplicationWindow.cpp:1208
 msgid "Save SUMO Configuration"
-msgstr ""
+msgstr "Uložit SUMO Konfiguraci"
 
 #: src/gui/GUIApplicationWindow.cpp:1222
 msgid "Configuration saved to %."
@@ -844,7 +844,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:2115
 msgid "Reason:"
-msgstr ""
+msgstr "Důvod:"
 
 #: src/gui/GUIApplicationWindow.cpp:2116
 msgid "Do you want to close all open files and views?"
@@ -861,7 +861,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:2383 src/gui/GUIApplicationWindow.cpp:2385
 #: src/gui/GUIApplicationWindow.cpp:2386 src/gui/GUIApplicationWindow.cpp:2387
 msgid "seconds"
-msgstr ""
+msgstr "sekundy"
 
 #: src/gui/GUIApplicationWindow.cpp:2530
 msgid "Set breakpoint at %"
@@ -938,15 +938,15 @@ msgstr ""
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:277
 msgid "phase names"
-msgstr ""
+msgstr "názvy fází"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:280
 msgid "detectors"
-msgstr ""
+msgstr "detektory"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:281
 msgid "conditions"
-msgstr ""
+msgstr "podmínky"
 
 #: src/gui/GUITLLogicPhasesTrackerWindow.cpp:345
 msgid "Overflow in time computation occurred."
@@ -1058,7 +1058,7 @@ msgstr ""
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:97
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:173
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:62
 msgid "Quit on Simulation End"
@@ -1089,14 +1089,14 @@ msgstr ""
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1075
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2585
 msgid "&OK"
-msgstr ""
+msgstr "&OK"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:138
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1076
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2586
 msgid "&Cancel"
-msgstr ""
+msgstr "&Zrušit"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:71
 msgid "Breakpoints Editor"
@@ -1104,21 +1104,21 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:93
 msgid "&Load"
-msgstr ""
+msgstr "&Načíst"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:95
 msgid "&Save"
-msgstr ""
+msgstr "&Uložit"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:98
 msgid "Clea&r"
-msgstr ""
+msgstr "V&yčistit"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:131
 #: src/netedit/GNETagPropertiesDatabase.cpp:1798
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:440
 msgid "Time"
-msgstr ""
+msgstr "Čas"
 
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:157
 msgid "Load Breakpoints"
@@ -1233,13 +1233,13 @@ msgstr ""
 #: src/guisim/GUIBaseVehicle.cpp:393
 #: src/netedit/GNEApplicationWindowHelper.cpp:721
 msgid "Stop"
-msgstr ""
+msgstr "Zastavit"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1328
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1396
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: src/guisim/GUIBaseVehicle.cpp:883 src/guisim/GUIVehicle.cpp:636
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
@@ -1250,7 +1250,7 @@ msgstr ""
 #: src/guisim/GUIInductLoop.cpp:140 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIJunctionWrapper.cpp:122 src/guisim/GUIParkingArea.cpp:110
 msgid "name"
-msgstr ""
+msgstr "název"
 
 #: src/guisim/GUIBusStop.cpp:150 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111
@@ -1265,7 +1265,7 @@ msgstr ""
 
 #: src/guisim/GUIBusStop.cpp:152
 msgid "lines"
-msgstr ""
+msgstr "linky"
 
 #: src/guisim/GUIBusStop.cpp:153
 msgid "parking length [m]"
@@ -1305,15 +1305,15 @@ msgstr ""
 
 #: src/guisim/GUICalibrator.cpp:300
 msgid "current speed"
-msgstr ""
+msgstr "aktuální rychlost"
 
 #: src/guisim/GUICalibrator.cpp:301
 msgid "default speed"
-msgstr ""
+msgstr "výchozí rychlost"
 
 #: src/guisim/GUICalibrator.cpp:302
 msgid "required vehicles"
-msgstr ""
+msgstr "požadovaná vozidla"
 
 #: src/guisim/GUICalibrator.cpp:303
 msgid "passed vehicles"
@@ -1417,16 +1417,16 @@ msgstr ""
 
 #: src/guisim/GUIContainer.cpp:186 src/guisim/GUIPerson.cpp:256
 msgid "length"
-msgstr ""
+msgstr "délka"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:257
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
 msgid "width"
-msgstr ""
+msgstr "šířka"
 
 #: src/guisim/GUIContainer.cpp:188 src/guisim/GUIPerson.cpp:258
 msgid "height"
-msgstr ""
+msgstr "výška"
 
 #: src/guisim/GUIContainer.cpp:189 src/guisim/GUIPerson.cpp:259
 msgid "minGap"
@@ -1451,7 +1451,7 @@ msgstr ""
 #: src/guisim/GUIInstantInductLoop.cpp:99
 #: src/utils/gui/div/GUIMessageWindow.cpp:72
 msgid "lane"
-msgstr ""
+msgstr "pruh"
 
 #: src/guisim/GUIE2Collector.cpp:134 src/guisim/GUIE3Collector.cpp:82
 #: src/guisim/GUIInductLoop.cpp:147 src/guisim/GUIInstantInductLoop.cpp:101
@@ -1560,7 +1560,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:189 src/guisim/GUILane.cpp:1071
 msgid "street name"
-msgstr ""
+msgstr "název ulice"
 
 #: src/guisim/GUIEdge.cpp:190 src/guisim/GUILane.cpp:1079
 msgid "pending insertions [#]"
@@ -1688,7 +1688,7 @@ msgstr ""
 
 #: src/guisim/GUIEdge.cpp:241
 msgid "overtaking"
-msgstr ""
+msgstr "předjíždění"
 
 #: src/guisim/GUIInductLoop.cpp:150
 msgid "entered vehicles [-]"
@@ -1717,11 +1717,11 @@ msgstr ""
 #: src/guisim/GUIJunctionWrapper.cpp:121 src/guisim/GUILane.cpp:1082
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:243 src/guisim/GUIVehicle.cpp:235
 msgid "type"
-msgstr ""
+msgstr "typ"
 
 #: src/guisim/GUILane.cpp:1017
 msgid "Copy edge name to clipboard"
-msgstr ""
+msgstr "Zkopírovat název hrany do schránky"
 
 #: src/guisim/GUILane.cpp:1025
 msgid "pos: "
@@ -1729,7 +1729,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1025
 msgid "height: "
-msgstr ""
+msgstr "výška: "
 
 #: src/guisim/GUILane.cpp:1034
 msgid "Reopen lane"
@@ -1765,11 +1765,11 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1062 src/guisim/GUILane.cpp:1066
 msgid "allowed speed [m/s]"
-msgstr ""
+msgstr "povolená rychlost [m/s]"
 
 #: src/guisim/GUILane.cpp:1070 src/guisim/GUIVehicle.cpp:237
 msgid "width [m]"
-msgstr ""
+msgstr "šířka [m]"
 
 #: src/guisim/GUILane.cpp:1072
 msgid "stored travel time [s]"
@@ -1797,11 +1797,11 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1083 src/guisim/GUITrafficLightLogicWrapper.cpp:261
 msgid "priority"
-msgstr ""
+msgstr "priorita"
 
 #: src/guisim/GUILane.cpp:1084
 msgid "distance [km]"
-msgstr ""
+msgstr "vzdálenost [km]"
 
 #: src/guisim/GUILane.cpp:1085
 msgid "allowed vehicle class"
@@ -1821,7 +1821,7 @@ msgstr ""
 
 #: src/guisim/GUILane.cpp:1090
 msgid "bidi-lane"
-msgstr ""
+msgstr "obousměrný pruh"
 
 #: src/guisim/GUINet.cpp:336
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs.\n"
@@ -1905,7 +1905,7 @@ msgstr ""
 
 #: src/guisim/GUINet.cpp:527
 msgid "FPS"
-msgstr ""
+msgstr "FPS"
 
 #: src/guisim/GUINet.cpp:528
 msgid "simulation duration [ms]"
@@ -2078,7 +2078,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:203
 msgid "Phase name: %"
-msgstr ""
+msgstr "Název fáze: %"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:242
 msgid "tlLogic [id]"
@@ -2086,27 +2086,27 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:244
 msgid "program"
-msgstr ""
+msgstr "program"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:245
 msgid "phase"
-msgstr ""
+msgstr "fáze"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:246
 msgid "phase name"
-msgstr ""
+msgstr "název fáze"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:247
 msgid "duration"
-msgstr ""
+msgstr "trvání"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:248
 msgid "minDur"
-msgstr ""
+msgstr "minimální doba trvání"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:249
 msgid "maxDur"
-msgstr ""
+msgstr "maximální doba trvání"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:250
 msgid "running duration"
@@ -2134,7 +2134,7 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:258
 msgid "blocking"
-msgstr ""
+msgstr "blokování"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:259
 msgid "blocking driveways"
@@ -2142,11 +2142,11 @@ msgstr ""
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:260
 msgid "rival"
-msgstr ""
+msgstr "soupeř"
 
 #: src/guisim/GUITrafficLightLogicWrapper.cpp:262
 msgid "constraint"
-msgstr ""
+msgstr "omezení"
 
 #: src/guisim/GUIVehicle.cpp:111
 msgid "shadow lane [id]"
@@ -2195,7 +2195,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:145
 msgid "impatience"
-msgstr ""
+msgstr "netrpělivost"
 
 #: src/guisim/GUIVehicle.cpp:147
 msgid "last lane change [s]"
@@ -2235,35 +2235,35 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:167
 msgid "CO2 [mg/s]"
-msgstr ""
+msgstr "CO2 [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:169
 msgid "CO [mg/s]"
-msgstr ""
+msgstr "CO [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:171
 msgid "HC [mg/s]"
-msgstr ""
+msgstr "HC [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:173
 msgid "NOx [mg/s]"
-msgstr ""
+msgstr "NOx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:175
 msgid "PMx [mg/s]"
-msgstr ""
+msgstr "PMx [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:177
 msgid "fuel [mg/s]"
-msgstr ""
+msgstr "palivo [mg/s]"
 
 #: src/guisim/GUIVehicle.cpp:179
 msgid "electricity [Wh/s]"
-msgstr ""
+msgstr "elektrická energie [Wh/s]"
 
 #: src/guisim/GUIVehicle.cpp:181
 msgid "noise (Harmonoise) [dB]"
-msgstr ""
+msgstr "hluk (Harmonoise) [dB]"
 
 #: src/guisim/GUIVehicle.cpp:183
 msgid "devices"
@@ -2271,11 +2271,11 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:184
 msgid "persons"
-msgstr ""
+msgstr "lidé"
 
 #: src/guisim/GUIVehicle.cpp:186
 msgid "containers"
-msgstr ""
+msgstr "kontejnery"
 
 #: src/guisim/GUIVehicle.cpp:188
 msgid "lcState right"
@@ -2347,7 +2347,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:238
 msgid "height [m]"
-msgstr ""
+msgstr "výška [m]"
 
 #: src/guisim/GUIVehicle.cpp:239
 msgid "minGap [m]"
@@ -2363,7 +2363,7 @@ msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:243
 msgid "car-following model"
-msgstr ""
+msgstr "model sledování auta"
 
 #: src/guisim/GUIVehicle.cpp:244
 msgid "lane-change model"
@@ -2757,7 +2757,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:2200
 #: src/netedit/GNEApplicationWindow.cpp:2258
 msgid "Running '%'."
-msgstr ""
+msgstr "Spouštění '%'."
 
 #: src/netedit/GNEApplicationWindow.cpp:2221
 #, c-format
@@ -4415,7 +4415,7 @@ msgstr ""
 #: src/netedit/GNEAttributeProperties.cpp:362
 #: src/netedit/GNEAttributeProperties.cpp:366
 msgid "filename"
-msgstr ""
+msgstr "název souboru"
 
 #: src/netedit/GNEAttributeProperties.cpp:363
 msgid "(Existent)"
@@ -5353,7 +5353,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:808
 msgid "street name (does not need to be unique, used for visualization)"
-msgstr ""
+msgstr "název ulice (nemusí být unikátní, používán pro vizualizaci)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:819
 #: src/netedit/GNETagPropertiesDatabase.cpp:902
@@ -9672,12 +9672,12 @@ msgstr ""
 #: src/netedit/dialogs/GNEDialog.cpp:511
 #: src/netedit/dialogs/run/GNERunDialog.cpp:204
 msgid "Rerun"
-msgstr ""
+msgstr "Spustit znovu"
 
 #: src/netedit/dialogs/GNEDialog.cpp:511
 #: src/netedit/dialogs/run/GNERunDialog.cpp:205
 msgid "Rerun tool"
-msgstr ""
+msgstr "Spustit nástroj znovu"
 
 #: src/netedit/dialogs/GNEDialog.cpp:515
 msgid "Back"
