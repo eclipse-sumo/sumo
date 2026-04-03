@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-02T11:22:09.499548+01:00 by Eclipse SUMO netedit v1_26_0+0966-e2c61f36bbb
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- preference applies to all -->
+    <preference routingType="scenic" priority="2"/>
+</additional>

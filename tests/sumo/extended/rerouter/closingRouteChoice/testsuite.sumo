@@ -21,3 +21,15 @@ prioFactor_routingMode9
 
 # the slower detour has higher priority
 prioFactor_routingMode12
+
+# the slower detour has higher routing preferences
+pref_default
+
+# the slower detour has higher routing preferences
+pref_routingDevice
+
+# the slower detour has higher routing preferences
+pref_routingMode9
+
+# the slower detour has higher routing preferences
+pref_routingMode12
