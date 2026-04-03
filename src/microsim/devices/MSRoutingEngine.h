@@ -67,6 +67,9 @@ class MSRoutingEngine {
 public:
     typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
 
+    /// @brief initialize constants for using myPriorityFactor 
+    static void initWeightConstants(const OptionsCont& oc);
+
     /// @brief intialize period edge weight update
     static void initWeightUpdate();
 

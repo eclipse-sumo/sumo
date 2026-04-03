@@ -52,6 +52,7 @@
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_FCDReplay.h>
+#include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -135,6 +136,10 @@ NLBuilder::build() {
         WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
     }
     buildNet();
+    if (myOptions.getFloat("weights.priority-factor") != 0) {
+        MSRoutingEngine::initWeightConstants(myOptions);
+    }
+
     if (myOptions.isSet("alternative-net-file")) {
         for (std::string fname : myOptions.getStringVector("alternative-net-file")) {
             const long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading alternative net from '" + fname + "'");

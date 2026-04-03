@@ -122,6 +122,27 @@ MSRoutingEngine::initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption, in
 
 
 void
+MSRoutingEngine::initWeightConstants(const OptionsCont& oc) {
+    myDynamicRandomness = oc.getBool("weights.random-factor.dynamic");
+    myPriorityFactor = oc.getFloat("weights.priority-factor");
+    if (myPriorityFactor < 0) {
+        throw ProcessError(TL("weights.priority-factor cannot be negative."));
+    }
+    myMinEdgePriority = std::numeric_limits<double>::max();
+    double maxEdgePriority = -std::numeric_limits<double>::max();
+    for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
+        maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
+        myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
+    }
+    myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
+    if (myEdgePriorityRange == 0) {
+        WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
+        myPriorityFactor = 0;
+    }
+}
+
+
+void
 MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds) {
     if (edgeSpeeds.empty()) {
         const OptionsCont& oc = OptionsCont::getOptions();
@@ -130,7 +151,6 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         }
         const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
         const double currentSecond = SIMTIME;
-        double maxEdgePriority = -std::numeric_limits<double>::max();
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
             while (edge->getNumericalID() >= (int)edgeSpeeds.size()) {
                 edgeSpeeds.push_back(0);
@@ -149,22 +169,8 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
             if (myAdaptationSteps > 0) {
                 pastEdgeSpeeds[edge->getNumericalID()] = std::vector<double>(myAdaptationSteps, edgeSpeeds[edge->getNumericalID()]);
             }
-            maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
-            myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
         }
-        myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
         myLastAdaptation = MSNet::getInstance()->getCurrentTimeStep();
-        myPriorityFactor = oc.getFloat("weights.priority-factor");
-        myDynamicRandomness = oc.getBool("weights.random-factor.dynamic");
-        if (myPriorityFactor < 0) {
-            throw ProcessError(TL("weights.priority-factor cannot be negative."));
-        }
-        if (myPriorityFactor > 0) {
-            if (myEdgePriorityRange == 0) {
-                WRITE_WARNING(TL("Option weights.priority-factor does not take effect because all edges have the same priority"));
-                myPriorityFactor = 0;
-            }
-        }
     }
 }
 
