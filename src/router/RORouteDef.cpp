@@ -98,6 +98,9 @@ RORouteDef::validateAlternatives(const ROVehicle* veh, MsgHandler* errorHandler)
             if (myAlternatives[i]->isPermitted(veh, errorHandler)) {
                 i++;
             } else {
+                if (myRouteRefs.count(myAlternatives[i]) == 0) {
+                    delete myAlternatives[i];
+                }
                 myAlternatives.erase(myAlternatives.begin() + i);
                 if (myLastUsed > i) {
                     myLastUsed--;
