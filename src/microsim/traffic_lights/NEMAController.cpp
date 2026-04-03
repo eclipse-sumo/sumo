@@ -931,18 +931,18 @@ NEMALogic::calculateForceOffsTS2() {
     // We can find this "0" point by first constructing the forceOffs in sequential order via the 170 method
     calculateForceOffs170();
 
-    // Switch the Force Off Times to align with TS2 Cycle, which is the *start* of the earliest coordinated phase
-    // The coordinate phases will always be the defaultBarrierPhases[i][0]
-    SUMOTime minCoordTime = MIN2(coordinatePhaseObjs[0]->forceOffTime - coordinatePhaseObjs[0]->maxDuration,
-                                 coordinatePhaseObjs[1]->forceOffTime - coordinatePhaseObjs[1]->maxDuration);
+    // Switch the Force Off Times to align with TS2 Cycle, which is the *start* of the earliest coordinated phase.
+    // The start of a coordinated phase = forceOff - maxDuration.
+    // In lead-lag configurations the coord phase on the lead ring has its forceOff
+    // near the cycle boundary, so forceOff - maxDuration can wrap negative.
+    // ModeCycle is required to handle this wrap-around correctly.
+    SUMOTime coord0Start = ModeCycle(coordinatePhaseObjs[0]->forceOffTime - coordinatePhaseObjs[0]->maxDuration, myCycleLength);
+    SUMOTime coord1Start = ModeCycle(coordinatePhaseObjs[1]->forceOffTime - coordinatePhaseObjs[1]->maxDuration, myCycleLength);
+    SUMOTime minCoordTime = MIN2(coord0Start, coord1Start);
 
     // loop through all the phases and subtract this minCoordTime to move the 0 point to the start of the first coordinated phase
     for (auto& p : myPhaseObjs) {
-        if ((p->forceOffTime - minCoordTime) >= 0) {
-            p->forceOffTime -= (minCoordTime);
-        } else {
-            p->forceOffTime = (myCycleLength + (p->forceOffTime - (minCoordTime)));
-        }
+        p->forceOffTime = ModeCycle(p->forceOffTime - minCoordTime, myCycleLength);
         p->greatestStartTime = ModeCycle(p->greatestStartTime - minCoordTime, myCycleLength);
     }
 }
@@ -967,7 +967,16 @@ NEMALogic::calculateInitialPhases170() {
             // If it should have happened and it's not to the start time of me yet, start in my phase ( will have to be in my phase longer than max time likely )
             SUMOTime syntheticPriorStart = p->getSequentialPriorPhase()->greatestStartTime < p->greatestStartTime ?
                                            p->getSequentialPriorPhase()->greatestStartTime : p->getSequentialPriorPhase()->greatestStartTime - myCycleLength;
-            if (cycleTime <= ModeCycle(p->greatestStartTime, myCycleLength) && cycleTime > ModeCycle(syntheticPriorStart, myCycleLength)) {
+            // FIX: Do NOT apply ModeCycle to syntheticPriorStart. The synthetic value
+            // is intentionally negative for the wrap-around case (prior phase is at the
+            // end of the cycle, current phase is at the beginning). ModeCycle would undo
+            // this adjustment, wrapping it back to a large positive value and making the
+            // comparison "cycleTime > wrappedValue" fail at cycleTime=0.
+            // Example: Phase 2 at cycle start has greatestStartTime=20, prior Phase 4
+            // has greatestStartTime=75. syntheticPriorStart = 75-85 = -10.
+            // Without fix: ModeCycle(-10, 85)=75, and 0 > 75 fails.
+            // With fix: 0 > -10 succeeds correctly.
+            if (cycleTime <= ModeCycle(p->greatestStartTime, myCycleLength) && cycleTime > syntheticPriorStart) {
                 found = true;
                 activePhases[i] = p;
                 break;
@@ -979,8 +988,13 @@ NEMALogic::calculateInitialPhases170() {
             WRITE_WARNING(error);
             WRITE_WARNING(TL("I am starting in the coordinated phases"));
 #endif
-            activePhases[0] = defaultBarrierPhases[0][0];
-            activePhases[1] = defaultBarrierPhases[1][0];
+            // FIX: Fall back to the coordinated phases, not the barrier phases.
+            // In lead-lag configs, barrierPhases differ from coordinatePhases
+            // (e.g. barrierPhases="1,6" vs coordinatePhases="2,6"), and the
+            // coordinated phase is the correct default start position.
+            // In standard configs these are the same phase, so no change.
+            activePhases[0] = coordinatePhaseObjs[0];
+            activePhases[1] = coordinatePhaseObjs[1];
         }
     }
 
