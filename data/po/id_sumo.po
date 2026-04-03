@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-02-23 06:33+0000\n"
+"PO-Revision-Date: 2026-04-04 04:09+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1873,6 +1873,8 @@ msgstr "Tambahkan percepatan ke keluaran FCD"
 #: src/microsim/MSFrame.cpp:177
 msgid "Add relative speed (vehicle speed / edge speed limit) to the FCD output"
 msgstr ""
+"Tambahkan kecepatan relatif (kecepatan kendaraan / batas kecepatan tepi) ke "
+"keluaran FCD"
 
 #: src/microsim/MSFrame.cpp:179
 msgid ""
@@ -2991,6 +2993,8 @@ msgstr "Simpan pengaturan gui dalam file keluaran pengaturan yang diberikan"
 #: src/microsim/MSFrame.cpp:874
 msgid "Raw netstate dumps are deprecated. Use fcd-output instead."
 msgstr ""
+"Dump netstate mentah sudah tidak digunakan lagi. Gunakan fcd-output sebagai "
+"gantinya."
 
 #: src/microsim/MSFrame.cpp:922
 msgid "No network file (-n) specified."
@@ -6838,6 +6842,9 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default "
 "junction type (see docs/Networks/PlainXML#node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] "
+"Menentukan tipe persimpangan default (lihat docs/Networks/"
+"PlainXML#node_types)"
 
 #: src/netbuild/NBFrame.cpp:108
 msgid "The default length when overriding connection lengths"
@@ -7098,6 +7105,8 @@ msgid ""
 "Set edge priority values based on public transport lines for the given list "
 "of vClasses"
 msgstr ""
+"Tetapkan nilai prioritas tepi berdasarkan jalur transportasi umum untuk "
+"daftar vClass yang diberikan"
 
 #: src/netbuild/NBFrame.cpp:270
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -7217,21 +7226,27 @@ msgid ""
 "Merges edges which connect the same nodes and are close to each other "
 "(recommended for VISSIM import)"
 msgstr ""
+"Menggabungkan tepi yang menghubungkan node yang sama dan saling berdekatan "
+"(disarankan untuk impor VISSIM)"
 
 #: src/netbuild/NBFrame.cpp:354
 msgid ""
 "Joins junctions that are close to each other (recommended for OSM import)"
 msgstr ""
+"Menggabungkan persimpangan yang saling berdekatan (disarankan untuk impor "
+"OSM)"
 
 #: src/netbuild/NBFrame.cpp:358
 msgid "Determines the maximal distance for joining junctions (defaults to 10)"
-msgstr ""
+msgstr "Menentukan jarak maksimal untuk menggabungkan persimpangan (default 10)"
 
 #: src/netbuild/NBFrame.cpp:362
 msgid ""
 "The angular threshold in degrees for rejection of parallel edges when "
 "joining junctions"
 msgstr ""
+"Ambang batas sudut dalam derajat untuk penolakan tepi paralel saat "
+"menggabungkan persimpangan"
 
 #: src/netbuild/NBFrame.cpp:366
 msgid "Interprets STR[] as list of junctions to exclude from joining"
@@ -7242,20 +7257,26 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:371
 msgid "Joins junctions that have similar coordinates even if not connected"
 msgstr ""
+"Menggabungkan persimpangan yang memiliki koordinat serupa meskipun tidak "
+"terhubung"
 
 #: src/netbuild/NBFrame.cpp:374
 msgid "Reset connections for joined junctions"
-msgstr ""
+msgstr "Setel ulang koneksi untuk persimpangan yang digabungkan"
 
 #: src/netbuild/NBFrame.cpp:379
 msgid ""
 "Attach junction to the closest edge within FLOAT distance that has it's id "
 "in param removedNodeIDs (for joining networks)"
 msgstr ""
+"Lampirkan persimpangan ke tepi terdekat dalam jarak FLOAT yang memiliki id-"
+"nya dalam param removedNodeIDs (untuk menggabungkan jaringan)"
 
 #: src/netbuild/NBFrame.cpp:383
 msgid "Abbreviate junction or TLS id if it joins more than INT junctions"
 msgstr ""
+"Singkat id persimpangan atau TLS jika menggabungkan lebih dari INT "
+"persimpangan"
 
 #: src/netbuild/NBFrame.cpp:387
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -7274,6 +7295,8 @@ msgid ""
 "Joins tram edges into road lanes with similar geometry (within FLOAT "
 "distance)"
 msgstr ""
+"Menggabungkan tepi trem ke jalur jalan dengan geometri serupa (dalam jarak "
+"FLOAT)"
 
 #: src/netbuild/NBFrame.cpp:401
 msgid "Generate INT intermediate points to smooth out intersection corners"
@@ -7299,18 +7322,27 @@ msgid ""
 "This causes discrepancies between geometrical length and assigned length due "
 "to averaging but enables lane-changing while turning"
 msgstr ""
+"Membangun tepi bersama untuk koneksi belok dengan tepi asal dan tujuan yang "
+"sama. Ini menyebabkan perbedaan antara panjang geometris dan panjang yang "
+"ditetapkan karena rata-rata, tetapi memungkinkan pergantian jalur saat "
+"berbelok"
 
 #: src/netbuild/NBFrame.cpp:415
 msgid ""
 "Limits speed on junctions to an average lateral acceleration of at most "
 "FLOAT (m/s^2)"
 msgstr ""
+"Membatasi kecepatan di persimpangan hingga percepatan lateral rata-rata "
+"paling banyak FLOAT (m/s^2)"
 
 #: src/netbuild/NBFrame.cpp:419
 msgid ""
 "Do not limit turn speed for angular changes below FLOAT (degrees). The value "
 "is subtracted from the geometric angle before computing the turning radius."
 msgstr ""
+"Jangan batasi kecepatan belok untuk perubahan sudut di bawah FLOAT (derajat)"
+". Nilai ini dikurangi dari sudut geometris sebelum menghitung jari-jari "
+"belok."
 
 #: src/netbuild/NBFrame.cpp:423
 msgid ""
@@ -7318,40 +7350,54 @@ msgid ""
 "edges. The value is subtracted from the geometric angle before computing the "
 "turning radius."
 msgstr ""
+"Jangan batasi kecepatan belok untuk perubahan sudut di bawah FLOAT (derajat) "
+"pada tepi jalur kereta. Nilai ini dikurangi dari sudut geometris sebelum "
+"menghitung jari-jari belok."
 
 #: src/netbuild/NBFrame.cpp:427
 msgid ""
 "Warn about turn speed limits that reduce the speed of straight connections "
 "by more than FLOAT"
 msgstr ""
+"Peringatkan tentang batas kecepatan belok yang mengurangi kecepatan koneksi "
+"lurus lebih dari FLOAT"
 
 #: src/netbuild/NBFrame.cpp:431
 msgid ""
 "Warn about turn speed limits that reduce the speed of turning connections "
 "(no u-turns) by more than FLOAT"
 msgstr ""
+"Peringatkan tentang batas kecepatan belok yang mengurangi kecepatan koneksi "
+"belok (bukan putar balik) lebih dari FLOAT"
 
 #: src/netbuild/NBFrame.cpp:435
 msgid "Default radius for junctions that do not require wide vehicle turns"
 msgstr ""
+"Radius default untuk persimpangan yang tidak memerlukan belokan kendaraan "
+"besar"
 
 #: src/netbuild/NBFrame.cpp:439
 msgid ""
 "Use maximum value of incoming and outgoing edge speed on junction instead of "
 "average"
 msgstr ""
+"Gunakan nilai maksimum kecepatan tepi masuk dan keluar di persimpangan alih-"
+"alih rata-rata"
 
 #: src/netbuild/NBFrame.cpp:443
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
 msgstr ""
+"Bangun persimpangan dengan bentuk minimal (mengabaikan tumpang tindih tepi)"
 
 #: src/netbuild/NBFrame.cpp:447
 msgid "Build junction shapes based on edge endpoints (ignoring edge overlap)"
 msgstr ""
+"Bangun bentuk persimpangan berdasarkan titik akhir tepi (mengabaikan tumpang "
+"tindih tepi)"
 
 #: src/netbuild/NBFrame.cpp:451
 msgid "Assumed vehicle width for computing internal junction positions"
-msgstr ""
+msgstr "Perkiraan lebar kendaraan untuk menghitung posisi persimpangan internal"
 
 #: src/netbuild/NBFrame.cpp:454
 msgid "Forces rectangular cuts between lanes and intersections"
@@ -7362,70 +7408,87 @@ msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes (at "
 "roundabouts)"
 msgstr ""
+"Izinkan berkendara ke jalan multi-jalur jika ada lawan di jalur lain (di "
+"bundaran)"
 
 #: src/netbuild/NBFrame.cpp:462
 msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes "
 "(everywhere)"
 msgstr ""
+"Izinkan berkendara ke jalan multi-jalur jika ada lawan di jalur lain (di "
+"mana saja)"
 
 #: src/netbuild/NBFrame.cpp:466
 msgid "Guess pedestrian sidewalks based on edge speed"
-msgstr ""
+msgstr "Perkirakan trotoar pejalan kaki berdasarkan kecepatan tepi"
 
 #: src/netbuild/NBFrame.cpp:470
 msgid "Add sidewalks for edges with a speed equal or below the given limit"
 msgstr ""
+"Tambahkan trotoar untuk tepi dengan kecepatan sama atau di bawah batas yang "
+"diberikan"
 
 #: src/netbuild/NBFrame.cpp:474
 msgid "Add sidewalks for edges with a speed above the given limit"
 msgstr ""
+"Tambahkan trotoar untuk tepi dengan kecepatan di atas batas yang diberikan"
 
 #: src/netbuild/NBFrame.cpp:478
 msgid ""
 "Add sidewalks for edges that allow pedestrians on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Tambahkan trotoar untuk tepi yang mengizinkan pejalan kaki di jalur mana pun "
+"terlepas dari kecepatan"
 
 #: src/netbuild/NBFrame.cpp:482
 msgid "Do not guess sidewalks for the given list of edges"
-msgstr ""
+msgstr "Jangan perkirakan trotoar untuk daftar tepi yang diberikan"
 
 #: src/netbuild/NBFrame.cpp:486
 msgid "Guess bike lanes based on edge speed"
-msgstr ""
+msgstr "Perkirakan jalur sepeda berdasarkan kecepatan tepi"
 
 #: src/netbuild/NBFrame.cpp:490
 msgid "Add bike lanes for edges with a speed equal or below the given limit"
 msgstr ""
+"Tambahkan jalur sepeda untuk tepi dengan kecepatan sama atau di bawah batas "
+"yang diberikan"
 
 #: src/netbuild/NBFrame.cpp:494
 msgid "Add bike lanes for edges with a speed above the given limit"
 msgstr ""
+"Tambahkan jalur sepeda untuk tepi dengan kecepatan di atas batas yang "
+"diberikan"
 
 #: src/netbuild/NBFrame.cpp:498
 msgid ""
 "Add bike lanes for edges that allow bicycles on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Tambahkan jalur sepeda untuk tepi yang mengizinkan sepeda di jalur mana pun "
+"terlepas dari kecepatan"
 
 #: src/netbuild/NBFrame.cpp:502
 msgid "Do not guess bikelanes for the given list of edges"
-msgstr ""
+msgstr "Jangan perkirakan jalur sepeda untuk daftar tepi yang diberikan"
 
 #: src/netbuild/NBFrame.cpp:506
 msgid "Guess pedestrian crossings based on the presence of sidewalks"
-msgstr ""
+msgstr "Perkirakan penyeberangan pejalan kaki berdasarkan keberadaan trotoar"
 
 #: src/netbuild/NBFrame.cpp:510
 msgid ""
 "At uncontrolled nodes, do not build crossings across edges with a speed "
 "above the threshold"
 msgstr ""
+"Pada node yang tidak terkontrol, jangan bangun penyeberangan melintasi tepi "
+"dengan kecepatan di atas ambang batas"
 
 #: src/netbuild/NBFrame.cpp:514
 msgid "Give priority to guessed crossings at roundabouts"
-msgstr ""
+msgstr "Berikan prioritas pada penyeberangan yang diperkirakan di bundaran"
 
 #: src/netbuild/NBFrame.cpp:517
 msgid "Always build walking areas even if there are no crossings"
@@ -7442,36 +7505,42 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of junctions to be controlled by TLS"
 msgstr ""
+"Menafsirkan STR[] sebagai daftar persimpangan yang akan dikendalikan oleh TLS"
 
 #: src/netbuild/NBFrame.cpp:530
 msgid "Interprets STR[] as list of junctions to be not controlled by TLS"
 msgstr ""
+"Menafsirkan STR[] sebagai daftar persimpangan yang tidak akan dikendalikan "
+"oleh TLS"
 
 #: src/netbuild/NBFrame.cpp:535
 msgid "Turns on TLS guessing"
-msgstr ""
+msgstr "Mengaktifkan perkiraan TLS"
 
 #: src/netbuild/NBFrame.cpp:538
 msgid ""
 "Sets minimum value for the sum of all incoming lane speeds when guessing TLS"
 msgstr ""
+"Menetapkan nilai minimum untuk jumlah semua kecepatan jalur masuk saat "
+"memperkirakan TLS"
 
 #: src/netbuild/NBFrame.cpp:543
 msgid "Sets district nodes as tls-controlled"
-msgstr ""
+msgstr "Menetapkan node distrik sebagai dikontrol TLS"
 
 #: src/netbuild/NBFrame.cpp:548
 msgid "Includes node clusters into guess"
-msgstr ""
+msgstr "Menyertakan kluster node ke dalam perkiraan"
 
 #: src/netbuild/NBFrame.cpp:552
 msgid "Tries to cluster tls-controlled nodes"
-msgstr ""
+msgstr "Mencoba mengelompokkan node yang dikontrol TLS"
 
 #: src/netbuild/NBFrame.cpp:556
 msgid ""
 "Determines the maximal distance for joining traffic lights (defaults to 20)"
 msgstr ""
+"Menentukan jarak maksimal untuk menggabungkan lampu lalu lintas (default 20)"
 
 #: src/netbuild/NBFrame.cpp:559
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
@@ -7484,143 +7553,185 @@ msgid ""
 "Do not control edges that lie fully within a joined traffic light. This may "
 "cause collisions but allows old traffic light plans to be used"
 msgstr ""
+"Jangan kendalikan tepi yang sepenuhnya berada di dalam lampu lalu lintas "
+"yang digabungkan. Ini dapat menyebabkan tabrakan tetapi memungkinkan rencana "
+"lampu lalu lintas lama untuk digunakan"
 
 #: src/netbuild/NBFrame.cpp:567
 msgid ""
 "Do not build mutually conflicting response matrix, potentially ignoring "
 "vehicles that are stuck at an internal junction when their phase has ended"
 msgstr ""
+"Jangan bangun matriks respons yang saling bertentangan, yang berpotensi "
+"mengabaikan kendaraan yang terjebak di persimpangan internal saat fasenya "
+"telah berakhir"
 
 #: src/netbuild/NBFrame.cpp:571
 msgid ""
 "Interprets tls nodes surrounding an intersection as signal positions for a "
 "larger TLS. This is typical pattern for OSM-derived networks"
 msgstr ""
+"Menafsirkan node TLS yang mengelilingi persimpangan sebagai posisi sinyal "
+"untuk TLS yang lebih besar. Ini adalah pola umum untuk jaringan berbasis OSM"
 
 #: src/netbuild/NBFrame.cpp:574
 msgid "Distance for interpreting nodes as signal locations"
-msgstr ""
+msgstr "Jarak untuk menafsirkan node sebagai lokasi sinyal"
 
 #: src/netbuild/NBFrame.cpp:577
 msgid ""
 "Number of uncontrolled entry edges to accept and still consider the central "
 "node as a traffic light"
 msgstr ""
+"Jumlah tepi masuk yang tidak terkontrol yang diterima dan tetap menganggap "
+"node pusat sebagai lampu lalu lintas"
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
-msgstr ""
+msgstr "Gunakan INT sebagai durasi siklus"
 
 #: src/netbuild/NBFrame.cpp:587
 msgid "Use INT as green phase duration"
-msgstr ""
+msgstr "Gunakan INT sebagai durasi fase hijau"
 
 #: src/netbuild/NBFrame.cpp:591
 msgid "Defines smallest vehicle deceleration"
-msgstr ""
+msgstr "Menentukan deselerasi kendaraan terkecil"
 
 #: src/netbuild/NBFrame.cpp:595
 msgid "Given yellow times are patched even if being too short"
-msgstr ""
+msgstr "Waktu kuning yang diberikan ditambal meskipun terlalu singkat"
 
 #: src/netbuild/NBFrame.cpp:599
 msgid "Set INT as fixed time for yellow phase durations"
-msgstr ""
+msgstr "Tetapkan INT sebagai waktu tetap untuk durasi fase kuning"
 
 #: src/netbuild/NBFrame.cpp:602
 msgid ""
 "Set INT as fixed time for red phase duration at traffic lights that do not "
 "have a conflicting flow"
 msgstr ""
+"Tetapkan INT sebagai waktu tetap untuk durasi fase merah pada lampu lalu "
+"lintas yang tidak memiliki arus yang bertentangan"
 
 #: src/netbuild/NBFrame.cpp:605
 msgid "Set INT as fixed time for intermediate red phase after every switch"
 msgstr ""
+"Tetapkan INT sebagai waktu tetap untuk fase merah antara setelah setiap "
+"pergantian"
 
 #: src/netbuild/NBFrame.cpp:608
 msgid ""
 "Use FLOAT as threshold for allowing left-turning vehicles to move in the "
 "same phase as oncoming straight-going vehicles"
 msgstr ""
+"Gunakan FLOAT sebagai ambang batas untuk mengizinkan kendaraan belok kiri "
+"bergerak dalam fase yang sama dengan kendaraan lurus yang datang dari arah "
+"berlawanan"
 
 #: src/netbuild/NBFrame.cpp:611
 msgid ""
 "Use INT as green phase duration for left turns (s). Setting this value to 0 "
 "disables additional left-turning phases"
 msgstr ""
+"Gunakan INT sebagai durasi fase hijau untuk belok kiri (d). Menetapkan nilai "
+"ini ke 0 menonaktifkan fase belok kiri tambahan"
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
 msgstr ""
+"Tetapkan INT sebagai waktu tetap untuk fase vehext antara setelah setiap "
+"pergantian"
 
 #: src/netbuild/NBFrame.cpp:617
 msgid ""
 "Set INT as fixed time for intermediate NEMA yellow phase after every switch"
 msgstr ""
+"Tetapkan INT sebagai waktu tetap untuk fase kuning NEMA antara setelah "
+"setiap pergantian"
 
 #: src/netbuild/NBFrame.cpp:620
 msgid ""
 "Set INT as fixed time for intermediate NEMA red phase after every switch"
 msgstr ""
+"Tetapkan INT sebagai waktu tetap untuk fase merah NEMA antara setelah setiap "
+"pergantian"
 
 #: src/netbuild/NBFrame.cpp:623
 msgid "Use INT as minimum green duration for pedestrian crossings (s)."
 msgstr ""
+"Gunakan INT sebagai durasi hijau minimum untuk penyeberangan pejalan kaki (d)"
+"."
 
 #: src/netbuild/NBFrame.cpp:626
 msgid "Use INT as clearance time for pedestrian crossings (s)."
 msgstr ""
+"Gunakan INT sebagai waktu pembersihan untuk penyeberangan pejalan kaki (d)."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
 msgstr ""
+"Gunakan INT sebagai durasi fase hijau untuk fase scramble pejalan kaki (d)."
 
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
-msgstr ""
+msgstr "TLS dalam STR[] akan digeser setengah fase"
 
 #: src/netbuild/NBFrame.cpp:638
 msgid "TLSs in STR[] will be shifted by quarter-phase"
-msgstr ""
+msgstr "TLS dalam STR[] akan digeser seperempat fase"
 
 #: src/netbuild/NBFrame.cpp:642
 msgid "TLSs with unspecified type will use STR as their algorithm"
 msgstr ""
+"TLS dengan tipe yang tidak ditentukan akan menggunakan STR sebagai "
+"algoritmanya"
 
 #: src/netbuild/NBFrame.cpp:645
 msgid ""
 "Set phase layout four grouping opposite directions or grouping all movements "
 "for one incoming edge ['opposites', 'incoming']"
 msgstr ""
+"Tetapkan tata letak fase empat pengelompokan arah berlawanan atau "
+"pengelompokan semua pergerakan untuk satu tepi masuk ['opposites', "
+"'incoming']"
 
 #: src/netbuild/NBFrame.cpp:648
 msgid ""
 "Avoid phases with green and red signals for different connections from the "
 "same lane"
 msgstr ""
+"Hindari fase dengan sinyal hijau dan merah untuk koneksi berbeda dari jalur "
+"yang sama"
 
 #: src/netbuild/NBFrame.cpp:651
 msgid ""
 "Default minimum phase duration for traffic lights with variable phase length"
 msgstr ""
+"Durasi fase minimum default untuk lampu lalu lintas dengan panjang fase "
+"variabel"
 
 #: src/netbuild/NBFrame.cpp:654
 msgid ""
 "Default maximum phase duration for traffic lights with variable phase length"
 msgstr ""
+"Durasi fase maksimum default untuk lampu lalu lintas dengan panjang fase "
+"variabel"
 
 #: src/netbuild/NBFrame.cpp:657
 msgid ""
 "Assign the same tls link index to connections that share the same states"
 msgstr ""
+"Tetapkan indeks tautan TLS yang sama untuk koneksi yang berbagi status yang "
+"sama"
 
 #: src/netbuild/NBFrame.cpp:660
 msgid "Assign a distinct tls link index to every connection"
-msgstr ""
+msgstr "Tetapkan indeks tautan TLS yang berbeda untuk setiap koneksi"
 
 #: src/netbuild/NBFrame.cpp:663
 msgid "rebuild all traffic light plans in the network"
-msgstr ""
+msgstr "Bangun ulang semua rencana lampu lalu lintas dalam jaringan"
 
 #: src/netbuild/NBFrame.cpp:668
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -10035,6 +10146,8 @@ msgid ""
 "Skipped applying OSM placement on % edge(s): % due to non-explicit one-way "
 "and % due to opposite-direction auxiliary edges."
 msgstr ""
+"Dilewati penerapan penempatan OSM pada % tepi: % karena satu arah yang tidak "
+"eksplisit dan % karena tepi bantu arah berlawanan."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:431
 msgid "Could not insert junction '%'."
@@ -10059,18 +10172,21 @@ msgstr "Melewati tepi '%' karena memiliki kecepatan %."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:844
 msgid "Ignoring placement for edge '%' because lane count is invalid."
-msgstr ""
+msgstr "Mengabaikan penempatan untuk tepi '%' karena jumlah jalur tidak valid."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:859
 msgid ""
 "Ignoring placement for edge '%' because lane index '%' is out of range [1, "
 "%]."
 msgstr ""
+"Mengabaikan penempatan untuk tepi '%' karena indeks jalur '%' di luar "
+"rentang [1, %]."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid ""
 "Ignoring placement for edge '%' because offset shape computation failed."
 msgstr ""
+"Mengabaikan penempatan untuk tepi '%' karena komputasi bentuk offset gagal."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:965
 msgid ""
@@ -10182,7 +10298,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2171
 msgid "Ignoring unsupported placement value '%' for edge '%'."
-msgstr ""
+msgstr "Mengabaikan nilai penempatan '%' yang tidak didukung untuk tepi '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2188
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -13088,7 +13204,7 @@ msgstr "StopOffset memerlukan nilai offset"
 #: src/utils/common/SUMOVehicleClass.cpp:358
 #, c-format
 msgid "Invalid character in vehicle class '%' encountered."
-msgstr ""
+msgstr "Karakter tidak valid ditemukan dalam kelas kendaraan '%'."
 
 #: src/utils/common/SUMOVehicleClass.cpp:360
 #, c-format
@@ -14105,7 +14221,7 @@ msgstr "Algoritma perutean CH tidak mendukung penutupan tepi secara dinamis%"
 #: src/utils/router/CHRouter.h:277
 msgid ""
 "Routing algorithm CH does not support dynamic closing of edges and lanes%"
-msgstr ""
+msgstr "Algoritma perutean CH tidak mendukung penutupan dinamis tepi dan jalur%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
@@ -14117,6 +14233,8 @@ msgid ""
 "Routing algorithm CHWrapper does not support dynamic closing of edges and "
 "lanes%"
 msgstr ""
+"Algoritma perutean CHWrapper tidak mendukung penutupan dinamis tepi dan "
+"jalur%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
@@ -14860,7 +14978,7 @@ msgstr "File konfigurasi Netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "Netconvert plain-xml files"
-msgstr ""
+msgstr "File plain-xml Netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "OSM network files"
