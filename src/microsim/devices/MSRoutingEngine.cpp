@@ -204,7 +204,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
     double effort = (!myBikeSpeeds || v == nullptr || v->getVClass() != SVC_BICYCLE
                      ? getEffort(e, v, t)
                      : getEffortBike(e, v, t));
-    applyExtras(e, v, TIME2STEPS(t), effort);
+    applyExtras(e, v, SIMSTEP, effort);
     return effort;
 }
 
