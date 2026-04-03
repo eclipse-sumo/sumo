@@ -29,6 +29,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/router/AStarRouter.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSRouterDefs.h>
 
 #ifdef HAVE_FOX
@@ -84,6 +85,30 @@ public:
     /// @brief Information when the last edge weight adaptation occurred
     static SUMOTime getLastAdaptation() {
         return myLastAdaptation;
+    }
+
+    static double getPriorityFactor() {
+        return myPriorityFactor;
+    }
+
+    /// @brief apply cost modifications from randomness, priorityFactor and preferences
+    static inline void applyExtras(const MSEdge* const e, const SUMOVehicle* const v, SUMOTime step, double& effort) {
+        if (gWeightsRandomFactor != 1.) {
+            long long int key = v->getRandomSeed() ^ e->getNumericalID();
+            if (myDynamicRandomness) {
+                key ^= step;
+            }
+            effort *= (1 + RandHelper::randHash(key) * (gWeightsRandomFactor - 1));
+        }
+        if (myPriorityFactor != 0) {
+            // lower priority should result in higher effort (and the edge with
+            // minimum priority receives a factor of 1 + myPriorityFactor
+            const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
+            effort *= 1 + relativeInversePrio * myPriorityFactor;
+        }
+        if (gRoutingPreferences) {
+            effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v->getVTypeParameter());
+        }
     }
 
     /// @brief return the cached route or nullptr on miss

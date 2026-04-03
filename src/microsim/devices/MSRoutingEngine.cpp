@@ -200,22 +200,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
     double effort = (!myBikeSpeeds || v == nullptr || v->getVClass() != SVC_BICYCLE
                      ? getEffort(e, v, t)
                      : getEffortBike(e, v, t));
-    if (gWeightsRandomFactor != 1.) {
-        long long int key = v->getRandomSeed() ^ e->getNumericalID();
-        if (myDynamicRandomness) {
-            key ^= SIMSTEP;
-        }
-        effort *= (1 + RandHelper::randHash(key) * (gWeightsRandomFactor - 1));
-    }
-    if (myPriorityFactor != 0) {
-        // lower priority should result in higher effort (and the edge with
-        // minimum priority receives a factor of 1 + myPriorityFactor
-        const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
-        effort *= 1 + relativeInversePrio * myPriorityFactor;
-    }
-    if (gRoutingPreferences) {
-        effort /= MSNet::getInstance()->getPreference(e->getRoutingType(), v->getVTypeParameter());
-    }
+    applyExtras(e, v, TIME2STEPS(t), effort);
     return effort;
 }
 
