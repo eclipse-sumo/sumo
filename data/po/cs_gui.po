@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-04 04:10+0000\n"
+"PO-Revision-Date: 2026-04-04 22:50+0000\n"
 "Last-Translator: Matěj Špatenka <spatenkamatej@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/cs/>\n"
@@ -263,7 +263,7 @@ msgstr "Zapnutí/vypnutí režimu celé obrazovky."
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindow.cpp:1520
 msgid "&Locate"
-msgstr "&Lokalizovat"
+msgstr "&Najít"
 
 #: src/gui/GUIApplicationWindow.cpp:563
 #: src/netedit/GNEApplicationWindowHelper.cpp:1349
@@ -994,7 +994,7 @@ msgstr ""
 
 #: src/gui/GUIViewTraffic.cpp:135 src/netedit/GNEViewNet.cpp:428
 msgid "Locate TLS"
-msgstr ""
+msgstr "Najít SSZ"
 
 #: src/gui/GUIViewTraffic.cpp:135
 msgid "Locate a tls within the network."
@@ -2684,7 +2684,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1559
 msgid "TLS"
-msgstr ""
+msgstr "SSZ"
 
 #: src/netedit/GNEApplicationWindow.cpp:1560
 msgid "Trigger"
@@ -12117,7 +12117,7 @@ msgstr ""
 
 #: src/netedit/elements/network/GNEJunction.cpp:481
 msgid "Add TLS"
-msgstr ""
+msgstr "Přidat SSZ"
 
 #: src/netedit/elements/network/GNEJunction.cpp:482
 msgid "Add joined TLS"
@@ -14997,7 +14997,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:896
 msgid "TLS ID"
-msgstr ""
+msgstr "SSZ ID"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:912
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:913
@@ -15044,7 +15044,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1078
 msgid "rename TLS"
-msgstr ""
+msgstr "přejmenovat SSZ"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1136
 msgid "change TLS type"
@@ -15068,7 +15068,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Create TLS"
-msgstr ""
+msgstr "Vytvořit SSZ"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1356
 msgid "Create a new traffic light program."
@@ -15145,7 +15145,7 @@ msgstr ""
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1695
 msgid "reset TLS"
-msgstr ""
+msgstr "resetovat SSZ"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1822
 msgid "duplicate program '%' of traffic light '%'"
@@ -17046,7 +17046,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:346
 msgid "Langua&ge"
-msgstr ""
+msgstr "J&azyk"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:348
 msgid "Change language to english. (en)"
