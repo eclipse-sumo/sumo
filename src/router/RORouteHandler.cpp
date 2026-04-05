@@ -699,15 +699,13 @@ RORouteHandler::closePerson() {
         for (ROPerson::PlanItem* item : *myActivePlan) {
             person->getPlan().push_back(item);
         }
+        myActivePlan->clear();
         if (myNet.addPerson(person)) {
             checkLastDepart();
             registerLastDepart();
         }
     }
-    delete myVehicleParameter;
-    myVehicleParameter = nullptr;
-    delete myActivePlan;
-    myActivePlan = nullptr;
+    deleteActivePlanAndVehicleParameter();
 }
 
 
@@ -768,13 +766,7 @@ RORouteHandler::closePersonFlow() {
             }
         }
     }
-    delete myVehicleParameter;
-    myVehicleParameter = nullptr;
-    for (ROPerson::PlanItem* const it : *myActivePlan) {
-        delete it;
-    }
-    delete myActivePlan;
-    myActivePlan = nullptr;
+    deleteActivePlanAndVehicleParameter();
 }
 
 
