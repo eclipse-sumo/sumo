@@ -562,7 +562,7 @@ getDefaultVehicleLength(const SUMOVehicleClass vc) {
         case SVC_PEDESTRIAN:
             return 0.215;
         case SVC_WHEELCHAIR:
-            return 0.5;
+            return 1.2;
         case SVC_BICYCLE:
             return 1.6;
         case SVC_SCOOTER:

@@ -84,7 +84,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     carriageDoorWidth(1.5),
     maxPlatformDistance(3.),
     latAlignmentProcedure(LatAlignmentDefinition::CENTER) {
-    // update default values
+    // sources for the default values should be in docs/Vehicle_Type_Parameter_Defaults.md
     switch (vclass) {
         case SVC_PEDESTRIAN:
             minGap = 0.25;
@@ -102,12 +102,12 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             minGap = 0.5;
             maxSpeed = 30.0 / 3.6; // https://en.wikipedia.org/wiki/Wheelchair_racing
             desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
-            width = 0.8;
-            height = 1.5;
+            width = 0.72;
+            height = 1.2;
             shape = SUMOVehicleShape::PEDESTRIAN;
             osgFile = "humanResting.obj";
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
-            mass = 90.; //
+            mass = 90.; // 20 (empty) + 70 (person)
             speedFactor.setParameter(1, 0.1);
             break;
         case SVC_BICYCLE:
