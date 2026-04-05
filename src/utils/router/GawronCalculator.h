@@ -53,10 +53,10 @@ public:
     }
 
     /** @brief calculate the probabilities */
-    void calculateProbabilities(std::vector<std::shared_ptr<R> > alternatives, const V* const /* veh */, const SUMOTime /* time */) {
-        for (typename std::vector<std::shared_ptr<R> >::iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
+    void calculateProbabilities(const std::vector<std::shared_ptr<R> >& alternatives, const V* const /* veh */, const SUMOTime /* time */) {
+        for (typename std::vector<std::shared_ptr<R> >::const_iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
             std::shared_ptr<R> pR = *i;
-            for (typename std::vector<std::shared_ptr<R> >::iterator j = i + 1; j != alternatives.end(); j++) {
+            for (typename std::vector<std::shared_ptr<R> >::const_iterator j = i + 1; j != alternatives.end(); j++) {
                 std::shared_ptr<R> pS = *j;
                 // see [Gawron, 1998] (4.2)
                 const double delta =

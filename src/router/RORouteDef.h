@@ -107,7 +107,7 @@ public:
 
     std::shared_ptr<const RORoute> getFirstRoute() const {
         if (myAlternatives.empty()) {
-            return 0;
+            return nullptr;
         }
         return myAlternatives.front();
     }

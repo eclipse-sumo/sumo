@@ -52,7 +52,7 @@ public:
     virtual void setCosts(std::shared_ptr<R> route, const double costs, const bool isActive = false) const = 0;
 
     /** @brief calculate the probabilities in the logit model */
-    virtual void calculateProbabilities(std::vector<std::shared_ptr<R> > alternatives, const V* const veh, const SUMOTime time) = 0;
+    virtual void calculateProbabilities(const std::vector<std::shared_ptr<R> >& alternatives, const V* const veh, const SUMOTime time) = 0;
 
     int getMaxRouteNumber() const {
         return myMaxRouteNumber;
