@@ -389,7 +389,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
             } else if (veh != nullptr && item.line == veh->getID()) {
                 double cost = item.cost;
                 if (veh->getVClass() != SVC_TAXI) {
-                    RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
+                    std::shared_ptr<RORoute> route = std::make_shared<RORoute>(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
                     veh->getRouteDefinition()->addLoadedAlternative(route);
                     carUsed = true;

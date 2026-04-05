@@ -66,7 +66,7 @@ struct ODCell {
     std::string vehicleType;
 
     /// @brief the list of paths / routes
-    std::vector<RORoute*> pathsVector;  // path_id, string of edges?
+    std::vector<std::shared_ptr<RORoute> > pathsVector;  // path_id, string of edges?
 
     /// @brief mapping of departure times to departing vehicles, if already fixed
     typedef std::map<SUMOTime, std::vector<SUMOVehicleParameter> > Departures;

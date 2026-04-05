@@ -25,6 +25,8 @@
 #include <vector>
 #include <map>
 
+#include "RouteCostCalculator.h"
+
 
 // ===========================================================================
 // class definitions
@@ -42,7 +44,7 @@ public:
     /// Destructor
     virtual ~GawronCalculator() {}
 
-    void setCosts(R* route, const double costs, const bool isActive = false) const {
+    void setCosts(std::shared_ptr<R> route, const double costs, const bool isActive = false) const {
         if (isActive) {
             route->setCosts(costs);
         } else {
@@ -51,11 +53,11 @@ public:
     }
 
     /** @brief calculate the probabilities */
-    void calculateProbabilities(std::vector<R*> alternatives, const V* const /* veh */, const SUMOTime /* time */) {
-        for (typename std::vector<R*>::iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
-            R* pR = *i;
-            for (typename std::vector<R*>::iterator j = i + 1; j != alternatives.end(); j++) {
-                R* pS = *j;
+    void calculateProbabilities(std::vector<std::shared_ptr<R> > alternatives, const V* const /* veh */, const SUMOTime /* time */) {
+        for (typename std::vector<std::shared_ptr<R> >::iterator i = alternatives.begin(); i != alternatives.end() - 1; i++) {
+            std::shared_ptr<R> pR = *i;
+            for (typename std::vector<std::shared_ptr<R> >::iterator j = i + 1; j != alternatives.end(); j++) {
+                std::shared_ptr<R> pS = *j;
                 // see [Gawron, 1998] (4.2)
                 const double delta =
                     (pS->getCosts() - pR->getCosts()) /

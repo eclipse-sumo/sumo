@@ -152,7 +152,7 @@ private:
                  const RONet* net, MsgHandler* errorHandler);
 
     /// @brief update departEdge / arrivalEdge
-    void updateIndex(const RORoute* replaced, const RORoute* current, int& attr);
+    void updateIndex(const std::shared_ptr<RORoute> replaced, const std::shared_ptr<RORoute> current, int& attr);
 
 private:
     /// @brief The route the vehicle takes

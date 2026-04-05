@@ -24,6 +24,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include "RORoute.h"
@@ -62,12 +63,14 @@ public:
 
 
     /// @brief Destructor
-    virtual ~RORouteDef();
+    virtual ~RORouteDef() {}
 
 
     /** @brief Adds a single alternative loaded from the file
         An alternative may also be generated during DUA */
-    void addLoadedAlternative(RORoute* alternative);
+    void addLoadedAlternative(std::shared_ptr<RORoute> alternative) {
+        myAlternatives.push_back(alternative);
+    }
 
     /** @brief Adds an alternative loaded from the file */
     void addAlternativeDef(const RORouteDef* alternative);
@@ -77,8 +80,8 @@ public:
 
     /** @brief Triggers building of the complete route (via
      * preComputeCurrentRoute) or returns precomputed route */
-    RORoute* buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
-                               const ROVehicle& veh) const;
+    std::shared_ptr<RORoute> buildCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router, SUMOTime begin,
+            const ROVehicle& veh) const;
 
     /** @brief Builds the complete route
      * (or chooses her from the list of alternatives, when existing) */
@@ -95,21 +98,21 @@ public:
      * and returns the route that was replaced or nullptr
     *
      * (This may be the new route) */
-    RORoute* addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
-                        const ROVehicle* const, RORoute* current, SUMOTime begin,
-                        MsgHandler* errorHandler);
+    std::shared_ptr<RORoute> addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                                            const ROVehicle* const, std::shared_ptr<RORoute> current, SUMOTime begin,
+                                            MsgHandler* errorHandler);
 
     const ROEdge* getOrigin() const;
     const ROEdge* getDestination() const;
 
-    const RORoute* getFirstRoute() const {
+    std::shared_ptr<const RORoute> getFirstRoute() const {
         if (myAlternatives.empty()) {
             return 0;
         }
         return myAlternatives.front();
     }
 
-    const RORoute* getUsedRoute() const {
+    std::shared_ptr<const RORoute> getUsedRoute() const {
         return myAlternatives[myLastUsed];
     }
 
@@ -162,16 +165,13 @@ protected:
 
 protected:
     /// @brief precomputed route for out-of-order computation
-    mutable RORoute* myPrecomputed;
+    mutable std::shared_ptr<RORoute> myPrecomputed;
 
     /// @brief Index of the route used within the last step
     mutable int myLastUsed;
 
     /// @brief The alternatives
-    std::vector<RORoute*> myAlternatives;
-
-    /// @brief Routes which are deleted someplace else
-    std::set<RORoute*> myRouteRefs;
+    std::vector<std::shared_ptr<RORoute> > myAlternatives;
 
     /// @brief Information whether a new route was generated
     mutable bool myNewRoute;

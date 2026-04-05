@@ -276,7 +276,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.writeAttr(SUMO_ATTR_NUMBER, numVehs);
                     matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                    for (RORoute* const r : c->pathsVector) {
+                    for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
                         r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
                         r->writeXMLDefinition(od, nullptr, true, true, false, false);
                     }
@@ -295,7 +295,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
 
                             veh.write(od, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, ignoreType || veh.vtypeid == DEFAULT_VTYPE_ID ? "" : veh.vtypeid);
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
-                            for (RORoute* const r : c->pathsVector) {
+                            for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
                                 r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
                                 r->writeXMLDefinition(od, nullptr, true, true, false, false);
                             }

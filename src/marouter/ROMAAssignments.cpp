@@ -166,15 +166,15 @@ ROMAAssignments::capacityConstraintFunction(const ROEdge* edge, const double flo
 
 
 bool
-ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob) {
-    std::vector<RORoute*>::iterator p;
+ROMAAssignments::addRoute(const ConstROEdgeVector& edges, std::vector<std::shared_ptr<RORoute> >& paths, std::string routeId, double prob) {
+    std::vector<std::shared_ptr<RORoute> >::iterator p;
     for (p = paths.begin(); p != paths.end(); p++) {
         if (edges == (*p)->getEdgeVector()) {
             break;
         }
     }
     if (p == paths.end()) {
-        paths.push_back(new RORoute(routeId, 0., prob, edges, nullptr, StopParVector()));
+        paths.push_back(std::make_shared<RORoute>(routeId, 0., prob, edges, nullptr, StopParVector()));
         return true;
     }
     (*p)->addProbability(prob);
@@ -207,8 +207,8 @@ ROMAAssignments::computePath(ODCell* cell, const SUMOTime time, const double pro
         }
     } else {
         double minCost = std::numeric_limits<double>::max();
-        RORoute* minRoute = nullptr;
-        for (RORoute* const p : cell->pathsVector) {
+        std::shared_ptr<RORoute> minRoute = nullptr;
+        for (const std::shared_ptr<RORoute>& p : cell->pathsVector) {
             const double cost = router->recomputeCosts(edges, myDefaultVehicle, time);
             if (cost < minCost) {
                 minCost = cost;
@@ -396,16 +396,14 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
                 const SUMOTime end = myAdditiveTraffic ? myEnd : c->end;
                 // update path cost
-                for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                    RORoute* r = *j;
+                for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
                     r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
                     //                    std::cout << std::setprecision(20) << r->getID() << ":" << r->getCosts() << std::endl;
                 }
                 // calculate route utilities and probabilities
                 RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
                 // calculate route flows
-                for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-                    RORoute* r = *j;
+                for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
                     const double pathFlow = r->getProbability() * c->vehicleNumber;
                     // assign edge flow deltas
                     for (ConstROEdgeVector::const_iterator e = r->getEdgeVector().begin(); e != r->getEdgeVector().end(); e++) {
@@ -467,15 +465,13 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
     // final round of assignment
     for (const ODCell* const c : myMatrix.getCells()) {
         // update path cost
-        for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-            RORoute* r = *j;
+        for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
             r->setCosts(myRouter.recomputeCosts(r->getEdgeVector(), myDefaultVehicle, 0));
         }
         // calculate route utilities and probabilities
         RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().calculateProbabilities(c->pathsVector, myDefaultVehicle, 0);
         // calculate route flows
-        for (std::vector<RORoute*>::const_iterator j = c->pathsVector.begin(); j != c->pathsVector.end(); ++j) {
-            RORoute* r = *j;
+        for (const std::shared_ptr<RORoute>& r : c->pathsVector) {
             r->setProbability(r->getProbability() * c->vehicleNumber);
         }
     }

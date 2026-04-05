@@ -132,9 +132,8 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         myRoutingSuccess = false;
         return;
     }
-    RORoute* current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
+    std::shared_ptr<RORoute> current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
     if (current == nullptr || current->size() == 0) {
-        delete current;
         if (current == nullptr || !routeDef->discardSilent()) {
             errorHandler->inform(noRouteMsg);
         }
@@ -154,7 +153,6 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         current->recheckForLoops(mandatory);
         // check whether the route is still valid
         if (current->size() == 0) {
-            delete current;
             errorHandler->inform(noRouteMsg + " (after removing loops)");
             myRoutingSuccess = false;
             return;
@@ -164,13 +162,12 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         double costs = router.recomputeCosts(current->getEdgeVector(), this, getDepartureTime());
         if (costs > RONet::getInstance()->getMaxTraveltime()) {
             errorHandler->inform(noRouteMsg + " (traveltime " + time2string(TIME2STEPS(costs)) + " exceeds max-traveltime)");
-            delete current;
             myRoutingSuccess = false;
             return;
         }
     }
     // add built route
-    RORoute* replaced = routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
+    std::shared_ptr<RORoute> replaced = routeDef->addAlternative(router, this, current, getDepartureTime(), errorHandler);
     if (replaced != nullptr) {
         if (getParameter().departEdge > 0) {
             updateIndex(replaced, current, getParameterMutable().departEdge);
@@ -178,14 +175,13 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         if (getParameter().arrivalEdge >= 0) {
             updateIndex(replaced, current, getParameterMutable().arrivalEdge);
         }
-        delete replaced;
     }
     myRoutingSuccess = true;
 }
 
 
 void
-ROVehicle::updateIndex(const RORoute* replaced, const RORoute* current, int& attr) {
+ROVehicle::updateIndex(const std::shared_ptr<RORoute> replaced, const std::shared_ptr<RORoute> current, int& attr) {
     const ConstROEdgeVector& oldRoute = replaced->getEdgeVector();
     if ((int)oldRoute.size() > attr) {
         const ROEdge* old = oldRoute[attr];

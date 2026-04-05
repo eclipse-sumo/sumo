@@ -122,7 +122,7 @@ public:
 
 private:
     /// @brief add a route and check for duplicates
-    bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
+    bool addRoute(const ConstROEdgeVector& edges, std::vector<std::shared_ptr<RORoute> >& paths, std::string routeId, double prob);
 
     const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr, bool setBulkMode = false);
 
