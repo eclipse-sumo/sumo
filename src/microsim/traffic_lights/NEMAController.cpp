@@ -50,6 +50,7 @@
 // #define DEBUG_NEMA
 // #define FUZZ_TESTING
 // #define DEBUG_NEMA_SWITCH
+// #define DEBUG_NEMA_TIMING
 
 // ===========================================================================
 // method definitions
@@ -1461,6 +1462,18 @@ NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
     if (maxRecall && !coordinatePhase) {
         myExpectedDuration = maxGreenDynamic;
     }
+#ifdef DEBUG_NEMA_TIMING
+    if (coordinatePhase) {
+        std::cout << SIMTIME << " Phase " << phaseName
+                  << " ENTER (coord): cycleTime=" << STEPS2TIME(controller->getTimeInCycle())
+                  << " forceOff=" << STEPS2TIME(forceOffTime)
+                  << " maxDur=" << STEPS2TIME(maxDuration)
+                  << " maxGreenDyn=" << STEPS2TIME(maxGreenDynamic)
+                  << " expectedDur=" << STEPS2TIME(myExpectedDuration)
+                  << " state=" << (int)myLightState
+                  << std::endl;
+    }
+#endif
     // Set the controller's active phase
     controller->setActivePhase(this);
 }
@@ -1592,6 +1605,17 @@ NEMAPhase::update(NEMALogic* controller) {
                     && p->callActive()) {
                 greenRestTimer -= DELTA_T;
                 vehicleActive = true;
+#ifdef DEBUG_NEMA_TIMING
+                if (coordinatePhase) {
+                    std::cout << SIMTIME << " Phase " << phaseName
+                              << " GREEN_REST_DEMAND (coord): detected on phase " << p->phaseName
+                              << " greenRestTimer=" << STEPS2TIME(greenRestTimer)
+                              << " maxDur=" << STEPS2TIME(maxDuration)
+                              << " cycleTime=" << STEPS2TIME(controller->getTimeInCycle())
+                              << " forceOff=" << STEPS2TIME(forceOffTime)
+                              << std::endl;
+                }
+#endif
                 break;
             }
         }
@@ -1613,6 +1637,15 @@ NEMAPhase::update(NEMALogic* controller) {
         // if the green rest timer is exhausted, set ready to switch
         if (greenRestTimer < DELTA_T) {
             readyToSwitch = true;
+#ifdef DEBUG_NEMA_TIMING
+            if (coordinatePhase) {
+                std::cout << SIMTIME << " Phase " << phaseName
+                          << " GREEN_REST_EXHAUSTED (coord): greenRestTimer=" << STEPS2TIME(greenRestTimer)
+                          << " cycleTime=" << STEPS2TIME(controller->getTimeInCycle())
+                          << " forceOff=" << STEPS2TIME(forceOffTime)
+                          << std::endl;
+            }
+#endif
             // force the counterpart to be ready to switch too. This needs to be latching....
             NEMAPhase* otherPhase = controller->getOtherPhase(this);
             if (otherPhase->getCurrentState() > LightState::Green) {
@@ -1630,6 +1663,17 @@ NEMAPhase::update(NEMALogic* controller) {
     }
     // Check to see if a switch is desired
     if (duration >= myExpectedDuration) {
+#ifdef DEBUG_NEMA_TIMING
+        if (coordinatePhase) {
+            std::cout << SIMTIME << " Phase " << phaseName
+                      << " READY_TO_SWITCH (coord): dur=" << STEPS2TIME(duration)
+                      << " expectedDur=" << STEPS2TIME(myExpectedDuration)
+                      << " cycleTime=" << STEPS2TIME(controller->getTimeInCycle())
+                      << " forceOff=" << STEPS2TIME(forceOffTime)
+                      << " state=" << (int)myLightState
+                      << std::endl;
+        }
+#endif
         readyToSwitch = true;
     }
 }
@@ -1724,6 +1768,12 @@ PhaseTransitionLogic::okay(NEMALogic* controller) {
                 // Check if any other phase on the same ring and barrier has demand
                 for (auto& p : controller->getPhasesByRing(fromPhase->ringNum)) {
                     if (p != fromPhase && p->barrierNum == fromPhase->barrierNum && p->callActive()) {
+#ifdef DEBUG_NEMA_TIMING
+                        std::cout << SIMTIME << " Phase " << fromPhase->phaseName
+                                  << " SELF-TRANSITION BLOCKED (coord lead-lag): demand on phase "
+                                  << p->phaseName << " same barrier side"
+                                  << std::endl;
+#endif
                         return false;
                     }
                 }
@@ -1885,6 +1935,20 @@ PhaseTransitionLogic::fromCoord(NEMALogic* controller) {
             SUMOTime transitionTime = fromPhase->getTransitionTime(controller);
             // if the time till the force off is less than the min duration ||
             // if it is greater than the cycle length minus the length of the coordinate phase (which the fromPhase automatically is)
+#ifdef DEBUG_NEMA_TIMING
+            std::cout << SIMTIME << " fromCoord " << fromPhase->phaseName << "->" << toPhase->phaseName
+                      << ": priorPhase=" << priorPhase->phaseName
+                      << " timeTillForceOff=" << STEPS2TIME(timeTillForceOff)
+                      << " priorMinDur=" << STEPS2TIME(priorPhase->minDuration)
+                      << " transTime=" << STEPS2TIME(transitionTime)
+                      << " cycleTime=" << STEPS2TIME(controller->getTimeInCycle())
+                      << " priorForceOff=" << STEPS2TIME(priorPhase->forceOffTime)
+                      << " cycleLenMinusCoord=" << STEPS2TIME(controller->getCurrentCycleLength() - fromPhase->minDuration)
+                      << " check1=" << ((priorPhase->minDuration + transitionTime) > timeTillForceOff)
+                      << " check2=" << (timeTillForceOff > (controller->getCurrentCycleLength() - fromPhase->minDuration))
+                      << " -> " << (((priorPhase->minDuration + transitionTime) > timeTillForceOff || timeTillForceOff > (controller->getCurrentCycleLength() - fromPhase->minDuration)) ? "ALLOW" : "BLOCK")
+                      << std::endl;
+#endif
             if ((priorPhase->minDuration + transitionTime) > timeTillForceOff || timeTillForceOff > (controller->getCurrentCycleLength() - fromPhase->minDuration)) {
                 return true;
             }

@@ -42,3 +42,6 @@ crossings_stayRed
 
 # lead lag coordinated phase tests
 lead_lag_basic
+lead_lag_coord_offset_reference
+lead_lag_no_demand
+lead_lag_coord_holds_to_forceoff
