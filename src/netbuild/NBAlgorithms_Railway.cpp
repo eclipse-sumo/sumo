@@ -1375,7 +1375,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBEdgeCont& ec, bool fromUniD
 // ---------------------------------------------------------------------------
 
 int
-NBRailwaySignalGuesser::guessRailSignals(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc, NBDistrictCont& dc ) {
+NBRailwaySignalGuesser::guessRailSignals(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCont& sc, NBDistrictCont& dc) {
     const OptionsCont& oc = OptionsCont::getOptions();
     int addedSignals = 0;
     if (oc.exists("railway.signal.guess.by-stops")) {
@@ -1409,14 +1409,13 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
     const double splitOffset = 10;
     const double splitOffsetSlack = 200;
     int addedSignals = 0;
-    for (auto& item : sc.getStops()) {
+    for (const auto& item : sc.getStops()) {
         NBEdge* stopEdge = ec.retrieve(item.second->getEdgeId());
         if (stopEdge != nullptr && isRailway(stopEdge->getPermissions())) {
             NBNode* to = stopEdge->getToNode();
             if (canBeSignal(to)) {
                 const double stopEnd = item.second->getEndPos();
                 if (split && (!to->geometryLike() || stopEdge->getLength() - stopEnd > splitOffsetSlack)) {
-                    const double stopEnd = item.second->getEndPos();
                     const double splitPos = MIN2(stopEnd + 1, MAX2(stopEdge->getLength() - splitOffset, stopEdge->getLength() / 2));
                     const std::string nodeID = nc.createUnusedID(stopEdge->getID() + "_" + item.first, "#");
                     NBNode* n = new NBNode(nodeID, stopEdge->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
@@ -1462,8 +1461,8 @@ NBRailwaySignalGuesser::guessByStops(NBNodeCont& nc, NBEdgeCont& ec, NBPTStopCon
             if (canBeSignal(from)) {
                 const double minPos = MIN2(splitOffset, curr->getLength() / 2);
                 const double splitPos = searchDist >= 0
-                    ? minPos
-                    : MAX2(minPos, MIN2(item.second->getStartPos(), -searchDist - 10));
+                                        ? minPos
+                                        : MAX2(minPos, MIN2(item.second->getStartPos(), -searchDist - 10));
                 if (split && (!from->geometryLike() || splitPos > splitOffsetSlack)) {
                     const std::string nodeID = nc.createUnusedID(curr->getID() + "_" + item.first, "#");
                     NBNode* n = new NBNode(nodeID, curr->getGeometry().positionAtOffset(splitPos), SumoXMLNodeType::RAIL_SIGNAL);
