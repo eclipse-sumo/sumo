@@ -171,10 +171,6 @@ GUISUMOAbstractView::~GUISUMOAbstractView() {
         makeNonCurrent();
     }
 
-    // cleanup decals
-    for (auto& decal : myDecals) {
-        delete decal.image;
-    }
     // remove all elements
     for (auto& additional : myAdditionallyDrawn) {
         additional.first->removeActiveAddVisualisation(this, ~0);
@@ -1769,8 +1765,6 @@ GUISUMOAbstractView::clearDecals() {
             queueTextureDelete(static_cast<unsigned int>(decal.glID));
             decal.glID = -1;
         }
-        delete decal.image;
-        decal.image = nullptr;
         decal.initialised = false;
     }
     myDecals.clear();

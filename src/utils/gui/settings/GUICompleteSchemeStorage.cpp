@@ -235,7 +235,6 @@ GUICompleteSchemeStorage::saveDecals(const std::vector<GUISUMOAbstractView::Deca
         // reset GPU resource handles
         d.initialised = false;
         d.glID = -1;
-        d.image = nullptr;
     }
 }
 
