@@ -417,8 +417,6 @@ public:
         /// @brief whether the decal shall be drawn in screen coordinates, rather than network coordinates
         int glID = -1;
 
-        /// @brief The image pointer for later cleanup
-        FXImage* image = nullptr;
     };
 
     /// @brief The list of decals to show
