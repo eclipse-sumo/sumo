@@ -1941,8 +1941,8 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor(204, 0, 0), 1, TL("junction bubble"));
     scheme.addColor(RGBColor(230, 100, 115), 2, TL("geometry points"));
     scheme.addColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW, 3, TL("connections missing"));
-    scheme.addColor(RGBColor::GREEN, 3, TL("custom shape"));
-    scheme.addColor(RGBColor(205, 180, 180), 4, TL("data mode"));
+    scheme.addColor(RGBColor::GREEN, 4, TL("custom shape"));
+    scheme.addColor(RGBColor(205, 180, 180), 5, TL("data mode"));
     junctionColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, TL(SCHEME_NAME_SELECTION.c_str()), RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, TL("selected"));

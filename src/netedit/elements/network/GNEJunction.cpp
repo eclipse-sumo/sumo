@@ -2160,7 +2160,7 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     const int scheme = s.junctionColorer.getActive();
     // first check if we're editing shape
     if (myShapeEdited) {
-        return s.colorSettings.editShapeColor;
+        return s.junctionColorer.getScheme().getColor(4);
     }
     // set default color
     RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, scheme));
