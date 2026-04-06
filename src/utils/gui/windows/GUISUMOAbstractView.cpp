@@ -1879,8 +1879,8 @@ GUISUMOAbstractView::drawDecals() {
                 }
                 MFXImageHelper::scalePower2(img, GUITexturesHelper::getMaxTextureSize());
                 decal.glID = GUITexturesHelper::add(img);
+                delete img;
                 decal.initialised = true;
-                decal.image = img;
             } catch (InvalidArgument& e) {
                 WRITE_ERROR("Could not load '" + decal.filename + "'.\n" + e.what());
                 decal.skip2D = true;
