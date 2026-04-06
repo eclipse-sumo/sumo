@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-31 19:14+0000\n"
+"PO-Revision-Date: 2026-04-06 17:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -12608,7 +12608,7 @@ msgstr "Personalisierten Knotenpunkt-Shape setzen"
 
 #: src/netedit/elements/network/GNEJunction.cpp:525
 msgid "Reset junction shape"
-msgstr "Knotenpunkt-Shjape zurücksetzen"
+msgstr "Knotenpunkt-Shape zurücksetzen"
 
 #: src/netedit/elements/network/GNEJunction.cpp:526
 msgid "Replace junction by geometry point"
