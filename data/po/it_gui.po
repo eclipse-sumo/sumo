@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-03-31 19:14+0000\n"
+"PO-Revision-Date: 2026-04-06 17:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13063,7 +13063,7 @@ msgstr "- Lunghezza: "
 
 #: src/netedit/frames/GNEDemandSelector.cpp:49
 msgid "Parent %"
-msgstr ""
+msgstr "Elemento padre %"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:67
 msgid "Parent element"
@@ -13294,7 +13294,7 @@ msgstr "Solamente due incroci sono permessi"
 
 #: src/netedit/frames/GNEPathCreator.cpp:296
 msgid "creation of path between junctions"
-msgstr ""
+msgstr "creazione di un percorso tra incroci"
 
 #: src/netedit/frames/GNEPathCreator.cpp:324
 #: src/netedit/frames/GNEPlanCreator.cpp:813
@@ -13307,7 +13307,7 @@ msgstr "Solamente due zone di aggregazione del traffico sono permesse"
 
 #: src/netedit/frames/GNEPathCreator.cpp:343
 msgid "creation of path between TAZs"
-msgstr ""
+msgstr "creazione di percorso tra zone di assegnazione del traffico"
 
 #: src/netedit/frames/GNEPathCreator.cpp:367
 #: src/netedit/frames/GNEPlanCreator.cpp:755
@@ -13335,7 +13335,7 @@ msgstr "Arco invalido (CONTROL + clic per aggiungere un arco sconnesso)"
 
 #: src/netedit/frames/GNEPathCreator.cpp:415
 msgid "creation of path between edges"
-msgstr ""
+msgstr "creazione di percorso tra archi"
 
 #: src/netedit/frames/GNEPathCreator.cpp:817
 msgid "- Selected edges: "
@@ -13343,7 +13343,7 @@ msgstr "- Archi selezionati: "
 
 #: src/netedit/frames/GNEPathCreator.cpp:818
 msgid "- Path edges: "
-msgstr ""
+msgstr "- Archi del percorso: "
 
 #: src/netedit/frames/GNEPathCreator.cpp:820
 msgid "- Average speed: "
