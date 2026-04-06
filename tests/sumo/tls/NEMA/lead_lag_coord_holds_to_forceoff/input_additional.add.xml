@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Lead-lag coordinated phase hold-to-forceoff test:
+     This test exercises the second bug fix (removal of priorPhase==fromPhase shortcut).
+
+     Setup:
+     - Lead-lag config with coordinated mode
+     - minRecall on coordinated phases (2,6) so they enter green rest when no traffic
+     - NO recall on sidestreet phases — they are purely detector-actuated
+     - A single sidestreet vehicle arrives well BEFORE the coordinated phase's force-off
+
+     Expected behavior:
+     - During the long gap with no sidestreet traffic, phases 2+6 should be in
+       green rest, sliding their start time forward.
+     - When the sidestreet vehicle arrives, the coordinated phase must NOT
+       immediately transition out. It must hold until its force-off time in the cycle.
+     - The fromCoord() timing check (timeTillForceOff) must prevent early exit.
+     - The transition to phase 3 should only happen near the force-off time,
+       not immediately when the sidestreet detector fires.
+
+     This is the regression test for the priorPhase==fromPhase shortcut removal.
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="0" programID="01" type="NEMA" offset="0">
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="85"/>
+        <!-- Lead-lag ring structure -->
+        <param key="ring1" value="2,1,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="1,6"/>
+        <param key="barrier2Phases" value="4,8"/>
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="controllerType" value="TS2"/>
+        <!-- minRecall on coord phases so they green rest; no recall on sidestreet -->
+        <param key="minRecall" value="2,6"/>
+        <param key="maxRecall" value=""/>
+        <param key="fixForceOff" value="false"/>
+        <param key="whetherOutputState" value="false"/>
+
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="1" state="rrrrrGrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="2" state="rrrrrrrrrGGr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="3" state="rrrrrrrrGrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="4" state="GGrrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="5" state="rrrrrrrrrrrG"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="6" state="rrrGGrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="7" state="rrGrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="8" state="rrrrrrGGrrrr"/>
+    </tlLogic>
+
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+</additional>

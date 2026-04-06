@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-02T14:27:10.337138-05:00 by Eclipse SUMO sumo v1.26.0-0000000000
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="0" programID="01" phase="0" state="rrrrrrrrrGGG" name="2+5"/>
+    <tlsState time="5.00" id="0" programID="01" phase="1" state="rrrrrrrrrGGy" name="2+5"/>
+    <tlsState time="8.00" id="0" programID="01" phase="0" state="rrrrrrrrrGGr" name="2+5"/>
+    <tlsState time="10.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="45.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="48.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="50.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="55.00" id="0" programID="01" phase="1" state="rryrrrrrGrrr" name="3+7"/>
+    <tlsState time="56.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="58.00" id="0" programID="01" phase="1" state="rrrrrrrryrrr" name="3+7"/>
+    <tlsState time="59.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="60.00" id="0" programID="01" phase="1" state="rrrrrrGGrrrr" name="3+8"/>
+    <tlsState time="61.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="67.00" id="0" programID="01" phase="1" state="GGrrrryyrrrr" name="4+8"/>
+    <tlsState time="70.00" id="0" programID="01" phase="0" state="GGrrrrrrrrrr" name="4+8"/>
+    <tlsState time="71.00" id="0" programID="01" phase="1" state="yyrrrrrrrrrr" name="4+8"/>
+    <tlsState time="74.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="76.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="130.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="133.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="135.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="143.00" id="0" programID="01" phase="1" state="rryrrrrrGrrr" name="3+7"/>
+    <tlsState time="145.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="146.00" id="0" programID="01" phase="1" state="rrrrrrrryrrr" name="3+7"/>
+    <tlsState time="148.00" id="0" programID="01" phase="0" state="rrrrrrGGrrrr" name="3+8"/>
+    <tlsState time="150.00" id="0" programID="01" phase="1" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="163.00" id="0" programID="01" phase="0" state="GGrrrryyrrrr" name="4+8"/>
+    <tlsState time="164.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="166.00" id="0" programID="01" phase="0" state="yyrrrrrrrrrr" name="4+8"/>
+    <tlsState time="167.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="169.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="215.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="218.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="220.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="228.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="231.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="233.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="246.00" id="0" programID="01" phase="1" state="yyrrrrGGrrrr" name="4+8"/>
+    <tlsState time="248.00" id="0" programID="01" phase="0" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="249.00" id="0" programID="01" phase="1" state="rrrrrryyrrrr" name="4+8"/>
+    <tlsState time="251.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="253.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="300.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="303.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="305.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="311.00" id="0" programID="01" phase="1" state="rrGrrrrryrrr" name="3+7"/>
+    <tlsState time="314.00" id="0" programID="01" phase="0" state="rrGrrrrrrrrr" name="3+7"/>
+    <tlsState time="315.00" id="0" programID="01" phase="1" state="rryrrrrrrrrr" name="3+7"/>
+    <tlsState time="316.00" id="0" programID="01" phase="0" state="GGyrrrrrrrrr" name="4+7"/>
+    <tlsState time="318.00" id="0" programID="01" phase="1" state="GGrrrrrrrrrr" name="4+7"/>
+    <tlsState time="320.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="330.00" id="0" programID="01" phase="1" state="yyrrrrGGrrrr" name="4+8"/>
+    <tlsState time="333.00" id="0" programID="01" phase="0" state="rrrrrrGGrrrr" name="4+8"/>
+    <tlsState time="335.00" id="0" programID="01" phase="1" state="rrrrrryyrrrr" name="4+8"/>
+    <tlsState time="338.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="340.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="385.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="388.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="390.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="395.00" id="0" programID="01" phase="1" state="rryrrrrrGrrr" name="3+7"/>
+    <tlsState time="398.00" id="0" programID="01" phase="0" state="rrrrrrrrGrrr" name="3+7"/>
+    <tlsState time="400.00" id="0" programID="01" phase="1" state="rrrrrrGGyrrr" name="3+8"/>
+    <tlsState time="403.00" id="0" programID="01" phase="0" state="rrrrrrGGrrrr" name="3+8"/>
+    <tlsState time="405.00" id="0" programID="01" phase="1" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="415.00" id="0" programID="01" phase="0" state="GGrrrryyrrrr" name="4+8"/>
+    <tlsState time="417.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="418.00" id="0" programID="01" phase="0" state="yyrrrrrrrrrr" name="4+8"/>
+    <tlsState time="420.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="422.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="470.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="473.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="475.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="485.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="488.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="490.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="505.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="508.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="510.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="555.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="558.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="560.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="570.00" id="0" programID="01" phase="1" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="573.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="575.00" id="0" programID="01" phase="1" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="590.00" id="0" programID="01" phase="0" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="593.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="595.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="640.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="643.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="645.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="654.00" id="0" programID="01" phase="0" state="rrGrrrrryrrr" name="3+7"/>
+    <tlsState time="655.00" id="0" programID="01" phase="1" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="657.00" id="0" programID="01" phase="0" state="rryrrrrrrrrr" name="3+7"/>
+    <tlsState time="658.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="659.00" id="0" programID="01" phase="0" state="GGrrrrrrrrrr" name="4+7"/>
+    <tlsState time="660.00" id="0" programID="01" phase="1" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="674.00" id="0" programID="01" phase="0" state="yyrrrrGGrrrr" name="4+8"/>
+    <tlsState time="675.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="677.00" id="0" programID="01" phase="0" state="rrrrrryyrrrr" name="4+8"/>
+    <tlsState time="678.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="680.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="725.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="728.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="730.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="740.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="743.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="745.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="759.00" id="0" programID="01" phase="1" state="yyrrrrGGrrrr" name="4+8"/>
+    <tlsState time="760.00" id="0" programID="01" phase="0" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="762.00" id="0" programID="01" phase="1" state="rrrrrryyrrrr" name="4+8"/>
+    <tlsState time="763.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="765.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="810.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="813.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="815.00" id="0" programID="01" phase="0" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="825.00" id="0" programID="01" phase="1" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="828.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="830.00" id="0" programID="01" phase="1" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="845.00" id="0" programID="01" phase="0" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="848.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="850.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="895.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="898.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="900.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="910.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="913.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+    <tlsState time="915.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="927.00" id="0" programID="01" phase="1" state="yyrrrrGGrrrr" name="4+8"/>
+    <tlsState time="930.00" id="0" programID="01" phase="0" state="rrrrrryyrrrr" name="4+8"/>
+    <tlsState time="933.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="935.00" id="0" programID="01" phase="0" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="980.00" id="0" programID="01" phase="1" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="983.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="985.00" id="0" programID="01" phase="1" state="rrGrrrrrGrrr" name="3+7"/>
+    <tlsState time="995.00" id="0" programID="01" phase="0" state="rryrrrrryrrr" name="3+7"/>
+    <tlsState time="998.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+7"/>
+</tlsStates>

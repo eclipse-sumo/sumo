@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Minimal traffic - this test is primarily about timing alignment, not demand response.
+     Max recall is set on all phases, so timing is deterministic regardless of traffic. -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" length="4.5" maxSpeed="25" accel="2.6" decel="4.5"/>
+
+    <!-- Mainstreet through (phases 2 and 6) -->
+    <flow id="f_WB_thru" type="car" from="1fi" to="2o" begin="0" end="500" probability="0.05"/>
+    <flow id="f_EB_thru" type="car" from="2fi" to="1o" begin="0" end="500" probability="0.05"/>
+
+    <!-- Sidestreet through (phases 4 and 8) -->
+    <flow id="f_NB_thru" type="car" from="4fi" to="3o" begin="0" end="500" probability="0.03"/>
+    <flow id="f_SB_thru" type="car" from="3fi" to="4o" begin="0" end="500" probability="0.03"/>
+</routes>

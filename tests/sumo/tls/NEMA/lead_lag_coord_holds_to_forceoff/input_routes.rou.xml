@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Traffic pattern:
+     1. Initial traffic on all approaches (0-200s) to establish normal cycling.
+     2. Long gap with NO sidestreet traffic (200-800s) - coord phases green rest.
+     3. Single sidestreet vehicles at ~500s and ~700s to trigger demand
+        during green rest - coord phase must hold until force-off, not exit early.
+     4. Normal traffic resumes (800-1200s) to verify recovery. -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" length="4.5" maxSpeed="25" accel="2.6" decel="4.5"/>
+
+    <!-- Phase 1: Initial traffic to establish cycling (0-200s) -->
+    <flow id="f_WB_thru_early" type="car" from="1fi" to="2o" begin="0" end="200" probability="0.10"/>
+    <flow id="f_EB_thru_early" type="car" from="2fi" to="1o" begin="0" end="200" probability="0.10"/>
+    <flow id="f_NB_thru_early" type="car" from="4fi" to="3o" begin="0" end="200" probability="0.06"/>
+    <flow id="f_SB_thru_early" type="car" from="3fi" to="4o" begin="0" end="200" probability="0.06"/>
+
+    <!-- Phase 2: Long gap - only coord phases have minRecall (200-800s) -->
+    <!-- NO sidestreet traffic during this window, except single vehicles below -->
+
+    <!-- Single sidestreet vehicles arriving during green rest period -->
+    <!-- North through (phase 4 detector on 4si) -->
+    <vehicle id="side_probe_1" type="car" depart="500">
+        <route edges="4fi 4si 3o"/>
+    </vehicle>
+    <!-- South through (phase 8 detector on 3si) -->
+    <vehicle id="side_probe_2" type="car" depart="700">
+        <route edges="3fi 3si 4o"/>
+    </vehicle>
+
+    <!-- Phase 3: Normal traffic resumes (800-1200s) -->
+    <flow id="f_WB_thru_late" type="car" from="1fi" to="2o" begin="800" end="1200" probability="0.10"/>
+    <flow id="f_EB_thru_late" type="car" from="2fi" to="1o" begin="800" end="1200" probability="0.10"/>
+    <flow id="f_NB_thru_late" type="car" from="4fi" to="3o" begin="800" end="1200" probability="0.06"/>
+    <flow id="f_SB_thru_late" type="car" from="3fi" to="4o" begin="800" end="1200" probability="0.06"/>
+</routes>

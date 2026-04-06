@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Lead-lag no-demand test:
+     This test exercises the first bug fix (fromBarrier coord exemption).
+     
+     Setup:
+     - Lead-lag config: ring1="2,1,3,4", coordinatePhases="2,6"
+     - NO recall on coordinated phases (2,6) - they have no guaranteed demand
+     - minRecall on sidestreet phases (3,4,7,8) to ensure they always get called
+     - NO traffic on the coordinated phase approaches
+     
+     Expected behavior:
+     - The coordinated phase (2,6) MUST still appear in every cycle even with
+       no demand and no recall, because it is the timing anchor.
+     - After the barrier phase (1) serves and becomes ready to switch,
+       fromBarrier() must allow the transition back to coordinated phase 2
+       without requiring callActive().
+     - The tls_state_switch output must show "2+6" appearing in every cycle.
+     
+     This is the regression test for the fromBarrier() fix.
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="0" programID="01" type="NEMA" offset="0">
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="85"/>
+        <!-- Lead-lag ring structure -->
+        <param key="ring1" value="2,1,3,4"/>
+        <param key="ring2" value="5,6,7,8"/>
+        <param key="barrierPhases" value="1,6"/>
+        <param key="barrier2Phases" value="4,8"/>
+        <param key="coordinatePhases" value="2,6"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="controllerType" value="TS2"/>
+        <!-- No recall on coordinated phases; minRecall on sidestreet only -->
+        <param key="minRecall" value="3,4,7,8"/>
+        <param key="maxRecall" value=""/>
+        <param key="fixForceOff" value="false"/>
+        <param key="whetherOutputState" value="false"/>
+
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="1" state="rrrrrGrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="2" state="rrrrrrrrrGGr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="3" state="rrrrrrrrGrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="4" state="GGrrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="5" state="rrrrrrrrrrrG"/>
+        <phase duration="99" minDur="5" maxDur="25" vehext="2" yellow="3" red="2" name="6" state="rrrGGrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="10" vehext="2" yellow="3" red="2" name="7" state="rrGrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="15" vehext="2" yellow="3" red="2" name="8" state="rrrrrrGGrrrr"/>
+    </tlLogic>
+
+    <timedEvent type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+</additional>

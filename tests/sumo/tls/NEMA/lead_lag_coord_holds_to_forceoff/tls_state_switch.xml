@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-03T12:53:41.701674-05:00 by Eclipse SUMO GUI v1.26.0-0000000000
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <time>
+        <end value="1200"/>
+    </time>
+
+    <processing>
+        <tls.actuated.show-detectors value="true"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="0" programID="01" phase="0" state="rrrrrrrrrGGG" name="2+5"/>
+    <tlsState time="5.00" id="0" programID="01" phase="1" state="rrrrrrrrrGGy" name="2+5"/>
+    <tlsState time="8.00" id="0" programID="01" phase="0" state="rrrrrrrrrGGr" name="2+5"/>
+    <tlsState time="10.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="51.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="54.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="56.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="64.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="67.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="69.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="136.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="139.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="141.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="156.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="159.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="161.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="221.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="224.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="226.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="239.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="242.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="244.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="306.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="309.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="311.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="316.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="319.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="321.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="561.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="564.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="566.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+    <tlsState time="571.00" id="0" programID="01" phase="1" state="yyrrrryyrrrr" name="4+8"/>
+    <tlsState time="574.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="4+8"/>
+    <tlsState time="576.00" id="0" programID="01" phase="1" state="rrrGGrrrrGGr" name="2+6"/>
+    <tlsState time="743.00" id="0" programID="01" phase="0" state="rrryyrrrryyr" name="2+6"/>
+    <tlsState time="746.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="748.00" id="0" programID="01" phase="0" state="GGrrrrGGrrrr" name="4+8"/>
+</tlsStates>

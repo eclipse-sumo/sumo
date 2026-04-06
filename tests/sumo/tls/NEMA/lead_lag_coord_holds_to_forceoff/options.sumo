@@ -1,0 +1,5 @@
+--no-step-log
+--no-duration-log
+-a input_additional.add.xml
+--net-file=net.net.xml --routes=input_routes.rou.xml
+-e 1200 
