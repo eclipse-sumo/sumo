@@ -49,5 +49,8 @@ loop_3veh
 siding_oneSide
 siding_oneSide_slow
 
+# required siding is not registered because the vehicle is on an intermediate driveway (#17834)
+siding_deadlock_intermediate_dw
+
 # required siding is beyond the current pre-registration limit (#17834)
 siding_deadlock_approaching_limit
