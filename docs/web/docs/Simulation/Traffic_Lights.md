@@ -68,14 +68,15 @@ visually in [netedit](../Netedit/editModesNetwork.md#traffic_lights).
   by setting the option **--tls.default-type**. This will generated the same signal plans as
   above but with green phases that have a variable length of 5s-50s
   (both values can be set using the options **--tls.min-dur, --tls.max-dur**).
-    - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
-    - default type **delay_based**: actuation is based on vehicle delays
+  - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
+  - default type **delay_based**: actuation is based on vehicle delays
 - The generated phase layout can be selected setting option **--tls.layout** to
   *opposites* (default) or *incoming* (see below).
 - The generated phase layout is also influenced by the [node
   type](../Networks/PlainXML.md#node_types) which may be either
   *traffic_light* or *traffic_light_right_on_red* (explained
   below)
+- by default, generated programs will have a fixed phase sequence and only vary in timing (for tlType *actuated* and *delay_based*). As an exception, when the only point of conflict is a [pedestrian crossing](Pedestrians.html#generating_a_network_with_crossings_and_walkingareas) and the tlType is *actuated*, a program with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is generated where the pedestrian crossing phase is only activated once pedestrians are waiting at the crossing.
 
 ## Default 4-arm intersection (layout *opposites*)
 
