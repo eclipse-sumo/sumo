@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2026-04-07T16:41:13.988528+01:00 by Eclipse SUMO sumo v1_26_0+1010-0a4f0f83d5b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <foes driveWays="A.0 G.d0 J3.0.2"/>
                 <sidings foe="G.d0">
                     <siding start="c" end="c" length="194.64"/>
-                    <siding start="c" end="d" length="294.64"/>
+                    <siding start="c" end="d" length="294.64" intermediateEnds="c"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="A.0.0" vehicle="" edges="b">
@@ -100,11 +100,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <foes driveWays="D.0.0 F.0 J0.0 J5.d0"/>
                 <sidings foe="J0.0">
                     <siding start="-e2" end="-d2.0" length="234.74"/>
-                    <siding start="-e2" end="-d2" length="334.74"/>
+                    <siding start="-e2" end="-d2" length="334.74" intermediateEnds="-d2.0"/>
                 </sidings>
                 <sidings foe="J5.d0">
                     <siding start="-e2" end="-d2.0" length="234.74"/>
-                    <siding start="-e2" end="-d2" length="334.74"/>
+                    <siding start="-e2" end="-d2" length="334.74" intermediateEnds="-d2.0"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="F.0.0" vehicle="" edges="-f">
@@ -123,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <foes driveWays="G.d0 J0.0 J3.0.1"/>
                 <sidings foe="G.d0">
                     <siding start="c" end="c" length="194.64"/>
-                    <siding start="c" end="d" length="294.64"/>
+                    <siding start="c" end="d" length="294.64" intermediateEnds="c"/>
                 </sidings>
             </driveWay>
         </link>
@@ -187,11 +187,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <foes driveWays="D.0 G.d0 J0.0 J5.d0"/>
             <sidings foe="J0.0">
                 <siding start="-e2" end="-d2.0" length="234.74"/>
-                <siding start="-e2" end="-d2" length="334.74"/>
+                <siding start="-e2" end="-d2" length="334.74" intermediateEnds="-d2.0"/>
             </sidings>
             <sidings foe="J5.d0">
                 <siding start="-e2" end="-d2.0" length="234.74"/>
-                <siding start="-e2" end="-d2" length="334.74"/>
+                <siding start="-e2" end="-d2" length="334.74" intermediateEnds="-d2.0"/>
             </sidings>
         </driveWay>
     </departJunction>
@@ -204,8 +204,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="F_0 J3_0"/>
             <foes driveWays="G.d0 J3.0 J5.d0"/>
             <sidings foe="G.d0">
-                <siding start="c" end="c" length="194.64"/>
-                <siding start="c" end="d" length="294.64"/>
+                <siding start="c" end="c" length="194.64" intermediateEnds="a"/>
+                <siding start="c" end="d" length="294.64" intermediateEnds="c a"/>
             </sidings>
         </driveWay>
     </departJunction>
