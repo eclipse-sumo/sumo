@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-06 17:50+0000\n"
+"PO-Revision-Date: 2026-04-07 18:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9740,11 +9740,11 @@ msgstr "Reimposta l'ultimo cambio. (Ctrl+Y)"
 
 #: src/netedit/GNEViewParent.cpp:120
 msgid "Compute path manager"
-msgstr ""
+msgstr "Calcolo del gestore di percorsi"
 
 #: src/netedit/GNEViewParent.cpp:120
 msgid "Compute path manager."
-msgstr ""
+msgstr "Calcolo del gestore di percorsi."
 
 #: src/netedit/GNEViewParent.cpp:536
 msgid "WalkingArea Chooser"
@@ -13690,7 +13690,7 @@ msgstr "Espandi frame per mostrare tutti gli contenuti"
 
 #: src/netedit/frames/common/GNEGroupBoxModule.cpp:78
 msgid "Shrink frame to default width"
-msgstr ""
+msgstr "Restringi la larghezza del frame fino al valore standard"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:64
 msgid "Templates"
@@ -13737,20 +13737,22 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:321
 msgid "     1. Select an object type from the first input box"
-msgstr ""
+msgstr "     1. Seleziona un tipo di oggetto dal primo elenco a discesa"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:322
 msgid "     2. Select an attribute from the second input box"
-msgstr ""
+msgstr "     2. Seleziona un attributo dal secondo elenco a discesa"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:323
 msgid ""
 "     3. Enter a 'match expression' in the third input box and press <return>"
 msgstr ""
+"     3. Inserisci un'espressione di 'ricerca' nel terzo campo e premi "
+"<return>"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:325
 msgid "- The empty expression matches all objects"
-msgstr ""
+msgstr "- L'espressione vuota corrisponde a tutti gli oggetti"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:326
 msgid ""
@@ -13811,7 +13813,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:341
 msgid "Netedit parameters Help"
-msgstr ""
+msgstr "Aiuto di parametri netedit"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:486
 msgid "Show all attributes"
@@ -13869,7 +13871,7 @@ msgstr "Sposta geometrie degli archi selezionati"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:216
 msgid "Shift value"
-msgstr ""
+msgstr "Valore di traslazione"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:220
 msgid "Apply shift value"
@@ -13888,7 +13890,7 @@ msgstr "Cambia Z nella selezione"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:296
 msgid "Z value"
-msgstr ""
+msgstr "Valore Z"
 
 #: src/netedit/frames/common/GNEMoveFrame.cpp:300
 msgid "Absolute value"
