@@ -1,6 +1,11 @@
 # siding cannot be used because it is already occupied, vehicle routes start or end in the siding
 siding_deadlock2
 
+# siding cannot be used because it is already occupied, vehicle routes start or end in the siding. 
+# Vehicles enter the deadlock from a one-way track driveway that is causally connected but doesn't show up in the deadlock output.
+# See #17826
+siding_deadlock3
+
 # a loop that reverses on itself can create a deadlock with 4 vehicles (2 from either direction)
 loop_4veh
 
