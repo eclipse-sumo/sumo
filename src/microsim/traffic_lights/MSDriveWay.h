@@ -351,11 +351,12 @@ protected:
 private:
 
     struct Siding {
-        Siding(int s, int e, double l) : start(s), end(e), length(l) {}
+        Siding(int s, int e, double l, std::vector<int> iEnds) : start(s), end(e), length(l), intermediateEnds(iEnds) {}
         // indices along route
         int start;
         int end;
         double length;
+        std::vector<int> intermediateEnds;
     };
 
     std::set<SUMOVehicle*, ComparatorNumericalIdLess> myTrains;

@@ -677,6 +677,43 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                         return std::make_pair(false, sidingApproach);
                     }
                 }
+                for (int i : siding.intermediateEnds) {
+                    const MSEdge* intermediateEnd = myRoute[i];
+                    for (MSDriveWay* intermediateApproach : myEndingDriveways[intermediateEnd]) {
+                        if (!intermediateApproach->myTrains.empty()) {
+                            SUMOVehicle* onApproach = *intermediateApproach->myTrains.begin();
+                            if (std::find(onApproach->getCurrentRouteEdge(), onApproach->getRoute().end(), sidingEnd) == onApproach->getRoute().end()) {
+                                // intermediate vehicle does not make use of the siding
+                                continue;
+                            }
+                            // possibly the foe vehicle can use the other part of the siding
+                            if (recurse) {
+                                const SUMOVehicle* foeVeh = nullptr;
+                                if (!foe->myTrains.empty()) {
+                                    foeVeh = *foe->myTrains.begin();
+                                } else if (foe->myOrigin != nullptr && foe->myOrigin->getApproaching().size() > 0) {
+                                    foeVeh = foe->myOrigin->getClosest().first;
+                                }
+                                if (foeVeh == nullptr) {
+                                    WRITE_WARNINGF("Invalid call to canUseSiding dw=% foe=% ego=% time=%", getID(), foe->getID(), Named::getIDSecure(ego), time2string(SIMSTEP));
+                                    continue;
+                                }
+                                if (foe->canUseSiding(foeVeh, this, false).first) {
+                                    continue;
+                                }
+                            }
+                            // @todo: in principle it might still be possible to continue if vehicle that approaches the siding can safely leave the situation
+#ifdef DEBUG_SIGNALSTATE
+                            if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
+                                std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
+                                    << " foeVeh=" << toString(foe->myTrains)
+                                    << " sidingEnd=" << sidingEnd->getID() << " intermediateApproach=" << intermediateApproach->getID() << " approaching=" << toString(intermediateApproach->myTrains) << "\n";
+                            }
+#endif
+                            return std::make_pair(false, intermediateApproach);
+                        }
+                    }
+                }
                 //std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
                 //    << " foeVeh=" << toString(foe->myTrains)
                 //    << " sidingEnd=" << sidingEnd->getID() << "usable\n";
@@ -885,6 +922,13 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
                 od.writeAttr("start", myRoute[siding.start]->getID());
                 od.writeAttr("end", myRoute[siding.end]->getID());
                 od.writeAttr("length", siding.length);
+                if (siding.intermediateEnds.size() > 0) {
+                    std::vector<std::string> endEdges;
+                    for (int i : siding.intermediateEnds) {
+                        endEdges.push_back(myRoute[i]->getID());
+                    }
+                    od.writeAttr("intermediateEnds", endEdges);
+                }
                 od.closeTag();
             }
             od.closeTag();
@@ -1954,26 +1998,33 @@ MSDriveWay::getForwardDistance(int lastIndex) const {
 void
 MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     const MSEdge* foeEndBidi = foe->myForward.back()->getEdge().getBidiEdge();
-    int forwardNormals = 0;
+    int foeForwardNormals = 0;
     for (auto lane : foe->myForward) {
         if (lane->isNormal()) {
-            forwardNormals++;
+            foeForwardNormals++;
         }
     }
-    if (forwardNormals == (int)foe->myRoute.size()) {
+    if (foeForwardNormals == (int)foe->myRoute.size()) {
 #ifdef DEBUG_BUILD_SIDINGS
-        if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
+        if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
 #endif
         return;
     }
-    auto foeSearchBeg = foe->myRoute.begin() + forwardNormals;
+    auto foeSearchBeg = foe->myRoute.begin() + foeForwardNormals;
     auto foeSearchEnd = foe->myRoute.end();
     if (foeEndBidi == nullptr) {
         throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
     }
+    int forwardNormals = 0;
+    for (auto lane : myForward) {
+        if (lane->isNormal()) {
+            forwardNormals++;
+        }
+    }
     int i;
     std::vector<int> start;
     std::vector<double> length;
+    std::vector<std::vector<int> > intermediateRS;
     for (i = 0; i < (int)myRoute.size(); i++) {
         if (myRoute[i] == foeEndBidi) {
             break;
@@ -1984,18 +2035,23 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     }
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
-    if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+    if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
 #endif
     i--;
+    // look backward along our route starting at the final edge of the foe dw
     for (; i >= 0; i--) {
         const MSEdge* cur = myRoute[i];
-        if (hasRS(cur, next)) {
+        const bool curHasRS = hasRS(cur, next);
+        if (curHasRS) {
             if (std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge()) == foeSearchEnd) {
+                // we found a rail signal in a safe spot (not on the foe route)
                 start.push_back(i);
                 length.push_back(0);
+                intermediateRS.push_back({});
             }
         }
         if (!start.empty()) {
+            // move further backwards along the route to find the spot where it merges again with the foe route
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
             if (itFind != foeSearchEnd) {
 #ifdef DEBUG_BUILD_SIDINGS
@@ -2012,22 +2068,41 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                             const MSEdge* last = myRoute[start[j]];
                             auto itLast = std::find(itFirst, foe->myRoute.end(), last);
                             if (itLast != foe->myRoute.end()) {
-                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foe->myRoute.begin()), (int)(itLast - foe->myRoute.begin()), length[j]));
+                                // @todo are intermediateRS relevant here?
+                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foe->myRoute.begin()), (int)(itLast - foe->myRoute.begin()), length[j], {}));
                             }
                         }
                     }
                 } else {
+                    // pick up further rail signals between the start of the siding and the start of the current driveway
+                    std::vector<int> furtherRS;
+                    if (curHasRS) {
+                        furtherRS.push_back(i);
+                    }
+                    const MSEdge* next2 = cur;
+                    for (int i2 = i - 1; i2 >= forwardNormals; i2--) {
+                        const MSEdge* cur2 = myRoute[i2];
+                        if (hasRS(cur2, next2)) {
+                            furtherRS.push_back(i2);
+                        }
+                        next2 = cur2;
+                    }
                     auto& foeSidings = mySidings[foe];
                     for (int j = 0; j < (int)length.size(); j++) {
-                        foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j]));
+                        intermediateRS[j].insert(intermediateRS[j].end(), furtherRS.begin(), furtherRS.end());
+                        foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j], intermediateRS[j]));
                     }
                 }
                 start.clear();
                 length.clear();
+                intermediateRS.clear();
                 foeSearchBeg = itFind;
             } else {
                 for (int j = 0; j < (int)length.size(); j++) {
                     length[j] += cur->getLength();
+                    if (curHasRS && i != start[j]) {
+                        intermediateRS[j].push_back(i);
+                    }
                 }
             }
         }
