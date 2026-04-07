@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-27T22:24:59.646704+01:00 by Eclipse SUMO sumo v1_25_0+1216-de5e4f51a23
+<!-- generated on 2026-04-07T14:21:00.270265+01:00 by Eclipse SUMO sumo v1_26_0+1007-b942728ab9d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="w3_0 w4_1"/>
                 <foes driveWays="e2.d0 w2.0 w2.2 w3.1"/>
                 <sidings foe="e2.d0">
-                    <siding start="T4_0" end="T4_0" length="830.66"/>
+                    <siding start="T4_0" end="T4_0" length="830.66" intermediateEnds="T11_0"/>
                 </sidings>
             </driveWay>
         </link>
@@ -127,10 +127,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="w1_1 w2_1 w3_1"/>
                 <foes driveWays="e1.d0 e1.d2 w2.0 w2.2 w3.1"/>
                 <sidings foe="e1.d0">
-                    <siding start="T3_1" end="T3_1" length="1029.35"/>
+                    <siding start="T3_1" end="T3_1" length="1029.35" intermediateEnds="T13_1"/>
                 </sidings>
                 <sidings foe="e1.d2">
-                    <siding start="T3_1" end="T3_1" length="1029.35"/>
+                    <siding start="T3_1" end="T3_1" length="1029.35" intermediateEnds="T13_1"/>
                 </sidings>
             </driveWay>
         </link>
@@ -166,7 +166,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="w2_1 w3_3 w4_2"/>
                 <foes driveWays="e1.d0 w2.0 w3.0 w4.1"/>
                 <sidings foe="e1.d0">
-                    <siding start="T3_1" end="T3_1" length="1029.35"/>
+                    <siding start="T3_1" end="T3_1" length="1029.35" intermediateEnds="T13_1"/>
                 </sidings>
             </driveWay>
         </link>
@@ -199,14 +199,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="w2_1 w3_3 w4_2"/>
             <foes driveWays="e1.d0 e1.d2 e2.d0 w2.0 w2.2 w3.0 w4.0 w4.2"/>
             <sidings foe="e1.d0">
-                <siding start="T3_1" end="T3_1" length="1029.35"/>
+                <siding start="T3_1" end="T3_1" length="1029.35" intermediateEnds="T13_1 T16_1"/>
             </sidings>
             <sidings foe="e1.d2">
-                <siding start="T16_1" end="T16_1" length="813.44"/>
-                <siding start="T3_1" end="T3_1" length="1029.35"/>
+                <siding start="T16_1" end="T16_1" length="813.44" intermediateEnds="T18_1"/>
+                <siding start="T3_1" end="T3_1" length="1029.35" intermediateEnds="T13_1 T16_1"/>
             </sidings>
             <sidings foe="w2.2">
-                <siding start="T16_1" end="T16_1" length="813.44"/>
+                <siding start="T16_1" end="T16_1" length="813.44" intermediateEnds="T18_1"/>
             </sidings>
         </driveWay>
     </departJunction>
@@ -219,13 +219,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="w1_0 w3_0 w3_1 w4_0"/>
             <foes driveWays="e1.d0 e1.d2 e2.d0 w1.1 w3.1 w4.1"/>
             <sidings foe="e2.d0">
-                <siding start="T9_0" end="T9_0" length="1099.41"/>
+                <siding start="T9_0" end="T9_0" length="1099.41" intermediateEnds="T7_0"/>
             </sidings>
             <sidings foe="w3.1">
-                <siding start="T9_0" end="T9_0" length="1099.41"/>
+                <siding start="T9_0" end="T9_0" length="1099.41" intermediateEnds="T7_0"/>
             </sidings>
             <sidings foe="w4.1">
-                <siding start="T9_0" end="T9_0" length="1099.41"/>
+                <siding start="T9_0" end="T9_0" length="1099.41" intermediateEnds="T7_0"/>
             </sidings>
         </driveWay>
         <driveWay id="e1.d1" vehicle="rail1" edges="T9_0 T11_0 T4_0 T18_0">
@@ -244,11 +244,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="w1_0 w3_0"/>
             <foes driveWays="e1.d0 e1.d2 e2.d0 w1.1 w3.1"/>
             <sidings foe="e2.d0">
-                <siding start="T9_0" end="T9_0" length="1099.41"/>
-                <siding start="T4_0" end="T4_0" length="830.66"/>
+                <siding start="T9_0" end="T9_0" length="1099.41" intermediateEnds="T7_0"/>
+                <siding start="T4_0" end="T4_0" length="830.66" intermediateEnds="T11_0 T9_0"/>
             </sidings>
             <sidings foe="w3.1">
-                <siding start="T9_0" end="T9_0" length="1099.41"/>
+                <siding start="T9_0" end="T9_0" length="1099.41" intermediateEnds="T7_0"/>
             </sidings>
         </driveWay>
     </departJunction>

@@ -1,8 +1,0 @@
-Warning: Teleporting vehicle 't0'; waited too long (yield, railSignal), lane='d_0', time=133.00.
-Warning: Teleporting vehicle 't3'; waited too long (yield, railSignal), lane='-h_0', time=133.00.
-Warning: Teleporting vehicle 't2'; waited too long (yield, railSignal), lane='a_0', time=133.00.
-Warning: Vehicle 't0' ends teleporting on edge 'e', time=133.00.
-Warning: Vehicle 't2' ends teleporting on edge 'b', time=133.00.
-Warning: Vehicle 't3' ends teleporting on edge '-g', time=133.00.
-Warning: Teleporting vehicle 't3'; frontal collision with vehicle 't0', lane='-g_0', gap=-1.00, time=173.00, stage=move.
-Warning: Vehicle 't3' ends teleporting on edge '-f', time=173.00.

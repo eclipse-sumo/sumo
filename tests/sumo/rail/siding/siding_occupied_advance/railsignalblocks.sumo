@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
+<!-- generated on 2026-04-07T14:20:59.907479+01:00 by Eclipse SUMO sumo v1_26_0+1007-b942728ab9d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
@@ -162,7 +162,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="C2_0 F_0"/>
                 <foes driveWays="C2.0.0 G.d0 J2.0"/>
                 <sidings foe="G.d0">
-                    <siding start="c" end="d" length="194.64"/>
+                    <siding start="c" end="d" length="194.64" intermediateEnds="a E1.200"/>
                 </sidings>
             </driveWay>
         </link>
@@ -177,7 +177,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="C2_0 F_0"/>
                 <foes driveWays="C2.0.1 G.d0 J5.0"/>
                 <sidings foe="G.d0">
-                    <siding start="c" end="d" length="194.64"/>
+                    <siding start="c" end="d" length="194.64" intermediateEnds="a"/>
                 </sidings>
             </driveWay>
         </link>
@@ -213,7 +213,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="C2_0 F_0"/>
             <foes driveWays="C2.0 G.d0 J1.d0"/>
             <sidings foe="G.d0">
-                <siding start="c" end="d" length="194.64"/>
+                <siding start="c" end="d" length="194.64" intermediateEnds="a E1.200 E1"/>
             </sidings>
         </driveWay>
     </departJunction>
