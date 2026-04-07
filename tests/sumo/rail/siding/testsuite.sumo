@@ -48,3 +48,6 @@ long_siding_occupied_advance
 loop_3veh
 siding_oneSide
 siding_oneSide_slow
+
+# required siding is beyond the current pre-registration limit (#17834)
+siding_deadlock_approaching_limit
