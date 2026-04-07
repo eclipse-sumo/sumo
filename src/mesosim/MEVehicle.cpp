@@ -482,7 +482,7 @@ MEVehicle::updateDetectors(const SUMOTime currentTime, const SUMOTime exitTime, 
             }
 #endif
         }
-        if (!isLeave || rem->first->notifyLeave(*this, mySegment->getLength(), reason)) {
+        if (!isLeave || rem->first->notifyLeave(*this, mySegment == nullptr ? 0 : mySegment->getLength(), reason)) {
 #ifdef _DEBUG
             if (isLeave && myTraceMoveReminders) {
                 traceMoveReminder("notifyLeave", rem->first, rem->second, true);

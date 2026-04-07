@@ -217,6 +217,8 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconn
             onSegment->send(veh, nullptr, qIdx, leaveTime, MSMoveReminder::NOTIFICATION_TELEPORT);
             // mark veh as teleporting
             veh->setSegment(nullptr);
+        } else {
+            veh->updateDetectors(veh->getLastEntryTime(), leaveTime, true, MSMoveReminder::NOTIFICATION_TELEPORT);
         }
         // @caution microsim uses current travel time teleport duration
         const SUMOTime teleArrival = leaveTime + TIME2STEPS(veh->getEdge()->getLength() / MAX2(veh->getEdge()->getSpeedLimit(), NUMERICAL_EPS));
