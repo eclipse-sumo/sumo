@@ -224,7 +224,8 @@ protected:
     bool myAbortedBuild;
     /// @brief whether driveway building was aborted when no further bidi edge was found
     bool myBidiEnded;
-    bool myIsSubDriveway;
+    /// @brief set to parent driveway if this is a subDriveway, nullptr otherwise
+    MSDriveWay* myParent;
 
     /* @brief the actual driveway part up to the next railsignal (halting position)
      * This must be free of other trains */
@@ -250,6 +251,10 @@ protected:
      * Conflict resolution must be performed if vehicles are approaching the
      * current link and any of the conflict links */
     std::vector<MSLink*> myConflictLinks;
+
+    bool isSubDriveWay() const {
+        return myParent != nullptr;
+    }
 
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
     bool hasLinkConflict(const Approaching& closest, const MSLink* foeLink) const;

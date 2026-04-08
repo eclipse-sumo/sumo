@@ -100,7 +100,7 @@ MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool tempora
     myTerminateRoute(false),
     myAbortedBuild(false),
     myBidiEnded(false),
-    myIsSubDriveway(false)
+    myParent(nullptr)
 {}
 
 
@@ -873,7 +873,7 @@ MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveW
 
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
-    od.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
+    od.openTag(isSubDriveWay() ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
     od.writeAttr(SUMO_ATTR_ID, myID);
     od.writeAttr(SUMO_ATTR_VEHICLE, myFirstVehicle);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
@@ -883,7 +883,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("forward");
     od.writeAttr(SUMO_ATTR_LANES, toString(myForward));
     od.closeTag();
-    if (!myIsSubDriveway) {
+    if (!isSubDriveWay()) {
         od.openTag("bidi");
         od.writeAttr(SUMO_ATTR_LANES, toString(myBidi));
         if (myBidiExtended.size() > 0) {
@@ -956,7 +956,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
 
 void
 MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
-    od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
+    od.openTag(isSubDriveWay() ? "subDriveWay" : "driveWay");
     od.writeAttr(SUMO_ATTR_ID, myID);
     for (const VehicleEvent& ve : myVehicleEvents) {
         od.openTag(ve.isEntry ? "entry" : "exit");
@@ -1604,7 +1604,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == endIt || myAbortedBuild || myBidiEnded || myFoundJump || myIsSubDriveway)) {
+            && (itRoute == endIt || myAbortedBuild || myBidiEnded || myFoundJump || isSubDriveWay())) {
         //std::cout << "  using dw=" << "\n";
         if (itRoute != endIt) {
             // check whether the current route requires an extended driveway
@@ -1618,7 +1618,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
                 return false;
             }
             if (!myFoundJump && prev->getBidiEdge() == next && prev == &myForward.back()->getEdge()) {
-                assert(myIsSubDriveway || myBidiEnded);
+                assert(isSubDriveWay() || myBidiEnded);
                 // must not leave driveway via reversal
 #ifdef DEBUG_MATCH
                 std::cout << getID() << " back=" << myForward.back()->getID() << " noMatch route " << toString(ConstMSEdgeVector(firstIt, endIt)) << "\n";
@@ -1952,7 +1952,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     }
     MSDriveWay* sub = new MSDriveWay(myOrigin, getID() + "." + toString(mySubDriveWays.size()));
     sub->myLane = myLane;
-    sub->myIsSubDriveway = true;
+    sub->myParent = this;
     sub->myForward = forward;
     sub->myRoute = route;
     sub->myCoreSize = (int)sub->myRoute.size();
@@ -2231,7 +2231,7 @@ MSDriveWay::saveState(OutputDevice& out) {
 void
 MSDriveWay::_saveState(OutputDevice& out) const {
     if (!myTrains.empty() || haveSubTrains()) {
-        out.openTag(myIsSubDriveway ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
+        out.openTag(isSubDriveWay() ? SUMO_TAG_SUBDRIVEWAY : SUMO_TAG_DRIVEWAY);
         out.writeAttr(SUMO_ATTR_ID, getID());
         out.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
         if (!myTrains.empty()) {
