@@ -664,7 +664,8 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                                 continue;
                             }
                             const MSDriveWay* foe2 = foe->isSubDriveWay() ? foe->myParent : foe;
-                            if (foe2->canUseSiding(foeVeh, this, sidingEnd).first) {
+                            const MSDriveWay* this2 = foe2->getFoeOrSubFoe(this);
+                            if (this2 != nullptr && foe2->canUseSiding(foeVeh, this2, sidingEnd).first) {
                                 continue;
                             }
                         }
@@ -702,7 +703,9 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                                     WRITE_WARNINGF("Invalid call to canUseSiding dw=% foe=% ego=% time=%", getID(), foe->getID(), Named::getIDSecure(ego), time2string(SIMSTEP));
                                     continue;
                                 }
-                                if (foe->canUseSiding(foeVeh, this, intermediateEnd).first) {
+                                const MSDriveWay* foe2 = foe->isSubDriveWay() ? foe->myParent : foe;
+                                const MSDriveWay* this2 = foe2->getFoeOrSubFoe(this);
+                                if (this2 != nullptr && foe2->canUseSiding(foeVeh, this2, intermediateEnd).first) {
                                     continue;
                                 }
                             }
