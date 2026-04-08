@@ -1997,6 +1997,7 @@ MSDriveWay::getForwardDistance(int lastIndex) const {
 
 void
 MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
+    const ConstMSEdgeVector& foeRoute = foe->isSubDriveWay() ? foe->myParent->myRoute : foe->myRoute;
     const MSEdge* foeEndBidi = foe->myForward.back()->getEdge().getBidiEdge();
     int foeForwardNormals = 0;
     for (auto lane : foe->myForward) {
@@ -2004,17 +2005,19 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
             foeForwardNormals++;
         }
     }
-    if (foeForwardNormals == (int)foe->myRoute.size()) {
+    if (foeForwardNormals == (int)foeRoute.size()) {
 #ifdef DEBUG_BUILD_SIDINGS
-        if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
+        if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() <<  " aborted\n";
 #endif
         return;
     }
-    auto foeSearchBeg = foe->myRoute.begin() + foeForwardNormals;
-    auto foeSearchEnd = foe->myRoute.end();
+    auto foeSearchBeg = foeRoute.begin() + foeForwardNormals;
+    auto foeSearchEnd = foeRoute.end();
     if (foeEndBidi == nullptr) {
         throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
     }
+    // if foe is a subDriveway, the forward section may end on an internal edge which would not be found on myRoute
+    foeEndBidi = foeEndBidi->getNormalSuccessor();
     int forwardNormals = 0;
     for (auto lane : myForward) {
         if (lane->isNormal()) {
@@ -2035,7 +2038,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     }
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
-    if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+    if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
 #endif
     i--;
     // look backward along our route starting at the final edge of the foe dw
@@ -2062,14 +2065,14 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                     auto& foeSidings = foe->mySidings[this];
                     // indices must be mapped onto foe route;
                     const MSEdge* first = myRoute[firstIndex];
-                    auto itFirst = std::find(foe->myRoute.begin(), foe->myRoute.end(), first);
-                    if (itFirst != foe->myRoute.end()) {
+                    auto itFirst = std::find(foeRoute.begin(), foeRoute.end(), first);
+                    if (itFirst != foeRoute.end()) {
                         for (int j = 0; j < (int)length.size(); j++) {
                             const MSEdge* last = myRoute[start[j]];
-                            auto itLast = std::find(itFirst, foe->myRoute.end(), last);
-                            if (itLast != foe->myRoute.end()) {
+                            auto itLast = std::find(itFirst, foeRoute.end(), last);
+                            if (itLast != foeRoute.end()) {
                                 // @todo are intermediateRS relevant here?
-                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foe->myRoute.begin()), (int)(itLast - foe->myRoute.begin()), length[j], {}));
+                                foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foeRoute.begin()), (int)(itLast - foeRoute.begin()), length[j], {}));
                             }
                         }
                     }
