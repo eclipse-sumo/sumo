@@ -322,8 +322,8 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
             if (foeDriveWay.foeDriveWayOccupied(false, foe.first, occupied) ||
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay) ||
-                    !isFoeOrSubFoe(&foeDriveWay) ||
-                    canUseSiding(veh.first, &foeDriveWay).first) {
+                    getFoeOrSubFoe(&foeDriveWay) == nullptr ||
+                    canUseSiding(veh.first, getFoeOrSubFoe(&foeDriveWay)).first) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4 || veh.first->isSelected()) {
                     if (foeDriveWay.foeDriveWayOccupied(false, foe.first, occupied)) {
@@ -332,7 +332,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                         std::cout << "     foe constrained\n";
                     } else if (!overlap(foeDriveWay)) {
                         std::cout << "     no overlap with foeDW=" << foeDriveWay.getID() << "\n";
-                    } else if (!isFoeOrSubFoe(&foeDriveWay)) {
+                    } else if (getFoeOrSubFoe(&foeDriveWay) == nullptr) {
                         std::cout << "     foeDW=" << foeDriveWay.getID() << " is not a foe to " << getID() << "\n";
                     } else if (canUseSiding(veh.first, &foeDriveWay).first) {
                         std::cout << "     use siding\n";
@@ -367,17 +367,18 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
 }
 
 
-bool
-MSDriveWay::isFoeOrSubFoe(const MSDriveWay* foe) const {
-    if (std::find(myFoes.begin(), myFoes.end(), foe) != myFoes.end()) {
-        return true;
+const MSDriveWay*
+MSDriveWay::getFoeOrSubFoe(const MSDriveWay* dw) const {
+    if (std::find(myFoes.begin(), myFoes.end(), dw) != myFoes.end()) {
+        return dw;
     }
-    for (const MSDriveWay* sub : foe->mySubDriveWays) {
-        if (isFoeOrSubFoe(sub)) {
-            return true;
+    for (const MSDriveWay* sub : dw->mySubDriveWays) {
+        const MSDriveWay* foe = getFoeOrSubFoe(sub);
+        if (foe != nullptr) {
+            return foe;
         }
     }
-    return false;
+    return nullptr;
 }
 
 
@@ -661,7 +662,8 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                                 WRITE_WARNINGF("Invalid call to canUseSiding dw=% foe=% ego=% time=%", getID(), foe->getID(), Named::getIDSecure(ego), time2string(SIMSTEP));
                                 continue;
                             }
-                            if (foe->canUseSiding(foeVeh, this, false).first) {
+                            const MSDriveWay* foe2 = foe->isSubDriveWay() ? foe->myParent : foe;
+                            if (foe2->canUseSiding(foeVeh, this, false).first) {
                                 continue;
                             }
                         }
@@ -1835,6 +1837,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         const MSLink* tmpOrigin = subLast > 0 ? myForward[subLast - 1]->getLinkTo(lane) : myOrigin;
         MSDriveWay tmp(tmpOrigin, "tmp", true);
         tmp.myForward.push_back(lane);
+        tmp.myBidi = myBidi;
+        tmp.myBidiExtended = myBidiExtended;
+        tmp.myRoute.push_back(lane->getNextNormal());
+        tmp.myCoreSize = 1;
         flankC = tmp.flankConflict(*foe);
         const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
         crossC = tmp.crossingConflict(*foe);
@@ -1873,6 +1879,15 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (gDebugFlag4) std::cout << "  subLastFinal=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
 #endif
+    if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
+        foe->myFoes.push_back(this);
+        // foe will get the sidings
+        addSidings(foe, true);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " special case 1\n";
+#endif
+        return true;
+    }
     if (subLast < 0) {
         if (movingBlock && zipperC) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
@@ -1919,6 +1934,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         if ((int)cand->myForward.size() == subSize) {
             // can re-use existing sub-driveway
             foe->myFoes.push_back(cand);
+            if (foe->bidiBlockedByEnd(*cand)) {
+                foe->addSidings(cand);
+            }
             cand->myFoes.push_back(foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " useExisting=" << cand->getID() << "\n";
@@ -1984,6 +2002,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     }
 
     foe->myFoes.push_back(sub);
+    if (foe->bidiBlockedByEnd(*sub)) {
+        foe->addSidings(sub);
+    }
     sub->myFoes.push_back(foe);
     mySubDriveWays.push_back(sub);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
@@ -2045,6 +2066,7 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     if (i == (int)myRoute.size()) {
         throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
     }
+    std::set<const MSEdge*> foeEdges(foeRoute.begin(), foeRoute.end());
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
     if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
