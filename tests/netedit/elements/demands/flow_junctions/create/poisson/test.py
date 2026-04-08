@@ -40,6 +40,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.create.spacing, "dummySpacing
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+netedit.modifyAttribute(netedit.attrs.flow.create.terminateOption, "22")
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")

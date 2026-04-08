@@ -37,6 +37,7 @@ netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 # try to create flow
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.modifyAttribute(netedit.attrs.flow.create.terminateOption, "22")
 
 # press enter to create flow
 netedit.typeKey("enter")
