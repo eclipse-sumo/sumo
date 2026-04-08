@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-06 17:50+0000\n"
+"PO-Revision-Date: 2026-04-09 06:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -5503,7 +5503,7 @@ msgstr "Ob die Kante Teil eines Kreisverkehrs ist"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:864
 msgid "The name of a routingType"
-msgstr ""
+msgstr "Der Name eines Routing-Typs"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:876
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
@@ -14562,11 +14562,11 @@ msgstr "% '%' entfernen"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:345
 msgid "Delete % '%' will remove one vehicle. Continue?"
-msgstr ""
+msgstr "% '%' zu löschen wird ein Fahrzeug entfernen. Soll fortgefahren werden?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:347
 msgid "Delete % '%' will remove % vehicles. Continue?"
-msgstr ""
+msgstr "% '%' zu löschen wird % Fahrzeuge entfernen. Soll fortgefahren werden?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:378
 msgid "Types"
@@ -17490,7 +17490,7 @@ msgstr "Fahrzeugfarbenlegende anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2498
 msgid "UI Scaling"
-msgstr ""
+msgstr "Skalierung der grafischen Oberfläche"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2505
 msgid "Combobox max rows"
@@ -17534,7 +17534,7 @@ msgstr "3D Ansicht"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2542
 msgid "Ignore color scheme for vehicles"
-msgstr ""
+msgstr "Farbschemata der Fahrzeuge ignorieren"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2544
 msgid "Show TLS link markers"
