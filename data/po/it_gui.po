@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-07 18:46+0000\n"
+"PO-Revision-Date: 2026-04-09 06:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13730,10 +13730,12 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection"
 msgstr ""
+"- Le impostazioni di 'attributo corrisposto' permettono di specificare un "
+"insieme di oggetti da applicare alla selezione attuale"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:320
 msgid "  according to the current 'Modification Mode'."
-msgstr ""
+msgstr "  in accordo col 'modo di modifica' in atto."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:321
 msgid "     1. Select an object type from the first input box"
@@ -13759,18 +13761,24 @@ msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number."
 msgstr ""
+"- Per attributi numerici l'espressione di corrispondenza deve consistere in "
+"un operatore di paragone ('<', '>', '=') e un numero."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:327
 msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'"
 msgstr ""
+"- Un oggetto corrisponde con l'espressione se il paragone tra l'attributo e "
+"il numero dato attraverso l'operatore dato risulta come 'true'"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:329
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string."
 msgstr ""
+"- Per attributi di sequenze di caratteri l'espressione deve consistere in un "
+"operatore di paragone ('', '=', '!', '^') e una sequenza di caratteri."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:330
 msgid ""
