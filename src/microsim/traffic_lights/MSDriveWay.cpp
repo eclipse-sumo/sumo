@@ -325,7 +325,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const
                     !isFoeOrSubFoe(&foeDriveWay) ||
                     canUseSiding(veh.first, &foeDriveWay).first) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
-                if (gDebugFlag4) {
+                if (gDebugFlag4 || veh.first->isSelected()) {
                     if (foeDriveWay.foeDriveWayOccupied(false, foe.first, occupied)) {
                         std::cout << "     foe blocked\n";
                     } else if (!foeRS->constraintsAllow(foe.first)) {
@@ -515,7 +515,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 if (it != mySidings.end()) {
                     numSidings = it->second.size();
                 }
-                std::cout << "  useSiding=" << useSiding.first << " sidingFoe=" << Named::getIDSecure(useSiding.second) << " numSidings=" << numSidings << "\n";
+                std::cout << " ego=" << Named::getIDSecure(ego) << " useSiding=" << useSiding.first << " sidingFoe=" << Named::getIDSecure(useSiding.second) << " numSidings=" << numSidings << "\n";
             }
 #endif
             if (useSiding.first) {
@@ -714,13 +714,22 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, bool rec
                         }
                     }
                 }
-                //std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
-                //    << " foeVeh=" << toString(foe->myTrains)
-                //    << " sidingEnd=" << sidingEnd->getID() << "usable\n";
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
+                    std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID()
+                        << " foeVeh=" << toString(foe->myTrains)
+                        << " sidingEnd=" << sidingEnd->getID() << " usable\n";
+                }
+#endif
                 return std::make_pair(true, nullptr);
             }
         }
     }
+#ifdef DEBUG_SIGNALSTATE
+    if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
+        std::cout << SIMTIME << " " << getID() << " ego=" << Named::getIDSecure(ego) << " foe=" << foe->getID() << " noSidings\n";
+    }
+#endif
     return std::make_pair(false, nullptr);
 }
 
