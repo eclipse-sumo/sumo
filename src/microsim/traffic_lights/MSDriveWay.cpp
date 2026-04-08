@@ -2048,10 +2048,17 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     }
     // if foe is a subDriveway, the forward section may end on an internal edge which would not be found on myRoute
     foeEndBidi = foeEndBidi->getNormalSuccessor();
+    std::set<const MSEdge*> foeForwardEdges(foeRoute.begin(), foeRoute.begin() + foeForwardNormals);
     int forwardNormals = 0;
     for (auto lane : myForward) {
         if (lane->isNormal()) {
             forwardNormals++;
+            if (foeForwardEdges.count(&lane->getEdge()) != 0) {
+#ifdef DEBUG_BUILD_SIDINGS
+                if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " forwardEdge=" << lane->getEdge().getID() << " on foeForward (sidings unsafe)\n";
+#endif
+                return;
+            }
         }
     }
     int i;
@@ -2066,7 +2073,6 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
     if (i == (int)myRoute.size()) {
         throw ProcessError("checkSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
     }
-    std::set<const MSEdge*> foeEdges(foeRoute.begin(), foeRoute.end());
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
     if (gDebugFlag4) std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeForwardNormals=" << foeForwardNormals << " frSize=" << foeRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
