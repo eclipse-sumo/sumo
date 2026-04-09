@@ -1110,11 +1110,11 @@ MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) 
 
 void
 MSAbstractLaneChangeModel::saveState(OutputDevice& out) const {
-    std::vector<std::string> lcState;
+    std::vector<double> lcState;
     if (MSGlobals::gLaneChangeDuration > 0) {
-        lcState.push_back(toString(mySpeedLat));
-        lcState.push_back(toString(myLaneChangeCompletion));
-        lcState.push_back(toString(myLaneChangeDirection));
+        lcState.push_back(mySpeedLat);
+        lcState.push_back(myLaneChangeCompletion);
+        lcState.push_back(myLaneChangeDirection);
     }
     if (lcState.size() > 0) {
         out.writeAttr(SUMO_ATTR_LCSTATE, lcState);

@@ -1052,6 +1052,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "dir",                    SUMO_ATTR_DIR },
     { "state",                  SUMO_ATTR_STATE },
     { "lcState",                SUMO_ATTR_LCSTATE },
+    { "lcState2",               SUMO_ATTR_LCSTATE2 },
     { "icon",                   SUMO_ATTR_ICON },
     { "layer",                  SUMO_ATTR_LAYER },
     { "fill",                   SUMO_ATTR_FILL },

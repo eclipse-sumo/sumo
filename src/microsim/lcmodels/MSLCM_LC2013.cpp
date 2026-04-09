@@ -27,6 +27,7 @@
 #include <config.h>
 
 #include <iostream>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/StringUtils.h>
 #include <microsim/transportables/MSPModel.h>
@@ -2239,6 +2240,33 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
     }
     initDerivedParameters();
 }
+
+
+void
+MSLCM_LC2013::saveState(OutputDevice& out) const {
+    MSAbstractLaneChangeModel::saveState(out);
+    std::vector<long long int> lcState;
+    lcState.push_back(mySpeedGainProbabilityLeft);
+    lcState.push_back(mySpeedGainProbabilityRight);
+    lcState.push_back(myKeepRightProbability);
+    lcState.push_back(myLookAheadSpeed * HYST_PRECISION);
+    out.writeAttr(SUMO_ATTR_LCSTATE2, lcState);
+}
+
+void
+MSLCM_LC2013::loadState(const SUMOSAXAttributes& attrs) {
+    MSAbstractLaneChangeModel::loadState(attrs);
+    if (attrs.hasAttribute(SUMO_ATTR_LCSTATE2)) {
+        std::istringstream bis(attrs.getString(SUMO_ATTR_LCSTATE2));
+        bis >> mySpeedGainProbabilityLeft;
+        bis >> mySpeedGainProbabilityRight;
+        bis >> myKeepRightProbability;
+        long long laSpeed;
+        bis >> laSpeed;
+        myLookAheadSpeed = laSpeed / HYST_PRECISION;
+    }
+}
+
 
 
 /****************************************************************************/

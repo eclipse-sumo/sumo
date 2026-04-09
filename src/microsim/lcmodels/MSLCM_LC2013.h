@@ -113,6 +113,16 @@ public:
     /// @brief decides the next lateral speed (for continuous lane changing)
     double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const override;
 
+    /** @brief Save the state of the laneChangeModel
+     * @param[in] out The OutputDevice to write the information into
+     */
+    virtual void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the laneChangeModel from the given attributes
+     * @param[in] attrs XML attributes describing the current state
+     */
+    virtual void loadState(const SUMOSAXAttributes& attrs);
+
 protected:
 
     /** helper function which contains the actual logic */
@@ -254,7 +264,7 @@ protected:
 
     /// @name derived parameters
     //@{
-    // @brief willingness to encroach on other vehicles laterally (pushing them around)
+    // @brief thresholds for changing to the right/left
     long long int myChangeProbThresholdRight;
     long long int myChangeProbThresholdLeft;
     //@}
