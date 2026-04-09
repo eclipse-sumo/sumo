@@ -1,0 +1,13 @@
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_26_0+1028-c32e4eaf29c started with time: 0.00.
+Simulation ended at time: 507.00.
+Reason: All vehicles have left the simulation.
+Statistics (avg of 3):
+ RouteLength: 1555.56
+ Speed: 3.58
+ Duration: 434.67
+ WaitingTime: 209.00
+ TimeLoss: 306.17
+ DepartDelay: 34.33

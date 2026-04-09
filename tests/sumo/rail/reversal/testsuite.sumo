@@ -85,6 +85,9 @@ reversal_onRoute_beyond_core2
 # avoid deadlock (3 trains and an additional loop)
 reversal_onRoute_beyond_core3
 
+# avoid deadlock (3 trains and an additional loop), insertion in the loop
+reversal_onRoute_beyond_core3b
+
 # avoid spurious foe checks	
 reversal_in_first_block
 
