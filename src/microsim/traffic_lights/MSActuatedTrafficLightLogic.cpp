@@ -804,7 +804,7 @@ MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, 
     const SUMOTime lastSwitch = t - spentDuration;
     myStep = step;
     myPhases[myStep]->myLastSwitch = lastSwitch;
-    const SUMOTime nextSwitch = t + getPhase(step).minDuration - spentDuration;
+    const SUMOTime nextSwitch = t + MAX2((SUMOTime)0, getPhase(step).minDuration - spentDuration);
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, nextSwitch);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, nextSwitch);
