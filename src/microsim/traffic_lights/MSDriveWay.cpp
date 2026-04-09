@@ -648,9 +648,19 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
             if (ego == nullptr || siding.length >= ego->getLength()) {
                 // if the siding is already "reserved" by another vehicle we cannot use it here
                 const MSEdge* sidingEnd = myRoute[siding.end];
+                bool checkNext = false;
                 for (MSDriveWay* sidingApproach : myEndingDriveways[sidingEnd]) {
-                    if (!sidingApproach->myTrains.empty()
-                            && (*sidingApproach->myTrains.begin() != ego || sidingEnd == recurseSidingEnd)) {
+                    if (!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() == ego && sidingEnd == recurseSidingEnd) {
+                        // check next siding if if exists
+                        checkNext = true;
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
+                            std::cout << "   checkNext\n";
+                        }
+#endif
+                        continue;
+                    }
+                    if (!sidingApproach->myTrains.empty() && *sidingApproach->myTrains.begin() != ego) {
                         // possibly the foe vehicle can use the other part of the siding
                         if (recurseSidingEnd == nullptr) {
                             const SUMOVehicle* foeVeh = nullptr;
@@ -665,6 +675,11 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                             }
                             const MSDriveWay* foe2 = foe->isSubDriveWay() ? foe->myParent : foe;
                             const MSDriveWay* this2 = foe2->getFoeOrSubFoe(this);
+#ifdef DEBUG_SIGNALSTATE
+                            if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
+                                std::cout << "   foe2=" << foe2->getID() << " this2=" << this2->getID() << "\n";
+                            }
+#endif
                             if (this2 != nullptr && foe2->canUseSiding(foeVeh, this2, sidingEnd).first) {
                                 continue;
                             }
@@ -681,6 +696,7 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                         return std::make_pair(false, sidingApproach);
                     }
                 }
+                // vehicles approaching intermediate driveways could also make the siding unusable but would not show up as sidingApproaches
                 for (int i : siding.intermediateEnds) {
                     const MSEdge* intermediateEnd = myRoute[i];
                     for (MSDriveWay* intermediateApproach : myEndingDriveways[intermediateEnd]) {
@@ -720,6 +736,9 @@ MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe, const MS
                             return std::make_pair(false, intermediateApproach);
                         }
                     }
+                }
+                if (checkNext) {
+                    continue;
                 }
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4 || DEBUG_COND_DW2 || DEBUG_HELPER(ego)) {
