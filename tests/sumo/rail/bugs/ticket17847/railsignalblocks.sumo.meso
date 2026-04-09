@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:02.308803+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-09T17:54:40.509431+01:00 by Eclipse SUMO sumo v1_26_0+1040-883f2fe5bfc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <collision.action value="warn"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
@@ -45,35 +44,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="J1">
-        <link linkIndex="0" from="E0_0" to=":J1_1_0">
+        <link linkIndex="0" from="E0_0" to=":J1_0_0">
             <driveWay id="J1.0" vehicle="v_0" edges="E1">
-                <forward lanes=":J1_1_0 E1_0"/>
-                <bidi lanes=":J1_0_0 -E1_0"/>
+                <forward lanes=":J1_0_0 E1_0"/>
+                <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J1.0"/>
             </driveWay>
         </link>
     </railSignal>
-    <departJunction id="J1">
-        <driveWay id="J1.d0" vehicle="v_1" edges="-E0 -E2">
-            <forward lanes="-E0_0 :J0_0_0 -E2_0"/>
-            <bidi lanes="E0_0 :J0_1_0 E2_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="J0.d0 J1.d0"/>
-        </driveWay>
-        <subDriveWay id="J1.d0.0" vehicle="" edges="-E0">
-            <forward lanes="-E0_0"/>
-        </subDriveWay>
-    </departJunction>
     <departJunction id="J0">
         <driveWay id="J0.d0" vehicle="v_0" edges="E0 E1">
             <forward lanes="E0_0"/>
-            <bidi lanes="-E0_0 :J1_0_0 -E1_0"/>
+            <bidi lanes=""/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="J0.d0 J1.d0.0"/>
+            <foes driveWays="J0.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
