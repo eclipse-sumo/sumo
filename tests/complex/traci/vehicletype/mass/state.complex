@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-23T17:44:47.414444+01:00 by Eclipse SUMO sumo v1_25_0+1167-e4289d0ddf3
+<!-- generated on 2026-04-09T18:54:47.954486+01:00 by Eclipse SUMO sumo v1_26_0+1045-463c948cd93
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="43763"/>
+        <remote-port value="39051"/>
     </traci_server>
 
     <gui_only>
@@ -31,17 +31,17 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_25_0+1167-e4289d0ddf3" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1045-463c948cd93" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="1fi 1si"/>
     <delay number="3" begin="4" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" mass="1234.00" sigma="0"/>
     <vType id="t1" mass="4321.00" sigma="0"/>
     <vType id="t2" emissionClass="Energy/default"/>
     <vType id="t3" vClass="truck" emissionClass="Energy/default"/>
-    <vehicle id="veh0" depart="0.00" route="r1" distance="248.5 0" speedFactor="1.0000" state="2048 0 1 5.10 0 1.87 29000 0 0" pos="74.07 69.07 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="veh1" type="t1" depart="10.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 10000 0 5.10 0 1.66 29000 0 0" pos="197.75 192.75 11.11" speed="11.11 11.11" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="veh2" type="t2" depart="20.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 20000 0 5.10 0 2.56 29000 0 0" pos="76.67 71.67 10.33" speed="10.33 10.24" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="veh3" type="t3" depart="30.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="veh0" depart="0.00" route="r1" distance="248.5 0" speedFactor="1.0000" state="2048 0 1 5.10 0 1.87 29000 0 0" pos="74.07 69.07 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 138900000"/>
+    <vehicle id="veh1" type="t1" depart="10.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 10000 0 5.10 0 1.66 29000 0 0" pos="197.75 192.75 11.11" speed="11.11 11.11" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0"/>
+    <vehicle id="veh2" type="t2" depart="20.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 20000 0 5.10 0 2.56 29000 0 0" pos="76.67 71.67 10.33" speed="10.33 10.24" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0"/>
+    <vehicle id="veh3" type="t3" depart="30.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0"/>
     <lane id="1fi_0">
         <vehicles value="veh2 veh1"/>
     </lane>
