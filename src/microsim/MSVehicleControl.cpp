@@ -212,12 +212,14 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
 
 
 void
-MSVehicleControl::setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime) {
+MSVehicleControl::setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime, double maxSpeedFactor, double minDecel) {
     myRunningVehNo = runningVehNo;
     myLoadedVehNo = loadedVehNo;
     myEndedVehNo = endedVehNo;
     myTotalDepartureDelay = totalDepartureDelay;
     myTotalTravelTime = totalTravelTime;
+    myMaxSpeedFactor = maxSpeedFactor;
+    myMinDeceleration = minDecel;
 }
 
 
@@ -228,7 +230,10 @@ MSVehicleControl::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_BEGIN, myLoadedVehNo);
     out.writeAttr(SUMO_ATTR_END, myEndedVehNo);
     out.writeAttr(SUMO_ATTR_DEPART, myTotalDepartureDelay);
-    out.writeAttr(SUMO_ATTR_TIME, myTotalTravelTime).closeTag();
+    out.writeAttr(SUMO_ATTR_TIME, myTotalTravelTime);
+    out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myMaxSpeedFactor);
+    out.writeAttr(SUMO_ATTR_DECEL, myMinDeceleration);
+    out.closeTag();
     // save vehicle types
     for (const auto& item : myVTypeDict) {
         if (myReplaceableDefaultVTypes.count(item.first) == 0) {

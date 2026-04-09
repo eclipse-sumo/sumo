@@ -517,7 +517,7 @@ public:
 
     /** @brief Sets the current state variables as loaded from the stream
      */
-    void setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime);
+    void setState(int runningVehNo, int loadedVehNo, int endedVehNo, double totalDepartureDelay, double totalTravelTime, double maxSpeedFactor, double minDecel);
 
     /** @brief Saves the current state into the given stream
      */
