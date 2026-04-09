@@ -299,8 +299,8 @@ MSRailSignalControl::updateSignals(SUMOTime t) {
     //std::cout << SIMTIME << " activeSignals=" << myActiveSignals.size() << "\n";
     for (auto it = myActiveSignals.begin(); it != myActiveSignals.end();) {
         MSRailSignal* rs = *it;
-        //std::cout << SIMTIME << " update " << rs->getID() << "\n";
         const bool keepActive = rs->updateCurrentPhase();
+        // std::cout << SIMTIME << " update " << rs->getID() << " keepActive=" << keepActive << "\n";
         if (rs->isActive()) {
             rs->setTrafficLightSignals(t);
         }

@@ -510,8 +510,7 @@ MSRailSignal::LinkInfo::reset() {
     myLastRerouteTime = -1;
     myLastRerouteVehicle = nullptr;
     myDriveways.clear();
-    myControlled = isRailwayOrShared(myLink->getViaLaneOrLane()->getPermissions())
-                   && isRailwayOrShared(myLink->getLane()->getPermissions());
+    myControlled = (myLink->getViaLaneOrLane()->getPermissions() & myLink->getLane()->getPermissions() & SVC_RAIL_CLASSES) != 0;
 }
 
 
