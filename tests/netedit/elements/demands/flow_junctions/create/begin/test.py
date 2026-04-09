@@ -43,6 +43,7 @@ netedit.modifyAttribute(netedit.attrs.flowJunction.create.begin, "-12")
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "42")
 
 # press enter to create trip
 netedit.typeKey("enter")

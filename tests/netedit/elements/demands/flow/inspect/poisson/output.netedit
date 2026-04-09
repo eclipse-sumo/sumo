@@ -4,6 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 798 - 194
+22
 TestFunctions: Clicked over position 489 - 608
 dummyTerminate
 poisson

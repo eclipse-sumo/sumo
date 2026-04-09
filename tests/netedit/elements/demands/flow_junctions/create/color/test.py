@@ -40,6 +40,7 @@ netedit.modifyColorAttribute(netedit.attrs.flowJunction.create.colorButton)
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
 netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminateOption, "22")
 
 # press enter to create trip
 netedit.typeKey("enter")

@@ -42,6 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleE
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.terminate, "end")
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.terminateOption, "22")
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.spacing, "dummyTerminate")

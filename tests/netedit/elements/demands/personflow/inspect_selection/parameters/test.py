@@ -39,6 +39,7 @@ netedit.changeMode("inspect")
 
 # inspect person
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "22")
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.personFlow.inspectSelection.parameters)

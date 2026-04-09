@@ -37,6 +37,7 @@ netedit.changeElement("vehicleFrame", "flow (from-to edges)")
 # create flow using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.modifyAttribute(netedit.attrs.flow.inspect.terminateOption, "22")
 
 # press enter to create route
 netedit.typeKey("enter")

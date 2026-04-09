@@ -39,6 +39,7 @@ netedit.changeMode("inspect")
 
 # inspect person
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "22")
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.departPos, "")

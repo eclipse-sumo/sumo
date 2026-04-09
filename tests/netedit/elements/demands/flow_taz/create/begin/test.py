@@ -43,6 +43,7 @@ netedit.modifyAttribute(netedit.attrs.flowTAZ.create.begin, "-12")
 # try to create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "42")
 
 # press enter to create trip
 netedit.typeKey("enter")

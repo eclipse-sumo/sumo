@@ -39,6 +39,7 @@ netedit.changeMode("inspect")
 
 # inspect person
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
+netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.terminateOption, "22")
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.personFlow.inspectSelection.colorButton)
