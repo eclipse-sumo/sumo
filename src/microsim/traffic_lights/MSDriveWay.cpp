@@ -1885,13 +1885,17 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (gDebugFlag4) std::cout << "  subLastFinal=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
 #endif
     if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
-        foe->myFoes.push_back(this);
-        // foe will get the sidings
-        addSidings(foe, true);
+        std::set<const MSEdge*> firstEdge;
+        firstEdge.insert(foe->myRoute.front());
+        if (forwardRouteConflict(firstEdge, *this, true)) {
+            foe->myFoes.push_back(this);
+            // foe will get the sidings
+            addSidings(foe, true);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-        if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " special case 1\n";
+            if (gDebugFlag4) std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " special case 1\n";
 #endif
-        return true;
+            return true;
+        }
     }
     if (subLast < 0) {
         if (movingBlock && zipperC) {
