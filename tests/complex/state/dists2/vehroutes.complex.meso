@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-23T08:28:02.320106+01:00 by Eclipse SUMO sumo v1_26_0+0300-a22ff4fd66a
+<!-- generated on 2026-04-09T23:59:30.593669+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,43 +28,43 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v.0" type="t2" depart="0.00" departSpeed="13.033" speedFactor="0.9383" arrival="15.00">
+    <vehicle id="v.0" type="t2" depart="0.00" departSpeed="13.033" speedFactor="0.9383" arrival="16.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.1" type="t2" depart="100.00" departSpeed="11.6565" speedFactor="0.8392" arrival="116.00">
+    <vehicle id="v.1" type="t2" depart="100.00" departSpeed="11.6565" speedFactor="0.8392" arrival="118.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.2" type="t2" depart="200.00" departSpeed="11.5426" speedFactor="0.8310" arrival="216.00">
+    <vehicle id="v.2" type="t2" depart="200.00" departSpeed="11.5426" speedFactor="0.8310" arrival="218.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.3" type="t2" depart="300.00" departSpeed="13.8261" speedFactor="0.9954" arrival="314.00">
+    <vehicle id="v.3" type="t2" depart="300.00" departSpeed="13.8261" speedFactor="0.9954" arrival="315.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.4" type="t2" depart="400.00" departSpeed="12.3059" speedFactor="0.8860" arrival="415.00">
+    <vehicle id="v.4" type="t2" depart="400.00" departSpeed="12.3059" speedFactor="0.8860" arrival="417.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.5" type="t1" depart="500.00" departSpeed="14.072" speedFactor="1.0131" arrival="514.00">
+    <vehicle id="v.5" type="t1" depart="500.00" departSpeed="14.072" speedFactor="1.0131" arrival="515.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.6" type="t2" depart="600.00" departSpeed="15.1498" speedFactor="1.0907" arrival="613.00">
+    <vehicle id="v.6" type="t2" depart="600.00" departSpeed="15.1498" speedFactor="1.0907" arrival="614.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.7" type="t2" depart="700.00" departSpeed="12.8171" speedFactor="0.9228" arrival="715.00">
+    <vehicle id="v.7" type="t2" depart="700.00" departSpeed="12.8171" speedFactor="0.9228" arrival="716.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.8" type="t1" depart="800.00" departSpeed="15.5971" speedFactor="1.1229" arrival="812.00">
+    <vehicle id="v.8" type="t1" depart="800.00" departSpeed="15.5971" speedFactor="1.1229" arrival="813.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.9" type="t1" depart="900.00" departSpeed="12.5079" speedFactor="0.9005" arrival="915.00">
+    <vehicle id="v.9" type="t1" depart="900.00" departSpeed="12.5079" speedFactor="0.9005" arrival="916.00">
         <route edges="SC CN"/>
     </vehicle>
 

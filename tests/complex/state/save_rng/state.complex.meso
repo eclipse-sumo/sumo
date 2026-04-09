@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:55.444519+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:31.633758+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,7 +31,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="1" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -99,7 +99,7 @@
         <rngLane index="63" state="0"/>
     </rngState>
     <route id="r0" state="1" edges="beg middle end"/>
-    <delay number="2" begin="2" end="0" depart="7.00" time="0.00"/>
+    <delay number="2" begin="2" end="0" depart="7.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="type0" sigma="0"/>
     <vType id="type1" sigma="0"/>
     <vType id="type2" sigma="0">

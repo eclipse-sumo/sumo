@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:59:42 by Eclipse SUMO sumo Version v1_20_0+1726-b296604fe17
+<!-- generated on 2026-04-09T23:59:30.864987+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,5 +26,5 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="vehicle_0" depart="0.00" departLane="gneE1_0" departPos="0.00" departSpeed="20.00" departDelay="0.00" arrival="18.00" arrivalLane="gneE2_0" arrivalPos="197.74" arrivalSpeed="30.00" duration="18.00" routeLength="412.69" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_vehicle_0 routing_vehicle_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle_0" depart="0.00" departLane="gneE1_0" departPos="0.00" departSpeed="20.00" departDelay="0.00" arrival="18.00" arrivalLane="gneE2_0" arrivalPos="197.74" arrivalSpeed="30.00" duration="18.00" routeLength="422.88" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_vehicle_0 routing_vehicle_0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

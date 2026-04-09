@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-18 14:56:00 by Eclipse SUMO sumo Version v1_20_0+2031-cd9a71df42c
+<!-- generated on 2026-04-09T23:59:32.437327+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,7 +35,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v0" type="t0" depart="30.00" arrival="220.00">
+    <vehicle id="v0" type="t0" depart="30.00" arrival="224.00">
         <route edges="SC CN NC CS SC CN"/>
         <stop edge="SC" duration="50.00"/>
         <stop edge="NC" duration="50.00"/>

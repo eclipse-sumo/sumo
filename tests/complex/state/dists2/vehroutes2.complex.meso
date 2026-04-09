@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-23T08:28:02.360224+01:00 by Eclipse SUMO sumo v1_26_0+0300-a22ff4fd66a
+<!-- generated on 2026-04-09T23:59:30.704728+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,23 +25,23 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v.5" type="t1" depart="500.00" departSpeed="14.072" speedFactor="1.0131" arrival="514.00">
+    <vehicle id="v.5" type="t1" depart="500.00" departSpeed="14.072" speedFactor="1.0131" arrival="515.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.6" type="t2" depart="600.00" departSpeed="15.1498" speedFactor="1.0907" arrival="613.00">
+    <vehicle id="v.6" type="t2" depart="600.00" departSpeed="15.1498" speedFactor="1.0907" arrival="614.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.7" type="t2" depart="700.00" departSpeed="12.8171" speedFactor="0.9228" arrival="715.00">
+    <vehicle id="v.7" type="t2" depart="700.00" departSpeed="12.8171" speedFactor="0.9228" arrival="716.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.8" type="t1" depart="800.00" departSpeed="15.5971" speedFactor="1.1229" arrival="812.00">
+    <vehicle id="v.8" type="t1" depart="800.00" departSpeed="15.5971" speedFactor="1.1229" arrival="813.00">
         <route edges="SC CN"/>
     </vehicle>
 
-    <vehicle id="v.9" type="t1" depart="900.00" departSpeed="12.5079" speedFactor="0.9005" arrival="915.00">
+    <vehicle id="v.9" type="t1" depart="900.00" departSpeed="12.5079" speedFactor="0.9005" arrival="916.00">
         <route edges="SC CN"/>
     </vehicle>
 

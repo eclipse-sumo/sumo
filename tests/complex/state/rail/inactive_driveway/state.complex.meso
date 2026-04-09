@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:54.379299+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:30.580945+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,23 +30,29 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="80.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="80.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!train2" state="0" edges="a b c"/>
-    <delay number="1" begin="2" end="1" depart="0.00" time="22.00"/>
+    <delay number="1" begin="2" end="1" depart="0.00" time="22.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="100 0" speedFactor="1.0000" state="18 60000 1 0 1 0 87199 74398 9223372036854774807 1 0">
-        <stop edge="b" startPos="199.80" endPos="200.00" until="80.00" started="74.40"/>
+    <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="200 0" speedFactor="1.0000" state="18 60000 1 0 1 0 87199 74405 9223372036854774807 1 0">
+        <stop edge="b" startPos="199.80" endPos="200.00" until="80.00" started="74.41"/>
     </vehicle>
+    <segment id=":A_0:0">
+        <vehicles time="70135" blockTime="70127" value=""/>
+    </segment>
+    <segment id=":B_0:0">
+        <vehicles time="17334" blockTime="17326" value=""/>
+    </segment>
     <segment id="a:0">
         <vehicles time="70128" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="b:0">
-        <vehicles time="77327" blockTime="70127" value=""/>
+        <vehicles time="77334" blockTime="70134" value=""/>
     </segment>
     <segment id="b:1">
-        <vehicles time="17327" blockTime="77326" value="train2"/>
+        <vehicles time="17327" blockTime="77333" value="train2"/>
     </segment>
     <segment id="c:0">
-        <vehicles time="21597" blockTime="17326" value=""/>
+        <vehicles time="21604" blockTime="17333" value=""/>
     </segment>
 </snapshot>

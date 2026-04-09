@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:55.489405+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:31.835212+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,8 +36,8 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
-    <delay number="1" begin="2" end="1" depart="5.00" time="22.00"/>
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <delay number="1" begin="2" end="1" depart="5.00" time="22.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="v1.0" type="t0" depart="2.00" route="!v1#1" distance="7 0" speedFactor="1.0000" state="194 7000 1 0 1 0 30028 22829 9223372036854774807 0 0">
         <device id="tripinfo_v1.0" state="beg_0 0.811124 7 0 0 0 0 -1 -1000 NONE -1 0 -1"/>

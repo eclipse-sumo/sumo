@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:56.205172+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:32.256324+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,18 +31,21 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC CN"/>
-    <delay number="2" begin="3" end="1" depart="0.00" time="9.00"/>
+    <delay number="2" begin="3" end="1" depart="0.00" time="10.00" speedFactor="1.06" decel="4.50"/>
     <vType id="car" sigma="0"/>
-    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 34618 27563 9223372036854774807 0 0">
+    <vehicle id="cali.0.1" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="0.9383" state="2074 24000 1 0 0 0 35133 28078 9223372036854774807 0 0">
         <device id="vehroute_cali.0.1" state="31.27 0.00 0"/>
     </vehicle>
-    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="91.95 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33282 26730 9223372036854774807 0 0">
+    <vehicle id="cali.0.2" type="car" depart="24.00" departPos="random_free" departSpeed="max" route="r0" distance="183.9 0" speedFactor="1.0104" state="2074 24000 1 0 0 0 33760 27208 9223372036854774807 0 0">
         <device id="vehroute_cali.0.2" state="33.68 0.00 0"/>
     </vehicle>
+    <segment id=":C_11:0">
+        <vehicles time="28912" blockTime="28396" value=""/>
+    </segment>
     <segment id="CN:0">
-        <vehicles time="26848" blockTime="28396" value="cali.0.1 cali.0.2"/>
+        <vehicles time="27304" blockTime="28911" value="cali.0.1 cali.0.2"/>
     </segment>
     <segment id="SC:0">
         <vehicles time="29232" blockTime="-9223372036854775808" value=""/>

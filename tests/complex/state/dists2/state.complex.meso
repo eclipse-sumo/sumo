@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-23T08:28:02.324221+01:00 by Eclipse SUMO sumo v1_26_0+0300-a22ff4fd66a
+<!-- generated on 2026-04-09T23:59:30.607542+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0300-a22ff4fd66a" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="20" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -95,13 +95,16 @@
         <rngLane index="63" state="0"/>
     </rngState>
     <route id="r1" state="1" edges="SC CN"/>
-    <delay number="0" begin="5" end="5" depart="0.00" time="76.00"/>
+    <delay number="0" begin="5" end="5" depart="0.00" time="84.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t1" length="3.00" sigma="0"/>
     <vType id="t2" sigma="0"/>
     <vTypeDistribution id="tD" vTypes="t1 t2" probabilities="1.00 1.00"/>
     <flowState id="v" type="tD" begin="0.00" end="1000.00" period="100" departSpeed="avg" next="500.00" route="r1" done="5" index="5"/>
+    <segment id=":C_11:0">
+        <vehicles time="409614" blockTime="408305" value=""/>
+    </segment>
     <segment id="CN:0">
-        <vehicles time="414944" blockTime="408305" value=""/>
+        <vehicles time="416252" blockTime="409613" value=""/>
     </segment>
     <segment id="SC:0">
         <vehicles time="409141" blockTime="-9223372036854775808" value=""/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:55.734563+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:32.034103+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,7 +35,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="501.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="501.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v" state="0" edges="A0A1 E3E4"/>
     <route id="!v.0!var#1" state="0" edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3D3 D3E3 E3E4"/>
     <route id="!v.1!var#1" state="0" edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3D3 D3E3 E3E4"/>
@@ -726,7 +726,7 @@
     <route id="!v.98!var#2" state="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2E2 E2E3 E3E4"/>
     <route id="!v.99!var#1" state="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3 D3E3 E3E4"/>
     <route id="!v.99!var#2" state="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2E2 E2E3 E3E4"/>
-    <delay number="86" begin="501" end="203" depart="29876.00" time="28677.00"/>
+    <delay number="86" begin="501" end="203" depart="29876.00" time="28677.00" speedFactor="1.30" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="default" vClass="passenger" color="red"/>
     <vehicle id="v.180" depart="180.00" departSpeed="avg" route="!v.180!var#2" distance="1400 2" speedFactor="1.0998" reroute="1" state="262320 310000 7 0 1 0 500963 492734 9223372036854774807 0 0">

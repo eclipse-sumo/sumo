@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:55.449561+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:31.752535+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,7 +33,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="0" insertionControl="30" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -104,7 +104,7 @@
     <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
     <route id="!flowFromTo.1!var#1" state="0" edges="beg middle end"/>
     <route id="r0" state="1" edges="beg middle end"/>
-    <delay number="3" begin="21" end="3" depart="90.00" time="90.00"/>
+    <delay number="3" begin="21" end="3" depart="90.00" time="90.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="flowNumber.1" type="t0" depart="8.00" route="r0" distance="207 0" speedFactor="1.0000" state="2146 25000 2 0 0 0 54487 47288 9223372036854774807 0 0">
         <device id="tripinfo_flowNumber.1" state="beg_0 0.887199 207 0 0 0 0 -1 -1000 NONE -1 0 -1"/>

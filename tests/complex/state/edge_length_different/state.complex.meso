@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:56.210618+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:32.469531+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,27 +26,30 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="E0 E1"/>
     <route id="!1" state="0" edges="E1"/>
-    <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
+    <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="100 0" speedFactor="1.0600" state="16 0 1 0 1 0 20376 13584 9223372036854774807 0 0">
-        <device id="tripinfo_0" state="E0_0 14.7232 100 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
-        <rem id="tripinfo_0" time="13584" pos="100.00"/>
+    <vehicle id="0" depart="0.00" departSpeed="10.00" route="!0" distance="200 0" speedFactor="1.0600" state="16 0 1 0 1 0 20383 13591 9223372036854774807 0 0">
+        <device id="tripinfo_0" state="E0_0 14.7232 100.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <rem id="tripinfo_0" time="13591" pos="100.00"/>
     </vehicle>
     <vehicle id="1" depart="0.00" departSpeed="10.00" route="!1" distance="0 0" speedFactor="0.9383" state="16 0 0 0 2 0 23019 15346 9223372036854774807 0 0">
         <device id="tripinfo_1" state="E1_0 13.0327 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <rem id="tripinfo_1" time="15346" pos="200.00"/>
     </vehicle>
+    <segment id=":J1_0:0">
+        <vehicles time="8468" blockTime="8460" value=""/>
+    </segment>
     <segment id="E0:0">
         <vehicles time="8461" blockTime="-9223372036854775808" value=""/>
     </segment>
     <segment id="E1:0">
-        <vehicles time="15253" blockTime="8460" value=""/>
+        <vehicles time="15260" blockTime="8467" value=""/>
     </segment>
     <segment id="E1:1">
-        <vehicles time="17015" blockTime="15252" value="0"/>
+        <vehicles time="17015" blockTime="15259" value="0"/>
     </segment>
     <segment id="E1:2">
         <vehicles time="-1" blockTime="17014" value="1"/>

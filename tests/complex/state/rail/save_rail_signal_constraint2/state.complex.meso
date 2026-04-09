@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-30T17:19:54.569669+01:00 by Eclipse SUMO sumo v1_26_0+0890-e6cd1a0c5cc
+<!-- generated on 2026-04-09T23:59:31.038745+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,9 +32,9 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+0890-e6cd1a0c5cc" time="180.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="180.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!t1!var#1" state="0" edges="d e c"/>
-    <delay number="1" begin="3" end="2" depart="0.00" time="184.00"/>
+    <delay number="1" begin="3" end="2" depart="0.00" time="184.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="50.00" vClass="rail"/>
     <vehicle id="t1" type="train" depart="20.00" departSpeed="max" route="!t1!var#1" distance="541.29 1" speedFactor="1.0000" reroute="1" state="262162 20000 2 0 3 0 181598 174399 9223372036854774807 0 1">
         <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00" started="137.20" ended="175.00"/>
