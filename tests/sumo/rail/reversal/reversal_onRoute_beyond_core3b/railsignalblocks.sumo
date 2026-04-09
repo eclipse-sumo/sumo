@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T09:26:56.663967+01:00 by Eclipse SUMO sumo v1_26_0+1028-c32e4eaf29c
+<!-- generated on 2026-04-09T13:25:04.577599+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -61,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J5_0 J7_0"/>
-                <foes driveWays="J10.d0 J10.d1 J11.d0 J13.0 J13.d0 J5.0.0 J7.0"/>
+                <foes driveWays="J13.0 J5.0.0 J7.0"/>
                 <sidings foe="J5.0.0">
                     <siding start="-E10" end="-E10" length="144.64"/>
                 </sidings>
@@ -93,17 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-E11_0 E11_0 :J10_3_0 E10_0 :J9_1_0 E9_0 :J8_3_0 E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J13_0 J7_0 J9_0"/>
-                <foes driveWays="J10.d0.0 J11.d0.0 J13.0.0 J13.d0.0 J5.0 J7.0 J9.0.1 J9.d0.1"/>
-                <sidings foe="J10.d0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
-                <sidings foe="J11.d0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
+                <foes driveWays="J13.0.0 J5.0 J7.0 J9.0.1"/>
                 <sidings foe="J13.0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
-                <sidings foe="J13.d0.0">
                     <siding start="E12" end="E13" length="163.36"/>
                 </sidings>
                 <sidings foe="J7.0">
@@ -124,22 +114,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-E11_0 E11_0 :J10_3_0 E10_0 :J9_1_0 E9_0 :J8_3_0 E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J13_0 J5_0 J9_0"/>
-                <foes driveWays="J10.d0.0 J11.d0.0 J13.0.0 J13.d0.0 J5.0.0 J7.0 J9.0.0 J9.d0.0"/>
-                <sidings foe="J10.d0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
-                <sidings foe="J11.d0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
+                <foes driveWays="J13.0.0 J5.0 J7.0 J9.0.0"/>
                 <sidings foe="J13.0.0">
                     <siding start="E12" end="E13" length="163.36"/>
                 </sidings>
-                <sidings foe="J13.d0.0">
+                <sidings foe="J5.0">
                     <siding start="E12" end="E13" length="163.36"/>
-                </sidings>
-                <sidings foe="J5.0.0">
-                    <siding start="E12" end="E13" length="163.36"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="E13"/>
+                    <siding start="-E10" end="-E10" length="144.64"/>
                 </sidings>
             </driveWay>
         </link>
@@ -152,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J7_0"/>
-                <foes driveWays="J5.0.0 J7.0 J9.0 J9.d0"/>
+                <foes driveWays="J5.0.0 J7.0 J9.0"/>
             </driveWay>
             <subDriveWay id="J9.0.0" vehicle="" edges="-E9 -E8 -E4">
                 <forward lanes=":J9_0_0 -E9_0 :J8_0_0 -E8_0 :J5_0_0 -E4_0"/>
@@ -162,89 +143,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
         </link>
     </railSignal>
-    <departJunction id="J10">
-        <driveWay id="J10.d1" vehicle="v_1" edges="-E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
-            <forward lanes="-E10_0"/>
-            <bidi lanes="E10_0 :J9_1_0 E9_0 :J8_3_0"
-                    deadlockCheck="E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="J13_0"/>
-            <foes driveWays="J10.d0 J10.d1 J11.d0 J13.0 J13.d0"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="J11">
-        <driveWay id="J11.d0" vehicle="v_1" edges="-E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
-            <forward lanes="-E11_0 :J10_0_0 -E10_0"/>
-            <bidi lanes="E11_0 :J10_3_0 E10_0 :J9_1_0 E9_0 :J8_3_0"
-                    deadlockCheck="E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="J13_0 J5_0 J7_0"/>
-            <foes driveWays="J10.d0 J10.d1 J11.d0 J13.0 J13.d0 J5.0.0 J7.0"/>
-            <sidings foe="J5.0.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-            <sidings foe="J7.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="J11.d0.0" vehicle="" edges="-E11">
-            <forward lanes="-E11_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="J9">
-        <driveWay id="J9.d0" vehicle="v_1" edges="-E9 -E8 -E4 -E3 -E2 -E1 -E0">
-            <forward lanes="-E9_0 :J8_0_0 -E8_0 :J5_0_0 -E4_0 :J4_0_0 -E3_0"/>
-            <bidi lanes="E9_0 :J8_3_0 E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0"
-                    deadlockCheck="E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="J7_0 J9_0"/>
-            <foes driveWays="J5.0.0 J7.0 J9.0 J9.d0"/>
-        </driveWay>
-        <subDriveWay id="J9.d0.0" vehicle="" edges="-E9 -E8 -E4">
-            <forward lanes="-E9_0 :J8_0_0 -E8_0 :J5_0_0 -E4_0"/>
-        </subDriveWay>
-        <subDriveWay id="J9.d0.1" vehicle="" edges="-E9 -E8">
-            <forward lanes="-E9_0 :J8_0_0 -E8_0 :J5_0_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="J10">
-        <driveWay id="J10.d0" vehicle="v_1" edges="E11 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
-            <forward lanes="E11_0 :J11_0_0 -E11_0 :J10_0_0 -E10_0"/>
-            <bidi lanes="-E11_0 E11_0 :J10_3_0 E10_0 :J9_1_0 E9_0 :J8_3_0"
-                    deadlockCheck="E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="J13_0 J5_0 J7_0"/>
-            <foes driveWays="J10.d0 J10.d1 J11.d0 J13.0 J13.d0 J5.0.0 J7.0"/>
-            <sidings foe="J5.0.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-            <sidings foe="J7.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="J10.d0.0" vehicle="" edges="E11 -E11">
-            <forward lanes="E11_0 :J11_0_0 -E11_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="J13">
-        <driveWay id="J13.d0" vehicle="v_1" edges="E14 E11 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
-            <forward lanes="E14_0 :J10_2_0 E11_0 :J11_0_0 -E11_0 :J10_0_0 -E10_0"/>
-            <bidi lanes="-E14_0 :J10_1_0 -E11_0 E11_0 :J10_3_0 E10_0 :J9_1_0 E9_0 :J8_3_0"
-                    deadlockCheck="E8_0 :J5_1_0 E4_0 :J4_3_0 E3_0 :J3_1_0 E2_0 :J2_3_0 E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=""/>
-            <conflictLinks signals="J13_0 J5_0 J7_0"/>
-            <foes driveWays="J10.d0 J10.d1 J11.d0 J13.0 J13.d0 J5.0.0 J7.0"/>
-            <sidings foe="J5.0.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-            <sidings foe="J7.0">
-                <siding start="-E10" end="-E10" length="144.64"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="J13.d0.0" vehicle="" edges="E14 E11 -E11">
-            <forward lanes="E14_0 :J10_2_0 E11_0 :J11_0_0 -E11_0"/>
-        </subDriveWay>
-    </departJunction>
     <departJunction id="J6">
         <driveWay id="J6.d0" vehicle="v_0" edges="E6 E7 E4 E8 E12 E13 E14 E11 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
             <forward lanes="E6_0"/>

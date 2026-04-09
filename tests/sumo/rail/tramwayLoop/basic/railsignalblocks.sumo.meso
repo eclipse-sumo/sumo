@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T08:37:27.161333+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
+<!-- generated on 2026-04-09T13:33:59.110550+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -764,7 +764,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T44_0_0 T41_0_0 T10_0_0 T9_0_0 T8_0_0 T7_0_0 T2_0_0 T1_0_0 TleftLoop_0_0 T20_1_0 T21_1_0 T22_1_0 T23_1_0 T24_1_0 T25_1_0 T44_1_0 T27_1_0 T28_1_0 T30_1_0 T31_1_0 T32_1_0 T33_1_0 T34_1_0 T35_1_0 T6_1_0 TrightLoop_0_0 T3_0_0 T19_0_0 T18_0_0 T15_0_0 T14_0_0 T13_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s22_0"/>
-            <foes driveWays="e1.d0 e1.d1.0 s22.1"/>
+            <foes driveWays="e1.d0 e1.d1.0"/>
         </driveWay>
         <subDriveWay id="e1.d0.0" vehicle="" edges="Tdepot_1">
             <forward lanes="Tdepot_1_0"/>

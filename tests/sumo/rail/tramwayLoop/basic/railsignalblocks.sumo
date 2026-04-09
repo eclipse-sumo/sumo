@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T00:28:20.288419+01:00 by Eclipse SUMO sumo v1_26_0+1021-1854ac70230
+<!-- generated on 2026-04-09T13:25:04.351512+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -866,24 +866,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T32_0_0 :s25_1_0 T31_0_0 :w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0 T10_0_0 :s8_1_0 T9_0_0 :s7_1_0 T8_0_0 :s6_1_0 T7_0_0 :s5_1_0 T2_0_0 :s1_1_0 T1_0_0 :s3_1_0 TleftLoop_0_0 :s16_0_0 T20_1_0 :s17_0_0 T21_1_0 :s18_0_0 T22_1_0 :s19_0_0 T23_1_0 :s20_0_0 T24_1_0 :s21_0_0 T25_1_0 T44_1_0 :w5_0_0 T27_1_0 :s23_0_0 T28_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="s14_0 s25_0 s29_0"/>
-                <foes driveWays="s14.3.0 s14.4.0 s24.0 s24.1 s24.2 s24.3 s25.2.0 s25.3.0 s29.1.0"/>
-                <sidings foe="s25.2.0">
+                <foes driveWays="s14.3.0 s14.4.0 s24.0 s24.1 s24.2 s24.3 s25.2 s25.3 s29.1.0"/>
+                <sidings foe="s25.2">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
-                    <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0"/>
-                    <siding start="T33_0" end="T35_0" length="1950.00" intermediateEnds="T34_0 T33_0"/>
-                    <siding start="T33_0" end="T6_0" length="2350.00" intermediateEnds="T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="TrightLoop_1" length="2750.00" intermediateEnds="T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T3_1" length="3850.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T19_1" length="4550.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
+                    <siding start="T33_0" end="T34_0" length="850.00"/>
+                    <siding start="T33_0" end="T35_0" length="1950.00"/>
+                    <siding start="T33_0" end="T6_0" length="2350.00"/>
+                    <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
+                    <siding start="T33_0" end="T3_1" length="3850.00"/>
+                    <siding start="T33_0" end="T19_1" length="4550.00"/>
                 </sidings>
-                <sidings foe="s25.3.0">
+                <sidings foe="s25.3">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
-                    <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0"/>
-                    <siding start="T33_0" end="T35_0" length="1950.00" intermediateEnds="T34_0 T33_0"/>
-                    <siding start="T33_0" end="T6_0" length="2350.00" intermediateEnds="T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="TrightLoop_1" length="2750.00" intermediateEnds="T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T3_1" length="3850.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T19_1" length="4550.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
+                    <siding start="T33_0" end="T34_0" length="850.00"/>
+                    <siding start="T33_0" end="T35_0" length="1950.00"/>
+                    <siding start="T33_0" end="T6_0" length="2350.00"/>
+                    <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
+                    <siding start="T33_0" end="T3_1" length="3850.00"/>
+                    <siding start="T33_0" end="T19_1" length="4550.00"/>
                 </sidings>
                 <sidings foe="s29.1.0">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
@@ -918,7 +918,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T32_0_0 :s25_1_0 T31_0_0 :w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0 :s10_1_0 T12_0_0 T10_0_0 :s8_1_0 T9_0_0 :s7_1_0 T8_0_0 :s6_1_0 T7_0_0 :s5_1_0 T2_0_0 :s1_1_0 T1_0_0 :s3_1_0 TleftLoop_0_0 :s16_0_0 T20_1_0 :s17_0_0 T21_1_0 :s18_0_0 T22_1_0 :s19_0_0 T23_1_0 :s20_0_0 T24_1_0 :s21_0_0 T25_1_0 T44_1_0 :w5_1_0 T36_1_0 :s29_0_0 T37_1_0 :w9_3_0 Tdepot_1_0 Tdepot_0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="s14_0 s25_0 s29_0"/>
-                <foes driveWays="e1.d2 s14.3.0 s14.4.0 s24.0 s24.1 s24.2 s24.3 s25.2.0 s25.3.0 s29.1.0"/>
+                <foes driveWays="e1.d2 s14.3.0 s14.4.0 s24.0 s24.1 s24.2 s24.3 s25.2 s25.3 s29.1.0"/>
                 <sidings foe="e1.d2">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
                     <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0"/>
@@ -945,23 +945,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     <siding start="T42_1" end="T24_0" length="10401.00" intermediateEnds="T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1 T13_1 T14_1 T15_1 T19_1 T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
                     <siding start="T42_1" end="T25_0" length="11101.00" intermediateEnds="T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1 T13_1 T14_1 T15_1 T19_1 T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
                 </sidings>
-                <sidings foe="s25.2.0">
+                <sidings foe="s25.2">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
-                    <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0"/>
-                    <siding start="T33_0" end="T35_0" length="1950.00" intermediateEnds="T34_0 T33_0"/>
-                    <siding start="T33_0" end="T6_0" length="2350.00" intermediateEnds="T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="TrightLoop_1" length="2750.00" intermediateEnds="T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T3_1" length="3850.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T19_1" length="4550.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
+                    <siding start="T33_0" end="T34_0" length="850.00"/>
+                    <siding start="T33_0" end="T35_0" length="1950.00"/>
+                    <siding start="T33_0" end="T6_0" length="2350.00"/>
+                    <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
+                    <siding start="T33_0" end="T3_1" length="3850.00"/>
+                    <siding start="T33_0" end="T19_1" length="4550.00"/>
                 </sidings>
-                <sidings foe="s25.3.0">
+                <sidings foe="s25.3">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
-                    <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0"/>
-                    <siding start="T33_0" end="T35_0" length="1950.00" intermediateEnds="T34_0 T33_0"/>
-                    <siding start="T33_0" end="T6_0" length="2350.00" intermediateEnds="T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="TrightLoop_1" length="2750.00" intermediateEnds="T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T3_1" length="3850.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
-                    <siding start="T33_0" end="T19_1" length="4550.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0"/>
+                    <siding start="T33_0" end="T34_0" length="850.00"/>
+                    <siding start="T33_0" end="T35_0" length="1950.00"/>
+                    <siding start="T33_0" end="T6_0" length="2350.00"/>
+                    <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
+                    <siding start="T33_0" end="T3_1" length="3850.00"/>
+                    <siding start="T33_0" end="T19_1" length="4550.00"/>
                 </sidings>
                 <sidings foe="s29.1.0">
                     <siding start="T33_0" end="T33_0" length="150.00"/>
@@ -1947,7 +1947,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T44_0_0 :w4_2_0 T41_0_0 T10_0_0 :s8_1_0 T9_0_0 :s7_1_0 T8_0_0 :s6_1_0 T7_0_0 :s5_1_0 T2_0_0 :s1_1_0 T1_0_0 :s3_1_0 TleftLoop_0_0 :s16_0_0 T20_1_0 :s17_0_0 T21_1_0 :s18_0_0 T22_1_0 :s19_0_0 T23_1_0 :s20_0_0 T24_1_0 :s21_0_0 T25_1_0 T44_1_0 :w5_0_0 T27_1_0 :s23_0_0 T28_1_0 T30_1_0 :w7_1_0 T31_1_0 :s25_0_0 T32_1_0 :w8_1_0 T33_1_0 :s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s14_0 s22_0"/>
-            <foes driveWays="e1.d0 e1.d1.0 e1.d2 s14.4.0 s22.1"/>
+            <foes driveWays="e1.d0 e1.d1.0 e1.d2 s14.4.0"/>
             <sidings foe="s14.4.0">
                 <siding start="T41_1" end="T11_1" length="751.00"/>
                 <siding start="T41_1" end="T10_1" length="1451.00" intermediateEnds="T11_1"/>
@@ -1991,7 +1991,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T44_0_0 :w4_2_0 T41_0_0 T10_0_0 :s8_1_0 T9_0_0 :s7_1_0 T8_0_0 :s6_1_0 T7_0_0 :s5_1_0 T2_0_0 :s1_1_0 T1_0_0 :s3_1_0 TleftLoop_0_0 :s16_0_0 T20_1_0 :s17_0_0 T21_1_0 :s18_0_0 T22_1_0 :s19_0_0 T23_1_0 :s20_0_0 T24_1_0 :s21_0_0 T25_1_0 T44_1_0 :w5_0_0 T27_1_0 :s23_0_0 T28_1_0 T30_1_0 :w7_1_0 T31_1_0 :s25_0_0 T32_1_0 :w8_1_0 T33_1_0 :s26_0_0 T34_1_0 :s27_0_0 T35_1_0 :s28_0_0 T6_1_0 :s4_1_0 TrightLoop_0_0 :s2_1_0 T3_0_0 :s15_1_0 T19_0_0 :s14_1_0 T18_0_0 :w3_2_0 T43_0_0 :w8_3_0 T32_0_0 :s25_1_0 T31_0_0 :w7_3_0 T42_0_0 :w2_2_0 T15_0_0 :s12_1_0 T14_0_0 :s11_1_0 T13_0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="s14_0 s22_0 s24_0 s25_0"/>
-            <foes driveWays="e1.d0 e1.d2 s14.4.0 s22.1.2 s24.1 s24.3 s25.1.0 s25.3"/>
+            <foes driveWays="e1.d0 e1.d2 s14.4.0 s22.1.2 s24.1 s24.3 s25.1.0 s25.3.0"/>
             <sidings foe="s14.4.0">
                 <siding start="T41_1" end="T11_1" length="751.00"/>
                 <siding start="T41_1" end="T10_1" length="1451.00" intermediateEnds="T11_1"/>
@@ -2087,17 +2087,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <siding start="T41_1" end="T3_1" length="16051.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
                 <siding start="T41_1" end="T19_1" length="16751.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
             </sidings>
-            <sidings foe="s25.3">
-                <siding start="T33_0" end="T33_0" length="150.00"/>
-                <siding start="T33_0" end="T34_0" length="850.00"/>
-                <siding start="T33_0" end="T35_0" length="1950.00"/>
-                <siding start="T33_0" end="T6_0" length="2350.00"/>
-                <siding start="T33_0" end="TrightLoop_1" length="2750.00"/>
-                <siding start="T33_0" end="T3_1" length="3850.00"/>
-                <siding start="T33_0" end="T19_1" length="4550.00"/>
-                <siding start="T42_1" end="T15_1" length="101.00"/>
-                <siding start="T42_1" end="T14_1" length="801.00"/>
-                <siding start="T42_1" end="T13_1" length="1501.00"/>
+            <sidings foe="s25.3.0">
+                <siding start="T41_1" end="T11_1" length="751.00"/>
+                <siding start="T41_1" end="T10_1" length="1451.00" intermediateEnds="T11_1"/>
+                <siding start="T41_1" end="T9_1" length="2151.00" intermediateEnds="T10_1 T11_1"/>
+                <siding start="T41_1" end="T8_1" length="2851.00" intermediateEnds="T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T7_1" length="3551.00" intermediateEnds="T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T2_1" length="4251.00" intermediateEnds="T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T1_1" length="4651.00" intermediateEnds="T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="TleftLoop_1" length="5051.00" intermediateEnds="T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T20_0" length="5751.00" intermediateEnds="TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T21_0" length="6451.00" intermediateEnds="T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T22_0" length="7151.00" intermediateEnds="T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T23_0" length="7851.00" intermediateEnds="T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T24_0" length="8551.00" intermediateEnds="T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T25_0" length="9251.00" intermediateEnds="T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T27_0" length="10351.00" intermediateEnds="T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T41_1" end="T29_0" length="10951.00" intermediateEnds="T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T33_0" length="150.00" intermediateEnds="T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T34_0" length="850.00" intermediateEnds="T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T35_0" length="1950.00" intermediateEnds="T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T6_0" length="2350.00" intermediateEnds="T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="TrightLoop_1" length="2750.00" intermediateEnds="T6_0 T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T3_1" length="3850.00" intermediateEnds="TrightLoop_1 T6_0 T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
+                <siding start="T33_0" end="T19_1" length="4550.00" intermediateEnds="T3_1 TrightLoop_1 T6_0 T35_0 T34_0 T33_0 T31_0 T29_0 T27_0 T25_0 T24_0 T23_0 T22_0 T21_0 T20_0 TleftLoop_1 T1_1 T2_1 T7_1 T8_1 T9_1 T10_1 T11_1"/>
             </sidings>
         </driveWay>
     </departJunction>

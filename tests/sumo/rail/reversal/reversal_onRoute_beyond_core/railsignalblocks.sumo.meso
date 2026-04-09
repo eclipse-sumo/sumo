@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T08:37:27.406967+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
+<!-- generated on 2026-04-09T13:33:59.342055+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -115,13 +115,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-E4_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J1_1 J3_0 J7_0"/>
-            <foes driveWays="J0.d0 J1.0 J1.1 J3.0 J7.0"/>
+            <foes driveWays="J0.d0 J1.0 J1.1 J3.0 J7.0.0"/>
             <sidings foe="J1.0">
                 <siding start="E5" end="E6" length="163.36"/>
                 <siding start="-E3" end="-E3" length="144.64"/>
             </sidings>
-            <sidings foe="J7.0">
-                <siding start="-E3" end="-E3" length="144.64"/>
+            <sidings foe="J7.0.0">
+                <siding start="E5" end="E6" length="163.36"/>
             </sidings>
         </driveWay>
     </departJunction>
