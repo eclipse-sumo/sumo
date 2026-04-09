@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T12:55:22.532334+01:00 by Eclipse SUMO sumo v1_25_0+0626-a41e7f54900
+<!-- generated on 2026-04-08T12:38:40.280268+01:00 by Eclipse SUMO sumo v1_26_0+1017-680205a30db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,7 +57,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C2_0 F_0"/>
-                <foes driveWays="A.0.0 A.1 C2.0.0 F.0 F.d0 G.d0"/>
+                <foes driveWays="A.0.0 A.1 C2.0.0 F.0 F.1.0 F.d0 G.d0"/>
+                <sidings foe="F.1.0">
+                    <siding start="c" end="d" length="194.64"/>
+                </sidings>
                 <sidings foe="G.d0">
                     <siding start="c" end="d" length="194.64"/>
                 </sidings>
@@ -122,7 +125,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="A.0 A.d0 D.0.0 F.0.0 F.1 J0.d0"/>
+                <foes driveWays="A.0 A.1.0 A.d0 D.0.0 F.0.0 F.1 J0.d0"/>
+                <sidings foe="A.1.0">
+                    <siding start="-e2" end="-d2" length="234.07"/>
+                </sidings>
                 <sidings foe="J0.d0">
                     <siding start="-e2" end="-d2" length="234.07"/>
                 </sidings>
@@ -148,7 +154,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="A_0 D_0"/>
-            <foes driveWays="D.0 G.d0 J0.d0"/>
+            <foes driveWays="A.1.0 D.0 G.d0 J0.d0"/>
+            <sidings foe="A.1.0">
+                <siding start="-e2" end="-d2" length="234.07"/>
+            </sidings>
             <sidings foe="J0.d0">
                 <siding start="-e2" end="-d2" length="234.07"/>
             </sidings>
@@ -161,7 +170,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
             <flank lanes=""/>
             <conflictLinks signals="C2_0 F_0"/>
-            <foes driveWays="C2.0.2 G.d0 J0.d0"/>
+            <foes driveWays="C2.0.2 F.1.0 G.d0 J0.d0"/>
+            <sidings foe="F.1.0">
+                <siding start="c" end="d" length="194.64"/>
+            </sidings>
             <sidings foe="G.d0">
                 <siding start="c" end="d" length="194.64"/>
             </sidings>

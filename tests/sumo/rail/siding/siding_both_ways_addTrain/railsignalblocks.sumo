@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-10-16 14:27:09 by Eclipse SUMO sumo Version v1_20_0+0696-f5985653822
+<!-- generated on 2026-04-08T13:35:04.553294+01:00 by Eclipse SUMO sumo v1_26_0+1019-37899c37871
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <railsignal-block-output>
@@ -47,7 +47,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C_0 F_0"/>
-                <foes driveWays="A.0 A.1.0 C.0.0 C2.0.0 F.1 G.d0 G.d1"/>
+                <foes driveWays="A.0 A.1.0 C.0.0 C2.0.0 F.0.0 F.1 G.d0 G.d1"/>
+                <sidings foe="F.0.0">
+                    <siding start="c2" end="d2" length="234.07"/>
+                </sidings>
                 <sidings foe="G.d0">
                     <siding start="c2" end="d2" length="234.07"/>
                 </sidings>
@@ -64,7 +67,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C2_0 F_0"/>
-                <foes driveWays="A.0.0 A.1 C.0.0 C2.0.0 F.0 G.d0 G.d1"/>
+                <foes driveWays="A.0.0 A.1 C.0.0 C2.0.0 F.0 F.1.1 G.d0 G.d1"/>
+                <sidings foe="F.1.1">
+                    <siding start="c" end="d" length="194.64"/>
+                </sidings>
                 <sidings foe="G.d1">
                     <siding start="c" end="d" length="194.64"/>
                 </sidings>
@@ -141,7 +147,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D2_0"/>
-                <foes driveWays="A.1 D.0.0 D2.0.0 F.0 F.1.1 J0.d0 J0.d1"/>
+                <foes driveWays="A.0.0 A.1 D.0.0 D2.0.0 F.0 F.1.1 J0.d0 J0.d1"/>
+                <sidings foe="A.0.0">
+                    <siding start="-e" end="-d" length="194.64"/>
+                </sidings>
                 <sidings foe="J0.d0">
                     <siding start="-e" end="-d" length="194.64"/>
                 </sidings>
@@ -158,7 +167,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="A.0 D.0.0 D2.0.0 F.0.0 F.1 J0.d0 J0.d1"/>
+                <foes driveWays="A.0 A.1.0 D.0.0 D2.0.0 F.0.0 F.1 J0.d0 J0.d1"/>
+                <sidings foe="A.1.0">
+                    <siding start="-e2" end="-d2" length="234.07"/>
+                </sidings>
                 <sidings foe="J0.d1">
                     <siding start="-e2" end="-d2" length="234.07"/>
                 </sidings>
@@ -178,7 +190,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="A_0 D2_0"/>
-            <foes driveWays="A.1 D.0 D2.0 G.d0 G.d1 J0.d0 J0.d1"/>
+            <foes driveWays="A.0.0 A.1 D.0 D2.0 G.d0 G.d1 J0.d0 J0.d1"/>
+            <sidings foe="A.0.0">
+                <siding start="-e" end="-d" length="194.64"/>
+            </sidings>
             <sidings foe="J0.d0">
                 <siding start="-e" end="-d" length="194.64"/>
             </sidings>
@@ -189,7 +204,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 :A_1_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="A_0 D_0"/>
-            <foes driveWays="A.0 D.0 D2.0 G.d0 G.d1 J0.d0 J0.d1"/>
+            <foes driveWays="A.0 A.1.0 D.0 D2.0 G.d0 G.d1 J0.d0 J0.d1"/>
+            <sidings foe="A.1.0">
+                <siding start="-e2" end="-d2" length="234.07"/>
+            </sidings>
             <sidings foe="J0.d1">
                 <siding start="-e2" end="-d2" length="234.07"/>
             </sidings>
@@ -202,7 +220,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
             <flank lanes=""/>
             <conflictLinks signals="C_0 F_0"/>
-            <foes driveWays="C.0 C2.0 F.1 G.d0 G.d1 J0.d0 J0.d1"/>
+            <foes driveWays="C.0 C2.0 F.0.0 F.1 G.d0 G.d1 J0.d0 J0.d1"/>
+            <sidings foe="F.0.0">
+                <siding start="c2" end="d2" length="234.07"/>
+            </sidings>
             <sidings foe="G.d0">
                 <siding start="c2" end="d2" length="234.07"/>
             </sidings>
@@ -213,7 +234,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 :F_0_0 -g_0"/>
             <flank lanes=""/>
             <conflictLinks signals="C2_0 F_0"/>
-            <foes driveWays="C.0 C2.0 F.0 G.d0 G.d1 J0.d0 J0.d1"/>
+            <foes driveWays="C.0 C2.0 F.0 F.1.1 G.d0 G.d1 J0.d0 J0.d1"/>
+            <sidings foe="F.1.1">
+                <siding start="c" end="d" length="194.64"/>
+            </sidings>
             <sidings foe="G.d1">
                 <siding start="c" end="d" length="194.64"/>
             </sidings>
