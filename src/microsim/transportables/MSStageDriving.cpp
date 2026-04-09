@@ -68,8 +68,7 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
     myStopWaitPos(Position::INVALID),
     myOriginStop(nullptr),
     myIntendedVehicleID(intendedVeh),
-    myIntendedDepart(intendedDepart),
-    myReservationCommand(nullptr) {
+    myIntendedDepart(intendedDepart) {
 }
 
 
@@ -101,8 +100,8 @@ MSStageDriving::init(MSTransportable* transportable) {
             // else use the middle of the edge, as also used as default for walk's arrivalPos
             myWaitingPos = myOrigin->getLength() / 2;
         }
-        myReservationCommand = new BookReservation(transportable, earliestPickupTime, this);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myReservationCommand, reservationTime);
+        myReservationWaitingPos = myWaitingPos;
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new BookReservation(transportable, earliestPickupTime, this), reservationTime);
     }
 }
 
@@ -331,11 +330,11 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
             }
         }
         // Create reservation only if not already created by previous reservationTime
-        if (myReservationCommand == nullptr) {
+        if (myReservationWaitingPos == INVALID_DOUBLE) {
             MSDevice_Taxi::addReservation(transportable, getLines(), now, now, -1, myWaitingEdge, myWaitingPos, myOriginStop, to, toPos, myDestinationStop, myGroup);
         } else {
             // update "fromPos" with current (new) value of myWaitingPos
-            MSDevice_Taxi::updateReservationFromPos(transportable, getLines(), myWaitingEdge, myReservationCommand->myWaitingPos, to, toPos, myGroup, myWaitingPos);
+            MSDevice_Taxi::updateReservationFromPos(transportable, getLines(), myWaitingEdge, myReservationWaitingPos, to, toPos, myGroup, myWaitingPos);
         }
     }
     if (transportable->isPerson()) {
@@ -684,8 +683,7 @@ SUMOTime
 MSStageDriving::BookReservation::execute(SUMOTime currentTime) {
     MSDevice_Taxi::addReservation(myTransportable, myStage->getLines(), currentTime, currentTime, myEarliestPickupTime,
                                   myStage->myOrigin, myStage->myWaitingPos, myStage->myOriginStop, myStage->getDestination(), myStage->getArrivalPos(), myStage->myDestinationStop, myStage->myGroup);
-    // do not repeat if execution fails
-    return 0;
+    return 0; // do not repeat
 }
 
 /****************************************************************************/

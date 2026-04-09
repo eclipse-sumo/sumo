@@ -229,7 +229,7 @@ protected:
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
-
+    double myReservationWaitingPos = INVALID_DOUBLE;
 
 private:
     /// brief register waiting person (on proceed or loadState)
@@ -255,8 +255,4 @@ private:
         MSStageDriving* myStage;
         double myWaitingPos;
     };
-
-protected:
-    BookReservation* myReservationCommand;
-
 };
