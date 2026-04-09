@@ -133,6 +133,10 @@ public:
 
     void setShowDetectors(bool show);
 
+    void saveState(OutputDevice& out) const override;
+
+    void loadExtraState(const std::string& state);
+
     /// @brief try to get the value of the given parameter (including prefixed parameters)
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 

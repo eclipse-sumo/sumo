@@ -205,6 +205,7 @@ protected:
     /// @brief the maximum duration for keeping the current phase when considering 'latestEnd'
     SUMOTime getLatest() const;
 
+    void saveStateAttrs(OutputDevice& out) const;
 
 protected:
     /// @brief The list of phases this logic uses

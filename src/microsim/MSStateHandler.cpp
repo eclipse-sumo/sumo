@@ -463,6 +463,9 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             // might not be set if the phase happens to match and there are multiple programs
             tl->loadState(tlc, myTime, phase, spentDuration, active);
+            if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
+                tl->loadExtraState(attrs.get<std::string>(SUMO_ATTR_STATE, tlID.c_str(), ok));
+            }
             break;
         }
         default:

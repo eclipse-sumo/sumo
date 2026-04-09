@@ -283,6 +283,12 @@ MSInductLoop::getTimeSinceLastDetection() const {
 }
 
 
+void
+MSInductLoop::loadTimeSinceLastDetection(double time) {
+    myLastLeaveTime = SIMTIME - time;
+}
+
+
 double
 MSInductLoop::getOccupancyTime() const {
 #ifdef HAVE_FOX

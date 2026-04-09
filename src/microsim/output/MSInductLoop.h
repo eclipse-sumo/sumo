@@ -246,6 +246,10 @@ public:
      */
     void overrideTimeSinceDetection(double time);
 
+    /* @brief loads the time since detetion (from state)
+     */
+    void loadTimeSinceLastDetection(double time);
+
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
 

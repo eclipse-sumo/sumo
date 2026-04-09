@@ -1586,4 +1586,32 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
 }
 
 
+void
+MSActuatedTrafficLightLogic::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_TLLOGIC);
+    MSSimpleTrafficLightLogic::saveStateAttrs(out);
+
+    std::vector<double> state;
+    for (const InductLoopInfo& loopInfo : myInductLoops) {
+        MSInductLoop* loop = loopInfo.loop;
+        state.push_back(loop->getTimeSinceLastDetection());
+    }
+    out.writeAttr(SUMO_ATTR_STATE, state);
+    out.closeTag();
+}
+
+
+void
+MSActuatedTrafficLightLogic::loadExtraState(const std::string& state) {
+    std::vector<std::string> timeGaps = StringTokenizer(state).getVector();
+    int i = 0;
+    for (const InductLoopInfo& loopInfo : myInductLoops) {
+        MSInductLoop* loop = loopInfo.loop;
+        if (i < (int)timeGaps.size()) {
+            loop->loadTimeSinceLastDetection(StringUtils::toDouble(timeGaps[i]));
+        }
+        i++;
+    }
+}
+
 /****************************************************************************/
