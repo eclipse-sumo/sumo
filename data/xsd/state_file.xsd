@@ -63,6 +63,8 @@
         <xsd:attribute name="end" type="xsd:integer" use="required"/>
         <xsd:attribute name="depart" type="floatType" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="speedFactor" type="floatType" use="required"/>
+        <xsd:attribute name="decel" type="floatType" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionStateType">
