@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T18:51:54.793404+01:00 by Eclipse SUMO sumo v1_26_0+1045-463c948cd93
+<!-- generated on 2026-04-09T20:32:46.269797+01:00 by Eclipse SUMO sumo v1_26_0+1049-b10f7462aae
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -26,13 +26,13 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1045-463c948cd93" time="30.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1049-b10f7462aae" time="30.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!train" state="0" edges="a b e"/>
     <route id="!train2" state="0" edges="-e -b -d"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="305.03 0" speedFactor="1.0000" state="18 0 2 20.10 0 0.00 29000 0 0" pos="117.88 97.88 13.89" speed="13.89 13.89" angle="45.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="20.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0">
+    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" distance="305.03 0" speedFactor="1.0000" state="18 0 2 20.10 0 0.00 29000 0 0" pos="117.88 97.88 13.89" speed="13.89 13.89" angle="45.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="0 0" speedFactor="1.0000" state="18 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="20.10 0.10 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop lane="-e_0" startPos="135.86" endPos="136.06" duration="100.00"/>
     </vehicle>
     <lane id="e_0">

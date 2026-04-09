@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T18:54:53.470165+01:00 by Eclipse SUMO sumo v1_26_0+1045-463c948cd93
+<!-- generated on 2026-04-09T20:33:16.791619+01:00 by Eclipse SUMO sumo v1_26_0+1049-b10f7462aae
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,21 +17,21 @@
     </report>
 
     <traci_server>
-        <remote-port value="45145"/>
+        <remote-port value="46779"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1045-463c948cd93" time="0.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1049-b10f7462aae" time="0.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="SC CE"/>
     <route id="!1" state="0" edges="NC CE"/>
     <delay number="0" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="0" depart="0.00" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262144 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0">
+    <vehicle id="0" depart="0.00" route="!0" distance="0 0" speedFactor="1.0600" reroute="1" state="262144 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <device id="routing_0" state="0 -1"/>
     </vehicle>
-    <vehicle id="1" depart="1.00" route="!1" distance="0 0" speedFactor="0.9383" reroute="1" state="262144 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0">
+    <vehicle id="1" depart="1.00" route="!1" distance="0 0" speedFactor="0.9383" reroute="1" state="262144 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 80">
         <device id="routing_1" state="0 -1"/>
     </vehicle>
     <tlLogic id="C" programID="0" phase="0" duration="0" active="1"/>

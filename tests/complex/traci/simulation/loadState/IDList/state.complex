@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T18:54:53.080809+01:00 by Eclipse SUMO sumo v1_26_0+1045-463c948cd93
+<!-- generated on 2026-04-09T20:33:16.588196+01:00 by Eclipse SUMO sumo v1_26_0+1049-b10f7462aae
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,17 +13,17 @@
     </report>
 
     <traci_server>
-        <remote-port value="38539"/>
+        <remote-port value="44961"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1045-463c948cd93" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1049-b10f7462aae" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC"/>
     <delay number="1" begin="10" end="9" depart="0.00" time="9.00"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v.9" depart="9.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.8569" state="2236 9000 0 91.85 0 0.00 10000 0 0" pos="91.85 86.85 11.90" speed="11.90 11.90" angle="0.00" posLat="0.00" waitingTime="100000 0" lcState2="0 0 0 0"/>
+    <vehicle id="v.9" depart="9.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.8569" state="2236 9000 0 91.85 0 0.00 10000 0 0" pos="91.85 86.85 11.90" speed="11.90 11.90" angle="0.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
     <flowState id="v" begin="0.00" end="20.00" period="1" departLane="best" departPos="last" departSpeed="max" next="10.00" route="r0" done="10" index="10"/>
     <lane id="SC_0">
         <vehicles value="v.9"/>
