@@ -127,7 +127,7 @@ title: ChangeLog
 
 
 - meso
-  - When the loaded network has internal links they are used instead of jumping of intersections (legacy behavior can be enabled with sumo option **--no-internal-links**) #17842
+  - When the loaded network has internal links they are used instead of jumping across intersections (legacy behavior can be enabled with sumo option **--no-internal-links**) #17842
   - edge-type specific meso parameters now support `edgeLength` #17582
   - now supporting battery device #13843
   - tripinfo-output now tracks waitingCount #17799
@@ -141,15 +141,15 @@ title: ChangeLog
     
 - netconvert
   - Now importing geo-projection from visum networks #17658
-  - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659
-  - OSM networks now assign routingType *narrow* to one-lane edges to permit post-processing and [routing](Simulation/Routing.md#routing_by_travel_time_and_routingtype) or capacity adaptations. #17661
+  - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659  
   - connection files (*.con.xml) now support attribute `reset="true"` to trigger connection guessing when patching a network #17668
-  - Improved geometry when adding opposite direction bikepath #17699
-  - Improved interpretation of OSM tag `oneway=no` in connection with rail (especially tram) #17690
   - Element `<join>` (in *.nod.xml*) now supports attribute `reset` to force recomputation of all connections at the new node. Also added option **--junctions.join-reset** which triggers recomputation of all connections at all joins #17733
   - Added option **--default.junctions.type** to override type-guessing when types are not defined in the input. This option also applies junctions created in netedit #17736
   - Added option **--railway.topology.ptline-priority** to set railway routingType from ptlines #17558
-  - Added option **--railway.signal.guess.by-stops.split** to optionally split edges when setting **--railway.signals.guess.by-stops**. The default behavior of **--railway.signals.guess.by-stops** was changed to allow direct control of switches to ensure smooth operations on single tracks. The new option splits at the stop to give sufficent overlap (Durchrutschweg). #15820
+  - Added option **--railway.signal.guess.by-stops.split** to optionally split edges when setting **--railway.signals.guess.by-stops**. The default behavior of **--railway.signals.guess.by-stops** was changed to allow direct control of switches to ensure smooth operations on single tracks. The new option splits at the stop to give sufficient overlap (Durchrutschweg). #15820
+  - OSM: Improved geometry when adding opposite direction bikepath #17699
+  - OSM: Improved interpretation of tag `oneway=no` in connection with rail (especially tram) #17690
+  - OSM networks now assign routingType *narrow* to one-lane edges to permit post-processing and [routing](Simulation/Routing.md#routing_by_travel_time_and_routingtype) or capacity adaptations. #17661
   - OSM: the railway routingType is no set based on tag `railway:preferred_direction` #17774
   - OSM: tag `placement` is now supported for better geometry of one-way roads #17728
   - OSM: adding more bidi edges based on signal direction #17782
