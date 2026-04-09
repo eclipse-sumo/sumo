@@ -1,0 +1,7 @@
+
+[Reported by Windows at 09Apr14:53:51]
+search_string:edge
+search_file:net
+trigger_on_success:1
+full_description:junctions are not joined
+brief_description:see #17844

@@ -26,7 +26,7 @@ multimodal_edge
 # an edge with multiple mode definitions should be discarded if all individual modes are set to be discarded
 multimodal_edge_discard
 
-# when a list of lane numbers is given, use the minimum value 
+# when a list of lane numbers is given, use the minimum value
 # (larger values are probably short turning lanes)
 key_lanes_non_numerical
 way_with_with_insufficient_nodes
@@ -42,7 +42,7 @@ elevation
 # check for working around a xerces transcoding bug
 xerces_bug_1947
 
-# import dedicated bicycle lanes 
+# import dedicated bicycle lanes
 bicycle_lanes
 bus_lanes
 intersection_with_crossings
@@ -131,3 +131,5 @@ crossings_no_barrier
 # read highway=busway
 busway
 bugs
+
+join_separate

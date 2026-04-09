@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2026-04-09 13:18:05.589946 by Eclipse SUMO osmWebWizard.py v1_26_0+1017-dedec007fa5
+<configuration>
+    <bbox value="13.549294710159304,52.44103698341397,13.550235629081728,52.4415889709717"/>
+    <output-dir value="C:\Users\behr_mi\Projekte\sumo\sumo\tools\2026-04-09-13-17-43"/>
+    <road-types value="{&quot;Highway&quot;: [&quot;motorway&quot;, &quot;motorway_link&quot;, &quot;trunk&quot;, &quot;trunk_link&quot;, &quot;primary&quot;, &quot;primary_link&quot;, &quot;secondary&quot;, &quot;secondary_link&quot;, &quot;tertiary&quot;, &quot;tertiary_link&quot;, &quot;unclassified&quot;, &quot;residential&quot;, &quot;living_street&quot;, &quot;unsurfaced&quot;, &quot;service&quot;, &quot;raceway&quot;, &quot;bus_guideway&quot;, &quot;track&quot;, &quot;footway&quot;, &quot;pedestrian&quot;, &quot;path&quot;, &quot;bridleway&quot;, &quot;cycleway&quot;, &quot;step&quot;, &quot;steps&quot;, &quot;stairs&quot;], &quot;Railway&quot;: [&quot;preserved&quot;, &quot;tram&quot;, &quot;subway&quot;, &quot;light_rail&quot;, &quot;rail&quot;, &quot;highspeed&quot;, &quot;monorail&quot;], &quot;Aeroway&quot;: [&quot;stopway&quot;, &quot;parking_position&quot;, &quot;taxiway&quot;, &quot;taxilane&quot;, &quot;runway&quot;, &quot;highway_strip&quot;], &quot;Waterway&quot;: [&quot;river&quot;, &quot;canal&quot;], &quot;Aerialway&quot;: [&quot;cable_car&quot;, &quot;gondola&quot;], &quot;Route&quot;: [&quot;ferry&quot;]}"/>
+    <gzip value="True"/>
+</configuration>
+-->
+
+
+<osm version="0.6" generator="Overpass API 0.7.62.11 87bfad18">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2026-04-09T11:16:09Z"/>
+
+  <node id="203383768" lat="52.4422126" lon="13.5520570">
+    <tag k="ele" v="35.3"/>
+  </node>
+  <node id="248077378" lat="52.4412843" lon="13.5497539">
+    <tag k="ele" v="35.3"/>
+  </node>
+  <node id="5566408314" lat="52.4401955" lon="13.5470481"/>
+  <node id="5566418127" lat="52.4418652" lon="13.5489900"/>
+  <node id="11544547591" lat="52.4407395" lon="13.5504709"/>
+  <node id="11558187021" lat="52.4413214" lon="13.5498464"/>
+  <node id="11558187022" lat="52.4412295" lon="13.5498257"/>
+  <node id="11558187023" lat="52.4412465" lon="13.5496598"/>
+  <node id="11558187024" lat="52.4413350" lon="13.5496874"/>
+  <node id="12061851434" lat="52.4402323" lon="13.5469837"/>
+  <node id="12061851454" lat="52.4418492" lon="13.5488927"/>
+  <node id="12061851455" lat="52.4419132" lon="13.5490477"/>
+  <node id="12061851459" lat="52.4412948" lon="13.5496220"/>
+  <node id="12061851460" lat="52.4413585" lon="13.5497749"/>
+  <node id="12061851461" lat="52.4413266" lon="13.5496984">
+    <tag k="crossing:island" v="no"/>
+    <tag k="crossing:markings" v="no"/>
+    <tag k="crossing:signals" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="12061851462" lat="52.4412119" lon="13.5497301"/>
+  <node id="12061851463" lat="52.4412742" lon="13.5498856"/>
+  <node id="12061851464" lat="52.4412431" lon="13.5498079">
+    <tag k="crossing:island" v="no"/>
+    <tag k="crossing:markings" v="no"/>
+    <tag k="crossing:signals" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="12061851465" lat="52.4412634" lon="13.5496630"/>
+  <node id="12061851466" lat="52.4412531" lon="13.5496764">
+    <tag k="crossing:island" v="no"/>
+    <tag k="crossing:markings" v="no"/>
+    <tag k="crossing:signals" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="12061851467" lat="52.4413154" lon="13.5498315">
+    <tag k="crossing:island" v="no"/>
+    <tag k="crossing:markings" v="no"/>
+    <tag k="crossing:signals" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="12061851468" lat="52.4406927" lon="13.5504077"/>
+  <node id="12061871071" lat="52.4407581" lon="13.5505623"/>
+  <node id="12061871120" lat="52.4421526" lon="13.5520558"/>
+  <node id="12061871121" lat="52.4422204" lon="13.5518995"/>
+  <node id="12061871122" lat="52.4421834" lon="13.5519847">
+    <tag k="crossing:island" v="no"/>
+    <tag k="crossing:markings" v="no"/>
+    <tag k="crossing:signals" v="no"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="12061871130" lat="52.4421946" lon="13.5518630"/>
+  <node id="12953934367" lat="52.4409249" lon="13.5490174"/>
+  <way id="19585573">
+    <nd ref="5566408314"/>
+    <nd ref="11558187023"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Hoffmannstraße"/>
+    <tag k="oneway" v="no"/>
+    <tag k="parking:both" v="lane"/>
+    <tag k="parking:both:fee" v="no"/>
+    <tag k="parking:both:orientation" v="parallel"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="140964927">
+    <nd ref="5566418127"/>
+    <nd ref="11558187024"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:type" v="DE:zone30"/>
+    <tag k="name" v="Wassermannstraße"/>
+    <tag k="name:etymology:wikidata" v="Q77360"/>
+    <tag k="parking:both" v="lane"/>
+    <tag k="parking:both:fee" v="no"/>
+    <tag k="parking:both:orientation" v="parallel"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="sidewalk:both:surface" v="sett"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="source:maxspeed" v="DE:zone30"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="DE:274.1"/>
+    <tag k="wikidata" v="Q100453047"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="1243591338">
+    <nd ref="11558187022"/>
+    <nd ref="11544547591"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:type" v="DE:zone30"/>
+    <tag k="name" v="Wassermannstraße"/>
+    <tag k="name:etymology:wikidata" v="Q77360"/>
+    <tag k="parking:both" v="lane"/>
+    <tag k="parking:both:fee" v="no"/>
+    <tag k="parking:both:orientation" v="parallel"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="sidewalk:both:surface" v="sett"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="source:maxspeed" v="DE:zone30"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="DE:274.1"/>
+    <tag k="wikidata" v="Q100453047"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="1243591339">
+    <nd ref="11558187024"/>
+    <nd ref="12061851461"/>
+    <nd ref="248077378"/>
+    <nd ref="12061851464"/>
+    <nd ref="11558187022"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:type" v="DE:zone30"/>
+    <tag k="name" v="Wassermannstraße"/>
+    <tag k="name:etymology:wikidata" v="Q77360"/>
+    <tag k="parking:both" v="no"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="sidewalk:both:surface" v="sett"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="source:maxspeed" v="DE:zone30"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="DE:274.1"/>
+    <tag k="wikidata" v="Q100453047"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="1243591340">
+    <nd ref="11558187021"/>
+    <nd ref="12061871122"/>
+    <nd ref="203383768"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Hoffmannstraße"/>
+    <tag k="oneway" v="no"/>
+    <tag k="parking:both" v="lane"/>
+    <tag k="parking:both:fee" v="no"/>
+    <tag k="parking:both:orientation" v="parallel"/>
+    <tag k="postal_code" v="12489"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="1243591341">
+    <nd ref="11558187023"/>
+    <nd ref="12061851466"/>
+    <nd ref="248077378"/>
+    <nd ref="12061851467"/>
+    <nd ref="11558187021"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Hoffmannstraße"/>
+    <tag k="parking:both" v="no"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="smoothness" v="bad"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1302342407">
+    <nd ref="12061851459"/>
+    <nd ref="12061851454"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1302342408">
+    <nd ref="12061851455"/>
+    <nd ref="12061851460"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="1302342409">
+    <nd ref="12061851459"/>
+    <nd ref="12061851461"/>
+    <nd ref="12061851460"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1302342410">
+    <nd ref="12061851462"/>
+    <nd ref="12061851466"/>
+    <nd ref="12061851465"/>
+    <nd ref="12061851459"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1302342411">
+    <nd ref="12061851460"/>
+    <nd ref="12061851467"/>
+    <nd ref="12061851463"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1302342412">
+    <nd ref="12061851462"/>
+    <nd ref="12061851464"/>
+    <nd ref="12061851463"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="1302342413">
+    <nd ref="12061851468"/>
+    <nd ref="12061851462"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="sett"/>
+  </way>
+  <way id="1302342415">
+    <nd ref="12061851463"/>
+    <nd ref="12061871071"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1302342429">
+    <nd ref="12061851462"/>
+    <nd ref="12953934367"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1302342430">
+    <nd ref="12061851434"/>
+    <nd ref="12061851459"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1302342451">
+    <nd ref="12061871120"/>
+    <nd ref="12061851463"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="1302342452">
+    <nd ref="12061851460"/>
+    <nd ref="12061871130"/>
+    <nd ref="12061871121"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="sett"/>
+  </way>
+
+</osm>
