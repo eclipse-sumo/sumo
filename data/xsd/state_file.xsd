@@ -132,6 +132,7 @@
         <xsd:attribute name="state" type="xsd:string" use="required"/>
         <xsd:attribute name="lcState" type="xsd:string" use="optional"/>
         <xsd:attribute name="lcState2" type="xsd:string" use="optional"/>
+        <xsd:attribute name="lcStateBase" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="deviceType">

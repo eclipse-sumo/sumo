@@ -89,7 +89,7 @@
 //#define DEBUG_COOPERATE
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
-//#define DEBUG_COND (myVehicle.getID() == "disabled")
+//#define DEBUG_COND (myVehicle.getID() == "ego")
 #define DEBUG_COND (myVehicle.isSelected())
 //#define DEBUG_COND (true)
 
@@ -2250,6 +2250,7 @@ MSLCM_LC2013::saveState(OutputDevice& out) const {
     lcState.push_back(mySpeedGainProbabilityRight);
     lcState.push_back(myKeepRightProbability);
     lcState.push_back(myLookAheadSpeed * HYST_PRECISION);
+    lcState.push_back(myDontBrake);
     out.writeAttr(SUMO_ATTR_LCSTATE2, lcState);
 }
 
@@ -2263,7 +2264,8 @@ MSLCM_LC2013::loadState(const SUMOSAXAttributes& attrs) {
         bis >> myKeepRightProbability;
         long long laSpeed;
         bis >> laSpeed;
-        myLookAheadSpeed = laSpeed / HYST_PRECISION;
+        myLookAheadSpeed = (double)laSpeed / HYST_PRECISION;
+        bis >> myDontBrake;
     }
 }
 

@@ -1411,6 +1411,7 @@ enum SumoXMLAttr {
     /// @brief The state of the lanechange model
     SUMO_ATTR_LCSTATE,
     SUMO_ATTR_LCSTATE2,
+    SUMO_ATTR_LCSTATE_BASE,
     /// @brief foe visibility distance of a link
     SUMO_ATTR_VISIBILITY_DISTANCE,
     /// @brief reset building step / connection guessing

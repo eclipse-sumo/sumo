@@ -1111,18 +1111,38 @@ MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) 
 void
 MSAbstractLaneChangeModel::saveState(OutputDevice& out) const {
     std::vector<double> lcState;
+    lcState.push_back((double)myOwnState);
+    for (auto item : myLCAccelerationAdvices) {
+        lcState.push_back(item.first);
+        lcState.push_back(item.second);
+    }
+    out.writeAttr(SUMO_ATTR_LCSTATE_BASE, lcState);
+
     if (MSGlobals::gLaneChangeDuration > 0) {
+        std::vector<double> lcState;
         lcState.push_back(mySpeedLat);
         lcState.push_back(myLaneChangeCompletion);
         lcState.push_back(myLaneChangeDirection);
-    }
-    if (lcState.size() > 0) {
         out.writeAttr(SUMO_ATTR_LCSTATE, lcState);
     }
 }
 
 void
 MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
+    if (attrs.hasAttribute(SUMO_ATTR_LCSTATE_BASE)) {
+        std::istringstream bis(attrs.getString(SUMO_ATTR_LCSTATE_BASE));
+        double token;
+        bis >> token;
+        myOwnState = (int)token; // double is suffciently precise
+        double prev = std::numeric_limits<double>::max();
+        while (bis >> token) {
+            if (prev != std::numeric_limits<double>::max()) {
+                myLCAccelerationAdvices.push_back(std::make_pair(prev, (bool)token));
+                prev = std::numeric_limits<double>::max();
+            }
+            prev = token;
+        }
+    }
     if (attrs.hasAttribute(SUMO_ATTR_LCSTATE)) {
         std::istringstream bis(attrs.getString(SUMO_ATTR_LCSTATE));
         bis >> mySpeedLat;
