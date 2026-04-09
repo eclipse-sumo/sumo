@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T17:50:52.683296+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
+<!-- generated on 2026-04-09T16:38:02.050949+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,15 +51,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-vehicle-output>
     <railSignal id="J2">
-        <link linkIndex="0" from="E1_0" to="E2_0">
-            <driveWay id="J2.0">
-                <entry id="t0" time="3.00" reason="junction"/>
-                <exit id="t0" time="5.00" reason="reroute"/>
-            </driveWay>
-            <subDriveWay id="J2.0.0">
-                <entry id="t0" time="3.00" reason="junction"/>
-                <exit id="t0" time="7.00" reason="junction"/>
-            </subDriveWay>
+        <link linkIndex="0" from="E1_0" to=":J2_0_0">
+            <driveWay id="J2.0"/>
+            <subDriveWay id="J2.0.0"/>
             <driveWay id="J2.1">
                 <entry id="t0" time="4.00" reason="reroute"/>
                 <exit id="t0" time="56.00" reason="junction"/>
@@ -68,19 +62,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="J4c">
-        <link linkIndex="0" from="E3c_0" to="E4c_0"/>
+        <link linkIndex="0" from="E3c_0" to=":J4c_0_0"/>
     </railSignal>
     <railSignal id="J6.1">
-        <link linkIndex="0" from="E6_0" to="E6.1_0">
+        <link linkIndex="0" from="E6_0" to=":J6.1_0_0">
             <driveWay id="J6.1.0"/>
         </link>
     </railSignal>
     <railSignal id="J6b">
-        <link linkIndex="0" from="E5b_0" to="E6b_0">
-            <driveWay id="J6b.0">
-                <entry id="t0" time="56.00" reason="junction"/>
-                <exit id="t0" time="60.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="E5b_0" to=":J6b_0_0">
+            <driveWay id="J6b.0"/>
         </link>
     </railSignal>
     <departJunction id="J1">

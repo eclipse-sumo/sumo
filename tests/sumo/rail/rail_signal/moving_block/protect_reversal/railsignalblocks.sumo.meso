@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-10 09:24:14 by Eclipse SUMO sumo Version v1_23_1+0978-b3f6417a0cf
+<!-- generated on 2026-04-09T16:38:01.685724+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,36 +48,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="gneJ6">
-        <link linkIndex="0" from="b0_0" to="a0_0">
+        <link linkIndex="0" from="b0_0" to=":gneJ6_0_0">
             <driveWay id="gneJ6.0" vehicle="v0" edges="a0">
-                <forward lanes="a0_0"/>
-                <bidi lanes="-a_0"/>
+                <forward lanes=":gneJ6_0_0 a0_0"/>
+                <bidi lanes=":gneJ6_1_0 -a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="-a_0" to="-b_0"/>
+        <link linkIndex="1" from="-a_0" to=":gneJ6_1_0"/>
     </railSignal>
     <railSignal id="gneJ8">
-        <link linkIndex="0" from="-b0_0" to="-a0_0"/>
-        <link linkIndex="1" from="a_0" to="b_0">
+        <link linkIndex="0" from="-b0_0" to=":gneJ8_0_0"/>
+        <link linkIndex="1" from="a_0" to=":gneJ8_1_0">
             <driveWay id="gneJ8.0" vehicle="v0" edges="b c e -e -c b0 a0">
-                <forward lanes="b_0 c_0 e_0 -e_0 -c_0 b0_0"/>
-                <bidi lanes="-b0_0 -c_0 -e_0 e_0 c_0 -b_0 -a_0"/>
+                <forward lanes=":gneJ8_1_0 b_0 :gneJ1_2_0 c_0 :gneJ9_1_0 e_0 :gneJ3_0_0 -e_0 :gneJ9_0_0 -c_0 :gneJ1_0_0 b0_0"/>
+                <bidi lanes=":gneJ8_0_0 -b0_0 :gneJ1_1_0 -c_0 :gneJ9_0_0 -e_0 e_0 :gneJ9_1_0 c_0 :gneJ1_3_0 -b_0 :gneJ6_1_0 -a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="gneJ8.0.0"/>
             </driveWay>
             <subDriveWay id="gneJ8.0.0" vehicle="" edges="b c e -e -c">
-                <forward lanes="b_0 c_0 e_0 -e_0 -c_0"/>
+                <forward lanes=":gneJ8_1_0 b_0 :gneJ1_2_0 c_0 :gneJ9_1_0 e_0 :gneJ3_0_0 -e_0 :gneJ9_0_0 -c_0"/>
             </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ0">
         <driveWay id="gneJ0.d0" vehicle="v0" edges="a b c e -e -c b0 a0">
             <forward lanes="a_0"/>
-            <bidi lanes="-a0_0 -b0_0"
-                    deadlockCheck="-c_0 -e_0 e_0 c_0 -b_0 -a_0"/>
+            <bidi lanes="-a0_0 :gneJ8_0_0 -b0_0 :gneJ1_1_0"
+                    deadlockCheck="-c_0 :gneJ9_0_0 -e_0 e_0 :gneJ9_1_0 c_0 :gneJ1_3_0 -b_0 :gneJ6_1_0 -a_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
         </driveWay>

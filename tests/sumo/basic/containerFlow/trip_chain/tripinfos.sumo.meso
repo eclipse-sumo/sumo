@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2026-04-09T16:37:56.120340+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,34 +44,34 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="157.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="107.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="73.49" timeLoss="73.49" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="container.0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="279.00" waitingTime="9.49" timeLoss="0.00" traveltime="249.51">
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="158.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="108.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="73.13" timeLoss="73.13" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <containerinfo id="container.0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="281.00" waitingTime="9.49" timeLoss="0.00" traveltime="251.51">
         <tranship depart="0.00" departPos="0.00" arrival="111.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
-        <transport waitingTime="9.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
+        <transport waitingTime="9.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="365.00" timeLoss="0.00"/>
         <tranship depart="134.00" departPos="0.00" arrival="239.00" arrivalPos="45.00" duration="105.00" routeLength="145.83" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="259.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="0.00" vehicle="car0" depart="259.00" arrival="279.00" arrivalPos="92.00" duration="20.00" routeLength="181.00" timeLoss="0.00"/>
+        <transport waitingTime="0.00" vehicle="car0" depart="259.00" arrival="281.00" arrivalPos="92.00" duration="22.00" routeLength="362.00" timeLoss="0.00"/>
     </containerinfo>
-    <tripinfo id="car0" depart="259.00" departLane="1/4to2/4_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="279.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="273.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="container.1" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="29.49" timeLoss="-1" traveltime="-1">
+    <tripinfo id="car0" depart="259.00" departLane="1/4to2/4_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="281.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="22.00" routeLength="292.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <containerinfo id="container.1" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="31.49" timeLoss="-1" traveltime="-1">
         <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
-        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
+        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="365.00" timeLoss="0.00"/>
         <tranship depart="134.00" departPos="0.00" arrival="239.00" arrivalPos="45.00" duration="105.00" routeLength="145.83" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="259.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+        <transport waitingTime="23.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
-    <containerinfo id="container.2" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="29.49" timeLoss="-1" traveltime="-1">
+    <containerinfo id="container.2" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="31.49" timeLoss="-1" traveltime="-1">
         <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
-        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
+        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="365.00" timeLoss="0.00"/>
         <tranship depart="134.00" departPos="0.00" arrival="239.00" arrivalPos="45.00" duration="105.00" routeLength="145.83" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="259.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+        <transport waitingTime="23.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
-    <containerinfo id="container.3" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="29.49" timeLoss="-1" traveltime="-1">
+    <containerinfo id="container.3" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="31.49" timeLoss="-1" traveltime="-1">
         <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
-        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
+        <transport waitingTime="8.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="365.00" timeLoss="0.00"/>
         <tranship depart="134.00" departPos="0.00" arrival="239.00" arrivalPos="45.00" duration="105.00" routeLength="145.83" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="259.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+        <transport waitingTime="23.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
 </tripinfos>

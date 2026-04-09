@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-02-11T12:45:57.888186+01:00 by Eclipse SUMO sumo v1_26_0+0154-297d2dfcc2e
+<!-- generated on 2026-04-09T16:38:02.183602+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,30 +45,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="J1">
-        <link linkIndex="0" from="1a_0" to="2a_0">
+        <link linkIndex="0" from="1a_0" to=":J1_0_0">
             <driveWay id="J1.0" vehicle="v0" edges="2a 3a">
-                <forward lanes="2a_0 3a_0"/>
+                <forward lanes=":J1_0_0 2a_0 :J2_0_0 3a_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals="J5_0"/>
                 <foes driveWays="J5.0.0"/>
             </driveWay>
             <subDriveWay id="J1.0.0" vehicle="" edges="2a">
-                <forward lanes="2a_0"/>
+                <forward lanes=":J1_0_0 2a_0 :J2_0_0"/>
             </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J5">
-        <link linkIndex="0" from="1b_0" to="2b_0">
+        <link linkIndex="0" from="1b_0" to=":J5_0_0">
             <driveWay id="J5.0" vehicle="v1" edges="2b 3a">
-                <forward lanes="2b_0 3a_0"/>
+                <forward lanes=":J5_0_0 2b_0 :J2_1_0 :J2_2_0 3a_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals="J1_0"/>
                 <foes driveWays="J1.0.0"/>
             </driveWay>
             <subDriveWay id="J5.0.0" vehicle="" edges="2b">
-                <forward lanes="2b_0"/>
+                <forward lanes=":J5_0_0 2b_0 :J2_1_0 :J2_2_0"/>
             </subDriveWay>
         </link>
     </railSignal>

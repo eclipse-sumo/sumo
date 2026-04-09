@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:18 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2026-04-09T16:35:12.910246+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,12 +11,12 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="C:\Users\behr_mi\Projekte\sumo\repos\sumo/data/emissions/MMPEVEM/VW_eUp.xml"/>
+        <additional-files value="/scr1/sumo/data/emissions/MMPEVEM/VW_eUp.xml"/>
     </input>
 
     <output>
@@ -26,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
@@ -66,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.29" noise="64.57" route="r1" type="VW_eUp" waiting="0.00" edge="WC" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="95.05"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_eUp" waiting="0.00" edge="CE" pos="0.00" speed="0.00" angle="90.00" x="108.05" y="95.05"/>
+        <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.29" noise="64.57" route="r1" type="VW_eUp" waiting="0.00" edge="WC" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="95.05"/>
     </timestep>
     <timestep time="8.00">
         <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_eUp" waiting="0.00" edge="CE" pos="0.00" speed="0.00" angle="90.00" x="108.05" y="95.05"/>
@@ -146,5 +144,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="33.00">
         <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_eUp" waiting="0.00" edge="CE" pos="0.00" speed="0.00" angle="90.00" x="108.05" y="95.05"/>
     </timestep>
-    <timestep time="34.00"/>
+    <timestep time="34.00">
+        <vehicle id="VW_eUp" eclass="MMPEVEM/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.10" noise="55.94" route="r1" type="VW_eUp" waiting="0.00" edge="CE" pos="0.00" speed="0.00" angle="90.00" x="108.05" y="95.05"/>
+    </timestep>
+    <timestep time="35.00"/>
 </emission-export>

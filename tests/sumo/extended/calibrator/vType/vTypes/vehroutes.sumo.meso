@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-11 11:28:50 by Eclipse SUMO sumo Version v1_12_0+0490-00f3a0f
+<!-- generated on 2026-04-09T16:37:58.737585+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -26,13 +26,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -40,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -860,12 +858,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="calibtest.2000.2" type="truck" depart="2074.00" arrival="2158.00">
-        <route edges="beg2"/>
-    </vehicle>
-
     <vehicle id="high.29" depart="2070.00" departPos="2802.71" departSpeed="35.9945" speedFactor="1.0000" arrival="2159.00">
         <route edges="beg beg2"/>
+    </vehicle>
+
+    <vehicle id="calibtest.2000.2" type="truck" depart="2074.00" arrival="2159.00">
+        <route edges="beg2"/>
     </vehicle>
 
     <vehicle id="high.30" depart="2072.00" departPos="2802.71" departSpeed="35.9945" speedFactor="1.0000" arrival="2161.00">
@@ -1272,7 +1270,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg2"/>
     </vehicle>
 
-    <vehicle id="calibtest.2200.1" type="truck" depart="2287.00" arrival="2371.00">
+    <vehicle id="calibtest.2200.1" type="truck" depart="2287.00" arrival="2372.00">
         <route edges="beg2"/>
     </vehicle>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-14T10:07:02.346557+01:00 by Eclipse SUMO sumo v1_26_0+0590-07d0d1f31e9
+<!-- generated on 2026-04-09T16:37:56.001864+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,8 +48,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="70.00" waitingTime="57.49" timeLoss="0.00" traveltime="12.51">
-        <transport waitingTime="57.49" vehicle="vehicle1" depart="57.49" arrival="70.00" arrivalPos="0.00" duration="12.51" routeLength="182.50" timeLoss="0.00"/>
+    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="71.00" waitingTime="57.49" timeLoss="0.00" traveltime="13.51">
+        <transport waitingTime="57.49" vehicle="vehicle1" depart="57.49" arrival="71.00" arrivalPos="0.00" duration="13.51" routeLength="365.00" timeLoss="0.00"/>
     </containerinfo>
-    <tripinfo id="vehicle1" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="103.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="103.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="70.00" timeLoss="70.00" rerouteNo="0" devices="tripinfo_vehicle1 fcd_vehicle1 container_vehicle1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle1" depart="0.00" departLane="1/4to1/3_0" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="105.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="105.00" routeLength="473.08" waitingTime="0.00" waitingCount="0" stopTime="70.00" timeLoss="70.00" rerouteNo="0" devices="tripinfo_vehicle1 fcd_vehicle1 container_vehicle1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

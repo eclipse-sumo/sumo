@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun 17 19:24:33 2020 by Eclipse SUMO Version v1_6_0+0805-8a20083101
+<!-- generated on 2026-04-09T16:38:02.440882+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -46,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <emission-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/emission_file.xsd">
@@ -171,7 +175,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="16to38" pos="100.17" speed="9.16" angle="65.31" x="1424.84" y="322.43"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="38to167" pos="0.00" speed="9.16" angle="57.58" x="1525.32" y="369.46"/>
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="16to38" pos="0.00" speed="9.16" angle="65.31" x="1333.83" y="280.58"/>
     </timestep>
     <timestep time="41.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="38to167" pos="0.00" speed="9.16" angle="57.58" x="1525.32" y="369.46"/>
@@ -197,5 +201,11 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="48.00">
         <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="38to167" pos="0.00" speed="9.16" angle="57.58" x="1525.32" y="369.46"/>
     </timestep>
-    <timestep time="49.00"/>
+    <timestep time="49.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="38to167" pos="0.00" speed="9.16" angle="57.58" x="1525.32" y="369.46"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="vehWithCustDepartEnergy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.12" noise="61.17" route="!vehWithCustDepartEnergy" type="PKW" waiting="0.00" edge="38to167" pos="0.00" speed="9.16" angle="57.58" x="1525.32" y="369.46"/>
+    </timestep>
+    <timestep time="51.00"/>
 </emission-export>

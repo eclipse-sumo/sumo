@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-01 15:11:32 by Eclipse SUMO sumo Version v1_22_0+1199-35045ecb3f1
+<!-- generated on 2026-04-09T16:38:02.049843+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-vehicle-output>
     <railSignal id="J3">
-        <link linkIndex="0" from="E2_0" to="E3_0">
+        <link linkIndex="0" from="E2_0" to=":J3_0_0">
             <driveWay id="J3.0"/>
             <subDriveWay id="J3.0.0"/>
             <subDriveWay id="J3.0.1"/>
@@ -59,25 +59,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="J4c">
-        <link linkIndex="0" from="E3c_0" to="E4c_0">
-            <driveWay id="J4c.0">
-                <entry id="t1" time="33.00" reason="junction"/>
-                <exit id="t1" time="42.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="E3c_0" to=":J4c_0_0">
+            <driveWay id="J4c.0"/>
             <subDriveWay id="J4c.0.0"/>
         </link>
     </railSignal>
     <railSignal id="J6.1">
-        <link linkIndex="0" from="E6_0" to="E6.1_0">
+        <link linkIndex="0" from="E6_0" to=":J6.1_0_0">
             <driveWay id="J6.1.0"/>
         </link>
     </railSignal>
     <railSignal id="J6b">
-        <link linkIndex="0" from="E5b_0" to="E6b_0">
-            <driveWay id="J6b.0">
-                <entry id="t0" time="55.00" reason="junction"/>
-                <exit id="t0" time="59.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="E5b_0" to=":J6b_0_0">
+            <driveWay id="J6b.0"/>
         </link>
     </railSignal>
     <departJunction id="J1">

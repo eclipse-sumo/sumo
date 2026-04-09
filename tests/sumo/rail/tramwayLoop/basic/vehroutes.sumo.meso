@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:58 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2026-04-09T16:38:01.897010+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,18 +53,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="tram3" type="RB628" depart="10.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="324.00">
+    <vehicle id="tram3" type="RB628" depart="10.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="321.00">
         <route edges="TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1"/>
     </vehicle>
 
-    <vehicle id="tram8" type="RB628" depart="210.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1205.00">
+    <vehicle id="tram8" type="RB628" depart="210.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1212.00">
         <route edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="leftStop" duration="20.00"/>
         <stop busStop="rightStop" duration="20.00"/>
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram5" type="RB628" depart="100.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1401.00">
+    <vehicle id="tram5" type="RB628" depart="100.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1723.00">
         <route edges="Tdepot_1 T38_1 T39_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="rightStop" duration="20.00"/>
         <stop busStop="leftStop" duration="20.00"/>
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram7" type="RB628" depart="200.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1501.00">
+    <vehicle id="tram9" type="RB628" depart="300.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="2021.00">
         <route edges="Tdepot_1 T38_1 T39_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="rightStop" duration="20.00"/>
         <stop busStop="leftStop" duration="20.00"/>
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram9" type="RB628" depart="300.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1601.00">
+    <vehicle id="tram7" type="RB628" depart="200.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="2234.00">
         <route edges="Tdepot_1 T38_1 T39_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="rightStop" duration="20.00"/>
         <stop busStop="leftStop" duration="20.00"/>
@@ -88,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram1" type="RB628" depart="1.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1635.00">
+    <vehicle id="tram4" type="RB628" depart="11.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="2532.00">
         <route edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="leftStop" duration="20.00"/>
         <stop busStop="rightStop" duration="20.00"/>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram4" type="RB628" depart="11.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1669.00">
+    <vehicle id="tram1" type="RB628" depart="1.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="2745.00">
         <route edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="leftStop" duration="20.00"/>
         <stop busStop="rightStop" duration="20.00"/>
@@ -106,18 +106,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop busStop="leftStop" duration="20.00"/>
     </vehicle>
 
-    <vehicle id="tram6" type="RB628" depart="110.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1739.00">
-        <route edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
-        <stop busStop="leftStop" duration="20.00"/>
-        <stop busStop="rightStop" duration="20.00"/>
-        <stop busStop="leftStop" duration="20.00"/>
-        <stop busStop="rightStop" duration="20.00"/>
-        <stop busStop="leftStop" duration="20.00"/>
-    </vehicle>
-
-    <vehicle id="tram2" type="RB628" depart="4.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="1939.00">
+    <vehicle id="tram2" type="RB628" depart="4.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="3043.00">
         <route edges="Tdepot_1 T38_1 T39_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="rightStop" duration="20.00"/>
+        <stop busStop="leftStop" duration="20.00"/>
+        <stop busStop="rightStop" duration="20.00"/>
+        <stop busStop="leftStop" duration="20.00"/>
+        <stop busStop="rightStop" duration="20.00"/>
+        <stop busStop="leftStop" duration="20.00"/>
+    </vehicle>
+
+    <vehicle id="tram6" type="RB628" depart="110.00" departLane="best" departSpeed="33.3333" speedFactor="1.0000" arrival="3256.00">
+        <route edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T27_0 T28_0 T29_0 T30_0 T31_0 T32_0 T33_0 T34_0 T35_0 T6_0 TrightLoop_1 T3_1 T19_1 T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1 T10_1 T9_1 T8_1 T7_1 T2_1 T1_1 TleftLoop_1 T20_0 T21_0 T22_0 T23_0 T24_0 T25_0 T26_0 T44_0 T36_0 T37_0 Tdepot_0 Tdepot_1"/>
         <stop busStop="leftStop" duration="20.00"/>
         <stop busStop="rightStop" duration="20.00"/>
         <stop busStop="leftStop" duration="20.00"/>

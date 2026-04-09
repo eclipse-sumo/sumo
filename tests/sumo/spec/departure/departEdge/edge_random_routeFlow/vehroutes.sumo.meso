@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 12 11:59:25 2020 by Eclipse SUMO sumo Version v1_7_0+0588-e883836b67
+<!-- generated on 2026-04-09T16:35:09.798459+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="motorway.net.xml"/>
@@ -21,12 +26,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -35,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -63,11 +66,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.3" depart="6.00" departEdge="3" arrival="101.00">
+    <vehicle id="v0.3" depart="6.00" departEdge="3" arrival="102.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.4" depart="8.00" departEdge="2" arrival="105.00">
+    <vehicle id="v0.4" depart="8.00" departEdge="2" arrival="106.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
@@ -95,11 +98,11 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.15" depart="30.00" departEdge="2" arrival="127.00">
+    <vehicle id="v0.19" depart="38.00" departEdge="4" arrival="127.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.19" depart="38.00" departEdge="4" arrival="129.00">
+    <vehicle id="v0.15" depart="30.00" departEdge="2" arrival="129.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
@@ -107,15 +110,15 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.0" depart="0.00" departEdge="1" arrival="180.00">
+    <vehicle id="v0.0" depart="0.00" departEdge="1" arrival="181.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.10" depart="20.00" departEdge="1" arrival="200.00">
+    <vehicle id="v0.10" depart="20.00" departEdge="1" arrival="201.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 
-    <vehicle id="v0.13" depart="26.00" departEdge="1" arrival="206.00">
+    <vehicle id="v0.13" depart="26.00" departEdge="1" arrival="207.00">
         <route edges="beg beg2 merge end end2 end3"/>
     </vehicle>
 

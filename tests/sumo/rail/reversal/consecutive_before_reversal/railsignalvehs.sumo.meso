@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T13:33:59.389969+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
+<!-- generated on 2026-04-09T16:38:02.163200+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,33 +46,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-vehicle-output>
     <railSignal id="A">
-        <link linkIndex="0" from="a_0" to="b_0">
-            <driveWay id="A.0">
-                <entry id="t0" time="8.00" reason="junction"/>
-                <exit id="t0" time="15.00" reason="junction"/>
-                <entry id="t1" time="16.00" reason="junction"/>
-                <exit id="t1" time="93.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="0" from="a_0" to=":A_1_0">
+            <driveWay id="A.0"/>
         </link>
     </railSignal>
     <railSignal id="B">
-        <link linkIndex="0" from="b_0" to="c_0">
-            <driveWay id="B.0">
-                <entry id="t0" time="15.00" reason="junction"/>
-                <exit id="t0" time="41.00" reason="junction"/>
-                <entry id="t1" time="93.00" reason="junction"/>
-                <exit id="t1" time="119.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="0" from="b_0" to=":B_1_0">
+            <driveWay id="B.0"/>
         </link>
     </railSignal>
     <railSignal id="D">
-        <link linkIndex="0" from="d_0" to="e_0">
-            <driveWay id="D.0">
-                <entry id="t0" time="41.00" reason="junction"/>
-                <exit id="t0" time="92.00" reason="arrived"/>
-                <entry id="t1" time="119.00" reason="junction"/>
-                <exit id="t1" time="170.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="d_0" to=":D_1_0">
+            <driveWay id="D.0"/>
         </link>
     </railSignal>
     <departJunction id="J0">

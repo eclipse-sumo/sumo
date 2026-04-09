@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'tram9'; waited too long, from edge 'Tdepot_0':1, time=2021.88.
+Warning: Vehicle 'tram9' teleports beyond arrival edge 'Tdepot_1', time=2025.74.
+Warning: Teleporting vehicle 'tram4'; waited too long, from edge 'Tdepot_0':1, time=2533.01.
+Warning: Vehicle 'tram4' teleports beyond arrival edge 'Tdepot_1', time=2536.87.
+Warning: Teleporting vehicle 'tram2'; waited too long, from edge 'Tdepot_0':1, time=3044.14.
+Warning: Vehicle 'tram2' teleports beyond arrival edge 'Tdepot_1', time=3048.00.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-30T14:22:27.510112+01:00 by Eclipse SUMO sumo v1_24_0+1690-94ea55fefa3
+<!-- generated on 2026-04-09T16:35:11.411744+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -63,5 +63,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <step time="23.00" loaded="2" inserted="2" running="1" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="12.00" meanSpeed="13.89" meanSpeedRelative="1.00" discarded="0"/>
     <step time="24.00" loaded="2" inserted="2" running="1" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="12.00" meanSpeed="13.89" meanSpeedRelative="1.00" discarded="0"/>
     <step time="25.00" loaded="2" inserted="2" running="1" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="12.00" meanSpeed="13.89" meanSpeedRelative="1.00" discarded="0"/>
-    <step time="26.00" loaded="2" inserted="2" running="0" waiting="0" ended="2" arrived="2" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="13.00" meanSpeed="-1.00" meanSpeedRelative="-1.00" discarded="0"/>
+    <step time="26.00" loaded="2" inserted="2" running="1" waiting="0" ended="1" arrived="1" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="12.00" meanSpeed="13.89" meanSpeedRelative="1.00" discarded="0"/>
+    <step time="27.00" loaded="2" inserted="2" running="0" waiting="0" ended="2" arrived="2" collisions="0" teleports="0" halting="0" stopped="0" meanWaitingTime="0.00" meanTravelTime="13.50" meanSpeed="-1.00" meanSpeedRelative="-1.00" discarded="0"/>
 </summary>

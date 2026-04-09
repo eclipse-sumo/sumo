@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-07 13:04:18 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
+<!-- generated on 2026-04-09T16:37:58.395077+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,16 +42,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="veh1" type="type1" depart="0.00">
         <routeDistribution>
             <route replacedOnEdge="1o" replacedOnIndex="2" reason="rerouter" replacedAtTime="40.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o"/>
-            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="123.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o"/>
-            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="207.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o 1fi 1si 1o"/>
-            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="290.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o 1fi 1si 1o 1fi 1si 1o"/>
+            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="125.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o"/>
+            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="209.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o 1fi 1si 1o"/>
+            <route replacedOnEdge="1o" replacedOnIndex="5" reason="rerouter" replacedAtTime="293.00" probability="0" edges="1fi 1si 1o 1fi 1si 1o 1fi 1si 1o 1fi 1si 1o"/>
             <route edges="1fi 1si 1o 1fi 1si 1o 1fi 1si 1o 1fi 1si 1o 1fi 1si 1o"/>
         </routeDistribution>
     </vehicle>

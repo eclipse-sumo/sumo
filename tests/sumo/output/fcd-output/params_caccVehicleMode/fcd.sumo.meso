@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar  3 08:39:35 2020 by Eclipse SUMO Version v1_5_0+0337-8d59749
+<!-- generated on 2026-04-09T16:35:12.796362+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -17,7 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
-        <fcd-output.params value="caccControlMode"/>
+        <fcd-output.params value="caccVehicleMode"/>
         <tripinfo-output.write-unfinished value="true"/>
     </output>
 
@@ -28,11 +33,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
@@ -42,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
@@ -1031,7 +1034,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="1.9" x="3148.96" y="1605.94" angle="342.00" type="customACC" speed="19.60" pos="97.99" edge="1/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
-        <vehicle id="0.0" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="0.0" x="3179.24" y="1512.74" angle="342.00" type="customCACC" speed="19.55" pos="0.00" edge=":2/1_0" slope="0.00"/>
         <vehicle id="0.1" x="2906.70" y="2351.53" angle="342.00" type="customCACC" speed="19.60" pos="881.95" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.10" x="3027.83" y="1978.74" angle="342.00" type="customCACC" speed="19.60" pos="489.97" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.11" x="3058.11" y="1885.54" angle="342.00" type="customCACC" speed="19.60" pos="391.98" edge="1/1to2/1" slope="0.00"/>
@@ -1144,7 +1147,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="53.00">
         <vehicle id="0.0" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
-        <vehicle id="0.1" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="0.1" x="3179.24" y="1512.74" angle="342.00" type="customCACC" speed="19.55" pos="0.00" edge=":2/1_0" slope="0.00"/>
         <vehicle id="0.10" x="2997.55" y="2071.93" angle="342.00" type="customCACC" speed="19.60" pos="587.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.11" x="3027.83" y="1978.74" angle="342.00" type="customCACC" speed="19.60" pos="489.97" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.12" x="3027.83" y="1978.74" angle="342.00" type="customCACC" speed="19.60" pos="489.97" edge="1/1to2/1" slope="0.00"/>
@@ -1221,7 +1224,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="1.9" x="3118.68" y="1699.14" angle="342.00" type="customACC" speed="19.60" pos="195.99" edge="1/1to2/1" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <vehicle id="0.0" x="2795.36" y="2504.78" angle="306.00" type="customCACC" speed="19.60" pos="97.99" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="0.0" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
         <vehicle id="0.1" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
         <vehicle id="0.10" x="2997.55" y="2071.93" angle="342.00" type="customCACC" speed="19.60" pos="587.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.11" x="3027.83" y="1978.74" angle="342.00" type="customCACC" speed="19.60" pos="489.97" edge="1/1to2/1" slope="0.00"/>
@@ -1288,7 +1291,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.8" x="2967.27" y="2165.13" angle="342.00" type="customCACC" speed="19.60" pos="685.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.9" x="2967.27" y="2165.13" angle="342.00" type="customCACC" speed="19.60" pos="685.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="1.0" x="2874.64" y="2447.18" angle="306.00" type="customACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
-        <vehicle id="1.1" x="2874.64" y="2447.18" angle="306.00" type="customACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="1.1" x="3179.24" y="1512.74" angle="342.00" type="customACC" speed="19.55" pos="0.00" edge=":2/1_0" slope="0.00"/>
         <vehicle id="1.10" x="3148.96" y="1605.94" angle="342.00" type="customACC" speed="19.60" pos="97.99" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="1.11" x="3148.96" y="1605.94" angle="342.00" type="customACC" speed="19.60" pos="97.99" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="1.12" x="3179.24" y="1512.74" angle="342.00" type="customACC" speed="19.52" pos="0.00" edge="1/1to2/1" slope="0.00"/>
@@ -1344,7 +1347,7 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="58.00">
         <vehicle id="0.0" x="2795.36" y="2504.78" angle="306.00" type="customCACC" speed="19.60" pos="97.99" edge="2/1to3/1" slope="0.00"/>
-        <vehicle id="0.1" x="2795.36" y="2504.78" angle="306.00" type="customCACC" speed="19.60" pos="97.99" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="0.1" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
         <vehicle id="0.10" x="2967.27" y="2165.13" angle="342.00" type="customCACC" speed="19.60" pos="685.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.11" x="2997.55" y="2071.93" angle="342.00" type="customCACC" speed="19.60" pos="587.96" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.12" x="2997.55" y="2071.93" angle="342.00" type="customCACC" speed="19.60" pos="587.96" edge="1/1to2/1" slope="0.00"/>
@@ -1406,7 +1409,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.25" x="3179.24" y="1512.74" angle="342.00" type="customCACC" speed="17.80" pos="0.00" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.26" x="3179.24" y="1512.74" angle="342.00" type="customCACC" speed="19.60" pos="0.00" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.3" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
-        <vehicle id="0.4" x="2874.64" y="2447.18" angle="306.00" type="customCACC" speed="19.60" pos="0.00" edge="2/1to3/1" slope="0.00"/>
+        <vehicle id="0.4" x="3179.24" y="1512.74" angle="342.00" type="customCACC" speed="19.55" pos="0.00" edge=":2/1_0" slope="0.00"/>
         <vehicle id="0.5" x="2906.70" y="2351.53" angle="342.00" type="customCACC" speed="19.60" pos="881.95" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.6" x="2906.70" y="2351.53" angle="342.00" type="customCACC" speed="19.60" pos="881.95" edge="1/1to2/1" slope="0.00"/>
         <vehicle id="0.7" x="2936.98" y="2258.33" angle="342.00" type="customCACC" speed="19.60" pos="783.95" edge="1/1to2/1" slope="0.00"/>

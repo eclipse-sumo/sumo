@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-24 11:20:34 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
+<!-- generated on 2026-04-09T16:37:55.703764+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="168.00" waitingTime="33.48" timeLoss="0.80" traveltime="134.52">
         <walk depart="0.00" departPos="90.00" arrival="44.00" arrivalPos="50.00" duration="44.00" routeLength="60.00" timeLoss="0.80" maxSpeed="1.39" waitingTime="0.00"/>
         <access stop="stopE" depart="44.00" arrival="124.00" duration="80.00" routeLength="111.80"/>
-        <ride waitingTime="33.48" vehicle="train" depart="157.48" arrival="168.00" arrivalPos="100.00" duration="10.52" routeLength="295.45" timeLoss="0.00"/>
+        <ride waitingTime="33.48" vehicle="train" depart="157.48" arrival="168.00" arrivalPos="100.00" duration="10.52" routeLength="4595.45" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="train" depart="0.00" departLane="e_0" departPos="293.18" departSpeed="27.78" departDelay="0.00" arrival="196.00" arrivalLane="f_0" arrivalPos="300.00" arrivalSpeed="27.78" duration="196.00" routeLength="4306.82" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="40.00" rerouteNo="0" devices="vehroute_train tripinfo_train routing_train person_train" vType="tt" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="train" depart="0.00" departLane="e_0" departPos="293.18" departSpeed="27.78" departDelay="0.00" arrival="196.00" arrivalLane="f_0" arrivalPos="300.00" arrivalSpeed="27.78" duration="196.00" routeLength="4306.92" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="40.00" rerouteNo="0" devices="vehroute_train tripinfo_train routing_train person_train" vType="tt" speedFactor="1.00" vaporized=""/>
 </tripinfos>

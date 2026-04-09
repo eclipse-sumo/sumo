@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'light_rail_S46:0.3'; waited too long, from edge 'branch':0, time=2116.10.
+Warning: Vehicle 'light_rail_S46:0.3' ends teleporting on edge '-h':0, time=2119.70.
+Warning: Teleporting vehicle 'light_rail_S46:0.5'; waited too long, from edge 'branch':0, time=3316.10.
+Warning: Vehicle 'light_rail_S46:0.5' ends teleporting on edge '-h':0, time=3319.70.

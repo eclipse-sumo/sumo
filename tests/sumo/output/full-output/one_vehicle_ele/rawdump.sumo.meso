@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-22 20:30:19 by Eclipse SUMO sumo Version v1_22_0+1646-d8cbcaf97a5
+<!-- generated on 2026-04-09T16:35:12.893083+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,6 +47,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -73,6 +91,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -99,6 +135,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -125,6 +179,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -151,6 +223,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -177,6 +267,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -203,6 +311,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -229,6 +355,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="3146.39" CO="20.22" HC="0.14" NOx="1.14" PMx="0.42" fuel="1020.02" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="0.00" y="-1.60" z="0.73" slope="1.99"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -255,6 +399,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -281,6 +443,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -307,6 +487,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -333,6 +531,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -359,6 +575,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -385,6 +619,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -411,6 +663,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.34" fuel="0.00" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="100.00" y="-1.60" z="4.20" slope="-4.87"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.22">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -437,6 +707,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -463,6 +751,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -489,6 +795,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -515,6 +839,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -541,6 +883,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -567,6 +927,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -593,6 +971,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <vehicle id="0" eclass="HBEFA4/PC_petrol_Euro-4" CO2="5213.49" CO="43.06" HC="0.29" NOx="1.87" PMx="0.47" fuel="1690.14" electricity="0.00" noise="64.57" route="!0!var#1" type="DEFAULT_VEHTYPE" pos="0.00" speed="13.89" angle="90.00" x="200.00" y="-1.60" z="-4.32" slope="5.77"/>
         </vehicles>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>
@@ -617,6 +1013,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <data timestep="22.00">
         <vehicles/>
         <edges>
+            <edge id=":A0_0" traveltime="0.01">
+                <lane id=":A0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":A0_1" traveltime="0.01">
+                <lane id=":A0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_0" traveltime="0.01">
+                <lane id=":B0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":B0_1" traveltime="0.01">
+                <lane id=":B0_1_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":left0_0" traveltime="1.28">
+                <lane id=":left0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
+            <edge id=":right0_0" traveltime="1.28">
+                <lane id=":right0_0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="3.65" meanspeed="3.65" occupancy="0.00" vehicle_count="0"/>
+            </edge>
             <edge id="A0B0" traveltime="7.23">
                 <lane id="A0B0_0" CO="0.00" CO2="0.00" NOx="0.00" PMx="0.00" HC="0.00" noise="0.00" fuel="0.00" electricity="0.00" maxspeed="13.89" meanspeed="13.89" occupancy="0.00" vehicle_count="0"/>
             </edge>

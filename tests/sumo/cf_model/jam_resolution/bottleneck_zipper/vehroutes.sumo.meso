@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:36 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2026-04-09T16:35:14.239391+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -26,13 +26,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,11 +38,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="right.0" depart="0.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="108.00">
+    <vehicle id="right.0" depart="0.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="109.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -57,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.1" depart="4.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="113.00">
+    <vehicle id="left.1" depart="4.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="114.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -69,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.3" depart="9.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="118.00">
+    <vehicle id="right.3" depart="9.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="119.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -81,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.4" depart="13.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="123.00">
+    <vehicle id="left.4" depart="13.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="124.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -93,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.6" depart="18.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="128.00">
+    <vehicle id="right.6" depart="18.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="129.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -105,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.7" depart="22.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="133.00">
+    <vehicle id="left.7" depart="22.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="134.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -117,7 +114,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.9" depart="27.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="138.00">
+    <vehicle id="right.9" depart="27.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="139.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -129,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.10" depart="31.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="143.00">
+    <vehicle id="left.10" depart="31.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="144.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -141,7 +138,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.12" depart="36.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="148.00">
+    <vehicle id="right.12" depart="36.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="149.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -153,7 +150,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.13" depart="40.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="153.00">
+    <vehicle id="left.13" depart="40.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="154.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -165,7 +162,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.15" depart="45.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="158.00">
+    <vehicle id="right.15" depart="45.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="159.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -177,7 +174,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="163.00">
+    <vehicle id="left.16" depart="49.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="164.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -189,7 +186,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.18" depart="54.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="168.00">
+    <vehicle id="right.18" depart="54.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="169.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -201,7 +198,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.19" depart="58.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="173.00">
+    <vehicle id="left.19" depart="58.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="174.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -213,7 +210,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.21" depart="63.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="178.00">
+    <vehicle id="right.21" depart="63.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="179.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -225,7 +222,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.22" depart="67.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="183.00">
+    <vehicle id="left.22" depart="67.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="184.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -237,7 +234,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.24" depart="72.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="188.00">
+    <vehicle id="right.24" depart="72.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="189.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -249,7 +246,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="193.00">
+    <vehicle id="left.25" depart="76.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="194.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -261,7 +258,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.27" depart="81.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="198.00">
+    <vehicle id="right.27" depart="81.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="199.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -273,7 +270,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="203.00">
+    <vehicle id="left.28" depart="85.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="204.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -285,7 +282,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.30" depart="90.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="208.00">
+    <vehicle id="right.30" depart="90.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="209.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -297,7 +294,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="left.31" depart="94.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="213.00">
+    <vehicle id="left.31" depart="94.00" departLane="1" departSpeed="13.89" color="blue" speedFactor="1.0000" arrival="214.00">
         <route edges="beg end"/>
     </vehicle>
 
@@ -309,7 +306,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="218.00">
+    <vehicle id="right.33" depart="99.00" departLane="0" departSpeed="13.89" color="red" speedFactor="1.0000" arrival="219.00">
         <route edges="beg end"/>
     </vehicle>
 

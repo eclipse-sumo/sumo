@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-14T10:07:02.346907+01:00 by Eclipse SUMO sumo v1_26_0+0590-07d0d1f31e9
+<!-- generated on 2026-04-09T16:37:56.002147+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -329,7 +329,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <container id="container0" angle="90.00" speed="13.90" pos="0.00" edge="0/3to0/4" vehicle="vehicle1" stage="transport"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="vehicle1" angle="90.00" speed="0.00" pos="0.00" edge="0/4to1/4" containerNumber="0"/>
+        <vehicle id="vehicle1" angle="0.00" speed="13.90" pos="0.00" edge="0/3to0/4" containerNumber="1"/>
+        <container id="container0" angle="90.00" speed="13.90" pos="0.00" edge="0/3to0/4" vehicle="vehicle1" stage="transport"/>
     </timestep>
     <timestep time="71.00">
         <vehicle id="vehicle1" angle="90.00" speed="0.00" pos="0.00" edge="0/4to1/4" containerNumber="0"/>
@@ -410,7 +411,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vehicle1" angle="90.00" speed="0.00" pos="0.00" edge="0/4to1/4" containerNumber="0"/>
     </timestep>
     <timestep time="97.00">
-        <vehicle id="vehicle1" angle="180.00" speed="13.90" pos="0.00" edge="1/4to1/3" containerNumber="0"/>
+        <vehicle id="vehicle1" angle="90.00" speed="0.00" pos="0.00" edge="0/4to1/4" containerNumber="0"/>
     </timestep>
     <timestep time="98.00">
         <vehicle id="vehicle1" angle="180.00" speed="13.90" pos="0.00" edge="1/4to1/3" containerNumber="0"/>
@@ -427,8 +428,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="102.00">
         <vehicle id="vehicle1" angle="180.00" speed="13.90" pos="0.00" edge="1/4to1/3" containerNumber="0"/>
     </timestep>
-    <timestep time="103.00"/>
-    <timestep time="104.00"/>
+    <timestep time="103.00">
+        <vehicle id="vehicle1" angle="180.00" speed="13.90" pos="0.00" edge="1/4to1/3" containerNumber="0"/>
+    </timestep>
+    <timestep time="104.00">
+        <vehicle id="vehicle1" angle="180.00" speed="13.90" pos="0.00" edge="1/4to1/3" containerNumber="0"/>
+    </timestep>
     <timestep time="105.00"/>
     <timestep time="106.00"/>
     <timestep time="107.00"/>

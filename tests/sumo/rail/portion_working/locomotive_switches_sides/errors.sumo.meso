@@ -1,14 +1,19 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E4:0').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J5_0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E3:0').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J2_0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E0:1').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J1_0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment 'E0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment 'E0:1').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J2_3:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment 'E1:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment 'E1:1').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J3_3:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E1:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E1:1').
+Warning: Join stops are not available in meso yet (vehicle 't_0', segment ':J2_1:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E0:0').
 Warning: Join stops are not available in meso yet (vehicle 't_0', segment '-E0:1').
 Warning: Vehicle 't_1' aborted waiting for a train from which to split.

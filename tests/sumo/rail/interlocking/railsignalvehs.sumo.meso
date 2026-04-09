@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-02 08:17:28 by Eclipse SUMO sumo Version v1_21_0+1093-f807130dc4a
+<!-- generated on 2026-04-09T16:38:02.204263+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,56 +52,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-vehicle-output>
     <railSignal id="gneJ1">
-        <link linkIndex="0" from="gneE2_0" to="-gneE0_0">
-            <driveWay id="gneJ1.1">
-                <entry id="ICE0" time="16458.00" reason="junction"/>
-                <exit id="ICE0" time="16499.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
+            <driveWay id="gneJ1.1"/>
         </link>
-        <link linkIndex="1" from="gneE0_0" to="gneE1_0">
-            <driveWay id="gneJ1.0">
-                <entry id="RB1" time="16086.00" reason="junction"/>
-                <exit id="RB1" time="16285.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
+            <driveWay id="gneJ1.0"/>
         </link>
     </railSignal>
     <railSignal id="gneJ2">
-        <link linkIndex="0" from="-gneE3_0" to="gneE2_0">
-            <driveWay id="gneJ2.1">
-                <entry id="ICE0" time="16284.00" reason="junction"/>
-                <exit id="ICE0" time="16458.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
+            <driveWay id="gneJ2.1"/>
         </link>
-        <link linkIndex="1" from="gneE1_0" to="gneE3_0">
-            <driveWay id="gneJ2.0">
-                <entry id="RB1" time="16285.00" reason="junction"/>
-                <exit id="RB1" time="16322.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
+            <driveWay id="gneJ2.0"/>
         </link>
     </railSignal>
     <railSignal id="gneJ3">
-        <link linkIndex="0" from="-gneE4_0" to="-gneE3_0">
-            <driveWay id="gneJ3.1">
-                <entry id="ICE0" time="16266.00" reason="junction"/>
-                <exit id="ICE0" time="16284.00" reason="junction"/>
-            </driveWay>
+        <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
+            <driveWay id="gneJ3.1"/>
         </link>
-        <link linkIndex="1" from="-gneE4_0" to="gneE7_0"/>
-        <link linkIndex="2" from="-gneE7_0" to="gneE4_0">
-            <driveWay id="gneJ3.2">
-                <entry id="RB1" time="16322.00" reason="junction"/>
-                <exit id="RB1" time="16355.00" reason="arrived"/>
-                <entry id="RB2" time="16356.00" reason="junction"/>
-                <exit id="RB2" time="16381.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
+        <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
+            <driveWay id="gneJ3.2"/>
         </link>
-        <link linkIndex="3" from="gneE3_0" to="gneE4_0">
-            <driveWay id="gneJ3.0">
-                <entry id="RB1" time="16322.00" reason="junction"/>
-                <exit id="RB1" time="16355.00" reason="arrived"/>
-                <entry id="RB2" time="16356.00" reason="junction"/>
-                <exit id="RB2" time="16381.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
+            <driveWay id="gneJ3.0"/>
         </link>
     </railSignal>
     <departJunction id="gneJ5">
@@ -113,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <departJunction id="gneJ10">
         <driveWay id="gneJ10.d0">
             <entry id="RB2" time="16250.00" reason="departed"/>
-            <exit id="RB2" time="16356.00" reason="junction"/>
+            <exit id="RB2" time="16334.00" reason="junction"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ7">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-28 14:05:54 by Eclipse SUMO sumo Version v1_22_0+0585-6981afa7342
+<!-- generated on 2026-04-09T16:38:03.415711+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="trip_0" type="taxi" edge="D1E1" pos="190.40" parking="1" started="13.71" ended="15.00" busStop="B" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="90.10" ended="151.00" busStop="A" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="150.10" ended="152.00" busStop="A" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="92.85" ended="153.00" busStop="A" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="trip_0" type="taxi" edge="B1C1" pos="95.20" parking="1" started="152.85" ended="154.00" busStop="A" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="blocker" type="DEFAULT_VEHTYPE" edge="B1C1" pos="95.20" parking="0" started="106.85" ended="214.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

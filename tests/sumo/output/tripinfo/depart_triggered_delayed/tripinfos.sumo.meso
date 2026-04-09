@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-26 15:32:17 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
+<!-- generated on 2026-04-09T16:35:11.411959+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,8 +47,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="blocker" depart="10.00" departLane="SC_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="22.00" arrivalLane="SC_0" arrivalPos="10.00" arrivalSpeed="7.91" duration="12.00" routeLength="10.00" waitingTime="0.00" waitingCount="0" stopTime="5.00" timeLoss="5.00" rerouteNo="0" devices="tripinfo_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.00" traveltime="14.00">
-        <ride waitingTime="0.00" vehicle="v1" depart="12.00" arrival="26.00" arrivalPos="5.00" duration="14.00" routeLength="91.95" timeLoss="0.00"/>
+    <personinfo id="p1" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="15.00" waitingTime="0.00" timeLoss="0.00" traveltime="15.00">
+        <ride waitingTime="0.00" vehicle="v1" depart="12.00" arrival="27.00" arrivalPos="5.00" duration="15.00" routeLength="183.90" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v1" depart="12.00" departLane="SC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="26.00" arrivalLane="CN_0" arrivalPos="5.00" arrivalSpeed="13.89" duration="14.00" routeLength="96.95" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="12.00" departLane="SC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="27.00" arrivalLane="CN_0" arrivalPos="5.00" arrivalSpeed="13.89" duration="15.00" routeLength="113.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

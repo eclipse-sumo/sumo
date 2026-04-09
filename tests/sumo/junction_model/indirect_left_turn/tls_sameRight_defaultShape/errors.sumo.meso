@@ -1,2 +1,15 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Vehicle class 'bicycle' of vType 'bike' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Teleporting vehicle 'SW.0'; waited too long, from edge 'SC':0, time=347.35.
+Warning: Vehicle 'SW.0' teleports beyond arrival edge 'CW', time=354.03.
+Warning: Teleporting vehicle 'SW.1'; waited too long, from edge 'SC':0, time=648.35.
+Warning: Vehicle 'SW.1' teleports beyond arrival edge 'CW', time=655.03.
+Warning: Teleporting vehicle 'SW.2'; waited too long, from edge 'SC':0, time=949.35.
+Warning: Vehicle 'SW.2' teleports beyond arrival edge 'CW', time=956.03.
+Warning: Teleporting vehicle 'SW.3'; waited too long, from edge 'SC':0, time=1250.35.
+Warning: Vehicle 'SW.3' teleports beyond arrival edge 'CW', time=1257.03.
+Warning: Teleporting vehicle 'SW.4'; waited too long, from edge 'SC':0, time=1551.35.
+Warning: Vehicle 'SW.4' teleports beyond arrival edge 'CW', time=1558.03.
+Warning: Teleporting vehicle 'SW.5'; waited too long, from edge 'SC':0, time=1852.35.
+Warning: Vehicle 'SW.5' teleports beyond arrival edge 'CW', time=1859.03.
+Warning: Teleporting vehicle 'SW.6'; waited too long, from edge 'SC':0, time=2153.35.
+Warning: Vehicle 'SW.6' teleports beyond arrival edge 'CW', time=2160.03.

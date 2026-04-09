@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T17:50:52.888552+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
+<!-- generated on 2026-04-09T16:38:02.290277+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,9 +46,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-block-output>
     <railSignal id="A0">
-        <link linkIndex="0" from="left0A0_0" to="A0B0_0">
+        <link linkIndex="0" from="left0A0_0" to=":A0_0_0">
             <driveWay id="A0.0" vehicle="v_0" edges="A0B0 B0C0 C0D0 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="A0B0_0"/>
+                <forward lanes=":A0_0_0 A0B0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -57,9 +57,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="B0">
-        <link linkIndex="0" from="A0B0_0" to="B0C0_0">
+        <link linkIndex="0" from="A0B0_0" to=":B0_0_0">
             <driveWay id="B0.0" vehicle="v_0" edges="B0C0 C0D0 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="B0C0_0"/>
+                <forward lanes=":B0_0_0 B0C0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -68,9 +68,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="C0">
-        <link linkIndex="0" from="B0C0_0" to="C0D0_0">
+        <link linkIndex="0" from="B0C0_0" to=":C0_0_0">
             <driveWay id="C0.0" vehicle="v_0" edges="C0D0 D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="C0D0_0"/>
+                <forward lanes=":C0_0_0 C0D0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -79,9 +79,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="D0">
-        <link linkIndex="0" from="C0D0_0" to="D0E0_0">
+        <link linkIndex="0" from="C0D0_0" to=":D0_0_0">
             <driveWay id="D0.0" vehicle="v_0" edges="D0E0 E0F0 F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="D0E0_0"/>
+                <forward lanes=":D0_0_0 D0E0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -90,9 +90,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="E0">
-        <link linkIndex="0" from="D0E0_0" to="E0F0_0">
+        <link linkIndex="0" from="D0E0_0" to=":E0_0_0">
             <driveWay id="E0.0" vehicle="v_0" edges="E0F0 F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="E0F0_0"/>
+                <forward lanes=":E0_0_0 E0F0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -101,9 +101,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="F0">
-        <link linkIndex="0" from="E0F0_0" to="F0G0_0">
+        <link linkIndex="0" from="E0F0_0" to=":F0_0_0">
             <driveWay id="F0.0" vehicle="v_0" edges="F0G0 G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="F0G0_0"/>
+                <forward lanes=":F0_0_0 F0G0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -112,9 +112,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="G0">
-        <link linkIndex="0" from="F0G0_0" to="G0H0_0">
+        <link linkIndex="0" from="F0G0_0" to=":G0_0_0">
             <driveWay id="G0.0" vehicle="v_0" edges="G0H0 H0I0 I0J0 J0right0">
-                <forward lanes="G0H0_0"/>
+                <forward lanes=":G0_0_0 G0H0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -123,9 +123,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="H0">
-        <link linkIndex="0" from="G0H0_0" to="H0I0_0">
+        <link linkIndex="0" from="G0H0_0" to=":H0_0_0">
             <driveWay id="H0.0" vehicle="v_0" edges="H0I0 I0J0 J0right0">
-                <forward lanes="H0I0_0"/>
+                <forward lanes=":H0_0_0 H0I0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -134,9 +134,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="I0">
-        <link linkIndex="0" from="H0I0_0" to="I0J0_0">
+        <link linkIndex="0" from="H0I0_0" to=":I0_0_0">
             <driveWay id="I0.0" vehicle="v_0" edges="I0J0 J0right0">
-                <forward lanes="I0J0_0"/>
+                <forward lanes=":I0_0_0 I0J0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
@@ -145,9 +145,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="J0">
-        <link linkIndex="0" from="I0J0_0" to="J0right0_0">
+        <link linkIndex="0" from="I0J0_0" to=":J0_0_0">
             <driveWay id="J0.0" vehicle="v_0" edges="J0right0">
-                <forward lanes="J0right0_0"/>
+                <forward lanes=":J0_0_0 J0right0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>

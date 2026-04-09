@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-18T08:52:20.504564+01:00 by Eclipse SUMO sumo v1_25_0+1041-b12d5b0c044
+<!-- generated on 2026-04-09T16:38:01.692989+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,22 +47,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <railsignal-vehicle-output>
     <railSignal id="gneJ6">
-        <link linkIndex="0" from="-a_0" to="-b_0">
-            <driveWay id="gneJ6.0">
-                <entry id="EW" time="15.00" reason="junction"/>
-                <exit id="EW" time="64.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="-a_0" to=":gneJ6_0_0">
+            <driveWay id="gneJ6.0"/>
             <subDriveWay id="gneJ6.0.0"/>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
-        <link linkIndex="0" from="a_0" to="b_0">
-            <driveWay id="gneJ8.0">
-                <entry id="WE0" time="56.00" reason="junction"/>
-                <entry id="WE1" time="63.00" reason="junction"/>
-                <exit id="WE0" time="178.00" reason="arrived"/>
-                <exit id="WE1" time="185.00" reason="arrived"/>
-            </driveWay>
+        <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
+            <driveWay id="gneJ8.0"/>
             <subDriveWay id="gneJ8.0.0"/>
         </link>
     </railSignal>

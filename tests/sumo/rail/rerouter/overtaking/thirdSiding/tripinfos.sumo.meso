@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-27T17:26:33.059524+01:00 by Eclipse SUMO sumo v1_26_0+0868-c9ff84c7a9f
+<!-- generated on 2026-04-09T16:38:02.029738+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="1273.00" arrivalLane="E17_0" arrivalPos="15000.00" arrivalSpeed="22.22" duration="1273.00" routeLength="28269.42" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="44.44" departDelay="0.00" arrival="1612.00" arrivalLane="E17_0" arrivalPos="15000.00" arrivalSpeed="44.44" duration="1612.00" routeLength="38046.56" waitingTime="755.00" waitingCount="5" stopTime="0.00" timeLoss="755.00" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_2" depart="0.00" departLane="E1_0" departPos="0.00" departSpeed="22.22" departDelay="0.00" arrival="1276.00" arrivalLane="E17_0" arrivalPos="15000.00" arrivalSpeed="22.22" duration="1276.00" routeLength="28332.74" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_v_2 tripinfo_v_2" vType="train_slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v_0" depart="0.00" departLane="E0_0" departPos="15000.00" departSpeed="44.44" departDelay="0.00" arrival="1278.00" arrivalLane="E17_0" arrivalPos="15000.00" arrivalSpeed="44.44" duration="1278.00" routeLength="38108.62" waitingTime="390.42" waitingCount="191" stopTime="0.00" timeLoss="419.76" rerouteNo="0" devices="vehroute_v_0 tripinfo_v_0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>

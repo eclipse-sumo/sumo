@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-24 11:20:35 by Eclipse SUMO sumo Version v1_23_1+0287-c293321ede3
+<!-- generated on 2026-04-09T16:37:55.846202+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,9 +42,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="person_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="49.00" waitingTime="0.00" timeLoss="0.84" traveltime="49.00">
+    <personinfo id="person_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="51.00" waitingTime="0.00" timeLoss="0.84" traveltime="51.00">
         <walk depart="0.00" departPos="0.00" arrival="34.00" arrivalPos="46.05" duration="34.00" routeLength="46.05" timeLoss="0.84" maxSpeed="1.39" waitingTime="0.00"/>
-        <ride waitingTime="0.00" vehicle="veh0" depart="34.00" arrival="49.00" arrivalPos="120.32" duration="15.00" routeLength="81.70" timeLoss="0.00"/>
+        <ride waitingTime="0.00" vehicle="veh0" depart="34.00" arrival="51.00" arrivalPos="120.32" duration="17.00" routeLength="163.40" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="veh0" depart="34.00" departLane="CW_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="49.00" arrivalLane="WS_1" arrivalPos="120.32" arrivalSpeed="13.89" duration="15.00" routeLength="202.02" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_veh0 tripinfo_veh0 person_veh0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="veh0" depart="34.00" departLane="CW_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="51.00" arrivalLane="WS_1" arrivalPos="120.32" arrivalSpeed="13.89" duration="17.00" routeLength="223.17" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_veh0 tripinfo_veh0 person_veh0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

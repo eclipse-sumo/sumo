@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 09:16:41 2020 by Eclipse SUMO Version v1_5_0+1186-45cd1c69fe
+<!-- generated on 2026-04-09T16:35:13.181726+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -38,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <linkData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/amitran/linkdata.xsd">
@@ -52,8 +56,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="34" amount="28">
             <actorConfig id="0" amount="28"/>
         </link>
-        <link id="35" amount="40">
-            <actorConfig id="0" amount="40"/>
+        <link id="35" amount="38">
+            <actorConfig id="0" amount="38"/>
         </link>
         <link id="36" amount="32">
             <actorConfig id="0" amount="32"/>
@@ -61,40 +65,40 @@ SPDX-License-Identifier: EPL-2.0
         <link id="37" amount="29">
             <actorConfig id="0" amount="29"/>
         </link>
-        <link id="38" amount="44">
-            <actorConfig id="0" amount="44"/>
+        <link id="38" amount="43">
+            <actorConfig id="0" amount="43"/>
         </link>
-        <link id="39" amount="8">
-            <actorConfig id="0" amount="8"/>
+        <link id="39" amount="7">
+            <actorConfig id="0" amount="7"/>
         </link>
         <link id="40" amount="36">
             <actorConfig id="0" amount="36"/>
         </link>
-        <link id="41" amount="28">
-            <actorConfig id="0" amount="28"/>
+        <link id="41" amount="27">
+            <actorConfig id="0" amount="27"/>
         </link>
         <link id="42" amount="40">
             <actorConfig id="0" amount="40"/>
         </link>
-        <link id="43" amount="21">
-            <actorConfig id="0" amount="21"/>
+        <link id="43" amount="20">
+            <actorConfig id="0" amount="20"/>
         </link>
     </timeSlice>
     <timeSlice startTime="300000" duration="300000">
-        <link id="32" amount="102">
-            <actorConfig id="0" amount="102"/>
+        <link id="32" amount="101">
+            <actorConfig id="0" amount="101"/>
         </link>
-        <link id="33" amount="81">
-            <actorConfig id="0" amount="81"/>
+        <link id="33" amount="80">
+            <actorConfig id="0" amount="80"/>
         </link>
-        <link id="34" amount="83">
-            <actorConfig id="0" amount="83"/>
+        <link id="34" amount="82">
+            <actorConfig id="0" amount="82"/>
         </link>
         <link id="35" amount="120">
             <actorConfig id="0" amount="120"/>
         </link>
-        <link id="36" amount="90">
-            <actorConfig id="0" amount="90"/>
+        <link id="36" amount="89">
+            <actorConfig id="0" amount="89"/>
         </link>
         <link id="37" amount="90">
             <actorConfig id="0" amount="90"/>
@@ -102,20 +106,20 @@ SPDX-License-Identifier: EPL-2.0
         <link id="38" amount="131">
             <actorConfig id="0" amount="131"/>
         </link>
-        <link id="39" amount="81">
-            <actorConfig id="0" amount="81"/>
+        <link id="39" amount="80">
+            <actorConfig id="0" amount="80"/>
         </link>
-        <link id="40" amount="83">
-            <actorConfig id="0" amount="83"/>
+        <link id="40" amount="82">
+            <actorConfig id="0" amount="82"/>
         </link>
-        <link id="41" amount="89">
-            <actorConfig id="0" amount="89"/>
+        <link id="41" amount="90">
+            <actorConfig id="0" amount="90"/>
         </link>
         <link id="42" amount="90">
             <actorConfig id="0" amount="90"/>
         </link>
-        <link id="43" amount="89">
-            <actorConfig id="0" amount="89"/>
+        <link id="43" amount="90">
+            <actorConfig id="0" amount="90"/>
         </link>
     </timeSlice>
     <timeSlice startTime="600000" duration="300000">
@@ -137,8 +141,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="37" amount="90">
             <actorConfig id="0" amount="90"/>
         </link>
-        <link id="38" amount="151">
-            <actorConfig id="0" amount="151"/>
+        <link id="38" amount="150">
+            <actorConfig id="0" amount="150"/>
         </link>
         <link id="39" amount="90">
             <actorConfig id="0" amount="90"/>
@@ -146,8 +150,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="40" amount="90">
             <actorConfig id="0" amount="90"/>
         </link>
-        <link id="41" amount="91">
-            <actorConfig id="0" amount="91"/>
+        <link id="41" amount="90">
+            <actorConfig id="0" amount="90"/>
         </link>
         <link id="42" amount="90">
             <actorConfig id="0" amount="90"/>
@@ -175,8 +179,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="37" amount="30">
             <actorConfig id="0" amount="30"/>
         </link>
-        <link id="38" amount="49">
-            <actorConfig id="0" amount="49"/>
+        <link id="38" amount="50">
+            <actorConfig id="0" amount="50"/>
         </link>
         <link id="39" amount="30">
             <actorConfig id="0" amount="30"/>
@@ -190,8 +194,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="42" amount="30">
             <actorConfig id="0" amount="30"/>
         </link>
-        <link id="43" amount="31">
-            <actorConfig id="0" amount="31"/>
+        <link id="43" amount="30">
+            <actorConfig id="0" amount="30"/>
         </link>
     </timeSlice>
 </linkData>

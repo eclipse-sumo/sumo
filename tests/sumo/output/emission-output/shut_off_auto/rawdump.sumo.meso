@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-22 20:30:19 by Eclipse SUMO sumo Version v1_22_0+1646-d8cbcaf97a5
+<!-- generated on 2026-04-09T16:35:12.984964+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -150,4 +150,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="370.00">
         <vehicle id="4" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.15" noise="64.57" route="r1" type="BEV" waiting="0.00" edge="CE" pos="0.00" speed="13.89" angle="90.00" x="108.05" y="95.05"/>
     </timestep>
+    <timestep time="375.00"/>
 </emission-export>

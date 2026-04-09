@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-13 08:42:12 by Eclipse SUMO sumo Version v1_19_0+1242-31df3b22fbb
+<!-- generated on 2026-04-09T16:38:02.198923+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -41,9 +42,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
@@ -469,7 +471,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="16355.00">
         <vehicle id="RE1" x="-78.35" y="-1376.22" angle="89.40" type="REDosto7" speed="44.44" pos="292.63" edge="gneE16" slope="0.00"/>
-        <vehicle id="RE2" x="701.96" y="-1368.06" angle="269.40" type="REDosto7" speed="44.44" pos="390.17" edge="-gneE16" slope="0.00"/>
+        <vehicle id="RE2" x="799.50" y="-1367.04" angle="269.40" type="REDosto7" speed="44.44" pos="292.63" edge="-gneE16" slope="0.00"/>
     </timestep>
     <timestep time="16356.00">
         <vehicle id="RE1" x="19.19" y="-1375.20" angle="89.40" type="REDosto7" speed="44.44" pos="390.17" edge="gneE16" slope="0.00"/>
@@ -512,8 +514,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="311.81" y="-1372.14" angle="269.40" type="REDosto7" speed="44.44" pos="780.35" edge="-gneE16" slope="0.00"/>
     </timestep>
     <timestep time="16366.00">
-        <vehicle id="RE1" x="506.88" y="-1370.10" angle="89.40" type="REDosto7" speed="44.44" pos="877.89" edge="gneE16" slope="0.00"/>
-        <vehicle id="RE2" x="214.27" y="-1373.16" angle="269.40" type="REDosto7" speed="44.44" pos="877.89" edge="-gneE16" slope="0.00"/>
+        <vehicle id="RE1" x="409.34" y="-1371.12" angle="89.40" type="REDosto7" speed="44.44" pos="780.35" edge="gneE16" slope="0.00"/>
+        <vehicle id="RE2" x="311.81" y="-1372.14" angle="269.40" type="REDosto7" speed="44.44" pos="780.35" edge="-gneE16" slope="0.00"/>
     </timestep>
     <timestep time="16367.00">
         <vehicle id="RE1" x="506.88" y="-1370.10" angle="89.40" type="REDosto7" speed="44.44" pos="877.89" edge="gneE16" slope="0.00"/>
@@ -556,8 +558,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-175.88" y="-1377.24" angle="269.40" type="REDosto7" speed="44.44" pos="1268.06" edge="-gneE16" slope="0.00"/>
     </timestep>
     <timestep time="16377.00">
-        <vehicle id="RE1" x="994.57" y="-1365.00" angle="89.40" type="REDosto7" speed="44.44" pos="1365.61" edge="gneE16" slope="0.00"/>
-        <vehicle id="RE2" x="-273.42" y="-1378.26" angle="269.40" type="REDosto7" speed="44.44" pos="1365.61" edge="-gneE16" slope="0.00"/>
+        <vehicle id="RE1" x="897.03" y="-1366.02" angle="89.40" type="REDosto7" speed="44.44" pos="1268.06" edge="gneE16" slope="0.00"/>
+        <vehicle id="RE2" x="-175.88" y="-1377.24" angle="269.40" type="REDosto7" speed="44.44" pos="1268.06" edge="-gneE16" slope="0.00"/>
     </timestep>
     <timestep time="16378.00">
         <vehicle id="RE1" x="994.57" y="-1365.00" angle="89.40" type="REDosto7" speed="44.44" pos="1365.61" edge="gneE16" slope="0.00"/>
@@ -592,16 +594,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-563.60" y="-1319.71" angle="287.34" type="REDosto7" speed="44.44" pos="193.52" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16386.00">
-        <vehicle id="RE1" x="1392.65" y="-1378.66" angle="89.74" type="REDosto7" speed="44.44" pos="291.04" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-657.05" y="-1297.92" angle="270.29" type="REDosto7" speed="44.44" pos="290.28" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="1295.64" y="-1379.09" angle="89.74" type="REDosto7" speed="44.44" pos="194.03" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-563.60" y="-1319.71" angle="287.34" type="REDosto7" speed="44.44" pos="193.52" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16387.00">
         <vehicle id="RE1" x="1392.65" y="-1378.66" angle="89.74" type="REDosto7" speed="44.44" pos="291.04" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-657.05" y="-1297.92" angle="270.29" type="REDosto7" speed="44.44" pos="290.28" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16388.00">
-        <vehicle id="RE1" x="1489.66" y="-1378.22" angle="89.74" type="REDosto7" speed="44.44" pos="388.05" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-753.81" y="-1297.44" angle="270.29" type="REDosto7" speed="44.44" pos="387.04" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="1392.65" y="-1378.66" angle="89.74" type="REDosto7" speed="44.44" pos="291.04" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-657.05" y="-1297.92" angle="270.29" type="REDosto7" speed="44.44" pos="290.28" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16389.00">
         <vehicle id="RE1" x="1489.66" y="-1378.22" angle="89.74" type="REDosto7" speed="44.44" pos="388.05" edge="gneE17" slope="0.00"/>
@@ -609,7 +611,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="16390.00">
         <vehicle id="RE1" x="1489.66" y="-1378.22" angle="89.74" type="REDosto7" speed="44.44" pos="388.05" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-850.57" y="-1296.96" angle="270.29" type="REDosto7" speed="44.44" pos="483.80" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE2" x="-753.81" y="-1297.44" angle="270.29" type="REDosto7" speed="44.44" pos="387.04" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16391.00">
         <vehicle id="RE1" x="1586.67" y="-1377.79" angle="89.74" type="REDosto7" speed="44.44" pos="485.07" edge="gneE17" slope="0.00"/>
@@ -636,7 +638,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-1044.08" y="-1295.99" angle="270.29" type="REDosto7" speed="44.44" pos="677.31" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16397.00">
-        <vehicle id="RE1" x="1877.71" y="-1376.48" angle="89.74" type="REDosto7" speed="44.44" pos="776.10" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE1" x="1780.70" y="-1376.91" angle="89.74" type="REDosto7" speed="44.44" pos="679.09" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-1140.84" y="-1295.51" angle="270.29" type="REDosto7" speed="44.44" pos="774.07" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16398.00">
@@ -644,16 +646,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-1140.84" y="-1295.51" angle="270.29" type="REDosto7" speed="44.44" pos="774.07" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16399.00">
-        <vehicle id="RE1" x="1974.72" y="-1376.04" angle="89.74" type="REDosto7" speed="44.44" pos="873.12" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-1237.60" y="-1295.03" angle="270.29" type="REDosto7" speed="44.44" pos="870.83" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="1877.71" y="-1376.48" angle="89.74" type="REDosto7" speed="44.44" pos="776.10" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-1140.84" y="-1295.51" angle="270.29" type="REDosto7" speed="44.44" pos="774.07" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16400.00">
         <vehicle id="RE1" x="1974.72" y="-1376.04" angle="89.74" type="REDosto7" speed="44.44" pos="873.12" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-1237.60" y="-1295.03" angle="270.29" type="REDosto7" speed="44.44" pos="870.83" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16401.00">
-        <vehicle id="RE1" x="2071.74" y="-1375.61" angle="89.74" type="REDosto7" speed="44.44" pos="970.13" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-1334.35" y="-1294.55" angle="270.29" type="REDosto7" speed="44.44" pos="967.59" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="1974.72" y="-1376.04" angle="89.74" type="REDosto7" speed="44.44" pos="873.12" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-1237.60" y="-1295.03" angle="270.29" type="REDosto7" speed="44.44" pos="870.83" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16402.00">
         <vehicle id="RE1" x="2071.74" y="-1375.61" angle="89.74" type="REDosto7" speed="44.44" pos="970.13" edge="gneE17" slope="0.00"/>
@@ -688,7 +690,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-1624.63" y="-1293.10" angle="270.29" type="REDosto7" speed="44.44" pos="1257.87" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16410.00">
-        <vehicle id="RE1" x="2459.79" y="-1373.86" angle="89.74" type="REDosto7" speed="44.44" pos="1358.18" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE1" x="2362.77" y="-1374.30" angle="89.74" type="REDosto7" speed="44.44" pos="1261.17" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-1721.38" y="-1292.62" angle="270.29" type="REDosto7" speed="44.44" pos="1354.63" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16411.00">
@@ -696,8 +698,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-1721.38" y="-1292.62" angle="270.29" type="REDosto7" speed="44.44" pos="1354.63" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16412.00">
-        <vehicle id="RE1" x="2556.80" y="-1373.43" angle="89.74" type="REDosto7" speed="44.44" pos="1455.20" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-1818.14" y="-1292.14" angle="270.29" type="REDosto7" speed="44.44" pos="1451.39" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="2459.79" y="-1373.86" angle="89.74" type="REDosto7" speed="44.44" pos="1358.18" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-1721.38" y="-1292.62" angle="270.29" type="REDosto7" speed="44.44" pos="1354.63" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16413.00">
         <vehicle id="RE1" x="2556.80" y="-1373.43" angle="89.74" type="REDosto7" speed="44.44" pos="1455.20" edge="gneE17" slope="0.00"/>
@@ -705,7 +707,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="16414.00">
         <vehicle id="RE1" x="2556.80" y="-1373.43" angle="89.74" type="REDosto7" speed="44.44" pos="1455.20" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-1914.90" y="-1291.65" angle="270.29" type="REDosto7" speed="44.44" pos="1548.15" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE2" x="-1818.14" y="-1292.14" angle="270.29" type="REDosto7" speed="44.44" pos="1451.39" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16415.00">
         <vehicle id="RE1" x="2653.81" y="-1372.99" angle="89.74" type="REDosto7" speed="44.44" pos="1552.21" edge="gneE17" slope="0.00"/>
@@ -732,7 +734,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-2108.41" y="-1290.69" angle="270.29" type="REDosto7" speed="44.44" pos="1741.66" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16421.00">
-        <vehicle id="RE1" x="2944.85" y="-1371.68" angle="89.74" type="REDosto7" speed="44.44" pos="1843.25" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE1" x="2847.84" y="-1372.12" angle="89.74" type="REDosto7" speed="44.44" pos="1746.23" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-2205.17" y="-1290.21" angle="270.29" type="REDosto7" speed="44.44" pos="1838.42" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16422.00">
@@ -740,16 +742,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="RE2" x="-2205.17" y="-1290.21" angle="270.29" type="REDosto7" speed="44.44" pos="1838.42" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16423.00">
-        <vehicle id="RE1" x="3041.86" y="-1371.25" angle="89.74" type="REDosto7" speed="44.44" pos="1940.26" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-2301.93" y="-1289.73" angle="270.29" type="REDosto7" speed="44.44" pos="1935.18" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="2944.85" y="-1371.68" angle="89.74" type="REDosto7" speed="44.44" pos="1843.25" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-2205.17" y="-1290.21" angle="270.29" type="REDosto7" speed="44.44" pos="1838.42" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16424.00">
         <vehicle id="RE1" x="3041.86" y="-1371.25" angle="89.74" type="REDosto7" speed="44.44" pos="1940.26" edge="gneE17" slope="0.00"/>
         <vehicle id="RE2" x="-2301.93" y="-1289.73" angle="270.29" type="REDosto7" speed="44.44" pos="1935.18" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16425.00">
-        <vehicle id="RE1" x="3138.87" y="-1370.81" angle="89.74" type="REDosto7" speed="44.44" pos="2037.27" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-2398.69" y="-1289.24" angle="270.29" type="REDosto7" speed="44.44" pos="2031.94" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE1" x="3041.86" y="-1371.25" angle="89.74" type="REDosto7" speed="44.44" pos="1940.26" edge="gneE17" slope="0.00"/>
+        <vehicle id="RE2" x="-2301.93" y="-1289.73" angle="270.29" type="REDosto7" speed="44.44" pos="1935.18" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16426.00">
         <vehicle id="RE1" x="3138.87" y="-1370.81" angle="89.74" type="REDosto7" speed="44.44" pos="2037.27" edge="gneE17" slope="0.00"/>
@@ -757,7 +759,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="16427.00">
         <vehicle id="RE1" x="3138.87" y="-1370.81" angle="89.74" type="REDosto7" speed="44.44" pos="2037.27" edge="gneE17" slope="0.00"/>
-        <vehicle id="RE2" x="-2495.44" y="-1288.76" angle="270.29" type="REDosto7" speed="44.44" pos="2128.70" edge="gneE15" slope="0.00"/>
+        <vehicle id="RE2" x="-2398.69" y="-1289.24" angle="270.29" type="REDosto7" speed="44.44" pos="2031.94" edge="gneE15" slope="0.00"/>
     </timestep>
     <timestep time="16428.00">
         <vehicle id="RE1" x="3235.89" y="-1370.38" angle="89.74" type="REDosto7" speed="44.44" pos="2134.29" edge="gneE17" slope="0.00"/>

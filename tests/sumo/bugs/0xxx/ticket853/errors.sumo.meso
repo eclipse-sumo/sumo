@@ -1,3 +1,0 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Error: Vehicle 'should_not_crash' has no valid route. No connection between edge ':gneJ1_1' and edge 'end'.
-Quitting (on error).
