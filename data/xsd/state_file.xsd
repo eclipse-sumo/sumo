@@ -250,6 +250,7 @@
         <xsd:attribute name="phase" type="xsd:int" use="required"/>
         <xsd:attribute name="duration" type="xsd:integer" use="required"/>
         <xsd:attribute name="active" type="boolType"/>
+        <xsd:attribute name="state" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="driveWayStateType">
