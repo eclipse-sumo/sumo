@@ -340,7 +340,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     if (isRailSignal && noLinks > 1 && myLinks.back()->isTurnaround() && s.showRails) {
         w = myWidth / (double)(noLinks - 1);
     }
-    double x1 = isRailSignal ? -myWidth * 0.5 : 0;
+    double x1 = isRailSignal && myIndex == 0 ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
         drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], shape, x1, x2);
