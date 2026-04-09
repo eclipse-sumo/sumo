@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-01 10:31:59 by Eclipse SUMO sumo Version v1_21_0+0544-8c77a935d25
+<!-- generated on 2026-04-09T08:37:27.495878+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0 f_0 e_0 d_0 c_0 b_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="A.0 A.1 B.0.0"/>
+                <foes driveWays="A.0 A.1 B.0"/>
             </driveWay>
             <driveWay id="A.1" vehicle="ego" edges="b c d o p">
                 <forward lanes="b_0 c_0"/>

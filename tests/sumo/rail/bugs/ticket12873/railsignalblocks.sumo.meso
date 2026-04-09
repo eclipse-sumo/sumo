@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-01 15:11:32 by Eclipse SUMO sumo Version v1_22_0+1199-35045ecb3f1
+<!-- generated on 2026-04-09T08:37:27.518456+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,7 +58,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J9_0"/>
-                <foes driveWays="J5.0 J5.1.1 J9.0.0"/>
+                <foes driveWays="J0.d0.0 J5.0 J5.1.1 J9.0.0"/>
+                <sidings foe="J0.d0.0">
+                    <siding start="-E8" end="-E7" length="113.36"/>
+                </sidings>
             </driveWay>
             <subDriveWay id="J5.0.0" vehicle="" edges="-E4">
                 <forward lanes="-E4_0"/>
@@ -110,7 +113,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="E0_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J9_0"/>
-            <foes driveWays="J6.d0 J6.d1 J9.0"/>
+            <foes driveWays="J0.d0.0 J6.d0 J6.d1 J9.0"/>
+            <sidings foe="J0.d0.0">
+                <siding start="-E8" end="-E7" length="113.36"/>
+            </sidings>
         </driveWay>
         <driveWay id="J6.d1" vehicle="v_1" edges="-E5 -E4 -E3 -E3.50 -E0">
             <forward lanes="-E5_0"/>
@@ -128,7 +134,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-E4_0 -E5_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J5_0 J7_0"/>
-            <foes driveWays="J0.d0 J5.1 J6.d0 J6.d1 J7.0"/>
+            <foes driveWays="J0.d0 J5.0.0 J5.1 J6.d0 J6.d1 J7.0"/>
+            <sidings foe="J5.0.0">
+                <siding start="E3" end="E3" length="94.64"/>
+            </sidings>
             <sidings foe="J6.d0">
                 <siding start="E3" end="E3" length="94.64"/>
             </sidings>

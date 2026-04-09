@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-19T17:50:52.815896+01:00 by Eclipse SUMO sumo v1_25_0+0646-5052cf5c68d
+<!-- generated on 2026-04-09T08:37:27.471943+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -69,7 +69,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T30_1_0 T24_1_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="G_0 P2_0"/>
-                <foes driveWays="A.0 G.2 P1.0.0 P2.0.1"/>
+                <foes driveWays="A.0 G.1.1 G.2 P1.0.0 P2.0.1"/>
+                <sidings foe="G.1.1">
+                    <siding start="T19_0" end="T20_0" length="1050.00"/>
+                </sidings>
             </driveWay>
             <subDriveWay id="A.0.0" vehicle="" edges="T18_0 T29_0">
                 <forward lanes="T18_0_0 T29_0_0"/>
@@ -153,7 +156,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T27_0_0 T14_0_0 T29_0_0 T18_0_0 T17_0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 B_0 F_0 N1_0"/>
-                <foes driveWays="B.0 B.1 F.0 F.1 G.0 G.1 G.2.0 N1.0.0 N2.0.2 N2.1.0 e3.d0"/>
+                <foes driveWays="A.0.0 B.0 B.1 F.0 F.1 G.0 G.1 G.2.0 N1.0.0 N2.0.2 N2.1.0 e3.d0"/>
+                <sidings foe="A.0.0">
+                    <siding start="T15_1" end="T8_1" length="850.00"/>
+                </sidings>
                 <sidings foe="e3.d0">
                     <siding start="T15_1" end="T8_1" length="850.00"/>
                 </sidings>
@@ -302,7 +308,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T29_1_0 T19_1_0 T20_1_0 T21_1_0 T30_1_0 T24_1_0"/>
             <flank lanes=""/>
             <conflictLinks signals="G_0 P1_0 P2_0"/>
-            <foes driveWays="G.2 P1.0 P2.0 e3.d0"/>
+            <foes driveWays="G.1.1 G.2 P1.0 P2.0 e3.d0"/>
+            <sidings foe="G.1.1">
+                <siding start="T19_0" end="T20_0" length="1050.00"/>
+            </sidings>
         </driveWay>
     </departJunction>
     <departJunction id="e1">

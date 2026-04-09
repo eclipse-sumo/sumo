@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-07T16:41:14.023489+01:00 by Eclipse SUMO sumo v1_26_0+1010-0a4f0f83d5b
+<!-- generated on 2026-04-09T08:37:27.150730+01:00 by Eclipse SUMO sumo v1_26_0+1026-da8771672f8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,9 +54,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-g_0 -h_0 -i_0 -j_0 -k_0 -l_0 -m_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="C2_0 G_0 I2_0"/>
-                <foes driveWays="A.0 A.1 C2.0.0 I2.0"/>
+                <foes driveWays="A.0 A.1 C2.0.0 G.0.0 I2.0 M.d0.0"/>
+                <sidings foe="G.0.0">
+                    <siding start="c" end="d" length="194.64"/>
+                </sidings>
                 <sidings foe="I2.0">
                     <siding start="c" end="d" length="194.64"/>
+                </sidings>
+                <sidings foe="M.d0.0">
+                    <siding start="c" end="d" length="194.64"/>
+                    <siding start="i" end="j" length="194.64"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="A.0.0" vehicle="" edges="b">
@@ -101,7 +108,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-l_0 -m_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="I2_0"/>
-                <foes driveWays="D.0 D.1.0 G.0.0 I2.0"/>
+                <foes driveWays="D.0 D.1.0 G.0.0 I2.0 M.d0.0"/>
+                <sidings foe="M.d0.0">
+                    <siding start="i" end="j" length="194.64"/>
+                </sidings>
             </driveWay>
             <subDriveWay id="D.0.0" vehicle="" edges="e f g h">
                 <forward lanes="e_0 f_0 g_0 h_0"/>
@@ -133,7 +143,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="b_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="D.0.1 D.1 G.0 J0.d0"/>
+                <foes driveWays="A.0.0 D.0.1 D.1 G.0 J0.d0"/>
+                <sidings foe="A.0.0">
+                    <siding start="-f2" end="-d2" length="323.34"/>
+                </sidings>
                 <sidings foe="J0.d0">
                     <siding start="-f2" end="-d2" length="323.34"/>
                 </sidings>
@@ -151,7 +164,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="d2_0 c2_0 b_0 a_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="D.0.0 I2.0 J0.d0"/>
+                <foes driveWays="A.0.0 D.0.0 I2.0 J0.d0"/>
+                <sidings foe="A.0.0">
+                    <siding start="-f2" end="-d2" length="323.34"/>
+                </sidings>
                 <sidings foe="J0.d0">
                     <siding start="-f2" end="-d2" length="323.34"/>
                 </sidings>
@@ -178,7 +194,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="h_0 g_0 f2_0 e2_0 d2_0 c2_0 b_0 a_0"/>
             <flank lanes=""/>
             <conflictLinks signals="A_0 D_0 J_0"/>
-            <foes driveWays="J.0 J0.d0 M.d0"/>
+            <foes driveWays="A.0.0 D.0.0 J.0 J0.d0 M.d0"/>
+            <sidings foe="A.0.0">
+                <siding start="-k2" end="-j2" length="234.07"/>
+                <siding start="-f2" end="-d2" length="323.34" intermediateEnds="-h"/>
+            </sidings>
+            <sidings foe="D.0.0">
+                <siding start="-k2" end="-j2" length="234.07"/>
+            </sidings>
             <sidings foe="J0.d0">
                 <siding start="-k2" end="-j2" length="234.07"/>
                 <siding start="-f2" end="-d2" length="323.34" intermediateEnds="-h"/>
@@ -195,9 +218,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-g_0 -h_0 -i_0 -j_0 -k_0 -l_0 -m_0"/>
             <flank lanes=""/>
             <conflictLinks signals="C2_0 G_0 I2_0"/>
-            <foes driveWays="C2.0 I2.0 J0.d0 J0.d1"/>
+            <foes driveWays="C2.0 G.0.0 I2.0 J0.d0 J0.d1 M.d0.0"/>
+            <sidings foe="G.0.0">
+                <siding start="c" end="d" length="194.64"/>
+            </sidings>
             <sidings foe="I2.0">
                 <siding start="c" end="d" length="194.64"/>
+            </sidings>
+            <sidings foe="M.d0.0">
+                <siding start="c" end="d" length="194.64"/>
+                <siding start="i" end="j" length="194.64" intermediateEnds="d"/>
             </sidings>
             <deadlock foes="A.0 G.0"/>
             <deadlock foes="A.0 D.1"/>
