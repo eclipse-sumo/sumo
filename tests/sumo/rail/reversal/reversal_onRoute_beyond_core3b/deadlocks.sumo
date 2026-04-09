@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T09:26:56.664049+01:00 by Eclipse SUMO sumo v1_26_0+1028-c32e4eaf29c
+<!-- generated on 2026-04-09T10:05:11.934930+01:00 by Eclipse SUMO sumo v1_26_0+1029-2aae9be17b6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <deadlock time="326.00" signals="J13 J9 J5" vehicles="v_0 v_2 v_1"/>
+    <deadlock time="335.00" signals="J13 J9 J5" vehicles="v_0 v_2 v_1"/>
 </additional>
