@@ -1904,9 +1904,16 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (gDebugFlag4) std::cout << "  subLastFinal=" << subLast << " movingBlock=" << movingBlock << " zipperC=" << zipperC << "\n";
 #endif
     if (bidiBlockedByEnd(*foe) && bidiBlockedBy(*this) && foe->forwardEndOnRoute(this)) {
-        std::set<const MSEdge*> firstEdge;
-        firstEdge.insert(foe->myRoute.front());
-        if (forwardRouteConflict(firstEdge, *this, true)) {
+        //std::set<const MSEdge*> firstEdge;
+        //firstEdge.insert(foe->myRoute.front());
+
+        ConstMSEdgeVector forward(myRoute.begin(), myRoute.begin() + myForwardEdgeCount);
+        ConstMSEdgeVector foeAfterForward(foe->myRoute.begin() + foe->myForwardEdgeCount,
+                foe->myRoute.begin() + MIN2(foe->myRoute.size(), foe->myForwardEdgeCount + forward.size()));
+        // @todo the check for forwardRouteConflict correctly reduces waiting in
+        // test rail/reversal/consecutive_before_reversal but creates deadlock in
+        // test rail/reversal/reversal_onRoute_beyond_core3b
+        if (forward == foeAfterForward /*&& forwardRouteConflict(firstEdge, *this, true)*/) {
             foe->myFoes.push_back(this);
             // foe will get the sidings
             addSidings(foe, true);
