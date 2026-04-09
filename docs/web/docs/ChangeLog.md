@@ -8,19 +8,29 @@ title: ChangeLog
 
 - sumo
   - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
-  - fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
-  - fixed invalid driveway assignment involving uncontrolled links at complex junctions of type rail_signal #17681
-  - fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
-  - stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
+  - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
+  - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
+  - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed failure to group taxi passengers when the dispatch-period is low #17644
   - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
-  - less crashes with parquet output (especially summary output) #17656
+  - Less crashes with parquet output (especially summary output) #17656
   - Fixed invalid signal state when loading from saved state and using WAUT #17675
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
   - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
   - Fixed platform dependency in lane changer #17747
-  - Fixed invalid error when loading railway state #17796
+  - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815
+  - Lanechanging state is now restored after loading #2380
+  - Fixed bugs that caused actuated traffic lights to differ in behavior after loading state #17849
+  - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532
+  - Railways:
+    - Fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
+    - Fixed invalid driveway assignment involving uncontrolled links at complex junctions of type rail_signal #17681
+    - Fixed invalid error when loading railway state #17796
+    - Fixed train collision #17821
+    - Fixed deadlock when multiple vehicles approach the same siding #17834
+    - Fixed deadlock caused by missing foe driveway #17835
+    - Rail signals on shared lanes are now working regardless of permissions #17848
 
 - sumo-gui
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
@@ -28,6 +38,7 @@ title: ChangeLog
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
   - Fixed invalid lane color when switching from (meso) segment colors to functional color (i.e. TAZ) #17704
   - Shift-click to select lanes now reliably activates edge annotations that are restricted to "only for selected" #17734
+  - Fixed misleading rail signal visualization when trams share a multi-lane road with cars #17846
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
@@ -42,6 +53,8 @@ title: ChangeLog
   - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
   - Fixed invalid default extension when saving plain-xml #17778 (regression in 1.26.0)
   - Transparent junctions no longer show up as white in view #17751
+  - Fixed invalid error when loading stop that ends on lane end #17818
+  - Custom Shape colour gui setting now takes effect #17828
 
 - netconvert
   - Fixed superfluous bidi-edges when repairing ptLine #17754 (regression in 1.26.0)
@@ -61,10 +74,12 @@ title: ChangeLog
   - OSM: fixed invalid spreadType of one-way roads when setting **--default.spreadtype=roadCenter** #17755
   - OSM: fixed bug that was causing invalid rail signals to be generated #17781
   - OSM: fixed invalid distances (kilometrage) #17784
+  - OSM: fixed invalid spreadType right in rail network #17823
 
 - meso
   - parking vehicles that cannot enter the road now collect waitingTime #17797
   - fixed crash when loading state with parked vehicle #17805
+  - Fixed crash in rail simulation after teleport #17836
 
 - duarouter
   - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
@@ -112,6 +127,7 @@ title: ChangeLog
 
 
 - meso
+  - When the loaded network has internal links they are used instead of jumping of intersections (legacy behavior can be enabled with sumo option **--no-internal-links**) #17842
   - edge-type specific meso parameters now support `edgeLength` #17582
   - now supporting battery device #13843
   - tripinfo-output now tracks waitingCount #17799
