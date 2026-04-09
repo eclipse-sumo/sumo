@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T18:13:06.695759+01:00 by Eclipse SUMO sumo v1_26_0+1043-6a63031e565
+<!-- generated on 2026-04-09T18:13:05.223733+01:00 by Eclipse SUMO sumo v1_26_0+1043-6a63031e565
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,11 +16,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
     </output>
 
@@ -35,20 +35,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
 </sumoConfiguration>
 -->
 
-<railsignal-block-output>
-    <railSignal id="J1">
-        <link linkIndex="0" from="-E1_0" to=":J1_0_0"/>
-        <link linkIndex="1" from="E0_0" to=":J1_1_0">
-            <driveWay id="J1.0" vehicle="v_0" edges="E1">
-                <forward lanes=":J1_1_0 E1_0"/>
-                <bidi lanes=""/>
-                <flank lanes=""/>
-                <conflictLinks signals=""/>
-                <foes driveWays="J1.0"/>
-            </driveWay>
-        </link>
-    </railSignal>
-</railsignal-block-output>
+<tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
+    <tlsState time="0.00" id="J1" programID="0" phase="0" state="G"/>
+</tlsStates>
