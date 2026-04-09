@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-09T11:50:10.175106+01:00 by Eclipse SUMO sumo v1_26_0+1029-2aae9be17b6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <deadlock-output value="deadlocks.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="J1">
+        <link linkIndex="0" from="-E1_0" to="-E0_0">
+            <driveWay id="J1.1" vehicle="v_0" edges="-E0">
+                <forward lanes="-E0_0"/>
+                <bidi lanes="E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="J0.d0 J1.1"/>
+            </driveWay>
+        </link>
+        <link linkIndex="1" from="E0_0" to="E1_0">
+            <driveWay id="J1.0" vehicle="v_0" edges="E1 E2 E3 E4 E8 E9 E10 E11 E15 E16 E17 E18 -E18 -E17 -E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E1_0 E2_0 E3_0 E4_0"/>
+                <bidi lanes="-E1_0 -E2_0 -E3_0 -E4_0 -E8_0 -E9_0 -E10_0"
+                    deadlockCheck="-E11_0 -E15_0 -E16_0 -E17_0 -E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E14_0 E13_0 E12_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J13_0 J15_0 J19_0 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J15.0 J15.1 J19.0 J3.0 J5.0 J5.1 J7.0 J9.0"/>
+                <sidings foe="J11.1.0">
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11"/>
+                </sidings>
+                <sidings foe="J13.0">
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11"/>
+                </sidings>
+                <sidings foe="J5.1">
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J1.0.0" vehicle="" edges="E1 E2">
+                <forward lanes="E1_0 E2_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J11">
+        <link linkIndex="0" from="E11_0" to="E15_0">
+            <driveWay id="J11.0" vehicle="v_0" edges="E15 E16 E17 E18 -E18 -E17 -E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E15_0 E16_0 E17_0 E18_0 -E18_0 -E17_0"/>
+                <bidi lanes="-E15_0 -E16_0 -E17_0 -E18_0 E18_0 E17_0 E16_0"
+                    deadlockCheck="E15_0 E11_0 E14_0 E13_0 E12_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J13_0 J19_0 J1_1 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J15.0.1 J15.1.0 J19.0 J5.0 J5.1 J7.0"/>
+                <sidings foe="J13.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J5.1">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J11.0.0" vehicle="" edges="E15 E16">
+                <forward lanes="E15_0 E16_0"/>
+            </subDriveWay>
+            <subDriveWay id="J11.0.1" vehicle="" edges="E15 E16 E17 E18 -E18">
+                <forward lanes="E15_0 E16_0 E17_0 E18_0 -E18_0"/>
+            </subDriveWay>
+            <driveWay id="J11.1" vehicle="v_1" edges="E15 E19 E20 E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E15_0 E19_0 E20_0"/>
+                <bidi lanes="-E15_0 -E19_0 -E20_0 -E21_0"
+                    deadlockCheck="-E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J13_0 J15_0 J19_0 J1_1 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0.1 J11.1 J13.0 J15.0.1 J15.1.0 J19.0.0 J5.0 J5.1.0 J7.0"/>
+                <sidings foe="J0.d0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J1.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J13.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J19.0.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J5.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J5.1.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J11.1.0" vehicle="" edges="E15">
+                <forward lanes="E15_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J13">
+        <link linkIndex="0" from="E13_0" to="E14_0">
+            <driveWay id="J13.0" vehicle="v_1" edges="E14 E11 E15 E19 E20 E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E14_0 E11_0"/>
+                <bidi lanes="-E14_0 -E11_0 -E15_0 -E19_0 -E20_0 -E21_0"
+                    deadlockCheck="-E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J15_0 J19_0 J1_1 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J15.0.3 J15.1.1 J19.0.0 J5.0 J5.1.0 J7.0"/>
+                <sidings foe="J0.d0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J1.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J11.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J11.1.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20"/>
+                </sidings>
+                <sidings foe="J19.0.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                </sidings>
+                <sidings foe="J5.1.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="E19" end="E20" length="163.36"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20"/>
+                </sidings>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J15">
+        <link linkIndex="0" from="-E17_0" to="-E16_0">
+            <driveWay id="J15.0" vehicle="v_0" edges="-E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="-E16_0 -E15_0 -E11_0 -E14_0 -E13_0 -E12_0 -E8_0 -E4_0 -E3_0"/>
+                <bidi lanes="E16_0 E15_0 E11_0 E14_0 E13_0 E12_0 E8_0 E4_0 E3_0 E2_0"
+                    deadlockCheck="E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J1_1 J7_0 J9_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0.0 J11.1.0 J13.0 J15.0 J15.1.1 J5.0 J5.1 J7.0 J9.0"/>
+            </driveWay>
+            <subDriveWay id="J15.0.0" vehicle="" edges="-E16 -E15 -E11 -E14 -E13 -E12 -E8">
+                <forward lanes="-E16_0 -E15_0 -E11_0 -E14_0 -E13_0 -E12_0 -E8_0"/>
+            </subDriveWay>
+            <subDriveWay id="J15.0.1" vehicle="" edges="-E16 -E15">
+                <forward lanes="-E16_0 -E15_0"/>
+            </subDriveWay>
+            <subDriveWay id="J15.0.2" vehicle="" edges="-E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4">
+                <forward lanes="-E16_0 -E15_0 -E11_0 -E14_0 -E13_0 -E12_0 -E8_0 -E4_0"/>
+            </subDriveWay>
+            <subDriveWay id="J15.0.3" vehicle="" edges="-E16 -E15 -E11 -E14">
+                <forward lanes="-E16_0 -E15_0 -E11_0 -E14_0"/>
+            </subDriveWay>
+            <subDriveWay id="J15.0.4" vehicle="" edges="-E16 -E15 -E11">
+                <forward lanes="-E16_0 -E15_0 -E11_0"/>
+            </subDriveWay>
+            <driveWay id="J15.1" vehicle="v_1" edges="-E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="-E16_0 -E15_0 -E11_0 -E10_0"/>
+                <bidi lanes="E16_0 E15_0 E11_0 E10_0 E9_0"
+                    deadlockCheck="E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J13_0 J1_1 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0.0 J11.1.0 J13.0 J15.0.4 J15.1 J5.0 J5.1.0 J7.0"/>
+                <sidings foe="J5.1.0">
+                    <siding start="-E10" end="-E10" length="144.64"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="-E10" end="-E10" length="144.64"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J15.1.0" vehicle="" edges="-E16 -E15">
+                <forward lanes="-E16_0 -E15_0"/>
+            </subDriveWay>
+            <subDriveWay id="J15.1.1" vehicle="" edges="-E16 -E15 -E11">
+                <forward lanes="-E16_0 -E15_0 -E11_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J19">
+        <link linkIndex="0" from="E20_0" to="E21_0">
+            <driveWay id="J19.0" vehicle="v_1" edges="E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E21_0 E18_0 -E18_0 -E17_0"/>
+                <bidi lanes="-E21_0 -E18_0 E18_0 E17_0 E16_0"
+                    deadlockCheck="E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J13_0 J1_1 J5_0 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J19.0 J5.0 J5.1.0 J7.0"/>
+                <sidings foe="J11.1.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J13.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J5.1.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                    <siding start="-E10" end="-E10" length="144.64"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                    <siding start="-E10" end="-E10" length="144.64"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J19.0.0" vehicle="" edges="E21 E18 -E18">
+                <forward lanes="E21_0 E18_0 -E18_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J3">
+        <link linkIndex="0" from="-E3_0" to="-E2_0">
+            <driveWay id="J3.0" vehicle="v_0" edges="-E2 -E1 -E0">
+                <forward lanes="-E2_0 -E1_0"/>
+                <bidi lanes="E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+                <foes driveWays="J0.d0 J1.0.0 J3.0"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J5">
+        <link linkIndex="0" from="E4_0" to="E8_0">
+            <driveWay id="J5.0" vehicle="v_0" edges="E8 E9 E10 E11 E15 E16 E17 E18 -E18 -E17 -E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E8_0 E9_0 E10_0 E11_0"/>
+                <bidi lanes="-E8_0 -E9_0 -E10_0 -E11_0 -E15_0 -E16_0 -E17_0"
+                    deadlockCheck="-E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E14_0 E13_0 E12_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J13_0 J19_0 J1_1 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J15.0.0 J15.1 J19.0 J5.0 J5.1 J7.0 J9.0.0"/>
+                <sidings foe="J11.1.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J5.0.0" vehicle="" edges="E8 E9">
+                <forward lanes="E8_0 E9_0"/>
+            </subDriveWay>
+            <driveWay id="J5.1" vehicle="v_1" edges="E8 E12 E13 E14 E11 E15 E19 E20 E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E8_0 E12_0 E13_0"/>
+                <bidi lanes="-E8_0 -E12_0 -E13_0 -E14_0"
+                    deadlockCheck="-E11_0 -E15_0 -E19_0 -E20_0 -E21_0 -E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J13_0 J15_0 J19_0 J1_1 J7_0 J9_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0 J11.1.0 J13.0 J15.0.0 J15.1.1 J19.0.0 J5.0 J5.1 J7.0 J9.0.0"/>
+                <sidings foe="J0.d0">
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                </sidings>
+                <sidings foe="J1.0">
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                </sidings>
+                <sidings foe="J11.0">
+                    <siding start="-E17" end="-E17" length="144.64"/>
+                </sidings>
+                <sidings foe="J11.1.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
+                </sidings>
+                <sidings foe="J13.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
+                </sidings>
+                <sidings foe="J15.1.1">
+                    <siding start="E12" end="E13" length="163.36"/>
+                </sidings>
+                <sidings foe="J19.0.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                </sidings>
+                <sidings foe="J7.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20 E11"/>
+                </sidings>
+            </driveWay>
+            <subDriveWay id="J5.1.0" vehicle="" edges="E8">
+                <forward lanes="E8_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J7">
+        <link linkIndex="0" from="E6_0" to="E7_0">
+            <driveWay id="J7.0" vehicle="v_1" edges="E7 E4 E8 E12 E13 E14 E11 E15 E19 E20 E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="E7_0 E4_0"/>
+                <bidi lanes="-E7_0 -E4_0 -E8_0 -E12_0 -E13_0 -E14_0"
+                    deadlockCheck="-E11_0 -E15_0 -E19_0 -E20_0 -E21_0 -E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J11_0 J13_0 J15_0 J19_0 J1_1 J5_0 J9_0"/>
+                <foes driveWays="J0.d0 J1.0 J11.0.1 J11.1.0 J13.0 J15.0.2 J15.1.1 J19.0.0 J5.0 J5.1.0 J7.0 J9.0.1"/>
+                <sidings foe="J0.d0">
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                </sidings>
+                <sidings foe="J11.0.1">
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                </sidings>
+                <sidings foe="J11.1.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11 E13"/>
+                </sidings>
+                <sidings foe="J13.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11 E13"/>
+                </sidings>
+                <sidings foe="J15.1.1">
+                    <siding start="E12" end="E13" length="163.36"/>
+                </sidings>
+                <sidings foe="J19.0.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                </sidings>
+                <sidings foe="J5.0">
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                </sidings>
+                <sidings foe="J5.1.0">
+                    <siding start="E12" end="E13" length="163.36"/>
+                    <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
+                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11 E13"/>
+                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20 E11 E13"/>
+                </sidings>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J9">
+        <link linkIndex="0" from="-E10_0" to="-E9_0">
+            <driveWay id="J9.0" vehicle="v_1" edges="-E9 -E8 -E4 -E3 -E2 -E1 -E0">
+                <forward lanes="-E9_0 -E8_0 -E4_0 -E3_0"/>
+                <bidi lanes="E9_0 E8_0 E4_0 E3_0 E2_0"
+                    deadlockCheck="E1_0 E0_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals="J15_0 J1_1 J7_0"/>
+                <foes driveWays="J0.d0 J1.0 J15.0 J5.0.0 J5.1.0 J7.0 J9.0"/>
+            </driveWay>
+            <subDriveWay id="J9.0.0" vehicle="" edges="-E9 -E8">
+                <forward lanes="-E9_0 -E8_0"/>
+            </subDriveWay>
+            <subDriveWay id="J9.0.1" vehicle="" edges="-E9 -E8 -E4">
+                <forward lanes="-E9_0 -E8_0 -E4_0"/>
+            </subDriveWay>
+        </link>
+    </railSignal>
+    <departJunction id="J0">
+        <driveWay id="J0.d0" vehicle="v_0" edges="E0 E1 E2 E3 E4 E8 E9 E10 E11 E15 E16 E17 E18 -E18 -E17 -E16 -E15 -E11 -E14 -E13 -E12 -E8 -E4 -E3 -E2 -E1 -E0">
+            <forward lanes="E0_0"/>
+            <bidi lanes="-E0_0 -E1_0 -E2_0 -E3_0"
+                    deadlockCheck="-E4_0 -E8_0 -E9_0 -E10_0 -E11_0 -E15_0 -E16_0 -E17_0 -E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E14_0 E13_0 E12_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals="J11_0 J13_0 J15_0 J19_0 J1_1 J5_0 J7_0 J9_0"/>
+            <foes driveWays="J0.d0 J1.0 J1.1 J11.0 J11.1.0 J13.0 J15.0 J15.1 J19.0 J3.0 J5.0 J5.1 J7.0 J9.0"/>
+            <sidings foe="J11.1.0">
+                <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11 E4"/>
+            </sidings>
+            <sidings foe="J13.0">
+                <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11 E4"/>
+            </sidings>
+            <sidings foe="J5.1">
+                <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11 E4"/>
+            </sidings>
+            <sidings foe="J7.0">
+                <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E11 E4"/>
+            </sidings>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J6">
+        <driveWay id="J6.d0" vehicle="v_1" edges="E6 E7 E4 E8 E12 E13 E14 E11 E15 E19 E20 E21 E18 -E18 -E17 -E16 -E15 -E11 -E10 -E9 -E8 -E4 -E3 -E2 -E1 -E0">
+            <forward lanes="E6_0"/>
+            <bidi lanes="-E6_0 -E7_0"
+                    deadlockCheck="-E4_0 -E8_0 -E12_0 -E13_0 -E14_0 -E11_0 -E15_0 -E19_0 -E20_0 -E21_0 -E18_0 E18_0 E17_0 E16_0 E15_0 E11_0 E10_0 E9_0 E8_0 E4_0 E3_0 E2_0 E1_0 E0_0"/>
+            <flank lanes=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J6.d0"/>
+        </driveWay>
+    </departJunction>
+</railsignal-block-output>
