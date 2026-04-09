@@ -79,6 +79,12 @@ follower_ends_before_reversal2
 # avoid spurious foe checks
 reversal_onRoute_beyond_core
 
+# avoid deadlock
+reversal_onRoute_beyond_core2
+
+# avoid deadlock (3 trains and an additional loop)
+reversal_onRoute_beyond_core3
+
 # avoid spurious foe checks	
 reversal_in_first_block
 
