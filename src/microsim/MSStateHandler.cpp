@@ -508,6 +508,15 @@ MSStateHandler::myEndElement(int element) {
                 // state was created with active option --keep-after-arrival
                 vc.deleteKeptVehicle(v);
             }
+            if (!MSGlobals::gUseMesoSim) {
+                for (MSVehicleControl::constVehIt i = vc.loadedVehBegin(); i != vc.loadedVehEnd(); ++i) {
+                    MSVehicle* microVeh = dynamic_cast<MSVehicle*>((*i).second);
+                    if (microVeh->hasDeparted() && microVeh->getLane() != nullptr) {
+                        // occupancy update must happen after all lane states have been loaded
+                        microVeh->updateBestLanes();
+                    }
+                }
+            }
             break;
         }
         default:
