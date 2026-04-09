@@ -1125,8 +1125,7 @@ MSDriveWay::buildRoute(const MSLink* origin,
         const std::vector<MSLink*>& links = toLane->getLinkCont();
         toLane = nullptr;
         for (const MSLink* const link : links) {
-            if ((next != end && &link->getLane()->getEdge() == *next)
-                    && isRailwayOrShared(link->getViaLaneOrLane()->getPermissions())) {
+            if ((next != end && &link->getLane()->getEdge() == *next)) {
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr && link->getTLIndex() >= 0 && link->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL) {
                     if (link == origin) {
