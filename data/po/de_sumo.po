@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-03-26 20:09+0000\n"
+"PO-Revision-Date: 2026-04-09 18:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1930,6 +1930,8 @@ msgstr "Beschleunigung zur FCD-Ausgabe hinzufügen"
 #: src/microsim/MSFrame.cpp:177
 msgid "Add relative speed (vehicle speed / edge speed limit) to the FCD output"
 msgstr ""
+"Relative Geschwindigkeit (Fahrzeuggeschwindigkeit / "
+"Kantengeschwindigkeitsbegrenzung) zur FCD-Ausgabe hinzufügen"
 
 #: src/microsim/MSFrame.cpp:179
 msgid ""
@@ -7286,6 +7288,8 @@ msgid ""
 "Set edge priority values based on public transport lines for the given list "
 "of vClasses"
 msgstr ""
+"Kantenprioritätswerte anhand von ÖV-Linien der gegebenen Liste an "
+"Fahrzeugklassen setzen"
 
 #: src/netbuild/NBFrame.cpp:270
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -7685,15 +7689,15 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of junctions to be controlled by TLS"
-msgstr ""
+msgstr "Behandelt STR[] als Liste durch LSA gesteuerter Knotenpunkte"
 
 #: src/netbuild/NBFrame.cpp:530
 msgid "Interprets STR[] as list of junctions to be not controlled by TLS"
-msgstr ""
+msgstr "Behandelt STR[] als Liste nicht durch LSA gesteuerter Knotenpunkte"
 
 #: src/netbuild/NBFrame.cpp:535
 msgid "Turns on TLS guessing"
-msgstr ""
+msgstr "Aktiviert die LSA-Heuristik"
 
 #: src/netbuild/NBFrame.cpp:538
 msgid ""
