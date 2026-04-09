@@ -117,7 +117,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     return MSGlobals::gUseMesoSim ? "" : microVeh->getLane()->getID();
                 }, mask, MSGlobals::gUseMesoSim);
                 of.writeFuncAttr(SUMO_ATTR_EDGE, [ = ]() {
-                    return veh->getEdge()->getID();
+                    return veh->getCurrentEdge()->getID();
                 }, mask, !MSGlobals::gUseMesoSim);
                 of.writeFuncAttr(SUMO_ATTR_SLOPE, [ = ]() {
                     return veh->getSlope();

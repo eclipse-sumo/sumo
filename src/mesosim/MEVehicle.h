@@ -75,6 +75,11 @@ public:
      */
     double getSlope() const;
 
+    /** @brief Returns the edge the vehicle is currently at (possibly an
+     * internal edge)
+     */
+    const MSEdge* getCurrentEdge() const;
+
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
     */

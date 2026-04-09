@@ -132,8 +132,12 @@ NLBuilder::build() {
         throw ProcessError(TL("Invalid network, no network version declared."));
     }
     // check whether the loaded net agrees with the simulation options
-    if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
+    if ((myOptions.getBool("no-internal-links")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
         WRITE_WARNING(TL("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times."));
+    }
+    if (!myXMLHandler.haveSeenInternalEdge() && myOptions.getBool("mesosim")) {
+        // @todo: setting this option has some side effect in microsim that manifest even in networks without internal lanes this should be checked
+        MSGlobals::gUsingInternalLanes = false;
     }
     buildNet();
     if (myOptions.isSet("alternative-net-file")) {

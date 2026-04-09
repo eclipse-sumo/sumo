@@ -288,6 +288,12 @@ MELoop::nextSegment(MESegment* s, MEVehicle* v) {
         // end of route
         return nullptr;
     }
+    if (MSGlobals::gUsingInternalLanes && s != nullptr && s->getEdge().isNormal()) {
+        const MSEdge* internal = s->getEdge().getInternalFollowingEdge(nextEdge, v->getVClass());
+        if (internal) {
+            nextEdge = internal;
+        }
+    }
     return myEdges2FirstSegments[nextEdge->getNumericalID()];
 }
 

@@ -90,6 +90,12 @@ MEVehicle::getSlope() const {
 }
 
 
+const MSEdge*
+MEVehicle::getCurrentEdge() const {
+    return mySegment != nullptr ? &mySegment->getEdge() : getEdge();
+}
+
+
 Position
 MEVehicle::getPosition(const double offset) const {
     const MSLane* const lane = getEdge()->getLanes()[0];

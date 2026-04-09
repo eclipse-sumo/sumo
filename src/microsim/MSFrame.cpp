@@ -1174,9 +1174,6 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gUsingInternalLanes = false;
-    }
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");

@@ -205,7 +205,7 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         // build repetition trigger if routing shall be done more often
         rebuildRerouteCommand(SIMSTEP + myPeriod);
     }
-    if (MSGlobals::gWeightsSeparateTurns > 0) {
+    if (MSGlobals::gWeightsSeparateTurns > 0 && enteredLane != nullptr) {
         if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
             const SUMOTime t = SIMSTEP;
             if (myLastLaneEntryTime >= 0 && enteredLane->isInternal()) {

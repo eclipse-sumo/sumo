@@ -622,7 +622,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     veh->setBlockTime(SUMOTime_MAX);
     if (!isDepart && (
                 // arrival on entering a new edge
-                (newEdge && veh->moveRoutePointer())
+                (newEdge && myEdge.isNormal() && veh->moveRoutePointer())
                 // arrival on entering a new segment
                 || veh->hasArrived())) {
         // route has ended
@@ -634,7 +634,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
-    assert(veh->getEdge() == &getEdge());
+    assert(veh->getEdge() == &getEdge() || getEdge().isInternal());
     // route continues
     Queue& q = myQueues[qIdx];
     const double maxSpeedOnEdge = veh->getEdge()->getLanes()[qIdx]->getVehicleMaxSpeed(veh);

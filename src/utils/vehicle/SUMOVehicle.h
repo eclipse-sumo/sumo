@@ -145,6 +145,9 @@ public:
      */
     virtual const ConstMSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
 
+    /// @return the current edge which may be internal
+    virtual const MSEdge* getCurrentEdge() const = 0;
+
     /** @brief Returns the vehicle's emission model parameter
      *
      * @return The vehicle's emission parameters
