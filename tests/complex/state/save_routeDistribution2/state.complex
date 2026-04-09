@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-14 14:49:58 by Eclipse SUMO sumo Version v1_23_1+0571-0c0912eecef
+<!-- generated on 2026-04-09T22:47:22.772105+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,7 +32,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_23_1+0571-0c0912eecef" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
-    <delay number="0" begin="2" end="2" depart="2.00" time="38.00"/>
+<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <delay number="0" begin="2" end="2" depart="2.00" time="38.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
 </snapshot>

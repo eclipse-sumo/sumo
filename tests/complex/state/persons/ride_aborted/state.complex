@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T21:56:05.249014+01:00 by Eclipse SUMO sumo v1_26_0+1055-d8ef8ce85fd
+<!-- generated on 2026-04-09T22:47:21.937310+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -24,9 +24,9 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1055-d8ef8ce85fd" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0" state="0" edges="3/1to2/1 1/1to0/1"/>
-    <delay number="0" begin="1" end="0" depart="0.00" time="0.00"/>
+    <delay number="0" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
     <vehicle id="v0" depart="20.00" route="!v0" distance="0 0" speedFactor="0.9383" reroute="1" state="262144 9223372036854774807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
