@@ -15,4 +15,8 @@
         <no-step-log value="true"/>
     </report>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
 </sumoConfiguration>

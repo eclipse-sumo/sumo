@@ -59,6 +59,11 @@ cfg.write('''<?xml version="1.0" encoding="UTF-8"?>
         <no-step-log value="true"/>
     </report>
 
+    <processing>
+       <default.departspeed value="0"/> 
+       <default.departlane value="first"/> 
+    </processing>
+
 </configuration>''' % (routeFile, stateFile, time))
 cfg.close()
 

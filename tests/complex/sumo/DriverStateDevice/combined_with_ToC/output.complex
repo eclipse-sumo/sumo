@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 time 1.0
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
@@ -26,5 +27,5 @@ Static parameters:
   mrmDecel = 1.20
 Dynamic parameters:
   currentAwareness = 1.00
-  currentSpeed = 0.0
+  currentSpeed = 19.6
   state = AUTOMATED

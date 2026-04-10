@@ -14,6 +14,8 @@
     <processing>
         <time-to-teleport value="-1"/>
         <default.speeddev value="0"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
     </processing>
 
     <report>

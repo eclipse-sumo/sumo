@@ -21,4 +21,9 @@
         <device.ssm.file value="ssm.xml"/>
     </ssm_device>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
 </sumoConfiguration>

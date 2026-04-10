@@ -52,6 +52,10 @@ if '--mesosim' in saveParams and '--mesosim' not in loadParams:
 saveParams = [p for p in saveParams if 'runner.py' not in p]
 loadParams = [p for p in loadParams if 'runner.py' not in p]
 
+legacyDefaults = ["--default.departspeed", "0", "--default.departlane", "first"]
+saveParams += legacyDefaults
+loadParams += legacyDefaults
+
 # print("save:", saveParams)
 # print("load:", loadParams)
 

@@ -29,9 +29,11 @@ os.chdir('data')
 if "taxi" in sys.argv:
     subprocess.call([sys.executable, "createNetTaxi.py"])
     if "cyber" in sys.argv:
-        subprocess.call([sumolib.checkBinary("sumo"), "park15_cyber.sumocfg"])
+        subprocess.call([sumolib.checkBinary("sumo"), "-c", "park15_cyber.sumocfg",
+                         "--default.departspeed", "0", "--default.departlane", "first"])
     else:
-        subprocess.call([sumolib.checkBinary("sumo"), "park15.sumocfg"])
+        subprocess.call([sumolib.checkBinary("sumo"), "-c", "park15.sumocfg",
+                         "--default.departspeed", "0", "--default.departlane", "first"])
 else:
     subprocess.call([sys.executable, "createNet.py"])
     options = ["-t"]

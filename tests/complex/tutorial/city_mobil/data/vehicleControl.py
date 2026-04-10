@@ -105,7 +105,7 @@ def init(manager):
     sumoConfig = "%s%02i.sumocfg" % (PREFIX, options.demand)
     if options.cyber:
         sumoConfig = "%s%02i_cyber.sumocfg" % (PREFIX, options.demand)
-    traci.start([sumoExe, "-c", sumoConfig])
+    traci.start([sumoExe, "-c", sumoConfig, "--default.departspeed", "0", "--default.departlane", "first"])
     traci.simulation.subscribe()
     setting.manager = manager
     setting.verbose = options.verbose
