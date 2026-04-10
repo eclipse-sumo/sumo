@@ -546,9 +546,9 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
     }
     if (!ok) {
         if (id.empty()) {
-            error = "Invalid departSpeed definition for " + element + ". Must be one of (\"random\", \"max\", or a float>=0)";
+            error = "Invalid departSpeed '" + val + "' definition for " + element + ". Must be one of (\"random\", \"max\", or a float>=0)";
         } else {
-            error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
+            error = "Invalid departSpeed definition '" + val + "' for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
         }
     }
     return ok;
