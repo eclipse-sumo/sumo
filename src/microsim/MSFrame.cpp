@@ -527,10 +527,10 @@ MSFrame::fillOptions() {
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", TL("Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"));
 
-    oc.doRegister("default.departspeed", new Option_String("0"));
+    oc.doRegister("default.departspeed", new Option_String("avg"));
     oc.addDescription("default.departspeed", "Processing", TL("Select default depart speed"));
 
-    oc.doRegister("default.departlane", new Option_String("first"));
+    oc.doRegister("default.departlane", new Option_String("best_prob"));
     oc.addDescription("default.departlane", "Processing", TL("Select default depart lane"));
 
     oc.doRegister("default.action-step-length", new Option_Float(0.0));
