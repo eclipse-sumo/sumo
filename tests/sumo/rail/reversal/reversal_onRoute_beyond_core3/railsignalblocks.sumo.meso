@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:02.149918+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-10T15:40:45.179415+01:00 by Eclipse SUMO sumo v1_26_0+1071-50994ad4b6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,8 +66,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J0.d0">
                     <siding start="E5" end="E6" length="163.36"/>
                     <siding start="E12" end="E13" length="163.36"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="E13"/>
-                    <siding start="-E3" end="-E3" length="144.64" intermediateEnds="-E8 -E10 E13"/>
                 </sidings>
                 <sidings foe="J13.0.0">
                     <siding start="E5" end="E6" length="163.36"/>
@@ -79,7 +77,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J7.0.0">
                     <siding start="E5" end="E6" length="163.36"/>
                     <siding start="E12" end="E13" length="163.36"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="E13"/>
                 </sidings>
                 <sidings foe="J9.0">
                     <siding start="E5" end="E6" length="163.36"/>
@@ -160,12 +157,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J0.d0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="-E10" end="-E10" length="144.64"/>
-                    <siding start="-E3" end="-E3" length="144.64" intermediateEnds="-E8 -E10"/>
                 </sidings>
                 <sidings foe="J1.0.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="-E10" end="-E10" length="144.64"/>
-                    <siding start="-E3" end="-E3" length="144.64" intermediateEnds="-E8 -E10"/>
                 </sidings>
                 <sidings foe="J13.0.0">
                     <siding start="E12" end="E13" length="163.36"/>
@@ -208,8 +203,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <sidings foe="J1.0">
                 <siding start="E5" end="E6" length="163.36"/>
                 <siding start="E12" end="E13" length="163.36"/>
-                <siding start="-E10" end="-E10" length="144.64"/>
-                <siding start="-E3" end="-E3" length="144.64"/>
             </sidings>
             <sidings foe="J13.0.0">
                 <siding start="E5" end="E6" length="163.36"/>
@@ -221,7 +214,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <sidings foe="J7.0.0">
                 <siding start="E5" end="E6" length="163.36"/>
                 <siding start="E12" end="E13" length="163.36" intermediateEnds="E6"/>
-                <siding start="-E10" end="-E10" length="144.64" intermediateEnds="E13 E6"/>
             </sidings>
             <sidings foe="J9.0">
                 <siding start="E5" end="E6" length="163.36"/>
