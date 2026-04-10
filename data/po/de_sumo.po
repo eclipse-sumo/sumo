@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-09 18:34+0000\n"
+"PO-Revision-Date: 2026-04-10 20:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7703,23 +7703,27 @@ msgstr "Aktiviert die LSA-Heuristik"
 msgid ""
 "Sets minimum value for the sum of all incoming lane speeds when guessing TLS"
 msgstr ""
+"Setzt das Minimum der Summe über alle Geschwindigkeitsbegrenzungen der "
+"Zufahrtsfahrstreifen für die LSA-Heuristik"
 
 #: src/netbuild/NBFrame.cpp:543
 msgid "Sets district nodes as tls-controlled"
-msgstr ""
+msgstr "Bezirksknoten mit LSA steuern"
 
 #: src/netbuild/NBFrame.cpp:548
 msgid "Includes node clusters into guess"
-msgstr ""
+msgstr "Knotenpunkt-Cluster in der Heuristik berücksichtigen"
 
 #: src/netbuild/NBFrame.cpp:552
 msgid "Tries to cluster tls-controlled nodes"
-msgstr ""
+msgstr "Versucht lichtsignalgesteuerte Knotenpunkte zu gruppieren"
 
 #: src/netbuild/NBFrame.cpp:556
 msgid ""
 "Determines the maximal distance for joining traffic lights (defaults to 20)"
 msgstr ""
+"Bestimmt die maximale Entfernung zwischen zu vereinigenden LSA (Standardwert "
+"20)"
 
 #: src/netbuild/NBFrame.cpp:559
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
