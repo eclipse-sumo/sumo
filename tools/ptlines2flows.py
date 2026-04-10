@@ -429,6 +429,7 @@ def runSimulation(options):
                      "--device.rerouting.adaptation-interval", "0",  # ignore tls and traffic effects
                      "--vehroute-output", options.routes,
                      "--stop-output", options.stopinfos,
+                     "--default.departspeed", "0",
                      "--aggregate-warnings", "5"])
     print("done.")
     sys.stdout.flush()
