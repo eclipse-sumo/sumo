@@ -1089,7 +1089,8 @@ bool
 MSVehicle::hasValidRouteStart(std::string& msg) {
     // note: not a const method because getDepartLane may call updateBestLanes
     if (!(*myCurrEdge)->isTazConnector()) {
-        if (myParameter->departLaneProcedure == DepartLaneDefinition::GIVEN) {
+        if (myParameter->departLaneProcedure == DepartLaneDefinition::GIVEN
+                || (myParameter->departLaneProcedure == DepartLaneDefinition::DEFAULT && MSEdge::getDefaultDepartLaneDefinition() == DepartLaneDefinition::GIVEN)) {
             if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
                 msg = "Invalid departlane definition for vehicle '" + getID() + "'.";
                 if (myParameter->departLane >= (int)(*myCurrEdge)->getLanes().size()) {
