@@ -2144,6 +2144,9 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                             if (itLast != foeRoute.end()) {
                                 // @todo are intermediateRS relevant here?
                                 foeSidings.insert(foeSidings.begin(), Siding((int)(itFirst - foeRoute.begin()), (int)(itLast - foeRoute.begin()), length[j], {}));
+                                if (foeSidings.size() > 2) {
+                                    foeSidings.pop_back();  // only need the first 2 sidings
+                                }
                             }
                         }
                     }
@@ -2165,6 +2168,9 @@ MSDriveWay::addSidings(MSDriveWay* foe, bool addToFoe) {
                     for (int j = 0; j < (int)length.size(); j++) {
                         intermediateRS[j].insert(intermediateRS[j].end(), furtherRS.begin(), furtherRS.end());
                         foeSidings.insert(foeSidings.begin(), Siding(firstIndex, start[j], length[j], intermediateRS[j]));
+                        if (foeSidings.size() > 2) {
+                            foeSidings.pop_back();  // only need the first 2 sidings
+                        }
                     }
                 }
                 start.clear();
