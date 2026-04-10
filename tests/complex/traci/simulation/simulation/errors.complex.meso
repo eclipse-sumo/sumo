@@ -1,0 +1,37 @@
+Error: Answered with error to command 0xcb: Setting simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
+Error: Answered with error to command 0xab: Simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+/scr1/sumo/tests/../tests/complex/traci/simulation/simulation/runner.py:177: UserWarning: Call to deprecated function getBusStopWaiting, use busstop.getPersonCount instead.
+  print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
+Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
+/scr1/sumo/tests/../tests/complex/traci/simulation/simulation/runner.py:181: UserWarning: Call to deprecated function getBusStopIDList, use busstop.getIDList instead.
+  print("getBusStopIDList", traci.simulation.getBusStopIDList())
+/scr1/sumo/tests/../tests/complex/traci/simulation/simulation/runner.py:182: UserWarning: Call to deprecated function getBusStopWaiting, use busstop.getPersonCount instead.
+  print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
+/scr1/sumo/tests/../tests/complex/traci/simulation/simulation/runner.py:183: UserWarning: Call to deprecated function getBusStopWaitingIDList, use busstop.getPersonIDs instead.
+  print("getBusStopWaitingIDList", traci.simulation.getBusStopWaitingIDList("bs"))
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle 'simulation.findRoute' is not allowed to depart on any lane of edge 'footpath'.)
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Warning: Vehicle class 'bicycle' of vType 'DEFAULT_BIKETYPE' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
+Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
+Error: Answered with error to command 0xab: Invalid depart position 100000.00 for edge 'o'.
+Warning: setSpeedMode not yet implemented for meso
+Warning: setSpeed not yet implemented for meso
+Error: Requested command not implemented (0xac): GUI is not running, command not implemented in command line sumo

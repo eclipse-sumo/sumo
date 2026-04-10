@@ -1,0 +1,44 @@
+***Starting server on port 33519 ***
+Loading net-file from 'input_net.net.xml' ... done (3ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading done.
+Simulation version v1_26_0+1063-474b3a0336b started with time: 0.00.
+Error: Answered with error to command 0xcb: Setting simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
+Error: Answered with error to command 0xab: Simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving chargingStation parameters via the simulation API is deprecated, please use traci.chargingstation.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving parkingArea parameters via the simulation API is deprecated, please use traci.parkingarea.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+Warning: Retrieving busStop parameters via the simulation API is deprecated, please use traci.busstop.
+Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle 'simulation.findRoute' is not allowed to depart on any lane of edge 'footpath'.)
+Error: Answered with error to command 0xab: Unknown from edge 'foo'.
+Warning: Vehicle class 'bicycle' of vType 'DEFAULT_BIKETYPE' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
+Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
+Error: Answered with error to command 0xab: Invalid depart position 100000.00 for edge 'o'.
+Warning: setSpeedMode not yet implemented for meso
+Warning: setSpeed not yet implemented for meso
+Error: Requested command not implemented (0xac): GUI is not running, command not implemented in command line sumo
+custom log message
+Simulation ended at time: 19.00.
+Reason: TraCI requested termination.
+DijkstraRouter answered 2 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 8 queries and explored 34.62 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 1 queries and explored 2.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).

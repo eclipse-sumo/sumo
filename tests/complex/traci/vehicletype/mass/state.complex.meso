@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-10T09:44:39.821080+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="46179"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="r1" state="1" edges="1fi 1si"/>
+    <delay number="3" begin="4" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
+    <vType id="DEFAULT_VEHTYPE" mass="1234.00" sigma="0"/>
+    <vType id="t1" mass="4321.00" sigma="0"/>
+    <vType id="t2" emissionClass="Energy/default"/>
+    <vType id="t3" vClass="truck" emissionClass="Energy/default"/>
+    <vehicle id="veh0" depart="0.00" route="r1" distance="248.5 0" speedFactor="1.0000" state="2048 0 1 0 0 0 30905 22368 9223372036854774807 0 0"/>
+    <vehicle id="veh1" type="t1" depart="10.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 10000 0 0 2 0 32368 24912 9223372036854774807 0 0"/>
+    <vehicle id="veh2" type="t2" depart="20.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 20000 0 0 1 0 34912 27456 9223372036854774807 0 0"/>
+    <vehicle id="veh3" type="t3" depart="30.00" route="r1" distance="0 0" speedFactor="1.0000" state="2050 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0"/>
+    <segment id="1fi:0">
+        <vehicles time="29261" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="1fi:1">
+        <vehicles time="26717" blockTime="29260" value="veh2"/>
+    </segment>
+    <segment id="1fi:2">
+        <vehicles time="24173" blockTime="26716" value="veh1"/>
+    </segment>
+    <segment id="1si:0">
+        <vehicles time="-1" blockTime="22922" value="veh0"/>
+    </segment>
+    <tlLogic id="0" programID="0" phase="0" duration="30000" active="1"/>
+</snapshot>

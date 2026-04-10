@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-10T09:44:45.216415+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="39557"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="r0" state="1" edges="SC"/>
+    <delay number="7" begin="10" end="3" depart="0.00" time="22.00" speedFactor="1.08" decel="4.50"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="v.3" depart="3.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="1.0827" state="2236 3000 0 0 0 1 9724 3000 9223372036854774807 0 0"/>
+    <vehicle id="v.4" depart="4.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="1.0303" state="2236 4000 0 0 0 0 10425 4000 9223372036854774807 0 0"/>
+    <vehicle id="v.5" depart="5.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.8310" state="2236 5000 0 0 0 1 12966 5000 9223372036854774807 0 0"/>
+    <vehicle id="v.6" depart="6.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="1.0458" state="2236 6000 0 0 0 0 12330 6000 9223372036854774807 0 0"/>
+    <vehicle id="v.7" depart="7.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.8860" state="2236 7000 0 0 0 0 14472 7000 9223372036854774807 0 0"/>
+    <vehicle id="v.8" depart="8.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.9379" state="2236 8000 0 0 0 1 15058 8000 9223372036854774807 0 0"/>
+    <vehicle id="v.9" depart="9.00" departLane="best" departPos="last" departSpeed="max" route="r0" distance="0 0" speedFactor="0.8569" state="2236 9000 0 0 0 0 16725 9000 9223372036854774807 0 0"/>
+    <flowState id="v" begin="0.00" end="20.00" period="1" departLane="best" departPos="last" departSpeed="max" next="10.00" route="r0" done="10" index="10"/>
+    <segment id="SC:0">
+        <vehicles time="8552" blockTime="-9223372036854775808" value="v.9 v.7 v.6 v.4"/>
+        <vehicles time="8055" blockTime="-9223372036854775808" value="v.8 v.5 v.3"/>
+    </segment>
+    <tlLogic id="C" programID="0" phase="0" duration="10000" active="1"/>
+</snapshot>

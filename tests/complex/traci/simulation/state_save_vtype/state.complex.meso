@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-10T09:44:45.885224+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="43169"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="!trip_0" state="0" edges="WC CE"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="accident"/>
+    <vehicle id="trip_0" type="accident" depart="0.00" route="!trip_0" distance="0 0" speedFactor="1.0600" reroute="1" state="262144 0 0 0 0 0 9245 0 6245 0 0">
+        <device id="routing_trip_0" state="0 0"/>
+    </vehicle>
+    <segment id="WC:0">
+        <vehicles time="-1" blockTime="-9223372036854775808" value="trip_0"/>
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <tlLogic id="C" programID="0" phase="0" duration="10000" active="1"/>
+    <routingEngine last="10000" index="10">
+        <edge id="WC" speed="13.88" pastSpeed="14.72 14.72 14.72 14.72 14.72 14.72 14.72 12.69 11.15 9.95 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
+    </routingEngine>
+</snapshot>

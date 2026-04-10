@@ -1,0 +1,150 @@
+loaded? False
+ Retrying in 1 seconds
+version at start (22, 'SUMO v1_26_0+1063-474b3a0336b')
+version (22, 'SUMO v1_26_0+1063-474b3a0336b')
+loaded? True
+endTime 42.0
+net file input_net.net.xml
+{114: ('horiz', 'horiz1'), 116: ()}
+step 0
+pendingVehicles ()
+{114: (), 116: ('horiz',)}
+step 1
+pendingVehicles ()
+{114: (), 116: ()}
+step 2
+pendingVehicles ()
+{114: (), 116: ()}
+step 3
+pendingVehicles ()
+{114: (), 116: ()}
+step 4
+pendingVehicles ()
+{114: (), 116: ()}
+step 5
+pendingVehicles ()
+{114: ('horiz2', 'suddenStop', 'collider', 'emergencyStopper'), 116: ('horiz1', 'horiz2')}
+time 6.0
+#loaded 4
+loaded ('horiz2', 'suddenStop', 'collider', 'emergencyStopper')
+#departed 2
+departed ('horiz1', 'horiz2')
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 0
+emergencystopping ()
+min#expected 6
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+deltaT 1.0
+boundary ((0.0, 0.0), (3500.0, 3904.56))
+convertRoad2D (-1.22, 3903.52)
+convertRoad3D (-1.22, 3903.52, 2.0)
+convertRoadGeo (12.014678141837997, 48.12144918989498)
+convertRoadGeoAlt (12.014678141837997, 48.12144918989498, 2.0)
+convertRoad2D length (667.2699999999995, 3124.688)
+convert2DGeo (12.023018905461857, 48.09105459778215)
+convertGeo2D (-1619.565396778169, -9550.720808432437)
+convert2DRoad ('o', 2906.1892204510686, 0)
+convertGeoRoad ('o', 1012.1569043555731, 0)
+convertGeoRoadBus ('o', 1012.1569043555731, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707315024642, 0)
+distance2D 10.0
+distance2Dgeo (12.023018905461857, 48.09105459778215) (12.023153016821599, 48.09105807508728) 10.0
+drivingDistance2D 6.48934561332544
+distanceRoad 5131.878972316085
+drivingDistanceRoad 5136.55
+clearing pending
+save simstate
+getParameter (generic) 42
+getParameter charginStation.totalEnergyCharged 0.00
+getParameter chargingStation.name megaCharger
+getParameter chargingStation.lane o_0
+getParameter chargingStation.key1 val1
+getParameter parkingArea.capacity 6
+getParameter parkingArea.occupancy 0
+getParameter parkingArea.name DLR
+getParameter parkingArea.lane 2o_0
+getParameter parkingArea.key3 val3
+getParameter busStop.name Magnusstr.
+getParameter busStop.lane o_0
+getParameter busStop.key2 val2
+getParameter stats.vehicles.loaded 6
+getParameter stats.vehicles.inserted 3
+getParameter stats.vehicles.running 3
+getParameter stats.vehicles.waiting 0
+getParameter stats.teleports.total 0
+getParameter stats.teleports.jam 0
+getParameter stats.teleports.yield 0
+getParameter stats.teleports.wrongLane 0
+getParameter stats.safety.collisions 0
+getParameter stats.safety.emergencyStops 0
+getParameter stats.safety.emergencyBraking 0
+getParameter stats.persons.loaded 1
+getParameter stats.persons.running 1
+getParameter stats.persons.jammed 0
+getParameter stats.personTeleports.total 0
+getParameter stats.personTeleports.abortWait 0
+getParameter stats.personTeleports.wrongDest 0
+getParameter buildConfig.ARROW_SO_VERSION 2000
+getParameter buildConfig.JPS_VERSION 131
+getParameter buildConfig.ENABLED Linux-6.8.0-90-generic x86_64 GNU 11.4.0 Release FMI Proj GUI FMT Intl SWIG Parquet Eigen GDAL FFmpeg OSG GL2PS JuPedSim
+getBusStopIDList ('bs',)
+getBusStopWaiting 1
+getBusStopWaitingIDList ('p1',)
+findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.9604316546763, cost=1088.9604316546763, length=15136.55, depart=INVALID, departPos=0.0, arrivalPos=10000.0)
+findRoute with routing mode Stage(type=3, edges=('o', '2o'), travelTime=1113.9703675260944, cost=1113.9703675260944, length=15136.55, depart=INVALID, departPos=0.0, arrivalPos=10000.0)
+findIntermodalRoute (Stage(type=2, edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, length=250.0, depart=6.0, departPos=0.0, arrivalPos=50.0),)
+findIntermodalRoute (walk)
+  Stage(type=2, edges=('o', '2o'), travelTime=4804.484160000001, cost=4804.484160000001, length=14979.671, depart=6.0, departPos=10.0, arrivalPos=5000.0)
+
+findIntermodalRoute (bike)
+  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=1824.5799600000003, cost=1824.5799600000003, length=20111.551, intended=bicycle, depart=6.00096, departPos=0.0, arrivalPos=5000.0)
+
+findIntermodalRoute (car)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.2491614388488, cost=729.2491614388488, length=20111.551, intended=car, depart=6.00096, departPos=0.0, arrivalPos=5000.0)
+
+findIntermodalRoute (bike,car,public)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.2491614388488, cost=729.2491614388488, length=20111.551, intended=car, depart=6.00096, departPos=0.0, arrivalPos=5000.0)
+
+contextSubscriptions: {'': {}}
+scale 1.5
+step 0
+{114: (), 116: ('suddenStop',)}
+step 1
+{114: (), 116: ()}
+step 2
+{114: (), 116: ()}
+step 3
+{114: (), 116: ()}
+step 4
+{114: (), 116: ('collider',)}
+step 5
+{114: (), 116: ()}
+step 6
+{114: (), 116: ()}
+step 7
+{114: (), 116: ()}
+step 8
+{114: (), 116: ('emergencyStopper',)}
+step 9
+{114: (), 116: ()}
+step 10
+{114: (), 116: ()}
+step 11
+{114: (), 116: ()}
+check whether GUI is present False
+loaded? True
+loaded? False
