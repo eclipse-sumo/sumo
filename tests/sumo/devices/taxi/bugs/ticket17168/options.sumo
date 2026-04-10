@@ -3,3 +3,4 @@
 -r input_routes.rou.xml
 -a input_additional.add.xml
 --vehroute-output vehroutes.xml
+--default.departspeed 0

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-27T09:25:14.528957+01:00 by Eclipse SUMO sumo v1_26_0+0861-7db7c5cab6d
+<!-- generated on 2026-04-10T16:17:42.652768+01:00 by Eclipse SUMO sumo v1_26_0+1074-0d0ca2f0495
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -526,10 +526,10 @@
         <time-to-impatience value="180" type="TIME"/>
 
         <!-- Select default depart speed -->
-        <default.departspeed value="0" type="STR"/>
+        <default.departspeed value="avg" type="STR"/>
 
         <!-- Select default depart lane -->
-        <default.departlane value="first" type="STR"/>
+        <default.departlane value="best_prob" type="STR"/>
 
         <!-- Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length. -->
         <default.action-step-length value="0" type="FLOAT"/>

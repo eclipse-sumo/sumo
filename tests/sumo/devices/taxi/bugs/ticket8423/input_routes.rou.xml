@@ -5,7 +5,7 @@
       <param key="device.taxi.idle-algorithm" value="randomCircling"/>
   </vType>
 
-  <vehicle id="rc_0" type="ridepooling-car" depart="5" line="taxi">
+  <vehicle id="rc_0" type="ridepooling-car" depart="5" line="taxi" departSpeed="0">
       <route edges="gneE8" />
   </vehicle>
 

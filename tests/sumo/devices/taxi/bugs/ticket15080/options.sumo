@@ -5,3 +5,4 @@
 --stop-output stopinfos.xml
 --fcd-output fcd.xml
 --device.fcd.probability 0
+--default.departspeed 0
