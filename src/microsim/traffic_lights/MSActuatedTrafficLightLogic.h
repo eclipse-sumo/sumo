@@ -135,7 +135,7 @@ public:
 
     void saveState(OutputDevice& out) const override;
 
-    void loadExtraState(const std::string& state);
+    void loadExtraState(const std::string& state) override;
 
     /// @brief try to get the value of the given parameter (including prefixed parameters)
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;

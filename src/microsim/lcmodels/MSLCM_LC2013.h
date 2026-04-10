@@ -116,12 +116,12 @@ public:
     /** @brief Save the state of the laneChangeModel
      * @param[in] out The OutputDevice to write the information into
      */
-    virtual void saveState(OutputDevice& out) const;
+    virtual void saveState(OutputDevice& out) const override;
 
     /** @brief Loads the state of the laneChangeModel from the given attributes
      * @param[in] attrs XML attributes describing the current state
      */
-    virtual void loadState(const SUMOSAXAttributes& attrs);
+    virtual void loadState(const SUMOSAXAttributes& attrs) override;
 
 protected:
 
