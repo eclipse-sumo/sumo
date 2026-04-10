@@ -2,3 +2,5 @@
 -a=input_routes.rou.xml,input_additional.add.xml --duration-log.statistics
 --tripinfo-output tripinfos.xml
 --extrapolate-departpos
+--tripinfo-output.write-unfinished
+
