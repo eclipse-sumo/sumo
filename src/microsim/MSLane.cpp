@@ -933,6 +933,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     }
     MSLink* firstRailSignal = nullptr;
     double firstRailSignalDist = -1;
+    // whether speed may be patched for unavoidable reasons (stops, speedLimits, ...)
+    const bool patchSpeedSpecial = patchSpeed || aVehicle->getParameter().departSpeedProcedure != DepartSpeedDefinition::GIVEN;
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -950,7 +952,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 distToStop = nextStop.pars.endPos - pos;
                 safeSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE);
             }
-            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, safeSpeed), patchSpeed, msg.str(), InsertionCheck::STOP)) {
+            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, safeSpeed), patchSpeedSpecial, msg.str(), InsertionCheck::STOP)) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
             }
@@ -1001,7 +1003,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     const double remaining = seen + aVehicle->getArrivalPos() - currentLane->getLength();
                     const double fspeed = cfModel.freeSpeed(aVehicle, speed, remaining, aVehicle->getParameter().arrivalSpeed, true, MSCFModel::CalcReason::FUTURE);
                     if (checkFailure(aVehicle, speed, dist, fspeed,
-                                     patchSpeed, "arrival speed too low", InsertionCheck::ARRIVAL_SPEED)) {
+                                     patchSpeedSpecial, "arrival speed too low", InsertionCheck::ARRIVAL_SPEED)) {
                         // we may not drive with the given velocity - we cannot match the specified arrival speed
                         return false;
                     }
@@ -1009,7 +1011,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             } else {
                 // lane does not continue
                 if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
-                                 patchSpeed, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
+                                 patchSpeedSpecial, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
                     // we may not drive with the given velocity - we cannot stop at the junction
                     return false;
                 }
@@ -1057,12 +1059,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             const double laneStopOffset = MAX2(getVehicleStopOffset(aVehicle),
                                                aVehicle->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             const double remaining = seen - laneStopOffset;
-            auto dsp = aVehicle->getParameter().departSpeedProcedure;
-            const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
-            // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
-            if (dsp == DepartSpeedDefinition::LAST || dsp == DepartSpeedDefinition::AVG) {
-                errorMsg = "";
-            }
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
                              patchSpeedSpecial, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
@@ -1139,7 +1135,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";
                     const double distToStop = seen + nextStop.pars.endPos;
                     if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, distToStop),
-                                     patchSpeed, msg.str(), InsertionCheck::STOP)) {
+                                     patchSpeedSpecial, msg.str(), InsertionCheck::STOP)) {
                         // we may not drive with the given velocity - we cannot stop at the stop
                         return false;
                     }
@@ -1180,7 +1176,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check next lane's maximum velocity
             const double freeSpeed = cfModel.freeSpeed(aVehicle, speed, seen, nextLane->getVehicleMaxSpeed(aVehicle), true, MSCFModel::CalcReason::FUTURE);
             if (freeSpeed < speed) {
-                if (patchSpeed || aVehicle->getParameter().departSpeedProcedure != DepartSpeedDefinition::GIVEN) {
+                if (patchSpeedSpecial) {
                     speed = freeSpeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
@@ -1374,7 +1370,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
 #endif
             if (checkFailure(aVehicle, speed, distToStop, MAX2(0.0, stopSpeed),
-                             patchSpeed, msg.str(), InsertionCheck::LANECHANGE)) {
+                             patchSpeedSpecial, msg.str(), InsertionCheck::LANECHANGE)) {
                 // we may not drive with the given velocity - we cannot reserve enough space for lane changing
                 return false;
             }
