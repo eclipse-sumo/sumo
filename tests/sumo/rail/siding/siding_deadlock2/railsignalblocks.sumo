@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-08T12:38:40.270201+01:00 by Eclipse SUMO sumo v1_26_0+1017-680205a30db
+<!-- generated on 2026-04-10T11:14:25.995222+01:00 by Eclipse SUMO sumo v1_26_0+1071-50994ad4b6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -108,7 +108,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J3.d0.0">
                     <siding start="-E11" end="-E11" length="9.85"/>
                     <siding start="-E11" end="-E10" length="191.08" intermediateEnds="-E11"/>
-                    <siding start="-E6" end="-E5" length="191.72" intermediateEnds="-E10"/>
                 </sidings>
                 <sidings foe="J6b.0.0">
                     <siding start="-E11" end="-E11" length="9.85"/>
@@ -165,7 +164,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <sidings foe="J3.d0.0">
                 <siding start="-E11" end="-E11" length="9.85"/>
                 <siding start="-E11" end="-E10" length="191.08" intermediateEnds="-E11"/>
-                <siding start="-E6" end="-E5" length="191.72" intermediateEnds="-E10 -E11"/>
             </sidings>
             <sidings foe="J6b.0.0">
                 <siding start="-E11" end="-E11" length="9.85"/>
@@ -187,12 +185,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <sidings foe="J13.0.0">
                 <siding start="E4b" end="E5b" length="352.77"/>
                 <siding start="E9b" end="E9b" length="10.24"/>
-                <siding start="E9b" end="E10b" length="202.92" intermediateEnds="E9b"/>
             </sidings>
             <sidings foe="J14.d0">
                 <siding start="E4b" end="E5b" length="352.77"/>
                 <siding start="E9b" end="E9b" length="10.24"/>
-                <siding start="E9b" end="E10b" length="202.92" intermediateEnds="E9b"/>
             </sidings>
         </driveWay>
         <subDriveWay id="J3.d0.0" vehicle="" edges="E3">

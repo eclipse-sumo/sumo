@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T13:25:04.598469+01:00 by Eclipse SUMO sumo v1_26_0+1032-ae3cb78df2f
+<!-- generated on 2026-04-10T11:14:26.297435+01:00 by Eclipse SUMO sumo v1_26_0+1071-50994ad4b6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -124,12 +124,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J5.1.0">
                     <siding start="E19" end="E20" length="163.36"/>
                     <siding start="-E17" end="-E17" length="144.64"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17"/>
                 </sidings>
                 <sidings foe="J7.0">
                     <siding start="E19" end="E20" length="163.36"/>
                     <siding start="-E17" end="-E17" length="144.64"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="J11.1.0" vehicle="" edges="E15">
@@ -165,12 +163,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J5.1.0">
                     <siding start="E19" end="E20" length="163.36"/>
                     <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20"/>
                 </sidings>
                 <sidings foe="J7.0">
                     <siding start="E19" end="E20" length="163.36"/>
                     <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20"/>
                 </sidings>
             </driveWay>
         </link>
@@ -300,12 +296,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J11.1.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
-                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
                 </sidings>
                 <sidings foe="J13.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
-                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
                 </sidings>
                 <sidings foe="J15.1.1">
                     <siding start="E12" end="E13" length="163.36"/>
@@ -317,8 +311,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J7.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36" intermediateEnds="E11"/>
-                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11"/>
-                    <siding start="-E10" end="-E10" length="144.64" intermediateEnds="-E17 E20 E11"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="J5.1.0" vehicle="" edges="E8">
@@ -344,12 +336,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J11.1.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
-                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11 E13"/>
                 </sidings>
                 <sidings foe="J13.0">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36" intermediateEnds="E11 E13"/>
-                    <siding start="-E17" end="-E17" length="144.64" intermediateEnds="E20 E11 E13"/>
                 </sidings>
                 <sidings foe="J15.1.1">
                     <siding start="E12" end="E13" length="163.36"/>
@@ -364,8 +354,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <sidings foe="J5.1">
                     <siding start="E12" end="E13" length="163.36"/>
                     <siding start="E19" end="E20" length="163.36"/>
-                    <siding start="-E17" end="-E17" length="144.64"/>
-                    <siding start="-E10" end="-E10" length="144.64"/>
                 </sidings>
             </driveWay>
         </link>
