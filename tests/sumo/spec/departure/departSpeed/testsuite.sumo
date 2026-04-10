@@ -55,6 +55,7 @@ speed_desired_approach_slow
 
 # one vehicle approaching an unprioritized intersection
 speed_desired_approach_minor
+speed_desired_stop
 
 # departSpeed="speedLimit" 
 # (should not lower speed)
@@ -65,6 +66,7 @@ speed_speedLimit_approach_slow
 
 # one vehicle approaching an unprioritized intersection
 speed_speedLimit_approach_minor
+speed_speedLimit_stop
 
 # departSpeed="last" 
 # should use speed of the last vehicle (increases flow due to homegeneous insertion speeds)
@@ -75,6 +77,7 @@ speed_last_approach_slow
 
 # one vehicle approaching an unprioritized intersection
 speed_last_approach_minor
+speed_last_stop
 
 # departSpeed="avg" 
 # should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
@@ -85,3 +88,7 @@ speed_avg_approach_slow
 
 # one vehicle approaching an unprioritized intersection
 speed_avg_approach_minor
+
+# departSpeed="avg" 
+# should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
+speed_avg_stop
