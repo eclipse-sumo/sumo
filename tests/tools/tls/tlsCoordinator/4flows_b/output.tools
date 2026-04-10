@@ -1,14 +1,14 @@
-Loading net-file from 'net.net.xml' ... done (5ms).
-Loading additional-files from 'out.add.xml' ... done (10ms).
+Loading net-file from 'net.net.xml' ... done (12ms).
+Loading additional-files from 'out.add.xml' ... done (63ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1570-8eaf427e473 started with time: 0.00.
-Simulation ended at time: 452.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Simulation ended at time: 450.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.19s
- Real time factor: 2354.17
- UPS: 168927.083333
+ Duration: 0.22s
+ Real time factor: 2027.03
+ UPS: 150653.153153
 Vehicles:
  Inserted: 175
  Running: 0
@@ -16,9 +16,9 @@ Vehicles:
 Statistics (avg of 175):
  RouteLength: 1109.19
  Speed: 6.36
- Duration: 185.34
- WaitingTime: 70.48
- TimeLoss: 105.00
- DepartDelay: 22.49
+ Duration: 191.11
+ WaitingTime: 77.58
+ TimeLoss: 110.78
+ DepartDelay: 4.10
 number of tls-pairs: 7
 operations: newSet=2 addToSet=2 addToSet2=1 addHalfCoordinated=1 mergeSets=1

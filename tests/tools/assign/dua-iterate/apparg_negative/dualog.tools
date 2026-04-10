@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
-Loading net-file from '000/../input_net.net.xml' ... done (0ms).
+['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
 Loading route-files incrementally from '000/input_trips_000.rou.xml.gz'
 Loading done.
-Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
-Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_1', time=326.00.
-Warning: Vehicle '0' ends teleporting on edge 'beg2left', time=326.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_1', time=321.00.
+Warning: Vehicle '0' ends teleporting on edge 'beg2left', time=321.00.
 Warning: Teleporting vehicle '4'; waited too long (yield), lane='beg_1', time=708.00.
 Warning: Vehicle '4' ends teleporting on edge 'beg2left', time=708.00.
 Warning: Teleporting vehicle '8'; waited too long (yield), lane='beg_1', time=1119.00.
@@ -17,117 +17,117 @@ Warning: Vehicle '8' ends teleporting on edge 'beg2left', time=1119.00.
 Simulation ended at time: 1352.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.07s
- Real time factor: 18777.8
- UPS: 107930.555556
+ Duration: 0.03s
+ Real time factor: 48285.7
+ UPS: 277357.142857
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
  Teleports: 3 (Yield: 3)
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips_000.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
 Loading net-file from '001/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (2ms).
 Loading route-files incrementally from '001/input_trips_001.rou.xml.gz'
 Loading done.
-Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
-Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
-Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
-Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
-Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=347.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=321.00.
+Warning: Vehicle '0' ends teleporting on edge 'middle', time=321.00.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=342.00.
+Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=342.00.
 Warning: Teleporting vehicle '8'; waited too long (yield), lane='beg_0', time=708.00.
 Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.06s
- Real time factor: 16206.9
- UPS: 91775.862069
+ Duration: 0.05s
+ Real time factor: 19183.7
+ UPS: 108428.571429
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
  Teleports: 3 (Yield: 3)
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips_001.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
 Loading net-file from '002/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
 Loading route-files incrementally from '002/input_trips_002.rou.xml.gz'
 Loading done.
-Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
-Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
-Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
-Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
-Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=347.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=321.00.
+Warning: Vehicle '0' ends teleporting on edge 'middle', time=321.00.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=342.00.
+Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=342.00.
 Warning: Teleporting vehicle '8'; waited too long (yield), lane='beg_0', time=708.00.
 Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 18431.4
- UPS: 104372.549020
+ Duration: 0.02s
+ Real time factor: 62666.7
+ UPS: 354200.000000
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
  Teleports: 3 (Yield: 3)
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips_002.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
 Loading net-file from '003/../input_net.net.xml' ... done (0ms).
 Loading additional-files from '003/../edgedata.add.xml' ... done (1ms).
 Loading route-files incrementally from '003/input_trips_003.rou.xml.gz'
 Loading done.
-Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
-Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
-Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
-Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
-Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=347.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=321.00.
+Warning: Vehicle '0' ends teleporting on edge 'middle', time=321.00.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=342.00.
+Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=342.00.
 Warning: Teleporting vehicle '8'; waited too long (yield), lane='beg_0', time=708.00.
 Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 18431.4
- UPS: 104372.549020
+ Duration: 0.03s
+ Real time factor: 37600
+ UPS: 212520.000000
 Vehicles:
  Inserted: 10
  Running: 0
  Waiting: 0
  Teleports: 3 (Yield: 3)
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips_003.duarcfg']
+['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/micha/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
 Loading net-file from '004/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '004/../edgedata.add.xml' ... done (1ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
 Loading route-files incrementally from '004/input_trips_004.rou.xml.gz'
 Loading done.
-Simulation version v1_24_0+1138-5784da2d30d started with time: 0.00.
-Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
-Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
-Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
-Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=347.00.
+Simulation version v1_26_0+1074-0d0ca2f0495 started with time: 0.00.
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=321.00.
+Warning: Vehicle '0' ends teleporting on edge 'middle', time=321.00.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=342.00.
+Warning: Vehicle '2' ends teleporting on edge 'beg2left', time=342.00.
 Warning: Teleporting vehicle '8'; waited too long (yield), lane='beg_0', time=708.00.
 Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.05s
- Real time factor: 18076.9
- UPS: 102365.384615
+ Duration: 0.03s
+ Real time factor: 30322.6
+ UPS: 171387.096774
 Vehicles:
  Inserted: 10
  Running: 0

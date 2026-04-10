@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:44:14.844348 by osmWebWizard.py v1_19_0+1626-0c981d77e86
+<!-- generated on 2026-04-10 16:37:17.795496 by Eclipse SUMO osmWebWizard.py v1_26_0+1076-7c93985e1d1
 <configuration>
-    <net-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
-    <ptlines-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_ptlines.xml"/>
-    <ptstops-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml"/>
-    <output-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
-    <stopinfos-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/stopinfos.xml"/>
-    <routes-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/vehroutes.xml"/>
-    <trips-file value="/home/erdm_ja/.texttest/tmp/tools.02Apr144414.3523909/tools/import/OSM/webWizard_missingEdges/test/trips.trips.xml"/>
+    <net-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz"/>
+    <ptlines-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/osm_ptlines.xml"/>
+    <ptstops-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml"/>
+    <output-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/osm_pt.rou.xml"/>
+    <stopinfos-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/stopinfos.xml"/>
+    <routes-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/vehroutes.xml"/>
+    <trips-file value="/home/erdm_ja/.texttest/tmp/tools.10Apr163644.3045941/tools/import/OSM/webWizard_missingEdges/test/trips.trips.xml"/>
     <end value="900.0"/>
     <min-stops value="0"/>
     <extend-to-fringe value="True"/>
     <random-begin value="True"/>
     <seed value="42"/>
     <ignore-errors value="True"/>
+    <types value="bus,tram,train,subway,light_rail,monorail,trolleybus,minibus,share_taxi,aerialway,ferry"/>
     <vtype-prefix value="pt_"/>
     <verbose value="True"/>
 </configuration>
@@ -33,12 +34,12 @@
     <vType id="pt_aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
     <vType id="pt_ferry" vClass="ship"/>
     <route id="pt_ferry_F21:0" color="0,128,186" edges="25881424" >
-        <stop busStop="262882408" duration="20" until="46.0"/> <!-- Zum Seeblick -->
-        <stop busStop="2045908036" duration="20" until="316.0"/> <!-- Krampenburg -->
+        <stop busStop="262882408" duration="20" until="41.0"/> <!-- Zum Seeblick -->
+        <stop busStop="2045908036" duration="20" until="311.0"/> <!-- Krampenburg -->
     </route>
     <route id="pt_ferry_F21:1" color="0,128,186" edges="25881424 -25881424 25881424" >
-        <stop busStop="2045908036" duration="20" until="273.0"/> <!-- Krampenburg -->
-        <stop busStop="262882408" duration="20" until="558.0"/> <!-- Zum Seeblick -->
+        <stop busStop="2045908036" duration="20" until="252.0"/> <!-- Krampenburg -->
+        <stop busStop="262882408" duration="20" until="537.0"/> <!-- Zum Seeblick -->
     </route>
     <flow id="pt_ferry_F21:0" type="pt_ferry" route="pt_ferry_F21:0" begin="15.0" end="915.0" period="600" line="F21:0" >
         <param key="name" value="Fähre F21: Zum Seeblick =&gt; Krampenburg"/>

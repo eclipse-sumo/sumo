@@ -24,4 +24,8 @@
         <device.taxi.dispatch-algorithm value="traci"/>
     </taxi_device>
 
+    <processing>
+        <default.departspeed value="0"/>
+    </processing>
+
 </sumoConfiguration>
