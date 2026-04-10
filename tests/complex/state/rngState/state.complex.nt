@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-24T09:16:30.252385+01:00 by Eclipse SUMO sumo v1_25_0+1174-63c1a513bcd
+<!-- generated on 2026-04-10T09:46:41.694423+01:00 by Eclipse SUMO sumo v1_26_0+1067-97710d55b08
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_25_0+1174-63c1a513bcd" time="1000.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1067-97710d55b08" time="1000.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="880" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -99,21 +99,21 @@
     </rngState>
     <edgeControl lanes="1/0to2/0_0"/>
     <route id="!v" state="0" edges="1/0to2/0"/>
-    <delay number="13" begin="334" end="321" depart="0.00" time="13519.05"/>
+    <delay number="13" begin="334" end="321" depart="0.00" time="13519.05" speedFactor="1.30" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v.321" depart="963.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8738" state="176 963000 0 5.10 0 0.03 999990 0 0" pos="328.08 323.08 0.09" speed="8.73 8.73" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.322" depart="966.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8667" state="176 966000 0 5.10 0 0.03 999990 0 0" pos="299.47 294.47 0.09" speed="8.66 8.66" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.323" depart="969.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8246" state="176 969000 0 5.10 0 0.02 999990 0 0" pos="260.44 255.44 0.08" speed="8.24 8.23" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.324" depart="972.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9371" state="176 972000 0 5.10 0 2.42 999990 0 0" pos="244.68 239.68 0.08" speed="8.24 8.25" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.325" depart="975.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0074" state="176 975000 0 5.10 0 2.77 999990 0 0" pos="228.91 223.91 0.08" speed="8.24 8.24" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.326" depart="978.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9255" state="176 978000 0 5.10 0 0.02 999990 0 0" pos="208.48 203.48 0.09" speed="9.25 9.25" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.327" depart="981.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9517" state="176 981000 0 5.10 0 0.01 999990 0 0" pos="185.70 180.70 0.10" speed="9.51 9.51" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.328" depart="984.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0043" state="176 984000 0 5.10 0 0.01 999990 0 0" pos="165.58 160.58 0.10" speed="10.04 10.03" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.329" depart="987.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8989" state="176 987000 0 5.10 0 0.01 999990 0 0" pos="121.78 116.78 0.09" speed="8.98 8.98" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.330" depart="990.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9569" state="176 990000 0 5.10 0 0.01 999990 0 0" pos="100.63 95.63 0.10" speed="9.56 9.57" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.331" depart="993.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0222" state="176 993000 0 5.10 0 0.00 999990 0 0" pos="76.51 71.51 0.10" speed="10.22 10.21" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.332" depart="996.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0100" state="176 996000 0 5.10 0 0.00 999990 0 0" pos="45.37 40.37 0.10" speed="10.09 10.10" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
-    <vehicle id="v.333" depart="999.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9348" state="176 999000 0 5.10 0 0.00 999990 0 0" pos="14.35 9.35 0.09" speed="9.34 9.34" angle="90.00" posLat="0.00" waitingTime="100000 0"/>
+    <vehicle id="v.321" depart="963.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8738" state="176 963000 0 5.10 0 0.03 999990 0 0" pos="328.08 323.08 0.09" speed="8.73 8.73" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.322" depart="966.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8667" state="176 966000 0 5.10 0 0.03 999990 0 0" pos="299.47 294.47 0.09" speed="8.66 8.66" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.323" depart="969.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8246" state="176 969000 0 5.10 0 0.02 999990 0 0" pos="260.44 255.44 0.08" speed="8.24 8.23" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.324" depart="972.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9371" state="176 972000 0 5.10 0 2.42 999990 0 0" pos="244.68 239.68 0.08" speed="8.24 8.25" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.325" depart="975.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0074" state="176 975000 0 5.10 0 2.77 999990 0 0" pos="228.91 223.91 0.08" speed="8.24 8.24" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.326" depart="978.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9255" state="176 978000 0 5.10 0 0.02 999990 0 0" pos="208.48 203.48 0.09" speed="9.25 9.25" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.327" depart="981.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9517" state="176 981000 0 5.10 0 0.01 999990 0 0" pos="185.70 180.70 0.10" speed="9.51 9.51" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.328" depart="984.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0043" state="176 984000 0 5.10 0 0.01 999990 0 0" pos="165.58 160.58 0.10" speed="10.04 10.03" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.329" depart="987.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.8989" state="176 987000 0 5.10 0 0.01 999990 0 0" pos="121.78 116.78 0.09" speed="8.98 8.98" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.330" depart="990.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9569" state="176 990000 0 5.10 0 0.01 999990 0 0" pos="100.63 95.63 0.10" speed="9.56 9.57" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.331" depart="993.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0222" state="176 993000 0 5.10 0 0.00 999990 0 0" pos="76.51 71.51 0.10" speed="10.22 10.21" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.332" depart="996.00" departSpeed="max" route="!v" distance="0 0" speedFactor="1.0100" state="176 996000 0 5.10 0 0.00 999990 0 0" pos="45.37 40.37 0.10" speed="10.09 10.10" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
+    <vehicle id="v.333" depart="999.00" departSpeed="max" route="!v" distance="0 0" speedFactor="0.9348" state="176 999000 0 5.10 0 0.00 999990 0 0" pos="14.35 9.35 0.09" speed="9.34 9.34" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0"/>
     <lane id="1/0to2/0_0">
         <vehicles value="v.333 v.332 v.331 v.330 v.329 v.328 v.327 v.326 v.325 v.324 v.323 v.322 v.321"/>
     </lane>
