@@ -58,7 +58,7 @@ def get_options(args=None):
                     help="file to write the generated public transport stops and routes to")
     ap.add_argument("--duration", default=10, category="input",
                     type=int, help="minimum time to wait on a stop")
-    ap.add_argument("--bus-parking", action="store_true", default=False, category="processing", dest="busParking",
+    ap.add_argument("--bus-parking", action="store_true", default=False, dest="busParking",
                     help="set parking to true for bus mode")
     ap.add_argument("--bus-stop-length", default=13, category="input", type=float,
                     help="length for a bus stop")
@@ -66,17 +66,19 @@ def get_options(args=None):
                     help="length for a train stop")
     ap.add_argument("--tram-stop-length", default=60, category="input", type=float,
                     help="length for a tram stop")
-    ap.add_argument("--center-stops", action="store_true", default=False, category="processing",
+    ap.add_argument("--center-stops", action="store_true", default=False,
                     help="use stop position as center not as front")
-    ap.add_argument("--skip-access", action="store_true", default=False, category="processing",
+    ap.add_argument("--skip-access", action="store_true", default=False,
                     help="do not create access links")
-    ap.add_argument("--sort", action="store_true", default=False, category="processing",
+    ap.add_argument("--access-radius", default=100, category="input", type=float,
+                    help="maximum radius for finding pedestrian access")
+    ap.add_argument("--sort", action="store_true", default=False,
                     help="sorting the output-file")
     ap.add_argument("--stops", category="input", type=ap.file_list,
                     help="files with candidate stops (selected by proxmity)")
     ap.add_argument("--patched-stops", category="input", dest="patchedStops", type=ap.file,
                     help="file with replacement stops (based on stop ids)")
-    ap.add_argument("--rail-priority-factor", category="processing", type=float, dest="rpFactor",
+    ap.add_argument("--rail-priority-factor", type=float, dest="rpFactor",
                     help="Take into account edge routingType values scaled by FLOAT (routingTypes must correspond to integers in [0,4])")  # noqa
     ap.add_argument("--radius", default=150, category="input", type=float,
                     help="maximum matching radius for candidate edges and stops")
@@ -91,9 +93,9 @@ def get_options(args=None):
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
                     help="directory to write generated networks to")
-    ap.add_argument("--network-split-vclass", action="store_true", default=True, category="processing",
+    ap.add_argument("--network-split-vclass", action="store_true", default=True,
                     help="use the allowed vclass instead of the edge type to split the network (always active, option kept for backward compatibility")  # noqa
-    ap.add_argument("--warn-unmapped", action="store_true", default=False, category="processing",
+    ap.add_argument("--warn-unmapped", action="store_true", default=False,
                     help="warn about unmapped routes")
     ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar", category="input",
                     help="mapping library to use")
@@ -111,9 +113,9 @@ def get_options(args=None):
                     help="file to write the input stop coordinates to")
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
-    ap.add_argument("--skip-fcd", action="store_true", default=False, category="processing",
+    ap.add_argument("--skip-fcd", action="store_true", default=False,
                     help="skip generating fcd data")
-    ap.add_argument("--skip-map", action="store_true", default=False, category="processing",
+    ap.add_argument("--skip-map", action="store_true", default=False,
                     help="skip network mapping")
 
     # ----------------------- osm options -------------------------------------
@@ -125,7 +127,7 @@ def get_options(args=None):
     ap.add_argument("--repair", help="repair osm routes", action='store_true', category="processing")
     ap.add_argument("--min-stops", default=1, type=int, category="input",
                     help="minimum number of stops a public transport line must have to be imported")
-    ap.add_argument("--maxcache", default=1000, type=int, category="processing",
+    ap.add_argument("--maxcache", default=1000, type=int,
                     help="Set maximum cache size for route computation")
     ap.add_argument("-s", "--seed", default=42, type=int,
                     help="random seed for coloring of pois and polygons")
@@ -335,7 +337,7 @@ def generate_polygons(net, routes, outfile):
 
 def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
     stops = collections.defaultdict(list)
-    stopEnds = collections.defaultdict(list)
+    stopDesc = collections.defaultdict(list)  # laneID -> [(typ, id, start, end, stopName, childs)]
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
@@ -352,12 +354,11 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
         for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name",
                                                            "fareZone", "fareSymbol", "startFare")):
             stopName = veh.attr_name
-            addAttrs = ' friendlyPos="true" name="%s"' % stopName
-            params = ""
+            childs = []
             if veh.fareZone:
-                params = "".join(['        <param key="%s" value="%s"/>\n' %
-                                  p for p in (('fareZone', veh.fareZone), ('fareSymbol', veh.fareSymbol),
-                                              ('startFare', veh.startFare))])
+                childs += ['        <param key="fareZone" value="%s"/>\n' % veh.fareZone,
+                           '        <param key="fareSymbol" value="%s"/>\n' % veh.fareSymbol,
+                           '        <param key="startFare" value="%s"/>\n' % veh.startFare]
             if rid != veh.id:
                 lastIndex = 0
                 lastPos = -1
@@ -443,24 +444,30 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
             keep = True
-            for otherStop, otherStart, otherEnd in stopEnds[laneID]:
-                if (otherEnd > start and otherEnd <= end) or (end > otherStart and end <= otherEnd):
+            typ = "busStop" if mode == "bus" else "trainStop"
+            for stopItem in stopDesc[laneID]:
+                otherStop, otherStart, otherEnd = stopItem[1:4]
+                if start < otherEnd <= end or otherStart < end <= otherEnd:  # stops overlap
+                    if end - start > otherEnd - otherStart:  # keep type and dimensions of the longer one
+                        stopItem[0] = typ
+                        stopItem[2] = start
+                        stopItem[3] = end
                     keep = False
                     stop = otherStop
                     break
             if keep:
-                stopEnds[laneID].append((stop, start, end))
-                access = None if options.skip_access else gtfs2osm.getAccess(net, veh.x, veh.y, 100, laneID)
-                if not access and not params:
-                    addAttrs += "/"
-                typ = "busStop" if mode == "bus" else "trainStop"
-                rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f"%s>\n%s' %
-                           (typ, stop, laneID, start, end, addAttrs, params))
-                if access or params:
-                    for a in sorted(access):
-                        rout.write(a)
-                    rout.write(u'    </%s>\n' % typ)
+                if not options.skip_access:
+                    childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
+                stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
             stops[rid].append((stop, int(veh.until), stopName))
+    for laneID, stopList in stopDesc.items():
+        for typ, stop, start, end, stopName, childs in stopList:
+            rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s>\n' %
+                       (typ, stop, laneID, start, end, stopName, "" if childs else "/"))
+            for a in sorted(childs):
+                rout.write(a)
+            if childs:
+                rout.write(u'    </%s>\n' % typ)
     return stops
 
 

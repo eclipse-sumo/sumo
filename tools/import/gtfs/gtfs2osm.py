@@ -629,7 +629,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                     continue
                 # update the lane id, start and end and add shape
                 lane_id, start, end = best
-                access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
+                access = getAccess(net, row.stop_lon, row.stop_lat, options.access_radius, lane_id)
                 map_stops[stop][1:7] = [lane_id, start, end, access, pt_type, edge_inter]
                 # update edge in data frame
                 stop_edge = lane_id.rsplit("_", 1)[0]
@@ -646,7 +646,7 @@ def map_gtfs_osm(options, net, osm_routes, gtfs_data, shapes, shapes_dict, filte
                                stop_length, options.center_stops, edge_inter, pt_class)
             if best is not None:
                 lane_id, start, end = best
-                access = getAccess(net, row.stop_lon, row.stop_lat, 100, lane_id)
+                access = getAccess(net, row.stop_lon, row.stop_lat, options.access_radius, lane_id)
                 stop_item_id = "%s_%s" % (row.stop_id, len(stop_items[row.stop_id]))
                 stop_items[row.stop_id].append(stop_item_id)
                 map_stops[stop_item_id] = [sumolib.xml.quoteattr(row.stop_name[0], True),
