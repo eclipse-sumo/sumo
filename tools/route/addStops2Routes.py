@@ -27,13 +27,11 @@ import random
 from collections import defaultdict
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from sumolib.output import parse, parse_fast  # noqa
-from sumolib.options import ArgumentParser  # noqa
 import sumolib  # noqa
 
 
 def get_options(args=None):
-    op = ArgumentParser()
+    op = sumolib.options.ArgumentParser()
     op.add_option("-n", "--net-file", category='input', dest="netfile", type=op.net_file,
                   help="define the net filename (mandatory)")
     op.add_option("-r", "--route-files", category='input', dest="routefiles", type=op.route_file,
@@ -52,6 +50,10 @@ def get_options(args=None):
                   default=False, help="Let the vehicle stop beside the road")
     op.add_option("--relpos",
                   help="relative stopping position along the edge [0,1] or 'random'")
+    op.add_option("--edges",
+                  help="comma separated list of edges to consider for stopping")
+    op.add_option("--color",
+                  help="change color of stopping vehicles")
     op.add_option("--lane", default="0",
                   help="set index of stop lane or 'random' (unusable lanes are not counted)")
     op.add_option("--reledge", default="1",
@@ -80,6 +82,8 @@ def get_options(args=None):
 
     options = op.parse_args()
 
+    if options.edges:
+        options.edges = options.edges.split(",")
     if options.parkingareas:
         options.parkingareas = options.parkingareas.split(",")
 
@@ -156,7 +160,7 @@ def get_options(args=None):
 def readTypes(options):
     vtypes = {None: "passenger"}
     for file in options.typesfile:
-        for vtype in sumolib.output.parse(file, 'vType'):
+        for vtype in sumolib.xml.parse(file, 'vType'):
             vtypes[vtype.id] = vtype.getAttributeSecure("vClass", "passenger")
     # print(vtypes)
     return vtypes
@@ -194,8 +198,7 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
 
     for routefile in options.routefiles:
         for obj in sumolib.xml.parse(routefile, ['vehicle', 'trip', 'flow', 'person', 'vType']):
-            if (obj.name == 'vType' or
-                    options.probability < 1 and random.random() > options.probability):
+            if obj.name == 'vType':
                 outf.write(obj.toXML(' '*4))
                 continue
             edgeIDs = getEdgeIDs(obj)
@@ -214,11 +217,20 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                             continue
                         edgeIndex = viaIndex if viaIndex >= 0 else len(edgeIDs) + viaIndex
                     stopEdgeID = edgeIDs[edgeIndex]
+                elif options.edges:
+                    for e in options.edges:
+                        if e in edgeIDs:
+                            stopEdgeID = e
+                            break
                 else:
                     reledge = options.reledge
                     if reledge == 'random':
                         reledge = random.random()
                     stopEdgeID = edgeIDs[int(round(reledge * (len(edgeIDs) - 1)))]
+            if ((stopEdgeID is not None or obj.name == 'person') and
+                    options.probability < 1 and random.random() > options.probability):
+                outf.write(obj.toXML(' '*4))
+                continue
 
             if stopEdgeID is None:
                 if obj.name == 'person' and (
@@ -295,6 +307,8 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         obj.route[0].setAttribute("edges", stopEdgeID)
                     elif obj.attr_from:
                         obj.attr_from = obj.to
+                if options.color:
+                    obj.setAttribute("color", options.color)
 
             outf.write(obj.toXML(' '*4))
 
