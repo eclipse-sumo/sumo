@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-28 07:54:24.125601 by Eclipse SUMO gtfs2pt.py v1_26_0+0873-b43842ce5ae
+<!-- generated on 2026-04-11 09:52:14.917374 by Eclipse SUMO gtfs2pt.py v1_26_0+1093-169492e1084
 <configuration>
     <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
     <date value="20190713"/>
@@ -294,18 +294,6 @@
         <access friendlyPos="true" lane="1190781961#2_0" pos="0.20" length="21.26"/>
         <access friendlyPos="true" lane="463898980#1_0" pos="0.00" length="20.53"/>
         <access friendlyPos="true" lane="463898981#0_0" pos="0.00" length="18.44"/>
-    </busStop>
-    <busStop id="114194502.12" lane="1472760546_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Berlin, Friedrichstr./Reinhardtstr.">
-        <access friendlyPos="true" lane="-1249563427_0" pos="0.00" length="72.98"/>
-        <access friendlyPos="true" lane="-27628628#0_0" pos="0.70" length="43.81"/>
-        <access friendlyPos="true" lane="-27628628#1_0" pos="0.00" length="44.08"/>
-        <access friendlyPos="true" lane="1232425168#3_0" pos="31.82" length="43.22"/>
-        <access friendlyPos="true" lane="1446037346#1_0" pos="87.41" length="5.04"/>
-        <access friendlyPos="true" lane="27628628#0_0" pos="0.00" length="48.37"/>
-        <access friendlyPos="true" lane="27628628#1_0" pos="0.20" length="48.83"/>
-        <access friendlyPos="true" lane="465376251#0_0" pos="10.00" length="54.51"/>
-        <access friendlyPos="true" lane="465376251#1_0" pos="0.20" length="43.97"/>
-        <access friendlyPos="true" lane="465376251#2_0" pos="25.12" length="18.22"/>
     </busStop>
     <busStop id="114194502.14" lane="4592725#3_0" startPos="103.07" endPos="116.07" friendlyPos="true" name="Berlin, Schumannstr.">
         <access friendlyPos="true" lane="-128488713_0" pos="211.48" length="30.08"/>
