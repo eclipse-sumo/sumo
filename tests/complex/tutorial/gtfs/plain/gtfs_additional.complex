@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-01 14:19:45.391613 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
+<!-- generated on 2026-04-12 14:57:07.062907 by Eclipse SUMO gtfs2pt.py v1_26_0+1097-a9feb4a6601
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -23,12 +23,6 @@
         <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
         <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
     </busStop>
-    <busStop id="236778.1" lane="183254465_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
-        <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
-        <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
-    </busStop>
-    <busStop id="236778.2" lane="1013501323_0" startPos="39.53" endPos="54.53" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)"/>
-    <busStop id="236778.3" lane="1449474922_0" startPos="10.94" endPos="25.94" friendlyPos="true" name="Lübbenauer Weg (Berlin)"/>
     <busStop id="109241.6" lane="1198308222_0" startPos="129.27" endPos="142.27" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
         <access friendlyPos="true" lane="-11452526_0" pos="50.28" length="29.58"/>
         <access friendlyPos="true" lane="-4463780#1_0" pos="86.27" length="60.25"/>
@@ -37,6 +31,12 @@
         <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
         <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
     </busStop>
+    <busStop id="236778.1" lane="183254465_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
+        <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
+        <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
+    </busStop>
+    <busStop id="236778.2" lane="1013501323_0" startPos="39.53" endPos="54.53" friendlyPos="true" name="Adlergestell/Vetschauer Allee (Berlin)"/>
+    <busStop id="236778.3" lane="1449474922_0" startPos="10.94" endPos="25.94" friendlyPos="true" name="Lübbenauer Weg (Berlin)"/>
     <busStop id="109244.0" lane="837291681_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="S Zeuthen">
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
