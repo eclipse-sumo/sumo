@@ -862,7 +862,11 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         return result;
     }
     if (checkOnly) {
-        switch (v.getParameter().departLaneProcedure) {
+        DepartLaneDefinition dld = v.getParameter().departLaneProcedure;
+        if (dld == DepartLaneDefinition::DEFAULT) {
+            dld = myDefaultDepartLaneDefinition;
+        }
+        switch (dld) {
             case DepartLaneDefinition::GIVEN:
             case DepartLaneDefinition::DEFAULT:
             case DepartLaneDefinition::FIRST_ALLOWED: {
