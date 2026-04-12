@@ -145,25 +145,27 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << (MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : Named::getIDSecure(enteredLane)) << " reason=" << reason << "\n";
 #endif
-    if (veh.isVehicle() && (enteredLane == myLane || (MSGlobals::gUseMesoSim && veh.getEdge() == &myLane->getEdge()))
-            && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
-        SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
-        MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (match(firstIt, sveh.getRoute().end())) {
-            if (myTrains.count(&sveh) == 0) {
-                enterDriveWay(sveh, reason);
+
+    if (veh.isVehicle() && MSRailSignalControl::isUsingDriveWays(veh.getVClass())) {
+        if ((enteredLane == myLane || (MSGlobals::gUseMesoSim && veh.getEdge() == &myLane->getEdge()))
+                && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
+            SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
+            MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
+            if (match(firstIt, sveh.getRoute().end())) {
+                if (myTrains.count(&sveh) == 0) {
+                    enterDriveWay(sveh, reason);
+                }
+                return true;
             }
-            return true;
-        }
-    } else if (reason == NOTIFICATION_REROUTE) {
-        assert(veh.isVehicle());
-        SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
-        assert(myTrains.count(&sveh) == 0);
-        int movedPast = matchesPastRoute(sveh);
-        // vehicle must still be one the drivway
-        if (movedPast >= 0 && movedPast < myForwardEdgeCount) {
-            enterDriveWay(sveh, reason);
-            return true;
+        } else if (reason == NOTIFICATION_REROUTE) {
+            SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
+            assert(myTrains.count(&sveh) == 0);
+            int movedPast = matchesPastRoute(sveh);
+            // vehicle must still be one the drivway
+            if (movedPast >= 0 && movedPast < myForwardEdgeCount) {
+                enterDriveWay(sveh, reason);
+                return true;
+            }
         }
     }
     return false;
@@ -176,7 +178,7 @@ MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyLeave " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(enteredLane) << " reason=" << toString(reason) << "\n";
 #endif
-    if (veh.isVehicle()) {
+    if (veh.isVehicle() && MSRailSignalControl::isUsingDriveWays(veh.getVClass())) {
         // leaving network with departure, teleport etc
         if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
@@ -202,7 +204,7 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
 #endif
-    if (veh.isVehicle()) {
+    if (veh.isVehicle() && MSRailSignalControl::isUsingDriveWays(veh.getVClass())) {
         if (leftLane == myForward.back() && (veh.getBackLane() != leftLane->getBidiLane() || MSGlobals::gUseMesoSim)) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
             if (myWriteVehicles) {
@@ -224,18 +226,20 @@ MSDriveWay::notifyReroute(SUMOTrafficObject& veh) {
     std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << "\n";
 #endif
     assert(veh.isVehicle());
-    SUMOVehicle* sveh = dynamic_cast<SUMOVehicle*>(&veh);
-    assert(myTrains.count(sveh) != 0);
-    if (matchesPastRoute(*sveh) >= 0) {
-        //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " valid\n";
-        return true;
+    if (MSRailSignalControl::isUsingDriveWays(veh.getVClass())) {
+        SUMOVehicle* sveh = dynamic_cast<SUMOVehicle*>(&veh);
+        assert(myTrains.count(sveh) != 0);
+        if (matchesPastRoute(*sveh) >= 0) {
+            //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " valid\n";
+            return true;
+        }
+        // no match found, remove
+        myTrains.erase(sveh);
+        if (myWriteVehicles) {
+            myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), NOTIFICATION_REROUTE));
+        }
+        //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " invalid\n";
     }
-    // no match found, remove
-    myTrains.erase(sveh);
-    if (myWriteVehicles) {
-        myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), NOTIFICATION_REROUTE));
-    }
-    //std::cout << SIMTIME << " notifyReroute " << getDescription() << " veh=" << veh.getID() << " invalid\n";
     return false;
 }
 

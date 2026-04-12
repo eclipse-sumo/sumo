@@ -102,6 +102,11 @@ public:
         return (myMBClasses & svc & SVC_RAIL_CLASSES) == (svc & SVC_RAIL_CLASSES);
     }
 
+    static bool isUsingDriveWays(SVCPermissions svc) {
+        // @note: taxi is a workaround for #9812, #15907
+        return ((mySignalizedClasses | myMBClasses | SVC_TAXI) & svc) == svc;
+    }
+
     static void initSignalized(SVCPermissions svc, SVCPermissions mbSvc) {
         mySignalizedClasses = svc;
         myMBClasses = mbSvc;
