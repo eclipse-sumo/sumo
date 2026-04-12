@@ -13,6 +13,9 @@ ticket8423
 # ride destination is a busStop only reachable via access
 ticket8578
 
+# rail taxi simulation without using vClass taxi
+ticket9812
+
 # dispatch-rerouting must handle the case where the vehicle is too close to the person to brake
 ticket9867
 

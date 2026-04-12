@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-12T23:51:43.183889+01:00 by Eclipse SUMO sumo v1_26_0+1106-b8c3bee4441
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
+    </output>
+
+    <routing>
+        <persontrip.transfer.taxi-walk value="ptStops"/>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-period value="30"/>
+    </taxi_device>
+
+</sumoConfiguration>
+-->
+
+<railsignal-vehicle-output>
+</railsignal-vehicle-output>
