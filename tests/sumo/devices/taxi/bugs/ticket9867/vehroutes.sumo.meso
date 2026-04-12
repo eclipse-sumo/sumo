@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.437627+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-12T20:54:22.862203+01:00 by Eclipse SUMO sumo v1_26_0+1102-c02b41ceff0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -42,7 +42,7 @@
         <ride from="A2B2" to="B2C2" arrivalPos="190.40" lines="taxi"/>
     </person>
 
-    <vehicle id="trip_1" type="taxi" depart="0.00">
+    <vehicle id="trip_1" type="taxi" depart="0.00" departSpeed="14.31" speedFactor="1.0300">
         <routeDistribution>
             <route replacedOnEdge="A2B2" reason="taxi:idling:randomCircling" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2"/>
             <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="10.00" probability="0" edges="A2B2 B2C2 C2D2"/>
