@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<tazs>
+    <taz id="1" edges="1fi 1si"/>
+    <taz id="2" edges="2si"/>
+</tazs>
+

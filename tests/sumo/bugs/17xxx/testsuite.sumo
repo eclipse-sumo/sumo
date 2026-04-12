@@ -41,3 +41,6 @@ ticket17714
 
 # invalid continuation behavior (changeLeft forbidden)
 ticket17714b
+
+# crash
+ticket17854
