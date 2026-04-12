@@ -517,6 +517,9 @@ public:
         /// @brief update state size
         void updateStateSize(const int col);
 
+        /// @brief update phase references given in next field
+        void updateNextPhase(const int oldNext, const int newNext = -1);
+
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
 
