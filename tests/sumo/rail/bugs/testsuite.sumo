@@ -117,3 +117,6 @@ ticket17821
 
 # crash
 ticket17847
+
+# cars should not switch rail signals
+ticket17862
