@@ -566,8 +566,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
 #endif
     for (SUMOVehicleParameter::Stop& stop : stops) {
         std::string error;
-        myHolder.addStop(stop, error);
-        if (error != "") {
+        if (!myHolder.addStop(stop, error)) {
             WRITE_WARNINGF(TL("Could not add taxi stop for %, desc=% time=% error=%"), myHolder.getID(), stop.actType, time2string(t), error)
         }
     }
