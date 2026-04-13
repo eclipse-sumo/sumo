@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-09 06:00+0000\n"
+"PO-Revision-Date: 2026-04-13 17:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -2854,7 +2854,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3376
 msgid "Force save network"
-msgstr ""
+msgstr "Speichern des Netzes erzwingen"
 
 #: src/netedit/GNEApplicationWindow.cpp:3426
 msgid "Saving network failed"
@@ -2985,7 +2985,7 @@ msgstr "Erneutes Laden der weiteren Daten"
 
 #: src/netedit/GNEApplicationWindow.cpp:4009
 msgid "Force save additional elements"
-msgstr ""
+msgstr "Speichern der weiteren Elemente erzwingen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4032
 msgid "Additionals saved."
@@ -3052,7 +3052,7 @@ msgstr "Erneutes Laden der Nachfrageelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4219
 msgid "Force save demand elements"
-msgstr ""
+msgstr "Speichern der Nachfragelemente erzwingen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4240
 msgid "Demand elements saved."
@@ -3105,7 +3105,7 @@ msgstr "Erneutes Laden der Datenelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4403
 msgid "Force save data elements"
-msgstr ""
+msgstr "Speichern der Datenelemente erzwingen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4421
 msgid "Data elements saved."
@@ -3147,7 +3147,7 @@ msgstr "Erneutes Laden der MeanData-Elemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4574
 msgid "Force save meandata elements"
-msgstr ""
+msgstr "Speichern der meanData-Elemente erzwingen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4594
 msgid "MeanDatas elements saved"
@@ -7496,11 +7496,11 @@ msgstr "Länge des/der %"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6283
 msgid "Force size during creation"
-msgstr ""
+msgstr "Größe bei der Erstellung erzwingen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6285
 msgid "force size"
-msgstr ""
+msgstr "Größe erzwingen"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6290
 msgid "Longitudinal reference position for creating %"
@@ -15491,11 +15491,11 @@ msgstr "LSA-Änderungen speichern"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:203
 msgid "There are unsaved changes in the currently edited traffic light."
-msgstr ""
+msgstr "Die aktuelle LSA enthält noch nicht gespeicherte Änderungen."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:204
 msgid "Do you want to save it before changing mode?"
-msgstr ""
+msgstr "Soll vor dem Moduswechsel gespeichert werden="
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:245
 msgid "tlLogic '%', program '%' could not be built"
@@ -15903,12 +15903,12 @@ msgstr "lade Shapes aus '"
 #: src/netedit/tools/GNENetDiffTool.cpp:164
 #, c-format
 msgid "Loading of shape file '%' failed"
-msgstr ""
+msgstr "Die Shape-Datei '%' konnte nicht geladen werden"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:167
 #, c-format
 msgid "Loading of shape file '%' successfully"
-msgstr ""
+msgstr "Die Shape-Datei '%' wurde erfolgreich geladen"
 
 #: src/netedit/tools/GNEPythonTool.cpp:43
 msgid "Execute python tool '"
