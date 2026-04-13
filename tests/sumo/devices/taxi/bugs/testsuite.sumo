@@ -19,6 +19,9 @@ ticket9812
 # dispatch-rerouting must handle the case where the vehicle is too close to the person to brake
 ticket9867
 
+# not using the empty parking area
+ticket15072
+
 # graceful insertion from parking stop on dispatch
 ticket15080
 
