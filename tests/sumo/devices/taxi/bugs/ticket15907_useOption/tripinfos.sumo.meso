@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-13T13:53:31.798666+01:00 by Eclipse SUMO sumo v1_26_0+1116-399ce295c17
+<!-- generated on 2026-04-09T16:38:03.414452+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,23 +35,9 @@
 </sumoConfiguration>
 -->
 
-<railsignal-vehicle-output>
-    <railSignal id="J2">
-        <link linkIndex="0" from="E1_0" to=":J2_0_0">
-            <driveWay id="J2.0"/>
-        </link>
-    </railSignal>
-    <railSignal id="J6">
-        <link linkIndex="0" from="E5_0" to=":J6_0_0">
-            <driveWay id="J6.0"/>
-        </link>
-    </railSignal>
-    <departJunction id="J0">
-        <driveWay id="J0.d0"/>
-        <driveWay id="J0.d1"/>
-        <subDriveWay id="J0.d1.0"/>
-    </departJunction>
-    <departJunction id="J1">
-        <driveWay id="J1.d0"/>
-    </departJunction>
-</railsignal-vehicle-output>
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="43.00" waitingTime="7.00" timeLoss="0.00" traveltime="36.00">
+        <stop duration="0.00" arrival="0.00" arrivalPos="50.87" actType="waiting"/>
+        <ride waitingTime="7.00" vehicle="t_0" depart="7.00" arrival="43.00" arrivalPos="0.00" duration="36.00" routeLength="974.40" timeLoss="0.00"/>
+    </personinfo>
+</tripinfos>

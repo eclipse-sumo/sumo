@@ -28,6 +28,12 @@ ticket15080
 # rail taxi simulation (driving a taxi on rails to work around #9812)
 ticket15907
 
+# rail taxi simulation (driving a taxi on rails to work around #9812)
+ticket15907_useOption
+
+# rail taxi simulation (driving a taxi on rails to work around #9812)
+ticket15907_changeVClass
+
 # stop fails to end
 ticket16271
 

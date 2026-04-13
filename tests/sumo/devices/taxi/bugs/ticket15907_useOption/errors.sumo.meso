@@ -1,0 +1,3 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Idle taxi 't_0' has no next segment to stop. time=0.00.
+Warning: Vehicle 't_0' aborted waiting for a person that will never come.
