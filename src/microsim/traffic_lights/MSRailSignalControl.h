@@ -103,8 +103,7 @@ public:
     }
 
     static bool isUsingDriveWays(SVCPermissions svc) {
-        // @note: taxi is a workaround for #9812, #15907
-        return ((mySignalizedClasses | myMBClasses | SVC_TAXI) & svc) == svc;
+        return ((mySignalizedClasses | myMBClasses) & svc) == svc;
     }
 
     static void initSignalized(SVCPermissions svc, SVCPermissions mbSvc) {

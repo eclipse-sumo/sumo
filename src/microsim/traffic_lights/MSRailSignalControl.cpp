@@ -99,8 +99,7 @@ MSRailSignalControl::addSignal(MSRailSignal* signal) {
     mySignals.push_back(signal);
     for (const auto& links : signal->getLinks()) {
         for (const MSLink* link : links) {
-            // @note: This whole block should be removed for #17862 but taxi is a workaround for #9812, #15907
-            mySignalizedClasses |= (link->getPermissions() & (SVC_TAXI | myMBClasses));
+            mySignalizedClasses |= (link->getPermissions() & myMBClasses);
         }
     }
 }
