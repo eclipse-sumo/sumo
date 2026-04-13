@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-14T01:09:36.188636+01:00 by Eclipse SUMO sumo v1_26_0+1123-334e341037c
+<!-- generated on 2026-04-14T01:10:04.122147+01:00 by Eclipse SUMO sumo v1_26_0+1123-334e341037c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -31,16 +31,20 @@
         <device.taxi.vclasses value="rail"/>
     </taxi_device>
 
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
 </sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p_0" depart="0.00" arrival="182.00">
+    <person id="p_0" depart="0.00" arrival="69.00">
         <stop trainStop="ts_0" duration="0.00"/>
         <ride from="E1" to="E6" trainStop="ts_1" lines="taxi"/>
     </person>
 
-    <vehicle id="t_0" type="railtaxi" depart="0.00" departSpeed="0.00" speedFactor="1.0000">
+    <vehicle id="t_0" type="railtaxi" depart="0.00" departSpeed="13.89" speedFactor="1.0000">
         <routeDistribution>
             <route replacedOnEdge="-E8" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="-E8 -E7 -E7.50 E7 E70 E0"/>
             <route replacedOnEdge="-E8" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="-E8 E1 E6"/>
