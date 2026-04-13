@@ -44,6 +44,7 @@ netedit.changeMode("vehicle")
 
 # select flow over route
 netedit.changeElement("vehicleFrame", "flow (over route)")
+netedit.modifyAttribute(netedit.attrs.routeFlow.create.terminateOption, "36")
 
 # set invalid person number
 netedit.modifyColorAttribute(netedit.attrs.routeFlow.create.colorButton)

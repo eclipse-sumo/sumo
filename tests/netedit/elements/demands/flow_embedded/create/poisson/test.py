@@ -33,6 +33,7 @@ netedit.changeMode("vehicle")
 
 # select flow
 netedit.changeElement("vehicleFrame", "flow (embedded route)")
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.terminateOption, "36")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.create.spacing, "dummySpacing")

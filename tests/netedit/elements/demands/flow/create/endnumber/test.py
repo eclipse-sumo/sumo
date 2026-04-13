@@ -33,6 +33,7 @@ netedit.changeMode("vehicle")
 
 # select flow
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
+netedit.modifyAttribute(netedit.attrs.flow.create.terminateOption, "36")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.terminate, "dummyTerminate")

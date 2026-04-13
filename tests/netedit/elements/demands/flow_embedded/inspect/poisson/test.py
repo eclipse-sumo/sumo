@@ -46,6 +46,7 @@ netedit.changeMode("inspect")
 
 # inspect vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.terminateOption, "36")
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.spacing, "dummyTerminate")

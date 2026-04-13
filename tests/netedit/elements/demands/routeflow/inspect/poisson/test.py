@@ -44,6 +44,7 @@ netedit.changeMode("vehicle")
 
 # select flow over route
 netedit.changeElement("vehicleFrame", "flow (over route)")
+netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.terminateOption, "36")
 
 # create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
