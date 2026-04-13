@@ -197,7 +197,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
-- The default values for options **--default.deparspeed** was changed from "0" to "avg". Also, the default of option **--default.departlane** was changed from "first" to "best_prob". This generally leads to higher insertion flow and using all available lanes. #16888
+- The default values for options **--default.departspeed** was changed from "0" to "avg". Also, the default of option **--default.departlane** was changed from "first" to "best_prob". This generally leads to higher insertion flow and using all available lanes. #16888
 - no more HTML tables in the docs
 - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
