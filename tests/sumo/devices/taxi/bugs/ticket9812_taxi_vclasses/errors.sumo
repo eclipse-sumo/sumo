@@ -1,3 +1,3 @@
-Warning: Could not add taxi stop for t_0, desc=pickup p_0 (0) error=busStop 'ts_0' on lane 'E1_0' is too short for vehicle 't_0'., time=0.00
-Warning: Could not add taxi stop for t_0, desc=dropOff p_0 (0) error=busStop 'ts_1' on lane 'E6_0' is too short for vehicle 't_0'., time=0.00
+Warning: Could not add taxi stop for t_0, desc=pickup p_0 (0) time=0.00 error=busStop 'ts_0' on lane 'E1_0' is too short for vehicle 't_0'.
+Warning: Could not add taxi stop for t_0, desc=dropOff p_0 (0) time=0.00 error=busStop 'ts_1' on lane 'E6_0' is too short for vehicle 't_0'.
 Warning: Vehicle 't_0' aborted waiting for a person that will never come.
