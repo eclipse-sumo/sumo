@@ -1,0 +1,3 @@
+Warning: No connection between stop 'ts_0' and stop 'ts_1' found.
+Error: No connection found between trainStop 'ts_0' and trainStop 'ts_1' for person 'p_0'.
+Quitting (on error).
