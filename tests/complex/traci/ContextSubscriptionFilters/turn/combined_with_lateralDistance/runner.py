@@ -75,9 +75,9 @@ def runSingle(traciEndTime, lateralDist, downstreamDist, upstreamDist, foeDistTo
     global coloredVehs
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r",
-        "input_routes.rou.xml", "--no-step-log", "true",
-        "--default.departspeed", "0",
-        "--default.departlane", "first"])
+                            "input_routes.rou.xml", "--no-step-log", "true",
+                            "--default.departspeed", "0",
+                            "--default.departlane", "first"])
     subscribed = False
     coloredVehs = {}
     while not step > traciEndTime:

@@ -60,8 +60,8 @@ cfg.write('''<?xml version="1.0" encoding="UTF-8"?>
     </report>
 
     <processing>
-       <default.departspeed value="0"/> 
-       <default.departlane value="first"/> 
+       <default.departspeed value="0"/>
+       <default.departlane value="first"/>
     </processing>
 
 </configuration>''' % (routeFile, stateFile, time))

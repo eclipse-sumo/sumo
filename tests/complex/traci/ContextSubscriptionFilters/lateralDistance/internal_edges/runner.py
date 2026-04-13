@@ -42,9 +42,9 @@ egoID = "ego"
 def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstreamDistance, testWithIncompatibleFilter):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r",
-        "input_routes.rou.xml", "--no-step-log", "true",
-        "--default.departspeed", "0",
-        "--default.departlane", "first"])
+                            "input_routes.rou.xml", "--no-step-log", "true",
+                            "--default.departspeed", "0",
+                            "--default.departlane", "first"])
     subscribed = False
     while not step > traciEndTime:
         responses = traci.simulationStep()
