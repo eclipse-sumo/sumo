@@ -33,6 +33,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSStageWalking.h>
@@ -123,10 +124,12 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
             pars.back()->departProcedure = DepartDefinition::TRIGGERED;
         }
         if ((myModeSet & SVC_TAXI) != 0) {
-            pars.push_back(new SUMOVehicleParameter());
-            pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
-            pars.back()->id = transportable->getID() + "_taxi";
-            pars.back()->line = "taxi";
+            for (const auto& item : MSDevice_Taxi::getTaxiTypes()) {
+                pars.push_back(new SUMOVehicleParameter());
+                pars.back()->vtypeid = item.second;
+                pars.back()->id = transportable->getID() + "_taxi_" + item.second;
+                pars.back()->line = "taxi";
+            }
         }
         if ((myModeSet & SVC_BICYCLE) != 0) {
             pars.push_back(new SUMOVehicleParameter());
@@ -138,7 +141,7 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
     ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>(transportable->getID() + "_0", ConstMSEdgeVector({ origin }), false, nullptr, StopParVector());
     std::vector<SUMOVehicle*> result;
     for (SUMOVehicleParameter* vehPar : pars) {
-        const bool isTaxi = vehPar->vtypeid == DEFAULT_TAXITYPE_ID && vehPar->line == "taxi";
+        const bool isTaxi = vehPar->line == "taxi" && (myModeSet & SVC_TAXI) != 0;
         if (myDepartPos != 0) {
             vehPar->departPosProcedure = DepartPosDefinition::GIVEN;
             vehPar->departPos = myDepartPos;
@@ -202,7 +205,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
         }
     }
     if (minCost != std::numeric_limits<double>::max()) {
-        const bool isTaxi = minVehicle != nullptr && minVehicle->getParameter().vtypeid == DEFAULT_TAXITYPE_ID && minVehicle->getParameter().line == "taxi";
+        const bool isTaxi = minVehicle != nullptr && (myModeSet & SVC_TAXI) != 0 && minVehicle->getParameter().line == "taxi";
         bool carUsed = false;
         for (std::vector<MSTransportableRouter::TripItem>::iterator it = minResult.begin(); it != minResult.end(); ++it) {
             if (!it->edges.empty()) {

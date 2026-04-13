@@ -35,6 +35,7 @@ bool gLocaleInitialized = false;
 double gWeightsRandomFactor = 1;
 double gWeightsWalkOppositeFactor = 1;
 bool gRoutingPreferences = false;
+int gTaxiClasses = 0;
 std::string gLanguage = "C";
 
 int GUIDesignHeight = 23;

@@ -86,6 +86,16 @@ StringUtils::to_lower_case(const std::string& str) {
 
 
 std::string
+StringUtils::to_upper_case(const std::string& str) {
+    std::string s = str;
+    std::transform(s.begin(), s.end(), s.begin(), [](char c) {
+        return (char)::toupper(c);
+    });
+    return s;
+}
+
+
+std::string
 StringUtils::latin1_to_utf8(std::string str) {
     // inspired by http://stackoverflow.com/questions/4059775/convert-iso-8859-1-strings-to-utf-8-in-c-c
     std::string result;

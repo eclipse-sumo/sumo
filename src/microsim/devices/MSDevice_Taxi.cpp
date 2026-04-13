@@ -66,7 +66,7 @@ Command* MSDevice_Taxi::myDispatchCommand(nullptr);
 std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
 int MSDevice_Taxi::myMaxCapacity(0);
 int MSDevice_Taxi::myMaxContainerCapacity(0);
-std::set<std::string> MSDevice_Taxi::myVClassWarningVTypes;
+std::map<SUMOVehicleClass, std::string> MSDevice_Taxi::myTaxiTypes;
 
 #define TAXI_SERVICE "taxi"
 #define TAXI_SERVICE_PREFIX "taxi:"
@@ -103,6 +103,10 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.taxi.idle-algorithm.output", new Option_FileName());
     oc.addDescription("device.taxi.idle-algorithm.output", "Taxi Device", TL("Write information from the idling algorithm to FILE"));
+
+    oc.doRegister("device.taxi.vclasses", new Option_StringVector({"taxi"}));
+    oc.addSynonyme("device.taxi.vclasses", "taxi.vclasses");
+    oc.addDescription("device.taxi.vclasses", "Taxi Device", TL("Network permissions that can be accessed by taxis"));
 }
 
 
@@ -119,14 +123,17 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             // (see MSStageDriving::isWaitingFor)
             const_cast<SUMOVehicleParameter&>(v.getParameter()).line = TAXI_SERVICE;
         }
-        if (v.getVClass() != SVC_TAXI && myVClassWarningVTypes.count(v.getVehicleType().getID()) == 0) {
-            WRITE_WARNINGF(TL("Vehicle '%' with device.taxi should have vClass taxi instead of '%'."), v.getID(), toString(v.getVClass()));
-            myVClassWarningVTypes.insert(v.getVehicleType().getID());
-        }
         const int personCapacity = v.getVehicleType().getPersonCapacity();
         const int containerCapacity = v.getVehicleType().getContainerCapacity();
         myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
         myMaxContainerCapacity = MAX2(myMaxContainerCapacity, containerCapacity);
+        if (myTaxiTypes[v.getVClass()] == "") {
+            myTaxiTypes[v.getVClass()] = v.getVehicleType().getID();
+        }
+        if ((gTaxiClasses & v.getVClass()) == 0) {
+            gTaxiClasses |= v.getVClass();
+            MSNet::getInstance()->resetIntermodalRouter();
+        }
         if (personCapacity < 1 && containerCapacity < 1) {
             WRITE_WARNINGF(TL("Vehicle '%' with personCapacity % and containerCapacity % is not usable as taxi."), v.getID(), toString(personCapacity), toString(containerCapacity));
         }
@@ -184,12 +191,12 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     if (!isReservation(lines)) {
         return;
     }
-    if ((to->getPermissions() & SVC_TAXI) == 0) {
+    if ((to->getPermissions() & gTaxiClasses) == 0) {
         throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
                            + " '" + person->getID() + "' because destination edge '" + to->getID() + "'"
                            + " does not permit taxi access");
     }
-    if ((from->getPermissions() & SVC_TAXI) == 0) {
+    if ((from->getPermissions() & gTaxiClasses) == 0) {
         throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
                            + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
                            + " does not permit taxi access");
@@ -251,7 +258,7 @@ MSDevice_Taxi::cleanup() {
         myDispatcher = nullptr;
     }
     myDispatchCommand = nullptr;
-    myVClassWarningVTypes.clear();
+    myTaxiTypes.clear();
 }
 
 
@@ -262,6 +269,46 @@ MSDevice_Taxi::allCustomersErased() {
         taxi->myState = EMPTY;
     }
 }
+
+
+const std::map<SUMOVehicleClass, std::string>&
+MSDevice_Taxi::getTaxiTypes() {
+    const int numClasses = std::bitset<64>(gTaxiClasses).count();
+    if ((int)myTaxiTypes.size() < numClasses) {
+        for (const std::string& vClassName : OptionsCont::getOptions().getStringVector("device.taxi.vclasses")) {
+            SUMOVehicleClass svc = (SUMOVehicleClass)parseVehicleClasses(vClassName);
+            if (myTaxiTypes[svc] == "") {
+                switch(svc) {
+                    // @see MSVehicleControl::initDefaultTypes()
+                    case SVC_TAXI:
+                        myTaxiTypes[svc] = DEFAULT_TAXITYPE_ID;
+                        break;
+                    case SVC_RAIL:
+                        myTaxiTypes[svc] = DEFAULT_RAILTYPE_ID;
+                        break;
+                    case SVC_BICYCLE:
+                        myTaxiTypes[svc] = DEFAULT_BIKETYPE_ID;
+                        break;
+                    case SVC_PASSENGER:
+                        myTaxiTypes[svc] = DEFAULT_VTYPE_ID;
+                        break;
+                    default: {
+                        const std::string typeID = "DEFAULT_" + StringUtils::to_upper_case(vClassName) + "TYPE";
+                        MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+                        if (!vc.hasVType(typeID)) {
+                            SUMOVTypeParameter tp(typeID, svc);
+                            MSVehicleType* t = MSVehicleType::build(tp);
+                            vc.addVType(t);
+                        }
+                        myTaxiTypes[svc] = typeID;;
+                    }
+                }
+            }
+        }
+    }
+    return myTaxiTypes;
+}
+
 
 // ---------------------------------------------------------------------------
 // MSDevice_Taxi-methods
@@ -922,7 +969,7 @@ MSDevice_Taxi::checkTaskSwap() {
         if (maxSaving > SWAP_THRESHOLD) {
 #ifdef DEBUG_DISPATCH
             if (DEBUG_COND) {
-                std::cout << SIMTIME << " taxi=" << myHolder.getID() << " swapWith=" << bestSwap->getHolder().getID() << " saving=" << maxSaving << " lastDispatch="; 
+                std::cout << SIMTIME << " taxi=" << myHolder.getID() << " swapWith=" << bestSwap->getHolder().getID() << " saving=" << maxSaving << " lastDispatch=";
                 for (const Reservation* res : bestSwap->myLastDispatch) {
                     std::cout << toString(res->persons) << "; ";
                 }

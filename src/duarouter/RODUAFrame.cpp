@@ -112,6 +112,9 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("scale-suffix", new Option_String("."));
     oc.addDescription("scale-suffix", "Processing", TL("Suffix to be added when creating ids for cloned vehicles"));
 
+    oc.doRegister("taxi.vclasses", new Option_StringVector({"taxi"}));
+    oc.addSynonyme("taxi.vclasses", "device.taxi.vclasses");
+    oc.addDescription("taxi.vclasses", "Processing", TL("Network permissions that can be accessed by taxis"));
 }
 
 
@@ -271,6 +274,10 @@ RODUAFrame::checkOptions() {
         } else if (!oc.getBool("write-trips")) {
             WRITE_WARNING(TL("Option --write-trips.junctions takes no affect when --write-trips is disabled."));
         }
+    }
+    gTaxiClasses = 0;
+    for (const std::string& vClassName : oc.getStringVector("device.taxi.vclasses")) {
+        gTaxiClasses |= parseVehicleClasses(vClassName);
     }
     return ok;
 }

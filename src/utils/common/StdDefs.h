@@ -128,6 +128,7 @@ extern bool gLocaleInitialized; // whether the gettext locale for translating me
 extern double gWeightsRandomFactor; // randomization for edge weights
 extern double gWeightsWalkOppositeFactor; // factor for walking against flow of traffic
 extern bool gRoutingPreferences; // whether routing preferences have been loaded
+extern int gTaxiClasses; // SVCPermissions for taxi routing
 
 /// the language for GUI elements and messages
 extern std::string gLanguage;

@@ -791,6 +791,9 @@ public:
     MSPedestrianRouter& getPedestrianRouter(int rngIndex, const Prohibitions& prohibited = {}) const;
     MSTransportableRouter& getIntermodalRouter(int rngIndex, const int routingMode = 0, const Prohibitions& prohibited = {}) const;
 
+    /// @brief force reconstruction of intermodal network
+    void resetIntermodalRouter() const;
+
     static void adaptIntermodalRouter(MSTransportableRouter& router);
 
 

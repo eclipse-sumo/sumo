@@ -1230,6 +1230,10 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
         mBdefaultClasses |= parseVehicleClasses(vClassName);
     }
     MSRailSignalControl::initSignalized(defaultClasses, mBdefaultClasses);
+    gTaxiClasses = 0;
+    for (const std::string& vClassName : oc.getStringVector("device.taxi.vclasses")) {
+        gTaxiClasses |= parseVehicleClasses(vClassName);
+    }
 
     std::string error;
     if (!SUMOVehicleParameter::parseDepartLane(oc.getString("default.departlane"), "options", "",

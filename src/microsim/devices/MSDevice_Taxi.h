@@ -212,6 +212,9 @@ public:
     /// @brief signal the end of the simulation and the removal of all customers
     static void allCustomersErased();
 
+    /// @brief return all types that are known to carry a taxi device (or the default type if no devices are initialized)
+    static const std::map<SUMOVehicleClass, std::string>& getTaxiTypes();
+
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
@@ -297,7 +300,8 @@ private:
     // @brief the maximum container capacity in the fleet
     static int myMaxContainerCapacity;
 
-    static std::set<std::string> myVClassWarningVTypes;
+    /// @brief storing only one type per vClass
+    static std::map<SUMOVehicleClass, std::string> myTaxiTypes;
 
 private:
     /// @brief Invalidated copy constructor.

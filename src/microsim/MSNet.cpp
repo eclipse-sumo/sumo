@@ -344,10 +344,7 @@ MSNet::~MSNet() {
         delete router.second;
     }
     myPedestrianRouter.clear();
-    for (auto& router : myIntermodalRouter) {
-        delete router.second;
-    }
-    myIntermodalRouter.clear();
+    resetIntermodalRouter();
     myLanesRTree.second.RemoveAll();
     for (MSTractionSubstation* sub : myTractionSubstations) {
         delete sub;
@@ -1681,6 +1678,15 @@ MSNet::getIntermodalRouter(int rngIndex, const int routingMode, const Prohibitio
     }
     myIntermodalRouter[key]->prohibit(prohibited);
     return *myIntermodalRouter[key];
+}
+
+
+void
+MSNet::resetIntermodalRouter() const {
+    for (auto& router : myIntermodalRouter) {
+        delete router.second;
+    }
+    myIntermodalRouter.clear();
 }
 
 

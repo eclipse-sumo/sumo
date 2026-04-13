@@ -50,6 +50,9 @@ public:
     /// @brief Transfers the content to lower case
     static std::string to_lower_case(const std::string& str);
 
+    /// @brief Transfers the content to upper case
+    static std::string to_upper_case(const std::string& str);
+
     /// @brief Transfers from Latin 1 (ISO-8859-1) to UTF-8
     static std::string latin1_to_utf8(std::string str);
 
