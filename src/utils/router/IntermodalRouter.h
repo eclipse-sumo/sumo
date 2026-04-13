@@ -216,6 +216,7 @@ public:
                   << " departPos=" << trip.departPos
                   << " arrivalPos=" << trip.arrivalPos
                   << " modes=" << getVehicleClassNames(modeSet)
+                  << " vehType=" << (vehicle == nullptr ? "NULL" : vehicle->getVTypeParameter().id)
                   << " edges=" << toString(intoEdges)
 //                  << " resultEdges=" << toString(into)
                   << " time=" << time
