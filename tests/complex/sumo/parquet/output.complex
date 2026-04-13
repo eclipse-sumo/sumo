@@ -1,28 +1,28 @@
 Testing fcd (fcd-output, end=120s)...
   note: parquet has extra columns not in XML: ['vehicle_edge']
-[OK]    fcd (parquet): 215 rows match
+[OK]    fcd (parquet): 214 rows match
   note: parquet has extra columns not in XML: ['vehicle_edge']
-[OK]    fcd (csv): 215 rows match
+[OK]    fcd (csv): 214 rows match
 
 Testing emissions (emission-output, end=120s)...
-[OK]    emissions (parquet): 215 rows match
-[OK]    emissions (csv): 215 rows match
+[OK]    emissions (parquet): 214 rows match
+[OK]    emissions (csv): 214 rows match
 
 Testing tripinfo (tripinfo-output, end=1000s)...
-[OK]    tripinfo (parquet): 173 rows match
-[OK]    tripinfo (csv): 173 rows match
+[OK]    tripinfo (parquet): 175 rows match
+[OK]    tripinfo (csv): 175 rows match
 
 Testing summary (summary-output, end=1000s)...
 [OK]    summary (parquet): 1000 rows match
 [OK]    summary (csv): 1000 rows match
 
 Testing vehroutes (vehroute-output, end=1000s)...
-[OK]    vehroutes (parquet): 173 rows match
-[OK]    vehroutes (csv): 173 rows match
+[OK]    vehroutes (parquet): 175 rows match
+[OK]    vehroutes (csv): 175 rows match
 
 Testing queue (queue-output, end=200s)...
-[OK]    queue (parquet): 260 rows match
-[OK]    queue (csv): 260 rows match
+[OK]    queue (parquet): 250 rows match
+[OK]    queue (csv): 250 rows match
 
 Testing lanechanges (lanechange-output, end=1000s)...
   Failed to read xml CSV: No columns to parse from file
@@ -31,8 +31,8 @@ Testing lanechanges (lanechange-output, end=1000s)...
 [SKIP]  lanechanges: both are empty
 
 Testing lanechanges (lanechange-output, end=1000s)...
-[OK]    lanechanges (parquet): 169 rows match
-[OK]    lanechanges (csv): 169 rows match
+[OK]    lanechanges (parquet): 168 rows match
+[OK]    lanechanges (csv): 168 rows match
 
 Testing edgedata (edgedata-output, end=1000s)...
   note: parquet has extra columns not in XML: ['edge_teleported', 'edge_vaporized']
@@ -65,65 +65,16 @@ Testing personsummary (person-summary-output, end=1000s)...
 [OK]    personsummary (csv): 1000 rows match
 
 Testing link (link-output, end=120s)...
-[OK]    link (parquet): 422 rows match
-[OK]    link (csv): 422 rows match
+[OK]    link (parquet): 419 rows match
+[OK]    link (csv): 419 rows match
 
 Testing battery (battery-output, end=120s)...
-[OK]    battery (parquet): 215 rows match
-[OK]    battery (csv): 215 rows match
+[OK]    battery (parquet): 214 rows match
+[OK]    battery (csv): 214 rows match
 
 Testing bt (bt-output, end=120s)...
 [OK]    bt (parquet): 16 rows match
-  note: column 'recognitionPoint_observerLanePos' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [128.38, 16.04, 112.38, 33.92, 142.09, 14.02, 14.02, 39.92, 122.52, 
-  note: (2, (112.38, 122.48))
-  note: (15, (23.33, 14.71))
-  note: column 'recognitionPoint_observerPos' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [128.38,498.35, 16.04,498.35, 501.65,112.38, 501.65,33.92, 501.65,14
-  note: (2, ('501.65,112.38', '501.65,122.48'))
-  note: (15, ('501.65,23.33', '501.65,14.71'))
-  note: column 'recognitionPoint_observerSpeed' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [10.94, 10.94, 9.4, 9.44, 9.68, 8.92, 8.92, 8.22, 11.12, 11.59, 9.21
-  note: (2, (9.4, 10.1))
-  note: (15, (8.62, 9.61))
-  note: column 'recognitionPoint_seenLanePos' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [16.04, 128.38, 14.02, 14.31, 14.71, 112.38, 92.54, 14.71, 16.69, 12
-  note: (2, (14.02, 22.67))
-  note: (15, (132.55, 122.95))
-  note: column 'recognitionPoint_seenPos' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [16.04,498.35, 128.38,498.35, 501.65,14.02, 501.65,14.31, 501.65,14.
-  note: (2, ('501.65,14.02', '501.65,22.67'))
-  note: (15, ('501.65,132.55', '501.65,122.95'))
-  note: column 'recognitionPoint_seenSpeed' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [10.94, 10.94, 8.92, 9.21, 9.61, 9.4, 9.28, 9.61, 11.59, 11.12, 9.44
-  note: (2, (8.92, 8.65))
-  note: (15, (9.6, 9.57))
-  note: column 'recognitionPoint_t' differs: Series are different
-
-Series values are different (12.5 %)
-[index]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-[left]:  [111.0, 111.0, 111.0, 103.0, 114.0, 111.0, 111.0, 114.0, 111.0, 111.
-  note: (2, (111.0, 112.0))
-  note: (15, (115.0, 114.0))
-[FAIL]  bt (csv): outputs differ
+[OK]    bt (csv): 16 rows match
 
 Testing e1detector (detector, end=500s)...
 [OK]    e1detector (parquet): 60 rows match
@@ -131,9 +82,9 @@ Testing e1detector (detector, end=500s)...
 
 Testing e1instant (detector, end=500s)...
   note: parquet has extra columns not in XML: ['instantOut_gap', 'instantOut_occupancy']
-[OK]    e1instant (parquet): 1882 rows match
+[OK]    e1instant (parquet): 1887 rows match
   note: parquet has extra columns not in XML: ['instantOut_gap', 'instantOut_occupancy']
-[OK]    e1instant (csv): 1882 rows match
+[OK]    e1instant (csv): 1887 rows match
 
 Testing e2detector (detector, end=500s)...
 [OK]    e2detector (parquet): 60 rows match
@@ -147,4 +98,4 @@ Testing routeprobe (routeprobe, end=1000s)...
 [OK]    routeprobe (parquet): 23 rows match
 [OK]    routeprobe (csv): 23 rows match
 
-Result: FAILED (1 output type(s) differ, 2 skipped)
+Result: PASSED (all outputs match, 2 skipped)

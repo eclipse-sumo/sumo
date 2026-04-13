@@ -66,7 +66,7 @@ if __name__ == "__main__":
                  "--no-step-log", "true",
                  "--default.speeddev", "0"])
     # traci.start([sumoBinary, "--default.departspeed", "0", "--default.departlane", "first",
-                 "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "-a",
+    #              "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "-a",
     #              "input_additional.add.xml", "--fcd-output", "fcd.xml",
     #              "--no-step-log", "true",
     #              "--default.speeddev", "0",
