@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-03-29 19:15+0000\n"
+"PO-Revision-Date: 2026-04-13 22:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1938,6 +1938,8 @@ msgstr "Aggiungi accelerazione all'uscita FCD"
 #: src/microsim/MSFrame.cpp:177
 msgid "Add relative speed (vehicle speed / edge speed limit) to the FCD output"
 msgstr ""
+"Aggiungi velocità relativa (velocità del veicolo / limite di velocità "
+"dell'arco) all'uscita FCD"
 
 #: src/microsim/MSFrame.cpp:179
 msgid ""
@@ -7345,6 +7347,8 @@ msgid ""
 "Set edge priority values based on public transport lines for the given list "
 "of vClasses"
 msgstr ""
+"Imposta i valori di priorità degli archi in base alle linee di trasporto "
+"pubblico associate a una delle classi di veicolo elencate"
 
 #: src/netbuild/NBFrame.cpp:270
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -7499,7 +7503,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:371
 msgid "Joins junctions that have similar coordinates even if not connected"
-msgstr ""
+msgstr "Combina incroci con coordinate simili anche se sconnesse"
 
 #: src/netbuild/NBFrame.cpp:374
 msgid "Reset connections for joined junctions"
