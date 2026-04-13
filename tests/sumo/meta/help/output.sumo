@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_26_0+0861-7db7c5cab6d
+Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -919,6 +919,8 @@ Taxi Device Options:
                                         [stop|randomCircling|taxistand]
   --device.taxi.idle-algorithm.output FILE  Write information from the idling
                                         algorithm to FILE
+  --device.taxi.vclasses STR[]         Network permissions that can be accessed
+                                        by taxis
 
 GLOSA Device Options:
   --device.glosa.probability FLOAT     The probability for a vehicle to have a

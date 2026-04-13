@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-11T12:24:22.374419+01:00 by Eclipse SUMO duarouter v1_25_0+0458-86552fc0338
+<!-- generated on 2026-04-13T08:39:07.767089+01:00 by Eclipse SUMO duarouter v1_26_0+1107-e18765e03cf
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -233,6 +233,9 @@
 
         <!-- Suffix to be added when creating ids for cloned vehicles -->
         <scale-suffix value="." type="STR"/>
+
+        <!-- Network permissions that can be accessed by taxis -->
+        <taxi.vclasses value="taxi" synonymes="device.taxi.vclasses" type="STR[]"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
         <gawron.beta value="0.9" synonymes="gBeta" deprecated="gBeta" type="FLOAT"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-27T09:25:14.510790+01:00 by Eclipse SUMO sumo v1_26_0+0861-7db7c5cab6d
+<!-- generated on 2026-04-13T12:43:37.431474+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -513,6 +513,7 @@
             <xsd:element name="device.taxi.dispatch-keep-unreachable" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm.output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.vclasses" type="strArrayOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

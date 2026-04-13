@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-11T12:24:22.326062+01:00 by Eclipse SUMO duarouter v1_25_0+0458-86552fc0338
+<!-- generated on 2026-04-13T08:39:07.707857+01:00 by Eclipse SUMO duarouter v1_26_0+1107-e18765e03cf
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -88,6 +88,7 @@
         <astar.save-landmark-distances value="" type="FILE" help="Save lookup table for astar ALT-variant to the given file"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <scale-suffix value="." type="STR" help="Suffix to be added when creating ids for cloned vehicles"/>
+        <taxi.vclasses value="taxi" synonymes="device.taxi.vclasses" type="STR[]" help="Network permissions that can be accessed by taxis"/>
         <gawron.beta value="0.9" synonymes="gBeta" deprecated="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
         <gawron.a value="0.5" synonymes="gA" deprecated="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
         <keep-all-routes value="false" type="BOOL" help="Save routes with near zero probability"/>

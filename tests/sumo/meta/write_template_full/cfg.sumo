@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T16:17:42.645212+01:00 by Eclipse SUMO sumo v1_26_0+1074-0d0ca2f0495
+<!-- generated on 2026-04-13T12:43:37.388498+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -459,6 +459,7 @@
         <device.taxi.dispatch-keep-unreachable value="3600" type="TIME" help="The time before aborting unreachable reservations"/>
         <device.taxi.idle-algorithm value="stop" type="STR" help="The behavior of idle taxis [stop|randomCircling|taxistand]"/>
         <device.taxi.idle-algorithm.output value="" type="FILE" help="Write information from the idling algorithm to FILE"/>
+        <device.taxi.vclasses value="taxi" synonymes="taxi.vclasses" type="STR[]" help="Network permissions that can be accessed by taxis"/>
     </taxi_device>
 
     <glosa_device>

@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter v1_25_0+0458-86552fc0338
+Eclipse SUMO duarouter v1_26_0+1107-e18765e03cf
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -161,6 +161,8 @@ Processing Options:
                                        discarding or duplicating vehicles)
   --scale-suffix STR                  Suffix to be added when creating ids for
                                        cloned vehicles
+  --taxi.vclasses STR[]               Network permissions that can be accessed
+                                       by taxis
   --gawron.beta FLOAT                 Use FLOAT as Gawron's beta
   --gawron.a FLOAT                    Use FLOAT as Gawron's a
   --keep-all-routes                   Save routes with near zero probability
