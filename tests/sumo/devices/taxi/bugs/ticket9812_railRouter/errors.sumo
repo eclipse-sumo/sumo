@@ -1,0 +1,4 @@
+Warning: No connection between stop 'ts_0' and stop 'ts_1' found.
+Warning: Could not add taxi stop, time=t_0, error=pickup p_0 (0)
+Warning: Could not add taxi stop, time=t_0, error=dropOff p_0 (0)
+Warning: Vehicle 't_0' aborted waiting for a person that will never come.

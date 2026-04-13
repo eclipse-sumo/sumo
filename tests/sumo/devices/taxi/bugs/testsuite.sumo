@@ -16,6 +16,9 @@ ticket8578
 # rail taxi simulation without using vClass taxi
 ticket9812
 
+# rail taxi simulation without using vClass taxi
+ticket9812_railRouter
+
 # dispatch-rerouting must handle the case where the vehicle is too close to the person to brake
 ticket9867
 
