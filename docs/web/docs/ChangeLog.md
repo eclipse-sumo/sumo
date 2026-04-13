@@ -7,23 +7,28 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
-  - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
-  - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
-  - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
-  - Fixed failure to group taxi passengers when the dispatch-period is low #17644
+  - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709    
+  - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635  
   - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
-  - Less crashes with parquet output (especially summary output) #17656
-  - Fixed invalid signal state when loading from saved state and using WAUT #17675
+  - Less crashes with parquet output (especially summary output) #17656  
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
   - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
   - Fixed platform dependency in lane changer #17747
-  - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815
-  - Lanechanging state is now restored after loading #2380
-  - Fixed bugs that caused actuated traffic lights to differ in behavior after loading state #17849
-  - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532
+  - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815    
+  - Fixed crash when setting **--default.departlane best** #17854
+  - Fixed infinite loop when specifying invalid default depart lane #17850
+  - State-Loading:
+    - Fixed invalid signal state when loading from saved state and using WAUT #17675
+    - Lanechanging state is now restored after loading #2380
+    - Fixed bugs that caused actuated traffic lights to differ in behavior after loading state #17849
+    - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532
+  - Taxis:
+    - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
+    - Fixed failure to group taxi passengers when the dispatch-period is low #17644    
+    - Fixed invalid taxi device warnings #17864
   - Railways:
+    - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
     - Fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
     - Fixed invalid driveway assignment involving uncontrolled links at complex junctions of type rail_signal #17681
     - Fixed invalid error when loading railway state #17796
@@ -31,6 +36,8 @@ title: ChangeLog
     - Fixed deadlock when multiple vehicles approach the same siding #17834
     - Fixed deadlock caused by missing foe driveway #17835
     - Rail signals on shared lanes are now working regardless of permissions #17848
+    - Cars that share lanes with tram no longer activate rail signals #17862
+
 
 - sumo-gui
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
@@ -115,16 +122,18 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
-  - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627
-  - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
-  - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which avoids multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628
-  - Added taxi param `<param key="device.taxi.swapGroup" value="<GROUP_NAME>"/>` which permits idle taxis to receive dispatch tasks before pickup is complete from other taxis in the same swapGroup if that would reduce time to pickup #17639
+  - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627  
+  - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which avoids multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628  
   - carFollowModel *ACC* now supports driverstate device (but it is only active when setting vType attribute `applyDriverState="1"`) #17633
   - Option **--vtk-output** now supports writing data at sub-second simulation step-length #17645
   - edgeData and laneData-output now support attribute `excludeEmpty="modified"` which writes unused edges but only if their speed was modified with calibrators or variableSpeedSigns. #17587
   - fcd-output now supports attribute `stopDelay` #17767
   - fcd-output now supports attribute `speedRelative` (can also be activated by option **--fcd-output.speed-relative**) #17234
-
+  - The symbolic departSpeed values "desired", "speedLimit", "last" and "avg" now automatically adjust to upcoming stops and intersections #17851
+  - Taxis:
+    - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
+    - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
+    - Added taxi param `<param key="device.taxi.swapGroup" value="<GROUP_NAME>"/>` which permits idle taxis to receive dispatch tasks before pickup is complete from other taxis in the same swapGroup if that would reduce time to pickup #17639
 
 - meso
   - When the loaded network has internal links they are used instead of jumping across intersections (legacy behavior can be enabled with sumo option **--no-internal-links**) #17842
@@ -188,6 +197,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
+- The default values for options **--default.deparspeed** was changed from "0" to "avg". Also, the default of option **--default.departlane** was changed from "first" to "best_prob". This generally leads to higher insertion flow and using all available lanes. #16888
 - no more HTML tables in the docs
 - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
