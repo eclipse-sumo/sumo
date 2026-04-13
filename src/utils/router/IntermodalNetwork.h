@@ -452,13 +452,13 @@ public:
             }
             // use intermediate access edge that prevents taxi departure
             _IntermodalEdge* departConn = getDepartConnector(edgePair.first);
-            _AccessEdge* access = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, (SVCAll & ~gTaxiClasses));
+            _AccessEdge* access = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, (SVCAll & ~SVC_TAXI));
             addEdge(access);
             departConn->addSuccessor(access);
             access->addSuccessor(carEdge);
             if ((myCarWalkTransfer & TAXI_PICKUP_ANYWHERE) != 0) {
                 // taxi may depart anywhere but there is a time penalty
-                _AccessEdge* taxiAccess = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, gTaxiClasses, SVC_IGNORING, taxiWait);
+                _AccessEdge* taxiAccess = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
                 addEdge(taxiAccess);
                 departConn->addSuccessor(taxiAccess);
                 taxiAccess->addSuccessor(carEdge);
@@ -564,7 +564,7 @@ public:
                     }
                 }
                 if (carSplit != nullptr && transferWalkTaxi && !isAccess) {
-                    _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, gTaxiClasses, SVC_IGNORING, taxiWait);
+                    _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
                     addEdge(access);
                     stopConn->addSuccessor(access);
                     access->addSuccessor(carSplit);
@@ -649,7 +649,7 @@ public:
                         }
                     }
                     if (transferWalkTaxi) {
-                        _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, gTaxiClasses, SVC_IGNORING, taxiWait);
+                        _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
                         addEdge(access);
                         stopConn->addSuccessor(access);
                         access->addSuccessor(carSplit);
