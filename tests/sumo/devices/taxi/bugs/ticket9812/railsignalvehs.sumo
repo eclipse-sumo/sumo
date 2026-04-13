@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-12T23:51:43.183889+01:00 by Eclipse SUMO sumo v1_26_0+1106-b8c3bee4441
+<!-- generated on 2026-04-13T12:42:45.584805+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,4 +32,44 @@
 -->
 
 <railsignal-vehicle-output>
+    <railSignal id="J2">
+        <link linkIndex="0" from="E1_0" to=":J2_0_0">
+            <driveWay id="J2.0">
+                <entry id="t_0" time="21.00" reason="junction"/>
+                <exit id="t_0" time="56.00" reason="junction"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <railSignal id="J6">
+        <link linkIndex="0" from="E5_0" to=":J6_0_0">
+            <driveWay id="J6.0">
+                <entry id="t_0" time="55.00" reason="junction"/>
+                <exit id="t_0" time="60.00" reason="parking"/>
+            </driveWay>
+        </link>
+    </railSignal>
+    <departJunction id="J0">
+        <driveWay id="J0.d0">
+            <entry id="t_0" time="0.00" reason="departed"/>
+            <exit id="t_0" time="1.00" reason="reroute"/>
+        </driveWay>
+        <driveWay id="J0.d1">
+            <entry id="t_0" time="0.00" reason="reroute"/>
+            <exit id="t_0" time="15.00" reason="parking"/>
+        </driveWay>
+        <subDriveWay id="J0.d1.0"/>
+    </departJunction>
+    <departJunction id="J1">
+        <driveWay id="J1.d0"/>
+        <driveWay id="J1.d1">
+            <entry id="t_0" time="15.00" reason="parking"/>
+            <exit id="t_0" time="21.00" reason="junction"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="J6">
+        <driveWay id="J6.d0">
+            <entry id="t_0" time="120.00" reason="parking"/>
+            <exit id="t_0" time="121.00" reason="parking"/>
+        </driveWay>
+    </departJunction>
 </railsignal-vehicle-output>

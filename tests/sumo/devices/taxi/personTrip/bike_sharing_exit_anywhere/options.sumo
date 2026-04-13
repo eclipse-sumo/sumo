@@ -1,0 +1,8 @@
+-n net3.net.xml
+-r input_routes.rou.xml,input_routes2.rou.xml
+-a input_additional.add.xml
+--no-step-log
+-t
+--tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
+--persontrip.transfer.walk-taxi ptStops

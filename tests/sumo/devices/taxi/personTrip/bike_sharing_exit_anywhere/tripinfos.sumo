@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-13T12:38:10.732320+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <persontrip.transfer.walk-taxi value="ptStops"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="526.00" waitingTime="115.00" timeLoss="27.67" traveltime="411.00">
+        <walk depart="0.00" departPos="0.00" arrival="166.00" arrivalPos="92.23" duration="166.00" routeLength="208.26" timeLoss="16.06" maxSpeed="1.39" waitingTime="0.00"/>
+        <ride waitingTime="115.00" vehicle="bikeA" depart="281.00" arrival="526.00" arrivalPos="142.80" duration="245.00" routeLength="945.62" timeLoss="11.61"/>
+    </personinfo>
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="709.00" waitingTime="145.00" timeLoss="47.26" traveltime="564.00">
+        <walk depart="0.00" departPos="0.00" arrival="316.00" arrivalPos="92.23" duration="316.00" routeLength="392.72" timeLoss="33.25" maxSpeed="1.39" waitingTime="0.00"/>
+        <ride waitingTime="145.00" vehicle="bikeB" depart="461.00" arrival="709.00" arrivalPos="142.80" duration="248.00" routeLength="945.59" timeLoss="14.02"/>
+    </personinfo>
+    <tripinfo id="bikeA" depart="0.00" departLane="A0B0_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="712.00" routeLength="1437.53" waitingTime="1.00" waitingCount="1" stopTime="428.00" timeLoss="18.04" rerouteNo="2" devices="tripinfo_bikeA routing_bikeA taxi_bikeA person_bikeA" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="945.62" occupiedTime="188.00"/>
+    </tripinfo>
+    <tripinfo id="bikeB" depart="0.00" departLane="A2B2_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="712.00" routeLength="1437.53" waitingTime="3.00" waitingCount="1" stopTime="425.00" timeLoss="20.54" rerouteNo="2" devices="tripinfo_bikeB routing_bikeB taxi_bikeB person_bikeB" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="945.59" occupiedTime="191.00"/>
+    </tripinfo>
+</tripinfos>

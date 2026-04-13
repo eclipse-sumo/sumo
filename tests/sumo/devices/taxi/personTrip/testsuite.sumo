@@ -33,3 +33,6 @@ walk_via_trainStop_ride_taxi
 
 # person walks to a bicycle sharing station and rides to the destination
 bike_sharing
+
+# person walks to a bicycle sharing station and rides to the destination
+bike_sharing_exit_anywhere

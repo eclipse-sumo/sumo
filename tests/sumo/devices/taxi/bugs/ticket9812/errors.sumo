@@ -1,4 +1,2 @@
-Warning: Vehicle 't_0' with device.taxi should have vClass taxi instead of 'rail'.
 Warning: No connection between stop 'ts_0' and stop 'ts_1' found.
-Error: No connection found between trainStop 'ts_0' and trainStop 'ts_1' for person 'p_0'.
-Quitting (on error).
+Warning: Vehicle 't_0' aborted waiting for a person that will never come.
