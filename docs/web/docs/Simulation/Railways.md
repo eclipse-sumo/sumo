@@ -352,6 +352,7 @@ Example:
 ## Train Schedules
 
 Train schedules are defined in the same way as for any other type of [public transport](Public_Transport.md#public_transport_schedules).
+For long-distance trains that pass stations or other operation control points without scheduled stops, it may be useful to add [waypoints](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints) to their route. This faciliates computing intermediate edges between stops and results in additional data points for [stop-output](Output/StopOutput.md).
 
 <img src="../images/schedule_until.png" width="500px"/>
 
