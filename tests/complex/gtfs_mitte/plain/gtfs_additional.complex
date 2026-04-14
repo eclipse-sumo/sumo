@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-11 09:52:14.917374 by Eclipse SUMO gtfs2pt.py v1_26_0+1093-169492e1084
+<!-- generated on 2026-04-14 07:36:51.523467 by Eclipse SUMO gtfs2pt.py v1_26_0+1139-c6ea59e8bd4
 <configuration>
     <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
     <date value="20190713"/>
@@ -668,18 +668,6 @@
         <access friendlyPos="true" lane="832173068#1_0" pos="0.99" length="69.67"/>
         <access friendlyPos="true" lane="832173068#2_0" pos="32.18" length="39.05"/>
         <access friendlyPos="true" lane="832173068#3_0" pos="0.00" length="53.16"/>
-    </busStop>
-    <busStop id="114274508.5" lane="340498988#0_0" startPos="23.06" endPos="36.06" friendlyPos="true" name="Berlin, Unter den Linden/Friedrichstr.">
-        <access friendlyPos="true" lane="1124928840#1_0" pos="0.00" length="10.51"/>
-        <access friendlyPos="true" lane="1124928841#5_0" pos="0.00" length="17.01"/>
-        <access friendlyPos="true" lane="1158551332#3_0" pos="0.20" length="44.37"/>
-        <access friendlyPos="true" lane="1158551333#1_0" pos="0.00" length="47.83"/>
-        <access friendlyPos="true" lane="1158551334#2_0" pos="7.62" length="37.05"/>
-        <access friendlyPos="true" lane="1158551338#2_0" pos="6.99" length="26.47"/>
-        <access friendlyPos="true" lane="1158551340#1_0" pos="7.68" length="14.09"/>
-        <access friendlyPos="true" lane="1158551341#1_0" pos="0.00" length="30.46"/>
-        <access friendlyPos="true" lane="1158551342#0_0" pos="0.20" length="40.53"/>
-        <access friendlyPos="true" lane="1158551342#1_0" pos="0.00" length="44.12"/>
     </busStop>
     <busStop id="114234986.1" lane="23809678#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Berlin, Neue Schönhauser Str.">
         <access friendlyPos="true" lane="-566154986#1_0" pos="2.41" length="21.79"/>
