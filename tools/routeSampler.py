@@ -106,6 +106,8 @@ def get_options(args=None):
                     help="custom aggregation interval (seconds or H:M:S)")
     op.add_argument("--depart-distribution", category="time", dest="departDistVals",
                     help="load list of densities that cover [begin, end] to customize departure time probabilities")
+    op.add_argument("--timeline", category="time",
+                    help="load shares of intervals when splitting")
     # processing
     op.add_argument("--turn-max-gap", type=int, dest="turnMaxGap", default=0,
                     help="Allow at most a gap of INT edges between from-edge and to-edge")
@@ -213,6 +215,18 @@ def get_options(args=None):
     if options.departDistVals:
         sep = ',' if ',' in options.departDistVals else None
         options.departDistVals = list(map(float, options.departDistVals.split(sep)))
+
+    if options.timeline:
+        TIME_LINES = {  # see https://sumo.dlr.de/docs/Demand/Importing_O/D_Matrices.html
+            "TGw3_PKW": "0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8,4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9",
+            "TGw2_PKW":	"0.8,0.5,0.4,0.3,0.4,1.2,4.5,7.4,6.6,5.2,5.0,5.0,5.2,5.3,5.6,6.7,8.4,8.6,7.4,5.0,3.9,3.0,2.1,1.6",
+            "TGs1_PKW": "3.3,2.8,2.0,1.5,1.2,1.3,1.2,1.5,2.5,3.7,4.8,5.5,6.0,6.7,7.0,7.1,6.9,7.4,7.0,6.0,4.7,4.1,3.5,2.3",
+            "TGw_LKW": "0.3,0.4,0.4,0.6,0.8,2.0,4.8,7.5,9.0,8.7,9.0,9.0,7.5,8.4,7.8,6.9,5.4,4.0,2.7,1.8,1.2,0.9,0.6,0.3",
+            "TGs_LKW": "1.3,1.1,0.6,0.8,0.9,1.5,2.6,3.1,3.5,3.8,4.5,4.9,5.0,5.3,5.6,5.7,5.9,6.0,5.7,5.3,4.8,4.6,10.0,7.6"
+        }
+        options.timeline = TIME_LINES.get(options.timeline, options.timeline)
+        sep = ',' if ',' in options.timeline else None
+        options.timeline = list(map(float, options.timeline.split(sep)))
 
     return options
 
@@ -559,19 +573,26 @@ def getIntervals(options):
         end = parseTime(options.end)
     if options.interval is not None:
         interval = parseTime(options.interval)
+    numIntervals = int((end - begin) // interval)
+    if (end - begin) % interval != 0:
+        numIntervals += 1
 
     # init departDist after begin and end are known, store in options for
     # easier handover to solveInterval
     options.departDist = None
     if hasattr(options, "departDistVals") and options.departDistVals:
         options.departDist = DepartDist(options.departDistVals, begin, end)
+    if hasattr(options, "timeline") and options.timeline:
+        if len(options.timeline) % numIntervals != 0:
+            print("Warning! Number of intervals does not match length of timeline.", file=sys.stderr)
+        s = sum(options.timeline)
+        agg = len(options.timeline) // numIntervals
+        vals = [sum(options.timeline[i:i+agg]) for i in range(0, len(options.timeline), agg)]   
+        scales = [numIntervals * v / s for v in vals]
+    else:
+        scales = numIntervals * [1.0]
 
-    result = []
-    while begin < end:
-        result.append((begin, begin + interval))
-        begin += interval
-
-    return result
+    return [(begin + i * interval, begin + (i + 1) * interval, s) for i, s in enumerate(scales)]
 
 
 def getOverlap(begin, end, iBegin, iEnd):
@@ -618,7 +639,7 @@ def parseEdgeCounts(interval, attr, warn):
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
-                       isOrigin=False, isDest=False, isRatio=False, isTaz=False, warn=False):
+                       isOrigin=False, isDest=False, isRatio=False, isTaz=False, warn=False, intervalScale=1.0):
     locations = {}  # edges -> CountData
     result = []
     if attr is None or attr == "None":
@@ -656,6 +677,8 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                             interval.begin, interval.end),
                             file=sys.stderr)
                     value *= overlap
+                    if iBegin <= begin and iEnd >= end:
+                        value *= intervalScale
                     if not isRatio:
                         value = int(value)
                     if value < 0:
@@ -768,6 +791,7 @@ def optimize(options, countData, routes, priorRouteCounts, routeUsage, intervalC
     res = opt.linprog(c, A_ub=A_ub, b_ub=b_ub, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
     if res.success:
+        sys.stdout.flush()
         print("Optimization succeeded")
         routeCountsR = res.x[:k]  # cut of slack variables
         # translate to original route indices
@@ -884,8 +908,8 @@ def initTotalCounts(options, routes, intervals, b, e):
         if len(options.totalCount) == 1:
             # split proportionally
             countSums = []
-            for begin, end in intervals:
-                countData = parseCounts(options, routes, begin, end)
+            for begin, end, scale in intervals:
+                countData = parseCounts(options, routes, begin, end, False, scale)
                 countSums.append(sum(cd.origCount for cd in countData))
             countSumTotal = sum(countSums)
             origTotal = options.totalCount[0]
@@ -915,13 +939,13 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
     rng = np.random.RandomState(options.seed + cpuIndex)
-    for i, (begin, end) in enumerate(interval):
+    for i, (begin, end, scale) in enumerate(interval):
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
         intervalCount = options.totalCount[i] if options.totalCount else None
         uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf = solveInterval(
-            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount)
+            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng, intervalCount, scale)
 
         output_list.append([begin, uFlow, oFlow, gehOKPerc, ratioPerc, inputCount, usedRoutes, local_outf.getvalue(),
                             local_mismatch_outf.getvalue() if options.mismatchOut else None])
@@ -929,25 +953,30 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
     return output_lst
 
 
-def parseCounts(options, routes, b, e, warn=False):
+def parseCounts(options, routes, b, e, warn, intervalScale):
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnAttr, options=options, warn=warn)
+                                    routes, options.turnAttr, options=options, warn=warn,
+                                    intervalScale=intervalScale)
                  + parseDataIntervals(parseTurnCounts, options.turnRatioFiles, b, e,
-                                      routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn)
+                                      routes, options.turnRatioAttr, options=options, isRatio=True, warn=warn,
+                                      intervalScale=intervalScale)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.edgeDataAttr, options=options, warn=warn)
+                                      routes, options.edgeDataAttr, options=options, warn=warn,
+                                      intervalScale=intervalScale)
                  + parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
                                       routes, options.turnAttr, options=options,
-                                      isOrigin=True, isDest=True, warn=warn)
+                                      isOrigin=True, isDest=True, warn=warn, intervalScale=intervalScale)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.departAttr, options=options, isOrigin=True, warn=warn)
+                                      routes, options.departAttr, options=options, isOrigin=True, warn=warn,
+                                      intervalScale=intervalScale)
                  + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                      routes, options.arrivalAttr, options=options, isDest=True, warn=warn)
+                                      routes, options.arrivalAttr, options=options, isDest=True, warn=warn,
+                                      intervalScale=intervalScale)
                  )
     if options.tazFiles is not None:
         countData += parseDataIntervals(parseTazCounts, options.odFiles, b, e,
                                         routes, options.turnAttr, options=options,
-                                        isTaz=True, warn=warn)
+                                        isTaz=True, warn=warn, intervalScale=intervalScale)
     for i, cd in enumerate(countData):
         cd.index = i
     return countData
@@ -977,8 +1006,8 @@ def getHourFraction(options, begin, end):
         return 1 / options.gehScale
 
 
-def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount):
-    countData = parseCounts(options, routes, begin, end)
+def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount, intervalScale=1.0):
+    countData = parseCounts(options, routes, begin, end, False, intervalScale)
 
     ratioIndices = None
     if options.turnRatioFiles:
@@ -1025,6 +1054,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         if options.verbose:
             print("Starting optimization for interval [%s, %s] (mismatch %s)" % (
                 begin, end, totalMismatch))
+            sys.stdout.flush()
         routeCounts = optimize(options, countData, routes, routeCounts, routeUsage, intervalCount, rng)
         resetCounts(routeCounts, routeUsage, countData)
         numSampled = sum(routeCounts)
@@ -1377,9 +1407,9 @@ def main(options):
 
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
-    e = intervals[-1][-1]
+    e = intervals[-1][1]
     with Benchmarker(options.verboseTiming, "Loading counts"):
-        countData = parseCounts(options, routes, b, e, True)
+        countData = parseCounts(options, routes, b, e, True, 1.0)
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -1427,7 +1457,7 @@ def main(options):
     usedRoutesSummary = sumolib.miscutils.Statistics("avg interval written vehs")
 
     with open(options.out, 'w') as outf, Benchmarker(options.verboseTiming, "Sampling all intervals"):
-        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
+        sumolib.writeXMLHeader(outf, root="routes", options=options)
         if options.keepAttrs:
             for vType in routes.vTypes:
                 outf.write(vType.toXML(' ' * 4))
@@ -1446,11 +1476,11 @@ def main(options):
                     inputCountSummary.add(result[5][i], begin)
                     usedRoutesSummary.add(sum(result[6][i]), begin)
         else:
-            for i, (begin, end) in enumerate(intervals):
+            for i, (begin, end, scale) in enumerate(intervals):
                 intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
                 intervalCount = options.totalCount[i] if options.totalCount else None
                 uFlow, oFlow, gehOK, ratioPerc, inputCount, usedRoutes, _ = solveInterval(
-                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount)
+                    options, routes, begin, end, intervalPrefix, outf, mismatchf, rng, intervalCount, scale)
                 underflowSummary.add(uFlow, begin)
                 overflowSummary.add(oFlow, begin)
                 gehSummary.add(gehOK, begin)
