@@ -91,7 +91,9 @@ def run_case(extra_tags, use_osm_sidewalks, guess_sidewalks, typemap):
             any_sidewalk = True
         if any(la.allows("pedestrian") for la in road_lanes):
             any_ped_on_road = True
-    print("tags:", extra_tags, " ".join(["netconvert"] + cmd[5:]).replace(os.environ["SUMO_HOME"], ""))
+    cleanCmd = " ".join(["netconvert"] + cmd[5:]).replace(os.environ["SUMO_HOME"], "")
+    cleanCmd = cleanCmd.replace("\\", "/")
+    print("tags:", extra_tags, cleanCmd)
     print("    sidewalk:", any_sidewalk, "peds_on_road:", any_ped_on_road)
 
 
