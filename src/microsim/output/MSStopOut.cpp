@@ -25,6 +25,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
 #include <microsim/MSStoppingPlace.h>
@@ -143,66 +144,67 @@ MSStopOut::unloadedContainers(const SUMOVehicle* veh, int n) {
 
 
 void
-MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd) {
+MSStopOut::stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd) {
     assert(veh != nullptr);
     if (myStopped.count(veh) == 0) {
         WRITE_WARNINGF(TL("Vehicle '%' ends stop on edge '%', time=% without entering the stop."),
                        veh->getID(), veh->getEdge()->getID(), time2string(SIMSTEP));
         return;
     }
+    const SUMOVehicleParameter::Stop& pars = stop.pars;
     const StopInfo& si = myStopped.find(veh)->second;
     double delay = -1;
     double arrivalDelay = -1;
-    if (stop.until >= 0 && !simEnd) {
-        delay = STEPS2TIME(SIMSTEP - stop.until);
+    if (pars.until >= 0 && !simEnd) {
+        delay = STEPS2TIME(SIMSTEP - pars.until);
     }
-    if (stop.arrival >= 0) {
-        arrivalDelay = STEPS2TIME(stop.started - stop.arrival);
+    if (pars.arrival >= 0) {
+        arrivalDelay = STEPS2TIME(pars.started - pars.arrival);
     }
     myDevice.openTag("stopinfo");
     myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
     myDevice.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
     if (MSGlobals::gUseMesoSim) {
-        myDevice.writeAttr(SUMO_ATTR_EDGE, laneOrEdgeID);
+        myDevice.writeAttr(SUMO_ATTR_EDGE, veh->getEdge()->getID());
     } else {
-        myDevice.writeAttr(SUMO_ATTR_LANE, laneOrEdgeID);
+        myDevice.writeAttr(SUMO_ATTR_LANE, stop.lane->getID());
     }
     myDevice.writeAttr(SUMO_ATTR_POSITION, veh->getPositionOnLane());
-    myDevice.writeAttr(SUMO_ATTR_PARKING, stop.parking);
-    myDevice.writeAttr(SUMO_ATTR_STARTED, time2string(stop.started));
+    myDevice.writeAttr(SUMO_ATTR_PARKING, pars.parking);
+    myDevice.writeAttr(SUMO_ATTR_STARTED, time2string(pars.started));
     myDevice.writeAttr(SUMO_ATTR_ENDED, simEnd ? "-1" : time2string(SIMSTEP));
-    if (stop.until >= 0) {
+    if (pars.until >= 0) {
         myDevice.writeAttr("delay", delay);
     }
-    if (stop.arrival >= 0) {
+    if (pars.arrival >= 0) {
         myDevice.writeAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay);
     }
-    if (stop.busstop != "") {
-        myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop);
+    if (pars.busstop != "") {
+        myDevice.writeAttr(SUMO_ATTR_BUS_STOP, pars.busstop);
     }
-    if (stop.containerstop != "") {
-        myDevice.writeAttr(SUMO_ATTR_CONTAINER_STOP, stop.containerstop);
+    if (pars.containerstop != "") {
+        myDevice.writeAttr(SUMO_ATTR_CONTAINER_STOP, pars.containerstop);
     }
-    if (stop.parkingarea != "") {
-        myDevice.writeAttr(SUMO_ATTR_PARKING_AREA, stop.parkingarea);
+    if (pars.parkingarea != "") {
+        myDevice.writeAttr(SUMO_ATTR_PARKING_AREA, pars.parkingarea);
     }
-    if (stop.chargingStation != "") {
-        myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, stop.chargingStation);
+    if (pars.chargingStation != "") {
+        myDevice.writeAttr(SUMO_ATTR_CHARGING_STATION, pars.chargingStation);
     }
-    if (stop.overheadWireSegment != "") {
-        myDevice.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, stop.overheadWireSegment);
+    if (pars.overheadWireSegment != "") {
+        myDevice.writeAttr(SUMO_ATTR_OVERHEAD_WIRE_SEGMENT, pars.overheadWireSegment);
     }
-    if (stop.tripId != "") {
-        myDevice.writeAttr(SUMO_ATTR_TRIP_ID, stop.tripId);
+    if (pars.tripId != "") {
+        myDevice.writeAttr(SUMO_ATTR_TRIP_ID, pars.tripId);
     }
-    if (stop.line != "") {
-        myDevice.writeAttr(SUMO_ATTR_LINE, stop.line);
+    if (pars.line != "") {
+        myDevice.writeAttr(SUMO_ATTR_LINE, pars.line);
     }
-    if (stop.split != "") {
-        myDevice.writeAttr(SUMO_ATTR_SPLIT, stop.split);
+    if (pars.split != "") {
+        myDevice.writeAttr(SUMO_ATTR_SPLIT, pars.split);
     }
     if (MSGlobals::gUseStopEnded) {
-        myDevice.writeAttr(SUMO_ATTR_USED_ENDED, stop.ended >= 0);
+        myDevice.writeAttr(SUMO_ATTR_USED_ENDED, pars.ended >= 0);
     }
     myDevice.writeAttr("initialPersons", si.initialNumPersons);
     myDevice.writeAttr("loadedPersons", si.loadedPersons);
@@ -221,11 +223,10 @@ MSStopOut::generateOutputForUnfinished() {
     while (!myStopped.empty()) {
         const auto& item = *myStopped.begin();
         const SUMOVehicle* veh = item.first;
-        const SUMOVehicleParameter::Stop* stop = veh->getNextStopParameter();
-        assert(stop != nullptr);
-        const std::string laneOrEdgeID = MSGlobals::gUseMesoSim ? veh->getEdge()->getID() : Named::getIDSecure(veh->getLane());
+        assert(veh->isStopped());
+        const MSStop& stop = veh->getNextStop();
         // erases item from myStopped
-        stopEnded(veh, *stop, laneOrEdgeID, true);
+        stopEnded(veh, stop, true);
     }
 }
 

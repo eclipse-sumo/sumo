@@ -7403,7 +7403,7 @@ MSVehicle::resumeFromStopping() {
             stop.pars.started = MSNet::getInstance()->getCurrentTimeStep();
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, stop.pars, stop.lane->getID());
+            MSStopOut::getInstance()->stopEnded(this, stop);
         }
         stop.pars.ended = MSNet::getInstance()->getCurrentTimeStep();
         for (const auto& rem : myMoveReminders) {

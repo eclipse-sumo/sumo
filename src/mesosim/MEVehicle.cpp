@@ -299,7 +299,7 @@ MEVehicle::resumeFromStopping() {
             rem.first->notifyStopEnded();
         }
         if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopEnded(this, stop.pars, mySegment->getEdge().getID());
+            MSStopOut::getInstance()->stopEnded(this, stop);
         }
         myPastStops.push_back(stop.pars);
         myPastStops.back().routeIndex = (int)(stop.edge - myRoute->begin());

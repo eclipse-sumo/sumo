@@ -30,6 +30,7 @@
 // ===========================================================================
 class OutputDevice;
 class SUMOVehicle;
+class MSStop;
 
 
 // ===========================================================================
@@ -77,7 +78,7 @@ public:
     void loadedContainers(const SUMOVehicle* veh, int n);
     void unloadedContainers(const SUMOVehicle* veh, int n);
 
-    void stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& stop, const std::string& laneOrEdgeID, bool simEnd = false);
+    void stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd = false);
 
     /// @brief generate output for vehicles which are still stopped at simulation end
     void generateOutputForUnfinished();
