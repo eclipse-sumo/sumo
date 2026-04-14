@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T08:21:33.812379+01:00 by Eclipse SUMO sumo v1_25_0+0027-5c3bcfe9774
+<!-- generated on 2026-04-14T16:02:30.149242+01:00 by Eclipse SUMO sumo v1_26_0+1153-994ce4dc7aa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -51,6 +53,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="v0" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="7.20" ended="23.00" parkingArea="PA1" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="v1" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="9.20" ended="25.00" parkingArea="PA1" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v0" type="ElectricVehicle" edge="D2" pos="200.00" parking="0" started="29.40" ended="37.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v1" type="ElectricVehicle" edge="D2" pos="200.00" parking="0" started="31.40" ended="39.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v0" type="ElectricVehicle" edge="D2" pos="200.00" parking="0" started="29.40" ended="37.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" state="waypoint"/>
+    <stopinfo id="v1" type="ElectricVehicle" edge="D2" pos="200.00" parking="0" started="31.40" ended="39.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" state="waypoint"/>
 </stops>

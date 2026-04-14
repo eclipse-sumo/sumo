@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:37:34 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-04-14T16:02:35.271796+01:00 by Eclipse SUMO sumo v1_26_0+1153-994ce4dc7aa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -43,5 +45,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="CE_0" pos="65.50" parking="1" started="7.00" ended="20.00" delay="0.00" busStop="bs0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="1.00"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" lane="CE_0" pos="65.50" parking="1" started="7.00" ended="20.00" delay="0.00" busStop="bs0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="1.00" state="waypointStopped"/>
 </stops>
