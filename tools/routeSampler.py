@@ -152,6 +152,8 @@ def get_options(args=None):
     op.add_argument("--threads", dest="threads", type=int, default=1,
                     help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then " +
                     "your machines CPUs if you want to utilize all CPUs (Default is 1)")
+    op.add_argument("--merge-strategy", default="sum", choices=["sum", "ignore"],
+                    help="how to merge different data points for the same location and interval")
 
     options = op.parse_args(args=args)
     if (options.routeFiles is None or
@@ -659,9 +661,11 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                             print("Warning: Missing '%s' value in file '%s' for edge(s) '%s'" %
                                   (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
+                    firstData = False
                     if edges not in locations:
                         result.append(CountData(0, edges, allRoutes, isOrigin, isDest, isRatio, isTaz, options))
                         locations[edges] = result[-1]
+                        firstData = True
                     elif (isOrigin and isDest) != (locations[edges].isOrigin and locations[edges].isDest):
                         print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
                               ' '.join(edges), file=sys.stderr)
@@ -685,7 +689,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options,
                         if warn:
                             print("Ignoring negative count %s for edge(s) '%s'" % (
                                 value, " ".join(edges)), file=sys.stderr)
-                    else:
+                    elif firstData or options.merge_strategy == "sum":
                         locations[edges].addCount(value)
     return result
 

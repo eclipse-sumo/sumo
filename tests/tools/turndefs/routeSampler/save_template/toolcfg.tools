@@ -27,6 +27,7 @@
     <end value="None" type="string" help="custom end time (seconds or H:M:S)" category="time"/>
     <interval value="None" type="string" help="custom aggregation interval (seconds or H:M:S)" category="time"/>
     <depart-distribution value="None" type="string" help="load list of densities that cover [begin, end] to customize departure time probabilities" category="time"/>
+    <timeline value="None" type="string" help="load shares of intervals when splitting" category="time"/>
     <turn-max-gap value="0" type="int" help="Allow at most a gap of INT edges between from-edge and to-edge" category="processing"/>
     <total-count value="None" type="string" help="Set a total count that should be reached (either as single value that is split  proportionally among all intervals or as a list of counts per interval). Setting the value 'input' preserves input vehicle counts in each interval." category="processing"/>
     <extra-od value="False" type="bool" help="Permit traffic between OD-pairs that did not occur in the input" category="processing"/>
@@ -46,4 +47,5 @@
     <turn-ratio-tolerance value="None" type="float" help="Set tolerance for error in resulting ratios (relative to turn-ratio-total)" category="processing"/>
     <turn-ratio-abs-tolerance value="1" type="int" help="Set tolerance for error in resulting turning ratios as absolute count" category="processing"/>
     <threads value="1" type="int" help="If parallelization is desired, enter the number of CPUs to use. Set to a value &gt;&gt; then your machines CPUs if you want to utilize all CPUs (Default is 1)" category="processing"/>
+    <merge-strategy value="sum" type="string" help="how to merge different data points for the same location and interval" category="processing"/>
 </configuration>
