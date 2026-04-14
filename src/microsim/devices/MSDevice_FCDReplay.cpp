@@ -349,6 +349,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             }
             MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vType);
             if (vehicleType == nullptr) {
+                delete params;
                 throw ProcessError(TLF("Unknown vType '%'.", vType));
             }
             if (routeEdges.front() == nullptr) {
@@ -357,6 +358,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 } else {
                     WRITE_WARNINGF(TL("No lane in fcd replay file for vehicle '%' at time %."), id, time2string(t.front().time));
                 }
+                delete params;
                 continue;
             }
             if (isPerson) {
@@ -365,11 +367,12 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
                 person->getSingularType().setVClass(SVC_IGNORING);
                 if (!MSNet::getInstance()->getPersonControl().add(person)) {
+                    delete person;
                     throw ProcessError(TLF("Duplicate person '%'.", id));
                 }
                 MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
                 if (device == nullptr) {  // Person did not get a replay device
-                    // TODO delete person
+                    delete person;
                     continue;
                 }
                 device->setTrajectory(&t);
@@ -416,16 +419,19 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 const int stageIndex = person->getNumRemainingStages() - 1;
                 MSStage* const final = person->getNextStage(stageIndex);
                 bool append = false;
-                for (MSStage* stage : *plan) {
+                for (MSStage* const stage : *plan) {
                     if (stage->getStageType() == final->getStageType() && stage->getFromEdge() == final->getFromEdge()) {
                         // TODO: circular plans?
                         append = true;
                     }
                     if (append) {
                         person->appendStage(stage);
+                    } else {
+                        delete stage;
                     }
                 }
                 person->removeStage(stageIndex);
+                delete plan;
             } else {
                 SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
                 ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);
