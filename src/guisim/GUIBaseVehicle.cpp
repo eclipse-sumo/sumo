@@ -677,10 +677,10 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
     }
     bool noLoop = hasActiveAddVisualisation(parent, VO_SHOW_ROUTE_NOLOOP);
     if (hasActiveAddVisualisation(parent, VO_SHOW_ROUTE)) {
-        drawRoute(s, 0, 0.25, false, noLoop);
+        drawRoute(s, 0, 0.15, false, noLoop);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_FUTURE_ROUTE)) {
-        drawRoute(s, 0, 0.25, true, noLoop);
+        drawRoute(s, 0, 0.15, true, noLoop);
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_ALL_ROUTES)) {
         if (myVehicle.getNumberReroutes() > 0) {
@@ -690,7 +690,7 @@ GUIBaseVehicle::drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVis
                 drawRoute(s, i, darken);
             }
         } else {
-            drawRoute(s, 0, 0.25, false, noLoop);
+            drawRoute(s, 0, 0.15, false, noLoop);
         }
     }
     if (hasActiveAddVisualisation(parent, VO_SHOW_LFLINKITEMS)) {

@@ -326,7 +326,7 @@ GUIVehicle::drawAction_drawLinkItems(const GUIVisualizationSettings& s) const {
 void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
     RGBColor current = GLHelper::getColor();
-    RGBColor darker = current.changedBrightness(-51);
+    RGBColor darker = current.changedBrightness(-20);
     const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
                                  * s.vehicleScaler.getScheme().getColor(getScaleValue(s, s.vehicleScaler.getActive())));
     if (exaggeration == 0) {
