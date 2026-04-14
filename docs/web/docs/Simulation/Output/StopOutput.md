@@ -48,6 +48,7 @@ The following output attributes are generated:
 | chargingStation    | id (optional) | The id of the chargingStation if this stop took place at a named `<chargingStation/>`  |
 | tripId             | string (optional) | The tripId parameter of the vehicle at the time of stopping if it was set|
 | usedEnded          | bool (optional)  | Whether the stop was loaded with an 'ended' value. (only written if option **--use-stop-ended** is set) |
+| state              | string           | additional information regarding actual stopping. Possible values are: "waypoint", "waypointStopped", (if the stop is [waypoint](../../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#waypoints)) and "skippedOnDemand" (if the stop was skipped because of attribute `onDemand`)|
 
 ## Visualization Examples
 
