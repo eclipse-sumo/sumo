@@ -130,7 +130,7 @@ def main(options):
     inputCountSummary = sumolib.miscutils.Statistics("avg interval input count")
     usedRoutesSummary = sumolib.miscutils.Statistics("avg interval loaded vehs")
 
-    for begin, end in intervals:
+    for begin, end, scale in intervals:
         intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
         uFlow, oFlow, gehOK, inputCount, usedRoutes = checkInterval(options, begin, end, intervalPrefix, mismatchf)
         underflowSummary.add(uFlow, begin)
@@ -152,7 +152,7 @@ def main(options):
 
 def checkInterval(options, begin, end, intervalPrefix, mismatchf):
     routes = Routes()
-    countData = parseCounts(options, routes, begin, end)
+    countData = parseCounts(options, routes, begin, end, False, 1.0)
 
     edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
     detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
