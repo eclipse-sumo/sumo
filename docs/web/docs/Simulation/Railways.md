@@ -349,6 +349,15 @@ Example:
         resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
 ```
 
+## Effects of train length
+
+The length of a train has several imporant effects on a railway simulation:
+
+- **block occupancy**: A longer train takes up more space and takes longer to completely pass a signal block which impacts capacity
+- **speed limits**: The maximum permitted speed for a train is the mimimum of all edges that it occupies (Whereas for road vehicles, only the speed at the front edge is considered).
+- **reversal after a swich**: In order to turn a "sharp corner" at a switch, a train must completely pass the switch and the reverse. The route of train must contain enough edges on the facing side (with one entering track) to let the whole length of the train pass the switch before reversal is possible.
+- **stopping after reversal**: After reversal, the front and the rear of the train exchange their positions. This may cause the head of the train to skip past a stop edge and cause this stop to be skipped if the route does not go far enough past the stop (it is therefore recommended to always stop *before* the reversal).
+
 ## Train Schedules
 
 Train schedules are defined in the same way as for any other type of [public transport](Public_Transport.md#public_transport_schedules).
