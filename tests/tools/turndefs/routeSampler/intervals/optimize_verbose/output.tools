@@ -1,28 +1,44 @@
-Running HiGHS 1.2.0 [date: 2021-07-09, git hash: n/a]
-Copyright (c) 2022 ERGO-Code under MIT licence terms
-Presolving model
-1 rows, 2 cols, 2 nonzeros
-0 rows, 0 cols, 0 nonzeros
-Presolve : Reductions: rows 0(-2); columns 0(-5); elements 0(-6) - Reduced to empty
-Solving the original LP from the solution after postsolve
-Model   status      : Optimal
-Objective value     :  0.0000000000e+00
-HiGHS run time      :          0.00
 Loaded 3 routes (3 distinct)
 Starting optimization for interval [0.0, 300.0] (mismatch 20)
+Running HiGHS 1.12.0 (git hash: 4f96ee8): Copyright (c) 2025 HiGHS under MIT licence terms
+LP has 2 rows; 5 cols; 6 nonzeros
+Coefficient ranges:
+  Matrix  [1e+00, 1e+00]
+  Cost    [1e+00, 1e+00]
+  Bound   [0e+00, 0e+00]
+  RHS     [1e+01, 1e+01]
+Presolving model
+1 rows, 2 cols, 2 nonzeros  0s
+0 rows, 0 cols, 0 nonzeros  0s
+Presolve reductions: rows 0(-2); columns 0(-5); nonzeros 0(-6) - Reduced to empty
+Performed postsolve
+Solving the original LP from the solution after postsolve
+
+Model status        : Optimal
+Objective value     :  0.0000000000e+00
+P-D objective error :  0.0000000000e+00
+HiGHS run time      :          0.00
 Optimization succeeded
 0: Wrote 10 routes (1 distinct) achieving total count 20 (100.00%) at 2 locations. GEH<5 for 100.00%
-Running HiGHS 1.2.0 [date: 2021-07-09, git hash: n/a]
-Copyright (c) 2022 ERGO-Code under MIT licence terms
-Presolving model
-1 rows, 1 cols, 1 nonzeros
-0 rows, 0 cols, 0 nonzeros
-Presolve : Reductions: rows 0(-2); columns 0(-5); elements 0(-6) - Reduced to empty
-Solving the original LP from the solution after postsolve
-Model   status      : Optimal
-Objective value     :  0.0000000000e+00
-HiGHS run time      :          0.00
 Starting optimization for interval [300.0, 600.0] (mismatch 16)
+Running HiGHS 1.12.0 (git hash: 4f96ee8): Copyright (c) 2025 HiGHS under MIT licence terms
+LP has 2 rows; 5 cols; 6 nonzeros
+Coefficient ranges:
+  Matrix  [1e+00, 1e+00]
+  Cost    [1e+00, 1e+00]
+  Bound   [0e+00, 0e+00]
+  RHS     [8e+00, 8e+00]
+Presolving model
+1 rows, 1 cols, 1 nonzeros  0s
+0 rows, 0 cols, 0 nonzeros  0s
+Presolve reductions: rows 0(-2); columns 0(-5); nonzeros 0(-6) - Reduced to empty
+Performed postsolve
+Solving the original LP from the solution after postsolve
+
+Model status        : Optimal
+Objective value     :  0.0000000000e+00
+P-D objective error :  0.0000000000e+00
+HiGHS run time      :          0.00
 Optimization succeeded
 300: Wrote 8 routes (1 distinct) achieving total count 16 (100.00%) at 2 locations. GEH<5 for 100.00%
 avg interval input count: count 2, min 16.00 (300.0), max 20.00 (0.0), mean 18.00, Q1 16.00, median 20.00, Q3 20.00

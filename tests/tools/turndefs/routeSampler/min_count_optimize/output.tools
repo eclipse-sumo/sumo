@@ -1,19 +1,3 @@
-Running HiGHS 1.2.0 [date: 2021-07-09, git hash: n/a]
-Copyright (c) 2022 ERGO-Code under MIT licence terms
-Presolving model
-107 rows, 192 cols, 799 nonzeros
-107 rows, 192 cols, 799 nonzeros
-Presolve : Reductions: rows 107(-31); columns 192(-31); elements 799(-58)
-Solving the presolved LP
-Using EKK dual simplex solver - serial
-  Iteration        Objective     Infeasibilities num(sum)
-          0     0.0000000000e+00 Ph1: 0(0) 0s
-         94     2.3000000000e+01 Pr: 0(0) 0s
-Solving the original LP from the solution after postsolve
-Model   status      : Optimal
-Simplex   iterations: 94
-Objective value     :  2.3000000000e+01
-HiGHS run time      :          0.00
 Loaded 98 routes (98 distinct)
 input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66, Q1 6.00, median 9.00, Q3 11.00
  histogram: [(2, 2), (3, 3), (4, 8), (5, 6), (6, 10), (7, 8), (8, 12), (9, 10), (10, 12), (11, 7), (12, 3), (13, 7), (14, 4), (15, 4), (16, 2)]
@@ -21,6 +5,33 @@ input route detector count: count 98, min 1.00 (7), max 15.00 (39), mean 7.66, Q
  histogram: [(1, 2), (2, 3), (3, 8), (4, 6), (5, 10), (6, 8), (7, 12), (8, 10), (9, 12), (10, 7), (11, 3), (12, 7), (13, 4), (14, 4), (15, 2)]
 Ignored 13 routes which pass fewer than 4 counting location
 Starting optimization for interval [0.0, 99.0] (mismatch 751)
+Running HiGHS 1.12.0 (git hash: 4f96ee8): Copyright (c) 2025 HiGHS under MIT licence terms
+LP has 138 rows; 223 cols; 857 nonzeros
+Coefficient ranges:
+  Matrix  [1e+00, 1e+00]
+  Cost    [1e+00, 1e+00]
+  Bound   [0e+00, 0e+00]
+  RHS     [1e+00, 2e+01]
+Presolving model
+107 rows, 192 cols, 799 nonzeros  0s
+Dependent equations search running on 107 equations with time limit of 1000.00s
+Dependent equations search removed 0 rows and 0 nonzeros in 0.00s (limit = 1000.00s)
+107 rows, 192 cols, 799 nonzeros  0s
+Presolve reductions: rows 107(-31); columns 192(-31); nonzeros 799(-58) 
+Solving the presolved LP
+Using EKK dual simplex solver - serial
+  Iteration        Objective     Infeasibilities num(sum)
+          0     0.0000000000e+00 Ph1: 0(0) 0s
+         94     2.3000000000e+01 Pr: 0(0) 0s
+
+Performed postsolve
+Solving the original LP from the solution after postsolve
+
+Model status        : Optimal
+Simplex   iterations: 94
+Objective value     :  2.3000000000e+01
+P-D objective error :  7.5589652740e-17
+HiGHS run time      :          0.00
 Optimization succeeded
 Wrote 88 routes (70 distinct) achieving total count 728 (96.94%) at 138 locations. GEH<5 for 95.65%
 result route edge count: count 88, min 5.00 (0), max 16.00 (41), mean 9.27, Q1 7.00, median 9.00, Q3 11.00
