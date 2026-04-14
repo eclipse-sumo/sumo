@@ -198,6 +198,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - The default values for options **--default.departspeed** was changed from "0" to "avg". Also, the default of option **--default.departlane** was changed from "first" to "best_prob". This generally leads to higher insertion flow and using all available lanes. #16888
+- Simulation of railway-taxis with vClass "taxi" no longer triggers rail signals (this is a consequence of #17862). Instead railway-taxis can now be defined as vClass "rail" and taxi behavior will work as expected (#9812). Alternatively, option **--railsignal.default-classes taxi** an be set to enable rail signal switching for vClass "taxi".
 - no more HTML tables in the docs
 - the build configuration now uses consistently options like ENABLE_FOX to enable or disable optional features #17677
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
