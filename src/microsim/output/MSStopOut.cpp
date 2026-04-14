@@ -213,6 +213,17 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd) {
     myDevice.writeAttr("loadedContainers", si.loadedContainers);
     myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     myDevice.writeAttr("blockedDuration", time2string(si.blockTime));
+
+    if (stop.pars.speed > 0) {
+        if (stop.waypointWithStop) {
+            myDevice.writeAttr(SUMO_ATTR_STATE, "waypointStopped");
+        } else {
+            myDevice.writeAttr(SUMO_ATTR_STATE, "waypoint");
+        }
+    } else if (stop.skipOnDemand) {
+        myDevice.writeAttr(SUMO_ATTR_STATE, "skippedOnDemand");
+    }
+
     myDevice.closeTag();
     myStopped.erase(veh);
 }

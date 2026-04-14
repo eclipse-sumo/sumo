@@ -2575,6 +2575,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                             }
                             stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), distToEnd), vMinComfortable);
                             waypointWithStop = true;
+                            if (stopSpeed <= SUMO_const_haltingSpeed) {
+                                const_cast<MSStop&>(stop).waypointWithStop = true;
+                            }
                         }
                     }
                     if (stop.reached) {

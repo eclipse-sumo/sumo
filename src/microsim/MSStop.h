@@ -89,6 +89,8 @@ public:
     bool skipOnDemand = false;
     /// @brief whether the 'started' value was loaded from simulaton state
     bool startedFromState = false;
+    /// @brief whehther the vehicle stopped despite having a waypoing
+    bool waypointWithStop = false;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;
