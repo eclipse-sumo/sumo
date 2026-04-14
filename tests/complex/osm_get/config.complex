@@ -1,1 +1,3 @@
 create_catalogues:true
+[run_dependent_text]
+output:from list of valid servers
