@@ -1,0 +1,29 @@
+0: Wrote 2 routes (2 distinct) achieving total count 2 (100.00%) at 1 locations. GEH<5 for 100.00%
+3600: Wrote 4 routes (2 distinct) achieving total count 4 (100.00%) at 1 locations. GEH<5 for 100.00%
+7200: Wrote 4 routes (2 distinct) achieving total count 4 (100.00%) at 1 locations. GEH<5 for 100.00%
+10800: Wrote 5 routes (2 distinct) achieving total count 5 (100.00%) at 1 locations. GEH<5 for 100.00%
+14400: Wrote 8 routes (2 distinct) achieving total count 8 (100.00%) at 1 locations. GEH<5 for 100.00%
+18000: Wrote 19 routes (2 distinct) achieving total count 19 (100.00%) at 1 locations. GEH<5 for 100.00%
+21600: Wrote 47 routes (2 distinct) achieving total count 47 (100.00%) at 1 locations. GEH<5 for 100.00%
+25200: Wrote 75 routes (2 distinct) achieving total count 75 (100.00%) at 1 locations. GEH<5 for 100.00%
+28800: Wrote 90 routes (2 distinct) achieving total count 90 (100.00%) at 1 locations. GEH<5 for 100.00%
+32400: Wrote 86 routes (2 distinct) achieving total count 86 (100.00%) at 1 locations. GEH<5 for 100.00%
+36000: Wrote 90 routes (2 distinct) achieving total count 90 (100.00%) at 1 locations. GEH<5 for 100.00%
+39600: Wrote 90 routes (2 distinct) achieving total count 90 (100.00%) at 1 locations. GEH<5 for 100.00%
+43200: Wrote 75 routes (2 distinct) achieving total count 75 (100.00%) at 1 locations. GEH<5 for 100.00%
+46800: Wrote 84 routes (2 distinct) achieving total count 84 (100.00%) at 1 locations. GEH<5 for 100.00%
+50400: Wrote 77 routes (2 distinct) achieving total count 77 (100.00%) at 1 locations. GEH<5 for 100.00%
+54000: Wrote 69 routes (2 distinct) achieving total count 69 (100.00%) at 1 locations. GEH<5 for 100.00%
+57600: Wrote 54 routes (2 distinct) achieving total count 54 (100.00%) at 1 locations. GEH<5 for 100.00%
+61200: Wrote 39 routes (2 distinct) achieving total count 39 (100.00%) at 1 locations. GEH<5 for 100.00%
+64800: Wrote 27 routes (2 distinct) achieving total count 27 (100.00%) at 1 locations. GEH<5 for 100.00%
+68400: Wrote 18 routes (2 distinct) achieving total count 18 (100.00%) at 1 locations. GEH<5 for 100.00%
+72000: Wrote 11 routes (2 distinct) achieving total count 11 (100.00%) at 1 locations. GEH<5 for 100.00%
+75600: Wrote 9 routes (2 distinct) achieving total count 9 (100.00%) at 1 locations. GEH<5 for 100.00%
+79200: Wrote 5 routes (2 distinct) achieving total count 5 (100.00%) at 1 locations. GEH<5 for 100.00%
+82800: Wrote 2 routes (2 distinct) achieving total count 2 (100.00%) at 1 locations. GEH<5 for 100.00%
+avg interval input count: count 24, min 2.00 (0.0), max 90.00 (28800.0), mean 41.25, Q1 8.00, median 39.00, Q3 77.00
+avg interval written vehs: count 24, min 2.00 (0.0), max 90.00 (28800.0), mean 41.25, Q1 8.00, median 39.00, Q3 77.00
+avg interval underflow: count 24, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval overflow: count 24, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 24, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00

@@ -1,0 +1,29 @@
+0: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+3600: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+7200: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+10800: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+14400: Wrote 500 routes (2 distinct) achieving total count 500 (100.00%) at 1 locations. GEH<5 for 100.00%
+18000: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+21600: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+25200: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+28800: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+32400: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+36000: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+39600: Wrote 500 routes (2 distinct) achieving total count 500 (100.00%) at 1 locations. GEH<5 for 100.00%
+43200: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+46800: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+50400: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+54000: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+57600: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+61200: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+64800: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+68400: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+72000: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+75600: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+79200: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+82800: Wrote 0 routes (0 distinct) achieving total count 0 (-) at 1 locations. GEH<5 for 100.00%
+avg interval input count: count 24, min 0.00 (0.0), max 500.00 (14400.0), mean 41.67, Q1 0.00, median 0.00, Q3 0.00
+avg interval written vehs: count 24, min 0.00 (0.0), max 500.00 (14400.0), mean 41.67, Q1 0.00, median 0.00, Q3 0.00
+avg interval underflow: count 24, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval overflow: count 24, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+avg interval GEH%: count 24, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00

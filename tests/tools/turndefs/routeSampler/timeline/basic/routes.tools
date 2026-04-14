@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-14 13:37:28.788799 by Eclipse SUMO routeSampler.py v1_26_0+1120-a5da268e3ae
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <edgedata-files value="input_edgedata.xml"/>
+    <edgedata-attribute value="count"/>
+    <write-flows value="number"/>
+    <interval value="3600"/>
+    <timeline value="0,0,0,0,50,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="14400.0" end="18000.0" -->
+    <flow id="14400_1" begin="14402.42" end="18000.00" number="256">
+        <route edges="-3 -3.180.00 15"/>
+    </flow>
+    <flow id="14400_0" begin="14409.85" end="18000.00" number="244">
+        <route edges="-3 -3.180.00 11"/>
+    </flow>
+<!-- begin="39600.0" end="43200.0" -->
+    <flow id="39600_0" begin="39600.94" end="43200.00" number="259">
+        <route edges="-3 -3.180.00 11"/>
+    </flow>
+    <flow id="39600_1" begin="39608.70" end="43200.00" number="241">
+        <route edges="-3 -3.180.00 15"/>
+    </flow>
+</routes>
