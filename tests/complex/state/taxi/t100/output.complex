@@ -2,7 +2,7 @@ Loading net-file from 'net.net.xml' ... done (4ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1172-2a6f687cf23 started with time: 0.00.
+Simulation version v1_26_0+1175-4b0b33d027a started with time: 0.00.
 Simulation ended at time: 1269.00.
 Reason: All vehicles have left the simulation.
 Performance:
@@ -32,10 +32,10 @@ Ride Statistics (avg of 10 rides):
  Taxi: 10
 DijkstraRouter answered 46 queries and explored 25.74 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (5ms).
-Loading state from 'state.xml' ... done (16ms).
+Loading net-file from 'net.net.xml' ... done (4ms).
+Loading state from 'state.xml' ... done (15ms).
 Loading done.
-Simulation version v1_26_0+1172-2a6f687cf23 started with time: 100.00.
+Simulation version v1_26_0+1175-4b0b33d027a started with time: 100.00.
 Simulation ended at time: 1269.00.
 Reason: All vehicles have left the simulation.
 Performance:
@@ -65,7 +65,3 @@ Ride Statistics (avg of 10 rides):
  Taxi: 10
 DijkstraRouter answered 34 queries and explored 28.88 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-<         <taxi customers="5" occupiedDistance="4071.84" occupiedTime="393.00"/>
->         <taxi customers="5" occupiedDistance="3621.48" occupiedTime="352.00"/>
-<         <taxi customers="5" occupiedDistance="5033.45" occupiedTime="490.00"/>
->         <taxi customers="5" occupiedDistance="4711.49" occupiedTime="459.00"/>
