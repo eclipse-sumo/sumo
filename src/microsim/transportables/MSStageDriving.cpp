@@ -647,12 +647,14 @@ MSStageDriving::saveState(std::ostringstream& out) {
 void
 MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& state) {
     bool hasVehicle;
-    state >> myWaitingSince >> myTimeLoss >> myArrived >> hasVehicle;
+    SUMOTime loadedTimeLoss;
+    state >> myWaitingSince >> loadedTimeLoss >> myArrived >> hasVehicle;
     if (hasVehicle) {
         std::string vehID;
         state >> myDeparted >> vehID;
         SUMOVehicle* startVeh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
         setVehicle(startVeh);
+        myTimeLoss = loadedTimeLoss;
         myVehicle->addTransportable(transportable);
         state >> myVehicleDistance;
     } else {
