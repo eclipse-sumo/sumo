@@ -4,6 +4,9 @@ persons
 # railway specific tests
 rail
 
+# taxi specific tests
+taxi
+
 # two vehicles saved and reloaded
 plain
 

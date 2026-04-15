@@ -31,6 +31,7 @@ copy_test_path:settings.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
 copy_test_path:save_state.sumocfg
+copy_test_path:load_state.sumocfg
 copy_test_path:osm.xml
 copy_test_path_merge:data
 copy_test_path:classes.txt

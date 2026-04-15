@@ -4,6 +4,9 @@ persons
 # railway specific tests
 rail
 
+# save state in taxi simulation at different times
+taxi
+
 # two vehicles saved and reloaded
 plain
 
