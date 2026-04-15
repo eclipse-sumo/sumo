@@ -66,6 +66,8 @@ netconvert --sumo-net-file myNet.net.xml --plain-output-prefix plain --proj.plai
 
 - [FCD-output](Simulation/Output/FCDOutput.md) can be obtained
   in geo-coordinates by adding the option **--fcd-output.geo**
+- [FCD-output](Simulation/Output/FCDOutput.md) can also be obtained
+  in utm-coordinates by adding the option **--fcd-output.utm**, wherethe the network offset is added to the absolute coordinates of each vehicle (center of front bumper). The value depends on the given geographic projection.
 
 - [duarouter](duarouter.md) supports option **--write-trips.geo** to create trip definitions with geo-coordinates (see above)
 
