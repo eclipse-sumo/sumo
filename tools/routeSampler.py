@@ -220,11 +220,12 @@ def get_options(args=None):
 
     if options.timeline:
         TIME_LINES = {  # see https://sumo.dlr.de/docs/Demand/Importing_O/D_Matrices.html
-            "TGw3_PKW": "0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8,4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9",
-            "TGw2_PKW":	"0.8,0.5,0.4,0.3,0.4,1.2,4.5,7.4,6.6,5.2,5.0,5.0,5.2,5.3,5.6,6.7,8.4,8.6,7.4,5.0,3.9,3.0,2.1,1.6",
-            "TGs1_PKW": "3.3,2.8,2.0,1.5,1.2,1.3,1.2,1.5,2.5,3.7,4.8,5.5,6.0,6.7,7.0,7.1,6.9,7.4,7.0,6.0,4.7,4.1,3.5,2.3",
-            "TGw_LKW": "0.3,0.4,0.4,0.6,0.8,2.0,4.8,7.5,9.0,8.7,9.0,9.0,7.5,8.4,7.8,6.9,5.4,4.0,2.7,1.8,1.2,0.9,0.6,0.3",
-            "TGs_LKW": "1.3,1.1,0.6,0.8,0.9,1.5,2.6,3.1,3.5,3.8,4.5,4.9,5.0,5.3,5.6,5.7,5.9,6.0,5.7,5.3,4.8,4.6,10.0,7.6"
+            "TGw3_PKW":
+            "0.9,0.5,0.2,0.2,0.5,1.3,7.0,9.3,6.7,4.2,4.0,3.8,4.1,4.6,5.0,6.7,9.6,9.2,7.1,4.8,3.5,2.7,2.2,1.9",  # noqa
+            "TGw2_PKW":	"0.8,0.5,0.4,0.3,0.4,1.2,4.5,7.4,6.6,5.2,5.0,5.0,5.2,5.3,5.6,6.7,8.4,8.6,7.4,5.0,3.9,3.0,2.1,1.6",  # noqa
+            "TGs1_PKW": "3.3,2.8,2.0,1.5,1.2,1.3,1.2,1.5,2.5,3.7,4.8,5.5,6.0,6.7,7.0,7.1,6.9,7.4,7.0,6.0,4.7,4.1,3.5,2.3",  # noqa
+            "TGw_LKW": "0.3,0.4,0.4,0.6,0.8,2.0,4.8,7.5,9.0,8.7,9.0,9.0,7.5,8.4,7.8,6.9,5.4,4.0,2.7,1.8,1.2,0.9,0.6,0.3",  # noqa
+            "TGs_LKW": "1.3,1.1,0.6,0.8,0.9,1.5,2.6,3.1,3.5,3.8,4.5,4.9,5.0,5.3,5.6,5.7,5.9,6.0,5.7,5.3,4.8,4.6,10.0,7.6"  # noqa
         }
         options.timeline = TIME_LINES.get(options.timeline, options.timeline)
         sep = ',' if ',' in options.timeline else None
@@ -589,7 +590,7 @@ def getIntervals(options):
             print("Warning! Number of intervals does not match length of timeline.", file=sys.stderr)
         s = sum(options.timeline)
         agg = len(options.timeline) // numIntervals
-        vals = [sum(options.timeline[i:i+agg]) for i in range(0, len(options.timeline), agg)]   
+        vals = [sum(options.timeline[i:i+agg]) for i in range(0, len(options.timeline), agg)]
         scales = [numIntervals * v / s for v in vals]
     else:
         scales = numIntervals * [1.0]
