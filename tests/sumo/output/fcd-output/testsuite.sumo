@@ -10,6 +10,9 @@ geo
 # output fcd data in utm-coordinates
 utm
 
+# write vectorized speed and acceleration
+vectorized
+
 # check whether slope works
 cartesian_slope
 cartesian_slope_geom

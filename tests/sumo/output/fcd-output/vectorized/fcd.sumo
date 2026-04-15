@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-15T15:42:41.707137+01:00 by Eclipse SUMO sumo v1_26_0+1191-9c3bb487032
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speedVec,accelerationVec"/>
+    </output>
+
+    <time>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="0" speedVec="0.00,0.00" accelerationVec="0.00,0.00"/>
+        <vehicle id="1" speedVec="0.00,0.00" accelerationVec="0.00,0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="0" speedVec="0.00,2.60" accelerationVec="0.00,2.60"/>
+        <vehicle id="1" speedVec="0.00,-2.60" accelerationVec="0.00,-2.60"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="0" speedVec="0.00,5.20" accelerationVec="0.00,2.60"/>
+        <vehicle id="1" speedVec="0.00,-5.20" accelerationVec="0.00,-2.60"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="0" speedVec="6.41,4.44" accelerationVec="2.14,1.48"/>
+        <vehicle id="1" speedVec="0.00,-7.80" accelerationVec="0.00,-2.60"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="0" speedVec="10.40,0.00" accelerationVec="2.60,0.00"/>
+        <vehicle id="1" speedVec="0.00,-10.40" accelerationVec="0.00,-2.60"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="0" speedVec="13.00,0.00" accelerationVec="2.60,0.00"/>
+        <vehicle id="1" speedVec="0.00,-13.00" accelerationVec="0.00,-2.60"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="0" speedVec="13.89,0.00" accelerationVec="0.89,0.00"/>
+        <vehicle id="1" speedVec="0.00,-13.89" accelerationVec="0.00,-0.89"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="0" speedVec="13.89,0.00" accelerationVec="0.00,0.00"/>
+        <vehicle id="1" speedVec="0.00,-13.89" accelerationVec="0.00,0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="0" speedVec="13.89,0.00" accelerationVec="0.00,0.00"/>
+        <vehicle id="1" speedVec="0.00,-13.89" accelerationVec="0.00,0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="0" speedVec="13.89,0.00" accelerationVec="0.00,0.00"/>
+        <vehicle id="1" speedVec="0.00,-13.89" accelerationVec="0.00,0.00"/>
+    </timestep>
+</fcd-export>
