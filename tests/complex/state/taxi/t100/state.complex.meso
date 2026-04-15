@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T08:20:25.086864+01:00 by Eclipse SUMO sumo v1_26_0+1157-268ae4369b3
+<!-- generated on 2026-04-15T09:30:39.588150+01:00 by Eclipse SUMO sumo v1_26_0+1163-c2632949216
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,7 +9,7 @@
     </input>
 
     <output>
-        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output value="tripinfo.xml"/>
         <tripinfo-output.write-unfinished value="true"/>
         <vehroute-output value="vehroutes.xml"/>
         <vehroute-output.write-unfinished value="true"/>
@@ -40,7 +40,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1157-268ae4369b3" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1163-c2632949216" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="30" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -107,6 +107,7 @@
         <rngLane index="62" state="0"/>
         <rngLane index="63" state="0"/>
     </rngState>
+    <dispatcher next="120000"/>
     <route id="!trip_0!var#1" state="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
     <route id="!trip_1!var#1" state="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00" speedFactor="1.03" decel="4.50"/>
