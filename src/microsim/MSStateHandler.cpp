@@ -566,6 +566,13 @@ MSStateHandler::closeVehicle() {
         myVehicleParameter->setParameter(MSDevice::LOADSTATE_DEVICENAMES, toString(deviceNames));
         MSRouteHandler::closeVehicle();
         SUMOVehicle* v = vc.getVehicle(vehID);
+        // special case: transportable devices are not assigned by options
+        if (std::find(deviceNames.begin(), deviceNames.end(), "person") != deviceNames.end()) {
+            dynamic_cast<MSBaseVehicle*>(v)->initTransportableDevice(true);
+        }
+        if (std::find(deviceNames.begin(), deviceNames.end(), "container") != deviceNames.end()) {
+            dynamic_cast<MSBaseVehicle*>(v)->initTransportableDevice(false);
+        }
         // clean up added param after initializing devices in closeVehicle
         ((SUMOVehicleParameter&)v->getParameter()).unsetParameter(MSDevice::LOADSTATE_DEVICENAMES);
         if (v == nullptr) {

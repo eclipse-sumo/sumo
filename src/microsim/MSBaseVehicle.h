@@ -509,6 +509,9 @@ public:
      */
     virtual void addTransportable(MSTransportable* transportable);
 
+    /// @brief init device during state loading
+    void initTransportableDevice(bool isPerson);
+
     /// @brief removes a person or container
     void removeTransportable(MSTransportable* t);
 

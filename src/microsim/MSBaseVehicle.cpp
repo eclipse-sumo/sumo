@@ -879,8 +879,7 @@ void
 MSBaseVehicle::addTransportable(MSTransportable* transportable) {
     if (transportable->isPerson()) {
         if (myPersonDevice == nullptr) {
-            myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
-            myMoveReminders.insert(myMoveReminders.begin(), std::make_pair(myPersonDevice, 0.));
+            initTransportableDevice(true);
             if (myParameter->departProcedure == DepartDefinition::TRIGGERED && myParameter->depart == -1) {
                 const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
             }
@@ -888,8 +887,7 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
         myPersonDevice->addTransportable(transportable);
     } else {
         if (myContainerDevice == nullptr) {
-            myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
-            myMoveReminders.insert(myMoveReminders.begin(), std::make_pair(myContainerDevice, 0.));
+            initTransportableDevice(false);
             if (myParameter->departProcedure == DepartDefinition::CONTAINER_TRIGGERED && myParameter->depart == -1) {
                 const_cast<SUMOVehicleParameter*>(myParameter)->depart = MSNet::getInstance()->getCurrentTimeStep();
             }
@@ -898,6 +896,18 @@ MSBaseVehicle::addTransportable(MSTransportable* transportable) {
     }
     if (myEnergyParams != nullptr) {
         myEnergyParams->setTransportableMass(myEnergyParams->getTransportableMass() + transportable->getVehicleType().getMass());
+    }
+}
+
+
+void
+MSBaseVehicle::initTransportableDevice(bool isPerson) {
+    if (isPerson) {
+        myPersonDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, false);
+        myMoveReminders.insert(myMoveReminders.begin(), std::make_pair(myPersonDevice, 0.));
+    } else {
+        myContainerDevice = MSDevice_Transportable::buildVehicleDevices(*this, myDevices, true);
+        myMoveReminders.insert(myMoveReminders.begin(), std::make_pair(myContainerDevice, 0.));
     }
 }
 
