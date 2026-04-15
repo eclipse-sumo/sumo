@@ -1,0 +1,9 @@
+-c save_state.sumocfg
+--save-state.times 40
+--save-state.precision 6
+--persontrip.default.group g
+: 
+-c load_state.sumocfg
+--persontrip.default.group g
+tests/complex/state/runner.py
+--compare tripinfo

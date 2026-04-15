@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-15T13:22:37.033609+01:00 by Eclipse SUMO sumo v1_26_0+1179-d510612d39d
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <save-state.times value="40"/>
+        <save-state.files value="state.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.transportables value="true"/>
+        <save-state.precision value="6"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <routing>
+        <persontrip.default.group value="g"/>
+    </routing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm.output value="dispatchinfos.xml"/>
+    </taxi_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_26_0+1179-d510612d39d" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <rngState default="0" routeHandler="56" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
+        <rngLane index="0" state="0"/>
+        <rngLane index="1" state="0"/>
+        <rngLane index="2" state="0"/>
+        <rngLane index="3" state="0"/>
+        <rngLane index="4" state="0"/>
+        <rngLane index="5" state="0"/>
+        <rngLane index="6" state="0"/>
+        <rngLane index="7" state="0"/>
+        <rngLane index="8" state="0"/>
+        <rngLane index="9" state="0"/>
+        <rngLane index="10" state="0"/>
+        <rngLane index="11" state="0"/>
+        <rngLane index="12" state="0"/>
+        <rngLane index="13" state="0"/>
+        <rngLane index="14" state="0"/>
+        <rngLane index="15" state="0"/>
+        <rngLane index="16" state="0"/>
+        <rngLane index="17" state="0"/>
+        <rngLane index="18" state="0"/>
+        <rngLane index="19" state="0"/>
+        <rngLane index="20" state="0"/>
+        <rngLane index="21" state="0"/>
+        <rngLane index="22" state="0"/>
+        <rngLane index="23" state="0"/>
+        <rngLane index="24" state="0"/>
+        <rngLane index="25" state="0"/>
+        <rngLane index="26" state="0"/>
+        <rngLane index="27" state="0"/>
+        <rngLane index="28" state="0"/>
+        <rngLane index="29" state="0"/>
+        <rngLane index="30" state="0"/>
+        <rngLane index="31" state="0"/>
+        <rngLane index="32" state="0"/>
+        <rngLane index="33" state="0"/>
+        <rngLane index="34" state="0"/>
+        <rngLane index="35" state="0"/>
+        <rngLane index="36" state="0"/>
+        <rngLane index="37" state="0"/>
+        <rngLane index="38" state="0"/>
+        <rngLane index="39" state="0"/>
+        <rngLane index="40" state="0"/>
+        <rngLane index="41" state="0"/>
+        <rngLane index="42" state="0"/>
+        <rngLane index="43" state="0"/>
+        <rngLane index="44" state="0"/>
+        <rngLane index="45" state="0"/>
+        <rngLane index="46" state="0"/>
+        <rngLane index="47" state="0"/>
+        <rngLane index="48" state="0"/>
+        <rngLane index="49" state="0"/>
+        <rngLane index="50" state="0"/>
+        <rngLane index="51" state="0"/>
+        <rngLane index="52" state="0"/>
+        <rngLane index="53" state="0"/>
+        <rngLane index="54" state="0"/>
+        <rngLane index="55" state="0"/>
+        <rngLane index="56" state="0"/>
+        <rngLane index="57" state="0"/>
+        <rngLane index="58" state="0"/>
+        <rngLane index="59" state="0"/>
+        <rngLane index="60" state="0"/>
+        <rngLane index="61" state="0"/>
+        <rngLane index="62" state="0"/>
+        <rngLane index="63" state="0"/>
+    </rngState>
+    <dispatcher next="60000"/>
+    <route id="!trip_0!var#1" state="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
+    <route id="!trip_1!var#1" state="0" edges="A2B2 B2C2"/>
+    <delay number="2" begin="2" end="0" depart="0.000000" time="0.000000" speedFactor="1.030000" decel="4.500000"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <vehicle id="trip_0" type="taxi" depart="0.000" route="!trip_0!var#1" distance="575.2 3" speedFactor="1.030000" reroute="1" line="taxi" state="262146 0 1 0 2 1 41072 34418 9223372036854774807 0 0">
+        <stop lane="C1C2_1" startPos="0.000000" endPos="5.000000" duration="0.000" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="B0C0_1" startPos="285.600000" endPos="285.600000" duration="60.000" parking="1" actType="dropOff p0 (0)"/>
+        <device id="vehroute_trip_0" state="14.306322 0.000000 3 !NULL 0 !trip_0 device.rerouting -1 0 A0B0 0 !trip_0!var#1 taxi:prepare_dispatch 0 0 A0B0 0 !trip_0!var#2 taxi:dispatch 0 0"/>
+        <device id="tripinfo_trip_0" state="A0B0_1 14.3063 302 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="routing_trip_0" state="0 0"/>
+        <device id="taxi_trip_0" state="1 0 0 0" customers="p0"/>
+        <rem id="vehroute_trip_0" time="34418" pos="190.400000"/>
+        <rem id="tripinfo_trip_0" time="34418" pos="190.400000"/>
+        <rem id="taxi_trip_0" time="34418" pos="190.400000"/>
+    </vehicle>
+    <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="0 1" speedFactor="0.969200" reroute="1" line="taxi" state="262146 0 0 0 2 -1 39242 14242 9223372036854774807 1 0">
+        <stop lane="A2B2_1" startPos="287.400000" endPos="287.600000" triggered="person" started="14.242"/>
+        <device id="vehroute_trip_1" state="13.462188 0.000000 1 !NULL 0 !trip_1 device.rerouting -1 0"/>
+        <device id="tripinfo_trip_1" state="A2B2_1 13.4622 -0 0 0 0 1000 -1 -1000 NONE -1 0 -1"/>
+        <device id="routing_trip_1" state="0 0"/>
+        <device id="taxi_trip_1" state="0 0 0 0"/>
+        <rem id="vehroute_trip_1" time="14242" pos="191.733333"/>
+        <rem id="tripinfo_trip_1" time="14242" pos="191.733333"/>
+        <rem id="taxi_trip_1" time="14242" pos="191.733333"/>
+    </vehicle>
+    <transportables type="person" state="4 20 0 16 0 0 0 4 0 0">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.010400" state="0 1 0 -1 -1 0">
+            <ride from="C1C2" to="B0C0" lines="taxi"/>
+        </person>
+        <person id="p1" type="DEFAULT_PEDTYPE" depart="10.000" speedFactor="1.082700" state="0 1 10000 -1 -1 0">
+            <ride from="B2B1" to="C2D2" lines="taxi"/>
+        </person>
+        <person id="p10" type="DEFAULT_PEDTYPE" depart="100.000" speedFactor="1.047100" state="0 0 -1">
+            <ride from="C1C2" to="B0C0" lines="taxi"/>
+        </person>
+        <person id="p11" type="DEFAULT_PEDTYPE" depart="110.000" speedFactor="1.122900" state="0 0 -1">
+            <ride from="B2B1" to="C2D2" lines="taxi"/>
+        </person>
+        <person id="p12" type="DEFAULT_PEDTYPE" depart="120.000" speedFactor="0.991200" state="0 0 -1">
+            <ride from="C2C1" to="E1E2" lines="taxi"/>
+        </person>
+        <person id="p13" type="DEFAULT_PEDTYPE" depart="130.000" speedFactor="0.926800" state="0 0 -1">
+            <ride from="B1A1" to="B2B1" lines="taxi"/>
+        </person>
+        <person id="p14" type="DEFAULT_PEDTYPE" depart="140.000" speedFactor="0.878400" state="0 0 -1">
+            <ride from="A1A0" to="E2E1" lines="taxi"/>
+        </person>
+        <person id="p15" type="DEFAULT_PEDTYPE" depart="150.000" speedFactor="0.941400" state="0 0 -1">
+            <ride from="D0D1" to="F1F0" lines="taxi"/>
+        </person>
+        <person id="p16" type="DEFAULT_PEDTYPE" depart="160.000" speedFactor="0.936200" state="0 0 -1">
+            <ride from="D2E2" to="C2D2" lines="taxi"/>
+        </person>
+        <person id="p17" type="DEFAULT_PEDTYPE" depart="170.000" speedFactor="1.158200" state="0 0 -1">
+            <ride from="D0D1" to="C0C1" lines="taxi"/>
+        </person>
+        <person id="p18" type="DEFAULT_PEDTYPE" depart="180.000" speedFactor="1.018100" state="0 0 -1">
+            <ride from="B0B1" to="B2B1" lines="taxi"/>
+        </person>
+        <person id="p19" type="DEFAULT_PEDTYPE" depart="190.000" speedFactor="1.010200" state="0 0 -1">
+            <ride from="C1B1" to="E0D0" lines="taxi"/>
+        </person>
+        <person id="p2" type="DEFAULT_PEDTYPE" depart="20.000" speedFactor="1.030300" state="0 1 20000 -1 -1 0">
+            <ride from="C2C1" to="E1E2" lines="taxi"/>
+        </person>
+        <person id="p3" type="DEFAULT_PEDTYPE" depart="30.000" speedFactor="0.831000" state="0 1 30000 -1 -1 0">
+            <ride from="B1A1" to="B2B1" lines="taxi"/>
+        </person>
+        <person id="p4" type="DEFAULT_PEDTYPE" depart="40.000" speedFactor="1.045800" state="0 0 -1">
+            <ride from="A1A0" to="E2E1" lines="taxi"/>
+        </person>
+        <person id="p5" type="DEFAULT_PEDTYPE" depart="50.000" speedFactor="0.886000" state="0 0 -1">
+            <ride from="D0D1" to="F1F0" lines="taxi"/>
+        </person>
+        <person id="p6" type="DEFAULT_PEDTYPE" depart="60.000" speedFactor="0.937900" state="0 0 -1">
+            <ride from="D2E2" to="C2D2" lines="taxi"/>
+        </person>
+        <person id="p7" type="DEFAULT_PEDTYPE" depart="70.000" speedFactor="0.856900" state="0 0 -1">
+            <ride from="D0D1" to="C0C1" lines="taxi"/>
+        </person>
+        <person id="p8" type="DEFAULT_PEDTYPE" depart="80.000" speedFactor="1.090700" state="0 0 -1">
+            <ride from="B0B1" to="B2B1" lines="taxi"/>
+        </person>
+        <person id="p9" type="DEFAULT_PEDTYPE" depart="90.000" speedFactor="1.026300" state="0 0 -1">
+            <ride from="C1B1" to="E0D0" lines="taxi"/>
+        </person>
+    </transportables>
+    <segment id=":B0_6:0">
+        <vehicles time="22779" blockTime="21771" value=""/>
+    </segment>
+    <segment id="A0B0:0">
+        <vehicles time="8370" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="A0B0:1">
+        <vehicles time="15071" blockTime="8369" value=""/>
+    </segment>
+    <segment id="A0B0:2">
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+        <vehicles time="21772" blockTime="15070" value=""/>
+    </segment>
+    <segment id="A2B2:0">
+        <vehicles time="8790" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="A2B2:1">
+        <vehicles time="15911" blockTime="8789" value=""/>
+    </segment>
+    <segment id="B0C0:0">
+        <vehicles time="29433" blockTime="22778" value=""/>
+    </segment>
+    <segment id="B0C0:1">
+        <vehicles time="36087" blockTime="29432" value=""/>
+    </segment>
+    <segment id="B0C0:2">
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+        <vehicles time="-1" blockTime="36086" value="trip_0"/>
+    </segment>
+    <routingEngine last="40000" index="40">
+        <edge id=":B0_6" speed="13.892277" pastSpeed="13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 14.299901 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000"/>
+        <edge id="A0B0" speed="13.938571" pastSpeed="14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 14.306322 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000"/>
+        <edge id="A2B2" speed="13.854377" pastSpeed="13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.462529 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000"/>
+        <edge id="B0C0" speed="13.931718" pastSpeed="13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 14.307184 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000 13.890000"/>
+    </routingEngine>
+</snapshot>

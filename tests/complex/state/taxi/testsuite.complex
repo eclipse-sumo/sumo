@@ -1,6 +1,15 @@
 # save state at time 40
 t40
 
+# save state at time 40
+# use 20 persons with re-occuring locations
+t40b
+
+# save state at time 40
+# use 20 persons with re-occuring locations
+# persons may share a ride
+t40b_grouped
+
 # save state at time 100
 t100
 
