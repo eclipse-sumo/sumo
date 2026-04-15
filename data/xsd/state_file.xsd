@@ -26,6 +26,7 @@
                 <xsd:element name="driveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="subDriveWay" type="driveWayStateType" minOccurs="0"/>
                 <xsd:element name="routingEngine" type="routingEngineType" minOccurs="0"/>
+                <xsd:element name="dispatcher" type="dispatcherType" minOccurs="1"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
@@ -267,6 +268,10 @@
         </xsd:sequence>
         <xsd:attribute name="last" type="xsd:int" use="required"/>
         <xsd:attribute name="index" type="xsd:int" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="dispatcherType">
+        <xsd:attribute name="next" type="xsd:long" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="routingEngineEdgeType">

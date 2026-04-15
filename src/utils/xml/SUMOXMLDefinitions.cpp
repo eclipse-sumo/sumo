@@ -172,6 +172,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "subDriveWay",                            SUMO_TAG_SUBDRIVEWAY },
     { "link",                                   SUMO_TAG_LINK },
     { "approaching",                            SUMO_TAG_APPROACHING },
+    { "dispatcher",                             SUMO_TAG_DISPATCHER },
     // OSM
     { "way",                                    SUMO_TAG_WAY },
     { "nd",                                     SUMO_TAG_ND },

@@ -305,6 +305,8 @@ enum SumoXMLTag {
     SUMO_TAG_LINK,
     /// @brief Link-approaching vehicle information for state-saving
     SUMO_TAG_APPROACHING,
+    /// @brief Dispatcher state for saving
+    SUMO_TAG_DISPATCHER,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
