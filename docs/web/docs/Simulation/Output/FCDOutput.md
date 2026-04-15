@@ -49,8 +49,8 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | -------- | -------------------- | -- | ---- | ----------------------------------------------------------------------------------------------------------- |
 | timestep | (simulation) seconds |  x |   x  | The time step described by the values within this timestep-element                                          |
 | id       | id                   |  x |   x  | The id of the vehicle                                                                                       |
-| x        | m or longitude       |  x |   x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
-| y        | m or latitude        |  x |   x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
+| x        | m or longitude       |  x |   x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinate, taking the netowrk offset into account. With the option **--fcd-output.geo**, the value is given in geo-coordinate.|
+| y        | m or latitude        |  x |   x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection. With the option **--fcd-output.utm**, the value is given in UTM coordinate, taking the netowrk offset into account. With the option **--fcd-output.geo**, the value is given in geo-coordinate.|
 | z        | m                    |  (x) |   x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
 | angle    | degree               |  x |   x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
 | type     | id                   |  x |   x  | The name of the vehicle type                                                                                |
