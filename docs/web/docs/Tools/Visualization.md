@@ -780,7 +780,8 @@ Example uses:
 python  tools/fcdReplay.py -k example.sumocfg -f fcd.xml
 ```
 
-To make use of fcd data with lon/lat values (generated with sumo option **--fcd-output.geo**), the option **--geo** must be set.
+To make use of fcd data with lon/lat values (generated with sumo option **--fcd-output.geo**), the option **--geo** must be set. With the option **--fcd-output.utm** the vehicle positions in the FCD output are given in UTM coordinates.
+
 
 # Outdated
 
