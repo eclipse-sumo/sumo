@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T11:39:26.128750+01:00 by Eclipse SUMO sumo v1_26_0+1175-4b0b33d027a
+<!-- generated on 2026-04-15T12:02:46.946387+01:00 by Eclipse SUMO sumo v1_26_0+1177-ddc7c7e3875
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +41,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1175-4b0b33d027a" time="100.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1177-ddc7c7e3875" time="100.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="30" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -123,7 +123,7 @@
         <device id="tripinfo_trip_0" state="A0B0_1 14.3063 1284.64 0 0 0 1000 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_trip_0" state="0 0"/>
         <device id="taxi_trip_0" state="2 0 686.31 47970" customers="p0"/>
-        <device id="person_trip_0" state="0"/>
+        <device id="person_trip_0" state="0 0 0"/>
         <rem id="person_trip_0" time="97446" pos="95.200000"/>
         <rem id="vehroute_trip_0" time="97446" pos="95.200000"/>
         <rem id="tripinfo_trip_0" time="97446" pos="95.200000"/>
@@ -137,7 +137,7 @@
         <device id="tripinfo_trip_1" state="A2B2_1 13.4622 687.95 0 0 0 2000 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_trip_1" state="0 0"/>
         <device id="taxi_trip_1" state="2 0 391.32 29069" customers="p1"/>
-        <device id="person_trip_1" state="0"/>
+        <device id="person_trip_1" state="0 0 0"/>
     </vehicle>
     <transportables type="person" state="10 10 0 0 0 0 0 8 0 0">
         <person id="p0" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.010400" state="0 1 0 0 -1 1 49000 trip_0 1317.6">
