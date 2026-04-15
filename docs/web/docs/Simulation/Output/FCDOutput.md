@@ -55,6 +55,7 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | angle    | degree               |  x |   x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
 | type     | id                   |  x |   x  | The name of the vehicle type                                                                                |
 | speed    | m/s                  |  x |   x  | The speed of the vehicle                                                                                    |
+| speedVec | m/s                  |  x |   x  | The speed vector of the vehicle:speed_x,speed_y                                                             |
 | pos      | m                    |  x |   x  | The running position of the vehicle measured from the start of the current lane.                            |
 | lane     | id                   |  (x) |      | The id of the current lane (only available in microsimulation).                                                                                 |
 | edge     | id                   |  (x) |   x  | The id of the current edge (only available in meso).                                                        |
@@ -62,6 +63,7 @@ The values without a tick in the "On" column need to be [enabled explicitly](#fu
 | signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc)                           |
 | acceleration  | m/s<sup>2</sup  |    |      | The longitudinal acceleration                                                                               |
 | accelerationLat | m/s<sup>2</sup |   |      | The lateral acceleration (only with enabled sublane model)                                                  |
+| accelerationVec | m/s<sup>2</sup |   |      | The acceleration vector of the vehicle: acceleration_x,acceleration_y                                          |
 | distance | m                    |    |   x  | The [kilometrage / mileage position](../Railways.md#kilometrage_mileage_chainage) of the vehicle.           |
 | odometer | m                    |    |   x  | The odometer value (distance driven since departure).                                                       |
 | vehicle  | id                   |    |   x  | The id of the vehicle the person is currently riding (only available for persons)                           |
