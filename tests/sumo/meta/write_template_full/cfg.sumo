@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-13T12:43:37.388498+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
+<!-- generated on 2026-04-15T15:25:38.719127+01:00 by Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -59,6 +59,7 @@
         <substations-output.precision value="2" type="INT" help="Write substation values with the given precision (default 2)"/>
         <fcd-output value="" type="FILE" help="Save the Floating Car Data"/>
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
+        <fcd-output.utm value="false" type="BOOL" help="Save the Floating Car Data using utm/unshifted coordinates (x/y)"/>
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <fcd-output.distance value="false" type="BOOL" help="Add kilometrage to the FCD output (linear referencing)"/>
         <fcd-output.acceleration value="false" type="BOOL" help="Add acceleration to the FCD output"/>

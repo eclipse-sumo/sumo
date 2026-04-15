@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
+Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -96,6 +96,8 @@ Output Options:
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                         geo-coordinates (lon/lat)
+  --fcd-output.utm                     Save the Floating Car Data using
+                                        utm/unshifted coordinates (x/y)
   --fcd-output.signals                 Add the vehicle signal state to the FCD
                                         output (brake lights etc.)
   --fcd-output.distance                Add kilometrage to the FCD output

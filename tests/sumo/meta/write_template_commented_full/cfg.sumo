@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-13T12:43:37.431550+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
+<!-- generated on 2026-04-15T15:25:38.802881+01:00 by Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -152,6 +152,9 @@
 
         <!-- Save the Floating Car Data using geo-coordinates (lon/lat) -->
         <fcd-output.geo value="false" type="BOOL"/>
+
+        <!-- Save the Floating Car Data using utm/unshifted coordinates (x/y) -->
+        <fcd-output.utm value="false" type="BOOL"/>
 
         <!-- Add the vehicle signal state to the FCD output (brake lights etc.) -->
         <fcd-output.signals value="false" type="BOOL"/>

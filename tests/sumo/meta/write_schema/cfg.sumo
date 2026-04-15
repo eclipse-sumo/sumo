@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-13T12:43:37.431474+01:00 by Eclipse SUMO sumo v1_26_0+1107-e18765e03cf
+<!-- generated on 2026-04-15T15:25:38.782347+01:00 by Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -83,6 +83,7 @@
             <xsd:element name="substations-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.utm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.distance" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.acceleration" type="boolOptionType" minOccurs="0"/>
