@@ -651,6 +651,8 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "speedLat",               SUMO_ATTR_SPEED_LAT },
     { "stage",                  SUMO_ATTR_STAGE },
+    { "speedVec",               SUMO_ATTR_SPEED_VEC },
+    { "accelerationVec",        SUMO_ATTR_ACCEL_VEC },
     // only usable with SumoXMLAttrMask
     { "delay",                  SUMO_ATTR_DELAY },
     { "arrivalDelay",           SUMO_ATTR_ARRIVALDELAY },

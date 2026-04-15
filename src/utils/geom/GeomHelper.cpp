@@ -333,4 +333,9 @@ GeomHelper::calculateLotSpaceSlope(const PositionVector& shape, const int index,
     return shape.slopeDegreeAtOffset(spaceDim * (index + 1));
 }
 
+
+Position
+GeomHelper::vectorize(double val, double radianAngle) {
+    return Position(val * cos(radianAngle), val * sin(radianAngle));
+}
 /****************************************************************************/

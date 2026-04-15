@@ -203,6 +203,8 @@ MSDevice_FCD::initOnce() {
     misc.set(SUMO_ATTR_SIGNALS);
     misc.set(SUMO_ATTR_ACCELERATION);
     misc.set(SUMO_ATTR_ACCELERATION_LAT);
+    misc.set(SUMO_ATTR_SPEED_VEC);
+    misc.set(SUMO_ATTR_ACCEL_VEC);
     misc.set(SUMO_ATTR_DISTANCE);
     misc.set(SUMO_ATTR_ODOMETER);
     misc.set(SUMO_ATTR_POSITION_LAT);

@@ -135,6 +135,12 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     of.writeFuncAttr(SUMO_ATTR_ACCELERATION_LAT, [ = ]() {
                         return microVeh->getLaneChangeModel().getAccelerationLat();
                     }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_SPEED_VEC, [ = ]() {
+                        return GeomHelper::vectorize(microVeh->getSpeed(), microVeh->getAngle());
+                    }, mask);
+                    of.writeFuncAttr(SUMO_ATTR_ACCEL_VEC, [ = ]() {
+                        return GeomHelper::vectorize(microVeh->getAcceleration(), microVeh->getAngle());
+                    }, mask);
                 }
                 of.writeFuncAttr(SUMO_ATTR_DISTANCE, [ = ]() {
                     double lanePos = veh->getPositionOnLane();

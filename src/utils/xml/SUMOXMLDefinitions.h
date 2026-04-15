@@ -844,36 +844,38 @@ enum SumoXMLAttr {
     SUMO_ATTR_POSITION_LAT       = 62,
     SUMO_ATTR_SPEED_LAT          = 63,
     SUMO_ATTR_STAGE              = 64,
+    SUMO_ATTR_SPEED_VEC          = 65,
+    SUMO_ATTR_ACCEL_VEC          = 66,
 
     // only usable with SumoXMLAttrMask
-    SUMO_ATTR_DELAY              = 65,
-    SUMO_ATTR_ARRIVALDELAY       = 66,
+    SUMO_ATTR_DELAY              = 67,
+    SUMO_ATTR_ARRIVALDELAY       = 68,
 
     // emission-output
-    SUMO_ATTR_CO                 = 67,
-    SUMO_ATTR_CO2                = 68,
-    SUMO_ATTR_HC                 = 69,
-    SUMO_ATTR_PMX                = 70,
-    SUMO_ATTR_NOX                = 71,
-    SUMO_ATTR_FUEL               = 72,
-    SUMO_ATTR_ELECTRICITY        = 73,
-    SUMO_ATTR_ROUTE              = 74,
-    SUMO_ATTR_ECLASS             = 75,
-    SUMO_ATTR_WAITING            = 76,
+    SUMO_ATTR_CO                 = 69,
+    SUMO_ATTR_CO2                = 70,
+    SUMO_ATTR_HC                 = 71,
+    SUMO_ATTR_PMX                = 72,
+    SUMO_ATTR_NOX                = 73,
+    SUMO_ATTR_FUEL               = 74,
+    SUMO_ATTR_ELECTRICITY        = 75,
+    SUMO_ATTR_ROUTE              = 76,
+    SUMO_ATTR_ECLASS             = 77,
+    SUMO_ATTR_WAITING            = 78,
 
     // meso-attributes
-    SUMO_ATTR_SEGMENT            = 77,
-    SUMO_ATTR_QUEUE              = 78,
-    SUMO_ATTR_ENTRYTIME          = 79,
-    SUMO_ATTR_EVENTTIME          = 80,
-    SUMO_ATTR_BLOCKTIME          = 81,
+    SUMO_ATTR_SEGMENT            = 79,
+    SUMO_ATTR_QUEUE              = 80,
+    SUMO_ATTR_ENTRYTIME          = 81,
+    SUMO_ATTR_EVENTTIME          = 82,
+    SUMO_ATTR_BLOCKTIME          = 83,
 
     // write the tag name
-    SUMO_ATTR_TAG                = 82,
-    SUMO_ATTR_OVERLAPDENSITY     = 83,
-    SUMO_ATTR_FLOW               = 84,
-    SUMO_ATTR_PERSON_NUMBER      = 85,
-    SUMO_ATTR_CONTAINER_NUMBER   = 86,
+    SUMO_ATTR_TAG                = 84,
+    SUMO_ATTR_OVERLAPDENSITY     = 85,
+    SUMO_ATTR_FLOW               = 86,
+    SUMO_ATTR_PERSON_NUMBER      = 87,
+    SUMO_ATTR_CONTAINER_NUMBER   = 88,
 
     /// @}
 

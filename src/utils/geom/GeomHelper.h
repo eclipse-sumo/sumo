@@ -164,4 +164,6 @@ public:
 
     /// @brief calculate lotSpace slope
     static double calculateLotSpaceSlope(const PositionVector& shape, const int index, const double spaceDim);
+
+    static Position vectorize(double val, double radianAngle);
 };
