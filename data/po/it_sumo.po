@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-13 22:14+0000\n"
+"PO-Revision-Date: 2026-04-15 17:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7082,6 +7082,9 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default "
 "junction type (see docs/Networks/PlainXML#node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] "
+"Determina il tipo di incrocio standard (vedi docs/Networks/"
+"PlainXML#node_types)"
 
 #: src/netbuild/NBFrame.cpp:108
 msgid "The default length when overriding connection lengths"
@@ -7507,17 +7510,22 @@ msgstr "Combina incroci con coordinate simili anche se sconnesse"
 
 #: src/netbuild/NBFrame.cpp:374
 msgid "Reset connections for joined junctions"
-msgstr ""
+msgstr "Resetta i collegamenti degli incroci combinati"
 
 #: src/netbuild/NBFrame.cpp:379
 msgid ""
 "Attach junction to the closest edge within FLOAT distance that has it's id "
 "in param removedNodeIDs (for joining networks)"
 msgstr ""
+"Assegna l'incrocio all'arco più vicino a una distanza di al massimo FLOAT "
+"con il codice identificativo dell'incrocio incluso nel suo param "
+"removedNodeIDs (per combinare più reti)"
 
 #: src/netbuild/NBFrame.cpp:383
 msgid "Abbreviate junction or TLS id if it joins more than INT junctions"
 msgstr ""
+"Abbrevia il codice identificativo di un incrocio o semaforo se viene "
+"combinato con più di INT incroci"
 
 #: src/netbuild/NBFrame.cpp:387
 msgid "Modifies all edge speeds by adding FLOAT"
@@ -7538,6 +7546,8 @@ msgid ""
 "Joins tram edges into road lanes with similar geometry (within FLOAT "
 "distance)"
 msgstr ""
+"Combina archi tranviari con archi stradali di geometria simile (nella "
+"distanza di FLOAT)"
 
 #: src/netbuild/NBFrame.cpp:401
 msgid "Generate INT intermediate points to smooth out intersection corners"
