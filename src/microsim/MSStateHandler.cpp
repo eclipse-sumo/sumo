@@ -535,6 +535,7 @@ MSStateHandler::myEndElement(int element) {
                     }
                 }
             }
+            MSDevice_Taxi::finalizeLoadState();
             break;
         }
         default:

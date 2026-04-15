@@ -1384,6 +1384,11 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "device.toc",        SUMO_ATTR_RNG_DEVICE_TOC },
     { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
     // @}
+    //
+    // @name Taxi state saving attributes
+    // @{
+    { "customers",         SUMO_ATTR_CUSTOMERS },
+    // @}
 
     // @name further state saving attributes
     // @{

@@ -1869,6 +1869,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_RNG_DRIVERSTATE,
     // @}
 
+    //@name Taxi state saving attributes
+    // @{
+    SUMO_ATTR_CUSTOMERS,
+    // @}
+
     //@name further state saving attributes
     // @{
     SUMO_ATTR_BIKESPEED,

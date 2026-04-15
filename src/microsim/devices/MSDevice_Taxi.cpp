@@ -27,6 +27,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <microsim/transportables/MSTransportable.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
@@ -68,6 +69,7 @@ int MSDevice_Taxi::myMaxCapacity(0);
 int MSDevice_Taxi::myMaxContainerCapacity(0);
 std::map<SUMOVehicleClass, std::string> MSDevice_Taxi::myTaxiTypes;
 SUMOTime MSDevice_Taxi::myNextDispatchTime(-1);
+std::map<std::string, MSDevice_Taxi*> MSDevice_Taxi::myStateLoadedCustomers;
 
 #define TAXI_SERVICE "taxi"
 #define TAXI_SERVICE_PREFIX "taxi:"
@@ -209,6 +211,12 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         throw ProcessError("Cannot add taxi reservation for " + std::string(person->isPerson() ? "person" : "container")
                            + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
                            + " does not permit taxi access");
+    }
+    if (myStateLoadedCustomers.size() > 0) {
+        auto it = myStateLoadedCustomers.find(person->getID());
+        if (it != myStateLoadedCustomers.end()) {
+            return;
+        }
     }
     if (myDispatchCommand == nullptr) {
         initDispatch();
@@ -1065,11 +1073,50 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
 
 void
 MSDevice_Taxi::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    out.writeAttr(SUMO_ATTR_STATE, myState);
+    if (myCustomers.size() > 0) {
+        out.writeAttr(SUMO_ATTR_CUSTOMERS, joinNamedToStringSorting(myCustomers, " "));
+    }
+    out.closeTag();
 }
 
 
 void
 MSDevice_Taxi::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    myState = attrs.get<int>(SUMO_ATTR_STATE, getID().c_str(), ok);
+    if (attrs.hasAttribute(SUMO_ATTR_CUSTOMERS)) {
+        for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_CUSTOMERS, getID().c_str(), ok)) {
+            myStateLoadedCustomers[id] = this;
+        }
+    }
+}
+
+
+void
+MSDevice_Taxi::finalizeLoadState() {
+    if (myStateLoadedCustomers.size() > 0) {
+        MSNet* net = MSNet::getInstance();
+        MSTransportableControl* pc = net->hasPersons() ? &net->getPersonControl() : nullptr;
+        MSTransportableControl* cc = net->hasContainers() ? &net->getContainerControl() : nullptr;
+        for (auto item : myStateLoadedCustomers) {
+            MSTransportable* t = nullptr;
+            if (pc != nullptr) {
+                t = pc->get(item.first);
+            }
+            if (t == nullptr && cc != nullptr) {
+                t = cc->get(item.first);
+            }
+            if (t == nullptr) {
+                WRITE_ERRORF("Could not find taxi customer '%'. Ensure state contains transportables", item.first);
+            } else {
+                item.second->myCustomers.insert(t);
+            }
+        }
+    }
+    myStateLoadedCustomers.clear();
 }
 
 

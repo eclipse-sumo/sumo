@@ -199,6 +199,9 @@ public:
      */
     void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief call during state loading after all transportables are loaded
+    static void finalizeLoadState();
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -316,6 +319,8 @@ private:
 
     static SUMOTime myNextDispatchTime;
 
+    /// @brief ids of customers loaded from state
+    static std::map<std::string, MSDevice_Taxi*> myStateLoadedCustomers;
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Taxi(const MSDevice_Taxi&);
