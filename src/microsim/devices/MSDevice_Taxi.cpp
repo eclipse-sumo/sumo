@@ -568,6 +568,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, res->toStop, "dropOff " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
             stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.dropOffDuration", false, 60)); // pay and collect bags
         }
+        stops.back().parametersSet |= STOP_DURATION_SET;
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND) {
