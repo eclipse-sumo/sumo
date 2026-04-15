@@ -15,7 +15,7 @@ whereas the other systems are for visualization and output.
 
 # Converting between coordinates
 
-- Several outputs can be configured to switch their output from coordinate systems 1 to system 2. Relevant options are **--fcd-output.geo**, **--emission-output.geo** and **--device.ssm.geo**.
+- Several outputs can be configured to switch their output from coordinate systems 1 to system 2. Relevant options are **--fcd-output.geo**, **--emission-output.geo** and **--device.ssm.geo**, **--fcd-output.utm**.
 - [conversion between systems 1 and 2](../Geo-Coordinates.md#performing_coordinate-transformations)
 - [conversion between systems 1 and 3](../Geo-Coordinates.md#mapping_geo-coordinates)
 
