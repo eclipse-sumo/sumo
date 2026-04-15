@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T13:22:37.033609+01:00 by Eclipse SUMO sumo v1_26_0+1179-d510612d39d
+<!-- generated on 2026-04-15T18:20:48.486838+01:00 by Eclipse SUMO sumo v1_26_0+1194-cf010183ee2
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -45,7 +45,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1179-d510612d39d" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1194-cf010183ee2" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="56" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -112,7 +112,7 @@
         <rngLane index="62" state="0"/>
         <rngLane index="63" state="0"/>
     </rngState>
-    <dispatcher next="60000"/>
+    <dispatcher next="60000" count="4" customers="p0 0 p1 1 p2 2 p3 3 "/>
     <route id="!trip_0!var#1" state="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
     <route id="!trip_1!var#1" state="0" edges="A2B2 B2C2"/>
     <delay number="2" begin="2" end="0" depart="0.000000" time="0.000000" speedFactor="1.030000" decel="4.500000"/>
@@ -126,7 +126,7 @@
         <device id="vehroute_trip_0" state="14.306322 0.000000 3 !NULL 0 !trip_0 device.rerouting -1 0 A0B0 0 !trip_0!var#1 taxi:prepare_dispatch 0 0 A0B0 0 !trip_0!var#2 taxi:dispatch 0 0"/>
         <device id="tripinfo_trip_0" state="A0B0_1 14.3063 302 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_trip_0" state="0 0"/>
-        <device id="taxi_trip_0" state="1 0 0 0" customers="p0"/>
+        <device id="taxi_trip_0" state="1 0 0 0" customers="p0" reservations="0"/>
         <rem id="vehroute_trip_0" time="34418" pos="190.400000"/>
         <rem id="tripinfo_trip_0" time="34418" pos="190.400000"/>
         <rem id="taxi_trip_0" time="34418" pos="190.400000"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T14:17:07.903277+01:00 by Eclipse SUMO sumo v1_26_0+1183-aeb074971db
+<!-- generated on 2026-04-15T17:57:08.419548+01:00 by Eclipse SUMO sumo v1_26_0+1194-cf010183ee2
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1183-aeb074971db" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1194-cf010183ee2" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="30" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -105,7 +105,7 @@
         <rngLane index="63" state="0"/>
     </rngState>
     <edgeControl lanes="B0C0_1"/>
-    <dispatcher next="60000" count="4" customers="p1 1 p2 2 p3 3 "/>
+    <dispatcher next="60000" count="4" customers="p0 0 p1 1 p2 2 p3 3 "/>
     <route id="!trip_0!var#1" state="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
     <route id="!trip_1!var#1" state="0" edges="A2B2 B2C2"/>
     <delay number="2" begin="2" end="0" depart="0.000000" time="0.000000" speedFactor="1.030000" decel="4.500000"/>
@@ -119,7 +119,7 @@
         <device id="vehroute_trip_0" state="1 0.000000 0.000000 5.100000 3 !NULL 0 !trip_0 device.rerouting -1 0 A0B0 0 !trip_0!var#1 taxi:prepare_dispatch 0 0 A0B0 0 !trip_0!var#2 taxi:dispatch 0 0"/>
         <device id="tripinfo_trip_0" state="A0B0_1 0 0 296.9 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_trip_0" state="0 0"/>
-        <device id="taxi_trip_0" state="1 0 0 0" customers="p0"/>
+        <device id="taxi_trip_0" state="1 0 0 0" customers="p0" reservations="0"/>
     </vehicle>
     <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="0 1" speedFactor="0.969200" reroute="1" line="taxi" state="262146 0 0 5.100000 0 2.934277 30000 1 0" pos="287.594384 282.594384 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <stop lane="A2B2_1" startPos="287.400000" endPos="287.600000" triggered="person" started="30.000"/>
