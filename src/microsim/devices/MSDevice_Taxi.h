@@ -190,6 +190,15 @@ public:
     /// @brief called by MSDevice_Transportable upon unloading a person
     void customerArrived(const MSTransportable* person);
 
+    /** @brief Saves the state of the device
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
+
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
 
@@ -214,6 +223,11 @@ public:
 
     /// @brief return all types that are known to carry a taxi device (or the default type if no devices are initialized)
     static const std::map<SUMOVehicleClass, std::string>& getTaxiTypes();
+
+    static SUMOTime getNextDispatchTime();
+
+    /// @brief initialize the dispatch algorithm
+    static void initDispatch(SUMOTime next = -1);
 
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
@@ -253,9 +267,6 @@ private:
 
     /// @brief optionally swap tasks when a taxi becomes idle
     void checkTaskSwap();
-
-    /// @brief initialize the dispatch algorithm
-    static void initDispatch();
 
 private:
 
@@ -302,6 +313,8 @@ private:
 
     /// @brief storing only one type per vClass
     static std::map<SUMOVehicleClass, std::string> myTaxiTypes;
+
+    static SUMOTime myNextDispatchTime;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -67,6 +67,7 @@ std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
 int MSDevice_Taxi::myMaxCapacity(0);
 int MSDevice_Taxi::myMaxContainerCapacity(0);
 std::map<SUMOVehicleClass, std::string> MSDevice_Taxi::myTaxiTypes;
+SUMOTime MSDevice_Taxi::myNextDispatchTime(-1);
 
 #define TAXI_SERVICE "taxi"
 #define TAXI_SERVICE_PREFIX "taxi:"
@@ -140,9 +141,13 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
     }
 }
 
+SUMOTime
+MSDevice_Taxi::getNextDispatchTime() {
+    return myNextDispatchTime;
+}
 
 void
-MSDevice_Taxi::initDispatch() {
+MSDevice_Taxi::initDispatch(SUMOTime next) {
     OptionsCont& oc = OptionsCont::getOptions();
     myDispatchPeriod = string2time(oc.getString("device.taxi.dispatch-period"));
     // init dispatch algorithm
@@ -164,10 +169,14 @@ MSDevice_Taxi::initDispatch() {
     }
     myDispatchCommand = new StaticCommand<MSDevice_Taxi>(&MSDevice_Taxi::triggerDispatch);
     // round to next multiple of myDispatchPeriod
-    const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    const SUMOTime begin = string2time(oc.getString("begin"));
-    const SUMOTime delay = (myDispatchPeriod - ((now - begin) % myDispatchPeriod)) % myDispatchPeriod;
-    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand, now + delay);
+    if (next < 0) {
+        const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+        const SUMOTime begin = string2time(oc.getString("begin"));
+        const SUMOTime delay = (myDispatchPeriod - ((now - begin) % myDispatchPeriod)) % myDispatchPeriod;
+        next = now + delay;
+    }
+    myNextDispatchTime = next;
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myDispatchCommand, next);
 }
 
 bool
@@ -243,6 +252,7 @@ MSDevice_Taxi::triggerDispatch(SUMOTime currentTime) {
         }
     }
     myDispatcher->computeDispatch(currentTime, active);
+    myNextDispatchTime = currentTime + myDispatchPeriod;
     return myDispatchPeriod;
 }
 
@@ -1051,6 +1061,17 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 }
+
+
+void
+MSDevice_Taxi::saveState(OutputDevice& out) const {
+}
+
+
+void
+MSDevice_Taxi::loadState(const SUMOSAXAttributes& attrs) {
+}
+
 
 bool
 MSDevice_Taxi::compatibleLine(const std::string& taxiLine, const std::string& rideLine) {

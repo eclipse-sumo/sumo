@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <limits>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
@@ -402,6 +403,20 @@ MSDispatch::remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res)
             ? taxi->getHolder().getVehicleType().getPersonCapacity()
             : taxi->getHolder().getVehicleType().getContainerCapacity()) - (int)res->persons.size();
 }
+
+
+void
+MSDispatch::saveState(OutputDevice& out, SUMOTime nextDispatch) const {
+    out.openTag(SUMO_TAG_DISPATCHER);
+    out.writeAttr(SUMO_ATTR_NEXT, nextDispatch);
+    out.closeTag();
+}
+
+
+void
+MSDispatch::loadState(const SUMOSAXAttributes& /*attrs*/) {
+}
+
 
 
 /****************************************************************************/

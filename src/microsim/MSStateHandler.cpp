@@ -41,6 +41,7 @@
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
+#include <microsim/devices/MSDispatch.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -149,6 +150,11 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step, bool usePrefix
         if (!MSGlobals::gUseMesoSim) {
             MSNet::getInstance()->getEdgeControl().saveState(out);
         }
+    }
+    const MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
+    if (dispatcher != nullptr) {
+        // save early to pre-empty initialization from loaded persons
+        dispatcher->saveState(out, MSDevice_Taxi::getNextDispatchTime());
     }
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
@@ -466,6 +472,13 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (attrs.hasAttribute(SUMO_ATTR_STATE)) {
                 tl->loadExtraState(attrs.get<std::string>(SUMO_ATTR_STATE, tlID.c_str(), ok));
             }
+            break;
+        }
+        case SUMO_TAG_DISPATCHER: {
+            bool ok = true;
+            SUMOTime next = attrs.get<SUMOTime>(SUMO_ATTR_NEXT, "dispatcher", ok);
+            MSDevice_Taxi::initDispatch(next);
+            MSDevice_Taxi::getDispatchAlgorithm()->loadState(attrs);
             break;
         }
         default:

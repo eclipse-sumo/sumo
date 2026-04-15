@@ -199,6 +199,19 @@ public:
 
     void swappedRunning(const Reservation* res, MSDevice_Taxi* taxi);
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    virtual void saveState(OutputDevice& out, SUMOTime nextDispatch) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * The default implementation does nothing.
+     * @param[in] attrs XML attributes describing the current state
+     */
+    virtual void loadState(const SUMOSAXAttributes& attrs);
+
 protected:
     void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
 
