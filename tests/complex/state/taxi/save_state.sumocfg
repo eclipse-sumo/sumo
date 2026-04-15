@@ -17,6 +17,7 @@
         <vehroute-output.write-unfinished value="true"/>
         <save-state.files value="state.xml"/>
         <save-state.rng value="true"/>
+        <save-state.precision value="6"/>
         <save-state.transportables value="true"/>
     </output>
 
