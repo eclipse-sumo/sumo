@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.165066+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-15T10:53:56.309773+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,6 +32,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -107,12 +109,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="A0B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0B0 B0C0"/>
         </routeDistribution>
         <stop parkingArea="pa_0" actType="idling"/>
-        <stop lane="D1E1_1" permitted="p.0" actType="pickup p.0 (0)"/>
-        <stop busStop="bs_0" actType="dropOff p.0 (0)"/>
-        <stop lane="D1E1_1" permitted="p.1" actType="pickup p.1 (1)"/>
-        <stop busStop="bs_0" actType="dropOff p.1 (1)"/>
-        <stop lane="D1E1_1" permitted="p.9" actType="pickup p.9 (9)"/>
-        <stop busStop="bs_0" actType="dropOff p.9 (9)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.0" actType="pickup p.0 (0)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.0 (0)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.1" actType="pickup p.1 (1)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.1 (1)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.9" actType="pickup p.9 (9)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.9 (9)"/>
     </vehicle>
 
     <vehicle id="taxi.1" type="taxi" depart="1.00">
@@ -126,10 +128,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="A0B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0B0 B0C0"/>
         </routeDistribution>
         <stop parkingArea="pa_0" actType="idling"/>
-        <stop lane="D1E1_1" permitted="p.2" actType="pickup p.2 (2)"/>
-        <stop busStop="bs_0" actType="dropOff p.2 (2)"/>
-        <stop lane="D1E1_1" permitted="p.3" actType="pickup p.3 (3)"/>
-        <stop busStop="bs_0" actType="dropOff p.3 (3)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.2" actType="pickup p.2 (2)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.2 (2)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.3" actType="pickup p.3 (3)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.3 (3)"/>
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
@@ -144,10 +146,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="A0B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0B0 B0C0"/>
         </routeDistribution>
         <stop parkingArea="pa_0" actType="idling"/>
-        <stop lane="D1E1_1" permitted="p.4" actType="pickup p.4 (4)"/>
-        <stop busStop="bs_0" actType="dropOff p.4 (4)"/>
-        <stop lane="D1E1_1" permitted="p.5" actType="pickup p.5 (5)"/>
-        <stop busStop="bs_0" actType="dropOff p.5 (5)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.4" actType="pickup p.4 (4)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.4 (4)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.5" actType="pickup p.5 (5)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.5 (5)"/>
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
@@ -162,10 +164,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="A0B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0B0 B0C0"/>
         </routeDistribution>
         <stop parkingArea="pa_0" actType="idling"/>
-        <stop lane="D1E1_1" permitted="p.6" actType="pickup p.6 (6)"/>
-        <stop busStop="bs_0" actType="dropOff p.6 (6)"/>
-        <stop lane="D1E1_1" permitted="p.7" actType="pickup p.7 (7)"/>
-        <stop busStop="bs_0" actType="dropOff p.7 (7)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.6" actType="pickup p.6 (6)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.6 (6)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.7" actType="pickup p.7 (7)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.7 (7)"/>
         <stop parkingArea="pa_0" index="6" actType="idling"/>
     </vehicle>
 
@@ -177,8 +179,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route edges="A0B0 B0C0 C0D0 D0D1 D1E1 E1D1 D1C1 C1B1 B1B0 B0C0 C0B0 B0C0"/>
         </routeDistribution>
         <stop parkingArea="pa_0" actType="idling"/>
-        <stop lane="D1E1_1" permitted="p.8" actType="pickup p.8 (8)"/>
-        <stop busStop="bs_0" actType="dropOff p.8 (8)"/>
+        <stop lane="D1E1_1" duration="0.00" permitted="p.8" actType="pickup p.8 (8)"/>
+        <stop busStop="bs_0" duration="60.00" actType="dropOff p.8 (8)"/>
         <stop parkingArea="pa_0" index="4" actType="idling"/>
     </vehicle>
 

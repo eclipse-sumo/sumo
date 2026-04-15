@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.238354+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-15T10:53:56.393365+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -90,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route replacedOnEdge="A0B0" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A0B0 E2F2 A0B0"/>
             <route edges="A0B0 B0B1 B1B2 B2C2 C2D2 D2E2 E2F2 F2F1 F1E1 E1D1 D1C1 C1B1 B1A1 A1A0 A0B0"/>
         </routeDistribution>
-        <stop lane="E2F2_1" permitted="p.0 p.1 p.2 p.3 p.4 p.5 p.6 p.7 p.8 p.9" actType="pickup p.0 (0) +p.1 +p.2 +p.3 +p.4 +p.5 +p.6 +p.7 +p.8 +p.9"/>
-        <stop lane="A0B0_1" actType="dropOff p.0 (0) +p.1 +p.2 +p.3 +p.4 +p.5 +p.6 +p.7 +p.8 +p.9"/>
+        <stop lane="E2F2_1" duration="0.00" permitted="p.0 p.1 p.2 p.3 p.4 p.5 p.6 p.7 p.8 p.9" actType="pickup p.0 (0) +p.1 +p.2 +p.3 +p.4 +p.5 +p.6 +p.7 +p.8 +p.9"/>
+        <stop lane="A0B0_1" duration="60.00" actType="dropOff p.0 (0) +p.1 +p.2 +p.3 +p.4 +p.5 +p.6 +p.7 +p.8 +p.9"/>
     </vehicle>
 
 </routes>
