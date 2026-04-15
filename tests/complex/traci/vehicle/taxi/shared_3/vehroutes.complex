@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 13:18:11 by Eclipse SUMO sumo Version v1_17_0+0835-aca5534
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-04-15T15:45:18.624543+01:00 by Eclipse SUMO sumo v1_26_0+1191-9c3bb487032
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -15,6 +15,11 @@
         <stop-output value="stops.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
@@ -24,10 +29,10 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="50493"/>
+        <remote-port value="43939"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -49,10 +54,10 @@
             <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="1.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D2D3"/>
             <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
         </routeDistribution>
-        <stop lane="A1B1_0" permitted="a" actType="pickup a (0)"/>
-        <stop lane="B1C1_0" permitted="b" actType="pickup b (1)"/>
-        <stop lane="C1D1_0" permitted="c" actType="pickup c (2),dropOff b (1)"/>
-        <stop lane="D2D3_0" actType="dropOff a (0),dropOff c (2)"/>
+        <stop lane="A1B1_0" duration="0.00" triggered="person" parking="1" permitted="a" actType="pickup a (0)"/>
+        <stop lane="B1C1_0" duration="0.00" triggered="person" parking="1" permitted="b" actType="pickup b (1)"/>
+        <stop lane="C1D1_0" duration="60.00" triggered="person" parking="1" permitted="c" actType="pickup c (2),dropOff b (1)"/>
+        <stop lane="D2D3_0" duration="60.00" parking="1" actType="dropOff a (0),dropOff c (2)"/>
     </vehicle>
 
 </routes>
