@@ -360,17 +360,36 @@ void
 MSDevice_Transportable::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_DEVICE);
     out.writeAttr(SUMO_ATTR_ID, getID());
-    std::vector<std::string> internals;
-    internals.push_back(toString(myStopped));
-    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    SUMOTime nextPerson = 0;
+    SUMOTime nextContainer = 0;
+    if (myHolder.isStopped()) {
+        nextPerson = myHolder.getNextStop().timeToBoardNextPerson;
+        nextContainer = myHolder.getNextStop().timeToLoadNextContainer;
+    }
+    std::ostringstream internals;
+    internals << myStopped
+        << " " << nextPerson
+        << " " << nextContainer;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
     out.closeTag();
 }
 
 
 void
 MSDevice_Transportable::loadState(const SUMOSAXAttributes& attrs) {
+    SUMOTime nextPerson;
+    SUMOTime nextContainer;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myStopped;
+    bis >> nextPerson;
+    bis >> nextContainer;
+    if (nextPerson != 0 || nextContainer !=0) {
+        assert(myHolder.hasStops());
+        MSStop& stop = myHolder.getNextStopMutable();
+        stop.timeToBoardNextPerson = nextPerson;
+        stop.timeToLoadNextContainer = nextContainer;
+        stop.duration = MAX2(stop.duration, MAX2(nextPerson, nextContainer) - SIMSTEP);
+    }
 }
 
 
