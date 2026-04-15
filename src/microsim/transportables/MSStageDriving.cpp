@@ -337,12 +337,15 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
             MSDevice_Taxi::updateReservationFromPos(transportable, getLines(), myWaitingEdge, myReservationWaitingPos, to, toPos, myGroup, myWaitingPos);
         }
     }
-    if (transportable->isPerson()) {
-        MSNet::getInstance()->getPersonControl().addWaiting(myWaitingEdge, transportable);
-    } else {
-        MSNet::getInstance()->getContainerControl().addWaiting(myWaitingEdge, transportable);
+    // check required for state-loading
+    if (myVehicle == nullptr) {
+        if (transportable->isPerson()) {
+            MSNet::getInstance()->getPersonControl().addWaiting(myWaitingEdge, transportable);
+        } else {
+            MSNet::getInstance()->getContainerControl().addWaiting(myWaitingEdge, transportable);
+        }
+        myWaitingEdge->addTransportable(transportable);
     }
-    myWaitingEdge->addTransportable(transportable);
 }
 
 SUMOTime
@@ -657,25 +660,27 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         myTimeLoss = loadedTimeLoss;
         myVehicle->addTransportable(transportable);
         state >> myVehicleDistance;
-    } else {
-        // there should always be at least one prior WAITING_FOR_DEPART stage
-        MSStage* previous = transportable->getNextStage(-1);
-        myOriginStop = (previous->getStageType() == MSStageType::TRIP
-                        ? previous->getOriginStop()
-                        : previous->getDestinationStop());
-        if (myOriginStop != nullptr) {
+    }
+    // there should always be at least one prior WAITING_FOR_DEPART stage
+    MSStage* previous = transportable->getNextStage(-1);
+    myOriginStop = (previous->getStageType() == MSStageType::TRIP
+                    ? previous->getOriginStop()
+                    : previous->getDestinationStop());
+    if (myOriginStop != nullptr) {
+        if (!hasVehicle) {
             // the arrival stop may have an access point
             myOriginStop->addTransportable(transportable);
-            myWaitingEdge = &myOriginStop->getLane().getEdge();
-            myStopWaitPos = myOriginStop->getWaitPosition(transportable);
-            myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
-        } else {
-            myWaitingEdge = previous->getEdge();
-            myStopWaitPos = Position::INVALID;
-            myWaitingPos = previous->getArrivalPos();
         }
-        registerWaiting(transportable, SIMSTEP);
+        myWaitingEdge = &myOriginStop->getLane().getEdge();
+        myStopWaitPos = myOriginStop->getWaitPosition(transportable);
+        myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
+    } else {
+        myWaitingEdge = previous->getEdge();
+        myStopWaitPos = Position::INVALID;
+        myWaitingPos = previous->getArrivalPos();
     }
+    // running reservations will be converted in MSDevice_Taxi::addReservation
+    registerWaiting(transportable, SIMSTEP);
 }
 
 // ---------------------------------------------------------------------------

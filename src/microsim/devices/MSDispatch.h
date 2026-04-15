@@ -212,8 +212,9 @@ public:
      */
     virtual void loadState(const SUMOSAXAttributes& attrs);
 
-protected:
     void servedReservation(const Reservation* res, MSDevice_Taxi* taxi);
+
+protected:
 
     /// @brief whether the given taxi has sufficient capacity to serve the reservation
     int remainingCapacity(const MSDevice_Taxi* taxi, const Reservation* res);

@@ -70,6 +70,7 @@ int MSDevice_Taxi::myMaxContainerCapacity(0);
 std::map<SUMOVehicleClass, std::string> MSDevice_Taxi::myTaxiTypes;
 SUMOTime MSDevice_Taxi::myNextDispatchTime(-1);
 std::map<std::string, MSDevice_Taxi*> MSDevice_Taxi::myStateLoadedCustomers;
+std::map<std::string, MSDevice_Taxi*> MSDevice_Taxi::myStateLoadedReservations;
 
 #define TAXI_SERVICE "taxi"
 #define TAXI_SERVICE_PREFIX "taxi:"
@@ -212,12 +213,6 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
                            + " '" + person->getID() + "' because origin edge '" + from->getID() + "'"
                            + " does not permit taxi access");
     }
-    if (myStateLoadedCustomers.size() > 0) {
-        auto it = myStateLoadedCustomers.find(person->getID());
-        if (it != myStateLoadedCustomers.end()) {
-            return;
-        }
-    }
     if (myDispatchCommand == nullptr) {
         initDispatch();
     }
@@ -225,7 +220,13 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         // pickup position should be at the stop-endPos
         fromPos = fromStop->getEndLanePosition();
     }
-    myDispatcher->addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
+    Reservation* res = myDispatcher->addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
+    if (myStateLoadedCustomers.size() > 0) {
+        auto it = myStateLoadedCustomers.find(person->getID());
+        if (it != myStateLoadedCustomers.end()) {
+            myDispatcher->servedReservation(res, it->second);
+        }
+    }
 }
 
 void
@@ -1085,6 +1086,9 @@ MSDevice_Taxi::saveState(OutputDevice& out) const {
     if (myCustomers.size() > 0) {
         out.writeAttr(SUMO_ATTR_CUSTOMERS, joinNamedToStringSorting(myCustomers, " "));
     }
+    if (myCurrentReservations.size() > 0) {
+        out.writeAttr(SUMO_ATTR_RESERVATIONS, joinNamedToStringSorting(myCurrentReservations, " "));
+    }
     out.closeTag();
 }
 
@@ -1100,6 +1104,11 @@ MSDevice_Taxi::loadState(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_CUSTOMERS)) {
         for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_CUSTOMERS, getID().c_str(), ok)) {
             myStateLoadedCustomers[id] = this;
+        }
+    }
+    if (attrs.hasAttribute(SUMO_ATTR_RESERVATIONS)) {
+        for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_RESERVATIONS, getID().c_str(), ok)) {
+            myStateLoadedReservations[id] = this;
         }
     }
 }
@@ -1126,7 +1135,26 @@ MSDevice_Taxi::finalizeLoadState() {
             }
         }
     }
+    if (myStateLoadedReservations.size() > 0) {
+        assert(myDispatcher != nullptr);
+        std::map<std::string, const Reservation*> resLookup;
+        for (const Reservation* res : myDispatcher->getReservations()) {
+            resLookup[res->getID()] = res;
+        }
+        for (const Reservation* res : myDispatcher->getRunningReservations()) {
+            resLookup[res->getID()] = res;
+        }
+        for (auto item : myStateLoadedReservations) {
+            auto it = resLookup.find(item.first);
+            if (it == resLookup.end()) {
+                WRITE_ERRORF("Could not find taxi reservation '%'.", item.first);
+            } else {
+                item.second->myCurrentReservations.insert(it->second);
+            }
+        }
+    }
     myStateLoadedCustomers.clear();
+    myStateLoadedReservations.clear();
 }
 
 

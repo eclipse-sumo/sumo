@@ -1874,6 +1874,7 @@ enum SumoXMLAttr {
     //@name Taxi state saving attributes
     // @{
     SUMO_ATTR_CUSTOMERS,
+    SUMO_ATTR_RESERVATIONS,
     // @}
 
     //@name further state saving attributes

@@ -146,6 +146,7 @@
         <xsd:attribute name="exitTimes" type="xsd:string" use="optional"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="customers" type="xsd:string" use="optional"/>
+        <xsd:attribute name="reservations" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="remType">

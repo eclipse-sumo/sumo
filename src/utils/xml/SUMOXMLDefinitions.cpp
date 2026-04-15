@@ -1390,6 +1390,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // @name Taxi state saving attributes
     // @{
     { "customers",         SUMO_ATTR_CUSTOMERS },
+    { "reservations",      SUMO_ATTR_RESERVATIONS },
     // @}
 
     // @name further state saving attributes

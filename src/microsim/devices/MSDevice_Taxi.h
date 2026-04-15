@@ -321,6 +321,8 @@ private:
 
     /// @brief ids of customers loaded from state
     static std::map<std::string, MSDevice_Taxi*> myStateLoadedCustomers;
+    /// @brief ids of reservations loaded from state
+    static std::map<std::string, MSDevice_Taxi*> myStateLoadedReservations;
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Taxi(const MSDevice_Taxi&);

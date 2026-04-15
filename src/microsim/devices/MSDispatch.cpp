@@ -423,6 +423,13 @@ MSDispatch::saveState(OutputDevice& out, SUMOTime nextDispatch) const {
     out.writeAttr(SUMO_ATTR_COUNT, myReservationCount);
 
     std::ostringstream internals;
+    for (const auto& it : myRunningReservations) {
+        for (const auto& item : it.second) {
+            for (const MSTransportable* t : item.first->persons) {
+                internals << t->getID() << " " << item.first->id << " ";
+            }
+        }
+    }
     for (const auto& it : myGroupReservations) {
         for (const Reservation* res : it.second) {
             for (const MSTransportable* t : res->persons) {
