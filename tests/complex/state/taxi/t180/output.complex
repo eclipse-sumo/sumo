@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
+Loading net-file from 'net.net.xml' ... done (8ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1170-2a718fd95d8 started with time: 0.00.
+Simulation version v1_26_0+1172-2a6f687cf23 started with time: 0.00.
 Simulation ended at time: 1269.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.01s
- Real time factor: 97615.4
- UPS: 195230.769231
- UPS-Persons: 498153.846154
+ Duration: 0.03s
+ Real time factor: 45321.4
+ UPS: 90642.857143
+ UPS-Persons: 231285.714286
 Vehicles:
  Inserted: 2
  Running: 2
@@ -33,16 +33,16 @@ Ride Statistics (avg of 10 rides):
 DijkstraRouter answered 46 queries and explored 25.74 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'net.net.xml' ... done (8ms).
-Loading state from 'state.xml' ... done (16ms).
+Loading state from 'state.xml' ... done (28ms).
 Loading done.
-Simulation version v1_26_0+1170-2a718fd95d8 started with time: 180.00.
+Simulation version v1_26_0+1172-2a6f687cf23 started with time: 180.00.
 Simulation ended at time: 1209.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 28583.3
- UPS: 57166.666667
- UPS-Persons: 127833.333333
+ Duration: 0.07s
+ Real time factor: 15132.4
+ UPS: 30264.705882
+ UPS-Persons: 67676.470588
 Vehicles:
  Inserted: 2
  Running: 2
@@ -66,13 +66,13 @@ Ride Statistics (avg of 10 rides):
 DijkstraRouter answered 34 queries and explored 28.88 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 <     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="198.00" waitingTime="60.00" timeLoss="8.26" traveltime="138.00">
->     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="180.00" waitingTime="60.00" timeLoss="0.00" traveltime="120.00">
+>     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="180.00" waitingTime="60.00" timeLoss="8.26" traveltime="120.00">
 <         <ride waitingTime="60.00" vehicle="trip_0" depart="60.00" arrival="198.00" arrivalPos="285.60" duration="138.00" routeLength="880.01" timeLoss="8.26"/>
->         <ride waitingTime="60.00" vehicle="trip_0" depart="60.00" arrival="180.00" arrivalPos="285.60" duration="120.00" routeLength="880.01" timeLoss="0.00"/>
+>         <ride waitingTime="60.00" vehicle="trip_0" depart="60.00" arrival="180.00" arrivalPos="285.60" duration="120.00" routeLength="880.01" timeLoss="8.26"/>
 <     <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="196.00" waitingTime="60.00" timeLoss="10.04" traveltime="136.00">
->     <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="170.00" waitingTime="60.00" timeLoss="0.00" traveltime="110.00">
+>     <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="170.00" waitingTime="60.00" timeLoss="10.04" traveltime="110.00">
 <         <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="206.00" arrivalPos="285.60" duration="136.00" routeLength="774.81" timeLoss="10.04"/>
->         <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="180.00" arrivalPos="285.60" duration="110.00" routeLength="774.81" timeLoss="0.00"/>
+>         <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="180.00" arrivalPos="285.60" duration="110.00" routeLength="774.81" timeLoss="10.04"/>
 <     <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="380.00" waitingTime="247.00" timeLoss="10.68" traveltime="133.00">
 >     <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="320.00" waitingTime="187.00" timeLoss="10.68" traveltime="133.00">
 <         <ride waitingTime="247.00" vehicle="trip_0" depart="267.00" arrival="400.00" arrivalPos="85.60" duration="133.00" routeLength="780.20" timeLoss="10.68"/>

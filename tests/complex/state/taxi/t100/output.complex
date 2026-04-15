@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (5ms).
+Loading net-file from 'net.net.xml' ... done (9ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1170-2a718fd95d8 started with time: 0.00.
+Simulation version v1_26_0+1172-2a6f687cf23 started with time: 0.00.
 Simulation ended at time: 1269.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.01s
- Real time factor: 97615.4
- UPS: 195230.769231
- UPS-Persons: 498153.846154
+ Duration: 0.03s
+ Real time factor: 39656.2
+ UPS: 79312.500000
+ UPS-Persons: 202375.000000
 Vehicles:
  Inserted: 2
  Running: 2
@@ -31,18 +31,18 @@ Ride Statistics (avg of 10 rides):
  Duration: 145.30
  Taxi: 10
 DijkstraRouter answered 46 queries and explored 25.74 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (4ms).
-Loading state from 'state.xml' ... done (16ms).
+DijkstraRouter spent 0.00s answering queries (0.02ms on average).
+Loading net-file from 'net.net.xml' ... done (8ms).
+Loading state from 'state.xml' ... done (64ms).
 Loading done.
-Simulation version v1_26_0+1170-2a718fd95d8 started with time: 100.00.
+Simulation version v1_26_0+1172-2a6f687cf23 started with time: 100.00.
 Simulation ended at time: 1271.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 32527.8
- UPS: 65055.555556
- UPS-Persons: 164638.888889
+ Duration: 0.13s
+ Real time factor: 9368
+ UPS: 18736.000000
+ UPS-Persons: 47416.000000
 Vehicles:
  Inserted: 2
  Running: 2
@@ -65,14 +65,6 @@ Ride Statistics (avg of 10 rides):
  Taxi: 10
 DijkstraRouter answered 34 queries and explored 28.88 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-<     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="198.00" waitingTime="60.00" timeLoss="8.26" traveltime="138.00">
->     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="198.00" waitingTime="60.00" timeLoss="3.31" traveltime="138.00">
-<         <ride waitingTime="60.00" vehicle="trip_0" depart="60.00" arrival="198.00" arrivalPos="285.60" duration="138.00" routeLength="880.01" timeLoss="8.26"/>
->         <ride waitingTime="60.00" vehicle="trip_0" depart="60.00" arrival="198.00" arrivalPos="285.60" duration="138.00" routeLength="880.01" timeLoss="3.31"/>
-<     <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="196.00" waitingTime="60.00" timeLoss="10.04" traveltime="136.00">
->     <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="196.00" waitingTime="60.00" timeLoss="6.43" traveltime="136.00">
-<         <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="206.00" arrivalPos="285.60" duration="136.00" routeLength="774.81" timeLoss="10.04"/>
->         <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="206.00" arrivalPos="285.60" duration="136.00" routeLength="774.81" timeLoss="6.43"/>
 <     <personinfo id="p5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="632.00" waitingTime="498.00" timeLoss="10.61" traveltime="134.00">
 >     <personinfo id="p5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="630.00" waitingTime="498.00" timeLoss="9.28" traveltime="132.00">
 <         <ride waitingTime="498.00" vehicle="trip_1" depart="548.00" arrival="682.00" arrivalPos="87.60" duration="134.00" routeLength="771.95" timeLoss="10.61"/>
