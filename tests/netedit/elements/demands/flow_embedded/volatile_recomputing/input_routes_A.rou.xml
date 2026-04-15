@@ -37,16 +37,16 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="f_0" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800.00">
+    <flow id="f_0" begin="0.00" color="12,13,14" end="36.00" vehsPerHour="1800.00">
         <route edges="Edge0 Edge1 Edge2"/>
     </flow>
-    <flow id="f_1" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800.00">
+    <flow id="f_1" begin="0.00" color="12,13,14" end="36.00" vehsPerHour="1800.00">
         <route edges="Edge3 Edge4 Edge5"/>
     </flow>
-    <flow id="f_2" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800.00">
+    <flow id="f_2" begin="0.00" color="12,13,14" end="36.00" vehsPerHour="1800.00">
         <route edges="EdgeExternBot EdgeExternTop"/>
     </flow>
-    <flow id="f_3" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800.00">
+    <flow id="f_3" begin="0.00" color="12,13,14" end="36.00" vehsPerHour="1800.00">
         <route edges="EdgeExternTop EdgeExternBot"/>
     </flow>
 </routes>

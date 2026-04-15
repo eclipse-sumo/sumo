@@ -2,11 +2,11 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
-36
 dummyTerminate
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 798 - 194
 end-number
+36
 dummy
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 798 - 194

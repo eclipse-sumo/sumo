@@ -46,6 +46,7 @@ netedit.typeKey("enter")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flowJunction.create.terminate, "end-number")
+netedit.modifyAttribute(netedit.attrs.flowJunction.create.number, "36")
 
 # press enter to create flow with embedded route
 netedit.typeKey("enter")

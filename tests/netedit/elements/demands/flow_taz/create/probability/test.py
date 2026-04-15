@@ -33,6 +33,7 @@ netedit.changeMode("vehicle")
 
 # select flow with embedded route
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "36")
 
 # try to create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)

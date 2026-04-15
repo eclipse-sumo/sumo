@@ -33,7 +33,6 @@ netedit.changeMode("vehicle")
 
 # select flow
 netedit.changeElement("vehicleFrame", "flow (from-to edges)")
-netedit.modifyAttribute(netedit.attrs.flow.create.terminateOption, "36")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.terminate, "dummyTerminate")
@@ -47,6 +46,7 @@ netedit.typeKey("enter")
 
 # set invalid arrival pos
 netedit.modifyAttribute(netedit.attrs.flow.create.terminate, "end-number")
+netedit.modifyAttribute(netedit.attrs.flow.create.number, "36")
 
 # press enter to create flow
 netedit.typeKey("enter")

@@ -33,6 +33,7 @@ netedit.changeMode("vehicle")
 
 # select trip over junctions
 netedit.changeElement("vehicleFrame", "flow (from-to TAZs)")
+netedit.modifyAttribute(netedit.attrs.flowTAZ.create.terminateOption, "36")
 
 # set invalid depart speed
 netedit.modifyAttribute(netedit.attrs.flowTAZ.create.departSpeed, "dummySpeed")
