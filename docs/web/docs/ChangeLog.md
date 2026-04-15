@@ -62,6 +62,8 @@ title: ChangeLog
   - Transparent junctions no longer show up as white in view #17751
   - Fixed invalid error when loading stop that ends on lane end #17818
   - Custom Shape colour gui setting now takes effect #17828
+  - Fixed bug where deleting connections from a multi-lane turn could create an invalid network #17876
+
 
 - netconvert
   - Fixed superfluous bidi-edges when repairing ptLine #17754 (regression in 1.26.0)
@@ -128,12 +130,16 @@ title: ChangeLog
   - Option **--vtk-output** now supports writing data at sub-second simulation step-length #17645
   - edgeData and laneData-output now support attribute `excludeEmpty="modified"` which writes unused edges but only if their speed was modified with calibrators or variableSpeedSigns. #17587
   - fcd-output now supports attribute `stopDelay` #17767
+  - fcd-output now supports attributes `speedVec` and `accelerationVec` which write speed and acceleration as 2-dimensional vectors corresponding to the x and y axes #17877
   - fcd-output now supports attribute `speedRelative` (can also be activated by option **--fcd-output.speed-relative**) #17234
   - The symbolic departSpeed values "desired", "speedLimit", "last" and "avg" now automatically adjust to upcoming stops and intersections #17851
+  - Stop-output now includes the optional attribute 'state' to distinguish waypoints and skipped on-demand stops #17872
+  - Added option **--fcd-output.utm** which write raw UTM coordinates when simulating in geo-referenced networks #17878
   - Taxis:
     - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
     - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
     - Added taxi param `<param key="device.taxi.swapGroup" value="<GROUP_NAME>"/>` which permits idle taxis to receive dispatch tasks before pickup is complete from other taxis in the same swapGroup if that would reduce time to pickup #17639
+    - Save and loading state is now supported for taxi simulation #17874
 
 - meso
   - When the loaded network has internal links they are used instead of jumping across intersections (legacy behavior can be enabled with sumo option **--no-internal-links**) #17842
@@ -147,6 +153,7 @@ title: ChangeLog
 
 - sumo-gui
   - traffic lights now have a higher right-click priority than busstops #17761
+  - Made route and locomotive coloring brighter to improve visibility #17859
     
 - netconvert
   - Now importing geo-projection from visum networks #17658
@@ -185,6 +192,7 @@ title: ChangeLog
   - countEdgeUsage.py: Now writes option header and supports .gz output #17685
   - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
   - routeSampler.py: Added option **--keep-attributes** to preserve vehicle attributes loaded from route input including departure time (unless the route of that vehicle is used more than once) #16114
+  - routeSampler.py: Added option **--timeline** to interpret loaded data intervals that are longer than the **--interval** time #17863
   - patchRailConflicts.py: Added option **--split-offset** which splits rail edges before traffic_light junctions if these junctions also have a rail conflict #17740
   - [instantOutDiff.py](Tools/Output.md#instantoutdiffpy): added tool for comparing instantInductionLoop output from two simulation runs #16524
   - [tls_analyzeSplit.py](Tools/tls.md#tls_analyzesplitpy): added tool to analyze green split of static signal plans (or plan-like logs of dynamic plans) #17730
