@@ -1998,6 +1998,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         con.id = innerID + "_" + toString(edgeIndex);
         const double shapeLength = shape.length();
         double firstLength = shapeLength;
+        con.internalViaLaneIndex = 0; // reset to default for netedit
         if (crossingPositions.first > 0 && crossingPositions.first < shapeLength) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
             con.shape = split.first;
