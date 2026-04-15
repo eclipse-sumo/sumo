@@ -518,7 +518,7 @@ public:
         void updateStateSize(const int col);
 
         /// @brief update phase references given in next field
-        void updateNextPhase(const int oldNext, const int newNext = -1);
+        void updateNextPhase(const int oldNext, const int newNext = -1, const bool swap = false);
 
         /// @brief pointer to TLSEditor Parent
         GNETLSEditorFrame* myTLSEditorParent;
