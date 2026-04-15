@@ -680,7 +680,7 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         myWaitingPos = previous->getArrivalPos();
     }
     // running reservations will be converted in MSDevice_Taxi::addReservation
-    registerWaiting(transportable, SIMSTEP);
+    registerWaiting(transportable, myWaitingSince);
 }
 
 // ---------------------------------------------------------------------------
