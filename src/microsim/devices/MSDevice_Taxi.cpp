@@ -1076,7 +1076,12 @@ void
 MSDevice_Taxi::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_DEVICE);
     out.writeAttr(SUMO_ATTR_ID, getID());
-    out.writeAttr(SUMO_ATTR_STATE, myState);
+    std::ostringstream internals;
+    internals << myState
+        << " " << myCustomersServed
+        << " " << myOccupiedDistance
+        << " " << myOccupiedTime;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
     if (myCustomers.size() > 0) {
         out.writeAttr(SUMO_ATTR_CUSTOMERS, joinNamedToStringSorting(myCustomers, " "));
     }
@@ -1087,7 +1092,11 @@ MSDevice_Taxi::saveState(OutputDevice& out) const {
 void
 MSDevice_Taxi::loadState(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    myState = attrs.get<int>(SUMO_ATTR_STATE, getID().c_str(), ok);
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myState;
+    bis >> myCustomersServed;
+    bis >> myOccupiedDistance;
+    bis >> myOccupiedTime;
     if (attrs.hasAttribute(SUMO_ATTR_CUSTOMERS)) {
         for (const std::string& id : attrs.get<std::vector<std::string> >(SUMO_ATTR_CUSTOMERS, getID().c_str(), ok)) {
             myStateLoadedCustomers[id] = this;
