@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T10:50:55.310490+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
+<!-- generated on 2026-04-15T11:14:18.812734+01:00 by Eclipse SUMO sumo v1_26_0+1170-2a718fd95d8
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,35 +38,35 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p2" depart="20.00" arrival="233.00">
+    <person id="p2" depart="20.00" arrival="234.00">
         <ride from="C2C1" to="E1E2" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p3" depart="30.00" arrival="290.00">
+    <person id="p3" depart="30.00" arrival="291.00">
         <ride from="B1A1" to="B2B1" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p5" depart="50.00" arrival="405.00">
+    <person id="p5" depart="50.00" arrival="462.00">
         <ride from="D0D1" to="F1F0" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p4" depart="40.00" arrival="437.00">
+    <person id="p4" depart="40.00" arrival="497.00">
         <ride from="A1A0" to="E2E1" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p7" depart="70.00" arrival="566.00">
+    <person id="p7" depart="70.00" arrival="626.00">
         <ride from="D0D1" to="C0C1" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p6" depart="60.00" arrival="611.00">
+    <person id="p6" depart="60.00" arrival="668.00">
         <ride from="D2E2" to="C2D2" arrivalPos="190.40" lines="taxi"/>
     </person>
 
-    <person id="p8" depart="80.00" arrival="674.00">
+    <person id="p8" depart="80.00" arrival="734.00">
         <ride from="B0B1" to="B2B1" arrivalPos="0.00" lines="taxi"/>
     </person>
 
-    <person id="p9" depart="90.00" arrival="818.00">
+    <person id="p9" depart="90.00" arrival="875.00">
         <ride from="C1B1" to="E0D0" arrivalPos="190.40" lines="taxi"/>
     </person>
 
@@ -76,20 +76,20 @@
             <route replacedOnEdge="B0C0" replacedOnIndex="7" reason="taxi:prepare_dispatch" replacedAtTime="120.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2"/>
             <route replacedOnEdge="E1E2" replacedOnIndex="13" reason="taxi:prepare_dispatch" replacedAtTime="240.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2"/>
             <route replacedOnEdge="E1E2" replacedOnIndex="13" reason="taxi:dispatch" replacedAtTime="240.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 A1A0 E2E1"/>
-            <route replacedOnEdge="E2E1" replacedOnIndex="26" reason="taxi:prepare_dispatch" replacedAtTime="480.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1"/>
-            <route replacedOnEdge="E2E1" replacedOnIndex="26" reason="taxi:dispatch" replacedAtTime="480.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 D0D1 C0C1"/>
-            <route replacedOnEdge="C0C1" replacedOnIndex="32" reason="taxi:prepare_dispatch" replacedAtTime="600.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1C1 C1C0 C0C1"/>
-            <route replacedOnEdge="C0C1" replacedOnIndex="32" reason="taxi:dispatch" replacedAtTime="600.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1C1 C1C0 C0C1 B0B1 B2B1"/>
+            <route replacedOnEdge="E2E1" replacedOnIndex="26" reason="taxi:prepare_dispatch" replacedAtTime="540.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1"/>
+            <route replacedOnEdge="E2E1" replacedOnIndex="26" reason="taxi:dispatch" replacedAtTime="540.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 D0D1 C0C1"/>
+            <route replacedOnEdge="C0C1" replacedOnIndex="32" reason="taxi:prepare_dispatch" replacedAtTime="660.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1C1 C1C0 C0C1"/>
+            <route replacedOnEdge="C0C1" replacedOnIndex="32" reason="taxi:dispatch" replacedAtTime="660.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1C1 C1C0 C0C1 B0B1 B2B1"/>
             <route edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0C1 C1C2 C2C1 C1D1 D1E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1C1 C1C0 C0C1 C1B1 B1B0 B0B1 B1B2 B2B1"/>
         </routeDistribution>
-        <stop lane="C2C1_1" startPos="0.00" endPos="5.00" duration="0.00" permitted="p2" actType="pickup p2 (2)"/>
-        <stop lane="E1E2_1" startPos="85.60" endPos="85.60" duration="60.00" actType="dropOff p2 (2)"/>
-        <stop lane="A1A0_1" duration="0.00" permitted="p4" actType="pickup p4 (0)"/>
-        <stop lane="E2E1_1" duration="60.00" actType="dropOff p4 (0)"/>
-        <stop lane="D0D1_1" duration="0.00" permitted="p7" actType="pickup p7 (3)"/>
-        <stop lane="C0C1_1" duration="60.00" actType="dropOff p7 (3)"/>
-        <stop lane="B0B1_1" duration="0.00" permitted="p8" actType="pickup p8 (4)"/>
-        <stop lane="B2B1_1" duration="60.00" actType="dropOff p8 (4)"/>
+        <stop lane="C2C1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p2" actType="pickup p2 (2)"/>
+        <stop lane="E1E2_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p2 (2)"/>
+        <stop lane="A1A0_1" duration="0.00" triggered="person" parking="1" permitted="p4" actType="pickup p4 (0)"/>
+        <stop lane="E2E1_1" duration="60.00" parking="1" actType="dropOff p4 (0)"/>
+        <stop lane="D0D1_1" duration="0.00" triggered="person" parking="1" permitted="p7" actType="pickup p7 (3)"/>
+        <stop lane="C0C1_1" duration="60.00" parking="1" actType="dropOff p7 (3)"/>
+        <stop lane="B0B1_1" duration="0.00" triggered="person" parking="1" permitted="p8" actType="pickup p8 (4)"/>
+        <stop lane="B2B1_1" duration="60.00" parking="1" actType="dropOff p8 (4)"/>
     </vehicle>
 
     <vehicle id="trip_1" type="taxi" depart="0.00">
@@ -98,21 +98,21 @@
             <route replacedOnEdge="C2D2" replacedOnIndex="4" reason="taxi:prepare_dispatch" replacedAtTime="120.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1"/>
             <route replacedOnEdge="B2B1" replacedOnIndex="11" reason="taxi:prepare_dispatch" replacedAtTime="300.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1"/>
             <route replacedOnEdge="B2B1" replacedOnIndex="11" reason="taxi:dispatch" replacedAtTime="300.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 D0D1 F1F0"/>
-            <route replacedOnEdge="F1F0" replacedOnIndex="18" reason="taxi:prepare_dispatch" replacedAtTime="420.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0"/>
-            <route replacedOnEdge="F1F0" replacedOnIndex="18" reason="taxi:dispatch" replacedAtTime="420.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 D2E2 C2D2"/>
-            <route replacedOnEdge="C2D2" replacedOnIndex="26" reason="taxi:prepare_dispatch" replacedAtTime="660.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2"/>
-            <route replacedOnEdge="C2D2" replacedOnIndex="26" reason="taxi:dispatch" replacedAtTime="660.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2 C1B1 E0D0"/>
+            <route replacedOnEdge="F1F0" replacedOnIndex="18" reason="taxi:prepare_dispatch" replacedAtTime="480.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0"/>
+            <route replacedOnEdge="F1F0" replacedOnIndex="18" reason="taxi:dispatch" replacedAtTime="480.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 D2E2 C2D2"/>
+            <route replacedOnEdge="C2D2" replacedOnIndex="26" reason="taxi:prepare_dispatch" replacedAtTime="720.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2"/>
+            <route replacedOnEdge="C2D2" replacedOnIndex="26" reason="taxi:dispatch" replacedAtTime="720.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2 C1B1 E0D0"/>
             <route edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2 D2D1 D1C1 C1B1 B1C1 C1D1 D1E1 E1E0 E0D0"/>
         </routeDistribution>
-        <stop lane="C2D2_1" startPos="285.60" endPos="285.60" duration="0.00" started="119.28" actType="dropOff p1 (1)"/>
-        <stop lane="B1A1_1" startPos="0.00" endPos="5.00" duration="0.00" permitted="p3" actType="pickup p3 (3)"/>
-        <stop lane="B2B1_1" startPos="85.60" endPos="85.60" duration="60.00" actType="dropOff p3 (3)"/>
-        <stop lane="D0D1_1" duration="0.00" permitted="p5" actType="pickup p5 (1)"/>
-        <stop lane="F1F0_1" duration="60.00" actType="dropOff p5 (1)"/>
-        <stop lane="D2E2_1" duration="0.00" permitted="p6" actType="pickup p6 (2)"/>
-        <stop lane="C2D2_1" duration="60.00" actType="dropOff p6 (2)"/>
-        <stop lane="C1B1_1" duration="0.00" permitted="p9" actType="pickup p9 (5)"/>
-        <stop lane="E0D0_1" duration="60.00" actType="dropOff p9 (5)"/>
+        <stop lane="C2D2_1" startPos="285.60" endPos="285.60" duration="0.00" started="119.28" parking="1" actType="dropOff p1 (1)"/>
+        <stop lane="B1A1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p3" actType="pickup p3 (3)"/>
+        <stop lane="B2B1_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p3 (3)"/>
+        <stop lane="D0D1_1" duration="0.00" triggered="person" parking="1" permitted="p5" actType="pickup p5 (1)"/>
+        <stop lane="F1F0_1" duration="60.00" parking="1" actType="dropOff p5 (1)"/>
+        <stop lane="D2E2_1" duration="0.00" triggered="person" parking="1" permitted="p6" actType="pickup p6 (2)"/>
+        <stop lane="C2D2_1" duration="60.00" parking="1" actType="dropOff p6 (2)"/>
+        <stop lane="C1B1_1" duration="0.00" triggered="person" parking="1" permitted="p9" actType="pickup p9 (5)"/>
+        <stop lane="E0D0_1" duration="60.00" parking="1" actType="dropOff p9 (5)"/>
     </vehicle>
 
 </routes>

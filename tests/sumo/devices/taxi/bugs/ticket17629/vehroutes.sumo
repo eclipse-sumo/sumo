@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T10:51:28.408217+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
+<!-- generated on 2026-04-15T11:14:56.496768+01:00 by Eclipse SUMO sumo v1_26_0+1170-2a718fd95d8
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -149,8 +149,8 @@
             <route replacedOnEdge="C0B0" replacedOnIndex="48" reason="taxi:idling:randomCircling" replacedAtTime="995.00" probability="0" edges="C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1D1 D1D0 D0E0 E0F0 F0F1 F1F2 F2E2 E2E1 E1E2 E2D2 D2C2 C2D2 D2C2 C2D2 D2C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2A2 A2A1 A1A0 A0B0 B0B1 B1C1 C1D1 D1C1 C1C2 C2C1 C1B1 B1B0 B0A0 A0A1 A1A0 A0B0 B0C0 C0B0 B0C0"/>
             <route edges="C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1D1 D1D0 D0E0 E0F0 F0F1 F1F2 F2E2 E2E1 E1E2 E2D2 D2C2 C2D2 D2C2 C2D2 D2C2 C2B2 B2A2 A2A1 A1A2 A2B2 B2A2 A2A1 A1A0 A0B0 B0B1 B1C1 C1D1 D1C1 C1C2 C2C1 C1B1 B1B0 B0A0 A0A1 A1A0 A0B0 B0C0 C0B0 B0C0 C0C1"/>
         </routeDistribution>
-        <stop lane="C1B1_1" duration="0.00" permitted="p0" actType="pickup p0 (0)"/>
-        <stop lane="B1A1_1" duration="60.00" actType="dropOff p0 (0)"/>
+        <stop lane="C1B1_1" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="B1A1_1" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
     </vehicle>
 
 </routes>

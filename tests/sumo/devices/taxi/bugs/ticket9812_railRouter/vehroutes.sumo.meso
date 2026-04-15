@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T10:53:56.574842+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
+<!-- generated on 2026-04-15T11:14:51.493565+01:00 by Eclipse SUMO sumo v1_26_0+1170-2a718fd95d8
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -49,8 +49,8 @@
             <route replacedOnEdge="-E8" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="-E8 E1 E6"/>
             <route edges="-E8 -E7 -E7.50 E7 E70 E0 E1 E2 E3 E4 E5 E6"/>
         </routeDistribution>
-        <stop busStop="ts_0" duration="0.00" permitted="p_0" actType="pickup p_0 (0)"/>
-        <stop busStop="ts_1" duration="60.00" actType="dropOff p_0 (0)"/>
+        <stop busStop="ts_0" duration="0.00" triggered="person" parking="1" permitted="p_0" actType="pickup p_0 (0)"/>
+        <stop busStop="ts_1" duration="60.00" parking="1" actType="dropOff p_0 (0)"/>
         <param key="has.taxi.device" value="true"/>
     </vehicle>
 

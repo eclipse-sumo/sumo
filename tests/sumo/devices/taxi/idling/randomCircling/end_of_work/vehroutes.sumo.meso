@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T10:53:56.287906+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
+<!-- generated on 2026-04-15T11:14:50.884247+01:00 by Eclipse SUMO sumo v1_26_0+1170-2a718fd95d8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -102,8 +102,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route replacedOnEdge="C0D0" replacedOnIndex="30" reason="taxi:idling:randomCircling" replacedAtTime="498.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D0 D0E0 E0E1 E1E2 E2E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1F2 F2E2 E2D2 D2C2 C2C1 C1C2 C2C1 C1C0 C0D0 D0C0 C0D0 D0C0"/>
             <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0D0 D0D1 D1D0 D0E0 E0E1 E1E2 E2E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1F2 F2E2 E2D2 D2C2 C2C1 C1C2 C2C1 C1C0 C0D0 D0C0 C0D0 D0C0 C0D0"/>
         </routeDistribution>
-        <stop lane="B2C2_1" duration="0.00" permitted="p0" actType="pickup p0 (0)"/>
-        <stop lane="A0B0_1" duration="60.00" actType="dropOff p0 (0)"/>
+        <stop lane="B2C2_1" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="A0B0_1" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
         <param key="device.taxi.end" value="500"/>
     </vehicle>
 

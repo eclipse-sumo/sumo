@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T10:53:56.294531+01:00 by Eclipse SUMO sumo v1_26_0+1168-0f90bbcb657
+<!-- generated on 2026-04-15T11:14:50.879347+01:00 by Eclipse SUMO sumo v1_26_0+1170-2a718fd95d8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,8 +70,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route replacedOnEdge="A0B0" replacedOnIndex="6" reason="taxi:taxistand" replacedAtTime="115.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
             <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0C1 C1B1 B1A1 A1A0 A0B0"/>
         </routeDistribution>
-        <stop lane="B2C2_1" duration="0.00" permitted="p0" actType="pickup p0 (0)"/>
-        <stop lane="A0B0_1" duration="60.00" actType="dropOff p0 (0)"/>
+        <stop lane="B2C2_1" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="A0B0_1" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
         <stop parkingArea="pa_0" actType="idling"/>
         <param key="device.taxi.end" value="500"/>
     </vehicle>
