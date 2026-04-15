@@ -7,6 +7,9 @@ cartesian
 # output fcd data in geo-coordinates
 geo
 
+# output fcd data in utm-coordinates
+geo_utm
+
 # check whether slope works
 cartesian_slope
 cartesian_slope_geom
