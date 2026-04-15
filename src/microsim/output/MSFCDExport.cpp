@@ -58,6 +58,7 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
     }
     const SumoXMLAttrMask& mask = MSDevice_FCD::getWrittenAttributes();
     const bool useGeo = MSDevice_FCD::useGeo();
+    const bool useUTM = MSDevice_FCD::useUTM();
     const double maxLeaderDistance = MSDevice_FCD::getMaxLeaderDistance();
     const std::vector<std::string>& params = MSDevice_FCD::getParamsToWrite();
     MSNet* net = MSNet::getInstance();
@@ -90,6 +91,8 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                 if (useGeo) {
                     of.setPrecision(gPrecisionGeo);
                     GeoConvHelper::getFinal().cartesian2geo(pos);
+                } else if (useUTM) {
+                    pos.sub(GeoConvHelper::getFinal().getOffset());
                 }
                 of.openTag(SUMO_TAG_VEHICLE);
                 of.writeAttr(SUMO_ATTR_ID, veh->getID());

@@ -41,6 +41,7 @@
 SUMOTime MSDevice_FCD::myBegin = SUMOTime_MAX;
 SUMOTime MSDevice_FCD::myPeriod = 0;
 bool MSDevice_FCD::myUseGeo;
+bool MSDevice_FCD::myUseUTM;
 double MSDevice_FCD::myMaxLeaderDistance;
 std::vector<std::string> MSDevice_FCD::myParamsToWrite;
 double MSDevice_FCD::myRadius;
@@ -168,6 +169,7 @@ MSDevice_FCD::initOnce() {
     myPeriod = string2time(oc.getString("device.fcd.period"));
     myBegin = string2time(oc.getString("device.fcd.begin"));
     myUseGeo = oc.getBool("fcd-output.geo");
+    myUseUTM = oc.getBool("fcd-output.utm");
     myMaxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
     myParamsToWrite = oc.getStringVector("fcd-output.params");
     myRadius = oc.getFloat("device.fcd.radius");

@@ -167,6 +167,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output", "Output", TL("Save the Floating Car Data"));
     oc.doRegister("fcd-output.geo", new Option_Bool(false));
     oc.addDescription("fcd-output.geo", "Output", TL("Save the Floating Car Data using geo-coordinates (lon/lat)"));
+    oc.doRegister("fcd-output.utm", new Option_Bool(false));
+    oc.addDescription("fcd-output.utm", "Output", TL("Save the Floating Car Data using utm/unshifted coordinates (x/y)"));
     oc.doRegister("fcd-output.signals", new Option_Bool(false));
     oc.addDescription("fcd-output.signals", "Output", TL("Add the vehicle signal state to the FCD output (brake lights etc.)"));
     oc.doRegister("fcd-output.distance", new Option_Bool(false));

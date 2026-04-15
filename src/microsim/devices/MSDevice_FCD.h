@@ -91,6 +91,10 @@ public:
         return myUseGeo;
     }
 
+    static inline bool useUTM() {
+        return myUseUTM;
+    }
+
     static inline double getMaxLeaderDistance() {
         return myMaxLeaderDistance;
     }
@@ -137,6 +141,7 @@ private:
     static SUMOTime myBegin;
     static SUMOTime myPeriod;
     static bool myUseGeo;
+    static bool myUseUTM;
     static double myMaxLeaderDistance;
     static std::vector<std::string> myParamsToWrite;
     static double myRadius;
