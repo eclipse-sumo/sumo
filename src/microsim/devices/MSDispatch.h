@@ -234,4 +234,6 @@ protected:
     /// @brief which router/edge weights to use
     const int myRoutingMode;
 
+    /// @brief reservations loaded from state
+    std::map<std::string, std::string> myLoadedReservations;
 };

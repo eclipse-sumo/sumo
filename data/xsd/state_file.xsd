@@ -273,6 +273,8 @@
 
     <xsd:complexType name="dispatcherType">
         <xsd:attribute name="next" type="xsd:long" use="required"/>
+        <xsd:attribute name="count" type="xsd:int" use="required"/>
+        <xsd:attribute name="customers" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="routingEngineEdgeType">

@@ -134,7 +134,18 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     if (!added) {
-        Reservation* newRes = new Reservation(toString(myReservationCount++), {person}, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, line);
+        std::string resID;
+        if (myLoadedReservations.size() > 0) {
+            auto itL = myLoadedReservations.find(person->getID()); 
+            if (itL != myLoadedReservations.end()) {
+                resID = itL->second;
+                myLoadedReservations.erase(itL);
+            }
+        } 
+        if (resID.empty()) {
+            resID = toString(myReservationCount++);
+        }
+        Reservation* newRes = new Reservation(resID, {person}, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, line);
         myGroupReservations[group].push_back(newRes);
         result = newRes;
     }
@@ -409,12 +420,30 @@ void
 MSDispatch::saveState(OutputDevice& out, SUMOTime nextDispatch) const {
     out.openTag(SUMO_TAG_DISPATCHER);
     out.writeAttr(SUMO_ATTR_NEXT, nextDispatch);
+    out.writeAttr(SUMO_ATTR_COUNT, myReservationCount);
+
+    std::ostringstream internals;
+    for (const auto& it : myGroupReservations) {
+        for (const Reservation* res : it.second) {
+            for (const MSTransportable* t : res->persons) {
+                internals << t->getID() << " " << res->id << " ";
+            }
+        }
+    }
+    out.writeAttr(SUMO_ATTR_CUSTOMERS, internals.str());
     out.closeTag();
 }
 
 
 void
-MSDispatch::loadState(const SUMOSAXAttributes& /*attrs*/) {
+MSDispatch::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    myReservationCount = attrs.get<int>(SUMO_ATTR_COUNT, "dispatcher", ok);
+    std::istringstream bis(attrs.getString(SUMO_ATTR_CUSTOMERS));
+    std::string tID, rID;
+    while (bis >> tID && bis >> rID) {
+        myLoadedReservations[tID] = rID;
+    }
 }
 
 
