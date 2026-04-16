@@ -106,6 +106,14 @@ MSDispatch::addReservation(MSTransportable* person,
             }
         }
     }
+    std::string resID;
+    if (myLoadedReservations.size() > 0) {
+        auto itL = myLoadedReservations.find(person->getID());
+        if (itL != myLoadedReservations.end()) {
+            resID = itL->second;
+            myLoadedReservations.erase(itL);
+        }
+    }
     Reservation* result = nullptr;
     bool added = false;
     auto it = myGroupReservations.find(group);
@@ -116,7 +124,8 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->from == from
                     && res->to == to
                     && res->fromPos == fromPos
-                    && res->toPos == toPos) {
+                    && res->toPos == toPos
+                    && (resID.empty() || res->id == resID)) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
                     WRITE_WARNINGF(TL("Mixing reservations of persons and containers with the same group is not supported for % and %"),
                                    (*res->persons.begin())->getID(), person->getID());
@@ -134,14 +143,6 @@ MSDispatch::addReservation(MSTransportable* person,
         }
     }
     if (!added) {
-        std::string resID;
-        if (myLoadedReservations.size() > 0) {
-            auto itL = myLoadedReservations.find(person->getID()); 
-            if (itL != myLoadedReservations.end()) {
-                resID = itL->second;
-                myLoadedReservations.erase(itL);
-            }
-        } 
         if (resID.empty()) {
             resID = toString(myReservationCount++);
         }
@@ -324,6 +325,9 @@ MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
 
 void
 MSDispatch::swappedRunning(const Reservation* res, MSDevice_Taxi* taxi) {
+#ifdef DEBUG_RESERVATION
+    std::cout << SIMTIME << " swapped res=" << res->id << " old=" << myRunningReservations[res->group][res]->getID() << " new=" << taxi->getID() << "\n";
+#endif
     myRunningReservations[res->group][res] = taxi;
 }
 
