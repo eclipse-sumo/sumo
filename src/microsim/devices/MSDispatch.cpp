@@ -78,6 +78,14 @@ MSDispatch::addReservation(MSTransportable* person,
                            const std::string& line,
                            int maxCapacity,
                            int maxContainerCapacity) {
+    std::string resID;
+    if (myLoadedReservations.size() > 0) {
+        auto itL = myLoadedReservations.find(person->getID());
+        if (itL != myLoadedReservations.end()) {
+            resID = itL->second;
+            myLoadedReservations.erase(itL);
+        }
+    }
     // no new reservation nedded if the person can be added to an existing group
     if (group == "") {
         // the default empty group implies, no grouping is wanted (and
@@ -94,9 +102,10 @@ MSDispatch::addReservation(MSTransportable* person,
                         && res->fromPos == fromPos
                         && res->toPos == toPos) {
                     MSDevice_Taxi* taxi = item.second;
-                    if (taxi->getState() == taxi->PICKUP
+                    if ((taxi->getState() == taxi->PICKUP
                             && remainingCapacity(taxi, res) > 0
-                            && taxi->compatibleLine(taxi->getHolder().getParameter().line, line)) {
+                            && taxi->compatibleLine(taxi->getHolder().getParameter().line, line))
+                            || resID == res->id) {
                         //std::cout << SIMTIME << " addPerson=" << person->getID() << " extendRes=" << toString(res->persons) << " taxi=" << taxi->getHolder().getID() << " state=" << taxi->getState() << "\n";
                         res->persons.insert(person);
                         taxi->addCustomer(person, res);
@@ -107,14 +116,6 @@ MSDispatch::addReservation(MSTransportable* person,
                     }
                 }
             }
-        }
-    }
-    std::string resID;
-    if (myLoadedReservations.size() > 0) {
-        auto itL = myLoadedReservations.find(person->getID());
-        if (itL != myLoadedReservations.end()) {
-            resID = itL->second;
-            myLoadedReservations.erase(itL);
         }
     }
     Reservation* result = nullptr;
