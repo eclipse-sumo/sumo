@@ -100,6 +100,9 @@ MSDispatch::addReservation(MSTransportable* person,
                         //std::cout << SIMTIME << " addPerson=" << person->getID() << " extendRes=" << toString(res->persons) << " taxi=" << taxi->getHolder().getID() << " state=" << taxi->getState() << "\n";
                         res->persons.insert(person);
                         taxi->addCustomer(person, res);
+#ifdef DEBUG_RESERVATION
+                        if (DEBUG_COND2(person)) std::cout << SIMTIME << " extendedReservation p=" << person->getID() << " resID=" << res->getID() << " taxi=" << taxi->getID() << "\n";
+#endif
                         return res;
                     }
                 }
@@ -154,6 +157,7 @@ MSDispatch::addReservation(MSTransportable* person,
 #ifdef DEBUG_RESERVATION
     if (DEBUG_COND2(person)) std::cout << SIMTIME
                                            << " addReservation p=" << person->getID()
+                                           << " addID=" << result->getID()
                                            << " rT=" << time2string(reservationTime)
                                            << " pT=" << time2string(pickupTime)
                                            << " from=" << from->getID() << " fromPos=" << fromPos
@@ -304,8 +308,14 @@ void
 MSDispatch::servedReservation(const Reservation* res, MSDevice_Taxi* taxi) {
     auto itR = myRunningReservations.find(res->group);
     if (itR != myRunningReservations.end() && itR->second.count(res) != 0) {
+#ifdef DEBUG_RESERVATION
+        std::cout << SIMTIME << " servedReservation res=" << res->id << " taxi=" << taxi->getID() << " (running)\n";
+#endif
         return; // was redispatch
     }
+#ifdef DEBUG_RESERVATION
+    std::cout << SIMTIME << " servedReservation res=" << res->id << " taxi=" << taxi->getID() << "\n";
+#endif
     auto it = myGroupReservations.find(res->group);
     if (it == myGroupReservations.end()) {
         throw ProcessError(TL("Inconsistent group reservations."));

@@ -224,6 +224,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     if (myStateLoadedCustomers.size() > 0) {
         auto it = myStateLoadedCustomers.find(person->getID());
         if (it != myStateLoadedCustomers.end()) {
+            //std::cout << SIMTIME << " loadedServed p=" << person->getID() << " res=" << res->getID() << " taxi=" << it->second->getID() << "\n";
             myDispatcher->servedReservation(res, it->second);
         }
     }
@@ -394,7 +395,8 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
     if (DEBUG_COND) {
         std::cout << SIMTIME << " taxi=" << myHolder.getID() << " dispatch:\n";
         for (const Reservation* res : reservations) {
-            std::cout << "   persons=" << toString(res->persons) << "\n";
+            std::cout << "   res=" << res->getID();
+            std::cout << " persons=" << toString(res->persons) << "\n";
         }
     }
 #endif
