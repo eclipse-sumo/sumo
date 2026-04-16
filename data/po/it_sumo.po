@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-15 17:31+0000\n"
+"PO-Revision-Date: 2026-04-16 17:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7573,18 +7573,27 @@ msgid ""
 "This causes discrepancies between geometrical length and assigned length due "
 "to averaging but enables lane-changing while turning"
 msgstr ""
+"Crea archi comuni per collegamenti di svolta con gli stessi archi entranti e "
+"uscenti. Questo provoca una differenza tra la lunghezza geometrica e quella "
+"assegnata dovuta al calcolo della media ma permette il cambio corsia mentre "
+"si svolta"
 
 #: src/netbuild/NBFrame.cpp:415
 msgid ""
 "Limits speed on junctions to an average lateral acceleration of at most "
 "FLOAT (m/s^2)"
 msgstr ""
+"Limita la velocità massima negli incroci all'accelerazione laterale media "
+"equivalente di al più FLOAT (m/s^2)"
 
 #: src/netbuild/NBFrame.cpp:419
 msgid ""
 "Do not limit turn speed for angular changes below FLOAT (degrees). The value "
 "is subtracted from the geometric angle before computing the turning radius."
 msgstr ""
+"Non imporre limiti di velocità per svoltare fino a FLOAT gradi. Questo "
+"valore viene detratto dall'angolo geometrico prima di calcolare il raggio di "
+"svolta."
 
 #: src/netbuild/NBFrame.cpp:423
 msgid ""
@@ -7592,28 +7601,37 @@ msgid ""
 "edges. The value is subtracted from the geometric angle before computing the "
 "turning radius."
 msgstr ""
+"Non imporre limiti di velocità per svoltare fino a FLOAT gradi su archi "
+"ferroviari. Il valore viene detratto dall'angolo geometrico prima di "
+"calcolare il raggio di svolta."
 
 #: src/netbuild/NBFrame.cpp:427
 msgid ""
 "Warn about turn speed limits that reduce the speed of straight connections "
 "by more than FLOAT"
 msgstr ""
+"Avvisa di limiti di velocità che riducono la velocità su collegamenti dritti "
+"di più di FLOAT"
 
 #: src/netbuild/NBFrame.cpp:431
 msgid ""
 "Warn about turn speed limits that reduce the speed of turning connections "
 "(no u-turns) by more than FLOAT"
 msgstr ""
+"Avvisa di limiti di velocità che riducono la velocità su collegamenti di "
+"svolta (inversione a u esclusa) di più di FLOAT"
 
 #: src/netbuild/NBFrame.cpp:435
 msgid "Default radius for junctions that do not require wide vehicle turns"
-msgstr ""
+msgstr "Raggio standard per incroci che non richiedono svolte larghe"
 
 #: src/netbuild/NBFrame.cpp:439
 msgid ""
 "Use maximum value of incoming and outgoing edge speed on junction instead of "
 "average"
 msgstr ""
+"Usa il valore massimo tra il limite di velocità dell'arco entrante e di "
+"quello uscente per l'incrocio invece della media"
 
 #: src/netbuild/NBFrame.cpp:443
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
