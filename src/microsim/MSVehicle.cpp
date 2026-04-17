@@ -7750,6 +7750,7 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(myTimeLoss));
     internals.push_back(toString(myLastActionTime));
     internals.push_back(toString(isStopped()));
+    internals.push_back(toString(isStopped() ? myStops.front().duration : 0));
     internals.push_back(toString(myPastStops.size()));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, std::vector<double> { myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
@@ -7790,6 +7791,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     }
     int routeOffset;
     bool stopped;
+    SUMOTime stopDuration;
     int pastStops;
 
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
@@ -7801,6 +7803,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myTimeLoss;
     bis >> myLastActionTime;
     bis >> stopped;
+    bis >> stopDuration;
     bis >> pastStops;
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
@@ -7848,6 +7851,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (stopped) {
         myStops.front().startedFromState = true;
         myStopDist = 0;
+        processNextStop(getSpeed());
+        if (myStops.front().pars.parking != ParkingType::ONROAD) {
+            // processNextStop is called again during MSVehicleTransfer::loadState
+            stopDuration += getActionStepLength();
+        }
+        myStops.front().duration = stopDuration;
     }
     myLaneChangeModel->loadState(attrs);
     // no need to reset myCachedPosition here since state loading happens directly after creation

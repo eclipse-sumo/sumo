@@ -3796,7 +3796,6 @@ MSLane::loadState(const std::vector<SUMOVehicle*>& vehs) {
         incorporateVehicle(v, v->getPositionOnLane(), v->getSpeed(), v->getLateralPositionOnLane(), myVehicles.end(),
                            MSMoveReminder::NOTIFICATION_LOAD_STATE);
         v->resetActionOffset(lastActionTime - MSNet::getInstance()->getCurrentTimeStep());
-        v->processNextStop(v->getSpeed());
     }
 }
 
