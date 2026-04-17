@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-01-10 12:44:08.346545 by routeSampler.py v1_21_0+1797-4b725da1d37
+<!-- generated on 2026-04-17 07:31:44.300644 by Eclipse SUMO routeSampler.py v1_26_0+1228-6056de2409c
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
+    <mismatch-output value="turns.xml"/>
 </configuration>
 -->
 
@@ -69,4 +70,3 @@
     <vehicle id="19" depart="97.34">
         <route edges="109 109.80.00 -120 -120.180.00 -75"/>
     </vehicle>
-</routes>
