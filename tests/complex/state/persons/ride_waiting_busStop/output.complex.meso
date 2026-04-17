@@ -1,0 +1,2 @@
+<         <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="10.00"/>
+>         <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="10.00" started="0.00"/>

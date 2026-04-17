@@ -15,7 +15,7 @@
 <     <vehicle id="bus.1" type="busType" depart="300.00" line="bus" arrival="510.00">
 >         <ride to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="NULL" started="-1" ended="-1"/>
 <         <route edges="beg beg2left left left2end end" exitTimes="329.00 352.00 411.00 434.00 510.00"/>
->         <walk edges="end"/>
+>         <walk edges="end" exitTimes="643.00" started="455.00" ended="643.00"/>
 <         <stop busStop="beg_0" until="310.00" started="327.00" ended="328.00"/>
 >     </person>
 <         <stop busStop="left_0" until="410.00" started="391.00" ended="410.00"/>
@@ -37,7 +37,7 @@
 <     </person>
 >     <person id="p1" depart="0.00" arrival="1068.00">
 < 
->         <walk edges="end middle beg"/>
+>         <walk edges="end middle beg" exitTimes="1.00 856.00 1068.00" started="0.00" ended="1068.00"/>
 <     <vehicle id="bus.2" type="busType" depart="600.00" line="bus" arrival="810.00">
 >     </person>
 <         <route edges="beg beg2left left left2end end" exitTimes="629.00 652.00 711.00 734.00 810.00"/>
@@ -59,7 +59,7 @@
 <     </person>
 >     <person id="walker" depart="0.00" arrival="1385.00">
 < 
->         <walk edges="beg middle end"/>
+>         <walk edges="beg middle end" exitTimes="396.00 1189.00 1385.00" started="0.00" ended="1385.00"/>
 <     <vehicle id="bus.3" type="busType" depart="900.00" line="bus" arrival="1110.00">
 >     </person>
 <         <route edges="beg beg2left left left2end end" exitTimes="929.00 952.00 1011.00 1034.00 1110.00"/>
