@@ -118,6 +118,13 @@ MSStage::setDeparted(SUMOTime now) {
     }
 }
 
+
+void
+MSStage::setEnded(SUMOTime t) {
+    myArrived = t;
+}
+
+
 SUMOTime
 MSStage::getDeparted() const {
     return myDeparted;

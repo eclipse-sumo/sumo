@@ -58,7 +58,6 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
     myOrigin(origin),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
-    myVehicleID("NULL"),
     myVehicleVClass(SVC_IGNORING),
     myVehicleDistance(-1.),
     myTimeLoss(-1),
@@ -380,7 +379,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     MSDevice_Tripinfo::addRideTransportData(transportable->isPerson(), myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
     os.openTag(transportable->isPerson() ? "ride" : "transport");
     os.writeAttr("waitingTime", waitingTime != SUMOTime_MAX ? time2string(waitingTime) : "-1");
-    os.writeAttr("vehicle", myVehicleID);
+    os.writeAttr("vehicle", myVehicleID.empty() ? "NULL" : myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
     os.writeAttr("arrivalPos", myArrived >= 0 ? toString(getArrivalPos()) : "-1");
@@ -424,7 +423,7 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
         os.writeAttr("routeLength", myVehicleDistance);
     }
     if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
-        os.writeAttr("vehicle", myVehicleID);
+        os.writeAttr("vehicle", myVehicleID.empty() ? "NULL" : myVehicleID);
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }

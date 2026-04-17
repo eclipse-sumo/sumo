@@ -146,6 +146,9 @@ public:
     ConstMSEdgeVector getEdges() const;
 
     void setVehicle(SUMOVehicle* v);
+    void setVehicleID(const std::string vehID) {
+        myVehicleID = vehID;
+    }
 
     /// @brief marks arrival time and records driven distance
     const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);

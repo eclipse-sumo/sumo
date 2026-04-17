@@ -1202,8 +1202,13 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         const std::string intendedVeh = attrs.getOpt<std::string>(SUMO_ATTR_INTENDED, nullptr, ok, "");
         const SUMOTime intendedDepart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
         arrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, agent + " '" + aid + "' takes a " + mode + " to edge '" + to->getID() + "'");
-        myActiveTransportablePlan->push_back(new MSStageDriving(from, to, s, arrivalPos, 0.0, st.getVector(), group, intendedVeh, intendedDepart));
-        myParamStack.push_back(myActiveTransportablePlan->back());
+        MSStageDriving* stage = new MSStageDriving(from, to, s, arrivalPos, 0.0, st.getVector(), group, intendedVeh, intendedDepart);
+        // for loading from saved state
+        stage->setDeparted(attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1));
+        stage->setEnded(attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1));
+        stage->setVehicleID(attrs.getOpt<std::string>(SUMO_ATTR_VEHICLE, nullptr, ok, ""));
+        myActiveTransportablePlan->push_back(stage);
+        myParamStack.push_back(stage);
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
