@@ -10,6 +10,7 @@
 --save-state.times 500
 --save-state.files state.xml
 --save-state.transportables
+--save-state.rng
 :
 --vehroute-output=vehroutes.xml
 --vehroute-output.write-unfinished
