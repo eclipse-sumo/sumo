@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:47:20.632986+01:00 by Eclipse SUMO sumo v1_26_0+1241-7b9e957bb58
+<!-- generated on 2026-04-17T11:08:21.706438+01:00 by Eclipse SUMO sumo v1_26_0+1243-0a3fdc6331b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +41,7 @@
 
     <person id="p0" depart="0.00" arrival="643.00">
         <walk edges="beg" busStop="beg_0"/>
-        <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="NULL" started="-1" ended="-1"/>
+        <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="bus.1" started="328.00" ended="455.00"/>
         <walk edges="end" exitTimes="643.00" started="455.00" ended="643.00"/>
     </person>
 
