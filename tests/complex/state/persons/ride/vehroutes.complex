@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-07 18:46:03 by Eclipse SUMO sumo Version v1_11_0+0377-337d5b1
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-04-17T12:30:43.613844+01:00 by Eclipse SUMO sumo v1_26_0+1249-8eecaa95d15
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -13,16 +13,17 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
-    <time>
-        <end value="1200"/>
-    </time>
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
 
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -32,7 +33,7 @@
 
     <vehicle id="v0" depart="0.00" arrival="174.00">
         <route edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
-        <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="9.00" started="8.00"/>
+        <stop edge="3/1to2/1" startPos="0.00" endPos="20.00" duration="9.00"/>
     </vehicle>
 
 </routes>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-27 22:09:16 by Eclipse SUMO sumo Version v1_12_0+0911-d1aa637
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-04-17T12:30:45.440124+01:00 by Eclipse SUMO sumo v1_26_0+1249-8eecaa95d15
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -19,6 +19,8 @@
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -28,7 +30,7 @@
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -39,7 +41,7 @@
 
     <vehicle id="v0" type="t0" depart="0.00" arrival="77.00">
         <route edges="beg middle end"/>
-        <stop busStop="busstop" duration="12.00" started="11.00" parking="1"/>
+        <stop busStop="busstop" duration="12.00" parking="1"/>
         <stop busStop="busstop2" duration="20.00" parking="1"/>
     </vehicle>
 
