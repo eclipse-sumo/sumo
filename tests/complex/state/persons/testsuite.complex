@@ -33,3 +33,9 @@ ride_carTriggered2
 
 # test stopping person	
 stop
+
+# test a persontrip that resolves to walking, riding and walking. saved during the first walking stage.
+trip_walk_ride_walk_saveFirst
+
+# test a persontrip that resolves to walking, riding and walking. saved during the final walking stage.
+trip_walk_ride_walk_saveLast

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-17T07:52:52.885400+01:00 by Eclipse SUMO sumo v1_26_0+1228-6056de2409c
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes2.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="bus.0" type="busType" depart="0.00" line="bus" arrival="214.00">
+        <route edges="beg beg2left left left2end end" exitTimes="18.00 37.00 114.00 132.00 214.00"/>
+        <stop busStop="beg_0" until="10.00" started="14.39" ended="18.00"/>
+        <stop busStop="left_0" until="110.00" started="68.54" ended="114.00"/>
+        <stop busStop="end_0" until="210.00" started="146.21" ended="214.00"/>
+    </vehicle>
+
+    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" arrival="514.00">
+        <route edges="beg beg2left left left2end end" exitTimes="318.00 337.00 414.00 432.00 514.00"/>
+        <stop busStop="beg_0" until="310.00" started="314.39" ended="318.00"/>
+        <stop busStop="left_0" until="410.00" started="368.54" ended="414.00"/>
+        <stop busStop="end_0" until="510.00" started="446.21" ended="514.00"/>
+    </vehicle>
+
+    <person id="p0" depart="0.00" arrival="549.00">
+        <walk edges="beg" busStop="beg_0"/>
+        <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="bus.1" started="314.40" ended="447.00"/>
+        <walk edges="end" exitTimes="549.00" started="447.00" ended="549.00"/>
+    </person>
+
+    <vehicle id="bus.2" type="busType" depart="600.00" line="bus" arrival="814.00">
+        <route edges="beg beg2left left left2end end" exitTimes="618.00 637.00 714.00 732.00 814.00"/>
+        <stop busStop="beg_0" until="610.00" started="614.39" ended="618.00"/>
+        <stop busStop="left_0" until="710.00" started="668.54" ended="714.00"/>
+        <stop busStop="end_0" until="810.00" started="746.21" ended="814.00"/>
+    </vehicle>
+
+    <person id="p1" depart="0.00" arrival="962.00">
+        <walk edges="end middle beg"/>
+    </person>
+
+    <vehicle id="bus.3" type="busType" depart="900.00" line="bus" arrival="1114.00">
+        <route edges="beg beg2left left left2end end" exitTimes="918.00 937.00 1014.00 1032.00 1114.00"/>
+        <stop busStop="beg_0" until="910.00" started="914.39" ended="918.00"/>
+        <stop busStop="left_0" until="1010.00" started="968.54" ended="1014.00"/>
+        <stop busStop="end_0" until="1110.00" started="1046.21" ended="1114.00"/>
+    </vehicle>
+
+    <person id="walker" depart="0.00" arrival="1250.00">
+        <walk edges="beg middle end"/>
+    </person>
+
+</routes>

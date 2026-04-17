@@ -1,0 +1,6 @@
+<         <walk edges="beg" busStop="beg_0" exitTimes="189.00" started="0.00" ended="189.00"/>
+>         <walk edges="beg" busStop="beg_0"/>
+<         <walk edges="end middle beg" exitTimes="1.00 854.00 1067.00" started="0.00" ended="1067.00"/>
+>         <walk edges="end middle beg"/>
+<         <walk edges="beg middle end" exitTimes="396.00 1187.00 1385.00" started="0.00" ended="1385.00"/>
+>         <walk edges="beg middle end"/>

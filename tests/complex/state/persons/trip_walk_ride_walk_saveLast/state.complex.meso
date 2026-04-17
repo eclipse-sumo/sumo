@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-17T07:56:34.376738+01:00 by Eclipse SUMO sumo v1_26_0+1228-6056de2409c
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <save-state.times value="500"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="meso" version="v1_26_0+1228-6056de2409c" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <route id="!bus" state="0" edges="beg beg left end end"/>
+    <route id="!bus.0!var#1" state="0" edges="beg beg2left left left2end end"/>
+    <route id="!bus.1!var#1" state="0" edges="beg beg2left left left2end end"/>
+    <delay number="1" begin="2" end="1" depart="0.00" time="214.00" speedFactor="1.00" decel="4.50"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="busType" speedFactor="normc(1.00,0.00)" sigma="0"/>
+    <vehicle id="bus.1" type="busType" depart="300.00" line="bus" route="!bus.1!var#1" distance="2512.32 1" speedFactor="1.0000" reroute="1" state="295074 300000 4 0 4 0 513597 446214 9223372036854774807 1 2">
+        <stop busStop="beg_0" until="310.00" started="314.39" ended="318.00"/>
+        <stop busStop="left_0" until="410.00" started="368.54" ended="414.00"/>
+        <stop busStop="end_0" until="510.00" started="446.21"/>
+        <device id="vehroute_bus.1" state="27.80 0.00 1 !NULL 300000 !bus device.rerouting -1 0" exitTimes="318000 337000 414000 432000" edge="left2end"/>
+        <device id="tripinfo_bus.1" state="beg_0 27.8 2512.32 0 0 0 105247 -1 -1000 NONE -1 0 -1"/>
+        <device id="routing_bus.1" state="0 300000"/>
+        <device id="person_bus.1" state="1 0 0"/>
+        <rem id="person_bus.1" time="446214" pos="400.00"/>
+        <rem id="vehroute_bus.1" time="446214" pos="400.00"/>
+        <rem id="tripinfo_bus.1" time="446214" pos="400.00"/>
+    </vehicle>
+    <flowState id="bus" type="busType" begin="0.00" end="1000.00" period="300" line="bus" next="600.00" route="!bus" done="2" index="2" reroute="1">
+        <stop busStop="beg_0" until="10.00"/>
+        <stop busStop="left_0" until="110.00"/>
+        <stop busStop="end_0" until="210.00"/>
+    </flowState>
+    <transportables type="person" state="3 3 0 0 0 0 0 0 0 0">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0600" state="262144 3 447001 0 447001 447001 102887">
+            <walk edges="beg" busStop="beg_0" exitTimes="170.00" started="0.00" ended="170.00"/>
+            <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="bus.1" started="314.40" ended="447.00"/>
+            <walk edges="end" exitTimes="-1" started="447.00" ended="-1"/>
+        </person>
+        <person id="p1" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="0.9383" state="262144 1 0 1 1000 1000 768345">
+            <walk edges="end middle beg" exitTimes="1.00 -1 -1" started="0.00" ended="-1"/>
+        </person>
+        <person id="walker" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0104" state="262144 1 0 1 357000 357000 713589">
+            <walk edges="beg middle end" exitTimes="357.00 -1 -1" started="0.00" ended="-1"/>
+        </person>
+    </transportables>
+    <segment id="beg:0">
+        <vehicles time="304296" blockTime="-9223372036854775808" value=""/>
+    </segment>
+    <segment id="beg:1">
+        <vehicles time="307893" blockTime="304295" value=""/>
+    </segment>
+    <segment id="beg:2">
+        <vehicles time="311490" blockTime="307892" value=""/>
+    </segment>
+    <segment id="beg:3">
+        <vehicles time="315087" blockTime="311489" value=""/>
+    </segment>
+    <segment id="beg:4">
+        <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
+        <vehicles time="319384" blockTime="315786" value=""/>
+    </segment>
+    <segment id="beg2left:0">
+        <vehicles time="323031" blockTime="319383" value=""/>
+    </segment>
+    <segment id="beg2left:1">
+        <vehicles time="326678" blockTime="323030" value=""/>
+    </segment>
+    <segment id="beg2left:2">
+        <vehicles time="330325" blockTime="326677" value=""/>
+    </segment>
+    <segment id="beg2left:3">
+        <vehicles time="333972" blockTime="330324" value=""/>
+    </segment>
+    <segment id="beg2left:4">
+        <vehicles time="337619" blockTime="333971" value=""/>
+    </segment>
+    <segment id="end:0">
+        <vehicles time="436122" blockTime="432524" value=""/>
+    </segment>
+    <segment id="end:1">
+        <vehicles time="439719" blockTime="436121" value=""/>
+    </segment>
+    <segment id="end:2">
+        <vehicles time="443316" blockTime="439718" value=""/>
+    </segment>
+    <segment id="end:3">
+        <vehicles time="446913" blockTime="443315" value=""/>
+    </segment>
+    <segment id="end:4">
+        <vehicles time="213597" blockTime="446912" value="bus.1"/>
+    </segment>
+    <segment id="left:0">
+        <vehicles time="341210" blockTime="337618" value=""/>
+    </segment>
+    <segment id="left:1">
+        <vehicles time="344801" blockTime="341209" value=""/>
+    </segment>
+    <segment id="left:2">
+        <vehicles time="348392" blockTime="344800" value=""/>
+    </segment>
+    <segment id="left:3">
+        <vehicles time="351983" blockTime="348391" value=""/>
+    </segment>
+    <segment id="left:4">
+        <vehicles time="355574" blockTime="351982" value=""/>
+    </segment>
+    <segment id="left:5">
+        <vehicles time="359165" blockTime="355573" value=""/>
+    </segment>
+    <segment id="left:6">
+        <vehicles time="362756" blockTime="359164" value=""/>
+    </segment>
+    <segment id="left:7">
+        <vehicles time="366347" blockTime="362755" value=""/>
+    </segment>
+    <segment id="left:8">
+        <vehicles time="369938" blockTime="366346" value=""/>
+    </segment>
+    <segment id="left:9">
+        <vehicles time="414990" blockTime="369937" value=""/>
+    </segment>
+    <segment id="left2end:0">
+        <vehicles time="418637" blockTime="414989" value=""/>
+    </segment>
+    <segment id="left2end:1">
+        <vehicles time="422284" blockTime="418636" value=""/>
+    </segment>
+    <segment id="left2end:2">
+        <vehicles time="425931" blockTime="422283" value=""/>
+    </segment>
+    <segment id="left2end:3">
+        <vehicles time="429578" blockTime="425930" value=""/>
+    </segment>
+    <segment id="left2end:4">
+        <vehicles time="433225" blockTime="429577" value=""/>
+    </segment>
+    <routingEngine last="500000" index="140">
+        <edge id="beg" speed="27.80" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
+        <edge id="beg2left" speed="27.80" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
+        <edge id="end" speed="20.05" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 1.48 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
+        <edge id="left" speed="21.40" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 2.22 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
+        <edge id="left2end" speed="27.80" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
+    </routingEngine>
+</snapshot>
