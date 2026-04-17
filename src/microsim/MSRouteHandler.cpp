@@ -1685,11 +1685,21 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             }
             const int departLane = attrs.getOpt<int>(SUMO_ATTR_DEPARTLANE, nullptr, ok, -1);
             const double departPosLat = interpretDepartPosLat(attrs.getOpt<std::string>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, ""), departLane, "walk");
-            myActiveTransportablePlan->push_back(new MSStageWalking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane, myActiveRouteID));
-            myParamStack.push_back(myActiveTransportablePlan->back());
-            if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-                myActiveTransportablePlan->back()->markSet(VEHPARS_ARRIVALPOS_SET);
+            MSStageWalking* stage = new MSStageWalking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane, myActiveRouteID);
+            stage->setDeparted(attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1));
+            stage->setEnded(attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1));
+            if (attrs.hasAttribute(SUMO_ATTR_EXITTIMES) && OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+                std::vector<SUMOTime>* exitTimes = new std::vector<SUMOTime>();
+                for (const std::string& tStr : attrs.get<std::vector<std::string> >(SUMO_ATTR_EXITTIMES, nullptr, ok)) {
+                    exitTimes->push_back(string2time(tStr));
+                }
+                stage->setExitTimes(exitTimes);
             }
+            if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+                stage->markSet(VEHPARS_ARRIVALPOS_SET);
+            }
+            myActiveTransportablePlan->push_back(stage);
+            myParamStack.push_back(stage);
             myActiveRoute.clear();
         } catch (ProcessError&) {
             deleteActivePlanAndVehicleParameter();

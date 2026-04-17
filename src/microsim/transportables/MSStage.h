@@ -179,7 +179,6 @@ public:
 
     /// @brief sets end of stage
     void setEnded(SUMOTime t);
-    virtual void setVehicleID(const std::string /*vehID*/) {}
 
     /// Whether the transportable waits for the given vehicle
     virtual bool isWaitingFor(const SUMOVehicle* vehicle) const;

@@ -150,6 +150,10 @@ public:
         return myWalkingTime == sw.myWalkingTime;
     }
 
+    void setExitTimes(std::vector<SUMOTime>* exitTimes) {
+        myExitTimes = exitTimes;
+    }
+
 private:
     /// @brief compute total walking distance
     double walkDistance(bool partial = false) const;
