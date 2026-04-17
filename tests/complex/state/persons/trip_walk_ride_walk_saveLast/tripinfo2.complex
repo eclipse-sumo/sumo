@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T11:08:21.706085+01:00 by Eclipse SUMO sumo v1_26_0+1243-0a3fdc6331b
+<!-- generated on 2026-04-17T11:24:16.160133+01:00 by Eclipse SUMO sumo v1_26_0+1245-7b67e1d9e49
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -33,8 +33,8 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="510.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="2.00" waitingCount="2" stopTime="75.00" timeLoss="3.00" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1 person_bus.1" vType="busType" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="-1" waitingTime="-1" timeLoss="187.93" traveltime="-1">
-        <walk depart="-1" departPos="0.00" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="0.00" maxSpeed="1.47" waitingTime="0.00"/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="832.00" waitingTime="-1" timeLoss="207.12" traveltime="504.00">
+        <walk depart="0.00" departPos="0.00" arrival="189.00" arrivalPos="250.00" duration="189.00" routeLength="250.00" timeLoss="19.19" maxSpeed="1.47" waitingTime="0.00"/>
         <ride waitingTime="-1" vehicle="bus.1" depart="328.00" arrival="455.00" arrivalPos="500.00" duration="127.00" routeLength="-1.00" timeLoss="-0.00"/>
         <walk depart="455.00" departPos="250.00" arrival="643.00" arrivalPos="250.00" duration="188.00" routeLength="0.10" timeLoss="187.93" maxSpeed="1.47" waitingTime="0.00"/>
     </personinfo>
