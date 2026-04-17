@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T22:47:23.712807+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
+<!-- generated on 2026-04-17T09:35:31.887407+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,6 +17,8 @@
 
     <processing>
         <lanechange.duration value="5"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
     </processing>
 
     <report>
@@ -27,11 +29,11 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="3.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="3.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v_0" state="0" edges="merge.102.8 detection_area"/>
     <delay number="1" begin="1" end="0" depart="0.0000" time="0.0000" speedFactor="1.0600" decel="4.5000"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v_0" depart="0.000" departPos="0.0000" departSpeed="7.0000" route="!v_0" distance="0 0" speedFactor="1.0600" state="24 0 0 0.0000 0 1.1060 2000 0 0" pos="20.8487 15.8487 11.3559" speed="11.3559 9.4927" angle="86.2388" posLat="1.2800" waitingTime="100000 0" lcStateBase="266.0000" lcState="0.6400 0.4000 1.0000" lcState2="0 0 0 94927494 0">
+    <vehicle id="v_0" depart="0.000" departPos="0.0000" departSpeed="7.0000" route="!v_0" distance="0 0" speedFactor="1.0600" state="24 0 0 0.0000 0 1.1060 2000 0 0 0" pos="20.8487 15.8487 11.3559" speed="11.3559 9.4927" angle="86.2388" posLat="1.2800" waitingTime="100000 0" lcStateBase="266.0000" lcState="0.6400 0.4000 1.0000" lcState2="0 0 0 94927494 0">
         <device id="vehroute_v_0" state="0 0.0000 7.0000 0.0000 0"/>
     </vehicle>
     <lane id="merge.102.8_0">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T22:48:08.336482+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
+<!-- generated on 2026-04-17T10:12:25.087859+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -8,18 +8,23 @@
         <route-files value="input_routes.rou.xml"/>
     </input>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="45693"/>
+        <remote-port value="33983"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC">
         <stop lane="NC_0" duration="10.00" until="20.00"/>
         <stop lane="SC_0" duration="8.00" until="80.00"/>
@@ -36,7 +41,7 @@
     </route>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.00"/>
     <vType id="bus" vClass="bus"/>
-    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1120.87 0" speedFactor="1.0000" state="34818 0 11 12.10 16000 330.29 499000 0 6" pos="91.94 79.94 0.00" speed="0.00 0.00" angle="0.00" posLat="0.00" waitingTime="100000 3 0 16000 24000 25000 50000 105000" lcStateBase="0.00" lcState2="0 0 0 0 0">
+    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" distance="1120.87 0" speedFactor="1.0000" state="34818 0 11 12.10 16000 330.29 499000 0 0 6" pos="91.94 79.94 0.00" speed="0.00 0.00" angle="0.00" posLat="0.00" waitingTime="100000 3 0 16000 24000 25000 50000 105000" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop lane="NC_0" duration="10.00" until="20.00" started="25.00" ended="35.00"/>
         <stop lane="SC_0" duration="8.00" until="80.00" started="114.00" ended="122.00"/>
         <stop lane="NC_0" duration="10.00" until="140.00" started="203.00" ended="213.00"/>
