@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17 07:31:44.292308 by Eclipse SUMO routeSampler.py v1_26_0+1228-6056de2409c
+<!-- generated on 2026-04-17 07:36:16.689840 by Eclipse SUMO routeSampler.py v1_26_0+1229-aeeff6ff441
 <configuration>
     <route-files value="input_routes.rou.xml"/>
     <turn-files value="input_turns.xml"/>
@@ -12,3 +12,6 @@
     <interval id="deficit" begin="0.0" end="99.0">
         <edgeRelation from="109.80.00" to="-120" measuredCount="10" deficit="0" GEH="0.00"/>
         <edgeRelation from="-120.180.00" to="-64" measuredCount="10" deficit="0" GEH="0.00"/>
+        <edgeRelation from="109.80.00" to="-64" via="-120 -120.180.00" measuredCount="0" deficit="0" GEH="0.00"/>
+    </interval>
+</data>
