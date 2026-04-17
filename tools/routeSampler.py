@@ -1383,9 +1383,14 @@ def writeMismatch(options, mismatchf, countData, begin, end):
         if len(cd.edgeTuple) == 1:
             mismatchf.write('        <edge id="%s" measuredCount="%s" deficit="%s" GEH="%.2f"/>\n' % (
                 cd.edgeTuple[0], cd.origCount, cd.count, geh))
-        elif len(cd.edgeTuple) == 2:
+        else:
             tag = 'tazRelation' if cd.isTaz else 'edgeRelation'
-            relationPrefix = '        <%s from="%s" to="%s" ' % ((tag,) + cd.edgeTuple)
+            orig = cd.edgeTuple[0]
+            dest = cd.edgeTuple[-1]
+            via = ""
+            if len(cd.edgeTuple) > 2:
+                via = ' via="%s"' % ' '.join(cd.edgeTuple[1:-1])
+            relationPrefix = '        <%s from="%s" to="%s"%s ' % (tag, orig, dest, via)
             if cd.isRatio:
                 deficit = setPrecision("%.2f",  options.precision) % (cd.assignedProbability() - cd.origCount)
                 mismatchf.write('%smeasuredProbability="%s" deficit="%s" totalAssignedFromCount="%s"/>\n'
@@ -1393,9 +1398,6 @@ def writeMismatch(options, mismatchf, countData, begin, end):
             else:
                 mismatchf.write('%smeasuredCount="%s" deficit="%s" GEH="%.2f"/>\n'
                                 % (relationPrefix, cd.origCount, cd.count, geh))
-        else:
-            print("Warning: output for edge relations with more than 2 edges not supported (%s)" % cd.edgeTuple,
-                  file=sys.stderr)
     mismatchf.write('    </interval>\n')
 
 
