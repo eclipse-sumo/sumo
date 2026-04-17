@@ -471,6 +471,14 @@ MSStageWalking::getStageSummary(const bool /* isPerson */) const {
 void
 MSStageWalking::saveState(std::ostringstream& out) {
     out << " " << myDeparted << " " << (myRouteStep - myRoute.begin()) << " " << myLastEdgeEntryTime;
+    if (myExitTimes != nullptr) {
+        out << " " << myExitTimes->size();
+        for (SUMOTime t : *myExitTimes) {
+            out << " " << t;
+        }
+    } else {
+        out << " " << -1;
+    }
     myPState->saveState(out);
 }
 
@@ -479,6 +487,20 @@ void
 MSStageWalking::loadState(MSTransportable* transportable, std::istringstream& state) {
     int stepIdx;
     state >> myDeparted >> stepIdx >> myLastEdgeEntryTime;
+    int exitTimesSize;
+    state >> exitTimesSize;
+    if (exitTimesSize >= 0) {
+        myExitTimes = new std::vector<SUMOTime>();
+        SUMOTime t;
+        for (int i = 0; i < exitTimesSize; i++) {
+            state >> t;
+            myExitTimes->push_back(t);
+        }
+        if (!OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+            delete myExitTimes;
+            myExitTimes = nullptr;
+        }
+    }
     myRouteStep = myRoute.begin() + stepIdx;
     myPState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
     if (myPState->getLane() && !myPState->getLane()->isNormal()) {
