@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-08 14:31:44 by Eclipse SUMO sumo Version v1_23_1+0932-2ae6f5fa0dc
+<!-- generated on 2026-04-17T10:19:43.016902+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,6 +13,11 @@
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -24,27 +29,27 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="0.0" depart="0.00" arrival="254.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
-        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
     </vehicle>
 
     <vehicle id="0.1" depart="10.00" arrival="260.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
-        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
     </vehicle>
 
     <vehicle id="0.2" depart="20.00" arrival="262.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
-        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
     </vehicle>
 
     <vehicle id="0.3" depart="30.00" arrival="339.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
-        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
     </vehicle>
 
     <vehicle id="0.4" depart="40.00" arrival="343.00">
         <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
-        <stop edge="1/1to2/1" startPos="399.80" endPos="400.00" duration="10.00"/>
+        <stop edge="1/1to2/1" duration="10.00"/>
     </vehicle>
 
     <vehicle id="0.5" depart="50.00" arrival="344.00">

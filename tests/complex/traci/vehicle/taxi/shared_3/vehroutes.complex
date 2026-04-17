@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T15:45:18.624543+01:00 by Eclipse SUMO sumo v1_26_0+1191-9c3bb487032
+<!-- generated on 2026-04-17T10:25:52.650578+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="43939"/>
+        <remote-port value="35273"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -54,10 +54,10 @@
             <route replacedOnEdge="A0A1" reason="taxi:dispatch" replacedAtTime="1.00" probability="0" edges="A0A1 A1B1 B1C1 C1D1 D2D3"/>
             <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3"/>
         </routeDistribution>
-        <stop lane="A1B1_0" duration="0.00" triggered="person" parking="1" permitted="a" actType="pickup a (0)"/>
-        <stop lane="B1C1_0" duration="0.00" triggered="person" parking="1" permitted="b" actType="pickup b (1)"/>
-        <stop lane="C1D1_0" duration="60.00" triggered="person" parking="1" permitted="c" actType="pickup c (2),dropOff b (1)"/>
-        <stop lane="D2D3_0" duration="60.00" parking="1" actType="dropOff a (0),dropOff c (2)"/>
+        <stop lane="A1B1_0" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="a" actType="pickup a (0)"/>
+        <stop lane="B1C1_0" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="b" actType="pickup b (1)"/>
+        <stop lane="C1D1_0" startPos="50.00" endPos="50.00" duration="60.00" triggered="person" parking="1" permitted="c" actType="pickup c (2),dropOff b (1)"/>
+        <stop lane="D2D3_0" startPos="92.10" endPos="92.10" duration="60.00" parking="1" actType="dropOff a (0),dropOff c (2)"/>
     </vehicle>
 
 </routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T14:17:07.981617+01:00 by Eclipse SUMO sumo v1_26_0+1183-aeb074971db
+<!-- generated on 2026-04-17T10:25:10.472770+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -137,18 +137,18 @@
         </routeDistribution>
         <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
         <stop lane="B0C0_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
-        <stop lane="C2C1_1" duration="0.00" triggered="person" parking="1" permitted="p12 p2" actType="pickup p12 p2 (2)"/>
-        <stop lane="E1E2_1" duration="60.00" parking="1" actType="dropOff p12 p2 (2)"/>
-        <stop lane="A1A0_1" duration="0.00" triggered="person" parking="1" permitted="p14 p4" actType="pickup p14 p4 (4)"/>
-        <stop lane="E2E1_1" duration="60.00" parking="1" actType="dropOff p14 p4 (4)"/>
-        <stop lane="D0D1_1" duration="0.00" triggered="person" parking="1" permitted="p17 p7" actType="pickup p17 p7 (7)"/>
-        <stop lane="C0C1_1" duration="60.00" parking="1" actType="dropOff p17 p7 (7)"/>
-        <stop lane="B0B1_1" duration="0.00" triggered="person" parking="1" permitted="p18 p8" actType="pickup p18 p8 (8)"/>
-        <stop lane="B2B1_1" duration="60.00" parking="1" actType="dropOff p18 p8 (8)"/>
-        <stop lane="C1C2_1" duration="0.00" triggered="person" parking="1" permitted="p10" actType="pickup p10 (10)"/>
-        <stop lane="B0C0_1" duration="60.00" parking="1" actType="dropOff p10 (10)"/>
-        <stop lane="B2B1_1" duration="0.00" triggered="person" parking="1" permitted="p11" actType="pickup p11 (11)"/>
-        <stop lane="C2D2_1" duration="60.00" parking="1" actType="dropOff p11 (11)"/>
+        <stop lane="C2C1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p12 p2" actType="pickup p12 p2 (2)"/>
+        <stop lane="E1E2_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p12 p2 (2)"/>
+        <stop lane="A1A0_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p14 p4" actType="pickup p14 p4 (4)"/>
+        <stop lane="E2E1_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p14 p4 (4)"/>
+        <stop lane="D0D1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p17 p7" actType="pickup p17 p7 (7)"/>
+        <stop lane="C0C1_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p17 p7 (7)"/>
+        <stop lane="B0B1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p18 p8" actType="pickup p18 p8 (8)"/>
+        <stop lane="B2B1_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p18 p8 (8)"/>
+        <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p10" actType="pickup p10 (10)"/>
+        <stop lane="B0C0_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p10 (10)"/>
+        <stop lane="B2B1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p11" actType="pickup p11 (11)"/>
+        <stop lane="C2D2_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p11 (11)"/>
     </vehicle>
 
     <vehicle id="trip_1" type="taxi" depart="0.00">
@@ -165,17 +165,17 @@
             <route replacedOnEdge="C2D2" replacedOnIndex="26" reason="taxi:dispatch" replacedAtTime="1020.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2 C1B1 E0D0"/>
             <route edges="A2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1B1 B1A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0D0 D0D1 D1E1 E1F1 F1F0 F0E0 E0D0 D0D1 D1D2 D2E2 E2D2 D2C2 C2D2 D2D1 D1C1 C1B1 B1C1 C1D1 D1E1 E1E0 E0D0"/>
         </routeDistribution>
-        <stop lane="A2B2_1" startPos="287.40" endPos="287.60" started="30.00" triggered="person"/>
-        <stop lane="B2B1_1" duration="0.00" triggered="person" parking="1" permitted="p1" actType="pickup p1 (1)"/>
-        <stop lane="C2D2_1" duration="60.00" parking="1" actType="dropOff p1 (1)"/>
-        <stop lane="B1A1_1" duration="0.00" triggered="person" parking="1" permitted="p13 p3" actType="pickup p13 p3 (3)"/>
-        <stop lane="B2B1_1" duration="60.00" parking="1" actType="dropOff p13 p3 (3)"/>
-        <stop lane="D0D1_1" duration="0.00" triggered="person" parking="1" permitted="p15 p5" actType="pickup p15 p5 (5)"/>
-        <stop lane="F1F0_1" duration="60.00" parking="1" actType="dropOff p15 p5 (5)"/>
-        <stop lane="D2E2_1" duration="0.00" triggered="person" parking="1" permitted="p16 p6" actType="pickup p16 p6 (6)"/>
-        <stop lane="C2D2_1" duration="60.00" parking="1" actType="dropOff p16 p6 (6)"/>
-        <stop lane="C1B1_1" duration="0.00" triggered="person" parking="1" permitted="p19 p9" actType="pickup p19 p9 (9)"/>
-        <stop lane="E0D0_1" duration="60.00" parking="1" actType="dropOff p19 p9 (9)"/>
+        <stop lane="A2B2_1" started="30.00" triggered="person"/>
+        <stop lane="B2B1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p1" actType="pickup p1 (1)"/>
+        <stop lane="C2D2_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p1 (1)"/>
+        <stop lane="B1A1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p13 p3" actType="pickup p13 p3 (3)"/>
+        <stop lane="B2B1_1" startPos="85.60" endPos="85.60" duration="60.00" parking="1" actType="dropOff p13 p3 (3)"/>
+        <stop lane="D0D1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p15 p5" actType="pickup p15 p5 (5)"/>
+        <stop lane="F1F0_1" startPos="87.60" endPos="87.60" duration="60.00" parking="1" actType="dropOff p15 p5 (5)"/>
+        <stop lane="D2E2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p16 p6" actType="pickup p16 p6 (6)"/>
+        <stop lane="C2D2_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p16 p6 (6)"/>
+        <stop lane="C1B1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p19 p9" actType="pickup p19 p9 (9)"/>
+        <stop lane="E0D0_1" startPos="285.60" endPos="285.60" duration="60.00" parking="1" actType="dropOff p19 p9 (9)"/>
     </vehicle>
 
 </routes>

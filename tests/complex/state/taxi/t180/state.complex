@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:29.800498+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-04-17T10:25:10.294912+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="180.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1238-9348d776a1c" time="180.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="30" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="1"/>
@@ -114,7 +114,7 @@
         <param key="has.taxi.device" value="true"/>
     </vType>
     <vehicle id="trip_0" type="taxi" depart="0.000" route="!trip_0!var#1" distance="1301.16 3" speedFactor="1.0300000000000" reroute="1" line="taxi" state="262146 0 7 5.1000000000000 0 14.6217151674079 139000 1 20000 1" pos="285.5999375233354 280.5999375233354 0.0000000000000" speed="0.0000000000000 0.0000000000000" angle="90.0000000000000" posLat="0.0000000000000" waitingTime="100000 1 1000 3000" lcStateBase="0.0000000000000" lcState2="0 0 0 0 0">
-        <stop lane="C1C2_1" duration="0.000" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)" started="59.000" ended="60.000"/>
+        <stop lane="C1C2_1" startPos="0.0000000000000" endPos="5.0000000000000" duration="0.000" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)" started="59.000" ended="60.000"/>
         <stop lane="B0C0_1" startPos="285.6000000000000" endPos="285.6000000000000" duration="20.000" parking="1" actType="dropOff p0 (0)" started="139.000"/>
         <device id="vehroute_trip_0" state="1 0.0000000000000 0.0000000000000 5.1000000000000 3 !NULL 0 !trip_0 device.rerouting -1 0 A0B0 0 !trip_0!var#1 taxi:prepare_dispatch 0 0 A0B0 0 !trip_0!var#2 taxi:dispatch 0 0"/>
         <device id="tripinfo_trip_0" state="A0B0_1 0 0 1296.06 2000 1 1 2000 139000 -1000 NONE -1 0 -1"/>
@@ -124,7 +124,7 @@
     </vehicle>
     <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="790.84 3" speedFactor="0.9692000000000" reroute="1" line="taxi" state="262146 0 4 5.1000000000000 0 15.3128084577403 147000 1 28000 2" pos="285.5998954372031 280.5998954372031 0.0000000000000" speed="0.0000000000000 0.0000000000000" angle="90.0000000000000" posLat="0.0000000000000" waitingTime="100000 2 1000 4000 85000 86000" lcStateBase="0.0000000000000" lcState2="0 0 0 0 0">
         <stop lane="A2B2_1" triggered="person" started="30.000" ended="62.000"/>
-        <stop lane="B2B1_1" duration="0.000" triggered="person" parking="1" permitted="p1" actType="pickup p1 (1)" started="69.000" ended="70.000"/>
+        <stop lane="B2B1_1" startPos="0.0000000000000" endPos="5.0000000000000" duration="0.000" triggered="person" parking="1" permitted="p1" actType="pickup p1 (1)" started="69.000" ended="70.000"/>
         <stop lane="C2D2_1" startPos="285.6000000000000" endPos="285.6000000000000" duration="28.000" parking="1" actType="dropOff p1 (1)" started="147.000"/>
         <device id="vehroute_trip_1" state="1 0.0000000000000 0.0000000000000 5.1000000000000 3 !NULL 0 !trip_1 device.rerouting -1 0 A2B2 60000 !trip_1!var#1 taxi:prepare_dispatch 0 0 A2B2 60000 !trip_1!var#2 taxi:dispatch 0 0"/>
         <device id="tripinfo_trip_1" state="A2B2_1 0 0 785.74 4000 1 2 34000 147000 -1000 NONE -1 0 -1"/>

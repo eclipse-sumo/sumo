@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T23:59:32.371407+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-04-17T10:28:16.188105+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,8 @@
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -31,14 +33,14 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1238-9348d776a1c" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0" state="0" edges="SC CN NC CS SC CN"/>
     <delay number="0" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="v0" type="t0" depart="30.00" route="!v0" distance="0 0" speedFactor="1.0000" state="2 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807 0 0">
-        <stop edge="SC" startPos="91.75" endPos="91.95" duration="50.00"/>
-        <stop edge="NC" startPos="91.75" endPos="91.95" duration="50.00"/>
-        <stop edge="SC" startPos="91.75" endPos="91.95" duration="50.00"/>
+        <stop edge="SC" duration="50.00"/>
+        <stop edge="NC" duration="50.00"/>
+        <stop edge="SC" duration="50.00"/>
         <device id="vehroute_v0" state="-1.00 -1.00 0"/>
     </vehicle>
     <tlLogic id="C" programID="0" phase="0" duration="20000" active="1"/>

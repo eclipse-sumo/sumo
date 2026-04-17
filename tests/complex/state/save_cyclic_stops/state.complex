@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:30.563542+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-04-17T10:19:42.941452+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="350.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1238-9348d776a1c" time="350.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
@@ -37,10 +37,10 @@
         <stop lane="CN_0" until="120.00" started="101.00" ended="120.00"/>
         <stop lane="SC_0" until="240.00" started="199.00" ended="240.00"/>
         <stop lane="CN_0" until="300.00" started="281.00" ended="300.00"/>
-        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00"/>
-        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="420.00"/>
-        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="480.00"/>
-        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="540.00"/>
+        <stop lane="SC_0" until="360.00"/>
+        <stop lane="CN_0" until="420.00"/>
+        <stop lane="SC_0" until="480.00"/>
+        <stop lane="CN_0" until="540.00"/>
         <device id="routing_v0" state="0 0"/>
     </vehicle>
     <lane id="NC_0">
