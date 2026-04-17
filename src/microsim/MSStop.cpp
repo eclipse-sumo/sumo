@@ -128,12 +128,6 @@ void
 MSStop::write(OutputDevice& dev) const {
     SUMOVehicleParameter::Stop tmp = pars;
     tmp.duration = duration;
-    if (busstop == nullptr
-            && containerstop == nullptr
-            && parkingarea == nullptr
-            && chargingStation == nullptr) {
-        tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
-    }
     tmp.write(dev, false);
     // if the stop has already started but hasn't ended yet we are writing it in
     // the context of saveState (but we do not want to write the attribute twice
