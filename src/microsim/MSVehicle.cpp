@@ -7819,6 +7819,14 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         myDeparture -= offset;
         // fix stops
         while (pastStops > 0) {
+            SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(myStops.front().pars);
+            // assumed these attributes were only added to restore vehroute-output.exit-times
+            if (!MSGlobals::gUseStopEnded) {
+                pars.parametersSet &= ~STOP_ENDED_SET;
+            }
+            if (!MSGlobals::gUseStopStarted) {
+                pars.parametersSet &= ~STOP_STARTED_SET;
+            }
             for (const auto& rem : myMoveReminders) {
                 rem.first->notifyStopEnded();
             }
@@ -7826,6 +7834,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             myPastStops.back().routeIndex = (int)(myStops.front().edge - myRoute->begin());
             myStops.pop_front();
             pastStops--;
+        }
+        SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(myStops.front().pars);
+        if (!MSGlobals::gUseStopStarted) {
+            pars.parametersSet &= ~STOP_STARTED_SET;
         }
         // see MSBaseVehicle constructor
         if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
