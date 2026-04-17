@@ -1,7 +1,3 @@
-<         <walk edges="beg" busStop="beg_0" exitTimes="170.00" started="0.00" ended="170.00"/>
->         <walk edges="beg" busStop="beg_0"/>
-<         <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="bus.1" started="314.40" ended="447.00"/>
->         <ride to="end" busStop="end_0" intended="bus.1" depart="310.00" vehicle="NULL" started="-1" ended="-1"/>
 <     <person id="walker" depart="0.00" arrival="1250.00">
 >     <person id="walker" depart="0.00" arrival="1249.00">
 <         <walk edges="beg middle end" exitTimes="357.00 1070.00 1250.00" started="0.00" ended="1250.00"/>
