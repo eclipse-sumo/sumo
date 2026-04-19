@@ -66,7 +66,7 @@
 #include "MSBaseVehicle.h"
 
 //#define DEBUG_REROUTE
-#define DEBUG_ADD_STOP
+//#define DEBUG_ADD_STOP
 //#define DEBUG_COND (getID() == "")
 //#define DEBUG_COND (true)
 //#define DEBUG_REPLACE_ROUTE
@@ -1688,10 +1688,16 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (stopPar.tripId != "") {
         MSRailSignalConstraint::storeTripId(stopPar.tripId, getID());
     }
-    //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
-    //    << " routeIndex=" << (stop.edge - myRoute->begin())
-    //    << " stopIndex=" << std::distance(myStops.begin(), iter)
-    //    << " route=" << toString(myRoute->getEdges())  << "\n";
+#ifdef DEBUG_ADD_STOP
+    if (DEBUG_COND) {
+        std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size()
+            << " routeIndex=" << (stop.edge - myRoute->begin())
+            << " stopIndex=" << std::distance(myStops.begin(), iter)
+            //<< " searchStart=" << (*searchStart - myRoute->begin())
+            //<< " route=" << toString(myRoute->getEdges())
+            << "\n";
+    }
+#endif
     return true;
 }
 
