@@ -54,3 +54,6 @@ ticket17168
 
 # travelTime estimate must use getRerouteOrigin
 ticket17629
+
+# failure to add stop when initial route is looped
+ticket17890
