@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:37:47 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-04-19T23:52:29.569663+01:00 by Eclipse SUMO sumo v1_26_0+1258-523db8d80fa
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -12,6 +12,10 @@
         <fcd-output value="fcd.xml"/>
         <stop-output value="stopinfos.xml"/>
     </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+    </processing>
 
     <report>
         <duration-log.disable value="true"/>
@@ -30,6 +34,6 @@
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="trip_1" type="taxi" lane="A2B2_1" pos="50.00" parking="1" started="1.00" ended="70.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_1" type="taxi" lane="A2B2_1" pos="110.00" parking="1" started="84.00" ended="85.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="trip_1" type="taxi" lane="A2B2_1" pos="50.00" parking="1" started="1.00" ended="70.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="idling"/>
+    <stopinfo id="trip_1" type="taxi" lane="A2B2_1" pos="110.00" parking="1" started="84.00" ended="85.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup p0 (0)"/>
 </stops>

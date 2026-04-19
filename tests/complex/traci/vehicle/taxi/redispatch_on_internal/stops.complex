@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:47:35 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-04-19T23:53:59.917961+01:00 by Eclipse SUMO sumo v1_26_0+1258-523db8d80fa
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -12,6 +12,11 @@
         <stop-output value="stops.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
@@ -21,13 +26,13 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="60007"/>
+        <remote-port value="45233"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="taxiC" type="taxi" lane="C1C2_1" pos="4.99" parking="1" started="73.00" ended="74.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="taxiC" type="taxi" lane="C2C1_1" pos="5.00" parking="1" started="88.00" ended="89.00" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="taxiC" type="taxi" lane="C1C2_1" pos="4.99" parking="1" started="73.00" ended="74.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup 0 (0)"/>
+    <stopinfo id="taxiC" type="taxi" lane="C2C1_1" pos="5.00" parking="1" started="88.00" ended="89.00" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup 2 (2)"/>
 </stops>

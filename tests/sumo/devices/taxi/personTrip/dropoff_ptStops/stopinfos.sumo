@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-27 13:23:35 by Eclipse SUMO sumo Version v1_22_0+0560-1da91328b47
+<!-- generated on 2026-04-19T23:52:29.119128+01:00 by Eclipse SUMO sumo v1_26_0+1258-523db8d80fa
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,10 +22,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.last-route value="true"/>
         <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -47,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="trip_1" type="taxi" lane="A1B1_1" pos="5.00" parking="1" started="65.00" ended="66.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="trip_1" type="taxi" lane="D1E1_1" pos="225.97" parking="1" started="162.00" ended="223.00" busStop="B" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="trip_1" type="taxi" lane="A1B1_1" pos="5.00" parking="1" started="65.00" ended="66.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="pickup p0 (0)"/>
+    <stopinfo id="trip_1" type="taxi" lane="D1E1_1" pos="225.97" parking="1" started="162.00" ended="223.00" busStop="B" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00" actType="dropOff p0 (0)"/>
     <stopinfo id="trip_0" type="taxi" lane="A0B0_1" pos="287.59" parking="1" started="28.00" ended="28801.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>
