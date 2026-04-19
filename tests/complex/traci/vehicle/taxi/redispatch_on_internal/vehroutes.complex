@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-20T00:00:25.564295+01:00 by Eclipse SUMO sumo v1_26_0+1258-523db8d80fa
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes2.rou.xml,input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stops.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+    </taxi_device>
+
+    <traci_server>
+        <remote-port value="37043"/>
+    </traci_server>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="taxiA" type="taxi" depart="0.00">
+        <route edges="A0B0"/>
+        <stop edge="A0B0" triggered="person"/>
+    </vehicle>
+
+    <vehicle id="taxiB" type="taxi" depart="3.00">
+        <route edges="A0B0"/>
+        <stop edge="A0B0" triggered="person"/>
+    </vehicle>
+
+    <vehicle id="taxiC" type="taxi" depart="6.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" reason="taxi:prepare_dispatch" replacedAtTime="10.00" probability="0" edges="A0B0"/>
+            <route replacedOnEdge="A0B0" reason="taxi:dispatch" replacedAtTime="10.00" probability="0" edges="A0B0 C1C2 B0C0"/>
+            <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:prepare_dispatch" replacedAtTime="40.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
+            <route replacedOnEdge="B0C0" replacedOnIndex="1" reason="taxi:dispatch" replacedAtTime="40.00" probability="0" edges="A0B0 B0C0 C1C2 C2C1 B1A1 B0C0 B2B1 B2B1 C2D2 E1E2"/>
+            <route replacedOnEdge="C0C1" replacedOnIndex="2" reason="taxi:prepare_dispatch" replacedAtTime="70.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1E1 E1E2"/>
+            <route replacedOnEdge="C0C1" replacedOnIndex="2" reason="taxi:dispatch" replacedAtTime="70.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C1C2 C2C1 B1A1 A1A0 B0C0 B2B1 B2B1 C2D2 E1E2 E2E1"/>
+            <route replacedOnEdge="C2C1" replacedOnIndex="4" reason="taxi:prepare_dispatch" replacedAtTime="100.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0C1 C1C2 C2B2 B2B1 B1C1 C1C2 C2D2 D2D1 D1E1 E1E2 E2E1"/>
+            <route replacedOnEdge="C2C1" replacedOnIndex="4" reason="taxi:dispatch" replacedAtTime="100.00" probability="0" edges="A0B0 B0C0 C0C1 C1C2 C2C1 C1B1 B1A1 A1A0 B0C0 C1B1 B2B1 B2B1 C2D2 E0D0 E1E2 E2E1"/>
+            <route edges="A0B0 B0C0 C0C1 C1C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0C1 C1B1 B1B2 B2B1 B1C1 C1C2 C2D2 D2E2 E2E1 E1E0 E0D0 D0D1 D1E1 E1E2 E2E1"/>
+        </routeDistribution>
+        <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="0" actType="pickup 0 (0)"/>
+        <stop lane="C2C1_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="2" actType="pickup 2 (2)"/>
+    </vehicle>
+
+    <person id="0" depart="0.00">
+        <ride from="C1C2" to="B0C0" lines="taxi"/>
+    </person>
+
+    <person id="1" depart="10.00">
+        <ride from="B2B1" to="C2D2" lines="taxi"/>
+    </person>
+
+    <person id="2" depart="20.00">
+        <ride from="C2C1" to="E1E2" lines="taxi"/>
+    </person>
+
+    <person id="3" depart="30.00">
+        <ride from="B1A1" to="B2B1" lines="taxi"/>
+    </person>
+
+    <person id="4" depart="40.00">
+        <ride from="A1A0" to="E2E1" lines="taxi"/>
+    </person>
+
+    <person id="5" depart="90.00">
+        <ride from="C1B1" to="E0D0" lines="taxi"/>
+    </person>
+
+</routes>

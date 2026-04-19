@@ -37,6 +37,8 @@ traci.start([sumoBinary,
              "--no-step-log",
              "--stop-output", "stops.xml",
              "--device.taxi.dispatch-algorithm", "traci",
+             "--vehroute-output", "vehroutes.xml",
+             "--vehroute-output.write-unfinished",
              ] + sys.argv[1:])
 
 step = 10
