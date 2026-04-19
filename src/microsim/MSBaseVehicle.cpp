@@ -66,7 +66,7 @@
 #include "MSBaseVehicle.h"
 
 //#define DEBUG_REROUTE
-//#define DEBUG_ADD_STOP
+#define DEBUG_ADD_STOP
 //#define DEBUG_COND (getID() == "")
 //#define DEBUG_COND (true)
 //#define DEBUG_REPLACE_ROUTE
@@ -1622,9 +1622,6 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         }
         MSRouteIterator next = stop.edge + 1;
         return addStop(stopPar, errorMsg, untilOffset, &next);
-    }
-    if (wasTooClose) {
-        errorMsg = "";
     }
     // David.C:
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
