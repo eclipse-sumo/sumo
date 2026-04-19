@@ -714,6 +714,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
         }
         int stopIndex = 0;
         for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+            int lastToSkip = 0;
             double endPos = iter->getEndPos(*this);
 #ifdef DEBUG_REPLACE_ROUTE
             if (DEBUG_COND) {
@@ -726,8 +727,12 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                     // loop requested at duplicate pos
                     || (endPos == lastPos && iter->pars.index == STOP_INDEX_REPEAT)
                     // index encodes a skip
-                    || iter->pars.index > (int)myPastStops.size() + stopIndex) {
+                    || (iter->pars.index > (int)myPastStops.size() + stopIndex
+                        // and we are not already past the skipped edge
+                        && lastToSkip < (int)iter->skips.size()
+                        && searchStart - myRoute->begin() <= iter->skips[lastToSkip])) {
                 if (searchStart != edges.end() && !iter->reached) {
+                    lastToSkip++;
                     searchStart++;
                 }
             }
@@ -1707,7 +1712,7 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
     if (hasDeparted() && stop.edge > myRoute->begin()) {
         // if the route is looped we must patch the index to ensure that state
         // loading (and vehroute-output) encode the correct number of skips
-        int foundSkips = 0;
+        stop.skips.clear();
         MSRouteIterator itPrev;
         double prevEndPos;
         if (prevActiveStops > 0) {
@@ -1731,12 +1736,12 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
         //std::cout << SIMTIME << " veh=" << getID() << " prevActive=" << prevActiveStops << " edge=" << (*stop.edge)->getID() << " routeIndex=" << (stop.edge - myRoute->begin()) << " prevIndex=" << (itPrev - myRoute->begin()) << "\n";
         while (itPrev < stop.edge) {
             if (*itPrev == *stop.edge) {
-                foundSkips++;
+                stop.skips.push_back(itPrev - myRoute->begin());
             }
             itPrev++;
         }
         int newIndex = STOP_INDEX_END;
-        if (foundSkips > 0) {
+        if (!stop.skips.empty()) {
             //if (getID() == "77_0_0") {
             //    std::cout << SIMTIME << " veh=" << getID() << " past=" << myPastStops.size() << " prevActive=" << prevActiveStops
             //        << " edge=" << (*stop.edge)->getID() << " routeIndex=" << (stop.edge - myRoute->begin())
@@ -1744,7 +1749,7 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
             //        << " prevIndex=" << (itPrevOrig - myRoute->begin())
             //        << " skips=" << foundSkips << "\n";
             //}
-            newIndex = (int)myPastStops.size() + prevActiveStops + foundSkips;
+            newIndex = (int)myPastStops.size() + prevActiveStops + (int)stop.skips.size();
         }
         const_cast<SUMOVehicleParameter::Stop&>(stop.pars).index = newIndex;
     }
