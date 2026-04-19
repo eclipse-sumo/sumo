@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.415059+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-20T01:40:56.199845+01:00 by Eclipse SUMO sumo v1_26_0+1262-2891b48f1ac
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -39,7 +39,7 @@
         <walk depart="150.00" departPos="0.00" arrival="175.00" arrivalPos="34.73" duration="25.00" routeLength="34.73" timeLoss="0.25" maxSpeed="1.40" waitingTime="0.00"/>
         <ride waitingTime="18.00" vehicle="rc_0" depart="193.00" arrival="208.00" arrivalPos="0.00" duration="15.00" routeLength="343.12" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="rc_0" depart="5.00" departLane="gneE8_0" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="435.00" arrivalLane="gneE36_0" arrivalPos="54.81" arrivalSpeed="14.31" duration="430.00" routeLength="3539.00" waitingTime="0.00" waitingCount="0" stopTime="182.00" timeLoss="0.00" rerouteNo="39" devices="tripinfo_rc_0 taxi_rc_0 person_rc_0" vType="ridepooling-car" speedFactor="1.03" vaporized="">
+    <tripinfo id="rc_0" depart="5.00" departLane="gneE8_0" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="375.00" arrivalLane="gneE36_0" arrivalPos="54.81" arrivalSpeed="14.31" duration="370.00" routeLength="3539.00" waitingTime="0.00" waitingCount="0" stopTime="122.00" timeLoss="0.00" rerouteNo="39" devices="tripinfo_rc_0 taxi_rc_0 person_rc_0" vType="ridepooling-car" speedFactor="1.03" vaporized="">
         <taxi customers="2" occupiedDistance="413.08" occupiedTime="30.87"/>
     </tripinfo>
     <personinfo id="p_2" depart="290.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="-1" waitingTime="1686.00" timeLoss="-1" traveltime="-1">

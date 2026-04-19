@@ -1,2 +1,1 @@
-Error: Vehicle 't0' could not assign stop 'lane:B1C1_1 pos:80.00 actType:pickup p_0 (0)' after rerouting (taxi:dispatch) at time=60.00.
-Warning: Person 'p_0' aborted waiting for taxi at edge 'B1C1'.
+Warning: Vehicle 't0' aborted waiting for a person that will never come.
