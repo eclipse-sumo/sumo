@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T00:02:58.395909+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-04-19T19:21:54.126418+01:00 by Eclipse SUMO sumo v1_26_0+1251-0a6205dfced
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,12 +42,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1063-474b3a0336b" time="26.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1251-0a6205dfced" time="26.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="type0" sigma="0"/>
-    <vehicle id="v0" type="type0" depart="0.00" route="r0" distance="207 0" speedFactor="1.0000" state="2050 0 2 5.10 0 2.77 25000 0 0" pos="94.01 89.01 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
-        <device id="tripinfo_v0" state="beg_0 0 0 201.9 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+    <vehicle id="v0" type="type0" depart="0.00" route="r0" distance="207 0" speedFactor="1.0000" state="2050 0 2 5.10 0 2.77 25000 0 0 0" pos="94.01 89.01 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
+        <device id="tripinfo_v0" state="beg_0 0 1 201.9 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
     <lane id="end_0">
         <vehicles value="v0"/>

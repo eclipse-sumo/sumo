@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:13:18.898271+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-04-19T19:27:09.342309+01:00 by Eclipse SUMO sumo v1_26_0+1251-0a6205dfced
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
+        <net-file value="simulation/loadState/railSignal/input_net.net.xml"/>
+        <route-files value="simulation/loadState/railSignal/input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="25"/>
-        <save-state.files value="input_state.xml"/>
+        <save-state.files value="simulation/loadState/railSignal/input_state.xml"/>
     </output>
 
     <report>
@@ -20,7 +20,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="25.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1251-0a6205dfced" time="25.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!t0!var#1" state="0" edges="a b c d e"/>
     <route id="!t1!var#1" state="0" edges="a b c d e"/>
     <delay number="2" begin="2" end="0" depart="3.00" time="0.00" speedFactor="1.00" decel="4.50"/>
