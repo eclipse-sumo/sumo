@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-09 06:00+0000\n"
+"PO-Revision-Date: 2026-04-19 15:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -13785,6 +13785,8 @@ msgid ""
 "     '' (no operator) matches if string is a substring of that object's "
 "attribute."
 msgstr ""
+"     '' (nessun operatore) coincide se la sequenza di caratteri è contenuta "
+"nell'attributo di questo oggetto."
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:331
 msgid "     '=' matches if string is an exact match."
@@ -13808,16 +13810,22 @@ msgstr "- Esempi:"
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id"
 msgstr ""
+"     junction; id; 'foo' -> coincide per tutti gli incroci che contengono "
+"'foo' nel loro codice identificativo"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:337
 msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'"
 msgstr ""
+"     junction; type; '=priority' -> coincide per tutti gli incroci del tipo "
+"'priority' ma non quelli del tipo 'priority_stop'"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:338
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10"
 msgstr ""
+"     edge; speed; '>10' -> coincide per tutti gli archi con un limite di "
+"velocità sopra 10"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:341
 msgid "Netedit parameters Help"
@@ -14166,11 +14174,11 @@ msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:607
 msgid "There are locked elements in the current selection."
-msgstr ""
+msgstr "La selezione attuale contiene degli elementi bloccati."
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:608
 msgid "Apply operation to locked elements?"
-msgstr ""
+msgstr "Desideri applicare la operazione ugualmente agli elementi bloccati ?"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:638
 msgid "Hierarchy operations"
@@ -15489,7 +15497,7 @@ msgstr "Modifiche non salvate. Cancella o salvale"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:559
 msgid "Traffic Light Attributes"
-msgstr ""
+msgstr "Attributi di semaforo"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:575
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:576
@@ -15563,7 +15571,7 @@ msgstr "Cancella combinazione."
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:941
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1297
 msgid "No junction selected"
-msgstr ""
+msgstr "Nessun incrocio selezionato"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1078
 msgid "rename TLS"
