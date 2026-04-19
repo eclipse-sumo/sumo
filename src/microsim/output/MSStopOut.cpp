@@ -214,6 +214,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const MSStop& stop, bool simEnd) {
     myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     myDevice.writeAttr("blockedDuration", time2string(si.blockTime));
 
+    if (pars.actType != "") {
+        myDevice.writeAttr(SUMO_ATTR_ACTTYPE, pars.actType);
+    }
     if (stop.pars.speed > 0) {
         if (stop.waypointWithStop) {
             myDevice.writeAttr(SUMO_ATTR_STATE, "waypointStopped");
