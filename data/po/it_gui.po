@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-19 15:58+0000\n"
+"PO-Revision-Date: 2026-04-20 17:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14170,7 +14170,7 @@ msgstr "riduci la rete"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:606
 msgid "Confirm selection operation"
-msgstr ""
+msgstr "Conferma operazione di selezione"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:607
 msgid "There are locked elements in the current selection."
@@ -14533,15 +14533,15 @@ msgstr "resetta a valori standard del tipo di veicoli"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:340
 msgid "remove % '%'"
-msgstr ""
+msgstr "rimuovi % '%'"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:345
 msgid "Delete % '%' will remove one vehicle. Continue?"
-msgstr ""
+msgstr "Con % '%' un veicolo verrà rimosso. Desideri continuare?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:347
 msgid "Delete % '%' will remove % vehicles. Continue?"
-msgstr ""
+msgstr "Con % '%' % veicolo verranno rimossi. Desideri continuare?"
 
 #: src/netedit/frames/demand/GNETypeFrame.cpp:378
 msgid "Types"
@@ -15464,11 +15464,11 @@ msgstr "Salva modifiche ai semafori"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:203
 msgid "There are unsaved changes in the currently edited traffic light."
-msgstr ""
+msgstr "Ci sono modifiche non salvate nel semaforo attualmente in revisione."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:204
 msgid "Do you want to save it before changing mode?"
-msgstr ""
+msgstr "Desideri salvarlo prima di cambiare modo?"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:245
 msgid "tlLogic '%', program '%' could not be built"
@@ -15875,12 +15875,12 @@ msgstr "carica forme da '"
 #: src/netedit/tools/GNENetDiffTool.cpp:164
 #, c-format
 msgid "Loading of shape file '%' failed"
-msgstr ""
+msgstr "Il caricamento del file di forme '%' è fallito"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:167
 #, c-format
 msgid "Loading of shape file '%' successfully"
-msgstr ""
+msgstr "Il file di forme '%' è stato caricato con successo"
 
 #: src/netedit/tools/GNEPythonTool.cpp:43
 msgid "Execute python tool '"
@@ -17074,7 +17074,7 @@ msgstr "Carica configurazione da file"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1855
 msgid "Export includes:"
-msgstr ""
+msgstr "L'esportazione include:"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1856
 msgid "Viewport"
@@ -17292,7 +17292,7 @@ msgstr "Ridimensiona la lunghezza con la geometria"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
 msgid "Show stopping info"
-msgstr ""
+msgstr "Mostra informazioni delle fermate"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
 msgid "Show parking info"
@@ -17461,7 +17461,7 @@ msgstr "Mostra leggenda dei colori degli veicoli"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2498
 msgid "UI Scaling"
-msgstr ""
+msgstr "Ridimensionamento dell'interfaccia grafica"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2505
 msgid "Combobox max rows"
@@ -17562,11 +17562,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate Structures"
-msgstr ""
+msgstr "Localizza strutture"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:135
 msgid "Locate structures within the network."
-msgstr ""
+msgstr "Localizza strutture nella rete."
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:139
 msgid "Toggle View Tooltips"
@@ -17586,11 +17586,11 @@ msgstr "Apre un menù per modificare i schemi di colori. (F9)"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Make Snapshot"
-msgstr ""
+msgstr "Cattura veduta"
 
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:172
 msgid "Makes a snapshot of the view."
-msgstr ""
+msgstr "Crea una cattura della veduta."
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:300
 msgid "option window-size requires INT,INT"
@@ -17694,7 +17694,7 @@ msgstr "giapponese"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:424
 msgid "korean"
-msgstr ""
+msgstr "coreano"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "english"
