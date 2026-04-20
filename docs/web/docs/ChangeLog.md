@@ -18,15 +18,20 @@ title: ChangeLog
   - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815    
   - Fixed crash when setting **--default.departlane best** #17854
   - Fixed infinite loop when specifying invalid default depart lane #17850
+  - Fixed bug where rerouting after parkingAreaReroute fails to add stops when input contains vias #17892
   - State-Loading:
     - Fixed invalid signal state when loading from saved state and using WAUT #17675
     - Lanechanging state is now restored after loading #2380
     - Fixed bugs that caused actuated traffic lights to differ in behavior after loading state #17849
-    - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532
+    - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532, #17887, #17895, #17897, #17902, #17900
+    - Past stops are now present in vehroute output after loading state #17886
+    - Fixed superfluous startPos, endPos in vehroute-output after loading state #17888
+    - Fixed error when loading state with persons that were saved during an access stage #17896
   - Taxis:
     - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
     - Fixed failure to group taxi passengers when the dispatch-period is low #17644    
     - Fixed invalid taxi device warnings #17864
+    - Fixed failure in stop assignment #17893
   - Railways:
     - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
     - Fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
@@ -46,6 +51,7 @@ title: ChangeLog
   - Fixed invalid lane color when switching from (meso) segment colors to functional color (i.e. TAZ) #17704
   - Shift-click to select lanes now reliably activates edge annotations that are restricted to "only for selected" #17734
   - Fixed misleading rail signal visualization when trams share a multi-lane road with cars #17846
+  - Fixed bug where fcd-output differs from non-gui simulation after loading state #17894
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
@@ -134,6 +140,7 @@ title: ChangeLog
   - fcd-output now supports attribute `speedRelative` (can also be activated by option **--fcd-output.speed-relative**) #17234
   - The symbolic departSpeed values "desired", "speedLimit", "last" and "avg" now automatically adjust to upcoming stops and intersections #17851
   - Stop-output now includes the optional attribute 'state' to distinguish waypoints and skipped on-demand stops #17872
+  - Stop-output now include actType if non-empty #17891
   - Added option **--fcd-output.utm** which write raw UTM coordinates when simulating in geo-referenced networks #17878
   - Taxis:
     - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
@@ -150,6 +157,8 @@ title: ChangeLog
 - netedit
   - Edge attribute routingType is now supported #17095
   - Element context menu for multiple objects at the same spot now shows selection status (also in sumo-gui) #17731
+  - Phase attribute "next" automaticalyy updates when adding new phases #16488
+
 
 - sumo-gui
   - traffic lights now have a higher right-click priority than busstops #17761
@@ -193,6 +202,7 @@ title: ChangeLog
   - generateRerouters.py: Added option **--terminate-unreachable** to configure behavior for unreachable destinations #17708
   - routeSampler.py: Added option **--keep-attributes** to preserve vehicle attributes loaded from route input including departure time (unless the route of that vehicle is used more than once) #16114
   - routeSampler.py: Added option **--timeline** to interpret loaded data intervals that are longer than the **--interval** time #17863
+  - routeSampler.py: Now supports **--mismatch-output** for edgeRelations with `via` #17884
   - patchRailConflicts.py: Added option **--split-offset** which splits rail edges before traffic_light junctions if these junctions also have a rail conflict #17740
   - [instantOutDiff.py](Tools/Output.md#instantoutdiffpy): added tool for comparing instantInductionLoop output from two simulation runs #16524
   - [tls_analyzeSplit.py](Tools/tls.md#tls_analyzesplitpy): added tool to analyze green split of static signal plans (or plan-like logs of dynamic plans) #17730
