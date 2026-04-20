@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T22:47:21.870860+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
+<!-- generated on 2026-04-20T11:15:33.774430+01:00 by Eclipse SUMO sumo v1_26_0+1273-faa741ede7d
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,6 +17,8 @@
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
@@ -28,12 +30,12 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1273-faa741ede7d" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="2/1to1/1"/>
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" speedFactor="normc(1.00,0.00)" vClass="pedestrian"/>
     <transportables type="person" state="0 2 1 1 1 0 0 0 0 0">
-        <person id="p2" type="DEFAULT_PEDTYPE" depart="100.00" departPos="10.00" state="8 0 -1">
+        <person id="p2" type="DEFAULT_PEDTYPE" depart="100.00" departPos="10.00" speedFactor="1.0000" state="8 0 -1">
             <walk edges="2/1to1/1" arrivalPos="20.00"/>
         </person>
     </transportables>
