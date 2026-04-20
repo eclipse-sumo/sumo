@@ -1,2 +1,0 @@
-Error: Vehicle 'taxiC' could not assign stop 'lane:B2B1_1 pos:5.00 actType:pickup 1 (1)' after rerouting (taxi:dispatch) at time=70.00.
-Error: Vehicle 'taxiC' could not assign stop 'lane:B2B1_1 pos:5.00 actType:pickup 1 (1)' after rerouting (taxi:dispatch) at time=100.00.
