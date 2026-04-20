@@ -1,0 +1,16 @@
+--no-step-log --no-duration-log -n
+input_net.net.xml -r input_routes.rou.xml --save-state.times 10
+--save-state.files state.xml  --save-state.transportables
+--save-state.rng
+--fcd-output fcd.xml
+--device.fcd.begin 10
+-e 20
+:
+--no-step-log --no-duration-log
+-n input_net.net.xml --load-state state.xml
+-r input_routes.rou.xml
+--fcd-output fcd2.xml
+-e 20
+--compare fcd
+
+tests/complex/state/runner.py

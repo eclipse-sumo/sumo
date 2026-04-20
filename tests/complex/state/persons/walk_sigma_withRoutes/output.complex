@@ -1,0 +1,8 @@
+<         <person id="walk_trip" x="1193.89" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.39" pos="1.39" edge="3/1to2/1" slope="0.00"/>
+>         <person id="walk_trip" x="1193.80" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.49" pos="1.49" edge="3/1to2/1" slope="0.00"/>
+<         <person id="walk_trip" x="1192.70" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.23" pos="2.62" edge="3/1to2/1" slope="0.00"/>
+>         <person id="walk_trip" x="1192.51" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.31" pos="2.80" edge="3/1to2/1" slope="0.00"/>
+<         <person id="walk_trip" x="1191.57" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.15" pos="3.77" edge="3/1to2/1" slope="0.00"/>
+>         <person id="walk_trip" x="1191.31" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.24" pos="4.04" edge="3/1to2/1" slope="0.00"/>
+<         <person id="walk_trip" x="1190.26" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.34" pos="5.11" edge="3/1to2/1" slope="0.00"/>
+>         <person id="walk_trip" x="1189.91" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.43" pos="5.47" edge="3/1to2/1" slope="0.00"/>

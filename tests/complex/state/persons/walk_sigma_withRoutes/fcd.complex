@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-20T11:58:48.324747+01:00 by Eclipse SUMO sumo v1_26_0+1276-43ad60c54e7
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+        <save-state.times value="10"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <time>
+        <end value="20"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <fcd_device>
+        <device.fcd.begin value="10"/>
+    </fcd_device>
+
+</sumoConfiguration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="10.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_route_id" x="1582.33" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.25" pos="13.23" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_route_id" x="1580.90" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.47" pos="14.70" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_route_id" x="1579.59" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.33" pos="16.04" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_route_id" x="1578.32" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.31" pos="17.34" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_route_id" x="1576.90" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.45" pos="18.80" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_trip" x="1195.25" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="3/1to2/1" slope="0.00"/>
+        <person id="walk_route_id" x="1575.55" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.38" pos="20.18" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_trip" x="1193.89" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.39" pos="1.39" edge="3/1to2/1" slope="0.00"/>
+        <person id="walk_route_id" x="1574.26" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.32" pos="21.50" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_trip" x="1192.70" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.23" pos="2.62" edge="3/1to2/1" slope="0.00"/>
+        <person id="walk_route_id" x="1573.10" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.20" pos="22.69" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_trip" x="1191.57" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.15" pos="3.77" edge="3/1to2/1" slope="0.00"/>
+        <person id="walk_route_id" x="1571.77" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.36" pos="24.05" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <person id="walk_route" x="795.25" y="402.93" angle="90.00" type="DEFAULT_PEDTYPE" speed="0.00" pos="0.00" edge="2/1to1/1" slope="0.00"/>
+        <person id="walk_trip" x="1190.26" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.34" pos="5.11" edge="3/1to2/1" slope="0.00"/>
+        <person id="walk_route_id" x="1570.34" y="402.93" angle="270.00" type="DEFAULT_PEDTYPE" speed="1.46" pos="25.51" edge="4/1to3/1" slope="0.00"/>
+    </timestep>
+</fcd-export>

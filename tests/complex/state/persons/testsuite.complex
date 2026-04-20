@@ -1,6 +1,9 @@
 # test walking person
 walk
 
+# test walking person
+walk_sigma_withRoutes
+
 # test pedestrian model 'nonInteracting'
 walk_nonInteracting
 
