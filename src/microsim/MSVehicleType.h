@@ -171,7 +171,7 @@ public:
     /** @brief Computes and returns the speed deviation
      * @return A new, random speed deviation
      */
-    double computeChosenSpeedDeviation(SumoRNG* rng, const double minDev = -1.) const;
+    double computeChosenSpeedDeviation(double speedFactorOverride, SumoRNG* rng, const double minDev = -1.) const;
 
 
     /** @brief Get the default probability of this vehicle type

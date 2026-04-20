@@ -88,8 +88,10 @@ MSVehicleType::~MSVehicleType() {
 
 
 double
-MSVehicleType::computeChosenSpeedDeviation(SumoRNG* rng, const double minDev) const {
-    return roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom);
+MSVehicleType::computeChosenSpeedDeviation(double speedFactorOverride, SumoRNG* rng, const double minDev) const {
+    return speedFactorOverride < 0
+        ? roundDecimal(MAX2(minDev, myParameter.speedFactor.sample(rng)), gPrecisionRandom)
+        : speedFactorOverride;
 }
 
 

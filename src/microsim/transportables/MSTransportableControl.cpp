@@ -439,7 +439,7 @@ MSTransportableControl::abortWaiting(MSTransportable* t) {
 MSTransportable*
 MSTransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan,
                                     SumoRNG* rng) const {
-    const double speedFactor = vtype->computeChosenSpeedDeviation(rng);
+    const double speedFactor = vtype->computeChosenSpeedDeviation(pars->speedFactor, rng);
     return new MSPerson(pars, vtype, plan, speedFactor);
 }
 

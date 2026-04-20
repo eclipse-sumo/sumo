@@ -45,7 +45,7 @@ GUITransportableControl::~GUITransportableControl() {
 MSTransportable*
 GUITransportableControl::buildPerson(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan,
                                      SumoRNG* rng) const {
-    const double speedFactor = vtype->computeChosenSpeedDeviation(rng);
+    const double speedFactor = vtype->computeChosenSpeedDeviation(pars->speedFactor, rng);
     return new GUIPerson(pars, vtype, plan, speedFactor);
 }
 

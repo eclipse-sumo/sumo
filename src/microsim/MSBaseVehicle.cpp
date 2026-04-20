@@ -2773,7 +2773,7 @@ MSBaseVehicle::replaceVehicleType(const MSVehicleType* type) {
     // adapt myChosenSpeedFactor to the new type
     if (oldDev == 0.) {
         // old type had speedDev 0, reroll
-        myChosenSpeedFactor = type->computeChosenSpeedDeviation(getRNG());
+        myChosenSpeedFactor = type->computeChosenSpeedDeviation(getParameter().speedFactor, getRNG());
     } else {
         // map old speedFactor onto new distribution
         const double distPoint = (myChosenSpeedFactor - oldMu) / oldDev;
