@@ -50,6 +50,9 @@ rerouting2
 # See ticket 16776
 rerouting3
 
+# see #17902
+rerouting_weights
+
 # vehicles skip stop edges along looped routes (require stop attribute index) and reroute after finishing the stop (which affects the index value).
 rerouting_looped_stops
 

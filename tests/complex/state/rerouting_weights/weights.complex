@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-20T21:12:15.718406+01:00 by Eclipse SUMO sumo v1_26_0+1293-36e2dff03ea
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="180"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <time>
+        <end value="240"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.explicit value="v0"/>
+        <device.rerouting.period value="50"/>
+        <device.rerouting.adaptation-steps value="10"/>
+        <device.rerouting.adaptation-interval value="20"/>
+        <device.rerouting.output value="weights.xml"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval id="device.rerouting" begin="0.00" end="20.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.40"/>
+    </interval>
+    <interval id="device.rerouting" begin="20.00" end="40.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="40.00" end="60.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="60.00" end="80.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="80.00" end="100.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="100.00" end="120.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="120.00" end="140.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="140.00" end="160.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="160.00" end="180.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="14.40"/>
+    </interval>
+    <interval id="device.rerouting" begin="180.00" end="200.00">
+        <edge id="beg" traveltime="7.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="15.96"/>
+    </interval>
+    <interval id="device.rerouting" begin="200.00" end="220.00">
+        <edge id="beg" traveltime="7.00"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="15.96"/>
+    </interval>
+    <interval id="device.rerouting" begin="220.00" end="240.00">
+        <edge id="beg" traveltime="7.00"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="15.85"/>
+    </interval>
+</weights>
