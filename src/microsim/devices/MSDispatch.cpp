@@ -99,8 +99,8 @@ MSDispatch::addReservation(MSTransportable* person,
                 if (res->persons.count(person) == 0
                         && res->from == from
                         && res->to == to
-                        && res->fromPos == fromPos
-                        && res->toPos == toPos) {
+                        && (res->fromPos == fromPos || res->fromStop == fromStop)
+                        && (res->toPos == toPos || res->toStop == toStop)) {
                     MSDevice_Taxi* taxi = item.second;
                     if ((taxi->getState() == taxi->PICKUP
                             && remainingCapacity(taxi, res) > 0
@@ -127,8 +127,8 @@ MSDispatch::addReservation(MSTransportable* person,
             if (res->persons.count(person) == 0
                     && res->from == from
                     && res->to == to
-                    && res->fromPos == fromPos
-                    && res->toPos == toPos
+                    && (res->fromPos == fromPos || res->fromStop == fromStop)
+                    && (res->toPos == toPos || res->toStop == toStop)
                     && (resID.empty() || res->id == resID)) {
                 if (res->persons.size() > 0 && (*res->persons.begin())->isPerson() != person->isPerson()) {
                     WRITE_WARNINGF(TL("Mixing reservations of persons and containers with the same group is not supported for % and %"),
