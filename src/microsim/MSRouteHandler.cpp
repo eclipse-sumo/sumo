@@ -956,6 +956,9 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
             myVehicleParameter->id = (baseID
                                       + (i >= 0 ? "." + toString(i) : "")
                                       + (j > 0 ? "." + toString(j) : ""));
+            if (MSGlobals::gStateLoaded && tc.get(myVehicleParameter->id) != nullptr) {
+                return numCreated;
+            }
             myVehicleParameter->depart = depart += net->getInsertionControl().computeRandomDepartOffset();
             MSTransportable* transportable = myActiveType == ObjectTypeEnum::PERSON ?
                                              tc.buildPerson(myVehicleParameter, type, myActiveTransportablePlan, &myParsingRNG) :
@@ -965,9 +968,7 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
                 std::string error = "Another " + myActiveTypeName + " with the id '" + myVehicleParameter->id + "' exists.";
                 delete transportable;
                 resetActivePlanAndVehicleParameter();
-                if (!MSGlobals::gStateLoaded) {
-                    throw ProcessError(error);
-                }
+                throw ProcessError(error);
             } else if ((net->hasPersons() && net->getPersonControl().get(myVehicleParameter->id) != nullptr)
                        && (net->hasContainers() && net->getContainerControl().get(myVehicleParameter->id) != nullptr)) {
                 WRITE_WARNINGF(TL("There exists a person and a container with the same id '%'. Starting with SUMO 1.9.0 this is an error."), myVehicleParameter->id);
