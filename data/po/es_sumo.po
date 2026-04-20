@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-02 09:46+0000\n"
+"PO-Revision-Date: 2026-04-20 14:06+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1918,6 +1918,8 @@ msgstr "Agregar aceleración a la salida FCD"
 #: src/microsim/MSFrame.cpp:177
 msgid "Add relative speed (vehicle speed / edge speed limit) to the FCD output"
 msgstr ""
+"Agregar la velocidad relativa (velocidad del vehículo / límite de velocidad "
+"de la arista) al archivo de salida FCD"
 
 #: src/microsim/MSFrame.cpp:179
 msgid ""
@@ -6974,6 +6976,9 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines default "
 "junction type (see docs/Networks/PlainXML#node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] "
+"Determina el tipo de cruce predeterminado (ver docs/Networks/"
+"PlainXML#node_types)"
 
 #: src/netbuild/NBFrame.cpp:108
 msgid "The default length when overriding connection lengths"
@@ -7223,6 +7228,8 @@ msgid ""
 "Set edge priority values based on public transport lines for the given list "
 "of vClasses"
 msgstr ""
+"Establecer valores de prioridad de aristas según líneas de transporte "
+"público para la lista de clases de vehículo dada"
 
 #: src/netbuild/NBFrame.cpp:270
 msgid "Extend loaded edge priority values based on estimated main direction"
@@ -10229,6 +10236,8 @@ msgid ""
 "Skipped applying OSM placement on % edge(s): % due to non-explicit one-way "
 "and % due to opposite-direction auxiliary edges."
 msgstr ""
+"Se omitió aplicar la ubicación de OSM en % arista(s): % debido a sentido "
+"único no explícito y % debido a aristas auxiliares en dirección opuesta."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:431
 msgid "Could not insert junction '%'."
@@ -10255,17 +10264,23 @@ msgstr "Saltando la arista '%' porque tiene velocidad %."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:844
 msgid "Ignoring placement for edge '%' because lane count is invalid."
 msgstr ""
+"Ignorando la ubicación de la arista '%' porque el número de carriles no es "
+"válido."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:859
 msgid ""
 "Ignoring placement for edge '%' because lane index '%' is out of range [1, "
 "%]."
 msgstr ""
+"Ignorando la ubicación de la arista '%' porque el índice de carril '%' está "
+"fuera del rango [1, %]."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid ""
 "Ignoring placement for edge '%' because offset shape computation failed."
 msgstr ""
+"Ignorando la ubicación de la arista '%' porque falló el cálculo de la forma "
+"de desplazamiento."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:965
 msgid ""
@@ -10373,7 +10388,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2171
 msgid "Ignoring unsupported placement value '%' for edge '%'."
-msgstr ""
+msgstr "Ignorando el valor de ubicación no soportado '%' para la arista '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2188
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -14238,6 +14253,8 @@ msgstr "La arista de referencia '%' no existe en la red."
 #: src/utils/router/AStarLookupTable.h:170
 msgid "Invalid coordinate in landmark file, could not find edge at '%'"
 msgstr ""
+"Coordenada no válida en el archivo de puntos de referencia, no se pudo "
+"encontrar la arista en '%'"
 
 #: src/utils/router/AStarLookupTable.h:182
 #, c-format
@@ -15073,7 +15090,7 @@ msgstr "Archivos de configuración de netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "Netconvert plain-xml files"
-msgstr ""
+msgstr "Archivo plain-xml de netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "OSM network files"
