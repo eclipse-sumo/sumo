@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-20T16:55:00.461689+01:00 by Eclipse SUMO sumo v1_26_0+1286-d51e20aa037
+<!-- generated on 2026-04-20T17:15:52.844401+01:00 by Eclipse SUMO sumo v1_26_0+1288-c04bd772463
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1286-d51e20aa037" time="180.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1288-c04bd772463" time="180.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="30" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="1"/>
@@ -139,28 +139,28 @@
         <person id="p1" type="DEFAULT_PEDTYPE" depart="10.000" speedFactor="1.0827000000000" state="0 1 10000 5271 -1 1 70000 trip_1 296.529">
             <ride from="B2B1" to="C2D2" lines="taxi"/>
         </person>
-        <person id="p2" type="DEFAULT_PEDTYPE" depart="20.000" speedFactor="1.0303000000000" state="0 1 20000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p2" type="DEFAULT_PEDTYPE" depart="20.000" speedFactor="1.0303000000000" state="0 1 20000 -1 -1 0">
             <ride from="C2C1" to="E1E2" lines="taxi"/>
         </person>
-        <person id="p3" type="DEFAULT_PEDTYPE" depart="30.000" speedFactor="0.8310000000000" state="0 1 30000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p3" type="DEFAULT_PEDTYPE" depart="30.000" speedFactor="0.8310000000000" state="0 1 30000 -1 -1 0">
             <ride from="B1A1" to="B2B1" lines="taxi"/>
         </person>
-        <person id="p4" type="DEFAULT_PEDTYPE" depart="40.000" speedFactor="1.0458000000000" state="0 1 40000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p4" type="DEFAULT_PEDTYPE" depart="40.000" speedFactor="1.0458000000000" state="0 1 40000 -1 -1 0">
             <ride from="A1A0" to="E2E1" lines="taxi"/>
         </person>
-        <person id="p5" type="DEFAULT_PEDTYPE" depart="50.000" speedFactor="0.8860000000000" state="0 1 50000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p5" type="DEFAULT_PEDTYPE" depart="50.000" speedFactor="0.8860000000000" state="0 1 50000 -1 -1 0">
             <ride from="D0D1" to="F1F0" lines="taxi"/>
         </person>
-        <person id="p6" type="DEFAULT_PEDTYPE" depart="60.000" speedFactor="0.9379000000000" state="0 1 60000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p6" type="DEFAULT_PEDTYPE" depart="60.000" speedFactor="0.9379000000000" state="0 1 60000 -1 -1 0">
             <ride from="D2E2" to="C2D2" lines="taxi"/>
         </person>
-        <person id="p7" type="DEFAULT_PEDTYPE" depart="70.000" speedFactor="0.8569000000000" state="0 1 70000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p7" type="DEFAULT_PEDTYPE" depart="70.000" speedFactor="0.8569000000000" state="0 1 70000 -1 -1 0">
             <ride from="D0D1" to="C0C1" lines="taxi"/>
         </person>
-        <person id="p8" type="DEFAULT_PEDTYPE" depart="80.000" speedFactor="1.0907000000000" state="0 1 80000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p8" type="DEFAULT_PEDTYPE" depart="80.000" speedFactor="1.0907000000000" state="0 1 80000 -1 -1 0">
             <ride from="B0B1" to="B2B1" lines="taxi"/>
         </person>
-        <person id="p9" type="DEFAULT_PEDTYPE" depart="90.000" speedFactor="1.0263000000000" state="0 1 90000 -1 -1 0 0.0000000000000 -1073741824.0000000000000 -1073741824.0000000000000">
+        <person id="p9" type="DEFAULT_PEDTYPE" depart="90.000" speedFactor="1.0263000000000" state="0 1 90000 -1 -1 0">
             <ride from="C1B1" to="E0D0" lines="taxi"/>
         </person>
     </transportables>
