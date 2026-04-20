@@ -25,6 +25,9 @@ pickup_ptStops_longTaxiWait
 # persontrip triggers taxi call
 dropoff_ptStops
 
+# group a ride and and a trip to the same stop
+dropoff_ptStops_group
+
 # persontrip triggers taxi call
 ptStops
 
