@@ -145,6 +145,23 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
 }
 
 
+void
+MSPerson::MSPersonStage_Access::saveState(std::ostringstream& out) {
+    out << " " << myDeparted << " " << myEstimatedArrival;
+}
+
+
+void
+MSPerson::MSPersonStage_Access::loadState(MSTransportable* person, std::istringstream& state) {
+    state >> myDeparted;
+    state >> myEstimatedArrival;
+    MSNet* net = MSNet::getInstance();
+    MSEdge* edge = myDestinationStop != nullptr ? &myDestinationStop->getLane().getEdge() : const_cast<MSEdge*>(myDestination);
+    net->getBeginOfTimestepEvents()->addEvent(new ProceedCmd(person, edge), myEstimatedArrival);
+    net->getPersonControl().startedAccess();
+    edge->addTransportable(person);
+}
+
 /* -------------------------------------------------------------------------
  * MSPerson - methods
  * ----------------------------------------------------------------------- */

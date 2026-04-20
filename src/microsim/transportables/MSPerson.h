@@ -106,6 +106,14 @@ public:
         /// @brief Called on writing vehroute output. Currently does nothing.
         void routeOutput(const bool, OutputDevice&, const bool, const MSStage* const) const {};
 
+        /** @brief Saves the current state into the given stream
+        */
+        void saveState(std::ostringstream& out);
+
+        /** @brief Reconstructs the current state
+        */
+        void loadState(MSTransportable* person, std::istringstream& state);
+
     private:
         class ProceedCmd : public Command {
         public:

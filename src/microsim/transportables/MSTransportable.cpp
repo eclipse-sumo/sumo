@@ -676,8 +676,9 @@ MSTransportable::saveState(OutputDevice& out) {
             stepIdx--;
         }
     }
+    const bool isAccess = (*myStep)->getStageType() == MSStageType::ACCESS;
     std::ostringstream state;
-    state << myParameter->parametersSet << " " << stepIdx;
+    state << myParameter->parametersSet << " " << (isAccess ? toString(stepIdx - 0.5, 1) : toString(stepIdx));
     (*myStep)->saveState(state);
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;
@@ -692,10 +693,21 @@ MSTransportable::saveState(OutputDevice& out) {
 void
 MSTransportable::loadState(const std::string& state) {
     std::istringstream iss(state);
-    int step;
+    double step;
     iss >> myParameter->parametersSet >> step;
     myPlan->front()->setDeparted(myParameter->depart);
-    myStep = myPlan->begin() + step;
+    if (step != floor(step)) {
+        // we are in an access stage
+        int priorIndex = (int)(step - 0.5);
+        MSStage* prior = *(myPlan->begin() + priorIndex);
+        myStep = myPlan->begin() + priorIndex + 1;
+        bool waitAtStop = prior->getDestinationStop() != nullptr
+            && &prior->getDestinationStop()->getLane().getEdge() != prior->getDestination();
+        checkAccess(prior, waitAtStop);
+        //std::cout << " step=" << step << " i=" << getCurrentStageIndex() << " stage=" << getStageSummary(true) << "\n";
+    } else {
+        myStep = myPlan->begin() + (int)step;
+    }
     (*myStep)->loadState(this, iss);
 }
 
