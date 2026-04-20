@@ -16,6 +16,9 @@ walk_undeparted
 # state contains person that hasn't yet departed
 walk_trip_undeparted
 
+# test walking person saved during access stage
+walk_access
+
 # test riding person
 ride
 
