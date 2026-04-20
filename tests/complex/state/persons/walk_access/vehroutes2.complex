@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-20T13:24:30.077287+01:00 by Eclipse SUMO sumo v1_26_0+1278-8cb37b9e3c1
+<!-- generated on 2026-04-20T14:19:05.350429+01:00 by Eclipse SUMO sumo v1_26_0+1279-13cfa78631b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -10,6 +10,7 @@
     </input>
 
     <output>
+        <tripinfo-output value="tripinfo2.xml"/>
         <vehroute-output value="vehroutes2.xml"/>
     </output>
 
@@ -27,4 +28,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00" departPos="390.00" arrival="682.00">
+        <walk edges="beg" trainStop="ts_0"/>
+        <walk edges="left"/>
+    </person>
+
 </routes>

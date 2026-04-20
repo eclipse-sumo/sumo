@@ -1,0 +1,4 @@
+<     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="682.00" waitingTime="0.00" timeLoss="31.07" traveltime="682.00">
+>     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="-1" waitingTime="0.00" timeLoss="29.86" traveltime="-1">
+<         <walk depart="0.00" departPos="390.00" arrival="8.00" arrivalPos="400.00" duration="8.00" routeLength="10.00" timeLoss="1.21" maxSpeed="1.47" waitingTime="0.00"/>
+>         <walk depart="-1" departPos="390.00" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="0.00" maxSpeed="1.47" waitingTime="0.00"/>

@@ -3,10 +3,13 @@
 -a input_additional.add.xml
 --save-state.files state.xml
 --save-state.transportables
+--tripinfo-output tripinfo.xml
 :
 --vehroute-output=vehroutes2.xml --no-step-log --no-duration-log
 -n net.net.xml
 -a input_additional.add.xml
 --load-state state.xml
+--tripinfo-output tripinfo2.xml
+--compare tripinfo
 
 tests/complex/state/runner.py
