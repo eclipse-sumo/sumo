@@ -66,6 +66,7 @@
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="speedFactor" type="floatType" use="required"/>
         <xsd:attribute name="decel" type="floatType" use="required"/>
+        <xsd:attribute name="loaderTime" type="timeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionStateType">
