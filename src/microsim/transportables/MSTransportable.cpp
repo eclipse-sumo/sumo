@@ -664,7 +664,7 @@ MSTransportable::saveState(OutputDevice& out) {
     }
     myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
     const_cast<SUMOVehicleParameter*>(myParameter)->depart = desiredDepart;
-    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET) && getChosenSpeedFactor() != 1) {
+    if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
         out.setPrecision(MAX2(gPrecisionRandom, gPrecision));
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, getChosenSpeedFactor());
         out.setPrecision(gPrecision);
