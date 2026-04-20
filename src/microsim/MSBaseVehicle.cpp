@@ -732,6 +732,11 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                         && lastToSkip < (int)iter->skips.size()
                         && searchStart - myRoute->begin() <= iter->skips[lastToSkip])) {
                 if (searchStart != edges.end() && !iter->reached) {
+#ifdef DEBUG_REPLACE_ROUTE
+                    if (DEBUG_COND) {
+                        std::cout << "        skip "  << (*searchStart)->getID() << "\n";
+                    }
+#endif
                     lastToSkip++;
                     searchStart++;
                 }
