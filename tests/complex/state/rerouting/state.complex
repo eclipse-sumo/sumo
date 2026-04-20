@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:31.108141+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-04-20T15:55:44.705225+01:00 by Eclipse SUMO sumo v1_26_0+1281-0eb3443acab
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1281-0eb3443acab" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!veh130!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh131!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh132!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
@@ -511,7 +511,7 @@
     <route id="!veh73!var#2" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh74!var#2" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh75!var#2" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
-    <delay number="35" begin="604" end="121" depart="25074.00" time="8327.00" speedFactor="1.23" decel="4.50"/>
+    <delay number="35" begin="604" end="121" depart="25074.00" time="8327.00" speedFactor="1.23" decel="4.50" loaderTime="604000"/>
     <vType id="default" vClass="passenger" color="red"/>
     <vehicle id="veh68" type="default" depart="68.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh68!var#2" distance="154.41 2" speedFactor="0.9146" reroute="1" state="286730 205000 2 1.00 235000 278.18 499000 0 0 0" pos="47.61 42.61 0.00" speed="0.00 0.00" angle="111.80" posLat="0.00" waitingTime="100000 1 0 235000" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <device id="vehroute_veh68" state="0 0.00 0.00 1.00 2 !NULL 68000 !veh68 device.rerouting -1 0 gneE0 205000 !veh68!var#1 device.rerouting 0 0"/>
