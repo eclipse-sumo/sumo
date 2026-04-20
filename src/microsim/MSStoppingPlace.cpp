@@ -248,13 +248,14 @@ MSStoppingPlace::hasSpaceForTransportable() const {
 }
 
 bool
-MSStoppingPlace::addTransportable(const MSTransportable* p) {
-    int spot = -1;
-    if (!hasSpaceForTransportable()) {
+MSStoppingPlace::addTransportable(const MSTransportable* p, int spot) {
+    if (spot < 0 && !hasSpaceForTransportable()) {
         return false;
     }
-    spot = *myWaitingSpots.begin();
-    myWaitingSpots.erase(myWaitingSpots.begin());
+    if (spot < 0) {
+        spot = *myWaitingSpots.begin();
+    }
+    myWaitingSpots.erase(spot);
     myWaitingTransportables[p] = spot;
     return true;
 }
@@ -268,6 +269,17 @@ MSStoppingPlace::removeTransportable(const MSTransportable* p) {
             myWaitingSpots.insert(i->second);
         }
         myWaitingTransportables.erase(i);
+    }
+}
+
+
+int
+MSStoppingPlace::checkWaitingSpot(const MSTransportable* p) const {
+    auto i = myWaitingTransportables.find(p);
+    if (i != myWaitingTransportables.end()) {
+        return i->second;
+    } else {
+        return -1;
     }
 }
 

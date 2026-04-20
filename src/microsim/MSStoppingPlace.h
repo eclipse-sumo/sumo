@@ -207,10 +207,12 @@ public:
     bool hasSpaceForTransportable() const;
 
     /// @brief adds a transportable to this stop
-    bool addTransportable(const MSTransportable* p);
+    bool addTransportable(const MSTransportable* p, int spot = -1);
 
     /// @brief Removes a transportable from this stop
     void removeTransportable(const MSTransportable* p);
+
+    int checkWaitingSpot(const MSTransportable* p) const;
 
     /// @brief adds an access point to this stop
     virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);

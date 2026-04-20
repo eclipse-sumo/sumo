@@ -146,7 +146,7 @@ MSPerson::MSPersonStage_Access::ProceedCmd::execute(SUMOTime currentTime) {
 
 
 void
-MSPerson::MSPersonStage_Access::saveState(std::ostringstream& out) {
+MSPerson::MSPersonStage_Access::saveState(std::ostringstream& out, MSTransportable* /*transportable*/) {
     out << " " << myDeparted << " " << myEstimatedArrival;
 }
 

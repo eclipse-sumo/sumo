@@ -206,7 +206,7 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
 }
 
 void
-MSStageWaiting::saveState(std::ostringstream& out) {
+MSStageWaiting::saveState(std::ostringstream& out, MSTransportable* /*transportable*/) {
     out << " " << myDeparted;
 }
 

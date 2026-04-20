@@ -469,7 +469,7 @@ MSStageWalking::getStageSummary(const bool /* isPerson */) const {
 
 
 void
-MSStageWalking::saveState(std::ostringstream& out) {
+MSStageWalking::saveState(std::ostringstream& out, MSTransportable* /*transportable*/) {
     out << " " << myDeparted << " " << (myRouteStep - myRoute.begin()) << " " << myLastEdgeEntryTime;
     if (myExitTimes != nullptr) {
         out << " " << myExitTimes->size();

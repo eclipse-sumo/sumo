@@ -248,8 +248,9 @@ public:
 
     /** @brief Saves the current state into the given stream, standard implementation does nothing
      */
-    virtual void saveState(std::ostringstream& out) {
+    virtual void saveState(std::ostringstream& out, MSTransportable* transportable) {
         UNUSED_PARAMETER(out);
+        UNUSED_PARAMETER(transportable);
     }
 
     /** @brief Reconstructs the current state, standard implementation does nothing

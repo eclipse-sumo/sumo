@@ -93,7 +93,7 @@ public:
 
     /** @brief Saves the current state into the given stream
      */
-    void saveState(std::ostringstream& out);
+    void saveState(std::ostringstream& out, MSTransportable* transportable);
 
     /** @brief Reconstructs the current state
      */

@@ -679,7 +679,7 @@ MSTransportable::saveState(OutputDevice& out) {
     const bool isAccess = (*myStep)->getStageType() == MSStageType::ACCESS;
     std::ostringstream state;
     state << myParameter->parametersSet << " " << (isAccess ? toString(stepIdx - 0.5, 1) : toString(stepIdx));
-    (*myStep)->saveState(state);
+    (*myStep)->saveState(state, this);
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;
     for (const MSStage* const stage : *myPlan) {

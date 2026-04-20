@@ -103,7 +103,7 @@ public:
      */
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
-    void saveState(std::ostringstream& out);
+    void saveState(std::ostringstream& out, MSTransportable* transportable);
 
     void loadState(MSTransportable* transportable, std::istringstream& state);
 

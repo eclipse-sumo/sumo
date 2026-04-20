@@ -637,14 +637,15 @@ MSStageDriving::canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh
 
 
 void
-MSStageDriving::saveState(std::ostringstream& out) {
+MSStageDriving::saveState(std::ostringstream& out, MSTransportable* transportable) {
     const bool hasVehicle = myVehicle != nullptr;
     out << " " << myWaitingSince << " " << myTimeLoss << " " << myArrived << " " << hasVehicle;
     if (hasVehicle) {
         out << " " << myDeparted << " " << myVehicle->getID() << " " << myVehicleDistance;
-    } else {
+    } else if (myOriginStop != nullptr) {
         out.setf(std::ios::fixed, std::ios::floatfield);
         out << std::setprecision(gPrecision);
+        out << " " << myOriginStop->checkWaitingSpot(transportable);
         out << " " << myWaitingPos << " " << myStopWaitPos.x() << " " << myStopWaitPos.y();
     }
 }
@@ -652,6 +653,11 @@ MSStageDriving::saveState(std::ostringstream& out) {
 
 void
 MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& state) {
+    // there should always be at least one prior WAITING_FOR_DEPART stage
+    MSStage* previous = transportable->getNextStage(-1);
+    myOriginStop = (previous->getStageType() == MSStageType::TRIP
+                    ? previous->getOriginStop()
+                    : previous->getDestinationStop());
     bool hasVehicle;
     SUMOTime loadedTimeLoss;
     state >> myWaitingSince >> loadedTimeLoss >> myArrived >> hasVehicle;
@@ -663,23 +669,15 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         myTimeLoss = loadedTimeLoss;
         myVehicle->addTransportable(transportable);
         state >> myVehicleDistance;
-    } else {
+    } else if (myOriginStop != nullptr) {
+        int waitingSpot;
+        state >> waitingSpot;
         state >> myWaitingPos;
         double x, y;
         state >> x;
         state >> y;
         myStopWaitPos = Position(x, y);
-    }
-    // there should always be at least one prior WAITING_FOR_DEPART stage
-    MSStage* previous = transportable->getNextStage(-1);
-    myOriginStop = (previous->getStageType() == MSStageType::TRIP
-                    ? previous->getOriginStop()
-                    : previous->getDestinationStop());
-    if (myOriginStop != nullptr) {
-        if (!hasVehicle) {
-            // the arrival stop may have an access point
-            myOriginStop->addTransportable(transportable);
-        }
+        myOriginStop->addTransportable(transportable, waitingSpot);
         myWaitingEdge = &myOriginStop->getLane().getEdge();
     } else {
         myWaitingEdge = previous->getEdge();
