@@ -642,6 +642,10 @@ MSStageDriving::saveState(std::ostringstream& out) {
     out << " " << myWaitingSince << " " << myTimeLoss << " " << myArrived << " " << hasVehicle;
     if (hasVehicle) {
         out << " " << myDeparted << " " << myVehicle->getID() << " " << myVehicleDistance;
+    } else {
+        out.setf(std::ios::fixed, std::ios::floatfield);
+        out << std::setprecision(gPrecision);
+        out << " " << myWaitingPos << " " << myStopWaitPos.x() << " " << myStopWaitPos.y();
     }
 }
 
@@ -659,6 +663,12 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
         myTimeLoss = loadedTimeLoss;
         myVehicle->addTransportable(transportable);
         state >> myVehicleDistance;
+    } else {
+        state >> myWaitingPos;
+        double x, y;
+        state >> x;
+        state >> y;
+        myStopWaitPos = Position(x, y);
     }
     // there should always be at least one prior WAITING_FOR_DEPART stage
     MSStage* previous = transportable->getNextStage(-1);
@@ -671,8 +681,6 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
             myOriginStop->addTransportable(transportable);
         }
         myWaitingEdge = &myOriginStop->getLane().getEdge();
-        myStopWaitPos = myOriginStop->getWaitPosition(transportable);
-        myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
