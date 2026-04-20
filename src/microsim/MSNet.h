@@ -349,6 +349,11 @@ public:
      */
     void clearState(const SUMOTime step, bool quickReload = false);
 
+
+    SUMOTime getLoaderTime() const;
+
+    void setLoaderTime(SUMOTime time);
+
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
      */

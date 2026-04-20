@@ -518,6 +518,9 @@ MSStateHandler::myEndElement(int element) {
                         myVCAttrs->getFloat(SUMO_ATTR_TIME),
                         myVCAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR),
                         myVCAttrs->getFloat(SUMO_ATTR_DECEL));
+            if (myVCAttrs->hasAttribute(SUMO_ATTR_LOADERTIME)) {
+                MSNet::getInstance()->setLoaderTime(myVCAttrs->getLong(SUMO_ATTR_LOADERTIME));
+            }
             if (myRemoved > 0) {
                 WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);

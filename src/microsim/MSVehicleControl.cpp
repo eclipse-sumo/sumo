@@ -232,6 +232,10 @@ MSVehicleControl::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_TIME, myTotalTravelTime);
     out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myMaxSpeedFactor);
     out.writeAttr(SUMO_ATTR_DECEL, myMinDeceleration);
+    const SUMOTime loaderTime = MSNet::getInstance()->getLoaderTime();
+    if (loaderTime > 0 && loaderTime != SUMOTime_MAX) {
+        out.writeAttr(SUMO_ATTR_LOADERTIME, MSNet::getInstance()->getLoaderTime());
+    }
     out.closeTag();
     // save vehicle types
     for (const auto& item : myVTypeDict) {

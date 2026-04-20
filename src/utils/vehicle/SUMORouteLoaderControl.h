@@ -70,6 +70,14 @@ public:
     /// @brief return a route loader
     SUMORouteLoader* getFirstLoader() const;
 
+    SUMOTime getCurrentLoadTime() const {
+        return myCurrentLoadTime;
+    }
+
+    void setCurrentLoadTime(SUMOTime time) {
+        myCurrentLoadTime = time;
+    }
+
 private:
     /// @brief the first time step for which vehicles were loaded
     SUMOTime myFirstLoadTime;

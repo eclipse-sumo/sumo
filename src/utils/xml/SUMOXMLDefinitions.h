@@ -1882,6 +1882,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_BIKESPEED,
     SUMO_ATTR_PASTSPEED,
     SUMO_ATTR_PASTBIKESPEED,
+    SUMO_ATTR_LOADERTIME,
     // @}
 
     //@name meso edge type attributes

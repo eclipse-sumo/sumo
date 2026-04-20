@@ -1117,6 +1117,16 @@ MSNet::clearState(const SUMOTime step, bool quickReload) {
 }
 
 
+SUMOTime
+MSNet::getLoaderTime() const {
+    return myRouteLoaders->getCurrentLoadTime();
+}
+
+void
+MSNet::setLoaderTime(SUMOTime time) {
+    myRouteLoaders->setCurrentLoadTime(time);
+}
+
 void
 MSNet::writeOutput() {
     // update detector values
