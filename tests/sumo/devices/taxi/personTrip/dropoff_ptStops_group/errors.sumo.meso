@@ -1,2 +1,1 @@
-Warning: Taxi 'trip_1' reaches scheduled end of service at time=28800.00.
-Warning: Taxi 'trip_0' reaches scheduled end of service at time=28808.00.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.

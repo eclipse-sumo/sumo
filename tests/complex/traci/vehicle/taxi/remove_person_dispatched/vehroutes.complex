@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-18 16:53:28 by Eclipse SUMO sumo Version v1_22_0+0292-17b1f1fe432
+<!-- generated on 2026-04-20T21:50:54.452402+01:00 by Eclipse SUMO sumo v1_26_0+1298-78b4792f1d4
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,11 @@
         <stop-output value="stops.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
@@ -24,7 +29,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="48397"/>
+        <remote-port value="35117"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -42,7 +47,7 @@
             <route replacedOnEdge="A0A1" reason="taxi:prepare_dispatch" replacedAtTime="3.00" probability="0" edges="A0A1 A1B1 B1B2 B2C2 C2D2 D2D3 D3C3 C3C2 C2C1 C1D1"/>
             <route edges="A0A1"/>
         </routeDistribution>
-        <stop lane="A0A1_0" actType="idling"/>
+        <stop lane="A0A1_0" endPos="20.03" triggered="person" parking="1" actType="idling"/>
     </vehicle>
 
 </routes>

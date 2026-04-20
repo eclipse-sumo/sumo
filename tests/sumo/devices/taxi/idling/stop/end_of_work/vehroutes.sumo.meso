@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:28:19.032053+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-04-20T21:51:09.597520+01:00 by Eclipse SUMO sumo v1_26_0+1298-78b4792f1d4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <vehicle id="trip_0" type="taxi" depart="0.00" arrival="157.00">
         <route edges="A0B0 B0C0"/>
-        <stop edge="A0B0" actType="idling"/>
+        <stop edge="A0B0" endPos="95.97" triggered="person" parking="1" actType="idling"/>
     </vehicle>
 
     <vehicle id="trip_1" type="taxi" depart="0.00" arrival="508.00">
