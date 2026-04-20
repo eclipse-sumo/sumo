@@ -57,7 +57,7 @@ std::vector<MSRoutingEngine::TimeAndCount> MSRoutingEngine::myEdgeTravelTimes;
 std::vector<std::vector<double> > MSRoutingEngine::myPastEdgeSpeeds;
 std::vector<std::vector<double> > MSRoutingEngine::myPastEdgeBikeSpeeds;
 Command* MSRoutingEngine::myEdgeWeightSettingCommand = nullptr;
-double MSRoutingEngine::myAdaptationWeight;
+double MSRoutingEngine::myAdaptationWeight(0);
 int MSRoutingEngine::myAdaptationSteps;
 int MSRoutingEngine::myAdaptationStepsIndex = 0;
 SUMOTime MSRoutingEngine::myAdaptationInterval = -1;
@@ -85,9 +85,6 @@ void
 MSRoutingEngine::initWeightUpdate() {
     if (myAdaptationInterval == -1) {
         myEdgeWeightSettingCommand = nullptr;
-        myEdgeSpeeds.clear();
-        myEdgeTravelTimes.clear();
-        myAdaptationSteps = -1;
         myLastAdaptation = -1;
         const OptionsCont& oc = OptionsCont::getOptions();
         myWithTaz = oc.getBool("device.rerouting.with-taz");
@@ -107,6 +104,10 @@ MSRoutingEngine::initWeightUpdate() {
 
 void
 MSRoutingEngine::initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption, int index) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (myAdaptationWeight == 0 || !oc.isDefault("device.rerouting.adaptation-steps")) {
+        myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
+    }
     if (myBikeSpeeds && svc == SVC_BICYCLE) {
         _initEdgeWeights(myEdgeBikeSpeeds, myPastEdgeBikeSpeeds);
     } else {
@@ -150,9 +151,6 @@ void
 MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds) {
     if (edgeSpeeds.empty()) {
         const OptionsCont& oc = OptionsCont::getOptions();
-        if (myAdaptationWeight == 0 || !oc.isDefault("device.rerouting.adaptation-steps")) {
-            myAdaptationSteps = oc.getInt("device.rerouting.adaptation-steps");
-        }
         const bool useLoaded = oc.getBool("device.rerouting.init-with-loaded-weights");
         const double currentSecond = SIMTIME;
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
