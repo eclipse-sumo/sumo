@@ -1367,7 +1367,9 @@ MSBaseVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& error
     // patch via edges
     std::string newStopEdgeID = parkingArea->getLane().getEdge().getID();
     if (myParameter->via.size() > 0 && myParameter->via.front() != newStopEdgeID) {
-        myParameter->via.erase(myParameter->via.begin());
+        if (myParameter->via.front() == oldStopEdgeID) {
+            myParameter->via.erase(myParameter->via.begin());
+        }
         myParameter->via.insert(myParameter->via.begin(), newStopEdgeID);
     }
     return true;
