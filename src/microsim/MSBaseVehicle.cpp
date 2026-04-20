@@ -409,7 +409,8 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         }
 #endif
         if (into.size() > 0) {
-            while (stopIt != myStops.end() && stopIt->pars.edge != stopEdge->getID()) {
+            // stopIt->edge may be invalid when trying to reroute for novel stops
+            while (stopIt != myStops.end() && stopIt->lane->getNextNormal()->getID() != stopEdge->getID()) {
                 stopIt++;
             }
 
