@@ -49,3 +49,11 @@ TWLT_insertion
 
 # simulated shared median lane for turning (Two-Way-Left-Turn-lane)
 TWLT_insertion2
+
+# successive vehicles driving on the shared median lane to overtake a stopped vehicle
+# 
+TWLT_overtaking
+
+# successive vehicles driving on the shared median lane to overtake multiple vehicles
+# 
+TWLT_overtaking2

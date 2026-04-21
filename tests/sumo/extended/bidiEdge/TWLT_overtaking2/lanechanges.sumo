@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-21T09:29:09.291158+01:00 by Eclipse SUMO sumo v1_26_0+1303-a2d1750f3ba
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <collision.action value="warn"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<lanechanges>
+    <change id="v.0" type="DEFAULT_VEHTYPE" time="9.00" from="E1_0" to="E1_1" dir="1" speed="3.86" pos="27.08" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.49" origLeaderSecureGap="0.50" origLeaderSpeed="0.26"/>
+    <change id="v.1" type="DEFAULT_VEHTYPE" time="11.00" from="E1_0" to="E1_1" dir="1" speed="4.18" pos="27.39" reason="strategic|urgent" leaderGap="7.14" leaderSecureGap="0.00" leaderSpeed="7.29" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.20" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.2" type="DEFAULT_VEHTYPE" time="15.00" from="E1_0" to="E1_1" dir="1" speed="3.70" pos="19.85" reason="speedGain" leaderGap="34.75" leaderSecureGap="0.00" leaderSpeed="11.01" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.21" origLeaderSecureGap="0.55" origLeaderSpeed="0.17"/>
+    <change id="v.3" type="DEFAULT_VEHTYPE" time="18.00" from="E1_0" to="E1_1" dir="1" speed="0.23" pos="20.46" reason="speedGain" leaderGap="18.20" leaderSecureGap="0.00" leaderSpeed="9.93" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.64" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.4" type="DEFAULT_VEHTYPE" time="21.00" from="E1_0" to="E1_1" dir="1" speed="0.21" pos="20.50" reason="speedGain" leaderGap="7.50" leaderSecureGap="0.00" leaderSpeed="6.55" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.59" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.5" type="DEFAULT_VEHTYPE" time="24.00" from="E1_0" to="E1_1" dir="1" speed="0.36" pos="20.54" reason="speedGain" leaderGap="6.84" leaderSecureGap="0.00" leaderSpeed="5.49" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.55" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.6" type="DEFAULT_VEHTYPE" time="26.00" from="E1_0" to="E1_1" dir="1" speed="2.33" pos="19.88" reason="speedGain" leaderGap="3.32" leaderSecureGap="0.00" leaderSpeed="5.02" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.21" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.8" type="DEFAULT_VEHTYPE" time="29.00" from="E1_0" to="E1_1" dir="1" speed="3.46" pos="10.09" reason="speedGain" leaderGap="12.48" leaderSecureGap="0.00" leaderSpeed="4.25" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="5.26" origLeaderSecureGap="0.00" origLeaderSpeed="1.58"/>
+    <change id="v.7" type="DEFAULT_VEHTYPE" time="32.00" from="E1_0" to="E1_1" dir="1" speed="0.01" pos="20.58" reason="speedGain" leaderGap="6.16" leaderSecureGap="0.00" leaderSpeed="9.03" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.51" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.9" type="DEFAULT_VEHTYPE" time="35.00" from="E1_0" to="E1_1" dir="1" speed="0.65" pos="19.95" reason="speedGain" leaderGap="7.63" leaderSecureGap="0.00" leaderSpeed="6.15" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.14" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.10" type="DEFAULT_VEHTYPE" time="39.00" from="E1_0" to="E1_1" dir="1" speed="2.02" pos="20.33" reason="speedGain" leaderGap="18.23" leaderSecureGap="0.00" leaderSpeed="9.10" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.76" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.11" type="DEFAULT_VEHTYPE" time="41.00" from="E1_0" to="E1_1" dir="1" speed="2.57" pos="19.38" reason="speedGain" leaderGap="5.90" leaderSecureGap="0.00" leaderSpeed="6.09" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.71" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.12" type="DEFAULT_VEHTYPE" time="44.00" from="E1_0" to="E1_1" dir="1" speed="0.36" pos="20.52" reason="speedGain" leaderGap="13.14" leaderSecureGap="0.00" leaderSpeed="8.47" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.58" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.13" type="DEFAULT_VEHTYPE" time="46.00" from="E1_0" to="E1_1" dir="1" speed="2.11" pos="19.52" reason="speedGain" leaderGap="3.68" leaderSecureGap="0.00" leaderSpeed="5.14" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.57" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.14" type="DEFAULT_VEHTYPE" time="49.00" from="E1_0" to="E1_1" dir="1" speed="0.29" pos="20.48" reason="speedGain" leaderGap="4.16" leaderSecureGap="0.00" leaderSpeed="5.78" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.61" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.15" type="DEFAULT_VEHTYPE" time="52.00" from="E1_0" to="E1_1" dir="1" speed="0.70" pos="19.99" reason="speedGain" leaderGap="7.93" leaderSecureGap="0.00" leaderSpeed="6.34" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.10" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.16" type="DEFAULT_VEHTYPE" time="55.00" from="E1_0" to="E1_1" dir="1" speed="0.27" pos="20.56" reason="speedGain" leaderGap="9.22" leaderSecureGap="0.00" leaderSpeed="6.52" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.53" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.17" type="DEFAULT_VEHTYPE" time="58.00" from="E1_0" to="E1_1" dir="1" speed="0.78" pos="20.31" reason="speedGain" leaderGap="4.75" leaderSecureGap="0.00" leaderSpeed="4.79" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.78" origLeaderSecureGap="0.02" origLeaderSpeed="0.00"/>
+    <change id="v.18" type="DEFAULT_VEHTYPE" time="61.00" from="E1_0" to="E1_1" dir="1" speed="0.86" pos="20.30" reason="speedGain" leaderGap="7.33" leaderSecureGap="0.00" leaderSpeed="6.01" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.80" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+    <change id="v.19" type="DEFAULT_VEHTYPE" time="64.00" from="E1_0" to="E1_1" dir="1" speed="0.76" pos="20.41" reason="speedGain" leaderGap="9.59" leaderSecureGap="0.00" leaderSpeed="6.92" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.69" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
+</lanechanges>
