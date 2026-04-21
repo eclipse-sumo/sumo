@@ -128,6 +128,13 @@ void
 MSStop::write(OutputDevice& dev) const {
     SUMOVehicleParameter::Stop tmp = pars;
     tmp.duration = duration;
+    if (!triggered && !containerTriggered) {
+        // we are writing in the context of saveState. All required
+        // transportables have entered and we must prevent the trigger condition
+        // to be renewed on loading
+        tmp.triggered = false;
+        tmp.containerTriggered = false;
+    }
     tmp.write(dev, false);
     // if the stop has already started but hasn't ended yet we are writing it in
     // the context of saveState (but we do not want to write the attribute twice
