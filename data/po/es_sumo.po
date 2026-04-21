@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-20 14:06+0000\n"
+"PO-Revision-Date: 2026-04-21 07:15+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7568,6 +7568,8 @@ msgid ""
 "At uncontrolled nodes, do not build crossings across edges with a speed "
 "above the threshold"
 msgstr ""
+"En nodos no controlados, no crear pasos peatonales sobre aristas con "
+"velocidad superior al umbral"
 
 #: src/netbuild/NBFrame.cpp:514
 msgid "Give priority to guessed crossings at roundabouts"
@@ -7632,6 +7634,9 @@ msgid ""
 "Do not control edges that lie fully within a joined traffic light. This may "
 "cause collisions but allows old traffic light plans to be used"
 msgstr ""
+"No controlar las aristas que estén completamente dentro de un semáforo "
+"combinado. Esto puede causar colisiones, pero permite usar planes de "
+"semáforos antiguos"
 
 #: src/netbuild/NBFrame.cpp:567
 msgid ""
@@ -7694,12 +7699,17 @@ msgid ""
 "Use FLOAT as threshold for allowing left-turning vehicles to move in the "
 "same phase as oncoming straight-going vehicles"
 msgstr ""
+"Usar FLOAT como umbral para permitir que vehículos que giran a la izquierda "
+"se muevan en la misma fase que los vehículos que avanzan en sentido contrario"
 
 #: src/netbuild/NBFrame.cpp:611
 msgid ""
 "Use INT as green phase duration for left turns (s). Setting this value to 0 "
 "disables additional left-turning phases"
 msgstr ""
+"Usar INT como duración de la fase verde para giros a la izquierda (s). "
+"Establecer este valor en 0 desactiva las fases adicionales de giro a la "
+"izquierda"
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
@@ -7709,19 +7719,24 @@ msgstr ""
 msgid ""
 "Set INT as fixed time for intermediate NEMA yellow phase after every switch"
 msgstr ""
+"Establecer INT como tiempo fijo para la fase amarilla intermedia NEMA "
+"después de cada cambio"
 
 #: src/netbuild/NBFrame.cpp:620
 msgid ""
 "Set INT as fixed time for intermediate NEMA red phase after every switch"
 msgstr ""
+"Establecer INT como tiempo fijo para la fase roja intermedia NEMA después de "
+"cada cambio"
 
 #: src/netbuild/NBFrame.cpp:623
 msgid "Use INT as minimum green duration for pedestrian crossings (s)."
 msgstr ""
+"Usar INT como duración mínima de fase verde en los pasos peatonales (s)."
 
 #: src/netbuild/NBFrame.cpp:626
 msgid "Use INT as clearance time for pedestrian crossings (s)."
-msgstr ""
+msgstr "Usar INT como tiempo de despeje para pasos peatonales (s)."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
@@ -7729,11 +7744,11 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
-msgstr ""
+msgstr "Los semáforos en STR[] se desplazarán media fase"
 
 #: src/netbuild/NBFrame.cpp:638
 msgid "TLSs in STR[] will be shifted by quarter-phase"
-msgstr ""
+msgstr "Los semáforos en STR[] se desplazarán un cuarto de fase"
 
 #: src/netbuild/NBFrame.cpp:642
 msgid "TLSs with unspecified type will use STR as their algorithm"
