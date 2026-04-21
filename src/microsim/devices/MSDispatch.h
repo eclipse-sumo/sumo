@@ -74,7 +74,7 @@ struct Reservation {
     {}
 
     std::string id;
-    std::set<const MSTransportable*> persons;
+    std::set<const MSTransportable*, ComparatorNumericalIdLess> persons;
     SUMOTime reservationTime;
     SUMOTime pickupTime;
     SUMOTime earliestPickupTime;

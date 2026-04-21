@@ -109,7 +109,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
                     WRITE_WARNINGF("Aborting reservation for customers '%' to '%' after waiting time % because no taxi can reach the dropoff location, time=%.",
                                    toString(res->persons), res->from->getID(), time2string(resWait), time2string(SIMSTEP));
                 }
-                std::set<const MSTransportable*> persons = res->persons;
+                std::set<const MSTransportable*, ComparatorNumericalIdLess> persons = res->persons;
                 for (const MSTransportable* p : persons) {
                     removeReservation(const_cast<MSTransportable*>(p), res->from, res->fromPos, res->to, res->toPos, res->group);
                 }
