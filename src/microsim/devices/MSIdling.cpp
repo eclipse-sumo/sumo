@@ -95,14 +95,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
                 stop.startPos += POSITION_EPS;
                 stop.endPos += POSITION_EPS;
             }
-            if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
-                stop.containerTriggered = true;
-            } else {
-                stop.triggered = true;
-            }
             stop.actType = "idling";
-            stop.parking = ParkingType::OFFROAD;
-            stop.parametersSet |= STOP_TRIGGER_SET | STOP_PARKING_SET | STOP_END_SET;
             taxi->getHolder().addTraciStop(stop, errorOut);
             if (errorOut != "") {
                 WRITE_WARNING(errorOut);
@@ -111,17 +104,24 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             WRITE_WARNINGF(TL("Idle taxi '%' could not stop within %m"), taxi->getHolder().getID(), toString(brakeGap));
         }
     } else {
-        MSStop& stop = taxi->getHolder().getNextStopMutable();
 #ifdef DEBUG_IDLING
         if (DEBUG_COND(taxi)) {
-            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop reusing stop with duration " << time2string(stop.duration) << "\n";
+            std::cout << SIMTIME << " taxi=" << taxi->getHolder().getID() << " MSIdling_Stop reusing stop with duration " << time2string(taxi->getHolder().getNextStop().duration) << "\n";
         }
 #endif
+    }
+    if (taxi->getHolder().hasStops()) {
+        MSStop& stop = taxi->getHolder().getNextStopMutable();
+        SUMOVehicleParameter::Stop& pars = const_cast<SUMOVehicleParameter::Stop&>(stop.pars);
         if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
             stop.containerTriggered = true;
+            pars.containerTriggered = true;
         } else {
             stop.triggered = true;
+            pars.triggered = true;
         }
+        pars.parametersSet |= STOP_TRIGGER_SET | STOP_PARKING_SET | STOP_END_SET;
+        pars.parking = ParkingType::OFFROAD;
     }
 }
 
