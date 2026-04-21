@@ -7863,6 +7863,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
         myStops.front().startedFromState = true;
+        myLane = const_cast<MSLane*>(myStops.front().lane);
         myStopDist = 0;
         processNextStop(getSpeed());
         if (myStops.front().pars.parking != ParkingType::ONROAD) {
