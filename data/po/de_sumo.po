@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-10 20:34+0000\n"
+"PO-Revision-Date: 2026-04-21 17:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7735,58 +7735,75 @@ msgid ""
 "Do not control edges that lie fully within a joined traffic light. This may "
 "cause collisions but allows old traffic light plans to be used"
 msgstr ""
+"Steuere keine vollständig innerhalb einer vereinigten LSA liegenden Kanten. "
+"Dies kann zu Kollisionen führen, erlaubt aber, alte Signalprogramme weiter "
+"zu nutzen"
 
 #: src/netbuild/NBFrame.cpp:567
 msgid ""
 "Do not build mutually conflicting response matrix, potentially ignoring "
 "vehicles that are stuck at an internal junction when their phase has ended"
 msgstr ""
+"Erstelle keine Reaktionsmatrix mit gegenseitigen Konflikten und ignoriere "
+"Fahrzeuge, die nach dem Ende ihrer Phase potentiell an einem internen Knoten "
+"steckenbleiben"
 
 #: src/netbuild/NBFrame.cpp:571
 msgid ""
 "Interprets tls nodes surrounding an intersection as signal positions for a "
 "larger TLS. This is typical pattern for OSM-derived networks"
 msgstr ""
+"Betrachtet einen Knotenpunkt umgebende LSA-Knoten als Signale einer "
+"gemeinsamen größeren LSA. Dieses Muster findet sich typischerweise in aus "
+"OSM abgeleiteten Netzen"
 
 #: src/netbuild/NBFrame.cpp:574
 msgid "Distance for interpreting nodes as signal locations"
-msgstr ""
+msgstr "Abstand um Knoten als Signalpositionen zu betrachten"
 
 #: src/netbuild/NBFrame.cpp:577
 msgid ""
 "Number of uncontrolled entry edges to accept and still consider the central "
 "node as a traffic light"
 msgstr ""
+"Maximale akzeptierte Anzahl unkontrollierter Zufahrtskanten, um den "
+"zentralen Knotenpunkt als LSA zu betreiben"
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
-msgstr ""
+msgstr "INT als Umlaufzeit verwenden"
 
 #: src/netbuild/NBFrame.cpp:587
 msgid "Use INT as green phase duration"
-msgstr ""
+msgstr "INT als Freigabezeit verwenden"
 
 #: src/netbuild/NBFrame.cpp:591
 msgid "Defines smallest vehicle deceleration"
-msgstr ""
+msgstr "Definiert die niedrigste Verzögerung eines Fahrzeugs"
 
 #: src/netbuild/NBFrame.cpp:595
 msgid "Given yellow times are patched even if being too short"
 msgstr ""
+"Gegebene Übergangszeiten (Gelb) werden überschrieben (auch wenn sie zu kurz "
+"sind)"
 
 #: src/netbuild/NBFrame.cpp:599
 msgid "Set INT as fixed time for yellow phase durations"
-msgstr ""
+msgstr "INT als feste Dauer für Übergangszeiten (Gelb) verwenden"
 
 #: src/netbuild/NBFrame.cpp:602
 msgid ""
 "Set INT as fixed time for red phase duration at traffic lights that do not "
 "have a conflicting flow"
 msgstr ""
+"INT als feste Dauer für Sperrzeiten (Rot) für LSA ohne in Konflikt stehende "
+"Ströme verwenden"
 
 #: src/netbuild/NBFrame.cpp:605
 msgid "Set INT as fixed time for intermediate red phase after every switch"
 msgstr ""
+"INT als feste Dauer für Sperrzeiten (Rot) zwischen jeglichem Phasenwechsel "
+"verwenden"
 
 #: src/netbuild/NBFrame.cpp:608
 msgid ""
