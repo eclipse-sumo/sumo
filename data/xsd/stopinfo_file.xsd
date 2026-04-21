@@ -39,6 +39,7 @@
             <xsd:attribute name="usedEnded" use="optional" type="boolType"/>
             <xsd:attribute name="blockedDuration" use="optional" type="timeType"/>
             <xsd:attribute name="state" use="optional" type="xsd:string"/>
+            <xsd:attribute name="actType" use="optional" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
