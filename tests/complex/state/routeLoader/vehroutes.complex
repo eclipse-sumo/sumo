@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-21T23:04:16.289504+01:00 by Eclipse SUMO sumo v1_26_0+1314-84f38512d9a
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="400"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" arrival="25.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="a" depart="100.00" arrival="128.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="1" depart="110.00" arrival="136.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="b" depart="390.00" arrival="414.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="2" depart="410.00" arrival="435.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="3" depart="600.00" arrival="631.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+</routes>
