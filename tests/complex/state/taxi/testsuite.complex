@@ -10,6 +10,9 @@ t40b
 # persons may share a ride
 t40b_grouped
 
+# save state at time 60
+t60_grouped
+
 # save state at time 100
 t100
 

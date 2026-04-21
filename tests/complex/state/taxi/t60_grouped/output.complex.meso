@@ -1,0 +1,69 @@
+Loading net-file from 'net.net.xml' ... done (5ms).
+Loading route-files incrementally from 'input_routes.rou.xml'
+Loading route-files incrementally from 'input_routes2.rou.xml'
+Loading done.
+Simulation version v1_26_0+1170-2a718fd95d8 started with time: 0.00.
+Simulation ended at time: 936.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.01s
+ Real time factor: 93600
+ UPS: 187200.000000
+ UPS-Persons: 416200.000000
+Vehicles:
+ Inserted: 2
+ Running: 2
+ Waiting: 0
+Persons:
+ Inserted: 10
+ Running: 0
+Statistics (avg of 2):
+ RouteLength: 7419.51
+ Speed: 7.93
+ Duration: 936.00
+ WaitingTime: 0.00
+ TimeLoss: 113.00
+ DepartDelay: 0.00
+ DepartDelayWaiting: 0.00
+Ride Statistics (avg of 10 rides):
+ WaitingTime: 355.70
+ RouteLength: 1494.08
+ Duration: 60.50
+ Taxi: 10
+DijkstraRouter answered 46 queries and explored 25.74 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Loading net-file from 'net.net.xml' ... done (5ms).
+Loading state from 'state.xml' ... done (15ms).
+Loading done.
+Simulation version v1_26_0+1170-2a718fd95d8 started with time: 40.00.
+Simulation ended at time: 936.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.03s
+ Real time factor: 27151.5
+ UPS: 54303.030303
+ UPS-Persons: 123090.909091
+Vehicles:
+ Inserted: 2
+ Running: 2
+ Waiting: 0
+Persons:
+ Inserted: 0 (Loaded: 10)
+ Running: 0
+Statistics (avg of 2):
+ RouteLength: 7419.51
+ Speed: 7.93
+ Duration: 936.00
+ WaitingTime: 0.00
+ TimeLoss: 90.00
+ DepartDelay: 0.00
+ DepartDelayWaiting: 0.00
+Ride Statistics (avg of 10 rides):
+ WaitingTime: 355.70
+ RouteLength: 1494.08
+ Duration: 60.50
+ Taxi: 10
+DijkstraRouter answered 38 queries and explored 27.26 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+<     <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="936.00" routeLength="7856.83" waitingTime="0.00" waitingCount="0" stopTime="306.00" timeLoss="166.00" rerouteNo="11" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
+>     <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="936.00" routeLength="7856.83" waitingTime="0.00" waitingCount="0" stopTime="306.00" timeLoss="120.00" rerouteNo="11" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">

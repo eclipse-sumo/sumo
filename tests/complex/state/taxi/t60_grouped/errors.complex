@@ -1,0 +1,10 @@
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.
+Warning: Vehicle 'trip_1' aborted waiting for a person that will never come.
+Warning: Teleporting vehicle 'trip_1'; waited too long (yield), lane='B1C1_1', time=361.00.
+Warning: Vehicle 'trip_1' skips stop on lane 'C1C2_1' time=368.00.
+Warning: Vehicle 'trip_1' ends teleporting on edge 'C2B2', time=369.00.
+Warning: Person 'p1.0' aborted waiting for taxi at edge 'C1C2'.
+Warning: Person 'p1.1' aborted waiting for taxi at edge 'C1C2'.
+Warning: Person 'p1.2' aborted waiting for taxi at edge 'C1C2'.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.
+Warning: All customers left vehicle 'trip_0' at time=525.00 but there are 1 remaining stops

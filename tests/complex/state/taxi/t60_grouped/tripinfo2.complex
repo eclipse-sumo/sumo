@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-21T16:56:46.474123+01:00 by Eclipse SUMO sumo v1_26_0+1306-105ed05321f
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <output-suffix value="2"/>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm.output value="dispatchinfos.xml"/>
+    </taxi_device>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="13.46" departDelay="0.00" arrival="524.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="1.39" duration="524.00" routeLength="1849.26" waitingTime="304.00" waitingCount="2" stopTime="60.00" timeLoss="316.34" rerouteNo="3" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+    <personinfo id="p1.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p1.1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p1.2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p0.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="trip_0" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="0.04" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p0.1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="trip_0" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="0.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="p0.2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="-1" waitingTime="525.00" timeLoss="-1" traveltime="-1">
+        <ride waitingTime="525.00" vehicle="trip_0" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="0.00" timeLoss="-1"/>
+    </personinfo>
+    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="525.00" routeLength="701.69" waitingTime="0.00" waitingCount="0" stopTime="469.00" timeLoss="3.35" rerouteNo="3" devices="vehroute_trip_0 tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.03" vaporized="end">
+        <taxi customers="3" occupiedDistance="0.04" occupiedTime="469.00"/>
+    </tripinfo>
+</tripinfos>
