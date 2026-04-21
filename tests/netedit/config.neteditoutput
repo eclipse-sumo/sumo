@@ -116,6 +116,9 @@ copy_test_path:input_meandatas_B_xml.netedit
 copy_test_path:input_meandatas_B_xml_gz.netedit
 copy_test_path:input_meandatas_B_txt.netedit
 
+# MISC
+copy_test_path:input_guisettings.xml
+
 [collate_file]
 detector:detector.xml
 detector2:detector2.xml
