@@ -1832,16 +1832,17 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // count (long) busStop as reached when fully within and jammed before the designated spot
                 reachedThreshold = MIN2(reachedThreshold, stop.pars.startPos + getLength());
             }
+            const bool posReached = myState.pos() >= reachedThreshold && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
                 std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " targetPos=" << targetPos << " fits=" << fitsOnStoppingPlace
                           << " reachedThresh=" << reachedThreshold
+                          << " posReached=" << posReached
                           << " myLane=" << Named::getIDSecure(myLane)
                           << " stopLane=" << Named::getIDSecure(stop.lane)
                           << "\n";
             }
 #endif
-            const bool posReached = myState.pos() >= reachedThreshold && currentVelocity <= stop.getSpeed() + SUMO_const_haltingSpeed && myLane == stop.lane;
             if (posReached && !fitsOnStoppingPlace && MSStopOut::active()) {
                 MSStopOut::getInstance()->stopBlocked(this, time);
             }
