@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:25:53.201823+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-04-21T16:39:55.431123+01:00 by Eclipse SUMO sumo v1_26_0+1306-105ed05321f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="46385"/>
+        <remote-port value="35613"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -62,7 +62,7 @@
         <stop lane="B1C1_0" startPos="50.00" endPos="50.00" duration="0.00" triggered="person" parking="1" permitted="c" actType="pickup c (2)"/>
         <stop lane="C1D1_0" startPos="50.00" endPos="50.00" duration="0.00" triggered="person" parking="1" permitted="d" actType="dropOff a (0),dropOff c (2),pickup d (3)"/>
         <stop lane="A1B1_0" startPos="50.00" endPos="50.00" duration="0.00" triggered="person" parking="1" permitted="b" actType="pickup b (1)"/>
-        <stop lane="B1B0_0" startPos="50.00" endPos="50.00" duration="0.00" parking="1" actType="dropOff d (3),dropOff b (1)"/>
+        <stop lane="B1B0_0" startPos="50.00" endPos="50.00" duration="0.00" triggered="person" parking="1" actType="dropOff d (3),dropOff b (1)"/>
     </vehicle>
 
 </routes>
