@@ -89,7 +89,8 @@ def get_options(args=None):
                     help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
     ap.add_argument("--remove-detour-factor", default=0, type=float, dest="detourRemoveFactor",
                     help="Disable trips with implausible routes (path distance exceeds airline distance by factor FLOAT)")  # noqa
-
+    ap.add_argument("--use-gtfs-stopids", action="store_true", default=False, category="input", 
+                    help="use stop identifiers from GTFS for readability")
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
                     help="directory to write generated networks to")
@@ -351,7 +352,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
         typedNet = sumolib.net.readNet(typedNetFile)
         seen = set()
         fixed = {}
-        for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name",
+        # Read the extended FCD format that includes the GTFS ID of the stop that the vehicle called in
+        for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name", "gtfsid",
                                                            "fareZone", "fareSymbol", "startFare")):
             stopName = veh.attr_name
             childs = []
@@ -393,13 +395,17 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                 routes[rid] = routeFixed
                 fixed[rid] = [edgeMap[e] for e in routeFixed]
             route = fixed[rid]
-            if mode == "bus":
+            if mode in ("bus", "trolleybus"):
                 stopLength = options.bus_stop_length
             elif mode == "tram":
                 stopLength = options.tram_stop_length
             else:
                 stopLength = options.train_stop_length
-            stop = "%s.%s" % (rid, stopIndex)
+            if options.use_gtfs_stopids:
+                stop = "gtfs_%s" % veh.gtfsid
+            else:
+                # This is the original
+                stop = "%s.%s" % (rid, stopIndex)
             if stop in fixedStops:
                 s = fixedStops[stop]
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
@@ -444,7 +450,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             lastIndex = route.index(edgeID, lastIndex)
             lastPos = end
             keep = True
-            typ = "busStop" if mode == "bus" else "trainStop"
+            typ = "busStop" if mode in ("bus", "trolleybus") else "trainStop"
             for stopItem in stopDesc[laneID]:
                 otherStop, otherStart, otherEnd = stopItem[1:4]
                 if start < otherEnd <= end or otherStart < end <= otherEnd:  # stops overlap

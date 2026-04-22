@@ -1,0 +1,1 @@
+-n net.net.xml --gtfs gtfs.zip --date 20230701 --modes trolleybus --vtype-output pt_vtypes.xml --warning-output gtfs_warnings.txt --additional-output gtfs_pt_stops.add.xml --route-output gtfs_pt_vehicles.rou.xml --use-gtfs-stopids tools/import/gtfs/gtfs2pt.py

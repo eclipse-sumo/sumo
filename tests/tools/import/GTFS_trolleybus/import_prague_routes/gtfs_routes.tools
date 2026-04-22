@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-22 16:18:14.932296 by Eclipse SUMO gtfs2pt.py v1_26_0+1322-eb915880aa3
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20230701"/>
+    <modes value="trolleybus"/>
+    <vtype-output value="pt_vtypes.xml"/>
+    <network value="net.net.xml"/>
+    <route-output value="gtfs_pt_vehicles.rou.xml"/>
+    <additional-output value="gtfs_pt_stops.add.xml"/>
+    <use-gtfs-stopids value="True"/>
+    <warning-output value="gtfs_warnings.txt"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="58_195_230617" edges="16941319.29 16941319.95 129089904#0 129089904#1 922940807 E24 E117 922940806#0.35 133140157 -E33 -E33.109 -E33.155 -135738851 -135738860 -135738850 -135738850.134 -135738858 -135738858.59 -135738858.97 -135738858.132 -135738858.161 -78898222#1 -78898222#0 -78898222#0.127 -531488940 -531488940.57 -126134871 -126134871.151 -194101579 E54 E53 E490 -593546513 -531490211#1 -531490211#1.112 E50 E50.105 E50.105.80 E50.199 E50.268 E50.284 E59 217850419 945418667 595866513#0 595866513#0.19 595866513#0.84 595866513#1 4558722#0 4558722#1 4558722#2 4558722#3 593758916#0 593758916#0.46 593758916#0.93 593758916#2 593758916#3 16497962#1 16497962#4 598209323 598209323.10 598209323.72 23231264#1 764152779 -160567763#6 -160567763#60 -160567763#5 -160567763#3 -160567763#0 -285128430#3 -285128430#2 -285128430#1 -285128430#0 -160576510#1 -15804538 -4558735#1 -4558735#0 -345276763#4 -345276763#3 -345276763#2 -345276763#1 -345276763#1.4 -345276763#1.30 4558750#1">
+        <stop busStop="gtfs_U1000Z12P" duration="10" until="0"/> <!-- Letňany -->
+        <stop busStop="gtfs_U405Z1P" duration="10" until="60"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U89Z1P" duration="10" until="120"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U771Z1P" duration="10" until="180"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U125Z1P" duration="10" until="300"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U766Z1P" duration="10" until="420"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U368Z1P" duration="10" until="480"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U451Z1P" duration="10" until="540"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U63Z1P" duration="10" until="600"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U3212Z1P" duration="10" until="660"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U248Z1P" duration="10" until="720"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U934Z1P" duration="10" until="780"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U64Z1P" duration="10" until="900"/> <!-- Čakovice -->
+    </route>
+    <route id="58_196_230617" edges="-23230098#1 -23230098#0 -128359784#3 -128359784#2 -128359784#1 -128359784#0 -15676601#1 -15676601#0 4558735#0 4558735#1 15804538 160576510#1 285128430#0 285128430#1 285128430#2 285128430#3 160567763#0 160567763#3 160567763#5 160567763#6 160567763#6.39 764152778#0 764152778#1 -598209323 -598209323.55 -598209323.108 -16497962#4 -16497962#1 -593758916#3 -593758916#2 -593758916#0 -593758916#0.34 -4558722#3 -4558722#2 -4558722#1 -4558722#0 -4558722#0.29 -595866513#1 -595866513#1.57 -595866513#0 -945418667 217850415 217850417#0 217850417#1 4558721 E60 E51 E51.210 E51.221 E51.291 E51.291.52 E51.291.109 E51.471 E51.537 E51.671 -E49 E56 E55 1941015790 126134871 1261348710 1261348710.151 531488940 531488940.39 531488936 78898222#1 135738855 135738855.61 135738855.61.37 135738855.61.86 586426037 586426037.144 135738860 135738851 E33 922940812 922940812.47 19848860#1 19848860#1.12 19848860#1.90 19848860#3 887612167 887612166 131765099#0 129089902#1 129089902#1.13 602745208 E17 E18 E18.16 217850408#2 831396387#1 217859793 217859795 217859788 217859788.10 217859790 217859792 E12 979871680 688705420 688705422#0 12353018#0 12353018#0.11 12353018#0.66 143952408#1 143952408#2 143952408#3 143952408#4 143952408#5 143952408#5.50 143952408#5.98 143952408#6 979871685#0 13130848#1 13130848#1.44 573981209#0 4079615#1 -623095584 -433791466#0 -16237250#1 -16237250#0 -16237230#7 -16237230#6 -16237230#5 -16237230#4 -16237230#3 -16237230#2 -16237230#1 -1005511830#1 -1005511830#0 623095590#1 623095596 50108252#2 265286994#1 -265286994#1 -50108252#2 623095585 623095592#0 623095588#1 623095586 E101 31728010#0 31728010#1 31728010#3 532082996 E104 E105 E1050 532082994 278474626#0 278474626#1 879373543 879373550 -E108 879373544#1 757443947 757443940 757443941#0 4261229#1 4261229#1.11 85354321#0 22897456 479544432 23018440 39507073 -1085270992 -12215203#1 -E110 -5097704#1 -407662687#1">
+        <stop busStop="gtfs_U64Z16P" duration="10" until="0"/> <!-- Čakovice -->
+        <stop busStop="gtfs_U934Z2P" duration="10" until="60"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U248Z2P" duration="10" until="120"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U3212Z2P" duration="10" until="120"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U63Z2P" duration="10" until="180"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U451Z2P" duration="10" until="240"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U368Z2P" duration="10" until="360"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U766Z2P" duration="10" until="420"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U125Z2P" duration="10" until="480"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U771Z2P" duration="10" until="600"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U89Z2P" duration="10" until="660"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U405Z2P" duration="10" until="720"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U1000Z3P" duration="10" until="780"/> <!-- Letňany -->
+        <stop busStop="gtfs_U606Z2P" duration="10" until="900"/> <!-- Letňanská -->
+        <stop busStop="gtfs_U500Z2P" duration="10" until="960"/> <!-- Nový Prosek -->
+        <stop busStop="gtfs_U603Z2P" duration="10" until="1020"/> <!-- Prosek -->
+        <stop busStop="gtfs_U754Z2P" duration="10" until="1080"/> <!-- Prosecká -->
+        <stop busStop="gtfs_U251Z2P" duration="10" until="1140"/> <!-- Kelerka -->
+        <stop busStop="gtfs_U1413Z2P" duration="10" until="1260"/> <!-- Kundratka -->
+        <stop busStop="gtfs_U529Z5P" duration="10" until="1440"/> <!-- Palmovka -->
+    </route>
+    <route id="58_197_230617" edges="-1141911310 -819110609#3 -819110609#2 -819110609#1 -819110609#0 E130 -145397815#2 -E134 E136 E137 E137.19 545025877 407708584#1.8 -118387904 545095547 345710026 -757443950 E111 757443948#0 757443948#0.49 -879373544#1 -879373544#1.20 E108 E108.13 -879373550 -879373543 -278474626#1 -278474626#0 -532082994 -E105 -E105.56 -E104 -E104.58 E113 -1005511828.21 -31728010#1 -31728010#0 -E101 12353015#2 623095587#0 623095590#1 623095596 623095602 218339204#1 218339204#1.50 218339204#1.85 979871686#1 979871686#1.74 979871686#1.154 979871686#1.170 979871686#1.232 13130850#2 13130850#3 13130850#4 13130850#5 979871687#0 979871687#0.45 688705423#1 143952410#0 688705424 4048667 831396388#0 -217850408#2 E19 E20 -E17 16941319.8 16941319.29 16941319.95 129089904#0 129089904#1 922940807 E24 E117 922940806#0.35 133140157 -E33 -E33.109 -E33.155 -135738851 -135738860 -135738850 -135738850.134 -135738858 -135738858.59 -135738858.97 -135738858.132 -135738858.161 -78898222#1 -78898222#0 -78898222#0.127 -531488940 -531488940.57 -126134871 -126134871.151 -194101579 E54 E53 E490 -593546513 -531490211#1 -531490211#1.112 E50 E50.105 E50.105.80 E50.199 E50.268 E50.284 E59 217850419 945418667 595866513#0 595866513#0.19 595866513#0.84 595866513#1 4558722#0 4558722#1 4558722#2 4558722#3 593758916#0 593758916#0.46 593758916#0.93 593758916#2 593758916#3 16497962#1 16497962#4 598209323 598209323.10 598209323.72 23231264#1 764152779 -160567763#6 -160567763#60 -160567763#5 -160567763#3 -160567763#0 -285128430#3 -285128430#2 -285128430#1 -285128430#0 -160576510#1 -15804538 -4558735#1 -4558735#0 -345276763#4 -345276763#3 -345276763#2 -345276763#1 -345276763#1.4 -345276763#1.30 -345276763#0 -345276764 -165488341#2 -165488341#1 -165488341#0 -345558719#5 -345558719#4 -345558719#3 -345558719#1 -593758919#1 -345558714#0">
+        <stop busStop="gtfs_U529Z4P" duration="10" until="0"/> <!-- Palmovka -->
+        <stop busStop="gtfs_U471Z2P" duration="10" until="60"/> <!-- Libeňský zámek -->
+        <stop busStop="gtfs_U1413Z1P" duration="10" until="180"/> <!-- Kundratka -->
+        <stop busStop="gtfs_U251Z1P" duration="10" until="300"/> <!-- Kelerka -->
+        <stop busStop="gtfs_U754Z1P" duration="10" until="360"/> <!-- Prosecká -->
+        <stop busStop="gtfs_U603Z1P" duration="10" until="420"/> <!-- Prosek -->
+        <stop busStop="gtfs_U500Z1P" duration="10" until="480"/> <!-- Nový Prosek -->
+        <stop busStop="gtfs_U606Z1P" duration="10" until="540"/> <!-- Letňanská -->
+        <stop busStop="gtfs_U1000Z12P" duration="10" until="660"/> <!-- Letňany -->
+        <stop busStop="gtfs_U405Z1P" duration="10" until="720"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U89Z1P" duration="10" until="780"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U771Z1P" duration="10" until="840"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U125Z1P" duration="10" until="960"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U766Z1P" duration="10" until="1080"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U368Z1P" duration="10" until="1140"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U451Z1P" duration="10" until="1200"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U63Z1P" duration="10" until="1260"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U3212Z1P" duration="10" until="1320"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U248Z1P" duration="10" until="1380"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U934Z1P" duration="10" until="1440"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U64Z1P" duration="10" until="1500"/> <!-- Čakovice -->
+        <stop busStop="gtfs_U399Z1P" duration="10" until="1620"/> <!-- Radonická -->
+        <stop busStop="gtfs_U384Z1P" duration="10" until="1680"/> <!-- Miškovice -->
+    </route>
+    <route id="58_198_230617" edges="345558719#1 345558719#30 345558719#4 345558719#4.49 345558719#4.103 345558719#5 165488341#0 4558740#3 15804180#1 15804180#2 105620858#1 -23230098#1 -23230098#0 -128359784#3 -128359784#2 -128359784#1 -128359784#0 -15676601#1 -15676601#0 4558735#0 4558735#1 15804538 160576510#1 285128430#0 285128430#1 285128430#2 285128430#3 160567763#0 160567763#3 160567763#5 160567763#6 160567763#6.39 764152778#0 764152778#1 -598209323 -598209323.55 -598209323.108 -16497962#4 -16497962#1 -593758916#3 -593758916#2 -593758916#0 -593758916#0.34 -4558722#3 -4558722#2 -4558722#1 -4558722#0 -4558722#0.29 -595866513#1 -595866513#1.57 -595866513#0 -945418667 217850415 217850417#0 217850417#1 4558721 E60 E51 E51.210 E51.221 E51.291 E51.291.52 E51.291.109 E51.471 E51.537 E51.671 -E49 E56 E55 1941015790 126134871 1261348710 1261348710.151 531488940 531488940.39 531488936 78898222#1 135738855 135738855.61 135738855.61.37 135738855.61.86 586426037 586426037.144 135738860 135738851 E33 922940812 922940812.47 19848860#1 19848860#1.12 19848860#1.90 19848860#3 887612167 887612166 131765099#0 129089902#1 129089902#1.13 602745208 E17 E18 E18.16 217850408#2 831396387#1 217859793 217859795 217859788 217859788.10 217859790 217859792 E12 979871680 688705420 688705422#0 12353018#0 12353018#0.11 12353018#0.66 143952408#1 143952408#2 143952408#3 143952408#4 143952408#5 143952408#5.50 143952408#5.98 143952408#6 979871685#0 13130848#1 13130848#1.44 573981209#0 4079615#1 -623095584 -433791466#0 -16237250#1 -16237250#0 -16237230#7 -16237230#6 -16237230#5 -16237230#4 -16237230#3 -16237230#2 -16237230#1 -1005511830#1 -1005511830#0 623095590#1 623095596 50108252#2 265286994#1 -265286994#1 -50108252#2 623095585 623095592#0 623095588#1 623095586 E101 31728010#0 31728010#1 31728010#3 532082996 E104 E105 E1050 532082994 278474626#0 278474626#1 879373543 879373550 -E108 879373544#1 757443947 757443940 757443941#0 4261229#1 4261229#1.11 85354321#0 22897456 479544432 23018440 39507073 -1085270992 -12215203#1 -E110 -5097704#1 -407662687#1">
+        <stop busStop="gtfs_U384Z2P" duration="10" until="0"/> <!-- Miškovice -->
+        <stop busStop="gtfs_U399Z2P" duration="10" until="60"/> <!-- Radonická -->
+        <stop busStop="gtfs_U64Z16P" duration="10" until="180"/> <!-- Čakovice -->
+        <stop busStop="gtfs_U934Z2P" duration="10" until="240"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U248Z2P" duration="10" until="300"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U3212Z2P" duration="10" until="300"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U63Z2P" duration="10" until="360"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U451Z2P" duration="10" until="420"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U368Z2P" duration="10" until="540"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U766Z2P" duration="10" until="600"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U125Z2P" duration="10" until="660"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U771Z2P" duration="10" until="780"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U89Z2P" duration="10" until="840"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U405Z2P" duration="10" until="900"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U1000Z3P" duration="10" until="960"/> <!-- Letňany -->
+        <stop busStop="gtfs_U606Z2P" duration="10" until="1080"/> <!-- Letňanská -->
+        <stop busStop="gtfs_U500Z2P" duration="10" until="1140"/> <!-- Nový Prosek -->
+        <stop busStop="gtfs_U603Z2P" duration="10" until="1200"/> <!-- Prosek -->
+        <stop busStop="gtfs_U754Z2P" duration="10" until="1260"/> <!-- Prosecká -->
+        <stop busStop="gtfs_U251Z2P" duration="10" until="1320"/> <!-- Kelerka -->
+        <stop busStop="gtfs_U1413Z2P" duration="10" until="1440"/> <!-- Kundratka -->
+        <stop busStop="gtfs_U529Z5P" duration="10" until="1620"/> <!-- Palmovka -->
+    </route>
+    <route id="58_199_230617" edges="-1141911310 -819110609#3 -819110609#2 -819110609#1 -819110609#0 E130 -145397815#2 -E134 E136 E137 E137.19 545025877 407708584#1.8 -118387904 545095547 345710026 -757443950 E111 757443948#0 757443948#0.49 -879373544#1 -879373544#1.20 E108 E108.13 -879373550 -879373543 -278474626#1 -278474626#0 -532082994 -E105 -E105.56 -E104 -E104.58 E113 -1005511828.21 -31728010#1 -31728010#0 -E101 12353015#2 623095587#0 623095590#1 623095596 623095602 218339204#1 218339204#1.50 218339204#1.85 979871686#1 979871686#1.74 979871686#1.154 979871686#1.170 979871686#1.232 13130850#2 13130850#3 13130850#4 13130850#5 979871687#0 979871687#0.45 688705423#1 143952410#0 688705424 4048667 831396388#0 -217850408#2 E19 E20 -E17 16941319.8 16941319.29 16941319.95 129089904#0 129089904#1 922940807 E24 E117 922940806#0.35 133140157 -E33 -E33.109 -E33.155 -135738851 -135738860 -135738850 -135738850.134 -135738858 -135738858.59 -135738858.97 -135738858.132 -135738858.161 -78898222#1 -78898222#0 -78898222#0.127 -531488940 -531488940.57 -126134871 -126134871.151 -194101579 E54 E53 E490 -593546513 -531490211#1 -531490211#1.112 E50 E50.105 E50.105.80 E50.199 E50.268 E50.284 E59 217850419 945418667 595866513#0 595866513#0.19 595866513#0.84 595866513#1 4558722#0 4558722#1 4558722#2 4558722#3 593758916#0 593758916#0.46 593758916#0.93 593758916#2 593758916#3 16497962#1 16497962#4 598209323 598209323.10 598209323.72 23231264#1 764152779 -160567763#6 -160567763#60 -160567763#5 -160567763#3 -160567763#0 -285128430#3 -285128430#2 -285128430#1 -285128430#0 -160576510#1 -15804538 -4558735#1 -4558735#0 -345276763#4 -345276763#3 -345276763#2 -345276763#1 -345276763#1.4 -345276763#1.30 4558750#1">
+        <stop busStop="gtfs_U529Z4P" duration="10" until="0"/> <!-- Palmovka -->
+        <stop busStop="gtfs_U471Z2P" duration="10" until="60"/> <!-- Libeňský zámek -->
+        <stop busStop="gtfs_U1413Z1P" duration="10" until="180"/> <!-- Kundratka -->
+        <stop busStop="gtfs_U251Z1P" duration="10" until="300"/> <!-- Kelerka -->
+        <stop busStop="gtfs_U754Z1P" duration="10" until="360"/> <!-- Prosecká -->
+        <stop busStop="gtfs_U603Z1P" duration="10" until="420"/> <!-- Prosek -->
+        <stop busStop="gtfs_U500Z1P" duration="10" until="480"/> <!-- Nový Prosek -->
+        <stop busStop="gtfs_U606Z1P" duration="10" until="540"/> <!-- Letňanská -->
+        <stop busStop="gtfs_U1000Z12P" duration="10" until="660"/> <!-- Letňany -->
+        <stop busStop="gtfs_U405Z1P" duration="10" until="720"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U89Z1P" duration="10" until="780"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U771Z1P" duration="10" until="840"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U125Z1P" duration="10" until="960"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U766Z1P" duration="10" until="1080"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U368Z1P" duration="10" until="1140"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U451Z1P" duration="10" until="1200"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U63Z1P" duration="10" until="1260"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U3212Z1P" duration="10" until="1320"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U248Z1P" duration="10" until="1380"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U934Z1P" duration="10" until="1440"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U64Z1P" duration="10" until="1560"/> <!-- Čakovice -->
+    </route>
+    <route id="58_208_230617" edges="-23230098#1 -23230098#0 -128359784#3 -128359784#2 -128359784#1 -128359784#0 -15676601#1 -15676601#0 4558735#0 4558735#1 15804538 160576510#1 285128430#0 285128430#1 285128430#2 285128430#3 160567763#0 160567763#3 160567763#5 160567763#6 160567763#6.39 764152778#0 764152778#1 -598209323 -598209323.55 -598209323.108 -16497962#4 -16497962#1 -593758916#3 -593758916#2 -593758916#0 -593758916#0.34 -4558722#3 -4558722#2 -4558722#1 -4558722#0 -4558722#0.29 -595866513#1 -595866513#1.57 -595866513#0 -945418667 217850415 217850417#0 217850417#1 4558721 E60 E51 E51.210 E51.221 E51.291 E51.291.52 E51.291.109 E51.471 E51.537 E51.671 -E49 E56 E55 1941015790 126134871 1261348710 1261348710.151 531488940 531488940.39 531488936 78898222#1 135738855 135738855.61 135738855.61.37 135738855.61.86 586426037 586426037.144 135738860 135738851 E33 922940812 922940812.47 19848860#1 19848860#1.12 19848860#1.90 19848860#3 887612167 887612166 131765099#0 129089902#1 129089902#1.13 602745208">
+        <stop busStop="gtfs_U64Z16P" duration="10" until="0"/> <!-- Čakovice -->
+        <stop busStop="gtfs_U934Z2P" duration="10" until="60"/> <!-- Náměstí Jiřího Berana -->
+        <stop busStop="gtfs_U248Z2P" duration="10" until="120"/> <!-- Koupaliště Čakovice -->
+        <stop busStop="gtfs_U3212Z2P" duration="10" until="120"/> <!-- Nádraží Čakovice -->
+        <stop busStop="gtfs_U63Z2P" duration="10" until="180"/> <!-- Cukrovar Čakovice -->
+        <stop busStop="gtfs_U451Z2P" duration="10" until="240"/> <!-- Za Avií -->
+        <stop busStop="gtfs_U368Z2P" duration="10" until="360"/> <!-- Obchodní centrum Čakovice -->
+        <stop busStop="gtfs_U766Z2P" duration="10" until="420"/> <!-- Trutnovská -->
+        <stop busStop="gtfs_U125Z2P" duration="10" until="480"/> <!-- Fryčovická -->
+        <stop busStop="gtfs_U771Z2P" duration="10" until="600"/> <!-- Tupolevova -->
+        <stop busStop="gtfs_U89Z2P" duration="10" until="660"/> <!-- Dobratická -->
+        <stop busStop="gtfs_U405Z2P" duration="10" until="720"/> <!-- Výstaviště Letňany -->
+        <stop busStop="gtfs_U1000Z4P" duration="10" until="840"/> <!-- Letňany -->
+    </route>
+    <vehicle id="58_195_230617.0" route="58_195_230617" type="trolleybus" depart="32750" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Čakovice"/>
+    </vehicle>
+    <vehicle id="58_196_230617.0" route="58_196_230617" type="trolleybus" depart="34070" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_197_230617.0" route="58_197_230617" type="trolleybus" depart="36590" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Miškovice"/>
+    </vehicle>
+    <vehicle id="58_198_230617.0" route="58_198_230617" type="trolleybus" depart="38390" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_199_230617.0" route="58_199_230617" type="trolleybus" depart="41990" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Čakovice"/>
+    </vehicle>
+    <vehicle id="58_200_230617.0" route="58_196_230617" type="trolleybus" depart="43970" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_201_230617.0" route="58_197_230617" type="trolleybus" depart="47390" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Miškovice"/>
+    </vehicle>
+    <vehicle id="58_202_230617.0" route="58_198_230617" type="trolleybus" depart="49190" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_203_230617.0" route="58_199_230617" type="trolleybus" depart="52790" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Čakovice"/>
+    </vehicle>
+    <vehicle id="58_204_230617.0" route="58_196_230617" type="trolleybus" depart="54770" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_205_230617.0" route="58_197_230617" type="trolleybus" depart="58190" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Miškovice"/>
+    </vehicle>
+    <vehicle id="58_206_230617.0" route="58_198_230617" type="trolleybus" depart="59990" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Palmovka"/>
+    </vehicle>
+    <vehicle id="58_207_230617.0" route="58_199_230617" type="trolleybus" depart="62690" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Čakovice"/>
+    </vehicle>
+    <vehicle id="58_208_230617.0" route="58_208_230617" type="trolleybus" depart="64490" line="58">
+        <param key="gtfs.route_name" value="58"/>
+        <param key="gtfs.trip_headsign" value="Letňany"/>
+    </vehicle>
+</routes>

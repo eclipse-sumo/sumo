@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-22 16:08:56.351366 by Eclipse SUMO gtfs2pt.py v1_26_0+1322-eb915880aa3
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20241129"/>
+    <modes value="trolleybus"/>
+    <vtype-output value="pt_vtypes.xml"/>
+    <network value="net.net.xml"/>
+    <route-output value="gtfs_pt_vehicles.rou.xml"/>
+    <additional-output value="gtfs_pt_stops.add.xml"/>
+    <use-gtfs-stopids value="True"/>
+    <warning-output value="gtfs_warnings.txt"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="gtfs_178" lane="440959633.18_0" startPos="30.20" endPos="43.20" friendlyPos="true" name="Tylova"/>
+    <busStop id="gtfs_152" lane="147668808#0.21_0" startPos="49.08" endPos="62.08" friendlyPos="true" name="U Práce"/>
+    <busStop id="gtfs_193" lane="299230169#0.73_0" startPos="44.09" endPos="57.09" friendlyPos="true" name="Mrakodrap"/>
+    <busStop id="gtfs_196" lane="292190526#0.0_0" startPos="33.99" endPos="46.99" friendlyPos="true" name="Prokopova"/>
+    <busStop id="gtfs_198" lane="-355570946#3.12_0" startPos="14.09" endPos="27.09" friendlyPos="true" name="U Radbuzy"/>
+    <busStop id="gtfs_200" lane="-27463139#14.56_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Zimní stadion"/>
+    <busStop id="gtfs_202" lane="-27463139#9.119_0" startPos="30.61" endPos="43.61" friendlyPos="true" name="U Plynárny"/>
+    <busStop id="gtfs_204" lane="-27463139#0.93_0" startPos="24.60" endPos="37.60" friendlyPos="true" name="Samaritská"/>
+    <busStop id="gtfs_206" lane="-144443238#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Doudlevce ETZ"/>
+    <busStop id="gtfs_208" lane="-453607028.30_0" startPos="28.05" endPos="41.05" friendlyPos="true" name="Vodárna"/>
+    <busStop id="gtfs_3" lane="96725540#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Slovany"/>
+    <busStop id="gtfs_210" lane="gneE23_0" startPos="8.13" endPos="21.13" friendlyPos="true" name="U Školky">
+        <access friendlyPos="true" lane="-23285377#1_0" pos="0.00" length="84.95"/>
+        <access friendlyPos="true" lane="-23285377#3_0" pos="18.34" length="80.75"/>
+        <access friendlyPos="true" lane="-254332283_0" pos="22.22" length="65.34"/>
+        <access friendlyPos="true" lane="-339915490#0.10_1" pos="32.15" length="70.11"/>
+        <access friendlyPos="true" lane="-339915490#0.50_0" pos="38.06" length="11.90"/>
+        <access friendlyPos="true" lane="254332283_0" pos="12.10" length="70.14"/>
+        <access friendlyPos="true" lane="28210755_0" pos="93.50" length="27.82"/>
+        <access friendlyPos="true" lane="339915488.0_0" pos="152.08" length="47.91"/>
+        <access friendlyPos="true" lane="339915488.161_0" pos="23.16" length="7.10"/>
+        <access friendlyPos="true" lane="339915488.203_0" pos="0.00" length="25.20"/>
+    </busStop>
+    <busStop id="gtfs_212" lane="146277171#0_0" startPos="68.12" endPos="81.12" friendlyPos="true" name="U Kasáren"/>
+    <busStop id="gtfs_214" lane="135730793#0.29_0" startPos="6.81" endPos="19.81" friendlyPos="true" name="Bručná"/>
+    <busStop id="gtfs_216" lane="-144443229#1_0" startPos="58.53" endPos="71.53" friendlyPos="true" name="Čechurov"/>
+    <busStop id="gtfs_230" lane="372853865#0_0" startPos="81.87" endPos="94.87" friendlyPos="true" name="Ústřední hřbitov"/>
+    <busStop id="gtfs_232" lane="144640504.230_0" startPos="15.36" endPos="28.36" friendlyPos="true" name="U Václava"/>
+    <busStop id="gtfs_234" lane="294765307#0.92_0" startPos="43.63" endPos="56.63" friendlyPos="true" name="Hřbitovní"/>
+    <busStop id="gtfs_236" lane="144640507#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Pietas"/>
+    <busStop id="gtfs_238" lane="144582003#0.178_0" startPos="13.91" endPos="26.91" friendlyPos="true" name="Letná"/>
+    <busStop id="gtfs_240" lane="144640503_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Divadlo Alfa"/>
+    <busStop id="gtfs_242" lane="294767992#0.63_0" startPos="35.66" endPos="48.66" friendlyPos="true" name="Gambrinus"/>
+    <busStop id="gtfs_23" lane="25259681#4.13.49_0" startPos="2.07" endPos="15.07" friendlyPos="true" name="Hlavní nádraží">
+        <access friendlyPos="true" lane="-25259686#2_0" pos="144.49" length="52.79"/>
+        <access friendlyPos="true" lane="-332361623_0" pos="27.14" length="68.35"/>
+        <access friendlyPos="true" lane="-478136367#1_0" pos="9.87" length="35.53"/>
+        <access friendlyPos="true" lane="25259681#4.93_0" pos="0.00" length="31.02"/>
+        <access friendlyPos="true" lane="25259681#4_0" pos="2.43" length="102.93"/>
+        <access friendlyPos="true" lane="25259685#1_0" pos="136.82" length="30.37"/>
+        <access friendlyPos="true" lane="25259686#0_0" pos="13.73" length="47.98"/>
+        <access friendlyPos="true" lane="349890654_0" pos="0.00" length="67.15"/>
+        <access friendlyPos="true" lane="44170784#0_0" pos="3.69" length="113.84"/>
+        <access friendlyPos="true" lane="E18_0" pos="168.66" length="57.86"/>
+    </busStop>
+    <busStop id="gtfs_245" lane="-200958550#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Pařížská"/>
+    <busStop id="gtfs_194" lane="-147668807.11_0" startPos="36.42" endPos="49.42" friendlyPos="true" name="Mrakodrap"/>
+    <busStop id="gtfs_153" lane="-147668808#1.0_0" startPos="33.15" endPos="46.15" friendlyPos="true" name="U Práce"/>
+    <busStop id="gtfs_180" lane="-144640509_0" startPos="24.54" endPos="37.54" friendlyPos="true" name="Tylova"/>
+    <busStop id="gtfs_250" lane="-144785102#1.235_0" startPos="9.82" endPos="22.82" friendlyPos="true" name="CAN Husova"/>
+    <busStop id="gtfs_599" lane="303327974#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Kalikova"/>
+    <busStop id="gtfs_601" lane="303327980#2.413_0" startPos="13.84" endPos="26.84" friendlyPos="true" name="U Bouzků"/>
+    <busStop id="gtfs_603" lane="303327980#7_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Pod Zámečkem"/>
+    <busStop id="gtfs_605" lane="42560422#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Náves Radčice"/>
+    <busStop id="gtfs_607" lane="42560422#1.77_0" startPos="2.37" endPos="15.37" friendlyPos="true" name="Radčice"/>
+    <busStop id="gtfs_610" lane="163790419.149_0" startPos="6.39" endPos="19.39" friendlyPos="true" name="Pod Kyjovem"/>
+    <busStop id="gtfs_611" lane="27779766#1.97_0" startPos="12.33" endPos="25.33" friendlyPos="true" name="Malesice"/>
+    <busStop id="gtfs_346" lane="144581996_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Lobzy"/>
+    <busStop id="gtfs_348" lane="27494738#0_0" startPos="64.84" endPos="77.84" friendlyPos="true" name="Sokolská"/>
+    <busStop id="gtfs_350" lane="-23011096#2.22_0" startPos="19.56" endPos="32.56" friendlyPos="true" name="U Pietasu"/>
+    <busStop id="gtfs_181" lane="-345918366_0" startPos="61.22" endPos="74.22" friendlyPos="true" name="Tylova"/>
+    <busStop id="gtfs_183" lane="96730336#0.49_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Jižní Předměstí"/>
+    <busStop id="gtfs_187" lane="233216766#1.27_0" startPos="40.54" endPos="53.54" friendlyPos="true" name="Techmania"/>
+    <busStop id="gtfs_189" lane="233216765#1.66_0" startPos="11.14" endPos="24.14" friendlyPos="true" name="Cínová"/>
+    <busStop id="gtfs_353" lane="233216765#1.483_0" startPos="23.77" endPos="36.77" friendlyPos="true" name="Karlov"/>
+    <busStop id="gtfs_295" lane="96730335#2.46_0" startPos="15.01" endPos="28.01" friendlyPos="true" name="Ke Karlovu"/>
+    <busStop id="gtfs_297" lane="4722227#0.56_0" startPos="4.16" endPos="17.16" friendlyPos="true" name="NC Borská pole"/>
+    <busStop id="gtfs_299" lane="96845778.44_0" startPos="16.09" endPos="29.09" friendlyPos="true" name="U Panasoniku"/>
+    <busStop id="gtfs_303" lane="96845776#0.70_0" startPos="4.25" endPos="17.25" friendlyPos="true" name="U Nové Hospody"/>
+    <busStop id="gtfs_355" lane="141233929#0.75_0" startPos="0.35" endPos="13.35" friendlyPos="true" name="Borská pole"/>
+</additional>

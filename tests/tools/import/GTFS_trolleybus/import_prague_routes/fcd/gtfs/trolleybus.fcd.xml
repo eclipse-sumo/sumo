@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-22 16:16:28.049842 by Eclipse SUMO gtfs2fcd.py v1_26_0+1322-eb915880aa3
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20230701"/>
+    <modes value="trolleybus"/>
+    <vtype-output value="pt_vtypes.xml"/>
+    <verbose value="True"/>
+    <network value="net.net.xml"/>
+    <route-output value="pilsen_gtfs_pt_vehicles.rou.xml"/>
+    <additional-output value="pilsen_gtfs_pt_stops.add.xml"/>
+    <use-gtfs-stopids value="True"/>
+    <warning-output value="gtfs_warnings.txt"/>
+</configuration>
+-->
+
+<fcd-export>
+    <timestep time="32760"><vehicle id="58_195_230617" x="14.516767" y="50.125648" until="0" name="Letňany" gtfsid="U1000Z12P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="32820"><vehicle id="58_195_230617" x="14.511653" y="50.128666" until="60" name="Výstaviště Letňany" gtfsid="U405Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="32880"><vehicle id="58_195_230617" x="14.508651" y="50.130318" until="120" name="Dobratická" gtfsid="U89Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="32940"><vehicle id="58_195_230617" x="14.505981" y="50.134644" until="180" name="Tupolevova" gtfsid="U771Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33060"><vehicle id="58_195_230617" x="14.505138" y="50.139416" until="300" name="Fryčovická" gtfsid="U125Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33180"><vehicle id="58_195_230617" x="14.5059" y="50.146301" until="420" name="Trutnovská" gtfsid="U766Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33240"><vehicle id="58_195_230617" x="14.50765" y="50.149651" until="480" name="Obchodní centrum Čakovice" gtfsid="U368Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33300"><vehicle id="58_195_230617" x="14.514184" y="50.150734" until="540" name="Za Avií" gtfsid="U451Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33360"><vehicle id="58_195_230617" x="14.519168" y="50.15155" until="600" name="Cukrovar Čakovice" gtfsid="U63Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33420"><vehicle id="58_195_230617" x="14.520391" y="50.14983" until="660" name="Nádraží Čakovice" gtfsid="U3212Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33480"><vehicle id="58_195_230617" x="14.525069" y="50.147575" until="720" name="Koupaliště Čakovice" gtfsid="U248Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33540"><vehicle id="58_195_230617" x="14.526732" y="50.150936" until="780" name="Náměstí Jiřího Berana" gtfsid="U934Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="33660"><vehicle id="58_195_230617" x="14.528819" y="50.151806" until="900" name="Čakovice" gtfsid="U64Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67740"><vehicle id="58_196_230617" x="14.530662" y="50.151176" until="0" name="Čakovice" gtfsid="U64Z16P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67800"><vehicle id="58_196_230617" x="14.526467" y="50.150051" until="60" name="Náměstí Jiřího Berana" gtfsid="U934Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67860"><vehicle id="58_196_230617" x="14.524817" y="50.147701" until="120" name="Koupaliště Čakovice" gtfsid="U248Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67860"><vehicle id="58_196_230617" x="14.520284" y="50.150803" until="120" name="Nádraží Čakovice" gtfsid="U3212Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67920"><vehicle id="58_196_230617" x="14.518834" y="50.151669" until="180" name="Cukrovar Čakovice" gtfsid="U63Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="67980"><vehicle id="58_196_230617" x="14.5144" y="50.150902" until="240" name="Za Avií" gtfsid="U451Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68100"><vehicle id="58_196_230617" x="14.508142" y="50.149841" until="360" name="Obchodní centrum Čakovice" gtfsid="U368Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68160"><vehicle id="58_196_230617" x="14.50555" y="50.146183" until="420" name="Trutnovská" gtfsid="U766Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68220"><vehicle id="58_196_230617" x="14.504693" y="50.139141" until="480" name="Fryčovická" gtfsid="U125Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68340"><vehicle id="58_196_230617" x="14.505801" y="50.134369" until="600" name="Tupolevova" gtfsid="U771Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68400"><vehicle id="58_196_230617" x="14.508384" y="50.130367" until="660" name="Dobratická" gtfsid="U89Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68460"><vehicle id="58_196_230617" x="14.511781" y="50.128441" until="720" name="Výstaviště Letňany" gtfsid="U405Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68520"><vehicle id="58_196_230617" x="14.516517" y="50.125614" until="780" name="Letňany" gtfsid="U1000Z3P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68640"><vehicle id="58_196_230617" x="14.50825" y="50.123486" until="900" name="Letňanská" gtfsid="U606Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68700"><vehicle id="58_196_230617" x="14.504117" y="50.121269" until="960" name="Nový Prosek" gtfsid="U500Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68760"><vehicle id="58_196_230617" x="14.499786" y="50.118954" until="1020" name="Prosek" gtfsid="U603Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68820"><vehicle id="58_196_230617" x="14.496784" y="50.11739" until="1080" name="Prosecká" gtfsid="U754Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="68880"><vehicle id="58_196_230617" x="14.488866" y="50.115124" until="1140" name="Kelerka" gtfsid="U251Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="69000"><vehicle id="58_196_230617" x="14.479647" y="50.112667" until="1260" name="Kundratka" gtfsid="U1413Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="69180"><vehicle id="58_196_230617" x="14.475851" y="50.104317" until="1440" name="Palmovka" gtfsid="U529Z5P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="105780"><vehicle id="58_197_230617" x="14.47317" y="50.104504" until="0" name="Palmovka" gtfsid="U529Z4P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="105840"><vehicle id="58_197_230617" x="14.472365" y="50.108589" until="60" name="Libeňský zámek" gtfsid="U471Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="105960"><vehicle id="58_197_230617" x="14.47976" y="50.112484" until="180" name="Kundratka" gtfsid="U1413Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106080"><vehicle id="58_197_230617" x="14.490201" y="50.115318" until="300" name="Kelerka" gtfsid="U251Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106140"><vehicle id="58_197_230617" x="14.494987" y="50.116276" until="360" name="Prosecká" gtfsid="U754Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106200"><vehicle id="58_197_230617" x="14.500463" y="50.119041" until="420" name="Prosek" gtfsid="U603Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106260"><vehicle id="58_197_230617" x="14.503967" y="50.120953" until="480" name="Nový Prosek" gtfsid="U500Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106320"><vehicle id="58_197_230617" x="14.507057" y="50.122456" until="540" name="Letňanská" gtfsid="U606Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106440"><vehicle id="58_197_230617" x="14.516767" y="50.125648" until="660" name="Letňany" gtfsid="U1000Z12P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106500"><vehicle id="58_197_230617" x="14.511653" y="50.128666" until="720" name="Výstaviště Letňany" gtfsid="U405Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106560"><vehicle id="58_197_230617" x="14.508651" y="50.130318" until="780" name="Dobratická" gtfsid="U89Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106620"><vehicle id="58_197_230617" x="14.505981" y="50.134644" until="840" name="Tupolevova" gtfsid="U771Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106740"><vehicle id="58_197_230617" x="14.505138" y="50.139416" until="960" name="Fryčovická" gtfsid="U125Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106860"><vehicle id="58_197_230617" x="14.5059" y="50.146301" until="1080" name="Trutnovská" gtfsid="U766Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106920"><vehicle id="58_197_230617" x="14.50765" y="50.149651" until="1140" name="Obchodní centrum Čakovice" gtfsid="U368Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="106980"><vehicle id="58_197_230617" x="14.514184" y="50.150734" until="1200" name="Za Avií" gtfsid="U451Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107040"><vehicle id="58_197_230617" x="14.519168" y="50.15155" until="1260" name="Cukrovar Čakovice" gtfsid="U63Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107100"><vehicle id="58_197_230617" x="14.520391" y="50.14983" until="1320" name="Nádraží Čakovice" gtfsid="U3212Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107160"><vehicle id="58_197_230617" x="14.525069" y="50.147575" until="1380" name="Koupaliště Čakovice" gtfsid="U248Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107220"><vehicle id="58_197_230617" x="14.526732" y="50.150936" until="1440" name="Náměstí Jiřího Berana" gtfsid="U934Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107280"><vehicle id="58_197_230617" x="14.528819" y="50.151806" until="1500" name="Čakovice" gtfsid="U64Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107400"><vehicle id="58_197_230617" x="14.538398" y="50.154827" until="1620" name="Radonická" gtfsid="U399Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="107460"><vehicle id="58_197_230617" x="14.542006" y="50.156021" until="1680" name="Miškovice" gtfsid="U384Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="145860"><vehicle id="58_198_230617" x="14.540866" y="50.155914" until="0" name="Miškovice" gtfsid="U384Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="145920"><vehicle id="58_198_230617" x="14.537704" y="50.154808" until="60" name="Radonická" gtfsid="U399Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146040"><vehicle id="58_198_230617" x="14.530662" y="50.151176" until="180" name="Čakovice" gtfsid="U64Z16P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146100"><vehicle id="58_198_230617" x="14.526467" y="50.150051" until="240" name="Náměstí Jiřího Berana" gtfsid="U934Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146160"><vehicle id="58_198_230617" x="14.524817" y="50.147701" until="300" name="Koupaliště Čakovice" gtfsid="U248Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146160"><vehicle id="58_198_230617" x="14.520284" y="50.150803" until="300" name="Nádraží Čakovice" gtfsid="U3212Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146220"><vehicle id="58_198_230617" x="14.518834" y="50.151669" until="360" name="Cukrovar Čakovice" gtfsid="U63Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146280"><vehicle id="58_198_230617" x="14.5144" y="50.150902" until="420" name="Za Avií" gtfsid="U451Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146400"><vehicle id="58_198_230617" x="14.508142" y="50.149841" until="540" name="Obchodní centrum Čakovice" gtfsid="U368Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146460"><vehicle id="58_198_230617" x="14.50555" y="50.146183" until="600" name="Trutnovská" gtfsid="U766Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146520"><vehicle id="58_198_230617" x="14.504693" y="50.139141" until="660" name="Fryčovická" gtfsid="U125Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146640"><vehicle id="58_198_230617" x="14.505801" y="50.134369" until="780" name="Tupolevova" gtfsid="U771Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146700"><vehicle id="58_198_230617" x="14.508384" y="50.130367" until="840" name="Dobratická" gtfsid="U89Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146760"><vehicle id="58_198_230617" x="14.511781" y="50.128441" until="900" name="Výstaviště Letňany" gtfsid="U405Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146820"><vehicle id="58_198_230617" x="14.516517" y="50.125614" until="960" name="Letňany" gtfsid="U1000Z3P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="146940"><vehicle id="58_198_230617" x="14.50825" y="50.123486" until="1080" name="Letňanská" gtfsid="U606Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147000"><vehicle id="58_198_230617" x="14.504117" y="50.121269" until="1140" name="Nový Prosek" gtfsid="U500Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147060"><vehicle id="58_198_230617" x="14.499786" y="50.118954" until="1200" name="Prosek" gtfsid="U603Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147120"><vehicle id="58_198_230617" x="14.496784" y="50.11739" until="1260" name="Prosecká" gtfsid="U754Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147180"><vehicle id="58_198_230617" x="14.488866" y="50.115124" until="1320" name="Kelerka" gtfsid="U251Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147300"><vehicle id="58_198_230617" x="14.479647" y="50.112667" until="1440" name="Kundratka" gtfsid="U1413Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="147480"><vehicle id="58_198_230617" x="14.475851" y="50.104317" until="1620" name="Palmovka" gtfsid="U529Z5P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189480"><vehicle id="58_199_230617" x="14.47317" y="50.104504" until="0" name="Palmovka" gtfsid="U529Z4P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189540"><vehicle id="58_199_230617" x="14.472365" y="50.108589" until="60" name="Libeňský zámek" gtfsid="U471Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189660"><vehicle id="58_199_230617" x="14.47976" y="50.112484" until="180" name="Kundratka" gtfsid="U1413Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189780"><vehicle id="58_199_230617" x="14.490201" y="50.115318" until="300" name="Kelerka" gtfsid="U251Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189840"><vehicle id="58_199_230617" x="14.494987" y="50.116276" until="360" name="Prosecká" gtfsid="U754Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189900"><vehicle id="58_199_230617" x="14.500463" y="50.119041" until="420" name="Prosek" gtfsid="U603Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="189960"><vehicle id="58_199_230617" x="14.503967" y="50.120953" until="480" name="Nový Prosek" gtfsid="U500Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190020"><vehicle id="58_199_230617" x="14.507057" y="50.122456" until="540" name="Letňanská" gtfsid="U606Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190140"><vehicle id="58_199_230617" x="14.516767" y="50.125648" until="660" name="Letňany" gtfsid="U1000Z12P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190200"><vehicle id="58_199_230617" x="14.511653" y="50.128666" until="720" name="Výstaviště Letňany" gtfsid="U405Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190260"><vehicle id="58_199_230617" x="14.508651" y="50.130318" until="780" name="Dobratická" gtfsid="U89Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190320"><vehicle id="58_199_230617" x="14.505981" y="50.134644" until="840" name="Tupolevova" gtfsid="U771Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190440"><vehicle id="58_199_230617" x="14.505138" y="50.139416" until="960" name="Fryčovická" gtfsid="U125Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190560"><vehicle id="58_199_230617" x="14.5059" y="50.146301" until="1080" name="Trutnovská" gtfsid="U766Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190620"><vehicle id="58_199_230617" x="14.50765" y="50.149651" until="1140" name="Obchodní centrum Čakovice" gtfsid="U368Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190680"><vehicle id="58_199_230617" x="14.514184" y="50.150734" until="1200" name="Za Avií" gtfsid="U451Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190740"><vehicle id="58_199_230617" x="14.519168" y="50.15155" until="1260" name="Cukrovar Čakovice" gtfsid="U63Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190800"><vehicle id="58_199_230617" x="14.520391" y="50.14983" until="1320" name="Nádraží Čakovice" gtfsid="U3212Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190860"><vehicle id="58_199_230617" x="14.525069" y="50.147575" until="1380" name="Koupaliště Čakovice" gtfsid="U248Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="190920"><vehicle id="58_199_230617" x="14.526732" y="50.150936" until="1440" name="Náměstí Jiřího Berana" gtfsid="U934Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="191040"><vehicle id="58_199_230617" x="14.528819" y="50.151806" until="1560" name="Čakovice" gtfsid="U64Z1P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255540"><vehicle id="58_208_230617" x="14.530662" y="50.151176" until="0" name="Čakovice" gtfsid="U64Z16P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255600"><vehicle id="58_208_230617" x="14.526467" y="50.150051" until="60" name="Náměstí Jiřího Berana" gtfsid="U934Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255660"><vehicle id="58_208_230617" x="14.524817" y="50.147701" until="120" name="Koupaliště Čakovice" gtfsid="U248Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255660"><vehicle id="58_208_230617" x="14.520284" y="50.150803" until="120" name="Nádraží Čakovice" gtfsid="U3212Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255720"><vehicle id="58_208_230617" x="14.518834" y="50.151669" until="180" name="Cukrovar Čakovice" gtfsid="U63Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255780"><vehicle id="58_208_230617" x="14.5144" y="50.150902" until="240" name="Za Avií" gtfsid="U451Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255900"><vehicle id="58_208_230617" x="14.508142" y="50.149841" until="360" name="Obchodní centrum Čakovice" gtfsid="U368Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="255960"><vehicle id="58_208_230617" x="14.50555" y="50.146183" until="420" name="Trutnovská" gtfsid="U766Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="256020"><vehicle id="58_208_230617" x="14.504693" y="50.139141" until="480" name="Fryčovická" gtfsid="U125Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="256140"><vehicle id="58_208_230617" x="14.505801" y="50.134369" until="600" name="Tupolevova" gtfsid="U771Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="256200"><vehicle id="58_208_230617" x="14.508384" y="50.130367" until="660" name="Dobratická" gtfsid="U89Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="256260"><vehicle id="58_208_230617" x="14.511781" y="50.128441" until="720" name="Výstaviště Letňany" gtfsid="U405Z2P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+    <timestep time="256380"><vehicle id="58_208_230617" x="14.516498" y="50.125271" until="840" name="Letňany" gtfsid="U1000Z4P" fareZone="" fareSymbol="" startFare="" speed="20"/></timestep>
+</fcd-export>
