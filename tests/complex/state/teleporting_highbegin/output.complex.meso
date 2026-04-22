@@ -1,13 +1,13 @@
 Loading net-file from 'net.net.xml' ... done (4ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version 1.24.0 started with time: 1576800000.00.
-Simulation ended at time: 1576801241.00.
+Simulation version v1_26_0+1331-f26955b8843 started with time: 1576800000.00.
+Simulation ended at time: 1576801003.00.
 Reason: All vehicles have left the simulation.
-Loading net-file from 'net.net.xml' ... done (2ms).
-Loading state from 'state.xml' ... done (6ms).
+Loading net-file from 'net.net.xml' ... done (4ms).
+Loading state from 'state.xml' ... done (24ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version 1.24.0 started with time: 1576800330.00.
-Simulation ended at time: 1576801241.00.
+Simulation version v1_26_0+1331-f26955b8843 started with time: 1576800330.00.
+Simulation ended at time: 1576801003.00.
 Reason: All vehicles have left the simulation.
