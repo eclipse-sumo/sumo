@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-16 17:32+0000\n"
+"PO-Revision-Date: 2026-04-22 18:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7636,14 +7636,19 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:443
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
 msgstr ""
+"Costruisci incroci con delle forme minimali (ignorando la sovrapposizione "
+"degli archi)"
 
 #: src/netbuild/NBFrame.cpp:447
 msgid "Build junction shapes based on edge endpoints (ignoring edge overlap)"
 msgstr ""
+"Costruisci le forme degli incroci basandosi sui punti terminali degli archi "
+"(ignorando la sovrapposizione degli archi)"
 
 #: src/netbuild/NBFrame.cpp:451
 msgid "Assumed vehicle width for computing internal junction positions"
 msgstr ""
+"Larghezza di veicolo supposta nel calcolo delle posizioni di incroci interni"
 
 #: src/netbuild/NBFrame.cpp:454
 msgid "Forces rectangular cuts between lanes and intersections"
@@ -7663,15 +7668,19 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:466
 msgid "Guess pedestrian sidewalks based on edge speed"
-msgstr ""
+msgstr "Indovina marciapiedi basandosi sul limite di velocità dell'arco"
 
 #: src/netbuild/NBFrame.cpp:470
 msgid "Add sidewalks for edges with a speed equal or below the given limit"
 msgstr ""
+"Aggiungi marciapiedi per gli archi con un limite di velocità fino al valore "
+"indicato"
 
 #: src/netbuild/NBFrame.cpp:474
 msgid "Add sidewalks for edges with a speed above the given limit"
 msgstr ""
+"Aggiungi marciapiedi per gli archi con un limite di velocità sopra il valore "
+"indicato"
 
 #: src/netbuild/NBFrame.cpp:478
 msgid ""
