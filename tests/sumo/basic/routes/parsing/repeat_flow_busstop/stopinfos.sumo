@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:37:29 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-04-22T23:25:00.735351+01:00 by Eclipse SUMO sumo v1_26_0+1333-841653467c3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -53,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="49.99" parking="0" started="226.00" ended="330.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="25.00" parking="0" started="369.00" ended="375.00" delay="0.00" busStop="B_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="89.99" parking="0" started="386.00" ended="410.00" delay="0.00" busStop="C_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="42.47" parking="0" started="326.00" ended="430.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="42.49" parking="0" started="326.00" ended="430.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="NC_0" pos="24.99" parking="0" started="417.00" ended="445.00" delay="0.00" busStop="C_down" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="CN_0" pos="25.00" parking="0" started="459.00" ended="475.00" delay="0.00" busStop="B_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="NC_0" pos="89.99" parking="0" started="455.00" ended="480.00" delay="0.00" busStop="B_down" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
@@ -77,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="50.00" parking="0" started="835.00" ended="930.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="25.00" parking="0" started="998.00" ended="999.00" delay="24.00" busStop="B_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="89.99" parking="0" started="1010.00" ended="1011.00" delay="1.00" busStop="C_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="42.48" parking="0" started="928.00" ended="1030.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="SC_0" pos="42.49" parking="0" started="928.00" ended="1030.00" delay="0.00" busStop="A_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="NC_0" pos="25.00" parking="0" started="1019.00" ended="1045.00" delay="0.00" busStop="C_down" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.0" type="DEFAULT_VEHTYPE" lane="NC_0" pos="89.99" parking="0" started="1056.00" ended="1080.00" delay="0.00" busStop="B_down" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="0.1" type="DEFAULT_VEHTYPE" lane="CN_0" pos="25.00" parking="0" started="1087.00" ended="1088.00" delay="13.00" busStop="B_up" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>

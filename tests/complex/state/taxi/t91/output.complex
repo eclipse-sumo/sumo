@@ -1,16 +1,16 @@
 Loading net-file from 'net.net.xml' ... done (9ms).
-Loading additional-files from 'input_additional.add.xml' ... done (31ms).
+Loading additional-files from 'input_additional.add.xml' ... done (28ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1332-ff910ea15c9 started with time: 0.00.
+Simulation version v1_26_0+1333-841653467c3 started with time: 0.00.
 Simulation ended at time: 1053.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.09s
- Real time factor: 11202.1
- UPS: 22170.212766
- UPS-Persons: 1861.702128
+ Duration: 0.08s
+ Real time factor: 12686.7
+ UPS: 25108.433735
+ UPS-Persons: 2108.433735
 Vehicles:
  Inserted: 2
  Running: 0
@@ -23,28 +23,27 @@ Statistics (avg of 2):
  Speed: 11.91
  Duration: 1042.00
  WaitingTime: 3.50
- TimeLoss: 184.49
+ TimeLoss: 184.50
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 2 rides):
  WaitingTime: 20.00
- RouteLength: 810.12
+ RouteLength: 810.13
  Duration: 67.50
  Taxi: 2
 DijkstraRouter answered 12 queries and explored 18.17 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (31ms).
-Loading additional-files from 'input_additional.add.xml' ... done (54ms).
-Loading state from 'state.xml' ... done (154ms).
+Loading net-file from 'net.net.xml' ... done (49ms).
+Loading additional-files from 'input_additional.add.xml' ... done (53ms).
+Loading state from 'state.xml' ... done (104ms).
 Loading done.
-Simulation version v1_26_0+1332-ff910ea15c9 started with time: 91.00.
-Simulation ended at time: 1071.00.
+Simulation version v1_26_0+1333-841653467c3 started with time: 91.00.
+Simulation ended at time: 1053.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.49s
- Real time factor: 1995.93
- UPS: 3953.156823
- UPS-Persons: 10.183299
+ Duration: 0.39s
+ Real time factor: 2460.36
+ UPS: 4864.450128
 Vehicles:
  Inserted: 2
  Running: 0
@@ -53,24 +52,24 @@ Persons:
  Inserted: 1 (Loaded: 2)
  Running: 0
 Statistics (avg of 2):
- RouteLength: 12829.04
- Speed: 12.09
- Duration: 1061.50
- WaitingTime: 4.00
- TimeLoss: 176.75
+ RouteLength: 12402.98
+ Speed: 11.91
+ Duration: 1042.00
+ WaitingTime: 3.50
+ TimeLoss: 184.50
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 1 rides):
  WaitingTime: 27.00
- RouteLength: 813.88
- Duration: 69.00
+ RouteLength: 806.37
+ Duration: 64.00
  Taxi: 1
 <     <person id="p0.0" depart="0.00" arrival="84.00">
->     <person id="p0.1" depart="0.00" arrival="96.00">
+>     <person id="p0.1" depart="0.00" arrival="91.00">
 <     <person id="p0.1" depart="0.00" arrival="91.00">
->     <vehicle id="trip_1" type="taxi" depart="0.00" departPos="77.90" speedFactor="1.2200" arrival="1053.00">
+>     <vehicle id="trip_1" type="taxi" depart="0.00" departPos="77.90" speedFactor="1.2200" arrival="1032.00">
 <         <ride from="C1C2" to="B0C0" busStop="stop_B0C0" lines="taxi"/>
->         <route edges="C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1A2 A2B2 B2C2 C2C1 C1C0 C0B0 B0A0 A0A1 A1A2 A2B2 B2C2 C2C1 C1B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0B1 B1B2 B2A2 A2A1 A1B1 B1B0 B0B1 B1B0 B0B1 B1B0 B0C0 C0C1 C1C0 C0C1 C1D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2D2 D2C2 C2D2 D2D1 D1D2 D2C2 C2C1 C1D1 D1C1 C1C2 C2D2 D2D1 D1D2 D2C2 C2B2 B2B1 B1C1 C1D1 D1E1 E1D1 D1E1"/>
+>         <route edges="C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0B0 B0C0 C0B0 B0C0 C0C1 C1B1 B1B0 B0B1 B1B0 B0C0 C0B0 B0B1 B1C1 C1B1 B1C1 C1D1 D1E1 E1D1 D1D0 D0C0 C0D0 D0D1 D1D0 D0E0 E0E1 E1E2 E2D2 D2D1 D1D2 D2E2 E2F2 F2F1 F1E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1E1 E1E2 E2E1 E1E0 E0D0 D0D1 D1D2 D2C2 C2D2 D2C2 C2B2 B2B1 B1A1 A1A2 A2B2 B2B1 B1B2"/>
 <     </person>
 >         <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="0" permitted="p0.1" actType="pickup p0.1 (1)"/>
 < 
@@ -80,9 +79,9 @@ Ride Statistics (avg of 1 rides):
 <         <route edges="C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0B0 B0C0 C0B0 B0C0 C0C1 C1B1 B1B0 B0B1 B1B0 B0C0 C0B0 B0B1 B1C1 C1B1 B1C1 C1D1 D1E1 E1D1 D1D0 D0C0 C0D0 D0D1 D1D0 D0E0 E0E1 E1E2 E2D2 D2D1 D1D2 D2E2 E2F2 F2F1 F1E1 E1F1 F1F2 F2E2 E2F2 F2F1 F1E1 E1E2 E2E1 E1E0 E0D0 D0D1 D1D2 D2C2 C2D2 D2C2 C2B2 B2B1 B1A1 A1A2 A2B2 B2B1 B1B2"/>
 > 
 <         <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="0" permitted="p0.1" actType="pickup p0.1 (1)"/>
->     <vehicle id="trip_0" type="taxi" depart="0.00" departPos="85.50" arrival="1070.00">
+>     <vehicle id="trip_0" type="taxi" depart="0.00" departPos="85.50" arrival="1052.00">
 <         <stop busStop="stop_B0C0" duration="0.00" parking="0" actType="dropOff p0.1 (1)"/>
->         <route edges="C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1B1 B1B0 B0C0 C0D0 D0E0 E0F0 F0F1 F1F2 F2E2 E2E1 E1E0 E0E1 E1E0 E0D0 D0E0 E0D0 D0C0 C0B0 B0B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1A0 A0B0 B0A0 A0A1 A1A0 A0B0 B0A0 A0A1 A1A0 A0B0 B0A0 A0A1 A1A2 A2B2 B2B1 B1B0 B0C0 C0C1 C1D1 D1D2 D2C2 C2D2 D2C2"/>
+>         <route edges="C0C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0A0 A0A1 A1B1 B1A1 A1B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0B0 B0A0 A0A1 A1B1 B1B0 B0B1 B1B2 B2A2 A2A1 A1A0 A0B0 B0B1 B1A1 A1A2 A2B2 B2B1 B1B2 B2B1 B1A1 A1A0 A0B0 B0C0 C0B0 B0C0 C0C1 C1C0 C0C1 C1B1 B1B2 B2C2 C2C1 C1C0 C0B0 B0B1 B1A1 A1A0 A0B0 B0B1 B1B0 B0B1 B1A1 A1A2 A2B2 B2A2"/>
 <     </vehicle>
 >         <stop lane="C1C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="0" permitted="p0.0" actType="pickup p0.0 (0)"/>
 < 
