@@ -96,8 +96,7 @@ MSDispatch::addReservation(MSTransportable* person,
         if (it2 != myRunningReservations.end()) {
             for (auto item : it2->second) {
                 Reservation* res = const_cast<Reservation*>(item.first);
-                if (res->persons.count(person) == 0
-                        && res->from == from
+                if (res->from == from
                         && res->to == to
                         && (res->fromPos == fromPos || res->fromStop == fromStop)
                         && (res->toPos == toPos || res->toStop == toStop)) {
