@@ -162,6 +162,7 @@ NLBuilder::build() {
         const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(stateTime));
+            myNet.setLoaderTime(stateTime);
             if (TraCIServer::getInstance() != nullptr) {
                 TraCIServer::getInstance()->stateLoaded(stateTime);
             }

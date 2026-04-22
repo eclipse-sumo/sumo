@@ -282,6 +282,8 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (myVCAttrs != nullptr) {
                 delete myVCAttrs;
             }
+            bool ok;
+            MSNet::getInstance()->setLoaderTime(attrs.getOpt<SUMOTime>(SUMO_ATTR_LOADERTIME, nullptr, ok, 0));
             myVCAttrs = attrs.clone();
             break;
         }
@@ -518,9 +520,6 @@ MSStateHandler::myEndElement(int element) {
                         myVCAttrs->getFloat(SUMO_ATTR_TIME),
                         myVCAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR),
                         myVCAttrs->getFloat(SUMO_ATTR_DECEL));
-            if (myVCAttrs->hasAttribute(SUMO_ATTR_LOADERTIME)) {
-                MSNet::getInstance()->setLoaderTime(myVCAttrs->getLong(SUMO_ATTR_LOADERTIME));
-            }
             if (myRemoved > 0) {
                 WRITE_MESSAGEF(TL("Removed % vehicles while loading state."), toString(myRemoved));
                 vc.discountStateRemoved(myRemoved);

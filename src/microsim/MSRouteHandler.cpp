@@ -617,7 +617,7 @@ MSRouteHandler::closeVehicle() {
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DepartDefinition::GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
-        if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+        if (!(myAddVehiclesDirectly || checkLastDepart()) || (myVehicleParameter->depart < MSNet::getInstance()->getStateLoaderTime() && !myAmLoadingState)) {
             mySkippedVehicles.insert(myVehicleParameter->id);
             return;
         }
@@ -818,7 +818,7 @@ MSRouteHandler::closeTransportable() {
         }
         // let's check whether this transportable had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart())
-                || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+                || (myVehicleParameter->depart < MSNet::getInstance()->getStateLoaderTime() && !myAmLoadingState)) {
             deleteActivePlanAndVehicleParameter();
             return;
         }
@@ -876,7 +876,7 @@ MSRouteHandler::closeTransportableFlow() {
         }
         // let's check whether this transportable (person/container) had to depart before the simulation starts
         if (!(myAddVehiclesDirectly || checkLastDepart())
-                || (myVehicleParameter->depart < string2time(OptionsCont::getOptions().getString("begin")) && !myAmLoadingState)) {
+                || (myVehicleParameter->depart < MSNet::getInstance()->getStateLoaderTime() && !myAmLoadingState)) {
             deleteActivePlanAndVehicleParameter();
             return;
         }

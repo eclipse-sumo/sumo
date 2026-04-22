@@ -237,6 +237,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     }
     OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
+    myStateLoaderTime = myStep,
     myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
@@ -1125,6 +1126,7 @@ MSNet::getLoaderTime() const {
 void
 MSNet::setLoaderTime(SUMOTime time) {
     myRouteLoaders->setCurrentLoadTime(time);
+    myStateLoaderTime = MAX2(myStateLoaderTime, time);
 }
 
 void

@@ -354,6 +354,11 @@ public:
 
     void setLoaderTime(SUMOTime time);
 
+    /// @brief return the next time for route loading the time of state loading
+    SUMOTime getStateLoaderTime() const {
+        return myStateLoaderTime;
+    }
+
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
      */
@@ -886,6 +891,15 @@ protected:
 
     /// @brief Current time step
     SUMOTime myStep;
+
+    /* @brief the time for rejecting vehicle that departed in the past are were already loaded.
+     * When not loading state, this value is the simulation begin time.
+     * When loading state, this is the time up to which vehicles have been
+     * loaded before saving state. This is typically after the state time.
+     * The state will include vehicles up to this time and they should not be
+     * loaded again from a route file. Uniqueness of ids is not a sufficient
+     * guard against loading again because these vehicles could arrive shortly after state loading. */
+    SUMOTime myStateLoaderTime;
 
     /// @brief whether libsumo triggered a partial step (executeMove)
     bool myStepCompletionMissing = false;
