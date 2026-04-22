@@ -189,7 +189,7 @@ public:
      * @param[in] parking whether this is offroad parking
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* veh, const bool parking);
+    void enter(SUMOVehicle* veh, const bool parking) override;
 
     /** @brief Called if a vehicle leaves this stop
      *

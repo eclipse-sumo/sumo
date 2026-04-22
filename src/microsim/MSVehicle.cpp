@@ -1649,6 +1649,21 @@ MSVehicle::processNextStop(double currentVelocity) {
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
         stop.duration -= getActionStepLength();
+        if (getSpeed() > 0) {
+            // re-enter stopping places to correct waiting position (except for parkingArea since it's place-based)
+            if (stop.busstop != nullptr) {
+                // let the bus stop know the vehicle
+                stop.busstop->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+            if (stop.containerstop != nullptr) {
+                // let the container stop know the vehicle
+                stop.containerstop->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+            if (stop.chargingStation != nullptr) {
+                // let the container stop know the vehicle
+                stop.chargingStation->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+        }
 
 #ifdef DEBUG_STOPS
         if (DEBUG_COND) {
