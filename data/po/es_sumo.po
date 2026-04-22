@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-21 07:15+0000\n"
+"PO-Revision-Date: 2026-04-22 10:03+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7382,6 +7382,8 @@ msgid ""
 "Attach junction to the closest edge within FLOAT distance that has it's id "
 "in param removedNodeIDs (for joining networks)"
 msgstr ""
+"Asignar el cruce a la arista más cercana dentro de una distancia FLOAT y que "
+"tenga su ID en el parámetro removedNodeIDs (para combinar redes)"
 
 #: src/netbuild/NBFrame.cpp:383
 msgid "Abbreviate junction or TLS id if it joins more than INT junctions"
@@ -7406,6 +7408,8 @@ msgid ""
 "Joins tram edges into road lanes with similar geometry (within FLOAT "
 "distance)"
 msgstr ""
+"Combinar aristas de tranvía con carriles de la vía con geometría similar "
+"(dentro de una distancia FLOAT)"
 
 #: src/netbuild/NBFrame.cpp:401
 msgid "Generate INT intermediate points to smooth out intersection corners"
@@ -7430,18 +7434,27 @@ msgid ""
 "This causes discrepancies between geometrical length and assigned length due "
 "to averaging but enables lane-changing while turning"
 msgstr ""
+"Construye aristas comunes para conexiones de giro con la misma arista de "
+"origen y destino. Esto provoca discrepancias entre la longitud geométrica y "
+"la longitud asignada debido al promedio, pero permite cambios de carril "
+"durante el giro"
 
 #: src/netbuild/NBFrame.cpp:415
 msgid ""
 "Limits speed on junctions to an average lateral acceleration of at most "
 "FLOAT (m/s^2)"
 msgstr ""
+"Limita la velocidad en los cruces a una aceleración lateral promedio de como "
+"máximo FLOAT (m/s^2)"
 
 #: src/netbuild/NBFrame.cpp:419
 msgid ""
 "Do not limit turn speed for angular changes below FLOAT (degrees). The value "
 "is subtracted from the geometric angle before computing the turning radius."
 msgstr ""
+"No limitar la velocidad de giro para cambios angulares menores que FLOAT "
+"(grados). El valor se resta del ángulo geométrico antes de calcular el radio "
+"de giro."
 
 #: src/netbuild/NBFrame.cpp:423
 msgid ""
@@ -7449,28 +7462,38 @@ msgid ""
 "edges. The value is subtracted from the geometric angle before computing the "
 "turning radius."
 msgstr ""
+"No limitar la velocidad de giro para cambios angulares menores que FLOAT "
+"(grados) en aristas ferroviarias. El valor se resta del ángulo geométrico "
+"antes de calcular el radio de giro."
 
 #: src/netbuild/NBFrame.cpp:427
 msgid ""
 "Warn about turn speed limits that reduce the speed of straight connections "
 "by more than FLOAT"
 msgstr ""
+"Advertir sobre límites de velocidad de giro que reduzcan la velocidad de las "
+"conexiones rectas en más de FLOAT"
 
 #: src/netbuild/NBFrame.cpp:431
 msgid ""
 "Warn about turn speed limits that reduce the speed of turning connections "
 "(no u-turns) by more than FLOAT"
 msgstr ""
+"Advertir sobre límites de velocidad de giro que reduzcan la velocidad de las "
+"conexiones de giro (sin giros en U) en más de FLOAT"
 
 #: src/netbuild/NBFrame.cpp:435
 msgid "Default radius for junctions that do not require wide vehicle turns"
 msgstr ""
+"Radio predeterminado para cruces que no requieren giros amplios de vehículos"
 
 #: src/netbuild/NBFrame.cpp:439
 msgid ""
 "Use maximum value of incoming and outgoing edge speed on junction instead of "
 "average"
 msgstr ""
+"Usar el valor máximo de velocidad de las aristas de entrada y salida en el "
+"cruce en lugar del promedio"
 
 #: src/netbuild/NBFrame.cpp:443
 msgid "Build junctions with minimal shapes (ignoring edge overlap)"
