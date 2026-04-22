@@ -1,0 +1,9 @@
+[collate_file]
+gtfs_warnings:gtfs_warnings.txt
+pt_vtypes:pt_vtypes.xml
+gtfs_routes:gtfs_pt_vehicles.rou.xml
+
+[run_dependent_text]
+pt_vtypes:<!--{[->]}-->
+gtfs_routes:<!--{[->]}-->
+

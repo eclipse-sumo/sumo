@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-22 16:18:12.239707 by Eclipse SUMO gtfs2pt.py v1_26_0+1322-eb915880aa3
+<configuration>
+    <gtfs value="gtfs.zip"/>
+    <date value="20230701"/>
+    <modes value="trolleybus"/>
+    <vtype-output value="pt_vtypes.xml"/>
+    <network value="net.net.xml"/>
+    <route-output value="gtfs_pt_vehicles.rou.xml"/>
+    <additional-output value="gtfs_pt_stops.add.xml"/>
+    <use-gtfs-stopids value="True"/>
+    <warning-output value="gtfs_warnings.txt"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="gtfs_U1000Z12P" lane="16941319.29_0" startPos="19.81" endPos="32.81" friendlyPos="true" name="Letňany">
+        <access friendlyPos="true" lane="-173073787_0" pos="136.87" length="108.48"/>
+        <access friendlyPos="true" lane="143575757_0" pos="12.73" length="123.82"/>
+        <access friendlyPos="true" lane="173073780#0_0" pos="147.70" length="112.48"/>
+        <access friendlyPos="true" lane="173073787_0" pos="0.00" length="108.55"/>
+        <access friendlyPos="true" lane="751026125#0_0" pos="0.00" length="62.39"/>
+        <access friendlyPos="true" lane="976298069#0_0" pos="74.03" length="4.84"/>
+        <access friendlyPos="true" lane="976298069#1_0" pos="0.00" length="119.19"/>
+        <access friendlyPos="true" lane="976298074_0" pos="59.38" length="36.23"/>
+        <access friendlyPos="true" lane="976298085_0" pos="0.00" length="110.19"/>
+        <access friendlyPos="true" lane="976298091#1_0" pos="20.64" length="111.40"/>
+    </busStop>
+    <busStop id="gtfs_U405Z1P" lane="E117_0" startPos="29.87" endPos="42.87" friendlyPos="true" name="Výstaviště Letňany">
+        <access friendlyPos="true" lane="-129089912#2_0" pos="23.80" length="50.96"/>
+        <access friendlyPos="true" lane="-173073792#0_0" pos="51.09" length="54.53"/>
+        <access friendlyPos="true" lane="-887612158_0" pos="5.83" length="63.98"/>
+        <access friendlyPos="true" lane="16942652#0_0" pos="153.66" length="15.42"/>
+        <access friendlyPos="true" lane="16942652#2_0" pos="8.03" length="9.08"/>
+        <access friendlyPos="true" lane="16943228#0_0" pos="0.20" length="67.68"/>
+        <access friendlyPos="true" lane="16943228#2_0" pos="0.17" length="51.74"/>
+        <access friendlyPos="true" lane="173073792#0_0" pos="0.00" length="51.59"/>
+        <access friendlyPos="true" lane="887612157#0_0" pos="28.47" length="41.69"/>
+        <access friendlyPos="true" lane="887612157#1_0" pos="0.00" length="64.54"/>
+    </busStop>
+    <busStop id="gtfs_U89Z1P" lane="-E33.155_1" startPos="0.00" endPos="13.00" friendlyPos="true" name="Dobratická">
+        <access friendlyPos="true" lane="-16943245#4_0" pos="6.48" length="4.59"/>
+        <access friendlyPos="true" lane="-16943252#1_0" pos="4.23" length="19.05"/>
+        <access friendlyPos="true" lane="-E32_0" pos="3.41" length="71.81"/>
+        <access friendlyPos="true" lane="16943252#0_0" pos="29.56" length="71.18"/>
+        <access friendlyPos="true" lane="16943252#1_0" pos="93.90" length="23.86"/>
+        <access friendlyPos="true" lane="25660518#4_0" pos="26.03" length="30.28"/>
+        <access friendlyPos="true" lane="25660518#5_0" pos="3.60" length="15.67"/>
+        <access friendlyPos="true" lane="E28_0" pos="171.58" length="85.82"/>
+        <access friendlyPos="true" lane="E35_0" pos="30.89" length="53.58"/>
+        <access friendlyPos="true" lane="E36_0" pos="25.59" length="17.76"/>
+    </busStop>
+    <busStop id="gtfs_U771Z1P" lane="-135738858.97_1" startPos="0.00" endPos="13.00" friendlyPos="true" name="Tupolevova">
+        <access friendlyPos="true" lane="-892733944_0" pos="104.41" length="40.80"/>
+        <access friendlyPos="true" lane="103799860#4_0" pos="35.86" length="45.25"/>
+        <access friendlyPos="true" lane="107435683#0_0" pos="0.00" length="42.65"/>
+        <access friendlyPos="true" lane="465305852#3_0" pos="0.00" length="24.34"/>
+        <access friendlyPos="true" lane="465305852#6_0" pos="12.29" length="41.03"/>
+        <access friendlyPos="true" lane="586426033#0_0" pos="49.32" length="46.34"/>
+        <access friendlyPos="true" lane="586426033#1_0" pos="20.93" length="24.85"/>
+        <access friendlyPos="true" lane="892733944_0" pos="0.00" length="38.14"/>
+        <access friendlyPos="true" lane="E30.47_0" pos="21.00" length="1.94"/>
+        <access friendlyPos="true" lane="E30_0" pos="46.29" length="44.84"/>
+    </busStop>
+    <busStop id="gtfs_U125Z1P" lane="-126134871_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Fryčovická">
+        <access friendlyPos="true" lane="-16944215#22_0" pos="4.07" length="36.14"/>
+        <access friendlyPos="true" lane="-22662810#0_0" pos="0.79" length="43.66"/>
+        <access friendlyPos="true" lane="-691977981_0" pos="0.20" length="41.30"/>
+        <access friendlyPos="true" lane="16944215#22_0" pos="33.45" length="39.15"/>
+        <access friendlyPos="true" lane="691977981_0" pos="0.00" length="42.62"/>
+        <access friendlyPos="true" lane="963949561#0_0" pos="14.33" length="6.30"/>
+        <access friendlyPos="true" lane="963949561#1_0" pos="0.00" length="38.84"/>
+        <access friendlyPos="true" lane="963949563#0_0" pos="0.27" length="49.77"/>
+        <access friendlyPos="true" lane="963949563#1_0" pos="0.20" length="28.27"/>
+        <access friendlyPos="true" lane="963949565_0" pos="0.00" length="27.73"/>
+    </busStop>
+    <busStop id="gtfs_U766Z1P" lane="E50.105_0" startPos="35.68" endPos="48.68" friendlyPos="true" name="Trutnovská">
+        <access friendlyPos="true" lane="143564011_0" pos="58.60" length="1.49"/>
+        <access friendlyPos="true" lane="143564014_0" pos="19.01" length="38.51"/>
+        <access friendlyPos="true" lane="812418916#1_0" pos="0.00" length="34.52"/>
+        <access friendlyPos="true" lane="812418916#2_0" pos="0.00" length="60.40"/>
+        <access friendlyPos="true" lane="88366592#0_0" pos="44.84" length="14.56"/>
+        <access friendlyPos="true" lane="88366592#1_0" pos="0.00" length="36.66"/>
+        <access friendlyPos="true" lane="88366601#3_0" pos="81.93" length="59.50"/>
+        <access friendlyPos="true" lane="88366601#4_0" pos="20.11" length="45.89"/>
+        <access friendlyPos="true" lane="88366601#5_0" pos="0.00" length="81.27"/>
+        <access friendlyPos="true" lane="902725248#1_0" pos="2.88" length="91.60"/>
+    </busStop>
+    <busStop id="gtfs_U368Z1P" lane="595866513#0.19_0" startPos="42.09" endPos="55.09" friendlyPos="true" name="Obchodní centrum Čakovice">
+        <access friendlyPos="true" lane="143554002#1_0" pos="24.59" length="48.69"/>
+        <access friendlyPos="true" lane="79290630#0_0" pos="76.34" length="27.94"/>
+        <access friendlyPos="true" lane="79290630#1_0" pos="0.00" length="34.43"/>
+        <access friendlyPos="true" lane="79290748#0_0" pos="91.13" length="40.36"/>
+        <access friendlyPos="true" lane="79290748#1_0" pos="0.00" length="40.21"/>
+        <access friendlyPos="true" lane="945418666#0_0" pos="0.11" length="35.60"/>
+        <access friendlyPos="true" lane="945418666#1_0" pos="2.84" length="25.94"/>
+        <access friendlyPos="true" lane="945418666#2_0" pos="3.78" length="17.04"/>
+        <access friendlyPos="true" lane="945418666#3_0" pos="8.94" length="5.08"/>
+        <access friendlyPos="true" lane="E61_0" pos="0.00" length="21.99"/>
+    </busStop>
+    <busStop id="gtfs_U451Z1P" lane="593758916#0.46_0" startPos="29.33" endPos="42.33" friendlyPos="true" name="Za Avií">
+        <access friendlyPos="true" lane="-110234360#0_0" pos="170.17" length="60.58"/>
+        <access friendlyPos="true" lane="-143554003#1_0" pos="8.64" length="34.64"/>
+        <access friendlyPos="true" lane="-143554009#1_0" pos="3.90" length="65.98"/>
+        <access friendlyPos="true" lane="143554003#1_0" pos="35.18" length="39.43"/>
+        <access friendlyPos="true" lane="143554007_0" pos="39.06" length="3.32"/>
+        <access friendlyPos="true" lane="143554011#0_0" pos="34.80" length="57.92"/>
+        <access friendlyPos="true" lane="143554011#1_0" pos="0.00" length="54.05"/>
+        <access friendlyPos="true" lane="143554011#2_0" pos="0.00" length="57.82"/>
+        <access friendlyPos="true" lane="79290630#8_0" pos="83.07" length="21.35"/>
+        <access friendlyPos="true" lane="79290630#9_0" pos="0.00" length="59.98"/>
+    </busStop>
+    <busStop id="gtfs_U63Z1P" lane="598209323.10_0" startPos="25.63" endPos="38.63" friendlyPos="true" name="Cukrovar Čakovice">
+        <access friendlyPos="true" lane="215566867#0_0" pos="22.14" length="47.95"/>
+        <access friendlyPos="true" lane="215566867#1_0" pos="11.61" length="11.47"/>
+        <access friendlyPos="true" lane="764152777#7_0" pos="51.78" length="11.15"/>
+        <access friendlyPos="true" lane="764152777#8_0" pos="1.64" length="5.36"/>
+        <access friendlyPos="true" lane="764152777#9_0" pos="0.00" length="86.49"/>
+        <access friendlyPos="true" lane="79290630#14_0" pos="40.32" length="85.55"/>
+        <access friendlyPos="true" lane="79290630#15_0" pos="50.29" length="21.09"/>
+        <access friendlyPos="true" lane="8308678#0_0" pos="1.06" length="80.80"/>
+        <access friendlyPos="true" lane="8308678#1_0" pos="1.67" length="79.10"/>
+        <access friendlyPos="true" lane="8308678#2_0" pos="0.00" length="84.30"/>
+    </busStop>
+    <busStop id="gtfs_U3212Z1P" lane="-160567763#6_0" startPos="7.20" endPos="20.20" friendlyPos="true" name="Nádraží Čakovice">
+        <access friendlyPos="true" lane="-E118.16_0" pos="0.20" length="42.68"/>
+        <access friendlyPos="true" lane="-E118_0" pos="0.00" length="43.49"/>
+        <access friendlyPos="true" lane="215566870#3_0" pos="31.02" length="73.25"/>
+        <access friendlyPos="true" lane="E118.16_0" pos="0.20" length="48.02"/>
+        <access friendlyPos="true" lane="E118_0" pos="15.55" length="48.70"/>
+        <access friendlyPos="true" lane="E49_0" pos="0.00" length="38.58"/>
+        <access friendlyPos="true" lane="E77_0" pos="4.70" length="31.44"/>
+        <access friendlyPos="true" lane="E78.50_0" pos="0.00" length="52.89"/>
+        <access friendlyPos="true" lane="E78_0" pos="19.03" length="6.01"/>
+        <access friendlyPos="true" lane="E79_0" pos="19.76" length="17.37"/>
+    </busStop>
+    <busStop id="gtfs_U248Z1P" lane="-160567763#3_0" startPos="95.38" endPos="108.38" friendlyPos="true" name="Koupaliště Čakovice">
+        <access friendlyPos="true" lane="1006194575.14_0" pos="0.00" length="14.06"/>
+        <access friendlyPos="true" lane="1006194575_0" pos="15.87" length="18.23"/>
+        <access friendlyPos="true" lane="1006194576#0_0" pos="0.00" length="23.58"/>
+        <access friendlyPos="true" lane="199982607_0" pos="56.93" length="14.84"/>
+        <access friendlyPos="true" lane="199982613#1_0" pos="0.00" length="19.06"/>
+        <access friendlyPos="true" lane="199982613#2_0" pos="0.00" length="23.58"/>
+        <access friendlyPos="true" lane="812418926#1_0" pos="5.96" length="35.36"/>
+        <access friendlyPos="true" lane="812418926#2_0" pos="9.08" length="16.92"/>
+        <access friendlyPos="true" lane="812418928_0" pos="0.00" length="29.14"/>
+        <access friendlyPos="true" lane="E80_0" pos="6.76" length="3.60"/>
+    </busStop>
+    <busStop id="gtfs_U934Z1P" lane="-4558735#1_0" startPos="17.71" endPos="30.71" friendlyPos="true" name="Náměstí Jiřího Berana">
+        <access friendlyPos="true" lane="1014405171_0" pos="28.71" length="5.43"/>
+        <access friendlyPos="true" lane="651790133_0" pos="0.00" length="57.00"/>
+        <access friendlyPos="true" lane="651790134#1_0" pos="0.00" length="19.40"/>
+        <access friendlyPos="true" lane="651790135_0" pos="25.99" length="12.61"/>
+        <access friendlyPos="true" lane="651790139#1_0" pos="28.58" length="43.97"/>
+        <access friendlyPos="true" lane="651790139#2_0" pos="0.00" length="46.08"/>
+        <access friendlyPos="true" lane="651790139#3_0" pos="0.00" length="49.85"/>
+        <access friendlyPos="true" lane="651790140#0_0" pos="0.00" length="17.32"/>
+        <access friendlyPos="true" lane="651790140#1_0" pos="0.00" length="22.01"/>
+        <access friendlyPos="true" lane="931371860_0" pos="40.04" length="14.10"/>
+    </busStop>
+    <busStop id="gtfs_U64Z1P" lane="4558750#1_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Čakovice">
+        <access friendlyPos="true" lane="-772212978_0" pos="48.51" length="32.63"/>
+        <access friendlyPos="true" lane="772212978_0" pos="5.22" length="37.43"/>
+        <access friendlyPos="true" lane="E119.19_0" pos="0.00" length="10.24"/>
+        <access friendlyPos="true" lane="E119.28_0" pos="0.00" length="26.44"/>
+        <access friendlyPos="true" lane="E119_0" pos="19.32" length="5.41"/>
+        <access friendlyPos="true" lane="E120_0" pos="14.82" length="44.63"/>
+        <access friendlyPos="true" lane="E84_0" pos="83.97" length="59.49"/>
+        <access friendlyPos="true" lane="E89_0" pos="13.17" length="34.79"/>
+        <access friendlyPos="true" lane="E90_0" pos="75.78" length="28.61"/>
+        <access friendlyPos="true" lane="E93_0" pos="0.00" length="41.60"/>
+    </busStop>
+    <busStop id="gtfs_U64Z16P" lane="-23230098#1_0" startPos="19.32" endPos="32.32" friendlyPos="true" name="Čakovice">
+        <access friendlyPos="true" lane="-191939952_0" pos="13.40" length="29.87"/>
+        <access friendlyPos="true" lane="191939952_0" pos="0.00" length="25.20"/>
+        <access friendlyPos="true" lane="E100_0" pos="61.30" length="76.18"/>
+        <access friendlyPos="true" lane="E76.100_0" pos="0.00" length="93.33"/>
+        <access friendlyPos="true" lane="E76_0" pos="35.16" length="6.47"/>
+        <access friendlyPos="true" lane="E82_0" pos="0.00" length="73.61"/>
+        <access friendlyPos="true" lane="E84_0" pos="0.00" length="89.83"/>
+        <access friendlyPos="true" lane="E87_0" pos="55.38" length="60.79"/>
+        <access friendlyPos="true" lane="E90_0" pos="0.00" length="121.81"/>
+        <access friendlyPos="true" lane="E94_0" pos="0.00" length="77.81"/>
+    </busStop>
+    <busStop id="gtfs_U934Z2P" lane="15804538_0" startPos="41.48" endPos="54.48" friendlyPos="true" name="Náměstí Jiřího Berana">
+        <access friendlyPos="true" lane="-1014405174_0" pos="3.33" length="3.47"/>
+        <access friendlyPos="true" lane="-651790142#1_0" pos="22.60" length="20.46"/>
+        <access friendlyPos="true" lane="1014405173_0" pos="0.00" length="9.70"/>
+        <access friendlyPos="true" lane="1014405174_0" pos="3.41" length="0.46"/>
+        <access friendlyPos="true" lane="15804327#2_0" pos="0.20" length="27.67"/>
+        <access friendlyPos="true" lane="651790142#1_0" pos="17.48" length="15.65"/>
+        <access friendlyPos="true" lane="931371860_0" pos="133.24" length="9.81"/>
+        <access friendlyPos="true" lane="931371861#1_0" pos="0.00" length="27.49"/>
+        <access friendlyPos="true" lane="931371863#0_0" pos="0.20" length="37.32"/>
+        <access friendlyPos="true" lane="931371863#1_0" pos="0.20" length="30.37"/>
+    </busStop>
+    <busStop id="gtfs_U248Z2P" lane="160567763#3_0" startPos="12.92" endPos="25.92" friendlyPos="true" name="Koupaliště Čakovice">
+        <access friendlyPos="true" lane="1006194575.14_0" pos="0.33" length="46.59"/>
+        <access friendlyPos="true" lane="1006194575_0" pos="15.87" length="51.88"/>
+        <access friendlyPos="true" lane="1006194576#0_0" pos="0.00" length="46.87"/>
+        <access friendlyPos="true" lane="199982607_0" pos="38.04" length="4.36"/>
+        <access friendlyPos="true" lane="199982609_0" pos="0.00" length="36.34"/>
+        <access friendlyPos="true" lane="199982610#0_0" pos="0.00" length="40.94"/>
+        <access friendlyPos="true" lane="199982613#1_0" pos="0.20" length="43.45"/>
+        <access friendlyPos="true" lane="199982613#2_0" pos="1.00" length="42.78"/>
+        <access friendlyPos="true" lane="812418926#2_0" pos="9.08" length="48.72"/>
+        <access friendlyPos="true" lane="E80_0" pos="25.69" length="22.69"/>
+    </busStop>
+    <busStop id="gtfs_U3212Z2P" lane="764152778#0_0" startPos="57.68" endPos="70.68" friendlyPos="true" name="Nádraží Čakovice">
+        <access friendlyPos="true" lane="1070255073_0" pos="35.26" length="23.28"/>
+        <access friendlyPos="true" lane="1070255074_0" pos="0.00" length="10.38"/>
+        <access friendlyPos="true" lane="1070255075#0_0" pos="0.00" length="24.42"/>
+        <access friendlyPos="true" lane="1070255075#1_0" pos="0.20" length="22.68"/>
+        <access friendlyPos="true" lane="691229539_0" pos="0.00" length="3.51"/>
+        <access friendlyPos="true" lane="691229544#1_0" pos="21.70" length="24.47"/>
+        <access friendlyPos="true" lane="691229544#2_0" pos="1.56" length="13.07"/>
+        <access friendlyPos="true" lane="691229544#3_0" pos="0.00" length="9.42"/>
+        <access friendlyPos="true" lane="691229546#2_0" pos="36.57" length="2.11"/>
+        <access friendlyPos="true" lane="691229546#3_0" pos="0.00" length="5.55"/>
+    </busStop>
+    <busStop id="gtfs_U63Z2P" lane="-598209323.55_0" startPos="19.26" endPos="32.26" friendlyPos="true" name="Cukrovar Čakovice">
+        <access friendlyPos="true" lane="215566867#1_0" pos="11.61" length="52.22"/>
+        <access friendlyPos="true" lane="764152777#10_0" pos="0.00" length="68.07"/>
+        <access friendlyPos="true" lane="764152777#7_0" pos="51.78" length="51.77"/>
+        <access friendlyPos="true" lane="764152777#8_0" pos="21.76" length="33.00"/>
+        <access friendlyPos="true" lane="764152777#9_0" pos="0.00" length="64.88"/>
+        <access friendlyPos="true" lane="79290630#14_0" pos="40.32" length="52.94"/>
+        <access friendlyPos="true" lane="79290630#15_0" pos="30.07" length="6.39"/>
+        <access friendlyPos="true" lane="8308678#0_0" pos="0.00" length="49.93"/>
+        <access friendlyPos="true" lane="8308678#1_0" pos="0.00" length="55.29"/>
+        <access friendlyPos="true" lane="8308678#2_0" pos="0.00" length="65.02"/>
+    </busStop>
+    <busStop id="gtfs_U451Z2P" lane="-593758916#0_0" startPos="1.21" endPos="14.21" friendlyPos="true" name="Za Avií">
+        <access friendlyPos="true" lane="-143554003#1_0" pos="28.20" length="13.19"/>
+        <access friendlyPos="true" lane="-143554009#1_0" pos="1.12" length="31.88"/>
+        <access friendlyPos="true" lane="143554003#1_0" pos="15.62" length="17.98"/>
+        <access friendlyPos="true" lane="143554007_0" pos="13.70" length="28.26"/>
+        <access friendlyPos="true" lane="143554009#1_0" pos="2.78" length="36.68"/>
+        <access friendlyPos="true" lane="143554011#1_0" pos="3.11" length="31.75"/>
+        <access friendlyPos="true" lane="143554011#2_0" pos="0.20" length="25.34"/>
+        <access friendlyPos="true" lane="79290630#10_0" pos="0.00" length="42.66"/>
+        <access friendlyPos="true" lane="79290630#8_0" pos="102.78" length="0.21"/>
+        <access friendlyPos="true" lane="79290630#9_0" pos="0.00" length="26.96"/>
+    </busStop>
+    <busStop id="gtfs_U368Z2P" lane="-595866513#1_0" startPos="29.40" endPos="42.40" friendlyPos="true" name="Obchodní centrum Čakovice">
+        <access friendlyPos="true" lane="143554002#1_0" pos="24.59" length="27.88"/>
+        <access friendlyPos="true" lane="79290630#0_0" pos="84.65" length="47.48"/>
+        <access friendlyPos="true" lane="79290630#1_0" pos="4.91" length="32.97"/>
+        <access friendlyPos="true" lane="79290630#2_0" pos="11.48" length="11.33"/>
+        <access friendlyPos="true" lane="79290630#3_0" pos="0.00" length="17.91"/>
+        <access friendlyPos="true" lane="79290748#1_0" pos="5.76" length="33.64"/>
+        <access friendlyPos="true" lane="79290797_0" pos="35.72" length="17.10"/>
+        <access friendlyPos="true" lane="945418666#1_0" pos="2.84" length="42.22"/>
+        <access friendlyPos="true" lane="945418666#2_0" pos="0.00" length="43.57"/>
+        <access friendlyPos="true" lane="E61_0" pos="14.86" length="28.90"/>
+    </busStop>
+    <busStop id="gtfs_U766Z2P" lane="E51.291.52_0" startPos="6.27" endPos="19.27" friendlyPos="true" name="Trutnovská">
+        <access friendlyPos="true" lane="-1037819218#0_0" pos="19.29" length="111.42"/>
+        <access friendlyPos="true" lane="1037819218#0_0" pos="0.00" length="108.92"/>
+        <access friendlyPos="true" lane="143564011_0" pos="74.22" length="36.78"/>
+        <access friendlyPos="true" lane="143564014_0" pos="3.79" length="2.84"/>
+        <access friendlyPos="true" lane="812418916#1_0" pos="0.00" length="50.08"/>
+        <access friendlyPos="true" lane="812418916#2_0" pos="0.00" length="86.44"/>
+        <access friendlyPos="true" lane="88366592#0_0" pos="60.49" length="46.06"/>
+        <access friendlyPos="true" lane="88366592#1_0" pos="0.00" length="47.12"/>
+        <access friendlyPos="true" lane="88366601#3_0" pos="81.93" length="83.23"/>
+        <access friendlyPos="true" lane="88366601#4_0" pos="5.12" length="81.79"/>
+    </busStop>
+    <busStop id="gtfs_U125Z2P" lane="531488940_0" startPos="6.10" endPos="19.10" friendlyPos="true" name="Fryčovická">
+        <access friendlyPos="true" lane="-564143305#0_0" pos="34.88" length="32.88"/>
+        <access friendlyPos="true" lane="-963963083#0_0" pos="12.17" length="25.73"/>
+        <access friendlyPos="true" lane="-963963085#0_0" pos="100.23" length="36.54"/>
+        <access friendlyPos="true" lane="10471966#5_0" pos="69.69" length="6.22"/>
+        <access friendlyPos="true" lane="143564016_0" pos="0.00" length="26.02"/>
+        <access friendlyPos="true" lane="16944204#1_0" pos="0.00" length="34.87"/>
+        <access friendlyPos="true" lane="564143305#0_0" pos="0.00" length="30.92"/>
+        <access friendlyPos="true" lane="963949563#0_0" pos="0.27" length="32.55"/>
+        <access friendlyPos="true" lane="963949565_0" pos="15.25" length="26.37"/>
+        <access friendlyPos="true" lane="963963083#0_0" pos="89.55" length="22.73"/>
+    </busStop>
+    <busStop id="gtfs_U771Z2P" lane="135738855.61.37_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Tupolevova">
+        <access friendlyPos="true" lane="-892733944_0" pos="100.48" length="55.60"/>
+        <access friendlyPos="true" lane="103799860#4_0" pos="32.24" length="75.05"/>
+        <access friendlyPos="true" lane="103799864#2_0" pos="42.02" length="51.58"/>
+        <access friendlyPos="true" lane="107435683#0_0" pos="0.00" length="88.29"/>
+        <access friendlyPos="true" lane="465305852#3_0" pos="0.00" length="73.12"/>
+        <access friendlyPos="true" lane="465305852#6_0" pos="12.29" length="61.03"/>
+        <access friendlyPos="true" lane="586426033#0_0" pos="49.32" length="79.36"/>
+        <access friendlyPos="true" lane="586426033#1_0" pos="47.70" length="4.87"/>
+        <access friendlyPos="true" lane="892733944_0" pos="3.93" length="50.80"/>
+        <access friendlyPos="true" lane="E30.47_0" pos="47.04" length="34.52"/>
+    </busStop>
+    <busStop id="gtfs_U89Z2P" lane="E33_0" startPos="8.37" endPos="21.37" friendlyPos="true" name="Dobratická">
+        <access friendlyPos="true" lane="-16943245#4_0" pos="0.00" length="26.91"/>
+        <access friendlyPos="true" lane="-16943252#1_0" pos="0.00" length="40.72"/>
+        <access friendlyPos="true" lane="-E32_0" pos="0.00" length="56.07"/>
+        <access friendlyPos="true" lane="16943252#1_0" pos="98.13" length="45.11"/>
+        <access friendlyPos="true" lane="25660518#4_0" pos="26.03" length="48.38"/>
+        <access friendlyPos="true" lane="25660518#5_0" pos="3.60" length="29.03"/>
+        <access friendlyPos="true" lane="E28_0" pos="171.58" length="66.46"/>
+        <access friendlyPos="true" lane="E32_0" pos="3.41" length="60.73"/>
+        <access friendlyPos="true" lane="E35_0" pos="30.57" length="28.35"/>
+        <access friendlyPos="true" lane="E36_0" pos="21.11" length="23.00"/>
+    </busStop>
+    <busStop id="gtfs_U405Z2P" lane="19848860#1.12_0" startPos="10.96" endPos="23.96" friendlyPos="true" name="Výstaviště Letňany">
+        <access friendlyPos="true" lane="-129089912#1_0" pos="0.00" length="35.05"/>
+        <access friendlyPos="true" lane="-129089912#2_0" pos="42.31" length="22.22"/>
+        <access friendlyPos="true" lane="-887612158_0" pos="5.83" length="25.33"/>
+        <access friendlyPos="true" lane="-887612159_0" pos="0.00" length="71.95"/>
+        <access friendlyPos="true" lane="16942652#0_0" pos="146.71" length="41.94"/>
+        <access friendlyPos="true" lane="16942652#2_0" pos="0.00" length="43.33"/>
+        <access friendlyPos="true" lane="16943228#0_0" pos="0.20" length="78.04"/>
+        <access friendlyPos="true" lane="46982816#1_0" pos="0.20" length="84.52"/>
+        <access friendlyPos="true" lane="887612157#0_0" pos="43.88" length="9.10"/>
+        <access friendlyPos="true" lane="887612157#1_0" pos="0.00" length="27.55"/>
+    </busStop>
+    <busStop id="gtfs_U1000Z3P" lane="602745208_0" startPos="29.90" endPos="42.90" friendlyPos="true" name="Letňany">
+        <access friendlyPos="true" lane="-173073787_0" pos="136.87" length="104.84"/>
+        <access friendlyPos="true" lane="143575757_0" pos="12.73" length="97.72"/>
+        <access friendlyPos="true" lane="143575761_0" pos="0.00" length="115.13"/>
+        <access friendlyPos="true" lane="173073787_0" pos="0.00" length="105.29"/>
+        <access friendlyPos="true" lane="751026125#0_0" pos="0.00" length="41.78"/>
+        <access friendlyPos="true" lane="976298069#0_0" pos="79.17" length="31.12"/>
+        <access friendlyPos="true" lane="976298069#1_0" pos="0.00" length="115.64"/>
+        <access friendlyPos="true" lane="976298074_0" pos="63.63" length="9.58"/>
+        <access friendlyPos="true" lane="976298085_0" pos="0.00" length="83.66"/>
+        <access friendlyPos="true" lane="976298091#1_0" pos="20.64" length="84.01"/>
+    </busStop>
+    <busStop id="gtfs_U1000Z4P" lane="602745208_0" startPos="68.08" endPos="81.08" friendlyPos="true" name="Letňany">
+        <access friendlyPos="true" lane="-235809977#0_0" pos="38.24" length="79.39"/>
+        <access friendlyPos="true" lane="-443090011#1_0" pos="17.86" length="65.00"/>
+        <access friendlyPos="true" lane="143575757_0" pos="12.00" length="81.08"/>
+        <access friendlyPos="true" lane="143575761_0" pos="0.00" length="87.21"/>
+        <access friendlyPos="true" lane="235809977#0_0" pos="0.00" length="79.63"/>
+        <access friendlyPos="true" lane="443090011#1_0" pos="30.48" length="66.78"/>
+        <access friendlyPos="true" lane="976298069#0_0" pos="117.30" length="28.74"/>
+        <access friendlyPos="true" lane="976298069#1_0" pos="0.00" length="61.33"/>
+        <access friendlyPos="true" lane="976298074_0" pos="88.66" length="25.11"/>
+        <access friendlyPos="true" lane="976298091#1_0" pos="0.00" length="81.10"/>
+    </busStop>
+    <busStop id="gtfs_U606Z2P" lane="12353018#0.66_0" startPos="0.86" endPos="13.86" friendlyPos="true" name="Letňanská">
+        <access friendlyPos="true" lane="-455029268#1_0" pos="0.00" length="35.10"/>
+        <access friendlyPos="true" lane="-455029268#2_0" pos="14.10" length="24.28"/>
+        <access friendlyPos="true" lane="-455029268#3_0" pos="25.58" length="42.79"/>
+        <access friendlyPos="true" lane="-455029269_0" pos="0.10" length="38.67"/>
+        <access friendlyPos="true" lane="-455029271_0" pos="0.50" length="35.67"/>
+        <access friendlyPos="true" lane="455029268#1_0" pos="47.24" length="31.97"/>
+        <access friendlyPos="true" lane="455029268#2_0" pos="7.50" length="19.48"/>
+        <access friendlyPos="true" lane="455029268#3_0" pos="0.00" length="40.26"/>
+        <access friendlyPos="true" lane="455029271_0" pos="0.00" length="33.03"/>
+        <access friendlyPos="true" lane="979871683#1_0" pos="91.04" length="7.73"/>
+    </busStop>
+    <busStop id="gtfs_U500Z2P" lane="143952408#5.50_0" startPos="23.12" endPos="36.12" friendlyPos="true" name="Nový Prosek">
+        <access friendlyPos="true" lane="143058854#2_0" pos="223.71" length="30.87"/>
+        <access friendlyPos="true" lane="143058854#3_0" pos="6.50" length="13.69"/>
+        <access friendlyPos="true" lane="143058854#4_0" pos="2.40" length="3.70"/>
+        <access friendlyPos="true" lane="143058854#5_0" pos="0.00" length="16.10"/>
+        <access friendlyPos="true" lane="143058861#0_0" pos="0.00" length="14.37"/>
+        <access friendlyPos="true" lane="143058861#1_0" pos="0.00" length="24.67"/>
+        <access friendlyPos="true" lane="239350005_0" pos="0.00" length="25.29"/>
+        <access friendlyPos="true" lane="979871690#1_0" pos="0.80" length="26.40"/>
+        <access friendlyPos="true" lane="979871691#2_0" pos="0.20" length="26.93"/>
+        <access friendlyPos="true" lane="979871693_0" pos="0.00" length="12.63"/>
+    </busStop>
+    <busStop id="gtfs_U603Z2P" lane="573981209#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Prosek">
+        <access friendlyPos="true" lane="125307857_0" pos="10.39" length="22.66"/>
+        <access friendlyPos="true" lane="125307859#5_0" pos="20.83" length="36.31"/>
+        <access friendlyPos="true" lane="125307859#6_0" pos="0.20" length="29.84"/>
+        <access friendlyPos="true" lane="217436338_0" pos="0.00" length="15.06"/>
+        <access friendlyPos="true" lane="239350002#0_0" pos="1.50" length="4.12"/>
+        <access friendlyPos="true" lane="239350002#1_0" pos="0.00" length="22.33"/>
+        <access friendlyPos="true" lane="498863663_0" pos="0.00" length="37.23"/>
+        <access friendlyPos="true" lane="498863665#0_0" pos="1.66" length="39.38"/>
+        <access friendlyPos="true" lane="498863665#1_0" pos="0.20" length="33.50"/>
+        <access friendlyPos="true" lane="98568793#0_0" pos="100.15" length="26.90"/>
+    </busStop>
+    <busStop id="gtfs_U754Z2P" lane="623095585_0" startPos="41.49" endPos="54.49" friendlyPos="true" name="Prosecká">
+        <access friendlyPos="true" lane="1040878202_0" pos="101.21" length="36.06"/>
+        <access friendlyPos="true" lane="125454816_0" pos="0.00" length="38.62"/>
+        <access friendlyPos="true" lane="372398160_0" pos="0.00" length="45.56"/>
+        <access friendlyPos="true" lane="372398162#0_0" pos="0.00" length="45.31"/>
+        <access friendlyPos="true" lane="372398164#0_0" pos="50.25" length="36.81"/>
+        <access friendlyPos="true" lane="372398164#1_0" pos="11.88" length="25.02"/>
+        <access friendlyPos="true" lane="886230594#1_0" pos="4.41" length="33.30"/>
+        <access friendlyPos="true" lane="890782107#0_0" pos="0.00" length="26.99"/>
+        <access friendlyPos="true" lane="890782107#1_0" pos="0.00" length="47.91"/>
+        <access friendlyPos="true" lane="952088476_0" pos="52.95" length="2.67"/>
+    </busStop>
+    <busStop id="gtfs_U251Z2P" lane="E104_0" startPos="35.66" endPos="48.66" friendlyPos="true" name="Kelerka">
+        <access friendlyPos="true" lane="-114614715#2_0" pos="0.00" length="40.34"/>
+        <access friendlyPos="true" lane="-428193317_0" pos="9.60" length="78.28"/>
+        <access friendlyPos="true" lane="-62173345#0_0" pos="23.31" length="37.65"/>
+        <access friendlyPos="true" lane="-E104.58_1" pos="0.00" length="72.81"/>
+        <access friendlyPos="true" lane="1005511826#1_0" pos="0.00" length="26.15"/>
+        <access friendlyPos="true" lane="114614715#2_0" pos="35.06" length="37.95"/>
+        <access friendlyPos="true" lane="210554177_0" pos="40.32" length="36.03"/>
+        <access friendlyPos="true" lane="309222619_0" pos="49.75" length="2.69"/>
+        <access friendlyPos="true" lane="428193317_0" pos="3.24" length="73.47"/>
+        <access friendlyPos="true" lane="62173345#0_0" pos="0.00" length="36.03"/>
+    </busStop>
+    <busStop id="gtfs_U1413Z2P" lane="-E108_0" startPos="40.27" endPos="53.27" friendlyPos="true" name="Kundratka"/>
+    <busStop id="gtfs_U529Z5P" lane="-407662687#1_0" startPos="57.47" endPos="70.47" friendlyPos="true" name="Palmovka">
+        <access friendlyPos="true" lane="153528623#1_0" pos="0.00" length="36.52"/>
+        <access friendlyPos="true" lane="33529112#0_0" pos="4.16" length="70.72"/>
+        <access friendlyPos="true" lane="34919487_0" pos="0.00" length="33.20"/>
+        <access friendlyPos="true" lane="39610631#1.5_0" pos="20.18" length="20.94"/>
+        <access friendlyPos="true" lane="39610631#1_0" pos="3.43" length="62.59"/>
+        <access friendlyPos="true" lane="48330853_0" pos="8.62" length="13.87"/>
+        <access friendlyPos="true" lane="491116245#0_0" pos="48.10" length="56.57"/>
+        <access friendlyPos="true" lane="491116245#1_0" pos="16.99" length="45.89"/>
+        <access friendlyPos="true" lane="491116251#0_0" pos="0.00" length="72.05"/>
+        <access friendlyPos="true" lane="939247800_0" pos="70.31" length="23.57"/>
+    </busStop>
+    <busStop id="gtfs_U529Z4P" lane="-1141911310_0" startPos="59.38" endPos="72.38" friendlyPos="true" name="Palmovka">
+        <access friendlyPos="true" lane="-540121507_0" pos="0.00" length="67.01"/>
+        <access friendlyPos="true" lane="33529114#1_0" pos="0.00" length="49.29"/>
+        <access friendlyPos="true" lane="33529114#2_0" pos="0.00" length="82.23"/>
+        <access friendlyPos="true" lane="545267366#1.9_0" pos="43.21" length="42.44"/>
+        <access friendlyPos="true" lane="545267370#1_0" pos="19.80" length="9.56"/>
+        <access friendlyPos="true" lane="545267370#2_0" pos="0.00" length="52.32"/>
+        <access friendlyPos="true" lane="545267370#3_0" pos="0.00" length="69.14"/>
+        <access friendlyPos="true" lane="828735469_0" pos="0.00" length="69.51"/>
+        <access friendlyPos="true" lane="828735470#0_0" pos="64.53" length="22.12"/>
+        <access friendlyPos="true" lane="828735470#1_0" pos="0.00" length="71.58"/>
+    </busStop>
+    <busStop id="gtfs_U471Z2P" lane="E137.19_0" startPos="20.26" endPos="33.26" friendlyPos="true" name="Libeňský zámek">
+        <access friendlyPos="true" lane="179326373#1.5_0" pos="0.20" length="22.79"/>
+        <access friendlyPos="true" lane="179326373#2_0" pos="5.44" length="22.61"/>
+        <access friendlyPos="true" lane="179326373#3_0" pos="3.57" length="15.29"/>
+        <access friendlyPos="true" lane="179326373#4_0" pos="0.00" length="17.36"/>
+        <access friendlyPos="true" lane="179326409_0" pos="39.06" length="63.51"/>
+        <access friendlyPos="true" lane="179326419#1_0" pos="0.00" length="61.15"/>
+        <access friendlyPos="true" lane="181447760#2_0" pos="143.27" length="65.82"/>
+        <access friendlyPos="true" lane="181447762_0" pos="0.00" length="21.65"/>
+        <access friendlyPos="true" lane="248187876#2_0" pos="47.16" length="50.91"/>
+        <access friendlyPos="true" lane="621786634#6.10_0" pos="7.91" length="23.33"/>
+    </busStop>
+    <busStop id="gtfs_U1413Z1P" lane="E108_1" startPos="0.00" endPos="13.00" friendlyPos="true" name="Kundratka">
+        <access friendlyPos="true" lane="-757443927#3_0" pos="33.63" length="97.88"/>
+        <access friendlyPos="true" lane="-E108_1" pos="52.39" length="19.03"/>
+        <access friendlyPos="true" lane="142920691#2_0" pos="67.96" length="1.57"/>
+        <access friendlyPos="true" lane="757443927#2_0" pos="19.37" length="97.80"/>
+        <access friendlyPos="true" lane="757443927#3_0" pos="10.63" length="93.08"/>
+        <access friendlyPos="true" lane="879373545_0" pos="0.00" length="87.47"/>
+        <access friendlyPos="true" lane="879373547_0" pos="0.00" length="82.34"/>
+        <access friendlyPos="true" lane="879373548#1_0" pos="52.38" length="32.25"/>
+        <access friendlyPos="true" lane="879373549#1_0" pos="3.79" length="91.88"/>
+        <access friendlyPos="true" lane="902310326_0" pos="23.21" length="85.96"/>
+    </busStop>
+    <busStop id="gtfs_U251Z1P" lane="E113_0" startPos="21.36" endPos="34.36" friendlyPos="true" name="Kelerka">
+        <access friendlyPos="true" lane="-E104.58_1" pos="1.00" length="72.00"/>
+        <access friendlyPos="true" lane="1005511829_0" pos="0.00" length="61.80"/>
+        <access friendlyPos="true" lane="143058831#3_0" pos="58.74" length="4.49"/>
+        <access friendlyPos="true" lane="143058832#0_0" pos="0.16" length="65.66"/>
+        <access friendlyPos="true" lane="143058836#2_0" pos="181.09" length="25.93"/>
+        <access friendlyPos="true" lane="210554175#0.4_0" pos="0.00" length="57.66"/>
+        <access friendlyPos="true" lane="210554175#0_0" pos="0.00" length="43.36"/>
+        <access friendlyPos="true" lane="210554176_0" pos="0.00" length="43.76"/>
+        <access friendlyPos="true" lane="210554177_0" pos="0.00" length="69.51"/>
+        <access friendlyPos="true" lane="309223292_0" pos="0.00" length="61.01"/>
+    </busStop>
+    <busStop id="gtfs_U754Z1P" lane="623095587#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Prosecká">
+        <access friendlyPos="true" lane="-143058870#1_0" pos="0.00" length="51.41"/>
+        <access friendlyPos="true" lane="125454754_0" pos="43.07" length="26.02"/>
+        <access friendlyPos="true" lane="143058837#0_0" pos="3.65" length="60.96"/>
+        <access friendlyPos="true" lane="143058837#1_0" pos="0.20" length="58.95"/>
+        <access friendlyPos="true" lane="143058837#3_0" pos="0.00" length="61.19"/>
+        <access friendlyPos="true" lane="143058870#1_0" pos="14.72" length="55.44"/>
+        <access friendlyPos="true" lane="431796771#1_0" pos="18.55" length="53.24"/>
+        <access friendlyPos="true" lane="650722917_0" pos="14.26" length="4.60"/>
+        <access friendlyPos="true" lane="893953453#0_0" pos="0.00" length="29.03"/>
+        <access friendlyPos="true" lane="942583850#0_0" pos="37.19" length="18.18"/>
+    </busStop>
+    <busStop id="gtfs_U603Z1P" lane="218339204#1.85_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Prosek">
+        <access friendlyPos="true" lane="-952703329_0" pos="0.00" length="46.11"/>
+        <access friendlyPos="true" lane="143058873#0_0" pos="0.00" length="10.26"/>
+        <access friendlyPos="true" lane="143058877#5_0" pos="54.58" length="8.78"/>
+        <access friendlyPos="true" lane="171607770#0_0" pos="0.20" length="76.65"/>
+        <access friendlyPos="true" lane="239350002#0_0" pos="0.00" length="74.13"/>
+        <access friendlyPos="true" lane="26840545#2_0" pos="73.93" length="50.58"/>
+        <access friendlyPos="true" lane="926781301#0_0" pos="21.85" length="79.96"/>
+        <access friendlyPos="true" lane="926781301#1_0" pos="46.89" length="0.06"/>
+        <access friendlyPos="true" lane="98568793#0_0" pos="143.93" length="61.09"/>
+        <access friendlyPos="true" lane="E114_0" pos="0.20" length="74.16"/>
+    </busStop>
+    <busStop id="gtfs_U500Z1P" lane="979871686#1.170_0" startPos="48.34" endPos="61.34" friendlyPos="true" name="Nový Prosek">
+        <access friendlyPos="true" lane="113756531#2_0" pos="56.21" length="26.80"/>
+        <access friendlyPos="true" lane="113756531#3_0" pos="10.30" length="11.66"/>
+        <access friendlyPos="true" lane="143058854#2_0" pos="212.18" length="43.05"/>
+        <access friendlyPos="true" lane="143058854#3_0" pos="0.00" length="44.70"/>
+        <access friendlyPos="true" lane="26496512#5_0" pos="29.30" length="26.94"/>
+        <access friendlyPos="true" lane="26496512#6_0" pos="1.12" length="20.45"/>
+        <access friendlyPos="true" lane="979871690#1_0" pos="0.00" length="35.51"/>
+        <access friendlyPos="true" lane="979871691#1_0" pos="0.00" length="21.75"/>
+        <access friendlyPos="true" lane="979871691#2_0" pos="0.00" length="31.89"/>
+        <access friendlyPos="true" lane="979871693_0" pos="6.98" length="35.76"/>
+    </busStop>
+    <busStop id="gtfs_U606Z1P" lane="979871687#0_0" startPos="27.72" endPos="40.72" friendlyPos="true" name="Letňanská">
+        <access friendlyPos="true" lane="143058822#0_0" pos="0.00" length="43.43"/>
+        <access friendlyPos="true" lane="143058854#9_0" pos="14.20" length="43.00"/>
+        <access friendlyPos="true" lane="143058866#0_0" pos="0.20" length="84.55"/>
+        <access friendlyPos="true" lane="143058866#2_0" pos="0.20" length="70.88"/>
+        <access friendlyPos="true" lane="700349292#0_0" pos="0.00" length="28.67"/>
+        <access friendlyPos="true" lane="700349292#2_0" pos="0.00" length="54.58"/>
+        <access friendlyPos="true" lane="979871684#0_0" pos="0.00" length="62.02"/>
+        <access friendlyPos="true" lane="979871688#0_0" pos="58.80" length="9.04"/>
+        <access friendlyPos="true" lane="979871688#1_0" pos="0.00" length="30.72"/>
+        <access friendlyPos="true" lane="E3_0" pos="0.00" length="48.71"/>
+    </busStop>
+    <busStop id="gtfs_U64Z1P" lane="-345276763#1.4_0" startPos="2.90" endPos="15.90" friendlyPos="true" name="Čakovice">
+        <access friendlyPos="true" lane="-772212978_0" pos="48.51" length="32.63"/>
+        <access friendlyPos="true" lane="772212978_0" pos="5.22" length="37.43"/>
+        <access friendlyPos="true" lane="E119.19_0" pos="0.00" length="10.24"/>
+        <access friendlyPos="true" lane="E119.28_0" pos="0.00" length="26.44"/>
+        <access friendlyPos="true" lane="E119_0" pos="19.32" length="5.41"/>
+        <access friendlyPos="true" lane="E120_0" pos="14.82" length="44.63"/>
+        <access friendlyPos="true" lane="E84_0" pos="83.97" length="59.49"/>
+        <access friendlyPos="true" lane="E89_0" pos="13.17" length="34.79"/>
+        <access friendlyPos="true" lane="E90_0" pos="75.78" length="28.61"/>
+        <access friendlyPos="true" lane="E93_0" pos="0.00" length="41.60"/>
+    </busStop>
+    <busStop id="gtfs_U399Z1P" lane="-345558719#4_0" startPos="308.37" endPos="321.37" friendlyPos="true" name="Radonická">
+        <access friendlyPos="true" lane="671306899#1.160_0" pos="0.00" length="52.95"/>
+        <access friendlyPos="true" lane="671306899#1_0" pos="151.15" length="50.20"/>
+        <access friendlyPos="true" lane="E101.11_0" pos="0.00" length="46.76"/>
+        <access friendlyPos="true" lane="E88_0" pos="84.77" length="31.07"/>
+        <access friendlyPos="true" lane="E91.388.316_0" pos="13.73" length="9.57"/>
+    </busStop>
+    <busStop id="gtfs_U384Z1P" lane="-345558714#0_0" startPos="16.12" endPos="29.12" friendlyPos="true" name="Miškovice">
+        <access friendlyPos="true" lane="-4558702_0" pos="0.00" length="23.75"/>
+        <access friendlyPos="true" lane="4558702_0" pos="86.19" length="21.16"/>
+        <access friendlyPos="true" lane="671306883#0_0" pos="0.00" length="44.79"/>
+        <access friendlyPos="true" lane="671306885#0_0" pos="0.00" length="8.61"/>
+        <access friendlyPos="true" lane="671306885#1_0" pos="0.00" length="15.10"/>
+        <access friendlyPos="true" lane="671306886#0_0" pos="25.12" length="7.35"/>
+        <access friendlyPos="true" lane="671306886#1_0" pos="0.00" length="11.36"/>
+        <access friendlyPos="true" lane="671306902#1_0" pos="0.00" length="19.29"/>
+        <access friendlyPos="true" lane="671306902#3_0" pos="177.26" length="16.33"/>
+        <access friendlyPos="true" lane="671306904#0_0" pos="27.26" length="15.39"/>
+    </busStop>
+    <busStop id="gtfs_U384Z2P" lane="345558719#1_0" startPos="29.04" endPos="42.04" friendlyPos="true" name="Miškovice">
+        <access friendlyPos="true" lane="671306897#0_0" pos="0.20" length="71.50"/>
+        <access friendlyPos="true" lane="671306897#1_0" pos="43.57" length="9.13"/>
+        <access friendlyPos="true" lane="671306897#2_0" pos="0.00" length="57.07"/>
+        <access friendlyPos="true" lane="671306897#3_0" pos="38.09" length="50.87"/>
+        <access friendlyPos="true" lane="671306898#0_0" pos="0.00" length="58.07"/>
+        <access friendlyPos="true" lane="671306898#1_0" pos="0.00" length="79.11"/>
+        <access friendlyPos="true" lane="671306901#0_0" pos="0.00" length="69.54"/>
+        <access friendlyPos="true" lane="671306902#2_0" pos="45.27" length="14.61"/>
+        <access friendlyPos="true" lane="671306902#3_0" pos="0.00" length="54.16"/>
+        <access friendlyPos="true" lane="E101.11.146_0" pos="1.72" length="59.20"/>
+    </busStop>
+    <busStop id="gtfs_U399Z2P" lane="345558719#4.49_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Radonická">
+        <access friendlyPos="true" lane="671306899#1.160_0" pos="0.00" length="113.37"/>
+        <access friendlyPos="true" lane="671306899#1_0" pos="135.87" length="101.30"/>
+        <access friendlyPos="true" lane="E101.11_0" pos="0.00" length="119.19"/>
+        <access friendlyPos="true" lane="E88_0" pos="84.77" length="105.34"/>
+        <access friendlyPos="true" lane="E91.388.316_0" pos="0.00" length="61.97"/>
+    </busStop>
+</additional>
