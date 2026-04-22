@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-21T16:39:43.412677+01:00 by Eclipse SUMO sumo v1_26_0+1306-105ed05321f
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p_0" depart="1.00" departPos="80.00" arrival="135.00">
+        <ride from="B1C1" to="D1E1" arrivalPos="95.20" lines="taxi"/>
+    </person>
+
+    <vehicle id="t0" depart="0.00">
+        <routeDistribution>
+            <route replacedOnEdge="B1C1" replacedOnIndex="2" reason="taxi:prepare_dispatch" replacedAtTime="60.00" probability="0" edges="B1C1 C1B1 B1C1 C1D1"/>
+            <route replacedOnEdge="B1C1" replacedOnIndex="2" reason="taxi:dispatch" replacedAtTime="60.00" probability="0" edges="B1C1 C1B1 B1C1 B1C1 D1E1"/>
+            <route edges="B1C1 C1B1 B1C1 C1B1 B1C1 C1D1 D1E1"/>
+        </routeDistribution>
+        <stop lane="B1C1_1" startPos="80.00" endPos="80.00" index="2" duration="0.00" triggered="person" parking="1" permitted="p_0" actType="pickup p_0 (0)"/>
+        <stop lane="D1E1_1" startPos="142.80" endPos="142.80" duration="60.00" triggered="person" parking="1" actType="dropOff p_0 (0)"/>
+        <param key="has.taxi.device" value="true"/>
+    </vehicle>
+
+</routes>

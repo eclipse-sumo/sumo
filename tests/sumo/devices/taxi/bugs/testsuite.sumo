@@ -57,3 +57,6 @@ ticket17629
 
 # failure to add stop when initial route is looped
 ticket17890
+
+# simulation does not terminate
+ticket17908
