@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-21 17:51+0000\n"
+"PO-Revision-Date: 2026-04-22 18:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7816,6 +7816,8 @@ msgid ""
 "Use INT as green phase duration for left turns (s). Setting this value to 0 "
 "disables additional left-turning phases"
 msgstr ""
+"INT (s) als Freigabezeit (Grün) für Linksabbieger verwenden. Bei einem Wert "
+"von 0 werden keine zusätzlichen Linksabbiegerphasen erstellt"
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
@@ -7825,19 +7827,21 @@ msgstr ""
 msgid ""
 "Set INT as fixed time for intermediate NEMA yellow phase after every switch"
 msgstr ""
+"INT als feste Dauer einer NEMA-Zwischenphase Gelb nach jedem Wechsel setzen"
 
 #: src/netbuild/NBFrame.cpp:620
 msgid ""
 "Set INT as fixed time for intermediate NEMA red phase after every switch"
 msgstr ""
+"INT als feste Dauer einer NEMA-Zwischenphase (Rot) nach jedem Wechsel setzen"
 
 #: src/netbuild/NBFrame.cpp:623
 msgid "Use INT as minimum green duration for pedestrian crossings (s)."
-msgstr ""
+msgstr "INT (s) als minimale Freigabezeit für Fußgängerfurten nutzen."
 
 #: src/netbuild/NBFrame.cpp:626
 msgid "Use INT as clearance time for pedestrian crossings (s)."
-msgstr ""
+msgstr "INT (s) als Räumzeit an Fußgängerfurten nutzen."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
