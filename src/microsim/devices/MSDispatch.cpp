@@ -345,6 +345,9 @@ MSDispatch::swappedRunning(const Reservation* res, MSDevice_Taxi* taxi) {
 
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
+#ifdef DEBUG_RESERVATION
+    std::cout << SIMTIME << " fullfilled res=" << res->id << "\n";
+#endif
     myRunningReservations[res->group].erase(res);
     if (myRunningReservations[res->group].empty()) {
         myRunningReservations.erase(res->group);
