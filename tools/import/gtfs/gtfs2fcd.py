@@ -135,9 +135,12 @@ def dataAvailable(options):
 def main(options):
     ft = humanReadableTime if options.hrtime else lambda x: x
     if options.mergedCSV:
+        # Need everything except `arrival_time` and `departure_time` as strings. Times have to be integers.
         full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
                                        keep_default_na=False,
-                                       dtype={"route_type": str})
+                                       dtype=str)
+        full_data_merged['arrival_time'] = full_data_merged['arrival_time'].astype(int)
+        full_data_merged['departure_time'] = full_data_merged['departure_time'].astype(int)
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:
