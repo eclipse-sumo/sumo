@@ -565,7 +565,7 @@ MEVehicle::saveState(OutputDevice& out) {
         return;
     }
     MSBaseVehicle::saveState(out);
-    assert(mySegment == nullptr || *myCurrEdge == &mySegment->getEdge());
+    assert(mySegment == nullptr || *myCurrEdge == &mySegment->getEdge() || mySegment->getEdge().isInternal());
     std::vector<SUMOTime> internals;
     internals.push_back(myParameter->parametersSet);
     internals.push_back(myDeparture);
