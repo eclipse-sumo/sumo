@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-21T23:04:16.358285+01:00 by Eclipse SUMO sumo v1_26_0+1314-84f38512d9a
+<!-- generated on 2026-04-22T09:22:28.907924+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,11 +36,7 @@
         <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="2" depart="600.00" arrival="625.00">
-        <route edges="beg middle end"/>
-    </vehicle>
-
-    <vehicle id="3" depart="604.00" arrival="635.00">
+    <vehicle id="3" depart="600.00" arrival="631.00">
         <route edges="beg middle end"/>
     </vehicle>
 
