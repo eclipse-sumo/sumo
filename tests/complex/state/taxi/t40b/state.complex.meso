@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:28:14.160912+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-04-22T10:20:27.294431+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +41,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1238-9348d776a1c" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1319-1c471fba8c9" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="56" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -128,7 +128,7 @@
         <rem id="taxi_trip_0" time="34418" pos="190.400000"/>
     </vehicle>
     <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="0 1" speedFactor="0.969200" reroute="1" line="taxi" state="262146 0 0 0 2 -1 39242 14242 9223372036854774807 1 0">
-        <stop lane="A2B2_1" triggered="person" started="14.242"/>
+        <stop lane="A2B2_1" endPos="287.600000" triggered="person" parking="1" started="14.242"/>
         <device id="vehroute_trip_1" state="13.462188 0.000000 1 !NULL 0 !trip_1 device.rerouting -1 0"/>
         <device id="tripinfo_trip_1" state="A2B2_1 13.4622 -0 0 0 0 1000 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_trip_1" state="0 0"/>

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T08:15:34.418375+01:00 by Eclipse SUMO sumo v1_26_0+1232-3b16c427ac1
+<!-- generated on 2026-04-22T10:20:27.142472+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
+        <tripinfo-output value="tripinfo.xml"/>
         <vehroute-output value="vehroutes.xml"/>
         <save-state.times value="50"/>
         <save-state.files value="state.xml"/>
@@ -32,35 +34,13 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1232-3b16c427ac1" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
-    <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+<snapshot type="meso" version="v1_26_0+1319-1c471fba8c9" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
-    <transportables type="person" state="3 3 0 0 0 0 0 0 0 0">
-        <person id="walk_route" type="DEFAULT_PEDTYPE" depart="1.00" speedFactor="0.9383" state="0 1 1000 1 2000 -1 2000 154469">
-            <walk edges="2/1to1/1 3/1to2/1"/>
-        </person>
-        <person id="walk_route_id" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0600" state="0 1 0 0 0 -1 0 272698">
-            <walk edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-        </person>
-        <person id="walk_trip" type="DEFAULT_PEDTYPE" depart="2.00" speedFactor="1.0104" state="262144 1 2000 0 2000 -1 2000 286036">
-            <walk edges="3/1to2/1 1/1to2/1 1/1to0/1"/>
+    <transportables type="person" state="1 1 0 0 0 0 0 0 0 0">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" departPos="390.00" speedFactor="1.0600" state="8 1.5 7000 192266">
+            <walk edges="beg" trainStop="ts_0"/>
+            <walk edges="left"/>
         </person>
     </transportables>
-    <tlLogic id="0/0" programID="0" phase="2" duration="16000" active="1"/>
-    <tlLogic id="0/1" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="0/2" programID="0" phase="2" duration="16000" active="1"/>
-    <tlLogic id="1/0" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="1/1" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="1/2" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="2/0" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="2/1" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="2/2" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="3/0" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="3/1" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="3/2" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="4/0" programID="0" phase="2" duration="16000" active="1"/>
-    <tlLogic id="4/1" programID="0" phase="4" duration="7000" active="1"/>
-    <tlLogic id="4/2" programID="0" phase="2" duration="16000" active="1"/>
 </snapshot>
