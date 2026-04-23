@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-22 18:41+0000\n"
+"PO-Revision-Date: 2026-04-23 17:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7659,12 +7659,16 @@ msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes (at "
 "roundabouts)"
 msgstr ""
+"Autorizza di avanzare verso una strada di più corsie con veicoli nemici su "
+"alcune corsie (nelle rotatorie)"
 
 #: src/netbuild/NBFrame.cpp:462
 msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes "
 "(everywhere)"
 msgstr ""
+"Autorizza di avanzare verso una strada di più corsie con veicoli nemici su "
+"alcune corsie (dappertutto)"
 
 #: src/netbuild/NBFrame.cpp:466
 msgid "Guess pedestrian sidewalks based on edge speed"
@@ -7687,32 +7691,40 @@ msgid ""
 "Add sidewalks for edges that allow pedestrians on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Aggiungi marciapiedi agli archi che autorizzano pedoni su qualsiasi corsia "
+"indipendentemente del limite di velocità"
 
 #: src/netbuild/NBFrame.cpp:482
 msgid "Do not guess sidewalks for the given list of edges"
-msgstr ""
+msgstr "Non indovinare marciapiedi per l'elenco di archi indicato"
 
 #: src/netbuild/NBFrame.cpp:486
 msgid "Guess bike lanes based on edge speed"
-msgstr ""
+msgstr "Indovina corsie ciclabili basandosi sul limite di velocità dell'arco"
 
 #: src/netbuild/NBFrame.cpp:490
 msgid "Add bike lanes for edges with a speed equal or below the given limit"
 msgstr ""
+"Aggiungi corsia ciclabili agli archi con un limite di velocità fino al "
+"valore indicato"
 
 #: src/netbuild/NBFrame.cpp:494
 msgid "Add bike lanes for edges with a speed above the given limit"
 msgstr ""
+"Aggiungi corsia ciclabili agli archi con un limite di velocità sopra il "
+"valore indicato"
 
 #: src/netbuild/NBFrame.cpp:498
 msgid ""
 "Add bike lanes for edges that allow bicycles on any of their lanes "
 "regardless of speed"
 msgstr ""
+"Aggiungi corsie ciclabili agli archi dove ciclisti sono autorizzati su "
+"qualsiasi corsia indipendentemente del limite di velocità"
 
 #: src/netbuild/NBFrame.cpp:502
 msgid "Do not guess bikelanes for the given list of edges"
-msgstr ""
+msgstr "Non indovinare corsie ciclabili per l'elenco di archi indicato"
 
 #: src/netbuild/NBFrame.cpp:506
 msgid "Guess pedestrian crossings based on the presence of sidewalks"
