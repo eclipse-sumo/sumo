@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:25:25.153638+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T11:44:02.495770+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -40,5 +42,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="RE1" depart="100.00" departLane="beg_0" departPos="200.00" departSpeed="0.00" departDelay="0.00" arrival="163.00" arrivalLane="E1_0" arrivalPos="199.34" arrivalSpeed="32.56" duration="63.00" routeLength="1141.13" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="36.82" rerouteNo="1" devices="tripinfo_RE1 routing_RE1" vType="REDosto7" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="RE2" depart="0.00" departLane="-end2_0" departPos="207.10" departSpeed="0.00" departDelay="0.00" arrival="426.00" arrivalLane="-beg_0" arrivalPos="200.00" arrivalSpeed="34.08" duration="426.00" routeLength="1793.11" waitingTime="0.00" waitingCount="0" stopTime="300.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_RE2 routing_RE2" vType="REDosto7" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="RE2" depart="0.00" departLane="-end2_0" departPos="207.10" departSpeed="0.00" departDelay="0.00" arrival="426.00" arrivalLane="-beg_0" arrivalPos="200.00" arrivalSpeed="34.08" duration="426.00" routeLength="1793.11" waitingTime="0.00" waitingCount="0" stopTime="300.00" timeLoss="21.10" rerouteNo="1" devices="tripinfo_RE2 routing_RE2" vType="REDosto7" speedFactor="1.00" vaporized=""/>
 </tripinfos>
