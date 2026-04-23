@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-22 10:03+0000\n"
+"PO-Revision-Date: 2026-04-23 07:56+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6735,6 +6735,8 @@ msgstr "Eliminando el carril opuesto desconocido '%' para la arista '%'."
 #: src/netbuild/NBEdge.cpp:3225
 msgid "Opposite lane '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"¡El carril opuesto '%' no conecta en sentido inverso los mismos nodos que la "
+"arista '%'!"
 
 #: src/netbuild/NBEdge.cpp:3230 src/netbuild/NBEdge.cpp:3242
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
@@ -6747,6 +6749,8 @@ msgstr "Adaptando el carril opuesto faltante '%' para la arista '%'."
 #: src/netbuild/NBEdge.cpp:3246
 msgid "Opposite edge '%' does not reverse-connect the same nodes as edge '%'!"
 msgstr ""
+"¡La arista opuesta '%' no conecta en sentido inverso los mismos nodos que la "
+"arista '%'!"
 
 #: src/netbuild/NBEdge.cpp:3248
 msgid "Adapting inconsistent opposite lanes for edges '%', '%' and '%'."
@@ -11473,6 +11477,8 @@ msgstr "Carril vecino asimétrico '%' para el carril '%'"
 #: src/netload/NLEdgeControlBuilder.cpp:217
 msgid "Mutually inconsistent neigh lane definitions for lanes '%', '%' and '%'"
 msgstr ""
+"Definiciones de carriles vecinos mutuamente inconsistentes para los carriles "
+"'%', '%' y '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:236
 #, c-format
