@@ -1,5 +1,0 @@
-# Test scenario based in the GTFS data from Pilsen
-import_pilsen_routes
-
-# Test scenario based in the GTFS data from Prague
-import_prague_routes
