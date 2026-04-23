@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-22 20:27:12.870999 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
+<!-- generated on 2026-04-23 12:34:33.900550 by Eclipse SUMO gtfs2pt.py v1_26_0+1352-fc0eb841c93
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -13,7 +13,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="255711950" edges="18 17 16 15 23 24 22">
+    <route id="255711950" edges="18 19 25 13 14 20 21 22">
         <stop busStop="255711950.0" duration="00:00:10" until="00:00:00"/> <!-- S Attilastr.  (Berlin) -->
         <stop busStop="255711950.1" duration="00:00:10" until="00:02:42"/> <!-- S Priesterweg (Berlin) -->
     </route>
