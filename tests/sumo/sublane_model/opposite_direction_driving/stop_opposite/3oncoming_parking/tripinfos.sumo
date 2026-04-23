@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-23T11:44:03.257109+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
+<!-- generated on 2026-04-23T14:29:33.782740+01:00 by Eclipse SUMO sumo v1_26_0+1357-4cb6fe19152
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,5 +44,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="oncoming1" depart="0.00" departLane="-a_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="15.00" arrivalLane="-a_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="15.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_oncoming1 tripinfo_oncoming1 fcd_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="oncoming2" depart="2.00" departLane="-a_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="17.00" arrivalLane="-a_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="15.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_oncoming2 tripinfo_oncoming2 fcd_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="oncoming3" depart="12.00" departLane="-a_0" departPos="0.00" departPosLat="0.00" departSpeed="13.89" departDelay="0.00" arrival="27.00" arrivalLane="-a_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="15.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_oncoming3 tripinfo_oncoming3 fcd_oncoming3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="ego" depart="0.00" departLane="a_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="34.00" arrivalLane="a_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="34.00" routeLength="200.00" waitingTime="4.00" waitingCount="1" stopTime="10.00" timeLoss="4.19" rerouteNo="0" devices="vehroute_ego tripinfo_ego fcd_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="a_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="34.00" arrivalLane="a_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="34.00" routeLength="200.00" waitingTime="4.00" waitingCount="1" stopTime="10.00" timeLoss="5.19" rerouteNo="0" devices="vehroute_ego tripinfo_ego fcd_ego" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

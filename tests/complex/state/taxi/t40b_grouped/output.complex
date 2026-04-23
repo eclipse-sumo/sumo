@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
+Loading net-file from 'net.net.xml' ... done (10ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1352-fc0eb841c93 started with time: 0.00.
+Simulation version v1_26_0+1357-4cb6fe19152 started with time: 0.00.
 Simulation ended at time: 1504.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.01s
- Real time factor: 107429
- UPS: 214857.142857
- UPS-Persons: 1025785.714286
+ Duration: 0.03s
+ Real time factor: 51862.1
+ UPS: 103724.137931
+ UPS-Persons: 495206.896552
 Vehicles:
  Inserted: 2
  Running: 2
@@ -22,7 +22,7 @@ Statistics (avg of 2):
  Speed: 5.84
  Duration: 1504.00
  WaitingTime: 19.00
- TimeLoss: 113.97
+ TimeLoss: 121.71
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 20 rides):
@@ -32,17 +32,17 @@ Ride Statistics (avg of 20 rides):
  Taxi: 20
 DijkstraRouter answered 56 queries and explored 25.98 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (4ms).
-Loading state from 'state.xml' ... done (15ms).
+Loading net-file from 'net.net.xml' ... done (9ms).
+Loading state from 'state.xml' ... done (30ms).
 Loading done.
-Simulation version v1_26_0+1352-fc0eb841c93 started with time: 40.00.
+Simulation version v1_26_0+1357-4cb6fe19152 started with time: 40.00.
 Simulation ended at time: 1504.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 40666.7
- UPS: 81333.333333
- UPS-Persons: 396138.888889
+ Duration: 0.09s
+ Real time factor: 16636.4
+ UPS: 33272.727273
+ UPS-Persons: 162056.818182
 Vehicles:
  Inserted: 2
  Running: 2
@@ -55,7 +55,7 @@ Statistics (avg of 2):
  Speed: 5.84
  Duration: 1504.00
  WaitingTime: 19.00
- TimeLoss: 113.97
+ TimeLoss: 121.71
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 20 rides):

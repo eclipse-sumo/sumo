@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
+Loading net-file from 'net.net.xml' ... done (9ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1352-fc0eb841c93 started with time: 0.00.
+Simulation version v1_26_0+1357-4cb6fe19152 started with time: 0.00.
 Simulation ended at time: 1272.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.02s
- Real time factor: 79500
- UPS: 159000.000000
- UPS-Persons: 404437.500000
+ Duration: 0.03s
+ Real time factor: 37411.8
+ UPS: 74823.529412
+ UPS-Persons: 190323.529412
 Vehicles:
  Inserted: 2
  Running: 2
@@ -22,7 +22,7 @@ Statistics (avg of 2):
  Speed: 5.93
  Duration: 1272.00
  WaitingTime: 17.50
- TimeLoss: 97.73
+ TimeLoss: 105.47
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 10 rides):
@@ -31,18 +31,18 @@ Ride Statistics (avg of 10 rides):
  Duration: 145.30
  Taxi: 10
 DijkstraRouter answered 46 queries and explored 25.74 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (4ms).
-Loading state from 'state.xml' ... done (15ms).
+DijkstraRouter spent 0.00s answering queries (0.02ms on average).
+Loading net-file from 'net.net.xml' ... done (10ms).
+Loading state from 'state.xml' ... done (61ms).
 Loading done.
-Simulation version v1_26_0+1352-fc0eb841c93 started with time: 180.00.
+Simulation version v1_26_0+1357-4cb6fe19152 started with time: 180.00.
 Simulation ended at time: 1272.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.04s
- Real time factor: 30333.3
- UPS: 60666.666667
- UPS-Persons: 142250.000000
+ Duration: 0.14s
+ Real time factor: 7970.8
+ UPS: 15941.605839
+ UPS-Persons: 37379.562044
 Vehicles:
  Inserted: 2
  Running: 2
@@ -55,7 +55,7 @@ Statistics (avg of 2):
  Speed: 5.93
  Duration: 1272.00
  WaitingTime: 17.50
- TimeLoss: 97.73
+ TimeLoss: 105.47
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 10 rides):

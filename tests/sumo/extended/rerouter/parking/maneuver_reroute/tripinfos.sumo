@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-23T11:43:54.464776+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
+<!-- generated on 2026-04-23T14:29:33.471804+01:00 by Eclipse SUMO sumo v1_26_0+1357-4cb6fe19152
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="vehicle_1" depart="3.00" departLane="gneE6_0" departPos="7.20" departSpeed="0.00" departDelay="3.00" arrival="277.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="13.60" duration="274.00" routeLength="278.67" waitingTime="26.00" waitingCount="2" stopTime="200.00" timeLoss="49.28" rerouteNo="0" devices="tripinfo_vehicle_1" vType="truck" speedFactor="1.00" vaporized=""/>
     <tripinfo id="vehicle_2" depart="7.00" departLane="gneE6_0" departPos="5.10" departSpeed="0.00" departDelay="7.00" arrival="285.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="13.88" duration="278.00" routeLength="280.77" waitingTime="31.00" waitingCount="3" stopTime="200.00" timeLoss="52.48" rerouteNo="0" devices="tripinfo_vehicle_2" vType="passenger" speedFactor="1.00" vaporized=""/>
     <tripinfo id="vehicle_3" depart="10.00" departLane="gneE6_0" departPos="5.10" departSpeed="0.00" departDelay="10.00" arrival="328.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="13.23" duration="318.00" routeLength="464.13" waitingTime="38.00" waitingCount="4" stopTime="200.00" timeLoss="75.25" rerouteNo="1" devices="tripinfo_vehicle_3" vType="passenger" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="vehicle_4" depart="13.00" departLane="gneE6_0" departPos="7.20" departSpeed="0.00" departDelay="13.00" arrival="353.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="13.74" duration="340.00" routeLength="462.03" waitingTime="54.00" waitingCount="5" stopTime="206.00" timeLoss="92.78" rerouteNo="1" devices="tripinfo_vehicle_4" vType="truck" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="vehicle_4" depart="13.00" departLane="gneE6_0" departPos="7.20" departSpeed="0.00" departDelay="13.00" arrival="353.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="13.74" duration="340.00" routeLength="462.03" waitingTime="54.00" waitingCount="5" stopTime="206.00" timeLoss="93.31" rerouteNo="1" devices="tripinfo_vehicle_4" vType="truck" speedFactor="1.00" vaporized=""/>
     <tripinfo id="vehicle_5" depart="17.00" departLane="gneE6_0" departPos="5.10" departSpeed="0.00" departDelay="17.00" arrival="365.00" arrivalLane="-gneE6_0" arrivalPos="20.62" arrivalSpeed="12.82" duration="348.00" routeLength="464.13" waitingTime="55.00" waitingCount="4" stopTime="223.00" timeLoss="84.52" rerouteNo="1" devices="tripinfo_vehicle_5" vType="passenger" speedFactor="1.00" vaporized=""/>
 </tripinfos>
