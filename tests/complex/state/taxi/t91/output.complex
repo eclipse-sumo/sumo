@@ -1,16 +1,16 @@
 Loading net-file from 'net.net.xml' ... done (9ms).
-Loading additional-files from 'input_additional.add.xml' ... done (28ms).
+Loading additional-files from 'input_additional.add.xml' ... done (29ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1333-841653467c3 started with time: 0.00.
+Simulation version v1_26_0+1352-fc0eb841c93 started with time: 0.00.
 Simulation ended at time: 1053.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.08s
- Real time factor: 12686.7
- UPS: 25108.433735
- UPS-Persons: 2108.433735
+ Duration: 0.09s
+ Real time factor: 11445.7
+ UPS: 22652.173913
+ UPS-Persons: 1902.173913
 Vehicles:
  Inserted: 2
  Running: 0
@@ -23,7 +23,7 @@ Statistics (avg of 2):
  Speed: 11.91
  Duration: 1042.00
  WaitingTime: 3.50
- TimeLoss: 184.50
+ TimeLoss: 187.89
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 2 rides):
@@ -33,17 +33,17 @@ Ride Statistics (avg of 2 rides):
  Taxi: 2
 DijkstraRouter answered 12 queries and explored 18.17 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-Loading net-file from 'net.net.xml' ... done (49ms).
-Loading additional-files from 'input_additional.add.xml' ... done (53ms).
-Loading state from 'state.xml' ... done (104ms).
+Loading net-file from 'net.net.xml' ... done (7ms).
+Loading additional-files from 'input_additional.add.xml' ... done (45ms).
+Loading state from 'state.xml' ... done (42ms).
 Loading done.
-Simulation version v1_26_0+1333-841653467c3 started with time: 91.00.
+Simulation version v1_26_0+1352-fc0eb841c93 started with time: 91.00.
 Simulation ended at time: 1053.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.39s
- Real time factor: 2460.36
- UPS: 4864.450128
+ Duration: 0.30s
+ Real time factor: 3185.43
+ UPS: 6298.013245
 Vehicles:
  Inserted: 2
  Running: 0
@@ -56,7 +56,7 @@ Statistics (avg of 2):
  Speed: 11.91
  Duration: 1042.00
  WaitingTime: 3.50
- TimeLoss: 184.50
+ TimeLoss: 187.89
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Ride Statistics (avg of 1 rides):

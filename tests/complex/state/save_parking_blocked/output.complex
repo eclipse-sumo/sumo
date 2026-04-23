@@ -1,13 +1,13 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_26_0+0889-22fac506c28 started with time: 0.00.
+Simulation version v1_26_0+1352-fc0eb841c93 started with time: 0.00.
 Simulation ended at time: 661.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.01s
- Real time factor: 110167
- UPS: 1783166.666667
+ Real time factor: 55083.3
+ UPS: 891583.333333
 Vehicles:
  Inserted: 18
  Running: 0
@@ -18,18 +18,18 @@ Statistics (avg of 18):
  Speed: 0.52
  Duration: 594.39
  WaitingTime: 522.11
- TimeLoss: 502.39
+ TimeLoss: 502.62
  DepartDelay: 20.67
 Loading net-file from 'net.net.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (14ms).
+Loading state from 'state.xml' ... done (67ms).
 Loading done.
-Simulation version v1_26_0+0889-22fac506c28 started with time: 200.00.
+Simulation version v1_26_0+1352-fc0eb841c93 started with time: 200.00.
 Simulation ended at time: 661.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.03s
- Real time factor: 13969.7
- UPS: 233666.666667
+ Duration: 0.15s
+ Real time factor: 3136.05
+ UPS: 52455.782313
 Vehicles:
  Inserted: 18
  Running: 0
@@ -40,5 +40,5 @@ Statistics (avg of 18):
  Speed: 0.52
  Duration: 594.39
  WaitingTime: 522.11
- TimeLoss: 502.39
+ TimeLoss: 502.62
  DepartDelay: 20.67
