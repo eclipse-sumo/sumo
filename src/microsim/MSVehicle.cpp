@@ -1893,6 +1893,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                     } else {
                         stop.duration = 0;
                     }
+                } else {
+                    stop.entryPos = getPositionOnLane();
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
@@ -7782,6 +7784,9 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(myAngle));
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
+    if (isStopped() && myStops.front().entryPos != getPositionOnLane()) {
+        out.writeAttr(SUMO_ATTR_ENTRYPOS, myStops.front().entryPos);
+    }
     myLaneChangeModel->saveState(out);
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -7813,6 +7818,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (!attrs.hasAttribute(SUMO_ATTR_POSITION)) {
         throw ProcessError(TL("Error: Invalid vehicles in state (may be a meso state)!"));
     }
+    bool ok;
     int routeOffset;
     bool stopped;
     SUMOTime stopDuration;
@@ -7831,7 +7837,6 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> pastStops;
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
-        bool ok;
         myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
     }
     // load stops
@@ -7885,10 +7890,17 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     dis >> myOdometer >> myNumberReroutes;
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
+        double realPos = getPositionOnLane();
+        double entryPos = attrs.getOpt<double>(SUMO_ATTR_ENTRYPOS, getID().c_str(), ok, realPos);
         myStops.front().startedFromState = true;
+        if (entryPos != realPos) {
+            myStops.front().entryPos = entryPos;
+        }
         myLane = const_cast<MSLane*>(myStops.front().lane);
         myStopDist = 0;
+        myState.myPos = entryPos; // fake position for replication stop entry which happened before the position was updated
         processNextStop(getSpeed());
+        myState.myPos = realPos; // reset fake position
         if (myStops.front().pars.parking != ParkingType::ONROAD) {
             // processNextStop is called again during MSVehicleTransfer::loadState
             stopDuration += getActionStepLength();

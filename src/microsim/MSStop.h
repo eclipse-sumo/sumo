@@ -93,6 +93,8 @@ public:
     bool waypointWithStop = false;
     /// @brief route indices on looped route that were skipped before this stop (after pior stop or depart edge)
     std::vector<int> skips;
+    /// @brief the exact position when entering the stop (for state saving)
+    double entryPos = - 1;
 
     /// @brief Write the current stop configuration (used for state saving)
     void write(OutputDevice& dev) const;
