@@ -135,12 +135,17 @@ def dataAvailable(options):
 def main(options):
     ft = humanReadableTime if options.hrtime else lambda x: x
     if options.mergedCSV:
-        # Need everything except `arrival_time` and `departure_time` as strings. Times have to be integers.
+        # Need everything except few columns as strings. The exceptions are:
+        # - `arrival_time` and `departure_time` have to be integers,
+        # - `stop_lat`, `stop_lon`, and `stop_sequence` have to be floats
         full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
                                        keep_default_na=False,
                                        dtype=str)
         full_data_merged['arrival_time'] = full_data_merged['arrival_time'].astype(int)
         full_data_merged['departure_time'] = full_data_merged['departure_time'].astype(int)
+        full_data_merged['stop_lat'] = full_data_merged['stop_lat'].astype(float)
+        full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
+        full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:
