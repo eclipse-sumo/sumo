@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-17 09:33:24 by Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-04-23T10:52:48.445266+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -15,6 +15,8 @@
 
     <processing>
         <keep-after-arrival value="3"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
     </processing>
 
     <report>
@@ -22,14 +24,14 @@
     </report>
 
     <traci_server>
-        <remote-port value="33361"/>
+        <remote-port value="33489"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.0600" arrival="46.00">
+    <vehicle id="v" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.0600" arrival="45.00">
         <route edges="A1B1 B1B2 B2C2 C2C1 C1D1"/>
         <stop edge="B2C2" duration="5.00"/>
         <param key="has.tripinfo.device" value="true"/>

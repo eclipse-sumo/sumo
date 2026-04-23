@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:25:35.005104+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T10:51:36.492900+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -47,37 +49,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="202.00" waitingTime="61.00" timeLoss="9.45" traveltime="141.00">
         <ride waitingTime="61.00" vehicle="trip_0" depart="61.00" arrival="202.00" arrivalPos="285.60" duration="141.00" routeLength="880.02" timeLoss="9.45"/>
     </personinfo>
-    <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="195.00" waitingTime="60.00" timeLoss="10.45" traveltime="135.00">
-        <ride waitingTime="60.00" vehicle="trip_1" depart="70.00" arrival="205.00" arrivalPos="285.60" duration="135.00" routeLength="774.81" timeLoss="10.45"/>
+    <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="194.00" waitingTime="59.00" timeLoss="10.45" traveltime="135.00">
+        <ride waitingTime="59.00" vehicle="trip_1" depart="69.00" arrival="204.00" arrivalPos="285.60" duration="135.00" routeLength="774.81" timeLoss="10.45"/>
     </personinfo>
-    <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="405.00" waitingTime="247.00" timeLoss="14.39" traveltime="158.00">
-        <ride waitingTime="247.00" vehicle="trip_0" depart="267.00" arrival="425.00" arrivalPos="85.60" duration="158.00" routeLength="974.63" timeLoss="14.39"/>
+    <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="405.00" waitingTime="247.00" timeLoss="14.44" traveltime="158.00">
+        <ride waitingTime="247.00" vehicle="trip_0" depart="267.00" arrival="425.00" arrivalPos="85.60" duration="158.00" routeLength="974.62" timeLoss="14.44"/>
     </personinfo>
-    <personinfo id="p3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="414.00" waitingTime="280.00" timeLoss="10.15" traveltime="134.00">
-        <ride waitingTime="280.00" vehicle="trip_1" depart="310.00" arrival="444.00" arrivalPos="85.60" duration="134.00" routeLength="765.29" timeLoss="10.15"/>
+    <personinfo id="p3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="414.00" waitingTime="279.00" timeLoss="10.37" traveltime="135.00">
+        <ride waitingTime="279.00" vehicle="trip_1" depart="309.00" arrival="444.00" arrivalPos="85.60" duration="135.00" routeLength="765.30" timeLoss="10.37"/>
     </personinfo>
-    <personinfo id="p5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="484.00" waitingTime="266.00" timeLoss="14.20" traveltime="218.00">
-        <ride waitingTime="266.00" vehicle="trip_0" depart="316.00" arrival="534.00" arrivalPos="87.60" duration="218.00" routeLength="967.12" timeLoss="14.20"/>
+    <personinfo id="p5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="483.00" waitingTime="266.00" timeLoss="12.59" traveltime="217.00">
+        <ride waitingTime="266.00" vehicle="trip_0" depart="316.00" arrival="533.00" arrivalPos="87.60" duration="217.00" routeLength="967.12" timeLoss="12.59"/>
     </personinfo>
-    <personinfo id="p7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="647.00" waitingTime="527.00" timeLoss="9.25" traveltime="120.00">
-        <ride waitingTime="527.00" vehicle="trip_0" depart="597.00" arrival="717.00" arrivalPos="85.60" duration="120.00" routeLength="570.48" timeLoss="9.25"/>
+    <personinfo id="p7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="645.00" waitingTime="525.00" timeLoss="9.56" traveltime="120.00">
+        <ride waitingTime="525.00" vehicle="trip_0" depart="595.00" arrival="715.00" arrivalPos="85.60" duration="120.00" routeLength="570.51" timeLoss="9.56"/>
     </personinfo>
-    <personinfo id="p4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="680.00" waitingTime="476.00" timeLoss="15.29" traveltime="204.00">
-        <ride waitingTime="476.00" vehicle="trip_1" depart="516.00" arrival="720.00" arrivalPos="85.60" duration="204.00" routeLength="1570.26" timeLoss="15.29"/>
+    <personinfo id="p4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="679.00" waitingTime="475.00" timeLoss="15.77" traveltime="204.00">
+        <ride waitingTime="475.00" vehicle="trip_1" depart="515.00" arrival="719.00" arrivalPos="85.60" duration="204.00" routeLength="1570.26" timeLoss="15.77"/>
     </personinfo>
-    <personinfo id="p8" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="780.00" waitingTime="686.00" timeLoss="5.62" traveltime="94.00">
-        <ride waitingTime="686.00" vehicle="trip_0" depart="766.00" arrival="860.00" arrivalPos="85.60" duration="94.00" routeLength="270.89" timeLoss="5.62"/>
+    <personinfo id="p8" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="779.00" waitingTime="685.00" timeLoss="5.62" traveltime="94.00">
+        <ride waitingTime="685.00" vehicle="trip_0" depart="765.00" arrival="859.00" arrivalPos="85.60" duration="94.00" routeLength="270.89" timeLoss="5.62"/>
     </personinfo>
-    <personinfo id="p6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="813.00" waitingTime="560.00" timeLoss="17.36" traveltime="253.00">
-        <ride waitingTime="560.00" vehicle="trip_1" depart="620.00" arrival="873.00" arrivalPos="285.60" duration="253.00" routeLength="1359.15" timeLoss="17.36"/>
+    <personinfo id="p6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="811.00" waitingTime="559.00" timeLoss="15.78" traveltime="252.00">
+        <ride waitingTime="559.00" vehicle="trip_1" depart="619.00" arrival="871.00" arrivalPos="285.60" duration="252.00" routeLength="1359.15" timeLoss="15.78"/>
     </personinfo>
-    <personinfo id="p9" depart="90.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1046.00" waitingTime="848.00" timeLoss="16.29" traveltime="198.00">
-        <ride waitingTime="848.00" vehicle="trip_0" depart="938.00" arrival="1136.00" arrivalPos="285.60" duration="198.00" routeLength="1560.17" timeLoss="16.29"/>
+    <personinfo id="p9" depart="90.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1044.00" waitingTime="846.00" timeLoss="16.34" traveltime="198.00">
+        <ride waitingTime="846.00" vehicle="trip_0" depart="936.00" arrival="1134.00" arrivalPos="285.60" duration="198.00" routeLength="1560.22" timeLoss="16.34"/>
     </personinfo>
-    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1139.00" routeLength="6985.36" waitingTime="25.00" waitingCount="9" stopTime="461.00" timeLoss="95.51" rerouteNo="11" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="6" occupiedDistance="4748.23" occupiedTime="475.00"/>
+    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1137.00" routeLength="6985.36" waitingTime="19.00" waitingCount="7" stopTime="465.00" timeLoss="85.61" rerouteNo="11" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="6" occupiedDistance="4748.30" occupiedTime="474.00"/>
     </tripinfo>
-    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1139.00" routeLength="5413.20" waitingTime="17.00" waitingCount="5" stopTime="617.00" timeLoss="71.06" rerouteNo="7" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="4" occupiedDistance="4094.25" occupiedTime="395.00"/>
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1137.00" routeLength="5413.20" waitingTime="13.00" waitingCount="4" stopTime="618.00" timeLoss="65.50" rerouteNo="7" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="4" occupiedDistance="4094.26" occupiedTime="395.00"/>
     </tripinfo>
 </tripinfos>

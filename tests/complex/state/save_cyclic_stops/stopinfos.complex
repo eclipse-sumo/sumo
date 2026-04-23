@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 15:47:49 by Eclipse SUMO sumo Version v1_22_0+0441-086a4a97432
+<!-- generated on 2026-04-23T10:51:20.376142+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,8 @@
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -32,7 +34,7 @@
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="91.95" parking="0" started="199.00" ended="240.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="91.95" parking="0" started="281.00" ended="300.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="91.95" parking="0" started="379.00" ended="380.00" delay="20.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="91.95" parking="0" started="392.00" ended="420.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="91.95" parking="0" started="391.00" ended="420.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
     <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="SC_0" pos="91.95" parking="0" started="469.00" ended="480.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="91.95" parking="0" started="492.00" ended="540.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v0" type="DEFAULT_VEHTYPE" lane="CN_0" pos="91.95" parking="0" started="491.00" ended="540.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>

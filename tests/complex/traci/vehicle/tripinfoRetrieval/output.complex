@@ -168,8 +168,8 @@
   transportStatistics.aborted 0
 30.0
  veh=v.0
-     waitingTime 1.00
-     waitingCount 1
+     waitingTime 0.00
+     waitingCount 0
      stopTime 5.00
   count 0
   routeLength 0.00
@@ -224,86 +224,29 @@
   transportStatistics.bike 0
   transportStatistics.aborted 0
 40.0
- veh=v.1
-     waitingTime 5.00
-     waitingCount 2
-     stopTime 5.00
-  count 1
-  routeLength 285.50
-  speed 9.21
-  duration 31.00
-  waitingTime 1.00
-  timeLoss 2.90
-  departDelay 0.00
-  departDelayWaiting -1.00
-  totalTravelTime 31.00
-  totalDepartDelay 0.00
-  vehicleTripStatistics.count 1
-  vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 9.21
-  vehicleTripStatistics.duration 31.00
-  vehicleTripStatistics.waitingTime 1.00
-  vehicleTripStatistics.timeLoss 2.90
-  vehicleTripStatistics.departDelay 0.00
-  vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 31.00
-  vehicleTripStatistics.totalDepartDelay 0.00
-  bikeTripStatistics.count 0
-  bikeTripStatistics.routeLength 0.00
-  bikeTripStatistics.speed 0.00
-  bikeTripStatistics.duration 0.00
-  bikeTripStatistics.waitingTime 0.00
-  bikeTripStatistics.timeLoss 0.00
-  bikeTripStatistics.totalTravelTime 0.00
-  pedestrianStatistics.count 0
-  pedestrianStatistics.number 0
-  pedestrianStatistics.routeLength 0.00
-  pedestrianStatistics.duration 0.00
-  pedestrianStatistics.timeLoss 0.00
-  rideStatistics.count 0
-  rideStatistics.number 0
-  rideStatistics.waitingTime 0.00
-  rideStatistics.routeLength 0.00
-  rideStatistics.duration 0.00
-  rideStatistics.bus 0
-  rideStatistics.train 0
-  rideStatistics.taxi 0
-  rideStatistics.bike 0
-  rideStatistics.aborted 0
-  transportStatistics.count 0
-  transportStatistics.number 0
-  transportStatistics.waitingTime 0.00
-  transportStatistics.routeLength 0.00
-  transportStatistics.duration 0.00
-  transportStatistics.bus 0
-  transportStatistics.train 0
-  transportStatistics.taxi 0
-  transportStatistics.bike 0
-  transportStatistics.aborted 0
-50.0
  veh=v.2
-     waitingTime 11.00
-     waitingCount 3
+     waitingTime 8.00
+     waitingCount 2
      stopTime 5.00
   count 2
   routeLength 285.50
-  speed 8.27
-  duration 35.00
-  waitingTime 3.00
-  timeLoss 5.42
+  speed 8.62
+  duration 33.50
+  waitingTime 1.50
+  timeLoss 2.58
   departDelay 0.25
   departDelayWaiting -1.00
-  totalTravelTime 70.00
+  totalTravelTime 67.00
   totalDepartDelay 0.50
   vehicleTripStatistics.count 2
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 8.27
-  vehicleTripStatistics.duration 35.00
-  vehicleTripStatistics.waitingTime 3.00
-  vehicleTripStatistics.timeLoss 5.42
+  vehicleTripStatistics.speed 8.62
+  vehicleTripStatistics.duration 33.50
+  vehicleTripStatistics.waitingTime 1.50
+  vehicleTripStatistics.timeLoss 2.58
   vehicleTripStatistics.departDelay 0.25
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 70.00
+  vehicleTripStatistics.totalTravelTime 67.00
   vehicleTripStatistics.totalDepartDelay 0.50
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -337,30 +280,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-60.0
+50.0
  veh=v.3
-     waitingTime 16.00
-     waitingCount 4
+     waitingTime 12.00
+     waitingCount 3
      stopTime 5.00
   count 3
   routeLength 285.50
-  speed 7.53
-  duration 39.00
-  waitingTime 5.67
-  timeLoss 8.80
+  speed 7.91
+  duration 37.00
+  waitingTime 3.67
+  timeLoss 5.45
   departDelay 0.50
   departDelayWaiting -1.00
-  totalTravelTime 117.00
+  totalTravelTime 111.00
   totalDepartDelay 1.50
   vehicleTripStatistics.count 3
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 7.53
-  vehicleTripStatistics.duration 39.00
-  vehicleTripStatistics.waitingTime 5.67
-  vehicleTripStatistics.timeLoss 8.80
+  vehicleTripStatistics.speed 7.91
+  vehicleTripStatistics.duration 37.00
+  vehicleTripStatistics.waitingTime 3.67
+  vehicleTripStatistics.timeLoss 5.45
   vehicleTripStatistics.departDelay 0.50
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 117.00
+  vehicleTripStatistics.totalTravelTime 111.00
   vehicleTripStatistics.totalDepartDelay 1.50
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -394,30 +337,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-70.0
+60.0
  veh=v.4
-     waitingTime 22.00
-     waitingCount 5
+     waitingTime 17.00
+     waitingCount 4
      stopTime 5.00
   count 4
   routeLength 285.50
-  speed 6.95
-  duration 43.00
-  waitingTime 8.25
-  timeLoss 12.29
+  speed 7.33
+  duration 40.50
+  waitingTime 5.75
+  timeLoss 8.42
   departDelay 0.75
   departDelayWaiting -1.00
-  totalTravelTime 172.00
+  totalTravelTime 162.00
   totalDepartDelay 3.00
   vehicleTripStatistics.count 4
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.95
-  vehicleTripStatistics.duration 43.00
-  vehicleTripStatistics.waitingTime 8.25
-  vehicleTripStatistics.timeLoss 12.29
+  vehicleTripStatistics.speed 7.33
+  vehicleTripStatistics.duration 40.50
+  vehicleTripStatistics.waitingTime 5.75
+  vehicleTripStatistics.timeLoss 8.42
   vehicleTripStatistics.departDelay 0.75
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 172.00
+  vehicleTripStatistics.totalTravelTime 162.00
   vehicleTripStatistics.totalDepartDelay 3.00
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -451,30 +394,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-80.0
+70.0
  veh=v.5
-     waitingTime 27.00
-     waitingCount 6
+     waitingTime 21.00
+     waitingCount 5
      stopTime 5.00
   count 5
   routeLength 285.50
-  speed 6.47
-  duration 47.00
-  waitingTime 11.00
-  timeLoss 15.64
+  speed 6.85
+  duration 44.00
+  waitingTime 8.00
+  timeLoss 11.28
   departDelay 1.00
   departDelayWaiting -1.00
-  totalTravelTime 235.00
+  totalTravelTime 220.00
   totalDepartDelay 5.00
   vehicleTripStatistics.count 5
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.47
-  vehicleTripStatistics.duration 47.00
-  vehicleTripStatistics.waitingTime 11.00
-  vehicleTripStatistics.timeLoss 15.64
+  vehicleTripStatistics.speed 6.85
+  vehicleTripStatistics.duration 44.00
+  vehicleTripStatistics.waitingTime 8.00
+  vehicleTripStatistics.timeLoss 11.28
   vehicleTripStatistics.departDelay 1.00
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 235.00
+  vehicleTripStatistics.totalTravelTime 220.00
   vehicleTripStatistics.totalDepartDelay 5.00
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -508,30 +451,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-90.0
+80.0
  veh=v.6
-     waitingTime 33.00
-     waitingCount 7
+     waitingTime 26.00
+     waitingCount 6
      stopTime 5.00
   count 6
   routeLength 285.50
-  speed 6.04
-  duration 51.33
-  waitingTime 13.67
-  timeLoss 18.78
+  speed 6.42
+  duration 47.83
+  waitingTime 10.17
+  timeLoss 13.95
   departDelay 1.08
   departDelayWaiting -1.00
-  totalTravelTime 308.00
+  totalTravelTime 287.00
   totalDepartDelay 6.50
   vehicleTripStatistics.count 6
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 6.04
-  vehicleTripStatistics.duration 51.33
-  vehicleTripStatistics.waitingTime 13.67
-  vehicleTripStatistics.timeLoss 18.78
+  vehicleTripStatistics.speed 6.42
+  vehicleTripStatistics.duration 47.83
+  vehicleTripStatistics.waitingTime 10.17
+  vehicleTripStatistics.timeLoss 13.95
   vehicleTripStatistics.departDelay 1.08
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 308.00
+  vehicleTripStatistics.totalTravelTime 287.00
   vehicleTripStatistics.totalDepartDelay 6.50
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -565,30 +508,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-100.0
+90.0
  veh=v.7
-     waitingTime 38.00
-     waitingCount 8
+     waitingTime 30.00
+     waitingCount 6
      stopTime 5.00
   count 7
   routeLength 285.50
-  speed 5.69
-  duration 55.43
-  waitingTime 16.43
-  timeLoss 22.23
+  speed 6.06
+  duration 51.43
+  waitingTime 12.43
+  timeLoss 16.89
   departDelay 1.21
   departDelayWaiting -1.00
-  totalTravelTime 388.00
+  totalTravelTime 360.00
   totalDepartDelay 8.50
   vehicleTripStatistics.count 7
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.69
-  vehicleTripStatistics.duration 55.43
-  vehicleTripStatistics.waitingTime 16.43
-  vehicleTripStatistics.timeLoss 22.23
+  vehicleTripStatistics.speed 6.06
+  vehicleTripStatistics.duration 51.43
+  vehicleTripStatistics.waitingTime 12.43
+  vehicleTripStatistics.timeLoss 16.89
   vehicleTripStatistics.departDelay 1.21
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 388.00
+  vehicleTripStatistics.totalTravelTime 360.00
   vehicleTripStatistics.totalDepartDelay 8.50
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -622,30 +565,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-110.0
+100.0
  veh=v.8
-     waitingTime 44.00
-     waitingCount 9
+     waitingTime 35.00
+     waitingCount 7
      stopTime 5.00
   count 8
   routeLength 285.50
-  speed 5.38
-  duration 59.62
-  waitingTime 19.12
-  timeLoss 25.52
+  speed 5.74
+  duration 55.12
+  waitingTime 14.62
+  timeLoss 19.72
   departDelay 1.38
   departDelayWaiting -1.00
-  totalTravelTime 477.00
+  totalTravelTime 441.00
   totalDepartDelay 11.00
   vehicleTripStatistics.count 8
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.38
-  vehicleTripStatistics.duration 59.62
-  vehicleTripStatistics.waitingTime 19.12
-  vehicleTripStatistics.timeLoss 25.52
+  vehicleTripStatistics.speed 5.74
+  vehicleTripStatistics.duration 55.12
+  vehicleTripStatistics.waitingTime 14.62
+  vehicleTripStatistics.timeLoss 19.72
   vehicleTripStatistics.departDelay 1.38
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 477.00
+  vehicleTripStatistics.totalTravelTime 441.00
   vehicleTripStatistics.totalDepartDelay 11.00
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -679,30 +622,30 @@
   transportStatistics.taxi 0
   transportStatistics.bike 0
   transportStatistics.aborted 0
-120.0
+110.0
  veh=v.9
-     waitingTime 50.00
-     waitingCount 10
+     waitingTime 40.00
+     waitingCount 8
      stopTime 5.00
   count 9
   routeLength 285.50
-  speed 5.11
-  duration 63.67
-  waitingTime 21.89
-  timeLoss 28.86
+  speed 5.47
+  duration 58.67
+  waitingTime 16.89
+  timeLoss 22.61
   departDelay 1.55
   departDelayWaiting -1.00
-  totalTravelTime 573.00
+  totalTravelTime 528.00
   totalDepartDelay 14.00
   vehicleTripStatistics.count 9
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 5.11
-  vehicleTripStatistics.duration 63.67
-  vehicleTripStatistics.waitingTime 21.89
-  vehicleTripStatistics.timeLoss 28.86
+  vehicleTripStatistics.speed 5.47
+  vehicleTripStatistics.duration 58.67
+  vehicleTripStatistics.waitingTime 16.89
+  vehicleTripStatistics.timeLoss 22.61
   vehicleTripStatistics.departDelay 1.55
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 573.00
+  vehicleTripStatistics.totalTravelTime 528.00
   vehicleTripStatistics.totalDepartDelay 14.00
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00
@@ -739,23 +682,23 @@
 final
   count 10
   routeLength 285.50
-  speed 4.87
-  duration 67.80
-  waitingTime 24.70
-  timeLoss 32.13
+  speed 5.22
+  duration 62.30
+  waitingTime 19.20
+  timeLoss 25.45
   departDelay 1.75
   departDelayWaiting -1.00
-  totalTravelTime 678.00
+  totalTravelTime 623.00
   totalDepartDelay 17.50
   vehicleTripStatistics.count 10
   vehicleTripStatistics.routeLength 285.50
-  vehicleTripStatistics.speed 4.87
-  vehicleTripStatistics.duration 67.80
-  vehicleTripStatistics.waitingTime 24.70
-  vehicleTripStatistics.timeLoss 32.13
+  vehicleTripStatistics.speed 5.22
+  vehicleTripStatistics.duration 62.30
+  vehicleTripStatistics.waitingTime 19.20
+  vehicleTripStatistics.timeLoss 25.45
   vehicleTripStatistics.departDelay 1.75
   vehicleTripStatistics.departDelayWaiting -1.00
-  vehicleTripStatistics.totalTravelTime 678.00
+  vehicleTripStatistics.totalTravelTime 623.00
   vehicleTripStatistics.totalDepartDelay 17.50
   bikeTripStatistics.count 0
   bikeTripStatistics.routeLength 0.00

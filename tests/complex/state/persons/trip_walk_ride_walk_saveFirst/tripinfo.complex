@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T07:56:19.078701+01:00 by Eclipse SUMO sumo v1_26_0+1228-6056de2409c
+<!-- generated on 2026-04-23T10:51:18.491329+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,19 +34,19 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="210.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="2.00" waitingCount="2" stopTime="75.00" timeLoss="3.00" rerouteNo="1" devices="vehroute_bus.0 tripinfo_bus.0 routing_bus.0" vType="busType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="510.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="2.00" waitingCount="2" stopTime="75.00" timeLoss="3.00" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1 person_bus.1" vType="busType" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="643.00" waitingTime="139.00" timeLoss="40.38" traveltime="504.00">
+    <tripinfo id="bus.0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="210.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="1.50" rerouteNo="1" devices="vehroute_bus.0 tripinfo_bus.0 routing_bus.0" vType="busType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="510.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="1.50" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1 person_bus.1" vType="busType" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="643.00" waitingTime="139.00" timeLoss="39.88" traveltime="504.00">
         <walk depart="0.00" departPos="0.00" arrival="189.00" arrivalPos="250.00" duration="189.00" routeLength="250.00" timeLoss="19.19" maxSpeed="1.47" waitingTime="0.00"/>
-        <ride waitingTime="139.00" vehicle="bus.1" depart="328.00" arrival="455.00" arrivalPos="500.00" duration="127.00" routeLength="2512.32" timeLoss="3.00"/>
-        <walk depart="455.00" departPos="500.00" arrival="643.00" arrivalPos="250.00" duration="188.00" routeLength="250.00" timeLoss="18.19" maxSpeed="1.47" waitingTime="0.00"/>
+        <ride waitingTime="139.00" vehicle="bus.1" depart="328.00" arrival="454.00" arrivalPos="500.00" duration="126.00" routeLength="2512.32" timeLoss="1.50"/>
+        <walk depart="454.00" departPos="500.00" arrival="643.00" arrivalPos="250.00" duration="189.00" routeLength="250.00" timeLoss="19.19" maxSpeed="1.47" waitingTime="0.00"/>
     </personinfo>
-    <tripinfo id="bus.2" depart="600.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="810.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="2.00" waitingCount="2" stopTime="75.00" timeLoss="3.00" rerouteNo="1" devices="vehroute_bus.2 tripinfo_bus.2 routing_bus.2" vType="busType" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1067.00" waitingTime="0.00" timeLoss="107.82" traveltime="1067.00">
-        <walk depart="0.00" departPos="0.00" arrival="1067.00" arrivalPos="250.00" duration="1067.00" routeLength="1250.00" timeLoss="107.82" maxSpeed="1.30" waitingTime="0.00"/>
+    <tripinfo id="bus.2" depart="600.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="810.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="1.50" rerouteNo="1" devices="vehroute_bus.2 tripinfo_bus.2 routing_bus.2" vType="busType" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1068.00" waitingTime="0.00" timeLoss="108.82" traveltime="1068.00">
+        <walk depart="0.00" departPos="0.00" arrival="1068.00" arrivalPos="250.00" duration="1068.00" routeLength="1250.00" timeLoss="108.82" maxSpeed="1.30" waitingTime="0.00"/>
     </personinfo>
-    <tripinfo id="bus.3" depart="900.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1110.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="2.00" waitingCount="2" stopTime="75.00" timeLoss="3.00" rerouteNo="1" devices="vehroute_bus.3 tripinfo_bus.3 routing_bus.3" vType="busType" speedFactor="1.00" vaporized=""/>
-    <personinfo id="walker" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="1385.00" waitingTime="0.00" timeLoss="137.97" traveltime="1385.00">
-        <walk depart="0.00" departPos="0.00" arrival="1385.00" arrivalPos="250.00" duration="1385.00" routeLength="1750.00" timeLoss="137.97" maxSpeed="1.40" waitingTime="0.00"/>
+    <tripinfo id="bus.3" depart="900.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1110.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="1.50" rerouteNo="1" devices="vehroute_bus.3 tripinfo_bus.3 routing_bus.3" vType="busType" speedFactor="1.00" vaporized=""/>
+    <personinfo id="walker" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="1383.00" waitingTime="0.00" timeLoss="135.97" traveltime="1383.00">
+        <walk depart="0.00" departPos="0.00" arrival="1383.00" arrivalPos="250.00" duration="1383.00" routeLength="1750.00" timeLoss="135.97" maxSpeed="1.40" waitingTime="0.00"/>
     </personinfo>
 </tripinfos>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:46:42.314052+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T11:10:23.459529+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -14,6 +14,10 @@
         <statistic-output value="stats.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
@@ -23,7 +27,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="41497"/>
+        <remote-port value="39023"/>
     </traci_server>
 
 </sumoConfiguration>
@@ -36,7 +40,7 @@
     <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="297.00" waitingTime="197.00" timeLoss="4.63" traveltime="100.00">
         <ride waitingTime="197.00" vehicle="v0" depart="197.00" arrival="297.00" arrivalPos="85.60" duration="100.00" routeLength="380.46" timeLoss="4.63"/>
     </personinfo>
-    <tripinfo id="v0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="630.00" routeLength="1766.56" waitingTime="7.00" waitingCount="2" stopTime="456.00" timeLoss="20.84" rerouteNo="2" devices="tripinfo_v0 taxi_v0 person_v0" vType="taxi" speedFactor="1.01" vaporized="">
+    <tripinfo id="v0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="630.00" routeLength="1766.56" waitingTime="6.00" waitingCount="2" stopTime="456.00" timeLoss="20.19" rerouteNo="2" devices="tripinfo_v0 taxi_v0 person_v0" vType="taxi" speedFactor="1.01" vaporized="">
         <taxi customers="2" occupiedDistance="1055.54" occupiedTime="106.00"/>
     </tripinfo>
 </tripinfos>

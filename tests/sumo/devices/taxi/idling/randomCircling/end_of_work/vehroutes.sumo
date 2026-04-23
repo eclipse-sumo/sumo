@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:26:17.590287+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-04-23T10:51:36.215090+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,30 +64,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ride from="B2C2" to="A0B0" arrivalPos="287.60" lines="taxi"/>
     </person>
 
-    <vehicle id="trip_1" type="taxi" depart="0.00" arrival="564.00">
+    <vehicle id="trip_1" type="taxi" depart="0.00" arrival="559.00">
         <routeDistribution>
             <route replacedOnEdge="A2B2" reason="taxi:idling:randomCircling" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2"/>
             <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 C2C1"/>
             <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 A0B0"/>
             <route replacedOnEdge="A0B0" replacedOnIndex="6" reason="taxi:idling:randomCircling" replacedAtTime="215.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
-            <route replacedOnEdge="B1C1" replacedOnIndex="8" reason="taxi:idling:randomCircling" replacedAtTime="229.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2"/>
-            <route replacedOnEdge="B1C1" replacedOnIndex="8" reason="taxi:idling:randomCircling" replacedAtTime="243.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2"/>
-            <route replacedOnEdge="C2B2" replacedOnIndex="10" reason="taxi:idling:randomCircling" replacedAtTime="265.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1"/>
-            <route replacedOnEdge="C2B2" replacedOnIndex="10" reason="taxi:idling:randomCircling" replacedAtTime="278.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0"/>
-            <route replacedOnEdge="C2B2" replacedOnIndex="10" reason="taxi:idling:randomCircling" replacedAtTime="285.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0"/>
-            <route replacedOnEdge="B0C0" replacedOnIndex="13" reason="taxi:idling:randomCircling" replacedAtTime="307.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0"/>
-            <route replacedOnEdge="C0B0" replacedOnIndex="14" reason="taxi:idling:randomCircling" replacedAtTime="331.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0"/>
-            <route replacedOnEdge="B0C0" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="357.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1"/>
-            <route replacedOnEdge="B0C0" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="372.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2"/>
-            <route replacedOnEdge="B0C0" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="378.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1"/>
-            <route replacedOnEdge="C0C1" replacedOnIndex="16" reason="taxi:idling:randomCircling" replacedAtTime="388.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2"/>
-            <route replacedOnEdge="C1C2" replacedOnIndex="17" reason="taxi:idling:randomCircling" replacedAtTime="395.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1"/>
-            <route replacedOnEdge="C2C1" replacedOnIndex="18" reason="taxi:idling:randomCircling" replacedAtTime="407.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1"/>
-            <route replacedOnEdge="C1D1" replacedOnIndex="21" reason="taxi:idling:randomCircling" replacedAtTime="435.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1 D1C1"/>
-            <route replacedOnEdge="D1C1" replacedOnIndex="22" reason="taxi:idling:randomCircling" replacedAtTime="460.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1 D1C1 C1C2"/>
-            <route replacedOnEdge="D1C1" replacedOnIndex="22" reason="taxi:idling:randomCircling" replacedAtTime="475.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1 D1C1 C1C2 C2D2"/>
-            <route replacedOnEdge="C2D2" replacedOnIndex="24" reason="taxi:idling:randomCircling" replacedAtTime="496.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1 D1C1 C1C2 C2D2 D2E2"/>
-            <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2B2 B2B1 B1B0 B0C0 C0B0 B0C0 C0C1 C1C2 C2C1 C1C2 C2C1 C1D1 D1C1 C1C2 C2D2 D2E2 E2F2"/>
+            <route replacedOnEdge="B1C1" replacedOnIndex="8" reason="taxi:idling:randomCircling" replacedAtTime="228.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2"/>
+            <route replacedOnEdge="B1C1" replacedOnIndex="8" reason="taxi:idling:randomCircling" replacedAtTime="242.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2"/>
+            <route replacedOnEdge="C2D2" replacedOnIndex="10" reason="taxi:idling:randomCircling" replacedAtTime="264.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1"/>
+            <route replacedOnEdge="C2D2" replacedOnIndex="10" reason="taxi:idling:randomCircling" replacedAtTime="278.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1"/>
+            <route replacedOnEdge="D1C1" replacedOnIndex="12" reason="taxi:idling:randomCircling" replacedAtTime="299.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1"/>
+            <route replacedOnEdge="C1D1" replacedOnIndex="13" reason="taxi:idling:randomCircling" replacedAtTime="325.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2"/>
+            <route replacedOnEdge="C1D1" replacedOnIndex="13" reason="taxi:idling:randomCircling" replacedAtTime="340.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2"/>
+            <route replacedOnEdge="D2E2" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="361.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1"/>
+            <route replacedOnEdge="D2E2" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="375.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2"/>
+            <route replacedOnEdge="D2E2" replacedOnIndex="15" reason="taxi:idling:randomCircling" replacedAtTime="382.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2"/>
+            <route replacedOnEdge="E2F2" replacedOnIndex="18" reason="taxi:idling:randomCircling" replacedAtTime="407.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1"/>
+            <route replacedOnEdge="E2F2" replacedOnIndex="18" reason="taxi:idling:randomCircling" replacedAtTime="422.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1"/>
+            <route replacedOnEdge="F1E1" replacedOnIndex="20" reason="taxi:idling:randomCircling" replacedAtTime="442.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1 E1E2"/>
+            <route replacedOnEdge="F1E1" replacedOnIndex="20" reason="taxi:idling:randomCircling" replacedAtTime="456.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1 E1E2 E2E1"/>
+            <route replacedOnEdge="F1E1" replacedOnIndex="20" reason="taxi:idling:randomCircling" replacedAtTime="462.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1 E1E2 E2E1 E1D1"/>
+            <route replacedOnEdge="E1D1" replacedOnIndex="23" reason="taxi:idling:randomCircling" replacedAtTime="487.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1 E1E2 E2E1 E1D1 D1C1"/>
+            <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0B1 B1C1 C1C2 C2D2 D2D1 D1C1 C1D1 D1D2 D2E2 E2E1 E1E2 E2F2 F2F1 F1E1 E1E2 E2E1 E1D1 D1C1 C1B1"/>
         </routeDistribution>
         <stop lane="B2C2_1" startPos="0.00" endPos="5.00" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
         <stop lane="A0B0_1" startPos="287.60" endPos="287.60" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
