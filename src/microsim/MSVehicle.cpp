@@ -6073,6 +6073,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     const MSLane* nextStopLane = nullptr;
     double nextStopPos = 0;
     bool nextStopIsWaypoint = false;
+    bool nextStopEnds = false;
     if (!myStops.empty()) {
         const MSStop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
@@ -6083,6 +6084,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.getSpeed() > 0;
+        nextStopEnds = !keepStopping(true);
     }
     // myArrivalTime = -1 in the context of validating departSpeed with departLane=best
     if (myParameter->arrivalLaneProcedure >= ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end() && myArrivalLane >= 0) {
@@ -6103,7 +6105,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     // go forward along the next lanes;
     // trains do not have to deal with lane-changing for stops but their best
     // lanes lookahead is needed for rail signal control
-    const bool continueAfterStop = nextStopIsWaypoint || isRailway(getVClass());
+    const bool continueAfterStop = nextStopIsWaypoint || nextStopEnds || isRailway(getVClass());
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
