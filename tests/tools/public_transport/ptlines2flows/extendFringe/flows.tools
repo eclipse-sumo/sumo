@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-02-21 09:39:15.219961 by ptlines2flows.py v1_22_0+0419-c0e3a37e915
+<!-- generated on 2026-04-23 07:30:46.492883 by Eclipse SUMO ptlines2flows.py v1_26_0+1335-20d8fb18dd8
 <configuration>
     <net-file value="net.net.xml"/>
     <ptlines-file value="ptlines.xml"/>
@@ -30,7 +30,7 @@
         <stop busStop="3959807220" duration="20" until="67.0"/> <!-- Kolonnenbrücke -->
     </route>
     <route id="bus_2:0" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
-        <stop busStop="4032629819" duration="20" until="57.0"/> <!-- Monumentenstraße -->
+        <stop busStop="4032629819" duration="20" until="58.0"/> <!-- Monumentenstraße -->
         <stop busStop="2029039199" duration="20" until="185.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
     <route id="bus_3:0" edges="53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1" >
