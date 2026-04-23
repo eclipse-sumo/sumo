@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-30 10:59:59 by Eclipse SUMO sumo Version v1_12_0+1770-c60e6e70bb3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2026-04-22T10:20:26.765380+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
-        <load-state value="state.xml"/>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
+        <tripinfo-output value="tripinfo.xml"/>
         <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
     </output>
 
     <processing>
-        <pedestrian.model value="nonInteracting"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
     </processing>
 
     <report>
@@ -25,20 +31,13 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="walk_route" depart="1.00" arrival="156.00">
-        <walk edges="2/1to1/1 3/1to2/1"/>
-    </person>
-
-    <person id="walk_trip" depart="2.00" arrival="717.00">
-        <walk edges="3/1to2/1 1/1to2/1 1/1to0/1"/>
-    </person>
-
-    <person id="walk_route_id" depart="0.00" arrival="954.00">
-        <walk edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <person id="p0" depart="0.00" departPos="390.00" arrival="652.00">
+        <walk edges="beg" trainStop="ts_0"/>
+        <walk edges="left"/>
     </person>
 
 </routes>

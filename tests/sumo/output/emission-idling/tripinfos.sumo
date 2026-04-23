@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:25:07.779041+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T11:43:53.935269+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -48,10 +50,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="ve1" depart="3.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="129.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="12.72" duration="126.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="5.10" rerouteNo="0" devices="tripinfo_ve1 emissions_ve1" vType="passenger" speedFactor="1.00" vaporized="">
+    <tripinfo id="ve1" depart="3.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="129.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="12.72" duration="126.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="9.03" rerouteNo="0" devices="tripinfo_ve1 emissions_ve1" vType="passenger" speedFactor="1.00" vaporized="">
         <emissions CO_abs="21.21" CO2_abs="157283.49" HC_abs="8.08" PMx_abs="15.27" NOx_abs="644.85" fuel_abs="49773.45" electricity_abs="0.00"/>
     </tripinfo>
-    <tripinfo id="ve0" depart="0.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="132.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="13.28" duration="132.00" routeLength="194.90" waitingTime="77.00" waitingCount="1" stopTime="107.00" timeLoss="4.58" rerouteNo="0" devices="tripinfo_ve0 emissions_ve0" vType="passenger" speedFactor="1.00" vaporized="">
+    <tripinfo id="ve0" depart="0.00" departLane="E0_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="132.00" arrivalLane="E0_0" arrivalPos="200.00" arrivalSpeed="13.28" duration="132.00" routeLength="194.90" waitingTime="77.00" waitingCount="1" stopTime="107.00" timeLoss="6.87" rerouteNo="0" devices="tripinfo_ve0 emissions_ve0" vType="passenger" speedFactor="1.00" vaporized="">
         <emissions CO_abs="20.67" CO2_abs="140743.39" HC_abs="7.26" PMx_abs="13.82" NOx_abs="584.03" fuel_abs="44540.10" electricity_abs="0.00"/>
     </tripinfo>
 </tripinfos>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-20T21:50:12.721594+01:00 by Eclipse SUMO sumo v1_26_0+1298-78b4792f1d4
+<!-- generated on 2026-04-23T13:19:14.062341+01:00 by Eclipse SUMO sumo v1_26_0+1352-fc0eb841c93
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,7 +38,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1298-78b4792f1d4" time="180.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1352-fc0eb841c93" time="180.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <dispatcher next="180000" count="1" customers="p2 0 "/>
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" begin="3" end="1" depart="1.00" time="28.00" speedFactor="1.08" decel="4.50"/>
@@ -50,7 +50,7 @@
         <device id="routing_v0" state="50000 0"/>
         <device id="taxi_v0" state="0 0 0 0"/>
     </vehicle>
-    <vehicle id="v2" type="default" depart="150.00" route="r0" distance="7 0" speedFactor="1.0827" state="2050 150000 1 5.10 0 0.71 179000 1 1000 0" pos="200.00 195.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
+    <vehicle id="v2" type="default" depart="150.00" route="r0" distance="7 0" speedFactor="1.0827" state="2050 150000 1 5.10 0 2.97 179000 1 1000 0" pos="200.00 195.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop edge="middle" until="180.00" started="170.00"/>
     </vehicle>
     <vehicleTransfer id="v0" depart="-1" parking="beg_0"/>

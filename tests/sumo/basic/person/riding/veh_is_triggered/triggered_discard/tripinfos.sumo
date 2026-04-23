@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:24:59.432335+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T11:43:48.750895+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <max-depart-delay value="50"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
@@ -42,5 +44,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="51.00" timeLoss="-1" traveltime="-1">
         <ride waitingTime="51.00" vehicle="v0" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
-    <tripinfo id="blocker" depart="0.00" departLane="WC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="146.00" arrivalLane="CE_0" arrivalPos="91.95" arrivalSpeed="13.52" duration="146.00" routeLength="194.90" waitingTime="19.00" waitingCount="1" stopTime="100.00" timeLoss="28.48" rerouteNo="1" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="WC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="146.00" arrivalLane="CE_0" arrivalPos="91.95" arrivalSpeed="13.52" duration="146.00" routeLength="194.90" waitingTime="19.00" waitingCount="1" stopTime="100.00" timeLoss="29.01" rerouteNo="1" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

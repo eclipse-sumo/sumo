@@ -13,6 +13,9 @@ t40b_grouped
 # save state at time 60
 t60_grouped
 
+# save state at time of unloading a person
+t91
+
 # save state at time 100
 t100
 

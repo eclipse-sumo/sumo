@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:19:43.370717+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-04-23T14:37:53.676217+01:00 by Eclipse SUMO sumo v1_26_0+1357-4cb6fe19152
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,11 +30,11 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1238-9348d776a1c" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1357-4cb6fe19152" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="2" begin="2" end="0" depart="1.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" line="testLine" state="2050 0 1 5.10 0 0.72 19000 1 16000 1" pos="60.00 55.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" distance="7 0" speedFactor="1.0000" line="testLine" state="2050 0 1 5.10 0 2.32 19000 1 16000 1" pos="60.00 55.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0" lcStateBase="0.00" lcState2="0 0 0 0 0">
         <stop lane="middle_0" endPos="10.00" duration="2.00" started="6.00" ended="8.00" parking="0" tripId="testTripID" line="testLine"/>
         <stop lane="middle_0" endPos="60.00" duration="16.00" started="15.00" ended="42.00" parking="0"/>
         <stop lane="middle_0" endPos="150.00" duration="20.00" started="5.00" ended="42.00" parking="0" tripId="testTripID2" line="testLine2"/>

@@ -13,6 +13,9 @@ stops_otherEdge
 # ensure that stops on the same edge are in the correct sequence
 stops_sameEdgeOrder
 
+# use candiate stop locations to restrict mapping
+stops_gtfs_ids
+
 # load stops with invalid sequence numbers
 bad_sequence
 

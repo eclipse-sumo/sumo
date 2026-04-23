@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-14T01:09:36.188206+01:00 by Eclipse SUMO sumo v1_26_0+1123-334e341037c
+<!-- generated on 2026-04-23T11:44:06.962687+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,8 +35,8 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="182.00" waitingTime="53.00" timeLoss="10.37" traveltime="129.00">
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="182.00" waitingTime="53.00" timeLoss="26.69" traveltime="129.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="50.87" actType="waiting"/>
-        <ride waitingTime="53.00" vehicle="t_0" depart="53.00" arrival="182.00" arrivalPos="43.68" duration="129.00" routeLength="486.91" timeLoss="10.37"/>
+        <ride waitingTime="53.00" vehicle="t_0" depart="53.00" arrival="182.00" arrivalPos="43.68" duration="129.00" routeLength="486.91" timeLoss="26.69"/>
     </personinfo>
 </tripinfos>

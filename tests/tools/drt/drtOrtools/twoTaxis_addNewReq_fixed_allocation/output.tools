@@ -285,9 +285,7 @@ Reservations en route: ['2']
 Taxis empty: ('v1',)
 Taxis occupied: ('v0',)
 timestep: 510.0
-Reservations en route: ['2']
-Taxis empty: ('v1',)
-Taxis occupied: ('v0',)
+Taxis empty: ('v0', 'v1')
 timestep: 540.0
 Taxis empty: ('v0', 'v1')
 timestep: 570.0

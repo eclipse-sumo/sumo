@@ -2,28 +2,28 @@
 1.0 vehicle v0 on lane=beg_0 pos=0.0 speed=13.89
 1.0 setStop for v0
 1.0 vehicle v0 on lane=beg_0 pos=0.0 speed=13.89
-2.0 vehicle v0 on lane=beg_0 pos=12.7316886697 speed=12.7316886697
-3.0 vehicle v0 on lane=beg_0 pos=25.6954472965 speed=12.9637586268
-4.0 vehicle v0 on lane=beg_0 pos=39.5263240489 speed=13.8308767523
-5.0 vehicle v0 on lane=beg_0 pos=52.7774452873 speed=13.2511212384
-6.0 vehicle v0 on lane=beg_0 pos=65.9005040525 speed=13.1230587652
-7.0 vehicle v0 on lane=beg_0 pos=79.7338086679 speed=13.8333046154
-8.0 vehicle v0 on lane=beg_0 pos=92.6575740738 speed=12.9237654059
-9.0 vehicle v0 on lane=end_0 pos=4.22582340537 speed=13.5682493316
-10.0 vehicle v0 on lane=end_0 pos=18.112179586 speed=13.8863561806
+2.0 vehicle v0 on lane=beg_0 pos=12.731688669705765 speed=12.731688669705765
+3.0 vehicle v0 on lane=beg_0 pos=25.695447296504867 speed=12.9637586267991
+4.0 vehicle v0 on lane=beg_0 pos=39.52632404885255 speed=13.830876752347686
+5.0 vehicle v0 on lane=beg_0 pos=52.777445287271405 speed=13.251121238418856
+6.0 vehicle v0 on lane=beg_0 pos=65.90050405245275 speed=13.12305876518134
+7.0 vehicle v0 on lane=beg_0 pos=79.73380866787397 speed=13.833304615421222
+8.0 vehicle v0 on lane=beg_0 pos=92.65757407375612 speed=12.92376540588215
+9.0 vehicle v0 on lane=end_0 pos=4.225823405366398 speed=13.568249331610279
+10.0 vehicle v0 on lane=end_0 pos=18.112179585979327 speed=13.88635618061293
 
 21.0 vehicle v1 on lane=middle_0 pos=0.0 speed=13.89
 21.0 setStop for v1
 21.0 vehicle v1 on lane=middle_0 pos=0.0 speed=13.89
-22.0 vehicle v1 on lane=end_0 pos=7.39 speed=9.39
-23.0 vehicle v1 on lane=end_0 pos=12.28 speed=4.89
-24.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.39
-25.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
-26.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
-27.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
-28.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
-29.0 vehicle v1 on lane=end_0 pos=12.67 speed=0.0
-30.0 vehicle v1 on lane=end_0 pos=14.382100606 speed=1.71210060602
+22.0 vehicle v1 on lane=end_0 pos=7.390000000000001 speed=9.39
+23.0 vehicle v1 on lane=end_0 pos=12.280000000000001 speed=4.890000000000001
+24.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.39000000000000057
+25.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.0
+26.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.0
+27.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.0
+28.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.0
+29.0 vehicle v1 on lane=end_0 pos=12.670000000000002 speed=0.0
+30.0 vehicle v1 on lane=end_0 pos=14.382100606015886 speed=1.7121006060158834
 
 41.0 vehicle v2 on lane=beg_0 pos=99.0 speed=13.89
 41.0 setStop for v2
@@ -34,9 +34,9 @@
 45.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
 46.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
 47.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
-48.0 vehicle v2 on lane=middle_0 pos=2.0 speed=0.0
-49.0 vehicle v2 on lane=end_0 pos=2.086184722 speed=2.086184722
-50.0 vehicle v2 on lane=end_0 pos=6.58755037312 speed=4.50136565112
+48.0 vehicle v2 on lane=end_0 pos=1.7406035539926963 speed=1.7406035539926963
+49.0 vehicle v2 on lane=end_0 pos=5.896388037106955 speed=4.1557844831142585
+50.0 vehicle v2 on lane=end_0 pos=12.362361608282665 speed=6.46597357117571
 
 61.0 vehicle v3 on lane=beg_0 pos=99.0 speed=13.89
 61.0 setStop for v3

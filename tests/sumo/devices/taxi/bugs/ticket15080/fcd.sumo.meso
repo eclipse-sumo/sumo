@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.421560+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-22T13:38:44.276047+01:00 by Eclipse SUMO sumo v1_26_0+1328-df373da80cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -12,6 +12,10 @@
         <fcd-output value="fcd.xml"/>
         <stop-output value="stopinfos.xml"/>
     </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+    </processing>
 
     <report>
         <duration-log.disable value="true"/>
@@ -299,141 +303,6 @@
         <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
     </timestep>
     <timestep time="88.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="89.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="90.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="91.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="92.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="93.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="94.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="95.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="96.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="97.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="98.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="99.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="100.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="101.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="102.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="103.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="104.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="105.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="106.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="107.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="108.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="109.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="110.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="111.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="112.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="113.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="114.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="115.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="116.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="117.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="118.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="119.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="120.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="121.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="122.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="123.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="124.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="125.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="126.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="127.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="128.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="129.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="130.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="131.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="132.00">
-        <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
-    </timestep>
-    <timestep time="133.00">
         <vehicle id="trip_1" x="497.60" y="195.80" angle="90.00" type="taxi" speed="0.00" pos="190.40" edge="B2C2" slope="0.00"/>
     </timestep>
 </fcd-export>

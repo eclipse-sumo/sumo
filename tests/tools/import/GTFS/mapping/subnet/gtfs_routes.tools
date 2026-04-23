@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-10 08:05:27.596269 by gtfs2pt.py v1_22_0+1393-91f242def53
+<!-- generated on 2026-04-22 20:27:07.563770 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -16,7 +16,7 @@
         <stop busStop="132189814.1" duration="00:00:10" until="00:00:00"/> <!-- Braunschweig Rathaus -->
         <stop busStop="132189814.2" duration="00:00:10" until="00:01:00"/> <!-- Braunschweig Packhof -->
     </route>
-    <vehicle id="132189814.0" route="132189814" type="bus" depart="10:16:50" line="132189814">
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="10:16:50" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
         <param key="gtfs.origin_stop" value="Braunschweig Staatstheater"/>

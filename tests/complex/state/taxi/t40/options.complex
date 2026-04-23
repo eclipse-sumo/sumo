@@ -1,5 +1,6 @@
 -c save_state.sumocfg
 --save-state.times 40
+--save-state.precision 15
 : 
 -c load_state.sumocfg
 tests/complex/state/runner.py

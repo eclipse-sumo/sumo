@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-20T21:50:12.953560+01:00 by Eclipse SUMO sumo v1_26_0+1298-78b4792f1d4
+<!-- generated on 2026-04-23T10:51:20.445526+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,17 +37,17 @@
 <weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="device.rerouting" begin="180.00" end="200.00">
         <edge id="beg" traveltime="7.78"/>
-        <edge id="end" traveltime="7.20"/>
-        <edge id="middle" traveltime="15.96"/>
+        <edge id="end" traveltime="7.84"/>
+        <edge id="middle" traveltime="14.40"/>
     </interval>
     <interval id="device.rerouting" begin="200.00" end="220.00">
         <edge id="beg" traveltime="7.00"/>
-        <edge id="end" traveltime="7.20"/>
-        <edge id="middle" traveltime="15.96"/>
+        <edge id="end" traveltime="7.84"/>
+        <edge id="middle" traveltime="14.40"/>
     </interval>
     <interval id="device.rerouting" begin="220.00" end="240.00">
         <edge id="beg" traveltime="7.00"/>
-        <edge id="end" traveltime="7.20"/>
-        <edge id="middle" traveltime="15.85"/>
+        <edge id="end" traveltime="7.84"/>
+        <edge id="middle" traveltime="14.40"/>
     </interval>
 </weights>

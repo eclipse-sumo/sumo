@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-22T10:20:27.215168+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo2.xml"/>
+        <vehroute-output value="vehroutes2.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="-1" waitingTime="0.00" timeLoss="0.86" traveltime="-1">
+        <walk depart="-1" departPos="390.00" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="0.00" maxSpeed="1.47" waitingTime="0.00"/>
+        <access stop="ts_0" depart="7.00" arrival="192.00" duration="185.00" routeLength="272.75"/>
+        <access stop="ts_0" depart="192.00" arrival="380.00" duration="188.00" routeLength="277.53"/>
+        <walk depart="380.00" departPos="100.00" arrival="652.00" arrivalPos="499.18" duration="272.00" routeLength="399.18" timeLoss="0.86" maxSpeed="1.47" waitingTime="0.00"/>
+    </personinfo>
+</tripinfos>

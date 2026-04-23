@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:25:22.465278+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T11:44:00.942246+01:00 by Eclipse SUMO sumo v1_26_0+1345-5ee8d27e481
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <processing>
         <collision.action value="warn"/>
         <collision.check-junctions value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -42,6 +44,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="blocker" depart="0.00" departLane="NC_0" departPos="78.26" departSpeed="0.00" departDelay="0.00" arrival="116.50" arrivalLane="CS_0" arrivalPos="92.02" arrivalSpeed="13.80" duration="116.50" routeLength="121.74" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="1.76" rerouteNo="1" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="NC_0" departPos="78.26" departSpeed="0.00" departDelay="0.00" arrival="116.50" arrivalLane="CS_0" arrivalPos="92.02" arrivalSpeed="13.80" duration="116.50" routeLength="121.74" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="4.11" rerouteNo="1" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="car" depart="0.00" departLane="SC_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="118.50" arrivalLane="CW_1" arrivalPos="95.16" arrivalSpeed="13.88" duration="118.50" routeLength="197.16" waitingTime="95.50" waitingCount="1" stopTime="0.00" timeLoss="104.00" rerouteNo="0" devices="tripinfo_car routing_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

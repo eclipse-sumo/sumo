@@ -1649,6 +1649,21 @@ MSVehicle::processNextStop(double currentVelocity) {
     const SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (stop.reached) {
         stop.duration -= getActionStepLength();
+        if (getSpeed() > 0) {
+            // re-enter stopping places to correct waiting position (except for parkingArea since it's place-based)
+            if (stop.busstop != nullptr) {
+                // let the bus stop know the vehicle
+                stop.busstop->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+            if (stop.containerstop != nullptr) {
+                // let the container stop know the vehicle
+                stop.containerstop->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+            if (stop.chargingStation != nullptr) {
+                // let the container stop know the vehicle
+                stop.chargingStation->enter(this, stop.pars.parking == ParkingType::OFFROAD);
+            }
+        }
 
 #ifdef DEBUG_STOPS
         if (DEBUG_COND) {
@@ -1878,6 +1893,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                     } else {
                         stop.duration = 0;
                     }
+                } else {
+                    stop.entryPos = getPositionOnLane();
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
@@ -2610,7 +2627,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
                 }
-                newStopSpeed = MIN2(newStopSpeed, stopSpeed);
+                if (stopSpeed < getSpeed() && getSpeed() > SUMO_const_haltingSpeed) {
+                    // only discount braking-for-stop timeLoss if we are actually braking
+                    newStopSpeed = MIN2(newStopSpeed, stopSpeed);
+                } else if (getSpeed() < SUMO_const_haltingSpeed) {
+                    // blocked from entering a stop
+                    newStopSpeed = std::numeric_limits<double>::max();
+                }
                 v = MIN2(v, stopSpeed);
                 if (lane->isInternal()) {
                     std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
@@ -6058,6 +6081,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     const MSLane* nextStopLane = nullptr;
     double nextStopPos = 0;
     bool nextStopIsWaypoint = false;
+    bool nextStopEnds = false;
     if (!myStops.empty()) {
         const MSStop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
@@ -6068,6 +6092,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
         nextStopIsWaypoint = nextStop.getSpeed() > 0;
+        nextStopEnds = !keepStopping(true);
     }
     // myArrivalTime = -1 in the context of validating departSpeed with departLane=best
     if (myParameter->arrivalLaneProcedure >= ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end() && myArrivalLane >= 0) {
@@ -6088,7 +6113,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     // go forward along the next lanes;
     // trains do not have to deal with lane-changing for stops but their best
     // lanes lookahead is needed for rail signal control
-    const bool continueAfterStop = nextStopIsWaypoint || isRailway(getVClass());
+    const bool continueAfterStop = nextStopIsWaypoint || nextStopEnds || isRailway(getVClass());
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
@@ -7759,6 +7784,9 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_ANGLE, GeomHelper::naviDegree(myAngle));
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
+    if (isStopped() && myStops.front().entryPos != getPositionOnLane()) {
+        out.writeAttr(SUMO_ATTR_ENTRYPOS, myStops.front().entryPos);
+    }
     myLaneChangeModel->saveState(out);
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
@@ -7790,6 +7818,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (!attrs.hasAttribute(SUMO_ATTR_POSITION)) {
         throw ProcessError(TL("Error: Invalid vehicles in state (may be a meso state)!"));
     }
+    bool ok;
     int routeOffset;
     bool stopped;
     SUMOTime stopDuration;
@@ -7808,7 +7837,6 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> pastStops;
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
-        bool ok;
         myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
     }
     // load stops
@@ -7862,10 +7890,17 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     dis >> myOdometer >> myNumberReroutes;
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
+        double realPos = getPositionOnLane();
+        double entryPos = attrs.getOpt<double>(SUMO_ATTR_ENTRYPOS, getID().c_str(), ok, realPos);
         myStops.front().startedFromState = true;
+        if (entryPos != realPos) {
+            myStops.front().entryPos = entryPos;
+        }
         myLane = const_cast<MSLane*>(myStops.front().lane);
         myStopDist = 0;
+        myState.myPos = entryPos; // fake position for replication stop entry which happened before the position was updated
         processNextStop(getSpeed());
+        myState.myPos = realPos; // reset fake position
         if (myStops.front().pars.parking != ParkingType::ONROAD) {
             // processNextStop is called again during MSVehicleTransfer::loadState
             stopDuration += getActionStepLength();

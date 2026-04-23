@@ -1399,6 +1399,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "pastSpeed",         SUMO_ATTR_PASTSPEED },
     { "pastBikeSpeed",     SUMO_ATTR_PASTBIKESPEED },
     { "loaderTime",        SUMO_ATTR_LOADERTIME },
+    { "entryPos",          SUMO_ATTR_ENTRYPOS },
     // @}
 
     //@name meso edge type attributes

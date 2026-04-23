@@ -816,7 +816,10 @@ MESegment::loadState(const std::vector<SUMOVehicle*>& vehs, const SUMOTime block
     Queue& q = myQueues[queIdx];
     for (SUMOVehicle* veh : vehs) {
         MEVehicle* v = static_cast<MEVehicle*>(veh);
-        assert(v->getSegment() == this);
+        assert(v->getSegment() == this || myEdge.isInternal());
+        if (myEdge.isInternal()) {
+            v->setSegment(this, v->getQueIndex());
+        }
         q.getModifiableVehicles().push_back(v);
         myNumVehicles++;
         q.setOccupancy(q.getOccupancy() + v->getVehicleType().getLengthWithGap());

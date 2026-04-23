@@ -96,8 +96,7 @@ MSDispatch::addReservation(MSTransportable* person,
         if (it2 != myRunningReservations.end()) {
             for (auto item : it2->second) {
                 Reservation* res = const_cast<Reservation*>(item.first);
-                if (res->persons.count(person) == 0
-                        && res->from == from
+                if (res->from == from
                         && res->to == to
                         && (res->fromPos == fromPos || res->fromStop == fromStop)
                         && (res->toPos == toPos || res->toStop == toStop)) {
@@ -345,6 +344,9 @@ MSDispatch::swappedRunning(const Reservation* res, MSDevice_Taxi* taxi) {
 
 void
 MSDispatch::fulfilledReservation(const Reservation* res) {
+#ifdef DEBUG_RESERVATION
+    std::cout << SIMTIME << " fullfilled res=" << res->id << "\n";
+#endif
     myRunningReservations[res->group].erase(res);
     if (myRunningReservations[res->group].empty()) {
         myRunningReservations.erase(res->group);

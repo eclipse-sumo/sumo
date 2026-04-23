@@ -1,0 +1,12 @@
+-c save_state.sumocfg
+--save-state.times 91
+--device.taxi.idle-algorithm randomCircling
+--vehroute-output.last-route
+-a input_additional.add.xml
+: 
+-c load_state.sumocfg
+--device.taxi.idle-algorithm randomCircling
+--vehroute-output.last-route
+-a input_additional.add.xml
+tests/complex/state/runner.py
+--compare vehroutes

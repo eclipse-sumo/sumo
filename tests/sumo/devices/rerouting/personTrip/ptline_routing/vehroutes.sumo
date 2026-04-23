@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T16:24:52.896350+01:00 by Eclipse SUMO sumo v1_26_0+1074-0d0ca2f0495
+<!-- generated on 2026-04-23T10:51:35.835826+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -21,13 +21,13 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="bus.0" type="bus" depart="0.00" line="bus" arrival="131.00">
+    <vehicle id="bus.0" type="bus" depart="0.00" line="bus" arrival="130.00">
         <route edges="beg middle end"/>
         <stop busStop="beg_0" until="0.00"/>
         <stop busStop="end_0" until="100.00"/>
     </vehicle>
 
-    <vehicle id="bus.1" type="bus" depart="100.00" line="bus" arrival="265.00">
+    <vehicle id="bus.1" type="bus" depart="100.00" line="bus" arrival="266.00">
         <route edges="beg beg2left left left2end end"/>
         <stop busStop="beg_0" until="100.00"/>
         <stop busStop="end_0" until="200.00"/>
@@ -39,7 +39,7 @@
         <stop busStop="end_0" until="300.00"/>
     </vehicle>
 
-    <vehicle id="bus.3" type="bus" depart="300.00" line="bus" arrival="435.00">
+    <vehicle id="bus.3" type="bus" depart="300.00" line="bus" arrival="434.00">
         <route edges="beg middle end"/>
         <stop busStop="beg_0" until="300.00"/>
         <stop busStop="end_0" until="400.00"/>
@@ -51,7 +51,7 @@
         <walk edges="end"/>
     </person>
 
-    <vehicle id="bus.4" type="bus" depart="400.00" line="bus" arrival="537.00">
+    <vehicle id="bus.4" type="bus" depart="400.00" line="bus" arrival="536.00">
         <route edges="beg beg2left left left2end end"/>
         <stop busStop="beg_0" until="400.00"/>
         <stop busStop="end_0" until="500.00"/>

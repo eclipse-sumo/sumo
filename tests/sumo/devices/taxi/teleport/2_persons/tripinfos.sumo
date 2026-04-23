@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-22T16:25:35.104964+01:00 by Eclipse SUMO sumo v1_25_0+1143-5cfd67bbee0
+<!-- generated on 2026-04-23T14:29:36.149430+01:00 by Eclipse SUMO sumo v1_26_0+1357-4cb6fe19152
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -38,14 +40,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="blocker" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="529.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="12.61" duration="529.00" routeLength="282.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="3.16" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="596.00" waitingTime="13.00" timeLoss="415.45" traveltime="583.00">
-        <ride waitingTime="13.00" vehicle="taxi" depart="13.00" arrival="596.00" arrivalPos="287.60" duration="583.00" routeLength="1325.22" timeLoss="415.45"/>
+    <tripinfo id="blocker" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="529.00" arrivalLane="A0B0_1" arrivalPos="287.60" arrivalSpeed="12.61" duration="529.00" routeLength="282.50" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="4.96" rerouteNo="0" devices="tripinfo_blocker routing_blocker" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="596.00" waitingTime="13.00" timeLoss="420.88" traveltime="583.00">
+        <ride waitingTime="13.00" vehicle="taxi" depart="13.00" arrival="596.00" arrivalPos="287.60" duration="583.00" routeLength="1325.22" timeLoss="420.88"/>
     </personinfo>
-    <personinfo id="p1" depart="120.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="652.00" waitingTime="531.00" timeLoss="7.65" traveltime="121.00">
-        <ride waitingTime="531.00" vehicle="taxi" depart="651.00" arrival="772.00" arrivalPos="285.60" duration="121.00" routeLength="630.02" timeLoss="7.65"/>
+    <personinfo id="p1" depart="120.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="651.00" waitingTime="530.00" timeLoss="10.83" traveltime="121.00">
+        <ride waitingTime="530.00" vehicle="taxi" depart="650.00" arrival="771.00" arrivalPos="285.60" duration="121.00" routeLength="630.02" timeLoss="10.83"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="B2C2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="775.00" routeLength="2444.86" waitingTime="408.00" waitingCount="5" stopTime="130.00" timeLoss="432.81" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="taxi" depart="0.00" departLane="B2C2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="774.00" routeLength="2444.86" waitingTime="407.00" waitingCount="5" stopTime="130.00" timeLoss="445.69" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="2" occupiedDistance="1955.24" occupiedTime="590.00"/>
     </tripinfo>
 </tripinfos>

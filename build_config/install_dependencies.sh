@@ -44,7 +44,8 @@ case "$ID" in
         apt-get -y install ./apache-arrow-apt-source-latest-*.deb
         rm ./apache-arrow-apt-source-latest-*.deb
         apt-get -qq update
-        apt-get -y install libarrow-dev libparquet-dev
+        PARQUET_VERSION=$(apt-cache policy libparquet-dev | grep -o '23[0-9.-]*' | head -1)
+        sudo apt install -y -V libparquet-dev=$PARQUET_VERSION
         ;;
     centos)
         if [[ "$VERSION_ID" == "7" ]]; then
@@ -68,7 +69,8 @@ case "$ID" in
         dnf install -y libX11-devel libXft-devel libXcursor-devel libXrandr-devel libXinerama-devel mesa-libGL-devel mesa-libGLU-devel freetype-devel fontconfig-devel libjpeg-turbo-devel libpng-devel
         # installing arrow / parquet
         dnf install -y https://packages.apache.org/artifactory/arrow/almalinux/$(echo $VERSION_ID | cut -f1 -d.)/apache-arrow-release-latest.rpm
-        dnf install -y arrow-devel parquet-devel
+        PARQUET_VERSION=$(dnf --showduplicates list parquet-devel | grep -o '23[0-9.-]*el[0-9]*' | tail -1)
+        dnf install -y arrow-devel-$PARQUET_VERSION parquet-devel-$PARQUET_VERSION
         cd /opt
         # building fox from source
         curl -LO http://www.fox-toolkit.org/ftp/fox-$FOX_VERSION.tar.gz

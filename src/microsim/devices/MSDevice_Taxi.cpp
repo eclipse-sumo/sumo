@@ -557,10 +557,8 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
                 stops.back().permitted.insert(transportable->getID());
                 stops.back().parametersSet |= STOP_PERMITTED_SET | STOP_TRIGGER_SET;
             }
-            // proof this lines: Is needed for pre-booking?
-            std::set<const MSTransportable*> persons = res->persons;
-            for (auto itr = persons.begin(); itr != persons.end(); itr++) {
-                stops.back().awaitedPersons.insert((*itr)->getID());
+            for (const MSTransportable* t : res->persons) {
+                stops.back().awaitedPersons.insert(t->getID());
             }
 
             if (stops.back().duration == -1) {

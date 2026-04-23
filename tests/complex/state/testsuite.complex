@@ -167,3 +167,6 @@ waut
 # 
 # save at waut switch time
 waut2
+
+# see #17897
+routeLoader

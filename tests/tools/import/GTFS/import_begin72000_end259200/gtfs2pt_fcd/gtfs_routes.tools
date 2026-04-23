@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-31 11:34:57.943349 by Eclipse SUMO gtfs2pt.py v1_26_0+0911-c97a2c4c8e5
+<!-- generated on 2026-04-22 20:27:09.507014 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -9,6 +9,7 @@
     <begin value="72000.0"/>
     <end value="259200.0"/>
     <network value="net.net.xml"/>
+    <poi-output value="pois.add.xml"/>
 </configuration>
 -->
 
@@ -67,87 +68,87 @@
         <stop busStop="132183536.1" duration="10" until="60"/> <!-- Braunschweig Am Wassertor -->
         <stop busStop="132183536.2" duration="10" until="180"/> <!-- Braunschweig John-F.-Kennedy-Platz -->
     </route>
-    <vehicle id="132244371.1" route="132244371" type="bus" depart="106370" line="132244371">
+    <vehicle id="132244371.1" route="132244371" type="bus" depart="106370" line="620">
         <param key="gtfs.route_name" value="620"/>
         <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
     </vehicle>
-    <vehicle id="132244371.2" route="132244371" type="bus" depart="192770" line="132244371">
+    <vehicle id="132244371.2" route="132244371" type="bus" depart="192770" line="620">
         <param key="gtfs.route_name" value="620"/>
         <param key="gtfs.trip_headsign" value="Steterburg(Salzgitter) Danziger Straße"/>
     </vehicle>
-    <vehicle id="132185783.1" route="132185783" type="bus" depart="105290" line="132185783">
+    <vehicle id="132185783.1" route="132185783" type="bus" depart="105290" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="Westpark"/>
     </vehicle>
-    <vehicle id="132185783.2" route="132185783" type="bus" depart="191690" line="132185783">
+    <vehicle id="132185783.2" route="132185783" type="bus" depart="191690" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="Westpark"/>
     </vehicle>
-    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="132185783">
+    <vehicle id="132185786.0" route="132185783" type="bus" depart="86090" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
-    <vehicle id="132185786.1" route="132185783" type="bus" depart="172490" line="132185783">
+    <vehicle id="132185786.1" route="132185783" type="bus" depart="172490" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
-    <vehicle id="132185786.2" route="132185783" type="bus" depart="258890" line="132185783">
+    <vehicle id="132185786.2" route="132185783" type="bus" depart="258890" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
-    <vehicle id="132185786.trimmed.0" route="132185786.trimmed" type="bus" depart="86570" line="132185786.trimmed">
+    <vehicle id="132185786.trimmed.0" route="132185786.trimmed" type="bus" depart="86570" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
-    <vehicle id="132185978.0" route="132185783" type="bus" depart="91190" line="132185783">
+    <vehicle id="132185978.0" route="132185783" type="bus" depart="91190" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="Westpark"/>
     </vehicle>
-    <vehicle id="132185978.1" route="132185783" type="bus" depart="177590" line="132185783">
+    <vehicle id="132185978.1" route="132185783" type="bus" depart="177590" line="418">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="Westpark"/>
     </vehicle>
-    <vehicle id="132218462.1" route="132218462" type="bus" depart="109010" line="132218462">
+    <vehicle id="132218462.1" route="132218462" type="bus" depart="109010" line="730">
         <param key="gtfs.route_name" value="730"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
     </vehicle>
-    <vehicle id="132218462.2" route="132218462" type="bus" depart="195410" line="132218462">
+    <vehicle id="132218462.2" route="132218462" type="bus" depart="195410" line="730">
         <param key="gtfs.route_name" value="730"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Rathaus"/>
     </vehicle>
-    <vehicle id="132189814.1" route="132189814" type="bus" depart="123290" line="132189814">
+    <vehicle id="132189814.1" route="132189814" type="bus" depart="123290" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
     </vehicle>
-    <vehicle id="132189814.2" route="132189814" type="bus" depart="209690" line="132189814">
+    <vehicle id="132189814.2" route="132189814" type="bus" depart="209690" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
     </vehicle>
-    <vehicle id="132190299.1" route="132190299" type="bus" depart="129710" line="132190299">
+    <vehicle id="132190299.1" route="132190299" type="bus" depart="129710" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Leiferde"/>
     </vehicle>
-    <vehicle id="132190299.2" route="132190299" type="bus" depart="216110" line="132190299">
+    <vehicle id="132190299.2" route="132190299" type="bus" depart="216110" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Leiferde"/>
     </vehicle>
-    <vehicle id="132194506.0" route="132194506" type="bus" depart="88910" line="132194506">
+    <vehicle id="132194506.0" route="132194506" type="bus" depart="88910" line="429">
         <param key="gtfs.route_name" value="429"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132194506.1" route="132194506" type="bus" depart="175310" line="132194506">
+    <vehicle id="132194506.1" route="132194506" type="bus" depart="175310" line="429">
         <param key="gtfs.route_name" value="429"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.0" route="132183536" type="bus" depart="87530" line="132183536">
+    <vehicle id="132183536.0" route="132183536" type="bus" depart="87530" line="419">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.1" route="132183536" type="bus" depart="173930" line="132183536">
+    <vehicle id="132183536.1" route="132183536" type="bus" depart="173930" line="419">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="132183536">
+    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="419">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>

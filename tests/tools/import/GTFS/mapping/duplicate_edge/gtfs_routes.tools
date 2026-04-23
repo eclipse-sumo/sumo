@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-16 13:01:08.501164 by Eclipse SUMO gtfs2pt.py v1_25_0+0999-2f5f16dc016
+<!-- generated on 2026-04-22 20:27:10.864542 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -17,7 +17,7 @@
         <stop busStop="36232563.3" duration="10" until="260"/> <!-- Jena, Kieshügel -->
         <stop busStop="36232563.4" duration="10" until="340"/> <!-- Jena, An der Eule -->
     </route>
-    <vehicle id="36232563.0" route="36232563" type="tram" depart="23090" line="36232563">
+    <vehicle id="36232563.0" route="36232563" type="tram" depart="23090" line="1">
         <param key="gtfs.route_name" value="1"/>
         <param key="gtfs.trip_headsign" value="Jena, Zwätzen Schleife"/>
     </vehicle>

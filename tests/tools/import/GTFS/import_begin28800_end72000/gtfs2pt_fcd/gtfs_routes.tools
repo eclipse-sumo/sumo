@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-17 10:02:12.189371 by gtfs2pt.py v1_17_0+0321-17b203b
+<!-- generated on 2026-04-22 20:26:57.936912 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
 <configuration>
     <gtfs value="gtfs.zip"/>
+    <merged-csv-output value="out.csv"/>
     <date value="20201111"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
-    <begin value="28800"/>
-    <end value="72000"/>
+    <begin value="28800.0"/>
+    <end value="72000.0"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
@@ -32,11 +33,11 @@
         <stop busStop="132189814.6" duration="10" until="360"/> <!-- Braunschweig Südstraße -->
         <stop busStop="132189814.7" duration="10" until="420"/> <!-- Braunschweig Holzhof -->
     </route>
-    <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="132189814">
+    <vehicle id="132189814.0" route="132189814" type="bus" depart="36890" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
     </vehicle>
-    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="132190299">
+    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Leiferde"/>
     </vehicle>

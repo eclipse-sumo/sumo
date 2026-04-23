@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T13:22:37.089015+01:00 by Eclipse SUMO sumo v1_26_0+1179-d510612d39d
+<!-- generated on 2026-04-22T13:38:10.989690+01:00 by Eclipse SUMO sumo v1_26_0+1328-df373da80cc
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -98,10 +98,10 @@
     <personinfo id="p19" depart="190.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="1500.00" waitingTime="1390.00" timeLoss="0.00" traveltime="110.00">
         <ride waitingTime="1390.00" vehicle="trip_1" depart="1580.00" arrival="1690.00" arrivalPos="190.40" duration="110.00" routeLength="2646.40" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1751.00" routeLength="14231.42" waitingTime="0.00" waitingCount="0" stopTime="671.00" timeLoss="180.00" rerouteNo="23" devices="vehroute_trip_0 tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.03" vaporized="">
+    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="0.00" departSpeed="14.31" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1691.00" routeLength="14231.42" waitingTime="0.00" waitingCount="0" stopTime="671.00" timeLoss="180.00" rerouteNo="23" devices="vehroute_trip_0 tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.03" vaporized="">
         <taxi customers="11" occupiedDistance="7129.70" occupiedTime="509.33"/>
     </tripinfo>
-    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1751.00" routeLength="15543.33" waitingTime="0.00" waitingCount="0" stopTime="550.00" timeLoss="240.00" rerouteNo="19" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.46" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1691.00" routeLength="15543.33" waitingTime="0.00" waitingCount="0" stopTime="550.00" timeLoss="240.00" rerouteNo="19" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="0.97" vaporized="">
         <taxi customers="9" occupiedDistance="9295.38" occupiedTime="699.52"/>
     </tripinfo>
 </tripinfos>

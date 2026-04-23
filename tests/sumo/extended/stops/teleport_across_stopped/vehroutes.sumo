@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-06 16:49:35 by Eclipse SUMO sumo Version v1_9_1+0260-d131a25
+<!-- generated on 2026-04-23T10:51:22.759426+01:00 by Eclipse SUMO sumo v1_26_0+1336-682400df945
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -20,17 +25,18 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -38,8 +44,8 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end" exitTimes="328.00 331.00 347.00"/>
     </vehicle>
 
-    <vehicle id="0" depart="0.00" arrivalPos="400.00" arrival="1021.00">
-        <route edges="middle end" exitTimes="1002.00 1021.00"/>
+    <vehicle id="0" depart="0.00" arrivalPos="400.00" arrival="1020.00">
+        <route edges="middle end" exitTimes="1001.00 1020.00"/>
         <stop lane="middle_0" endPos="2.00" duration="1000.00" started="1.00" ended="1001.00"/>
     </vehicle>
 

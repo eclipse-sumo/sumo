@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-22 21:38:12.084140 by Eclipse SUMO gtfs2pt.py v1_26_0+0755-29386f58917
+<!-- generated on 2026-04-23 12:34:33.900550 by Eclipse SUMO gtfs2pt.py v1_26_0+1352-fc0eb841c93
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -17,7 +17,7 @@
         <stop busStop="255711950.0" duration="00:00:10" until="00:00:00"/> <!-- S Attilastr.  (Berlin) -->
         <stop busStop="255711950.1" duration="00:00:10" until="00:02:42"/> <!-- S Priesterweg (Berlin) -->
     </route>
-    <vehicle id="255711950.0" route="255711950" type="light_rail" depart="05:11:20" line="255711950">
+    <vehicle id="255711950.0" route="255711950" type="light_rail" depart="05:11:20" line="S2">
         <param key="gtfs.route_name" value="S2"/>
         <param key="gtfs.trip_headsign" value="dummy2"/>
     </vehicle>

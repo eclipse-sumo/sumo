@@ -135,9 +135,17 @@ def dataAvailable(options):
 def main(options):
     ft = humanReadableTime if options.hrtime else lambda x: x
     if options.mergedCSV:
+        # Need everything except few columns as strings. The exceptions are:
+        # - `arrival_time` and `departure_time` have to be integers,
+        # - `stop_lat`, `stop_lon`, and `stop_sequence` have to be floats
         full_data_merged = pd.read_csv(options.mergedCSV, sep=";",
                                        keep_default_na=False,
-                                       dtype={"route_type": str})
+                                       dtype=str)
+        full_data_merged['arrival_time'] = full_data_merged['arrival_time'].astype(int)
+        full_data_merged['departure_time'] = full_data_merged['departure_time'].astype(int)
+        full_data_merged['stop_lat'] = full_data_merged['stop_lat'].astype(float)
+        full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
+        full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:
@@ -187,9 +195,15 @@ def main(options):
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 buf += ((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
-                         u'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
+                         u'name=%s gtfsid=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
                         (arrivalSec - offset, trip_id, d.stop_lon, d.stop_lat, until,
-                         sumolib.xml.quoteattr(d.stop_name, True), d.fare_zone, d.fare_token, d.start_char))
+                         sumolib.xml.quoteattr(d.stop_name, True),
+                         # Store also the original GTFS stop ID which allows us to map other external data to
+                         # this particular stop (mapping by `name` is ambiguous, we may have several platforms
+                         # of a stop with the identical name). By definition, the `stop_id` is a UTF8 string, hence
+                         # the quoting.
+                         sumolib.xml.quoteattr(d.stop_id, True),
+                         d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                     firstStop = d.stop_name
@@ -202,8 +216,11 @@ def main(options):
                     seqs[s] = trip_id
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
+                # The `line` attribute shall hold the line short name that can be used to determine person rides
+                # as per https://sumo.dlr.de/docs/Specification/Persons.html#rides
+                # The spaces in the route name are replaced by underscores to allow for space-separated lists of lines.
                 tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                     (trip_id, seqs[s], mode, firstDep, seqs[s]))
+                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name.replace(" ", "_")))
                 params = [("gtfs.route_name", d.route_short_name)]
                 if d.trip_headsign:
                     params.append(("gtfs.trip_headsign", d.trip_headsign))

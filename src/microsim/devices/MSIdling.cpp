@@ -29,6 +29,7 @@
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
 
@@ -122,6 +123,11 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         }
         pars.parametersSet |= STOP_TRIGGER_SET | STOP_PARKING_SET | STOP_END_SET;
         pars.parking = ParkingType::OFFROAD;
+        if (MSGlobals::gUseMesoSim) {
+            MEVehicle& veh = dynamic_cast<MEVehicle&>(taxi->getHolder());
+            // register triggered stop
+            veh.mayProceed();
+        }
     }
 }
 
