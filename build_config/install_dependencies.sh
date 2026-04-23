@@ -44,7 +44,8 @@ case "$ID" in
         apt-get -y install ./apache-arrow-apt-source-latest-*.deb
         rm ./apache-arrow-apt-source-latest-*.deb
         apt-get -qq update
-        apt-get -y install libarrow-dev libparquet-dev
+        PARQUET_VERSION=$(apt-cache policy libparquet-dev | grep -o '23[0-9.-]*' | head -1)
+        sudo apt install -y -V libparquet-dev=$PARQUET_VERSION
         ;;
     centos)
         if [[ "$VERSION_ID" == "7" ]]; then
