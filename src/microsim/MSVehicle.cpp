@@ -2625,9 +2625,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
                 }
-                if (stopSpeed < getSpeed()) {
+                if (stopSpeed < getSpeed() && getSpeed() > SUMO_const_haltingSpeed) {
                     // only discount braking-for-stop timeLoss if we are actually braking
                     newStopSpeed = MIN2(newStopSpeed, stopSpeed);
+                } else if (getSpeed() < SUMO_const_haltingSpeed) {
+                    // blocked from entering a stop
+                    newStopSpeed = std::numeric_limits<double>::max();
                 }
                 v = MIN2(v, stopSpeed);
                 if (lane->isInternal()) {
