@@ -155,7 +155,8 @@ MSDevice_Vehroutes::~MSDevice_Vehroutes() {
 bool
 MSDevice_Vehroutes::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        if (mySorted && myStateListener.myDevices[static_cast<SUMOVehicle*>(&veh)] == this) {
+        if (mySorted && myStateListener.myDevices.count(static_cast<SUMOVehicle*>(&veh)) != 0
+                && myStateListener.myDevices[static_cast<SUMOVehicle*>(&veh)] == this) {
             const SUMOTime departure = myIntendedDepart ? myHolder.getParameter().depart : MSNet::getInstance()->getCurrentTimeStep();
             myRouteInfos.departureCounts[departure]++;
         }
