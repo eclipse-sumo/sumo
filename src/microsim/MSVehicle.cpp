@@ -2625,7 +2625,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
                 }
-                newStopSpeed = MIN2(newStopSpeed, stopSpeed);
+                if (stopSpeed < getSpeed()) {
+                    // only discount braking-for-stop timeLoss if we are actually braking
+                    newStopSpeed = MIN2(newStopSpeed, stopSpeed);
+                }
                 v = MIN2(v, stopSpeed);
                 if (lane->isInternal()) {
                     std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
