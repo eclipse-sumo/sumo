@@ -54,7 +54,7 @@ jobs:
         sudo apt install -y -V ./apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb
         sudo apt update
         PARQUET_VERSION=$(apt-cache policy libparquet-dev | grep -o '23[0-9.-]*' | head -1)
-        sudo apt install -y -V libparquet-dev=$PARQUET_VERSION
+        sudo apt install -y -V libarrow-dev=$PARQUET_VERSION libparquet-dev=$PARQUET_VERSION
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
