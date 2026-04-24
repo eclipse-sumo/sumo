@@ -177,7 +177,7 @@ public:
     void refuse(std::string badge);
 
     /// @brief Return the parking accepts the vehicle (due to its given badges)
-    bool accepts(SUMOVehicle* veh) const;
+    bool accepts(SUMOVehicle* veh) const override;
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -200,7 +200,7 @@ public:
      * @param[in] what The vehicle that leaves the parking area
      * @see computeLastFreePos
      */
-    void leaveFrom(SUMOVehicle* what);
+    void leaveFrom(SUMOVehicle* what) override;
 
     /// @brief api for reserving spaces at this parkingArea
     /// @{
@@ -222,7 +222,7 @@ public:
     SUMOTime updateOccupancy(SUMOTime currentTime);
 
     /// @brief Returns the last free position on this stop
-    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const override;
 
     /** @brief Returns the last free position on this stop including
      * reservations from the current lane and time step
@@ -314,7 +314,7 @@ protected:
     void setRoadsideCapacity(int capactity);
 
     /// @brief whether overtaking on this lane is impossible for the given vehicle class
-    bool cannotChange(SUMOVehicleClass svc) const; 
+    bool cannotChange(SUMOVehicleClass svc) const;
 
 protected:
 
