@@ -792,7 +792,7 @@ MSFrame::fillOptions() {
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
     oc.addDescription("meso-recheck", "Mesoscopic", TL("Time interval for rechecking insertion into the next segment after failure"));
     oc.doRegister("meso-interpolate-pos", new Option_Bool(false));
-    oc.addDescription("meso-interpolate-pos", "Mesoscopic", TL("Enable mesoscopic postion interpolation"));
+    oc.addDescription("meso-interpolate-pos", "Mesoscopic", TL("Enable mesoscopic position interpolation"));
 
     // add rand options
     RandHelper::insertRandOptions(oc);

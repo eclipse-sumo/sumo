@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T15:25:38.719127+01:00 by Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
+<!-- generated on 2026-04-24T15:38:41.149649+01:00 by Eclipse SUMO sumo v1_26_0+1384-cf32525a297
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -526,6 +526,7 @@
         <meso-minor-penalty value="0" type="TIME" help="Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active."/>
         <meso-overtaking value="false" type="BOOL" help="Enable mesoscopic overtaking"/>
         <meso-recheck value="0" type="TIME" help="Time interval for rechecking insertion into the next segment after failure"/>
+        <meso-interpolate-pos value="false" type="BOOL" help="Enable mesoscopic position interpolation"/>
     </mesoscopic>
 
     <random_number>

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
+Eclipse SUMO sumo v1_26_0+1384-cf32525a297
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -1036,6 +1036,7 @@ Mesoscopic Options:
   --meso-overtaking                    Enable mesoscopic overtaking
   --meso-recheck TIME                  Time interval for rechecking insertion
                                         into the next segment after failure
+  --meso-interpolate-pos               Enable mesoscopic position interpolation
 
 Random Number Options:
   --random                             Initialises the random number generator

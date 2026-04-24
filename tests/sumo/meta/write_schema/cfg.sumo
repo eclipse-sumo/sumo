@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-15T15:25:38.782347+01:00 by Eclipse SUMO sumo v1_26_0+1187-8b227e3df21
+<!-- generated on 2026-04-24T15:28:56.434195+01:00 by Eclipse SUMO sumo v1_26_0+1377-d88e2a935fc
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -594,6 +594,7 @@
             <xsd:element name="meso-minor-penalty" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-overtaking" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-interpolate-pos" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
