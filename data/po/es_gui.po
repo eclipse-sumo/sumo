@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-23 07:56+0000\n"
+"PO-Revision-Date: 2026-04-24 10:05+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -8416,7 +8416,7 @@ msgstr "velocidad de la persona para este % en m/s (no junto con la duración)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:7512
 #: src/netedit/GNETagPropertiesDatabase.cpp:7558
 msgid "duration of the plan in second (not together with speed)"
-msgstr ""
+msgstr "duración del plan en segundos (excluye el uso de velocidad)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7523
 msgid "list of vehicle alternatives to take for the ride"
