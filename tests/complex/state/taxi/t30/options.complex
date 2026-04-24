@@ -1,0 +1,15 @@
+-c save_state.sumocfg
+--save-state.times 30
+--save-state.precision 15
+--device.rerouting.adaptation-interval 10
+--device.rerouting.adaptation-steps 10
+--device.rerouting.output weights.xml
+-e 80
+: 
+-c load_state.sumocfg
+tests/complex/state/runner.py
+--device.rerouting.adaptation-interval 10
+--device.rerouting.adaptation-steps 10
+--device.rerouting.output weights.xml
+-e 80
+--compare weights:19:3

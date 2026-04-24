@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-24T08:44:55.737191+01:00 by Eclipse SUMO sumo v1_26_0+1365-2fbd4cee860
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <save-state.times value="40"/>
+        <save-state.files value="state.xml"/>
+        <save-state.rng value="true"/>
+        <save-state.transportables value="true"/>
+        <save-state.precision value="15"/>
+    </output>
+
+    <time>
+        <end value="80"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="10"/>
+        <device.rerouting.adaptation-interval value="10"/>
+        <device.rerouting.output value="weights.xml"/>
+    </routing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm.output value="dispatchinfos.xml"/>
+    </taxi_device>
+
+</sumoConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="trip_0" type="taxi" depart="0.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A0B0"/>
+            <route edges="A0B0 B0C0"/>
+        </routeDistribution>
+        <stop lane="A0B0_1" startPos="20.00" endPos="20.00" duration="0.00" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)"/>
+        <stop lane="B0C0_1" startPos="300.00" endPos="300.00" duration="60.00" parking="1" actType="dropOff p0 (0)"/>
+    </vehicle>
+
+    <vehicle id="trip_1" type="taxi" depart="3.00">
+        <routeDistribution>
+            <route replacedOnEdge="A0B0" reason="taxi:prepare_dispatch" replacedAtTime="60.00" probability="0" edges="A0B0"/>
+            <route replacedOnEdge="A0B0" reason="taxi:dispatch" replacedAtTime="60.00" probability="0" edges="A0B0 C0D0"/>
+            <route edges="A0B0 B0C0 C0D0"/>
+        </routeDistribution>
+        <stop lane="A0B0_1" endPos="5.10" triggered="person" parking="1" actType="idling"/>
+        <stop lane="A0B0_1" startPos="20.00" endPos="20.00" duration="0.00" triggered="person" parking="1" permitted="p5" actType="pickup p5 (1)"/>
+    </vehicle>
+
+    <person id="p0" depart="0.00" departPos="20.00">
+        <ride from="A0B0" to="B0C0" lines="taxi"/>
+    </person>
+
+    <person id="p5" depart="50.00" departPos="20.00">
+        <ride from="A0B0" to="C0D0" lines="taxi"/>
+    </person>
+
+</routes>
