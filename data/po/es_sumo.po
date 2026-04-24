@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-23 07:56+0000\n"
+"PO-Revision-Date: 2026-04-24 10:05+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2821,6 +2821,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
 msgstr ""
+"Aplicar la penalización de tiempo indicada al calcular los costos de "
+"enrutamiento para carriles internos de retorno"
 
 #: src/microsim/MSFrame.cpp:667 src/router/ROFrame.cpp:209
 msgid ""
@@ -3179,6 +3181,8 @@ msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results."
 msgstr ""
+"El número de hilos excede el número de generadores de números aleatorios. "
+"Las simulaciones con la misma semilla pueden producir resultados diferentes."
 
 #: src/microsim/MSFrame.cpp:1110
 msgid "game.mode must be one of ['tls', 'drt']"
@@ -8506,6 +8510,8 @@ msgstr ""
 #, c-format
 msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
 msgstr ""
+"Ignorando el carril adicional de acera % en la arista '%' para áreas "
+"peatonales."
 
 #: src/netbuild/NBNode.cpp:3488
 msgid ""
@@ -10188,6 +10194,8 @@ msgid ""
 "Almost duplicate s-value '%' for lane sections occurred at edge '%'; first "
 "entry was removed."
 msgstr ""
+"Se detectó un valor s casi duplicado '%' para secciones de carril en la "
+"arista '%'; se eliminó la primera entrada."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1824
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
@@ -11894,6 +11902,8 @@ msgid ""
 "Write shapes that are embedded in the network input and that are not "
 "supported by polyconvert (OpenDRIVE)"
 msgstr ""
+"Escribir las formas incrustadas en la red de entrada que no son compatibles "
+"con polyconvert (OpenDRIVE)"
 
 #: src/netwrite/NWFrame.cpp:135
 msgid ""
@@ -11906,12 +11916,16 @@ msgstr ""
 #: src/netwrite/NWFrame.cpp:139
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
 msgstr ""
+"Escribir los carriles, en redes con circulación por la izquierda, en el lado "
+"izquierdo (índices positivos)"
 
 #: src/netwrite/NWFrame.cpp:142
 msgid ""
 "Match loaded shapes to the closest edge within FLOAT and export as road "
 "objects"
 msgstr ""
+"Ajustar las formas cargadas a la arista más cercana dentro del rango de "
+"FLOAT y exportarlas como objetos de vía"
 
 #: src/netwrite/NWFrame.cpp:165
 msgid "OpenDRIVE export needs internal links computation."
@@ -11999,6 +12013,8 @@ msgstr "ejecutar con archivo de configuración"
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr ""
+"Cargar zonas de análisis de tráfico (distritos; también desde redes) desde "
+"FILE(s)"
 
 #: src/od2trips_main.cpp:102
 msgid "Writes trip definitions into FILE"
@@ -12709,6 +12725,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs across a traffic "
 "light"
 msgstr ""
+"Aplicar la penalización de tiempo indicada al calcular los costos de "
+"enrutamiento al atravesar un semáforo"
 
 #: src/router/ROFrame.cpp:233
 msgid "Defaults will override given values"
