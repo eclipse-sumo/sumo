@@ -7,7 +7,8 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
-  - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709    
+  - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
+  - Fixed bug where vehicles that are blocked from entering a stopping place do not collect enough timeLoss #17914 (regression in 1.26.0)
   - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635  
   - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
@@ -19,11 +20,13 @@ title: ChangeLog
   - Fixed crash when setting **--default.departlane best** #17854
   - Fixed infinite loop when specifying invalid default depart lane #17850
   - Fixed bug where rerouting after parkingAreaReroute fails to add stops when input contains vias #17892
+  - Fixed where vehicles that stop on the end of the lane take one extra step to continue #17916
+  - Fixed invalid timeLoss computation for stopping vehicles #17915, #17916
   - State-Loading:
     - Fixed invalid signal state when loading from saved state and using WAUT #17675
     - Lanechanging state is now restored after loading #2380
     - Fixed bugs that caused actuated traffic lights to differ in behavior after loading state #17849
-    - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532, #17887, #17895, #17897, #17902, #17900
+    - Fixed miscellaneous bugs that were causing simulations to diverge after loading state #17532, #17887, #17889, #17895, #17897, #17902, #17900, #17920, #17921
     - Past stops are now present in vehroute output after loading state #17886
     - Fixed superfluous startPos, endPos in vehroute-output after loading state #17888
     - Fixed error when loading state with persons that were saved during an access stage #17896
@@ -32,6 +35,7 @@ title: ChangeLog
     - Fixed failure to group taxi passengers when the dispatch-period is low #17644    
     - Fixed invalid taxi device warnings #17864
     - Fixed failure in stop assignment #17893
+    - Taxis no longer block the road when idling if their passenger stops are defined as not-parking #17904
   - Railways:
     - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
     - Fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
@@ -48,6 +52,7 @@ title: ChangeLog
   - Fixed missing text in lane and vehicle dialogs (lane permissions, stop attributes and current driveways) #17700 (regression in 1.21.0)
   - Fixed crash when drawing persons #17616
   - Fixed rare crash when vehicle parameter dialog is open while a vehicle exits the simulation #17637
+  - Fixed crash in simulation with rerouting and sorted vehroute-output #17918
   - Fixed invalid lane color when switching from (meso) segment colors to functional color (i.e. TAZ) #17704
   - Shift-click to select lanes now reliably activates edge annotations that are restricted to "only for selected" #17734
   - Fixed misleading rail signal visualization when trams share a multi-lane road with cars #17846
@@ -92,6 +97,7 @@ title: ChangeLog
   - OSM: fixed invalid spreadType right in rail network #17823
 
 - meso
+  - Fixed bug that prevented taxi simulation from terminating #17908 (regression in 1.13.0)
   - parking vehicles that cannot enter the road now collect waitingTime #17797
   - fixed crash when loading state with parked vehicle #17805
   - Fixed crash in rail simulation after teleport #17836
