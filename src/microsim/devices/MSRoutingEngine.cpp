@@ -82,18 +82,22 @@ FXMutex MSRoutingEngine::myRouteCacheMutex;
 // method definitions
 // ===========================================================================
 void
-MSRoutingEngine::initWeightUpdate() {
+MSRoutingEngine::initWeightUpdate(SUMOTime lastAdaptation) {
     if (myAdaptationInterval == -1) {
         myEdgeWeightSettingCommand = nullptr;
-        myLastAdaptation = -1;
+        myLastAdaptation = lastAdaptation;
         const OptionsCont& oc = OptionsCont::getOptions();
         myWithTaz = oc.getBool("device.rerouting.with-taz");
         myAdaptationInterval = string2time(oc.getString("device.rerouting.adaptation-interval"));
         myAdaptationWeight = oc.getFloat("device.rerouting.adaptation-weight");
         const SUMOTime period = string2time(oc.getString("device.rerouting.period"));
         if (myAdaptationWeight < 1. && myAdaptationInterval > 0) {
+            SUMOTime nextAdaptation = -1;
+            if (lastAdaptation >= 0) {
+                nextAdaptation = lastAdaptation + myAdaptationInterval;
+            }
             myEdgeWeightSettingCommand = new StaticCommand<MSRoutingEngine>(&MSRoutingEngine::adaptEdgeEfforts);
-            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand);
+            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myEdgeWeightSettingCommand, nextAdaptation);
         } else if (period > 0) {
             WRITE_WARNING(TL("Rerouting is useless if the edge weights do not get updated!"));
         }
@@ -268,7 +272,7 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     if (myAdaptationSteps > 0) {
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     }
-    myLastAdaptation = currentTime + DELTA_T; // because we run at the end of the time step
+    myLastAdaptation = currentTime;
     if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
         dev.openTag(SUMO_TAG_INTERVAL);

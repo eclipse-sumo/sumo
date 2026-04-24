@@ -72,7 +72,7 @@ public:
     static void initWeightConstants(const OptionsCont& oc);
 
     /// @brief intialize period edge weight update
-    static void initWeightUpdate();
+    static void initWeightUpdate(SUMOTime lastAdaption = - 1);
 
     /// @brief initialize the edge weights if not done before
     static void initEdgeWeights(SUMOVehicleClass svc, SUMOTime lastAdaption = -1, int index = -1);
