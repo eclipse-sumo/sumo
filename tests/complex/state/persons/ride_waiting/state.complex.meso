@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T23:59:30.674571+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-04-24T09:19:05.741409+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,11 @@
         <save-state.transportables value="true"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -27,7 +32,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="3.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="3.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!v0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
@@ -60,7 +65,7 @@
     <tlLogic id="4/0" programID="0" phase="0" duration="3000" active="1"/>
     <tlLogic id="4/1" programID="0" phase="0" duration="3000" active="1"/>
     <tlLogic id="4/2" programID="0" phase="0" duration="3000" active="1"/>
-    <routingEngine last="3000" index="3">
+    <routingEngine last="2000" index="3">
         <edge id="3/1to2/1" speed="9.92" pastSpeed="5.00 5.00 5.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00"/>
     </routingEngine>
 </snapshot>

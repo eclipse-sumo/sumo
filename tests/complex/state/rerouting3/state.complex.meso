@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T23:59:31.513927+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-04-24T09:19:07.103052+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,6 +13,11 @@
         <save-state.times value="100"/>
         <save-state.files value="state.xml"/>
     </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
 
     <routing>
         <device.rerouting.probability value="1.0"/>
@@ -32,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!100" state="0" edges="E3E4 E4D4 D4D3 D3D2 D2E2 E2E3"/>
     <route id="!101" state="0" edges="E0D0 D0C0 C0B0 B0A0"/>
     <route id="!102" state="0" edges="C2B2 B2B1 B1B0"/>
@@ -1416,7 +1421,7 @@
     <segment id="E4E3:1">
         <vehicles time="91289" blockTime="83978" value=""/>
     </segment>
-    <routingEngine last="100000" index="0">
+    <routingEngine last="99000" index="0">
         <edge id="A0A1" speed="13.89" pastSpeed="13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
         <edge id="A0B0" speed="13.89" pastSpeed="13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
         <edge id="A1A0" speed="14.39" pastSpeed="14.72 14.72 14.72 14.72 14.72 14.72 13.89 13.89 13.89 13.89"/>

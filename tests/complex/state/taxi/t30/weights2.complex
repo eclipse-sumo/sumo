@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T08:56:28.016610+01:00 by Eclipse SUMO sumo v1_26_0+1365-2fbd4cee860
+<!-- generated on 2026-04-24T09:13:10.828211+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -45,18 +45,42 @@
 -->
 
 <weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval id="device.rerouting" begin="60.00" end="70.00">
-        <edge id="A0B0" traveltime="35.50"/>
+    <interval id="device.rerouting" begin="30.00" end="40.00">
+        <edge id="A0B0" traveltime="35.45"/>
         <edge id="B0A0" traveltime="21.60"/>
         <edge id="B0C0" traveltime="21.60"/>
         <edge id="C0B0" traveltime="21.60"/>
         <edge id="C0D0" traveltime="21.60"/>
         <edge id="D0C0" traveltime="21.60"/>
     </interval>
-    <interval id="device.rerouting" begin="70.00" end="80.00">
-        <edge id="A0B0" traveltime="35.50"/>
+    <interval id="device.rerouting" begin="40.00" end="50.00">
+        <edge id="A0B0" traveltime="32.76"/>
         <edge id="B0A0" traveltime="21.60"/>
-        <edge id="B0C0" traveltime="21.60"/>
+        <edge id="B0C0" traveltime="21.65"/>
+        <edge id="C0B0" traveltime="21.60"/>
+        <edge id="C0D0" traveltime="21.60"/>
+        <edge id="D0C0" traveltime="21.60"/>
+    </interval>
+    <interval id="device.rerouting" begin="50.00" end="60.00">
+        <edge id="A0B0" traveltime="30.45"/>
+        <edge id="B0A0" traveltime="21.60"/>
+        <edge id="B0C0" traveltime="21.65"/>
+        <edge id="C0B0" traveltime="21.60"/>
+        <edge id="C0D0" traveltime="21.60"/>
+        <edge id="D0C0" traveltime="21.60"/>
+    </interval>
+    <interval id="device.rerouting" begin="60.00" end="70.00">
+        <edge id="A0B0" traveltime="28.45"/>
+        <edge id="B0A0" traveltime="21.60"/>
+        <edge id="B0C0" traveltime="21.65"/>
+        <edge id="C0B0" traveltime="21.60"/>
+        <edge id="C0D0" traveltime="21.60"/>
+        <edge id="D0C0" traveltime="21.60"/>
+    </interval>
+    <interval id="device.rerouting" begin="70.00" end="80.00">
+        <edge id="A0B0" traveltime="28.45"/>
+        <edge id="B0A0" traveltime="21.60"/>
+        <edge id="B0C0" traveltime="21.65"/>
         <edge id="C0B0" traveltime="21.60"/>
         <edge id="C0D0" traveltime="21.60"/>
         <edge id="D0C0" traveltime="21.60"/>

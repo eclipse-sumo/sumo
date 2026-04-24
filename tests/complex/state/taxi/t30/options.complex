@@ -12,4 +12,4 @@ tests/complex/state/runner.py
 --device.rerouting.adaptation-steps 10
 --device.rerouting.output weights.xml
 -e 80
---compare weights:19:3
+--compare weights:27:3

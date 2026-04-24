@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T23:59:30.783777+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-04-24T09:19:05.936129+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,6 +13,11 @@
         <save-state.times value="6"/>
         <save-state.files value="state.xml"/>
     </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
 
     <report>
         <verbose value="true"/>
@@ -27,7 +32,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="6.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="6.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!vehicle_0" state="0" edges="gneE1 gneE2"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" vClass="rail"/>
@@ -38,7 +43,7 @@
     <segment id="gneE1:0">
         <vehicles time="-1" blockTime="-9223372036854775808" value="vehicle_0"/>
     </segment>
-    <routingEngine last="6000" index="6">
+    <routingEngine last="5000" index="6">
         <edge id="gneE1" speed="20.00" pastSpeed="20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00 20.00"/>
     </routingEngine>
 </snapshot>

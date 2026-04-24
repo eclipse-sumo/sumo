@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T08:15:34.492364+01:00 by Eclipse SUMO sumo v1_26_0+1232-3b16c427ac1
+<!-- generated on 2026-04-24T09:19:05.982222+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1232-3b16c427ac1" time="3.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="3.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!bus" state="0" edges="beg beg left end end"/>
     <route id="!bus.0!var#1" state="0" edges="beg beg2left left left2end end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
@@ -72,7 +72,7 @@
     <segment id="beg:0">
         <vehicles time="-1" blockTime="-9223372036854775808" value="bus.0"/>
     </segment>
-    <routingEngine last="3000" index="3">
+    <routingEngine last="2000" index="3">
         <edge id="beg" speed="27.80" pastSpeed="27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80 27.80"/>
     </routingEngine>
 </snapshot>

@@ -2,14 +2,14 @@ Loading net-file from 'net.net.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading route-files incrementally from 'input_routes2.rou.xml'
 Loading done.
-Simulation version v1_26_0+1365-2fbd4cee860 started with time: 0.00.
+Simulation version v1_26_0+1366-8b27a71a755 started with time: 0.00.
 Simulation ended at time: 80.00.
 Reason: The final simulation step has been reached.
 Performance:
  Duration: 0.01s
- Real time factor: 11428.6
- UPS: 22428.571429
- UPS-Persons: 15714.285714
+ Real time factor: 10000
+ UPS: 19625.000000
+ UPS-Persons: 13750.000000
 Vehicles:
  Inserted: 2
  Running: 2
@@ -33,16 +33,16 @@ Ride Statistics (avg of 2 rides):
 DijkstraRouter answered 6 queries and explored 3.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'net.net.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (18ms).
+Loading state from 'state.xml' ... done (14ms).
 Loading done.
-Simulation version v1_26_0+1365-2fbd4cee860 started with time: 30.00.
+Simulation version v1_26_0+1366-8b27a71a755 started with time: 30.00.
 Simulation ended at time: 80.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 0.04s
- Real time factor: 1388.89
- UPS: 2777.777778
- UPS-Persons: 2222.222222
+ Duration: 0.03s
+ Real time factor: 1612.9
+ UPS: 3225.806452
+ UPS-Persons: 2580.645161
 Vehicles:
  Inserted: 2
  Running: 2
@@ -65,45 +65,3 @@ Ride Statistics (avg of 2 rides):
  Aborted: 2
 DijkstraRouter answered 3 queries and explored 3.67 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-<     <interval id="device.rerouting" begin="20.00" end="30.00">
->     <interval id="device.rerouting" begin="60.00" end="70.00">
-<         <edge id="A0B0" traveltime="38.68"/>
->         <edge id="A0B0" traveltime="35.50"/>
-<     <interval id="device.rerouting" begin="30.00" end="40.00">
->     <interval id="device.rerouting" begin="70.00" end="80.00">
-<         <edge id="A0B0" traveltime="35.45"/>
->         <edge id="A0B0" traveltime="35.50"/>
-<     <interval id="device.rerouting" begin="40.00" end="50.00">
-> </weights>
-<         <edge id="A0B0" traveltime="32.76"/>
-<         <edge id="B0A0" traveltime="21.60"/>
-<         <edge id="B0C0" traveltime="21.65"/>
-<         <edge id="C0B0" traveltime="21.60"/>
-<         <edge id="C0D0" traveltime="21.60"/>
-<         <edge id="D0C0" traveltime="21.60"/>
-<     </interval>
-<     <interval id="device.rerouting" begin="50.00" end="60.00">
-<         <edge id="A0B0" traveltime="30.45"/>
-<         <edge id="B0A0" traveltime="21.60"/>
-<         <edge id="B0C0" traveltime="21.65"/>
-<         <edge id="C0B0" traveltime="21.60"/>
-<         <edge id="C0D0" traveltime="21.60"/>
-<         <edge id="D0C0" traveltime="21.60"/>
-<     </interval>
-<     <interval id="device.rerouting" begin="60.00" end="70.00">
-<         <edge id="A0B0" traveltime="28.45"/>
-<         <edge id="B0A0" traveltime="21.60"/>
-<         <edge id="B0C0" traveltime="21.65"/>
-<         <edge id="C0B0" traveltime="21.60"/>
-<         <edge id="C0D0" traveltime="21.60"/>
-<         <edge id="D0C0" traveltime="21.60"/>
-<     </interval>
-<     <interval id="device.rerouting" begin="70.00" end="80.00">
-<         <edge id="A0B0" traveltime="28.45"/>
-<         <edge id="B0A0" traveltime="21.60"/>
-<         <edge id="B0C0" traveltime="21.65"/>
-<         <edge id="C0B0" traveltime="21.60"/>
-<         <edge id="C0D0" traveltime="21.60"/>
-<         <edge id="D0C0" traveltime="21.60"/>
-<     </interval>
-< </weights>

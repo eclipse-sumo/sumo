@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T08:56:27.947246+01:00 by Eclipse SUMO sumo v1_26_0+1365-2fbd4cee860
+<!-- generated on 2026-04-24T09:13:10.764927+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -47,7 +47,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1365-2fbd4cee860" time="30.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1366-8b27a71a755" time="30.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="8" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="30"/>
@@ -149,7 +149,7 @@
     <lane id="A0B0_1">
         <vehicles value="trip_0"/>
     </lane>
-    <routingEngine last="21000" index="3">
+    <routingEngine last="20000" index="3">
         <edge id="A0B0" speed="7.755080436720551" pastSpeed="6.945000000000000 7.952132425939199 14.038671941266303 6.945000000000000 6.945000000000000 6.945000000000000 6.945000000000000 6.945000000000000 6.945000000000000 6.945000000000000"/>
     </routingEngine>
 </snapshot>
