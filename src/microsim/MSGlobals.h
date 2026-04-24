@@ -108,6 +108,9 @@ public:
     /** Information whether limited junction control shall be used */
     static bool gMesoLimitedJunctionControl;
 
+    /** Information whether positions will be interpolated */
+    static bool gMesoInterpolatePos;
+
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 

@@ -791,6 +791,8 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-overtaking", "Mesoscopic", TL("Enable mesoscopic overtaking"));
     oc.doRegister("meso-recheck", new Option_String("0", "TIME"));
     oc.addDescription("meso-recheck", "Mesoscopic", TL("Time interval for rechecking insertion into the next segment after failure"));
+    oc.doRegister("meso-interpolate-pos", new Option_Bool(false));
+    oc.addDescription("meso-interpolate-pos", "Mesoscopic", TL("Enable mesoscopic postion interpolation"));
 
     // add rand options
     RandHelper::insertRandOptions(oc);
@@ -1176,6 +1178,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gStateLoaded = oc.isSet("load-state");
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
+    MSGlobals::gMesoInterpolatePos = oc.getBool("meso-interpolate-pos");
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");

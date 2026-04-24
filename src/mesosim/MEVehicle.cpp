@@ -70,22 +70,28 @@ MEVehicle::getBackPositionOnLane(const MSLane* /* lane */) const {
 
 double
 MEVehicle::getPositionOnLane() const {
-// the following interpolation causes problems with arrivals and calibrators
-//    const double fracOnSegment = MIN2(double(1), STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - myLastEntryTime) / STEPS2TIME(myEventTime - myLastEntryTime));
-    return mySegment == nullptr ? 0 : (double(mySegment->getIndex()) /* + fracOnSegment */) * mySegment->getLength();
+    // the following interpolation may cause problems with arrivals and calibrators
+    if (MSGlobals::gMesoInterpolatePos) {
+        const auto& mesoPos = getEdge()->getMesoPositions();
+        const auto& posIt = mesoPos.find(this);
+        if (posIt != mesoPos.end()) {
+            return posIt->second.first;
+        }
+    }
+    return mySegment == nullptr ? 0. : (double)mySegment->getIndex() * mySegment->getLength();
 }
 
 
 double
 MEVehicle::getAngle() const {
-    const MSLane* const lane = getEdge()->getLanes()[0];
+    const MSLane* const lane = getEdge()->getLanes()[MAX2(0, getQueIndex())];
     return lane->getShape().rotationAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()));
 }
 
 
 double
 MEVehicle::getSlope() const {
-    const MSLane* const lane = getEdge()->getLanes()[0];
+    const MSLane* const lane = getEdge()->getLanes()[MAX2(0, getQueIndex())];
     return lane->getShape().slopeDegreeAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()));
 }
 
@@ -98,9 +104,10 @@ MEVehicle::getCurrentEdge() const {
 
 Position
 MEVehicle::getPosition(const double offset) const {
-    const MSLane* const lane = getEdge()->getLanes()[0];
+    const MSLane* const lane = getEdge()->getLanes()[MAX2(0, getQueIndex())];
     return lane->geometryPositionAtOffset(getPositionOnLane() + offset);
 }
+
 
 PositionVector
 MEVehicle::getBoundingBox(double offset) const {
@@ -120,6 +127,7 @@ MEVehicle::getBoundingBox(double offset) const {
     result.append(centerLine.reverse(), POSITION_EPS);
     return result;
 }
+
 
 double
 MEVehicle::getSpeed() const {

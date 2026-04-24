@@ -660,6 +660,7 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     return pos;
 }
 
+
 MSLane*
 MSEdge::getDepartLaneMeso(SUMOVehicle& veh) const {
     if (veh.getParameter().departLaneProcedure == DepartLaneDefinition::GIVEN) {
@@ -670,6 +671,7 @@ MSEdge::getDepartLaneMeso(SUMOVehicle& veh) const {
     }
     return (*myLanes)[0];
 }
+
 
 MSLane*
 MSEdge::getDepartLane(MSVehicle& veh) const {
@@ -1719,11 +1721,61 @@ MSEdge::getPreference(const SUMOVTypeParameter& pars) const {
     return MSNet::getInstance()->getPreference(getRoutingType(), pars);
 }
 
+
 void
 MSEdge::clearState() {
     myPersons.clear();
     myContainers.clear();
     myWaiting.clear();
 }
+
+
+const std::map<const MEVehicle*, std::pair<double, double> >&
+MSEdge::getMesoPositions() const {
+    assert(MSGlobals::gUseMesoSim);
+    if (myLastCacheUpdate < SIMSTEP) {
+        myLastCacheUpdate = SIMSTEP;
+        myCachedMesoPos.clear();
+        int laneIndex = 0;
+        const double now = SIMTIME;
+        for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
+            // go through the vehicles
+            double segmentOffset = 0; // offset at start of current segment
+            for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
+                    segment != nullptr; segment = segment->getNextSegment()) {
+                const double length = segment->getLength();
+                if (laneIndex < segment->numQueues()) {
+                    // make a copy so we don't have to worry about synchronization
+                    std::vector<MEVehicle*> queue = segment->getQueue(laneIndex);
+                    const int queueSize = (int)queue.size();
+                    double vehiclePosition = segmentOffset + length;
+                    // draw vehicles beginning with the leader at the end of the segment
+                    double latOff = 0.;
+                    for (int i = 0; i < queueSize; ++i) {
+                        const MEVehicle* const veh = queue[queueSize - i - 1];
+                        const double intendedLeave = MIN2(veh->getEventTimeSeconds(), veh->getBlockTimeSeconds());
+                        const double entry = veh->getLastEntryTimeSeconds();
+                        const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
+                        if (relPos < vehiclePosition) {
+                            vehiclePosition = relPos;
+                        }
+                        while (vehiclePosition < segmentOffset) {
+                            // if there is only a single queue for a
+                            // multi-lane edge shift vehicles and start
+                            // drawing again from the end of the segment
+                            vehiclePosition += length;
+                            latOff += 0.2;
+                        }
+                        myCachedMesoPos[veh] = std::make_pair(vehiclePosition, latOff);
+                        vehiclePosition -= veh->getVehicleType().getLengthWithGap();
+                    }
+                }
+                segmentOffset += length;
+            }
+        }
+    }
+    return myCachedMesoPos;
+}
+
 
 /****************************************************************************/
