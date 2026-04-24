@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T09:15:42.649690+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
+<!-- generated on 2026-04-24T09:42:48.361463+01:00 by Eclipse SUMO sumo v1_26_0+1371-98d3dd80719
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +41,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1366-8b27a71a755" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1371-98d3dd80719" time="40.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="56" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -125,7 +125,7 @@
         <device id="routing_trip_0" state="0 0"/>
         <device id="taxi_trip_0" state="1 0 0 0" customers="p0" reservations="0"/>
     </vehicle>
-    <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="0 1" speedFactor="0.9692000000000000" reroute="1" line="taxi" state="262146 0 0 5.0999999999999996 0 5.2392782508558877 30000 1 -9001 0" pos="287.5943838936573798 282.5943838936573798 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" entryPos="287.5707151084143334" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
+    <vehicle id="trip_1" type="taxi" depart="0.000" route="!trip_1!var#1" distance="0 1" speedFactor="0.9692000000000000" reroute="1" line="taxi" state="262146 0 0 5.0999999999999996 0 5.2392782508558877 30000 1 -9001 0" pos="287.5943838936573798 282.5943838936573798 0.0000000000000000" speed="0.0000000000000000 0.0000000000000000" angle="90.0000000000000000" posLat="0.0000000000000000" waitingTime="100000 0" lcStateBase="0.0000000000000000" lcState2="0 0 0 0 0">
         <stop lane="A2B2_1" endPos="287.6000000000000227" triggered="person" parking="1" started="30.000"/>
         <device id="vehroute_trip_1" state="1 0.0000000000000000 0.0000000000000000 5.0999999999999996 1 !NULL 0 !trip_1 device.rerouting -1 0"/>
         <device id="tripinfo_trip_1" state="A2B2_1 0 0 -5.1 0 0 0 1000 30000 -1000 NONE -1 0 -1"/>
