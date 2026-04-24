@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:01.404131+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-24T14:47:00.464271+01:00 by Eclipse SUMO sumo v1_26_0+1377-d88e2a935fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <collision.check-junctions value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -66,49 +68,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="37.00">
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.4" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.1" x="200.00" y="101.65" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.4" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="45.00">
@@ -116,7 +118,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="0.00" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.1" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge=":C_6" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.4" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
@@ -124,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="foe.0" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.88" pos="0.00" edge=":C_6" slope="0.00"/>
         <vehicle id="foe.1" x="91.95" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="11.32" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.4" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
@@ -132,7 +134,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="foe.0" x="91.95" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
         <vehicle id="foe.1" x="91.95" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="CW" slope="0.00"/>
         <vehicle id="foe.2" x="200.00" y="104.95" angle="270.00" type="foeType" speed="11.32" pos="0.00" edge="EC" slope="0.00"/>
-        <vehicle id="foe.3" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
+        <vehicle id="foe.3" x="200.00" y="101.65" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
         <vehicle id="foe.4" x="200.00" y="104.95" angle="270.00" type="foeType" speed="13.89" pos="0.00" edge="EC" slope="0.00"/>
     </timestep>
     <timestep time="48.00">

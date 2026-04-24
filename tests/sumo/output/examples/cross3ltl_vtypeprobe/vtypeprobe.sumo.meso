@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:35:13.150590+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-04-24T14:46:52.071330+01:00 by Eclipse SUMO sumo v1_26_0+1377-d88e2a935fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -120,7 +122,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="horizontal.2" pos="165.67" x="834.33" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.3" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.4" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
-        <vehicle id="vertical.0" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.0" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.1" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.2" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.3" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -146,7 +148,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="horizontal.4" pos="82.83" x="917.17" y="501.65" speed="11.11"/>
         <vehicle id="horizontal.5" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.1" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.1" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.2" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.3" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.4" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -176,7 +178,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="horizontal.6" pos="0.00" x="1000.00" y="501.65" speed="11.11"/>
         <vehicle id="vertical.0" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.1" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.2" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.2" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.3" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.4" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.5" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -210,7 +212,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vertical.0" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.1" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.2" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.3" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.3" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.4" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.5" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.6" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -248,7 +250,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vertical.1" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.2" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.3" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.4" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.4" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.5" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.6" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.7" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -290,7 +292,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vertical.2" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.3" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.4" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.5" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.5" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.6" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.7" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.8" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -337,7 +339,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vertical.3" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.4" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.5" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.6" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.6" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.7" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.8" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
         <vehicle id="vertical.9" pos="82.83" x="501.65" y="82.83" speed="11.11"/>
@@ -388,7 +390,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="vertical.4" pos="293.19" x="501.65" y="804.54" speed="11.11"/>
         <vehicle id="vertical.5" pos="97.73" x="501.65" y="609.08" speed="11.11"/>
         <vehicle id="vertical.6" pos="0.00" x="501.65" y="511.35" speed="11.11"/>
-        <vehicle id="vertical.7" pos="118.58" x="508.25" y="370.07" speed="13.89"/>
+        <vehicle id="vertical.7" pos="118.58" x="504.95" y="370.07" speed="13.89"/>
         <vehicle id="vertical.8" pos="0.00" x="508.25" y="251.50" speed="13.89"/>
         <vehicle id="vertical.9" pos="165.67" x="501.65" y="165.67" speed="11.11"/>
     </timestep>
