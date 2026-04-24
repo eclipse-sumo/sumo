@@ -1663,6 +1663,9 @@ MSVehicle::processNextStop(double currentVelocity) {
                 // let the container stop know the vehicle
                 stop.chargingStation->enter(this, stop.pars.parking == ParkingType::OFFROAD);
             }
+            if (stop.getSpeed() <= 0) {
+                stop.entryPos = getPositionOnLane();
+            }
         }
 
 #ifdef DEBUG_STOPS
