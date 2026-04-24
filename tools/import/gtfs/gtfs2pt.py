@@ -89,7 +89,7 @@ def get_options(args=None):
                     help="Warn about detours where path distance exceeds airline distance by factor FLOAT")
     ap.add_argument("--remove-detour-factor", default=0, type=float, dest="detourRemoveFactor",
                     help="Disable trips with implausible routes (path distance exceeds airline distance by factor FLOAT)")  # noqa
-    ap.add_argument("--use-gtfs-stopids", action="store_true", default=False, category="input", 
+    ap.add_argument("--use-gtfs-stopids", action="store_true", default=False, category="input",
                     help="use stop identifiers from GTFS for readability")
     # ----------------------- fcd options -------------------------------------
     ap.add_argument("--network-split", category="input",
