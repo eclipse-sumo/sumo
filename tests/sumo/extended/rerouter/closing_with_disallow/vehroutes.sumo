@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 13:53:22 2019 by Eclipse SUMO Version v1_3_1+0960-7b06a594ed
+<!-- generated on 2026-04-25T16:23:16.193982+01:00 by Eclipse SUMO sumo v1_26_0+1388-aac31961a58
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -17,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.cost value="true"/>
     </output>
 
     <time>
@@ -25,6 +31,8 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -38,99 +46,99 @@ SPDX-License-Identifier: EPL-2.0
         <seed value="42"/>
     </random_number>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="flow_maybe_detour.0" depart="0.00" arrival="140.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.1" depart="10.00" arrival="142.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.2" depart="20.00" arrival="143.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.3" depart="30.00" arrival="144.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.4" depart="40.00" arrival="145.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.5" depart="50.00" arrival="147.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.6" depart="60.00" arrival="155.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.7" depart="70.00" arrival="165.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.8" depart="80.00" arrival="175.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.9" depart="90.00" arrival="185.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.10" depart="100.00" arrival="195.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.12" depart="120.00" arrival="215.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.15" depart="150.00" arrival="245.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.16" depart="160.00" arrival="255.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.17" depart="170.00" arrival="265.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.19" depart="190.00" arrival="285.00">
-        <route edges="beg middle end rend"/>
+        <route cost="-1.00" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.11" depart="110.00" arrival="317.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right right2end end rend"/>
+            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
+            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.13" depart="130.00" arrival="337.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right right2end end rend"/>
+            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
+            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.14" depart="140.00" arrival="347.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right right2end end rend"/>
+            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
+            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.18" depart="180.00" arrival="387.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
-            <route edges="beg beg2right right right2end end rend"/>
+            <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
+            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
