@@ -1671,7 +1671,7 @@ MSDriveWay::match(MSRouteIterator firstIt, MSRouteIterator endIt) const {
                 return false;
             }
         }
-        return true;
+        return !isSubDriveWay() || myParent->match(firstIt, endIt);
     }
     return false;
 }
