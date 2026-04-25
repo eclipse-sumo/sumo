@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-01 21:10:48 by Eclipse SUMO sumo Version v1_21_0+1087-eb0d227282f
+<!-- generated on 2026-04-25T10:04:31.717569+01:00 by Eclipse SUMO sumo v1_26_0+1375-6f95ba65925
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -77,16 +79,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="E.0.0">
                 <entry id="t0" time="33.00" reason="junction"/>
                 <exit id="t0" time="51.00" reason="junction"/>
-                <entry id="t1" time="196.00" reason="junction"/>
-                <exit id="t1" time="214.00" reason="junction"/>
             </subDriveWay>
             <driveWay id="E.1">
                 <entry id="t1" time="196.00" reason="junction"/>
                 <exit id="t1" time="256.00" reason="junction"/>
             </driveWay>
             <subDriveWay id="E.1.0">
-                <entry id="t0" time="33.00" reason="junction"/>
-                <exit id="t0" time="51.00" reason="junction"/>
                 <entry id="t1" time="196.00" reason="junction"/>
                 <exit id="t1" time="214.00" reason="junction"/>
             </subDriveWay>
@@ -117,16 +115,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="G.0.4">
                 <entry id="t0" time="85.00" reason="junction"/>
                 <exit id="t0" time="105.00" reason="junction"/>
-                <entry id="t1" time="248.00" reason="junction"/>
-                <exit id="t1" time="268.00" reason="junction"/>
             </subDriveWay>
             <driveWay id="G.1">
                 <entry id="t1" time="248.00" reason="junction"/>
                 <exit id="t1" time="276.00" reason="arrived"/>
             </driveWay>
             <subDriveWay id="G.1.0">
-                <entry id="t0" time="85.00" reason="junction"/>
-                <exit id="t0" time="105.00" reason="junction"/>
                 <entry id="t1" time="248.00" reason="junction"/>
                 <exit id="t1" time="268.00" reason="junction"/>
             </subDriveWay>

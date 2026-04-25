@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-01 21:10:48 by Eclipse SUMO sumo Version v1_21_0+1087-eb0d227282f
+<!-- generated on 2026-04-25T10:04:31.717259+01:00 by Eclipse SUMO sumo v1_26_0+1375-6f95ba65925
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -53,10 +55,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="A.0.1">
                 <entry id="t0" time="20.00" reason="junction"/>
                 <exit id="t0" time="57.00" reason="junction"/>
-                <entry id="t1" time="67.00" reason="junction"/>
-                <exit id="t1" time="119.00" reason="junction"/>
-                <entry id="t2" time="162.00" reason="junction"/>
-                <exit id="t2" time="214.00" reason="junction"/>
             </subDriveWay>
             <driveWay id="A.1">
                 <entry id="t1" time="67.00" reason="junction"/>
@@ -65,8 +63,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <exit id="t2" time="240.00" reason="junction"/>
             </driveWay>
             <subDriveWay id="A.1.0">
-                <entry id="t0" time="20.00" reason="junction"/>
-                <exit id="t0" time="57.00" reason="junction"/>
                 <entry id="t1" time="67.00" reason="junction"/>
                 <exit id="t1" time="119.00" reason="junction"/>
                 <entry id="t2" time="162.00" reason="junction"/>
