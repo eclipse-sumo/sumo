@@ -1,9 +1,9 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (12ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (217ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (170ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (184ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (14ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (210ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (169ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (185ms).
 Assembled polygon from relation '3619' (name:Altes Museum)
 Assembled polygon from relation '6647' (name:Humboldt-Universität zu Berlin)
 Assembled polygon from relation '23745' (name:Altes Stadthaus)
@@ -141,7 +141,7 @@ Assembled polygon from relation '8249214' (name:Hof V)
 Assembled polygon from relation '8249215' (name:)
 Assembled polygon from relation '8249216' (name:)
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test'.
 generating trips...
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
@@ -167,24 +167,24 @@ done.
 creating routes...
 done.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (263ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (117ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (17ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/output.add.xml' ... done (15ms).
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
-Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.1_from_23Apr142302.1359267/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (254ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (115ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (15ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/output.add.xml' ... done (15ms).
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.bicycle.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.passenger.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.pedestrian.rou.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm.ship.trips.xml'
+Loading route-files incrementally from '/home/erdm_ja/.texttest/tmp/tools.26Apr112235.3063080/tools/import/OSM/webWizard/test/osm_pt.rou.xml'
 Loading done.
-Simulation version v1_26_0+1357-4cb6fe19152 started with time: 0.00.
-Simulation ended at time: 3274.00.
+Simulation version v1_26_0+1389-e5f67078b8c started with time: 0.00.
+Simulation ended at time: 3278.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.45s
- Real time factor: 2261.05
- UPS: 110750.690608
- UPS-Persons: 108932.320442
+ Duration: 1.38s
+ Real time factor: 2368.5
+ UPS: 115953.757225
+ UPS-Persons: 114051.300578
 Vehicles:
  Inserted: 457
  Running: 0
@@ -196,29 +196,29 @@ Persons:
 Statistics (avg of 370):
  RouteLength: 1921.91
  Speed: 6.37
- Duration: 342.58
- WaitingTime: 67.54
- TimeLoss: 111.65
+ Duration: 342.85
+ WaitingTime: 67.76
+ TimeLoss: 111.91
  DepartDelay: 9.88
 Bike Statistics (avg of 87):
  RouteLength: 1607.65
- Speed: 4.26
- Duration: 386.33
- WaitingTime: 44.70
- TimeLoss: 81.43
+ Speed: 4.25
+ Duration: 386.52
+ WaitingTime: 44.84
+ TimeLoss: 81.62
  DepartDelay: 0.48
 Pedestrian Statistics (avg of 472 walks):
  RouteLength: 255.85
- Duration: 212.75
- TimeLoss: 28.57
+ Duration: 212.97
+ TimeLoss: 28.79
 Ride Statistics (avg of 189 rides):
- WaitingTime: 129.16
+ WaitingTime: 129.48
  RouteLength: 885.12
- Duration: 108.31
+ Duration: 108.42
  Bus: 59
  Train: 123
  Aborted: 7
-DijkstraRouter answered 7220 queries and explored 11.14 edges on average.
+DijkstraRouter answered 7335 queries and explored 11.26 edges on average.
 DijkstraRouter spent 0.01s answering queries (0.00ms on average).
 DijkstraRouter answered 296 queries and explored 639.48 edges on average.
-DijkstraRouter spent 0.06s answering queries (0.20ms on average).
+DijkstraRouter spent 0.05s answering queries (0.18ms on average).
