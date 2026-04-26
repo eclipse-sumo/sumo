@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-25T16:23:16.193982+01:00 by Eclipse SUMO sumo v1_26_0+1388-aac31961a58
+<!-- generated on 2026-04-26T23:23:43.993530+01:00 by Eclipse SUMO sumo v1_26_0+1391-71667e6788c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -117,28 +117,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="flow_maybe_detour.11" depart="110.00" arrival="317.00">
         <routeDistribution>
             <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="110.00" probability="0" edges="beg middle end rend"/>
-            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
+            <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.13" depart="130.00" arrival="337.00">
         <routeDistribution>
             <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="130.00" probability="0" edges="beg middle end rend"/>
-            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
+            <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.14" depart="140.00" arrival="347.00">
         <routeDistribution>
             <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="140.00" probability="0" edges="beg middle end rend"/>
-            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
+            <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_maybe_detour.18" depart="180.00" arrival="387.00">
         <routeDistribution>
             <route cost="-1.00" savings="0.00" replacedOnEdge="beg" reason="rerouter" replacedAtTime="180.00" probability="0" edges="beg middle end rend"/>
-            <route cost="197.84" savings="179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.00" edges="beg beg2right right right2end end rend"/>
+            <route cost="197.84" savings="-107.91" edges="beg beg2right right right2end end rend"/>
         </routeDistribution>
     </vehicle>
 
