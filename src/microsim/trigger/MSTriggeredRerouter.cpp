@@ -556,9 +556,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->getClosed());
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
+            resetClosedEdges(hasReroutingDevice, veh);
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
-            resetClosedEdges(hasReroutingDevice, veh);
             //if (getID() == "ego") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
             //        << " prevEdges=" << toString(prevEdges)
             //        << " newEdges=" << toString(edges)
@@ -708,6 +708,7 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     if (rerouteDef->closed.empty() || destUnreachable || rerouteDef->isVia || affected(tObject.getUpcomingEdgeIDs(), closed)) {
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+            ConstMSEdgeVector prevEdges = veh.getRoute().getEdges();
             const bool canChangeDest = rerouteDef->edgeProbs.getOverallProb() > 0;
             MSVehicleRouter& router = hasReroutingDevice
                                       ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited)
@@ -731,6 +732,13 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                     ok = veh.reroute(now, getID(), router, false, false, true, newEdge);
                 }
 
+            }
+            resetClosedEdges(hasReroutingDevice, tObject);
+            if (ok) {
+                // since the old route was closed, savings would be infinite. This isn't useful
+                const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
+                const double savings = previousCost - veh.getRoute().getCosts();
+                const_cast<MSRoute&>(veh.getRoute()).setSavings(savings);
             }
             if (!rerouteDef->isVia) {
 #ifdef DEBUG_REROUTER
