@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-24 10:05+0000\n"
+"PO-Revision-Date: 2026-04-27 18:13+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2715,7 +2715,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:606
 msgid "Interpret departPosLat for walks in legacy style"
-msgstr ""
+msgstr "Interpretar departPosLat para caminatas en el modo antiguo"
 
 #: src/microsim/MSFrame.cpp:609
 msgid ""
@@ -2958,6 +2958,8 @@ msgid ""
 "Do not build queues (or reduce capacity) for lanes allowing only the given "
 "vclasses"
 msgstr ""
+"No crear colas (o reducir la capacidad) para carriles que solo permiten las "
+"clases de vehículo indicadas"
 
 #: src/microsim/MSFrame.cpp:775
 msgid "Enable mesoscopic traffic light and priority junction handling"
@@ -2971,6 +2973,8 @@ msgstr "Habilita el adelantamiento mesoscópico"
 msgid ""
 "Time interval for rechecking insertion into the next segment after failure"
 msgstr ""
+"Intervalo de tiempo para volver a intentar la inserción en el siguiente "
+"segmento tras un fallo"
 
 #: src/microsim/MSFrame.cpp:803
 msgid "Load visualisation settings from FILE"
@@ -5475,7 +5479,7 @@ msgstr "¡Algoritmo de enrutamiento desconocido '%'!"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:48
 msgid "The period with which the person shall be rerouted"
-msgstr ""
+msgstr "El período con el que la persona será reenrutada"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
@@ -7002,6 +7006,8 @@ msgid ""
 "The default algorithm for computing right of way rules ('default', "
 "'edgePriority')"
 msgstr ""
+"El algoritmo predeterminado para calcular las reglas de prioridad de paso "
+"('default', 'edgePriority')"
 
 #: src/netbuild/NBFrame.cpp:117
 msgid ""
