@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-27 18:46+0000\n"
+"PO-Revision-Date: 2026-04-28 06:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7823,7 +7823,9 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
-msgstr "INT als feste Dauer vehext-Zwischenphase nach jedem Wechsel setzen"
+msgstr ""
+"INT als feste Dauer für nach jedem Wechsel zu schaltende vehext-"
+"Zwischenphasen setzen"
 
 #: src/netbuild/NBFrame.cpp:617
 msgid ""
