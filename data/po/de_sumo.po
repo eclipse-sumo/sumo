@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-22 18:41+0000\n"
+"PO-Revision-Date: 2026-04-27 18:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -7810,6 +7810,8 @@ msgid ""
 "Use FLOAT as threshold for allowing left-turning vehicles to move in the "
 "same phase as oncoming straight-going vehicles"
 msgstr ""
+"FLOAT als Grenzwert verwenden, um links abbiegenden Fahrzeuge in der "
+"gleichen Phase wie den Gegenverkehr geradeaus zu erlauben"
 
 #: src/netbuild/NBFrame.cpp:611
 msgid ""
@@ -7821,7 +7823,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
-msgstr ""
+msgstr "INT als feste Dauer vehext-Zwischenphase nach jedem Wechsel setzen"
 
 #: src/netbuild/NBFrame.cpp:617
 msgid ""
@@ -7849,15 +7851,15 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
-msgstr ""
+msgstr "In STR[] enthaltene LSA werden um eine halbe Phase versetzt"
 
 #: src/netbuild/NBFrame.cpp:638
 msgid "TLSs in STR[] will be shifted by quarter-phase"
-msgstr ""
+msgstr "In STR[] enthaltene LSA werden um eine Viertelphase versetzt"
 
 #: src/netbuild/NBFrame.cpp:642
 msgid "TLSs with unspecified type will use STR as their algorithm"
-msgstr ""
+msgstr "LSA ohne spezifizierten Typ sollen STR als Algorithmus nutzen"
 
 #: src/netbuild/NBFrame.cpp:645
 msgid ""
@@ -7870,29 +7872,32 @@ msgid ""
 "Avoid phases with green and red signals for different connections from the "
 "same lane"
 msgstr ""
+"Phasen mit zeitgleich Rot und Grün zeigenden Signalen verschiedener vom "
+"gleichen Fahrstreifen ausgehenden Verbindungen vermeiden"
 
 #: src/netbuild/NBFrame.cpp:651
 msgid ""
 "Default minimum phase duration for traffic lights with variable phase length"
-msgstr ""
+msgstr "Standardmindestphasendauer für LSA mit variabler Phasendauer"
 
 #: src/netbuild/NBFrame.cpp:654
 msgid ""
 "Default maximum phase duration for traffic lights with variable phase length"
-msgstr ""
+msgstr "Standard der maximalen Phasendauer für LSA mit variabler Phasendauer"
 
 #: src/netbuild/NBFrame.cpp:657
 msgid ""
 "Assign the same tls link index to connections that share the same states"
 msgstr ""
+"Verbindungen mit gleichen Signalzuständen den gleichen LSA-Index zuweisen"
 
 #: src/netbuild/NBFrame.cpp:660
 msgid "Assign a distinct tls link index to every connection"
-msgstr ""
+msgstr "Jeder Verbindung einen individuellen LSA-Index zuweisen"
 
 #: src/netbuild/NBFrame.cpp:663
 msgid "rebuild all traffic light plans in the network"
-msgstr ""
+msgstr "alle Signalprogramme des Netzes erneut erstellen"
 
 #: src/netbuild/NBFrame.cpp:668
 msgid "Only keep edges with speed in meters/second > FLOAT"
