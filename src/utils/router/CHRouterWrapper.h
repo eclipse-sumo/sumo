@@ -100,6 +100,14 @@ public:
     }
 
 
+    void setMsgHandler(MsgHandler* const errorMsgHandler) {
+        this->myErrorMsgHandler = errorMsgHandler;
+        for (auto item : myRouters) {
+            item.second->setMsgHandler(errorMsgHandler);
+        }
+    }
+
+
     bool compute(const E* from, const E* to, const V* const vehicle,
                  SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         const std::pair<const SUMOVehicleClass, const double> svc = std::make_pair(vehicle->getVClass(), vehicle->getMaxSpeed());
@@ -107,6 +115,7 @@ public:
             // create new router for the given permissions and maximum speed
             // XXX a new router may also be needed if vehicles differ in speed factor
             myRouters[svc] = new CHRouterType(myEdges, myIgnoreErrors, this->myOperation, svc.first, myWeightPeriod, false, false);
+            myRouters[svc]->setMsgHandler(this->myErrorMsgHandler);
         }
         return myRouters[svc]->compute(from, to, vehicle, msTime, into, silent);
     }

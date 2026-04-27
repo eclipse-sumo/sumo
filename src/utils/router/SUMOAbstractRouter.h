@@ -181,7 +181,7 @@ public:
         UNUSED_PARAMETER(vehicle);
     }
 
-    void setMsgHandler(MsgHandler* const errorMsgHandler) {
+    virtual void setMsgHandler(MsgHandler* const errorMsgHandler) {
         myErrorMsgHandler = errorMsgHandler;
     }
 
