@@ -168,18 +168,18 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
 void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
     std::string::size_type len = tosplit.length();
     std::string::size_type beg = 0;
-    while (beg < len && tosplit[beg] <= SPACE) {
+    while (beg < len && (unsigned char)tosplit[beg] <= SPACE) {
         beg++;
     }
     while (beg != std::string::npos && beg < len) {
         std::string::size_type end = beg;
-        while (end < len && tosplit[end] > SPACE) {
+        while (end < len && (unsigned char)tosplit[end] > SPACE) {
             end++;
         }
         myStarts.push_back((int)beg);
         myLengths.push_back((int)end - (int)beg);
         beg = end;
-        while (beg < len && tosplit[beg] <= SPACE) {
+        while (beg < len && (unsigned char)tosplit[beg] <= SPACE) {
             beg++;
         }
     }
