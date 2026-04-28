@@ -16,6 +16,9 @@ gtfs2pt_fcd
 # import public transport using shorter path between stops
 gtfs2pt_fcd_sort
 
+# import public transport using shorter path between stops
+gtfs2pt_fcd_uniqueLines
+
 # converts GTFS data into fcd traces
 gtfs2fcd
 
