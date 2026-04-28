@@ -95,13 +95,16 @@ def _repo_relative(path):
 
 def _strip_fences(text):
     """Remove markdown code fences if the AI wrapped its answer in them."""
-    text = text.strip()
-    if text.startswith("```"):
-        # drop the opening fence line (```cpp, ``` etc.)
-        text = text[text.index("\n") + 1:]
-    if text.endswith("```"):
-        text = text[:text.rindex("\n")]
-    return text.strip()
+    stripped = text.strip()
+    if not stripped.startswith("```"):
+        # No fences — return as-is so we don't lose trailing newlines.
+        return text
+    # Drop the opening fence line (```cpp, ``` etc.)
+    inner = stripped[stripped.index("\n") + 1:]
+    if inner.endswith("```"):
+        inner = inner[:inner.rindex("\n")]
+    # Ensure a single trailing newline (conventional for source files).
+    return inner.rstrip("\n") + "\n"
 
 
 # ---------------------------------------------------------------------------
