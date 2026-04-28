@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-28 06:44+0000\n"
+"PO-Revision-Date: 2026-04-28 07:37+0000\n"
 "Last-Translator: LeJun <lejun@gmx.fr>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/fr/>\n"
@@ -49,25 +49,25 @@ msgstr "Localisation des écoles"
 
 #: src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Attribution des postes de travail"
 
 #: src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Attribution des places de stationnement"
 
 #: src/activitygen/AGActivityGenHandler.cpp:174
 #: src/activitygen/AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Une % valeur d'arête % non valide est considérée comme nulle."
 
 #: src/activitygen/AGActivityGenHandler.cpp:186
 #, c-format
 msgid "Edge '%' is not known."
-msgstr ""
+msgstr "Arête ’%’ inconnue."
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "Arrêt de bus ’%’ inconnu."
 
 #: src/activitygen/AGFrame.cpp:47
 msgid ""
