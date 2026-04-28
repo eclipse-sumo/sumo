@@ -561,7 +561,8 @@ def main(options):
     if options.patchedStops:
         for stop in sumolib.xml.parse(options.patchedStops, ("busStop", "trainStop")):
             fixedStops[stop.id] = stop
-    if options.osm_routes:
+    legacy_osm_routes = options.osm_routes and not options.stops
+    if legacy_osm_routes:
         # Import PT from GTFS and OSM routes
         gtfsZip = zipfile.ZipFile(sumolib.openz(options.gtfs, mode="rb", tryGZip=False, printErrors=True))
         routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
@@ -590,7 +591,7 @@ def main(options):
         gtfs2osm.write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
                                         missing_stops, missing_lines,
                                         gtfs_data, trip_list, shapes_dict, net)
-    if not options.osm_routes:
+    if not legacy_osm_routes:
         veh2mode = {}
         # Import PT from GTFS
         if not options.skip_fcd:
