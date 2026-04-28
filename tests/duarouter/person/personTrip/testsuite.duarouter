@@ -46,6 +46,9 @@ car_with_busStop
 # public transport and walk possible
 public_walk
 
+# public transport with distict stop sequences that have the same line id
+public_walk_ambiguous_line
+
 # public transport and walk possible
 public_walk_singleveh
 
