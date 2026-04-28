@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-28T09:48:42.460670+01:00 by Eclipse SUMO netconvert v1_26_0+1403-4df7db80a2e
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <node-files value="out.nod.xml"/>
+        <edge-files value="out.edg.xml"/>
+        <ptstop-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.net.xml"/>
+        <ptstop-output value="out_stops.add.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.access-distance value="7.25"/>
+        <railway.access-factor value="0"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="ts_0" name="S Oranienburg Bhf" lane="E5_0" startPos="20.00" endPos="80.00" friendlyPos="true">
+        <access lane="S_Oranienburg_Bhf_access_0" pos="5.00" length="0.00" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="ts_1" name="S Oranienburg Bhf" lane="E0_0" startPos="20.00" endPos="80.00" friendlyPos="true">
+        <access lane="S_Oranienburg_Bhf_access_0" pos="5.00" length="0.00" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="ts_2" name="S+U Yorckstr. (Großgörschenstr.) (Berlin)" lane="E2_0" startPos="20.00" endPos="80.00" friendlyPos="true">
+        <access lane="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_0" pos="5.00" length="0.00" friendlyPos="1"/>
+    </trainStop>
+    <trainStop id="ts_3" name="S+U Yorckstr. (Großgörschenstr.) (Berlin)" lane="E3_0" startPos="20.00" endPos="80.00" friendlyPos="true">
+        <access lane="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_0" pos="5.00" length="0.00" friendlyPos="1"/>
+    </trainStop>
+</additional>

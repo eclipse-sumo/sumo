@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-28T09:48:42.460238+01:00 by Eclipse SUMO netconvert v1_26_0+1403-4df7db80a2e
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+        <node-files value="out.nod.xml"/>
+        <edge-files value="out.edg.xml"/>
+        <ptstop-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.net.xml"/>
+        <ptstop-output value="out_stops.add.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <railway>
+        <railway.access-distance value="7.25"/>
+        <railway.access-factor value="0"/>
+    </railway>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,100.00,300.00,112.50" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1" spreadType="center">
+        <lane id="E0_0" index="0" allow="rail" speed="13.89" length="100.00" shape="0.00,100.00 100.00,100.00"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1" spreadType="center">
+        <lane id="E1_0" index="0" allow="rail" speed="13.89" length="100.00" shape="100.00,100.00 200.00,100.00"/>
+    </edge>
+    <edge id="E2" from="J2" to="J3" priority="-1" spreadType="center">
+        <lane id="E2_0" index="0" allow="rail" speed="13.89" length="100.00" shape="200.00,100.00 300.00,100.00"/>
+    </edge>
+    <edge id="E3" from="J4" to="J5" priority="-1" spreadType="center">
+        <lane id="E3_0" index="0" allow="rail" speed="13.89" length="100.00" shape="300.00,112.50 200.00,112.50"/>
+    </edge>
+    <edge id="E4" from="J5" to="J6" priority="-1" spreadType="center">
+        <lane id="E4_0" index="0" allow="rail" speed="13.89" length="100.00" shape="200.00,112.50 100.00,112.50"/>
+    </edge>
+    <edge id="E5" from="J6" to="J7" priority="-1" spreadType="center">
+        <lane id="E5_0" index="0" allow="rail" speed="13.89" length="100.00" shape="100.00,112.50 0.00,112.50"/>
+    </edge>
+    <edge id="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access" from="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_from" to="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_to" priority="-1">
+        <lane id="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_0" index="0" allow="pedestrian" speed="13.89" length="10.00" width="8.00" shape="245.00,102.25 255.00,102.25"/>
+    </edge>
+    <edge id="S_Oranienburg_Bhf_access" from="S_Oranienburg_Bhf_access_from" to="S_Oranienburg_Bhf_access_to" priority="-1">
+        <lane id="S_Oranienburg_Bhf_access_0" index="0" allow="pedestrian" speed="13.89" length="10.00" width="8.00" shape="45.00,102.25 55.00,102.25"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,101.60 0.00,98.40"/>
+    <junction id="J1" type="priority" x="100.00" y="100.00" incLanes="E0_0" intLanes="" shape="100.00,101.60 100.00,98.40 100.00,101.60">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J2" type="priority" x="200.00" y="100.00" incLanes="E1_0" intLanes="" shape="200.00,101.60 200.00,98.40 200.00,101.60">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J3" type="dead_end" x="300.00" y="100.00" incLanes="E2_0" intLanes="" shape="300.00,98.40 300.00,101.60"/>
+    <junction id="J4" type="dead_end" x="300.00" y="112.50" incLanes="" intLanes="" shape="300.00,110.90 300.00,114.10"/>
+    <junction id="J5" type="priority" x="200.00" y="112.50" incLanes="E3_0" intLanes="" shape="200.00,114.10 200.00,110.90 200.00,114.10">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J6" type="priority" x="100.00" y="112.50" incLanes="E4_0" intLanes="" shape="100.00,114.10 100.00,110.90 100.00,114.10">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J7" type="dead_end" x="0.00" y="112.50" incLanes="E5_0" intLanes="" shape="0.00,114.10 0.00,110.90"/>
+    <junction id="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_from" type="dead_end" x="245.00" y="106.25" incLanes="" intLanes="" shape="245.00,106.25 245.00,98.25"/>
+    <junction id="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_to" type="dead_end" x="255.00" y="106.25" incLanes="S+U_Yorckstr._(Großgörschenstr.)_(Berlin)_access_0" intLanes="" shape="255.00,98.25 255.00,106.25"/>
+    <junction id="S_Oranienburg_Bhf_access_from" type="dead_end" x="45.00" y="106.25" incLanes="" intLanes="" shape="45.00,106.25 45.00,98.25"/>
+    <junction id="S_Oranienburg_Bhf_access_to" type="dead_end" x="55.00" y="106.25" incLanes="S_Oranienburg_Bhf_access_0" intLanes="" shape="55.00,98.25 55.00,106.25"/>
+
+    <connection from="E0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E1" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E3" to="E4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="E4" to="E5" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>
