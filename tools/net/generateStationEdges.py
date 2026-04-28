@@ -95,7 +95,7 @@ def main(options):
                             x, y = stop_coords[stopID]
                             options.accessRadius = max(options.accessRadius,
                                                        euclidean((x, y), (mean_x, mean_y)))
-                    edge_id = name + "_access"
+                    edge_id = name.replace(' ', '_') + "_access"
                     from_id = edge_id + '_from'
                     to_id = edge_id + '_to'
                     out_n.write('    <node id="%s" x="%s" y="%s"/>\n' % (from_id, mean_x - l2, mean_y))
