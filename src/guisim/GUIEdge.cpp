@@ -394,7 +394,6 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
     GUIMEVehicleControl* vehicleControl = GUINet::getGUIInstance()->getGUIMEVehicleControl();
-    const double now = SIMTIME;
     if (vehicleControl != nullptr) {
         vehicleControl->secureVehicles();
         FXMutexLock locker(myLock);
