@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-28 10:38:22.351847 by Eclipse SUMO gtfs2pt.py v1_26_0+1411-4573da57259
+<!-- generated on 2026-04-28 16:28:33.792145 by Eclipse SUMO gtfs2pt.py v1_26_0+1417-acf9fc699c4
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
-    <unique-lines value="True"/>
+    <original-lines value="True"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
@@ -86,7 +86,7 @@
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Dieselstraße"/>
     </vehicle>
-    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="413#1">
+    <vehicle id="132190299.0" route="132190299" type="bus" depart="43310" line="413">
         <param key="gtfs.route_name" value="413"/>
         <param key="gtfs.trip_headsign" value="Leiferde"/>
     </vehicle>

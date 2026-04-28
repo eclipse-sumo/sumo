@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-22 20:27:03.147274 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
+<!-- generated on 2026-04-28 16:28:32.471508 by Eclipse SUMO gtfs2pt.py v1_26_0+1417-acf9fc699c4
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -60,7 +60,7 @@
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
-    <vehicle id="132185786.trimmed.0" route="132185786.trimmed" type="bus" depart="86570" line="418">
+    <vehicle id="132185786.trimmed.0" route="132185786.trimmed" type="bus" depart="86570" line="418#1">
         <param key="gtfs.route_name" value="418"/>
         <param key="gtfs.trip_headsign" value="A&amp;B -&gt; Wästpark"/>
     </vehicle>
