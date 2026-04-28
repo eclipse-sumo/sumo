@@ -1,6 +1,18 @@
 Loading net
+function import_gtfs called at Tue, 28 Apr 2026 18:27:55 +0000
 Loading GTFS data "gtfs.zip"
-Import osm routes
-Map stops and routes
-Generates stops and routes output
-Not all given gtfs elements have been mapped, see gtfs_missing.xml for more information
+function import_gtfs finished after 0.320497 seconds
+Success.
+Success.
+Writing fcd file "fcd/gtfs/bus.fcd.xml"
+mapping bus
+mapping trace with 5 points ... (31 router calls)
+mapping trace with 5 points ... (220 router calls)
+mapping trace with 2 points ... (16 router calls)
+mapping trace with 3 points ... (21 router calls)
+mapping trace with 8 points ... (244 router calls)
+mapping trace with 7 points ... (232 router calls)
+mapping trace with 3 points ... (20 router calls)
+mapping trace with 3 points ... (11 router calls)
+mapped 8 traces to 8 routes (0 cacheHits)
+Reading resources/gtfs/bus.net.xml
