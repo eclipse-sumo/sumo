@@ -60,6 +60,9 @@ def add_options():
     op.add_argument("--write-terminals", action="store_true", default=False,
                     dest="writeTerminals", category="processing",
                     help="Write vehicle parameters that describe terminal stops and times")
+    op.add_argument("--unique-lines", action="store_true", default=False,
+                    dest="uniqeLines", category="processing",
+                    help="Distinguish line ids that have distinct stop sequences")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -170,7 +173,8 @@ def main(options):
         tripFile[mode].write(u"<routes>\n")
     timeIndex = 0
     for _, trip_data in full_data_merged.groupby('route_id'):
-        seqs = {}
+        seqs = {} # stop sequence -> routeID, lineID
+        lines = set() # unique line ids
         for trip_id, data in trip_data.groupby('trip_id'):
             stopSeq = []
             buf = u""
@@ -213,14 +217,23 @@ def main(options):
             if mode in modes:
                 s = tuple(stopSeq)
                 if s not in seqs:
-                    seqs[s] = trip_id
+                    lineID = d.route_short_name.replace(" ", "_")
+                    if options.uniqeLines:
+                        baseLine = lineID
+                        i = 0
+                        while lineID in lines:
+                            i += 1
+                            lineID = "%s#%s" % (baseLine, i)
+                    lines.add(lineID)
+                    seqs[s] = trip_id, lineID
                     fcdFile[mode].write(buf)
                     timeIndex = arrivalSec
                 # The `line` attribute shall hold the line short name that can be used to determine person rides
                 # as per https://sumo.dlr.de/docs/Specification/Persons.html#rides
                 # The spaces in the route name are replaced by underscores to allow for space-separated lists of lines.
+                routeID, lineID = seqs[s]
                 tripFile[mode].write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                     (trip_id, seqs[s], mode, firstDep, d.route_short_name.replace(" ", "_")))
+                                     (trip_id, routeID, mode, firstDep, lineID))
                 params = [("gtfs.route_name", d.route_short_name)]
                 if d.trip_headsign:
                     params.append(("gtfs.trip_headsign", d.trip_headsign))
