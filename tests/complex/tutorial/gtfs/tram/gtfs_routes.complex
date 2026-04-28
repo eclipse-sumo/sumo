@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-23 13:21:58.708296 by Eclipse SUMO gtfs2pt.py v1_26_0+1355-88a79ea8b6b
+<!-- generated on 2026-04-28 23:34:34.327059 by Eclipse SUMO gtfs2pt.py v1_26_0+1423-ca0ca01ec6c
 <configuration>
     <merged-csv value="data/data.csv"/>
     <modes value="tram"/>
@@ -57,7 +57,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68364.0" route="259780" type="tram" depart="04:29:50" line="68">
+    <vehicle id="68364.0" route="259780" type="tram" depart="04:29:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -65,7 +65,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259865.0" route="259780" type="tram" depart="04:49:50" line="68">
+    <vehicle id="259865.0" route="259780" type="tram" depart="04:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -73,7 +73,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259868.0" route="259780" type="tram" depart="05:09:50" line="68">
+    <vehicle id="259868.0" route="259780" type="tram" depart="05:09:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -85,7 +85,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68376.0" route="259780" type="tram" depart="05:27:50" line="68">
+    <vehicle id="68376.0" route="259780" type="tram" depart="05:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -93,7 +93,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259919.0" route="259780" type="tram" depart="05:47:50" line="68">
+    <vehicle id="259919.0" route="259780" type="tram" depart="05:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -101,7 +101,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259922.0" route="259780" type="tram" depart="06:07:50" line="68">
+    <vehicle id="259922.0" route="259780" type="tram" depart="06:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -109,11 +109,11 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259925.0" route="259780" type="tram" depart="06:27:50" line="68">
+    <vehicle id="259925.0" route="259780" type="tram" depart="06:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68252.0" route="68252" type="tram" depart="06:30:50" line="68">
+    <vehicle id="68252.0" route="68252" type="tram" depart="06:30:50" line="68#3">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
@@ -121,11 +121,11 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259928.0" route="259780" type="tram" depart="06:47:50" line="68">
+    <vehicle id="259928.0" route="259780" type="tram" depart="06:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68397.0" route="68332" type="tram" depart="06:58:50" line="68">
+    <vehicle id="68397.0" route="68332" type="tram" depart="06:58:50" line="68#4">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -133,7 +133,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259931.0" route="259780" type="tram" depart="07:07:50" line="68">
+    <vehicle id="259931.0" route="259780" type="tram" depart="07:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -141,7 +141,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259934.0" route="259780" type="tram" depart="07:27:50" line="68">
+    <vehicle id="259934.0" route="259780" type="tram" depart="07:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -149,11 +149,11 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259937.0" route="259780" type="tram" depart="07:47:50" line="68">
+    <vehicle id="259937.0" route="259780" type="tram" depart="07:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68266.0" route="68252" type="tram" depart="07:50:50" line="68">
+    <vehicle id="68266.0" route="68252" type="tram" depart="07:50:50" line="68#3">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
@@ -161,11 +161,11 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259940.0" route="259780" type="tram" depart="08:07:50" line="68">
+    <vehicle id="259940.0" route="259780" type="tram" depart="08:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
-    <vehicle id="68332.0" route="68332" type="tram" depart="08:18:50" line="68">
+    <vehicle id="68332.0" route="68332" type="tram" depart="08:18:50" line="68#4">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
@@ -173,7 +173,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259943.0" route="259780" type="tram" depart="08:27:50" line="68">
+    <vehicle id="259943.0" route="259780" type="tram" depart="08:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -181,7 +181,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259946.0" route="259780" type="tram" depart="08:47:50" line="68">
+    <vehicle id="259946.0" route="259780" type="tram" depart="08:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -189,7 +189,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259949.0" route="259780" type="tram" depart="09:07:50" line="68">
+    <vehicle id="259949.0" route="259780" type="tram" depart="09:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -197,7 +197,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68391.0" route="259780" type="tram" depart="09:27:50" line="68">
+    <vehicle id="68391.0" route="259780" type="tram" depart="09:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -205,7 +205,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259982.0" route="259780" type="tram" depart="09:47:50" line="68">
+    <vehicle id="259982.0" route="259780" type="tram" depart="09:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -213,7 +213,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259985.0" route="259780" type="tram" depart="10:07:50" line="68">
+    <vehicle id="259985.0" route="259780" type="tram" depart="10:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -221,7 +221,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259988.0" route="259780" type="tram" depart="10:27:50" line="68">
+    <vehicle id="259988.0" route="259780" type="tram" depart="10:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -229,7 +229,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259991.0" route="259780" type="tram" depart="10:47:50" line="68">
+    <vehicle id="259991.0" route="259780" type="tram" depart="10:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -237,7 +237,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259994.0" route="259780" type="tram" depart="11:07:50" line="68">
+    <vehicle id="259994.0" route="259780" type="tram" depart="11:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -245,7 +245,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259997.0" route="259780" type="tram" depart="11:27:50" line="68">
+    <vehicle id="259997.0" route="259780" type="tram" depart="11:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -253,7 +253,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260000.0" route="259780" type="tram" depart="11:47:50" line="68">
+    <vehicle id="260000.0" route="259780" type="tram" depart="11:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -261,7 +261,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260003.0" route="259780" type="tram" depart="12:07:50" line="68">
+    <vehicle id="260003.0" route="259780" type="tram" depart="12:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -269,7 +269,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260006.0" route="259780" type="tram" depart="12:27:50" line="68">
+    <vehicle id="260006.0" route="259780" type="tram" depart="12:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -277,7 +277,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260009.0" route="259780" type="tram" depart="12:47:50" line="68">
+    <vehicle id="260009.0" route="259780" type="tram" depart="12:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -285,7 +285,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260012.0" route="259780" type="tram" depart="13:07:50" line="68">
+    <vehicle id="260012.0" route="259780" type="tram" depart="13:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -293,7 +293,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260015.0" route="259780" type="tram" depart="13:27:50" line="68">
+    <vehicle id="260015.0" route="259780" type="tram" depart="13:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -301,7 +301,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260018.0" route="259780" type="tram" depart="13:47:50" line="68">
+    <vehicle id="260018.0" route="259780" type="tram" depart="13:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -309,7 +309,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260021.0" route="259780" type="tram" depart="14:07:50" line="68">
+    <vehicle id="260021.0" route="259780" type="tram" depart="14:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -317,7 +317,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260024.0" route="259780" type="tram" depart="14:27:50" line="68">
+    <vehicle id="260024.0" route="259780" type="tram" depart="14:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -325,7 +325,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68394.0" route="259780" type="tram" depart="14:47:50" line="68">
+    <vehicle id="68394.0" route="259780" type="tram" depart="14:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -333,7 +333,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68379.0" route="259780" type="tram" depart="15:07:50" line="68">
+    <vehicle id="68379.0" route="259780" type="tram" depart="15:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -341,7 +341,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259952.0" route="259780" type="tram" depart="15:27:50" line="68">
+    <vehicle id="259952.0" route="259780" type="tram" depart="15:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -349,7 +349,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259955.0" route="259780" type="tram" depart="15:47:50" line="68">
+    <vehicle id="259955.0" route="259780" type="tram" depart="15:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -357,7 +357,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259958.0" route="259780" type="tram" depart="16:07:50" line="68">
+    <vehicle id="259958.0" route="259780" type="tram" depart="16:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -365,7 +365,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260027.0" route="259780" type="tram" depart="16:27:50" line="68">
+    <vehicle id="260027.0" route="259780" type="tram" depart="16:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -373,7 +373,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68382.0" route="259780" type="tram" depart="16:47:50" line="68">
+    <vehicle id="68382.0" route="259780" type="tram" depart="16:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -381,7 +381,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259961.0" route="259780" type="tram" depart="17:07:50" line="68">
+    <vehicle id="259961.0" route="259780" type="tram" depart="17:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -389,7 +389,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259964.0" route="259780" type="tram" depart="17:27:50" line="68">
+    <vehicle id="259964.0" route="259780" type="tram" depart="17:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -397,7 +397,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259967.0" route="259780" type="tram" depart="17:47:50" line="68">
+    <vehicle id="259967.0" route="259780" type="tram" depart="17:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -405,7 +405,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260030.0" route="259780" type="tram" depart="18:07:50" line="68">
+    <vehicle id="260030.0" route="259780" type="tram" depart="18:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -413,7 +413,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68385.0" route="259780" type="tram" depart="18:27:50" line="68">
+    <vehicle id="68385.0" route="259780" type="tram" depart="18:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -421,7 +421,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259970.0" route="259780" type="tram" depart="18:47:50" line="68">
+    <vehicle id="259970.0" route="259780" type="tram" depart="18:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -429,7 +429,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259973.0" route="259780" type="tram" depart="19:07:50" line="68">
+    <vehicle id="259973.0" route="259780" type="tram" depart="19:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -437,7 +437,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259976.0" route="259780" type="tram" depart="19:27:50" line="68">
+    <vehicle id="259976.0" route="259780" type="tram" depart="19:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -445,7 +445,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="260033.0" route="259780" type="tram" depart="19:47:50" line="68">
+    <vehicle id="260033.0" route="259780" type="tram" depart="19:47:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -453,7 +453,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68388.0" route="259780" type="tram" depart="20:07:50" line="68">
+    <vehicle id="68388.0" route="259780" type="tram" depart="20:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -461,7 +461,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259979.0" route="259780" type="tram" depart="20:27:50" line="68">
+    <vehicle id="259979.0" route="259780" type="tram" depart="20:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -469,7 +469,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68367.0" route="259780" type="tram" depart="20:49:50" line="68">
+    <vehicle id="68367.0" route="259780" type="tram" depart="20:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -477,7 +477,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259871.0" route="259780" type="tram" depart="21:09:50" line="68">
+    <vehicle id="259871.0" route="259780" type="tram" depart="21:09:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -485,11 +485,11 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="68330.0" route="259780" type="tram" depart="21:19:50" line="68">
+    <vehicle id="68330.0" route="259780" type="tram" depart="21:19:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
-    <vehicle id="259874.0" route="259780" type="tram" depart="21:29:50" line="68">
+    <vehicle id="259874.0" route="259780" type="tram" depart="21:29:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -497,7 +497,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259877.0" route="259780" type="tram" depart="21:49:50" line="68">
+    <vehicle id="259877.0" route="259780" type="tram" depart="21:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -505,7 +505,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259880.0" route="259780" type="tram" depart="22:09:50" line="68">
+    <vehicle id="259880.0" route="259780" type="tram" depart="22:09:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -513,7 +513,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259883.0" route="259780" type="tram" depart="22:29:50" line="68">
+    <vehicle id="259883.0" route="259780" type="tram" depart="22:29:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -521,7 +521,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259886.0" route="259780" type="tram" depart="22:49:50" line="68">
+    <vehicle id="259886.0" route="259780" type="tram" depart="22:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -529,7 +529,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259889.0" route="259780" type="tram" depart="23:09:50" line="68">
+    <vehicle id="259889.0" route="259780" type="tram" depart="23:09:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -537,7 +537,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259892.0" route="259780" type="tram" depart="23:29:50" line="68">
+    <vehicle id="259892.0" route="259780" type="tram" depart="23:29:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
@@ -545,7 +545,7 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
-    <vehicle id="259895.0" route="259780" type="tram" depart="23:49:50" line="68">
+    <vehicle id="259895.0" route="259780" type="tram" depart="23:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
