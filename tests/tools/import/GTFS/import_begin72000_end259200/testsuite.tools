@@ -1,5 +1,8 @@
 # import public transport using routes from osm
 gtfs2pt_osm
 
+# set options --osm-routes and --stops
+gtfs2pt_osm_stops
+
 # import public transport using shorter path between stops
 gtfs2pt_fcd
