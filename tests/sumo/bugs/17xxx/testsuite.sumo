@@ -44,3 +44,6 @@ ticket17714b
 
 # crash
 ticket17854
+
+# extended ascii in ids
+ticket17935
