@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-27 18:13+0000\n"
+"PO-Revision-Date: 2026-04-28 07:37+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1788,6 +1788,8 @@ msgstr "Cargar un estado de red desde FILE"
 #: src/microsim/MSFrame.cpp:101
 msgid "Shifts all times loaded from a saved state by the given offset"
 msgstr ""
+"Desplaza todos los tiempos cargados desde un estado guardado en el "
+"desplazamiento indicado"
 
 #: src/microsim/MSFrame.cpp:103
 msgid "Removes vehicles with the given IDs from the loaded state"
@@ -1945,6 +1947,8 @@ msgstr "Enumerar los atributos que deben incluirse en la salida FCD"
 #: src/microsim/MSFrame.cpp:187
 msgid "List shape names that should be used to filter the FCD output"
 msgstr ""
+"Listar los nombres de formas que deben usarse para filtrar el archivo de "
+"salida FCD"
 
 #: src/microsim/MSFrame.cpp:191
 msgid "Save fcd for persons and container to separate FILE"
@@ -7350,7 +7354,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:346
 msgid "Assumes left-hand traffic on the network"
-msgstr ""
+msgstr "Asumir la circulación por la izquierda en la red"
 
 #: src/netbuild/NBFrame.cpp:350
 msgid ""
@@ -7441,6 +7445,8 @@ msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr ""
+"Generar cruces más largos para permitir curvas en S suaves cuando cambia el "
+"número de carriles"
 
 #: src/netbuild/NBFrame.cpp:411
 msgid ""
@@ -7543,7 +7549,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:466
 msgid "Guess pedestrian sidewalks based on edge speed"
-msgstr ""
+msgstr "Detectar (adivinar) aceras peatonales según la velocidad de la arista"
 
 #: src/netbuild/NBFrame.cpp:470
 msgid "Add sidewalks for edges with a speed equal or below the given limit"
