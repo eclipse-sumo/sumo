@@ -60,9 +60,9 @@ def add_options():
     op.add_argument("--write-terminals", action="store_true", default=False,
                     dest="writeTerminals", category="processing",
                     help="Write vehicle parameters that describe terminal stops and times")
-    op.add_argument("--unique-lines", action="store_true", default=False,
-                    dest="uniqeLines", category="processing",
-                    help="Distinguish line ids that have distinct stop sequences")
+    op.add_argument("--original-lines", action="store_true", default=False,
+                    dest="origLines", category="processing",
+                    help="Do not distinguish line ids that have distinct stop sequences")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -218,7 +218,7 @@ def main(options):
                 s = tuple(stopSeq)
                 if s not in seqs:
                     lineID = d.route_short_name.replace(" ", "_")
-                    if options.uniqeLines:
+                    if not options.origLines:
                         baseLine = lineID
                         i = 0
                         while lineID in lines:
