@@ -1,0 +1,5 @@
+Error: value 'S Oranienburg Bhf_access_from' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'out.nod.xml'
+ At line/column 15/67.
+
+Quitting (on error).

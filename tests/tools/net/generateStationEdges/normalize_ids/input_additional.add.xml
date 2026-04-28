@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-02-11T22:36:23.798349+01:00 by Eclipse SUMO netedit v1_26_0+0161-3cd58603596
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="ts_0" name="S Oranienburg Bhf" lane="E5_0" startPos="20.00" endPos="80.00"/>
+    <trainStop id="ts_1" name="S Oranienburg Bhf" lane="E0_0" startPos="20.00" endPos="80.00"/>
+    <trainStop id="ts_2" name="S+U Yorckstr. (Großgörschenstr.) (Berlin)" lane="E2_0" startPos="20.00" endPos="80.00"/>
+    <trainStop id="ts_3" name="S+U Yorckstr. (Großgörschenstr.) (Berlin)" lane="E3_0" startPos="20.00" endPos="80.00"/>
+</additional>

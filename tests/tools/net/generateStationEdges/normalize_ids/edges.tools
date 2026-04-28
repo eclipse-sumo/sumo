@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-28 09:45:22.253263 by Eclipse SUMO generateStationEdges.py v1_26_0+1403-4df7db80a2e
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <stop-file value="input_additional.add.xml"/>
+    <output-prefix value="out"/>
+    <join-stations value="True"/>
+    <build value="True"/>
+</configuration>
+-->
+
+<edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="S Oranienburg Bhf_access" from="S Oranienburg Bhf_access_from" to="S Oranienburg Bhf_access_to" allow="pedestrian" width="8.0"/>
+    <edge id="S+U Yorckstr. (Großgörschenstr.) (Berlin)_access" from="S+U Yorckstr. (Großgörschenstr.) (Berlin)_access_from" to="S+U Yorckstr. (Großgörschenstr.) (Berlin)_access_to" allow="pedestrian" width="8.0"/>
+</edges>
