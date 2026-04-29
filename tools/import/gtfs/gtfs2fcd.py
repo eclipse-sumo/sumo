@@ -139,6 +139,29 @@ def dataAvailable(options):
     return False
 
 
+def joinBlocks(data):
+    """For trips that have the same non-empty block_id:
+       - sort trips by first depart
+       - swap trip_id and block_id (old trip_id can be written as stop attribute tripId)
+       - renumber stop_sequence
+    """
+    blocks = []
+    for block_id, block in data.groupby('block_id', dropna=False):
+        if not pd.isna(block_id):
+            departs = block.groupby('trip_id')['departure_time'].min().rename('trip_departure_time')
+            if len(departs) > 1:
+                block = block.join(departs, on='trip_id')
+                block.sort_values(by=['trip_departure_time', 'stop_sequence'], inplace=True)
+                block.reset_index(drop=True, inplace=True)
+                block['stop_sequence'] = block.index
+                #block.to_csv('debug_%s.csv' % block_id, sep=";", index=False)
+                del block['trip_departure_time']
+                # swap columns so later code will treat the block like a single trip (but preserve the original trip_id)
+                block[['trip_id', 'block_id']] = block[['block_id', 'trip_id']].values
+        blocks.append(block)
+    return pd.concat(blocks)
+
+
 def main(options):
     ft = options.ft
     if options.mergedCSV:
@@ -162,6 +185,9 @@ def main(options):
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if full_data_merged.empty:
         return False
+    if not options.ignoreBlocks:
+        full_data_merged = joinBlocks(full_data_merged)
+
     fcdFile = {}
     tripFile = {}
     if not os.path.exists(options.fcd):
