@@ -228,6 +228,11 @@ def mapFCD(options, typedNets):
 
 
 def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
+    if options.poiOut is not None:
+        colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
+        outf = open(options.poiOut, 'w')
+        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
+
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
         vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
@@ -243,11 +248,6 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
         if not os.path.exists(filePath):
             return []
         traces = tracemapper.readFCD(filePath, net, True)
-        if options.poiOut is not None:
-            colorgen = sumolib.miscutils.Colorgen(('random', 1, 1))
-            outf = open(options.poiOut, 'w')
-            sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
-
         traceCache = {}
         preferences = {}
         if mode in ['train', 'light_rail', 'subway', 'tram'] and options.rpFactor is not None:
@@ -313,9 +313,9 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
             print("mapped %s traces to %s routes (%s cacheHits)" % (
                 numTraces, numRoutes, cacheHits))
 
-        if options.poiOut is not None:
-            outf.write('</additional>\n')
-            outf.close()
+    if options.poiOut is not None:
+        outf.write('</additional>\n')
+        outf.close()
     return routes
 
 
