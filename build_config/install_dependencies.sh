@@ -20,7 +20,7 @@
 # directly with your system so it is most useful in an isolated environment (container / CI).
 
 FOX_VERSION=1.6.59
-JUPEDSIM_VERSION=1.3.1
+JUPEDSIM_VERSION=1.4.0
 
 # Check for macOS
 if [[ "$(uname)" == "Darwin" ]]; then

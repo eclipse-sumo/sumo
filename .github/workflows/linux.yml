@@ -25,7 +25,7 @@ jobs:
         os: [ubuntu-latest, ubuntu-24.04-arm]
         build_type: [full, minimal]
         compiler: [gcc, clang]
-        jps_version: ['v1.3.1']
+        jps_version: ['rls-1.4']
         # include:
         #   - build_type: full
         #     jps_version: master
