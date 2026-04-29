@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-28 07:37+0000\n"
+"PO-Revision-Date: 2026-04-29 07:58+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3395,6 +3395,8 @@ msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
 msgstr ""
+"El estado se guardó con más de % hilos. Cambie el número de hilos o no "
+"cargue el estado del generador de números aleatorios"
 
 #: src/microsim/MSLeaderInfo.h:172 src/microsim/MSLeaderInfo.h:239
 #: src/microsim/MSLeaderInfo.h:246
@@ -5369,6 +5371,9 @@ msgid ""
 "If any openGap parameters for the ToC model are specified, then at least one "
 "of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."
 msgstr ""
+"Si se especifica algún parámetro openGap para el modelo ToC, entonces al "
+"menos uno de toc.ogNewTimeHeadway o toc.ogNewSpaceHeadway debe estar "
+"definido."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:551
 msgid "Ignoring unknown safe spot '%' for vehicle '%'."
@@ -6400,6 +6405,9 @@ msgid ""
 "ParkingArea '%' is targeted by rerouter '%' but doesn't have its own "
 "rerouter. This may cause parking search to abort."
 msgstr ""
+"La zona de estacionamiento '%' es objetivo del rerouter '%', pero no tiene "
+"su propio rerouter. Esto puede hacer que se cancele la búsqueda de "
+"estacionamiento."
 
 #: src/netbuild/NBAlgorithms.cpp:153
 msgid "Ambiguity in turnarounds computation at junction '%'."
@@ -7686,12 +7694,17 @@ msgid ""
 "Do not build mutually conflicting response matrix, potentially ignoring "
 "vehicles that are stuck at an internal junction when their phase has ended"
 msgstr ""
+"No crear una matriz de respuesta mutuamente conflictiva, lo que podría "
+"ignorar vehículos atascados en un cruce interno cuando su fase haya terminado"
 
 #: src/netbuild/NBFrame.cpp:571
 msgid ""
 "Interprets tls nodes surrounding an intersection as signal positions for a "
 "larger TLS. This is typical pattern for OSM-derived networks"
 msgstr ""
+"Interpreta los nodos de semáforo que rodean una intersección como posiciones "
+"de señal para un semáforo más grande. Este es un patrón típico en redes "
+"derivadas de OSM"
 
 #: src/netbuild/NBFrame.cpp:574
 msgid "Distance for interpreting nodes as signal locations"
@@ -8884,6 +8897,9 @@ msgid ""
 "Could not find corresponding edge or compatible lane for free-floating pt "
 "stop '%' (%). Thus, it will be removed!"
 msgstr ""
+"No se pudo encontrar una arista correspondiente o un carril compatible para "
+"la parada de transporte público flotante '%' (%). Por lo tanto, ¡será "
+"eliminada!"
 
 #: src/netbuild/NBParking.cpp:44
 #, c-format
@@ -11757,12 +11773,16 @@ msgid ""
 "A connecting overhead wire start segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"Un segmento inicial de catenaria de conexión '%' definido para la abrazadera "
+"de catenaria '%' no está asignado a la subestación de carga '%'."
 
 #: src/netload/NLTriggerBuilder.cpp:386
 msgid ""
 "A connecting overhead wire end segment '%' defined for overhead wire clamp "
 "'%' is not assigned to the traction substation '%'."
 msgstr ""
+"Un segmento final de catenaria de conexión '%' definido para la abrazadera "
+"de catenaria '%' no está asignado a la subestación de carga '%'."
 
 #: src/netload/NLTriggerBuilder.cpp:390
 msgid ""
@@ -12438,6 +12458,8 @@ msgid ""
 "If FLOAT >= 0, assemble one polygon from all ways of a relation if they all "
 "connect with gaps below FLOAT"
 msgstr ""
+"Si FLOAT >= 0, ensamblar un polígono a partir de todas las vías de una "
+"relación si todas se conectan con brechas menores que FLOAT"
 
 #: src/polyconvert/polyconvert_main.cpp:115
 msgid "Reads shapes from geojson FILE"
