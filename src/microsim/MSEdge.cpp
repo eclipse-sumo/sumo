@@ -516,7 +516,7 @@ MSEdge::allowedLanes(SUMOVehicleClass vclass, bool ignoreTransientPermissions) c
     } else {
         const SVCPermissions comP = ignoreTransientPermissions ? myOriginalCombinedPermissions : myCombinedPermissions;
         if ((comP & vclass) == vclass) {
-            const AllowedLanesCont& allowedCont = ignoreTransientPermissions ? myOrigAllowed : myAllowed;
+            const AllowedLanesCont& allowedCont = ignoreTransientPermissions && myHaveTransientPermissions ? myOrigAllowed : myAllowed;
             for (const auto& allowed : allowedCont) {
                 if ((allowed.first & vclass) == vclass) {
                     return allowed.second.get();
