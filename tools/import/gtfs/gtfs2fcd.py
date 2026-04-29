@@ -63,6 +63,8 @@ def add_options():
     op.add_argument("--original-lines", action="store_true", default=False,
                     dest="origLines", category="processing",
                     help="Do not distinguish line ids that have distinct stop sequences")
+    op.add_argument("--ignore-blocks", action="store_true", default=False, dest="ignoreBlocks",
+                    help="Do not concatenate trips by block_id")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -84,6 +86,7 @@ def check_options(options):
         options.modes = ",".join(gtfs2osm.OSM2SUMO_MODES.keys())
     if options.gtfs and not options.date:
         raise ValueError("When option --gtfs is set, option --date must be set as well")
+    options.ft = humanReadableTime if options.hrtime else lambda x: x
 
     return options
 
@@ -124,6 +127,7 @@ def get_merged_data(options):
     # 'block_id' is optional
     if 'block_id' not in merged.columns:
         cols.remove('block_id')
+        options.ignoreBlocks = True
     merged = merged[cols]
     return merged
 
@@ -136,7 +140,7 @@ def dataAvailable(options):
 
 
 def main(options):
-    ft = humanReadableTime if options.hrtime else lambda x: x
+    ft = options.ft
     if options.mergedCSV:
         # Need everything except few columns as strings. The exceptions are:
         # - `arrival_time` and `departure_time` have to be integers,
@@ -149,6 +153,8 @@ def main(options):
         full_data_merged['stop_lat'] = full_data_merged['stop_lat'].astype(float)
         full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
         full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
+        if 'block_id' not in full_data_merged.columns:
+            options.ignoreBlocks = True
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:

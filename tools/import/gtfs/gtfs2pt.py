@@ -39,7 +39,6 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import humanReadableTime  # noqa
 from sumolib.miscutils import euclidean  # noqa
 import tracemapper  # noqa
 
@@ -478,35 +477,35 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
 
 
 def filter_trips(options, routes, stops, outf, begin, end):
-    ft = humanReadableTime if options.hrtime else lambda x: x
     numDays = int(end) // 86400
     if end % 86400 != 0:
         numDays += 1
-    if options.sort:
-        vehs = collections.defaultdict(lambda: "")
+    vehDeparts = collections.defaultdict(lambda: [])
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.rou.xml"))):
         for veh in sumolib.xml.parse_fast_structured(inp, "vehicle", ("id", "route", "type", "depart", "line"),
                                                      {"param": ["key", "value"]}):
             if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
                 until = stops[veh.route][0][1]
+                tripID = veh.id
                 for d in range(numDays):
                     depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
                     if begin <= depart < end:
-                        if d != 0 and veh.id.endswith(".trimmed"):
+                        if d != 0 and tripID.endswith(".trimmed"):
                             # only add trimmed trips the first day
                             continue
-                        line = (u'    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                                (veh.id, d, veh.route, veh.type, ft(depart), veh.line))
-                        for p in veh.param:
-                            line += u'        <param key="%s" value="%s"/>\n' % p
-                        line += u'    </vehicle>\n'
-                        if options.sort:
-                            vehs[depart] += line
-                        else:
-                            outf.write(line)
+                        veh = veh._replace(id = "%s.%s" % (tripID, d))
+                        vehDeparts[depart].append(veh)
+
+    vehDeparts = list(vehDeparts.items())
     if options.sort:
-        for _, vehs in sorted(vehs.items()):
-            outf.write(vehs)
+        vehDeparts.sort()
+    for depart, vehs in vehDeparts:
+        for veh in vehs:
+            outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
+                    (veh.id, veh.route, veh.type, options.ft(depart), veh.line))
+            for p in veh.param:
+                outf.write(u'        <param key="%s" value="%s"/>\n' % p)
+            outf.write(u'    </vehicle>\n')
 
 
 class StopLookup:
@@ -625,24 +624,28 @@ def main(options):
             stops = map_stops(options, net, routes, aout, edgeMap, fixedStops, stopLookup)
             aout.write(u'</additional>\n')
         with sumolib.openz(options.route_output, mode='w') as rout:
-            ft = humanReadableTime if options.hrtime else lambda x: x
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, edges in routes.items():
-                parking = ' parking="true"' if (options.busParking and veh2mode.get(vehID) == "bus") else ""
                 if edges:
-                    rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
-                    offset = None
-                    for stop in stops[vehID]:
-                        if offset is None:
-                            offset = stop[1]
-                        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s/> <!-- %s -->\n' %
-                                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking,
-                                    removeDoubleHypen(stop[2])))
-                    rout.write(u'    </route>\n')
+                    writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap)
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
             filter_trips(options, routes, stops, rout, options.begin, options.end)
             rout.write(u'</routes>\n')
+
+
+def writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap):
+    ft = options.ft
+    parking = ' parking="true"' if (options.busParking and veh2mode.get(vehID) == "bus") else ""
+    rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
+    offset = None
+    for stop in stops[vehID]:
+        if offset is None:
+            offset = stop[1]
+        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s/> <!-- %s -->\n' %
+                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking,
+                    removeDoubleHypen(stop[2])))
+    rout.write(u'    </route>\n')
 
 
 if __name__ == "__main__":
