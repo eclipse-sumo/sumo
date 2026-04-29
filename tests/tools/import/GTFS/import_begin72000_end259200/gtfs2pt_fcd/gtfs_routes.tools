@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-28 16:28:33.893473 by Eclipse SUMO gtfs2pt.py v1_26_0+1417-acf9fc699c4
+<!-- generated on 2026-04-29 09:28:32.696564 by Eclipse SUMO gtfs2pt.py v1_26_0+1426-1cb446457f9
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
@@ -144,11 +144,11 @@
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.1" route="132183536" type="bus" depart="173930" line="419">
+    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="419">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
-    <vehicle id="132183536.trimmed.0" route="132183536" type="bus" depart="87530" line="419">
+    <vehicle id="132183536.1" route="132183536" type="bus" depart="173930" line="419">
         <param key="gtfs.route_name" value="419"/>
         <param key="gtfs.trip_headsign" value="Braunschweig Hauptbahnhof"/>
     </vehicle>
