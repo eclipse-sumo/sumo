@@ -63,7 +63,7 @@ def add_options():
     op.add_argument("--original-lines", action="store_true", default=False,
                     dest="origLines", category="processing",
                     help="Do not distinguish line ids that have distinct stop sequences")
-    op.add_argument("--ignore-blocks", action="store_true", default=False, dest="ignoreBlocks",
+    op.add_argument("--join-blocks", action="store_true", default=False, dest="joinBlocks",
                     help="Do not concatenate trips by block_id")
     op.add_argument("-H", "--human-readable-time", category="output", dest="hrtime", default=False, action="store_true",
                     help="write times as h:m:s")
@@ -127,7 +127,7 @@ def get_merged_data(options):
     # 'block_id' is optional
     if 'block_id' not in merged.columns:
         cols.remove('block_id')
-        options.ignoreBlocks = True
+        options.joinBlocks = False
     merged = merged[cols]
     return merged
 
@@ -177,7 +177,7 @@ def main(options):
         full_data_merged['stop_lon'] = full_data_merged['stop_lon'].astype(float)
         full_data_merged['stop_sequence'] = full_data_merged['stop_sequence'].astype(float)
         if 'block_id' not in full_data_merged.columns:
-            options.ignoreBlocks = True
+            options.joinBlocks = False
     else:
         full_data_merged = get_merged_data(options)
     if options.mergedCSVOutput:
@@ -185,7 +185,7 @@ def main(options):
         full_data_merged.to_csv(options.mergedCSVOutput, sep=";", index=False)
     if full_data_merged.empty:
         return False
-    if not options.ignoreBlocks:
+    if options.joinBlocks:
         full_data_merged = joinBlocks(full_data_merged)
 
     fcdFile = {}
