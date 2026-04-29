@@ -1,4 +1,4 @@
-bibtexparser
+bibtexparser>=2.0.0b9
 markdown>=3.3
 mdx_gh_links
 mdx_truly_sane_lists>=1.3
