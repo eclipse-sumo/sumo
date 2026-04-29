@@ -85,7 +85,7 @@ jobs:
 
       - name: "Set up MSVC Developer Command Prompt"
         if: matrix.os == 'windows-latest'
-        uses: compnerd/gha-setup-vsdevenv@v6
+        uses: behrisch/gha-setup-vsdevenv@node24_update
 
       - name: "Set up macOS environment"
         if: ${{ startsWith(matrix.os, 'macos') }}
