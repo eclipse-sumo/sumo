@@ -157,7 +157,11 @@ def readCompressed(options, urls, context, query, roadTypesJSON, getShapes, file
         with open(options.query_output, "w") as outf:
             outf.write(finalQuery)
 
-    headers = {"Accept-Encoding": "gzip", "Content-Type": "application/xml"}
+    headers = {"Accept-Encoding": "gzip",
+               "Content-Type": "application/xml",
+               "User-Agent": "Eclipse SUMO osmGet.py (sumo@dlr.de)",
+               "Referer": "https://eclipse.dev/sumo/"
+               }
     for idx in range(options.retries + 1):
         url = urls[idx % len(urls)]
         try:
