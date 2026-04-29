@@ -1,3 +1,4 @@
+bibtexparser
 markdown>=3.3
 mdx_gh_links
 mdx_truly_sane_lists>=1.3
@@ -10,3 +11,4 @@ mkdocs-unused-files
 plantuml==0.3.0
 plantuml-markdown
 pymdown-extensions
+requests

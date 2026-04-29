@@ -20,13 +20,10 @@ jobs:
           python-version: '3.12'
 
       - name: Install packages
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-          pip install bibtexparser --pre
+        run: python -m pip install -r docs/web/requirements.txt
 
       - name: Run script
-        run: python ${{ github.workspace }}/tools/build_config/bibtexUpdate.py --bibtex-input ${{ github.workspace }}/docs/sumo.bib --bibtex-output ${{ github.workspace }}/docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
+        run: python tools/build_config/bibtexUpdate.py --bibtex-input docs/sumo.bib --bibtex-output docs/sumo.bib --cited-works "b1914c912dea62703856d89fe3724675a6139b71" "0e62ded610aeb17cc65f9f7159477e48248a98a2" --min-citations 100 --exclude-media "SUMO Conference Proceedings" "International Conference on Simulation of Urban Mobility" "arXiv.org"
 
       - name: Pull request
         uses: peter-evans/create-pull-request@v8
@@ -34,7 +31,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'Update SUMO bibtex file #13811'
           title: 'Update SUMO bibtex file'
-          add-paths: ${{ github.workspace }}/docs/sumo.bib
+          add-paths: docs/sumo.bib
           draft: always-true
           base: main
           branch: sumo-patches
