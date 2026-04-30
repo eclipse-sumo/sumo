@@ -167,6 +167,9 @@ elseif (MSVC)
         else ()
             string(REPLACE "/W3" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
         endif ()
+        # netedit hits the 4GB limit with incremental linking
+        set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} /INCREMENTAL:NO")
+        set(CMAKE_SHARED_LINKER_FLAGS_DEBUG "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} /PDBPAGESIZE:8192")
     else ()
         # /Wall brings MSVC 2013 to complete halt
         if (MSVC_VERSION GREATER 1900)
