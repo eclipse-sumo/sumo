@@ -1,5 +1,4 @@
 # additional requirements for a developer system for GUI testing and wheel creation
-bibtexparser
 build>=0.7.0
 delocate; sys.platform == 'darwin'
 dmgbuild; sys.platform == 'darwin'

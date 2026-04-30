@@ -27,10 +27,7 @@ jobs:
         python-version: '3.x'
 
     - name: Installing pip packages
-      run: |
-        cd docs/web/
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements.txt
+      run: python -m pip install -r docs/web/requirements.txt
 
     - name: Building documentation
       run: |

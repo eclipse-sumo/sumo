@@ -129,7 +129,7 @@ jobs:
       - name: Building windows / macos platform wheel sumo-data
         if: ${{ startsWith(matrix.os, 'windows') || startsWith(matrix.os, 'macos') }}
         run: |
-          python -m pip install build
+          python -m pip install -r tools/req_dev.txt
           python tools/build_config/version.py --pep440plat build_config/pyproject/sumo-data.toml pyproject.toml
           python -m build --wheel -o wheelhouse
 
@@ -149,7 +149,6 @@ jobs:
       - name: Relocating libs in macos wheels to sumo-data
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
-          python -m pip install wheel delocate
           python tools/build_config/relocate.py wheelhouse
           mv wheelhouse ci_wheelhouse
           mv ci_wheelhouse/relocate wheelhouse
