@@ -352,9 +352,10 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
         seen = set()
         fixed = {}
         # Read the extended FCD format that includes the GTFS ID of the stop that the vehicle called in
-        for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name", "gtfsid",
+        for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name", "gtfsid", "block",
                                                            "fareZone", "fareSymbol", "startFare")):
             stopName = veh.attr_name
+            block = veh.block
             childs = []
             if veh.fareZone:
                 childs += ['        <param key="fareZone" value="%s"/>\n' % veh.fareZone,
@@ -464,7 +465,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                 if not options.skip_access:
                     childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
                 stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
-            stops[rid].append((stop, int(veh.until), stopName))
+            stops[rid].append((stop, int(veh.until), stopName, block))
     for laneID, stopList in stopDesc.items():
         for typ, stop, start, end, stopName, childs in stopList:
             rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s>\n' %
@@ -639,11 +640,19 @@ def writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap):
     parking = ' parking="true"' if (options.busParking and veh2mode.get(vehID) == "bus") else ""
     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
     offset = None
+    isJoined = False
+    lastTripId = None
+    if options.joinBlocks:
+        # if multiple trip_id share the same block_id, this is treated by swapping trip_id and block_id, hence we can
+        # read the changing trip_ids out of the block attribute
+        blocks = set([stop[3] for stop in stops[vehID]])
+        isJoined = len(blocks) > 1
     for stop in stops[vehID]:
+        tripId = ' tripID="%s"' % stop[3] if isJoined and lastTripId != stop[3] else ''
         if offset is None:
             offset = stop[1]
-        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s/> <!-- %s -->\n' %
-                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking,
+        rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s%s/> <!-- %s -->\n' %
+                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking, tripId,
                     removeDoubleHypen(stop[2])))
     rout.write(u'    </route>\n')
 

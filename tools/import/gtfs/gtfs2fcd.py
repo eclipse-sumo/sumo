@@ -231,7 +231,7 @@ def main(options):
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 buf += ((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
-                         u'name=%s gtfsid=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
+                         u'name=%s gtfsid=%s block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
                         (arrivalSec - offset, trip_id, d.stop_lon, d.stop_lat, until,
                          sumolib.xml.quoteattr(d.stop_name, True),
                          # Store also the original GTFS stop ID which allows us to map other external data to
@@ -239,6 +239,7 @@ def main(options):
                          # of a stop with the identical name). By definition, the `stop_id` is a UTF8 string, hence
                          # the quoting.
                          sumolib.xml.quoteattr(d.stop_id, True),
+                         "" if not options.joinBlocks or pd.isna(d.block_id) else d.block_id,
                          d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
