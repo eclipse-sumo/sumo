@@ -8,6 +8,7 @@ mkdocs-macros-plugin>=1.5.0
 mkdocs-publisher
 mkdocs-redirects>=1.2.1
 mkdocs-unused-files
+pdoc
 plantuml==0.3.0
 plantuml-markdown
 pymdown-extensions

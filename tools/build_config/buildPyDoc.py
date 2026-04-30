@@ -32,11 +32,20 @@ try:
     css_data = importlib.resources.files('pydoc_data').joinpath('_pydoc.css').read_text()
 except Exception:
     css_data = ""
+try:
+    import pathlib
+    import pdoc
+    HAVE_PDOC = True
+except ImportError:
+    HAVE_PDOC = False
+
 TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(TOOLS_DIR)
 import traci  # noqa
 import sumolib  # noqa
 from sumolib.miscutils import working_dir  # noqa
+if HAVE_PDOC:
+    traci.__all__ += ["_" + d._name for d in traci.DOMAINS]
 
 
 def pydoc_recursive(module, github_links):
@@ -65,6 +74,10 @@ if __name__ == "__main__":
         if options.clean:
             shutil.rmtree(options.pydoc_output_dir, ignore_errors=True)
         os.mkdir(options.pydoc_output_dir)
-        with working_dir(options.pydoc_output_dir):
-            for module in (traci, sumolib):
-                pydoc_recursive(module, not options.local_links)
+        if HAVE_PDOC:
+            pdoc.pdoc(os.path.join(TOOLS_DIR, "sumolib"), os.path.join(TOOLS_DIR, "traci"),
+                      output_directory=pathlib.Path(options.pydoc_output_dir))
+        else:
+            with working_dir(options.pydoc_output_dir):
+                for module in (traci, sumolib):
+                    pydoc_recursive(module, not options.local_links)
