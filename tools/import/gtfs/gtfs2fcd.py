@@ -154,7 +154,7 @@ def joinBlocks(data):
                 block.sort_values(by=['trip_departure_time', 'stop_sequence'], inplace=True)
                 block.reset_index(drop=True, inplace=True)
                 block['stop_sequence'] = block.index
-                #block.to_csv('debug_%s.csv' % block_id, sep=";", index=False)
+                # block.to_csv('debug_%s.csv' % block_id, sep=";", index=False)
                 del block['trip_departure_time']
                 # swap columns so later code will treat the block like a single trip (but preserve the original trip_id)
                 block[['trip_id', 'block_id']] = block[['block_id', 'trip_id']].values

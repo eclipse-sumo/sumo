@@ -493,7 +493,7 @@ def filter_trips(options, routes, stops, outf, begin, end):
                         if d != 0 and tripID.endswith(".trimmed"):
                             # only add trimmed trips the first day
                             continue
-                        veh = veh._replace(id = "%s.%s" % (tripID, d))
+                        veh = veh._replace(id="%s.%s" % (tripID, d))
                         vehDeparts[depart].append(veh)
 
     vehDeparts = list(vehDeparts.items())
@@ -502,7 +502,7 @@ def filter_trips(options, routes, stops, outf, begin, end):
     for depart, vehs in vehDeparts:
         for veh in vehs:
             outf.write(u'    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s">\n' %
-                    (veh.id, veh.route, veh.type, options.ft(depart), veh.line))
+                       (veh.id, veh.route, veh.type, options.ft(depart), veh.line))
             for p in veh.param:
                 outf.write(u'        <param key="%s" value="%s"/>\n' % p)
             outf.write(u'    </vehicle>\n')
