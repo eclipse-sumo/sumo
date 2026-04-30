@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-29 07:58+0000\n"
+"PO-Revision-Date: 2026-04-30 08:01+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2419,6 +2419,8 @@ msgid ""
 "Length of time interval, over which accumulated waiting time is taken into "
 "account (default is 100s.)"
 msgstr ""
+"Duración del intervalo de tiempo, durante el cual se tiene en cuenta el "
+"tiempo de espera acumulado (por defecto: 100s)"
 
 #: src/microsim/MSFrame.cpp:467
 msgid "Minimum consecutive waiting time before applying startupDelay"
@@ -5829,6 +5831,8 @@ msgid ""
 "Missing yellow phase in tlLogic '%', program '%' for tl-index % when "
 "switching% to phase %."
 msgstr ""
+"Falta la fase amarilla en la lógica de semáforo '%', programa '%' para el "
+"índice semafórico % al cambiar% a la fase %."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:221
 msgid "Missing green phase in tlLogic '%', program '%' for tl-index %."
@@ -5844,6 +5848,8 @@ msgid ""
 "Unsafe green phase % in tlLogic '%', program '%'. Lane '%' is targeted by % "
 "'G'-links. (use 'g' instead)%"
 msgstr ""
+"Fase verde insegura % en la lógica de semáforo '%', programa '%'. El carril "
+"'%' es objetivo de % enlaces 'G'. (use 'g' en su lugar)%"
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:333
 msgid ""
@@ -7715,6 +7721,8 @@ msgid ""
 "Number of uncontrolled entry edges to accept and still consider the central "
 "node as a traffic light"
 msgstr ""
+"Número de aristas entrantes no controladas que se aceptan para aún "
+"considerar el nodo central como un semáforo"
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
@@ -8597,6 +8605,8 @@ msgid ""
 "Ignoring join exclusion for junction '%' since it already occurred in a list "
 "of nodes to be joined."
 msgstr ""
+"Ignorando la exclusión de combinación para el cruce '%' ya que ya aparece en "
+"una lista de nodos a combinar."
 
 #: src/netbuild/NBNodeCont.cpp:734
 msgid ""
@@ -11830,6 +11840,8 @@ msgid ""
 "It is strongly advisable to give an explicit position when using radius in "
 "the definition of rerouter '%'."
 msgstr ""
+"Es muy recomendable especificar una posición explícita al usar el radio en "
+"la definición del rerouter '%'."
 
 #: src/netwrite/NWFrame.cpp:54
 msgid "The generated net will be written to FILE"
@@ -12086,6 +12098,8 @@ msgid ""
 "Defines the end time; Later trips will be discarded; Defaults to the maximum "
 "time that SUMO can represent"
 msgstr ""
+"Define el tiempo final; los viajes posteriores se descartarán; el valor "
+"predeterminado es el tiempo máximo que SUMO puede representar"
 
 #: src/od2trips_main.cpp:140
 msgid "Spreads trips uniformly over each time period"
@@ -14356,16 +14370,21 @@ msgstr ""
 #, c-format
 msgid "Broken landmark file, could not parse '%' as coordinates."
 msgstr ""
+"Archivo de puntos de referencia dañado; no se pudo procesar '%' como "
+"coordenadas."
 
 #: src/utils/router/AStarLookupTable.h:189
 #: src/utils/router/AStarLookupTable.h:202
 #, c-format
 msgid "Unknown or unordered edge '%' in landmark file."
 msgstr ""
+"Arista '%' desconocida o desordenada en el archivo de puntos de referencia."
 
 #: src/utils/router/AStarLookupTable.h:199
 msgid "Broken landmark file, unexpected number of entries (%) for edge '%'."
 msgstr ""
+"Archivo de puntos de referencia dañado; número de entradas inesperado (%) "
+"para la arista '%'."
 
 #: src/utils/router/AStarLookupTable.h:222
 msgid "Calculating new lookup table."
@@ -14923,6 +14942,8 @@ msgid ""
 "Ignoring from % '%' used in % '%' and using instead the previous end element "
 "% '%'"
 msgstr ""
+"Ignorando la salida desde % '%' usada en % '%' y tomando en su lugar el "
+"destino del elemento precedente % '%'"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1220
 msgid "Trying to get undefined parent '%' in SUMOBaseObject '%'"
