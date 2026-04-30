@@ -9,6 +9,7 @@ title: ChangeLog
 - sumo
   - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
   - Fixed bug where vehicles that are blocked from entering a stopping place do not collect enough timeLoss #17914 (regression in 1.26.0)
+  - Fixed invalid error when setting option **--device.rerouting.mode 8** #17939 (regression in 1.26.0)
   - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635  
   - Fixed invalid parking positions in network with [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
@@ -22,6 +23,7 @@ title: ChangeLog
   - Fixed bug where rerouting after parkingAreaReroute fails to add stops when input contains vias #17892
   - Fixed where vehicles that stop on the end of the lane take one extra step to continue #17916
   - Fixed invalid timeLoss computation for stopping vehicles #17915, #17916
+  - Fixed failure when loading routes with edges that have extended ascii characters in their id (also for duarouter) #17935
   - State-Loading:
     - Fixed invalid signal state when loading from saved state and using WAUT #17675
     - Lanechanging state is now restored after loading #2380
@@ -44,6 +46,7 @@ title: ChangeLog
     - Fixed train collision #17821
     - Fixed deadlock when multiple vehicles approach the same siding #17834
     - Fixed deadlock caused by missing foe driveway #17835
+    - Fixed deadlock because vehicle is assigned to the wrong subDriveway #17925
     - Rail signals on shared lanes are now working regardless of permissions #17848
     - Cars that share lanes with tram no longer activate rail signals #17862
 
@@ -106,6 +109,8 @@ title: ChangeLog
   - Fixed invalid vehicle departure times when defining poisson flow (very noticeable at low rate) #17663
   - Using options **--skip-new-routes --ignore-errors** now longer writes invalid routes #17726
   - Vehicle attributes `departEdge` and `arrivalEdge` are now updated when repairing route #17763
+  - Fixed invalid error when using algorithm 'CH' and repairing routes #17927
+
 
 - TraCI
   - `trafficlight.getSpentDuration` now works correctly after calling `setRedYellowGreenState` #17598
@@ -118,6 +123,7 @@ title: ChangeLog
   - gtfs2pt.py: fixed invalid output when gtfs input contains double hyphen in stop name #17791
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
   - osmWebWizard.py: starting two instances at the same time is now working #16663
+  - osmWebWizard.py: fixed bug that was causing OSM data download to fail #17941
   - patchRailConflicts.py: no longer declaring rail signals that do not control any links #17588
   - patchRailConflicts.py: now works for mixed-permission networks (i.e. tram on road) #17682
   - plotXMLAttributes.py: fixed missing labels on barplots with a non-numerical axis #17611
@@ -131,6 +137,7 @@ title: ChangeLog
   - edgeDataDiff.py: fixed crash on empty interval #17715
   - edgeDataDiff.py: fixed invalid output when inputs have different interval times #17716
   - sumollib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
+  - generateStationEdges.py: Fixed invalid output when stops have spaces in their name #17932
 
 
 ### Enhancements
@@ -148,6 +155,7 @@ title: ChangeLog
   - Stop-output now includes the optional attribute 'state' to distinguish waypoints and skipped on-demand stops #17872
   - Stop-output now include actType if non-empty #17891
   - Added option **--fcd-output.utm** which write raw UTM coordinates when simulating in geo-referenced networks #17878
+  - When option **--vehroute-output.cost** is set, attribute `savings` now reports the detour cost for a closingReroute #17924
   - Taxis:
     - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
     - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
