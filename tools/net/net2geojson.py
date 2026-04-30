@@ -35,14 +35,14 @@ def parse_args():
     op = sumolib.options.ArgumentParser(description="net to geojson",
                                         usage="Usage: " + sys.argv[0] + " -n <net> <options>")
     # input
-    op.add_argument("-n", "--net-file", category="input", dest="netFile", required=True, type=op.net_file,
+    op.add_argument("-n", "--net-file", category="input", required=True, type=op.net_file,
                     help="The .net.xml file to convert")
-    op.add_argument("-d", "--edgedata-file", category="input", dest="edgeData", type=op.edgedata_file,
+    op.add_argument("-d", "--edgedata-file", category="input", type=op.edgedata_file,
                     help="Optional edgeData to include in the output")
-    op.add_argument("-p", "--ptline-file", category="input", dest="ptlines", type=op.file,
+    op.add_argument("-p", "--ptline-file", category="input", type=op.file,
                     help="Optional ptline information to include in the output")
     # output
-    op.add_argument("-o", "--output-file", dest="outFile", category="output", required=True, type=op.file,
+    op.add_argument("-o", "--output-file", category="output", required=True, type=op.file,
                     help="The geojson output file name")
     # processing
     op.add_argument("-l", "--lanes", action="store_true", default=False,
@@ -52,15 +52,15 @@ def parse_args():
                     help="Export junction geometries")
     op.add_argument("-i", "--internal", action="store_true", default=False,
                     help="Export internal geometries")
-    op.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
+    op.add_argument("-j", "--junction-coordinates", action="store_true", default=False,
                     help="Append junction coordinates to edge shapes")
-    op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
+    op.add_argument("-b", "--boundary", action="store_true", default=False,
                     help="Export boundary shapes instead of center-lines")
-    op.add_argument("-t", "--traffic-lights", action="store_true", default=False, dest="tls",
+    op.add_argument("-t", "--traffic-lights", action="store_true", default=False,
                     help="Export traffic light geometries")
-    op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
+    op.add_argument("--edgedata-timeline", action="store_true", default=False,
                     help="Exports all time intervals (by default only the first is exported)")
-    op.add_argument("-x", "--extra-attributes", action="store_true", default=False, dest="extraAttributes",
+    op.add_argument("-x", "--extra-attributes", action="store_true", default=False,
                     help="Exports extra attributes from edge and lane "
                          "(such as max speed, number of lanes and allowed vehicles)")
 
@@ -71,39 +71,39 @@ def parse_args():
     return options
 
 
-def shape2json(net, geometry, isBoundary):
-    lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
-    coords = [[round(x, 6), round(y, 6)] for x, y in lonLatGeometry]
-    if isBoundary:
+def shape2json(net, geometry, is_boundary):
+    lon_lat_geometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
+    coords = [[round(x, 6), round(y, 6)] for x, y in lon_lat_geometry]
+    if is_boundary:
         coords = [coords]
     return {
-        "type": "Polygon" if isBoundary else "LineString",
+        "type": "Polygon" if is_boundary else "LineString",
         "coordinates": coords
     }
 
 
-def addFeature(options, features, addLanes):
-    geomType = 'lane' if addLanes else 'edge'
-    for id, geometry, width in net.getGeometries(addLanes, options.junctionCoords):
+def add_feature(options, features, add_lanes, net, edge_data, pt_lines):
+    geomType = 'lane' if add_lanes else 'edge'
+    for id, geometry, width in net.getGeometries(add_lanes, options.junction_coordinates):
         feature = {"type": "Feature"}
         feature["properties"] = {
             "element": geomType,
             "id": id,
         }
-        edgeID = net.getLane(id).getEdge().getID() if addLanes else id
-        if edgeID in edgeData:
-            if options.edgedataTimeline:
-                feature["properties"]["edgeData"] = edgeData[edgeID]
+        edgeID = net.getLane(id).getEdge().getID() if add_lanes else id
+        if edgeID in edge_data:
+            if options.edgedata_timeline:
+                feature["properties"]["edgeData"] = edge_data[edgeID]
             else:
-                feature["properties"].update(edgeData[edgeID][0])
+                feature["properties"].update(edge_data[edgeID][0])
 
-        if edgeID in ptLines:
-            for ptType, lines in ptLines[edgeID].items():
+        if edgeID in pt_lines:
+            for ptType, lines in pt_lines[edgeID].items():
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
-        if not addLanes or not options.edges:
+        if not add_lanes or not options.edges:
             feature["properties"]["name"] = net.getEdge(edgeID).getName()
-        if options.extraAttributes:
+        if options.extra_attributes:
             feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
             if geomType == 'lane':
                 feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
@@ -126,75 +126,80 @@ def addFeature(options, features, addLanes):
         features.append(feature)
 
 
+def add_junction_features(net, features, options):
+    for junction in net.getNodes():
+        feature = {"type": "Feature"}
+        feature["properties"] = {
+            "element": 'junction',
+            "id": junction.getID(),
+        }
+        feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
+        features.append(feature)
+
+
+def add_tls_features(net, features, options):
+    for edge in net.getEdges():
+        for lane in edge.getLanes():
+            nCons = len(lane.getOutgoing())
+            for i, con in enumerate(lane.getOutgoing()):
+                if con.getTLSID() != "":
+                    feature = {"type": "Feature"}
+                    feature["properties"] = {
+                        "element": 'tls_connection',
+                        "id": "%s_%s" % (con.getJunction().getID(), con.getJunctionIndex()),
+                        "tls": con.getTLSID(),
+                        "tlIndex": con.getTLLinkIndex(),
+                    }
+                    barLength = lane.getWidth() / nCons
+                    offset = i * barLength - lane.getWidth() * 0.5
+                    prev, end = lane.getShape()[-2:]
+                    geometry = [gh.add(end, gh.sideOffset(prev, end, offset)),
+                                gh.add(end, gh.sideOffset(prev, end, offset + barLength))]
+                    if options.boundary:
+                        geometry = gh.line2boundary(geometry, 0.2)
+                    feature["geometry"] = shape2json(net, geometry, options.boundary)
+                    features.append(feature)
+
+
 if __name__ == "__main__":
     options = parse_args()
-    net = sumolib.net.readNet(options.netFile, withInternal=options.internal)
+    net = sumolib.net.readNet(options.net_file, withInternal=options.internal)
     if not net.hasGeoProj():
         sys.stderr.write("Network does not provide geo projection\n")
         sys.exit(1)
 
-    edgeData = defaultdict(dict)
-    if options.edgeData:
-        for i, interval in enumerate(sumolib.xml.parse(options.edgeData, "interval", heterogeneous=True)):
+    edge_data = defaultdict(dict)
+    if options.edgedata_file:
+        for i, interval in enumerate(sumolib.xml.parse(options.edgedata_file, "interval", heterogeneous=True)):
             for edge in interval.edge:
                 data = dict(edge.getAttributes())
                 data["begin"] = interval.begin
                 data["end"] = interval.end
                 del data["id"]
-                edgeData[edge.id][i] = data
-            if not options.edgedataTimeline:
+                edge_data[edge.id][i] = data
+            if not options.edgedata_timeline:
                 break
 
-    ptLines = defaultdict(lambda: defaultdict(set))
-    if options.ptlines:
-        for ptline in sumolib.xml.parse(options.ptlines, "ptLine", heterogeneous=True):
+    pt_lines = defaultdict(lambda: defaultdict(set))
+    if options.ptline_file:
+        for ptline in sumolib.xml.parse(options.ptline_file, "ptLine", heterogeneous=True):
             if ptline.route:
                 for edge in ptline.route[0].edges.split():
-                    ptLines[edge][ptline.type].add(ptline.line)
+                    pt_lines[edge][ptline.type].add(ptline.line)
 
     features = []
-
     if options.edges:
-        addFeature(options, features, False)
+        add_feature(options, features, False, net, edge_data, pt_lines)
     if options.lanes:
-        addFeature(options, features, True)
-
+        add_feature(options, features, True, net, edge_data, pt_lines)
     if options.junctions:
-        for junction in net.getNodes():
-            feature = {"type": "Feature"}
-            feature["properties"] = {
-                "element": 'junction',
-                "id": junction.getID(),
-            }
-            feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
-            features.append(feature)
-
-    if options.tls:
-        for edge in net.getEdges():
-            for lane in edge.getLanes():
-                nCons = len(lane.getOutgoing())
-                for i, con in enumerate(lane.getOutgoing()):
-                    if con.getTLSID() != "":
-                        feature = {"type": "Feature"}
-                        feature["properties"] = {
-                            "element": 'tls_connection',
-                            "id": "%s_%s" % (con.getJunction().getID(), con.getJunctionIndex()),
-                            "tls": con.getTLSID(),
-                            "tlIndex": con.getTLLinkIndex(),
-                        }
-                        barLength = lane.getWidth() / nCons
-                        offset = i * barLength - lane.getWidth() * 0.5
-                        prev, end = lane.getShape()[-2:]
-                        geometry = [gh.add(end, gh.sideOffset(prev, end, offset)),
-                                    gh.add(end, gh.sideOffset(prev, end, offset + barLength))]
-                        if options.boundary:
-                            geometry = gh.line2boundary(geometry, 0.2)
-                        feature["geometry"] = shape2json(net, geometry, options.boundary)
-                        features.append(feature)
+        add_junction_features(net, features, options)
+    if options.traffic_lights:
+        add_tls_features(net, features, options)
 
     geojson = {}
     geojson["type"] = "FeatureCollection"
     geojson["features"] = features
-    with sumolib.openz(options.outFile, 'w') as outf:
+    with sumolib.openz(options.output_file, 'w') as outf:
         json.dump(geojson, outf, sort_keys=True, indent=4, separators=(',', ': '))
         print(file=outf)
