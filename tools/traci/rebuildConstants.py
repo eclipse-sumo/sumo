@@ -78,14 +78,15 @@ def parseLaneChangeAction(line):
         return None
 
 
-dirname = os.path.dirname(__file__)
-argParser = argparse.ArgumentParser()
-argParser.add_argument("-j", "--java",
-                       help="generate Java output as static members of the given class", metavar="CLASS")
-argParser.add_argument("-o", "--output",
-                       help="File to save constants into", metavar="FILE")
-options = argParser.parse_args()
-header = """# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+def main():
+    dirname = os.path.dirname(__file__)
+    argParser = argparse.ArgumentParser()
+    argParser.add_argument("-j", "--java",
+                           help="generate Java output as static members of the given class", metavar="CLASS")
+    argParser.add_argument("-o", "--output",
+                           help="File to save constants into", metavar="FILE")
+    options = argParser.parse_args()
+    header = """# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
 # Copyright (C) 2009-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
@@ -105,38 +106,41 @@ header = """# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.de
 This script contains TraCI constant definitions from <SUMO_HOME>/src/libsumo/TraCIConstants.h.\
 """ % (os.path.basename(__file__), datetime.datetime.now())
 
-
-if options.output is None:
-    outputs = [(os.path.join(dirname, "constants.py"), None),
-               (dirname + "/../contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java",
-                options.java if options.java else "de.tudresden.sumo.config.Constants")]
-else:
-    outputs = [(options.output, options.java)]
-for out, className in outputs:
-    fdo = open(out, "w")
-    h = header.replace("<file>", os.path.basename(out))
-    if className:
-        sep = "/%s/" % (76 * "*")
-        print(sep, file=fdo)
-        h = h.replace("\n# @file", sep + "\n/// @file").replace("# @", "/// @")
-        print(h.replace("#", "//").replace('\n"""\n', "///\n// "), file=fdo)
-        print(sep, file=fdo)
-        if "." in className:
-            package, className = className.rsplit(".", 1)
-            fdo.write("package %s;\n" % package)
-        fdo.write("public class %s {" % className)
+    if options.output is None:
+        outputs = [(os.path.join(dirname, "constants.py"), None),
+                   (dirname + "/../contributed/traas/src/main/java/de/tudresden/sumo/config/Constants.java",
+                    options.java if options.java else "de.tudresden.sumo.config.Constants")]
     else:
-        print(h, file=fdo)
-        print('"""\n', file=fdo)
+        outputs = [(options.output, options.java)]
+    for out, className in outputs:
+        fdo = open(out, "w")
+        h = header.replace("<file>", os.path.basename(out))
+        if className:
+            sep = "/%s/" % (76 * "*")
+            print(sep, file=fdo)
+            h = h.replace("\n# @file", sep + "\n/// @file").replace("# @", "/// @")
+            print(h.replace("#", "//").replace('\n"""\n', "///\n// "), file=fdo)
+            print(sep, file=fdo)
+            if "." in className:
+                package, className = className.rsplit(".", 1)
+                fdo.write("package %s;\n" % package)
+            fdo.write("public class %s {" % className)
+        else:
+            print(h, file=fdo)
+            print('"""\n', file=fdo)
 
-    srcDir = os.path.join(dirname, "..", "..", "src")
-    translateFile(os.path.join(srcDir, "libsumo", "TraCIConstants.h"),
-                  fdo, className is not None,
-                  "namespace libsumo {", "TRACI_CONST ", "} // namespace libsumo", parseTraciConstant)
+        srcDir = os.path.join(dirname, "..", "..", "src")
+        translateFile(os.path.join(srcDir, "libsumo", "TraCIConstants.h"),
+                      fdo, className is not None,
+                      "namespace libsumo {", "TRACI_CONST ", "} // namespace libsumo", parseTraciConstant)
 
-    translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
-                  fdo, className is not None,
-                  "enum LaneChangeAction {", "LCA_", "};", parseLaneChangeAction)
-    if className:
-        fdo.write("}\n")
-    fdo.close()
+        translateFile(os.path.join(srcDir, "utils", "xml", "SUMOXMLDefinitions.h"),
+                      fdo, className is not None,
+                      "enum LaneChangeAction {", "LCA_", "};", parseLaneChangeAction)
+        if className:
+            fdo.write("}\n")
+        fdo.close()
+
+
+if __name__ == "__main__":
+    main()
