@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-30 08:01+0000\n"
+"PO-Revision-Date: 2026-05-01 09:32+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3173,6 +3173,8 @@ msgid ""
 "Railsignal-deadlock will not be detected because time-to-teleport (%) is "
 "lower than time-to-teleport.railsignal-deadlock (%)."
 msgstr ""
+"No se detectará el bloqueo por señales ferroviarias porque time-to-teleport "
+"(%) es menor que time-to-teleport.railsignal-deadlock (%)."
 
 #: src/microsim/MSFrame.cpp:1085
 msgid "You need a non-negative delay."
@@ -5594,6 +5596,8 @@ msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Bucle de inducción desconocido '%' indicado como detector personalizado para "
+"la lógica de semáforo actuado '%', programa '%."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:252
 msgid ""
@@ -5613,12 +5617,16 @@ msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Enlace no válido '%' dado como parámetro linkMaxDur para la lógica de "
+"semáforo actuado '%', programa '%."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:493
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
+"Enlace no válido '%' dado como parámetro linkMinDur para la lógica de "
+"semáforo actuado '%', programa '%."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1225
 msgid "Unmatched parentheses in condition %'"
@@ -5872,6 +5880,8 @@ msgstr ""
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:538
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
 msgstr ""
+"La fracción verde es de solo 1% para el enlace % en la lógica de semáforo "
+"'%', programa '%'."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:543
 #, c-format
@@ -7394,6 +7404,8 @@ msgid ""
 "The angular threshold in degrees for rejection of parallel edges when "
 "joining junctions"
 msgstr ""
+"El umbral angular en grados para no considerar aristas como paralelas en el "
+"proceso de combinar cruces"
 
 #: src/netbuild/NBFrame.cpp:366
 msgid "Interprets STR[] as list of junctions to exclude from joining"
@@ -12028,6 +12040,8 @@ msgstr ""
 msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr ""
+"Línea de parada irregular en el carril '%' (dist=%) no se puede representar "
+"en OpenDRIVE."
 
 #: src/netwrite/NWWriter_SUMO.cpp:239
 msgid ""
@@ -12871,6 +12885,8 @@ msgstr "Ya existe otra persona con el ID '%'."
 msgid ""
 "Bulking different maximum speeds ('%' and '%') may lead to suboptimal routes."
 msgstr ""
+"Agrupar diferentes velocidades máximas ('%' y '%') puede generar rutas "
+"subóptimas."
 
 #: src/router/RONet.cpp:712
 msgid ""
@@ -12897,6 +12913,8 @@ msgid ""
 "Already loaded prohibition for lane '%'. (Only one prohibition per lane is "
 "supported)"
 msgstr ""
+"Ya se cargó una prohibición para el carril '%'. (Solo se admite una "
+"prohibición por carril)"
 
 #: src/router/RONetHandler.cpp:159
 msgid "Invalid rerouter interval from % to %"
