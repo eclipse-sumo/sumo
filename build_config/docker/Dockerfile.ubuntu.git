@@ -22,7 +22,7 @@ RUN cd /opt; git clone --shallow-submodules --single-branch --recursive https://
 RUN /opt/sumo/build_config/install_dependencies.sh && \
     apt-get -y install libavformat-dev libopenscenegraph-dev libswscale-dev && \
     apt-get -y install $(cat /opt/sumo/build_config/tools_req_deb.txt) && \
-    pip3 install --no-cache-dir -r /opt/sumo/tools/requirements.txt -r /opt/sumo/docs/web/requirements.txt
+    pip3 install --no-cache-dir -r /opt/sumo/tools/req_ci.txt -r /opt/sumo/docs/web/requirements.txt
 
 # SUMO build
 RUN cd /opt/sumo && \

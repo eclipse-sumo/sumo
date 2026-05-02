@@ -73,7 +73,7 @@ jobs:
         brew install texttest
         python3 -m venv testenv
         source testenv/bin/activate
-        python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
+        python -m pip install -r sumo/tools/req_ci.txt
         sumo/tests/runTests.sh -b ci -v ci -finverse $PWD/sumo/tests/filter_files/macos_failures.txt
 
     - name: Uploading artifacts (SUMO binaries and FMU)

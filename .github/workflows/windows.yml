@@ -67,7 +67,7 @@ jobs:
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
-        python -m pip install -r tools/req_ci.txt -r tools/requirements.txt texttest pipdeptree
+        python -m pip install -r tools/req_ci.txt texttest pipdeptree
         pipdeptree
 
     - name: Building SUMO plain

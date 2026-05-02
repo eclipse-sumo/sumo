@@ -123,7 +123,7 @@ jobs:
         sudo apt-get install $(cat sumo/build_config/tools_req_deb.txt)
         python3 -m venv testenv --system-site-packages
         source testenv/bin/activate
-        python3 -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt texttest pipdeptree
+        python3 -m pip install -r sumo/tools/req_ci.txt texttest pipdeptree
         pipdeptree
 
     - name: Building Examples and Unit Tests
