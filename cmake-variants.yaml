@@ -1,7 +1,20 @@
 buildType:
   default: release
-  description: Switch between debug and release build type
   choices:
+    release:
+      short: Release
+      long: Release
+      buildType: Release
+      settings:
+        CMAKE_BUILD_TYPE: Release
+    clang-debug:
+      short: clang-Debug
+      long: Debug with clang
+      buildType: Debug
+      settings:
+        CMAKE_BUILD_TYPE: Debug
+        CMAKE_C_COMPILER: clang
+        CMAKE_CXX_COMPILER: clang++
     debug:
       short: Debug
       long: Debug
@@ -15,8 +28,11 @@ buildType:
       settings:
         CMAKE_BUILD_TYPE: Release
         CHECK_OPTIONAL_LIBS: OFF
-        ENABLE_FOX: ''
+        ENABLE_FOX: OFF
         BINARY_SUFFIX: M
+        ENABLE_CS_BINDINGS: OFF
+        ENABLE_JAVA_BINDINGS: OFF
+        ENABLE_PYTHON_BINDINGS: OFF
     profiling:
       short: Profiling
       long: Profiling
@@ -24,24 +40,3 @@ buildType:
       settings:
         CMAKE_BUILD_TYPE: RelWithDebInfo
         PROFILING: ON
-    release:
-      short: Release
-      long: Release
-      buildType: Release
-      settings:
-        CMAKE_BUILD_TYPE: Release
-
-bindings:
-  default: yes
-  description: Enable C#, Python and Java bindings?
-  choices:
-    yes:
-      short: Bindings
-      long: Bindings enabled
-    no:
-      short: noBindings
-      long: Bindings not enabled
-      settings:
-        ENABLE_CS_BINDINGS: OFF
-        ENABLE_JAVA_BINDINGS: OFF
-        ENABLE_PYTHON_BINDINGS: OFF
