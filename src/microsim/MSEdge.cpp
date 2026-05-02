@@ -1730,7 +1730,7 @@ MSEdge::clearState() {
 }
 
 
-const std::map<const MEVehicle*, std::pair<double, double> >&
+const std::map<const MEVehicle*, std::pair<double, int> >&
 MSEdge::getMesoPositions() const {
     assert(MSGlobals::gUseMesoSim);
     if (myLastCacheUpdate < SIMSTEP) {
@@ -1748,26 +1748,26 @@ MSEdge::getMesoPositions() const {
                     // make a copy so we don't have to worry about synchronization
                     std::vector<MEVehicle*> queue = segment->getQueue(laneIndex);
                     const int queueSize = (int)queue.size();
-                    double vehiclePosition = segmentOffset + length;
-                    // draw vehicles beginning with the leader at the end of the segment
-                    double latOff = 0.;
+                    SUMOTime earliestExitTime = segment->getQueueBlockTime(laneIndex);
+                    int overlap = 0;
+                    double prevPos = std::numeric_limits<double>::max();
                     for (int i = 0; i < queueSize; ++i) {
                         const MEVehicle* const veh = queue[queueSize - i - 1];
-                        const double intendedLeave = MIN2(veh->getEventTimeSeconds(), veh->getBlockTimeSeconds());
+                        earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
+                        const double vehLength = veh->getVehicleType().getLengthWithGap();
+                        if (i > 0) {
+                            earliestExitTime += segment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+                        }
                         const double entry = veh->getLastEntryTimeSeconds();
-                        const double relPos = segmentOffset + length * (now - entry) / (intendedLeave - entry);
-                        if (relPos < vehiclePosition) {
-                            vehiclePosition = relPos;
+                        const double pos = segmentOffset + length * (now - entry) / (STEPS2TIME(earliestExitTime) - entry);
+                        // check if we overlap with the previous vehicle such that the gui has the chance to add some lateral offset
+                        if (overlap == 0 && prevPos - pos < vehLength) {
+                            overlap = 1;
+                        } else {
+                            overlap = 0;
                         }
-                        while (vehiclePosition < segmentOffset) {
-                            // if there is only a single queue for a
-                            // multi-lane edge shift vehicles and start
-                            // drawing again from the end of the segment
-                            vehiclePosition += length;
-                            latOff += 0.2;
-                        }
-                        myCachedMesoPos[veh] = std::make_pair(vehiclePosition, latOff);
-                        vehiclePosition -= veh->getVehicleType().getLengthWithGap();
+                        myCachedMesoPos[veh] = std::make_pair(pos, overlap);
+                        prevPos = pos;
                     }
                 }
                 segmentOffset += length;

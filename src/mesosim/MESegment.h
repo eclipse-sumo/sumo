@@ -223,6 +223,11 @@ public:
         return myQueues[index].getVehicles();
     }
 
+    inline SUMOTime getQueueBlockTime(int index) const {
+        assert(index < (int)myQueues.size());
+        return myQueues[index].getBlockTime();
+    }
+
     /** @brief Returns the running index of the segment in the edge (0 is the most upstream).
      *
      * @return the running index of the segment in the edge
@@ -487,6 +492,11 @@ public:
     /// @brief whether the traffic light should use normal junction control despite penalty options
     void overrideTLSPenalty() {
         myTLSPenalty = false;
+    }
+
+    /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
+    inline SUMOTime getMinTauWithVehLength(double lengthWithGap, double vehicleTau) const {
+        return (SUMOTime)((double)myTau_ff * vehicleTau + lengthWithGap * myTau_length);
     }
 
 private:

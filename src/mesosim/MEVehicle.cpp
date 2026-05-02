@@ -70,8 +70,8 @@ MEVehicle::getBackPositionOnLane(const MSLane* /* lane */) const {
 
 double
 MEVehicle::getPositionOnLane() const {
-    // the following interpolation may cause problems with arrivals and calibrators
     if (MSGlobals::gMesoInterpolatePos) {
+        // interpolation may cause problems with arrivals and calibrators
         const auto& mesoPos = getEdge()->getMesoPositions();
         const auto& posIt = mesoPos.find(this);
         if (posIt != mesoPos.end()) {

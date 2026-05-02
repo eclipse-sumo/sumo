@@ -882,7 +882,7 @@ public:
         return myRailwayRoutingEdge;
     }
 
-    const std::map<const MEVehicle*, std::pair<double, double> >& getMesoPositions() const;
+    const std::map<const MEVehicle*, std::pair<double, int> >& getMesoPositions() const;
 
 protected:
     /** @class by_id_sorter
@@ -1067,7 +1067,7 @@ protected:
     mutable std::vector<SUMOVehicle*> myWaiting;
 
     /// @brief Mesoscopic vehicle positions
-    mutable std::map<const MEVehicle*, std::pair<double, double> > myCachedMesoPos;
+    mutable std::map<const MEVehicle*, std::pair<double, int> > myCachedMesoPos;
 
     /// @brief time stamp of mesoscopic vehicle positions
     mutable SUMOTime myLastCacheUpdate = -1;
