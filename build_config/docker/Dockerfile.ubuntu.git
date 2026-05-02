@@ -44,7 +44,7 @@ LABEL org.opencontainers.image.authors="SUMO Developers <sumo-dev@eclipse.org>" 
 # Setup environment
 ENV SUMO_HOME=/usr/share/sumo
 ARG DEBIAN_FRONTEND=noninteractive
-ARG ARROW_VERSION=2200
+ARG ARROW_VERSION=2300
 
 # Getting build artifacts
 COPY --from=build /install/usr /usr
@@ -52,6 +52,7 @@ COPY --from=build /install/usr /usr
 COPY --from=build /opt/sumo/build_config/build_req_deb.txt /tmp/build_req_deb.txt
 COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.txt
 COPY --from=build /opt/sumo/tools/requirements.txt /tmp/requirements.txt
+COPY --from=build /opt/sumo/tools/req_ci.txt /tmp/req_ci.txt
 
 # Installing runtime dependencies (for simplicity we use the build dependencies. Possibility for optimization in the future)
 RUN apt-get -qq update && \
@@ -66,6 +67,6 @@ RUN apt-get -qq update && \
     rm -rf /var/lib/apt/lists/*
 
 # Installing tools dependencies for python
-RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
+RUN pip3 install --no-cache-dir -r /tmp/req_ci.txt
 
 CMD ["/bin/bash", "-c"]
