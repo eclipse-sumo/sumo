@@ -2659,11 +2659,11 @@ trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat
 259632;163106;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;86640;86640
 259632;163106;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;86700;86700
 259632;163106;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;86760;86760
-259632.trimmed;163106;532;68;900;9185504;Lübbenauer Weg (Berlin);52.391313;13.634942;21.0;;;;Alt-Schmöckwitz;86460;86460
-259632.trimmed;163106;532;68;900;9185503;Adlergestell/Vetschauer Allee (Berlin);52.386162;13.633782;22.0;;;;Alt-Schmöckwitz;86520;86520
-259632.trimmed;163106;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;86640;86640
-259632.trimmed;163106;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;86700;86700
-259632.trimmed;163106;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;86760;86760
+259632.trimmed;;532;68;900;9185504;Lübbenauer Weg (Berlin);52.391313;13.634942;21.0;;;;Alt-Schmöckwitz;86460;86460
+259632.trimmed;;532;68;900;9185503;Adlergestell/Vetschauer Allee (Berlin);52.386162;13.633782;22.0;;;;Alt-Schmöckwitz;86520;86520
+259632.trimmed;;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;86640;86640
+259632.trimmed;;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;86700;86700
+259632.trimmed;;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;86760;86760
 259634;163107;532;68;900;9186502;Strandbad Grünau (Berlin);52.408701;13.604356;17.0;;;;Alt-Schmöckwitz;87360;87360
 259634;163107;532;68;900;9186500;Bammelecke (Berlin);52.405592;13.62148;18.0;;;;Alt-Schmöckwitz;87480;87480
 259634;163107;532;68;900;9186501;Richtershorn (Berlin);52.401006;13.624883;19.0;;;;Alt-Schmöckwitz;87540;87540
@@ -2673,15 +2673,15 @@ trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat
 259634;163107;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;87840;87840
 259634;163107;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;87900;87900
 259634;163107;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;87960;87960
-259634.trimmed;163107;532;68;900;9186502;Strandbad Grünau (Berlin);52.408701;13.604356;17.0;;;;Alt-Schmöckwitz;87360;87360
-259634.trimmed;163107;532;68;900;9186500;Bammelecke (Berlin);52.405592;13.62148;18.0;;;;Alt-Schmöckwitz;87480;87480
-259634.trimmed;163107;532;68;900;9186501;Richtershorn (Berlin);52.401006;13.624883;19.0;;;;Alt-Schmöckwitz;87540;87540
-259634.trimmed;163107;532;68;900;9185505;Schappachstr. (Berlin);52.394618;13.631876;20.0;;;;Alt-Schmöckwitz;87600;87600
-259634.trimmed;163107;532;68;900;9185504;Lübbenauer Weg (Berlin);52.391313;13.634942;21.0;;;;Alt-Schmöckwitz;87660;87660
-259634.trimmed;163107;532;68;900;9185503;Adlergestell/Vetschauer Allee (Berlin);52.386162;13.633782;22.0;;;;Alt-Schmöckwitz;87720;87720
-259634.trimmed;163107;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;87840;87840
-259634.trimmed;163107;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;87900;87900
-259634.trimmed;163107;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;87960;87960
+259634.trimmed;;532;68;900;9186502;Strandbad Grünau (Berlin);52.408701;13.604356;17.0;;;;Alt-Schmöckwitz;87360;87360
+259634.trimmed;;532;68;900;9186500;Bammelecke (Berlin);52.405592;13.62148;18.0;;;;Alt-Schmöckwitz;87480;87480
+259634.trimmed;;532;68;900;9186501;Richtershorn (Berlin);52.401006;13.624883;19.0;;;;Alt-Schmöckwitz;87540;87540
+259634.trimmed;;532;68;900;9185505;Schappachstr. (Berlin);52.394618;13.631876;20.0;;;;Alt-Schmöckwitz;87600;87600
+259634.trimmed;;532;68;900;9185504;Lübbenauer Weg (Berlin);52.391313;13.634942;21.0;;;;Alt-Schmöckwitz;87660;87660
+259634.trimmed;;532;68;900;9185503;Adlergestell/Vetschauer Allee (Berlin);52.386162;13.633782;22.0;;;;Alt-Schmöckwitz;87720;87720
+259634.trimmed;;532;68;900;9185501;Zum Seeblick (Berlin);52.379177;13.644231;23.0;;;;Alt-Schmöckwitz;87840;87840
+259634.trimmed;;532;68;900;9185702;Alt-Schmöckwitz. (Berlin);52.374657;13.649335;24.0;;;;Alt-Schmöckwitz;87900;87900
+259634.trimmed;;532;68;900;9185701;Alt--Schmöckwitz (Berlin);52.375088;13.650026;25.0;;;;Alt-Schmöckwitz;87960;87960
 259672;163126;532;68;900;9186502;Strandbad Grünau (Berlin);52.408701;13.604356;17.0;;;;Alt-Schmöckwitz;20160;20160
 259672;163126;532;68;900;9186500;Bammelecke (Berlin);52.405592;13.62148;18.0;;;;Alt-Schmöckwitz;20280;20280
 259672;163126;532;68;900;9186501;Richtershorn (Berlin);52.401006;13.624883;19.0;;;;Alt-Schmöckwitz;20340;20340
@@ -5212,15 +5212,15 @@ trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat
 93309;59713;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;86580;86640
 93309;59713;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;86820;86880
 93309;59713;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;87060;87120
-93309.trimmed;59713;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;86580;86640
-93309.trimmed;59713;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;86820;86880
-93309.trimmed;59713;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;87060;87120
+93309.trimmed;;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;86580;86640
+93309.trimmed;;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;86820;86880
+93309.trimmed;;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;87060;87120
 93310;59714;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;87780;87840
 93310;59714;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;88020;88080
 93310;59714;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;88260;88320
-93310.trimmed;59714;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;87780;87840
-93310.trimmed;59714;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;88020;88080
-93310.trimmed;59714;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;88260;88320
+93310.trimmed;;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;87780;87840
+93310.trimmed;;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;88020;88080
+93310.trimmed;;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;88260;88320
 93311;59715;614;S46;109;9260004;S Eichwalde;52.372085;13.614966;20.0;;;;S Königs Wusterhausen Bhf;81780;81840
 93311;59715;614;S46;109;9260003;S Zeuthen;52.349441;13.626366;21.0;;;;S Königs Wusterhausen Bhf;82020;82080
 93311;59715;614;S46;109;9260002;S Wildau;52.319205;13.633587;22.0;;;;S Königs Wusterhausen Bhf;82260;82320
