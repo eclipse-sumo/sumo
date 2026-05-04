@@ -1,9 +1,6 @@
 # Maximum number of allowed redirects.
 max_redirects = 20
 
-# Accepting Error 429 "Too Many Requests"
-accept = ['200', '429']
-
 # Proceed for server connections considered insecure (invalid TLS).
 insecure = true
 
