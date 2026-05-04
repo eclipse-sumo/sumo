@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-01 09:32+0000\n"
+"PO-Revision-Date: 2026-05-04 06:31+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6461,7 +6461,7 @@ msgstr "Ignorando % aristas porque tienen el tipo de propagación incorrecto"
 #: src/netbuild/NBAlgorithms_Railway.cpp:203
 #, c-format
 msgid "Bidi-edge '%' prevented by filtering rules."
-msgstr ""
+msgstr "Arista bidireccional '%' impedida por las reglas de filtrado."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:217
 msgid "Could not add bidi-edge '%'."
@@ -6631,6 +6631,7 @@ msgstr "ID de arista '%' no válida."
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr ""
+"Los nodos de origen y destino de la arista '%' están en la misma posición."
 
 #: src/netbuild/NBEdge.cpp:1077
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
@@ -6829,14 +6830,20 @@ msgstr ""
 #: src/netbuild/NBEdge.cpp:4433
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr ""
+"Ignorando stopOffset no válido para la arista '%' (el desplazamiento es "
+"negativo)."
 
 #: src/netbuild/NBEdge.cpp:4442
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
+"Ignorando stopOffset no válido para el carril '%' (el desplazamiento es "
+"negativo)."
 
 #: src/netbuild/NBEdge.cpp:4448
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
+"Ignorando stopOffset no válido para el carril '%' (índice de carril no "
+"válido)."
 
 #: src/netbuild/NBEdge.cpp:4712
 #, c-format
@@ -6858,6 +6865,8 @@ msgstr ""
 #: src/netbuild/NBEdge.cpp:4872
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr ""
+"No se pudo evitar la superposición de la forma en el cruce '%' para la "
+"arista '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:121 src/netbuild/NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
@@ -8624,6 +8633,7 @@ msgstr ""
 msgid ""
 "Ignoring join-cluster because junction '%' was already excluded from joining."
 msgstr ""
+"Ignorando join-cluster porque el cruce '%' ya fue excluido de la combinación."
 
 #: src/netbuild/NBNodeCont.cpp:737
 #, c-format
@@ -8631,6 +8641,7 @@ msgid ""
 "Ignoring join-cluster because junction '%' already occurred in another join-"
 "cluster."
 msgstr ""
+"Ignorando join-cluster porque el cruce '%' ya aparece en otro join-cluster."
 
 #: src/netbuild/NBNodeCont.cpp:743
 #, c-format
@@ -8639,7 +8650,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:751
 msgid "Ignoring join-cluster '%' because it has size '%'."
-msgstr ""
+msgstr "Ignorando join-cluster '%' porque tiene un tamaño de '%'."
 
 #: src/netbuild/NBNodeCont.cpp:765
 msgid "unknown junction '%' while joining."
@@ -8980,6 +8991,8 @@ msgstr "No se pudo crear el programa '%' para el semáforo '%'"
 #: src/netbuild/NBTrafficLightLogicCont.cpp:389
 msgid "Guessing signalID for link index % at traffic light '%'."
 msgstr ""
+"Detectando el ID de señal (signalID) para el índice de enlace % en el "
+"semáforo '%'."
 
 #: src/netbuild/NBTrafficLightLogicCont.cpp:496
 #, c-format
