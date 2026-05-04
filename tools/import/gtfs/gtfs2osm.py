@@ -166,6 +166,8 @@ def import_gtfs(options, gtfsZip):
 
     extra_trips = trips.loc[trips.trip_id.isin(extra_trips_id), :]
     extra_trips.loc[:, 'trip_id'] = extra_trips.loc[:, 'trip_id'] + ".trimmed"
+    if 'block_id' in extra_trips.columns:
+        extra_trips.loc[:, 'block_id'] = ""
     trips = pd.concat((trips, extra_trips))
 
     time_interval = options.end - options.begin
