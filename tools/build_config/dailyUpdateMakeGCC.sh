@@ -46,7 +46,8 @@ git submodule update >> $MAKELOG 2>&1 || (echo "git submodule update failed" | t
 if test -e ../sumo_test_env/bin/activate; then
   # activate the virtual environment containing the python packages which are not available via apt
   source ../sumo_test_env/bin/activate
-  pip install -r docs/web/requirements.txt -r tools/req_test_server.txt
+  # only-binary to make sonar happy
+  pip install --only-binary :all: -r docs/web/requirements.txt -r tools/req_test_server.txt
 fi
 GITREV=`tools/build_config/version.py -`
 date >> $MAKELOG
