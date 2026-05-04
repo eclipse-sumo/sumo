@@ -19,8 +19,8 @@ value is also shown in the table.
 
 | Variable       | ValueType  | Description               | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)              |
 | -------------- | ---------- | ------------------------- | ----------------------------------------------------------------------- |
-| id list (0x00) | stringList | Returns a list of ids of all current RouteProbes (the given Rerouter ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci._routeprobe.html#RouteProbeDomain-getIDList)   |
-| count (0x01)   | int        | Returns the number of current RouteProbes (the given Rerouter ID is ignored)        | [getIDCount](https://sumo.dlr.de/pydoc/traci._routeprobe.html#RouteProbeDomain-getIDCount) |
+| id list (0x00) | stringList | Returns a list of ids of all current RouteProbes (the given Rerouter ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci/_routeprobe.html#RouteProbeDomain.getIDList)   |
+| count (0x01)   | int        | Returns the number of current RouteProbes (the given Rerouter ID is ignored)        | [getIDCount](https://sumo.dlr.de/pydoc/traci/_routeprobe.html#RouteProbeDomain.getIDCount) |
 
 ### Response 0x38: Rerouter Variable
 

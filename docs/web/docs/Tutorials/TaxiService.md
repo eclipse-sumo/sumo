@@ -30,9 +30,9 @@ It would be very beneficial if you did take a look at the traci-beginner tutoria
   - [Vehicle Value Retrieval](../TraCI/Vehicle_Value_Retrieval.md)
 
 - Pydoc
-  - [traci._person](https://sumo.dlr.de/pydoc/traci._person.html)
-  - [traci._vehicle](https://sumo.dlr.de/pydoc/traci._vehicle.html)
-  - [traci._busstop](https://sumo.dlr.de/pydoc/traci._busstop.html)
+  - [traci._person](https://sumo.dlr.de/pydoc/traci/_person.html)
+  - [traci._vehicle](https://sumo.dlr.de/pydoc/traci/_vehicle.html)
+  - [traci._busstop](https://sumo.dlr.de/pydoc/traci/_busstop.html)
 
 
 

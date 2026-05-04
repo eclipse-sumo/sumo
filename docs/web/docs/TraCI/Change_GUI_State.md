@@ -23,12 +23,12 @@ are also shown in the table.
 
 | Variable             | ValueType                    | Description                                                                                                                                                                                                       | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)                  |
 | -------------------- | ---------------------------- | -------------------------------------------------------------------- | ------------------------------------------ |
-| zoom (0xa0)          | double                       | Sets the current zoom level in %           | [setZoom](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-setZoom)    |
-| offset (0xa1)        | 2D-position (double, double) | Moves the center of the visible network to the given position   | [setOffset](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-setOffset)       |
-| schema (0xa2)        | string     | Sets the visualization scheme (e.g. "standard")    | [setSchema](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-setSchema)       |
-| boundary (0xa3)      | 2D-polygon (length 2)        | Sets the boundary of the visible network. If the window has a different aspect ratio than the given boundary, the view is expanded along one axis to meet the window aspect ratio and contain the given boundary. | [setBoundary](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-setBoundary)   |
-| screenshot (0xa5)    | filename (string)            | Save a screenshot to the given file    | [screenshot](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-screenshot)  |
-| track vehicle (0xa6) | vehicle ID (string)     | tracks the given vehicle in the GUI  | [trackVehicle](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-trackVehicle) |
+| zoom (0xa0)          | double                       | Sets the current zoom level in %           | [setZoom](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.setZoom)    |
+| offset (0xa1)        | 2D-position (double, double) | Moves the center of the visible network to the given position   | [setOffset](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.setOffset)       |
+| schema (0xa2)        | string     | Sets the visualization scheme (e.g. "standard")    | [setSchema](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.setSchema)       |
+| boundary (0xa3)      | 2D-polygon (length 2)        | Sets the boundary of the visible network. If the window has a different aspect ratio than the given boundary, the view is expanded along one axis to meet the window aspect ratio and contain the given boundary. | [setBoundary](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.setBoundary)   |
+| screenshot (0xa5)    | filename (string)            | Save a screenshot to the given file    | [screenshot](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.screenshot)  |
+| track vehicle (0xa6) | vehicle ID (string)     | tracks the given vehicle in the GUI  | [trackVehicle](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.trackVehicle) |
 
 
 The message contents are as following:

@@ -18,9 +18,9 @@ parameter which must be given are also shown in the table.
 
 | Variable                                     | ValueType              | Description  | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)   |
 | -------------------------------------------- | ------------------------------------------------- | -------------------------- | ------------------------------------ |
-| change global travel time information (0x58) | compound (begin time, end time, value), see below | Inserts the information about the travel time of the named edge valid from begin time to end time into the global edge weights times container. | [adaptTraveltime](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-adaptTraveltime) |
-| change global effort information (0x59)      | compound (begin time, end time, value), see below | Inserts the information about the effort of the named edge valid from begin time to end time into the global edge weights container.            | [setEffort](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-setEffort)             |
-| change max speed (0x41)                      |                                                   | Set a new maximum speed (in m/s) for all lanes of the edge.                                                                                     | [setMaxSpeed](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-setMaxSpeed)         |
+| change global travel time information (0x58) | compound (begin time, end time, value), see below | Inserts the information about the travel time of the named edge valid from begin time to end time into the global edge weights times container. | [adaptTraveltime](https://sumo.dlr.de/pydoc/traci/_edge.html#EdgeDomain.adaptTraveltime) |
+| change global effort information (0x59)      | compound (begin time, end time, value), see below | Inserts the information about the effort of the named edge valid from begin time to end time into the global edge weights container.            | [setEffort](https://sumo.dlr.de/pydoc/traci/_edge.html#EdgeDomain.setEffort)             |
+| change max speed (0x41)                      |                                                   | Set a new maximum speed (in m/s) for all lanes of the edge.                                                                                     | [setMaxSpeed](https://sumo.dlr.de/pydoc/traci/_edge.html#EdgeDomain.setMaxSpeed)         |
 
 
 The message contents are as following:

@@ -22,11 +22,11 @@ value is also shown in the table.
 
 | Variable           | ValueType   | Description            | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)                |
 | ------------------ | ----------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
-| zoom (0xa0)        | double      | the current zoom level (in %)                    | [getZoom](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-getZoom)         |
-| offset (id 0xa1)   | 2D-position | the center of the currently visible part of the net              | [getOffset](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-getOffset)     |
-| schema (id 0xa2)   | string      | the visualization scheme used (e.g. "standard" or "real world")  | [getSchema](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-getSchema)     |
-| boundary (id 0xa3) | 2D-polygon  | the lower left and the upper right corner of the visible network | [getBoundary](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-getBoundary) |
-| has view (id 0xa7) | bool        | Whether a view with the given ID exists                          | [hasView](https://sumo.dlr.de/pydoc/traci._gui.html#GuiDomain-hasView) |
+| zoom (0xa0)        | double      | the current zoom level (in %)                    | [getZoom](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.getZoom)         |
+| offset (id 0xa1)   | 2D-position | the center of the currently visible part of the net              | [getOffset](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.getOffset)     |
+| schema (id 0xa2)   | string      | the visualization scheme used (e.g. "standard" or "real world")  | [getSchema](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.getSchema)     |
+| boundary (id 0xa3) | 2D-polygon  | the lower left and the upper right corner of the visible network | [getBoundary](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.getBoundary) |
+| has view (id 0xa7) | bool        | Whether a view with the given ID exists                          | [hasView](https://sumo.dlr.de/pydoc/traci/_gui.html#GuiDomain.hasView) |
 
 
 ## Response 0xbc: GUI Variable

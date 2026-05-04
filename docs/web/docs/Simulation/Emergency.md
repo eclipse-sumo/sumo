@@ -42,7 +42,7 @@ Vehicles that are forming a rescue lane will have [generic parameter](GenericPar
 Surrounding traffic reacts while within 25m of the device-equipped vehicle. This distance is configurable by:
 
 - the SUMO option [**--device.bluelight.reactiondist**](https://sumo.dlr.de/docs/sumo.html#bluelight_device), or
-- the TraCI command [`traci.vehicle.setParameter(vehID, "device.bluelight.reactiondist", str(value))`](https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-setParameter)
+- the TraCI command [`traci.vehicle.setParameter(vehID, "device.bluelight.reactiondist", str(value))`](https://sumo.dlr.de/pydoc/traci/_vehicle.html#VehicleDomain.setParameter)
 
 ## Further Features for driving with special rights
 

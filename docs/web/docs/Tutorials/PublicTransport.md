@@ -21,9 +21,9 @@ Main topics are:
   - [Vehicle](../TraCI/Vehicle_Value_Retrieval.md)
 
 - Pydoc
-  - [traci._person](https://sumo.dlr.de/pydoc/traci._person.html)
-  - [traci._vehicle](https://sumo.dlr.de/pydoc/traci._vehicle.html)
-  - [traci._busstop](https://sumo.dlr.de/pydoc/traci._busstop.html)
+  - [traci._person](https://sumo.dlr.de/pydoc/traci/_person.html)
+  - [traci._vehicle](https://sumo.dlr.de/pydoc/traci/_vehicle.html)
+  - [traci._busstop](https://sumo.dlr.de/pydoc/traci/_busstop.html)
 
 # Public Transport Tutorial
 At the beginning of the simulation, buses and trams are being dispatched to cater to their designated routes.

@@ -17,4 +17,4 @@ given is also shown in the table.
 
 | Variable                 | ValueType   | Description       |  [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
 | ------------------------ | ----------- | ----------------- | -------------------------------------------------------------- |
-| accepted badges (0x9b)   | stringList  | Set the accepted badges for parkingArea access. |  [setAcceptedBadges](https://sumo.dlr.de/pydoc/traci._parkingarea.html#ParkingAreaDomain-setAcceptedBadges) |
+| accepted badges (0x9b)   | stringList  | Set the accepted badges for parkingArea access. |  [setAcceptedBadges](https://sumo.dlr.de/pydoc/traci/_parkingarea.html#ParkingAreaDomain.setAcceptedBadges) |

@@ -19,9 +19,9 @@ value is also shown in the table.
 
 | Variable       | ValueType  | Description               | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)              |
 | -------------- | ---------- | ------------------------- | ----------------------------------------------------------------------- |
-| id list (0x00) | stringList | Returns a list of ids of all currently loaded routes (the given route ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci._route.html#RouteDomain-getIDList)   |
-| count (0x01)   | int        | Returns the number of currently loaded routes (the given route ID is ignored)        | [getIDCount](https://sumo.dlr.de/pydoc/traci._route.html#RouteDomain-getIDCount) |
-| edges (0x54)   | stringList | Returns the ids of the edges this route covers                                       | [getEdges](https://sumo.dlr.de/pydoc/traci._route.html#RouteDomain-getEdges)     |
+| id list (0x00) | stringList | Returns a list of ids of all currently loaded routes (the given route ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci/_route.html#RouteDomain.getIDList)   |
+| count (0x01)   | int        | Returns the number of currently loaded routes (the given route ID is ignored)        | [getIDCount](https://sumo.dlr.de/pydoc/traci/_route.html#RouteDomain.getIDCount) |
+| edges (0x54)   | stringList | Returns the ids of the edges this route covers                                       | [getEdges](https://sumo.dlr.de/pydoc/traci/_route.html#RouteDomain.getEdges)     |
 
 ### Response 0xb6: Route Variable
 

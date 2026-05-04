@@ -15,4 +15,4 @@ type of the value to given is also shown in the table.
 
 | Variable   | ValueType  | Description                                                                | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
 | ---------- | ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| add (0x80) | stringList | Adds a new route; the route gets the given id and follows the given edges. | [add](https://sumo.dlr.de/pydoc/traci._route.html#RouteDomain-add) |
+| add (0x80) | stringList | Adds a new route; the route gets the given id and follows the given edges. | [add](https://sumo.dlr.de/pydoc/traci/_route.html#RouteDomain.add) |

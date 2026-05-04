@@ -23,7 +23,7 @@ Example: In the above NEMA diagram, we could see phase 1+5, 1+6, 2+6, 3+7, 3+8 a
 
 # Defining New NEMA phase timings
 
-You can load new definitions for NEMA-phase traffic controller as a part of an {{AdditionalFile}}. The signal timing could be updated in simulation through [TraCI functions](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-setNemaOffset). A definition of a traffic light program for a four-leg eight-phase intersection within an {{AdditionalFile}}
+You can load new definitions for NEMA-phase traffic controller as a part of an {{AdditionalFile}}. The signal timing could be updated in simulation through [TraCI functions](https://sumo.dlr.de/pydoc/traci/_trafficlight.html#TrafficLightDomain.setNemaOffset). A definition of a traffic light program for a four-leg eight-phase intersection within an {{AdditionalFile}}
 looks like this:
 
 ```xml
