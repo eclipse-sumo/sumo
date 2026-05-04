@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-13 22:14+0000\n"
+"PO-Revision-Date: 2026-05-05 16:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -17321,7 +17321,7 @@ msgstr "Länge zusammen mit Geometrie skalieren"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
 msgid "Show stopping info"
-msgstr ""
+msgstr "Halteinformationen anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
 msgid "Show parking info"
@@ -17514,7 +17514,7 @@ msgstr "Grenzen zeichnen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2522
 msgid "Force draw for rectangle selection"
-msgstr ""
+msgstr "Bei Rechteckauswahl zwingend neu zeichnen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2525
 msgid "Disable dotted contours during selection/deletion"
@@ -17693,7 +17693,7 @@ msgstr "Spanisch"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:392
 msgid "portuguese"
-msgstr ""
+msgstr "portugiesisch"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:396
 msgid "french"
@@ -17725,7 +17725,7 @@ msgstr "Japanisch"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:424
 msgid "korean"
-msgstr ""
+msgstr "koreanisch"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:428
 msgid "english"
