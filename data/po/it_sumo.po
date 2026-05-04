@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-04-23 17:15+0000\n"
+"PO-Revision-Date: 2026-05-05 16:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7728,17 +7728,19 @@ msgstr "Non indovinare corsie ciclabili per l'elenco di archi indicato"
 
 #: src/netbuild/NBFrame.cpp:506
 msgid "Guess pedestrian crossings based on the presence of sidewalks"
-msgstr ""
+msgstr "Indovina passaggi pedonali basandosi sulla presenza di marciapiedi"
 
 #: src/netbuild/NBFrame.cpp:510
 msgid ""
 "At uncontrolled nodes, do not build crossings across edges with a speed "
 "above the threshold"
 msgstr ""
+"Non creare passaggi pedonali su incroci senza alcun controllo se il limite "
+"di velocità supera questo valore soglia"
 
 #: src/netbuild/NBFrame.cpp:514
 msgid "Give priority to guessed crossings at roundabouts"
-msgstr ""
+msgstr "Dare la precedenza ai passaggi pedonali presenti intorno alle rotatorie"
 
 #: src/netbuild/NBFrame.cpp:517
 msgid "Always build walking areas even if there are no crossings"
@@ -7755,14 +7757,17 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of junctions to be controlled by TLS"
 msgstr ""
+"Interpreta STR[] come elenco di incroci da controllare con degli semafori"
 
 #: src/netbuild/NBFrame.cpp:530
 msgid "Interprets STR[] as list of junctions to be not controlled by TLS"
 msgstr ""
+"Interpreta STR[] come elenco di incroci da escludere di ogni controllo "
+"semaforico"
 
 #: src/netbuild/NBFrame.cpp:535
 msgid "Turns on TLS guessing"
-msgstr ""
+msgstr "Attiva l'euristica di semafori"
 
 #: src/netbuild/NBFrame.cpp:538
 msgid ""
