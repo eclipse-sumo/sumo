@@ -97,8 +97,8 @@ def get_options(args=None):
                     help="use the allowed vclass instead of the edge type to split the network (always active, option kept for backward compatibility")  # noqa
     ap.add_argument("--warn-unmapped", action="store_true", default=False,
                     help="warn about unmapped routes")
-    ap.add_argument("--mapperlib", default="lib/fcd-process-chain-2.2.2.jar", category="input",
-                    help="mapping library to use")
+    ap.add_argument("--mapperlib", category="input",
+                    help="mapping library to use (obsolete)")
     ap.add_argument("--map-output", category="output",
                     help="directory to write the generated mapping files to")
     ap.add_argument("--map-output-config", default="conf/output_configuration_template.xml", category="output",
@@ -162,11 +162,7 @@ def splitNet(options):
                 "--no-warnings",
                 "--offset.disable-normalization", "--output.original-names", "--aggregate-warnings", "1",
                 "--junctions.corner-detail", "0", "--dlr-navteq.precision", "0", "--geometry.avoid-overlap", "false"]
-    if options.mapperlib != "tracemapper":
-        # otherwise, preserve original ids for easier debugging
-        netcCall += ["--numerical-ids"]
 
-    doNavteqOut = os.path.exists(options.mapperlib)
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
     numIdNet = os.path.join(options.network_split, "numerical.net.xml")
@@ -199,32 +195,8 @@ def splitNet(options):
                         print("Error generating %s.net.xml, maybe it does not contain infrastructure for '%s'." %
                               (netPrefix, mode))
                         continue
-                    if doNavteqOut:
-                        subprocess.call(netcCall + ["-s", netPrefix + ".net.xml", "-o", "NUL", "--dismiss-vclasses"
-                                                    "--no-internal-links",  # traceMap ignores internal links
-                                                    "--dlr-navteq-output", netPrefix])
                 typedNets[mode] = (inp, netPrefix)
     return edgeMap, invEdgeMap, typedNets
-
-
-def mapFCD(options, typedNets):
-    for o in glob.glob(os.path.join(options.map_output, "*.dat")):
-        os.remove(o)
-    outConf = os.path.join(os.path.dirname(options.map_output_config), "output_configuration.xml")
-    with open(options.map_output_config) as inp, open(outConf, "w") as outp:
-        outp.write(inp.read() % {"output": options.map_output})
-    for mode, (gpsdat, netPrefix) in typedNets.items():
-        conf = os.path.join(os.path.dirname(options.map_input_config), "input_configuration_%s.xml") % mode
-        with open(options.map_input_config) as inp, open(conf, "w") as outp:
-            outp.write(inp.read() % {"input": gpsdat, "net_prefix": netPrefix})
-        param = os.path.join(os.path.dirname(options.map_parameter), "parameters_%s.xml") % mode
-        with open(options.map_parameter) as inp, open(param, "w") as outp:
-            outp.write(inp.read() % {"radius": 100 if mode in ("bus", "tram") else 1000})
-        call = "java -mx16000m -jar %s %s %s %s" % (options.mapperlib, conf, outConf, param)
-        if options.verbose:
-            print(call)
-        sys.stdout.flush()
-        subprocess.call(call, shell=True)
 
 
 def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, radius=150):
@@ -597,28 +569,15 @@ def main(options):
         veh2mode = {}
         # Import PT from GTFS
         if not options.skip_fcd:
-            if not os.path.exists(options.mapperlib):
-                options.gpsdat = None
             if not gtfs2fcd.main(options):
                 print("Warning! GTFS data did not contain any trips with stops within the given bounding box area.",
                       file=sys.stderr)
                 return
         edgeMap, invEdgeMap, typedNets = splitNet(options)
-        if os.path.exists(options.mapperlib):
-            if not options.skip_map:
-                mapFCD(options, typedNets)
-            routes = collections.OrderedDict()
-            for o in glob.glob(os.path.join(options.map_output, "*.dat")):
-                for line in open(o):
-                    time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
-                    routes.setdefault(id, []).append(edge)
-        else:
-            if not gtfs2fcd.dataAvailable(options):
-                print("Warning! No infrastructure for the given modes %s." % options.modes, file=sys.stderr)
-                return
-            if options.mapperlib != "tracemapper":
-                print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
-            routes = traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
+        if not gtfs2fcd.dataAvailable(options):
+            print("Warning! No infrastructure for the given modes %s." % options.modes, file=sys.stderr)
+            return
+        routes = traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, options.radius)
 
         if options.poly_output:
             generate_polygons(net, routes, options.poly_output)
