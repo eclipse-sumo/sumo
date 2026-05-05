@@ -47,6 +47,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPModel.h>
 #include <utils/common/StringUtils.h>
@@ -1560,6 +1561,30 @@ MSE2Collector::getEstimateQueueLength() const {
         return realDistance;
     }
 }
+
+
+double
+MSE2Collector::getArrivalDelay() const {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    double result = -INVALID_DOUBLE;
+    for (auto item : myVehicleInfos) {
+        if (item.second->onDetector) {
+            SUMOVehicle* v = vc.getVehicle(item.first);
+            if (v != nullptr) {
+                MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(v);
+                double ad = veh->getStopArrivalDelay();
+                if (ad != INVALID_DOUBLE) {
+                    result = MAX2(result, ad);
+                }
+            }
+        }
+    }
+    return result;
+}
+
 
 
 void

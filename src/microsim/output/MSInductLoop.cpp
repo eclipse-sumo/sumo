@@ -39,6 +39,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPModel.h>
 #include <utils/common/MsgHandler.h>
@@ -309,6 +310,26 @@ MSInductLoop::getOccupancyTime() const {
     }
 }
 
+
+double
+MSInductLoop::getArrivalDelay() const {
+#ifdef HAVE_FOX
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
+#endif
+    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    double result = -INVALID_DOUBLE;
+    for (const auto& item : collectVehiclesOnDet(SIMSTEP - DELTA_T)) {
+        SUMOVehicle* v = vc.getVehicle(item.idM);
+        if (v != nullptr) {
+            MSBaseVehicle* veh = dynamic_cast<MSBaseVehicle*>(v);
+            double ad = veh->getStopArrivalDelay();
+            if (ad != INVALID_DOUBLE) {
+                result = MAX2(result, ad);
+            }
+        }
+    }
+    return result;
+}
 
 
 SUMOTime

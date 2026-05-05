@@ -562,6 +562,11 @@ public:
     double getEstimateQueueLength() const;
     /// @}
 
+    /** @brief Returns the maximum stop arrival delay of public transport vehicles that are on the detector
+     * or passed the detector in the last step or -DOUBLE_VALUE
+     */
+    double getArrivalDelay() const;
+
 
     virtual void setVisible(bool /*show*/) {};
 
