@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-05 17:09:24.702237 by Eclipse SUMO gtfs2pt.py v1_26_0+1488-6d3e6e6ce94
+<!-- generated on 2026-05-05 17:47:17.673521 by Eclipse SUMO gtfs2pt.py v1_26_0+1490-cabd7e3693a
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -71,6 +71,10 @@
     </route>
     <route id="284865" edges="-27004036#0">
     </route>
+    <route id="281066" edges="-810189346 -37293019#1 -275267958 -27004371#0 -944187063#1 -944187063#0 1031560365">
+        <stop busStop="280370.13" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="281066.1" duration="00:00:10" until="00:03:00"/> <!-- Zeuthen, Miersdorfer Chaussee -->
+    </route>
     <route id="281065" edges="782804639 -927307082 -1419116833 1016203847 4930555#1 4930555#2 1016264032#0 589702685#1 239924883 4930543#0 4930543#1 126100196#0 126100196#2 126100196#3 126100196#4 126654659 34607579#1 833907802 24280332#0 -24280330#1 -1322454341#5 -1322454341#4 -1322454341#3 -1322454341#2 -1322454341#1 -1322454341#0 4068154#0 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
         <stop busStop="109328.0" duration="00:00:10" until="00:00:00"/> <!-- S Eichwalde -->
         <stop busStop="280370.10" duration="00:00:10" until="00:08:00"/> <!-- Eichwalde, Friedenstr. -->
@@ -94,6 +98,15 @@
         <stop busStop="280370.11" duration="00:00:10" until="00:05:00"/> <!-- Zeuthen, Havellandstr. -->
         <stop busStop="280370.12" duration="00:00:10" until="00:07:00"/> <!-- Zeuthen, Maxim-Gorki-Str. -->
         <stop busStop="280370.13" duration="00:00:10" until="00:09:00"/> <!-- S Zeuthen -->
+    </route>
+    <route id="284974" edges="-810189346 -37293019#1 -275267958 -27004371#0 -944187063#1 -944187063#0 1031560365">
+        <stop busStop="280370.13" duration="00:00:10" until="00:00:00"/> <!-- S Zeuthen -->
+        <stop busStop="281066.1" duration="00:00:10" until="00:03:00"/> <!-- Zeuthen, Miersdorfer Chaussee -->
+    </route>
+    <route id="154260" edges="-70532934 -70532932 -389273284#0 -70532938 -973229870 -10587012">
+        <stop busStop="154260.2" duration="00:00:10" until="00:00:00"/> <!-- Fährallee (Berlin) -->
+        <stop busStop="154260.3" duration="00:00:10" until="00:02:00"/> <!-- Zeltplatz (Berlin) -->
+        <stop busStop="154260.4" duration="00:00:10" until="00:04:00"/> <!-- Teikyo-University (Berlin) -->
     </route>
     <route id="236759" edges="1198308222">
         <stop busStop="109242.0" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
@@ -245,6 +258,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="23648.0" route="154260" type="bus" depart="05:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96490.0" route="96476" type="light_rail" depart="05:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -268,6 +285,10 @@
     <vehicle id="96607.0" route="96602" type="light_rail" depart="05:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="23670.0" route="154260" type="bus" depart="05:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96478.0" route="96476" type="light_rail" depart="05:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -325,6 +346,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="154320.0" route="154260" type="bus" depart="06:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96492.0" route="96476" type="light_rail" depart="06:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -352,6 +377,10 @@
     <vehicle id="96610.0" route="96602" type="light_rail" depart="06:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="23672.0" route="154260" type="bus" depart="06:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96479.0" route="96476" type="light_rail" depart="06:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -385,9 +414,17 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="281066.0" route="281066" type="bus" depart="06:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="S Flughafen Berlin-Schönefeld Bhf"/>
+    </vehicle>
     <vehicle id="68397.0" route="68332" type="tram" depart="06:58:50" line="68#4">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154322.0" route="154260" type="bus" depart="06:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96493.0" route="96476" type="light_rail" depart="06:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -421,6 +458,10 @@
         <param key="gtfs.route_name" value="731"/>
         <param key="gtfs.trip_headsign" value="S Eichwalde"/>
     </vehicle>
+    <vehicle id="23650.0" route="154260" type="bus" depart="07:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96494.0" route="96476" type="light_rail" depart="07:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -444,6 +485,10 @@
     <vehicle id="96613.0" route="96602" type="light_rail" depart="07:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="154262.0" route="154260" type="bus" depart="07:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96480.0" route="96476" type="light_rail" depart="07:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -493,6 +538,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="281868.0" route="281066" type="bus" depart="07:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
     <vehicle id="96495.0" route="96476" type="light_rail" depart="07:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -521,6 +570,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Betriebshof Köpenick"/>
     </vehicle>
+    <vehicle id="23652.0" route="154260" type="bus" depart="08:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96496.0" route="96476" type="light_rail" depart="08:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -544,6 +597,10 @@
     <vehicle id="96616.0" route="96602" type="light_rail" depart="08:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="154264.0" route="154260" type="bus" depart="08:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96481.0" route="96476" type="light_rail" depart="08:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -577,6 +634,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="282215.0" route="281066" type="bus" depart="08:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
+    <vehicle id="154266.0" route="154260" type="bus" depart="08:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96497.0" route="96476" type="light_rail" depart="08:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -597,6 +662,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="154268.0" route="154260" type="bus" depart="09:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259676.0" route="259570" type="tram" depart="09:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -612,6 +681,10 @@
     <vehicle id="68391.0" route="259780" type="tram" depart="09:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154270.0" route="154260" type="bus" depart="09:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="68304.0" route="259570" type="tram" depart="09:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -637,6 +710,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="282673.0" route="281066" type="bus" depart="09:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
     <vehicle id="259692.0" route="259570" type="tram" depart="09:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -657,6 +734,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="23654.0" route="154260" type="bus" depart="10:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259694.0" route="259570" type="tram" depart="10:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -676,6 +757,10 @@
     <vehicle id="250389.0" route="250389" type="ferry" depart="10:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154272.0" route="154260" type="bus" depart="10:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259696.0" route="259570" type="tram" depart="10:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -701,6 +786,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="283046.0" route="281066" type="bus" depart="10:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
+    <vehicle id="154274.0" route="154260" type="bus" depart="10:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259698.0" route="259570" type="tram" depart="10:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -721,6 +814,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="154276.0" route="154260" type="bus" depart="11:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259700.0" route="259570" type="tram" depart="11:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -740,6 +837,10 @@
     <vehicle id="250391.0" route="250389" type="ferry" depart="11:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154278.0" route="154260" type="bus" depart="11:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259702.0" route="259570" type="tram" depart="11:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -765,6 +866,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="283481.0" route="281066" type="bus" depart="11:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
     <vehicle id="259704.0" route="259570" type="tram" depart="11:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -785,6 +890,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="23656.0" route="154260" type="bus" depart="12:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259706.0" route="259570" type="tram" depart="12:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -804,6 +913,10 @@
     <vehicle id="250393.0" route="250389" type="ferry" depart="12:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154280.0" route="154260" type="bus" depart="12:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259708.0" route="259570" type="tram" depart="12:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -829,6 +942,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="283896.0" route="281066" type="bus" depart="12:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
+    <vehicle id="154282.0" route="154260" type="bus" depart="12:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259710.0" route="259570" type="tram" depart="12:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -849,6 +970,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="154284.0" route="154260" type="bus" depart="13:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259712.0" route="259570" type="tram" depart="13:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -868,6 +993,10 @@
     <vehicle id="250395.0" route="250389" type="ferry" depart="13:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154286.0" route="154260" type="bus" depart="13:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259714.0" route="259570" type="tram" depart="13:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -893,6 +1022,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="284494.0" route="281066" type="bus" depart="13:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
+    <vehicle id="154260.0" route="154260" type="bus" depart="13:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259716.0" route="259570" type="tram" depart="13:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -912,6 +1049,10 @@
     <vehicle id="260021.0" route="259780" type="tram" depart="14:07:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="23658.0" route="154260" type="bus" depart="14:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259718.0" route="259570" type="tram" depart="14:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -961,6 +1102,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="284974.0" route="284974" type="bus" depart="14:55:50" line="734#4">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
+    <vehicle id="154288.0" route="154260" type="bus" depart="14:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96498.0" route="96476" type="light_rail" depart="14:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -989,6 +1138,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="23660.0" route="154260" type="bus" depart="15:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96499.0" route="96476" type="light_rail" depart="15:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1016,6 +1169,10 @@
     <vehicle id="250399.0" route="250389" type="ferry" depart="15:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154290.0" route="154260" type="bus" depart="15:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96482.0" route="96476" type="light_rail" depart="15:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -1049,6 +1206,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="285266.0" route="281066" type="bus" depart="15:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
     <vehicle id="96500.0" route="96476" type="light_rail" depart="15:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1077,6 +1238,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="23662.0" route="154260" type="bus" depart="16:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96501.0" route="96476" type="light_rail" depart="16:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1104,6 +1269,10 @@
     <vehicle id="250401.0" route="250389" type="ferry" depart="16:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154292.0" route="154260" type="bus" depart="16:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96483.0" route="96476" type="light_rail" depart="16:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -1137,6 +1306,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="285699.0" route="281066" type="bus" depart="16:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
+    <vehicle id="154294.0" route="154260" type="bus" depart="16:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96502.0" route="96476" type="light_rail" depart="16:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1165,6 +1342,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="154296.0" route="154260" type="bus" depart="17:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96503.0" route="96476" type="light_rail" depart="17:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1192,6 +1373,10 @@
     <vehicle id="250403.0" route="250389" type="ferry" depart="17:34:50" line="F21#1">
         <param key="gtfs.route_name" value="F21"/>
         <param key="gtfs.trip_headsign" value="Krampenburg (Berlin)"/>
+    </vehicle>
+    <vehicle id="154298.0" route="154260" type="bus" depart="17:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96484.0" route="96476" type="light_rail" depart="17:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -1225,6 +1410,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="285922.0" route="281066" type="bus" depart="17:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
     <vehicle id="96504.0" route="96476" type="light_rail" depart="17:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1253,6 +1442,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="23664.0" route="154260" type="bus" depart="18:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96487.0" route="96476" type="light_rail" depart="18:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1276,6 +1469,10 @@
     <vehicle id="96603.0" route="96602" type="light_rail" depart="18:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="154300.0" route="154260" type="bus" depart="18:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96476.0" route="96476" type="light_rail" depart="18:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -1309,6 +1506,14 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="286202.0" route="281066" type="bus" depart="18:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Berliner Str."/>
+    </vehicle>
+    <vehicle id="154302.0" route="154260" type="bus" depart="18:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96488.0" route="96476" type="light_rail" depart="18:59:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1333,6 +1538,10 @@
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
     </vehicle>
+    <vehicle id="154304.0" route="154260" type="bus" depart="19:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="96489.0" route="96476" type="light_rail" depart="19:19:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Birkenwerder Bhf"/>
@@ -1356,6 +1565,10 @@
     <vehicle id="96606.0" route="96602" type="light_rail" depart="19:32:50" line="S8#1">
         <param key="gtfs.route_name" value="S8"/>
         <param key="gtfs.trip_headsign" value="S Zeuthen"/>
+    </vehicle>
+    <vehicle id="154306.0" route="154260" type="bus" depart="19:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="96477.0" route="96476" type="light_rail" depart="19:39:50" line="S8">
         <param key="gtfs.route_name" value="S8"/>
@@ -1385,6 +1598,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="286348.0" route="281066" type="bus" depart="19:55:50" line="734#1">
+        <param key="gtfs.route_name" value="734"/>
+        <param key="gtfs.trip_headsign" value="Waltersdorf (bei Berlin), Am Rondell"/>
+    </vehicle>
     <vehicle id="259680.0" route="259570" type="tram" depart="19:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -1401,6 +1618,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="23666.0" route="154260" type="bus" depart="20:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259682.0" route="259570" type="tram" depart="20:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -1416,6 +1637,10 @@
     <vehicle id="259979.0" route="259780" type="tram" depart="20:27:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154308.0" route="154260" type="bus" depart="20:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259684.0" route="259570" type="tram" depart="20:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -1437,6 +1662,10 @@
         <param key="gtfs.route_name" value="733"/>
         <param key="gtfs.trip_headsign" value="S Königs Wusterhausen Bhf"/>
     </vehicle>
+    <vehicle id="154310.0" route="154260" type="bus" depart="20:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259720.0" route="259570" type="tram" depart="20:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -1452,6 +1681,10 @@
     <vehicle id="259871.0" route="259780" type="tram" depart="21:09:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154312.0" route="154260" type="bus" depart="21:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="68274.0" route="259570" type="tram" depart="21:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -1472,6 +1705,10 @@
     <vehicle id="259874.0" route="259780" type="tram" depart="21:29:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154314.0" route="154260" type="bus" depart="21:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259618.0" route="259570" type="tram" depart="21:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
@@ -1505,6 +1742,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="23668.0" route="154260" type="bus" depart="22:19:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259622.0" route="259570" type="tram" depart="22:19:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -1521,6 +1762,10 @@
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
     </vehicle>
+    <vehicle id="154316.0" route="154260" type="bus" depart="22:39:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
+    </vehicle>
     <vehicle id="259624.0" route="259570" type="tram" depart="22:39:50" line="68">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
@@ -1536,6 +1781,10 @@
     <vehicle id="259886.0" route="259780" type="tram" depart="22:49:50" line="68#2">
         <param key="gtfs.route_name" value="68"/>
         <param key="gtfs.trip_headsign" value="S Köpenick"/>
+    </vehicle>
+    <vehicle id="154318.0" route="154260" type="bus" depart="22:59:50" line="168#1">
+        <param key="gtfs.route_name" value="168"/>
+        <param key="gtfs.trip_headsign" value="Alt-Schmöckwitz"/>
     </vehicle>
     <vehicle id="259626.0" route="259570" type="tram" depart="22:59:50" line="68">
         <param key="gtfs.route_name" value="68"/>

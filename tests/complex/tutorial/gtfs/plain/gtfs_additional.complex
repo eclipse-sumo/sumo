@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-05 17:09:24.531721 by Eclipse SUMO gtfs2pt.py v1_26_0+1488-6d3e6e6ce94
+<!-- generated on 2026-05-05 17:47:17.531070 by Eclipse SUMO gtfs2pt.py v1_26_0+1490-cabd7e3693a
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -97,6 +97,13 @@
     <busStop id="281591.12" lane="1312568317_0" startPos="41.77" endPos="56.77" friendlyPos="true" name="Zeuthen, Seegarten"/>
     <busStop id="109328.0" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
     <busStop id="109328.1" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), K.-Marx-Str."/>
+    <busStop id="281066.1" lane="1031560365_0" startPos="61.75" endPos="76.75" friendlyPos="true" name="Zeuthen, Miersdorfer Chaussee">
+        <access friendlyPos="true" lane="-1028116055#0_0" pos="63.54" length="135.64"/>
+        <access friendlyPos="true" lane="-1056562944_0" pos="0.00" length="115.86"/>
+        <access friendlyPos="true" lane="1434638942_0" pos="43.89" length="130.84"/>
+        <access friendlyPos="true" lane="36478925_0" pos="20.21" length="113.12"/>
+        <access friendlyPos="true" lane="7941957_0" pos="209.87" length="144.71"/>
+    </busStop>
     <busStop id="281153.1" lane="4930561_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben">
         <access friendlyPos="true" lane="-4920483_0" pos="397.08" length="128.08"/>
         <access friendlyPos="true" lane="4920483_0" pos="0.00" length="126.41"/>
@@ -109,6 +116,9 @@
         <access friendlyPos="true" lane="4920444_0" pos="0.00" length="22.09"/>
         <access friendlyPos="true" lane="4930526_0" pos="0.00" length="53.12"/>
     </busStop>
+    <busStop id="154260.2" lane="-389273284#0_0" startPos="0.00" endPos="10.06" friendlyPos="true" name="Fährallee (Berlin)"/>
+    <busStop id="154260.3" lane="-10587012_0" startPos="707.64" endPos="722.64" friendlyPos="true" name="Zeltplatz (Berlin)"/>
+    <busStop id="154260.4" lane="-10587012_0" startPos="2012.76" endPos="2027.76" friendlyPos="true" name="Teikyo-University (Berlin)"/>
     <busStop id="236778.1" lane="183254465_0" startPos="0.00" endPos="15.00" friendlyPos="true" name="Zum Seeblick (Berlin)">
         <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
         <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
