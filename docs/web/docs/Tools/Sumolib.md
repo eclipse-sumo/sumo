@@ -79,10 +79,10 @@ for edge in net.getEdges():
         cumulLength += edge.getLength()
 ```
 
-## compute the median speed using the [Statistics](https://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
+## compute the median speed using the [Statistics](https://sumo.dlr.de/pydoc/sumolib/statistics.html#Statistics) module
 
 ```python
-edgeStats = sumolib.miscutils.Statistics("edge speeds")
+edgeStats = sumolib.statistics.Statistics("edge speeds")
 for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
     edgeStats.add(float(edge.speed))
 avgSpeed = edgeStats.median()

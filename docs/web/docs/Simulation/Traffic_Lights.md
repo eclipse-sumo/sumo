@@ -266,9 +266,9 @@ the input file.
 TLS Link indices can be access using either
 
 - [sumolib](../Tools/Sumolib.md) using
-  [connection.getTLLinkIndex()](https://sumo.dlr.de/pydoc/sumolib.net.connection.html)
+  [connection.getTLLinkIndex()](https://sumo.dlr.de/pydoc/sumolib/net/connection.html)
 - [sumolib](../Tools/Sumolib.md) using
-  [tls.getConnections()](https://sumo.dlr.de/pydoc/sumolib.net.html#TLS)
+  [tls.getConnections()](https://sumo.dlr.de/pydoc/sumolib/net.html#TLS)
 - or [TraCI](../TraCI/index.md) using
   [traci.trafficlight.getControlledLinks()](../TraCI/Traffic_Lights_Value_Retrieval.md#structure_of_compound_object_controlled_links)
 
