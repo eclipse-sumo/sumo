@@ -70,3 +70,13 @@ Description: Simulation of Urban MObility (SUMO), tools and scripts
  highly portable, microscopic traffic simulation package
  designed to handle large road networks.
  The binary contains different tools and scripts.
+
+Package: sumo-dev
+Architecture: all
+Depends: ${misc:Depends}
+Recommends: sumo
+Description: Simulation of Urban MObility (SUMO), developer headers
+ SUMO is an open source,
+ highly portable, microscopic traffic simulation package
+ designed to handle large road networks.
+ The binary contains different CMake and include files.
