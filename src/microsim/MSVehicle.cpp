@@ -8276,7 +8276,7 @@ MSVehicle::getStopArrivalDelay() const {
             return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + estimateTimeToNextStop().first - STEPS2TIME(stop.pars.arrival);
         }
     } else {
-        // vehicles can arrival earlier than planned so arrival delay can be negative
+        // vehicles can arrive earlier than planned so arrival delay can be negative
         return INVALID_DOUBLE;
     }
 }
