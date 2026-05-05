@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-05 16:57+0000\n"
+"PO-Revision-Date: 2026-05-05 18:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1017,12 +1017,12 @@ msgstr ""
 #: src/libsumo/Helper.cpp:1422
 msgid "Vehicle '%' was removed though being controlled by TraCI"
 msgstr ""
-"Il veicolo '%' è stato rimosso nonostante fosse controllato attraverso TraCI"
+"Il veicolo '%' è stato rimosso nonostante fosse comandato attraverso TraCI"
 
 #: src/libsumo/Helper.cpp:1431
 msgid "Person '%' was removed though being controlled by TraCI"
 msgstr ""
-"La persona '%' è stata rimossa nonostante fosse controllata attraverso TraCI"
+"La persona '%' è stata rimossa nonostante fosse comandata attraverso TraCI"
 
 #: src/libsumo/MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
@@ -3336,21 +3336,21 @@ msgstr "Rimozione di % participanti: veicolo '%', veicolo '%"
 #: src/microsim/MSLane.cpp:2153
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr ""
-"Mantenuti % participanti controllati esternamente: veicolo '%', veicolo '%"
+"Mantenuti % participanti comandati esternamente: veicolo '%', veicolo '%"
 
 #: src/microsim/MSLane.cpp:2155
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr ""
-"Il veicolo participante % '%' viene rimosso e mantenuto il veicolo "
-"controllato esternamente '%"
+"Il veicolo participante % '%' viene rimosso e mantenuto il veicolo comandato "
+"esternamente '%"
 
 #: src/microsim/MSLane.cpp:2158
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr ""
-"Il veicolo controllato esternamente % '%' viene rimosso e mantenuto il "
-"veicolo participante '%"
+"Il veicolo comandato esternamente % '%' viene rimosso e mantenuto il veicolo "
+"participante '%"
 
 #: src/microsim/MSLane.cpp:2169
 msgid ", latGap="
@@ -3373,7 +3373,7 @@ msgstr "Rimozione del veicolo '%' dopo"
 #: src/microsim/MSLane.cpp:2234
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr "Il veicolo '%' controllato remotamente verrà mantenuto dopo"
+msgstr "Il veicolo '%' comandato remotamente verrà mantenuto dopo"
 
 #: src/microsim/MSLane.cpp:2247
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
@@ -5609,7 +5609,7 @@ msgstr ""
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:149
 #, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr "Il semaforo '%' non controlla nessun collegamento"
+msgstr "Il semaforo '%' non comanda nessun collegamento"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:239
 msgid ""
@@ -5761,7 +5761,7 @@ msgstr ""
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
 msgstr ""
-"Il segnale ferroviario nell'incrocio '%' non controlla nessun collegamento"
+"Il segnale ferroviario nell'incrocio '%' non comanda nessun collegamento"
 
 #: src/microsim/traffic_lights/MSRailSignalConstraint.cpp:157
 #, c-format
@@ -7735,8 +7735,8 @@ msgid ""
 "At uncontrolled nodes, do not build crossings across edges with a speed "
 "above the threshold"
 msgstr ""
-"Non creare passaggi pedonali su incroci senza alcun controllo se il limite "
-"di velocità supera questo valore soglia"
+"Non creare passaggi pedonali su incroci senza alcun comando se il limite di "
+"velocità supera questo valore soglia"
 
 #: src/netbuild/NBFrame.cpp:514
 msgid "Give priority to guessed crossings at roundabouts"
@@ -7756,13 +7756,12 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of junctions to be controlled by TLS"
-msgstr ""
-"Interpreta STR[] come elenco di incroci da controllare con degli semafori"
+msgstr "Interpreta STR[] come elenco di incroci da comandare con degli semafori"
 
 #: src/netbuild/NBFrame.cpp:530
 msgid "Interprets STR[] as list of junctions to be not controlled by TLS"
 msgstr ""
-"Interpreta STR[] come elenco di incroci da escludere di ogni controllo "
+"Interpreta STR[] come elenco di incroci da escludere di ogni comando "
 "semaforico"
 
 #: src/netbuild/NBFrame.cpp:535
@@ -7773,23 +7772,26 @@ msgstr "Attiva l'euristica di semafori"
 msgid ""
 "Sets minimum value for the sum of all incoming lane speeds when guessing TLS"
 msgstr ""
+"Imposta il valore minimo del totale dei limiti di velocità di tutte le "
+"corsie entranti necessario per indovinare semafori"
 
 #: src/netbuild/NBFrame.cpp:543
 msgid "Sets district nodes as tls-controlled"
-msgstr ""
+msgstr "Imposta il comando semaforico per i nodi di distretto"
 
 #: src/netbuild/NBFrame.cpp:548
 msgid "Includes node clusters into guess"
-msgstr ""
+msgstr "Include insiemi di nodi nell'euristica"
 
 #: src/netbuild/NBFrame.cpp:552
 msgid "Tries to cluster tls-controlled nodes"
-msgstr ""
+msgstr "Prova a creare insiemi di nodi comandati con degli semafori"
 
 #: src/netbuild/NBFrame.cpp:556
 msgid ""
 "Determines the maximal distance for joining traffic lights (defaults to 20)"
 msgstr ""
+"Determina la distanza massima per combinare semafori (valore standard: 20)"
 
 #: src/netbuild/NBFrame.cpp:559
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
@@ -7802,6 +7804,9 @@ msgid ""
 "Do not control edges that lie fully within a joined traffic light. This may "
 "cause collisions but allows old traffic light plans to be used"
 msgstr ""
+"Non comandare archi completamentente all'interno di un semaforo combinato. "
+"Questo può causare delle collisioni ma permette di usare tuttavia i piani "
+"semaforici previ"
 
 #: src/netbuild/NBFrame.cpp:567
 msgid ""
