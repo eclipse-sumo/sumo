@@ -14,4 +14,4 @@ Warning! Disconnected route '109298' between '-4930561' and '-4920745', no path 
 Warning! Disconnected route '109300' between '-4930561' and '-4920745', no path found. Keeping longer part.
 Warning! Disconnected route '109306' between '-4930561' and '-4920745', no path found. Keeping longer part.
 Warning! Disconnected route '281710' between '-4930561' and '-4920745', no path found. Keeping longer part.
-Warning! Fixed connection 281758 7
+Warning! Fixed route 281758 between -415907064#2 and 4930561 (added edges: 7)
