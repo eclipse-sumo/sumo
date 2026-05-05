@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-04 06:31+0000\n"
+"PO-Revision-Date: 2026-05-05 19:27+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2815,12 +2815,17 @@ msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
 msgstr ""
+"Aplicar la penalización de tiempo indicada al calcular los costos mínimos de "
+"enrutamiento para carriles internos de enlaces secundarios"
 
 #: src/microsim/MSFrame.cpp:661
 msgid ""
 "Apply scaled travel time penalties based on green split when computing "
 "minimum routing costs for internal lanes at traffic lights"
 msgstr ""
+"Aplicar penalizaciones de tiempo de viaje escaladas según la proporción de "
+"verde al calcular los costos mínimos de enrutamiento para carriles internos "
+"en semáforos"
 
 #: src/microsim/MSFrame.cpp:664 src/router/ROFrame.cpp:206
 msgid ""
@@ -3867,6 +3872,8 @@ msgstr ""
 #: src/microsim/MSVehicle.cpp:1746
 msgid "Vehicle '%' aborts joining after extension of %s at time %."
 msgstr ""
+"El vehículo '%' cancela su incorporación después de una extensión de %s en "
+"el tiempo %."
 
 #: src/microsim/MSVehicle.cpp:1907
 msgid "Vehicle '%' to split from vehicle '%' is not known. time=%."
