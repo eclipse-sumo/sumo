@@ -38,7 +38,7 @@ except ImportError:
 # needed for backward compatibility
 from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
-
+PRACTIVAL_INFINITY = 1e400
 _BLACKLIST = type, ModuleType, FunctionType
 
 

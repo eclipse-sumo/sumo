@@ -16,7 +16,7 @@
 # @date    2013-10-23
 
 from __future__ import print_function
-from .miscutils import euclidean
+from .miscutils import euclidean, PRACTIVAL_INFINITY
 from .geomhelper import polygonOffsetWithMinimumDistanceToPoint, positionAtShapeOffset
 
 try:
@@ -220,7 +220,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                     cropIndex = max([i for i in range(len(minPath)) if minPath[i] in result])
                     minPath = minPath[cropIndex+1:]
                 result += minPath
-            resultDetours.append(0)
+                # signal disconnect
+                resultDetours.append(PRACTIVAL_INFINITY)
+            else:
+                resultDetours.append(-1)
         paths = newPaths
         lastPos = pos
     if verbose:
@@ -236,4 +239,10 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             print("**************** result:")
             for i in result:
                 print("path:%s" % i.getID())
+    # remove disconnect info if no positions where mapped after the first unmapped
+    if PRACTIVAL_INFINITY in resultDetours:
+        for i, d in enumerate(resultDetours):
+            if d == PRACTIVAL_INFINITY:
+                if all([d2 == -1 for d2 in resultDetours[i + 1:]]):
+                    resultDetours[i] = -1
     return result
