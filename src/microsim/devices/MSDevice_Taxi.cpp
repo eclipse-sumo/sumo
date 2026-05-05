@@ -293,8 +293,7 @@ MSDevice_Taxi::allCustomersErased() {
 
 const std::map<SUMOVehicleClass, std::string>&
 MSDevice_Taxi::getTaxiTypes() {
-    const int numClasses = std::bitset<64>(gTaxiClasses).count();
-    if ((int)myTaxiTypes.size() < numClasses) {
+    if (myTaxiTypes.size() < std::bitset<64>(gTaxiClasses).count()) {
         for (const std::string& vClassName : OptionsCont::getOptions().getStringVector("device.taxi.vclasses")) {
             SUMOVehicleClass svc = (SUMOVehicleClass)parseVehicleClasses(vClassName);
             if (myTaxiTypes[svc] == "") {
@@ -534,7 +533,6 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         }
     }
 
-    const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
     bool hasPickup = false;
     for (const Reservation* res : reservations) {
         myCurrentReservations.insert(res);
@@ -576,6 +574,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
         std::cout << "   tmpEdges=" << toString(tmpEdges) << "\n";
     }
 #endif
+    const SUMOTime t = SIMSTEP;
     if (!myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false)) {
         throw ProcessError("Route replacement for taxi dispatch failed for vehicle '" + myHolder.getID()
                            + "' at time=" + time2string(t) + ".");

@@ -19,6 +19,8 @@
 // The Widget for modifying traffic lights
 /****************************************************************************/
 
+#include <config.h>
+
 #include <algorithm>
 #include <netbuild/NBLoadedSUMOTLDef.h>
 #include <netbuild/NBOwnTLDef.h>

@@ -2250,10 +2250,11 @@ MSLCM_LC2013::saveState(OutputDevice& out) const {
     lcState.push_back(mySpeedGainProbabilityLeft);
     lcState.push_back(mySpeedGainProbabilityRight);
     lcState.push_back(myKeepRightProbability);
-    lcState.push_back(myLookAheadSpeed * HYST_PRECISION);
+    lcState.push_back((long long int)(myLookAheadSpeed * HYST_PRECISION));
     lcState.push_back(myDontBrake);
     out.writeAttr(SUMO_ATTR_LCSTATE2, lcState);
 }
+
 
 void
 MSLCM_LC2013::loadState(const SUMOSAXAttributes& attrs) {

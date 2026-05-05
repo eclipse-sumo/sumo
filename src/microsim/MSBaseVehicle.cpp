@@ -1744,7 +1744,7 @@ MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
         //std::cout << SIMTIME << " veh=" << getID() << " prevActive=" << prevActiveStops << " edge=" << (*stop.edge)->getID() << " routeIndex=" << (stop.edge - myRoute->begin()) << " prevIndex=" << (itPrev - myRoute->begin()) << "\n";
         while (itPrev < stop.edge) {
             if (*itPrev == *stop.edge) {
-                stop.skips.push_back(itPrev - myRoute->begin());
+                stop.skips.push_back((int)(itPrev - myRoute->begin()));
             }
             itPrev++;
         }

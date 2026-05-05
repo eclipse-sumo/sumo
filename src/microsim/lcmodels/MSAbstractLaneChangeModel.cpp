@@ -1112,18 +1112,14 @@ void
 MSAbstractLaneChangeModel::saveState(OutputDevice& out) const {
     std::vector<double> lcState;
     lcState.push_back((double)myOwnState);
-    for (auto item : myLCAccelerationAdvices) {
+    for (const auto& item : myLCAccelerationAdvices) {
         lcState.push_back(item.first);
-        lcState.push_back(item.second);
+        lcState.push_back((double)item.second);
     }
     out.writeAttr(SUMO_ATTR_LCSTATE_BASE, lcState);
 
     if (MSGlobals::gLaneChangeDuration > 0) {
-        std::vector<double> lcState;
-        lcState.push_back(mySpeedLat);
-        lcState.push_back(myLaneChangeCompletion);
-        lcState.push_back(myLaneChangeDirection);
-        out.writeAttr(SUMO_ATTR_LCSTATE, lcState);
+        out.writeAttr(SUMO_ATTR_LCSTATE, std::vector<double> {mySpeedLat, myLaneChangeCompletion, (double)myLaneChangeDirection});
     }
 }
 
