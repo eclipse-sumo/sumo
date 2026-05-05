@@ -55,6 +55,12 @@ override_phaseAttrs2
 # use custom switching rules to add bus prioritization on top of the default behavior
 bus_prio
 
+# use custom switching rules to add bus prioritization on top of the default behavior but only prioritize delayed busses
+bus_delay_prio
+
+# use custom switching rules to add bus prioritization on top of the default behavior but only prioritize delayed busses
+bus_delay_prio_e2
+
 # - detection of traffic presence in a large radius
 # - when no traffic is absent, the light switches into an allRed phase
 # - allRed switches to required phase on first detected traffic
