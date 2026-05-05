@@ -388,7 +388,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                         routeFixed = [routeEdgeID]
                     else:
                         if len(path) > 2:
-                            print("Warning! Fixed connection", rid, len(path), file=sys.stderr)
+                            print("Warning! Fixed route %s between %s and %s (added edges: %s)" % (
+                                rid, edgeMap.get(routeFixed[-1]), edgeMap.get(routeEdgeID), len(path)),
+                                file=sys.stderr)
                         routeFixed += [e.getID() for e in path[1:]]
                 if rid not in routes:
                     continue
