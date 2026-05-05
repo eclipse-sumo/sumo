@@ -32,7 +32,6 @@ if __name__ == "__main__":
             f[e] = [0] * 86400
         f[e][t] = f[e][t] + 1
 
-
     AGG = 3600
     fa = {}
     for e in f:
@@ -41,7 +40,6 @@ if __name__ == "__main__":
             for tl in range(0, AGG):
                 fa[e][th] = fa[e][th] + f[e][th * AGG + tl]
     ts = range(0, 86400 / AGG)
-
 
     for e in f:
         plot(ts, fa[e], 'o-', label=e)
