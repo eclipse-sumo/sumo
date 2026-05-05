@@ -1,4 +1,5 @@
 -n net.net.xml.gz --merged-csv data.csv --vtype-output vehtypes.xml
 --stops input_stops.xml
 -v
+--warn-unmapped
 tools/import/gtfs/gtfs2pt.py

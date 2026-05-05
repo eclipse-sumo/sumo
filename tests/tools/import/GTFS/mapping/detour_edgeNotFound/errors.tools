@@ -1,2 +1,5 @@
 Warning! Stop 4 for vehicle 36232563 starts earlier (23360) than previous stop (23440)
+Trip 36232563 (tram): detour (factor inf) to stop index 1, fromPos=986.63,5861.62 toPos=-69417.39,4363.13 (airLine=70419.96 path=inf)
 Trip 36232563 (tram): detour (factor 10.13) to stop index 4, fromPos=1439.55,7321.67 toPos=1220.57,7031.66 (airLine=363.40 path=3680.58)
+Warning! Fixed route 36232563 between 194083373#5 and 308691084#12 (added edges: 6)
+Warning! No stop for vehicle(id='36232563', x='10.588659', y='50.937609', until='120', attr_name='Jena, Nordschule', gtfsid='de:16053:153024::15302400', block='', fareZone='', fareSymbol='', startFare='').
