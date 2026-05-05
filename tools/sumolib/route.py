@@ -180,7 +180,11 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 pathLength = pathCost
                                 baseDiff = abs(lastBase + advance -
                                                path[-1].getLength() - base - airLineDist) + penalty
-                                extension = (edge,)
+                                if cost > maxGap:
+                                    pathCost = PRACTIVAL_INFINITY
+                                    extension = ()
+                                else:
+                                    extension = (edge,)
                             else:
                                 pathCost = cost
                                 baseDiff = advance - pathCost
