@@ -147,7 +147,7 @@ def joinBlocks(data):
     """
     blocks = []
     for block_id, block in data.groupby('block_id', dropna=False):
-        if not pd.isna(block_id):
+        if not pd.isna(block_id) and block_id != "":
             departs = block.groupby('trip_id')['departure_time'].min().rename('trip_departure_time')
             if len(departs) > 1:
                 block = block.join(departs, on='trip_id')
