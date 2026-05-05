@@ -609,7 +609,7 @@ def writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap):
         blocks = set([stop[3] for stop in stops[vehID]])
         isJoined = len(blocks) > 1
     for stop in stops[vehID]:
-        tripId = ' tripID="%s"' % stop[3] if isJoined and lastTripId != stop[3] else ''
+        tripId = ' tripId="%s"' % stop[3] if isJoined and lastTripId != stop[3] else ''
         if offset is None:
             offset = stop[1]
         rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s%s/> <!-- %s -->\n' %
