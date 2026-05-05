@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-23 13:22:00.555160 by Eclipse SUMO gtfs2pt.py v1_26_0+1355-88a79ea8b6b
+<!-- generated on 2026-05-05 17:09:24.531721 by Eclipse SUMO gtfs2pt.py v1_26_0+1488-6d3e6e6ce94
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -95,12 +95,8 @@
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
     </busStop>
     <busStop id="281591.12" lane="1312568317_0" startPos="41.77" endPos="56.77" friendlyPos="true" name="Zeuthen, Seegarten"/>
-    <busStop id="109298.4" lane="-4930561_0" startPos="78.21" endPos="93.21" friendlyPos="true" name="Schulzendorf (LDS), Puschkinstr."/>
-    <busStop id="109306.0" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
-    <busStop id="109306.1" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), R.-Breitscheid-Str.">
-        <access friendlyPos="true" lane="4920444_0" pos="0.00" length="22.09"/>
-        <access friendlyPos="true" lane="4930526_0" pos="0.00" length="53.12"/>
-    </busStop>
+    <busStop id="109328.0" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
+    <busStop id="109328.1" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), K.-Marx-Str."/>
     <busStop id="281153.1" lane="4930561_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben">
         <access friendlyPos="true" lane="-4920483_0" pos="397.08" length="128.08"/>
         <access friendlyPos="true" lane="4920483_0" pos="0.00" length="126.41"/>
