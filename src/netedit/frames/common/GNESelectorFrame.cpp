@@ -749,6 +749,11 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
                     if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_LANE) {
                         // special case for lanes
                         editedParents.push_back(dynamic_cast<GNELane*>(selectedAC)->getParentEdge());
+                    } else if (selectedAC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
+                        // special case for taz: select edges of source/sinks directly
+                        for (const auto& tss : selectedAC->getHierarchicalElement()->getChildTAZSourceSinks()) {
+                            editedParents.push_back(tss->getParentEdges().front());
+                        }
                     } else {
                         editedParents.insert(editedParents.end(), hierarchicalElement->getParentEdges().begin(), hierarchicalElement->getParentEdges().end());
                     }
