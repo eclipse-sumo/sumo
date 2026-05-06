@@ -1311,6 +1311,7 @@ GNEApplicationWindow::eventOccurred() {
 
 void
 GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
+    myMessageWindow->registerMsgHandlers();
     myAmLoading = false;
     GNEEvent_FileLoaded* fileLoadedEvent = static_cast<GNEEvent_FileLoaded*>(e);
     // check whether the loading was successful
@@ -1424,7 +1425,6 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         }
         myNet->getSavingStatus()->networkSaved();
     }
-    myMessageWindow->registerMsgHandlers();
     // update app
     update();
     // restore focus
