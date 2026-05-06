@@ -603,7 +603,12 @@ GNEOptionsEditorRow::OptionFilename::restoreOption() {
 long
 GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // get open mode
-    GNEFileDialog::OpenMode openMode = (myName.find("output") != std::string::npos) ? GNEFileDialog::OpenMode::SAVE : GNEFileDialog::OpenMode::LOAD_SINGLE;
+    GNEFileDialog::OpenMode openMode = GNEFileDialog::OpenMode::LOAD_SINGLE;
+    if (myName.find("output") != std::string::npos || myName.find("log") != std::string::npos) {
+        openMode = GNEFileDialog::OpenMode::SAVE;
+    } else if (myName.find("files") != std::string::npos) {
+        openMode = GNEFileDialog::OpenMode::LOAD_MULTIPLE;
+    }
     // open dialog
     const GNEFileDialog XMLFileDialog(myOptionsEditor->myDialog->getApplicationWindow(), myOptionsEditor->myDialog,
                                       TL("XML file"),
