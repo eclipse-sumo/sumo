@@ -616,7 +616,9 @@ GNEOptionsEditorRow::OptionFilename::onCmdOpenDialog(FXObject*, FXSelector, void
                                       GNEFileDialog::ConfigType::NETEDIT);
     // check that file is valid
     if (XMLFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        myFilenameTextField->setText(XMLFileDialog.getFilename().c_str(), TRUE);
+        myFilenameTextField->setText((openMode == GNEFileDialog::OpenMode::LOAD_MULTIPLE
+                ? joinToString(XMLFileDialog.getFilenames(), ",").c_str()
+                : XMLFileDialog.getFilename().c_str()), TRUE);
     }
     updateResetButton();
     return 1;
