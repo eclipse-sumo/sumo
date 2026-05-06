@@ -115,6 +115,7 @@ GNEExternalRunner::run() {
         myRunning = true;
         // Show command
         myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::OUTPUT_OCCURRED, runCommand + "\n"), false);
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("starting process...\n"))), true);
         // run command derivating the std_out to out and std_err to err
         boost::process::v1::child c(runCommand,
                                     boost::process::v1::std_in < in,
@@ -159,6 +160,7 @@ GNEExternalRunner::run() {
         // end running
         myRunning = false;
         // send end signal
+        myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::MESSAGE_OCCURRED, std::string(TL("process finished\n"))), false);
         myRunDialog->addEvent(new GUIEvent_Message(GUIEventType::TOOL_ENDED, ""), true);
         // return exit code
         return c.exit_code();
