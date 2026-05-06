@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-05 19:27+0000\n"
+"PO-Revision-Date: 2026-05-06 07:36+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6952,13 +6952,13 @@ msgstr "Aristas de tranvía ambiguas '%' y '%' para el carril '%'."
 #: src/netimport/NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
-msgstr ""
+msgstr "En la arista '%', el nodo de origen '%' es desconocido."
 
 #: src/netbuild/NBEdgeCont.cpp:2142 src/netimport/NIImporter_SUMO.cpp:150
 #: src/netimport/NIXMLEdgesHandler.cpp:566
 #, c-format
 msgid "Edge's '%' to-node '%' is not known."
-msgstr ""
+msgstr "En la arista '%', el nodo destino '%' es desconocido."
 
 #: src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
@@ -7339,6 +7339,8 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:301
 msgid "Smooth edge geometries with a grade above the warning threshold."
 msgstr ""
+"Suavizar geometrías de aristas con una pendiente superior al umbral de "
+"advertencia."
 
 #: src/netbuild/NBFrame.cpp:305
 msgid "Turn off normalizing node positions"
@@ -8653,7 +8655,7 @@ msgstr ""
 #: src/netbuild/NBNodeCont.cpp:743
 #, c-format
 msgid "Unknown junction '%' in join-cluster."
-msgstr ""
+msgstr "Cruce '%' desconocido en el join-cluster."
 
 #: src/netbuild/NBNodeCont.cpp:751
 msgid "Ignoring join-cluster '%' because it has size '%'."
@@ -11947,6 +11949,8 @@ msgstr "Escribir los nombres originales, si se proporcionan, como parámetro"
 #: src/netwrite/NWFrame.cpp:109
 msgid "Writes IDs of nodes remove with --geometry.remove into edge param"
 msgstr ""
+"Escribir los IDs de los nodos eliminados con --geometry.remove en el "
+"parámetro de arista"
 
 #: src/netwrite/NWFrame.cpp:112
 msgid "Writes street signs as POIs to FILE"
