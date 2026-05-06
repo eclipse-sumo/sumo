@@ -3738,6 +3738,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
             if (neteditOptions.getBool("autosave-netconvert-file")) {
                 onCmdSavePlainXML(sender, sel, ptr);
             }
+            myNet->getSavingStatus()->SumoConfigSaved();
         } else {
             WRITE_MESSAGE(TLF("Could not save SUMO configuration in '%'.", sumoConfigFile));
         }
