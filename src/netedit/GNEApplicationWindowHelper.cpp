@@ -23,7 +23,7 @@
 
 #include <netedit/dialogs/file/GNEFileDialog.h>
 #include <netedit/dialogs/tools/GNEPythonToolDialog.h>
-#include <netedit/dialogs/tools/GNERunPythonToolDialog.h>
+#include <netedit/dialogs/run/GNERunPythonToolDialog.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNETagProperties.h>
 #include <netedit/templates.h>
