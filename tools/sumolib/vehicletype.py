@@ -25,6 +25,7 @@ import os
 import json
 import re
 import random
+from typing import Union, Any
 
 import sumolib
 
@@ -204,7 +205,7 @@ class CreateVehTypeDistribution:
         self.name = name
         self.resampling = resampling
         self.decimal_places = decimal_places
-        self.attributes = []  # type: List[VehAttribute]
+        self.attributes = []  # type: list[VehAttribute]
 
     def add_attribute(self, attribute):
         # type: (Union[VehAttribute, dict]) -> None
@@ -256,7 +257,7 @@ class CreateVehTypeDistribution:
 
     @staticmethod
     def _check_existing(file_path):
-        # type: (str) -> Tuple[sumolib.xml.CompoundObject, bool]
+        # type: (str) -> tuple[sumolib.xml.CompoundObject, bool]
         if os.path.exists(file_path):
             try:
                 xmlTree = list(sumolib.xml.parse(file_path, outputLevel=0))[0]
@@ -290,10 +291,10 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
 
     def __init__(self):
         # type: () -> None
-        self.distributions = []  # type: List[CreateVehTypeDistribution]
+        self.distributions = []  # type: list[CreateVehTypeDistribution]
 
     def register_veh_type_distribution(self, veh_type_dist, veh_attributes):
-        # type: (Union[dict, CreateVehTypeDistribution], List[Union[dict, VehAttribute]]) -> None
+        # type: (Union[dict, CreateVehTypeDistribution], list[Union[dict, VehAttribute]]) -> None
         veh_type_dist = veh_type_dist if isinstance(
             veh_type_dist, CreateVehTypeDistribution) else CreateVehTypeDistribution(**veh_type_dist)
 

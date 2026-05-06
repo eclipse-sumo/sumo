@@ -150,8 +150,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                 for path, (dist, lastBase, detours) in paths.items():
                     pathLength = None
                     if debug:
-                        print("*** extending prev '%s' path: %s" % (path[-1].getID(), " ".join([e.getID() for e in path])))
-                        print("           by edge '%s' (d=%s) lastBase: %.2f, base: %.2f, advance: %.2f, old dist: %.2f, minDist: %.2f" %
+                        print("*** extending prev '%s' path: %s" % (path[-1].getID(), " ".join([e.getID() for e in path])))  # noqa
+                        print("           by edge '%s' (d=%s) lastBase: %.2f, base: %.2f, advance: %.2f, old dist: %.2f, minDist: %.2f" %  # noqa
                               (edge.getID(), d, lastBase, base, advance, dist, minDist))
                     if dist < minDist:
                         if edge == path[-1] and base > lastBase:
@@ -162,7 +162,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             baseDiff = advance - pathCost
                             extension = ()
                             if debug:
-                                print("---------- same edge")
+                                print("------- same edge")
                         else:
                             penalty = airDistFactor * advance if gapPenalty < 0 else gapPenalty
                             maxGap = min(penalty + edge.getLength() + path[-1].getLength(), fillGaps)
@@ -191,7 +191,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 extension = extension[1:]
                                 pathLength = sum([e.getLength() for e in extension[:-1]]) - lastBase + base
                             if debug:
-                                print("---------- extension cost: %.2f, pathCost: %.2f, pathLength: %.2f n: %s edges: %s" %
+                                print("------- extension cost: %.2f, pathCost: %.2f, pathLength: %.2f n: %s edges: %s" %
                                       (cost, pathCost, pathLength, len(extension),
                                        " ".join([e.getID() for e in extension])))
                         dist += d ** distPenalty + pathCost
@@ -203,7 +203,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             minDetours = detours
                             bestLength = pathLength
                             if debug:
-                                print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f advance: %.2f pathLength: %.2f detour: %.2f" % (
+                                print("*** new dist: %.2f baseDiff: %.2f minDist: %.2f advance: %.2f pathLength: %.2f detour: %.2f" % (  # noqa
                                     dist, baseDiff, minDist, advance, bestLength, bestLength / advance))
                 if minPath:
                     newPaths[minPath] = (minDist, base, minDetours + [bestLength / advance if advance > 0 else 0])
