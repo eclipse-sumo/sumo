@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-06 07:36+0000\n"
+"PO-Revision-Date: 2026-05-07 09:13+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -11890,6 +11890,8 @@ msgstr ""
 #: src/netwrite/NWFrame.cpp:62
 msgid "Write all lanes and their attributes even when they are not customized"
 msgstr ""
+"Escribir todos los carriles y sus atributos incluso cuando no estén "
+"personalizados"
 
 #: src/netwrite/NWFrame.cpp:69
 msgid "Defines a prefix for edge and junction IDs"
@@ -12041,6 +12043,8 @@ msgstr "Escribiendo red"
 msgid ""
 "DlrNavteq node data will be written in (floating point) cartesian coordinates"
 msgstr ""
+"Los datos de nodos DlrNavteq se escribirán en coordenadas cartesianas de "
+"punto flotante"
 
 #: src/netwrite/NWWriter_DlrNavteq.cpp:156
 #: src/netwrite/NWWriter_DlrNavteq.cpp:163
@@ -12072,6 +12076,8 @@ msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr ""
+"Incrustar datos de zona de análisis de tráfico dentro de la red está "
+"obsoleto. Use la opción --taz-output en su lugar"
 
 #: src/netwrite/NWWriter_SUMO.cpp:476
 msgid "Could not find bidi-connection for edge '%'"
@@ -12168,6 +12174,8 @@ msgstr "No se ha especificado ninguna entrada."
 #: src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
 msgstr ""
+"No se especificó ningún archivo de salida de tabla de viajes (-o) ni de "
+"flujo (flow-output)."
 
 #: src/od2trips_main.cpp:205
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
@@ -12185,6 +12193,8 @@ msgstr ""
 #: src/od2trips_main.cpp:270
 msgid "You must supply a TAZ, network or districts file ('-n')."
 msgstr ""
+"Debe proporcionarse un archivo de zona de análisis de trafico, red o "
+"distritos ('-n')."
 
 #: src/od2trips_main.cpp:276
 msgid "No districts loaded."
