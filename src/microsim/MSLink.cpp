@@ -951,6 +951,24 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     if (MSGlobals::gUseMesoSim && impatience == 1 && !myLane->getEdge().isRoundabout()) {
         return true;
     }
+    if (myLane->getBidiLane() != nullptr && myLane->getBidiLane()->getVehicleNumber() > 0) {
+        if (ego == nullptr) {
+            return false;
+        }
+        MSLane* bidi = myLane->getBidiLane();
+        double maxOncomingWidth = 0;
+        const MSLane::VehCont& vehs = bidi->getVehiclesSecure();
+        for (MSVehicle* foe : vehs) {
+            maxOncomingWidth = MAX2(maxOncomingWidth, foe->getVehicleType().getWidth());
+        }
+        bidi->releaseVehicles();
+        if (MSGlobals::gLateralResolution > 0) {
+            return ego->getVehicleType().getWidth() + maxOncomingWidth + MSGlobals::gLateralResolution < myLane->getWidth();
+        } else if (maxOncomingWidth > 0) {
+            // do not enter a lane that has any oncoming vehicles
+            return false;
+        }
+    }
     const bool lastWasContRed = lastWasContState(LINKSTATE_TL_RED);
     for (const MSLink* const link : foeLinks) {
         if (MSGlobals::gUseMesoSim) {
