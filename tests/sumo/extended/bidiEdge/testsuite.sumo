@@ -13,6 +13,12 @@ Doerpfeldstr
 # one pair of bidi-edges (between normal edges) and 2 vehicles entering at the same time
 1edge_2vehicles_sameTime
 
+# one pair of bidi-edges (between normal edges) and 2 vehicles entering at the same time
+1edge_2vehicles_sameTime_prioLeft
+
+# one pair of bidi-edges (between normal edges) and 2 vehicles entering at the same time
+1edge_2vehicles_sameTime_prioRight
+
 # two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
 2edges_between
 
