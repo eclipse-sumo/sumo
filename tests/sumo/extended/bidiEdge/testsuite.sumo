@@ -1,6 +1,18 @@
 # small extract from the dorpfeldstr. scenario (https://github.com/DLR-TS/sumo-scenarios/tree/main/Doerpfeldstr)
 Doerpfeldstr
 
+# one pair of bidi-edges (between normal edges) and 2 vehicles
+1edge_2vehicles
+
+# one pair of bidi-edges (between normal edges) and 2 vehicles (right vehicle goes first)
+1edge_2vehicles2
+
+# one pair of bidi-edges (between normal edges) and 2 vehicles
+1edge_2vehicles_sameDir
+
+# one pair of bidi-edges (between normal edges) and 2 vehicles entering at the same time
+1edge_2vehicles_sameTime
+
 # two consecutive pairs of bidi-edges (between normal edges) and 2 vehicles
 2edges_between
 
