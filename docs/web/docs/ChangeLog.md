@@ -65,7 +65,9 @@ title: ChangeLog
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
   - Editing custom lane and junction shapes on top of edges is working again #17806 (regression in 1.20.0)
   - edgedata mode: clicking on intervals works again #17686 (regression in 1.22.0)
+  - It is now possible to select edges that belong to a TAZ using selection mode #17701 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
+  - Errors when loading additionals from the command line, are now visible in the message window again #17819 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - Fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
   - Fixed crash after deleting an object from a group of overlapped objects #17795 (regression in 1.25.0)
@@ -73,10 +75,13 @@ title: ChangeLog
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
   - Fixed failure to load sumocfg in subfolder from command line #17673 (regression in 1.26.0)
   - Fixed invalid default extension when saving plain-xml #17778 (regression in 1.26.0)
+  - Fixed invalid save-sumocfg button state after saving the sumocfg #17938 (regression in 1.26.0)
   - Transparent junctions no longer show up as white in view #17751
   - Fixed invalid error when loading stop that ends on lane end #17818
   - Custom Shape colour gui setting now takes effect #17828
   - Fixed bug where deleting connections from a multi-lane turn could create an invalid network #17876
+  - Setting log output file in sumo options editor is now working #17948
+  - Defining multiple files in sumocfg options editor (i.e. additional-files) is now working #17949
 
 
 - netconvert
@@ -143,6 +148,7 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
+  - Cars no longer enter a bidi-edge if it is occupied or already being approached from a higher-priority road #10941
   - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627  
   - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which avoids multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628  
   - carFollowModel *ACC* now supports driverstate device (but it is only active when setting vType attribute `applyDriverState="1"`) #17633
@@ -156,6 +162,7 @@ title: ChangeLog
   - Stop-output now include actType if non-empty #17891
   - Added option **--fcd-output.utm** which write raw UTM coordinates when simulating in geo-referenced networks #17878
   - When option **--vehroute-output.cost** is set, attribute `savings` now reports the detour cost for a closingReroute #17924
+  - Actuated tls with custom conditions now supports expression `p:DETID` to retrieve the public transport delay of vehicles on the detector #17229
   - Taxis:
     - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
     - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
