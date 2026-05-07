@@ -4,3 +4,25 @@ Warning: Unequal lengths of bidi lane ':cluster1906421961_1906421962_0_1' and la
 Warning: Unequal lengths of bidi lane ':cluster_237253947_3909915214_10_1' and lane ':cluster_237253947_3909915214_1_1' (19.89 != 19.83).
 Warning: Unequal lengths of bidi lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_1_1' and lane ':cluster_237254713_3234767440_5641118083_5641118084_#1more_10_1' (27.69 != 27.65).
 Warning: Unequal lengths of bidi lane '-152839426_2' and lane '166142947#1_2' (67.21 != 67.01).
+Warning: Teleporting vehicle 'f_0.23'; waited too long (wrong lane), lane='178028204#9_1', time=2453.00.
+Warning: Vehicle 'f_0.23' ends teleporting on edge '-20553068#3', time=2453.00.
+Warning: Teleporting vehicle 'f_4.119'; waited too long (yield), lane='-152839426_2', time=2506.00.
+Warning: Teleporting vehicle 'f_4.113'; waited too long (wrong lane), lane='-178028204#9_1', time=2540.00.
+Warning: Vehicle 'f_4.113' ends teleporting on edge '23913525#0', time=2540.00.
+Warning: Vehicle 'f_4.119' ends teleporting on edge '23913525#0', time=2577.00.
+Warning: Teleporting vehicle 'f_1.27'; waited too long (yield), lane='140964924_1', time=2855.00.
+Warning: Teleporting vehicle 'f_0.26'; waited too long (wrong lane), lane='178028204#9_1', time=2867.00.
+Warning: Vehicle 'f_0.26' ends teleporting on edge '-20553068#3', time=2867.00.
+Warning: Teleporting vehicle 'f_3.295'; waited too long (jam), lane='178028204#4_1', time=2896.00.
+Warning: Teleporting vehicle 'f_4.118'; waited too long (wrong lane), lane='-178028204#9_1', time=2898.00.
+Warning: Vehicle 'f_4.118' ends teleporting on edge '23913525#0', time=2898.00.
+Warning: Vehicle 'f_3.295' ends teleporting on edge '178028204#9', time=2898.00.
+Warning: Teleporting vehicle 'f_3.309'; waited too long (jam), lane='178028204#1_1', time=2902.00.
+Warning: Teleporting vehicle 'f_2.351'; waited too long (jam), lane='-152839426_1', time=2905.00.
+Warning: Vehicle 'f_3.309' ends teleporting on edge '178028204#4', time=2905.00.
+Warning: Teleporting vehicle 'f_2.360'; waited too long (yield), lane='-45875465_1', time=2908.00.
+Warning: Vehicle 'f_2.360' ends teleporting on edge '-152839426', time=2908.00.
+Warning: Vehicle 'f_1.27' ends teleporting on edge '-20553068#3', time=2926.00.
+Warning: Teleporting vehicle 'f_0.29'; waited too long (yield), lane='-23913525#0_1', time=2933.00.
+Warning: Vehicle 'f_2.351' ends teleporting on edge '-178028204#4', time=2976.00.
+Warning: Vehicle 'f_0.29' ends teleporting on edge '-20553068#3', time=3004.00.
