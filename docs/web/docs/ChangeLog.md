@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main ([nightly development builds](Downloads.php#nightly_snapshots))
+## Git Main ([nightly development builds](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots))
 
 ### Bugfixes
 
