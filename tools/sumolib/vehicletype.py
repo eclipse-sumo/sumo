@@ -25,7 +25,7 @@ import os
 import json
 import re
 import random
-from typing import Union, Any
+from typing import Union, Any  # noqa
 
 import sumolib
 
