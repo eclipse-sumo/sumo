@@ -13,6 +13,10 @@ stops_otherEdge
 # ensure that stops on the same edge are in the correct sequence
 stops_sameEdgeOrder
 
+# a looped route passes multiple candidate stops.
+# One stop is physically closer but doesn't permit closing the loop so it must only be used on the final leg
+stops_looped_laterCloser
+
 # use candiate stop locations to restrict mapping
 stops_gtfs_ids
 

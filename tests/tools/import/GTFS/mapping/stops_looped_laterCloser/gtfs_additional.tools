@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-08 08:47:43.338343 by Eclipse SUMO gtfs2pt.py v1_26_0+1528-8822c95ba93
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="100.0"/>
+    <warn-unmapped value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="t1.0" lane="beg_0" startPos="-20.00" endPos="-10.00" friendlyPos="true" name="stopname1"/>
+    <busStop id="t1.1" lane="E3_0" startPos="297.80" endPos="307.80" friendlyPos="true" name="stopname2"/>
+    <busStop id="t1.4" lane="E4_0" startPos="199.19" endPos="209.19" friendlyPos="true" name="stopname4"/>
+</additional>
