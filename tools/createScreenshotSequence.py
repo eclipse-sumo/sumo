@@ -94,7 +94,7 @@ def main(options):
             listener.addTransformTarget(t, value, transform="translate")
     traci.addStepListener(listener)
     sumoEndTime = listener.getEndTime()
-    t = float(traci.simulation.getOption("begin"))
+    t = sumolib.miscutils.parseTime(traci.simulation.getOption("begin"))
     simStep = float(traci.simulation.getOption("step-length"))
     while t < sumoEndTime:
         traci.simulationStep()
@@ -156,8 +156,8 @@ class ScreenshotHelper(traci.StepListener):
         self._view = view
         self.__counter = 0
         self._recordIntervals = []
-        self._startTime = float(traci.simulation.getOption("begin"))
-        self._endTime = float(traci.simulation.getOption("end"))
+        self._startTime = sumolib.miscutils.parseTime(traci.simulation.getOption("begin"))
+        self._endTime = sumolib.miscutils.parseTime(traci.simulation.getOption("end"))
         self._simTime = self._startTime
         self._simStep = float(traci.simulation.getOption("step-length"))
         self._zoom = KeyFramedNumericAttribute(self._startTime, traci.gui.getZoom(viewID=view))
