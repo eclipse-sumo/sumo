@@ -24,10 +24,9 @@ supported.
     a tool by Gunnar Flötteröd which adapts the simulate flows to the
     real flows in a known net
 
-- [SUMOPy](SUMOPy/index.md)
+- [SUMOPy](hybridPY/index.md)
 
-    a tool by Joerg Schweizer supporting the whole SUMO toolchain with a
-    GUI especially for demand modelling
+    a tool by Joerg Schweizer and Fabian Schuhmann supporting the whole SUMO toolchain with a GUI and advanced scripting capabilities. Special demand generation models and MATSim demand import is also supported.
 
 - [LiSuM](../Tools/LiSuM.md)
 
