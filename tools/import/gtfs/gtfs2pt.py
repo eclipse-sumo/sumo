@@ -39,7 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, PRACTIVAL_INFINITY  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible, PRACTIVAL_INFINITY  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -111,6 +111,8 @@ def get_options(args=None):
                     help="file to write the generated polygon files to")
     ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
                     help="file to write the input stop coordinates to")
+    ap.add_argument("--parking-threshold", type=float, dest="parkingThreshold",
+                    help="If set, trips with consecutive stops in the same spot for more than FLOAT seconds are parked")
     ap.add_argument("--fill-gaps", default=5000, type=float, category="input",
                     help="maximum distance between stops")
     ap.add_argument("--skip-fcd", action="store_true", default=False,
@@ -326,11 +328,14 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
         typedNet = sumolib.net.readNet(typedNetFile)
         seen = set()
         fixed = {}
+        lastUntil = None
+        lastStop = None
         # Read the extended FCD format that includes the GTFS ID of the stop that the vehicle called in
         for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "x", "y", "until", "name", "gtfsid", "block",
                                                            "fareZone", "fareSymbol", "startFare")):
             stopName = veh.attr_name
             block = veh.block
+            until = intIfPossible(parseTime(veh.until))
             childs = []
             if veh.fareZone:
                 childs += ['        <param key="fareZone" value="%s"/>\n' % veh.fareZone,
@@ -445,6 +450,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             lastPos = end
             keep = True
             typ = "busStop" if mode in ("bus", "trolleybus") else "trainStop"
+            isParking = options.busParking and mode == "bus"
             for stopItem in stopDesc[laneID]:
                 otherStop, otherStart, otherEnd = stopItem[1:4]
                 if start < otherEnd <= end or otherStart < end <= otherEnd:  # stops overlap
@@ -455,11 +461,15 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     keep = False
                     stop = otherStop
                     break
+            if options.parkingThreshold is not None and lastStop == stop and until - lastUntil >= options.parkingThreshold:
+                isParking = True
             if keep:
                 if not options.skip_access:
                     childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
                 stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
-            stops[rid].append((stop, int(veh.until), stopName, block))
+            stops[rid].append((stop, until, stopName, block, isParking))
+            lastUntil = until
+            lastStop = stop
     for laneID, stopList in stopDesc.items():
         for typ, stop, start, end, stopName, childs in stopList:
             rout.write(u'    <%s id="%s" lane="%s" startPos="%.2f" endPos="%.2f" friendlyPos="true" name="%s"%s>\n' %
@@ -609,16 +619,15 @@ def main(options):
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)
             for vehID, (edges, indices) in routes.items():
                 if edges:
-                    writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap)
+                    writeRoute(options, rout, vehID, edges, stops, edgeMap)
                 else:
                     print("Warning! Empty route for %s." % vehID, file=sys.stderr)
             filter_trips(options, routes, stops, rout, options.begin, options.end)
             rout.write(u'</routes>\n')
 
 
-def writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap):
+def writeRoute(options, rout, vehID, edges, stops, edgeMap):
     ft = options.ft
-    parking = ' parking="true"' if (options.busParking and veh2mode.get(vehID) == "bus") else ""
     rout.write(u'    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
     offset = None
     isJoined = False
@@ -628,13 +637,14 @@ def writeRoute(options, rout, vehID, edges, stops, veh2mode, edgeMap):
         # read the changing trip_ids out of the block attribute
         blocks = set([stop[3] for stop in stops[vehID]])
         isJoined = len(blocks) > 1
-    for stop in stops[vehID]:
-        tripId = ' tripId="%s"' % stop[3] if isJoined and lastTripId != stop[3] else ''
+    for stopID, until, name, blockID, isParking in stops[vehID]:
+        tripId = ' tripId="%s"' % blockID if isJoined and lastTripId != blockID else ''
+        parking = ' parking="true"' if isParking else ""
         if offset is None:
-            offset = stop[1]
+            offset = until
         rout.write(u'        <stop busStop="%s" duration="%s" until="%s"%s%s/> <!-- %s -->\n' %
-                   (stop[0], ft(options.duration), ft(stop[1] - offset), parking, tripId,
-                    removeDoubleHypen(stop[2])))
+                   (stopID, ft(options.duration), ft(until - offset), parking, tripId,
+                    removeDoubleHypen(name)))
     rout.write(u'    </route>\n')
 
 
