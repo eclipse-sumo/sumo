@@ -67,3 +67,6 @@ radius_next_stop
 
 # radius is high enough to add candidate stops from the subsequent location
 radius_next_stop_ignore_dist
+
+# test reading gzipped input
+mergedCSVgz
