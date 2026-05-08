@@ -200,7 +200,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
   - The deprecated option **--lanechange.allow-swap** is no longer supported. #2116
   - The `laneChangeModel="JE2013"` has been removed due to strong similarity with *LC2013*.
     Using the model is deprecated and now defaults to *LC2013*
-  - [SUMOPy](../Contributed/SUMOPy/index.md) has been added to the
+  - [SUMOPy](../Contributed/hybridPY/index.md) has been added to the
     SUMO repository and to the release. Many thanks to Joerg Schweizer.
   - The libraries for the Windows build and release were updated to
     Fox 1.6.52 and Xerces-C 3.1.4 (with an additional fix for

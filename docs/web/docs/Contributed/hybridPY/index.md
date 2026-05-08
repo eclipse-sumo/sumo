@@ -103,12 +103,12 @@ python hybridpy
 ```
 
 If all required packages are installed correctly, you should see the
-main window as shown [here](../../../images/Fig_hybridpy_gui_main.png),
+main window as shown [here](../../images/Fig_hybridpy_gui_main.png),
 but initially with an empty network. The object browser shows initially
 the main object of hybridpy: the *scenario*, which contains all other
 information.
 
-![fig_hybridpy_gui_main.png](../../../images/Fig_hybridpy_gui_main.png
+![fig_hybridpy_gui_main.png](../../images/Fig_hybridpy_gui_main.png
 "hybridpy main window with object browser, network editor and main menu")
 
 From the scenario window previously safed scenarios can be opened and simulated with one of the methods found in the simulation menu.
