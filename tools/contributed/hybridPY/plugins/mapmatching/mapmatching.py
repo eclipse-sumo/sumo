@@ -20,7 +20,7 @@ from copy import copy, deepcopy
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     hybridPYDIR = os.path.join(APPDIR,'..','..')
     sys.path.append(hybridPYDIR)
@@ -47,14 +47,14 @@ from agilepy.lib_base.geometry import *
 try:
     try:
         import pyproj
-    except:
+    except Exception:
         from mpl_toolkits.basemap import pyproj
     try:
         from shapely.geometry import Polygon, MultiPolygon, MultiLineString, Point, LineString, MultiPoint
         from shapely.ops import cascaded_union
-    except:
+    except Exception:
         print('Import error: No shapely module available.')
-except:
+except Exception:
     print('Import error: in order to run the traces plugin please install the following modules:')
     print('   mpl_toolkits.basemap and shapely')
     print('Please install these modules if you want to use it.')
@@ -1550,7 +1550,7 @@ class VpCreator(Process):
                          list(range(len(ids_trip)))): 
                     try:
                         ids_only_bike_trip.index(id_pers) 
-                    except:
+                    except Exception:
                         print('plan first walk')
                         ids_walk1[i] , times_end_walk1[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                     id_plan, time_from, 
@@ -1590,7 +1590,7 @@ class VpCreator(Process):
                          list(range(len(ids_trip)))): 
                     try:
                         ids_only_bike_trip.index(id_trip) 
-                    except:
+                    except Exception:
                         print('plan first walk')
                         ids_walk1[i] , times_end_walk1[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                     id_plan, time_from, 
@@ -1777,7 +1777,7 @@ class VpCreator(Process):
                          ids_person ): 
                     try:
                         ids_only_bike_trip.index(id_pers) 
-                    except:
+                    except Exception:
                         ids_walk2[i] , times_end_walk2[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                     id_plan, time_from, 
                                                     id_edge_from = id_edge_from, 
@@ -1814,7 +1814,7 @@ class VpCreator(Process):
                              ids_person ): 
                         try:
                             ids_only_bike_trip.index(id_trip) 
-                        except:
+                        except Exception:
                             ids_walk2[i] , times_end_walk2[i] = virtualpop.get_plans().get_stagetable('walks').append_stage(\
                                                         id_plan, time_from, 
                                                         id_edge_from = id_edge_from, 

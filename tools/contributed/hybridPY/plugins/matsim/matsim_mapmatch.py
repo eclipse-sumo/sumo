@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 try:
     import networkx as nx
     import geonetworkx as gnx
-except:
+except Exception:
     print ('Matsim mapmatching cannot be used. Please install networkx and geonetworkx')
 import matplotlib.pyplot as plt
 
@@ -21,7 +21,7 @@ import math
 
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
     
 from .matsim_base import  *
@@ -206,7 +206,7 @@ class MapMatcher(Process):
                 while len(result_02[0])> index:
                     try: 
                         cosine = cosine_similarities[vector_set_id.index(result_02[0][index])]
-                    except:
+                    except Exception:
                         cosine = -1
                     if cosine >ortho_cosine_threshold and result_02[1][index]<ortho_dist:
                         if comp_result_02 == None: 
@@ -223,7 +223,7 @@ class MapMatcher(Process):
                 while len(result_04[0])> index:
                     try: 
                         cosine = cosine_similarities[vector_set_id.index(result_04[0][index])]
-                    except:
+                    except Exception:
                         cosine = -1
                     if cosine >ortho_cosine_threshold and result_04[1][index]<ortho_dist:
                         if comp_result_04 == None: 
@@ -241,7 +241,7 @@ class MapMatcher(Process):
                     
                     try: 
                         cosine = cosine_similarities[vector_set_id.index(result_06[0][index])]
-                    except:
+                    except Exception:
                         cosine = -1
 
                     if cosine>ortho_cosine_threshold and result_06[1][index]<ortho_dist:
@@ -257,7 +257,7 @@ class MapMatcher(Process):
                     return_index = comp_result_02
                     try: 
                         return_index = vector_set_id.index(comp_result_02)
-                    except:
+                    except Exception:
                         return_index = None
 
                 if ignore:
@@ -692,7 +692,7 @@ class MapMatcher(Process):
                 G.edges[edge]['id'] = graph.edges[edge]['id']
                 G.edges[edge]['weight'] = graph.edges[edge]['weight']
 
-            except:
+            except Exception:
                 value = merged_edges[edge]
                 id1 = graph[value[0][0]][value[0][1]]['id']
                 id2 = graph[value[1][0]][value[1][1]]['id']
@@ -744,7 +744,7 @@ class MapMatcher(Process):
                     for t in s_t:
                         try:
                             s_id = sumo.get_edge_data(f,t)['id']
-                        except:
+                        except Exception:
                             #print("... no edge in sumo map for matsim edge:", me)
                             pass
                         else:
@@ -772,7 +772,7 @@ class MapMatcher(Process):
                     
                     try:
                         sumo_path = nx.shortest_path(sumo, from_node_sumo, to_node_sumo)
-                    except:
+                    except Exception:
                         continue
                     finally:
                         local_edge_map, local_edge_map_id = match_edges_from_paths(matsim, matsim_path, sumo, sumo_path)
@@ -901,7 +901,7 @@ class MapMatcher(Process):
     def is_within_tolerance(node1, node2,tolerance):
         try: 
             distN1N2 = abs(math.dist(node1, node2))
-        except:
+        except Exception:
             return False
         
         return (distN1N2 <tolerance)

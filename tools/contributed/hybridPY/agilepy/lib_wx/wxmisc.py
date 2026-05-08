@@ -886,7 +886,7 @@ def get_bitmap(name, size=22):
         name = name + "_"+str(size)
         try:
             return imgImages.catalog[ name ].getBitmap()
-        except:
+        except Exception:
             print('WARNING in get_bitmap: failed to return image',name)
             return wx.NullBitmap
            

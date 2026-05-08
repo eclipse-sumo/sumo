@@ -1953,7 +1953,7 @@ class TripsBase(DemandobjMixin, am.ArrayObjman):
         print('export_trips_xml',filepath)
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in write_obj_to_xml: could not open',filepath)
             return False
 

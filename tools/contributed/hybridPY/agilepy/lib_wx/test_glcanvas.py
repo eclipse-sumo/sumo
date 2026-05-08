@@ -792,7 +792,7 @@ class WxGLTest_orig(glcanvas.GLCanvas):
 
         try:
             width, height = event.GetSize()
-        except:
+        except Exception:
             width = event.GetSize().width
             height = event.GetSize().height
         

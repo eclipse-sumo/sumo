@@ -10,7 +10,7 @@ def write_obj_to_xml(   obj, filepath,
     """
     try:
         fd=open(filepath,'w', encoding="utf-8")
-    except:
+    except Exception:
         print('WARNING in write_obj_to_xml: could not open',filepath)
         return False
     fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)

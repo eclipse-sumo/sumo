@@ -12,7 +12,7 @@ import sys, os
 import numpy as np
 try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-except:
+except Exception:
     APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
 hybridPYDIR = os.path.join(APPDIR,'..','..','hybridPY')
 sys.path.append(hybridPYDIR)

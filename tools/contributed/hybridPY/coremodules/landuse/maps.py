@@ -24,24 +24,24 @@ from mpl_toolkits.mplot3d import Axes3D
 try:
     from scipy import interpolate
     is_scipy = True
-except:
+except Exception:
     is_scipy = False
     
 IS_MAPSUPPORT = True
 try:
     from PIL import ImageFilter,Image,ImageChops,ImagePath,ImageDraw
-except:
+except Exception:
     print("WARNING: Maps requires PIL module.")
     IS_MAPSUPPORT = False
     
 try:
     import pyproj
 
-except:
+except Exception:
     try:
         from mpl_toolkits.basemap import pyproj
         
-    except:
+    except Exception:
         print("WARNING: Maps requires pyproj module.")
         IS_MAPSUPPORT = False
         #print __doc__

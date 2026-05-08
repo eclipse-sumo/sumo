@@ -3,13 +3,13 @@ from xml.sax import saxutils, parse, handler
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     hybridPYDIR = os.path.join(APPDIR,'..','..')
     sys.path.append(hybridPYDIR)
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
 
 # for elevation api
@@ -38,7 +38,7 @@ try:
     #zones clusterization
     from scipy.cluster.vq import  kmeans2
     from scipy.spatial import Voronoi, voronoi_plot_2d
-except:
+except Exception:
     print('No Scipy module installed. Clustarization functions will not work.')
     
 import matplotlib.pyplot as plt
@@ -46,7 +46,7 @@ try:
     from shapely.geometry import MultiPoint, Polygon
     from shapely.ops import unary_union
     IS_SHAPELY = True                              
-except:
+except Exception:
     IS_SHAPELY = False
 
 def qspline(x,a0,a1,a2):
@@ -518,7 +518,7 @@ def download_google_places(latlon,radius,key, places, next_page_token = None):
     #print ('  url=',url_all)
     try:
         response = requests.get(url_all)
-    except:
+    except Exception:
         print('ERROR: there is probably a problem with your Internet connection.')
     
     print ('  response status_code',response.status_code)
@@ -593,7 +593,7 @@ def download_google_places_extra(key, places, day_of_week, openinghours_default,
         #print ('  url=',url_all)
         try:
             response = requests.get(url_all)
-        except:
+        except Exception:
             print('ERROR: there is probably a problem with your Internet connection.')
             
         print ('    response status_code',response.status_code)
@@ -1440,7 +1440,7 @@ class Zones(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in write_obj_to_xml: could not open',filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
@@ -1471,7 +1471,7 @@ class Zones(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
@@ -2656,7 +2656,7 @@ class Facilities(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in write_obj_to_xml: could not open',filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag
@@ -3588,7 +3588,7 @@ class Landuse(cm.BaseObjman):
             print('export_polyxml',filepath)
             try:
                 fd=open(filepath,'w', encoding="utf-8")
-            except:
+            except Exception:
                 print('WARNING in export_poly_xml: could not open',filepath)
                 return None
             

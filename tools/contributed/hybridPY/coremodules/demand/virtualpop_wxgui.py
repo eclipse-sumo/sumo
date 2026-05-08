@@ -9,7 +9,7 @@ from . import virtualpop_results_mpl as results_mpl
 try:
     from . import virtualpop_results_mpl as results_mpl
     is_mpl = True # we have matplotlib support
-except:
+except Exception:
     print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False 
     

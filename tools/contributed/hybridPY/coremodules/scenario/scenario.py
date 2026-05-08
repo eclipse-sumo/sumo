@@ -3,7 +3,7 @@ import os, sys
 if  __name__ == '__main__':
     try:
         FILEDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         FILEDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     sys.path.append(os.path.join(FILEDIR,"..",".."))
  
@@ -283,7 +283,7 @@ class Scenario(cm.BaseObjman):
             self.landuse.import_polyxml(self.get_rootfilename(), self.get_workdirpath())
             try:
                 self.demand.import_xml(self.get_rootfilename(), self.get_workdirpath())
-            except:
+            except Exception:
                 print('WARNING: import of demand data failed. Please check for inconsistency with trip/route and network edge IDs.')
         
         def update_netoffset(self, deltaoffset):

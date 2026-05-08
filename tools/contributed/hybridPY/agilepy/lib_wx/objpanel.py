@@ -7,7 +7,7 @@ if  __name__ == '__main__':
     # search hybridPY in local directory (where this file is located)
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     sys.path.append(os.path.join(APPDIR,'..','..'))
 
@@ -143,7 +143,7 @@ def str_to_obj(s):
     else:
         try:
             return float(s)
-        except:
+        except Exception:
             return s
 
 def str_to_obj_nested(s):
@@ -165,7 +165,7 @@ def str_to_obj_nested(s):
             else:
                 try:
                     return float(s)
-                except:
+                except Exception:
                     return s
         else:
             return x
@@ -932,7 +932,7 @@ class ChoiceWidgetContainer(WidgetContainer):
         try:
             #ind = self._choicenames.index(value)
             ind = self._choicevalues.index(val)
-        except:
+        except Exception:
             print('WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list'%(self._attrconf.attrname,val))
             return
         #print '  ind',ind,self.valuewidget 

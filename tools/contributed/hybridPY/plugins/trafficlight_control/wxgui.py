@@ -15,7 +15,7 @@ from . import tlcontrol
 try:
     from . import results_mpl as results_mpl
     is_mpl = True # we have matplotlib support
-except:
+except Exception:
     print("WARNING: python matplotlib package not installed, no matplotlib plots.")
     is_mpl = False   
             

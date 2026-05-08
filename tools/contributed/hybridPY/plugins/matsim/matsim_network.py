@@ -11,7 +11,7 @@ from collections import Counter
 from agilepy.lib_base.geometry import *
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
     
 from .matsim_base import  *

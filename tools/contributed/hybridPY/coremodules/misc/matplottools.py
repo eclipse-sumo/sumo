@@ -20,7 +20,7 @@ if 1: # change backend...makes problems with plt
         from mpl.ticker import MaxNLocator
         import mpl.patches as mpatches
         
-    except:
+    except Exception:
         from matplotlib.patches import Arrow,Circle, Wedge, Polygon,FancyArrow
         from matplotlib.collections import PatchCollection
         import matplotlib.colors as colors
@@ -43,7 +43,7 @@ print("Using Matplotlib backend",mpl.get_backend())
 
 try:
     import wx
-except:
+except Exception:
     print('WARNING: no wxwindows support')
     
 import agilepy.lib_base.classman as cm

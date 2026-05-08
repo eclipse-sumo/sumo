@@ -62,7 +62,7 @@ def save_obj(obj,filename, is_not_save_parent=False):
     #print 'save_obj',is_not_save_parent,filename,obj.parent
     try:
         f=open(filename,'wb')
-    except:
+    except Exception:
         print('WARNING in save: could not open',filename)
         return False
     
@@ -93,7 +93,7 @@ def load_obj(filename,parent=None, is_throw_error = False):
     else:
         try:
             f=open(filename,'rb')
-        except:
+        except Exception:
             print('WARNING in load_obj: could not open',filename)
             return None
     

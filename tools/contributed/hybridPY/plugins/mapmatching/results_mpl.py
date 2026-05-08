@@ -19,7 +19,7 @@ import time
 try:
     from scipy import interpolate
     is_scipy = True
-except:
+except Exception:
     is_scipy = False
 
 def is_sublist(l, s):

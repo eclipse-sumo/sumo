@@ -469,7 +469,7 @@ class Detectors(am.ArrayObjman):
         print('export_detectors_xml',filepath)
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in write_obj_to_xml: could not open',filepath)
             return False
 

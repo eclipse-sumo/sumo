@@ -742,7 +742,7 @@ class OdIntervals(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
         
@@ -810,7 +810,7 @@ class OdIntervals(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag

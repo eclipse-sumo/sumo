@@ -39,7 +39,7 @@ from createOvertakingReroutes import parseRoutes, findSwitches, findSidings, fil
 
 try:
     sys.stdout.reconfigure(encoding='utf-8')
-except:  # noqa
+except Exception:  # noqa
     pass
 
 NETCONVERT = sumolib.checkBinary('netconvert')

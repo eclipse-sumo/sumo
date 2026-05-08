@@ -41,7 +41,7 @@ import sumolib.geomhelper as gh  # noqa
 
 try:
     sys.stdout.reconfigure(encoding='utf-8')
-except:  # noqa
+except Exception:  # noqa
     pass
 
 INTERSECT_RANGE = 1e5
