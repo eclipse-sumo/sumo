@@ -44,6 +44,7 @@ TOOLS = [
     "district/filterDistricts.py",
     "district/gridDistricts.py",
     "district/stationDistricts.py",
+    "district/tazRel2POI.py",
 
     # drt
     # "drt/darpSolvers.py",   NO CONFIG
@@ -64,6 +65,7 @@ TOOLS = [
     "import/gtfs/gtfs2pt.py",
     "import/vissim/vissim_parseRoutes.py",
     "import/visum/visum_convertEdgeTypes.py",
+    "import/visum/visum_convertXMLRoutes.py",
 
     # net
     "net/abstractRail.py",
@@ -86,6 +88,14 @@ TOOLS = [
     # "net/xmlconnections_mapEdges.py",       NO CONFIG
     # "net/xmledges_applyOffset.py",          NO CONFIG
     # "net/xmlnodes_applyOffset.py",          NO CONFIG
+    "net/net2sel.py",
+    "net/remap_renamed.py",
+    "net/remap_attributes.py",
+    "net/remap_network.py",
+    "net/remap_additionals.py",
+    "net/cut_net.py",
+    "net/patchRailConflicts.py",
+    "net/patchRailPriorities.py",
 
     # route
     "route/addStopDelay.py",
@@ -106,6 +116,7 @@ TOOLS = [
     "route/tracegenerator.py",
     "route/tracemapper.py",
     # "route/vehicle2flow.py",                NO CONFIG
+    "route/checkReversals.py",
 
     # output
     "output/aggregateBatteryOutput.py",
@@ -140,6 +151,9 @@ TOOLS = [
     "output/vehrouteCountValidation.py",
     "output/vehrouteDiff.py",
     "output/walkFactor.py",
+    "output/instantOutDiff.py",
+    "output/instantOutToEdgeCounts.py",
+    "output/generateDetectors.py",
 
     # shapes
     "shapes/circlePolygon.py",
@@ -153,6 +167,11 @@ TOOLS = [
     "tls/createTlsCsv.py",
     # "tls/tls_check.py",             NO CONFIG
     "tls/tls_csvSignalGroups.py",
+
+    # trigger
+    "trigger/sidings2poly.py",
+    "trigger/calibrator2edgedata.py",
+    "trigger/createOvertakingReroutes.py",
 
     # turn-defs
     # "turn-defs/collectinghandler.py",       NO CONFIG
@@ -177,6 +196,7 @@ TOOLS = [
     "visualization/plot_net_trafficLights.py",
     "visualization/plot_summary.py",
     "visualization/plotXMLAttributes.py",
+    "visualization/plotStops.py",
 
     # xml
     # "xml/addSchema.py",         IGNORE
