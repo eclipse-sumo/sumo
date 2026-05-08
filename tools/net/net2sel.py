@@ -33,7 +33,7 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--net-file", dest="netFile", required=True,
                            category="input", type=argParser.net_file, help="The .net.xml file to convert")
-    argParser.add_argument("-o", "--output-file", dest="outFile", category="output",
+    argParser.add_argument("-o", "--output-file", dest="outFile", required=True, category="output",
                            type=argParser.file, help="The polygon output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
                            category="processing", help="Write lanes to selection instead of edges")
