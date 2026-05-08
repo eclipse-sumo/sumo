@@ -1,0 +1,1 @@
+# Ansatz: Import & Export einer OSM Datei und anschließend wird ein Abgleich durchgeführt 

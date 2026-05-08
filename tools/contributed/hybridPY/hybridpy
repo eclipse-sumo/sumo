@@ -1,0 +1,96 @@
+#!/usr/bin/env python
+from branding.definitions import *
+__doc__ = INFO
+__version__     = VERSION
+
+###############################################################################
+print('\n\n'+APPNAME+' version '+__version__+'\n'+COPYRIGHT)
+
+###############################################################################
+## IMPORTS
+import os, sys
+
+import wx
+import wx.adv 
+from wx.lib.wordwrap import wordwrap
+print('\n  using wx python version',wx.__version__)
+
+## Load modules
+moduledirs = ['coremodules','plugins']
+APPDIR=''
+if  __name__ == '__main__':
+    # search APP in local directory (where this file is located)
+    try:
+        APPDIR = os.path.dirname(os.path.abspath(__file__))
+    except:
+        APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+    sys.path.append(APPDIR)
+    for moduledir in moduledirs:
+        lp = os.path.abspath(os.path.join(APPDIR,moduledir))
+        if not lp in sys.path:
+            #print (' append',lp)
+            sys.path.append(lp)
+
+
+
+from agilepy.lib_wx.mainframe import AgileMainframe
+
+###############################################################################
+class MyApp(wx.App):
+
+    def __init__(self, redirect=False, filename=None):
+        wx.App.__init__(self, redirect, filename)
+        #print ('init',APPNAME, sys.argv)
+        self.mainframe = AgileMainframe(
+                title=APPNAME,
+                moduledirs = moduledirs, # subdirectories containing modules
+                appdir = APPDIR,
+                args = sys.argv,
+                is_maximize = True, is_centerscreen = True,
+                size_toolbaricons = (32,32),
+                style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
+                )
+        icon = wx.Icon(get_logopath(),wx.BITMAP_TYPE_PNG, 16,16)
+        self.mainframe.SetIcon(icon)
+        self.mainframe.Show()
+
+        self.mainframe.refresh_moduleguis()
+
+        self.mainframe.menubar.append_menu('About')
+        self.mainframe.menubar.append_item(f'About/About {APPNAME}...',self.on_about,\
+            info= f'About {APPNAME}',
+            bitmap = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION,wx.ART_MENU)
+            )
+
+    def on_about(self, event):
+        info = wx.adv.AboutDialogInfo()
+        
+        info.SetIcon(wx.Icon(get_logopath(kind = 'image'),wx.BITMAP_TYPE_PNG, 150,150))
+        info.SetName(APPNAME)
+        info.SetVersion(__version__)
+        info.Description = INFO# too much: +'\n\n'+self.read_readme()
+        info.Copyright = COPYRIGHT
+        info.SetWebSite(*URL)
+        
+        info.SetLicense(LICENSE) #wordwrap(LICENSE, 500, wx.ClientDC(self))#ClientDC must have a wxPanel
+        
+        for developer, developerinfo in DEVELOPERS.items(): 
+            info.AddDeveloper(developer)
+        #info.SetTranslators()
+        wx.adv.AboutBox(info)
+        event.Skip()
+
+    def read_readme(self):
+        try:
+            with open("README.md", "r") as file:
+                return file.read()
+        except FileNotFoundError:
+            return "README.md not found."
+
+
+
+
+if __name__ == '__main__':
+    myapp = MyApp(0)
+    myapp.MainLoop()
