@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-05 17:47:17.531070 by Eclipse SUMO gtfs2pt.py v1_26_0+1490-cabd7e3693a
+<!-- generated on 2026-05-08 11:00:59.171634 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -70,13 +70,9 @@
         <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
         <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
     </busStop>
-    <busStop id="280370.6" lane="1010110055_0" startPos="39.70" endPos="54.70" friendlyPos="true" name="Alt-Schmöckwitz (Berlin)">
-        <access friendlyPos="true" lane="-11452526_0" pos="50.28" length="29.58"/>
-        <access friendlyPos="true" lane="-4463780#1_0" pos="86.27" length="60.25"/>
-        <access friendlyPos="true" lane="383790135_0" pos="3.46" length="34.38"/>
-        <access friendlyPos="true" lane="421231594#1_0" pos="50.16" length="94.35"/>
-        <access friendlyPos="true" lane="44170716#0_0" pos="0.00" length="93.97"/>
-        <access friendlyPos="true" lane="4463780#0_0" pos="0.00" length="57.55"/>
+    <busStop id="280370.7" lane="1010110055_0" startPos="39.70" endPos="54.70" friendlyPos="true" name="Zum Seeblick (Berlin)">
+        <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
+        <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
     </busStop>
     <busStop id="280370.9" lane="-4068154#2_0" startPos="257.42" endPos="272.42" friendlyPos="true" name="Eichwalde, Tschaikowskistr.">
         <access friendlyPos="true" lane="-24275810#0_0" pos="206.48" length="15.45"/>

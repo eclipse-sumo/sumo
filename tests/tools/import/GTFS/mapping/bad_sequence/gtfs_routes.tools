@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-22 20:27:07.893180 by Eclipse SUMO gtfs2pt.py v1_26_0+1323-bba59b89dca
+<!-- generated on 2026-05-08 12:34:46.905780 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -15,6 +15,9 @@
         <stop busStop="132189814.0" duration="10" until="0"/> <!-- Braunschweig Güldenstraße -->
         <stop busStop="132189814.1" duration="10" until="-180"/> <!-- Braunschweig Hintern Brüdern -->
         <stop busStop="132189814.2" duration="10" until="-240"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132189814.3" duration="10" until="60"/> <!-- Braunschweig Südstraße -->
+        <stop busStop="132189814.4" duration="10" until="-120"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132189814.5" duration="10" until="120"/> <!-- Braunschweig Holzhof -->
         <stop busStop="132189814.6" duration="10" until="-300"/> <!-- Braunschweig Rathaus -->
         <stop busStop="132189814.7" duration="10" until="-420"/> <!-- Braunschweig Staatstheater -->
     </route>

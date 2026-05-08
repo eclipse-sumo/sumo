@@ -35,6 +35,9 @@ lane_disallowed
 # set stops to parking
 parking
 
+# set stops to parking
+load_stops_add_missing
+
 # import public transport using a network that doesn't cover all stops
 subnet
 

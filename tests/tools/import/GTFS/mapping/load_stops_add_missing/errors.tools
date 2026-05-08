@@ -1,0 +1,2 @@
+Warning! Adding stop at index 0 that was not loaded for vehicle(id='t1', x='10.50688', y='52.255635', until='0', attr_name='stopname1', gtfsid='stop1', block='', fareZone='', fareSymbol='', startFare='').
+Warning! Adding stop at index 1 that was not loaded for vehicle(id='t1', x='10.51082', y='52.255611', until='50', attr_name='stopname2', gtfsid='stop2', block='', fareZone='', fareSymbol='', startFare='').

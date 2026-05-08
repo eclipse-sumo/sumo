@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-05 17:47:17.673521 by Eclipse SUMO gtfs2pt.py v1_26_0+1490-cabd7e3693a
+<!-- generated on 2026-05-08 11:00:59.571046 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -33,8 +33,8 @@
         <stop busStop="109244.8" duration="00:00:10" until="00:16:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
     </route>
     <route id="280370" edges="1198308222 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.6" duration="00:00:10" until="00:05:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="109241.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:05:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="109244.6" duration="00:00:10" until="00:05:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
         <stop busStop="280370.9" duration="00:00:10" until="00:06:00"/> <!-- Eichwalde, Tschaikowskistr. -->
         <stop busStop="280370.10" duration="00:00:10" until="00:06:00"/> <!-- Eichwalde, Friedenstr. -->
@@ -43,8 +43,8 @@
         <stop busStop="280370.13" duration="00:00:10" until="00:11:00"/> <!-- S Zeuthen -->
     </route>
     <route id="281591" edges="1198308222 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 1015059912 8068347 203010184 1312568317 -1015030679 -1015030680 -8068346 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.6" duration="00:00:10" until="00:05:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="109241.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:05:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="109244.6" duration="00:00:10" until="00:05:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
         <stop busStop="280370.9" duration="00:00:10" until="00:06:00"/> <!-- Eichwalde, Tschaikowskistr. -->
         <stop busStop="280370.10" duration="00:00:10" until="00:07:00"/> <!-- Eichwalde, Friedenstr. -->
@@ -90,8 +90,8 @@
         <stop busStop="109328.0" duration="00:00:10" until="00:04:00"/> <!-- S Eichwalde -->
     </route>
     <route id="284973" edges="1198308222 1013489670 4463780#0 4463780#2 240539088 1010110067 1013489690 1010110055 -37825300 -1010110058 -355736431 355736431 -355736431 -4068154#4 -4068154#3 -4068154#2 -4068154#1 -4068154#0 4045247#0 4045247#1 4045247#2 4045247#3 797340925#0 797340925#1 785407797 -8068171 797340923 124266877 124266876#1 124266876#2 124266876#3 124266876#4 4045248#0 4045248#1 -837291681 -810189346">
-        <stop busStop="280370.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
-        <stop busStop="280370.6" duration="00:00:10" until="00:03:00"/> <!-- Zum Seeblick (Berlin) -->
+        <stop busStop="109241.6" duration="00:00:10" until="00:00:00"/> <!-- Alt-Schmöckwitz (Berlin) -->
+        <stop busStop="280370.7" duration="00:00:10" until="00:03:00"/> <!-- Zum Seeblick (Berlin) -->
         <stop busStop="109244.6" duration="00:00:10" until="00:03:00"/> <!-- Eichwalde, Schmöckwitzer Str. -->
         <stop busStop="280370.9" duration="00:00:10" until="00:04:00"/> <!-- Eichwalde, Tschaikowskistr. -->
         <stop busStop="280370.10" duration="00:00:10" until="00:04:00"/> <!-- Eichwalde, Friedenstr. -->

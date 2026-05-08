@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-01 14:19:49.231806 by Eclipse SUMO gtfs2pt.py v1_26_0+0938-04adf6c909a
+<!-- generated on 2026-05-08 12:34:46.572902 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
 <configuration>
     <merged-csv value="data.csv"/>
     <modes value="bus"/>
@@ -11,9 +11,12 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="132189814.0" lane="8618349#0_0" startPos="40.93" endPos="55.93" friendlyPos="true" name="Braunschweig Güldenstraße"/>
-    <busStop id="132189814.1" lane="150851273#0_0" startPos="7.56" endPos="20.56" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
-    <busStop id="132189814.2" lane="32269752#1_0" startPos="65.06" endPos="78.06" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="132189814.0" lane="167920428#6_0" startPos="52.18" endPos="67.18" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="132189814.1" lane="30425275#0_0" startPos="29.12" endPos="42.12" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
+    <busStop id="132189814.2" lane="37983000_0" startPos="56.70" endPos="71.70" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="132189814.3" lane="31016344#0_0" startPos="25.64" endPos="40.64" friendlyPos="true" name="Braunschweig Südstraße"/>
+    <busStop id="132189814.4" lane="-625229902_0" startPos="31.93" endPos="46.93" friendlyPos="true" name="Braunschweig Altstadtmarkt"/>
+    <busStop id="132189814.5" lane="122119622#0_0" startPos="56.39" endPos="71.39" friendlyPos="true" name="Braunschweig Holzhof"/>
     <busStop id="132189814.6" lane="5134732_0" startPos="30.42" endPos="45.42" friendlyPos="true" name="Braunschweig Rathaus"/>
     <busStop id="132189814.7" lane="171756596_0" startPos="5.00" endPos="43.33" friendlyPos="true" name="Braunschweig Staatstheater"/>
 </additional>
