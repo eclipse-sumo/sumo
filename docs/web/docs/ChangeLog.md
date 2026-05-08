@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Git Main ([nightly development builds](Downloads.php#nightly_snapshots))
 
 ### Bugfixes
 
