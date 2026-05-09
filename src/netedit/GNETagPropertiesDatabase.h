@@ -139,7 +139,7 @@ protected:
     void fillCommonVTypeAttributes(GNETagProperties* tagProperties);
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)
-    void fillCommonVehicleAttributes(GNETagProperties* tagProperties);
+    void fillCommonVehicleAttributes(GNETagProperties* tagProperties, bool calibratorFlow = false);
 
     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
     void fillCommonFlowAttributes(GNETagProperties* tagProperties, SumoXMLAttr perHour);

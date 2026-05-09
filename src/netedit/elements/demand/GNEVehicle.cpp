@@ -1458,17 +1458,9 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_VIA:
             return toString(via);
         case SUMO_ATTR_DEPARTEDGE:
-            if (departEdge == -1) {
-                return "";
-            } else {
-                return toString(departEdge);
-            }
+            return getDepartEdge();
         case SUMO_ATTR_ARRIVALEDGE:
-            if (arrivalEdge == -1) {
-                return "";
-            } else {
-                return toString(arrivalEdge);
-            }
+            return getArrivalEdge();
         // Specific of from-to junctions
         case SUMO_ATTR_FROM_JUNCTION:
             return getParentJunctions().front()->getID();
@@ -1755,21 +1747,27 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ARRIVALEDGE: {
             if (value.empty()) {
                 return true;
-            } else if (canParse<int>(value)) {
-                // get index
-                const int index = parse<int>(value);
-                // check conditions
-                if (index < 0) {
-                    return false;
-                } else if (myTagProperty->vehicleRoute()) {
-                    // check parent route
-                    return (index < (int)getRouteParent()->getParentEdges().size());
-                } else {
-                    // check embedded route
-                    return (index < (int)getChildDemandElements().front()->getParentEdges().size());
-                }
             } else {
-                return false;
+                RouteIndexDefinition dummyDef;
+                int dummyIndex;
+                SUMOVehicleParameter::parseRouteIndex(value, myTagProperty->getTagStr(), id, key, dummyIndex, dummyDef, error);
+                if (error.empty()) {
+                    if (dummyDef != RouteIndexDefinition::GIVEN) {
+                        return true;
+                    } else if (isTemplate()) {
+                        return true;
+                    } else if (myTagProperty->vehicleRoute()) {
+                        // check parent route
+                        return (dummyIndex < (int)getRouteParent()->getParentEdges().size());
+                    } else if (getChildDemandElements().size() > 0) {
+                        // check embedded route
+                        return (dummyIndex < (int)getChildDemandElements().front()->getParentEdges().size());
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
             }
         }
         case SUMO_ATTR_VIA:
@@ -2177,8 +2175,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 // mark parameter as set
                 parametersSet |= VEHPARS_DEPARTEDGE_SET;
-                departEdge = parse<int>(value);
-                departEdgeProcedure = RouteIndexDefinition::GIVEN;
+                SUMOVehicleParameter::parseRouteIndex(value, myTagProperty->getTagStr(), id, key, departEdge, departEdgeProcedure, error);
             }
             // compute vehicle
             if (getID().size() > 0) {
@@ -2197,8 +2194,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 // mark parameter as set
                 parametersSet |= VEHPARS_ARRIVALEDGE_SET;
-                arrivalEdge = parse<int>(value);
-                arrivalEdgeProcedure = RouteIndexDefinition::GIVEN;
+                SUMOVehicleParameter::parseRouteIndex(value, myTagProperty->getTagStr(), id, key, arrivalEdge, arrivalEdgeProcedure, error);
             }
             if (getID().size() > 0) {
                 // compute vehicle
