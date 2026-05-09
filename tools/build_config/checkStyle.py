@@ -299,11 +299,11 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                 f.read()
         except UnicodeDecodeError as err:
             print(self._file, err)
-        self.checkFileHeader(ext)
         if exclude:
             for x in exclude:
                 if x + "/" in self._file:
                     return None
+        self.checkFileHeader(ext)
         if ext in (".cpp", ".h", ".java") and HAVE_ASTYLE and self._fix:
             subprocess.call(["astyle", "--style=java", "--unpad-paren", "--pad-header", "--pad-oper",
                              "--add-brackets", "--indent-switches", "--align-pointer=type",
