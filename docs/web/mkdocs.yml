@@ -55,7 +55,7 @@ plugins:
           "Car-Following-Models.md" : "Car-Following-Models/index.md"
           "ChangeLog/index.md" : "ChangeLog.md"
           "Contact.md" : "https://eclipse.dev/sumo/contact/"
-          "Contributed/SUMOPy.md" : "Contributed/SUMOPy/index.md"
+          "Contributed/SUMOPy.md" : "Contributed/hybridPY/index.md"
           "Networks/Import.md" : "Networks/Import/index.md"
           "TraCI.md" : "TraCI/index.md"
 #  - spellcheck:
