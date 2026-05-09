@@ -26,7 +26,7 @@ edge_1_trip
 edge_2_trip
 
 # checks using departEdge=10 with a shorter trip
-edge_invaid_trip
+edge_invalid_trip
 
 # checks using departEdge=random with a trip
 edge_random_trip
