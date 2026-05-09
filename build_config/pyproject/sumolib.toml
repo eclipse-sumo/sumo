@@ -17,6 +17,9 @@ classifiers = [
     "Programming Language :: Python",
 ]
 
+[project.optional-dependencies]
+all = ["matplotlib", "pyproj", "rtree", "shapely"]
+
 [project.urls]
 Homepage = "https://sumo.dlr.de/"
 Documentation = "https://sumo.dlr.de/docs/"
