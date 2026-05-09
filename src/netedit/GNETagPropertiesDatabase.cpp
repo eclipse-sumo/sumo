@@ -2738,12 +2738,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this trip"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -2779,12 +2773,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this trip"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_JUNCTION,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -2815,12 +2803,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this trip"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_TAZ,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -2850,12 +2832,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this vehicle"),
-                                   DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
@@ -2892,12 +2868,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the vehicle type to use for this vehicle"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -2927,12 +2897,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
@@ -2970,12 +2934,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_JUNCTION,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -3007,12 +2965,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
 
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
-
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_FROM_TAZ,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                    GNEAttributeProperties::Edit::EDITMODE,
@@ -3043,12 +2995,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY,
@@ -3085,12 +3031,6 @@ GNETagPropertiesDatabase::fillVehicleElements() {
 
         // set values of attributes
         fillIDAttribute(myTagProperties[currentTag], true);
-
-        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_TYPE,
-                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                                   GNEAttributeProperties::Edit::EDITMODE,
-                                   TL("The id of the flow type to use for this flow"),
-                                   DEFAULT_VTYPE_ID);
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_DEPARTEDGE,
                                    GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UNIQUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
@@ -6535,6 +6475,13 @@ void
 GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagProperties) {
     // fill vehicle attributes
     fillColorAttribute(tagProperties, "yellow");
+
+    new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
+                               GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                               GNEAttributeProperties::Edit::EDITMODE,
+                               TL("The id of the vehicle type to use for this vehicle"),
+                               DEFAULT_VTYPE_ID);
+
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTLANE,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
