@@ -439,7 +439,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
                                                   route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                     if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
-                         print("Warning! Adding stop at index %s that was not loaded for %s." % (stopIndex, veh), file=sys.stderr)
+                        print("Warning! Adding stop at index %s that was not loaded for %s." % (
+                            stopIndex, veh), file=sys.stderr)
                 if result is None:
                     if options.warn_unmapped:
                         print("Warning! No stop at index %s for %s." % (stopIndex, veh), file=sys.stderr)
@@ -461,7 +462,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     keep = False
                     stop = otherStop
                     break
-            if options.parkingThreshold is not None and lastStop == stop and until - lastUntil >= options.parkingThreshold:
+            if ((options.parkingThreshold is not None
+                 and lastStop == stop
+                 and until - lastUntil >= options.parkingThreshold)):
                 isParking = True
             if keep:
                 if not options.skip_access:
