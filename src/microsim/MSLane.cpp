@@ -56,6 +56,7 @@
 #include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <mesosim/MELoop.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
@@ -4771,6 +4772,11 @@ MSLane::mayContinue(const MSVehicle* veh) const {
     if (veh->getDevice(typeid(MSDevice_Taxi)) != nullptr) {
         // taxi device may assign a new route that continues past the end of the initial route
         return true;
+    }
+    for (const MSMoveReminder* rem : myMoveReminders) {
+        if (dynamic_cast<const MSTriggeredRerouter*>(rem) != nullptr) {
+            return true;
+        }
     }
     return false;
 }
