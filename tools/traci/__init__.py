@@ -27,7 +27,7 @@ import warnings
 __all__ = ['busstop', 'calibrator', 'chargingstation', 'edge', 'gui', 'inductionloop', 'junction', 'lane', 'lanearea',  # noqa
            'multientryexit', 'overheadwire', 'parkingarea', 'person', 'poi', 'polygon', 'rerouter', 'route',
            'routeprobe', 'simulation', 'trafficlight', 'variablespeedsign', 'vehicle', 'vehicletype',
-           'constants', 'exceptions']
+           'connection', 'constants', 'domain', 'exceptions']
 
 try:
     # this tries to determine the version number of an installed wheel
