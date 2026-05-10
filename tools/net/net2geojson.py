@@ -23,7 +23,16 @@ from __future__ import absolute_import, print_function
 import json
 import os
 import sys
+import warnings
 from collections import defaultdict
+
+try:
+    from shapely.geometry import Polygon, mapping
+    from shapely.validation import make_valid
+    HAVE_SHAPELY = True
+except ImportError:
+    warnings.warn("Shapely not available, generated polygons might be invalid.")
+    HAVE_SHAPELY = False
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -72,14 +81,15 @@ def parse_args():
 
 
 def shape2json(net, geometry, is_boundary):
-    lon_lat_geometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
-    coords = [[round(x, 6), round(y, 6)] for x, y in lon_lat_geometry]
+    if net.hasGeoProj():
+        coords = [[round(x, 6), round(y, 6)] for x, y in [net.convertXY2LonLat(x, y) for x, y in geometry]]
+    else:
+        coords = [[round(x, 3), round(y, 3)] for x, y in geometry]
     if is_boundary:
-        coords = [coords]
-    return {
-        "type": "Polygon" if is_boundary else "LineString",
-        "coordinates": coords
-    }
+        if HAVE_SHAPELY:
+            return mapping(make_valid(Polygon(coords)))
+        return {"type": "Polygon", "coordinates": [coords]}
+    return {"type": "LineString", "coordinates": coords}
 
 
 def add_feature(options, features, add_lanes, net, edge_data, pt_lines):
@@ -133,7 +143,7 @@ def add_junction_features(net, features, options):
             "element": 'junction',
             "id": junction.getID(),
         }
-        feature["geometry"] = shape2json(net, junction.getShape(), options.boundary)
+        feature["geometry"] = shape2json(net, junction.getShape(), options.boundary and len(junction.getShape()) > 2)
         features.append(feature)
 
 
@@ -164,9 +174,6 @@ def add_tls_features(net, features, options):
 if __name__ == "__main__":
     options = parse_args()
     net = sumolib.net.readNet(options.net_file, withInternal=options.internal)
-    if not net.hasGeoProj():
-        sys.stderr.write("Network does not provide geo projection\n")
-        sys.exit(1)
 
     edge_data = defaultdict(dict)
     if options.edgedata_file:
