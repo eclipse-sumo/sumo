@@ -1,5 +1,8 @@
 symmetric_approach
 
+# see #17972
+symmetric_approach_fast
+
 # 2 zipper lanes and a non-zipper lane
 3lanes
 
