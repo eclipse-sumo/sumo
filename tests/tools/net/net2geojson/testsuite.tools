@@ -19,6 +19,9 @@ tls
 # write geojson edge boundaries
 boundaries
 
+# write geojson edge and junction boundaries
+junction_boundaries
+
 # test importing a network without geo reference
 no_geo
 save_template
