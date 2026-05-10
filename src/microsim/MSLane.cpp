@@ -1051,7 +1051,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || (*link)->railSignalWasPassed()
-                || !(*link)->havePriority()) {
+                || !(*link)->havePriority()
+                || (*link)->getState() == LINKSTATE_ZIPPER) {
             // have to stop at junction
             std::string errorMsg = "";
             const LinkState state = (*link)->getState();
