@@ -10,7 +10,7 @@ from collections import OrderedDict
 try:
     import networkx as nx
     IS_NX = True
-except:
+except Exception:
     IS_NX = False
     
 import numpy as np
@@ -30,7 +30,7 @@ import json
 
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
 
 
@@ -47,7 +47,7 @@ def load_objfile(filepath):
     f=open(filepath,'rb')
     try:
         f=open(filepath,'rb')
-    except:
+    except Exception:
         print('WARNING in load_obj: could not open',filepath)
         return None
     
@@ -250,12 +250,12 @@ class Road:
         if is_int:
             try:
                 return int(v)
-            except:
+            except Exception:
                 return default
         if is_float:
             try:
                 return float(v)
-            except:
+            except Exception:
                 return default
         
         else:

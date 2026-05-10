@@ -3,7 +3,7 @@ import math
 try:
     from shapely.geometry import MultiPoint, Polygon, Point, LineString
     IS_SHAPELY = True                              
-except:
+except Exception:
     IS_SHAPELY = False
  
 

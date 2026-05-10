@@ -9,7 +9,7 @@ from agilepy.lib_base.processes import Process
 from xml.sax import parse, handler
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
     
 from .matsim_base import  *

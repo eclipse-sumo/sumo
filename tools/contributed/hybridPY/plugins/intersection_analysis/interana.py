@@ -239,7 +239,7 @@ class Legs(am.ArrayObjman):
             #    try:
             #        if get_traci_velocity(id_veh_sumo) < speed_stopped:
             #            self.vehicles_time_wait[id_veh_sumo] += time_update
-            #    except:
+            #    except Exception:
             #        pass
             
             # check vehicles in db if time to put from arrival to input queue

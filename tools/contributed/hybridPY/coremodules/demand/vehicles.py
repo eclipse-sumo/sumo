@@ -857,7 +857,7 @@ class VehicleTypes(am.ArrayObjman):
                                   id_sumo += '_'+s
                             #print '      new i:',i,id_sumo+'_%03d'%i
                             row_last['ids_sumo'] = id_sumo+'_%03d'%i
-                    except:
+                    except Exception:
                             id_sumo = id_data[0]
                             for s in id_data[1:]:
                                   id_sumo += '_'+s
@@ -1822,7 +1822,7 @@ class VehicleTypes(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in vtypes.export_xml: could not open',filepath)
             return False
         

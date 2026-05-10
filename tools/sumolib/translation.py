@@ -34,7 +34,7 @@ def setLanguage(lang):
         translation = gettext.translation("sumo", localedir=LOCALEDIR, languages=[lang])
         translation.install()
         CURRENT_LANG = translation
-    except:  # noqa
+    except Exception:  # noqa
         CURRENT_LANG = None
 
 

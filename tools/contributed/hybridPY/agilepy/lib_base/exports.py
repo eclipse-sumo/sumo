@@ -15,7 +15,7 @@ try:
     IS_EXCEL = True
     
     
-except:
+except Exception:
     print('WARNING: No Exel export possible. Install openpyxl python package.')
     IS_EXCEL = False
 

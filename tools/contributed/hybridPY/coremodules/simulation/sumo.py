@@ -5,7 +5,7 @@ from xml.sax import saxutils, parse, handler
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     hybridPYDIR = os.path.join(APPDIR,'..','..')
     sys.path.append(hybridPYDIR)
@@ -20,14 +20,14 @@ try:
     import traci.constants as tc
 
 
-except:
+except Exception:
     print('WARNING: No module traci in syspath. Please provide SUMO_HOME.')
 
     traci = None
 
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
     
 from coremodules.modules_common import *
@@ -1630,7 +1630,7 @@ class SumoTraci(Sumo):
                             # vehicle is inside a junction
                             pass    
                             
-                    except:
+                    except Exception:
                         # delete because no longer in simulation
                         #print ('    >contact failed')
                         ids_sumo_del.add(id_veh_sumo)
@@ -1655,7 +1655,7 @@ class SumoTraci(Sumo):
                             # vehicle is inside a junction
                             pass
                             
-                    except:
+                    except Exception:
                         # delete because no longer in simulation
                         #print ('      ',id_pers_sumo,'no longer in simulation')
                         ids_sumo_del.add(id_pers_sumo)
@@ -2641,7 +2641,7 @@ class Duaiterate(Sumo): # attention, CmlMixin overrides Sumo
             for filename  in os.listdir(self.workdirpath):
                 try:
                     step = int(filename)
-                except:
+                except Exception:
                     step = -1
                 if step > step_max:
                    step_max = step 

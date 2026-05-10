@@ -45,7 +45,7 @@ import sys, os, types
 if  __name__ == '__main__':
     try:
         FILEDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         FILEDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     sys.path.append(os.path.join(FILEDIR,"..",".."))
     #IMAGEDIR = os.path.join(APPDIR,"lib_base","images")
@@ -4828,7 +4828,7 @@ class OGLcanvas(glcanvas.GLCanvas):
             self.SetCurrent(self.context)
             self.OnDraw(*args, **kwargs)
             #print 'draw',self.lastx,self.lasty,self.x,self.y
-        except:
+        except Exception:
             print('WARNING in draw: unable to set context, will draw in a later call...')
             
                         

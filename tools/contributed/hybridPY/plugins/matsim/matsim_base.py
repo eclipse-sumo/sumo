@@ -4,7 +4,7 @@ import os, sys
 import numpy as np
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
 import numpy as np
 import agilepy.lib_base.classman as cm

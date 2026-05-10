@@ -269,7 +269,7 @@ class Reader:
             if shapeType in (11,21):
                 record.m = unpack("<d", f.read(8))
             
-        except:
+        except Exception:
             pass
         return record
 
@@ -382,13 +382,13 @@ class Reader:
                 else:
                     try:
                         value = int(float(value))
-                    except:
+                    except Exception:
                         value = None
             elif typ == b('D'):
                 try:
                     y, m, d = int(value[:4]), int(value[4:6]), int(value[6:8])
                     value = [y, m, d]
-                except:
+                except Exception:
                     value = value.strip()
             elif typ == b('L'):
                 value = (value in b('YyTt') and b('T')) or \

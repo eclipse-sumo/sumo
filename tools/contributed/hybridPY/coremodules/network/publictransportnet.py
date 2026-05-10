@@ -17,10 +17,10 @@ from agilepy.lib_base.geometry import get_length_polypoints,get_dist_point_to_se
 try:
     try:
         import pyproj
-    except:
+    except Exception:
         from mpl_toolkits.basemap import pyproj
 
-except:
+except Exception:
     pyproj = None
     print('Some of the functions cannot be executed because module pypro or mpl_toolkits.basemap is missing.')
     print('Please install these modules if you want to use it.')
@@ -361,7 +361,7 @@ class PtStops(am.ArrayObjman):
         
         try:
             fd=open(filepath,'w', encoding = encoding)
-        except:
+        except Exception:
             print('WARNING in write_obj_to_xml: could not open',filepath)
             return False
         #xmltag, xmltag_item, attrname_id = self.xmltag

@@ -7,7 +7,7 @@ from xml.sax import saxutils, parse, handler
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     hybridPYDIR = os.path.join(APPDIR,'..','..')
     sys.path.append(os.path.join(hybridPYDIR))
@@ -467,7 +467,7 @@ class TrafficLightSystems(am.ArrayObjman):
         print('export_sumoxml',filepath)
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
 
@@ -859,7 +859,7 @@ class Connections(am.ArrayObjman):
     def export_sumoxml(self, filepath, encoding = 'UTF-8'):
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
 
@@ -2758,7 +2758,7 @@ class Edges(am.ArrayObjman):
     def export_sumoxml(self, filepath, encoding = 'UTF-8'):
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
         fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
@@ -2785,7 +2785,7 @@ class Edges(am.ArrayObjman):
             
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_edgeweights_xml: could not open',filepath)
             return ''
         
@@ -3290,7 +3290,7 @@ class Nodes(am.ArrayObjman):
     def export_sumoxml(self, filepath, encoding = 'UTF-8'):
         try:
             fd=open(filepath,'w', encoding="utf-8")
-        except:
+        except Exception:
             print('WARNING in export_sumoxml: could not open',filepath)
             return False
         fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
@@ -3995,7 +3995,7 @@ class Network(cm.BaseObjman):
             try:
                 fd=open(filepath,'w', encoding="utf-8")
 
-            except:
+            except Exception:
                 print('WARNING in write_obj_to_xml: could not open',filepath)
                 return False
 

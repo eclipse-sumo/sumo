@@ -5,7 +5,7 @@ import time
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     hybridPYDIR = os.path.join(APPDIR,'..','..')
     sys.path.append(hybridPYDIR)
@@ -38,11 +38,11 @@ try:
     try:
         import pyproj
         is_pyproj = True
-    except:
+    except Exception:
         from mpl_toolkits.basemap import pyproj
         is_pyproj = True
 
-except:
+except Exception:
     is_pyproj = False
 
 class Trips(TripsBase):
@@ -219,7 +219,7 @@ class Demand(cm.BaseObjman):
             try:
                 fd = open(filepath,'r', encoding="utf-8")
                 fd.close()
-            except:
+            except Exception:
                 print('WARNING in import_routes_xml: could not open',filepath)
                 return False
                 
@@ -250,7 +250,7 @@ class Demand(cm.BaseObjman):
             try:
                 fd = open(filepath,'r', encoding="utf-8")
                 fd.close()
-            except:
+            except Exception:
                 print('WARNING in import_routes_xml: could not open',filepath)
                 return False
             
@@ -290,7 +290,7 @@ class Demand(cm.BaseObjman):
             print('export_routes_xml',filepath,demandobjects)
             try:
                 fd = open(filepath,'w', encoding="utf-8")
-            except:
+            except Exception:
                 print('WARNING in export_routes_xml: could not open',filepath)
                 return False
 

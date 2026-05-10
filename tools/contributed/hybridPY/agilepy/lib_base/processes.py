@@ -146,7 +146,7 @@ class Process(cm.BaseObjman):
         
         try:
             f=open(filepath,'wb')
-        except:
+        except Exception:
             print('WARNING in save: could not open',filepath)
             return False
         
@@ -159,7 +159,7 @@ class Process(cm.BaseObjman):
     def load_options(self, filepath):
         try:
             f=open(filepath,'rb')
-        except:
+        except Exception:
             print('WARNING in load_options: could not open',filepath)
             return None
     

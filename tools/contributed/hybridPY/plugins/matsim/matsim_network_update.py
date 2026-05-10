@@ -26,14 +26,14 @@ from shapely.geometry import Point, MultiPoint, Polygon, MultiLineString, LineSt
 from shapely.ops import unary_union, polygonize
 try:
     from concave_hull import concave_hull
-except:
+except Exception:
     concave_hull = None
     
 import math
 
 try:
     import pyproj
-except:
+except Exception:
     from mpl_toolkits.basemap import pyproj
     
 from .matsim_base import  *
@@ -1275,7 +1275,7 @@ class MapUpdater(Process):
             while len(result_start[0])> index:
                 try: 
                     cosine = cosine_similarities[vector_set_id.index(result_start[0][index])]
-                except:
+                except Exception:
                     cosine = -1
 
                 if cosine >ortho_cosine_threshold and result_start[1][index]<ortho_dist:
@@ -1294,7 +1294,7 @@ class MapUpdater(Process):
             while len(result_end[0])> index:
                 try: 
                     cosine = cosine_similarities[vector_set_id.index(result_end[0][index])]
-                except:
+                except Exception:
                     cosine = -1
 
                 if cosine >ortho_cosine_threshold and result_end[1][index]<ortho_dist:

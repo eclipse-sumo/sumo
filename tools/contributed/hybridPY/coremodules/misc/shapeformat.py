@@ -15,11 +15,11 @@ try:
     try:
         import pyproj
         IS_PROJ = True
-    except:
+    except Exception:
         from mpl_toolkits.basemap import pyproj
         IS_PROJ = True
     
-except:
+except Exception:
     IS_PROJ = False
     print('Import error: in order to run the traces plugin please install the following modules:')
     print('   mpl_toolkits.basemap and shapely')
@@ -32,7 +32,7 @@ from pathlib import Path
 try:
     from osgeo import osr
     IS_GDAL = True
-except:
+except Exception:
     IS_GDAL = False
     print('WARNING: python gdal module is not installed.')
 
@@ -589,14 +589,14 @@ class ShapefileImporter(Process):
                 try:
                     print('  use projparams_shape =*%s*'%self.projparams_shape,type(str(self.projparams_shape)),pyproj.Proj(str(self.projparams_shape)))
                     proj_shape = pyproj.Proj(str(self.projparams_shape))
-                except:
+                except Exception:
                     proj_shape = None
                     
             if self.is_use_targetproj:    
                 try:
                     print('  use projparams_target =*%s*'%self._projparams_target,type(str(self._projparams_target)),pyproj.Proj(str(self._projparams_target)))
                     proj_target = pyproj.Proj(str(self._projparams_target))
-                except:
+                except Exception:
                     proj_target = None
 
             
@@ -1074,7 +1074,7 @@ class Shapedata(am.ArrayObjman):
             write_prj_file("%s.prj" % basefilepath, crs)
             return True
             
-        except:
+        except Exception:
             print('WARNING in export_shapefile:\n no projection file written (probably no Internet connection).')
             print('Open shapefile with projection: %s.'%self._projparams.get_value())
             #raise

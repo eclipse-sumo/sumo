@@ -15,7 +15,7 @@ from agilepy.lib_wx.ogleditor import Polylines
 try:
     import matsim_mpl
     is_mpl = True # we have matplotlib support
-except:
+except Exception:
      print("WARNING: python matplotlib package not installed, no matplotlib plots.")
      is_mpl = False    
 

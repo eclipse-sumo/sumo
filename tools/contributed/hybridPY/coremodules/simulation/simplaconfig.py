@@ -22,7 +22,7 @@ try:
 
     import simpla
 
-except:
+except Exception:
     print('WARNING: No module simpla in syspath. Please provide SUMO_HOME.')
 
     simpla = None

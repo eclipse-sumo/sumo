@@ -61,7 +61,7 @@ def start_iterations(scenariofilepath, n_iter, simscriptfilepath):
 if  __name__ == '__main__':
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
-    except:
+    except Exception:
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
         
     scenariofilepath = os.path.abspath(sys.argv[1])
