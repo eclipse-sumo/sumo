@@ -24,6 +24,7 @@ title: ChangeLog
   - Fixed where vehicles that stop on the end of the lane take one extra step to continue #17916
   - Fixed invalid timeLoss computation for stopping vehicles #17915, #17916
   - Fixed failure when loading routes with edges that have extended ascii characters in their id (also for duarouter) #17935
+  - Fixed unsafe insertion at zipper link #17972
   - State-Loading:
     - Fixed invalid signal state when loading from saved state and using WAUT #17675
     - Lanechanging state is now restored after loading #2380
@@ -38,6 +39,7 @@ title: ChangeLog
     - Fixed invalid taxi device warnings #17864
     - Fixed failure in stop assignment #17893
     - Taxis no longer block the road when idling if their passenger stops are defined as not-parking #17904
+    - Fixed unsafe insertion before junction when using idle-algorithm *randomCircling* #17973
   - Railways:
     - Fixed crash when loading rail signal on road #17847 (regression in 1.22.0)
     - Fixed invalid driveWay foes in moving-block mode #17623, #17683, #71684
@@ -63,6 +65,7 @@ title: ChangeLog
 
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
+  - background color for busStop id/name labels is now working #17965 (regression in 1.8.0)
   - Editing custom lane and junction shapes on top of edges is working again #17806 (regression in 1.20.0)
   - edgedata mode: clicking on intervals works again #17686 (regression in 1.22.0)
   - It is now possible to select edges that belong to a TAZ using selection mode #17701 (regression in 1.22.0)
@@ -82,6 +85,7 @@ title: ChangeLog
   - Fixed bug where deleting connections from a multi-lane turn could create an invalid network #17876
   - Setting log output file in sumo options editor is now working #17948
   - Defining multiple files in sumocfg options editor (i.e. additional-files) is now working #17949
+  - Fixed problems when setting vehicle attribute departEdge / arrivalEdge #17967
 
 
 - netconvert
@@ -126,6 +130,7 @@ title: ChangeLog
   - gtfs2pt.py: fixed invalid error when block_id is missing #17750 (regression in 1.26.0)
   - gtfs2pt.py: fixed missing rail edges when mapping routes #17749
   - gtfs2pt.py: fixed invalid output when gtfs input contains double hyphen in stop name #17791
+  - gtfs2pt.py: fixed invalid stop mapping on looped route #17953
   - osmWebWizard.py: fixed various platform issues that prevent running. #17503
   - osmWebWizard.py: starting two instances at the same time is now working #16663
   - osmWebWizard.py: fixed bug that was causing OSM data download to fail #17941
@@ -143,7 +148,7 @@ title: ChangeLog
   - edgeDataDiff.py: fixed invalid output when inputs have different interval times #17716
   - sumollib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
   - generateStationEdges.py: Fixed invalid output when stops have spaces in their name #17932
-
+  - createScreenshotSequence.py can now handle human-readable time #17964
 
 ### Enhancements
 
@@ -179,7 +184,7 @@ title: ChangeLog
   - Edge attribute routingType is now supported #17095
   - Element context menu for multiple objects at the same spot now shows selection status (also in sumo-gui) #17731
   - Phase attribute "next" automaticalyy updates when adding new phases #16488
-
+  - Added 18 more tools to the menu #17950
 
 - sumo-gui
   - traffic lights now have a higher right-click priority than busstops #17761
@@ -232,7 +237,9 @@ title: ChangeLog
   - gtfs2pt.py: Added option **--rail-priority-factor** to consider routingType when mapmatching railways #17560
   - gtfs2pt.py: Added option **--poi-output** to visualize loaded stop coordinates as pois #17812
   - gtfs2pt.py: Added option **--distance-penalty** which makes the (exponent) of the penalty for matching accuracy configurable. The penalty is now also active when using option **--stops** #17813
-  - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766
+  - gtfs2pt.py: Added option **--join-blocks** to import circulations (block_id) #17541
+  - gtfs2pt.py: Added option **--parking-threshold** to remove vehicles from roads/tracks if they have consecutive stops in the same location with a long in-between time #17960
+  - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766  
 
 ### Miscellaneous
 
