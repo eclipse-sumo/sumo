@@ -1457,6 +1457,12 @@ protected:
     /// @brief return length of fractional vehicles on this lane
     double getFractionalVehicleLength(bool brutto) const;
 
+    /// @brief whether the route of the give vehicle might be extended on insertion
+    bool mayContinue(const MSVehicle* veh) const;
+
+    /// @brief whether any link from this lane is unsafe
+    bool hasUnsafeLink() const;
+
     /// @brief detect frontal collisions
     static bool isFrontalCollision(const MSVehicle* collider, const MSVehicle* victim);
 

@@ -1008,6 +1008,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                         return false;
                     }
                 }
+                if (mayContinue(aVehicle) && hasUnsafeLink()) {
+                    // since the route is likely to continue we must be prepared for braking
+                    if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
+                                patchSpeedSpecial, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
+                        // we may not drive with the given velocity - we cannot stop at the junction
+                        return false;
+                    }
+                }
             } else {
                 // lane does not continue
                 if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
@@ -4755,6 +4763,27 @@ MSLane::getFromJunction() const {
 const MSJunction*
 MSLane::getToJunction() const {
     return myEdge->getToJunction();
+}
+
+
+bool
+MSLane::mayContinue(const MSVehicle* veh) const {
+    if (veh->getDevice(typeid(MSDevice_Taxi)) != nullptr) {
+        // taxi device may assign a new route that continues past the end of the initial route
+        return true;
+    }
+    return false;
+}
+
+
+bool
+MSLane::hasUnsafeLink() const {
+    for (const MSLink* link : myLinks) {
+        if (!link->havePriority() || link->getState() == LINKSTATE_ZIPPER) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /****************************************************************************/
