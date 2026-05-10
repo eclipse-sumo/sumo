@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-05-05 18:57+0000\n"
+"PO-Revision-Date: 2026-05-10 19:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -3005,7 +3005,7 @@ msgstr "Weitere Daten speichern unter"
 
 #: src/netedit/GNEApplicationWindow.cpp:4070
 msgid "Additional elements in unified file"
-msgstr ""
+msgstr "Weitere Elemente in einheitlicher Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4080
 msgid "saving of unified additional elements in '%'"
@@ -3073,7 +3073,7 @@ msgstr "Routenelemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4278
 msgid "Route elements file in unified file"
-msgstr ""
+msgstr "Routenelemente in einheitlicher Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4288
 msgid "saving of unified demand elements in '%'."
@@ -3117,7 +3117,7 @@ msgstr "Speichervorgang der Datenelemente fehlgeschlagen"
 
 #: src/netedit/GNEApplicationWindow.cpp:4459
 msgid "Data elements file in unified file"
-msgstr ""
+msgstr "Datenelemente in einheitlicher Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4469
 msgid "saving of unified data elements in '%'"
@@ -3167,7 +3167,7 @@ msgstr "MeanData-Elemente"
 
 #: src/netedit/GNEApplicationWindow.cpp:4632
 msgid "MeanData elements file in unified file"
-msgstr ""
+msgstr "MeanData-Elemente in einheitlicher Datei"
 
 #: src/netedit/GNEApplicationWindow.cpp:4642
 msgid "saving of unified mean data elements in '%'"
@@ -17681,7 +17681,7 @@ msgstr "Sprache zu Japanisch ändern. (ja)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:370
 msgid "Change language to korean. (ko)"
-msgstr ""
+msgstr "Sprache zu Koreanisch ändern. (ko)"
 
 #: src/utils/gui/windows/GUIMainWindow.cpp:384
 msgid "german"
