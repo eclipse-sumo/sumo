@@ -12,3 +12,6 @@ short_edges
 
 # routing device active on taxi
 rerouting
+
+# see #17973
+route_end_insertion
