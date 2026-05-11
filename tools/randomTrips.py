@@ -306,7 +306,7 @@ def get_options(args=None):
         if 'modes' in options.tripattrs:
             print("Warning: ignoring --persontrip.modes because modes are set in --trip-attributes", file=sys.stderr)
         else:
-            tripattrs += ' modes="%s"' % options.modes
+            options.tripattrs += ' modes="%s"' % options.modes.replace(",", " ")
     elif 'modes' in options.tripattrs:
         # signal that modes are wanted
         options.modes = True
