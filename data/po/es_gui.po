@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-05-05 19:27+0000\n"
+"PO-Revision-Date: 2026-05-11 14:22+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -12447,7 +12447,7 @@ msgstr "Los carriles no están conectados"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:335
 msgid "starPos > (endPos - EPS)"
-msgstr ""
+msgstr "starPos > (endPos - EPS)"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneDouble.cpp:457
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:331
