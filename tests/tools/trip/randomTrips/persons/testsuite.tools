@@ -18,6 +18,9 @@ pedestrians_flow_poisson
 # generate random persontrips
 persontrips
 
+# generate random persontrips
+persontrips_modes
+
 # generate random flows of persontrips
 persontrips_flow
 
