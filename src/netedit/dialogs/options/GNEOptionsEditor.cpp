@@ -266,7 +266,9 @@ long
 GNEOptionsEditor::onCmdResetDefault(FXObject*, FXSelector, void*) {
     // restore entries
     for (const auto& entry : myOptionRowEntries) {
-        entry->restoreOption();
+        if (entry->isEditable()) {
+            entry->restoreOption();
+        }
     }
     return 1;
 }

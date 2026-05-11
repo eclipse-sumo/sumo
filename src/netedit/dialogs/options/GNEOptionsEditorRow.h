@@ -61,6 +61,9 @@ public:
         /// @brief get description  (Lower)
         const std::string getDescriptionLower() const;
 
+        /// @brief check if option is editable
+        const bool isEditable() const;
+
         /// @brief update option (used after load options)
         virtual void updateOption() = 0;
 
