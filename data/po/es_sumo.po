@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-11 14:22+0000\n"
+"PO-Revision-Date: 2026-05-11 14:32+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8248,7 +8248,7 @@ msgstr " Se eliminaron % aristas debido al ancho de carril."
 #: src/netbuild/NBNetBuilder.cpp:137
 #, c-format
 msgid " Split % edges to attach removed nodes"
-msgstr ""
+msgstr " Dividir % aristas para adjuntar nodos eliminados"
 
 #: src/netbuild/NBNetBuilder.cpp:142
 msgid "Processing public transport stops"
