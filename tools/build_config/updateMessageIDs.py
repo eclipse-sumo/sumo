@@ -169,7 +169,7 @@ def updatePotFile(gettextPath, potFile, replaceRules, options):
 
             # optionally process the translated messages as well
             if options.processLanguages:
-                processRules(translatedPoFile, replaceRules, options, translated=True,
+                processRules(translatedPoFile, replaceRules, options,
                              filterIDs=[entry.msgstr for entry in replaceIDs])
     if options.apply:
         os.remove(uniLangPoFile)
