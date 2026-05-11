@@ -191,10 +191,10 @@ def get_options(args=None):
                        "If option --binomial is used, the expected arrival rate is set to 1/period.")
     group.add_argument("--insertion-rate", dest="insertionRate", nargs="+", metavar="FLOAT", category="flow",
                        action=sumolib.options.SplitAction,
-                       help="How much vehicles arrive in the simulation per hour (alternative to the period option).")
+                       help="How many vehicles arrive in the simulation per hour (alternative to the period option).")
     group.add_argument("--insertion-density", dest="insertionDensity", nargs="+", metavar="FLOAT", category="flow",
                        action=sumolib.options.SplitAction,
-                       help="How much vehicles arrive in the simulation per hour per kilometer of road " +
+                       help="How many vehicles arrive in the simulation per hour per kilometer of road " +
                        "(alternative to the period option).")
     op.add_argument("--flows", category="flow", default=0, type=int,
                     help="generates INT flows that together output vehicles with the specified period")
