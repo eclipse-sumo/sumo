@@ -205,7 +205,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 
 GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
-    if (getPathStopIndex() == -1) {
+    if (!getParentDemandElements().front()->getTagProperty()->vehicleJunctions() && (getPathStopIndex() == -1)) {
         return Problem::STOP_DOWNSTREAM;
     } else if ((getParentLanes().size() > 0) && !myMoveElementLaneDouble->isMoveElementValid()) {
         return Problem::INVALID_STOPPOSITION;
@@ -217,7 +217,7 @@ GNEStop::isDemandElementValid() const {
 
 std::string
 GNEStop::getDemandElementProblem() const {
-    if (getPathStopIndex() == -1) {
+    if (!getParentDemandElements().front()->getTagProperty()->vehicleJunctions() && (getPathStopIndex() == -1)) {
         return ("Downstream stop");
     } else if (getParentLanes().size() > 0) {
         return myMoveElementLaneDouble->getMovingProblem();
