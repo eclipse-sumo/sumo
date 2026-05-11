@@ -71,12 +71,12 @@ def get_options(args=None):
     op.add_argument("--error-log", category="output", dest="errorlog", type=op.file,
                     help="record routing errors")
     # persons
-    op.add_argument("--pedestrians", category="persons", action="store_true", default=False,
-                    help="create a person file with pedestrian trips instead of vehicle trips")
+    op.add_argument("--persons", "--pedestrians", "--persontrips", category="persons", action="store_true", default=False,
+                    help="create a person file with person trips instead of vehicle trips")
     op.add_argument("--personrides", category="persons",
                     help="create a person file with rides using STR as lines attribute")
-    op.add_argument("--persontrips", category="persons", action="store_true", default=False,
-                    help="create a person file with person trips instead of vehicle trips")
+    op.add_argument("--persontrip.modes", category="persons", dest="modes",
+                    help="Use any comma-separted combination of 'bicycle', 'car','public' and 'taxi'")
     op.add_argument("--persontrip.transfer.car-walk", category="persons", dest="carWalkMode",
                     help="Where are mode changes from car to walking allowed " +
                     "(possible values: 'ptStops', 'allJunctions' and combinations)")
@@ -207,14 +207,14 @@ def get_options(args=None):
     if options.edge_permission and not is_vehicle_class(options.edge_permission):
         raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.edge_permission)
 
-    if options.persontrips or options.personrides:
-        options.pedestrians = True
+    if options.personrides:
+        options.persons = True
 
     if options.edge_permission is None:
         if options.vehicle_class:
             options.edge_permission = options.vehicle_class
         else:
-            options.edge_permission = 'pedestrian' if options.pedestrians else 'passenger'
+            options.edge_permission = 'pedestrian' if options.persons else 'passenger'
     if options.validate and options.routefile is None:
         options.routefile = "routes.rou.xml"
 
@@ -301,6 +301,15 @@ def get_options(args=None):
             for line in tff:
                 typeID, factor = line.split()
                 options.typeFactors[typeID] = float(factor)
+
+    if options.modes is not None:
+        if 'modes' in options.tripattrs:
+            print("Warning: ignoring --persontrip.modes because modes are set in --trip-attributes", file=sys.stderr)
+        else:
+            tripattrs += ' modes="%s"' % options.modes
+    elif 'modes' in options.tripattrs:
+        # signal that modes are wanted
+        options.modes = True
 
     return options
 
@@ -466,11 +475,11 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
         forbidden_connections = None if fringe_forbidden is None else getattr(edge, fringe_forbidden)
         if options.edge_permission and not edge.allows(options.edge_permission) and not stopDict:
             return 0  # not allowed
-        if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
+        if fringe_bonus is None and edge.is_fringe() and not options.persons:
             return 0  # not suitable as intermediate way point
         if (fringe_forbidden is not None and
                 edge.is_fringe(forbidden_connections) and
-                not options.pedestrians and
+                not options.persons and
                 (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
         if (fringe_bonus is not None and options.viaEdgeTypes is not None and
@@ -575,7 +584,7 @@ def buildTripGenerator(net, options):
             via_generator = None
 
     return RandomTripGenerator(
-        source_generator, sink_generator, via_generator, options.intermediate, options.pedestrians)
+        source_generator, sink_generator, via_generator, options.intermediate, options.persons)
 
 
 def is_walk_attribute(attr):
@@ -608,7 +617,8 @@ def is_vehicle_attribute(attr):
     return False
 
 
-def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
+def split_trip_attributes(options):
+    tripattrs = options.tripattrs
     # handle attribute values with a space
     # assume that no attribute value includes an '=' sign
     allattrs = []
@@ -628,7 +638,7 @@ def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
     vtypeattrs = []
     otherattrs = []
     for a in allattrs:
-        if pedestrians:
+        if options.persons:
             if is_walk_attribute(a) or is_persontrip_attribute(a):
                 otherattrs.append(a)
             elif is_person_attribute(a):
@@ -641,8 +651,8 @@ def split_trip_attributes(tripattrs, pedestrians, hasType, verbose):
             else:
                 vtypeattrs.append(a)
 
-    if not hasType:
-        if pedestrians:
+    if not options.vehicle_class:
+        if options.persons:
             personattrs += vtypeattrs
         else:
             vehicleattrs += vtypeattrs
@@ -666,7 +676,7 @@ def samplePosition(edge):
 
 
 def getElement(options):
-    if options.pedestrians:
+    if options.persons:
         if options.flows > 0:
             return "personFlow"
         else:
@@ -722,8 +732,7 @@ def main(options):
 def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False):
     idx = 0
 
-    vtypeattrs, tripattrs, personattrs, otherattrs = split_trip_attributes(
-        options.tripattrs, options.pedestrians, options.vehicle_class, options.verbose)
+    vtypeattrs, tripattrs, personattrs, otherattrs = split_trip_attributes(options)
 
     vias = {}
     generatedTrips = []  # (label, origin, destination, intermediate)
@@ -741,7 +750,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 
     def generate_attributes(idx, departureTime, arrivalTime, origin, destination, intermediate, options):
         label = "%s%s" % (options.tripprefix, idx)
-        if options.pedestrians:
+        if options.persons:
             combined_attrs = ""
         else:
             combined_attrs = tripattrs
@@ -752,7 +761,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         if options.randomArrivalPos:
             randomPosition = samplePosition(destination)
             arrivalPos = ' arrivalPos="%.2f"' % randomPosition
-            if not options.pedestrians:
+            if not options.persons:
                 combined_attrs += arrivalPos
         if options.fringeattrs and origin.is_fringe(
                 origin._incoming, checkJunctions=options.fringeJunctions):
@@ -776,16 +785,16 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         return label, combined_attrs, attrFrom, attrTo, via, arrivalPos
 
     def generate_one_plan(combined_attrs, attrFrom, attrTo, arrivalPos, intermediate, options):
-        element = "walk"
+        element = "personTrip"
         attrs = otherattrs + arrivalPos
         if options.fromStops:
             fouttrips.write('        <stop%s duration="0"/>\n' % attrFrom)
             attrFrom = ''
-        if options.persontrips:
-            element = "personTrip"
-        elif options.personrides:
+        if options.personrides:
             element = "ride"
             attrs = ' lines="%s%s"' % (options.personrides, otherattrs)
+        elif options.modes is None:
+            element = "walk"
         if intermediate:
             fouttrips.write('        <%s%s to="%s"%s/>\n' % (element, attrFrom, intermediate[0].getID(), attrs))
             for edge in intermediate[1:]:
@@ -846,7 +855,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
                 idx, departureTime, arrivalTime, origin, destination, intermediate, options)
             generatedTrips.append((label, origin, destination, intermediate))
 
-            if options.pedestrians:
+            if options.persons:
                 if options.flows > 0:
                     generate_one_personflow(label, combined_attrs, attrFrom, attrTo, arrivalPos,
                                             departureTime, arrivalTime, period, options, timeIdx)
