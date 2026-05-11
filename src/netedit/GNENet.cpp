@@ -291,7 +291,7 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
         myJunctionIDCounter++;
     }
     SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.hasString(oc.getString("default.junctions.type"))
-            ? SUMOXMLDefinitions::NodeTypes.get(oc.getString("default.junctions.type")) : SumoXMLNodeType::UNKNOWN;
+                           ? SUMOXMLDefinitions::NodeTypes.get(oc.getString("default.junctions.type")) : SumoXMLNodeType::UNKNOWN;
     // create new NBNode
     NBNode* nbn = new NBNode(junctionPrefix + toString(myJunctionIDCounter), pos, type);
     GNEJunction* junction = new GNEJunction(this, nbn);
@@ -1400,7 +1400,9 @@ GNENet::saveNetwork() {
     neteditOptions.resetWritable();
     neteditOptions.set("output-file", myApplicationWindow->getFileBucketHandler()->getDefaultFilename(FileBucket::Type::NETWORK));
     // compute without volatile options and update network
-    computeAndUpdate(neteditOptions, false);
+    if (!isNetRecomputed()) {
+        computeAndUpdate(neteditOptions, false);
+    }
     // clear typeContainer
     myNetBuilder->getTypeCont().clearTypes();
     // now update typeContainer with edgeTypes
