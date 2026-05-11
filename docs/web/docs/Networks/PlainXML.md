@@ -89,7 +89,7 @@ described in a single line which looks like this:
 
 ```xml
    <node id="<STRING>" x="<FLOAT>" y="<FLOAT>" [type="<TYPE>"]/>
-````
+```
 
 the straight brackets ('\[' and '\]')
 indicate that the parameter is optional. Each of these attributes has a
