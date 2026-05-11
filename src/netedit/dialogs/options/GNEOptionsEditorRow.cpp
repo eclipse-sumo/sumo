@@ -187,7 +187,7 @@ GNEOptionsEditorRow::OptionStringVector::OptionStringVector(GNEOptionsEditor* op
 
 void
 GNEOptionsEditorRow::OptionStringVector::updateOption() {
-    myStringVectorTextField->setText(toString(myOptionsEditor->myOptionsContainer.getStringVector(myName)).c_str());
+    myStringVectorTextField->setText(myOptionsEditor->myOptionsContainer.getValueString(myName).c_str());
     updateResetButton();
 }
 
