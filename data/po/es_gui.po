@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-05-11 14:22+0000\n"
+"PO-Revision-Date: 2026-05-11 14:32+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12480,7 +12480,7 @@ msgstr "% > longitud de carril"
 
 #: src/netedit/elements/moving/GNEMoveElementLaneSingle.cpp:224
 msgid "% > (length of lane - EPS)"
-msgstr ""
+msgstr "% > (longitud de carril - EPS)"
 
 #: src/netedit/elements/moving/GNEMoveElementPlan.cpp:127
 #: src/netedit/elements/moving/GNEMoveElementVehicle.cpp:193
