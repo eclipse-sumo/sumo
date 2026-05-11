@@ -1,3 +1,4 @@
 -n net2.net.xml -s 42 -e 10 --validate
 --vehicle-class passenger
+--threads 1
 --verbose

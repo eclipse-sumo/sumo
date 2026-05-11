@@ -51,6 +51,7 @@
     <random-routing-factor value="1" type="float" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)" category="processing"/>
     <marouter value="False" type="bool" help="Compute routes with marouter instead of duarouter" category="processing"/>
     <validate value="True" type="bool" help="Whether to produce trip output that is already checked for connectivity" category="processing"/>
+    <threads value="None" type="int" help="Uses INT threads when validating trips (defaults to half the available CPUs" category="processing"/>
     <min-success-rate value="0.1" type="float" help="Minimum ratio of valid trips to retry sampling if some trips are invalid" category="processing"/>
     <verbose value="False" type="bool" help="tell me what you are doing" category="processing"/>
     <begin value="0" type="time" help="begin time" category="flow"/>

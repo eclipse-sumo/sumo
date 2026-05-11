@@ -2,4 +2,5 @@
 --flows 20
 --error-log errorlog.txt
 --verbose
+--threads 1
 -r out.rou.xml
