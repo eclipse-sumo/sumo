@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-07 09:13+0000\n"
+"PO-Revision-Date: 2026-05-11 14:22+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -13091,6 +13091,8 @@ msgstr "Falta información de aceleración; intente ejecutar con --compute-a."
 #: src/tools/emissionsDrivingCycle_main.cpp:61
 msgid "Computes emissions by driving a time line using SUMO's emission models."
 msgstr ""
+"Calcula las emisiones recorriendo una línea temporal usando los modelos de "
+"emisiones de SUMO."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:69
 msgid "Defines the file to read the driving cycle from."
@@ -13374,7 +13376,7 @@ msgstr "No se puede determinar el valor máximo de un mapa vacío."
 #: src/utils/common/LinearApproxHelpers.cpp:133
 #, c-format
 msgid "Mismatching data rows of % axis and % height values."
-msgstr ""
+msgstr "Filas de datos no coincidentes entre % ejes y % valores de altura."
 
 #: src/utils/common/MapMatcher.h:51
 msgid "Cannot convert geo-positions because the network has no geo-reference"
