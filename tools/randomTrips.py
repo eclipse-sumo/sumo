@@ -172,6 +172,8 @@ def get_options(args=None):
                     help="Whether to produce trip output that is already checked for connectivity")
     op.add_argument("--no-validate", dest="validate", action="store_false")
     op.set_defaults(validate=True)
+    op.add_argument("--threads", type=int,
+                    help="Uses INT threads when validating trips (defaults to half the available CPUs")
     op.add_argument("--min-success-rate", dest="minSuccessRate", default=0.1, type=float,
                     help="Minimum ratio of valid trips to retry sampling if some trips are invalid")
     op.add_argument("-v", "--verbose", action="store_true", default=False,
@@ -310,6 +312,9 @@ def get_options(args=None):
     elif 'modes' in options.tripattrs:
         # signal that modes are wanted
         options.modes = True
+
+    if options.threads is None and os.cpu_count() is not None:
+        options.threads = os.cpu_count()
 
     return options
 
@@ -986,6 +991,8 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         args += ['--vtype-output', options.vtypeout]
     if options.junctionTaz:
         args += ['--junction-taz']
+    if options.threads is not None and options.threads > 1:
+        args += ['--routing-threads', str(options.threads)]
     if options.verbose:
         args += ['-v']
     if options.errorlog:
