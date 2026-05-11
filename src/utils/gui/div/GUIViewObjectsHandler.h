@@ -105,14 +105,15 @@ public:
     /// @name check functions. If the result is positive, the given GLObject will be added to elementUnderCursor
     /// @{
     /// @brief check boundary parent element
-    bool checkBoundaryParentObject(const GUIGlObject* GLObject, const double layer, const GUIGlObject* parent);
+    bool checkBoundaryParentObject(const GUIVisualizationSettings& s, const GUIGlObject* GLObject,
+                                   const double layer, const GUIGlObject* parent);
 
     /// @brief check if mouse is within elements geometry (for circles)
-    bool checkCircleObject(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+    bool checkCircleObject(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                            const Position& center, const double radius, const double layer);
 
     /// @brief check if mouse is within geometry point
-    bool checkGeometryPoint(const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
+    bool checkGeometryPoint(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GUIGlObject* GLObject,
                             const PositionVector& shape, const int index, const double layer, const double radius);
 
     /// @brief check if mouse is within geometry point
@@ -120,16 +121,16 @@ public:
                                 const PositionVector& shape, const double layer, const double distance);
 
     /// @brief check (closed) shape element
-    bool checkShapeObject(const GUIGlObject* GLObject, const PositionVector& shape, const Boundary& shapeBoundary,
-                          const double layer, const GNESegment* segment);
+    bool checkShapeObject(const GUIVisualizationSettings& s, const GUIGlObject* GLObject, const PositionVector& shape,
+                          const Boundary& shapeBoundary, const double layer, const GNESegment* segment);
     /// @}
 
     /// @name functions used for mark (select) elements
     /// @{
     ///
     /// @brief add element into list of elements under cursor
-    bool selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
-                      const GNESegment* segment);
+    bool selectObject(const GUIVisualizationSettings& s, const GUIGlObject* GLObject, const double layer,
+                      const bool checkDuplicated, const GNESegment* segment);
 
     /// @brief add geometryPoint into list of elements under cursor
     bool selectGeometryPoint(const GUIGlObject* GLObject, const int newIndex, const double layer);

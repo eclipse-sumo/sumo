@@ -995,47 +995,47 @@ GNELane::drawLane(const GUIVisualizationSettings& s, const double layer) const {
     RGBColor laneColor = setLaneColor(s);
     // never draw when at full transparency
     if (laneColor.alpha() != 0) {
-      // Check if lane has to be draw as railway and if isn't being drawn for selecting
-      if (myDrawingConstants->drawAsRailway()) {
-        // draw as railway
-        drawLaneAsRailway();
-      } else if (myShapeColors.size() > 0) {
-        // draw geometry with own colors
-        GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
-            myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
-      } else {
-        // draw geometry with current color
-        const GUIVisualizationSettings::Detail d = myDrawingConstants->getDetail();
-        double drawingWidth = myDrawingConstants->getDrawingWidth();
-        if (d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
-          drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
+        // Check if lane has to be draw as railway and if isn't being drawn for selecting
+        if (myDrawingConstants->drawAsRailway()) {
+            // draw as railway
+            drawLaneAsRailway();
+        } else if (myShapeColors.size() > 0) {
+            // draw geometry with own colors
+            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, myShapeColors,
+                                      myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
+        } else {
+            // draw geometry with current color
+            const GUIVisualizationSettings::Detail d = myDrawingConstants->getDetail();
+            double drawingWidth = myDrawingConstants->getDrawingWidth();
+            if (d > GUIVisualizationSettings::Detail::GeometryBoxLines &&  d < GUIVisualizationSettings::Detail::GeometryBoxSimpleLine) {
+                drawingWidth = myNet->getViewNet()->m2p(drawingWidth);
+            }
+            GUIGeometry::drawGeometry(d, myLaneGeometry, drawingWidth,
+                                      myDrawingConstants->getOffset());
         }
-        GUIGeometry::drawGeometry(d, myLaneGeometry, drawingWidth,
-            myDrawingConstants->getOffset());
-      }
-      // if lane is selected, draw a second lane over it
-      drawSelectedLane(s);
-      // draw start end shape points
-      drawStartEndGeometryPoints(s);
-      // check if draw details
-      if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-        // draw markings
-        drawMarkingsAndBoundings(s);
-        // Draw direction indicators
-        drawDirectionIndicators(s);
-        // draw lane textures
-        drawTextures(s);
-        // draw lane arrows
-        drawArrows(s);
-        // draw link numbers
-        drawLinkNo(s);
-        // draw TLS link numbers
-        drawTLSLinkNo(s);
-        // draw stopOffsets
-        drawLaneStopOffset(s);
-      }
-      // draw shape edited
-      drawShapeEdited(s);
+        // if lane is selected, draw a second lane over it
+        drawSelectedLane(s);
+        // draw start end shape points
+        drawStartEndGeometryPoints(s);
+        // check if draw details
+        if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
+            // draw markings
+            drawMarkingsAndBoundings(s);
+            // Draw direction indicators
+            drawDirectionIndicators(s);
+            // draw lane textures
+            drawTextures(s);
+            // draw lane arrows
+            drawArrows(s);
+            // draw link numbers
+            drawLinkNo(s);
+            // draw TLS link numbers
+            drawTLSLinkNo(s);
+            // draw stopOffsets
+            drawLaneStopOffset(s);
+        }
+        // draw shape edited
+        drawShapeEdited(s);
     }
     // Pop layer matrix
     GLHelper::popMatrix();
@@ -1404,7 +1404,7 @@ GNELane::drawLane2LaneConnections() const {
 void
 GNELane::calculateLaneContour(const GUIVisualizationSettings& s, const double layer) const {
     // first check if edge parent was inserted with full boundary
-    if (!gViewObjectsHandler.checkBoundaryParentObject(this, layer, getParentEdges().front())) {
+    if (!gViewObjectsHandler.checkBoundaryParentObject(s, this, layer, getParentEdges().front())) {
         // calculate contour
         myNetworkElementContour.calculateContourExtrudedShape(s, myDrawingConstants->getDetail(),
                 this, myLaneGeometry.getShape(), layer, myDrawingConstants->getDrawingWidth(), 1,
@@ -1897,6 +1897,12 @@ GNELane::drawStartEndGeometryPoints(const GUIVisualizationSettings& s) const {
         // pop line matrix
         GLHelper::popMatrix();
     }
+}
+
+
+bool
+GNELane::isVisible(const GUIVisualizationSettings& s) const {
+    return setLaneColor(s).alpha() != 0;
 }
 
 

@@ -214,6 +214,9 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+    /// @brief check if object is visible
+    bool isVisible(const GUIVisualizationSettings& s) const override;
+
     // @brief Returns the name of the parent object (if any)
     // @return This object's parent id
     std::string getParentName() const override;

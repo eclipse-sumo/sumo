@@ -618,6 +618,17 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 }
 
 
+bool
+GNEEdge::isVisible(const GUIVisualizationSettings& s) const {
+    for (const auto& lane : getChildLanes()) {
+        if (lane->isVisible(s)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 double
 GNEEdge::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
@@ -2810,7 +2821,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myEdgeBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, layer, false, nullptr);
+        gViewObjectsHandler.selectObject(s, this, layer, false, nullptr);
     } else {
         // get geometry point radius
         const auto geometryPointRadius = getGeometryPointRadius();
@@ -2902,16 +2913,16 @@ GNEEdge::drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualization
         }
         // never draw when at full transparency
         if (geometryPointColor.alpha() != 0) {
-          // set color
-          GLHelper::setColor(geometryPointColor);
-          // iterate over NBEdge geometry
-          for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
-            // calculate line between previous and current geometry point
-            PositionVector line = {myNBEdge->getGeometry()[i - 1], myNBEdge->getGeometry()[i]};
-            line.move2side(0.2);
-            // draw box line
-            GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
-          }
+            // set color
+            GLHelper::setColor(geometryPointColor);
+            // iterate over NBEdge geometry
+            for (int i = 1; i < (int)myNBEdge->getGeometry().size(); i++) {
+                // calculate line between previous and current geometry point
+                PositionVector line = {myNBEdge->getGeometry()[i - 1], myNBEdge->getGeometry()[i]};
+                line.move2side(0.2);
+                // draw box line
+                GLHelper::drawBoxLine(line[1], RAD2DEG(line[0].angleTo2D(line[1])) - 90, line[0].distanceTo2D(line[1]), .1);
+            }
         }
         // pop draw matrix
         GLHelper::popMatrix();

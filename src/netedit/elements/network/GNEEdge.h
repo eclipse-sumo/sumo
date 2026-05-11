@@ -159,6 +159,9 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+    /// @brief check if object is visible
+    bool isVisible(const GUIVisualizationSettings& s) const override;
+
     /**@brief Returns an own popup-menu
      *
      * @param[in] app The application needed to build the popup-menu

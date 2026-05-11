@@ -211,7 +211,7 @@ public:
     virtual void updateGLObject();
 
     /// @brief check if object is visible (Currently used only in netedit)
-    virtual bool isVisible() const {
+    virtual bool isVisible(const GUIVisualizationSettings& /*s*/) const {
         return true;
     }
 

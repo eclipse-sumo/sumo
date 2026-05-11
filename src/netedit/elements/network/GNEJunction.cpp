@@ -1752,8 +1752,8 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVi
     // set bubble color
     const RGBColor bubbleColor = setColor(s, true);
     if (bubbleColor.alpha() == 0) {
-      // never draw when at full transparency (make sure no matrices have been pushed before return)
-      return;
+        // never draw when at full transparency (make sure no matrices have been pushed before return)
+        return;
     }
     // push matrix
     GLHelper::pushMatrix();
@@ -1775,8 +1775,8 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
         // set shape color
         const RGBColor junctionShapeColor = setColor(s, false);
         if (junctionShapeColor.alpha() == 0) {
-          // never draw when at full transparency (make sure no matrices have been pushed before return)
-          return;
+            // never draw when at full transparency (make sure no matrices have been pushed before return)
+            return;
         }
         // set color
         GLHelper::setColor(junctionShapeColor);
@@ -1925,7 +1925,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
     // if we're selecting using a boundary, first don't calculate contour bt check if edge boundary is within selection boundary
     if (gViewObjectsHandler.selectingUsingRectangle() && gViewObjectsHandler.getSelectionTriangle().isBoundaryFullWithin(myJunctionBoundary)) {
         // simply add object in ViewObjectsHandler with full boundary
-        gViewObjectsHandler.selectObject(this, getType(), false, nullptr);
+        gViewObjectsHandler.selectObject(s, this, getType(), false, nullptr);
     } else {
         // always calculate for shape
         myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), getType(), exaggeration, this);
