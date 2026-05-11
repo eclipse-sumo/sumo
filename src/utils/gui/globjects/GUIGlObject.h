@@ -210,6 +210,11 @@ public:
     /// @brief update GLObject (geometry, ID, etc.) (optional)
     virtual void updateGLObject();
 
+    /// @brief check if object is visible (Currently used only in netedit)
+    virtual bool isVisible() const {
+        return true;
+    }
+
     virtual double getColorValue(const GUIVisualizationSettings& /*s*/, int /*activeScheme*/) const {
         return 0;
     }

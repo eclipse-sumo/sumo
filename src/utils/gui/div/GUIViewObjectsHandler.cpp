@@ -242,8 +242,10 @@ GUIViewObjectsHandler::checkShapeObject(const GUIGlObject* GLObject, const Posit
 bool
 GUIViewObjectsHandler::selectObject(const GUIGlObject* GLObject, const double layer, const bool checkDuplicated,
                                     const GNESegment* segment) {
-    // first check that object doesn't exist
-    if (checkDuplicated && isObjectSelected(GLObject)) {
+    // check that object is visible and it doesn't was selected previously
+    if (!GLObject->isVisible()) {
+        return false;
+    } else if (checkDuplicated && isObjectSelected(GLObject)) {
         return false;
     } else {
         auto& layerContainer = mySortedSelectedObjects[layer * -1];
