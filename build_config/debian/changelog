@@ -1,3 +1,9 @@
+sumo (1.26.0-3) noble; urgency=medium
+
+  * adding dev package
+
+ -- Michael Behrisch <oss@behrisch.de>  Tue, 05 May 2026 17:06:26 +0200
+
 sumo (1.26.0-1) noble; urgency=medium
 
   * new upstream version

@@ -21,4 +21,3 @@ usr/bin/marouter
 usr/bin/netedit
 usr/lib/*/*libsumo*
 usr/lib/*/*libtraci*
-usr/include/libsumo

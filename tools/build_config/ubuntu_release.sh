@@ -24,7 +24,7 @@ dch -d
 dch -r $RELEASE
 dpkg-buildpackage -S
 HEADER=$(head -1 debian/changelog)
-for ubuntu_version in bionic focal jammy questing; do
+for ubuntu_version in bionic focal jammy questing resolute; do
   NEW_HEADER=$(echo $HEADER | sed "s/. $RELEASE/~$ubuntu_version\) $ubuntu_version/")
   sed -i "1 s/.*/$NEW_HEADER/" debian/changelog
   dpkg-buildpackage -S

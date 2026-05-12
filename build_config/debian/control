@@ -73,8 +73,7 @@ Description: Simulation of Urban MObility (SUMO), tools and scripts
 
 Package: sumo-dev
 Architecture: all
-Depends: ${misc:Depends}
-Recommends: sumo
+Depends: sumo
 Description: Simulation of Urban MObility (SUMO), developer headers
  SUMO is an open source,
  highly portable, microscopic traffic simulation package
