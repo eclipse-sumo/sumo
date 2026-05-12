@@ -53,11 +53,11 @@ Additional options:
 ## Retrieving parameters from measurements of individual vehicles
 
 To obtain mean and deviation a number of values must be obtained from
-the data set. The following is recommenced:
+the data set. The following is recommended:
 
 - **accel**: the maximum (or high percentile) acceleration for each
   vehicle
-- **deccel**: the maximum (or high percentile) deceleration for each
+- **decel**: the maximum (or high percentile) deceleration for each
   vehicle
 - **speedFactor**: the maximum (or high percentile) quotient of
   speed/speedLimit for each vehicle
