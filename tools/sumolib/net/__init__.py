@@ -51,7 +51,7 @@ except ImportError:
     HAVE_LXML = False
 
 try:
-    import pyproj
+    import pyproj  # noqa
     HAVE_PYPROJ = True
 except ImportError:
     HAVE_PYPROJ = False
@@ -542,7 +542,6 @@ class Net:
         if not self.hasGeoProj() or not HAVE_PYPROJ:
             raise RuntimeError("Network does not provide geo-projection or pyproj not installed.")
         if self._proj is None:
-            import pyproj
             try:
                 self._proj = pyproj.Proj(projparams=self._location["projParameter"])
             except RuntimeError:

@@ -71,7 +71,8 @@ def get_options(args=None):
     op.add_argument("--error-log", category="output", dest="errorlog", type=op.file,
                     help="record routing errors")
     # persons
-    op.add_argument("--persons", "--pedestrians", "--persontrips", category="persons", action="store_true", default=False,
+    op.add_argument("--persons", "--pedestrians", "--persontrips", category="persons",
+                    action="store_true", default=False,
                     help="create a person file with person trips instead of vehicle trips")
     op.add_argument("--personrides", category="persons",
                     help="create a person file with rides using STR as lines attribute")
