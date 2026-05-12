@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-09 18:11+0000\n"
+"PO-Revision-Date: 2026-05-12 18:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5792,6 +5792,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Incrocio % pheromoneInputLanes: corsia % non "
+"autorizzata"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
@@ -5799,6 +5801,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Incrocio % pheromoneOutputLanes corsia % non "
+"autorizzata"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -7827,25 +7831,27 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:574
 msgid "Distance for interpreting nodes as signal locations"
-msgstr ""
+msgstr "Distanza per interpretare degli nodi come posizioni di segnali"
 
 #: src/netbuild/NBFrame.cpp:577
 msgid ""
 "Number of uncontrolled entry edges to accept and still consider the central "
 "node as a traffic light"
 msgstr ""
+"Numero di archi entranti non comandati da accettare per comunque considerare "
+"il nodo centrale un semaforo"
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
-msgstr ""
+msgstr "Usa INT come durata di ciclo"
 
 #: src/netbuild/NBFrame.cpp:587
 msgid "Use INT as green phase duration"
-msgstr ""
+msgstr "Usa INT come durata della fase verde"
 
 #: src/netbuild/NBFrame.cpp:591
 msgid "Defines smallest vehicle deceleration"
-msgstr ""
+msgstr "Definisce la decelerazione minima di un veicolo"
 
 #: src/netbuild/NBFrame.cpp:595
 msgid "Given yellow times are patched even if being too short"
@@ -7853,29 +7859,36 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:599
 msgid "Set INT as fixed time for yellow phase durations"
-msgstr ""
+msgstr "Imposta INT come durata fissa di fasi di giallo"
 
 #: src/netbuild/NBFrame.cpp:602
 msgid ""
 "Set INT as fixed time for red phase duration at traffic lights that do not "
 "have a conflicting flow"
 msgstr ""
+"Imposta INT come durata fissa di fasi rosse per semafori senza flussi in "
+"conflitto"
 
 #: src/netbuild/NBFrame.cpp:605
 msgid "Set INT as fixed time for intermediate red phase after every switch"
 msgstr ""
+"Imposta INT come durata fissa per fasi rosse intermedie dopo ogni cambio"
 
 #: src/netbuild/NBFrame.cpp:608
 msgid ""
 "Use FLOAT as threshold for allowing left-turning vehicles to move in the "
 "same phase as oncoming straight-going vehicles"
 msgstr ""
+"Usa FLOAT come valore soglia per autorizzare la svolta a sinistra nella "
+"stessa fase dei veicoli della direzione opposta"
 
 #: src/netbuild/NBFrame.cpp:611
 msgid ""
 "Use INT as green phase duration for left turns (s). Setting this value to 0 "
 "disables additional left-turning phases"
 msgstr ""
+"Usa INT come durata di fasi verdi per svoltare a sinistra (s). Per "
+"disattivare fasi addizionali per la svolta a sinistra imposta un valore di 0"
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
