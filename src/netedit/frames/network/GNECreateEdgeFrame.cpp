@@ -621,7 +621,7 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdSelectLaneType(FXObject*, FXSelector,
 void
 GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
     // check lane index
-    if (myLaneIndex > myLaneTypesComboBox->getNumItems()) {
+    if (myLaneIndex >= myLaneTypesComboBox->getNumItems()) {
         myLaneIndex = 0;
     }
     // set current item
