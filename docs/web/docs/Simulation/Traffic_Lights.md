@@ -65,7 +65,7 @@ visually in [netedit](../Netedit/editModesNetwork.md#traffic_lights).
   option **--tls.allred.time** can be used.
 - It is also possible to generate
   [Actuated Traffic Lights](#type_actuated)
-  by setting the option **--tls.default-type**. This will generated the same signal plans as
+  by setting the option **--tls.default-type**. This will generate the same signal plans as
   above but with green phases that have a variable length of 5s-50s
   (both values can be set using the options **--tls.min-dur, --tls.max-dur**).
   - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
