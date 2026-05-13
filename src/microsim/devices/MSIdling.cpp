@@ -166,6 +166,23 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
                 it++;
             }
         }
+        if (gRoutingPreferences && successors.size() > 1) {
+            const double threshPref = veh.getFloatParam("device.taxi.idleMinPref", false, 0);
+            double maxPref = -std::numeric_limits<double>::max();
+            for (const MSEdge* edge : successors) {
+                maxPref = MAX2(maxPref, edge->getPreference(veh.getVTypeParameter()));
+            }
+            if (maxPref >= threshPref) {
+                // there is at least one favoured successor, remove low preference edges
+                for (auto it = successors.begin(); it != successors.end();) {
+                    if ((*it)->getPreference(veh.getVTypeParameter()) < threshPref) {
+                        it = successors.erase(it);
+                    } else {
+                        it++;
+                    }
+                }
+            }
+        }
         if (successors.size() == 0) {
             WRITE_WARNINGF(TL("Vehicle '%' ends idling in a cul-de-sac"), veh.getID());
             break;
