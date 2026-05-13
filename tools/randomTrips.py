@@ -315,7 +315,7 @@ def get_options(args=None):
         options.modes = True
 
     if options.threads is None and os.cpu_count() is not None:
-        options.threads = os.cpu_count()
+        options.threads = os.cpu_count() // 2
 
     return options
 
