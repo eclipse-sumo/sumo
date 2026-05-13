@@ -23,6 +23,7 @@ title: ChangeLog
   - Fixed bug where rerouting after parkingAreaReroute fails to add stops when input contains vias #17892
   - Fixed where vehicles that stop on the end of the lane take one extra step to continue #17916
   - Fixed invalid timeLoss computation for stopping vehicles #17915, #17916
+  - Fixed inconsistent behavior of vehicles not stopping in the sublane model when they brake late for not overtaking right #17933
   - Fixed failure when loading routes with edges that have extended ascii characters in their id (also for duarouter) #17935
   - Fixed unsafe insertion at zipper link #17972
   - State-Loading:
@@ -168,6 +169,7 @@ title: ChangeLog
   - Added option **--fcd-output.utm** which write raw UTM coordinates when simulating in geo-referenced networks #17878
   - When option **--vehroute-output.cost** is set, attribute `savings` now reports the detour cost for a closingReroute #17924
   - Actuated tls with custom conditions now supports expression `p:DETID` to retrieve the public transport delay of vehicles on the detector #17229
+  - Bus stops can now be configurted to avoid overtaking on the right if a bus is on it #17933
   - Taxis:
     - Intermodal routing now works with taxis of arbitrary vClass. The vClasses that are used for routing depend on all the vehicles with taxi device previously loaded. The default can be set with option **--device.taxi.vclasses** (default *taxi*) #9812
     - Taxis with idle algorithm `taxistand` now advance in queue when parking with `onRoad="true"` and overtaking is not possible #17632
@@ -250,6 +252,7 @@ title: ChangeLog
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in nestate dump. #16882
 - The OpenStreetMap Attribution of OSMWebWizard is no longer hidden behind the sidebar #17743
 - Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
+- The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pdoc documentation.
 
 
 ## Version 1.26.0 (29.01.2026)

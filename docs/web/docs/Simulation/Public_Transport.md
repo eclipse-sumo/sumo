@@ -38,7 +38,8 @@ stop is an area on a lane. The parameters have the following meanings:
 !!! note
     The alias `<trainStop>` may be used anywhere instead of `<busStop>` and has the exact same functionality.
 
-The [generic parameters](GenericParameters.md) `<param key="waitingWidth" value="FLOAT"/>` and `<param key="waitingDepth" value="FLOAT"/>` can be used to define the visual spacing of waiting persons at the busStop. 
+The [generic parameters](GenericParameters.md) `<param key="waitingWidth" value="FLOAT"/>` and `<param key="waitingDepth" value="FLOAT"/>` can be used to define the visual spacing of waiting persons at the busStop.
+The generic parameter `<param key="allowOvertakeRight" value="false"/>` can be used to forbid overtaking on the right for an occupied stop on the second lane (or a tram stop in the middle of the road). By default it is allowed.
 
 ## Access Lanes
 
