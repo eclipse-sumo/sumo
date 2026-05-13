@@ -106,6 +106,37 @@ GNENetDiffTool::getCommand() const {
             myPythonToolsOptions.getBool("load-shapes-deleted")) {
         arguments += "--write-shapes ";
     }
+    // add rest of arguments
+    if (myPythonToolsOptions.getBool("load-shapes-modified")) {
+        arguments += "--write-shapes ";
+    }
+    if (myPythonToolsOptions.getBool("write-selections")) {
+        arguments += "--write-selections ";
+    }
+    if (myPythonToolsOptions.getBool("plain-geo")) {
+        arguments += "--plain-geo ";
+    }
+    if (myPythonToolsOptions.getBool("verbose")) {
+        arguments += "--verbose ";
+    }
+    if (myPythonToolsOptions.getBool("use-prefix")) {
+        arguments += "--use-prefix ";
+    }
+    if (myPythonToolsOptions.getBool("direct")) {
+        arguments += "--direct ";
+    }
+    if (myPythonToolsOptions.getBool("patch-on-import")) {
+        arguments += "--patch-on-import ";
+    }
+    if (myPythonToolsOptions.getBool("remove-plain")) {
+        arguments += "--remove-plain ";
+    }
+    if (myPythonToolsOptions.getString("copy").size() > 0) {
+        arguments += "--copy " + myPythonToolsOptions.getString("copy") + " ";
+    }
+    if (myPythonToolsOptions.getString("path").size() > 0) {
+        arguments += "--path " + myPythonToolsOptions.getString("path") + " ";
+    }
     return getCommandPath() + " " + arguments;
 }
 
@@ -114,15 +145,46 @@ void
 GNENetDiffTool::fillNetDiffOptions(OptionsCont& options) {
     // build custom options for netdiff
     options.addOptionSubTopic("input");
-    options.addOptionSubTopic("output");
     options.doRegister("original-net", new Option_Network(""));
     options.addDescription("original-net", "input", TL("Original network"));
 
     options.doRegister("modified-net", new Option_Network(""));
     options.addDescription("modified-net", "input", TL("Modified network"));
 
+    options.addOptionSubTopic("output");
     options.doRegister("outprefix", new Option_FileName());
     options.addDescription("outprefix", "output", TL("Output prefix network"));
+
+    options.doRegister("write-selections", new Option_Bool(false));
+    options.addDescription("write-selections", "output", TL("Write selection files for created, deleted and changed elements"));
+
+    options.doRegister("write-shapes", new Option_Bool(false));
+    options.addDescription("write-shapes", "output", TL("Write shape files for created, deleted and changed elements"));
+
+    options.doRegister("plain-geo", new Option_Bool(false));
+    options.addDescription("plain-geo", "output", TL("Write geo coordinates instead of network coordinates"));
+
+    options.addOptionSubTopic("Processing");
+    options.doRegister("verbose", new Option_Bool(false));
+    options.addDescription("verbose", "Processing", TL("Give more output"));
+
+    options.doRegister("use-prefix", new Option_Bool(false));
+    options.addDescription("use-prefix", "Processing", TL("Interpret source and dest as plain-xml prefix instead of network names"));
+
+    options.doRegister("direct", new Option_Bool(false));
+    options.addDescription("direct", "Processing", TL("Compare source and dest files directly"));
+
+    options.doRegister("patch-on-import", new Option_Bool(false));
+    options.addDescription("patch-on-import", "Processing", TL("Generate patch that can be applied during initial network import (exports additional connection elements)"));
+
+    options.doRegister("remove-plain", new Option_Bool(false));
+    options.addDescription("remove-plain", "Processing", TL("Avoid saving plain xml files of source and destination networks"));
+
+    options.doRegister("copy", new Option_String());
+    options.addDescription("copy", "Processing", TL("Comma-separated list of element names to copy (if they are unchanged)"));
+
+    options.doRegister("path", new Option_String());
+    options.addDescription("path", "Processing", TL("Path to binaries"));
 
     options.addOptionSubTopic("Select");
     options.doRegister("select-modified", new Option_Bool(false));
