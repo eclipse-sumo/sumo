@@ -109,7 +109,7 @@ GNEOptionsEditorRow::OptionRow::getDescriptionLower() const {
 }
 
 
-const bool
+bool
 GNEOptionsEditorRow::OptionRow::isEditable() const {
     return myEditable;
 }
