@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-13T09:04:09.414245+01:00 by Eclipse SUMO sumo v1_26_0+1598-40a89f059b0
+<!-- generated on 2026-05-13T10:30:19.355163+01:00 by Eclipse SUMO sumo v1_26_0+1600-ffc78122562
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,8 +50,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="2000.00" id="ed">
-        <edge id="beg" left="23"/>
-        <edge id="beg2" left="27"/>
+        <edge id="beg" left="0"/>
+        <edge id="beg2" left="50"/>
         <edge id="end" left="49"/>
     </interval>
 </meandata>

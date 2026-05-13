@@ -1,4 +1,6 @@
 <routes>
     <route id="r1" edges="beg2"/>
-    <vehicle id="v" route="r1" depart="0"/>
+    <vehicle id="v" route="r1" depart="0">
+        <param key="device.taxi.idleMinPref" value="1"/>
+    </vehicle>
 </routes>
