@@ -1,1 +1,0 @@
-minGap; lognormal(1,0.25)

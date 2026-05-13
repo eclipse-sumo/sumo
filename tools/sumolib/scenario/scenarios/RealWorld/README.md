@@ -1,1 +1,0 @@
-This directory also contained the Bologna scenarios acosta, pasubio and joined which are now in a separate repo

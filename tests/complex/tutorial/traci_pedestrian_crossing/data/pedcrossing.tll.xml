@@ -1,9 +1,0 @@
-<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
-    
-    <tlLogic id="C" type="static" programID="custom" offset="0">
-        <phase duration="100000" state="GGGGr"/> <!-- do not switch vehicle phase automatically -->
-        <phase duration="4" state="yyyyr"/>
-        <phase duration="10" state="rrrrG"/>
-        <phase duration="10" state="rrrrr"/> <!-- give pedestrians time to clear the intersection -->
-    </tlLogic>
-</tlLogics>

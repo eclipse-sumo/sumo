@@ -1,5 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="t0" speedDev="0.1"/>
-    <route id="r0" edges="gneE0"/>
-    <flow id="veh" type="t0" route="r0" begin="0" end="10000" probability="0.1" departSpeed="random"/>
-</routes>

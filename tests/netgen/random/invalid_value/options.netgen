@@ -1,2 +1,0 @@
---rand -o net.net.xml --rand.iterations=200
---rand.connectivity 1

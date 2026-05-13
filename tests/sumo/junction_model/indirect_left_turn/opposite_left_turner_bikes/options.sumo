@@ -1,6 +1,0 @@
--r input_routes.rou.xml
--n net.net.xml
---step-length 0.1
---no-step-log true
---collision.check-junctions true
---fcd-output fcd.xml

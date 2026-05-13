@@ -1,3 +1,0 @@
---osm-files osm.xml.gz  --output net.net.xml -v -R --no-internal-links
---junctions.join --tls.guess-signals
---keep-edges.by-vclass passenger  --parking-output additional.xml

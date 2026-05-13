@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
---max-depart-delay 5
--t

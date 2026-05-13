@@ -1,6 +1,0 @@
-<routes>
-    <route id="1" edges="e1 e2"/>
-    <route id="2" edges="-e2 -e1"/>
-    <vehicle id="ego" route="1" depart="0" color="red"/>
-    <vehicle id="opp1" route="2" depart="0"/>
-</routes>

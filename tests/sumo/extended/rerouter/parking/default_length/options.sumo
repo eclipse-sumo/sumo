@@ -1,2 +1,0 @@
---no-step-log --no-duration-log -n net2.net.xml
---additional-files=input_additional.add.xml

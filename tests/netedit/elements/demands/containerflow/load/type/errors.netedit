@@ -1,3 +1,0 @@
-Error: Attribute 'type' in definition of containerFlow 'c_1' is empty.
-Error: Invalid vehicle type 'dummyType' used in containerFlow 'c_2'.
-Error: Loading of 'input_routes_A.rou.xml' failed.

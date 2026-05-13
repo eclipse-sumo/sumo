@@ -1,4 +1,0 @@
--n net2.net.xml
--r input_routes.rou.xml
---collision.check-junctions
---no-step-log

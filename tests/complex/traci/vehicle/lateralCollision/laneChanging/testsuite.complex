@@ -1,7 +1,0 @@
-# Test whether changing to left lane causes lateral collision
-# Collision warning should be returned
-leftLane
-
-# Test whether changing to right lane causes lateral collision
-# Collision warning should be returned
-rightLane

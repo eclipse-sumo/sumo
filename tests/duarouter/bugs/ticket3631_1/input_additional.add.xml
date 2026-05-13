@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="2583023253" name="Treben Lehma" lane="320357294#1_0" startPos="0.00" endPos="125.97" friendlyPos="true">
-        <access lane="252211920#0_0" pos="0.1"/>
-        <access lane="252211920#0_0" pos="0.00"/>
-    </busStop>
-</additional>

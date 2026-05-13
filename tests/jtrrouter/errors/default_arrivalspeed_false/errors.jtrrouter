@@ -1,3 +1,0 @@
-Error: Invalid arrivalSpeed definition for option 'arrivalspeed';
- must be one of ("current", or a float>=0)
-Quitting (on error).

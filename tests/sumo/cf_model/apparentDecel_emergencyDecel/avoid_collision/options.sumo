@@ -1,6 +1,0 @@
--n net.net.xml 
--r input_routes.rou.xml
---emergency-insert
---step-length=0.1
---no-step-log
---step-method.ballistic

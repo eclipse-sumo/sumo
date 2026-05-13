@@ -1,8 +1,0 @@
-<routes>
-    <trip id="veh0" depart="triggered" from="b" to="d"/>
-    <person id="person0" depart="0" departPos="80">
-        <stop busStop="B" duration="1"/>
-        <ride from="b" to="d" lines="veh0"/>
-    </person>
-
-</routes>

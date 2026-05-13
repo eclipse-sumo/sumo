@@ -1,8 +1,0 @@
-# group phases by incoming edge
-layout_incoming
-
-# group phases by incoming edge (set via node attribute)
-layout_incoming_attribute
-
-# group phases by incoming edge, also allow compatible right-turns
-right_on_red_layout_incoming

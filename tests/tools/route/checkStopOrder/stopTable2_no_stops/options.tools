@@ -1,3 +1,0 @@
--r input_routes.rou.xml
---stop-table stop_x,stop_y
-tools/route/checkStopOrder.py

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-
-	<parkingArea id="ParkArea1" lane="SC_0" startPos="10" endPos="15" roadsideCapacity="0">
-		<space x="120" y="20"/>
-	</parkingArea>
-	
-</additional>

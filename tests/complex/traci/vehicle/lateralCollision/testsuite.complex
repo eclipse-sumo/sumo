@@ -1,7 +1,0 @@
-# Test whether changing lanes causes lateral collisions
-# Collision warning should be returned
-laneChanging
-
-# Test whether changing lanes with the sublane model causes lateral collisions
-# Collision warning should be returned
-sublaneChanging

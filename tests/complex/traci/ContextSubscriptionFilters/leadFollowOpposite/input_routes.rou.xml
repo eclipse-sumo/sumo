@@ -1,9 +1,0 @@
-<routes>
-    <route id="1" edges="e1 e2 e3 e4"/>
-    <route id="2" edges="-e4 -e3 -e2 -e1"/>
-    
-    <flow id="opposite" route="2" begin="0" end="100" period="5"/>
-       
-    <vehicle id="ego" route="1" depart="0" color="red" departSpeed="max"/>
-    <vehicle id="snail_leader" route="1" depart="0" departSpeed="2" departPos="50"/>
-</routes>

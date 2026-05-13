@@ -1,7 +1,0 @@
-<routes>
-    <vType id="t0" sigma="0" carFollowModel="ACC" decel="3.75" accel="1.2" emergencyDecel="9.0" speedFactor="1.12"/>
-    <vType id="t1" sigma="0" carFollowModel="ACC" decel="2.98" accel="1.28" emergencyDecel="9.0" tau="1.95" speedFactor="0.8"/>
-    <route id="r" edges="beg"/>
-    <vehicle id="v0" type="t0" route="r" depart="0" departLane="0" departSpeed="38.52" departPos="63" />
-    <vehicle id="v1" type="t1" route="r" depart="1" departLane="0" departSpeed="max" departPos="last"/>
-</routes>

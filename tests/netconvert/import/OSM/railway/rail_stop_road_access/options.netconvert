@@ -1,5 +1,0 @@
---osm-files osm.xml -o net.net.xml  --osm.stop-output.length 200 
---ptstop-output additional.xml  
---type-files osmNetconvert.typ.xml,osmNetconvertUrbanDe.typ.xml,osmNetconvertPedestrians.typ.xml
---railway.access-distance 100 
---railway.max-accesses 4

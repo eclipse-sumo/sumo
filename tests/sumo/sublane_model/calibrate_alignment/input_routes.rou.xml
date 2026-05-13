@@ -1,5 +1,0 @@
-<routes>
-    <vType id="car" sigma="0"/>
-    <route id="r0" edges="beg middle end"/>
-    <vehicle id="0" type="car" route="r0" depart="0" departLane="0" departSpeed="max"/>
-</routes>

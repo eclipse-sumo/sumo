@@ -1,3 +1,0 @@
-# Test whether lanes filter ignores opposite lane(s)
-# No other vehicles but "ego" should be returned
-lanesInclOpposite

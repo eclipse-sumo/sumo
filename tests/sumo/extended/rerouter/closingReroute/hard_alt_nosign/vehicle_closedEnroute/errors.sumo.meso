@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'VehicleCloseEnroute'; waited too long, from edge 'middle':4, time=336.99.
-Warning: Vehicle 'VehicleCloseEnroute' is not allowed on source edge 'middle2'.
-Warning: No route for vehicle 'VehicleCloseEnroute' found.
-Warning: Vehicle 'VehicleCloseEnroute' ends teleporting on edge 'end':0, time=354.99.

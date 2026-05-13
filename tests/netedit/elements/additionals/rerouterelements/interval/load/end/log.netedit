@@ -1,7 +1,0 @@
-Error: Attribute 'end' is missing in definition of a interval.
-Error: Attribute 'end' in definition of a interval is not a valid time value.
-Error: Could not build closingReroute with ID '' in netedit; interval parent with ID '' doesn't exist.
-Error: Could not build closingReroute with ID '' in netedit; interval parent with ID '' doesn't exist.
-Error: Could not build interval with ID 'rerouter_0' in netedit; begin is greater than end.
-Error: Attempted to retrieve non-existant rerouter interval
-Error: Loading of 'input_additionals_A.add.xml' failed.

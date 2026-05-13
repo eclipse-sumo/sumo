@@ -1,9 +1,0 @@
-<routes>
-    <person id="p0" depart="0">
-        <personTrip from="a" to="-a" modes="public"/>
-    </person>
-
-    <person id="p1" depart="0">
-        <personTrip from="-a" to="a" modes="public"/>
-    </person>
-</routes>

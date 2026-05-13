@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<!-- generated on 2017-02-08 09:09:20.447642 by $Id: route2trips.py 22767 2017-01-30 11:42:27Z behrisch $ via randomTrips.py
-  options: 
--->
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="0" vClass="rail" carFollowModel="Rail" trainType="ICE1"/>
-    <trip id="r0" depart="0.00" departLane="best" from="e0" to="e2" type="0"/>
-</routes>

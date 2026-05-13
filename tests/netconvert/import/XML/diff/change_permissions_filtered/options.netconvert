@@ -1,2 +1,0 @@
---sumo-net-file input_net.net.xml --edge-files input_plain.edg.xml 
---remove-edges.by-vclass bus

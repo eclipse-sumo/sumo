@@ -1,7 +1,0 @@
-default
-speedFactor_0.5
-speedFactor_1.5
-maxSpeed
-
-# keepRight when driving below the desired speed
-actualSpeed

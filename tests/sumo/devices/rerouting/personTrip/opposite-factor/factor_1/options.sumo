@@ -1,3 +1,0 @@
---net-file=net.net.xml --route-files=input_routes.rou.xml --vehroute-output
-vehroutes.xml --vehroute-output.cost
---persontrip.walk-opposite-factor 1

@@ -1,8 +1,0 @@
-<routes>
-    <vType id="right" speedDev="0" sigma="0" lcSpeedGain="0" speedFactor="0.8"/>
-
-    <flow id="fa" type="right" route="A" begin="0" end="150" period="8" departLane="0" departSpeed="max"/>
-    <flow id="fb" type="right" route="B" begin="0" end="150" period="8" departLane="0" departSpeed="max"/>
-    <flow id="fc" type="right" route="C" begin="0" end="150" period="12" departLane="0" departSpeed="max"/>
-    <flow id="fd" type="right" route="D" begin="0" end="150" period="12" departLane="0" departSpeed="max"/>
-</routes>

@@ -1,4 +1,0 @@
-<     <person id="walker" depart="0.00" arrival="1250.00">
->     <person id="walker" depart="0.00" arrival="1249.00">
-<         <walk edges="beg middle end" exitTimes="357.00 1070.00 1250.00" started="0.00" ended="1250.00"/>
->         <walk edges="beg middle end" exitTimes="357.00 1070.00 1249.00" started="0.00" ended="1249.00"/>

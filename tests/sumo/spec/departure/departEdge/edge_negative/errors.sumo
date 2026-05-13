@@ -1,3 +1,0 @@
-Error: Invalid departEdge definition for vehicle 'v0';
- must be one of ("random", "free", or an int>=0)
-Quitting (on error).

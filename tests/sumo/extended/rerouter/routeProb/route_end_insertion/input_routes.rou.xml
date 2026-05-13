@@ -1,6 +1,0 @@
-<routes>
-    <route id="r0" edges="beg end"/>
-    <route id="r1" edges="beg2"/>
-    <vehicle id="right" color="red" route="r0" depart="0" departSpeed="avg" departPos="last"/>
-    <vehicle id="left" color="blue" route="r1" depart="0" departSpeed="avg" departPos="last"/>
-</routes>

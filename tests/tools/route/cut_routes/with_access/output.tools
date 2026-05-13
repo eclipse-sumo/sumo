@@ -1,7 +1,0 @@
-Valid area contains 4 edges
-Kept 1 of 1 busStops
-Parsing routes from input_routes.rou.xml
-Skipping bus stop 'busstop0', which could not be located.
-Parsed 1 vehicles, 0 persons, 0 flows and kept 1 routes
-Number of disconnected routes: 0, broken routes: 0.
-Wrote 1 vehicles

@@ -1,3 +1,0 @@
--n net.net.xml
--o landmarks.txt
-tools/generateLandmarks.py

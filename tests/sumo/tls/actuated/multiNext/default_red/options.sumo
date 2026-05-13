@@ -1,5 +1,0 @@
---net-file=net.net.xml
---routes=input_routes.rou.xml
---no-step-log
--a input_additional2.add.xml
--t

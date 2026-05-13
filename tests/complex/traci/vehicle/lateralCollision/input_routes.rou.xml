@@ -1,7 +1,0 @@
-<routes>
-    <route id="1" edges="e1 e2 e3 e4"/>
-
-    <vehicle id="right" route="1" depart="0" departLane="0" departPos="0"/>
-    <vehicle id="collider" route="1" depart="0" departLane="1" departPos="0"/>
-    <vehicle id="left" route="1" depart="0" departLane="2" departPos="0"/>
-</routes>

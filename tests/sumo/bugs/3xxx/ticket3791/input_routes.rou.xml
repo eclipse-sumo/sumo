@@ -1,4 +1,0 @@
-<routes>
-    <route id="r0" edges="in out" />
-    <vehicle id="v0" depart="0" route="r0" arrivalLane="0"/>
-</routes>

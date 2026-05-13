@@ -1,5 +1,0 @@
-<configuration>
-    <input>
-        <net-file value="nöt.net.xml"/>
-    </input>
-</configuration>

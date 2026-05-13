@@ -1,5 +1,0 @@
-<routes>
-	<trip id="car_415215_4_5" depart="5.76" departLane="best" departPos="free" from="728953767" to="728950364"/>
-	<trip id="car_416453_4_5" depart="15.41" departLane="best" departPos="free" from="728953767" to="728950364"/>
-    <trip id="car_415035_4_5" depart="25.98" departLane="best" departPos="free" from="728953767" to="728950364"/>
-</routes>

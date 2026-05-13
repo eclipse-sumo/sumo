@@ -1,4 +1,0 @@
---rand -o net.net.xml --rand.iterations=200
---rand.min-distance 100
---rand.max-distance 400
---rand.grid

@@ -1,3 +1,0 @@
--n net.net.xml -o out.add.xml 
---closed-edges.input-file selection.txt
-tools/generateRerouters.py

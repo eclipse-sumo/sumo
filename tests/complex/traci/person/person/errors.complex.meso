@@ -1,6 +1,0 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Error: Answered with error to command 0xae: Person 'bla' is not known
-Warning: setStop not yet implemented for meso
-Error: Answered with error to command 0xae: The negative stage index -5 must refer to a valid previous stage.
-Error: Answered with error to command 0xae: The stage index must be lower than the number of remaining stages.
-Error: Answered with error to command 0xae: The negative stage index -2 must refer to a valid previous stage.

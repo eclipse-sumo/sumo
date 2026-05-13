@@ -1,2 +1,0 @@
-Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (=-1.1 s.)
-Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (=-2.2 s.)

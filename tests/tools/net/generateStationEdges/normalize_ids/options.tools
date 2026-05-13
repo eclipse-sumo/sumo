@@ -1,2 +1,0 @@
--n input_net.net.xml -s input_additional.add.xml -o out --join-stations
---build

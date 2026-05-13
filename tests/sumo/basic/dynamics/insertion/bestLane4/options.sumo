@@ -1,3 +1,0 @@
---no-step-log --duration-log.statistics --net-file=net.net.xml
---routes=input_routes.rou.xml --max-depart-delay 2
--e 3600

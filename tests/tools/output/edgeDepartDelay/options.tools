@@ -1,1 +1,0 @@
--t tripinfos.xml -o edgedata.xml tools/output/edgeDepartDelay.py

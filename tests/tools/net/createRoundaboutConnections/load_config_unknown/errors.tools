@@ -1,3 +1,0 @@
-usage: createRoundaboutConnections.py [-h] [-c FILE] [-C FILE]
-                                      [--save-template FILE] -n NET
-createRoundaboutConnections.py: error: unrecognized arguments: --bla=true

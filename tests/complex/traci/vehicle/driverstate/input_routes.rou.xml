@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="car">
-        <param key="has.driverstate.device" value="true"/>
-        <param key="device.driverstate.initialAwareness" value="0.5"/>
-    </vType>
-    <route id="r1" edges="CN NC CS SC">
-    </route>
-    <vehicle id="v0" type="car" depart="0" route="r1"/>
-</routes>

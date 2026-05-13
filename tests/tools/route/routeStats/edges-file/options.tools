@@ -1,2 +1,0 @@
-input_routes.rou.xml --hist-output histogram.dat
---full-output fullstats.dat --edges-file input_edgedata.xml --binwidth 1 tools/route/routeStats.py

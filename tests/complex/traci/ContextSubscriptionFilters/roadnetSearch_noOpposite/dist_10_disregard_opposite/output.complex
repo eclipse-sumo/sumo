@@ -1,8 +1,0 @@
- Retrying in 1 seconds
-Subscribing to context of vehicle 'ego'
-Adding subscription filters ... 
-(downstreamDist=10.0, upstreamDist=10.0, lanes=[0, 1], opposite=False)
-Context results for veh 'ego':
-ego
-Ok: Unsubscribe successful
-Print ended at step 3.0

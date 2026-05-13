@@ -1,8 +1,0 @@
-Warning: Lane 'CE_0' is not connected from any incoming edge at junction 'C'.
-Warning: Lane 'CE_1' is not connected from any incoming edge at junction 'C'.
-Warning: Lane 'CE_2' is not connected from any incoming edge at junction 'C'.
-Warning: Lane 'CE_3' is not connected from any incoming edge at junction 'C'.
-Warning: Lane 'CE_4' is not connected from any incoming edge at junction 'C'.
-Warning: Edge 'EC' is not connected to outgoing edges at junction 'C'.
-Warning: Edge 'WC' is not connected to outgoing edges at junction 'C'.
-Warning: 17 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

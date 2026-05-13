@@ -1,6 +1,0 @@
--n net2.net.xml
--r input_routes.rou.xml
---no-step-log
---collision.check-junctions
---collision.action warn
---step-length 0.25

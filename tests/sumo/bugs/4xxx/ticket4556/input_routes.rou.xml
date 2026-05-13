@@ -1,6 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">  
-    <route id="r0" edges="-gneE23 -gneE22 vvr gneE50 gneE55.0"/> 
-    <vType guiShape="passenger" id="Pkw" lcKeepRight="0.5" jmIgnoreKeepClearTime="0"  length="5.000" maxSpeed="45.619" minGap="2.151" probability="0.004" speedDev="0.181" speedFactor="1.000" vClass="passenger" width="1.700" accel="2.682" decel="4.133" sigma="0.404" tau="0.677" />   
-    <vehicle id="Pkw1.1" type="Pkw" route="r0" depart="0.0" departSpeed="max" departLane="best" />
-    <vehicle id="Pkw2.0" type="Pkw" route="r0" depart="0.0" departSpeed="max" departLane="best" />
-</routes>

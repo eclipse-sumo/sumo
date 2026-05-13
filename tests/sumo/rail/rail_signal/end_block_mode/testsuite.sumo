@@ -1,5 +1,0 @@
-# switch from block mode into moving block after bidi-section
-end_after_bidi
-
-# switch from block mode into moving block within the bidi-section
-end_within_bidi

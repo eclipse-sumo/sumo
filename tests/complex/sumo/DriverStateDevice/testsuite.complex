@@ -1,5 +1,0 @@
-# Test whether parameter values specified in xml are parsed correctly
-spec
-
-# Test whether driver state device and ToC device coexist peacefully.
-combined_with_ToC

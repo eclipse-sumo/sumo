@@ -1,3 +1,0 @@
-Warning: Vehicle class 'bicycle' of vType 'longBike' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
-Warning: Teleporting vehicle 'v_1'; waited too long, from edge 'SC':0, time=316.11.
-Warning: Vehicle 'v_1' teleports beyond arrival edge 'CN', time=322.48.

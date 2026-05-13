@@ -1,3 +1,0 @@
-source.net.xml dest.net.xml diff 
---write-shapes
-tools/net/netdiff.py

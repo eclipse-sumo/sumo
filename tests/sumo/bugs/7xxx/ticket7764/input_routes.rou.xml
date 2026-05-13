@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_1" begin="0.00" from="318894718" to="319192876#0" end="40.00" number="20"/>
-    <flow id="flow_0" begin="10.00" from="319192888" to="319192894#0" end="50.00" number="20"/>
-</routes>

@@ -1,2 +1,0 @@
---device.taxi.dispatch-algorithm greedyShared
---device.taxi.dispatch-algorithm.params relLossThreshold:0.35

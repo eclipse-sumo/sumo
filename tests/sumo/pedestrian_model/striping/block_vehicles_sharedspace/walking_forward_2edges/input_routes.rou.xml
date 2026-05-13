@@ -1,9 +1,0 @@
-<routes>    
-    <vType id="car" sigma="0" speedFactor="1.5" width="2.1"/>
-    <person id="p0" depart="0" departPos="0.0">
-        <walk edges="CN" arrivalPos="-0.01"/>
-    </person>
-    <vehicle id="v0" type="car" depart="0" departPos="50" departSpeed="max">
-        <route edges="SC CN"/>
-    </vehicle>
-</routes>

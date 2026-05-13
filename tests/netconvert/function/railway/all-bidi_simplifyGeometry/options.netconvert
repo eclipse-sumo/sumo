@@ -1,5 +1,0 @@
--s input_net.net.xml 
---railway.topology.all-bidi
---geometry.min-dist 20
-
-

@@ -1,1 +1,0 @@
--n input_taz.taz.xml -d input_od_v.fma -o trips.trips.xml -b 27000 -e 30600

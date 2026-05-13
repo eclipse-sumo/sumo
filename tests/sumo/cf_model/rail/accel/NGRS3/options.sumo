@@ -1,1 +1,0 @@
--b 0 -e 3000 --no-step-log --no-duration-log -c sumo.sumocfg

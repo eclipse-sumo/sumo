@@ -1,4 +1,0 @@
-<additional>
-    <inductionLoop id="4_1" lane="4_1" pos="0" begin="300" file="detector.xml" freq="3600"/>
-    <inductionLoop id="4_2" lane="4_2" pos="0" begin="300" file="detector.xml" freq="3600"/>
-</additional>

@@ -1,1 +1,0 @@
--i battery.xml -o aggregatebattery.xml -t 60 tools/output/aggregateBatteryOutput.py

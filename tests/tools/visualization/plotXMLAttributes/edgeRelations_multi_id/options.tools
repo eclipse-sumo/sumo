@@ -1,3 +1,0 @@
-input_data.xml -o image.png --csv-output out.csv 
--i from,to -x begin -y count
-tools/visualization/plotXMLAttributes.py

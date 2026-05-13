@@ -1,3 +1,0 @@
--n net.net.xml -o out.add.xml 
--x E1
-tools/generateRerouters.py

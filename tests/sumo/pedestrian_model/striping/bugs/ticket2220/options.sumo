@@ -1,3 +1,0 @@
---net-file net2.net.xml --route-files input_routes.rou.xml --no-step-log
---fcd-output fcd.sumo --fcd-output.attributes angle,pos,edge,stage -e 10
---pedestrian.striping.dawdling 0

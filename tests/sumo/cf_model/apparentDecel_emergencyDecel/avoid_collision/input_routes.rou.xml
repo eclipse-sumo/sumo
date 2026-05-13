@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="r0" edges="E0" />
-	<vType id="leader" decel="1" length="5"  maxSpeed="6" sigma="0"/>
-	<vType id="follower" decel="1" emergencyDecel="4" minGap="2" sigma="0"/>
-    
-    <!-- initial gap (=2) and speeds should just allow to avoid collision when follower brakes with emergency decel -->
-	<vehicle id="leader" type="leader" depart="0" departSpeed="6" departPos="100" route="r0" />
-	<vehicle id="follower" type="follower" depart="0" departSpeed="10" departPos="91" route="r0" />
-</routes>

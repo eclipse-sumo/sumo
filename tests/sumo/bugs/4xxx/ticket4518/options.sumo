@@ -1,7 +1,0 @@
--n net.net.xml
--r input_routes.rou.xml
--a input_additional.add.xml
---no-step-log
---device.rerouting.probability 1
---device.rerouting.threads 4
--v

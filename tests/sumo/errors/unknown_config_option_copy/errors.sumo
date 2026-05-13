@@ -1,4 +1,0 @@
-Warning: Ignoring attribute 'extraAttr' for option 'net-file'
-Warning: Ignoring attribute 'values' for option 'route-files'
-Error: Could not set option 'route-files' because attribute 'value' is missing.
-Error: Could not set option 'additional-files' because attribute 'value' is missing.

@@ -1,9 +1,0 @@
-generating trips...
-Skipping line '3' because it only drives during the day
-Imported 5 lines with 10 stops and skipped 1 lines
-   bus: 5
-done.
-running SUMO to determine actual departure times...
-done.
-creating routes...
-done.

@@ -1,4 +1,0 @@
---opendrive-files opendrive.xodr --offset.disable-normalization
---geometry.min-dist 10 
---junctions.join
---default.junctions.radius 0

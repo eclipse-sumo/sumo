@@ -1,1 +1,0 @@
-minGap; gamma(2,5)

@@ -1,6 +1,0 @@
-<add>
-    <vTypeDistribution id="passenger">
-        <vType id="car" sigma="0" probability="0.5" speedDev="0.1"/>
-        <vType id="motorycle" vClass="motorcycle" sigma="0" probability="0.5" speedDev="0.1"/>
-    </vTypeDistribution>
-</add>

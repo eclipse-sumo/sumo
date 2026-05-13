@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="train" vClass="rail"/>
-
-    <trip id="rail1" depart="01" departSpeed="max" from="gneE0" to="gneE1" type="train"/>
-    <trip id="rail2" depart="40" departSpeed="max" from="-gneE1" to="-gneE0" type="train"/>
-</routes>

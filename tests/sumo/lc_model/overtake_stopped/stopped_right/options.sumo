@@ -1,6 +1,0 @@
--n motorway.net.xml
--r input_routes.rou.xml
--a input_additional.add.xml
---no-step-log
---max-depart-delay 1
---duration-log.statistics

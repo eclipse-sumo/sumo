@@ -1,6 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="DEFAULT_VEHTYPE" sigma="0"/>
-
-    <trip id="0" depart="0" fromTaz="taz_0" toTaz="taz_1" via="taz_2-sink"/>
-
-</routes>

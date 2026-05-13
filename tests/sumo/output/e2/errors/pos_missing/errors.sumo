@@ -1,3 +1,0 @@
-Error: Incomplete positional specification for E2Detector '4/1to3/1'.
-Usage combinations for positional specification: [lane, pos, length], [lane, endPos, length], or [lanes, pos, endPos]
-Quitting (on error).

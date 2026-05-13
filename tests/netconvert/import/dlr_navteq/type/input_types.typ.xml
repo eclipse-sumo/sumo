@@ -1,3 +1,0 @@
-<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
-	<type id="1000000000_1" priority="1" numLanes="1" speed="11.111" allow="bicycle"/>
-</types>

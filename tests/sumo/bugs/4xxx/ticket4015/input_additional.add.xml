@@ -1,7 +1,0 @@
-<additionals>
-    <!-- this is used to demonstrate negative nVehSeen in #3791
-	     maybe both cases can be merged, but beware the exact moment of lane change manoeuvre of the vehicle
-	<e2Detector id="det0" lane="out_1" pos="20.00" length="10.00" freq="1.00" file="detector.xml" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
-	-->
-    <e2Detector id="det0" lane="out_0" pos="1.00"  length="3.00"  freq="1.00" file="detector.xml" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
-</additionals>

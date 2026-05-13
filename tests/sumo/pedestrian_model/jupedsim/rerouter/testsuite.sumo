@@ -1,8 +1,0 @@
-# rerouting with optional rerouters
-optional
-
-# rerouting with action radius
-radius
-
-# testing proper route cleanup
-cleanup

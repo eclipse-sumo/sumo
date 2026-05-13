@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
---step-length 0.1
---lateral-resolution 0.2

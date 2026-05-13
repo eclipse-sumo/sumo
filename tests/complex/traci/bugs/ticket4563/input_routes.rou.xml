@@ -1,8 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="tLead" sigma="0" maxSpeed="10"/>
-    <vType id="tFollow" sigma="0" maxSpeed="13" accel="1.0"/>
-    <route id="r0" edges="E" />
-    <vehicle id="lead" type="tLead" depart="0" departSpeed="max" route="r0"/>
-    <vehicle id="follow" type="tFollow" depart="1" departSpeed="11" departLane="1" route="r0" />
-    <vehicle id="neighFollow" type="tLead" depart="2" departSpeed="max" route="r0" />
-</routes>

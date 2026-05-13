@@ -1,1 +1,0 @@
--c sumo_A.sumocfg --test-file "test.py"

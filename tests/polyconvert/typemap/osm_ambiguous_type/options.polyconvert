@@ -1,3 +1,0 @@
--v --osm osm.xml -o pois.poi.xml --net input_net.net.xml --type-file typemap.xml
-
-

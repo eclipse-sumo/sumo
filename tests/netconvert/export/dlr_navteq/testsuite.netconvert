@@ -1,7 +1,0 @@
-# Copy of write_numerical_ids
-defaults
-write_numerical_ids
-footpath
-
-# see #16279
-footpath_bidi

@@ -1,6 +1,0 @@
-<a>
-   <e1Detector file="NUL" freq="3600" id="MQ_1to2"  lane="1to2_0" pos="5"/>
-   <e1Detector file="NUL" freq="3600" id="MQ_2to3"  lane="2to3_0" pos="5"/>
-
-   <e1Detector file="NUL" freq="3600" id="MQ_split" lane="2to9split_0" pos="5"/>
-</a>

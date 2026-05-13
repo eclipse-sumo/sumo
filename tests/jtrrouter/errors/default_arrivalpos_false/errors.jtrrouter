@@ -1,3 +1,0 @@
-Error: Invalid arrivalPos definition for option 'arrivalpos';
- must be one of ("random", "max", or a float)
-Quitting (on error).

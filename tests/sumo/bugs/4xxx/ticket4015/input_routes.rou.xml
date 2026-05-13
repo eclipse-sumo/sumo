@@ -1,8 +1,0 @@
-<routes>
-    <route id="r0" edges="in out" />
-    <!-- need to make the vehicle less willing to change lanes so that the lane change occurs
-	     past the detector -->
-	<vType id="car" length="5" maxSpeed="70" carFollowModel="Krauss" accel="2.6" decel="4.5" sigma="0.5"
-	       lcStrategic="0.85" />
-	<vehicle id="v0" type="car" depart="0" route="r0" arrivalLane="0"/>
-</routes>

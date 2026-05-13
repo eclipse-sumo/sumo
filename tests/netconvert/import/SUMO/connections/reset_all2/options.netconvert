@@ -1,2 +1,0 @@
---sumo-net-file input_net.net.xml --connection-files input_connections.con.xml --output=net.net.xml --speed-in-kmh
---plain-output-prefix plain

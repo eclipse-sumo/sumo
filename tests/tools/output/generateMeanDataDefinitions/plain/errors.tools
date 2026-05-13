@@ -1,5 +1,0 @@
-usage: generateMeanDataDefinitions.py [-h] [-c FILE] [-C FILE]
-                                      [--save-template FILE] -d DETECTOR_FILE
-                                      -t DETECTOR_TYPE [-f FREQUENCY] [-l]
-                                      [-e] [-p OUTPUT_SUFFIX] [-o OUTPUT]
-generateMeanDataDefinitions.py: error: the following arguments are required: -d/--detector-file, -t/--detector-type

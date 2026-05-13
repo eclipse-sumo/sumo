@@ -1,1 +1,0 @@
-sumo 10 80 "0" 0 tests/complex/traci/ContextSubscriptionFilters/roadnetSearch_noOpposite/runner.py

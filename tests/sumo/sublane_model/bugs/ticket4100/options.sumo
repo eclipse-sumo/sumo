@@ -1,6 +1,0 @@
--n net.net.xml 
--r input_routes.rou.xml
---step-length=0.1
---collision.check-junctions
---no-step-log
---lateral-resolution=0.25

@@ -1,3 +1,0 @@
---grid --grid.number 3 --output=net.net.xml
---type-files input_types.typ.xml
---default.type a

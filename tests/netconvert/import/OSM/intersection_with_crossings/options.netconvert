@@ -1,2 +1,0 @@
---osm-files osm.xml -o net.net.xml --crossings.guess --sidewalks.guess
---junctions.join

@@ -1,6 +1,0 @@
--n net.net.xml -f input_flows.txt
--o out.rou.xml -e out.flows.xml
--d input_detectors.det.xml
--i 60
---vclass ignoring
---verbose

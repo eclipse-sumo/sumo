@@ -1,9 +1,0 @@
-<routes>
-    <vType id="t0" vClass="passenger" latAlignment="arbitrary" sigma="0" minGapLat="1.0" speedFactor="0.7" length="10"/>
-
-    <route id="r0" edges="beg end"/>
-
-    <vehicle id="right2left"  type="t0"  route="r0" departSpeed="max" departPos="150"  departLane="0" departPosLat="right"  depart="0" arrivalLane="1"/>
-    <vehicle id="left2right"  type="t0"  route="r0" departSpeed="max" departPos="150"  departLane="0" departPosLat="left"  depart="0" arrivalLane="0"/>
-
-</routes>

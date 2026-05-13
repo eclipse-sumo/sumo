@@ -1,5 +1,0 @@
-  <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-      <vType id="t0" sigma="0"/>
-      <trip id="stratLeft" depart="0" from="WC" to="CN" type="t0" departLane="0"/>
-      <trip id="stratRight" depart="0" from="EC" to="CN" type="t0" departLane="1"/>
-  </routes>

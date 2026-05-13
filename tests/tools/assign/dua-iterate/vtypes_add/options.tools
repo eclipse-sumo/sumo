@@ -1,6 +1,0 @@
-{CLEAR}
--n input_net.net.xml -t input_trips.trips.xml -l 5 
---additional input_additional.add.xml,input_additional2.add.xml
-duarouter--vtype-output dummy.xml
-duarouter--additional-files input_additional.add.xml,input_additional2.add.xml
-tools/assign/duaIterate.py

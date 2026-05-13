@@ -1,3 +1,0 @@
---no-step-log --no-duration-log --net-file=net.net.xml -r input_routes.rou.xml
---device.bluelight.reactiondist 250
---tripinfo-output tripinfos.xml

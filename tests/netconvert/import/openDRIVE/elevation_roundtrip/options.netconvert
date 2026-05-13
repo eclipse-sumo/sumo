@@ -1,2 +1,0 @@
---opendrive-files opendrive.xodr -o net.net.xml --opendrive-output foreign.net
---offset.disable-normalization --output.original-names

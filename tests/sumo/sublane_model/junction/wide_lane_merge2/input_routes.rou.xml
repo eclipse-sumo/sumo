@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="passenger" sigma="0" latAlignment="arbitrary" maxSpeed="5.56"/>
-    <vType id="bicycle" vClass="bicycle" sigma="0" latAlignment="arbitrary"/>
-    <route id="r0" edges="beg end"/>
-    <vehicle id="0" type="bicycle"   route="r0" depart="0.00" departLane="0" departPos="5" departSpeed="max"/>
-    <vehicle id="1" type="passenger" route="r0" depart="0.00" departLane="1" departPos="5" departSpeed="max"/>
-</routes>

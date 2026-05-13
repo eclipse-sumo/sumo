@@ -1,3 +1,0 @@
--n net.net.xml -s 42 --binomial 1
--p 0.5 0.75 2 0.25
--e 20

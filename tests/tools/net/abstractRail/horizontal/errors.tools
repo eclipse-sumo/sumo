@@ -1,8 +1,0 @@
-Warning: Lane '124262120_0' is not connected from any incoming edge at junction '1383487041'.
-Warning: Lane '124264571_0' is not connected from any incoming edge at junction '1383506147'.
-Warning: Speed of turning connection '124262109#0_0->124262109#1_0' reduced by 29.02 due to turning radius of 43.21 (length=7.40, angle=45.00).
-Warning: Speed of turning connection '469983241_0->124262107#0_0' reduced by 30.42 due to turning radius of 43.21 (length=7.40, angle=45.00).
-Warning: Speed of turning connection '124262109#1_0->124262109#2_0' reduced by 30.29 due to turning radius of 36.40 (length=6.21, angle=45.00).
-Warning: Speed of turning connection '-124262124_0->124262109#2_0' reduced by 39.36 due to turning radius of 4.70 (length=5.89, angle=121.52).
-Warning: Speed of straight connection '124262109#2_0->124262109#3_0' reduced by 20.60 due to turning radius of 103.34 (length=7.97, angle=39.46).
-Warning: 22 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

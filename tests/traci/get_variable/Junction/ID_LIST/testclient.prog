@@ -1,4 +1,0 @@
-simstep2 5
-getvariable 0xa9 0x0 dummy
-simstep2 7
-

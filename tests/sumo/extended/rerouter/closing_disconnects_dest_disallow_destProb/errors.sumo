@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'beforeRerouterEdgeAtClose'; waited too long (wrong lane), lane='beg2left_0', time=402.00.
-Warning: Vehicle 'beforeRerouterEdgeAtClose' ends teleporting on edge 'left2end', time=476.00.
-Warning: Teleporting vehicle 'insertedWhileClosed.2'; waited too long (wrong lane), lane='beg2left_0', time=705.00.
-Warning: Vehicle 'insertedWhileClosed.2' ends teleporting on edge 'left2end', time=779.00.

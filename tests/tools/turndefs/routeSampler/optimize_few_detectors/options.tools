@@ -1,3 +1,0 @@
--r input_routes2.rou.xml --turn-file input_turns.xml -o out.rou.xml 
---optimize 21
--I -f number

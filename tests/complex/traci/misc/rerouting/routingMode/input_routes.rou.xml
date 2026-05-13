@@ -1,6 +1,0 @@
-<routes>
-    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <flow id="flow" begin="0" period="10" number="10">
-        <route edges="beg detour end"/>
-    </flow>
-</routes>

@@ -1,3 +1,0 @@
-Error: Attribute 'jamThreshold' in definition of laneAreaDetector 'multiLaneAreaDetector_1' Invalid Number Format (double) dummyjamThreshold.
-Error: Could not build multiLaneAreaDetector with ID 'multiLaneAreaDetector_2' in netedit; Attribute jamThreshold cannot be negative (-15.50).
-Error: Loading of 'input_additionals_A.add.xml' failed.

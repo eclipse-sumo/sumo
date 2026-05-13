@@ -1,1 +1,0 @@
--e 16700 -b 16250 --no-step-log --no-duration-log --net-file=net.net.xml --fcd-output fcd.xml --routes=input_routes.rou.xml

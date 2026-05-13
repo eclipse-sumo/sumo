@@ -1,4 +1,0 @@
-<additionals>
-    <e2Detector id="e2MultiLaneDetector" lane="L3_0" endPos="47" length="48.945" freq="10.00" file="detector.xml"/>
-    <vaporizer id="L3" begin="0" end="100" />
-</additionals>

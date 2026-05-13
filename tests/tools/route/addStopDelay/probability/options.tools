@@ -1,4 +1,0 @@
--o out.rou.xml -r input_routes.rou.xml
---min 10 --max 10
---probability 0.5
-tools/route/addStopDelay.py

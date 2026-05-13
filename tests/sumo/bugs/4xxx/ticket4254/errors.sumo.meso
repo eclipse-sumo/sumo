@@ -1,4 +1,0 @@
-Warning: Vehicle class 'bicycle' of vType 'bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
-Warning: Vehicle class 'bicycle' of vType 'bicycle_bikeboxleft' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
-Error: Mesoscopic simulation does not allow stopping on internal edge ':C_28' for vehicle 'NS_car'.
-Quitting (on error).

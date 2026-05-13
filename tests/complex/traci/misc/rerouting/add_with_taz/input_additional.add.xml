@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tazs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/taz_file.xsd">
-    <taz id="A" edges="C3D3 D2D3 D3C3 D3D2"/>
-    <taz id="B" edges="C0D0 D0C0 D0D1 D1D0"/>
-    <taz id="C" edges="A0A1 A0B0 A1A0 B0A0"/>
-    <taz id="D" edges="A2A3 A3A2 A3B3 B3A3"/>
-</tazs>

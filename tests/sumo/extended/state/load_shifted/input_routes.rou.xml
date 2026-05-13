@@ -1,9 +1,0 @@
-<routes>
-    <vType id="type0" sigma="0"/>
-
-    <route id="r0" edges="beg middle end"/>
-
-    <vehicle id="v1" type="type0" route="r0" depart="990"/>
-    <vehicle id="v0" type="type0" route="r0" depart="1000"/>
-    <vehicle id="v2" type="type0" route="r0" depart="1100"/>
-</routes>

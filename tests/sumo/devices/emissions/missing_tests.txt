@@ -1,5 +1,0 @@
-Tests for
-- device.hbefa.deterministic
-
-- device.hbefa.knownveh divided by ';'
-- negative device.hbefa.probability

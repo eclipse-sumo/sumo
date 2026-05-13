@@ -1,3 +1,0 @@
-Warning: VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.
-Error: Attribute 'id' in definition of a vTypeProbe is empty.
-Quitting (on error).

@@ -1,1 +1,0 @@
-input_routes.rou.xml -f input_detectors.det.xml -n 0 -o validate tools/route/splitRouteFiles.py

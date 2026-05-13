@@ -1,2 +1,0 @@
---opendrive opendrive.xodr -v  --opendrive-output foreign.net --no-turnarounds --output net.net.xml
-

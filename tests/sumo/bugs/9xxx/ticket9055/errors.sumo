@@ -1,3 +1,0 @@
-Error: Another vehicle with the id 'x.1' exists.
-   (Possibly duplicate id due to using option --scale. Set option --scale-suffix to prevent this)
-Quitting (on error).

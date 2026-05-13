@@ -1,1 +1,0 @@
---shapefile-prefix data/roads --shapefile.street-id osm_id --shapefile.use-defaults-on-failure

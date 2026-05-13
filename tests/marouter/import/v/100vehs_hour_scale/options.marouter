@@ -1,3 +1,0 @@
--n input_net.net.xml -a input_taz.taz.xml -m input_od_v.fma -o routes.rou.xml
---netload-output aggregated.xml
---scale 0.25

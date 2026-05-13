@@ -1,4 +1,0 @@
-<routes>
-    <flow type="t" id="WN" from="WC" to="CN" begin="0" end="1000" number="1"  departLane="1" color="red" departPos="-1"/>
-
-</routes>

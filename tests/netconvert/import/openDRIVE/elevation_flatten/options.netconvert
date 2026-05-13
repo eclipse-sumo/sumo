@@ -1,3 +1,0 @@
---opendrive-files opendrive.xodr -o net.net.xml
---offset.disable-normalization --output.original-names
---flatten

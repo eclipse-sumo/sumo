@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<vType id="REDosto7" vClass="rail" carFollowModel="Rail" trainType="REDosto7"/>
-	<trip id="RE1" depart="16250" departLane="best" from="gneE20" to="gneE17" type="REDosto7">
-	</trip>
-	<trip id="RE2" depart="16250" departLane="best" from="gneE19" to="gneE15" type="REDosto7">
-	</trip>
-</routes>

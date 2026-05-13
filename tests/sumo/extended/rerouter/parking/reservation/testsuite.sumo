@@ -1,6 +1,0 @@
-# test behavior without reservation
-default
-reservable
-
-# capacity of 2 vehicles per parkingArea
-reservable2

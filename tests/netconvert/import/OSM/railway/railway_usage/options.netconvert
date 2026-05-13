@@ -1,2 +1,0 @@
---osm-files osm.xml -t
-$SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertRailUsage.typ.xml

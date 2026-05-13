@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd"> 
-    <variableSpeedSign id="VSS_ID" lanes="2si_1 1si_1">
-        <step time="0" speed="5"/>
-        <step time="10" speed="20"/>
-        <step time="20" speed="-1"/>
-    </variableSpeedSign>
-</additional>

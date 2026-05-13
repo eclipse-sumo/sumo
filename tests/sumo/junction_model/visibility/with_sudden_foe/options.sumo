@@ -1,4 +1,0 @@
---step-length 0.5
---fcd-output.attributes speed,acceleration
---collision.check-junctions
---collision.action warn

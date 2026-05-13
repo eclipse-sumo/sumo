@@ -1,5 +1,0 @@
---no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
---collision.action warn
---collision.check-junctions
---tripinfo-output tripinfos.xml
--v

@@ -1,3 +1,0 @@
--o out.rou.xml -n input_net.net.xml -r input_routes.rou.xml
---duration 1800
---via-index 2

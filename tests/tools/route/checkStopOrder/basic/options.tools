@@ -1,2 +1,0 @@
--r input_routes.rou.xml
-tools/route/checkStopOrder.py

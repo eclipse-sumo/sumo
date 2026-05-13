@@ -1,2 +1,0 @@
--v --geojson-files input.geojson -o pois.poi.xml --all-attributes
-

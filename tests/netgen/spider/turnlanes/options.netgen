@@ -1,2 +1,0 @@
---spider --spider.arm-number=5 --spider.circle-number=2 --spider.space-radius=100 --output=net.net.xml --no-internal-links
---turn-lanes 1 --turn-lanes.length 40

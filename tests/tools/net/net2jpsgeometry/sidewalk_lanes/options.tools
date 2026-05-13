@@ -1,1 +1,0 @@
--n input_net.net.xml -s input_sel.txt -o output.dxf -a --fixed-metadata tools/net/net2jpsgeometry.py

@@ -1,4 +1,0 @@
--n net.net.xml
--r input_routes.rou.xml
---ignore-route-errors
---no-step-log

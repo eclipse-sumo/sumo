@@ -1,5 +1,0 @@
-Warning: Vehicle 't0' with length 120.00 exceeds configured value of --railway.max-train-length 10.00
-Warning: No connection between edge 'a' and edge '-a2' found.
-Warning: No route for vehicle 't0' found.
-Error: Vehicle 't0' has no valid route.
-Quitting (on error).

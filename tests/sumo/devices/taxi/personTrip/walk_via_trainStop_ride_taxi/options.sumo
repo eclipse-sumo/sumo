@@ -1,8 +1,0 @@
---no-duration-log
---no-step-log
---net-file=net.net.xml 
--a input_additional.add.xml
--r input_routes.rou.xml 
---vehroutes=vehroutes.xml
---persontrip.transfer.walk-taxi ptStops
---persontrip.transfer.taxi-walk ptStops

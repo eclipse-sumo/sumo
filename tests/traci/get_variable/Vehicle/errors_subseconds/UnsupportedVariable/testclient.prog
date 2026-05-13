@@ -1,4 +1,0 @@
-simstep2 5
-getvariable 0xa4 0xff v1
-simstep2 7
-

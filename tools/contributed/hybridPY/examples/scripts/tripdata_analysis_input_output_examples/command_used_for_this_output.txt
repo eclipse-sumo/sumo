@@ -1,1 +1,0 @@
-python tripdata_analysis_without_sumopy_py3.py 230627_with_SAV_TAXI_PT.out.tripdata.xml 230627_with_SAV_TAXI_PT.rou.xml ni > tripdata_analysis_demo_logfile.txt

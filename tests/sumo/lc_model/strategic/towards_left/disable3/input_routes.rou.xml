@@ -1,7 +1,0 @@
-<routes>
-    <route id="r" edges="beg end"/>
-    <vehicle id="veh" type="t0" route="r" depart="0">
-        <stop edge="beg" endPos="-10" duration="60"/>
-    </vehicle>
-    <vehicle id="veh2" type="t0" route="r" depart="0"/>
-</routes>

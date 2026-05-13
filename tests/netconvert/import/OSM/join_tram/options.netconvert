@@ -1,3 +1,0 @@
- --osm-files osm.xml --edges.join-tram-dist 1.6
- --ptstop-output additional.xml
- --ptline-output ptlines.xml

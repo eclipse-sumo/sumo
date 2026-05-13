@@ -1,5 +1,0 @@
-<routes>
-    <vehicle id="v0" depart="0">
-        <route edges="beg middle end"/>
-    </vehicle>
-</routes>

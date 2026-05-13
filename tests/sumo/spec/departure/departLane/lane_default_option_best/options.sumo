@@ -1,3 +1,0 @@
---no-step-log -b 0 -e 0 --no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml,input_additional.add.xml  
---default.departlane best
- --fcd-output fcd.xml --fcd-output.attributes speed,pos,lane,edge

@@ -1,1 +1,0 @@
--e tripinfo -a timeLoss --fast input_data.xml tools/output/attributeStats.py 

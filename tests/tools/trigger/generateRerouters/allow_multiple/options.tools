@@ -1,4 +1,0 @@
--n net.net.xml -o out.add.xml 
---allow bus,tram
--x E0
-tools/generateRerouters.py

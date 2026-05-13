@@ -1,1 +1,0 @@
-sumo 20 30 "0" 0 "t0" " " tests/complex/traci/ContextSubscriptionFilters/vType_and_vClass/runner.py

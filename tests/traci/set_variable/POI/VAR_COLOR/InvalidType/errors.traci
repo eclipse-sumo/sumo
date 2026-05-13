@@ -1,2 +1,0 @@
-TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
-Error: Answered with error to command 0xc7: The color must be given using the according type.

@@ -1,6 +1,0 @@
-Warning: No connection between edge 'EC' and edge 'CN' found.
-Warning: No connection between edge 'CE' and edge 'CN' found.
-Warning: No connection between edge 'EC' and edge 'NC' found.
-Warning: No connection between edge 'CE' and edge 'NC' found.
-Warning: Person 'backward_forward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'CN', time=1.00.
-Warning: Person 'forward_backward' could not find route across junction 'C' from walkingArea ':C_w1' to edge 'NC', time=290.00.

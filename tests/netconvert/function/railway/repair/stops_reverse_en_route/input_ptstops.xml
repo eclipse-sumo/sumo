@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="stopBeg" lane="beg_0" startPos="10" endPos="80"/>
-    <busStop id="stopEnd" lane="end_0" startPos="10" endPos="80"/>
-    <busStop id="stopBranch" lane="branch_0" startPos="10" endPos="80"/>
-</additional>

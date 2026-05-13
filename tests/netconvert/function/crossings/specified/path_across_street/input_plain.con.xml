@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<connections version="0.13">
-    <crossing node="C" edges="EC CE"/>
-    <crossing node="C" edges="WC CW"/>
-</connections>

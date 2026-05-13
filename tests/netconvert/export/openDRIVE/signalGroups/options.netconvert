@@ -1,1 +1,0 @@
---sumo-net-file input_net.net.xml --opendrive-output foreign.net --offset.disable-normalization --output.original-names

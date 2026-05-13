@@ -1,6 +1,0 @@
-Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '821551824' (Fontanestraße/Flughafenstraße (Ausstieg)). Thus, it will be removed!
-Warning: The traffic light '28095437' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '28095437'
-Warning: The traffic light '3612453893' does not control any links; it will not be build.
-Warning: Could not build program '0' for traffic light '3612453893'
-Warning: Stop '3357557588' named 'U Boddinstraße' from line '93502' on edge '68189545' is not part of the route.

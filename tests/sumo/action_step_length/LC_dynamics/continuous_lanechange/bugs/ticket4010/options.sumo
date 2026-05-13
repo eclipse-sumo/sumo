@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml -r input_routes.rou.xml --lanechange.duration 3
---lanechange-output lanechanges.xml
--e 75

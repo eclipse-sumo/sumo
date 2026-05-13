@@ -1,2 +1,0 @@
---sumo-net-file input_net.net.xml --connection-files input_plain.con.xml 
--o net.net.xml 

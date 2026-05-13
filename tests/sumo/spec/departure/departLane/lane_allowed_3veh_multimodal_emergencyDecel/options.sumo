@@ -1,4 +1,0 @@
---no-step-log --no-duration-log --net-file net3.net.xml -r input_routes.rou.xml
---default.emergencydecel 9
---fcd-output fcd.xml
---device.fcd.explicit 4

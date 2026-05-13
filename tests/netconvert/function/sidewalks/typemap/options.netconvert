@@ -1,3 +1,0 @@
---node-files input_plain.nod.xml --edge-files input_plain.edg.xml --output net.net.xml --no-turnarounds --default.sidewalk-width 2.5 --type-files input_types.typ.xml
-
-

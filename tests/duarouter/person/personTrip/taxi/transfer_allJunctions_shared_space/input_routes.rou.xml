@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="ped162" depart="170.88">
-        <personTrip from="-138624477#0" to="138624477#1" modes="taxi"/>
-    </person>
-</routes>

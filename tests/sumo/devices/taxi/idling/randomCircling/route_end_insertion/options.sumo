@@ -1,8 +1,0 @@
---no-step-log --no-duration-log --net-file=net.net.xml
---collision.action warn
--r input_routes.rou.xml
---tripinfo-output tripinfos.xml
---tripinfo-output.write-unfinished
---device.taxi.idle-algorithm randomCircling
---device.taxi.probability 1
--e 10

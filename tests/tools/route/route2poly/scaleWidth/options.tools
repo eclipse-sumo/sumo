@@ -1,4 +1,0 @@
-net.net.xml routes.rou.xml routes2.rou.xml --layer 200 --hue 0.5 -o pois.add.xml 
---filter-output.file input_sel.txt
---scale-width 1
-tools/route/route2poly.py

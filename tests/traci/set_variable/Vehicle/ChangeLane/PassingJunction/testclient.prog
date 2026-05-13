@@ -1,4 +1,0 @@
-repeat 2 simstep2 0
-setvalue 0xc4 0x13 veh0 <compound> 3 <byte> 2 <double> 100 <byte> 0
-repeat 101 simstep2 0
-

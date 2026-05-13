@@ -1,6 +1,0 @@
-<additional>
-    <tlLogic id="0" type="static" programID="freaky" offset="0">
-        <phase duration="1000" state="GGGGGGGGGGGGGGGG"/>
-        <phase duration="1" state="rrrrrrrrrrrrrrrr"/>
-    </tlLogic>
-</additional>

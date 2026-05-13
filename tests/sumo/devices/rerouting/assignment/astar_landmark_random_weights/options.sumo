@@ -1,3 +1,0 @@
--n net.net.xml -r input_trips.trips.xml --routing-algorithm astar --no-step-log --astar.landmark-distances lookuptable
---weights.random-factor 2
- --vehroute-output=vehroutes.xml

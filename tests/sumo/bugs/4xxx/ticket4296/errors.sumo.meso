@@ -1,4 +1,0 @@
-Warning: Unsafe green phase 11 in tlLogic 'C', program '1'. Lane 'WE2_0' is targeted by 2 'G'-links. (use 'g' instead) Overall 2 lanes in 1 phases are unsafe.
-Warning: Vehicle class 'bicycle' of vType 'bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
-Error: Mesoscopic simulation does not allow stopping on internal edge ':C_10' for vehicle 'SW'.
-Quitting (on error).

@@ -1,3 +1,0 @@
---no-step-log --net-file=net.net.xml.gz
--r input_trips.trips.xml -a input_additional.add.xml
---device.taxi.idle-algorithm taxistand

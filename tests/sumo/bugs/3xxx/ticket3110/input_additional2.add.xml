@@ -1,4 +1,0 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <laneAreaDetector file="detector2.xml" freq="360" friendlyPos="x" id="e2det_1i_0_360" lane="1i_0" length="100" pos="395.15"/>
-    <laneAreaDetector file="detector2.xml" freq="180" friendlyPos="x" id="e2det_1i_0_180" lane="1i_0" length="100" pos="395.15"/>
-</additional>

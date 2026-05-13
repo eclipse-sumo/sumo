@@ -1,3 +1,0 @@
-Warning: Reducing period to 1 for calibrator 'calibratorFlows'
-Error: Overlapping or unsorted intervals in calibrator 'calibratorFlows' (end=300.00, begin2=200.00).
-Quitting (on error).

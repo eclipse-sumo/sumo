@@ -1,5 +1,0 @@
---net-file net.net.xml --route-files input_routes.rou.xml 
---no-step-log
--e 100
---tripinfo-output tripinfos.xml
---tripinfo-output.write-unfinished

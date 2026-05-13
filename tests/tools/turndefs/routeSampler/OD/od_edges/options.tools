@@ -1,3 +1,0 @@
--r input_routes2.rou.xml --od-files input_turns.xml 
---edgedata-files input_edgedata.xml
--o out.rou.xml 

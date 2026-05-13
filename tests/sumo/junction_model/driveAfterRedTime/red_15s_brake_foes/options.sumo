@@ -1,4 +1,0 @@
---no-step-log --no-duration-log --net-file=net2.net.xml -r input_routes.rou.xml
---fcd-output fcd.xml
--b 25
---collision.check-junctions

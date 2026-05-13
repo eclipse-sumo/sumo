@@ -1,1 +1,0 @@
-sumo --defaults tests/complex/traci/contextSubscriptions/matrix_test/runner.py

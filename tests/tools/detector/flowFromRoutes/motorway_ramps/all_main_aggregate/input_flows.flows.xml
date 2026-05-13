@@ -1,4 +1,0 @@
-<additional>
-    <flow id="1_9.qPKW.0" departSpeed="max" departPos="last" departLane="best" route="1_9.qPKW.0" number="600" begin="0" end="3600"/>
-    <flow id="1_9.qPKW.60" departSpeed="max" departPos="last" departLane="best" route="1_9.qPKW.60" number="300" begin="3600" end="7200"/>
-</additional>

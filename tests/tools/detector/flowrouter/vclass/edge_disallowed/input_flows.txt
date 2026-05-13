@@ -1,4 +1,0 @@
-Detector;Time;qPKW
-
-beg_0;00;100
-end_0;00;100

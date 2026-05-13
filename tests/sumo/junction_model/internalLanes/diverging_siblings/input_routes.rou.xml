@@ -1,8 +1,0 @@
-<routes>
-    <vType id="slow" sigma="0" maxSpeed="2"/>
-    <vType id="fast" sigma="0"/>
-    <route id="r0" edges="SC CW"/>
-    <route id="r1" edges="SC CE"/>
-    <vehicle id="leader" type="slow" route="r0" depart="0" departPos="-10"/>
-    <vehicle id="follower" type="fast" route="r1" depart="1" departPos="-10"/>
-</routes>

@@ -1,3 +1,0 @@
---no-step-log -e 360 --net-file=net.net.xml
--r input_routes.rou.xml --duration-log.statistics
---tripinfo-output tripinfos.xml --fcd-output fcd.xml

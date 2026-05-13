@@ -1,9 +1,0 @@
-<routes>
-    <person id="p0" depart="0" departPos="-20">
-        <walk edges="a :2_0 -a" arrivalPos="20"/>
-    </person>
-
-    <person id="p1" depart="0" departPos="20">
-        <walk edges="a :1_0 -a" arrivalPos="-20"/>
-    </person>
-</routes>

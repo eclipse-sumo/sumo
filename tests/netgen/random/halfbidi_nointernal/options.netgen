@@ -1,1 +1,0 @@
---rand.bidi-probability 0.5 --rand -o net.net.xml --rand.iterations=200 --no-internal-links

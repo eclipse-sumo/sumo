@@ -1,7 +1,0 @@
-<additionals>
-    <e3Detector id="tt_fc09" freq="900" file="detector.xml" timeThreshold="1.00" speedThreshold="1.39" x="452.48" y="366.72">
-        <detEntry lane="-23602047_0" pos="60.00"/>
-        <detEntry lane="-23602047_1" pos="60.00"/>
-        <detExit lane="gneE119_0" pos="20.00"/>
-    </e3Detector>
-</additionals>

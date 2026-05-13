@@ -1,6 +1,0 @@
--n net.net.xml 
--r input_routes.rou.xml
---step-length=0.1
---no-step-log
---lateral-resolution=0.25
---tripinfo-output tripinfos.xml

@@ -1,8 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-
-<vType id="passenger" vClass="passenger" laneChangeModel="SL2015" latAlignment="center" lcTurnAlignmentDistance="50" accel="1.5" decel="8.0" sigma="0.5" tau="1.0" length="5" minGap="1.5" maxSpeed="45" speedFactor="1.05" speedDev="0.1" guiShape="passenger"/>
-
-<route id="ES" edges="EW1 EW2 NS2"/>  
-    <vehicle id="ES_passenger" type="passenger" departLane="1" departPos="-10" route="ES" depart="0" />
-
-</routes>

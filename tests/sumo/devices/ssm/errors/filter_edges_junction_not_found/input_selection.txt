@@ -1,2 +1,0 @@
-junction:C
-junction:CC

@@ -1,4 +1,0 @@
--v --osm osm.xml -o pois.poi.xml --net input_net.net.xml --type-file
-$SUMO_HOME/data/typemap/osmPolyconvert.typ.xml
-
-

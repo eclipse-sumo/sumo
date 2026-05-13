@@ -1,4 +1,0 @@
-repeat 40 simstep2 0
-setvalue 0xc4 0x19 0 <compound> 0
-repeat 111 simstep2 0
-

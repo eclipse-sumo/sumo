@@ -1,7 +1,0 @@
--n net.net.xml
--r input_routes.rou.xml
---collision.check-junctions
---collision.action=warn
---time-to-teleport=100
---no-step-log
---step-length=0.1

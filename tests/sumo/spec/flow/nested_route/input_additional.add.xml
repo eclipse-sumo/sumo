@@ -1,5 +1,0 @@
-<routes>
-	<flow id="f1" period="1">
-	    <route edges="beg end"/>
-	</flow>
-</routes>

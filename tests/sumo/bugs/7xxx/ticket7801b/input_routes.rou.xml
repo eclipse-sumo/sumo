@@ -1,7 +1,0 @@
-<routes>
-
-<container id="person_0" departPos="0" depart="0">
-	<ride from="gneE0" to="gneE0" arrivalPos="60" lines="abc"/>
-</container>
-
-</routes>

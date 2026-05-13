@@ -1,4 +1,0 @@
-fcd.xml -o image.png --csv-output out.csv -t ks
---invert-yaxis
-tools/plot_trajectories.py
-

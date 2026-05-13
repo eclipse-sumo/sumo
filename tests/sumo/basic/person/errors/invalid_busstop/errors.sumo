@@ -1,4 +1,0 @@
-Error: Could not build busStop 'busStop'; probably declared twice.
-Error: Could not add access outside a stopping place.
-Error: Could not end a stopping place that is not opened.
-Quitting (on error).

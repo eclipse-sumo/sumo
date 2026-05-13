@@ -1,9 +1,0 @@
-<routes>
-    <vType id="t0" sigma="0" length="20"/>
-    <route id="r0" edges="beg middle end"/>
-
-    <vehicle id="v0" type="t0" route="r0" depart="0">
-        <!-- the vehicle is stopped here when saving state -->
-        <stop busStop="stop0" duration="30" parking="true"/>
-    </vehicle>
-</routes>

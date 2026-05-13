@@ -1,3 +1,0 @@
--n net.net.xml -o out.add.xml -a input_additional.add.xml
--p 0.5 --density 0.3 --prefix CS
-tools/distributeChargingStations.py

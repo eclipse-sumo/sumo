@@ -1,1 +1,0 @@
--p 3 --xml-output stats.xml input_data.xml tools/output/attributeStats.py 

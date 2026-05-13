@@ -1,6 +1,0 @@
-Warning: Speed of turning connection 'e_vo0_0->e_m4_1' reduced by 50.68 due to turning radius of 15.79 (length=19.63, angle=90.00).
-Warning: Speed of turning connection 'e_vo0_1->e_m4_2' reduced by 51.90 due to turning radius of 11.93 (length=14.57, angle=90.00).
-Warning: Speed of turning connection 'e_vu0_0->e_m4_0' reduced by 53.49 due to turning radius of 7.70 (length=9.03, angle=90.00).
-Warning: Speed of turning connection 'e_vu0_1->e_m4_1' reduced by 52.00 due to turning radius of 11.64 (length=14.19, angle=90.00).
-Warning: Speed of turning connection 'e_vo1_0->e_m5_1' reduced by 50.68 due to turning radius of 15.79 (length=19.63, angle=90.00).
-Warning: 30 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

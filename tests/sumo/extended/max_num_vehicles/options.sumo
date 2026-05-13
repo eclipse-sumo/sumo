@@ -1,3 +1,0 @@
---no-step-log --no-duration-log --net-file=motorway.net.xml
---routes=input_routes.rou.xml --summary-output summary.xml
---max-num-vehicles 20 -e 100

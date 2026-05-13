@@ -1,3 +1,0 @@
-[run_dependent_text]
-log:^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}.*\] \[PID: \d+\] {REPLACE <timestamp> <pid> }
-output:^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}.*\] \[PID: \d+\] {REPLACE <timestamp> <pid> }

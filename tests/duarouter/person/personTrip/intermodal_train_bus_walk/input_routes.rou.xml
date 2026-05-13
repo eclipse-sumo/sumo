@@ -1,6 +1,0 @@
-<routes>
-    <vType id="avoidWalking" maxSpeed="0.5"/>
-    <person id="p0" type="avoidWalking" depart="0" departPos="900">
-        <personTrip from="A0B0" to="A1B1" arrivalPos="100" modes="public"/>
-    </person>
-</routes>

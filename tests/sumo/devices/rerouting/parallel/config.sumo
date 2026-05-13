@@ -1,2 +1,0 @@
-[run_dependent_text]
-output:answered [0-9]* queries{REPLACE answered (NUMBER) queries}

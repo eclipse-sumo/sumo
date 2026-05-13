@@ -1,4 +1,0 @@
---no-step-log --net-file=net2.net.xml -r input_routes.rou.xml
---tls.all-off
---collision.check-junctions
---duration-log.statistics

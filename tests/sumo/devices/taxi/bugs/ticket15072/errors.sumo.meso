@@ -1,3 +1,0 @@
-Warning: Vehicle class 'bicycle' of vType 'bike_bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
-Warning: Vehicle 'bike0' aborted waiting for a person that will never come.
-Warning: Vehicle 'bike1' aborted waiting for a person that will never come.

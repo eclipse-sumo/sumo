@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="t0" speedDev="0.05"/>
-    <route id="main" edges="beg2" color="blue"/>
-    <vehicle id="blocker" type="t0" depart="0" route="main" departSpeed="max">
-        <stop lane="beg2_0" endPos="1000" duration="1000"/>
-    </vehicle>
-    <flow id="main0" type="t0" begin="0" end="1000" route="main" departPos="last" departSpeed="max" departLane="0" period="1"/>
-    <flow id="main1" type="t0" begin="0" end="1000" route="main" departPos="last" departSpeed="max" departLane="1" period="1"/>
-</routes>

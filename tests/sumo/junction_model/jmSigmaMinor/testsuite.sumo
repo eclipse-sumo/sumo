@@ -1,5 +1,0 @@
-# the low priority vehicle should not cause braking on the main road at impatience 0
-across_nohindrance_jmSigmaMinor
-
-# dawdling should take place for minor approach if jmSigmaMinor>0 (check that speed=13.89 does not occur in output)
-keep_dawdling_jmSigmaMinor

@@ -1,6 +1,0 @@
-[2025-09-11T13:51:43.221238+01:00] [PID: 53692] Loading net-file from 'net.net.xml' ... done (4ms).
-[2025-09-11T13:51:43.229729+01:00] [PID: 53692] Loading route-files incrementally from 'input_routes.rou.xml'
-[2025-09-11T13:51:43.229897+01:00] [PID: 53692] Loading done.
-[2025-09-11T13:51:43.240312+01:00] [PID: 53692] Simulation version v1_24_0+0753-7ddc191931e started with time: 0.00.
-[2025-09-11T13:51:43.240837+01:00] [PID: 53692] Simulation ended at time: 100.00.
-[2025-09-11T13:51:43.240982+01:00] [PID: 53692] Reason: The final simulation step has been reached.

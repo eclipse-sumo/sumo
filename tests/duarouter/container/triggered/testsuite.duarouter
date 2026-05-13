@@ -1,8 +1,0 @@
-# person starts in vehicle
-basic
-
-# person starts in a vehicle but is parsed ahead of that vehicle
-unordered
-
-# first plan element is not a ride
-invalid_mode

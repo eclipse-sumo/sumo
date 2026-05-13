@@ -1,5 +1,0 @@
---grid --grid.number 5 --output=net.net.xml
---perturb-z norm(50,5)
---perturb-x 5
---perturb-y normc(0,10,-1,20)
---offset.disable-normalization

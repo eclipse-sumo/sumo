@@ -1,3 +1,0 @@
--n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 
---use-osm-routes
-tools/ptlines2flows.py

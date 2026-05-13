@@ -1,2 +1,0 @@
-Warning: Value of 'emergencyDecel' (3.00) should be higher than 'decel' (4.00) for vType 't0'.
-Warning: Value of 'emergencyDecel' (6.00) is lower than 'apparentDecel' (7.00) for vType 't1' may cause collisions.

@@ -1,4 +1,0 @@
-C:\Users\biek_la\source\repos\sumo\tools\sumolib\statistics.py:154: UserWarning: mean() is deprecated, because the name is misleading, use median() instead
-  warnings.warn("mean() is deprecated, because the name is misleading, use median() instead")
-C:\Users\biek_la\source\repos\sumo\tools\sumolib\statistics.py:158: UserWarning: mean_abs() is deprecated, because the name is misleading, use median_abs() instead
-  warnings.warn("mean_abs() is deprecated, because the name is misleading, use median_abs() instead")

@@ -1,8 +1,0 @@
-# lane attribute acceleration is not set
-unmarked_lane
-
-# lane attribute acceleration is set
-marked_lane
-
-# lane attribute acceleration is set, vehicles accept lower gaps
-marked_lane_assertive

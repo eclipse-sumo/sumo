@@ -1,4 +1,0 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: busStop 'stopBeg' on lane 'beg_0' is too short for vehicle 'light_rail_S46:0.0'.
-Warning: busStop '-stopBranch' on lane '-h_0' is too short for vehicle 'light_rail_S46:0.0'.
-Warning: busStop 'stopEnd' on lane 'end_0' is too short for vehicle 'light_rail_S46:0.0'.

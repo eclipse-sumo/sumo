@@ -1,2 +1,0 @@
--r input_routes.rou.xml -t input_turns.xml -o out.rou.xml
---write-route-ids --prefix truck

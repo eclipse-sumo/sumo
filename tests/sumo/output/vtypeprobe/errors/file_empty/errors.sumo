@@ -1,3 +1,0 @@
-Warning: VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) instead.
-Error: Attribute 'file' in definition of vTypeProbe 'test1' is empty.
-Quitting (on error).

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-  <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-
-  <trip depart="0" departPos="11" id="veh0" from="SC" to="CN">
-      <stop lane=":C_10_0" endPos="-1" duration="5"/>
-  </trip>
-</routes>

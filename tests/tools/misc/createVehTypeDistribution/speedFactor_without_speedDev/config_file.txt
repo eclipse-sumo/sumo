@@ -1,1 +1,0 @@
-speedFactor; normal(0.8,1.2)

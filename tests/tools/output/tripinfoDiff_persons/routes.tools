@@ -1,4 +1,0 @@
-<tripDiffs>
-    <personinfo id="ped35" durationDiff="-2.0" walkTimeLossDiff="-2.0" rideWaitDiff="1.0" walksDiff="0" accessesDiff="0" ridesDiff="0" stopsDiff="0"/>
-    <personinfo id="ped55" durationDiff="-9.0" walkTimeLossDiff="5.07" rideWaitDiff="-2.0" walksDiff="-1" accessesDiff="-2" ridesDiff="0" stopsDiff="0"/>
-</tripDiffs>

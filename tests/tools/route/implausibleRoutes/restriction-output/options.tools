@@ -1,3 +1,0 @@
-input_net.net.xml routes.rou.xml 
---restriction-output restrictions.txt
-tools/route/implausibleRoutes.py 

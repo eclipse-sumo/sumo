@@ -1,8 +1,0 @@
-# a blocking vehicle stands directly behind the junction and the junction is kept clear
-no_space_behind_junction
-
-# a blocking vehicle stands directly behind the junction but is ignored
-no_space_behind_junction_ignore
-
-# a blocking vehicle stands directly behind the junction and is sometimes ignored
-no_space_behind_junction_some_ignore

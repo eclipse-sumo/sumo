@@ -1,9 +1,0 @@
-<routes>
-    <vType id="DEFAULT_VEHTYPE" sigma="0" speedDev="0" speedFactor="3"/>
-    <trip id="v0" depart="0" departSpeed="max" arrivalSpeed="0">
-        <stop lane="SC_0" endPos="50" speed="30" arrival="10" until="10"/>
-        <stop lane="CN_0" endPos="50" speed="30" arrival="20" until="20"/>
-        <stop lane="CN_0" endPos="60" speed="30" arrival="20" until="20"/>
-        <stop lane="NC_0" endPos="60" speed="30" arrival="20" until="20"/>
-    </trip>
-</routes>

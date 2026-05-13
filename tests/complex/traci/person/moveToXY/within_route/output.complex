@@ -1,8 +1,0 @@
- Retrying in 1 seconds
-s=0 x=106.23 y=81.95
-jumping backwards on the same edge
-s=1 x=106.23 y=71.95
-jumping forward to route edge
-s=2 x=106.23 y=131.95
-jumping backward to previous route edge
-s=4 x=106.23 y=51.95

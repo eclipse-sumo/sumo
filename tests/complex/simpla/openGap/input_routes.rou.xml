@@ -1,6 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="followType" speedFactor="1.5" sigma="0"/>
-    <vType id="leadType" sigma="0" />
-    <vehicle id="leader" type="leadType" depart="0" departPos="last" route="circle" />
-    <vehicle id="follower" type="followType" depart="0" departPos="last" route="circle" />
-</routes>

@@ -1,2 +1,0 @@
--s input_net.net.xml --output=net.net.xml
---junctions.limit-turn-speed 4

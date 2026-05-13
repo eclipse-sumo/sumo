@@ -1,6 +1,0 @@
-<configuration>
-    <net-file value="input_net.net.xml"/>
-    <trips value="input_trips.trips.xml"/>
-    <last-step value="5"/>
-    <remaining_args value=""/>
-</configuration>
