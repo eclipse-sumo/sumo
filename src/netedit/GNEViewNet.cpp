@@ -2089,7 +2089,16 @@ GNEViewNet::getWalkingAreaAtPopupPosition() {
 
 GNEEdge*
 GNEViewNet::getEdgeAtPopupPosition() {
-    // get first object that can be found in their container
+    // get firt lanes
+    for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
+        for (const auto& glObject : glObjectLayer.second) {
+            auto lane = myNet->getAttributeCarriers()->retrieveLane(glObject.object->getMicrosimID(), false);
+            if (lane) {
+                return lane->getParentEdge();
+            }
+        }
+    }
+    // now try to get edges
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
             auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.object->getMicrosimID(), false);
