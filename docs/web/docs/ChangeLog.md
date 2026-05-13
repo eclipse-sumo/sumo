@@ -67,13 +67,17 @@ title: ChangeLog
 - netedit
   - Adding a "smart" next phase in the TLS editor now works even if a program has only a single phase #17680 (regression in 1.6.0)
   - background color for busStop id/name labels is now working #17965 (regression in 1.8.0)
+  - Walkingareas no longer intercept clicks #17794 (regression in 1.14.0)
+  - Fixed redundant network computation on saving #17881 (regression in 1.16.0)
   - Editing custom lane and junction shapes on top of edges is working again #17806 (regression in 1.20.0)
+  - Clicks on invisible edges are ignored again #17762 (regression in 1.20.0)
   - edgedata mode: clicking on intervals works again #17686 (regression in 1.22.0)
   - It is now possible to select edges that belong to a TAZ using selection mode #17701 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - Errors when loading additionals from the command line, are now visible in the message window again #17819 (regression in 1.23.0)
+  - Fixed crash when setting option **--railway.signal.permit-unsignalized** to an invalid value #17983 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
-  - Fixed crash when calling python tool and using the 'back' button #17618 (regression in 1.25.0)
+  - Fixed crash when calling python tool and using the 'back' button #17618, #17940 (regression in 1.25.0)  
   - Fixed crash after deleting an object from a group of overlapped objects #17795 (regression in 1.25.0)
   - Saving of loaded unmodified additionals to a new file name is working again #17814 (regression in 1.26.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
@@ -87,6 +91,12 @@ title: ChangeLog
   - Setting log output file in sumo options editor is now working #17948
   - Defining multiple files in sumocfg options editor (i.e. additional-files) is now working #17949
   - Fixed problems when setting vehicle attribute departEdge / arrivalEdge #17967
+  - Fixed crash when defining trip between junctions with stop #17488
+  - Disabling randomTrips options checkbox 'validate' now takes effect #17979
+  - vehicle stops are no longer visible in network mode #17899
+  - Function *split edge* now takes into account current *front element" #17738
+  - Fixed crash when adding and deleting lane types #17315
+  - Added missing options for netdiff tool #17531
 
 
 - netconvert
@@ -241,7 +251,9 @@ title: ChangeLog
   - gtfs2pt.py: Added option **--distance-penalty** which makes the (exponent) of the penalty for matching accuracy configurable. The penalty is now also active when using option **--stops** #17813
   - gtfs2pt.py: Added option **--join-blocks** to import circulations (block_id) #17541
   - gtfs2pt.py: Added option **--parking-threshold** to remove vehicles from roads/tracks if they have consecutive stops in the same location with a long in-between time #17960
-  - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766  
+  - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766
+  - randomTrips.py: Added option **--persontrip.modes** to simplify persontrip definition #16472
+  - randomTrips.py: Added option **--threads** to speed up validatin. Uses half the number of available cpus by default #17980
 
 ### Miscellaneous
 
