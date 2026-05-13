@@ -2062,10 +2062,6 @@ GNEApplicationWindowHelper::ToolsMenuCommands::~ToolsMenuCommands() {
     for (const auto& tool : myPythonTools) {
         delete tool;
     }
-    // delete dialogs
-    if (myPythonToolDialog) {
-        delete myPythonToolDialog;
-    }
 }
 
 
@@ -2094,10 +2090,7 @@ GNEApplicationWindowHelper::ToolsMenuCommands::showTool(FXObject* menuCommand) {
     // iterate over all tools and find menu command
     for (const auto& tool : myPythonTools) {
         if (tool->getMenuCommand() == menuCommand) {
-            if (myPythonToolDialog) {
-                delete myPythonToolDialog;
-            }
-            myPythonToolDialog = new GNEPythonToolDialog(myApplicationWindow, tool);
+            GNEPythonToolDialog(myApplicationWindow, tool);
             return 1;
         }
     }

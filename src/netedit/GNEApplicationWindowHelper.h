@@ -1013,9 +1013,6 @@ struct GNEApplicationWindowHelper {
         /// @brief map with python tools
         std::vector<GNEPythonTool*> myPythonTools;
 
-        /// @brief python tool dialog
-        GNEPythonToolDialog* myPythonToolDialog = nullptr;
-
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myApplicationWindow;
 
