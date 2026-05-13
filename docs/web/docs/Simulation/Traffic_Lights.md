@@ -76,7 +76,7 @@ visually in [netedit](../Netedit/editModesNetwork.md#traffic_lights).
   type](../Networks/PlainXML.md#node_types) which may be either
   *traffic_light* or *traffic_light_right_on_red* (explained
   below)
-- by default, generated programs will have a fixed phase sequence and only vary in timing (for tlType *actuated* and *delay_based*). As an exception, when the only point of conflict is a [pedestrian crossing](Pedestrians.md#generating_a_network_with_crossings_and_walkingareas) and the tlType is *actuated*, a program with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is generated where the pedestrian crossing phase is only activated once pedestrians are waiting at the crossing.
+- by default, generated programs will have a fixed phase sequence and only vary in timing (for tlType *actuated* and *delay_based*). As an exception, a program that can *skip* a phase is generated when the only point of conflict is a [pedestrian crossing](Pedestrians.md#generating_a_network_with_crossings_and_walkingareas) and the tlType is *actuated*. This program uses [dynamic phase selection](#dynamic_phase_selection_phase_skipping) so that the pedestrian crossing phase is only activated once pedestrians are waiting at the crossing.
 
 ## Default 4-arm intersection (layout *opposites*)
 
@@ -85,7 +85,7 @@ By default, programs are generated with 4 green phases:
 1.  a straight phase
 2.  a left-turning phase (only if there is a dedicated left-turn lane)
 3.  a straight phase for the direction orthogonal to the first one
-4.  a left-turning phase for the direction direction orthogonal to the
+4.  a left-turning phase for the direction orthogonal to the
     first one (only if there is a dedicated left-turn lane)
 
 Due to the default timings explained above, the green phases usually
@@ -93,8 +93,8 @@ have a duration of 31s.
 
 If the node type is set to *traffic_light_right_on_red* rather than
 *traffic_light*, then right turns from all sides are permitted in all
-phases (after coming to a stop before entering the traffic stream that
-currently has the green light.
+phases. Whenever a right-turn does not have the green light, it is treated like a priority stop: the vehicle must stop for a configurable time and then wait for a safe gap in traffic before turning right.
+The stopping duration is configurable with vType attribute `jmStopSignWait` and defaults to 1 simulation step.
 
 ## Phase layout *incoming*
 
