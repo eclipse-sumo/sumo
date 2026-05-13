@@ -1,10 +1,10 @@
-Warning: 22 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 23 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 3 total messages of type: Ambiguous node type for node cluster '%' (%,%), setting to 'priority'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 4 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 29 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 49 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
+Warning: 50 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
 Warning: 10 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
@@ -20,16 +20,16 @@ Warning: 1 total messages of type: Ignoring restriction relation '%' with unknow
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
 Warning: 2 total messages of type: Ignoring track count % for edge '%'.
 Warning: 6 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
-Warning: 2 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 1 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 9 total messages of type: Last stop edge '%' is not part of the route of line '%'.
 Warning: 2 total messages of type: No connection found between stops on edge '%' and edge '%'.
-Warning: 108 total messages of type: No way found for reference '%' in relation '%'
-Warning: 4 total messages of type: Not joining junctions % (%).
+Warning: 112 total messages of type: No way found for reference '%' in relation '%'
+Warning: 5 total messages of type: Not joining junctions % (%).
 Warning: 6 total messages of type: PT line '%' in relation % has a gap of % stops, only keeping first part.
 Warning: 20 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 16 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 26 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 4 total messages of type: Reducing junction cluster % (%).
+Warning: 3 total messages of type: Reducing junction cluster % (%).
 Warning: 10 total messages of type: Removed invalid stop '%' from line '%'.
 Warning: 3 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
 Warning: 76 total messages of type: The rail crossing '%' does not have any roads.
@@ -40,86 +40,62 @@ Warning: 2 total messages of type: direction of restriction relation could not b
 Warning: Rail signal at junction '30353446' does not control any links
 Warning: At actuated tlLogic 'cluster_10314479343_10567768908_10567768925_10567768926_#5more', actuated phase 3 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_10314479343_10567768908_10567768925_10567768926_#5more', linkIndex 0,1 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_10567768816_12138231748_13149151831_13149151832_#1more', actuated phase 2 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_11204975433_11204975435_1827996421_1827996431_#12more', linkIndex 3,4,6,7,8,18,31,32,33 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_21432799_21432802_29221583_29221586_#12more', linkIndex 6,7,22 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_10567769016_cluster_10567769017_10923644010_11330435900_11330435904_#1more', actuated phase 3 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1828018077_1840326421_cluster_13288280549_13288280550_13288280555_13288280556_#25more_cluster_13288280551_13288280552_13288280554', linkIndex 52,53,54,55 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_196752727_cluster_10665910659_10665910660_10665910661_10665910662_#28more', linkIndex 13,14 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_3820768522_cluster_11067486996_11672165220_11672165222_11672165223_#35more', linkIndex 20,21,22 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_10287150281_13293521488_cluster_10287150284_13293521489_13293521491_2010745299_#1more', actuated phase 4 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_11093177249_11093177250_11688915710_11972161893_#4more_cluster_12493540799_12493540800_12493906401_12493906403', actuated phase 3 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_11093177249_11093177250_11688915710_11972161893_#4more_cluster_12493540799_12493540800_12493906401_12493906403', actuated phase 6 has no controlling detector.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
 Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
-Warning: Teleporting vehicle '8_bus_N1385:0'; waited too long (jam), lane='318282850#2_2', time=25697.00.
-Warning: Vehicle '8_bus_N1385:0' ends teleporting on edge '318282850#3', time=25697.00.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25733.00.
-Warning: Vehicle '82_subway_U2:1' skips stop on lane '199847347#2_0' time=25733.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25733.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25884.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25884.00.
-Warning: 18 total messages of type: At actuated tlLogic '%', actuated phase % has no controlling detector.
-Warning: 9 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25794.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25794.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25885.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25885.00.
+Warning: 17 total messages of type: At actuated tlLogic '%', actuated phase % has no controlling detector.
+Warning: 10 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
-Warning! No mapping library found, falling back to tracemapper.
-Trip 114193955 (bus): detour (factor 15.97) to stop index 10, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=5252.14)
-Trip 114193955 (bus): detour (factor 10.59) to stop index 13, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=5389.37)
-Trip 114194036.trimmed (bus): detour (factor 10.59) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=5389.37)
-Trip 114194096 (bus): detour (factor 11.59) to stop index 4, fromPos=1040.10,2930.51 toPos=1505.37,3051.22 (airLine=480.68 path=5573.43)
-Trip 114194096 (bus): detour (factor 8.98) to stop index 6, fromPos=1996.18,3185.87 toPos=2603.57,2995.53 (airLine=636.52 path=5716.81)
-Trip 114194382 (bus): detour (factor 18.50) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=5225.60)
-Trip 114194392 (bus): detour (factor 18.50) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=5225.60)
-Trip 114194407 (bus): detour (factor 18.50) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=5225.60)
-Trip 114194484 (bus): detour (factor 18.50) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=5225.60)
-Trip 114208941 (bus): detour (factor 15.97) to stop index 5, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=5252.14)
-Trip 114234722 (bus): detour (factor 10.59) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=5389.37)
-Trip 114234788 (bus): detour (factor 10.59) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=5389.37)
+Trip 114193955 (bus): detour (factor inf) to stop index 10, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=inf)
+Trip 114193955 (bus): detour (factor inf) to stop index 13, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
+Trip 114194036.trimmed (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
+Trip 114194096 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2603.57,2995.53 (airLine=636.52 path=inf)
+Trip 114194382 (bus): detour (factor inf) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=inf)
+Trip 114194392 (bus): detour (factor inf) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=inf)
+Trip 114194407 (bus): detour (factor inf) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=inf)
+Trip 114194484 (bus): detour (factor inf) to stop index 3, fromPos=489.34,2582.19 toPos=749.97,2473.31 (airLine=282.47 path=inf)
+Trip 114208941 (bus): detour (factor inf) to stop index 5, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=inf)
+Trip 114234399 (bus): detour (factor inf) to stop index 1, fromPos=525.29,3061.99 toPos=697.33,3276.91 (airLine=275.29 path=inf)
+Trip 114234722 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
+Trip 114234722 (bus): detour (factor inf) to stop index 6, fromPos=1095.54,2796.18 toPos=712.56,3378.38 (airLine=696.87 path=inf)
+Trip 114234788 (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
 Trip 114262209 (bus): detour (factor 6.44) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1261.28)
 Trip 114262390 (bus): detour (factor 6.88) to stop index 10, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1222.04)
 Trip 114262511.trimmed (bus): detour (factor 6.88) to stop index 3, fromPos=2629.02,2428.24 toPos=2645.69,2251.39 (airLine=177.63 path=1222.04)
 Trip 114272672 (bus): detour (factor 7.32) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1095.25)
 Trip 114272713 (bus): detour (factor 5.92) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=886.25)
 Trip 114273401 (bus): detour (factor 5.92) to stop index 9, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=886.25)
-Trip 114273441 (bus): detour (factor 10.92) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=5453.05)
-Trip 114273444 (bus): detour (factor 10.92) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=5453.05)
-Trip 114273803 (bus): detour (factor 6.47) to stop index 10, fromPos=2880.92,2398.66 toPos=2629.02,2428.24 (airLine=253.64 path=1640.87)
+Trip 114273441 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
+Trip 114273444 (bus): detour (factor inf) to stop index 6, fromPos=1996.18,3185.87 toPos=2130.29,2705.08 (airLine=499.14 path=inf)
+Trip 114273803 (bus): detour (factor 6.47) to stop index 10, fromPos=2880.92,2398.66 toPos=2629.02,2428.24 (airLine=253.64 path=1640.68)
 Trip 114274508 (bus): detour (factor 7.32) to stop index 1, fromPos=2715.12,2550.64 toPos=2629.02,2428.24 (airLine=149.65 path=1095.25)
-Trip 114274508 (bus): detour (factor 11.62) to stop index 7, fromPos=643.38,1739.37 toPos=522.11,2191.65 (airLine=468.26 path=5442.14)
-Trip 114274512 (bus): detour (factor 11.62) to stop index 6, fromPos=643.38,1739.37 toPos=522.11,2191.65 (airLine=468.26 path=5442.14)
-Trip 114274766 (bus): detour (factor 11.65) to stop index 3, fromPos=522.11,2191.65 toPos=643.38,1739.37 (airLine=468.26 path=5455.42)
 Trip 114274766 (bus): detour (factor 5.92) to stop index 8, fromPos=2629.02,2428.24 toPos=2715.12,2550.64 (airLine=149.65 path=886.25)
-Trip 114274770 (bus): detour (factor 11.65) to stop index 3, fromPos=522.11,2191.65 toPos=643.38,1739.37 (airLine=468.26 path=5455.42)
 Trip 114234999 (bus): detour (factor 6.44) to stop index 1, fromPos=2645.69,2251.39 toPos=2453.10,2287.46 (airLine=195.93 path=1261.28)
-Trip 114254094 (tram): detour (factor 16.19) to stop index 3, fromPos=2977.28,2839.98 toPos=3243.37,2646.76 (airLine=328.84 path=5323.53)
-Trip 114263639 (tram): detour (factor 11.25) to stop index 4, fromPos=2866.63,2344.23 toPos=3243.37,2646.76 (airLine=483.18 path=5435.42)
-Trip 114265874 (tram): detour (factor 16.19) to stop index 8, fromPos=2977.28,2839.98 toPos=3243.37,2646.76 (airLine=328.84 path=5324.34)
-Trip 114267247 (tram): detour (factor 13.44) to stop index 5, fromPos=2977.28,2839.98 toPos=2603.57,2995.53 (airLine=404.79 path=5441.92)
-Trip 114270026.trimmed (tram): detour (factor 16.19) to stop index 4, fromPos=2977.28,2839.98 toPos=3243.37,2646.76 (airLine=328.84 path=5324.34)
-Warning! Disconnected route '114193955' between '295445243' and '300401898', no path found. Keeping longer part.
-Warning! Disconnected route '114193955' between '238682696' and '713576589#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194036.trimmed' between '238682696' and '713576589#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194096' between '-169717723#2' and '713576589#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194096' between '238682696' and '4613300#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194382' between '4592725#3' and '-1472747943#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194392' between '4592725#3' and '-1472747943#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194407' between '4592725#3' and '-1472747943#0', no path found. Keeping longer part.
-Warning! Disconnected route '114194484' between '4592725#3' and '-1472747943#0', no path found. Keeping longer part.
-Warning! Disconnected route '114208941' between '295445243' and '300401898', no path found. Keeping longer part.
-Warning! Fixed connection 114234399 19
-Warning! Disconnected route '114234722' between '238682696' and '713576589#0', no path found. Keeping longer part.
-Warning! Fixed connection 114234722 24
-Warning! Disconnected route '114234788' between '238682696' and '713576589#0', no path found. Keeping longer part.
-Warning! Disconnected route '114273441' between '238682696' and '1462645188', no path found. Keeping longer part.
-Warning! Disconnected route '114273444' between '238682696' and '1462645188', no path found. Keeping longer part.
-Warning! Disconnected route '114274508' between '1119937599#3' and '1429845843#2', no path found. Keeping longer part.
-Warning! Disconnected route '114274512' between '1119937599#3' and '1429845843#2', no path found. Keeping longer part.
-Warning! Disconnected route '114274766' between '1429845843#2' and '24240246#0', no path found. Keeping longer part.
-Warning! Disconnected route '114274770' between '1429845843#2' and '24240246#0', no path found. Keeping longer part.
-Warning! Disconnected route '114254094' between '150204300#4' and '150478184#0', no path found. Keeping longer part.
-Warning! Disconnected route '114263639' between '1245947676#1' and '150478184#0', no path found. Keeping longer part.
-Warning! Disconnected route '114265874' between '150201972#7' and '150478184#0', no path found. Keeping longer part.
-Warning! Disconnected route '114267247' between '148811539#1' and '1053166652#0', no path found. Keeping longer part.
-Warning! Disconnected route '114269992' between '150201972#7' and '150478184#0', no path found. Keeping longer part.
-Warning! Disconnected route '114270026.trimmed' between '150201972#7' and '150478184#0', no path found. Keeping longer part.
-Warning! Disconnected route '114270479' between '148811539#1' and '1053166652#0', no path found. Keeping longer part.
+Warning! Disconnected route '114193955' between '295445243' and '-4613300#0', no path found. Keeping longer part.
+Warning! Disconnected route '114193955' between '238682696' and '-169717723#2', no path found. Keeping longer part.
+Warning! Disconnected route '114194036.trimmed' between '238682696' and '-169717723#2', no path found. Keeping longer part.
+Warning! Disconnected route '114194096' between '238682696' and '300401898', no path found. Keeping longer part.
+Warning! Disconnected route '114194382' between '4592725#3' and '-1100824590#0', no path found. Keeping longer part.
+Warning! Disconnected route '114194392' between '4592725#3' and '-1100824590#0', no path found. Keeping longer part.
+Warning! Disconnected route '114194407' between '4592725#3' and '-1100824590#0', no path found. Keeping longer part.
+Warning! Disconnected route '114194484' between '4592725#3' and '-1100824590#0', no path found. Keeping longer part.
+Warning! Disconnected route '114208941' between '295445243' and '1113401735#1', no path found. Keeping longer part.
+Warning! Fixed route 114234399 between -1100903090#1 and -169717723#2 (added edges: 19)
+Warning! Disconnected route '114234722' between '238682696' and '1451585461', no path found. Keeping longer part.
+Warning! Fixed route 114234722 between 318915602#4 and -1100903090#1 (added edges: 24)
+Warning! Disconnected route '114234788' between '238682696' and '1451585461', no path found. Keeping longer part.
+Warning! Disconnected route '114273441' between '238682696' and '1113401735#1', no path found. Keeping longer part.
+Warning! Disconnected route '114273444' between '238682696' and '1113401735#1', no path found. Keeping longer part.

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-30 07:11:54.752622 by gtfs2pt.py UNKNOWN
-  options: -n test/osm.net.xml.gz <doubleminus>gtfs https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip <doubleminus>date 20190713 <doubleminus>osm-routes test/osm_ptlines.xml
+<!-- generated on 2026-05-13 06:38:33.722567 by Eclipse SUMO gtfs2pt.py v1_26_0+1598-40a89f059b0
+<configuration>
+    <gtfs value="data/GTFS_VBB_Mitte_20190713.zip"/>
+    <date value="20190713"/>
+    <network value="test/osm.net.xml.gz"/>
+    <osm-routes value="test/osm_ptlines.xml"/>
+</configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -13,4 +18,5 @@
     <vType id="subway" vClass="subway"/>
     <vType id="train" vClass="rail"/>
     <vType id="tram" vClass="tram"/>
+    <vType id="trolleybus" vClass="bus"/>
 </additional>
