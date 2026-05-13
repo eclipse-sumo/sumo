@@ -651,12 +651,12 @@ public:
     static const double NO_NEIGHBOR;
     static const double UNDEFINED_LOOKAHEAD;
 
+    virtual bool avoidOvertakeRight(const MSVehicle* const neighLeader, const bool allowProb=false) const;
+
 protected:
     virtual bool congested(const MSVehicle* const neighLeader);
 
     virtual bool predInteraction(const std::pair<MSVehicle*, double>& leader);
-
-    virtual bool avoidOvertakeRight() const;
 
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
@@ -672,6 +672,7 @@ protected:
      */
     void addLCSpeedAdvice(const double vSafe, bool ownAdvice = true);
 
+    bool canOvertakeRight(const MSVehicle* const nv, const double dist, const double maxSpeedDiff, const double helpOvertakeSpeed, double& vSafe, double& deltaV) const;
 
 protected:
     /// @brief The vehicle this lane-changer belongs to

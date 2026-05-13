@@ -29,6 +29,7 @@
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
 #include "MSLCHelper.h"
@@ -2341,6 +2342,19 @@ MSLCM_SL2015::getSlowest(const MSLeaderDistanceInfo& ldi) {
 }
 
 
+const MSVehicle*
+MSLCM_SL2015::getStopped(const MSLeaderDistanceInfo& ldi) {
+    if (ldi.hasVehicles()) {
+        for (const MSVehicle* const v : ldi.getVehicles()) {
+            if (v != nullptr && v->isStopped()) {
+                return v;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
 int
 MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                             const MSLeaderDistanceInfo& leaders,
@@ -2962,15 +2976,16 @@ MSLCM_SL2015::checkStrategicChange(int ret,
         }
     } else {
         // VARIANT_20 (noOvertakeRight)
-        if (left && avoidOvertakeRight() && neighLeaders.hasVehicles()) {
+        const MSVehicle* const stoppedLeader = getStopped(neighLeaders);
+        if (left && avoidOvertakeRight(stoppedLeader, true) && neighLeaders.hasVehicles()) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
             // XXX only adapt as much as possible to get a lateral gap
             CLeaderDist cld = getSlowest(neighLeaders);
             const MSVehicle* nv = cld.first;
-            if (nv->getSpeed() < myVehicle.getSpeed()) {
-                const double vSafe = getCarFollowModel().followSpeed(
-                                         &myVehicle, myVehicle.getSpeed(), cld.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+            double deltaV = 0.;
+            double vSafe = 0.;
+            if (canOvertakeRight(nv, cld.second, myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) - neighLane.getVehicleMaxSpeed(nv), HELP_OVERTAKE, vSafe, deltaV)) {
                 addLCSpeedAdvice(vSafe);
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbabilityRight += myVehicle.getActionStepLengthSecs() * myChangeProbThresholdLeft / 3;
@@ -3125,10 +3140,11 @@ bool
 MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
                                   double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist) {
     bool mustOvertake = false;
-    const bool checkOverTakeRight = avoidOvertakeRight();
+    const MSVehicle* const stoppedLeader = getStopped(leaders);
+    const bool checkOverTakeRight = avoidOvertakeRight(stoppedLeader, true);
     int rightmost;
     int leftmost;
-    const bool curHasStopped = leaders.hasStoppedVehicle();
+    const bool curHasStopped = stoppedLeader != nullptr;
     const int dir = latLaneDist < 0 ? -1 : 1;
     const MSLane* neighBeyond = neighLane.getParallelLane(dir);
     const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());

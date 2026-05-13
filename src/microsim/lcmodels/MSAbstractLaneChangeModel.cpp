@@ -42,6 +42,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSStop.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_Bluelight.h>
@@ -284,11 +285,14 @@ MSAbstractLaneChangeModel::congested(const MSVehicle* const neighLeader) {
 
 
 bool
-MSAbstractLaneChangeModel::avoidOvertakeRight() const {
-    return (!myAllowOvertakingRight
+MSAbstractLaneChangeModel::avoidOvertakeRight(const MSVehicle* const neighLeader, const bool allowProb) const {
+    return (!myAllowOvertakingRight  // the highway case
             && !myVehicle.congested()
             && myVehicle.getVehicleType().getVehicleClass() != SVC_EMERGENCY
-            && (myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG())));
+            && (!allowProb || myOvertakeRightParam == 0 || myOvertakeRightParam < RandHelper::rand(myVehicle.getRNG()))) ||
+           (neighLeader != nullptr && neighLeader->isStopped()  // the bus stop case
+            && neighLeader->getStops().front().busstop != nullptr
+            && !StringUtils::toBool(neighLeader->getStops().front().busstop->getParameter("allowOvertakeRight", "true")));
 }
 
 bool
@@ -1105,6 +1109,25 @@ void
 MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) {
     const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
     myLCAccelerationAdvices.push_back({accel, ownAdvice});
+}
+
+
+bool
+MSAbstractLaneChangeModel::canOvertakeRight(const MSVehicle* const nv, const double dist, const double maxSpeedDiff, const double helpOvertakeSpeed, double& vSafe, double& deltaV) const {
+    deltaV = MAX2(maxSpeedDiff, myVehicle.getSpeed() - nv->getSpeed());
+    if (deltaV > 0) {
+        const double vMaxDecel = getCarFollowModel().getSpeedAfterMaxDecel(myVehicle.getSpeed());
+        const double vSafeFollow = getCarFollowModel().followSpeed(
+                                        &myVehicle, myVehicle.getSpeed(), dist, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
+        const double vStayBehind = nv->getSpeed() - helpOvertakeSpeed;
+        if (vSafeFollow >= vMaxDecel) {
+            vSafe = vSafeFollow;
+        } else {
+            vSafe = MAX2(vMaxDecel, vStayBehind);
+        }
+        return true;
+    }
+    return false;
 }
 
 

@@ -242,6 +242,9 @@ protected:
     /// @brief get the slowest vehicle in the given info
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
+    /// @brief get a stopped vehicle in the given info
+    static const MSVehicle* getStopped(const MSLeaderDistanceInfo& ldi);
+
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
     int checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,

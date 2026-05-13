@@ -546,7 +546,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
         if ((dv < myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()
                 // overtaking on the right on an uncongested highway is forbidden (noOvertakeLCLeft)
-                || (dir == LCA_MLEFT && !myVehicle.congested() && !myAllowOvertakingRight)
+                || (dir == LCA_MLEFT && avoidOvertakeRight(neighLead.first))
                 // not enough space to overtake?
                 || (MSGlobals::gSemiImplicitEulerUpdate && myLeftSpace - myLeadingBlockerLength - myVehicle.getCarFollowModel().brakeGap(myVehicle.getSpeed()) < overtakeDist)
                 // using brakeGap() without headway seems adequate in a situation where the obstacle (the lane end) is not moving [XXX implemented in branch ticket860, can be used in general if desired, refs. #2575] (Leo).
@@ -897,7 +897,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 std::cout << " wants to cut in before nv=" << nv->getID() << " (eventually)\n";
             }
 #endif
-        } else if (dir == LCA_MRIGHT && !myAllowOvertakingRight && !nv->congested()) {
+        } else if (dir == LCA_MRIGHT && nv->getLaneChangeModel().avoidOvertakeRight(&myVehicle)) {
             // XXX: check if this requires a special treatment for the ballistic update, refs. #2575
             const double vhelp = MAX2(neighNewSpeed, HELP_OVERTAKE);
             msgPass.informNeighFollower(new Info(vhelp, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
@@ -1298,7 +1298,7 @@ MSLCM_LC2013::_wantsChange(
     const double neighVMax = neighLane.getVehicleMaxSpeed(&myVehicle);
     // upper bound which will be restricted successively
     double thisLaneVSafe = vMax;
-    const bool checkOverTakeRight = avoidOvertakeRight();
+    const bool checkOverTakeRight = avoidOvertakeRight(neighLead.first, true);
 
     double neighLeftPlace = MAX2(0.0, neighDist - posOnLane - maxJam);
     if (neighLead.first != 0 && neighLead.first->isStopped()) {
@@ -1336,20 +1336,10 @@ MSLCM_LC2013::_wantsChange(
         if (neighLead.first != 0 && checkOverTakeRight && !right) {
             // check for slower leader on the left. we should not overtake but
             // rather move left ourselves (unless congested)
-            MSVehicle* nv = neighLead.first;
-            const double deltaV = MAX2(vMax - neighLane.getVehicleMaxSpeed(nv),
-                                       myVehicle.getSpeed() - nv->getSpeed());
-            if (deltaV > 0) {
-                const double vMaxDecel = getCarFollowModel().getSpeedAfterMaxDecel(myVehicle.getSpeed());
-                const double vSafeFollow = getCarFollowModel().followSpeed(
-                                               &myVehicle, myVehicle.getSpeed(), neighLead.second, nv->getSpeed(), nv->getCarFollowModel().getMaxDecel());
-                const double vStayBehind = nv->getSpeed() - HELP_OVERTAKE;
-                double vSafe;
-                if (vSafeFollow >= vMaxDecel) {
-                    vSafe = vSafeFollow;
-                } else {
-                    vSafe = MAX2(vMaxDecel, vStayBehind);
-                }
+            const MSVehicle* nv = neighLead.first;
+            double deltaV = 0.;
+            double vSafe = 0.;
+            if (canOvertakeRight(nv, neighLead.second, vMax - neighLane.getVehicleMaxSpeed(nv), HELP_OVERTAKE, vSafe, deltaV)) {
                 if (mySpeedGainProbabilityLeft < myChangeProbThresholdLeft) {
                     vSafe = MAX2(vSafe, nv->getSpeed());
                 }
