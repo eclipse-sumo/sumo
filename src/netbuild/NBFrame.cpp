@@ -857,6 +857,14 @@ NBFrame::checkOptions(OptionsCont& oc) {
     if (oc.isDefault("railway.topology.repair.stop-turn") && !oc.isDefault("railway.topology.repair")) {
         oc.setDefault("railway.topology.repair.stop-turn", "true");
     }
+    if (!oc.isDefault("railway.signal.permit-unsignalized")) {
+        try {
+            parseVehicleClasses(oc.getStringVector("railway.signal.permit-unsignalized"));
+        } catch (InvalidArgument& e) {
+            WRITE_ERROR(e.what())
+            ok = false;
+        }
+    }
     if (!SUMOXMLDefinitions::LaneSpreadFunctions.hasString(oc.getString("default.spreadtype"))) {
         WRITE_ERRORF(TL("Unknown value for default.spreadtype '%'."), oc.getString("default.spreadtype"));
         ok = false;

@@ -2648,7 +2648,7 @@ NBNode::unsignalizedOperation() const {
 
 void
 NBNode::initRailSignalClasses(const NBNodeCont& nc) {
-    myPermitUnsignalizedClasses = parseVehicleClasses(OptionsCont::getOptions().getStringVector("railway.signal.permit-unsignalized"));
+    myPermitUnsignalizedClasses = parseVehicleClasses(toString(OptionsCont::getOptions().getStringVector("railway.signal.permit-unsignalized")));
     myHaveRailSignalClasses = 0;
     for (auto it : nc) {
         const NBNode* n = it.second;
