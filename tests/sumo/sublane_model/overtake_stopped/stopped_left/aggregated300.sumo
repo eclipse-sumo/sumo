@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-09T10:47:59.634290+01:00 by Eclipse SUMO sumo v1_25_0+0281-f03d6951573
+<!-- generated on 2026-05-13T15:58:37.486908+01:00 by Eclipse SUMO sumo v1_26_0+1609-f998d592298
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <processing>
         <lateral-resolution value="0.8"/>
         <max-depart-delay value="1"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -41,9 +43,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="574.00" id="laneData">
         <edge id="beg">
-            <lane id="beg_0" sampledSeconds="8912.54" traveltime="93.65" overlapTraveltime="93.85" density="5.17" overlapDensity="5.18" laneDensity="5.17" occupancy="2.59" waitingTime="13.00" timeLoss="896.16" speed="31.98" speedRelative="0.89" departed="76" arrived="131" entered="0" left="0" laneChangedFrom="88" laneChangedTo="143" flow="595.32"/>
-            <lane id="beg_1" sampledSeconds="6164.83" traveltime="92.88" overlapTraveltime="93.08" density="3.58" overlapDensity="3.58" laneDensity="3.58" occupancy="1.79" waitingTime="71.00" timeLoss="712.36" speed="32.24" speedRelative="0.90" departed="88" arrived="100" entered="0" left="0" laneChangedFrom="175" laneChangedTo="187" flow="415.16"/>
-            <lane id="beg_2" sampledSeconds="3502.06" traveltime="103.39" overlapTraveltime="103.56" density="2.04" overlapDensity="2.04" laneDensity="2.04" occupancy="1.02" waitingTime="63.00" timeLoss="256.24" speed="28.98" speedRelative="0.80" departed="71" arrived="4" entered="0" left="0" laneChangedFrom="99" laneChangedTo="32" flow="212.40"/>
+            <lane id="beg_0" sampledSeconds="10126.19" traveltime="109.19" overlapTraveltime="109.43" density="5.87" overlapDensity="5.89" laneDensity="5.87" occupancy="2.94" waitingTime="139.00" timeLoss="2312.89" speed="27.42" speedRelative="0.76" departed="76" arrived="125" entered="0" left="0" laneChangedFrom="111" laneChangedTo="160" flow="580.14"/>
+            <lane id="beg_1" sampledSeconds="7912.79" traveltime="119.60" overlapTraveltime="119.82" density="4.59" overlapDensity="4.60" laneDensity="4.59" occupancy="2.30" waitingTime="552.00" timeLoss="2471.61" speed="25.05" speedRelative="0.70" departed="88" arrived="99" entered="0" left="0" laneChangedFrom="226" laneChangedTo="237" flow="414.04"/>
+            <lane id="beg_2" sampledSeconds="4777.76" traveltime="130.97" overlapTraveltime="131.19" density="2.78" overlapDensity="2.78" laneDensity="2.78" occupancy="1.39" waitingTime="386.00" timeLoss="1318.70" speed="22.88" speedRelative="0.64" departed="71" arrived="11" entered="0" left="0" laneChangedFrom="126" laneChangedTo="66" flow="228.69"/>
         </edge>
     </interval>
 </meandata>

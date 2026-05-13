@@ -22,3 +22,6 @@ overtaking_right_emergency
 
 # when there is a slower leader vehicle on the left lane, small speed differences do not triggere immediate braking
 #overtaking_right_smallDifference
+
+# do not overtake on designated bus stops
+busstop

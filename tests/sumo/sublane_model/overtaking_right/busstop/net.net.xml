@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-07T12:39:36.031516+01:00 by Eclipse SUMO netedit v1_26_0+1510-6380ee6ee68
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="bs.sumocfg"/>
+        <additional-files value="bs.add.xml"/>
+        <route-files value="bs.rou.xml"/>
+        <sumo-net-file value="bs.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="bs.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-51.76,7.66,34.23,8.23" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="85.99" shape="-51.73,2.86 34.26,3.43"/>
+        <lane id="E0_1" index="1" speed="13.89" length="85.99" shape="-51.75,6.06 34.24,6.63"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="-51.76" y="7.66" incLanes="" intLanes="" shape="-51.76,7.66 -51.72,1.26"/>
+    <junction id="J1" type="dead_end" x="34.23" y="8.23" incLanes="E0_0 E0_1" intLanes="" shape="34.27,1.83 34.23,8.23"/>
+
+</net>
