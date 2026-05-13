@@ -944,7 +944,9 @@ GNEStop::getEndGeometryPositionOverLane() const {
 bool
 GNEStop::canDrawVehicleStop() const {
     const auto& inspectedElements = myNet->getViewNet()->getInspectedElements();
-    if (isAttributeCarrierSelected()) {
+    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
+        return false;
+    } else if (isAttributeCarrierSelected()) {
         return true;
     } else if (inspectedElements.isACInspected(this)) {
         return true;
