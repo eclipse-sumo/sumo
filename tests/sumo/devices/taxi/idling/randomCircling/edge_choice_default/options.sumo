@@ -1,0 +1,7 @@
+--no-step-log --no-duration-log --net-file=net.net.xml
+-r input_routes.rou.xml
+-a input_additional.add.xml
+--vehroute-output NUL
+--device.taxi.probability 1
+--device.taxi.idle-algorithm randomCircling
+-e 2000
