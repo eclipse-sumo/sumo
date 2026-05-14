@@ -90,12 +90,10 @@ EPL_GPL_HEADER = """/***********************************************************
 
 class PropertyReader(xml.sax.handler.ContentHandler):
 
-    """Reads the svn properties of files as written by svn pl -v --xml"""
-
     def __init__(self, doFix, doPep, license_attrs):
         self._fix = doFix
         self._pep = doPep
-        self._license = dict([e.split(":") for e in license_attrs.split(",")]) if license_attrs else None
+        self._license = dict([e.split(":") for e in license_attrs.split(";")]) if license_attrs else None
         self._file = ""
         self._property = None
         self._value = ""
@@ -206,11 +204,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     self._haveFixed = True
             elif fileLicense != newLicense:
                 if self._license:
-                    lines[idx:idx] = newLicense.splitlines(True) + ["\n",
-                                                                    "# @file    %s\n" % os.path.basename(self._file),
-                                                                    "# @author  %s\n" % self._license.get("author", ""),
-                                                                    "# @date    %s\n" % self._license.get("date", ""),
-                                                                    "\n"]
+                    lines[idx:idx] = (newLicense.splitlines(True)
+                                      + ["\n", "# @file    %s\n" % os.path.basename(self._file)]
+                                      + ["# @author  %s\n" % a for a in self._license.get("author", "").split(",")]
+                                      + ["# @date    %s\n" % self._license.get("date", ""), "\n"])
                     if "module" in self._license:
                         lines[idx+2:idx+2] = ["# %s\n" % ml for ml in self._license["module"].split('\\n')]
                     self._haveFixed = True

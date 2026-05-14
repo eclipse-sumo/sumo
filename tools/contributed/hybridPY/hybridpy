@@ -1,24 +1,47 @@
 #!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2016-2026 German Aerospace Center (DLR) and others.
+# hybridPY module
+# Copyright (C) 2012-2026 University of Bologna - DICAM, Technical University of Munich
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    hybridpy
+# @author  Joerg Schweizer
+# @author  Fabian Schuhmann
+# @author  Ngoc An Nguyen
+# @author  Cristian Poliziani
+# @date    2012
+
+import wx.adv
+import sys
+import os
+from agilepy.lib_wx.mainframe import AgileMainframe
+from wx.lib.wordwrap import wordwrap
+import wx
 from branding.definitions import *
 __doc__ = INFO
-__version__     = VERSION
+__version__ = VERSION
 
 ###############################################################################
 print('\n\n'+APPNAME+' version '+__version__+'\n'+COPYRIGHT)
 
 ###############################################################################
-## IMPORTS
-import os, sys
+# IMPORTS
 
-import wx
-import wx.adv 
-from wx.lib.wordwrap import wordwrap
-print('\n  using wx python version',wx.__version__)
+print('\n  using wx python version', wx.__version__)
 
-## Load modules
-moduledirs = ['coremodules','plugins']
-APPDIR=''
-if  __name__ == '__main__':
+# Load modules
+moduledirs = ['coremodules', 'plugins']
+APPDIR = ''
+if __name__ == '__main__':
     # search APP in local directory (where this file is located)
     try:
         APPDIR = os.path.dirname(os.path.abspath(__file__))
@@ -27,57 +50,55 @@ if  __name__ == '__main__':
 
     sys.path.append(APPDIR)
     for moduledir in moduledirs:
-        lp = os.path.abspath(os.path.join(APPDIR,moduledir))
+        lp = os.path.abspath(os.path.join(APPDIR, moduledir))
         if not lp in sys.path:
-            #print (' append',lp)
+            # print (' append',lp)
             sys.path.append(lp)
 
 
-
-from agilepy.lib_wx.mainframe import AgileMainframe
-
 ###############################################################################
+
 class MyApp(wx.App):
 
     def __init__(self, redirect=False, filename=None):
         wx.App.__init__(self, redirect, filename)
-        #print ('init',APPNAME, sys.argv)
+        # print ('init',APPNAME, sys.argv)
         self.mainframe = AgileMainframe(
-                title=APPNAME,
-                moduledirs = moduledirs, # subdirectories containing modules
-                appdir = APPDIR,
-                args = sys.argv,
-                is_maximize = True, is_centerscreen = True,
-                size_toolbaricons = (32,32),
-                style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
-                )
-        icon = wx.Icon(get_logopath(),wx.BITMAP_TYPE_PNG, 16,16)
+            title=APPNAME,
+            moduledirs=moduledirs,  # subdirectories containing modules
+            appdir=APPDIR,
+            args=sys.argv,
+            is_maximize=True, is_centerscreen=True,
+            size_toolbaricons=(32, 32),
+            style=wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
+        )
+        icon = wx.Icon(get_logopath(), wx.BITMAP_TYPE_PNG, 16, 16)
         self.mainframe.SetIcon(icon)
         self.mainframe.Show()
 
         self.mainframe.refresh_moduleguis()
 
         self.mainframe.menubar.append_menu('About')
-        self.mainframe.menubar.append_item(f'About/About {APPNAME}...',self.on_about,\
-            info= f'About {APPNAME}',
-            bitmap = wx.ArtProvider.GetBitmap(wx.ART_INFORMATION,wx.ART_MENU)
-            )
+        self.mainframe.menubar.append_item(f'About/About {APPNAME}...', self.on_about,
+                                           info=f'About {APPNAME}',
+                                           bitmap=wx.ArtProvider.GetBitmap(wx.ART_INFORMATION, wx.ART_MENU)
+                                           )
 
     def on_about(self, event):
         info = wx.adv.AboutDialogInfo()
-        
-        info.SetIcon(wx.Icon(get_logopath(kind = 'image'),wx.BITMAP_TYPE_PNG, 150,150))
+
+        info.SetIcon(wx.Icon(get_logopath(kind='image'), wx.BITMAP_TYPE_PNG, 150, 150))
         info.SetName(APPNAME)
         info.SetVersion(__version__)
-        info.Description = INFO# too much: +'\n\n'+self.read_readme()
+        info.Description = INFO  # too much: +'\n\n'+self.read_readme()
         info.Copyright = COPYRIGHT
         info.SetWebSite(*URL)
-        
-        info.SetLicense(LICENSE) #wordwrap(LICENSE, 500, wx.ClientDC(self))#ClientDC must have a wxPanel
-        
-        for developer, developerinfo in DEVELOPERS.items(): 
+
+        info.SetLicense(LICENSE)  # wordwrap(LICENSE, 500, wx.ClientDC(self))#ClientDC must have a wxPanel
+
+        for developer, developerinfo in DEVELOPERS.items():
             info.AddDeveloper(developer)
-        #info.SetTranslators()
+        # info.SetTranslators()
         wx.adv.AboutBox(info)
         event.Skip()
 
@@ -87,8 +108,6 @@ class MyApp(wx.App):
                 return file.read()
         except FileNotFoundError:
             return "README.md not found."
-
-
 
 
 if __name__ == '__main__':

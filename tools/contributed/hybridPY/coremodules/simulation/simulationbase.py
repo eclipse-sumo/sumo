@@ -1,5 +1,26 @@
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2016-2026 German Aerospace Center (DLR) and others.
+# hybridPY module
+# Copyright (C) 2012-2026 University of Bologna - DICAM, Technical University of Munich
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-import numpy as np            
+# @file    simulationbase.py
+# @author  Joerg Schweizer
+# @author  Fabian Schuhmann
+# @author  Ngoc An Nguyen
+# @author  Cristian Poliziani
+# @date    2012
+
+
+import numpy as np
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
@@ -8,22 +29,20 @@ from agilepy.lib_base.misc import random_choice, get_inversemap
 
 class SimobjMixin:
     def prepare_sim(self, process):
-        return [] # [(steptime1,func1),(steptime2,func2),...]
-   
-    
+        return []  # [(steptime1,func1),(steptime2,func2),...]
+
     def config_simresults(self, results):
-        #tripresults = res.Tripresults(          'tripresults', results,
-        #                                        self, 
+        # tripresults = res.Tripresults(          'tripresults', results,
+        #                                        self,
         #                                        self.get_net().edges
         #                                        )
-        #        
         #
-        #results.config(tripresults, groupnames = ['Trip results'])
+        #
+        # results.config(tripresults, groupnames = ['Trip results'])
         pass
-    
-    def process_results(self, results, process = None):
+
+    def process_results(self, results, process=None):
         pass
-    
+
     def finish_sim(self):
         pass
-    
