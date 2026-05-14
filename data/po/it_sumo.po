@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-14 14:00+0000\n"
+"PO-Revision-Date: 2026-05-14 14:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7914,7 +7914,7 @@ msgstr "Usa INT come durata minima per fasi di verde per passaggi pedonali (s)."
 
 #: src/netbuild/NBFrame.cpp:626
 msgid "Use INT as clearance time for pedestrian crossings (s)."
-msgstr ""
+msgstr "Usa INT come tempo di sicurezza per passaggi pedonali (s)."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
