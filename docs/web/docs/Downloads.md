@@ -67,6 +67,7 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [Fedora 41 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_41/)
 - [Fedora 42 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_42/)
 - [Fedora 43 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_43/)
+- [Fedora 44 repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_44/)
 - [Fedora Rawhide repository](https://download.opensuse.org/repositories/science:/dlr/Fedora_Rawhide/)
 - [CentOS 7 repository](https://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [Debian 9 repository](https://download.opensuse.org/repositories/science:/dlr/Debian_9.0/)
@@ -81,6 +82,7 @@ repositories include a nightly build as well (called ***sumo-git***).
 - [xUbuntu 20.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_20.04/)
 - [xUbuntu 22.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_22.04/)
 - [xUbuntu 24.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_24.04/)
+- [xUbuntu 26.04 repository](https://download.opensuse.org/repositories/science:/dlr/xUbuntu_26.04/)
 - [Arch repository](https://download.opensuse.org/repositories/science:/dlr/Arch/)
 
 Furthermore there are a debian and an ubuntu
