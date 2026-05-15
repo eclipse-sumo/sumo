@@ -32,10 +32,10 @@ import sumolib  # noqa
 
 def get_options(args=None):
     op = sumolib.options.ArgumentParser()
-    op.add_option("-n", "--net-file", category='input', dest="netfile", type=op.net_file,
+    op.add_option("-n", "--net-file", category='input', dest="netfile", type=op.net_file, required=True,
                   help="define the net filename (mandatory)")
     op.add_option("-r", "--route-files", category='input', dest="routefiles", type=op.route_file,
-                  help="define the route file separated by comma (mandatory)")
+                  help="define the route files separated by comma (mandatory)")
     op.add_option("-o", "--output-file", category='output', dest="outfile", type=op.route_file,
                   help="define the output filename")
     op.add_option("-t", "--typesfile", category='input', dest="typesfile",
@@ -82,7 +82,7 @@ def get_options(args=None):
     op.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   default=False, help="tell me what you are doing")
 
-    options = op.parse_args()
+    options = op.parse_args(args)
 
     if options.edges:
         options.edges = options.edges.split(",")
@@ -104,10 +104,6 @@ def get_options(args=None):
         if not options.outfile:
             options.outfile = options.routefiles[0][:-4] + ".stops.xml"
 
-    if not options.netfile:
-        op.print_help()
-        sys.exit("--net-file missing")
-
     if not options.typesfile:
         options.typesfile = options.routefiles
     else:
@@ -119,42 +115,34 @@ def get_options(args=None):
 
     if options.relpos is not None:
         try:
-            options.relpos = max(0, min(1, float(options.relpos)))
+            options.relpos = float(options.relpos)
+            if options.relpos < 0 or options.relpos > 1:
+                raise ValueError
         except ValueError:
             if options.relpos != 'random':
                 sys.exit("option --relpos must be set to 'random' or to a float value from [0,1]")
-            pass
-
     if options.lane is not None:
         try:
             options.lane = int(options.lane)
             if options.lane < 0:
-                sys.exit("option --lane must be set to 'random' or to a non-negative integer value")
+                raise ValueError
         except ValueError:
             if options.lane != 'random':
-                sys.exit("option --lane must be set to 'random' or to an integer value")
-            pass
-
+                sys.exit("option --lane must be set to 'random' or to a non-negative integer value")
     if options.reledge is not None:
         try:
-            options.reledge = max(0, min(1, float(options.reledge)))
+            options.reledge = float(options.reledge)
+            if options.reledge < 0 or options.reledge > 1:
+                raise ValueError
         except ValueError:
             if options.reledge != 'random':
                 sys.exit("option --reledge must be set to 'random' or to a float value from [0,1]")
-            pass
     if options.viaIndex is not None:
-        viaIndex = options.viaIndex
-        if isinstance(viaIndex, str):
-            viaIndex = viaIndex.strip()
-            if viaIndex.lower() == 'random':
-                options.viaIndex = 'random'
-            else:
-                try:
-                    options.viaIndex = int(viaIndex)
-                except ValueError:
-                    sys.exit("option --via-index must be set to 'random' or to an integer value")
-        else:
-            options.viaIndex = int(viaIndex)
+        try:
+            options.viaIndex = int(options.viaIndex)
+        except ValueError:
+            if options.viaIndex != 'random':
+                sys.exit("option --via-index must be set to 'random' or to an integer value")
 
     return options
 
