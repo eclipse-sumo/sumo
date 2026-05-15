@@ -48,6 +48,8 @@ def get_options(args=None):
                   help="Define a waypoint with the given maximum speed")
     op.add_option("-p", "--parking", dest="parking", action="store_true",
                   default=False, help="Let the vehicle stop beside the road")
+    op.add_option("--length", type=float,
+                  help="length of the stopping position")
     op.add_option("--relpos",
                   help="relative stopping position along the edge [0,1] or 'random'")
     op.add_option("--edges",
@@ -277,15 +279,19 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         lane = random.choice(usable)
                     elif options.lane < len(usable):
                         lane = usable[options.lane]
-
                     if lane:
                         skip = False
                         stopAttrs["lane"] = lane.getID()
+                        endPos = lane.getLength()
                         if options.relpos:
                             relpos = options.relpos
                             if options.relpos == 'random':
                                 relpos = random.random()
-                            stopAttrs["endPos"] = "%.2f" % (lane.getLength() * relpos)
+                            endPos *= relpos
+                            stopAttrs["endPos"] = "%.2f" % endPos
+                        if options.length:
+                            stopAttrs["startPos"] = "%.2f" % (endPos - options.length)
+                            stopAttrs["friendlyPos"] = "true"
                 if skip:
                     numSkipped[obj.name] += 1
                     print("Warning: no allowed lane found on edge '%s' for vehicle '%s' (%s)" % (
