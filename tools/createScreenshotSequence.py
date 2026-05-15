@@ -41,6 +41,9 @@ def getOptions(args=None):
                            help="View ID to use for the screenshots")
     argParser.add_argument("-p", "--prefix", category="input", dest="prefix",
                            default="", help="define a prefix of the screenshot filename")
+    argParser.add_argument("--relative", category="processing", action="store_true",
+                           default=False,
+                           help="whether to interpret animation commands relative to the previous one / the initial view settings")
     argParser.add_argument("--zoom",
                            help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
     argParser.add_argument("--rotate",
@@ -74,7 +77,7 @@ def main(options):
     traci.start(["sumo-gui", "-c", options.sumocfg])
     recordAll = options.begin is None and options.end is None
     listener = ScreenshotHelper(outputPath, "%s%s" % (options.prefix, formattedTime if options.includeTime else ""),
-                                options.imageFormat, 1, view=options.view, recordAll=recordAll)
+                                options.imageFormat, 1, view=options.view, recordAll=recordAll, relativeAnim=options.relative)
     if not recordAll:
         listener.addTimeInterval(begin=options.begin, end=options.end)
     if options.zoom is not None:
@@ -146,7 +149,7 @@ class KeyFramedNumericAttribute(object):
 
 class ScreenshotHelper(traci.StepListener):
 
-    def __init__(self, outputDir, prefix, imageFormat, frequency, view="View #0", recordAll=True):
+    def __init__(self, outputDir, prefix, imageFormat, frequency, view="View #0", recordAll=True, relativeAnim=False):
         traci.StepListener()
         # init member variables
         self._outputDir = outputDir
@@ -155,6 +158,15 @@ class ScreenshotHelper(traci.StepListener):
         self._frequency = frequency
         self._view = view
         self.__counter = 0
+        self._relativeAnim = relativeAnim
+        self._zoomOffset = 0
+        self._translationOffset = [0] * 2
+        self._rotationOffset = 0
+        if self._relativeAnim:
+            # TODO: init offset values
+            self._zoomOffset = traci.gui.getZoom()
+            self._translationOffset = list(traci.gui.getOffset())
+            self._rotationOffset = traci.gui.getAngle()
         self._recordIntervals = []
         self._startTime = sumolib.miscutils.parseTime(traci.simulation.getOption("begin"))
         self._endTime = sumolib.miscutils.parseTime(traci.simulation.getOption("end"))
@@ -171,10 +183,20 @@ class ScreenshotHelper(traci.StepListener):
 
     def addTransformTarget(self, timeKey, value, transform="zoom"):
         if transform == "zoom":
+            if self._relativeAnim:
+                value += self._zoomOffset
+                self._zoomOffset = value
             self._zoom.addTarget(timeKey, value)
         elif transform == "rotate":
+            if self._relativeAnim:
+                value += self._rotationOffset
+                self._rotationOffset = value
             self._rotate.addTarget(timeKey, value)
         elif transform == "translate":
+            if self._relativeAnim:
+                for i in range(min(len(self._translationOffset)), len(value)):
+                    value[i] += self._translationOffset[i]
+                self._translationOffset = value
             self._translate.addTarget(timeKey, value)
 
     def addTimeInterval(self, begin=None, end=None):
