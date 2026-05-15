@@ -67,6 +67,8 @@ def get_options(args=None):
                     help="length for a tram stop")
     ap.add_argument("--center-stops", action="store_true", default=False,
                     help="use stop position as center not as front")
+    ap.add_argument("--overtake-right", action="store_true", default=False,
+                    help="allow right lane overtaking at bus / train stops which are not at the outermost lane")
     ap.add_argument("--skip-access", action="store_true", default=False,
                     help="do not create access links")
     ap.add_argument("--access-radius", default=100, category="input", type=float,
@@ -469,6 +471,12 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             if keep:
                 if not options.skip_access:
                     childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
+                if not options.overtake_right:
+                    lane = net.getLane(laneID)
+                    idx = lane.getIndex()
+                    edge = lane.getEdge()
+                    if not all([edge.getLane(i).allows("pedestrian") for i in range(idx)]):
+                        childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
                 stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
             stops[rid].append((stop, until, stopName, block, isParking))
             lastUntil = until
