@@ -3,9 +3,9 @@ title: hybridPY
 ---
 
 This document describes the capabilities and basic usage of the software
-hybridPY. hybridPY is intended to expand the user-base of the traffic
+hybridPY (formerly known as SUMOPy). hybridPY is intended to expand the user-base of the traffic
 micro-simulator SUMO by providing a user-friendly, yet flexible
-simulation suite. The original publication related to hybridPY can be
+simulation suite. The original publication related to SUMOPy can be
 found at the [University of Bologna](https://web.archive.org/web/20181101145057/https://campus.unibo.it/200538/1/Research-A-Choudhry-657079-.pdf)
 and in the [proceedings of the SUMO2013](https://sumo.dlr.de/2013/SUMO2013_15-17May%202013_Berlin-Adlershof.pdf).
 
@@ -60,10 +60,8 @@ distinguishing features are:
 
 # Installation
 
-hybridPY is a directory with python scripts. It is sufficient to unzip the
-latest version and copy it in a directory of your choice. Since
-SUMO-0.28, hybridPY is inside the SUMO distribution and located in
-`SUMOHOME/tools/contributed`.
+hybridPY is a directory with python scripts and is part of the SUMO distribution in
+`$SUMO_HOME/tools/contributed`.
 
 However, hybridPY makes extensive use of Python packages which need to be
 installed before. The *required* packages to be installed are:
@@ -80,17 +78,16 @@ pyproj
 pyshp
 networkx
 openpyxl
-pyproj 
 requests
 tqdm
 ```
 
 The exact choice of package-versions and installation methods depend on
-the operating system. Compatibility problems between Numpy version >= 2.x and wxWindows have been reported. 
+the operating system. Compatibility problems between Numpy version >= 2.x and wxWindows have been reported.
 
 For Ubuntu distributions, all necessary packages can be installed by the one liner:
 ```
-sudo apt-get install  python3-wxgtk4.0 python3-wxgtk-webview4.0 python3-wxgtk-media4.0 python3-opengl python3-pil python3-matplotlib python3-pyproj python3-scipy python3-psutil python3-shapely  python3-pyshp python3-networkx python3-gdal python3-openpyxl python3-requests python3-tqdm
+sudo apt-get install  python3-wxgtk4.0 python3-wxgtk-webview4.0 python3-wxgtk-media4.0 python3-opengl python3-pil python3-matplotlib python3-pyproj python3-scipy python3-psutil python3-shapely python3-pyshp python3-networkx python3-gdal python3-openpyxl python3-requests python3-tqdm
 ```
 
 
@@ -112,4 +109,3 @@ information.
 "hybridpy main window with object browser, network editor and main menu")
 
 From the scenario window previously safed scenarios can be opened and simulated with one of the methods found in the simulation menu.
- 
