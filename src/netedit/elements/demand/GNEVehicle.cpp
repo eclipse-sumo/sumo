@@ -890,7 +890,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
-        const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
+        const bool drawSpreadVehicles = !myTagProperty->vehicleJunctions() && (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         const double exaggeration = getExaggeration(s);
         const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
