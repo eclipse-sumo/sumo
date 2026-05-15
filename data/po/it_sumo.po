@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-09 18:11+0000\n"
+"PO-Revision-Date: 2026-05-15 17:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5792,6 +5792,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Incrocio % pheromoneInputLanes: corsia % non "
+"autorizzata"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
@@ -5799,6 +5801,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Incrocio % pheromoneOutputLanes corsia % non "
+"autorizzata"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -7827,77 +7831,90 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:574
 msgid "Distance for interpreting nodes as signal locations"
-msgstr ""
+msgstr "Distanza per interpretare degli nodi come posizioni di segnali"
 
 #: src/netbuild/NBFrame.cpp:577
 msgid ""
 "Number of uncontrolled entry edges to accept and still consider the central "
 "node as a traffic light"
 msgstr ""
+"Numero di archi entranti non comandati da accettare per comunque considerare "
+"il nodo centrale un semaforo"
 
 #: src/netbuild/NBFrame.cpp:583
 msgid "Use INT as cycle duration"
-msgstr ""
+msgstr "Usa INT come durata di ciclo"
 
 #: src/netbuild/NBFrame.cpp:587
 msgid "Use INT as green phase duration"
-msgstr ""
+msgstr "Usa INT come durata della fase verde"
 
 #: src/netbuild/NBFrame.cpp:591
 msgid "Defines smallest vehicle deceleration"
-msgstr ""
+msgstr "Definisce la decelerazione minima di un veicolo"
 
 #: src/netbuild/NBFrame.cpp:595
 msgid "Given yellow times are patched even if being too short"
-msgstr ""
+msgstr "Le fasi di giallo indicate verranno modificate anche se troppo corte"
 
 #: src/netbuild/NBFrame.cpp:599
 msgid "Set INT as fixed time for yellow phase durations"
-msgstr ""
+msgstr "Imposta INT come durata fissa di fasi di giallo"
 
 #: src/netbuild/NBFrame.cpp:602
 msgid ""
 "Set INT as fixed time for red phase duration at traffic lights that do not "
 "have a conflicting flow"
 msgstr ""
+"Imposta INT come durata fissa di fasi rosse per semafori senza flussi in "
+"conflitto"
 
 #: src/netbuild/NBFrame.cpp:605
 msgid "Set INT as fixed time for intermediate red phase after every switch"
 msgstr ""
+"Imposta INT come durata fissa per fasi rosse intermedie dopo ogni cambio"
 
 #: src/netbuild/NBFrame.cpp:608
 msgid ""
 "Use FLOAT as threshold for allowing left-turning vehicles to move in the "
 "same phase as oncoming straight-going vehicles"
 msgstr ""
+"Usa FLOAT come valore soglia per autorizzare la svolta a sinistra nella "
+"stessa fase dei veicoli della direzione opposta"
 
 #: src/netbuild/NBFrame.cpp:611
 msgid ""
 "Use INT as green phase duration for left turns (s). Setting this value to 0 "
 "disables additional left-turning phases"
 msgstr ""
+"Usa INT come durata di fasi verdi per svoltare a sinistra (s). Per "
+"disattivare fasi addizionali per la svolta a sinistra imposta un valore di 0"
 
 #: src/netbuild/NBFrame.cpp:614
 msgid "Set INT as fixed time for intermediate vehext phase after every switch"
 msgstr ""
+"Imposta INT come durata fissa della fase intermedia vehext dopo ogni cambio"
 
 #: src/netbuild/NBFrame.cpp:617
 msgid ""
 "Set INT as fixed time for intermediate NEMA yellow phase after every switch"
 msgstr ""
+"Imposta INT come durata fissa per fasi NEMA gialle intermedie dopo ogni "
+"cambio"
 
 #: src/netbuild/NBFrame.cpp:620
 msgid ""
 "Set INT as fixed time for intermediate NEMA red phase after every switch"
 msgstr ""
+"Imposta INT come durata fissa per fasi NEMA rosse intermedia dopo ogni cambio"
 
 #: src/netbuild/NBFrame.cpp:623
 msgid "Use INT as minimum green duration for pedestrian crossings (s)."
-msgstr ""
+msgstr "Usa INT come durata minima per fasi di verde per passaggi pedonali (s)."
 
 #: src/netbuild/NBFrame.cpp:626
 msgid "Use INT as clearance time for pedestrian crossings (s)."
-msgstr ""
+msgstr "Usa INT come tempo di sicurezza per passaggi pedonali (s)."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
@@ -7906,45 +7923,54 @@ msgstr ""
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
 msgstr ""
+"I semafori contenuti in STR[] vedranno il loro piano spostato di mezza fase"
 
 #: src/netbuild/NBFrame.cpp:638
 msgid "TLSs in STR[] will be shifted by quarter-phase"
 msgstr ""
+"I semafori contenuti in STR[] vedranno il loro piano spostato di un quarto "
+"di fase"
 
 #: src/netbuild/NBFrame.cpp:642
 msgid "TLSs with unspecified type will use STR as their algorithm"
-msgstr ""
+msgstr "I semafori senza tipo specifico useranno l'algoritmo indicato STR"
 
 #: src/netbuild/NBFrame.cpp:645
 msgid ""
 "Set phase layout four grouping opposite directions or grouping all movements "
 "for one incoming edge ['opposites', 'incoming']"
 msgstr ""
+"Imposta il modello di fasi per raggruppare o direzioni opposte oppure tutti "
+"gli movimenti di un arco entrante ['opposites', 'incoming']"
 
 #: src/netbuild/NBFrame.cpp:648
 msgid ""
 "Avoid phases with green and red signals for different connections from the "
 "same lane"
 msgstr ""
+"Evita fasi con segnali sia verdi che rossi per collegamenti diversi "
+"provenienti della stessa corsia"
 
 #: src/netbuild/NBFrame.cpp:651
 msgid ""
 "Default minimum phase duration for traffic lights with variable phase length"
-msgstr ""
+msgstr "Durata minima standard per semafori con durata di fase variabile"
 
 #: src/netbuild/NBFrame.cpp:654
 msgid ""
 "Default maximum phase duration for traffic lights with variable phase length"
-msgstr ""
+msgstr "Durata massima standard per semafori con durata di fase variabile"
 
 #: src/netbuild/NBFrame.cpp:657
 msgid ""
 "Assign the same tls link index to connections that share the same states"
 msgstr ""
+"Assegna lo stesso indice semaforico a tutti gli collegamenti con lo stesso "
+"stato di segnali"
 
 #: src/netbuild/NBFrame.cpp:660
 msgid "Assign a distinct tls link index to every connection"
-msgstr ""
+msgstr "Assegna un indice semaforico distinto a ogni collegamento"
 
 #: src/netbuild/NBFrame.cpp:663
 msgid "rebuild all traffic light plans in the network"
