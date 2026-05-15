@@ -2,7 +2,7 @@
 # spec file for package jupedsim
 #
 # Copyright (c) 2022 SUSE LLC
-# Copyright (c) 2001-2025 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2026 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -17,27 +17,24 @@
 #
 
 
-Name:           jupedsim
-Version:        1.3.1
+Name:           libjupedsim-devel
+Version:        1.4.1
 Release:        0
-Summary:        Juelich Pedestrian Simulator
+Summary:        Juelich Pedestrian Simulator - Library
 License:        LGPL-3.0
 Group:          Productivity/Scientific/Other
 URL:            https://jupedsim.org/
-Source0:        https://github.com/PedestrianDynamics/%{name}/archive/refs/tags/v%{version}.tar.gz
-Patch1:         invalid_access.patch
+Source0:        https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  cmake
 BuildRequires:  python3-devel
 
 %description
 JuPedSim is a Python package with a C++ core to simulate pedestrian dynamics.
-This package only provides the C++ core library for SUMO to link against.
+This package only provides the C++ core library and headers for SUMO to link against.
 
 %prep
-%setup -q
-%patch -P1 -p1
+%setup -q -n jupedsim-%{version}
 
 %build
 cmake -Bcmake-build -DCMAKE_INSTALL_PREFIX:PATH=/usr

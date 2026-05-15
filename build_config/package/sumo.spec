@@ -40,7 +40,7 @@ BuildRequires:  python3-build
 BuildRequires:  python3-hatchling
 BuildRequires:  python3-pip
 BuildRequires:  pkgconfig(geos)
-BuildRequires:  jupedsim
+BuildRequires:  libjupedsim-devel
 %endif
 %if 0%{?fedora_version} > 36
 BuildRequires:  libarrow-devel
@@ -114,11 +114,8 @@ a running sumo simulation. This package also contains traci, simpla and sumolib.
 %prep
 %setup -q
 # Use real shebang
-find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
+find . -name "*.py" -o -name "*.pyw" -o -name hybridpy | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3$,#!%{_bindir}/python3,'
-%if 0%{?fedora_version}
-rm -rf tools/contributed/sumopy
-%endif
 
 %build
 mkdir cmake-build
