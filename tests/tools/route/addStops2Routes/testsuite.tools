@@ -60,5 +60,8 @@ stationary
 # generate trips that start at the destination stop
 stationary_trips
 
-# generate routes that start at each parkingArea without input route file       
+# generate routes that start at each parkingArea without input route file
 stationary_noRoutes
+
+# tests for adding stops with a given length
+length

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-15 09:23:06.731157 by Eclipse SUMO addStops2Routes.py v1_26_0+1624-e7230cb2b42
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <output-file value="out.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+    <duration value="1800"/>
+    <until value="12:0:0"/>
+    <parking value="True"/>
+    <length value="20.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="type1" vClass="bicycle"/>
+    <vehicle id="0_parkingA" type="type1" depart="0" color="1,0,0">
+        <route edges="SC CN"/>
+        <stop duration="1800" friendlyPos="true" lane="CN_2" parking="true" startPos="66.90" until="12:0:0"/>
+    </vehicle>
+</routes>
