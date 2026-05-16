@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-15 17:47+0000\n"
+"PO-Revision-Date: 2026-05-16 11:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7974,7 +7974,7 @@ msgstr "Assegna un indice semaforico distinto a ogni collegamento"
 
 #: src/netbuild/NBFrame.cpp:663
 msgid "rebuild all traffic light plans in the network"
-msgstr ""
+msgstr "ricostruisci tutti i piani semaforici della rete"
 
 #: src/netbuild/NBFrame.cpp:668
 msgid "Only keep edges with speed in meters/second > FLOAT"
@@ -10479,17 +10479,23 @@ msgstr "L'arco '%' verrà omesso perché ha il limite di velocità %."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:844
 msgid "Ignoring placement for edge '%' because lane count is invalid."
 msgstr ""
+"La collocazione dell'arco '%' viene ignorata a causa del numero di corsie "
+"invalido."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:859
 msgid ""
 "Ignoring placement for edge '%' because lane index '%' is out of range [1, "
 "%]."
 msgstr ""
+"La collocazione dell'arco '%' viene ignorata a cause dell'indice di corsia "
+"'%' fuori dell'intervallo [1, %]."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid ""
 "Ignoring placement for edge '%' because offset shape computation failed."
 msgstr ""
+"La collocazione dell'arco '%' viene ignorata perché il calcolo della forma "
+"spostata è fallito."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:965
 msgid ""
@@ -14322,6 +14328,7 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:1253
 msgid "A stop must be defined only in a StoppingPlace"
 msgstr ""
+"Si può definire una fermata unicamente in un elemento adatto (StoppingPlace)"
 
 #: src/utils/handlers/RouteHandler.cpp:1255
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
@@ -14619,7 +14626,7 @@ msgstr ""
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
-msgstr ""
+msgstr "Salvataggio della nuova matrice in '%'."
 
 #: src/utils/router/AStarRouter.h:276 src/utils/router/CHRouter.h:336
 #: src/utils/router/DijkstraRouter.h:248
@@ -14637,6 +14644,8 @@ msgstr ""
 msgid ""
 "Routing algorithm CH does not support dynamic closing of edges and lanes%"
 msgstr ""
+"L'algoritmo di instradamento CH non supporta la chiusura dinamica di archi e "
+"corsie%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
@@ -14649,6 +14658,8 @@ msgid ""
 "Routing algorithm CHWrapper does not support dynamic closing of edges and "
 "lanes%"
 msgstr ""
+"L'algoritmo di instradamento CHWrapper non supporta la chiusura dinamica di "
+"archi e corsie%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
