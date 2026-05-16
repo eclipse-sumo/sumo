@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-09 18:11+0000\n"
+"PO-Revision-Date: 2026-05-16 11:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -14515,7 +14515,7 @@ msgstr ""
 
 #: src/utils/router/AStarLookupTable.h:343
 msgid "Saving new matrix to '%'."
-msgstr "Speicher neue Matrix in '%'."
+msgstr "Speichere neue Matrix in '%'."
 
 #: src/utils/router/AStarRouter.h:276 src/utils/router/CHRouter.h:336
 #: src/utils/router/DijkstraRouter.h:248
