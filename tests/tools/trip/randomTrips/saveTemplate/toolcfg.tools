@@ -57,8 +57,8 @@
     <begin value="0" type="time" help="begin time" category="flow"/>
     <end value="3600" type="time" help="end time (default 3600)" category="flow"/>
     <period value="None" type="string" help="Generate vehicles with equidistant departure times and period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period." category="flow" listSeparator=" "/>
-    <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
-    <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
+    <insertion-rate value="None" type="string" help="How many vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
+    <insertion-density value="None" type="string" help="How many vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
     <flows value="0" type="int" help="generates INT flows that together output vehicles with the specified period" category="flow"/>
     <poisson value="False" type="bool" help="Flows will use poisson distributed departures" category="processing"/>
     <random-depart value="False" type="bool" help="Distribute departures randomly between begin and end" category="flow"/>
