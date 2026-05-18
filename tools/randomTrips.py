@@ -77,7 +77,7 @@ def get_options(args=None):
     op.add_argument("--personrides", category="persons",
                     help="create a person file with rides using STR as lines attribute")
     op.add_argument("--persontrip.modes", category="persons", dest="modes",
-                    help="Use any comma-separted combination of 'bicycle', 'car','public' and 'taxi'")
+                    help="Use any comma-separated combination of 'bicycle', 'car', 'public' and 'taxi'")
     op.add_argument("--persontrip.transfer.car-walk", category="persons", dest="carWalkMode",
                     help="Where are mode changes from car to walking allowed " +
                     "(possible values: 'ptStops', 'allJunctions' and combinations)")
