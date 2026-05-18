@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-16 11:55+0000\n"
+"PO-Revision-Date: 2026-05-18 18:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7919,6 +7919,8 @@ msgstr "Usa INT come tempo di sicurezza per passaggi pedonali (s)."
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
 msgstr ""
+"Usa INT come durata fissa di verde per fasi esclusive di pedoni crociando la "
+"carregiata in diagonale (s)."
 
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
@@ -10287,6 +10289,8 @@ msgstr "Nel mettere collegamenti: l'arco di arrivo '%' è sconosciuto."
 #: src/netimport/NIImporter_OpenDrive.cpp:749
 msgid "Could not find fromEdge representation of '%' in connection '%'."
 msgstr ""
+"Non ho incontrato la rappresentazione dell'arco di partenza di '%' nel "
+"collegamento '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:802
 #, c-format
@@ -10454,6 +10458,8 @@ msgid ""
 "Skipped applying OSM placement on % edge(s): % due to non-explicit one-way "
 "and % due to opposite-direction auxiliary edges."
 msgstr ""
+"Omessa la collocazione OSM su % archi: % dovuti a sensi unici non espliciti "
+"e % dovuti a archi ausiliari in direzione opposta."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:431
 msgid "Could not insert junction '%'."
@@ -10609,6 +10615,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2171
 msgid "Ignoring unsupported placement value '%' for edge '%'."
 msgstr ""
+"Il valore di collocazione non supportato '%' viene ignorato per l'arco '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2188
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -11963,12 +11970,16 @@ msgid ""
 "Cannot check circuit, overhead circuit solver support (Eigen) not compiled "
 "in."
 msgstr ""
+"Il circuito non può essere controllato poiché il risolutore di circuiti di "
+"catenaria (Eigen) non è stato compilato."
 
 #: src/netload/NLTriggerBuilder.cpp:477
 msgid ""
 "Not building overhead wire clamps, overhead wire solver support (Eigen) not "
 "compiled in."
 msgstr ""
+"I morsetti non verranno creati poiché il risolutore di circuiti di catenaria "
+"(Eigen) non è stato compilato."
 
 #: src/netload/NLTriggerBuilder.cpp:480
 msgid ""
