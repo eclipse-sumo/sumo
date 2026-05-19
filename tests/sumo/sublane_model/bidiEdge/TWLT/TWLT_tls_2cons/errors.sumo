@@ -2,15 +2,6 @@ Warning: Vehicle 'main.2' performs emergency braking on lane 'E1_1' with decel=9
 Warning: Vehicle 'side.0'; frontal collision with vehicle 'main.2', lane='-E1_1', gap=-0.12, latGap=-0.60, time=51.00, stage=move.
 Warning: Teleporting vehicle 'side.0'; waited too long (yield), lane='-E1_1', time=351.00.
 Warning: Vehicle 'side.0' ends teleporting on edge 'E3', time=351.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.7' for invalid lane ':J1_0_1' time=359.00.
-Warning: Request backPos of vehicle 'main.8' for invalid lane ':J1_0_1' time=375.00.
 Warning: Vehicle 'side.2'; frontal collision with vehicle 'main.6', lane='-E1_1', gap=-1.29, latGap=-0.60, time=389.00, stage=laneChange.
 Warning: Teleporting vehicle 'main.14'; waited too long (jam), lane='E0_0', time=587.00.
 Warning: Vehicle 'main.14' ends teleporting on edge 'E4', time=624.00.

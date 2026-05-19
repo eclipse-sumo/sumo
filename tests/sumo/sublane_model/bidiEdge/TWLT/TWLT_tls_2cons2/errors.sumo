@@ -17,14 +17,3 @@ Warning: Teleporting vehicle 'side.1'; waited too long (yield), lane='-E1_1', ti
 Warning: Teleporting vehicle 'main.5'; waited too long (yield), lane='E1_1', time=648.00.
 Warning: Vehicle 'side.1' ends teleporting on edge 'E3', time=648.00.
 Warning: Vehicle 'main.5' ends teleporting on edge 'E4', time=648.00.
-Warning: Request backPos of vehicle 'main.33' for invalid lane ':J1_0_1' time=764.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
-Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
-Warning: Request backPos of vehicle 'main.46' for invalid lane ':J1_0_1' time=910.00.
