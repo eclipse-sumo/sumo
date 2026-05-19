@@ -48,7 +48,7 @@ ARG ARROW_VERSION=2300
 
 # Getting build artifacts
 COPY --from=build /install/usr /usr
-COPY --from=build /usr/lib/libjupedsim.so /usr/lib/libjupedsim.so
+COPY --from=build /usr/local/lib/libjupedsim.so /usr/lib/libjupedsim.so
 # Get dependency lists
 COPY --from=build /opt/sumo/build_config/build_req_deb.txt /tmp/build_req_deb.txt
 COPY --from=build /opt/sumo/build_config/tools_req_deb.txt /tmp/tools_req_deb.txt
