@@ -684,7 +684,7 @@ MSTransportable::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;
     for (const MSStage* const stage : *myPlan) {
-        stage->routeOutput(myAmPerson, out, false, previous, false);
+        stage->routeOutput(myAmPerson, out, false, previous, true);
         previous = stage;
     }
     out.closeTag();
