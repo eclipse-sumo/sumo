@@ -1,0 +1,6 @@
+Warning: Request backPos of vehicle 'v.10' for invalid lane ':J1_0_1' time=37.00.
+Warning: Request backPos of vehicle 'v.10' for invalid lane ':J1_0_1' time=37.00.
+Warning: Request backPos of vehicle 'v.10' for invalid lane ':J1_0_1' time=38.00.
+Warning: Request backPos of vehicle 'v.10' for invalid lane ':J1_0_1' time=38.00.
+Error: Request lateral offset of vehicle 'v.10' for invalid lane ':J1_0_1'
+Quitting (on error).
