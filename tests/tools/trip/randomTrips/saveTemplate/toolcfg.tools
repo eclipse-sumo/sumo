@@ -10,7 +10,7 @@
     <error-log value="None" type="file" help="record routing errors" category="output"/>
     <persons value="False" type="bool" help="create a person file with person trips instead of vehicle trips" category="persons"/>
     <personrides value="None" type="string" help="create a person file with rides using STR as lines attribute" category="persons"/>
-    <persontrip.modes value="None" type="string" help="Use any comma-separted combination of 'bicycle', 'car','public' and 'taxi'" category="persons"/>
+    <persontrip.modes value="None" type="string" help="Use any comma-separated combination of 'bicycle', 'car', 'public' and 'taxi'" category="persons"/>
     <persontrip.transfer.car-walk value="None" type="string" help="Where are mode changes from car to walking allowed (possible values: 'ptStops', 'allJunctions' and combinations)" category="persons"/>
     <persontrip.walkfactor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing" category="persons"/>
     <persontrip.walk-opposite-factor value="None" type="float" help="Use FLOAT as a factor on pedestrian maximum speed against vehicle traffic direction" category="persons"/>
