@@ -530,11 +530,14 @@ MSAbstractLaneChangeModel::cleanupShadowLane() {
         myShadowLane->resetPartialOccupation(&myVehicle);
         myShadowLane = nullptr;
     }
-    for (std::vector<MSLane*>::const_iterator it = myShadowFurtherLanes.begin(); it != myShadowFurtherLanes.end(); ++it) {
+    for (MSLane* further : myShadowFurtherLanes) {
         if (debugVehicle()) {
             std::cout << SIMTIME << " cleanupShadowLane2\n";
         }
-        (*it)->resetPartialOccupation(&myVehicle);
+        further->resetPartialOccupation(&myVehicle);
+        if (further->getBidiLane() != nullptr) {
+            further->getBidiLane()->resetPartialOccupation(&myVehicle);
+        }
     }
     myShadowFurtherLanes.clear();
     myNoPartiallyOccupatedByShadow.clear();
