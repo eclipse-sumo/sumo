@@ -1,3 +1,6 @@
+# tests for a two-way-left-turn lane
+TWLT
+
 # intersection connected to normal and bidi edges;  peds run on the right hand side on the normal road or sidewalk, but run in the middle righ after entering bidi
 ped_run_middle
 

@@ -1,0 +1,30 @@
+Warning: Vehicle 'side.1'; frontal collision with vehicle 'main.4', lane='-E1_1', gap=-2.03, latGap=-0.60, time=54.00, stage=laneChange.
+Warning: Teleporting vehicle 'main.4'; waited too long (yield), lane='E1_1', time=345.00.
+Warning: Vehicle 'main.4' ends teleporting on edge 'E4', time=345.00.
+Warning: Teleporting vehicle 'main.9'; waited too long (yield), lane='E0_1', time=381.00.
+Warning: Teleporting vehicle 'main.10'; waited too long (wrong lane), lane='E1_0', time=390.00.
+Warning: Vehicle 'main.10' ends teleporting on edge 'E4', time=390.00.
+Warning: Teleporting vehicle 'main.11'; waited too long (jam), lane='E0_0', time=397.00.
+Warning: Vehicle 'main.9' ends teleporting on edge 'E4', time=418.00.
+Warning: Teleporting vehicle 'main.15'; waited too long (jam), lane='E0_0', time=428.00.
+Warning: Vehicle 'main.11' ends teleporting on edge 'E4', time=434.00.
+Warning: Teleporting vehicle 'main.17'; waited too long (jam), lane='E0_0', time=443.00.
+Warning: Teleporting vehicle 'main.19'; waited too long (jam), lane='E0_0', time=459.00.
+Warning: Vehicle 'main.15' ends teleporting on edge 'E4', time=465.00.
+Warning: Vehicle 'main.17' ends teleporting on edge 'E4', time=480.00.
+Warning: Vehicle 'main.19' ends teleporting on edge 'E4', time=496.00.
+Warning: Teleporting vehicle 'side.1'; waited too long (yield), lane='-E1_1', time=648.00.
+Warning: Teleporting vehicle 'main.5'; waited too long (yield), lane='E1_1', time=648.00.
+Warning: Vehicle 'side.1' ends teleporting on edge 'E3', time=648.00.
+Warning: Vehicle 'main.5' ends teleporting on edge 'E4', time=648.00.
+Warning: Request backPos of vehicle 'main.33' for invalid lane ':J1_0_1' time=764.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=843.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
+Warning: Request backPos of vehicle 'main.43' for invalid lane ':J1_0_1' time=844.00.
+Warning: Request backPos of vehicle 'main.46' for invalid lane ':J1_0_1' time=910.00.
