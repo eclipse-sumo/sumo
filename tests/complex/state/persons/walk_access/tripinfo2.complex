@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-20T14:19:05.350152+01:00 by Eclipse SUMO sumo v1_26_0+1279-13cfa78631b
+<!-- generated on 2026-05-19T17:46:00.067283+01:00 by Eclipse SUMO sumo v1_26_0+1667-44acad5988f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,8 +28,8 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="-1" waitingTime="0.00" timeLoss="29.86" traveltime="-1">
-        <walk depart="-1" departPos="390.00" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="0.00" maxSpeed="1.47" waitingTime="0.00"/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="682.00" waitingTime="0.00" timeLoss="31.07" traveltime="682.00">
+        <walk depart="0.00" departPos="390.00" arrival="8.00" arrivalPos="400.00" duration="8.00" routeLength="10.00" timeLoss="1.21" maxSpeed="1.47" waitingTime="0.00"/>
         <access stop="ts_0" depart="8.00" arrival="193.00" duration="185.00" routeLength="272.75"/>
         <access stop="ts_0" depart="193.00" arrival="381.00" duration="188.00" routeLength="277.53"/>
         <walk depart="381.00" departPos="100.00" arrival="682.00" arrivalPos="499.18" duration="301.00" routeLength="399.18" timeLoss="29.86" maxSpeed="1.47" waitingTime="0.00"/>

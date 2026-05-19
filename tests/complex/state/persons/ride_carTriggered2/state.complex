@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:29.765608+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-05-19T17:45:59.838324+01:00 by Eclipse SUMO sumo v1_26_0+1667-44acad5988f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1667-44acad5988f" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!persontrip_car1_0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <route id="!persontrip_car2_0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
     <route id="!persontrip_car_0!var#1" state="0" edges="3/1to2/1 2/1to1/1 1/1to0/1"/>
@@ -50,13 +50,13 @@
     </vehicle>
     <transportables type="person" state="3 4 0 1 0 0 0 0 0 0">
         <person id="persontrip_car" type="DEFAULT_PEDTYPE" depart="2.00" speedFactor="1.0600" state="262144 1 2000 0 -1 1 2000 persontrip_car_0 0">
-            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car_0"/>
+            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car_0" vehicle="persontrip_car_0" started="2.00" ended="-1"/>
         </person>
         <person id="persontrip_car1" type="DEFAULT_PEDTYPE" depart="2.00" speedFactor="0.9383" state="262144 1 2000 0 -1 1 6000 persontrip_car1_0 0">
-            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car1_0"/>
+            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car1_0" vehicle="persontrip_car1_0" started="6.00" ended="-1"/>
         </person>
         <person id="persontrip_car2" type="DEFAULT_PEDTYPE" depart="2.00" speedFactor="1.0104" state="262144 1 2000 0 -1 1 -1 persontrip_car2_0 0">
-            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car2_0"/>
+            <ride from="3/1to2/1" to="1/1to0/1" arrivalPos="200.00" lines="persontrip_car2_0" vehicle="persontrip_car2_0" started="-1" ended="-1"/>
         </person>
         <person id="persontrip_car3" type="DEFAULT_PEDTYPE" depart="160.00" speedFactor="1.0827" state="262144 0 -1">
             <personTrip from="3/1to2/1" to="1/1to0/1" modes="car"/>

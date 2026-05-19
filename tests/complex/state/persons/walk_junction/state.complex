@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T08:12:00.370360+01:00 by Eclipse SUMO sumo v1_26_0+1232-3b16c427ac1
+<!-- generated on 2026-05-19T17:45:59.560505+01:00 by Eclipse SUMO sumo v1_26_0+1667-44acad5988f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1232-3b16c427ac1" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1667-44acad5988f" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="7" routeHandler="2" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -101,7 +101,7 @@
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <transportables type="person" state="1 1 0 0 0 0 0 0 0 0">
         <person id="p0" type="DEFAULT_PEDTYPE" depart="2.00" departPos="-5.00" speedFactor="1.0600" state="262152 1 2000 0 6000 -1 :C_w2_0 4.26992 2.56 1 1.25337 0 0 0 SC_0 :C_c1_0 0 :C_c1_0 :C_w2_0 :C_c1_0 1">
-            <walk edges="SC CN" arrivalPos="5.00"/>
+            <walk edges="SC CN" arrivalPos="5.00" started="2.00" ended="-1"/>
         </person>
     </transportables>
     <tlLogic id="C" programID="0" phase="0" duration="10000" active="1"/>

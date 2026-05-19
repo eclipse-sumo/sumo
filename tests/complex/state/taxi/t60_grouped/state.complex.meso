@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T09:19:06.006225+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
+<!-- generated on 2026-05-19T17:47:25.537691+01:00 by Eclipse SUMO sumo v1_26_0+1667-44acad5988f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -41,7 +41,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="60.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_26_0+1667-44acad5988f" time="60.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="20" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -137,22 +137,22 @@
     </vehicle>
     <transportables type="person" state="6 6 0 0 0 0 0 0 0 0">
         <person id="p0.0" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.010400" state="192 1 0 0 -1 1 50017 trip_0 1317.6">
-            <ride from="C1C2" to="B0C0" lines="taxi"/>
+            <ride from="C1C2" to="B0C0" lines="taxi" vehicle="trip_0" started="50.017" ended="-1"/>
         </person>
         <person id="p0.1" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.082700" state="192 1 0 0 -1 1 50017 trip_0 1317.6">
-            <ride from="C1C2" to="B0C0" lines="taxi"/>
+            <ride from="C1C2" to="B0C0" lines="taxi" vehicle="trip_0" started="50.017" ended="-1"/>
         </person>
         <person id="p0.2" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.030300" state="192 1 0 0 -1 1 50017 trip_0 1317.6">
-            <ride from="C1C2" to="B0C0" lines="taxi"/>
+            <ride from="C1C2" to="B0C0" lines="taxi" vehicle="trip_0" started="50.017" ended="-1"/>
         </person>
         <person id="p1.0" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="0.831000" state="192 1 0 0 -1 1 52641 trip_1 1317.6">
-            <ride from="C1C2" to="A0B0" lines="taxi"/>
+            <ride from="C1C2" to="A0B0" lines="taxi" vehicle="trip_1" started="52.641" ended="-1"/>
         </person>
         <person id="p1.1" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.045800" state="192 1 0 0 -1 1 52641 trip_1 1317.6">
-            <ride from="C1C2" to="A0B0" lines="taxi"/>
+            <ride from="C1C2" to="A0B0" lines="taxi" vehicle="trip_1" started="52.641" ended="-1"/>
         </person>
         <person id="p1.2" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="0.886000" state="192 1 0 0 -1 1 52641 trip_1 1317.6">
-            <ride from="C1C2" to="A0B0" lines="taxi"/>
+            <ride from="C1C2" to="A0B0" lines="taxi" vehicle="trip_1" started="52.641" ended="-1"/>
         </person>
     </transportables>
     <segment id=":B0_6:0">
