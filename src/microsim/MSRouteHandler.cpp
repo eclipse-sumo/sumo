@@ -1208,6 +1208,7 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         stage->setDeparted(attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1));
         stage->setEnded(attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1));
         stage->setVehicleID(attrs.getOpt<std::string>(SUMO_ATTR_VEHICLE, nullptr, ok, ""));
+        stage->setVehicleDistance(attrs.getOpt<double>(SUMO_ATTR_ROUTELENGTH, nullptr, ok, -1));
         myActiveTransportablePlan->push_back(stage);
         myParamStack.push_back(stage);
     } catch (ProcessError&) {

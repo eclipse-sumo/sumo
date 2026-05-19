@@ -181,6 +181,11 @@ public:
         myWaitingSince = t;
     }
 
+    /// @brief restore further state during loading
+    void setVehicleDistance(double dist) {
+        myVehicleDistance = dist;
+    }
+
     /// @brief checks whether the person may exit at the current vehicle position
     bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
