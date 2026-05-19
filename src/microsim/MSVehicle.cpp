@@ -7022,6 +7022,13 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
                                               <<  "\n";
 #endif
                 return getLatOffset(myLaneChangeModel->getShadowLane()) + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] - myState.myPosLat;
+            } else if (shadowFurther[i]->getBidiLane() == lane) {
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) {
+                    std::cout << "    getLatOffset veh=" << getID() << " shadowbidilane=" << lane->getID() << " i=" << i << " posLat=" << myState.myPosLat << " furtherBidiLat=" << myFurtherLanesPosLat[i] << "\n";
+                }
+#endif
+                return -2 * getLatOffset(myLaneChangeModel->getShadowLane()) + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] - myState.myPosLat;
             }
         }
         // Check whether the vehicle issued a maneuverReservation on the lane.
@@ -7046,6 +7053,15 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
                 }
 #endif
                 return latOffset;
+            } else if (targetLane->getBidiLane() == lane) {
+                const double targetDir = myLaneChangeModel->getManeuverDist() < 0 ? -1. : 1.;
+                const double latOffset = myFurtherLanesPosLat[i] - myState.myPosLat + targetDir * 0.5 * (myFurtherLanes[i]->getWidth() + targetLane->getWidth());
+#ifdef DEBUG_FURTHER
+                if (DEBUG_COND) {
+                    std::cout << "    getLatOffset veh=" << getID() << " furthertargetbidilane=" << lane->getID() << " i=" << i << " posLat=" << myState.myPosLat << " furtherBidiLat=" << myFurtherLanesPosLat[i] << "\n";
+                }
+#endif
+                return -2 * latOffset;
             }
         }
         assert(false);
