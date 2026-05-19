@@ -4565,8 +4565,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                     if (myLaneChangeModel->isChangingLanes()) {
                         if (link->getDirection() == LinkDirection::LEFT || link->getDirection() == LinkDirection::RIGHT) {
                             // abort lane change
-                            WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" +
-                                          time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                            WRITE_WARNINGF("Vehicle '%' could not finish continuous lane change (turn lane) time=%.", getID(), time2string(SIMSTEP));
                             myLaneChangeModel->endLaneChangeManeuver();
                         }
                     }
@@ -5195,8 +5194,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             ++i;
             ++j;
         }
-        WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
-                      + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
+        WRITE_WARNINGF("Request backPos of vehicle '%' for invalid lane '%' time=%.",
+                getID(), Named::getIDSecure(lane), time2string(SIMSTEP))
         SOFT_ASSERT(false);
         return  myState.myBackPos;
     }
@@ -7348,8 +7347,8 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
         const bool onInit = myLane == nullptr;
         replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_AREA_REROUTE), onInit, false, false);
     } else {
-        WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()
-                      + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        WRITE_WARNINGF("Vehicle '%' could not reroute to new parkingArea '%' reason=%, time=%.",
+                getID(), newParkingArea->getID(), errorMsg, time2string(SIMSTEP));
         return false;
     }
     return true;
