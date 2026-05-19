@@ -5177,6 +5177,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (*i == lane) {
                 return -leftLength;
+            } else if (*i == lane->getBidiLane()) {
+                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
             }
             ++i;
         }
@@ -5190,6 +5192,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
             // if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (*j == lane) {
                 return -leftLength;
+            } else if (*j == lane->getBidiLane()) {
+                return lane->getLength() + leftLength - (calledByGetPosition ? 2 * myType->getLength() : 0);
             }
             ++i;
             ++j;
