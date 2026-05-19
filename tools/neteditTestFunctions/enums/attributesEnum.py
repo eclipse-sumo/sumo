@@ -2461,35 +2461,37 @@ class attrs:
             id = 8
             colorButton = 9
             color = 10
-            departLane = 11
-            departPos = 12
-            departSpeed = 13
-            arrivalLane = 14
-            arrivalPos = 15
-            arrivalSpeed = 16
-            line = 17
-            personNumber = 18
-            containerNumber = 19
-            departPosLat = 20
-            arrivalPosLat = 21
-            insertionChecks = 22
-            depart = 23
-            parameters = 25
-            parametersButton = 26
-            routeFileButton = 28
-            routeFile = 29
-            helpDialog = 30
-            reset = 31
+            departEdge = 11
+            arrivalEdge = 12
+            departLane = 13
+            departPos = 14
+            departSpeed = 15
+            arrivalLane = 16
+            arrivalPos = 17
+            arrivalSpeed = 18
+            line = 19
+            personNumber = 20
+            containerNumber = 21
+            departPosLat = 22
+            arrivalPosLat = 23
+            insertionChecks = 24
+            depart = 25
+            parameters = 27
+            parametersButton = 28
+            routeFileButton = 30
+            routeFile = 31
+            helpDialog = 32
+            reset = 33
 
         class inspect:
             id = 2
-            typeButton = 3
-            type = 4
-            route = 6
-            departEdge = 7
-            arrivalEdge = 8
-            colorButton = 9
-            color = 10
+            route = 3
+            colorButton = 4
+            color = 5
+            typeButton = 6
+            type = 7
+            departEdge = 9
+            arrivalEdge = 10
             departLane = 11
             departPos = 12
             departSpeed = 13
@@ -2511,10 +2513,10 @@ class attrs:
             reset = 31
 
         class inspectSelection:
-            typeButton = 2
-            type = 3
-            colorButton = 5
-            color = 6
+            colorButton = 2
+            color = 3
+            typeButton = 4
+            type = 5
             departLane = 7
             departPos = 8
             departSpeed = 9
@@ -2567,10 +2569,10 @@ class attrs:
 
         class inspect:
             id = 2
-            typeButton = 3
-            type = 4
-            colorButton = 6
-            color = 7
+            colorButton = 3
+            color = 4
+            typeButton = 5
+            type = 6
             departEdge = 8
             arrivalEdge = 9
             departLane = 10
@@ -2594,10 +2596,10 @@ class attrs:
             reset = 30
 
         class inspectSelection:
-            typeButton = 2
-            type = 3
-            colorButton = 5
-            color = 6
+            colorButton = 2
+            color = 3
+            typeButton = 4
+            type = 5
             departEdge = 7
             arrivalEdge = 8
             departLane = 9
@@ -3078,12 +3080,12 @@ class attrs:
 
         class inspect:
             id = 2
-            typeButton = 3
-            type = 4
-            departEdge = 6
-            arrivalEdge = 7
-            colorButton = 8
-            color = 9
+            colorButton = 3
+            color = 4
+            typeButton = 5
+            type = 6
+            departEdge = 8
+            arrivalEdge = 9
             departLane = 10
             departPos = 11
             departSpeed = 12
@@ -3111,37 +3113,37 @@ class attrs:
             reset = 37
 
         class inspectSelection:
-            typeButton = 2
-            type = 3
-            colorButton = 5
-            color = 6
-            departEdge = 7
-            arrivalEdge = 8
-            departLane = 9
-            departPos = 10
-            departSpeed = 11
-            arrivalLane = 12
-            arrivalPos = 13
-            arrivalSpeed = 14
-            line = 15
-            personNumber = 16
-            containerNumber = 17
-            departPosLat = 18
-            arrivalPosLat = 19
-            insertionChecks = 20
-            begin = 21
-            terminate = 23
-            spacing = 25
-            end = 25
-            number = 26
-            terminateOption = 27
-            spacingOption = 28
-            parameters = 30
-            parametersButton = 31
-            routeFileButton = 33
-            routeFile = 34
-            helpDialog = 35
-            reset = 37
+            colorButton = 1
+            color = 2
+            typeButton = 3
+            type = 4
+            departEdge = 6
+            arrivalEdge = 7
+            departLane = 8
+            departPos = 9
+            departSpeed = 10
+            arrivalLane = 11
+            arrivalPos = 12
+            arrivalSpeed = 13
+            line = 14
+            personNumber = 15
+            containerNumber = 16
+            departPosLat = 17
+            arrivalPosLat = 18
+            insertionChecks = 19
+            begin = 20
+            terminate = 22
+            spacing = 24
+            end = 24
+            number = 25
+            terminateOption = 26
+            spacingOption = 27
+            parameters = 29
+            parametersButton = 30
+            routeFileButton = 32
+            routeFile = 33
+            helpDialog = 34
+            reset = 35
 
     # stop over bus stop
 
