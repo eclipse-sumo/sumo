@@ -1,4 +1,5 @@
 Warning: Vehicle 'a.23' could not finish continuous lane change (turn lane) time=335.00.
-Warning: Request backPos of vehicle 'a.25' for invalid lane ':J2_5_1' time=346.00.
-Error: Request lateral offset of vehicle 'a.25' for invalid lane ':J2_5_1'
-Quitting (on error).
+Warning: Vehicle 'a.33' could not finish continuous lane change (turn lane) time=435.00.
+Warning: Vehicle 'a.38' could not finish continuous lane change (turn lane) time=495.00.
+Warning: Vehicle 'a.38'; frontal collision with vehicle 'b.36', lane='E1_1', gap=-2.55, latGap=-0.20, time=495.00, stage=move.
+Warning: Vehicle 'b.39'; frontal collision with vehicle 'a.43', lane='-E1_1', gap=-9.75, latGap=-1.20, time=512.00, stage=laneChange.
