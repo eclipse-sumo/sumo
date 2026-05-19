@@ -1,0 +1,27 @@
+Warning: Teleporting vehicle 'v.3'; waited too long (jam), lane='E0_1', time=345.00.
+Warning: Teleporting vehicle 't.0'; waited too long (jam), lane='-E0_1', time=345.00.
+Warning: Vehicle 't.0' teleports beyond arrival edge '-E0', time=345.00.
+Warning: Vehicle 'v.3' ends teleporting on edge 'E1', time=365.00.
+Warning: Teleporting vehicle 't.4'; waited too long (jam), lane='-E2_1', time=412.00.
+Warning: Vehicle 't.4' teleports beyond arrival edge '-E0', time=424.00.
+Warning: Teleporting vehicle 'v.23'; waited too long (jam), lane='E0_1', time=655.00.
+Warning: Teleporting vehicle 't.1'; waited too long (jam), lane='-E0_1', time=655.00.
+Warning: Vehicle 't.1' teleports beyond arrival edge '-E0', time=655.00.
+Warning: Vehicle 'v.23' ends teleporting on edge 'E1', time=655.00.
+Warning: Teleporting vehicle 'v.49'; waited too long (jam), lane=':J1_6_0', time=772.00.
+Warning: Vehicle 'v.49' ends teleporting on edge 'E1', time=772.00.
+Warning: Teleporting vehicle 'v.52'; waited too long (jam), lane='E0_1', time=776.00.
+Warning: Teleporting vehicle 'v.53'; waited too long (jam), lane='E0_1', time=777.00.
+Warning: Vehicle 't.2'; frontal collision with vehicle 'v.55', lane='E0_1', gap=-25.54, latGap=-0.90, time=779.00, stage=laneChange.
+Warning: Vehicle 'v.52' ends teleporting on edge 'E4', time=786.00.
+Warning: Vehicle 'v.53' ends teleporting on edge 'E4', time=788.00.
+Warning: Teleporting vehicle 'v.23'; waited too long (yield), lane=':J2_7_0', time=959.00.
+Warning: Teleporting vehicle 't.3'; waited too long (yield), lane='-E1_1', time=959.00.
+Warning: Vehicle 'v.23' ends teleporting on edge 'E4', time=959.00.
+Warning: Teleporting vehicle 't.6'; waited too long (jam), lane='-E2_1', time=968.00.
+Warning: Vehicle 't.6' teleports beyond arrival edge '-E0', time=980.00.
+Warning: Teleporting vehicle 't.2'; waited too long (jam), lane='-E0_1', time=1082.00.
+Warning: Vehicle 't.2' teleports beyond arrival edge '-E0', time=1082.00.
+Warning: Teleporting vehicle 'v.56'; waited too long (jam), lane='E0_1', time=1083.00.
+Warning: Vehicle 'v.56' ends teleporting on edge 'E1', time=1083.00.
+Warning: Vehicle 't.3' teleports beyond arrival edge '-E0', time=1102.00.
