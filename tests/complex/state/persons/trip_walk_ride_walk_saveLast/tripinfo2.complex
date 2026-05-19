@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-19T18:14:39.450431+01:00 by Eclipse SUMO sumo v1_26_0+1669-805302c7ec3
+<!-- generated on 2026-05-19T18:38:36.037643+01:00 by Eclipse SUMO sumo v1_26_0+1673-a86bc4606d4
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -35,7 +35,7 @@
     <tripinfo id="bus.1" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="510.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="7.85" rerouteNo="1" devices="vehroute_bus.1 tripinfo_bus.1 routing_bus.1 person_bus.1" vType="busType" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="643.00" waitingTime="139.00" timeLoss="208.12" traveltime="504.00">
         <walk depart="0.00" departPos="0.00" arrival="189.00" arrivalPos="250.00" duration="189.00" routeLength="250.00" timeLoss="19.19" maxSpeed="1.47" waitingTime="0.00"/>
-        <ride waitingTime="139.00" vehicle="bus.1" depart="328.00" arrival="454.00" arrivalPos="500.00" duration="126.00" routeLength="-1.00" timeLoss="-0.00"/>
+        <ride waitingTime="139.00" vehicle="bus.1" depart="328.00" arrival="454.00" arrivalPos="500.00" duration="126.00" routeLength="2512.32" timeLoss="-0.00"/>
         <walk depart="454.00" departPos="250.00" arrival="643.00" arrivalPos="250.00" duration="189.00" routeLength="0.10" timeLoss="188.93" maxSpeed="1.47" waitingTime="0.00"/>
     </personinfo>
     <tripinfo id="bus.2" depart="600.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="810.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.60" duration="210.00" routeLength="3007.22" waitingTime="1.00" waitingCount="1" stopTime="76.00" timeLoss="7.85" rerouteNo="1" devices="vehroute_bus.2 tripinfo_bus.2 routing_bus.2" vType="busType" speedFactor="1.00" vaporized=""/>
