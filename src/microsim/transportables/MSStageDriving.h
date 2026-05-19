@@ -176,6 +176,11 @@ public:
         myWaitingPos = departPos;
     }
 
+    /// @brief restore further state during loading
+    void setWaitingSince(SUMOTime t) {
+        myWaitingSince = t;
+    }
+
     /// @brief checks whether the person may exit at the current vehicle position
     bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 

@@ -710,6 +710,11 @@ MSTransportable::loadState(const std::string& state) {
         myStep = myPlan->begin() + (int)step;
     }
     (*myStep)->loadState(this, iss);
+    for (int i = 1; i < step; i++) {
+        if ((*myPlan)[i]->getStageType() == MSStageType::DRIVING) {
+            dynamic_cast<MSStageDriving*>((*myPlan)[i])->setWaitingSince((*myPlan)[i - 1]->getArrived());
+        }
+    }
 }
 
 
