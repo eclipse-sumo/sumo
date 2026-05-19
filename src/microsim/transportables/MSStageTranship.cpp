@@ -112,7 +112,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 
 
 void
-MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */) const {
+MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {
@@ -125,7 +125,7 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
     if (withRouteLength) {
         os.writeAttr("routeLength", mySpeed * STEPS2TIME(myArrived - myDeparted));
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+    if (withTiming) {
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }

@@ -300,7 +300,7 @@ MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const pe
 
 
 void
-MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */) const {
+MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {
@@ -331,6 +331,8 @@ MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
         std::vector<std::string> missing(MAX2(0, (int)myRoute.size() - (int)myExitTimes->size()), "-1");
         exits.insert(exits.end(), missing.begin(), missing.end());
         os.writeAttr("exitTimes", exits);
+    }
+    if (withTiming) {
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }

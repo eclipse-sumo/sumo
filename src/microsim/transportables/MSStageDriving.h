@@ -123,7 +123,7 @@ public:
      * @param[in] previous The previous stage for additional info such as from edge
      * @exception IOError not yet implemented
      */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming) const;
 
     /// Whether the person waits for the given vehicle
     bool isWaitingFor(const SUMOVehicle* vehicle) const;

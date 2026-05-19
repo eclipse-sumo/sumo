@@ -392,7 +392,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 
 void
-MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
+MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming) const {
     os.openTag(isPerson ? SUMO_TAG_RIDE : SUMO_TAG_TRANSPORT);
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
@@ -422,7 +422,7 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
     if (withRouteLength) {
         os.writeAttr("routeLength", myVehicleDistance);
     }
-    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
+    if (withTiming) {
         os.writeAttr("vehicle", myVehicleID.empty() ? "NULL" : myVehicleID);
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");

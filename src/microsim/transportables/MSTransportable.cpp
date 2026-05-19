@@ -275,8 +275,9 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
     const MSStage* previous = nullptr;
+    const bool withTiming = OptionsCont::getOptions().getBool("vehroute-output.exit-times");
     for (const MSStage* const stage : *myPlan) {
-        stage->routeOutput(myAmPerson, os, withRouteLength, previous);
+        stage->routeOutput(myAmPerson, os, withRouteLength, previous, withTiming);
         previous = stage;
     }
     myParameter->writeParams(os);
@@ -683,7 +684,7 @@ MSTransportable::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;
     for (const MSStage* const stage : *myPlan) {
-        stage->routeOutput(myAmPerson, out, false, previous);
+        stage->routeOutput(myAmPerson, out, false, previous, false);
         previous = stage;
     }
     out.closeTag();

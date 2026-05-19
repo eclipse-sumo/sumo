@@ -104,7 +104,7 @@ public:
         void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /// @brief Called on writing vehroute output. Currently does nothing.
-        void routeOutput(const bool, OutputDevice&, const bool, const MSStage* const) const {};
+        void routeOutput(const bool, OutputDevice&, const bool, const MSStage* const, const bool) const {};
 
         /** @brief Saves the current state into the given stream
         */
