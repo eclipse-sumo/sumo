@@ -29,6 +29,7 @@ from collections import defaultdict
 try:
     from shapely.geometry import Polygon, mapping
     from shapely.validation import make_valid
+    from shapely.ops import orient
     HAVE_SHAPELY = True
 except ImportError:
     warnings.warn("Shapely not available, generated polygons might be invalid.")
@@ -87,7 +88,9 @@ def shape2json(net, geometry, is_boundary):
         coords = [[round(x, 3), round(y, 3)] for x, y in geometry]
     if is_boundary:
         if HAVE_SHAPELY:
-            return mapping(make_valid(Polygon(coords)))
+            return mapping(orient(make_valid(Polygon(coords))))
+        if coords[0] != coords[-1]:
+            coords.append(coords[0])
         return {"type": "Polygon", "coordinates": [coords]}
     return {"type": "LineString", "coordinates": coords}
 
