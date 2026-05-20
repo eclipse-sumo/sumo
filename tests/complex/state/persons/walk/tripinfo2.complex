@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-20T11:19:04.394112+01:00 by Eclipse SUMO sumo v1_26_0+1684-2084a7c81fd
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <output-suffix value="2"/>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="walk_route" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="212.00" waitingTime="41.00" timeLoss="58.53" traveltime="212.00">
+        <walk depart="1.00" departPos="0.00" arrival="213.00" arrivalPos="200.00" duration="212.00" routeLength="200.00" timeLoss="58.53" maxSpeed="1.30" waitingTime="41.00"/>
+    </personinfo>
+    <personinfo id="walk_trip" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="792.00" waitingTime="0.00" timeLoss="79.41" traveltime="792.00">
+        <walk depart="2.00" departPos="0.00" arrival="794.00" arrivalPos="200.00" duration="792.00" routeLength="1000.00" timeLoss="79.41" maxSpeed="1.40" waitingTime="0.00"/>
+    </personinfo>
+    <personinfo id="walk_route_id" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="1140.00" waitingTime="84.00" timeLoss="189.06" traveltime="1140.00">
+        <walk depart="0.00" departPos="0.00" arrival="1140.00" arrivalPos="200.00" duration="1140.00" routeLength="1400.00" timeLoss="189.06" maxSpeed="1.47" waitingTime="84.00"/>
+    </personinfo>
+</tripinfos>
