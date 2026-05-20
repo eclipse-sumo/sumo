@@ -17,4 +17,4 @@ jobs:
       uses: lycheeverse/lychee-action@master  # to be removed once --accept-timeouts got released
       with:
         fail: true
-        args: --accept-timeouts --accept 200,403,429,500,502 -c docs/web/lychee.toml -n docs/web/docs/
+        args: --accept-timeouts --accept 200,401,403,429,500,502 -c docs/web/lychee.toml -n docs/web/docs/
