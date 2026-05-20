@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main ([nightly development builds](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots))
+## Version 1.27.0 (21.05.2026)
 
 ### Bugfixes
 
@@ -10,14 +10,14 @@ title: ChangeLog
   - Invalid separator in allow/disallow now results in error instead of warning again (regression in 1.21.0) #17709
   - Fixed bug where vehicles that are blocked from entering a stopping place do not collect enough timeLoss #17914 (regression in 1.26.0)
   - Fixed invalid error when setting option **--device.rerouting.mode 8** #17939 (regression in 1.26.0)
-  - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635  
+  - Stopping on a long busStop before reaching the designated spot due to jamming now permits passengers to exit if the vehicle is fully within the busStop #17635
   - Fixed invalid parking positions in network with a [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) #17640
   - Fixed bug where imprecise driving caused vehicles to enter a slower lane with excessive speed (this could cause negative timeLoss). #15435
-  - Less crashes with parquet output (especially summary output) #17656  
+  - Less crashes with parquet output (especially summary output) #17656
   - Fixed invalid error when loading networks with unusual walkingarea shape #17689 (also affected duarouter)
   - Fixed invalid stopping in network with lane-changing prohibition and minor-link-merge #17714
   - Fixed platform dependency in lane changer #17747
-  - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815    
+  - Rerouters now act according to **device.rerouting.mode** even when vehicles are not equipped with a rerouting device #17815
   - Fixed crash when setting **--default.departlane best** #17854
   - Fixed infinite loop when specifying invalid default depart lane #17850
   - Fixed bug where rerouting after parkingAreaReroute fails to add stops when input contains vias #17892
@@ -40,7 +40,7 @@ title: ChangeLog
     - Fixed bug where simulation with loaded waiting persons did not terminate #18017
   - Taxis:
     - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
-    - Fixed failure to group taxi passengers when the dispatch-period is low #17644    
+    - Fixed failure to group taxi passengers when the dispatch-period is low #17644
     - Fixed invalid taxi device warnings #17864
     - Fixed failure in stop assignment #17893
     - Taxis no longer block the road when idling if their passenger stops are defined as not-parking #17904
@@ -79,9 +79,9 @@ title: ChangeLog
   - It is now possible to select edges that belong to a TAZ using selection mode #17701 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - Errors when loading additionals from the command line, are now visible in the message window again #17819 (regression in 1.23.0)
-  - Fixed crash when setting option **--railway.signal.permit-unsignalized** to an invalid value #17983 (regression in 1.23.0)  
+  - Fixed crash when setting option **--railway.signal.permit-unsignalized** to an invalid value #17983 (regression in 1.23.0)
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
-  - Fixed crash when calling python tool and using the 'back' button #17618, #17940 (regression in 1.25.0)  
+  - Fixed crash when calling python tool and using the 'back' button #17618, #17940 (regression in 1.25.0)
   - Fixed crash after deleting an object from a group of overlapped objects #17795 (regression in 1.25.0)
   - Saving of loaded unmodified additionals to a new file name is working again #17814 (regression in 1.26.0)
   - The network file name shows up in the window title again #17662 (regression in 1.26.0)
@@ -172,8 +172,8 @@ title: ChangeLog
 
 - sumo
   - Cars no longer enter a bidi-edge if it is occupied or already being approached from a higher-priority road #10941
-  - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627  
-  - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which prevents multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628  
+  - parkingAreas with `onRoad="true"` are now filled from the downstream end if overtaking is not possible (i.e. on rails) #17627
+  - Added parkingArea attribute `reservable` ({{DT_BOOL}}) which prevents multiple vehicles from targeting the same spot when [cruising for parking](Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area) #17628
   - carFollowModel *ACC* now supports driverstate device (but it is only active when setting vType attribute `applyDriverState="1"`) #17633
   - Option **--vtk-output** now supports writing data at sub-second simulation step-length #17645
   - edgeData and laneData-output now support attribute `excludeEmpty="modified"` which writes unused edges but only if their speed was modified with calibrators or variableSpeedSigns. #17587
@@ -208,10 +208,10 @@ title: ChangeLog
 - sumo-gui
   - traffic lights now have a higher right-click priority than busstops #17761
   - Made route and locomotive coloring brighter to improve visibility #17859
-    
+
 - netconvert
   - Now importing geo-projection from visum networks #17658
-  - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659  
+  - visum import now supports option **--type-files** for loading custom interpretation of permissions for TSys codes #17659
   - connection files (*.con.xml) now support attribute `reset="true"` to trigger connection guessing when patching a network #17668
   - Element `<join>` (in *.nod.xml*) now supports attribute `reset` to force recomputation of all connections at the new node. Also added option **--junctions.join-reset** which triggers recomputation of all connections at all joins #17733
   - Added option **--default.junctions.type** to override type-guessing when types are not defined in the input. This option also applies to junctions created in netedit #17736
