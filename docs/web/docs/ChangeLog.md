@@ -264,6 +264,7 @@ title: ChangeLog
   - randomTrips.py: Added option **--threads** to speed up validation. Uses half the number of available cpus by default #17980
   - addStops2Routes.py: Added option **--length** to define stops that permit a larger valid area for being reached. #18001
   - addStops2Routes.py: Added options **--edges** to restrict the set of edges used for stopping and option **--color** to change the color of stopping vehicles. #17856
+  - tileGet.py now supports reprojection to UTM and stitching of the downloaded tiles #14641 #17789
 
 ### Miscellaneous
 
@@ -276,7 +277,8 @@ title: ChangeLog
 - Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
 - The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pdoc documentation.
 - The python module SUMOPy was superseded by hybridPY which extends the functionality and supports python 3 #17365
-- tileget.py now requires the GDAL-binaries instead of the python module #17789
+- The maximum Parquet/Arrow version to use is 23.0, newer versions require a newer compiler which needs to be enabled explicitly at build time
+
 
 ## Version 1.26.0 (29.01.2026)
 
