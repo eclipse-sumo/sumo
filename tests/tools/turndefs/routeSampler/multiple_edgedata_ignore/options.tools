@@ -1,0 +1,4 @@
+-r input_routes.rou.xml --edgedata-file input_edgedata.xml
+--edgedata-attribute entered
+-o out.rou.xml
+--merge-strategy ignore
