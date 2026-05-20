@@ -1758,8 +1758,6 @@ enum {
     MID_LANGUAGE_ZHT,
     /// @brief change language to turkish
     MID_LANGUAGE_TR,
-    /// @brief change language to hungarian
-    MID_LANGUAGE_HU,
     /// @brief change language to japanese
     MID_LANGUAGE_JA,
     /// @brief change language to korean

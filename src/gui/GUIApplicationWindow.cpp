@@ -218,8 +218,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_ZHT,   GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_TR,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_TR,    GUIApplicationWindow::onUpdChangeLanguage),
-    FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_HU,    GUIApplicationWindow::onCmdChangeLanguage),
-    FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_HU,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_JA,    GUIApplicationWindow::onCmdChangeLanguage),
     FXMAPFUNC(SEL_UPDATE,   MID_LANGUAGE_JA,    GUIApplicationWindow::onUpdChangeLanguage),
     FXMAPFUNC(SEL_COMMAND,  MID_LANGUAGE_KO,    GUIApplicationWindow::onCmdChangeLanguage),
@@ -2279,8 +2277,8 @@ GUIApplicationWindow::closeAllWindows() {
     for (GUIGlChildWindow* window : myGLWindows) {
         GUISUMOAbstractView* view = window->getView();
         gSchemeStorage.saveDecals(view->getDecals());
-        gSchemeStorage.saveViewport(view->getChanger().getXPos(), view->getChanger().getYPos(), 
-                                     view->getChanger().getZPos(), view->getChanger().getRotation());
+        gSchemeStorage.saveViewport(view->getChanger().getXPos(), view->getChanger().getYPos(),
+                                    view->getChanger().getZPos(), view->getChanger().getRotation());
     }
     // delete the simulation
     myRunThread->deleteSim();

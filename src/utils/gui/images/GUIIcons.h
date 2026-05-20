@@ -761,7 +761,6 @@ enum class GUIIcon {
     LANGUAGE_PT,
     LANGUAGE_FR,
     LANGUAGE_IT,
-    LANGUAGE_HU,
     LANGUAGE_TR,
     LANGUAGE_ZH,
     LANGUAGE_ZHT,

@@ -363,8 +363,6 @@ GUIMainWindow::buildLanguageMenu(FXMenuBar* menuBar) {
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT), this, MID_LANGUAGE_ZHT);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Türkçe", "", TL("Change language to turkish. (tr)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR), this, MID_LANGUAGE_TR);
-    GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "Magyar", "", TL("Change language to hungarian. (hu)"),
-                                           GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU), this, MID_LANGUAGE_HU);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "日本語", "", TL("Change language to japanese. (ja)"),
                                            GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_JA), this, MID_LANGUAGE_JA);
     GUIDesigns::buildFXMenuCommandShortcut(myLanguageMenu, "한국어", "", TL("Change language to korean. (ko)"),
@@ -410,10 +408,6 @@ GUIMainWindow::onCmdChangeLanguage(FXObject*, FXSelector sel, void*) {
         case MID_LANGUAGE_TR:
             langID = "tr";
             lang = TL("turkish");
-            break;
-        case MID_LANGUAGE_HU:
-            langID = "hu";
-            lang = TL("hungarian");
             break;
         case MID_LANGUAGE_JA:
             langID = "ja";
@@ -484,8 +478,6 @@ GUIMainWindow::onUpdChangeLanguage(FXObject* obj, FXSelector, void*) {
         } else if ((gLanguage == "zh-Hant") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_ZHT))) {
             menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "tr") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_TR))) {
-            menuCommand->setTextColor(GUIDesignTextColorBlue);
-        } else if ((gLanguage == "hu") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_HU))) {
             menuCommand->setTextColor(GUIDesignTextColorBlue);
         } else if ((gLanguage == "ja") && (menuCommand->getIcon() == GUIIconSubSys::getIcon(GUIIcon::LANGUAGE_JA))) {
             menuCommand->setTextColor(GUIDesignTextColorBlue);
