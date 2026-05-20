@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-19T18:22:31.829187+01:00 by Eclipse SUMO sumo v1_26_0+1671-259fe032f8e
+<!-- generated on 2026-05-20T09:06:08.230813+01:00 by Eclipse SUMO sumo v1_26_0+1678-6b9b3d63f0c
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -40,7 +40,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1671-259fe032f8e" time="91.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1678-6b9b3d63f0c" time="91.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="6" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="2"/>
@@ -137,7 +137,7 @@
         <device id="taxi_trip_1" state="2 0 806.301 71000" customers="p0.1" reservations="1"/>
         <device id="person_trip_1" state="0 0 0"/>
     </vehicle>
-    <transportables type="person" state="1 2 1 0 1 0 0 0 0 0">
+    <transportables type="person" state="1 2 1 0 1 0 0 0 0">
         <person id="p0.1" type="DEFAULT_PEDTYPE" depart="0.000" speedFactor="1.010400" state="192 1 0 14848 -1 1 27000 trip_1 27.0778">
             <ride from="C1C2" to="B0C0" busStop="stop_B0C0" lines="taxi" routeLength="27.077758" vehicle="trip_1" started="27.000" ended="-1"/>
         </person>
