@@ -104,9 +104,11 @@ configuration:
 | **--substations-output.precision** {{DT_INT}} | Write substation values with the given precision (default 2); *default:* **2** |
 | **--fcd-output** {{DT_FILE}} | Save the Floating Car Data |
 | **--fcd-output.geo** {{DT_BOOL}} | Save the Floating Car Data using geo-coordinates (lon/lat); *default:* **false** |
+| **--fcd-output.utm** {{DT_BOOL}} | Save the Floating Car Data using utm/unshifted coordinates (x/y); *default:* **false** |
 | **--fcd-output.signals** {{DT_BOOL}} | Add the vehicle signal state to the FCD output (brake lights etc.); *default:* **false** |
 | **--fcd-output.distance** {{DT_BOOL}} | Add kilometrage to the FCD output (linear referencing); *default:* **false** |
 | **--fcd-output.acceleration** {{DT_BOOL}} | Add acceleration to the FCD output; *default:* **false** |
+| **--fcd-output.speed-relative** {{DT_BOOL}} | Add relative speed (vehicle speed / edge speed limit) to the FCD output; *default:* **false** |
 | **--fcd-output.max-leader-distance** {{DT_FLOAT}} | Add leader vehicle information to the FCD output (within the given distance); *default:* **-1** |
 | **--fcd-output.params** {{DT_STR_LIST}} | Add generic parameter values to the FCD output |
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
@@ -235,8 +237,8 @@ configuration:
 | **--railsignal.max-block-length** {{DT_FLOAT}} | Do not build blocks longer than FLOAT and issue a warning instead; *default:* **20000** |
 | **--railsignal.default-classes** {{DT_STR_LIST}} | List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them; *default:* **rail,rail_fast,rail_electric,rail_urban,subway** |
 | **--time-to-impatience** {{DT_TIME}} | Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth; *default:* **180** |
-| **--default.departspeed** {{DT_STR}} | Select default depart speed; *default:* **0** |
-| **--default.departlane** {{DT_STR}} | Select default depart lane; *default:* **first** |
+| **--default.departspeed** {{DT_STR}} | Select default depart speed; *default:* **avg** |
+| **--default.departlane** {{DT_STR}} | Select default depart lane; *default:* **best_prob** |
 | **--default.action-step-length** {{DT_FLOAT}} | Length of the default interval length between action points for the car-following and lane-change models (in seconds). If not specified, the simulation step-length is used per default. Vehicle- or VType-specific settings override the default. Must be a multiple of the simulation step-length.; *default:* **0** |
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class); *default:* **-1** |
@@ -531,6 +533,7 @@ configuration:
 | **--device.taxi.dispatch-keep-unreachable** {{DT_TIME}} | The time before aborting unreachable reservations; *default:* **3600** |
 | **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop,randomCircling,taxistand]; *default:* **stop** |
 | **--device.taxi.idle-algorithm.output** {{DT_FILE}} | Write information from the idling algorithm to FILE |
+| **--device.taxi.vclasses** {{DT_STR_LIST}} | Network permissions that can be accessed by taxis; *default:* **taxi** |
 
 ### Glosa Device
 | Option | Description |
@@ -604,6 +607,7 @@ configuration:
 | **--meso-minor-penalty** {{DT_TIME}} | Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active.; *default:* **0** |
 | **--meso-overtaking** {{DT_BOOL}} | Enable mesoscopic overtaking; *default:* **false** |
 | **--meso-recheck** {{DT_TIME}} | Time interval for rechecking insertion into the next segment after failure; *default:* **0** |
+| **--meso-interpolate-pos** {{DT_BOOL}} | Enable mesoscopic position interpolation; *default:* **false** |
 
 ### Random Number
 

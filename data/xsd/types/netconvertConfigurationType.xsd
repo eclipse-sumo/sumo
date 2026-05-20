@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-28T19:23:48.360090+01:00 by Eclipse SUMO netconvert v1_25_0+1221-39583a3f647
+<!-- generated on 2026-05-20T17:44:54.710995+01:00 by Eclipse SUMO netconvert v1_26_0+1616-c90c1dc4a14
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -181,6 +181,7 @@
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.junctions.type" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.connection-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.connection.cont-pos" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.right-of-way" type="strOptionType" minOccurs="0"/>
@@ -292,6 +293,7 @@
             <xsd:element name="junctions.join.parallel-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-exclude" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-same" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-reset" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.attach-removed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-join-ids" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
@@ -350,9 +352,11 @@
             <xsd:element name="railway.topology.all-bidi" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.all-bidi.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.direction-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.topology.ptline-priority" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.extend-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.geometry.straighten" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.signal.guess.by-stops" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.signal.guess.by-stops.split" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.signal.permit-unsignalized" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-accesses" type="intOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-28T19:23:47.895739+01:00 by Eclipse SUMO duarouter v1_25_0+1221-39583a3f647
+<!-- generated on 2026-05-20T17:44:49.970048+01:00 by Eclipse SUMO duarouter v1_26_0+1616-c90c1dc4a14
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -95,6 +95,7 @@
             <xsd:element name="astar.save-landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="taxi.vclasses" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="gawron.beta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="gawron.a" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-all-routes" type="boolOptionType" minOccurs="0"/>

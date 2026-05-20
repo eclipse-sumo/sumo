@@ -156,6 +156,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--astar.save-landmark-distances** {{DT_FILE}} | Save lookup table for astar ALT-variant to the given file |
 | **--scale** {{DT_FLOAT}} | Scale demand by the given factor (by discarding or duplicating vehicles); *default:* **1** |
 | **--scale-suffix** {{DT_STR}} | Suffix to be added when creating ids for cloned vehicles; *default:* **.** |
+| **--taxi.vclasses** {{DT_STR_LIST}} | Network permissions that can be accessed by taxis; *default:* **taxi** |
 | **--gawron.beta** {{DT_FLOAT}} | Use FLOAT as Gawron's beta; *default:* **0.9** |
 | **--gawron.a** {{DT_FLOAT}} | Use FLOAT as Gawron's a; *default:* **0.5** |
 | **--keep-all-routes** {{DT_BOOL}} | Save routes with near zero probability; *default:* **false** |

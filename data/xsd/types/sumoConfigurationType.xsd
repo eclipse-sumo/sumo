@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-28T19:23:48.907777+01:00 by Eclipse SUMO sumo v1_25_0+1221-39583a3f647
+<!-- generated on 2026-05-20T17:44:57.381492+01:00 by Eclipse SUMO sumo v1_26_0+1616-c90c1dc4a14
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -83,9 +83,11 @@
             <xsd:element name="substations-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.utm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.distance" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.acceleration" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.speed-relative" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.max-leader-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
@@ -512,6 +514,7 @@
             <xsd:element name="device.taxi.dispatch-keep-unreachable" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.idle-algorithm.output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.vclasses" type="strArrayOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -591,6 +594,7 @@
             <xsd:element name="meso-minor-penalty" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-overtaking" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="meso-interpolate-pos" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
