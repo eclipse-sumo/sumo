@@ -145,7 +145,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         myWroteHeader = true;
     }
     bool writeBatch = false;
-    if (myNeedsWrite) {
+    if (myNeedsWrite && (int)myXMLStack.size() == myMaxDepth) {
         if (myCheckColumns && (int)myXMLStack.size() == myMaxDepth && myExpectedAttrs != mySeenAttrs) {
             for (int i = 0; i < (int)myExpectedAttrs.size(); ++i) {
                 if (myExpectedAttrs.test(i) && !mySeenAttrs.test(i)) {
