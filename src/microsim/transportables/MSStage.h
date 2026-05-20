@@ -242,7 +242,7 @@ public:
      * @param[in] previous The previous stage for additional info such as from edge
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming) const = 0;
+    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming, const bool saveState = false) const = 0;
 
     virtual MSStage* clone() const = 0;
 

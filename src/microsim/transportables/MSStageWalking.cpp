@@ -300,7 +300,7 @@ MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const pe
 
 
 void
-MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming) const {
+MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming, const bool saveState) const {
     os.openTag("walk").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {
@@ -338,6 +338,9 @@ MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
     }
     if (OptionsCont::getOptions().getBool("vehroute-output.cost")) {
         os.writeAttr(SUMO_ATTR_COST, getCosts());
+    }
+    if (saveState && getTotalWaitingTime() > 0) {
+        os.writeAttr("waitingTime", time2string(getTotalWaitingTime()));
     }
     os.closeTag(comment);
 }

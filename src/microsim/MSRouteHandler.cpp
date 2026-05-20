@@ -1690,6 +1690,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             MSStageWalking* stage = new MSStageWalking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat, departLane, myActiveRouteID);
             stage->setDeparted(attrs.getOptSUMOTimeReporting(SUMO_ATTR_STARTED, nullptr, ok, -1));
             stage->setEnded(attrs.getOptSUMOTimeReporting(SUMO_ATTR_ENDED, nullptr, ok, -1));
+            stage->setTotalWaitingTime(attrs.getOptSUMOTimeReporting(SUMO_ATTR_WAITINGTIME, nullptr, ok, 0));
             if (attrs.hasAttribute(SUMO_ATTR_EXITTIMES) && OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
                 std::vector<SUMOTime>* exitTimes = new std::vector<SUMOTime>();
                 for (const std::string& tStr : attrs.get<std::vector<std::string> >(SUMO_ATTR_EXITTIMES, nullptr, ok)) {

@@ -128,7 +128,7 @@ MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) c
 
 
 void
-MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool, const MSStage* const /* previous */, const bool withTiming) const {
+MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool, const MSStage* const /* previous */, const bool withTiming, const bool /*saveState*/) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
         os.openTag(SUMO_TAG_STOP);
         std::string comment = "";

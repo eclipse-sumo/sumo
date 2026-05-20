@@ -112,7 +112,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 
 
 void
-MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming) const {
+MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */, const bool withTiming, const bool /*saveState*/) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     std::string comment = "";
     if (myDestinationStop != nullptr) {

@@ -375,7 +375,7 @@ MSStageTrip::getStageSummary(const bool) const {
 }
 
 void
-MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /*withRouteLength*/, const MSStage* const previous, const bool /*withTiming*/) const {
+MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /*withRouteLength*/, const MSStage* const previous, const bool /*withTiming*/, const bool /*saveState*/) const {
     if (myArrived < 0) {
         const bool walkFactorSet = myWalkFactor != OptionsCont::getOptions().getFloat("persontrip.walkfactor");
         const bool groupSet = myGroup != OptionsCont::getOptions().getString("persontrip.default.group");

@@ -89,7 +89,7 @@ MSStageMoving::getWaitingTime() const {
 
 SUMOTime
 MSStageMoving::getTotalWaitingTime() const {
-    return myPState == nullptr ? 0 : myPState->getTotalWaitingTime();
+    return myPState == nullptr ? myLoadedWaitingTime : myPState->getTotalWaitingTime();
 }
 
 double

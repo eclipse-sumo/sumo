@@ -392,7 +392,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 
 void
-MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming) const {
+MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming, const bool /*saveState*/) const {
     os.openTag(isPerson ? SUMO_TAG_RIDE : SUMO_TAG_TRANSPORT);
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());

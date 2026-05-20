@@ -686,7 +686,7 @@ MSTransportable::saveState(OutputDevice& out) {
     for (const MSStage* const stage : *myPlan) {
         const bool routeLength = stage->getDeparted() >= 0 && stage->getStageType() == MSStageType::DRIVING;
         const bool withTiming = stage->getDeparted() >= 0;
-        stage->routeOutput(myAmPerson, out, routeLength, previous, withTiming);
+        stage->routeOutput(myAmPerson, out, routeLength, previous, withTiming, true);
         previous = stage;
     }
     out.closeTag();

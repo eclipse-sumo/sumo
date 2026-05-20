@@ -121,7 +121,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous, const bool withTiming, const bool saveState = false) const;
 
     /// @brief Whether the transportable is walking
     bool isWalk() const {
