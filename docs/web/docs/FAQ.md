@@ -1216,6 +1216,10 @@ If scaling is greater than 100%, a flickering may appear in sumo-gui and netedit
 The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card.
 If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphic card->apply)
 
+### Vehicles flicker while being tracked
+
+Set a higher gui delay to avoid desynchronization of gui and simulation (drawing and simulating run concurrently).
+
 ### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
 
 Install the [Noto Fonts](https://en.wikipedia.org/wiki/Noto_fonts) package for your distribution.
