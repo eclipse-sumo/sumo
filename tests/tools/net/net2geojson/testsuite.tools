@@ -34,3 +34,6 @@ extra_lanes
 
 # write kml edge geometries including edgedata
 edgedata
+
+# write geojson with valid edge and junction boundaries with an self intersecting input
+validity
