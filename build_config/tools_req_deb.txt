@@ -18,3 +18,4 @@ python3-shapely
 python3-termcolor
 python3-xmltodict
 scrot
+tkdiff

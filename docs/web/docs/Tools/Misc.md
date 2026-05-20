@@ -361,7 +361,7 @@ These values have the following meanings:
 This script retrieves background images from ESRI ArcGIS tile servers and other imaging APIs
 such as Google Maps and MapQuest. The simplest usage is to call it with a SUMO
 network file only. It will generate a visualization settings file containing the coordinates which
-can be loaded with sumo-gui or netedit. The most useful options are -t for the
+can be loaded with sumo-gui or netedit. The most useful options are `--reproject` (see below) and `-t` for the
 (maximum) number of tiles to retrieve and -u to give the URL of the tile server. Examples:
 
 - Retrieving data from the public ArcGIS online instance:
@@ -387,7 +387,7 @@ sumo-gui -n test.net.xml -g settings.xml
 
 There are several ways to deal with the incompatibility:
 
-- use [gdalwarp](https://gdal.org/en/stable/programs/gdalwarp.html) to convert the web-mercator tiles to UTM-tiles (recommended)
+- use `--reproject` to convert the web-mercator tiles to UTM-tiles (recommended, this requires the gdal binaries which are part of SUMO under windows and can be install on ubuntu using `apt install gdal-bin`)
 - build your network in web-mercator projection (not recommended because this is a lousy projection and roads will have the wrong lengths!)
 - accept some gaps in your tiles
 
