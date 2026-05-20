@@ -26,6 +26,8 @@ title: ChangeLog
   - Fixed inconsistent behavior of vehicles not stopping in the sublane model when they brake late for not overtaking right #17933
   - Fixed failure when loading routes with edges that have extended ascii characters in their id (also for duarouter) #17935
   - Fixed unsafe insertion at zipper link #17972
+  - Option **--aggregate-warnings** is now working for more kinds of warnings #18015
+  - Fixed crash in scenarios with bidirectional edges #18009, #18013
   - State-Loading:
     - Fixed invalid signal state when loading from saved state and using WAUT #17675
     - Lanechanging state is now restored after loading #2380
@@ -34,6 +36,8 @@ title: ChangeLog
     - Past stops are now present in vehroute output after loading state #17886
     - Fixed superfluous startPos, endPos in vehroute-output after loading state #17888
     - Fixed error when loading state with persons that were saved during an access stage #17896
+    - Fixed invalid number of aborted rides after loading state #18011
+    - Fixed bug where simulation with loaded waiting persons did not terminate #18017
   - Taxis:
     - Fixed invalid estimation of pickup-traveltime during taxi dispatch #17631, #17629
     - Fixed failure to group taxi passengers when the dispatch-period is low #17644    
@@ -75,7 +79,7 @@ title: ChangeLog
   - It is now possible to select edges that belong to a TAZ using selection mode #17701 (regression in 1.22.0)
   - taz mode: clicking edge for membership toggle works again #17697 (regression in 1.23.0)
   - Errors when loading additionals from the command line, are now visible in the message window again #17819 (regression in 1.23.0)
-  - Fixed crash when setting option **--railway.signal.permit-unsignalized** to an invalid value #17983 (regression in 1.23.0)
+  - Fixed crash when setting option **--railway.signal.permit-unsignalized** to an invalid value #17983 (regression in 1.23.0)  
   - python tool dialogs now permit selecting multiple files #17615, #17619 (regression in 1.25.0)
   - Fixed crash when calling python tool and using the 'back' button #17618, #17940 (regression in 1.25.0)  
   - Fixed crash after deleting an object from a group of overlapped objects #17795 (regression in 1.25.0)
@@ -97,6 +101,7 @@ title: ChangeLog
   - Function *split edge* now takes into account current *front element" #17738
   - Fixed crash when adding and deleting lane types #17315
   - Added missing options for netdiff tool #17531
+  - Trips between junctions are now correctly drawn when setting toggle "draw vehicles spread" #17999
 
 
 - netconvert
@@ -160,6 +165,8 @@ title: ChangeLog
   - sumollib.net.getShortestPath: fixed bug where no path was found when a route had to loop back to the starting edge #17759
   - generateStationEdges.py: Fixed invalid output when stops have spaces in their name #17932
   - createScreenshotSequence.py can now handle human-readable time #17964
+  - net2geojson.py now writes valid polygons (i.e. w.r.t orientation) #15295
+
 
 ### Enhancements
 
@@ -241,6 +248,7 @@ title: ChangeLog
   - routeSampler.py: Added option **--keep-attributes** to preserve vehicle attributes loaded from route input including departure time (unless the route of that vehicle is used more than once) #16114
   - routeSampler.py: Added option **--timeline** to interpret loaded data intervals that are longer than the **--interval** time #17863
   - routeSampler.py: Now supports **--mismatch-output** for edgeRelations with `via` #17884
+  - routeSampler: Added option **--merge-strategy** to configure handling of overlaping data sets #17871
   - patchRailConflicts.py: Added option **--split-offset** which splits rail edges before traffic_light junctions if these junctions also have a rail conflict #17740
   - [instantOutDiff.py](Tools/Output.md#instantoutdiffpy): added tool for comparing instantInductionLoop output from two simulation runs #16524
   - [tls_analyzeSplit.py](Tools/tls.md#tls_analyzesplitpy): added tool to analyze green split of static signal plans (or plan-like logs of dynamic plans) #17730
@@ -253,7 +261,9 @@ title: ChangeLog
   - gtfs2pt.py: Added option **--parking-threshold** to remove vehicles from roads/tracks if they have consecutive stops in the same location with a long in-between time #17960
   - [patchRailPriorities.py](Tools/Railways.md#patchrailprioritiespy): added tool to patch edge routingType in rail networks (and optionally add stops and signals) to ensure smooth operations on single track lines with passing loops. This tools works well as a preparatory stage before **gtfs2pt.py** #17766
   - randomTrips.py: Added option **--persontrip.modes** to simplify persontrip definition #16472
-  - randomTrips.py: Added option **--threads** to speed up validatin. Uses half the number of available cpus by default #17980
+  - randomTrips.py: Added option **--threads** to speed up validation. Uses half the number of available cpus by default #17980
+  - addStops2Routes.py: Added option **--length** to define stops that permit a larger valid area for being reached. #18001
+  - addStops2Routes.py: Added options **--edges** to restrict the set of edges used for stopping and option **--color** to change the color of stopping vehicles. #17856
 
 ### Miscellaneous
 
@@ -265,7 +275,8 @@ title: ChangeLog
 - The OpenStreetMap Attribution of OSMWebWizard is no longer hidden behind the sidebar #17743
 - Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
 - The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pdoc documentation.
-
+- The python module SUMOPy by was superseded by hybridPY which extends the functionality and supports python 3 #17365
+- tileget.py now requires the GDAL-binaries instead of the python module #17789
 
 ## Version 1.26.0 (29.01.2026)
 
