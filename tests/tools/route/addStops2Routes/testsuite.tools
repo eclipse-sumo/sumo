@@ -1,5 +1,8 @@
 # tests for adding stops at the end of a route
 basic
+
+# tests for adding stops at selected edges
+edges
 default_type_file
 
 # set stop position
@@ -62,6 +65,3 @@ stationary_trips
 
 # generate routes that start at each parkingArea without input route file
 stationary_noRoutes
-
-# tests for adding stops with a given length
-length
