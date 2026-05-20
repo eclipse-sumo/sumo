@@ -1593,7 +1593,8 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
         int nextDir;
 
         (*in) >> laneID
-              >> myEdgePos >> myPosLat >> myDir >> mySpeed >> mySpeedLat >> myWaitingToEnter >> myWaitingTime
+              >> myEdgePos >> myPosLat >> myDir >> mySpeed >> mySpeedLat >> myWaitingToEnter
+              >> myWaitingTime >> myTotalWaitingTime
               >> wapLaneFrom >> wapLaneTo
               >> myAmJammed
               >> nextLaneID
@@ -1678,6 +1679,7 @@ MSPModel_Striping::PState::saveState(std::ostringstream& out) {
         << " " << mySpeedLat
         << " " << myWaitingToEnter
         << " " << myWaitingTime
+        << " " << myTotalWaitingTime
         << " " << wapLaneFrom
         << " " << wapLaneTo
         << " " << myAmJammed
