@@ -22,6 +22,9 @@ walk_access
 # test riding person
 ride
 
+# test riding person
+ride_stop
+
 # test riding person (saved while waiting for vehicle)
 ride_waiting
 
