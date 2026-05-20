@@ -1020,6 +1020,8 @@
                     <xsd:attribute name="exitTimes" type="xsd:string"/>
                     <xsd:attribute name="started" type="timeTypeWithErrorValue"/>
                     <xsd:attribute name="ended" type="timeTypeWithErrorValue"/>
+                    <!-- save-state  -->
+                    <xsd:attribute name="waitingTime" type="timeType"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="stop" type="stopType"/>
