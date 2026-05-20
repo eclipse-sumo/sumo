@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-20T09:06:08.335782+01:00 by Eclipse SUMO sumo v1_26_0+1678-6b9b3d63f0c
+<!-- generated on 2026-05-20T10:46:43.708645+01:00 by Eclipse SUMO sumo v1_26_0+1682-1c54cb54693
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,7 +34,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1678-6b9b3d63f0c" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_26_0+1682-1c54cb54693" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="1232" routeHandler="6" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="56"/>
         <rngLane index="1" state="2"/>
@@ -123,15 +123,15 @@
         <stop busStop="end_0" until="210.00"/>
     </flowState>
     <transportables type="person" state="3 3 0 0 0 0 0 0 0">
-        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0600" state="262144 3 454000 0 454000 0 end_0 440.48 2.56 -1 1.29612 0 0 0 null null 0 null null null 0">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0600" state="262144 3 454000 0 454000 0 end_0 440.48 2.56 -1 1.29612 0 0 0 0 null null 0 null null null 0">
             <walk edges="beg" busStop="beg_0" exitTimes="189.00" started="0.00" ended="189.00"/>
             <ride from="beg" to="end" busStop="end_0" intended="bus.1" depart="310.00" routeLength="2512.32" vehicle="bus.1" started="328.00" ended="454.00"/>
             <walk edges="end" exitTimes="-1" started="454.00" ended="-1"/>
         </person>
-        <person id="p1" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="0.9383" state="262144 1 0 1 1000 1 1000 middle_0 417.167 1.92 -1 1.15803 0 0 0 null null 0 beg_0 beg_0 middle_0 -1">
+        <person id="p1" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="0.9383" state="262144 1 0 1 1000 1 1000 middle_0 417.167 1.92 -1 1.15803 0 0 0 0 null null 0 beg_0 beg_0 middle_0 -1">
             <walk edges="end middle beg" exitTimes="1.00 -1 -1" started="0.00" ended="-1"/>
         </person>
-        <person id="walker" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0104" state="262144 1 0 1 396000 1 396000 middle_0 130.951 2.56 1 1.29164 0 0 0 null null 0 end_0 middle_0 end_0 1">
+        <person id="walker" type="DEFAULT_PEDTYPE" depart="0.00" speedFactor="1.0104" state="262144 1 0 1 396000 1 396000 middle_0 130.951 2.56 1 1.29164 0 0 0 0 null null 0 end_0 middle_0 end_0 1">
             <walk edges="beg middle end" exitTimes="396.00 -1 -1" started="0.00" ended="-1"/>
         </person>
     </transportables>
