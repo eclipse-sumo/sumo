@@ -387,6 +387,7 @@ if (SUMO_LIBRARIES AND WIN32)
                              "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                             "${GDAL_PATH}/bin/gdal*.exe"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
     endif ()
@@ -703,6 +704,7 @@ if (MSVC)
             FILES_MATCHING
             PATTERN "*.bat"
             PATTERN "*.dll"
+            PATTERN "gdal*.exe"
             PATTERN "*d.dll" EXCLUDE
             PATTERN "*_Debug.dll" EXCLUDE
             PATTERN "gtest*.dll" EXCLUDE)

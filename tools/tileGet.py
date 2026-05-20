@@ -22,6 +22,9 @@ from __future__ import division
 import math
 import os
 import sys
+import json
+import shutil
+import subprocess
 from multiprocessing.pool import Pool
 import signal
 
@@ -33,11 +36,7 @@ except ImportError:
     import urllib
     from urllib2 import HTTPError as urlerror
 
-try:
-    from osgeo import gdal
-    HAVE_GDAL = True
-except ImportError:
-    HAVE_GDAL = False
+HAVE_GDAL = shutil.which("gdalwarp") is not None and shutil.which("gdal_translate") is not None
 
 import sumolib  # noqa
 
@@ -83,60 +82,63 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
+def gdalCmd(*args):
+    """Run a GDAL command line tool, raising on failure."""
+    subprocess.check_call([str(a) for a in args],
+                          stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+
+
+def getGeoTransform(filename):
+    """Return (geotransform, xsize, ysize) of a raster using gdalinfo."""
+    info = json.loads(subprocess.check_output(["gdalinfo", "-json", filename]))
+    return info["geoTransform"], info["size"][0], info["size"][1]
+
+
 def reprojectTiles(options, tile_list, zoom, net, decals):
     """Merge downloaded tiles and reproject from EPSG:3857 to the network projection."""
     R = 6378137.0  # Web Mercator radius
     tile_size_m = 2 * math.pi * R / (2 ** zoom)
-
-    # Assign EPSG:3857 bounds to each tile and copy to vsimem
-    vsimem_paths = []
+    # Assign EPSG:3857 bounds to each tile and write a georeferenced copy
+    tif_paths = []
     for x, y, filename in tile_list:
         x_min = -math.pi * R + x * tile_size_m
         y_max = math.pi * R - y * tile_size_m
-        vpath = '/vsimem/%s_%d_%d.tif' % (options.prefix, x, y)
-        gdal.Translate(vpath, filename,
-                       options=gdal.TranslateOptions(
-                           options="-a_ullr %f %f %f %f -a_srs EPSG:3857" %
-                                   (x_min, y_max, x_min + tile_size_m, y_max - tile_size_m)))
-        vsimem_paths.append(vpath)
-    vrt_path = '/vsimem/%s.vrt' % options.prefix
-    gdal.BuildVRT(vrt_path, vsimem_paths)
-
-    warp_args = {'format': 'MEM', 'dstSRS': net._location["projParameter"], 'resampleAlg': gdal.GRA_Bilinear}
-    # Warp to MEM to get the full geotransform reliably (JPEG has no native georef support)
-    mem_ds = gdal.Warp('', vrt_path, options=gdal.WarpOptions(**warp_args))
+        tpath = os.path.join(options.output_dir, "%s_%d_%d.tif" % (options.prefix, x, y))
+        gdalCmd("gdal_translate", "-a_srs", "EPSG:3857", "-a_ullr",
+                x_min, y_max, x_min + tile_size_m, y_max - tile_size_m, filename, tpath)
+        tif_paths.append(tpath)
+    vrt_path = os.path.join(options.output_dir, options.prefix + ".vrt")
+    gdalCmd("gdalbuildvrt", vrt_path, *tif_paths)
+    warped_path = os.path.join(options.output_dir, options.prefix + "_warped.tif")
+    warp_args = ["-t_srs", net._location["projParameter"], "-r", "bilinear"]
+    # Warp once to get the full geotransform reliably (JPEG has no native georef support)
+    gdalCmd("gdalwarp", "-overwrite", *(warp_args + [vrt_path, warped_path]))
     out_path = os.path.join(options.output_dir, options.prefix + ".jpg")
-    if mem_ds is None:
-        print("Error: reprojection failed.", file=sys.stderr)
-        return
-    gt = mem_ds.GetGeoTransform()
-    w, h = gt[1] * mem_ds.RasterXSize, -gt[5] * mem_ds.RasterYSize
+    gt, xsize, ysize = getGeoTransform(warped_path)
+    w, h = gt[1] * xsize, -gt[5] * ysize
     if options.crop_margin:
         m = list(map(float, options.crop_margin.split(",")))
         if len(m) == 1:
             m = 4 * m
-        warp_args['outputBounds'] = (gt[0] + m[0], gt[3] - h + m[1], gt[0] + w - m[2], gt[3] - m[3])
-        mem_ds = gdal.Warp('', vrt_path, options=gdal.WarpOptions(**warp_args))
-        gt = mem_ds.GetGeoTransform()
-        w, h = gt[1] * mem_ds.RasterXSize, -gt[5] * mem_ds.RasterYSize
-    if mem_ds is None or gdal.Translate(out_path, mem_ds, format='JPEG') is None:
-        print("Error: reprojection failed.", file=sys.stderr)
-    else:
-        mem_ds = None
-        if options.background_factor != 1.0:
-            from PIL import Image, ImageEnhance
-            img = Image.open(out_path)
-            for Enhancer in (ImageEnhance.Color, ImageEnhance.Brightness, ImageEnhance.Contrast):
-                img = Enhancer(img).enhance(options.background_factor)
-            img.save(out_path)
-        center_x = gt[0] + w / 2 + net.getLocationOffset()[0]
-        center_y = gt[3] - h / 2 + net.getLocationOffset()[1]
-        print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
-              (os.path.basename(out_path), center_x, center_y, w, h, options.layer), file=decals)
-
-    for vpath in vsimem_paths:
-        gdal.Unlink(vpath)
-    gdal.Unlink(vrt_path)
+        warp_args += ["-te", gt[0] + m[0], gt[3] - h + m[1], gt[0] + w - m[2], gt[3] - m[3]]
+        gdalCmd("gdalwarp", "-overwrite", *(warp_args + [vrt_path, warped_path]))
+        gt, xsize, ysize = getGeoTransform(warped_path)
+        w, h = gt[1] * xsize, -gt[5] * ysize
+    gdalCmd("gdal_translate", "-of", "JPEG", warped_path, out_path)
+    if options.background_factor != 1.0:
+        from PIL import Image, ImageEnhance
+        img = Image.open(out_path)
+        for Enhancer in (ImageEnhance.Color, ImageEnhance.Brightness, ImageEnhance.Contrast):
+            img = Enhancer(img).enhance(options.background_factor)
+        img.save(out_path)
+    center_x = gt[0] + w / 2 + net.getLocationOffset()[0]
+    center_y = gt[3] - h / 2 + net.getLocationOffset()[1]
+    print('    <decal file="%s" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+          (os.path.basename(out_path), center_x, center_y, w, h, options.layer), file=decals)
+    for tpath in tif_paths:
+        os.unlink(tpath)
+    os.unlink(vrt_path)
+    os.unlink(warped_path)
     for x, y, filename in tile_list:
         os.unlink(filename)
 
@@ -294,8 +296,8 @@ def get_options(args=None):
         if south > north or west > east:
             optParser.error("Invalid geocoordinates in bbox.")
     if options.reproject and not HAVE_GDAL:
-        print("Warning: --reproject requested but osgeo.gdal is not available, falling back to unprojected tiles.",
-              file=sys.stderr)
+        print("Warning: --reproject requested but the GDAL binaries are not available, "
+              "falling back to unprojected tiles.", file=sys.stderr)
         options.reproject = False
     return options
 

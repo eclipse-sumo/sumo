@@ -1,8 +1,8 @@
 flake8
+gdal-bin
 python3-autopep8
 python3-ezdxf
 python3-flake8
-python3-gdal
 python3-git
 python3-lark
 python3-opencv
