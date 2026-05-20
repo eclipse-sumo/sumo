@@ -454,7 +454,7 @@ void
 MSTransportableControl::saveState(OutputDevice& out) {
     std::ostringstream oss;
     oss << myRunningNumber << " " << myLoadedNumber << " " << myEndedNumber << " " << myWaitingForDepartureNumber << " " << myArrivedNumber << " " << myDiscardedNumber;
-    oss << " " << myJammedNumber << " " << myWaitingForVehicleNumber << " " << myWaitingUntilNumber << " " << myHaveNewWaiting;
+    oss << " " << myJammedNumber << " " << myWaitingForVehicleNumber << " " << myHaveNewWaiting;
     out.writeAttr(SUMO_ATTR_STATE, oss.str());
     for (const auto& it : myTransportables) {
         it.second->saveState(out);
@@ -466,7 +466,7 @@ void
 MSTransportableControl::loadState(const std::string& state) {
     std::istringstream iss(state);
     iss >> myRunningNumber >> myLoadedNumber >> myEndedNumber >> myWaitingForDepartureNumber >> myArrivedNumber >> myDiscardedNumber;
-    iss >> myJammedNumber >> myWaitingForVehicleNumber >> myWaitingUntilNumber >> myHaveNewWaiting;
+    iss >> myJammedNumber >> myWaitingForVehicleNumber >> myHaveNewWaiting;
 }
 
 void
