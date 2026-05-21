@@ -139,6 +139,15 @@ jobs:
         echo wheel=$WHEEL
         python -m pip install $WHEEL
 
+    - name: Verify wheel binary signatures
+      if: runner.os == 'macOS'
+      shell: bash
+      run: |
+        for f in $(find "libsumo_testenv" -name "*.so" -o -name "*.dylib"); do
+          echo "Checking: $f"
+          codesign --verify --strict --verbose=2 "$f" || exit 1
+        done
+
     - name: Running libsumo tests
       shell: bash
       run: |
