@@ -133,6 +133,10 @@ public:
         myCheckColumns = expected.any();
     }
 
+    void setWriteEmpty(const bool writeEmpty) {
+        myWriteEmpty = writeEmpty;
+    }
+
 private:
     inline const std::string getAttrString(const std::string& attrString) {
         if (myHeaderFormat == "plain") {
@@ -220,6 +224,9 @@ private:
 
     /// @brief whether there is still unwritten data
     bool myNeedsWrite = false;
+
+    /// @brief whether to write rows for timesteps with no vehicles (null-filled)
+    bool myWriteEmpty = false;
 
     /// @brief the attributes which are expected for a complete row (including null values)
     SumoXMLAttrMask myExpectedAttrs;

@@ -376,6 +376,10 @@ public:
         myFormatter->setExpectedAttributes(expected, depth);
     }
 
+    void setWriteEmpty(const bool writeEmpty) {
+        myFormatter->setWriteEmpty(writeEmpty);
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;

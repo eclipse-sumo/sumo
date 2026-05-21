@@ -250,7 +250,9 @@ MSDevice_FCD::initOnce() {
         myShapeFilterDesired = true;
         buildShapeFilter();
     }
-    OutputDevice::getDeviceByOption("fcd-output").setExpectedAttributes(all ? 0 : myWrittenAttributes);
+    OutputDevice& fcdDevice = OutputDevice::getDeviceByOption("fcd-output");
+    fcdDevice.setExpectedAttributes(all ? 0 : myWrittenAttributes);
+    fcdDevice.setWriteEmpty(oc.getBool("fcd-output.write-empty"));
 }
 
 

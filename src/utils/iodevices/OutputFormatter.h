@@ -163,6 +163,10 @@ public:
         UNUSED_PARAMETER(depth);
     }
 
+    virtual void setWriteEmpty(const bool writeEmpty) {
+        UNUSED_PARAMETER(writeEmpty);
+    }
+
 private:
     /// @brief the type of formatter being used (XML, CSV, Parquet, etc.)
     const OutputFormatterType myType;

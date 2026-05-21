@@ -187,6 +187,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.attributes", "Output", TL("List attributes that should be included in the FCD output"));
     oc.doRegister("fcd-output.filter-shapes", new Option_StringVector());
     oc.addDescription("fcd-output.filter-shapes", "Output", TL("List shape names that should be used to filter the FCD output"));
+    oc.doRegister("fcd-output.write-empty", new Option_Bool(false));
+    oc.addDescription("fcd-output.write-empty", "Output", TL("Write null rows for timesteps with no vehicles in the FCD output (Parquet only)"));
 
     oc.doRegister("person-fcd-output", new Option_FileName());
     oc.addSynonyme("person-fcd-output", "person-fcd");
