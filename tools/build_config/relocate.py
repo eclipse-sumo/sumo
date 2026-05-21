@@ -56,6 +56,7 @@ def fix_links_and_strip(binaries, lib_dir_prefix):
                     set_install_name(bin, lib, lib.replace(".dylibs", "../sumo_data/.libs"))
         lib_dir = os.path.join(lib_dir_prefix, ".dylibs")
         subprocess.check_call(["strip", "-S", "-x"] + binaries + glob.glob(lib_dir + "/*"))
+        subprocess.check_call(["codesign", "--force", "--sign", "-"] + binaries + glob.glob(lib_dir + "/*"))
     else:
         for bin in binaries:
             subprocess.check_call(["patchelf", "--force-rpath", "--add-rpath",
