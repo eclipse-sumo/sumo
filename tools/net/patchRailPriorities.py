@@ -35,6 +35,7 @@ import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
 import sumolib.geomhelper as gh  # noqa
 from sumolib.net import lane2edge  # noqa
+from sumolib.miscutils import openz  # noqa
 from createOvertakingReroutes import parseRoutes, findSwitches, findSidings, filterSidings  # noqa
 
 try:
@@ -176,7 +177,7 @@ def writePatches(options, net, sidings, edgeUsage, signalNodes):
                 rTypes2[b.getID()] = rtMain if rt == rtSiding else rtSiding
     rTypes.update(rTypes2)
 
-    with open(options.edges_file, 'w') as outf:
+    with openz(options.edges_file, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edges", schemaPath="edgediff_file.xsd", options=options)
         for eid in sorted(rTypes.keys()):
             routingType = rTypes[eid]
@@ -185,7 +186,7 @@ def writePatches(options, net, sidings, edgeUsage, signalNodes):
         outf.write("</edges>\n")
 
     if signalNodes:
-        with open(options.nodes_file, 'w') as outf, open(options.connections_file, 'w') as outf2:
+        with openz(options.nodes_file, 'w') as outf, openz(options.connections_file, 'w') as outf2:
             sumolib.writeXMLHeader(outf, "$Id$", "nodes", options=options)
             sumolib.writeXMLHeader(outf2, "$Id$", "connections", options=options)
 
@@ -245,7 +246,7 @@ def writeStops(options, net, sidings, stopIDs, stops):
                 if e in stops:
                     sidingDict[e].add(siding)
 
-        with open(options.stopOutput, 'w') as outf:
+        with openz(options.stopOutput, 'w') as outf:
             sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
             # copy existing stops
             for stopsOnEdge in stops.values():
