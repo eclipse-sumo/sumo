@@ -23,3 +23,8 @@ LATEST=$(curl -s $BASE_URL/sumo/daily/ | \
   sed "s/href='//;s/'//" | \
   sort -V | tail -n1)
 curl --no-progress-meter --remote-time -o $OUT_DIR/$(basename $LATEST) $BASE_URL$LATEST
+LATEST_RELEASE=$(curl -s $BASE_URL/sumo/daily/ | \
+  grep -oE "href='(/sumo/daily/sumo-[0-9][^']+\.pkg)'" | \
+  sed "s/href='//;s/'//" | \
+  sort -V | tail -n1)
+curl --no-progress-meter --remote-time -o $OUT_DIR/$(basename $LATEST_RELEASE) $BASE_URL$LATEST_RELEASE
