@@ -467,6 +467,49 @@ GUINet::setIdleDuration(int val) {
 }
 
 
+void
+GUINet::incrementStepCounter() {
+    ++myStepsSinceLastRender;
+}
+
+
+void
+GUINet::updateSkippedSteps() {
+    // exchange(0) atomically reads the counter and resets it; subtract 1 because one step
+    // per render is expected (the "current" one); anything beyond that was skipped
+    myLastSkippedSteps = std::max(0, myStepsSinceLastRender.exchange(0) - 1);
+    myTotalRenders++;
+    myTotalSkippedSteps += myLastSkippedSteps;
+}
+
+
+const std::string
+GUINet::generateStatistics(const SUMOTime start, const long now) {
+    std::string result = MSNet::generateStatistics(start, now);
+    if (myTotalRenders > 0) {
+        const long duration = now - mySimBeginMillis;
+        const double avgFrameMs = duration > 0 ? (double)duration / (double)myTotalRenders : 0.;
+        const long totalSteps = myTotalRenders + myTotalSkippedSteps;
+        const double avgSkipRate = (double)myTotalSkippedSteps / (double)totalSteps;
+        std::ostringstream msg;
+        msg.setf(std::ios::fixed, std::ios::floatfield);
+        msg.setf(std::ios::showpoint);
+        msg << "\nGUI:\n"
+            << " Avg. frame time [ms]: " << avgFrameMs << "\n"
+            << " Avg. skip rate: " << avgSkipRate;
+        result += msg.str();
+    }
+    return result;
+}
+
+
+double
+GUINet::getSkipRate() const {
+    // skipped / (skipped + 1 rendered) — matches the frontend's skip% definition
+    return myLastSkippedSteps > 0 ? (double)myLastSkippedSteps / (myLastSkippedSteps + 1) : 0.;
+}
+
+
 GUIGLObjectPopupMenu*
 GUINet::getPopUpMenu(GUIMainWindow& app,
                      GUISUMOAbstractView& parent) {
@@ -540,6 +583,7 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 */
         ret->mkItem(TL("updates per second"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getUPS));
         ret->mkItem(TL("avg. updates per second"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getMeanUPS));
+        ret->mkItem(TL("skip rate []"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getSkipRate));
     }
     if (OptionsCont::getOptions().isSet("tripinfo-output") || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         ret->mkItem(TL("avg. trip length [m]"), true, new FunctionBinding<GUINet, double>(this, &GUINet::getAvgRouteLength));

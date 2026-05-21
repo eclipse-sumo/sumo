@@ -286,7 +286,7 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    const std::string generateStatistics(const SUMOTime start, const long now);
+    virtual const std::string generateStatistics(const SUMOTime start, const long now);
 
     /// @brief write collision output to (xml) file
     void writeCollisions() const;

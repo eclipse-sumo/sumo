@@ -346,6 +346,7 @@ GUIViewTraffic::centerTo(GUIGlID id, bool applyZoom, double zoomDist) {
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
+    GUINet::getGUIInstance()->updateSkippedSteps();
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);

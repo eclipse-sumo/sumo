@@ -194,6 +194,7 @@ GUIRunThread::makeStep() {
         myNet->simulationStep();
         myNet->guiSimulationStep();
         mySimulationLock.unlock();
+        myNet->incrementStepCounter();
 
         // inform parent that a step has been performed
         e = new GUIEvent_SimulationStep();

@@ -22,6 +22,7 @@
 #pragma once
 #include <config.h>
 
+#include <atomic>
 #include <string>
 #include <utility>
 #include <microsim/MSNet.h>
@@ -202,6 +203,19 @@ public:
     /// Sets the duration of the last step's idle part
     void setIdleDuration(int val);
     //}
+
+    /// Called by the simulation thread after each simulationStep() to record a step occurred
+    void incrementStepCounter();
+
+    /// Called by the render thread at the start of each doPaintGL(); reads and resets the
+    /// step counter and stores (counter - 1) as the number of steps skipped since last render
+    void updateSkippedSteps();
+
+    /// Returns the fraction of simulation steps not rendered (0 = every step shown, 1 = all skipped)
+    double getSkipRate() const;
+
+    /// @brief Appends GUI-specific stats (avg. FPS, avg. skip rate) to the base statistics string
+    const std::string generateStatistics(const SUMOTime start, const long now) override;
 
     double getAvgRouteLength() const {
         return MSDevice_Tripinfo::getAvgRouteLength();
@@ -408,6 +422,14 @@ protected:
 
     /// @brief The step durations (simulation, /*visualisation, */idle)
     int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;
+
+    /// @brief Simulation steps completed since the last doPaintGL call (written by sim thread)
+    std::atomic<int> myStepsSinceLastRender{0};
+    /// @brief Steps skipped between the last two renders (written+read by render thread only)
+    int myLastSkippedSteps = 0;
+    /// @brief Run-wide render count and skipped-step total for end-of-run statistics
+    long myTotalRenders = 0;
+    long myTotalSkippedSteps = 0;
 
     long myLastVehicleMovementCount, myOverallVehicleCount;
     long myOverallSimDuration;
