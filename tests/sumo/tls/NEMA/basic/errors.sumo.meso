@@ -1,1 +1,5 @@
-Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback.
+Warning: Traffic light type 'NEMA' cannot be used in mesoscopic simulation. Using 'static' as fallback.
+Warning: Missing yellow phase in tlLogic '2881', program 'NEMA' for tl-index 7 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic '2881', program 'NEMA' for tl-index 9 when switching to phase 2.
+Warning: Missing yellow phase in tlLogic '2881', program 'NEMA' for tl-index 1 when switching to phase 3.
+Warning: Missing yellow phase in tlLogic '2881', program 'NEMA' for tl-index 5 when switching to phase 0.
