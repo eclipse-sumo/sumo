@@ -129,11 +129,17 @@ public:
      */
     virtual bool isStopped() const = 0;
 
-    /** @brief Returns the edge the object is currently at
+    /** @brief Returns the (normal) route edge the object is currently at
      *
      * @return The current edge in the object's route
      */
     virtual const MSEdge* getEdge() const = 0;
+
+    /** @brief Returns the edge (normal or internal) the object is currently at
+     *
+     * @return The edge which the object is currently on
+     */
+    virtual const MSEdge* getCurrentEdge() const = 0;
 
     /// @brief returns the next edge (possibly an internal edge)
     virtual const MSEdge* getNextEdgePtr() const = 0;

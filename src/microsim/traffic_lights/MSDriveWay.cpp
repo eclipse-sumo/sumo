@@ -143,11 +143,11 @@ MSDriveWay::clearState() {
 bool
 MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_MOVEREMINDER
-    std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << (MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : Named::getIDSecure(enteredLane)) << " reason=" << reason << "\n";
+    std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << (MSGlobals::gUseMesoSim ? veh.getCurrentEdge()->getID() : Named::getIDSecure(enteredLane)) << " reason=" << reason << "\n";
 #endif
 
     if (veh.isVehicle() && MSRailSignalControl::isUsingDriveWays(veh.getVClass())) {
-        if ((enteredLane == myLane || (MSGlobals::gUseMesoSim && veh.getEdge() == &myLane->getEdge()))
+        if ((enteredLane == myLane || (MSGlobals::gUseMesoSim && veh.getCurrentEdge() == &myLane->getEdge()))
                 && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
             SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
             MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());

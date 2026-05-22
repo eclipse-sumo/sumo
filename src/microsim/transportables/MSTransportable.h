@@ -187,6 +187,8 @@ public:
         return (*myStep)->getEdge();
     }
 
+    const MSEdge* getCurrentEdge() const override;
+
     /// @brief Returns the current lane (may be nullptr)
     const MSLane* getLane() const override {
         return (*myStep)->getLane();
