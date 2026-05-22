@@ -4,6 +4,9 @@ spec
 # handling of basic structures
 basic
 
+# tests for the traffic lights subsystem
+tls
+
 # output tests
 output
 
