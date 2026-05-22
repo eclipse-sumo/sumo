@@ -51,6 +51,7 @@ bool MSDevice_FCD::myEdgeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterDesired(false);
 SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes;
+bool MSDevice_FCD::myWriteEmpty;
 
 
 // ===========================================================================
@@ -250,9 +251,10 @@ MSDevice_FCD::initOnce() {
         myShapeFilterDesired = true;
         buildShapeFilter();
     }
+    myWriteEmpty = oc.getBool("fcd-output.write-empty");
     OutputDevice& fcdDevice = OutputDevice::getDeviceByOption("fcd-output");
     fcdDevice.setExpectedAttributes(all ? 0 : myWrittenAttributes);
-    fcdDevice.setWriteEmpty(oc.getBool("fcd-output.write-empty"));
+    fcdDevice.setWriteEmpty(myWriteEmpty);
 }
 
 
@@ -264,6 +266,7 @@ MSDevice_FCD::cleanup() {
     myShapeFilterInitialized = false;
     myShapeFilterDesired = false;
     myWrittenAttributes.reset();
+    myWriteEmpty = false;
 }
 
 

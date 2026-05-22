@@ -80,12 +80,23 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
         }
     }
 
-    of.openTag("timestep").writeTime(SUMO_ATTR_TIME, timestep);
+    const bool writeEmpty = MSDevice_FCD::writeEmpty();
+    bool wroteTimestep = false;
+    auto openTimestep = [&]() {
+        if (!wroteTimestep) {
+            of.openTag("timestep").writeTime(SUMO_ATTR_TIME, timestep);
+            wroteTimestep = true;
+        }
+    };
+    if (writeEmpty) {
+        openTimestep();
+    }
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* const veh = it->second;
         if (isVisible(veh)) {
             const bool hasOutput = (tag == SUMO_TAG_NOTHING || tag == SUMO_TAG_VEHICLE) && hasOwnOutput(veh, filter, shapeFilter, (radius > 0 && inRadius.count(veh) > 0));
             if (hasOutput) {
+                openTimestep();
                 const MSVehicle* const microVeh = MSGlobals::gUseMesoSim ? nullptr : static_cast<const MSVehicle*>(veh);
                 Position pos = veh->getPosition();
                 if (useGeo) {
@@ -238,9 +249,15 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
             if (tag == SUMO_TAG_NOTHING || tag == SUMO_TAG_PERSON) {
                 const MSEdge* edge = MSGlobals::gUseMesoSim ? veh->getEdge() : &veh->getLane()->getEdge();
                 for (const MSTransportable* const person : veh->getPersons()) {
+                    if (hasOwnOutput(person, filter, shapeFilter, inRadius.count(person) > 0)) {
+                        openTimestep();
+                    }
                     writeTransportable(of, edge, person, veh, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
                 }
                 for (const MSTransportable* const container : veh->getContainers()) {
+                    if (hasOwnOutput(container, filter, shapeFilter, inRadius.count(container) > 0)) {
+                        openTimestep();
+                    }
                     writeTransportable(of, edge, container, veh, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
                 }
             }
@@ -254,6 +271,9 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     continue;
                 }
                 for (const MSTransportable* const person : e->getSortedPersons(timestep)) {
+                    if (hasOwnOutput(person, filter, shapeFilter, inRadius.count(person) > 0)) {
+                        openTimestep();
+                    }
                     writeTransportable(of, e, person, nullptr, filter, shapeFilter, inRadius.count(person) > 0, SUMO_TAG_PERSON, useGeo, mask);
                 }
             }
@@ -265,12 +285,17 @@ MSFCDExport::write(OutputDevice& of, const SUMOTime timestep, const SumoXMLTag t
                     continue;
                 }
                 for (MSTransportable* container : e->getSortedContainers(timestep)) {
+                    if (hasOwnOutput(container, filter, shapeFilter, inRadius.count(container) > 0)) {
+                        openTimestep();
+                    }
                     writeTransportable(of, e, container, nullptr, filter, shapeFilter, inRadius.count(container) > 0, SUMO_TAG_CONTAINER, useGeo, mask);
                 }
             }
         }
     }
-    of.closeTag();
+    if (wroteTimestep) {
+        of.closeTag();
+    }
 }
 
 

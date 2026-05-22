@@ -129,6 +129,10 @@ public:
         return myShapeFilterDesired;
     }
 
+    static inline bool writeEmpty() {
+        return myWriteEmpty;
+    }
+
 private:
     /** @brief Constructor
      *
@@ -157,6 +161,7 @@ private:
 
     /// @brief bit mask for checking attributes to be written
     static SumoXMLAttrMask myWrittenAttributes;
+    static bool myWriteEmpty;
     static SumoXMLAttrMask getDefaultMask();
 
 private:
