@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.414621+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-05-22T11:33:13.345145+01:00 by Eclipse SUMO sumo v1_27_0+0010-ad0de344202
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,6 +13,10 @@
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
     </output>
+
+    <processing>
+        <railsignal.default-classes value="taxi"/>
+    </processing>
 
     <routing>
         <persontrip.transfer.taxi-walk value="ptStops"/>
@@ -38,12 +42,17 @@
 <railsignal-vehicle-output>
     <railSignal id="J2">
         <link linkIndex="0" from="E1_0" to=":J2_0_0">
-            <driveWay id="J2.0"/>
+            <driveWay id="J2.0">
+                <entry id="t_0" time="15.00" reason="junction"/>
+                <exit id="t_0" time="43.00" reason="junction"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="J6">
         <link linkIndex="0" from="E5_0" to=":J6_0_0">
-            <driveWay id="J6.0"/>
+            <driveWay id="J6.0">
+                <entry id="t_0" time="43.00" reason="junction"/>
+            </driveWay>
         </link>
     </railSignal>
     <departJunction id="J0">
