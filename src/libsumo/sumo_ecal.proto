@@ -1,0 +1,242 @@
+syntax = "proto3";
+package sumo;
+
+message Vehicle {
+  string              id         = 1;
+  double              x          = 2;
+  double              y          = 3;
+  float               speed      = 4;
+  float               angle      = 5;
+  string              type_id    = 6;
+  map<string, double> attributes = 7;
+  float               length     = 8;  // type length in metres (cached per type_id)
+  float               width      = 9;  // type width in metres  (cached per type_id)
+  string              gui_shape  = 10; // traci vehicletype shape class, e.g. "passenger", "truck"
+}
+
+message MobileAgent {
+  string id      = 1;
+  double x       = 2;
+  double y       = 3;
+  float  angle   = 4;
+  string type_id = 5;
+}
+
+message SimStep {
+  int64                time_ms    = 1;
+  repeated Vehicle     vehicles   = 2;
+  repeated MobileAgent persons    = 3;
+  repeated MobileAgent containers = 4;
+}
+
+message TLSPhase {
+  string id    = 1;
+  string state = 2;
+}
+
+message TLSUpdate {
+  int64             time_ms = 1;
+  repeated TLSPhase lights  = 2;
+}
+
+message NetworkData {
+  bool   geo_referenced = 2;
+  string cache_path     = 3;
+}
+
+message TlsEntry {
+  string id       = 1;
+  string tls      = 2;
+  int32  tl_index = 3;
+}
+
+message NetworkGeometry {
+  uint32          version            = 17; // incremented on incompatible format changes
+  bool            geo_referenced     = 1;
+  bytes           junction_starts    = 4;  // u32[] LE — cumulative vertex index per junction polygon
+  bytes           junction_positions = 9;  // f64[] LE — [x0,y0,...] all junction polygon vertices
+  bytes           tls_positions      = 5;  // f64[] LE — [x1,y1,x2,y2] per TLS bar
+  repeated string edge_ids           = 6;
+  repeated string junction_ids       = 7;
+  repeated TlsEntry tls_entries      = 8;
+  string          proj_parameter     = 10; // proj4 string from <location>, empty if not geo-referenced
+  string          net_offset         = 11; // "x,y" offset from <location>
+  bytes           lane_starts        = 12; // u32[] LE — cumulative vertex index per lane
+  bytes           lane_positions     = 13; // f64[] LE — [x0,y0,x1,y1,...] all lane centerlines
+  bytes           lane_widths        = 14; // f32[] LE — width in metres per lane
+  bytes           lane_edge_indices  = 15; // u32[] LE — index into edge_ids per lane
+  repeated string lane_ids           = 16;
+
+  // Lane markings (computed from sumolib geometry, already converted to final coords)
+  bytes           solid_marking_starts     = 18; // u32[] LE — cumulative vertex index per solid line
+  bytes           solid_marking_positions  = 19; // f64[] LE — [x0,y0,...] solid marking vertices
+  bytes           dashed_marking_starts    = 20; // u32[] LE — cumulative vertex index per dashed line
+  bytes           dashed_marking_positions = 21; // f64[] LE — [x0,y0,...] dashed marking vertices
+
+  // Turning arrows — one byte per lane, bit-field of allowed directions:
+  //   bit 0 (1)  = straight (s)    bit 1 (2)  = left (l)
+  //   bit 2 (4)  = right (r)       bit 3 (8)  = u-turn (t)
+  //   bit 4 (16) = partial-left (L) bit 5 (32) = partial-right (R)
+  bytes           lane_arrow_directions    = 22; // u8[]  LE — one byte per lane
+
+  // Lane permission class — one byte per lane:
+  //   0 = pedestrian/other  1 = bicycle only  2 = motorised (passenger/bus/truck/…)
+  bytes           lane_perm_class          = 23; // u8[]  LE — one byte per lane
+}
+
+message EdgeData {
+  string              id         = 1;
+  map<string, double> attributes = 2;
+}
+
+message EdgeDataUpdate {
+  int64             time_ms       = 1;
+  repeated EdgeData edges         = 2;
+  bool              full_snapshot = 3;  // true = initial all-edges baseline; false = occupied-only delta
+}
+
+// ---------------------------------------------------------------------------
+// Service: sumo_control
+// ---------------------------------------------------------------------------
+
+message CommandAck {
+  bool   ok    = 1;
+  string error = 2;
+}
+
+message SetDelayRequest  { int32 delay_ms = 1; }
+message PauseRequest     {}
+message ResumeRequest    {}
+message StepRequest      {}
+message GetStateRequest  {}
+message GetStateResponse {
+  int32  delay_ms              = 1;
+  bool   paused                = 2;
+  string sumocfg_path          = 3;
+  int32  step_interval_current = 4;
+  bool   step_at_min_bound     = 5;
+  bool   step_at_max_bound     = 6;
+  string network_cache_path    = 7; // path to .ecaldeck file; empty if no network loaded
+  bool   simulation_ready      = 8; // true only after libsumo has finished loading and the step loop is running
+  bool   benchmark             = 9; // true when publisher was started with --benchmark
+}
+
+message GetAttributesRequest  {}
+message GetAttributesResponse {
+  repeated string vehicle_available = 1;
+  repeated string vehicle_enabled   = 2;
+  repeated string edge_available    = 3;
+  repeated string edge_enabled      = 4;
+}
+
+message SetAttributesRequest {
+  repeated string vehicle_attributes = 1;
+  repeated string edge_attributes    = 2;
+}
+
+message SetStepConfigRequest {
+  int32 interval_min = 1;  // minimum steps between publishes (default 1)
+  int32 interval_max = 2;  // maximum steps (default 10)
+  bool  autotune     = 3;  // auto-tune within [min, max] to keep overhead <= 1.5× no-GUI baseline (≤ 33% of step time)
+}
+
+message LoadRequest { string sumocfg_path = 1; }
+
+message LogMessage {
+  int64  time_ms = 1;
+  string level   = 2;  // INFO, WARNING, ERROR
+  string text    = 3;
+}
+
+message ListDirRequest  { string path = 1; }
+message ListDirResponse {
+  string          path  = 1;
+  repeated string dirs  = 2;
+  repeated string files = 3;
+  string          error = 4;
+}
+
+message GetVehicleInfoRequest  { string id = 1; }
+message GetVehicleInfoResponse {
+  string              type_id     = 1;
+  string              route_id    = 2;
+  string              lane_id     = 3;
+  double              lane_pos    = 4;
+  repeated string     route_edges = 5;
+  map<string, double> attributes  = 6;
+}
+
+message GetEdgeInfoRequest  { string id = 1; }
+message GetEdgeInfoResponse {
+  double          mean_speed    = 1;
+  int32           vehicle_count = 2;
+  int32           halting_count = 3;
+  double          occupancy     = 4;
+  double          waiting_time  = 5;
+  repeated string vehicle_ids   = 6;
+}
+
+// Agent type dimension table (vehicles, persons, containers share one stable registry).
+// Published once on load and whenever a new type_id is encountered.
+// Bridge caches and replays to new WebSocket clients (like the network frame).
+// Type indices are stable (insertion-order): each type_id receives a permanent index
+// when first encountered; existing indices never shift when new types are added.
+message VehicleTypeDict {
+  uint32 type_count    = 1;
+  bytes  type_id_block = 2;  // null-terminated UTF-8: type_count type IDs
+  bytes  type_lengths  = 3;  // f32[type_count] LE: metres
+  bytes  type_widths   = 4;  // f32[type_count] LE: metres
+  bytes  type_shapes   = 5;  // null-terminated UTF-8: type_count SUMO gui_shape strings
+  bytes  type_classes  = 6;  // u8[type_count]: 0=vehicle, 1=person, 2=container
+}
+
+// High-frequency binary simulation snapshot — replaces SimStep / repeated Vehicle.
+// All numeric arrays are little-endian typed arrays packed into bytes fields.
+// Attribute value arrays are column-major: attr0[0..N-1], attr1[0..N-1], ...
+// Attribute order matches ctrl["vehicle_attributes"] (= vehicle_enabled in GetAttributesResponse).
+message ReportFrontendStatsRequest {
+  double avg_frame_ms = 1;  // average time between rAF callbacks (ms)
+  double skip_rate    = 2;  // fraction of SimStep frames dropped (0–1)
+  int32  frames       = 3;  // total rAF frames rendered
+}
+
+// Unified high-frequency simulation snapshot — replaces SimBin + EdgeBin on a
+// single topic (sumo/simstep).  Field 1 is `edge_full_snapshot` so the wire
+// encoding starts with either 0x08 0x01 (snapshot) or 0x08 0x00 (normal),
+// letting the bridge cache snapshot frames for late joiners without parsing
+// the message.
+//
+// All numeric arrays are little-endian typed arrays packed into bytes fields.
+// Attribute value arrays are column-major: attr0[0..N-1], attr1[0..N-1], ...
+// Attribute order matches ctrl["vehicle_attributes"] / ctrl["edge_attributes"]
+// (= vehicle_enabled / edge_enabled in GetAttributesResponse).
+message SimStepBin {
+  bool   edge_full_snapshot = 1;   // true = all-edges baseline; false = occupied-only delta
+  int64  time_ms            = 2;
+  uint32 seq_num            = 3;   // publisher-side counter, incremented per frame sent; gaps = dropped
+
+  // --- vehicle section ---
+  uint32 veh_count          = 4;
+  uint32 veh_attr_count     = 5;   // K_v
+  bytes  veh_positions      = 6;   // f64[N×3] LE: [x,y,z=0, x,y,z=0, ...]
+  //   3 components so deck.gl SimpleMeshLayer can use the bytes as a zero-copy
+  //   size=3 Float64Array without expansion. z=0 now; road elevation later.
+  bytes  veh_angles         = 7;   // f32[N] LE: SUMO degrees (0=north, CW); frontend negates for deck.gl yaw
+  bytes  veh_speeds         = 8;   // f32[N] LE
+  bytes  veh_attr_vals      = 9;   // f32[N×K_v] LE column-major
+  bytes  vehicle_ids        = 10;  // null-terminated UTF-8
+  bytes  veh_type_indices   = 11;  // u32[N] LE: index into VehicleTypeDict
+
+  // --- mobile agent section (persons + containers) ---
+  uint32 agent_count        = 12;
+  bytes  agent_positions    = 13;  // f64[A×3] LE: [x,y,z=0, ...]
+  bytes  agent_angles       = 14;  // f32[A] LE
+  bytes  agent_ids          = 15;  // null-terminated UTF-8
+  bytes  agent_type_indices = 16;  // u32[A] LE
+
+  // --- edge section (empty when no edge attrs enabled) ---
+  uint32 edge_count         = 17;
+  uint32 edge_attr_count    = 18;  // K_e
+  bytes  edge_indices       = 19;  // u32[M] LE: index into NetworkGeometry.edge_ids
+  bytes  edge_attr_vals     = 20;  // f32[M×K_e] LE column-major
+}

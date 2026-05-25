@@ -1,6 +1,8 @@
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
+    ECal.cpp
+    ECal.h
     Helper.cpp
     Helper.h
     InductionLoop.cpp
@@ -57,6 +59,23 @@ if (NOT ISOLATED_BUILD)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 endif()
+
+# Optional eCAL extension: compiles libsumo::ECal with HAVE_ECAL when both eCAL and Protobuf
+# are available, enabling the sumo-webgui Python publisher to delegate its hot per-step loop
+# to native C++ via traci.ecal.  Without these packages, ECal becomes a stub.
+find_package(eCAL QUIET CONFIG)
+find_package(Protobuf QUIET)
+set(HAVE_ECAL_SUPPORT OFF)
+if (eCAL_FOUND AND Protobuf_FOUND)
+    set(HAVE_ECAL_SUPPORT ON)
+    set(_ECAL_PROTO ${CMAKE_CURRENT_SOURCE_DIR}/sumo_ecal.proto)
+    protobuf_generate_cpp(SUMO_ECAL_PROTO_SRCS SUMO_ECAL_PROTO_HDRS ${_ECAL_PROTO})
+    list(APPEND libsumostatic_STAT_SRCS ${SUMO_ECAL_PROTO_SRCS} ${SUMO_ECAL_PROTO_HDRS})
+    message(STATUS "libsumo: eCAL extension enabled (eCAL ${eCAL_VERSION}, Protobuf ${Protobuf_VERSION})")
+else()
+    message(STATUS "libsumo: eCAL extension disabled (eCAL_FOUND=${eCAL_FOUND}, Protobuf_FOUND=${Protobuf_FOUND})")
+endif()
+
 # libsumostatic contains a compiled version of src/libsumo without GUI.* and without HAVE_LIBSUMOGUI being defined
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
 add_dependencies(libsumostatic generate-version-h install_dll)
@@ -98,6 +117,23 @@ install(TARGETS libsumocpp EXPORT SUMOConfig
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
+
+if (HAVE_ECAL_SUPPORT)
+    # ECal.cpp + generated sumo_ecal.pb.cc are listed in libsumostatic_STAT_SRCS so they are
+    # compiled into all three libsumo targets.  We just need to make HAVE_ECAL visible to the
+    # preprocessor, expose the binary dir (for the generated .pb.h), and link against the eCAL
+    # and Protobuf shared libraries.
+    foreach (_tgt libsumostatic libsumocpp)
+        target_compile_definitions(${_tgt} PRIVATE HAVE_ECAL)
+        target_include_directories(${_tgt} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${Protobuf_INCLUDE_DIRS})
+        target_link_libraries(${_tgt} PUBLIC eCAL::core ${Protobuf_LIBRARIES})
+    endforeach()
+    if (FOX_FOUND)
+        target_compile_definitions(libsumoguistatic PRIVATE HAVE_ECAL)
+        target_include_directories(libsumoguistatic PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${Protobuf_INCLUDE_DIRS})
+        target_link_libraries(libsumoguistatic PUBLIC eCAL::core ${Protobuf_LIBRARIES})
+    endif()
+endif()
 
 if (SWIG_FOUND)
     include(${SWIG_USE_FILE})
