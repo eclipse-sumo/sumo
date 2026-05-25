@@ -1,16 +1,6 @@
 syntax = "proto3";
 package sumo;
 
-message TLSPhase {
-  string id    = 1;
-  string state = 2;
-}
-
-message TLSUpdate {
-  int64             time_ms = 1;
-  repeated TLSPhase lights  = 2;
-}
-
 message NetworkData {
   bool   geo_referenced = 2;
   string cache_path     = 3;
@@ -156,6 +146,10 @@ message ReportFrontendStatsRequest {
   double avg_frame_ms = 1;  // average time between rAF callbacks (ms)
   double skip_rate    = 2;  // fraction of SimStepBin frames dropped (0–1)
   int32  frames       = 3;  // total rAF frames rendered
+  // Free-form "key=value " pairs of average per-frame phase timings (ms),
+  // e.g. "parse=0.3 veh_build=0.5 drain=0.1 layers=2.0 edge_build=1.8 deck=6.5".
+  // Empty when the frontend did not collect a breakdown.
+  string breakdown    = 4;
 }
 
 // Unified high-frequency simulation snapshot — the sole payload on the
@@ -196,4 +190,13 @@ message SimStepBin {
   uint32 edge_attr_count    = 18;  // K_e
   bytes  edge_indices       = 19;  // u32[M] LE: index into NetworkGeometry.edge_ids
   bytes  edge_attr_vals     = 20;  // f32[M×K_e] LE column-major
+
+  // --- traffic light section (folded in from former TLSUpdate topic) ---
+  // tls_ids and tls_states are parallel null-terminated UTF-8 blobs, one entry
+  // per active TLS controller. tls_states[i] is the full RYG/active-program
+  // state string for tls_ids[i] (variable length per controller). Empty when
+  // the network has no traffic lights.
+  uint32 tls_count          = 21;
+  bytes  tls_ids            = 22;
+  bytes  tls_states         = 23;
 }

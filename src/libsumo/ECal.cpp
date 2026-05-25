@@ -39,6 +39,9 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSPhaseDefinition.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSStage.h>
@@ -161,6 +164,7 @@ struct State {
     uint64_t vehNs       = 0;
     uint64_t agentNs     = 0;
     uint64_t edgeNs      = 0;
+    uint64_t tlsNs       = 0;
     uint64_t serializeNs = 0;
     uint64_t sendNs      = 0;
     uint64_t typedictNs  = 0;
@@ -437,27 +441,52 @@ unsigned int ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
 
     auto t3 = clk::now();
 
-    // ------ publish ----------------------------------------------------------------------------
-    publishTypeDictIfDirty(s);  // BEFORE simstep so frontend has new types before it sees indices
+    // ------ traffic light section --------------------------------------------------------------
+    // Folded in from the former separate TLSUpdate topic. For each active TLS
+    // controller, append its id and current RYG state string as parallel
+    // null-terminated UTF-8 blobs.  On networks with many controllers (e.g. the
+    // Berlin scenario with 5811 TLS), this is ~10 ms/step cheaper than the
+    // Python loop it replaces because it avoids 2*N cross-boundary calls.
+    std::string* tlsIds    = sb.mutable_tls_ids();
+    std::string* tlsStates = sb.mutable_tls_states();
+    uint32_t tlsCount = 0;
+    {
+        MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();
+        const std::vector<std::string> ids = tlc.getAllTLIds();
+        for (const std::string& id : ids) {
+            const MSTrafficLightLogic* logic = tlc.getActive(id);
+            if (logic == nullptr) continue;
+            appendCString(*tlsIds, id);
+            appendCString(*tlsStates, logic->getCurrentPhaseDef().getState());
+            ++tlsCount;
+        }
+    }
+    sb.set_tls_count(tlsCount);
 
     auto t4 = clk::now();
 
-    sb.SerializeToString(&s.outBuf);
+    // ------ publish ----------------------------------------------------------------------------
+    publishTypeDictIfDirty(s);  // BEFORE simstep so frontend has new types before it sees indices
 
     auto t5 = clk::now();
 
-    s.pubSimstep->Send(s.outBuf);
+    sb.SerializeToString(&s.outBuf);
 
     auto t6 = clk::now();
+
+    s.pubSimstep->Send(s.outBuf);
+
+    auto t7 = clk::now();
 
     using ns = std::chrono::nanoseconds;
     s.calls       += 1;
     s.vehNs       += std::chrono::duration_cast<ns>(t1 - t0).count();
     s.agentNs     += std::chrono::duration_cast<ns>(t2 - t1).count();
     s.edgeNs      += std::chrono::duration_cast<ns>(t3 - t2).count();
-    s.typedictNs  += std::chrono::duration_cast<ns>(t4 - t3).count();
-    s.serializeNs += std::chrono::duration_cast<ns>(t5 - t4).count();
-    s.sendNs      += std::chrono::duration_cast<ns>(t6 - t5).count();
+    s.tlsNs       += std::chrono::duration_cast<ns>(t4 - t3).count();
+    s.typedictNs  += std::chrono::duration_cast<ns>(t5 - t4).count();
+    s.serializeNs += std::chrono::duration_cast<ns>(t6 - t5).count();
+    s.sendNs      += std::chrono::duration_cast<ns>(t7 - t6).count();
     return vehCount;
 }
 
@@ -468,11 +497,13 @@ std::string ECal::getStats(bool reset) {
        << " veh_us="       << (s.vehNs       / 1000)
        << " agent_us="     << (s.agentNs     / 1000)
        << " edge_us="      << (s.edgeNs      / 1000)
+       << " tls_us="       << (s.tlsNs       / 1000)
        << " typedict_us="  << (s.typedictNs  / 1000)
        << " serialize_us=" << (s.serializeNs / 1000)
        << " send_us="      << (s.sendNs      / 1000);
     if (reset) {
-        s.calls = s.vehNs = s.agentNs = s.edgeNs = s.serializeNs = s.sendNs = s.typedictNs = 0;
+        s.calls = s.vehNs = s.agentNs = s.edgeNs = s.tlsNs
+                = s.serializeNs = s.sendNs = s.typedictNs = 0;
     }
     return os.str();
 }
