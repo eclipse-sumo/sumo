@@ -25,6 +25,7 @@
 #pragma once
 #include <config.h>
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -53,7 +54,9 @@ public:
     /// one visible vehicle are included.
     /// A VehicleTypeDict is republished whenever a new vehicle/agent type is
     /// observed.
-    static void publishSimStep(
+    /// Returns the number of visible vehicles packed into the message (for
+    /// UPS stats — saves the caller a `traci.vehicle.getIDCount()` round-trip).
+    static unsigned int publishSimStep(
         const std::vector<std::string>& vehAttrs,
         const std::vector<std::string>& edgeAttrs,
         bool fullEdgeSnapshot,
@@ -61,6 +64,12 @@ public:
 
     /// Release publishers and reset internal type registry state.
     static void close();
+
+    /// Return accumulated phase timings since the last reset, as a string
+    /// of "key=us " pairs (microseconds, total over all calls).  Keys:
+    /// calls, veh_us, agent_us, edge_us, serialize_us, send_us, typedict_us.
+    /// When @p reset is true, all counters are zeroed after reading.
+    static std::string getStats(bool reset);
 };
 
 } // namespace libsumo

@@ -19,8 +19,10 @@
 
 #include <cstdint>
 #include <cstring>
+#include <chrono>
 #include <functional>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -153,6 +155,15 @@ struct State {
     std::vector<std::string> vehAttrCols;
     std::vector<std::string> edgeAttrCols;
     std::unordered_set<const MSEdge*> activeEdges;
+
+    // phase timers (nanoseconds, accumulated across publishSimStep calls).
+    uint64_t calls       = 0;
+    uint64_t vehNs       = 0;
+    uint64_t agentNs     = 0;
+    uint64_t edgeNs      = 0;
+    uint64_t serializeNs = 0;
+    uint64_t sendNs      = 0;
+    uint64_t typedictNs  = 0;
 };
 
 State& state() {
@@ -303,12 +314,12 @@ void ECal::close() {
     s.edgeFns.clear();
 }
 
-void ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
-                          const std::vector<std::string>& edgeAttrs,
-                          bool fullEdgeSnapshot,
-                          int seq) {
+unsigned int ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
+                                  const std::vector<std::string>& edgeAttrs,
+                                  bool fullEdgeSnapshot,
+                                  int seq) {
     State& s = state();
-    if (!s.pubSimstep) return;
+    if (!s.pubSimstep) return 0;
 
     refreshAttrFns(s, vehAttrs, edgeAttrs);
 
@@ -334,6 +345,9 @@ void ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
 
     const size_t Kv = s.vehFns.size();
     const size_t Ke = s.edgeFns.size();
+
+    using clk = std::chrono::steady_clock;
+    auto t0 = clk::now();
 
     // ------ vehicle section --------------------------------------------------------------------
     std::string* vehPositions = sb.mutable_veh_positions();
@@ -378,6 +392,8 @@ void ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
     sb.set_veh_count(vehCount);
     sb.set_veh_attr_count(static_cast<uint32_t>(Kv));
 
+    auto t1 = clk::now();
+
     // ------ agent section (persons + containers) -----------------------------------------------
     MSNet* net = MSNet::getInstance();
     uint32_t agentCount = 0;
@@ -385,6 +401,8 @@ void ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
     if (net->hasContainers()) agentCount += appendTransportables(s, &net->getContainerControl(), CLASS_CONTAINER);
 
     sb.set_agent_count(agentCount);
+
+    auto t2 = clk::now();
 
     // ------ edge section -----------------------------------------------------------------------
     std::string* edgeIndices = sb.mutable_edge_indices();
@@ -417,11 +435,46 @@ void ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
     sb.set_edge_count(edgeOutCount);
     sb.set_edge_attr_count(static_cast<uint32_t>(Ke));
 
+    auto t3 = clk::now();
+
     // ------ publish ----------------------------------------------------------------------------
     publishTypeDictIfDirty(s);  // BEFORE simstep so frontend has new types before it sees indices
 
+    auto t4 = clk::now();
+
     sb.SerializeToString(&s.outBuf);
+
+    auto t5 = clk::now();
+
     s.pubSimstep->Send(s.outBuf);
+
+    auto t6 = clk::now();
+
+    using ns = std::chrono::nanoseconds;
+    s.calls       += 1;
+    s.vehNs       += std::chrono::duration_cast<ns>(t1 - t0).count();
+    s.agentNs     += std::chrono::duration_cast<ns>(t2 - t1).count();
+    s.edgeNs      += std::chrono::duration_cast<ns>(t3 - t2).count();
+    s.typedictNs  += std::chrono::duration_cast<ns>(t4 - t3).count();
+    s.serializeNs += std::chrono::duration_cast<ns>(t5 - t4).count();
+    s.sendNs      += std::chrono::duration_cast<ns>(t6 - t5).count();
+    return vehCount;
+}
+
+std::string ECal::getStats(bool reset) {
+    State& s = state();
+    std::ostringstream os;
+    os << "calls=" << s.calls
+       << " veh_us="       << (s.vehNs       / 1000)
+       << " agent_us="     << (s.agentNs     / 1000)
+       << " edge_us="      << (s.edgeNs      / 1000)
+       << " typedict_us="  << (s.typedictNs  / 1000)
+       << " serialize_us=" << (s.serializeNs / 1000)
+       << " send_us="      << (s.sendNs      / 1000);
+    if (reset) {
+        s.calls = s.vehNs = s.agentNs = s.edgeNs = s.serializeNs = s.sendNs = s.typedictNs = 0;
+    }
+    return os.str();
 }
 
 } // namespace libsumo
@@ -433,9 +486,10 @@ namespace libsumo {
 bool ECal::available() { return false; }
 void ECal::init(const std::string&, const std::string&) {}
 void ECal::close() {}
-void ECal::publishSimStep(const std::vector<std::string>&,
-                          const std::vector<std::string>&,
-                          bool, int) {}
+unsigned int ECal::publishSimStep(const std::vector<std::string>&,
+                                  const std::vector<std::string>&,
+                                  bool, int) { return 0; }
+std::string ECal::getStats(bool) { return std::string(); }
 
 } // namespace libsumo
 
