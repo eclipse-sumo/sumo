@@ -1,34 +1,6 @@
 syntax = "proto3";
 package sumo;
 
-message Vehicle {
-  string              id         = 1;
-  double              x          = 2;
-  double              y          = 3;
-  float               speed      = 4;
-  float               angle      = 5;
-  string              type_id    = 6;
-  map<string, double> attributes = 7;
-  float               length     = 8;  // type length in metres (cached per type_id)
-  float               width      = 9;  // type width in metres  (cached per type_id)
-  string              gui_shape  = 10; // traci vehicletype shape class, e.g. "passenger", "truck"
-}
-
-message MobileAgent {
-  string id      = 1;
-  double x       = 2;
-  double y       = 3;
-  float  angle   = 4;
-  string type_id = 5;
-}
-
-message SimStep {
-  int64                time_ms    = 1;
-  repeated Vehicle     vehicles   = 2;
-  repeated MobileAgent persons    = 3;
-  repeated MobileAgent containers = 4;
-}
-
 message TLSPhase {
   string id    = 1;
   string state = 2;
@@ -82,17 +54,6 @@ message NetworkGeometry {
   // Lane permission class — one byte per lane:
   //   0 = pedestrian/other  1 = bicycle only  2 = motorised (passenger/bus/truck/…)
   bytes           lane_perm_class          = 23; // u8[]  LE — one byte per lane
-}
-
-message EdgeData {
-  string              id         = 1;
-  map<string, double> attributes = 2;
-}
-
-message EdgeDataUpdate {
-  int64             time_ms       = 1;
-  repeated EdgeData edges         = 2;
-  bool              full_snapshot = 3;  // true = initial all-edges baseline; false = occupied-only delta
 }
 
 // ---------------------------------------------------------------------------
@@ -190,21 +151,17 @@ message VehicleTypeDict {
   bytes  type_classes  = 6;  // u8[type_count]: 0=vehicle, 1=person, 2=container
 }
 
-// High-frequency binary simulation snapshot — replaces SimStep / repeated Vehicle.
-// All numeric arrays are little-endian typed arrays packed into bytes fields.
-// Attribute value arrays are column-major: attr0[0..N-1], attr1[0..N-1], ...
-// Attribute order matches ctrl["vehicle_attributes"] (= vehicle_enabled in GetAttributesResponse).
+// Frontend-side performance stats (rAF cadence and frame drop fraction).
 message ReportFrontendStatsRequest {
   double avg_frame_ms = 1;  // average time between rAF callbacks (ms)
-  double skip_rate    = 2;  // fraction of SimStep frames dropped (0–1)
+  double skip_rate    = 2;  // fraction of SimStepBin frames dropped (0–1)
   int32  frames       = 3;  // total rAF frames rendered
 }
 
-// Unified high-frequency simulation snapshot — replaces SimBin + EdgeBin on a
-// single topic (sumo/simstep).  Field 1 is `edge_full_snapshot` so the wire
-// encoding starts with either 0x08 0x01 (snapshot) or 0x08 0x00 (normal),
-// letting the bridge cache snapshot frames for late joiners without parsing
-// the message.
+// Unified high-frequency simulation snapshot — the sole payload on the
+// sumo/simstep topic.  Field 1 is `edge_full_snapshot` so the wire encoding
+// starts with either 0x08 0x01 (snapshot) or 0x08 0x00 (normal), letting the
+// bridge cache snapshot frames for late joiners without parsing the message.
 //
 // All numeric arrays are little-endian typed arrays packed into bytes fields.
 // Attribute value arrays are column-major: attr0[0..N-1], attr1[0..N-1], ...
