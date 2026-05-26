@@ -7053,7 +7053,7 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
                 }
 #endif
                 return latOffset;
-            } else if (targetLane->getBidiLane() == lane) {
+            } else if (targetLane != nullptr && targetLane->getBidiLane() == lane) {
                 const double targetDir = myLaneChangeModel->getManeuverDist() < 0 ? -1. : 1.;
                 const double latOffset = myFurtherLanesPosLat[i] - myState.myPosLat + targetDir * 0.5 * (myFurtherLanes[i]->getWidth() + targetLane->getWidth());
 #ifdef DEBUG_FURTHER
