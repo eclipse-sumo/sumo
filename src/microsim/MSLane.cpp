@@ -80,6 +80,7 @@
 //#define DEBUG_EXEC_MOVE
 //#define DEBUG_CONTEXT
 //#define DEBUG_PARTIALS
+//#define DEBUG_MANEUVER_RESERVATIONS
 //#define DEBUG_OPPOSITE
 //#define DEBUG_VEHICLE_CONTAINER
 //#define DEBUG_COLLISIONS
@@ -424,7 +425,7 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
 
 void
 MSLane::setManeuverReservation(MSVehicle* v) {
-#ifdef DEBUG_CONTEXT
+#ifdef DEBUG_MANEUVER_RESERVATIONS
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " setManeuverReservation. lane=" << getID() << " veh=" << v->getID() << "\n";
     }
@@ -435,7 +436,7 @@ MSLane::setManeuverReservation(MSVehicle* v) {
 
 void
 MSLane::resetManeuverReservation(MSVehicle* v) {
-#ifdef DEBUG_CONTEXT
+#ifdef DEBUG_MANEUVER_RESERVATIONS
     if (DEBUG_COND2(v)) {
         std::cout << SIMTIME << " resetManeuverReservation(): lane=" << getID() << " veh=" << v->getID() << "\n";
     }
