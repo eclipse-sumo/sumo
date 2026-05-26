@@ -6,6 +6,18 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed crash in sublane simulation with unusual turning lanes #18030 (regression in 1.27.0)
+  - Fixed invalid strategic lane choice when connections have reduced permissions #18034
+
+- sumo-gui
+  - Fixed invalid meso segment markers in network with length/geometry mismatch #18036
+
+- meso
+ - traffic light type "delay_based" (unsupported by meso) now gives a warning #18026
+ - fixed unsafe rail insertion #18028
+ - fixed invalid rail signal state in network with internal links #6990, #18027
+
 
 ## Version 1.27.0 (21.05.2026)
 
