@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-26T14:50:52.077682+01:00 by Eclipse SUMO sumo v1_27_0+0021-d233907bc68
+<!-- generated on 2026-05-26T15:56:53.126039+01:00 by Eclipse SUMO sumo v1_27_0+0023-aa2da0a9981
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,4 +39,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <lanechanges>
+    <change id="v_0" type="DEFAULT_VEHTYPE" time="7.00" from="SC.47_1" to="SC.47_0" dir="-1" speed="13.32" pos="9.69" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
