@@ -2916,13 +2916,13 @@ MSLane::addApproachingLane(MSLane* lane, bool warnMultiCon) {
 
 
 bool
-MSLane::isApproachedFrom(MSEdge* const edge, MSLane* const lane) {
-    std::map<MSEdge*, std::vector<MSLane*> >::const_iterator i = myApproachingLanes.find(edge);
-    if (i == myApproachingLanes.end()) {
-        return false;
+MSLane::isApproachedFrom(MSLane* const lane, SUMOVehicleClass svc) {
+    for (MSLink* link : lane->getLinkCont()) {
+        if (link->getLane() == this && (link->getPermissions() & svc) == svc) {
+            return true;
+        }
     }
-    const std::vector<MSLane*>& lanes = (*i).second;
-    return std::find(lanes.begin(), lanes.end(), lane) != lanes.end();
+    return false;
 }
 
 

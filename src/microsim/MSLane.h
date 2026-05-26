@@ -972,7 +972,7 @@ public:
     inline bool isApproachedFrom(MSEdge* const edge) {
         return myApproachingLanes.find(edge) != myApproachingLanes.end();
     }
-    bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
+    bool isApproachedFrom(MSLane* const lane, SUMOVehicleClass svc);
 
     /// @brief Returns vehicle class specific stopOffset for the vehicle
     double getVehicleStopOffset(const MSVehicle* veh) const;

@@ -6261,7 +6261,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 if (j.allowsContinuation) {
                     for (const LaneQ& m : nextLanes) {
                         if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
-                                && m.lane->isApproachedFrom(cE, j.lane)) {
+                                && m.lane->isApproachedFrom(j.lane, getVClass())) {
                             if (betterContinuation(bestConnectedNext, m)) {
                                 bestConnectedNext = &m;
                             }
@@ -6318,7 +6318,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 if ((*j).allowsContinuation) {
                     int nextIndex = 0;
                     for (std::vector<LaneQ>::const_iterator m = nextLanes.begin(); m != nextLanes.end(); ++m, ++nextIndex) {
-                        if ((*m).lane->isApproachedFrom(cE, (*j).lane)) {
+                        if ((*m).lane->isApproachedFrom((*j).lane, getVClass())) {
                             if (bestDistToNeeded > abs((*m).bestLaneOffset)) {
                                 bestDistToNeeded = abs((*m).bestLaneOffset);
                                 bestThisIndex = index;
