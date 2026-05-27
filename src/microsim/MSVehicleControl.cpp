@@ -201,11 +201,16 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VehicleState::DEPARTED);
     myMaxSpeedFactor = MAX2(myMaxSpeedFactor, v.getChosenSpeedFactor());
+    const double maxDecel = v.getVehicleType().getCarFollowModel().getMaxDecel();
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users
-        myMinDeceleration = MIN2(myMinDeceleration, v.getVehicleType().getCarFollowModel().getMaxDecel());
+        myMinDeceleration = MIN2(myMinDeceleration, maxDecel);
     } else if ((v.getVClass() & SVC_RAIL_CLASSES) != 0) {
-        myMinDecelerationRail = MIN2(myMinDecelerationRail, v.getVehicleType().getCarFollowModel().getMaxDecel());
+        myMinDecelerationRail = MIN2(myMinDecelerationRail, maxDecel);
+        if ((v.getEdge()->getPermissions() & SVC_ROAD_MOTOR_CLASSES) != 0) {
+            // shared rail/road
+            myMinDeceleration = MIN2(myMinDeceleration, maxDecel);
+        }
     }
 }
 
