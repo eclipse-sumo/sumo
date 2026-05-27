@@ -61,6 +61,12 @@ GNENeteditOptionsDialog::isOptionModified() const {
 }
 
 
+bool
+GNENeteditOptionsDialog::requireSaveNetwork() const {
+    return myOptionsEditor->requireSaveNetwork();
+}
+
+
 long
 GNENeteditOptionsDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // reset options

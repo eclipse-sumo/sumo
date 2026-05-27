@@ -1682,7 +1682,7 @@ GNEApplicationWindow::closeAllWindows(const bool resetFilenames) {
         // save decals and viewport for persistence (before they are cleared)
         gSchemeStorage.saveDecals(myViewNet->getDecals());
         gSchemeStorage.saveViewport(myViewNet->getChanger().getXPos(), myViewNet->getChanger().getYPos(),
-                                     myViewNet->getChanger().getZPos(), myViewNet->getChanger().getRotation());
+                                    myViewNet->getChanger().getZPos(), myViewNet->getChanger().getRotation());
         // clear decals and release GPU textures
         if (myViewNet->makeCurrent()) {
             myViewNet->clearDecals();
@@ -2599,6 +2599,10 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
         // check if mark netedit config as unsaved
         if (neteditOptionsDialog.isOptionModified() && myNet) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
+            // aditionally, check if network requires saving
+            if (neteditOptionsDialog.requireSaveNetwork()) {
+                myNet->getSavingStatus()->requireSaveNetwork();
+            }
         }
     }
     return 1;
