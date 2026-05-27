@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-27T19:08:30.345502+01:00 by Eclipse SUMO sumo v1_27_0+0036-2714d6183a1
+<!-- generated on 2026-05-27T19:14:38.130853+01:00 by Eclipse SUMO sumo v1_27_0+0036-2714d6183a1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <additional-files value="input_routes.rou.xml"/>
         <load-state value="state.xml"/>
+        <load-state.offset value="25"/>
     </input>
 
     <output>
@@ -33,6 +34,5 @@
 </sumoConfiguration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="" departPos="5.10" departSpeed="-1.00" departDelay="0.00" arrival="26.00" arrivalLane="end_0" arrivalPos="100.00" arrivalSpeed="13.89" duration="26.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.77" rerouteNo="1" devices="tripinfo_v0 routing_v0 fcd_v0" vType="t0" speedFactor="1.00" vaporized=""/>
-</tripinfos>
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+</fcd-export>

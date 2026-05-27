@@ -28,6 +28,12 @@ prefix
 # trying to start the loaded state at a different time
 diff_begin
 
+# trying to start the loaded state at a different time with option load-state.offset
+diff_begin_shift
+
+# trying to start the loaded state at a different time with option load-state.offset
+diff_begin_shift_0
+
 # save and reload with broken route
 disconnected
 
@@ -113,6 +119,9 @@ default_begin
 
 # test for crash when loading additional file with vehicles before the state
 earlier_begin
+
+# test for crash when loading additional file with vehicles before the state
+earlier_begin_shift
 
 # when loading state, replace the vType attributes with new values
 replace_vtype
