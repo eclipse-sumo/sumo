@@ -128,7 +128,11 @@ GNEMoveElementShape::getMovingAttributeDouble(SumoXMLAttr key) const {
 
 Position
 GNEMoveElementShape::getMovingAttributePosition(SumoXMLAttr key) const {
-    return myMovedElement->getCommonAttributePosition(key);
+    if (key == SUMO_ATTR_CENTER) {
+        return myCenterPosition;
+    } else {
+        return myMovedElement->getCommonAttributePosition(key);
+    }
 }
 
 
@@ -140,7 +144,7 @@ GNEMoveElementShape::getMovingAttributePositionVector(SumoXMLAttr key) const {
 
 void
 GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    return myMovedElement->setCommonAttribute(key, value, undoList);
+    myMovedElement->setCommonAttribute(key, value, undoList);
 }
 
 
@@ -152,7 +156,21 @@ GNEMoveElementShape::isMovingAttributeValid(SumoXMLAttr key, const std::string& 
 
 void
 GNEMoveElementShape::setMovingAttribute(SumoXMLAttr key, const std::string& value) {
-    return myMovedElement->setCommonAttribute(key, value);
+    if (key == SUMO_ATTR_CENTER) {
+        myCenterPosition = GNEAttributeCarrier::parse<Position>(value);
+    } else {
+        myMovedElement->setCommonAttribute(key, value);
+    }
+}
+
+
+void
+GNEMoveElementShape::setMovingAttributePosition(SumoXMLAttr key, const Position& value) {
+    if (key == SUMO_ATTR_CENTER) {
+        myCenterPosition = value;
+    } else {
+        throw InvalidArgument(myMovedElement->getTagStr() + " doesn't have a position attribute of type '" + toString(key) + "'");
+    }
 }
 
 

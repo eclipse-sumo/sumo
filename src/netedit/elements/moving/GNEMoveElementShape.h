@@ -70,13 +70,15 @@ public:
     /// @brief set moving attribute
     void setMovingAttribute(SumoXMLAttr key, const std::string& value) override;
 
+    /// @brief set moving attribute position (needed to avoid precision conversion problems)
+    void setMovingAttributePosition(SumoXMLAttr key, const Position& value);
+
     /// @}
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) override;
 
-
-//protected:
+protected:
     /// @brief center position
     Position myCenterPosition;
 
