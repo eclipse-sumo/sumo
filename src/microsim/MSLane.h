@@ -994,7 +994,7 @@ public:
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
-            bool allSublanes, double searchDist = -1, MinorLinkMode mLinkMode = FOLLOW_ALWAYS) const;
+            bool allSublanes, double searchDist = -1, MinorLinkMode mLinkMode = FOLLOW_ALWAYS, bool maxSearchDist = false) const;
 
     /// @brief return by how much further the leader must be inserted to avoid rear end collisions
     double getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const;
@@ -1257,7 +1257,7 @@ public:
      * @param[in] ignoreMinorLinks Whether backward search should stop at minor links
      * @return the follower vehicle and its gap to ego
      */
-    std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode) const;
+    std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode, bool maxSearchDist = false) const;
 
 
     ///@brief add parking vehicle. This should only used during state loading
