@@ -1272,9 +1272,9 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             }
             // check if values are correct
             if (stoppingPlace && lane && edge) {
-                return writeError(TL("A stop must be defined either over a stoppingPlace, a edge or a lane"));
+                return writeError(TL("A stop requires only either stoppingPlace, edge or lane"));
             } else if (!stoppingPlace && !lane && !edge) {
-                return writeError(TL("A stop requires only a stoppingPlace, edge or lane"));
+                return writeError(TL("A stop must be defined either over a stoppingPlace, a edge or a lane"));
             } else if (stoppingPlace) {
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;
