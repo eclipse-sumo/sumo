@@ -62,6 +62,7 @@ MSVehicleControl::MSVehicleControl() :
     myMaxSpeedFactor(1),
     myMinDeceleration(SUMOVTypeParameter::getDefaultDecel(SVC_IGNORING)),
     myMinDecelerationRail(SUMOVTypeParameter::getDefaultDecel(SVC_RAIL)),
+    myMaxMinGap(0),
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
 
     initDefaultTypes();
@@ -201,6 +202,7 @@ MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
     myTotalDepartureDelay += STEPS2TIME(v.getDeparture() - STEPFLOOR(v.getParameter().depart));
     MSNet::getInstance()->informVehicleStateListener(&v, MSNet::VehicleState::DEPARTED);
     myMaxSpeedFactor = MAX2(myMaxSpeedFactor, v.getChosenSpeedFactor());
+    myMaxMinGap = MAX2(myMaxMinGap, v.getVehicleType().getMinGap());
     const double maxDecel = v.getVehicleType().getCarFollowModel().getMaxDecel();
     if ((v.getVClass() & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
         // only  worry about deceleration of road users

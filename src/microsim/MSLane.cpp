@@ -2948,7 +2948,7 @@ MSLane::getMaximumBrakeDist() const {
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
     // impose a hard bound due to visibility / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
     const double minDecel = isRailway(myPermissions) ? vc.getMinDecelerationRail() : vc.getMinDeceleration();
-    return MIN2(maxSpeed * maxSpeed * 0.5 / minDecel,
+    return MIN2(maxSpeed * maxSpeed * 0.5 / minDecel + vc.getMaxMinGap(),
                 myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
 }
 
