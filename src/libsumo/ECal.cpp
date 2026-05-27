@@ -414,20 +414,27 @@ unsigned int ECal::publishSimStep(const std::vector<std::string>& vehAttrs,
 
     if (Ke > 0) {
         const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
-        // External edges only (matches sumolib.net.readNet(withInternal=False) ordering used
-        // by the Python NetworkGeometry builder). Position in this filtered enumeration is the
-        // index that the frontend stores in NetworkGeometry.edge_ids.
+        // The Python NetworkGeometry builder calls sumolib.net.readNet(withInternal=True),
+        // so the frontend's edge_ids array enumerates *all* edges (internal + crossing +
+        // walkingarea + normal) in the order returned by sumolib's net.getEdges(). MSEdge
+        // iteration in libsumo follows the same loading order, so position in this loop is
+        // the index the frontend stores. We still skip internal/crossing/walkingarea edges
+        // from the value stream (no useful edge-data), but the index counter must advance
+        // across them — otherwise the indices we emit point into the internal-edge block of
+        // the frontend's array, mis-coloring junctions instead of real edges.
         uint32_t extIdx = 0;
         for (const MSEdge* e : edges) {
             const std::string& eid = e->getID();
-            if (!eid.empty() && eid[0] == ':') continue;  // skip internal
-            const bool include = fullEdgeSnapshot || s.activeEdges.count(e) > 0;
-            if (include) {
-                appendLE<uint32_t>(*edgeIndices, extIdx);
-                for (size_t k = 0; k < Ke; ++k) {
-                    appendLE<float>(s.edgeAttrCols[k], static_cast<float>(s.edgeFns[k](e)));
+            const bool isInternal = !eid.empty() && eid[0] == ':';
+            if (!isInternal) {
+                const bool include = fullEdgeSnapshot || s.activeEdges.count(e) > 0;
+                if (include) {
+                    appendLE<uint32_t>(*edgeIndices, extIdx);
+                    for (size_t k = 0; k < Ke; ++k) {
+                        appendLE<float>(s.edgeAttrCols[k], static_cast<float>(s.edgeFns[k](e)));
+                    }
+                    ++edgeOutCount;
                 }
-                ++edgeOutCount;
             }
             ++extIdx;
         }
