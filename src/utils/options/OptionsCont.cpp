@@ -471,6 +471,12 @@ OptionsCont::resetWritable() {
 
 
 void
+OptionsCont::resetWritable(const std::string& name) {
+    getSecure(name)->resetWritable();
+}
+
+
+void
 OptionsCont::resetDefault() {
     for (const auto& addresse : myAddresses) {
         addresse.second->resetDefault();

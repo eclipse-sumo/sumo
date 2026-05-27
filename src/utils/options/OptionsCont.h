@@ -610,6 +610,9 @@ public:
      */
     void resetWritable();
 
+    /// @brief Reset specific option to be writeable
+    void resetWritable(const std::string& name);
+
     /// @brief Resets all options to default
     void resetDefault();
 
