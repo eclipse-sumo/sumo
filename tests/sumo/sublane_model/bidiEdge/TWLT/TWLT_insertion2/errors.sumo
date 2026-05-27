@@ -37,12 +37,10 @@ Warning: Teleporting vehicle 'a.48'; waited too long (jam), lane='-E2_0', time=3
 Warning: Vehicle 'b.19'; frontal collision with vehicle 'a.69', lane='E1_1', gap=-2.00, latGap=-0.60, time=5079.00, stage=laneChange.
 Warning: Teleporting vehicle 'a.67'; waited too long (wrong lane), lane='-E1_0', time=5107.00.
 Warning: Teleporting vehicle 'a.68'; waited too long (wrong lane), lane='-E1_0', time=5450.00.
-Warning: Vehicle 'b.21'; frontal collision with vehicle 'a.82', lane='E1_1', gap=-2.29, latGap=-0.60, time=5784.00, stage=laneChange.
 Warning: Teleporting vehicle 'a.72'; waited too long (wrong lane), lane='-E1_0', time=5785.00.
-Warning: Teleporting vehicle 'a.81'; waited too long (wrong lane), lane='-E1_0', time=6084.00.
-Warning: Teleporting vehicle 'a.92'; waited too long (wrong lane), lane='-E1_0', time=6692.00.
-Warning: Teleporting vehicle 'a.96'; waited too long (wrong lane), lane='-E1_0', time=7008.00.
-Warning: 34 total messages of type: Teleporting vehicle '%'; waited too long (jam), lane='%', time=%.
-Warning: 11 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
-Warning: 71 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
+Warning: Teleporting vehicle 'a.78'; waited too long (wrong lane), lane='-E1_0', time=6128.00.
+Warning: Teleporting vehicle 'a.82'; waited too long (wrong lane), lane='-E1_0', time=6427.00.
+Warning: Teleporting vehicle 'a.92'; waited too long (wrong lane), lane='-E1_0', time=7673.00.
+Warning: 31 total messages of type: Teleporting vehicle '%'; waited too long (jam), lane='%', time=%.
+Warning: 75 total messages of type: Teleporting vehicle '%'; waited too long (yield), lane='%', time=%.
 Warning: 116 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
