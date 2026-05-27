@@ -1883,39 +1883,36 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s) const {
 
 void
 GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
-    // check if draw junction elements
-    if (s.drawForViewObjectsHandler || (d <= GUIVisualizationSettings::Detail::JunctionElement)) {
-        // draw crossings
-        for (const auto& crossing : myGNECrossings) {
-            crossing->drawGL(s);
-        }
-        // draw walking areas
-        for (const auto& walkingArea : myGNEWalkingAreas) {
-            walkingArea->drawGL(s);
-        }
-        // draw internalLanes
-        for (const auto& internalLanes : myInternalLanes) {
-            internalLanes->drawGL(s);
-        }
-        // draw connections
-        for (const auto& incomingEdge : myGNEIncomingEdges) {
-            for (const auto& connection : incomingEdge->getGNEConnections()) {
-                connection->drawGL(s);
-            }
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->drawGL(s);
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->drawGL(s);
-        }
-        // draw path additional elements
-        myNet->getNetworkPathManager()->drawJunctionPathElements(s, this);
-        myNet->getDemandPathManager()->drawJunctionPathElements(s, this);
-        myNet->getDataPathManager()->drawJunctionPathElements(s, this);
+    // draw crossings
+    for (const auto& crossing : myGNECrossings) {
+        crossing->drawGL(s);
     }
+    // draw walking areas
+    for (const auto& walkingArea : myGNEWalkingAreas) {
+        walkingArea->drawGL(s);
+    }
+    // draw internalLanes
+    for (const auto& internalLanes : myInternalLanes) {
+        internalLanes->drawGL(s);
+    }
+    // draw connections
+    for (const auto& incomingEdge : myGNEIncomingEdges) {
+        for (const auto& connection : incomingEdge->getGNEConnections()) {
+            connection->drawGL(s);
+        }
+    }
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->drawGL(s);
+    }
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        demandElement->drawGL(s);
+    }
+    // draw path additional elements
+    myNet->getNetworkPathManager()->drawJunctionPathElements(s, this);
+    myNet->getDemandPathManager()->drawJunctionPathElements(s, this);
+    myNet->getDataPathManager()->drawJunctionPathElements(s, this);
 }
 
 

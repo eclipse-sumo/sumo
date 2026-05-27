@@ -213,7 +213,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         // get NBCrossing
         const auto NBCrossing = getNBCrossing();
         // get scaling depending if attribute carrier is selected
-        const double crossingExaggeration = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+        const double crossingExaggeration =  s.junctionSize.getExaggeration(s, this, 1);
         // get width
         const double crossingWidth = NBCrossing->width * 0.5 * crossingExaggeration;
         // get detail level
@@ -506,7 +506,8 @@ void
 GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
                           const NBNode::Crossing* crossing, const double width, const double exaggeration) const {
     // don't draw crossing in TLS Mode
-    if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
+    if ((myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) &&
+            ((d <= GUIVisualizationSettings::Detail::JunctionElementDetails) || (s.junctionSize.constantSizeSelected && isAttributeCarrierSelected()))) {
         // get color
         RGBColor crossingColor = getCrossingColor(s, crossing);
         // push layer matrix
