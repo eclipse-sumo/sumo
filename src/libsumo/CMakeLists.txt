@@ -63,17 +63,20 @@ endif()
 # Optional eCAL extension: compiles libsumo::ECal with HAVE_ECAL when both eCAL and Protobuf
 # are available, enabling the sumo-webgui Python publisher to delegate its hot per-step loop
 # to native C++ via traci.ecal.  Without these packages, ECal becomes a stub.
+if (SUMO_LIBRARIES AND WIN32)
+    file(GLOB ECAL_PATH "${SUMO_LIBRARIES}/eCAL*")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${ECAL_PATH}")
+endif()
 find_package(eCAL QUIET CONFIG)
 find_package(Protobuf QUIET)
-set(HAVE_ECAL_SUPPORT OFF)
 if (eCAL_FOUND AND Protobuf_FOUND)
-    set(HAVE_ECAL_SUPPORT ON)
     set(_ECAL_PROTO ${CMAKE_CURRENT_SOURCE_DIR}/sumo_ecal.proto)
     protobuf_generate_cpp(SUMO_ECAL_PROTO_SRCS SUMO_ECAL_PROTO_HDRS ${_ECAL_PROTO})
     list(APPEND libsumostatic_STAT_SRCS ${SUMO_ECAL_PROTO_SRCS} ${SUMO_ECAL_PROTO_HDRS})
     message(STATUS "libsumo: eCAL extension enabled (eCAL ${eCAL_VERSION}, Protobuf ${Protobuf_VERSION})")
 else()
     message(STATUS "libsumo: eCAL extension disabled (eCAL_FOUND=${eCAL_FOUND}, Protobuf_FOUND=${Protobuf_FOUND})")
+    set(eCAL_FOUND OFF)
 endif()
 
 # libsumostatic contains a compiled version of src/libsumo without GUI.* and without HAVE_LIBSUMOGUI being defined
@@ -118,7 +121,7 @@ install(TARGETS libsumocpp EXPORT SUMOConfig
 )
 export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
-if (HAVE_ECAL_SUPPORT)
+if (eCAL_FOUND)
     # ECal.cpp + generated sumo_ecal.pb.cc are listed in libsumostatic_STAT_SRCS so they are
     # compiled into all three libsumo targets.  We just need to make HAVE_ECAL visible to the
     # preprocessor, expose the binary dir (for the generated .pb.h), and link against the eCAL
