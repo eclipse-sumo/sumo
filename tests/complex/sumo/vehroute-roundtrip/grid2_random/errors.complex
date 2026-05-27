@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle '290'; waited too long (yield), lane='E3E2_1', time=662.00.
+Warning: Teleporting vehicle '490'; waited too long (yield), lane='E2E3_1', time=664.00.
+Warning: Vehicle '490' ends teleporting on edge 'E3E2', time=664.00.
+Warning: Vehicle '290' ends teleporting on edge 'E2E3', time=667.00.
+Warning: Teleporting vehicle '290'; waited too long (yield), lane='E3E2_1', time=662.00.
+Warning: Teleporting vehicle '490'; waited too long (yield), lane='E2E3_1', time=664.00.
+Warning: Vehicle '490' ends teleporting on edge 'E3E2', time=664.00.
+Warning: Vehicle '290' ends teleporting on edge 'E2E3', time=667.00.
