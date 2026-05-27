@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:28:14.120445+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-05-27T19:18:18.642714+01:00 by Eclipse SUMO sumo v1_27_0+0036-2714d6183a1
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,12 +32,14 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1238-9348d776a1c" time="80.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_27_0+0036-2714d6183a1" time="80.00" rail="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!train2" state="0" edges="a b c"/>
     <delay number="1" begin="2" end="1" depart="0.00" time="22.00" speedFactor="1.00" decel="4.50"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
     <vehicle id="train2" type="train" depart="60.00" departSpeed="max" route="!train2" distance="200 0" speedFactor="1.0000" state="18 60000 1 0 1 0 87199 74405 9223372036854774807 1 0">
         <stop edge="b" until="80.00" started="74.41"/>
+        <rem id="DriveWay_gneJ0.d0" time="74405" pos="100.00"/>
+        <rem id="DriveWay_A.d0" time="74405" pos="100.00"/>
     </vehicle>
     <segment id=":A_0:0">
         <vehicles time="70135" blockTime="70127" value=""/>
@@ -57,4 +59,6 @@
     <segment id="c:0">
         <vehicles time="21604" blockTime="17333" value=""/>
     </segment>
+    <driveWay id="A.d0" edges="b c" vehicles="train2"/>
+    <driveWay id="gneJ0.d0" edges="a b c" vehicles="train2"/>
 </snapshot>
