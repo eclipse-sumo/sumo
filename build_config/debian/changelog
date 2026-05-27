@@ -1,3 +1,15 @@
+sumo (1.27.0-2) noble; urgency=medium
+
+  * fixing dev package which includes arch dependent paths
+
+ -- Michael Behrisch <oss@behrisch.de>  Wed, 27 May 2026 13:33:03 +0200
+
+sumo (1.27.0-1) noble; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Thu, 21 May 2026 09:40:08 +0200
+
 sumo (1.26.0-3) noble; urgency=medium
 
   * adding dev package
