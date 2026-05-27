@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-04-20 17:23+0000\n"
+"PO-Revision-Date: 2026-05-27 19:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -14154,7 +14154,7 @@ msgstr "Salva elenco di elementi selezionati"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:365
 msgid "Storing Selection failed"
-msgstr ""
+msgstr "La selezione non poteva essere salvata"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:397
 msgid "clear selection"
@@ -14323,7 +14323,7 @@ msgstr "A zona di assegnazione del traffico"
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within a dataSet."
-msgstr ""
+msgstr "Si deve definire un/una % in ogni insieme di dati."
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
 #, c-format
@@ -14708,6 +14708,8 @@ msgstr "Errore nel salvare i collegamenti"
 #, c-format
 msgid "Connection edition cannot be saved because route '%s' is broken."
 msgstr ""
+"Il collegamento modificato non può essere salvato a causa dell'itinerario "
+"'%s' rotto."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:140
 msgid "Changes accepted"
@@ -15405,7 +15407,7 @@ msgstr "Destinazione"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:910
 msgid "TAZEdgeColor already selected"
-msgstr ""
+msgstr "Colore già selezionato per l'arco di zona di assegnazione del traffico"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:942
 msgid "edge wasn't found"
@@ -15643,7 +15645,7 @@ msgstr "Raddoppia"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1537
 msgid "TLSPrograms cannot be found"
-msgstr ""
+msgstr "Piani di semafori introvabili"
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1579
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:1589
@@ -17164,7 +17166,7 @@ msgstr "Mostra direzione di corsia"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1967
 msgid "Hide macro connectors"
-msgstr ""
+msgstr "Nascondi i connettori macro"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1969
 msgid "Show sublanes"
@@ -17384,7 +17386,7 @@ msgstr "Mostra il nome completo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2243
 msgid "StoppingPlace"
-msgstr ""
+msgstr "Luogo di fermata"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2244
 msgid "body"
