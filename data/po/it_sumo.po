@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-18 18:35+0000\n"
+"PO-Revision-Date: 2026-05-28 18:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -13603,7 +13603,7 @@ msgstr "StopOffset richiede un valore di spostamento"
 #: src/utils/common/SUMOVehicleClass.cpp:358
 #, c-format
 msgid "Invalid character in vehicle class '%' encountered."
-msgstr ""
+msgstr "Presente un carattere invalido nella classe di veicoli '%'."
 
 #: src/utils/common/SUMOVehicleClass.cpp:360
 #, c-format
@@ -14830,23 +14830,25 @@ msgstr ""
 #: src/utils/traction_wire/Circuit.cpp:44
 #, c-format
 msgid "The node: '%' already exists."
-msgstr ""
+msgstr "Il nodo '%' esiste già."
 
 #: src/utils/traction_wire/Circuit.cpp:239
 msgid "Index of renumbered node exceeded the reduced number of equations."
-msgstr ""
+msgstr "L'indice del nodo rinumerato eccede il numero ridotto di equazioni."
 
 #: src/utils/traction_wire/Circuit.cpp:250
 msgid "Index of renumbered element exceeded the reduced number of equations."
-msgstr ""
+msgstr "L'indice del elemento rinumerato eccede il numero ridotto di equazioni."
 
 #: src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
-msgstr ""
+msgstr "Errore strutturale nella matrice ridotta del circuito."
 
 #: src/utils/traction_wire/Circuit.cpp:286
 msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
 msgstr ""
+"La soluzione iniziale usata per risolvere il circuito di tensione costante "
+"si trova fuori i limiti.\n"
 
 #: src/utils/traction_wire/Circuit.cpp:309
 #: src/utils/traction_wire/Circuit.cpp:453
@@ -15409,7 +15411,7 @@ msgstr "File di configurazione netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "Netconvert plain-xml files"
-msgstr ""
+msgstr "File netconvert plain-xml"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "OSM network files"
