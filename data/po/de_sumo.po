@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-16 11:55+0000\n"
+"PO-Revision-Date: 2026-05-28 18:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -8800,7 +8800,7 @@ msgstr ""
 
 #: src/netbuild/NBPTLine.cpp:217
 msgid "First stop edge '%' is not part of the route of line '%'."
-msgstr "Erste Haltekante '%' ist kein Part der Route von Linie '%'."
+msgstr "Die erste Haltekante '%' liegt nicht auf der Route von Linie '%'."
 
 #: src/netbuild/NBPTLine.cpp:241
 msgid "Could not retrieve edge '%' for last stop of line '%'."
@@ -13007,8 +13007,8 @@ msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
 msgstr ""
-"Es gibt Haltekanten, welche kein Part der originalen Route für Fahrzeug '%' "
-"sind."
+"Es gibt Haltekanten, welche nicht auf der originalen Route des Fahrzeugs '%' "
+"liegen."
 
 #: src/router/RORouteDef.cpp:281
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
