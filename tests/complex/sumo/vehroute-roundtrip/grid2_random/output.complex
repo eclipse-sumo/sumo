@@ -1,50 +1,48 @@
-Loading net-file from 'input_net.net.xml' ... done (99ms).
+Loading net-file from 'input_net.net.xml' ... done (10ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_27_0+0030-8b5074709ef started with time: 0.00.
-Simulation ended at time: 1375.00.
+Simulation version v1_27_0+0048-a3478af8069 started with time: 0.00.
+Simulation ended at time: 1382.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 9.86s
- Real time factor: 139.424
- UPS: 30275.400527
+ Duration: 0.80s
+ Real time factor: 1736.18
+ UPS: 365737.437186
 Vehicles:
  Inserted: 2000
  Running: 0
  Waiting: 0
- Teleports: 2 (Yield: 2)
 Statistics (avg of 2000):
- RouteLength: 470.90
- Speed: 4.17
- Duration: 149.29
- WaitingTime: 78.56
- TimeLoss: 112.44
- DepartDelay: 5.45
-DijkstraRouter answered 5559 queries and explored 40.18 edges on average.
-DijkstraRouter spent 0.33s answering queries (0.06ms on average).
-Loading net-file from 'input_net.net.xml' ... done (88ms).
+ RouteLength: 473.29
+ Speed: 4.23
+ Duration: 145.56
+ WaitingTime: 74.56
+ TimeLoss: 108.57
+ DepartDelay: 5.08
+DijkstraRouter answered 5463 queries and explored 39.30 edges on average.
+DijkstraRouter spent 0.04s answering queries (0.01ms on average).
+Loading net-file from 'input_net.net.xml' ... done (9ms).
 Loading route-files incrementally from 'vr.xml'
 Loading done.
-Simulation version v1_27_0+0030-8b5074709ef started with time: 0.00.
-Simulation ended at time: 1375.00.
+Simulation version v1_27_0+0048-a3478af8069 started with time: 0.00.
+Simulation ended at time: 1382.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 8.29s
- Real time factor: 165.903
- UPS: 36025.096525
+ Duration: 0.62s
+ Real time factor: 2229.03
+ UPS: 469559.677419
 Vehicles:
  Inserted: 2000
  Running: 0
  Waiting: 0
- Teleports: 2 (Yield: 2)
 Statistics (avg of 2000):
- RouteLength: 470.90
- Speed: 4.17
- Duration: 149.29
- WaitingTime: 78.56
- TimeLoss: 112.44
+ RouteLength: 473.29
+ Speed: 4.23
+ Duration: 145.56
+ WaitingTime: 74.56
+ TimeLoss: 108.57
  DepartDelay: 0.00
-<     <performance clockBegin="1779877448.62" clockEnd="1779877458.48" clockDuration="9.86" traciDuration="1.03" realTimeFactor="139.42" vehicleUpdatesPerSecond="30275.40" personUpdatesPerSecond="0.00" begin="0.00" end="1375.00" duration="1375.00"/>
->     <performance clockBegin="1779877458.87" clockEnd="1779877467.16" clockDuration="8.29" traciDuration="0.00" realTimeFactor="165.90" vehicleUpdatesPerSecond="36025.10" personUpdatesPerSecond="0.00" begin="0.00" end="1375.00" duration="1375.00"/>
-<     <vehicleTripStatistics count="2000" routeLength="470.90" speed="4.17" duration="149.29" waitingTime="78.56" timeLoss="112.44" departDelay="5.45" departDelayWaiting="-1.00" totalTravelTime="298576.00" totalDepartDelay="10899.00"/>
->     <vehicleTripStatistics count="2000" routeLength="470.90" speed="4.17" duration="149.29" waitingTime="78.56" timeLoss="112.44" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="298576.00" totalDepartDelay="0.00"/>
+<     <performance clockBegin="1779951136.24" clockEnd="1779951137.04" clockDuration="0.80" traciDuration="0.00" realTimeFactor="1736.18" vehicleUpdatesPerSecond="365737.44" personUpdatesPerSecond="0.00" begin="0.00" end="1382.00" duration="1382.00"/>
+>     <performance clockBegin="1779951137.09" clockEnd="1779951137.71" clockDuration="0.62" traciDuration="0.00" realTimeFactor="2229.03" vehicleUpdatesPerSecond="469559.68" personUpdatesPerSecond="0.00" begin="0.00" end="1382.00" duration="1382.00"/>
+<     <vehicleTripStatistics count="2000" routeLength="473.29" speed="4.23" duration="145.56" waitingTime="74.56" timeLoss="108.57" departDelay="5.08" departDelayWaiting="-1.00" totalTravelTime="291127.00" totalDepartDelay="10171.00"/>
+>     <vehicleTripStatistics count="2000" routeLength="473.29" speed="4.23" duration="145.56" waitingTime="74.56" timeLoss="108.57" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="291127.00" totalDepartDelay="0.00"/>

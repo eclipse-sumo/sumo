@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-27T12:24:08.598885+01:00 by Eclipse SUMO sumo v1_27_0+0030-8b5074709ef
+<!-- generated on 2026-05-28T08:52:16.240418+01:00 by Eclipse SUMO sumo v1_27_0+0048-a3478af8069
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -34,13 +34,13 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1779877448.62" clockEnd="1779877458.48" clockDuration="9.86" traciDuration="1.03" realTimeFactor="139.42" vehicleUpdatesPerSecond="30275.40" personUpdatesPerSecond="0.00" begin="0.00" end="1375.00" duration="1375.00"/>
+    <performance clockBegin="1779951136.24" clockEnd="1779951137.04" clockDuration="0.80" traciDuration="0.00" realTimeFactor="1736.18" vehicleUpdatesPerSecond="365737.44" personUpdatesPerSecond="0.00" begin="0.00" end="1382.00" duration="1382.00"/>
     <vehicles loaded="2000" inserted="2000" running="0" waiting="0"/>
-    <teleports total="2" jam="0" yield="2" wrongLane="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="2000" routeLength="470.90" speed="4.17" duration="149.29" waitingTime="78.56" timeLoss="112.44" departDelay="5.45" departDelayWaiting="-1.00" totalTravelTime="298576.00" totalDepartDelay="10899.00"/>
+    <vehicleTripStatistics count="2000" routeLength="473.29" speed="4.23" duration="145.56" waitingTime="74.56" timeLoss="108.57" departDelay="5.08" departDelayWaiting="-1.00" totalTravelTime="291127.00" totalDepartDelay="10171.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
