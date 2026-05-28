@@ -9,6 +9,15 @@ title: ChangeLog
 - sumo
   - Fixed crash in sublane simulation with unusual turning lanes #18030 (regression in 1.27.0)
   - Fixed invalid strategic lane choice when connections have reduced permissions #18034
+  - Fixed extreme reduction in simulation speed when setting high road speed limits in a dense road network #18038
+  - Fixed insufficient backward safety gaps with respect to minGap #18042
+  - Fixed insufficient backward safety gaps on lanes that are shared by road and rail traffic #18041
+  - loading state with an invalid begin time no longer results in an unexpected simulation start time #18048
+
+- netedit
+  - Fixed invalid error message when loading a route with an unknown stopping place #16333
+  - TAZs with one shape point no longer writes an invalid center #16845
+  - selected connections now remain visible at high zoom when selection scaling is active #17309  
 
 - sumo-gui
   - Fixed invalid meso segment markers in network with length/geometry mismatch #18036
@@ -18,6 +27,10 @@ title: ChangeLog
   - fixed unsafe rail insertion #18028
   - fixed invalid rail signal state in network with internal links #6990, #18027
 
+### Enhancements
+
+- tools
+  - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
 
 ## Version 1.27.0 (21.05.2026)
 
