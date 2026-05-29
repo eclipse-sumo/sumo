@@ -29,7 +29,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <building_defaults>
-        <default-junction-type value="traffic_light"/>
+        <default.junctions.type value="traffic_light"/>
     </building_defaults>
 
     <report>
