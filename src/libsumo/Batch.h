@@ -30,7 +30,6 @@
 // HAVE_ECAL — those methods are stubs in builds without eCAL.
 /****************************************************************************/
 #pragma once
-#include <config.h>
 
 #include <cstdint>
 #include <string>
@@ -130,6 +129,15 @@ public:
     /// Read-only access to the per-step buffers (vehicles / agents / edges /
     /// TLS).  Pointers/contents remain valid until the next beginStep call.
     static const BatchBuffers& buffers();
+
+    /// Number of distinct vehicle / agent types registered so far.
+    static uint32_t typeCount();
+
+    /// Vehicle/agent type id for @p idx (as observed by fillVehicles /
+    /// fillAgents).  Returns an empty string for out-of-range indices.
+    /// Used by embedded C++ clients to map BatchBuffers::veh_type_indices /
+    /// agent_type_indices back to a libsumo::VehicleType::getColor(id) call.
+    static std::string typeId(uint32_t idx);
 #endif // !SWIG
 
     // ---- optional eCAL publisher (HAVE_ECAL build only) -----------------

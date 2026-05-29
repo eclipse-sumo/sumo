@@ -148,6 +148,7 @@ struct ExtractState {
     // Stable insertion-order vehicle/agent type registry; shared across vehicles, persons
     // and containers so the frontend VehicleTypeDict mirrors the Python publisher exactly.
     std::unordered_map<std::string, uint32_t> typeIndex;
+    std::vector<std::string> typeIdsByIdx;  // parallel; ordered access by index
     uint32_t typeCount = 0;
     bool     typeDictDirty = false;
 
@@ -184,6 +185,7 @@ uint32_t registerType(ExtractState& s, const MSVehicleType& vt, uint8_t classByt
     }
     const uint32_t idx = s.typeCount++;
     s.typeIndex.emplace(tid, idx);
+    s.typeIdsByIdx.push_back(tid);
     appendCString(s.typeIdBlock, tid);
     appendLE<float>(s.typeLengths, static_cast<float>(vt.getLength()));
     appendLE<float>(s.typeWidths,  static_cast<float>(vt.getWidth()));
@@ -389,6 +391,16 @@ const BatchBuffers& Batch::buffers() {
     return state().buf;
 }
 
+uint32_t Batch::typeCount() {
+    return state().typeCount;
+}
+
+std::string Batch::typeId(uint32_t idx) {
+    ExtractState& s = state();
+    if (idx >= s.typeIdsByIdx.size()) return std::string();
+    return s.typeIdsByIdx[idx];
+}
+
 } // namespace libsumo
 
 
@@ -463,6 +475,7 @@ void Batch::init(const std::string& simstepTopic, const std::string& typedictTop
 
     ExtractState& s = state();
     s.typeIndex.clear();
+    s.typeIdsByIdx.clear();
     s.typeIdBlock.clear();
     s.typeLengths.clear();
     s.typeWidths.clear();
@@ -482,6 +495,7 @@ void Batch::close() {
     es.pubTypedict.reset();
     ExtractState& s = state();
     s.typeIndex.clear();
+    s.typeIdsByIdx.clear();
     s.typeIdBlock.clear();
     s.typeLengths.clear();
     s.typeWidths.clear();
