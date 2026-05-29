@@ -16,6 +16,7 @@ precision
 # include route and vtype dists
 dists
 dists2
+dists3
 
 # include route and vtype dists
 dists_gz

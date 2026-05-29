@@ -19,6 +19,9 @@ dists
 # have vehicles sample from the vTypeDistribution before and after state loading
 dists2
 
+# have vehicles sample from the vTypeDistribution before and after state loading with vehicles departing exactly at state saving time
+dists3
+
 # include route and vtype dists
 dists_gz
 
