@@ -43,7 +43,7 @@ def getOptions(args=None):
                            default="", help="define a prefix of the screenshot filename")
     argParser.add_argument("--relative", category="processing", action="store_true",
                            default=False,
-                           help="whether to interpret animation commands relative to the previous one / the initial view settings")
+                           help="whether to interpret animation commands relative to the previous one / the initial view settings")  # noqa
     argParser.add_argument("--zoom",
                            help="linear interpolation of zoom values given the key frames syntax t1:v1[;t2:v2 ...]")
     argParser.add_argument("--rotate",
@@ -77,7 +77,8 @@ def main(options):
     traci.start(["sumo-gui", "-c", options.sumocfg])
     recordAll = options.begin is None and options.end is None
     listener = ScreenshotHelper(outputPath, "%s%s" % (options.prefix, formattedTime if options.includeTime else ""),
-                                options.imageFormat, 1, view=options.view, recordAll=recordAll, relativeAnim=options.relative)
+                                options.imageFormat, 1, view=options.view,
+                                recordAll=recordAll, relativeAnim=options.relative)
     if not recordAll:
         listener.addTimeInterval(begin=options.begin, end=options.end)
     if options.zoom is not None:
