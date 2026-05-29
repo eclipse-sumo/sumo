@@ -16,7 +16,7 @@
     </output>
 
     <building_defaults>
-        <default-junction-type value="traffic_light"/>
+        <default.junctions.type value="traffic_light"/>
     </building_defaults>
 
 </netgenerateConfiguration>
