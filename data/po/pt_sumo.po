@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-01-30 12:31+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2026-05-30 13:01+0000\n"
+"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
+"\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -521,7 +521,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "Nenhum detector encontrado."
 
 #: src/dfrouter/dfrouter_main.cpp:103
 #, c-format
@@ -530,7 +530,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:122
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "Removendo detectores vazios"
 
 #: src/dfrouter/dfrouter_main.cpp:126
 msgid "Scanning for empty detectors"
@@ -554,7 +554,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:190
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "Reverificando fluxos carregados"
 
 #: src/dfrouter/dfrouter_main.cpp:195
 msgid "Writing emitters"
@@ -562,15 +562,15 @@ msgstr "Escrevendo emissores"
 
 #: src/dfrouter/dfrouter_main.cpp:207
 msgid "Writing emitter pois"
-msgstr ""
+msgstr "Escrevendo pontos de interesse emissores"
 
 #: src/dfrouter/dfrouter_main.cpp:214
 msgid "Writing speed triggers"
-msgstr ""
+msgstr "Escrevendo ativadores de velocidade"
 
 #: src/dfrouter/dfrouter_main.cpp:221
 msgid "Writing validation detectors"
-msgstr ""
+msgstr "Escrevendo detectores de validação"
 
 #: src/dfrouter/dfrouter_main.cpp:228
 msgid "Writing highway end rerouter"
@@ -992,7 +992,7 @@ msgstr ""
 
 #: src/libsumo/Vehicle.cpp:1305 src/libsumo/Vehicle.cpp:1443
 msgid "Unsupported parameter '%'"
-msgstr ""
+msgstr "Parâmetro '%' não suportado"
 
 #: src/libsumo/Vehicle.cpp:1385
 msgid "Waypoint (speed = %) at index % does not support triggers"
@@ -1049,11 +1049,11 @@ msgstr ""
 
 #: src/marouter/ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
-msgstr ""
+msgstr "Origem '%' desconhecida."
 
 #: src/marouter/ROMAAssignments.cpp:194
 msgid "Unknown destination '%'."
-msgstr ""
+msgstr "Destino '%' desconhecido."
 
 #: src/marouter/ROMAFrame.cpp:71 src/od2trips_main.cpp:121
 msgid "Does not save vtype information"
@@ -1580,7 +1580,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:66
 msgid "print help"
-msgstr ""
+msgstr "mostrar ajuda"
 
 #: src/microsim/MSFrame.cpp:80
 msgid "Load road network description from FILE"
@@ -12033,12 +12033,12 @@ msgstr ""
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 msgid "File Exists"
-msgstr ""
+msgstr "O arquivo já existe"
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 #, c-format
 msgid "Overwrite '%s'?"
-msgstr ""
+msgstr "Sobrescrever '%s'?"
 
 #: src/utils/geom/GeoConvHelper.cpp:92
 msgid "Ignoring geoidgrids and vgridshift in projection"
@@ -12316,7 +12316,7 @@ msgstr ""
 
 #: src/utils/handlers/CommonHandler.cpp:435
 msgid " or "
-msgstr ""
+msgstr " ou "
 
 #: src/utils/handlers/DataHandler.cpp:124
 msgid "Data elements cannot load attributes as params"
@@ -12520,19 +12520,19 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:844
 msgid "Help Topics:"
-msgstr ""
+msgstr "Tópicos de ajuda:"
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid "Usage: "
-msgstr ""
+msgstr "Uso: "
 
 #: src/utils/options/OptionsCont.cpp:852
 msgid " [OPTION]*"
-msgstr ""
+msgstr " [OPÇÃO]*"
 
 #: src/utils/options/OptionsCont.cpp:864
 msgid "Examples:"
-msgstr ""
+msgstr "Exemplos:"
 
 #: src/utils/options/OptionsCont.cpp:871
 msgid "Report bugs at %."
@@ -12544,7 +12544,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:878
 msgid "% Options:"
-msgstr ""
+msgstr "% Opções:"
 
 #: src/utils/options/OptionsIO.cpp:88 src/utils/options/OptionsIO.cpp:135
 msgid "Could not parse commandline options."
@@ -13164,7 +13164,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1825
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1836
 msgid "XML files"
-msgstr ""
+msgstr "Arquivos XML"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1675
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1680
@@ -13188,7 +13188,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1831
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1837
 msgid "All files"
-msgstr ""
+msgstr "Todos os arquivos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1679
 msgid "Plain text files"
@@ -13196,7 +13196,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1684
 msgid "CSV files"
-msgstr ""
+msgstr "Arquivos CSV"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1689
 msgid "Open scene graph files"
@@ -13254,12 +13254,12 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1704
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1730
 msgid "JPEG Image"
-msgstr ""
+msgstr "Imagem JPEG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1705
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1731
 msgid "TIFF Image"
-msgstr ""
+msgstr "Imagem TIFF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1706
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1732
@@ -13269,7 +13269,7 @@ msgstr "Postscript"
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1707
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1733
 msgid "Encapsulated Postscript"
-msgstr ""
+msgstr "Postscript encapsulado"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1708
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1734
@@ -13293,7 +13293,7 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1738
 msgid "All Files"
-msgstr ""
+msgstr "Todos os arquivos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1716
 msgid "All Image and Video Files"
@@ -13305,15 +13305,15 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "G264 Video"
-msgstr ""
+msgstr "Vídeo G264"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1719
 msgid "HEVC Video"
-msgstr ""
+msgstr "Vídeo HEVC"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1720
 msgid "MP4 Video"
-msgstr ""
+msgstr "Vídeo MP4"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1737
 msgid "Portable"
@@ -13321,7 +13321,7 @@ msgstr "Portátil"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1743
 msgid "Plain text"
-msgstr ""
+msgstr "Texto sem formato"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1748
 msgid "View settings files"
@@ -13333,7 +13333,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1759
 msgid "Sumo config"
-msgstr ""
+msgstr "Arquivo de configuração do sumo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "Netedit config files"
@@ -13357,11 +13357,11 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "TLS files"
-msgstr ""
+msgstr "Arquivo de semáforos"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1801
 msgid "Junction files"
-msgstr ""
+msgstr "Arquivo de junções"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1807
 msgid "Edge type files"
@@ -13369,11 +13369,11 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1813
 msgid "Additional files"
-msgstr ""
+msgstr "Arquivos adicionais"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1824
 msgid "Route files"
-msgstr ""
+msgstr "Arquivo de rotas"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 msgid "Edge data files"
