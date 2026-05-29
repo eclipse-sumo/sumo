@@ -42,6 +42,14 @@
 // ===========================================================================
 namespace libsumo {
 
+#ifndef SWIG
+// The BatchBuffers struct and the per-section fill* / beginStep / drainNewTypes
+// / buffers() API are for embedded C++ consumers (e.g. the Qt6 GUI in
+// sumo-webgui/qt_cpp).  SWIG cannot wrap the std::string columns as Python
+// properties and would fail at module-init, so we hide this section from it.
+// Python clients access libsumo::Batch only via the eCAL publisher entry
+// points (available / init / close / publishSimStep / getStats) below.
+
 /// Packed little-endian byte columns produced by Batch::fill*.  All bytes
 /// fields use the same wire layout as the sumo.SimStepBin protobuf message
 /// consumed by the deck.gl frontend, so embedded C++ clients can either parse
@@ -80,9 +88,11 @@ struct BatchBuffers {
     std::string tls_states;          // utf8[T]     RYG strings
     uint32_t    tls_count = 0;
 };
+#endif // !SWIG
 
 class Batch {
 public:
+#ifndef SWIG
     /// Reset per-step buffers (preserves heap capacity).  Call once before the
     /// fill* methods.  Idempotent; safe to call again to discard a partial
     /// fill cycle.
@@ -120,6 +130,7 @@ public:
     /// Read-only access to the per-step buffers (vehicles / agents / edges /
     /// TLS).  Pointers/contents remain valid until the next beginStep call.
     static const BatchBuffers& buffers();
+#endif // !SWIG
 
     // ---- optional eCAL publisher (HAVE_ECAL build only) -----------------
     // These methods are always declared so callers compile against the same
