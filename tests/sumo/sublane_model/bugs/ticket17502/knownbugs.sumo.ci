@@ -1,0 +1,9 @@
+[Reported by ARM CI]
+search_string:.*
+search_file:errors
+brief_description:see #17458
+
+[Reported by ARM CI]
+search_string:.*
+search_file:output
+brief_description:see #17458
