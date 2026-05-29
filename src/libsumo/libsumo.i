@@ -46,7 +46,7 @@
 #include <libsumo/MeanData.h>
 #include <libsumo/VariableSpeedSign.h>
 #include <libsumo/RouteProbe.h>
-#include <libsumo/ECal.h>
+#include <libsumo/Batch.h>
 %}
 
 // Process symbols in header
@@ -96,4 +96,4 @@
 %include "MeanData.h"
 %include "VariableSpeedSign.h"
 %include "RouteProbe.h"
-%include "ECal.h"
+%include "Batch.h"

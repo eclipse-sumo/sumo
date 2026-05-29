@@ -1,8 +1,8 @@
 set(libsumostatic_STAT_SRCS
     Edge.cpp
     Edge.h
-    ECal.cpp
-    ECal.h
+    Batch.cpp
+    Batch.h
     Helper.cpp
     Helper.h
     InductionLoop.cpp
@@ -60,9 +60,10 @@ if (NOT ISOLATED_BUILD)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
 endif()
 
-# Optional eCAL extension: compiles libsumo::ECal with HAVE_ECAL when both eCAL and Protobuf
-# are available, enabling the sumo-webgui Python publisher to delegate its hot per-step loop
-# to native C++ via traci.ecal.  Without these packages, ECal becomes a stub.
+# Optional eCAL publisher (libsumo::Batch::publishSimStep + init/close/getStats):
+# enabled with HAVE_ECAL when both eCAL and Protobuf are available.  The transport-
+# agnostic Batch::fill* extraction methods are compiled unconditionally; only the
+# eCAL/Protobuf-dependent publisher wrapper is gated.
 if (SUMO_LIBRARIES AND WIN32)
     file(GLOB ECAL_PATH "${SUMO_LIBRARIES}/eCAL*")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${ECAL_PATH}")
@@ -122,7 +123,7 @@ install(TARGETS libsumocpp EXPORT SUMOConfig
 export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
 if (eCAL_FOUND)
-    # ECal.cpp + generated sumo_ecal.pb.cc are listed in libsumostatic_STAT_SRCS so they are
+    # Batch.cpp + generated sumo_ecal.pb.cc are listed in libsumostatic_STAT_SRCS so they are
     # compiled into all three libsumo targets.  We just need to make HAVE_ECAL visible to the
     # preprocessor, expose the binary dir (for the generated .pb.h), and link against the eCAL
     # and Protobuf shared libraries.

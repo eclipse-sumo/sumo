@@ -29,7 +29,7 @@
 %rename(meandata) MeanData;
 %rename(variablespeedsign) VariableSpeedSign;
 %rename(routeprobe) RouteProbe;
-%rename(ecal) ECal;
+%rename(batch) Batch;
 
 /* There is currently no TraCIPosition used as input so this is only for future usage
 %typemap(in) const libsumo::TraCIPosition& (libsumo::TraCIPosition pos) {
