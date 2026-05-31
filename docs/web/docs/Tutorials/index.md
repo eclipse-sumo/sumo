@@ -32,6 +32,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 * [SUMO 2023](https://sumo.dlr.de/daily/sumo2023_tutorial.zip): Graphical diff, personFlow, plotting tools, analyzing repeated runs
 * [SUMO 2024](https://sumo.dlr.de/daily/sumo2024_tutorial.zip): Debugging simulation warnings, pedestrian models, flying taxis
 * [SUMO 2025](https://sumo.dlr.de/daily/sumo2025_tutorial.zip): Railway simulation, GTFS, detector count import, electric vehicles, automated charging
+* [SUMO 2026](https://sumo.dlr.de/daily/sumo2026_tutorial.zip): Podcars, state saving/loading, routing preferences
 
 ## Videos
 
