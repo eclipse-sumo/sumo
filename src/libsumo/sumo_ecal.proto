@@ -15,25 +15,42 @@ message TlsEntry {
 message NetworkGeometry {
   uint32          version            = 17; // incremented on incompatible format changes
   bool            geo_referenced     = 1;
+  // ---------------------------------------------------------------------------
+  // Coordinate semantics for all position-bearing `bytes` fields below
+  // (junction_positions, tls_positions, lane_positions,
+  //  solid_marking_positions, dashed_marking_positions):
+  //
+  //   * In the on-disk CACHE file (v2+):  f32 LE, raw SUMO XY metres.
+  //   * On the eCAL/WS WIRE:              f64 LE, lon/lat for geo nets,
+  //                                       SUMO XY otherwise.  (The bridge
+  //                                       does the cache→wire conversion
+  //                                       using `proj_parameter` +
+  //                                       `net_offset` when forwarding.)
+  //
+  // qt_cpp reads the cache directly (XY) so it never needs PROJ.  The
+  // frontend reads the WS wire only (lon/lat) so it never needs PROJ
+  // either.  This split keeps both renderers projection-free at the
+  // cost of one batched pyproj transform in the bridge.
+  // ---------------------------------------------------------------------------
   bytes           junction_starts    = 4;  // u32[] LE — cumulative vertex index per junction polygon
-  bytes           junction_positions = 9;  // f64[] LE — [x0,y0,...] all junction polygon vertices
-  bytes           tls_positions      = 5;  // f64[] LE — [x1,y1,x2,y2] per TLS bar
+  bytes           junction_positions = 9;  // see Coordinate semantics block above
+  bytes           tls_positions      = 5;  // see Coordinate semantics block above
   repeated string edge_ids           = 6;
   repeated string junction_ids       = 7;
   repeated TlsEntry tls_entries      = 8;
   string          proj_parameter     = 10; // proj4 string from <location>, empty if not geo-referenced
   string          net_offset         = 11; // "x,y" offset from <location>
   bytes           lane_starts        = 12; // u32[] LE — cumulative vertex index per lane
-  bytes           lane_positions     = 13; // f64[] LE — [x0,y0,x1,y1,...] all lane centerlines
+  bytes           lane_positions     = 13; // see Coordinate semantics block above
   bytes           lane_widths        = 14; // f32[] LE — width in metres per lane
   bytes           lane_edge_indices  = 15; // u32[] LE — index into edge_ids per lane
   repeated string lane_ids           = 16;
 
   // Lane markings (computed from sumolib geometry, already converted to final coords)
   bytes           solid_marking_starts     = 18; // u32[] LE — cumulative vertex index per solid line
-  bytes           solid_marking_positions  = 19; // f64[] LE — [x0,y0,...] solid marking vertices
+  bytes           solid_marking_positions  = 19; // see Coordinate semantics block above
   bytes           dashed_marking_starts    = 20; // u32[] LE — cumulative vertex index per dashed line
-  bytes           dashed_marking_positions = 21; // f64[] LE — [x0,y0,...] dashed marking vertices
+  bytes           dashed_marking_positions = 21; // see Coordinate semantics block above
 
   // Turning arrows — one byte per lane, bit-field of allowed directions:
   //   bit 0 (1)  = straight (s)    bit 1 (2)  = left (l)
@@ -57,6 +74,12 @@ message NetworkGeometry {
   //   2 = pedestrian crossing
   //   3 = walking area
   bytes           lane_function            = 25; // u8[]  LE — one byte per lane
+
+  // True if the network has meaningful Z coordinates. Currently always
+  // false — XY-only positions in the buffers above. Reserved for a future
+  // format bump that adds a parallel `*_positions_z` buffer (or switches
+  // to interleaved XYZ).
+  bool            has_z                    = 26;
 }
 
 // ---------------------------------------------------------------------------
