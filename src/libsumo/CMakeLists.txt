@@ -137,6 +137,19 @@ if (eCAL_FOUND)
         target_include_directories(libsumoguistatic PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${Protobuf_INCLUDE_DIRS})
         target_link_libraries(libsumoguistatic PUBLIC eCAL::core ${Protobuf_LIBRARIES})
     endif()
+    # Expose the generated sumo_ecal.pb.h to downstream consumers of libsumocpp
+    # (e.g. the sumo-webgui qt_cpp viewer) so they can deserialize the eCAL
+    # messages without regenerating the protobuf code themselves — which would
+    # crash on startup with a "Symbol name conflicts" abort from protobuf's
+    # global descriptor pool.  The generated header lives in the binary dir
+    # alongside sumo_ecal.pb.cc; we install it under include/libsumo/ next to
+    # the public libsumo headers.
+    target_include_directories(libsumocpp PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/libsumo>
+    )
+    install(FILES ${SUMO_ECAL_PROTO_HDRS} ${_ECAL_PROTO}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/libsumo COMPONENT runtime)
 endif()
 
 if (SWIG_FOUND)

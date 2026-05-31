@@ -44,6 +44,111 @@ message NetworkGeometry {
   // Lane permission class — one byte per lane:
   //   0 = pedestrian/other  1 = bicycle only  2 = motorised (passenger/bus/truck/…)
   bytes           lane_perm_class          = 23; // u8[]  LE — one byte per lane
+
+  // Stop line marker — one byte per lane, 1 if the lane ends at a stop-controlled
+  // approach (priority_stop, allway_stop, rail_signal, rail_crossing). TLS
+  // approaches are not marked here because the TLSLayer already draws a runtime
+  // bar at the lane end.
+  bytes           lane_has_stopline        = 24; // u8[]  LE — one byte per lane
+
+  // Lane function — one byte per lane:
+  //   0 = normal road lane
+  //   1 = internal junction connector (curved arc through intersection)
+  //   2 = pedestrian crossing
+  //   3 = walking area
+  bytes           lane_function            = 25; // u8[]  LE — one byte per lane
+}
+
+// ---------------------------------------------------------------------------
+// Additional-file content (polygons, POIs, stops, detectors).
+// Same indirection pattern as NetworkData/NetworkGeometry: publisher caches
+// the heavy binary to a file, then sends a Notice with the path. Bridge
+// reads the file and forwards as a binary WS frame.
+// ---------------------------------------------------------------------------
+
+message AdditionalsNotice {
+  enum Family {
+    POLYGONS  = 0;
+    STOPS     = 1;
+    DETECTORS = 2;
+  }
+  string source_path    = 1;  // original additional XML path (also the dedupe key)
+  string cache_path     = 2;  // resolved binary cache file
+  Family family         = 3;
+  bool   geo_referenced = 4;
+}
+
+message PolygonData {
+  uint32 version        = 1;
+  bool   geo_referenced = 2;
+
+  // Filled / outlined polygons
+  uint32          poly_count   = 10;
+  bytes           poly_starts  = 11; // u32[] LE — cumulative vertex index, length poly_count+1
+  bytes           poly_xy      = 12; // f32[] LE — interleaved [x,y,x,y,...]
+  bytes           poly_rgba    = 13; // u8[]  LE — 4 bytes per poly
+  bytes           poly_flags   = 14; // u8[]  LE — bit0=fill
+  bytes           poly_layer   = 15; // f32[] LE — sumo "layer" attr, used for sort
+  repeated string poly_ids     = 16;
+  repeated string poly_types   = 17;
+
+  // POIs (points)
+  uint32          poi_count     = 30;
+  bytes           poi_xy        = 31; // f32[] LE
+  bytes           poi_rgba      = 32; // u8[]  LE
+  bytes           poi_layer     = 33; // f32[] LE
+  bytes           poi_width     = 34; // f32[] LE — metres; 0 = use default
+  bytes           poi_height    = 35; // f32[] LE
+  repeated string poi_ids       = 36;
+  repeated string poi_types     = 37;
+  repeated string poi_image_url = 38; // "" when absent
+}
+
+// Stopping places (bus/train/container stops, charging stations, parking areas).
+// Each stop is resolved to a rectangle ring in world space by the publisher so
+// the frontend can hand it straight to SolidPolygonLayer without per-frame lane
+// lookups.
+message StoppingPlaceData {
+  uint32 version        = 1;
+  bool   geo_referenced = 2;
+
+  uint32          count       = 10;
+  bytes           kind        = 11; // u8[] LE — 1=busStop 2=trainStop 3=containerStop 4=chargingStation 5=parkingArea
+  bytes           xy_starts   = 12; // u32[] LE — cumulative vertex index, length count+1
+  bytes           xy          = 13; // f32[] LE — interleaved [x,y,...], ring vertices
+  bytes           rgba        = 14; // u8[] LE — 4 bytes per stop
+  bytes           label_xy    = 15; // f32[] LE — 2 floats per stop (mid-point for label/icon)
+  repeated string ids         = 16;
+  repeated string names       = 17; // human-readable `name` attr
+  repeated string lines       = 18; // bus/train lines (space-joined) — tooltip
+}
+
+// Detectors — E1 (point), E2 (lane segment), E3 (sets of entry/exit bars).
+message DetectorData {
+  uint32 version        = 1;
+  bool   geo_referenced = 2;
+
+  // E1 (point) detectors — rendered as short perpendicular bars.
+  uint32          e1_count = 10;
+  bytes           e1_xy    = 11; // f32[] LE — 2 floats per detector (midpoint)
+  bytes           e1_angle = 12; // f32[] LE — radians, perpendicular bar orientation
+  bytes           e1_rgba  = 13; // u8[] LE — 4 bytes per detector
+  repeated string e1_ids   = 14;
+
+  // E2 (lane segment) detectors — resolved rectangle rings, like stopping places.
+  uint32          e2_count    = 30;
+  bytes           e2_xy_starts = 31; // u32[] LE
+  bytes           e2_xy       = 32;  // f32[] LE
+  bytes           e2_rgba     = 33;  // u8[] LE
+  repeated string e2_ids      = 34;
+
+  // E3 entry/exit cross-sections — each rendered as an E1-style bar.
+  uint32          e3_bar_count     = 50;
+  bytes           e3_bar_xy        = 51; // f32[] LE
+  bytes           e3_bar_angle     = 52; // f32[] LE
+  bytes           e3_bar_rgba      = 53; // u8[] LE
+  bytes           e3_bar_kind      = 54; // u8[] LE — 0=entry 1=exit
+  repeated string e3_bar_parent_ids = 55; // parent E3 id per bar (for picking)
 }
 
 // ---------------------------------------------------------------------------
@@ -67,7 +172,7 @@ message GetStateResponse {
   int32  step_interval_current = 4;
   bool   step_at_min_bound     = 5;
   bool   step_at_max_bound     = 6;
-  string network_cache_path    = 7; // path to .ecaldeck file; empty if no network loaded
+  string network_cache_path    = 7; // path to binary network cache file; empty if no network loaded
   bool   simulation_ready      = 8; // true only after libsumo has finished loading and the step loop is running
   bool   benchmark             = 9; // true when publisher was started with --benchmark
 }
@@ -89,6 +194,12 @@ message SetStepConfigRequest {
   int32 interval_min = 1;  // minimum steps between publishes (default 1)
   int32 interval_max = 2;  // maximum steps (default 10)
   bool  autotune     = 3;  // auto-tune within [min, max] to keep overhead <= 1.5× no-GUI baseline (≤ 33% of step time)
+  // Runtime overrides for the publish-rate clamps.  Both default to 0 on
+  // unset proto3 doubles which means "leave the current value alone".
+  //   > 0  → use this value (frames per wall second).
+  //   < 0  → disable the bound entirely (no cap / no floor).
+  double max_publish_fps = 4;
+  double min_publish_fps = 5;
 }
 
 message LoadRequest { string sumocfg_path = 1; }
@@ -142,14 +253,22 @@ message VehicleTypeDict {
 }
 
 // Frontend-side performance stats (rAF cadence and frame drop fraction).
+// Sent both periodically during a run (rolling values, used by the publisher's
+// render-aware autotune) and once at the end of a run (cumulative values, used
+// for benchmark reporting).
 message ReportFrontendStatsRequest {
-  double avg_frame_ms = 1;  // average time between rAF callbacks (ms)
-  double skip_rate    = 2;  // fraction of SimStepBin frames dropped (0–1)
-  int32  frames       = 3;  // total rAF frames rendered
+  double avg_frame_ms = 1;  // cumulative average time between rAF callbacks (ms)
+  double skip_rate    = 2;  // cumulative fraction of SimStepBin frames dropped (0–1)
+  int32  frames       = 3;  // cumulative rAF frames rendered
   // Free-form "key=value " pairs of average per-frame phase timings (ms),
   // e.g. "parse=0.3 veh_build=0.5 drain=0.1 layers=2.0 edge_build=1.8 deck=6.5".
   // Empty when the frontend did not collect a breakdown.
   string breakdown    = 4;
+  // Rolling (last ~1 s) values used by the publisher's render-aware autotune.
+  // 0 means "no rolling data available; ignore" — the publisher will not let
+  // these constrain the publish interval in that case.
+  double rolling_frame_ms = 5;
+  double rolling_skip_rate = 6;
 }
 
 // Unified high-frequency simulation snapshot — the sole payload on the
