@@ -273,6 +273,7 @@ message VehicleTypeDict {
   bytes  type_widths   = 4;  // f32[type_count] LE: metres
   bytes  type_shapes   = 5;  // null-terminated UTF-8: type_count SUMO gui_shape strings
   bytes  type_classes  = 6;  // u8[type_count]: 0=vehicle, 1=person, 2=container
+  bytes  type_colors   = 7;  // u8[type_count*4] RGBA from VehicleType::getColor (mirrors qt_cpp's per-type color cache)
 }
 
 // Frontend-side performance stats (rAF cadence and frame drop fraction).
