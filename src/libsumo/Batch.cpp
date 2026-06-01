@@ -159,6 +159,7 @@ struct ExtractState {
     std::string typeWidths;
     std::string typeShapes;
     std::string typeClasses;
+    std::string typeColors;  // u8[type_count*4] RGBA from MSVehicleType::getColor
 
     // Phase timers (nanoseconds, accumulated across publishSimStep calls; read by getStats).
     uint64_t calls       = 0;
@@ -191,6 +192,11 @@ uint32_t registerType(ExtractState& s, const MSVehicleType& vt, uint8_t classByt
     appendLE<float>(s.typeWidths,  static_cast<float>(vt.getWidth()));
     appendCString(s.typeShapes, getVehicleShapeName(vt.getGuiShape()));
     s.typeClasses.push_back(static_cast<char>(classByte));
+    const RGBColor& col = vt.getColor();
+    s.typeColors.push_back(static_cast<char>(col.red()));
+    s.typeColors.push_back(static_cast<char>(col.green()));
+    s.typeColors.push_back(static_cast<char>(col.blue()));
+    s.typeColors.push_back(static_cast<char>(col.alpha()));
     s.typeDictDirty = true;
     return idx;
 }
@@ -452,6 +458,7 @@ void publishTypeDictNow() {
     td.set_type_widths(s.typeWidths);
     td.set_type_shapes(s.typeShapes);
     td.set_type_classes(s.typeClasses);
+    td.set_type_colors(s.typeColors);
     std::string buf;
     td.SerializeToString(&buf);
     es.pubTypedict->Send(buf);
@@ -481,6 +488,7 @@ void Batch::init(const std::string& simstepTopic, const std::string& typedictTop
     s.typeWidths.clear();
     s.typeShapes.clear();
     s.typeClasses.clear();
+    s.typeColors.clear();
     s.typeCount = 0;
     s.typeDictDirty = false;
     s.lastVehAttrs.clear();
@@ -501,6 +509,7 @@ void Batch::close() {
     s.typeWidths.clear();
     s.typeShapes.clear();
     s.typeClasses.clear();
+    s.typeColors.clear();
     s.typeCount = 0;
     s.typeDictDirty = false;
     s.lastVehAttrs.clear();
