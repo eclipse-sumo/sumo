@@ -12,7 +12,8 @@ title: ChangeLog
   - Fixed extreme reduction in simulation speed when setting high road speed limits in a dense road network #18038
   - Fixed insufficient backward safety gaps with respect to minGap #18042
   - Fixed insufficient backward safety gaps on lanes that are shared by road and rail traffic #18041
-  - loading state with an invalid begin time no longer results in an unexpected simulation start time #18048
+  - Loading state with an invalid begin time no longer results in an unexpected simulation start time #18048
+  - Fixed bug where sampling from vTypeDistribution diverged after calling **--load-state** #16989
 
 - netedit
   - Fixed invalid error message when loading a route with an unknown stopping place #16333
