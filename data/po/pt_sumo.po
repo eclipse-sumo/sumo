@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-30 13:01+0000\n"
+"PO-Revision-Date: 2026-06-02 17:01+0000\n"
 "Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
 "\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7119,7 +7119,7 @@ msgstr "Reduzindo geometria"
 
 #: src/netbuild/NBNetBuilder.cpp:319
 msgid "Joining similar edges"
-msgstr ""
+msgstr "Combinando arestas similares"
 
 #: src/netbuild/NBNetBuilder.cpp:329
 msgid "guessing opposite direction edges"
@@ -7127,7 +7127,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:335
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "Dividindo arestas geométricas"
 
 #: src/netbuild/NBNetBuilder.cpp:342
 #, c-format
@@ -7136,7 +7136,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:347
 msgid "Computing turning directions"
-msgstr ""
+msgstr "Calculando direções de conversão"
 
 #: src/netbuild/NBNetBuilder.cpp:356
 msgid "Assigning nodes to traffic lights"
@@ -7153,7 +7153,7 @@ msgstr ""
 #: src/netbuild/NBNetBuilder.cpp:408
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "% calçadas estimadas."
 
 #: src/netbuild/NBNetBuilder.cpp:421
 #, c-format
@@ -7162,23 +7162,23 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:437
 msgid "Sorting nodes' edges"
-msgstr ""
+msgstr "Ordenando arestas dos nós"
 
 #: src/netbuild/NBNetBuilder.cpp:442
 msgid "Computing node shapes"
-msgstr ""
+msgstr "Calculando formato dos nós"
 
 #: src/netbuild/NBNetBuilder.cpp:450
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "Calculando formato das arestas"
 
 #: src/netbuild/NBNetBuilder.cpp:463
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "Aplicando modificadores de velocidade"
 
 #: src/netbuild/NBNetBuilder.cpp:476
 msgid "Computing node types"
-msgstr ""
+msgstr "Calculando tipos de nós"
 
 #: src/netbuild/NBNetBuilder.cpp:488
 #, c-format
@@ -7191,7 +7191,7 @@ msgstr "Calculando prioridades"
 
 #: src/netbuild/NBNetBuilder.cpp:520
 msgid "Computing approached edges"
-msgstr ""
+msgstr "Calculando arestas aproximadas"
 
 #: src/netbuild/NBNetBuilder.cpp:525
 msgid "Guessing and setting roundabouts"
@@ -7199,11 +7199,11 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:528
 msgid " Guessed % roundabout(s)."
-msgstr ""
+msgstr " % rotatória(s) estimada(s)."
 
 #: src/netbuild/NBNetBuilder.cpp:534
 msgid "Computing approaching lanes"
-msgstr ""
+msgstr "Calculando faixas de aproximação"
 
 #: src/netbuild/NBNetBuilder.cpp:538
 msgid "Dividing of lanes on approached lanes"
@@ -7211,7 +7211,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:544
 msgid "Guessing Network fringe"
-msgstr ""
+msgstr "Estimando a borda da rede"
 
 #: src/netbuild/NBNetBuilder.cpp:547
 #, c-format
@@ -7236,7 +7236,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:606
 msgid "Computing node logics"
-msgstr ""
+msgstr "Calculando lógica dos nós"
 
 #: src/netbuild/NBNetBuilder.cpp:611
 msgid "Computing traffic light logics"
@@ -7248,7 +7248,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "Building inner edges"
-msgstr ""
+msgstr "Criando arestas internas"
 
 #: src/netbuild/NBNetBuilder.cpp:642
 msgid "stretching junctions to smooth geometries"
@@ -7256,15 +7256,15 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:671
 msgid "Generating street signs"
-msgstr ""
+msgstr "Gerando sinalização de trânsito"
 
 #: src/netbuild/NBNetBuilder.cpp:682
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "Verificando arestas sobrepostas"
 
 #: src/netbuild/NBNetBuilder.cpp:687
 msgid "Checking edge grade"
-msgstr ""
+msgstr "Comprovando declividade da aresta"
 
 #: src/netbuild/NBNetBuilder.cpp:704
 msgid "Find accesses for pt rail stops"
@@ -7498,7 +7498,7 @@ msgstr "Sumário:"
 
 #: src/netbuild/NBNodeCont.cpp:2677
 msgid " Node type statistics:"
-msgstr ""
+msgstr " Estatísticas de tipo de nó:"
 
 #: src/netbuild/NBNodeCont.cpp:2706
 msgid " Network boundaries:"
@@ -8012,12 +8012,12 @@ msgstr " Geração pronta;"
 #: src/netgen/netgen_main.cpp:268
 #, c-format
 msgid "   % nodes generated."
-msgstr ""
+msgstr "   % nós gerados."
 
 #: src/netgen/netgen_main.cpp:269
 #, c-format
 msgid "   % edges generated."
-msgstr ""
+msgstr "   % arestas geradas."
 
 #: src/netgen/netgen_main.cpp:274
 msgid " Removed % traffic lights at geometry-like nodes"
@@ -8132,7 +8132,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:163 src/polyconvert/polyconvert_main.cpp:209
 msgid "Remove all z-data"
-msgstr ""
+msgstr "Remover todos os dados Z"
 
 #: src/netimport/NIFrame.cpp:166
 msgid "Remove the list of keys from all params"
@@ -8158,7 +8158,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:185
 msgid "Imports elevation data"
-msgstr ""
+msgstr "Importar dados de elevação"
 
 #: src/netimport/NIFrame.cpp:188
 msgid ""
@@ -8323,7 +8323,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:315
 msgid "Structure join offset"
-msgstr ""
+msgstr "Deslocamento de união de estrutura"
 
 #: src/netimport/NIFrame.cpp:318
 msgid "Use FLOAT as default speed"
@@ -8355,7 +8355,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:341
 msgid "Sets connector speed"
-msgstr ""
+msgstr "Estabelecer velocidade do conector"
 
 #: src/netimport/NIFrame.cpp:345
 msgid "Sets connector lane number"
@@ -8535,7 +8535,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:90
 msgid "Loading street names"
-msgstr ""
+msgstr "Carregando nome das vias"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
@@ -8547,19 +8547,19 @@ msgstr "Carregando arestas"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:114
 msgid "Loading traffic lights"
-msgstr ""
+msgstr "Carregando semáforos"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:123
 msgid "Loading prohibited manoeuvres"
-msgstr ""
+msgstr "Carregando manobras proibidas"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:132
 msgid "Loading connected lanes"
-msgstr ""
+msgstr "Carregando faixas conectadas"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:141
 msgid "Loading time restrictions"
-msgstr ""
+msgstr "Carregando restrições de tempo"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
@@ -8624,7 +8624,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:431
 msgid "Missing column %."
-msgstr ""
+msgstr "Coluna % faltando."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
@@ -8938,7 +8938,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:203
 msgid "Removing duplicate edges"
-msgstr ""
+msgstr "Removendo arestas duplicadas"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:218
 #, c-format
@@ -9514,11 +9514,11 @@ msgstr ""
 
 #: src/netimport/NILoader.cpp:114
 msgid "No nodes loaded."
-msgstr ""
+msgstr "Nenhum nó carregado."
 
 #: src/netimport/NILoader.cpp:117
 msgid "No edges loaded."
-msgstr ""
+msgstr "Nenhuma aresta carregada."
 
 #: src/netimport/NILoader.cpp:128
 msgid " Import done:"
@@ -9527,21 +9527,21 @@ msgstr " importação finalizada:"
 #: src/netimport/NILoader.cpp:130
 #, c-format
 msgid "   % districts loaded."
-msgstr ""
+msgstr "   % distritos carregados."
 
 #: src/netimport/NILoader.cpp:132
 #, c-format
 msgid "   % nodes loaded."
-msgstr ""
+msgstr "   % nós carregados."
 
 #: src/netimport/NILoader.cpp:134
 msgid "   % types loaded."
-msgstr ""
+msgstr "   % tipos carregados."
 
 #: src/netimport/NILoader.cpp:136
 #, c-format
 msgid "   % edges loaded."
-msgstr ""
+msgstr "   % arestas carregadas."
 
 #: src/netimport/NILoader.cpp:138
 #, c-format
@@ -9847,7 +9847,7 @@ msgstr ""
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:378
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:385
 msgid ". Using default."
-msgstr ""
+msgstr ". Usando o padrão."
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:143
 msgid "Ugly split to prohibit '%' by '%'."
@@ -9878,7 +9878,7 @@ msgstr ""
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:307
 msgid "NIVissimDisturbance: no connection"
-msgstr ""
+msgstr "NIVissimDisturbance: sem conexão"
 
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:340
 #, c-format
@@ -10574,7 +10574,7 @@ msgstr ""
 
 #: src/od2trips_main.cpp:197
 msgid "No input specified."
-msgstr ""
+msgstr "Nenhuma entrada especficada."
 
 #: src/od2trips_main.cpp:201
 msgid "No trip table output file (-o) or flow-output is specified."
@@ -10596,11 +10596,11 @@ msgstr ""
 
 #: src/od2trips_main.cpp:276
 msgid "No districts loaded."
-msgstr ""
+msgstr "Nenhum distrito carregado."
 
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
-msgstr ""
+msgstr "Nenhum veículo carregado."
 
 #: src/od/ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
@@ -10669,7 +10669,7 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:483
 msgid "Broken factor: '%'."
-msgstr ""
+msgstr "Fator corrompido: '%'."
 
 #: src/od/ODMatrix.cpp:517
 #, c-format
@@ -11178,7 +11178,7 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:248
 msgid "No output specified."
-msgstr ""
+msgstr "Nenhuma saída especificada."
 
 #: src/router/ROFrame.cpp:253
 msgid "A positive number of alternatives must be enabled."
@@ -11292,7 +11292,7 @@ msgstr ""
 
 #: src/router/RONetHandler.cpp:213
 msgid "Unknown node '%'."
-msgstr ""
+msgstr "Nó desconhecido: '%'."
 
 #: src/router/RONetHandler.cpp:319
 msgid "Ignoring lane '%' with broken shape."
@@ -11513,7 +11513,7 @@ msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:151
 msgid "Not writing anything."
-msgstr ""
+msgstr "Não escrever nada."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:168
 msgid "Either a timeline or a netstate / amitran file must be given."
@@ -11547,7 +11547,7 @@ msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:258
 msgid "Unreadable file '%'."
-msgstr ""
+msgstr "Arquivo ilegível '%'."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:289
 msgid "Missing an entry in line '%'."
@@ -11933,7 +11933,7 @@ msgstr "Elemento desconhecido"
 
 #: src/utils/common/UtilExceptions.h:147
 msgid "Out Of Bounds"
-msgstr ""
+msgstr "Fora dos limites"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:82
 #: src/utils/distribution/Distribution_Parameterized.cpp:84
@@ -11987,7 +11987,7 @@ msgstr ""
 
 #: src/utils/foxtools/MFXComboBoxIcon.cpp:81
 msgid "No matches found"
-msgstr ""
+msgstr "Nenhuma correspondência encontrada"
 
 #: src/utils/foxtools/MFXDecalsTable.cpp:72
 msgid "Add decal"
@@ -12029,7 +12029,7 @@ msgstr "Remove imagem de fundo."
 
 #: src/utils/foxtools/MFXTextFieldSearch.cpp:87
 msgid "Type to search..."
-msgstr ""
+msgstr "Digite para pesquisar..."
 
 #: src/utils/foxtools/MFXUtils.cpp:46
 msgid "File Exists"
@@ -12106,7 +12106,7 @@ msgstr ""
 
 #: src/utils/geom/GeomHelper.cpp:238
 msgid "GeomHelper::makeCircle() requires nPoints>=3"
-msgstr ""
+msgstr "GeomHelper::makeCircle() requer nPoints>=3"
 
 #: src/utils/geom/PositionVector.cpp:614
 msgid "Splitting vector close to end (pos: %, length: %)"
