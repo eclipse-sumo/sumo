@@ -9,8 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
 "PO-Revision-Date: 2026-06-02 17:01+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov.br>"
-"\n"
+"Last-Translator: sepur2025 <felipe.tiburcio@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
 "Language: pt\n"
@@ -505,19 +504,20 @@ msgstr ""
 
 #: src/dfrouter/RODFNet.cpp:997
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "O speedFactor médio para PKW é %, o speedFactor máximo é %."
 
 #: src/dfrouter/RODFNet.cpp:1001
 msgid "Average speedFactor for LKW is % maximum speedFactor is %."
-msgstr ""
+msgstr "O speedFactor médio para LKW é %, o speedFactor máximo é %."
 
 #: src/dfrouter/dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
 msgstr ""
+"Nenhum arquivo de detector foi fornecido (use --detector-files <ARQUIVO>)."
 
 #: src/dfrouter/dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
-msgstr ""
+msgstr "Não foi possível abrir o arquivo de detector '%'"
 
 #: src/dfrouter/dfrouter_main.cpp:88
 msgid "No detectors found."
@@ -526,7 +526,7 @@ msgstr "Nenhum detector encontrado."
 #: src/dfrouter/dfrouter_main.cpp:103
 #, c-format
 msgid "The measure-file '%' can not be opened."
-msgstr ""
+msgstr "O arquivo de medida '%' não pode ser aberto."
 
 #: src/dfrouter/dfrouter_main.cpp:122
 msgid "Removing empty detectors"
@@ -534,11 +534,11 @@ msgstr "Removendo detectores vazios"
 
 #: src/dfrouter/dfrouter_main.cpp:126
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "Procurando detectores vazios"
 
 #: src/dfrouter/dfrouter_main.cpp:141
 msgid "No source detectors found."
-msgstr ""
+msgstr "Nenhum detector fonte encontrado."
 
 #: src/dfrouter/dfrouter_main.cpp:145
 msgid "Computing routes"
@@ -547,10 +547,11 @@ msgstr "Calculando rotas"
 #: src/dfrouter/dfrouter_main.cpp:155
 msgid "The detector types are not defined; use in combination with a network"
 msgstr ""
+"Os tipos de detectores não estão definidos; usar em combinação com uma rede"
 
 #: src/dfrouter/dfrouter_main.cpp:159
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "Os emissores não tem rotas; usar em combinação com uma rede"
 
 #: src/dfrouter/dfrouter_main.cpp:190
 msgid "Rechecking loaded flows"
@@ -574,165 +575,188 @@ msgstr "Escrevendo detectores de validação"
 
 #: src/dfrouter/dfrouter_main.cpp:228
 msgid "Writing highway end rerouter"
-msgstr ""
+msgstr "Escrevendo o rerouter de fim de rodovia"
 
 #: src/dfrouter/dfrouter_main.cpp:248
 msgid "Builds vehicle routes for SUMO using detector values."
-msgstr ""
+msgstr "Cria rotas de veículos para SUMO utilizando valores de detector."
 
 #: src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "Salva rotas alternativas geradas em ARQUIVO"
 
 #: src/duarouter/RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
-msgstr ""
+msgstr "Salvar divisão de arestas e conectividade em ARQUIVO"
 
 #: src/duarouter/RODUAFrame.cpp:75
 msgid "Write intermodal edges with lengths and travel times to FILE"
 msgstr ""
+"Salvar arestas intermodais com comprimentos e tempos de viagem em ARQUIVO"
 
 #: src/duarouter/RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
 msgstr ""
+"Salva viagens ao invés de veículos (para validação da entrada de viagens)"
 
 #: src/duarouter/RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "Salva viagens com coordenadas geográficas"
 
 #: src/duarouter/RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
-msgstr ""
+msgstr "Salva viagens incluindo fromJunction e toJunction"
 
 #: src/duarouter/RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "Incluir o atributo de custo na saída de rotas"
 
 #: src/duarouter/RODUAFrame.cpp:92 src/microsim/MSFrame.cpp:652
 msgid ""
 "Edge weights for routing are dynamically disturbed by a random factor drawn "
 "uniformly from [1,FLOAT)"
 msgstr ""
+"Os pesos das arestas para o roteamento são perturbados dinamicamente por um "
+"fator aleatório extraído uniformemente de [1,FLOAT]"
 
 #: src/duarouter/RODUAFrame.cpp:95 src/marouter/ROMAFrame.cpp:118
 msgid ""
 "Aggregation period for the given weight files; triggers rebuilding of "
 "Contraction Hierarchy"
 msgstr ""
+"Período de agregação para os arquivos de peso dados; ativa a reconstrução da "
+"hierarquia de contração"
 
 #: src/duarouter/RODUAFrame.cpp:98 src/marouter/ROMAFrame.cpp:112
 #: src/microsim/MSFrame.cpp:670
 msgid ""
 "Consider edge priorities in addition to travel times, weighted by factor"
 msgstr ""
+"Considerar as prioridades das arestas na soma dos tempos de viagem, "
+"ponderados por fator"
 
 #: src/duarouter/RODUAFrame.cpp:101 src/microsim/MSFrame.cpp:676
 msgid ""
 "Initialize lookup table for astar from the given file (generated by marouter "
 "--all-pairs-output)"
 msgstr ""
+"Inicializar a tabela de busca para o Astar a partir do arquivo fornecido "
+"(gerado por marouter --all-pairs-output)"
 
 #: src/duarouter/RODUAFrame.cpp:104 src/microsim/MSFrame.cpp:679
 msgid "Initialize lookup table for astar ALT-variant from the given file"
 msgstr ""
+"Inicializar a tabela de busca para a variante ALT do astar a partir do "
+"arquivo fornecido"
 
 #: src/duarouter/RODUAFrame.cpp:107
 msgid "Save lookup table for astar ALT-variant to the given file"
 msgstr ""
+"Salvar a tabela de busca para a variante ALT do Astar a partir do arquivo "
+"fornecido"
 
 #: src/duarouter/RODUAFrame.cpp:110 src/microsim/MSFrame.cpp:431
 msgid ""
 "Scale demand by the given factor (by discarding or duplicating vehicles)"
-msgstr ""
+msgstr "Escalar a demanda pelo fator dado (descartando ou duplicando veículos)"
 
 #: src/duarouter/RODUAFrame.cpp:113 src/microsim/MSFrame.cpp:434
 msgid "Suffix to be added when creating ids for cloned vehicles"
-msgstr ""
+msgstr "Sufixo a ser adicionado ao criar IDs para veículos clonados"
 
 #: src/duarouter/RODUAFrame.cpp:124 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
-msgstr ""
+msgstr "Usar FLOAT como beta de Gawron"
 
 #: src/duarouter/RODUAFrame.cpp:128 src/marouter/ROMAFrame.cpp:210
 msgid "Use FLOAT as Gawron's a"
-msgstr ""
+msgstr "Usar FLOAT como alfa de Gawron"
 
 #: src/duarouter/RODUAFrame.cpp:131 src/jtrrouter/ROJTRFrame.cpp:62
 #: src/marouter/ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
-msgstr ""
+msgstr "Salvar tempos de saída (ponderados) para cada aresta"
 
 #: src/duarouter/RODUAFrame.cpp:134 src/microsim/MSFrame.cpp:263
 msgid "Include total route length in the output"
-msgstr ""
+msgstr "Incluir o comprimento total da rota no arquivo de saída"
 
 #: src/duarouter/RODUAFrame.cpp:137 src/marouter/ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "Salvar rotas com probabilidade próxima de zero"
 
 #: src/duarouter/RODUAFrame.cpp:140 src/marouter/ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "Usar apenas rotas do arquivo de entrada, não calcular novas"
 
 #: src/duarouter/RODUAFrame.cpp:143
 msgid "The probability of keeping the old route"
-msgstr ""
+msgstr "A probabilidade de manter a rota antiga"
 
 #: src/duarouter/RODUAFrame.cpp:146
 msgid "Route all public transport input"
-msgstr ""
+msgstr "Definir rotas para todas as entradas de transporte público"
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "Salvar fluxos ao invés de expandi-los nos veículos"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
-msgstr ""
+msgstr "Definir um método de escolha de rota: gaweon, logit ou lohse"
 
 #: src/duarouter/RODUAFrame.cpp:155
 msgid "Use c-logit model (deprecated in favor of --route-choice-method logit)"
 msgstr ""
+"Usar o modelo c-logit (descontinuado em favor de --route-choice-method logit)"
 
 #: src/duarouter/RODUAFrame.cpp:159
 msgid "Use FLOAT as logit's beta"
-msgstr ""
+msgstr "Usar FLOAT como beta de logit"
 
 #: src/duarouter/RODUAFrame.cpp:163
 msgid "Use FLOAT as logit's gamma"
-msgstr ""
+msgstr "Usar FLOAT como gamma de logit"
 
 #: src/duarouter/RODUAFrame.cpp:167
 msgid "Use FLOAT as logit's theta (negative values mean auto-estimation)"
 msgstr ""
+"Usar FLOAT como theta de logit (valores negativos significam estimativa "
+"automática)"
 
 #: src/duarouter/RODUAFrame.cpp:170 src/microsim/MSFrame.cpp:682
 msgid ""
 "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"
 msgstr ""
+"Usar FLOAT como fator de velocidade máxima de pedestres durante roteamento "
+"multimodal"
 
 #: src/duarouter/RODUAFrame.cpp:173 src/microsim/MSFrame.cpp:685
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
+"Usar FLOAT como fator de velocidade de caminhada na direção oposta do "
+"tráfego de veículos"
 
 #: src/duarouter/RODUAFrame.cpp:180
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Onde táxis podem deixar passageiros ('allJunctions, 'ptStops')"
 
 #: src/duarouter/RODUAFrame.cpp:183
 msgid "Where taxis can pick up customers ('allJunctions, 'ptStops')"
-msgstr ""
+msgstr "Onde táxis podem pegar passageiros ('allJunctions, 'ptStops')"
 
 #: src/duarouter/RODUAFrame.cpp:186 src/microsim/MSFrame.cpp:701
 msgid "Estimated time for taxi pickup"
-msgstr ""
+msgstr "Tempo estimado para a retirada do táxi"
 
 #: src/duarouter/RODUAFrame.cpp:189 src/microsim/MSFrame.cpp:704
 msgid ""
 "Only use the intended public transport line rather than any alternative line "
 "that stops at the destination"
 msgstr ""
+"Usar apenas a linha de transporte público pretendida, em vez de qualquer "
+"linha alternativa que pare no destino"
 
 #: src/duarouter/RODUAFrame.cpp:192 src/microsim/MSFrame.cpp:707
 msgid ""
@@ -848,7 +872,7 @@ msgstr ""
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:87 src/jtrrouter/jtrrouter_main.cpp:143
 #, c-format
 msgid "The edge '%' declared as a sink is not known."
-msgstr ""
+msgstr "A aresta '%' declarada como destino não é conhecida."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:99
 #, c-format
@@ -857,27 +881,27 @@ msgstr ""
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:116
 msgid "Ignoring flow '%' without 'from'"
-msgstr ""
+msgstr "Ignorando o fluxo '%', sem 'from'"
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:128
 #, c-format
 msgid "The edge '%' declared as a source is not known."
-msgstr ""
+msgstr "A aresta '%' declarada como origem não é conhecida."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:152
 #, c-format
 msgid ""
 "The edge '%' is not known within the network (within a 'from-edge' tag)."
-msgstr ""
+msgstr "A aresta '%' não é reconhecida na rede (dentro de uma tag 'from-edge')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:172
 #, c-format
 msgid "The edge '%' is not known within the network (within a 'to-edge' tag)."
-msgstr ""
+msgstr "A aresta '%' não é reconhecida na rede (dentro de uma tag 'to-edge')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:178
 msgid "'probability' must be positive (in definition of to-edge '%')."
-msgstr ""
+msgstr "'probability' deve ser positiva (na definição de to-edge '%')."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:201
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:206
@@ -885,7 +909,7 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:1443
 #, c-format
 msgid "The edge '%' is not known."
-msgstr ""
+msgstr "A aresta '%' não é reconhecida."
 
 #: src/jtrrouter/ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
@@ -1386,7 +1410,7 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:950
 #, c-format
 msgid "Edge '%' prohibits."
-msgstr ""
+msgstr "A aresta '%' proíbe."
 
 #: src/microsim/MSBaseVehicle.cpp:962
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
@@ -2560,7 +2584,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:753
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "Habilita simulação mesoscópica"
 
 #: src/microsim/MSFrame.cpp:755
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -2602,7 +2626,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:789
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "Habilitar ultrapassagem mesoscópica"
 
 #: src/microsim/MSFrame.cpp:791
 msgid ""
@@ -2699,7 +2723,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:926
 msgid "Invalid scaling factor."
-msgstr ""
+msgstr "Fator de escala inválido."
 
 #: src/microsim/MSFrame.cpp:930
 msgid "A vehroute-output file is needed for exit times."
@@ -2965,7 +2989,7 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:4516
 msgid "Invalid % '%'."
-msgstr ""
+msgstr "% inválido '%'."
 
 #: src/microsim/MSLane.cpp:4684
 msgid ""
@@ -2976,7 +3000,7 @@ msgstr ""
 #: src/microsim/MSLeaderInfo.h:172 src/microsim/MSLeaderInfo.h:239
 #: src/microsim/MSLeaderInfo.h:246
 msgid "Method not supported"
-msgstr ""
+msgstr "Método não suportado"
 
 #: src/microsim/MSLink.cpp:252
 #, c-format
@@ -3019,7 +3043,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:1011
 msgid "TraCI requested termination."
-msgstr ""
+msgstr "TraCI solicitou a terminação."
 
 #: src/microsim/MSNet.cpp:1013
 msgid "An error occurred (see log)."
@@ -3031,7 +3055,7 @@ msgstr "Interrompido."
 
 #: src/microsim/MSNet.cpp:1017
 msgid "Too many teleports."
-msgstr ""
+msgstr "Teleportes demais."
 
 #: src/microsim/MSNet.cpp:1019
 msgid "TraCI issued load command."
@@ -3209,7 +3233,7 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1263
 msgid "Invalid stop definition%."
-msgstr ""
+msgstr "Definição de parada inválida %."
 
 #: src/microsim/MSRouteHandler.cpp:1320
 msgid "The edge '%' for a stop is not known%."
@@ -13209,47 +13233,47 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1695
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1721
 msgid "GIF Image"
-msgstr ""
+msgstr "Imagem GIF"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1696
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1722
 msgid "BMP Image"
-msgstr ""
+msgstr "Imagem BMP"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1697
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1723
 msgid "XPM Image"
-msgstr ""
+msgstr "Imagem XPM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1698
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1724
 msgid "PCX Image"
-msgstr ""
+msgstr "Imagem PCX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1699
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1725
 msgid "ICO Image"
-msgstr ""
+msgstr "Imagem ICO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1700
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1726
 msgid "RGB Image"
-msgstr ""
+msgstr "Imagem RGB"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1701
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1727
 msgid "XBM Image"
-msgstr ""
+msgstr "Imagem XBM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1702
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1728
 msgid "TARGA Image"
-msgstr ""
+msgstr "Imagem TARGA"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1703
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1729
 msgid "PNG Image"
-msgstr ""
+msgstr "Imagem PNG"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1704
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1730
