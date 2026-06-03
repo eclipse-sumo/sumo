@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-06-02 17:01+0000\n"
+"PO-Revision-Date: 2026-06-03 19:34+0000\n"
 "Last-Translator: sepur2025 <felipe.tiburcio@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
@@ -808,7 +808,7 @@ msgstr ""
 
 #: src/duarouter/duarouter_main.cpp:168 src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "Algoritmo de roteamento '%' desconhecido!"
 
 #: src/duarouter/duarouter_main.cpp:195 src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
@@ -1093,7 +1093,7 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:81 src/od2trips_main.cpp:85
 msgid "Loads O/D-files from FILE(s)"
-msgstr ""
+msgstr "Carrega arquivos de origem/destino de FILE(s)"
 
 #: src/marouter/ROMAFrame.cpp:86 src/od2trips_main.cpp:90
 msgid "Loads O/D-matrix in Amitran format from FILE(s)"
@@ -1216,7 +1216,7 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:239
 msgid "Invalid assignment method '%'."
-msgstr ""
+msgstr "Método de atribuição '%' inválido."
 
 #: src/marouter/ROMAFrame.cpp:247
 msgid ""
@@ -1236,7 +1236,7 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:324 src/od2trips_main.cpp:315
 msgid "No output file given."
-msgstr ""
+msgstr "Arquivo de saída não especificado."
 
 #: src/marouter/marouter_main.cpp:341
 msgid ""
@@ -1250,7 +1250,7 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:388
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "Não há veículos válidos carregados."
 
 #: src/marouter/marouter_main.cpp:391 src/od2trips_main.cpp:285
 msgid "Loading failed."
@@ -1457,7 +1457,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2032
 msgid "cannot replace reached stop"
-msgstr ""
+msgstr "não é possível substituir uma parada já alcançada"
 
 #: src/microsim/MSBaseVehicle.cpp:2047
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
@@ -1465,7 +1465,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2060 src/microsim/MSBaseVehicle.cpp:2273
 msgid "disallowed stop lane '%'"
-msgstr ""
+msgstr "parada de ônibus não permitida '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2079 src/microsim/MSBaseVehicle.cpp:2174
 #: src/microsim/MSBaseVehicle.cpp:2326
@@ -1895,7 +1895,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:291
 msgid "Save railsignal-blocks into FILE"
-msgstr ""
+msgstr "Salvar blocos de sinalização ferroviária em FILE"
 
 #: src/microsim/MSFrame.cpp:294
 msgid "Record entry and exit times of vehicles for railsignal blocks into FILE"
@@ -1975,7 +1975,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:345
 msgid "Prefix for network states"
-msgstr ""
+msgstr "Prefixo para estados de rede"
 
 #: src/microsim/MSFrame.cpp:347
 msgid "Suffix for network states (.xml.gz or .xml)"
@@ -1983,7 +1983,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:349
 msgid "Files for network states"
-msgstr ""
+msgstr "Arquivos para estados de rede"
 
 #: src/microsim/MSFrame.cpp:351
 msgid "Save random number generator states"
@@ -1995,7 +1995,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:355
 msgid "Save rail signal constraints"
-msgstr ""
+msgstr "Salvar restrições de sinalização ferroviária"
 
 #: src/microsim/MSFrame.cpp:357
 msgid "Write internal state values with the given precision (default 2)"
@@ -2041,7 +2041,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:386 src/router/ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "Desabilitar conexões internas (junção)"
 
 #: src/microsim/MSFrame.cpp:389
 msgid ""
@@ -7112,7 +7112,7 @@ msgstr ""
 #: src/netbuild/NBNetBuilder.cpp:261
 #, c-format
 msgid " Joined % junction cluster(s)."
-msgstr ""
+msgstr " Unido(s) % agrupamento(s) de cruzamentos."
 
 #: src/netbuild/NBNetBuilder.cpp:264
 msgid "Joining junctions with similar coordinates"
@@ -7147,7 +7147,7 @@ msgstr "Combinando arestas similares"
 
 #: src/netbuild/NBNetBuilder.cpp:329
 msgid "guessing opposite direction edges"
-msgstr ""
+msgstr "adivinhando arestas na direção oposta"
 
 #: src/netbuild/NBNetBuilder.cpp:335
 msgid "Splitting geometry edges"
@@ -7168,7 +7168,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:379
 msgid "Guessing and setting on-/off-ramps"
-msgstr ""
+msgstr "Detectando e configurando rampas de entrada/saída"
 
 #: src/netbuild/NBNetBuilder.cpp:397
 msgid "Guessed % bike lanes."
@@ -7240,7 +7240,7 @@ msgstr "Estimando a borda da rede"
 #: src/netbuild/NBNetBuilder.cpp:547
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr " Estimados % nós marginais."
 
 #: src/netbuild/NBNetBuilder.cpp:552
 msgid "Processing turnarounds"
@@ -7248,11 +7248,11 @@ msgstr "Processando retornos"
 
 #: src/netbuild/NBNetBuilder.cpp:570
 msgid "Rechecking of lane endings"
-msgstr ""
+msgstr "Verificando novamente o final das faixas"
 
 #: src/netbuild/NBNetBuilder.cpp:592
 msgid "Joining traffic light nodes"
-msgstr ""
+msgstr "Unindo nós de semáforos"
 
 #: src/netbuild/NBNetBuilder.cpp:599
 msgid "Computing traffic light control information"
@@ -7264,11 +7264,11 @@ msgstr "Calculando lógica dos nós"
 
 #: src/netbuild/NBNetBuilder.cpp:611
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "Calculando lógicas semafóricas"
 
 #: src/netbuild/NBNetBuilder.cpp:618
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " % semáforo(s) % calculados."
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "Building inner edges"
@@ -7312,11 +7312,11 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:752
 msgid "Moving network to origin"
-msgstr ""
+msgstr "Movendo rede para a origem"
 
 #: src/netbuild/NBNode.cpp:313 src/netbuild/NBNode.cpp:339
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "O ID do nó '%' é inválido."
 
 #: src/netbuild/NBNode.cpp:316 src/netbuild/NBNode.cpp:342
 #: src/netbuild/NBNode.cpp:357
@@ -7974,15 +7974,15 @@ msgstr ""
 
 #: src/netgen/netgen_main.cpp:62
 msgid "create grid net"
-msgstr ""
+msgstr "criar rede em grade"
 
 #: src/netgen/netgen_main.cpp:63
 msgid "create spider net"
-msgstr ""
+msgstr "criar rede teia de aranha"
 
 #: src/netgen/netgen_main.cpp:64
 msgid "create random net"
-msgstr ""
+msgstr "criar rede aleatória"
 
 #: src/netgen/netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
@@ -13308,11 +13308,11 @@ msgstr ""
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1710
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1736
 msgid "LATEX text strings"
-msgstr ""
+msgstr "Cadeias de texto LATEX"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1711
 msgid "Portable LaTeX Graphics"
-msgstr ""
+msgstr "Gráficos LaTeX portáteis"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1712
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1738
@@ -13325,7 +13325,7 @@ msgstr ""
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1717
 msgid "All Video Files"
-msgstr ""
+msgstr "Todos os arquivos de vídeo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1718
 msgid "G264 Video"
@@ -13349,7 +13349,7 @@ msgstr "Texto sem formato"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1748
 msgid "View settings files"
-msgstr ""
+msgstr "Arquivos de configuração da visualização"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1753
 msgid "State GZipped XML files"
@@ -13361,23 +13361,23 @@ msgstr "Arquivo de configuração do sumo"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1765
 msgid "Netedit config files"
-msgstr ""
+msgstr "Arquivos de configuração do netedit"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1771
 msgid "Netconvert config files"
-msgstr ""
+msgstr "Arquivos de configuração do netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1777
 msgid "Netconvert plain-xml files"
-msgstr ""
+msgstr "Arquivo plain-xml do netconvert"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1783
 msgid "OSM network files"
-msgstr ""
+msgstr "Arquivos de rede OSM"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1789
 msgid "SUMO network files"
-msgstr ""
+msgstr "Arquivos de rede SUMO"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1795
 msgid "TLS files"
@@ -13389,7 +13389,7 @@ msgstr "Arquivo de junções"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1807
 msgid "Edge type files"
-msgstr ""
+msgstr "Arquivos de tipos de aresta"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1813
 msgid "Additional files"
@@ -13401,11 +13401,11 @@ msgstr "Arquivo de rotas"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1830
 msgid "Edge data files"
-msgstr ""
+msgstr "Arquivos de dados de arestas"
 
 #: src/utils/xml/SUMOXMLDefinitions.cpp:1835
 msgid "Mean data files"
-msgstr ""
+msgstr "Arquivos MeanData"
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
