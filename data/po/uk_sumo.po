@@ -8,19 +8,21 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2025-10-07 13:21+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-03 19:33+0000\n"
+"Last-Translator: Larysa Zhuchyi <larysa.zhuchyi@gmail.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
-msgstr ""
+msgstr "Читає вхідні дані"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
@@ -28,7 +30,7 @@ msgstr ""
 
 #: src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Будує представлення вулиці"
 
 #: src/activitygen/AGActivityGen.cpp:62
 msgid "Generating work positions"
@@ -36,11 +38,11 @@ msgstr ""
 
 #: src/activitygen/AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Будує автобусні лінії"
 
 #: src/activitygen/AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "Генерує популяцію"
 
 #: src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
@@ -66,7 +68,7 @@ msgstr ""
 
 #: src/activitygen/AGActivityGenHandler.cpp:345
 msgid "Unknown bus station '%'."
-msgstr ""
+msgstr "Невідома автобусна станція '%'."
 
 #: src/activitygen/AGFrame.cpp:47
 msgid ""
@@ -82,30 +84,30 @@ msgstr ""
 
 #: src/activitygen/AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "Використай FILE як SUMO-мережу для того, щоб створити подорожі для"
 
 #: src/activitygen/AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "Завантажує FILE SUMO-статистики"
 
 #: src/activitygen/AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Записати згенеровані подорожі в FILE"
 
 #: src/activitygen/AGFrame.cpp:81
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
-msgstr ""
+msgstr "Встановлює час початку симуляції протягом першого дня (в секундах)"
 
 #: src/activitygen/AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
-msgstr ""
+msgstr "Встановлює час кінця симуляції протягом останнього дня (в секундах)"
 
 #: src/activitygen/AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Встановлює протяжність симуляції в днях"
 
 #: src/activitygen/activitygen_main.cpp:63 src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
@@ -114,11 +116,11 @@ msgstr ""
 #: src/activitygen/activitygen_main.cpp:66
 #, c-format
 msgid "The network file '%' could not be accessed."
-msgstr ""
+msgstr "Файл мережі \"%\" недоступний."
 
 #: src/activitygen/activitygen_main.cpp:68 src/router/ROLoader.cpp:116
 msgid "Loading net"
-msgstr ""
+msgstr "Завантажую мережу"
 
 #: src/activitygen/activitygen_main.cpp:78
 #: src/netload/NLEdgeControlBuilder.cpp:245 src/router/ROLoader.cpp:129
@@ -139,19 +141,19 @@ msgstr ""
 
 #: src/activitygen/city/AGCity.cpp:415
 msgid "No street that allows passenger vehicles found in this city."
-msgstr ""
+msgstr "В місті не знайдено жодної вулиці, яка дозволяє транспортні засоби."
 
 #: src/activitygen/city/AGWorkPosition.cpp:127
 msgid "Work position already occupied. Cannot give it to another adult."
-msgstr ""
+msgstr "Робоча позиція вже зайнята. Не можу дати її іншому дорослому."
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "Щонайменше одне значення лежить поза заданих часових границь"
 
 #: src/dfrouter/RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "Щонайменше один рядок не має вірної кількості стовпців."
 
 #: src/dfrouter/RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
@@ -169,11 +171,11 @@ msgstr ""
 #: src/dfrouter/RODFFrame.cpp:47 src/duarouter/RODUAFrame.cpp:45
 #: src/marouter/ROMAFrame.cpp:46
 msgid "run routing with options from file"
-msgstr ""
+msgstr "Виконати маршрутизацію з опціями з файлу"
 
 #: src/dfrouter/RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "Завантажує файл SUMO-мережі"
 
 #: src/dfrouter/RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
@@ -185,7 +187,7 @@ msgstr ""
 
 #: src/dfrouter/RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Завантажує розраховані маршрути в FILE"
 
 #: src/dfrouter/RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
@@ -285,6 +287,8 @@ msgstr ""
 #: src/dfrouter/RODFFrame.cpp:167
 msgid "Minimum distance in meters between start and end node of every route"
 msgstr ""
+"Мінімальна дистанція в метрах між початковим та кінцевим вузлом кожного "
+"маршруту"
 
 #: src/dfrouter/RODFFrame.cpp:170
 msgid "generate random departure times for emitted vehicles"
@@ -308,7 +312,7 @@ msgstr ""
 
 #: src/dfrouter/RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Включити маршрути у вихідні дані, що не мають транспортних засобів"
 
 #: src/dfrouter/RODFFrame.cpp:192
 msgid ""
@@ -419,7 +423,7 @@ msgstr ""
 
 #: src/dfrouter/RODFNet.cpp:280
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "Маршрут для '%' не може бути закритий"
 
 #: src/dfrouter/RODFNet.cpp:438
 #, c-format
@@ -430,11 +434,11 @@ msgstr ""
 
 #: src/dfrouter/RODFNet.cpp:466
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " Список попередніх потоків не може бути побудований."
 
 #: src/dfrouter/RODFNet.cpp:503
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " .Список попередніх потоків не може бути побудований"
 
 #: src/dfrouter/RODFNet.cpp:590
 msgid "Removed detector '%' because no flows for him exist."
@@ -504,7 +508,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:145
 msgid "Computing routes"
-msgstr ""
+msgstr "Розраховую маршрути"
 
 #: src/dfrouter/dfrouter_main.cpp:155
 msgid "The detector types are not defined; use in combination with a network"
@@ -516,7 +520,7 @@ msgstr ""
 
 #: src/dfrouter/dfrouter_main.cpp:190
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "Перевіряю завантажені потоки"
 
 #: src/dfrouter/dfrouter_main.cpp:195
 msgid "Writing emitters"
@@ -544,7 +548,7 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:69
 msgid "Write generated route alternatives to FILE"
-msgstr ""
+msgstr "Записати згенеровані маршрути в FILE"
 
 #: src/duarouter/RODUAFrame.cpp:72
 msgid "Write edge splits and connectivity to FILE"
@@ -557,10 +561,12 @@ msgstr ""
 #: src/duarouter/RODUAFrame.cpp:78
 msgid "Write trips instead of vehicles (for validating trip input)"
 msgstr ""
+"Записати подорожі замість тоагспортних засобів (для перевірки вхідних данних "
+"з подорожами)"
 
 #: src/duarouter/RODUAFrame.cpp:81
 msgid "Write trips with geo-coordinates"
-msgstr ""
+msgstr "Зартсати порожі та географічні координати"
 
 #: src/duarouter/RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
@@ -568,7 +574,7 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
-msgstr ""
+msgstr "Включити атрибут вартості у вихідні дані з маршрутом"
 
 #: src/duarouter/RODUAFrame.cpp:92 src/microsim/MSFrame.cpp:652
 msgid ""
@@ -610,6 +616,8 @@ msgstr ""
 #: src/duarouter/RODUAFrame.cpp:113 src/microsim/MSFrame.cpp:434
 msgid "Suffix to be added when creating ids for cloned vehicles"
 msgstr ""
+"Суфікс, який потрібно додати при створенні ідентифікаторів для клонованих "
+"транспортних засобів"
 
 #: src/duarouter/RODUAFrame.cpp:124 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
@@ -630,11 +638,11 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:137 src/marouter/ROMAFrame.cpp:216
 msgid "Save routes with near zero probability"
-msgstr ""
+msgstr "Зберегти маршрути з вірогідністю близькою до нуля"
 
 #: src/duarouter/RODUAFrame.cpp:140 src/marouter/ROMAFrame.cpp:219
 msgid "Only reuse routes from input, do not calculate new ones"
-msgstr ""
+msgstr "Використовувати тільки маршрути з вхідних даних, не розраховувати нових"
 
 #: src/duarouter/RODUAFrame.cpp:143
 msgid "The probability of keeping the old route"
@@ -646,7 +654,7 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:149
 msgid "Write flows instead of expanding them into vehicles"
-msgstr ""
+msgstr "Писати потоки замість розширення їх в траспортні засоби"
 
 #: src/duarouter/RODUAFrame.cpp:152 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -746,7 +754,7 @@ msgstr ""
 
 #: src/duarouter/duarouter_main.cpp:168 src/marouter/marouter_main.cpp:180
 msgid "Unknown routing Algorithm '%'!"
-msgstr ""
+msgstr "Невідомий алгоритм маршрутизації '%'!"
 
 #: src/duarouter/duarouter_main.cpp:195 src/marouter/marouter_main.cpp:210
 msgid "No weight data was loaded for attribute '%'."
@@ -1011,7 +1019,7 @@ msgstr ""
 
 #: src/marouter/ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
-msgstr ""
+msgstr "Невідоме джерело '%."
 
 #: src/marouter/ROMAAssignments.cpp:194
 msgid "Unknown destination '%'."
@@ -1082,7 +1090,7 @@ msgstr ""
 
 #: src/marouter/ROMAFrame.cpp:159
 msgid "Defines the prefix for vehicle flow names"
-msgstr ""
+msgstr "Задає префікс для імені транспортного засобу"
 
 #: src/marouter/ROMAFrame.cpp:162 src/od2trips_main.cpp:152
 msgid "Uses STR[] as a timeline definition"
@@ -1188,7 +1196,7 @@ msgstr ""
 
 #: src/marouter/marouter_main.cpp:388
 msgid "No valid vehicles loaded."
-msgstr ""
+msgstr "Не завантажено жодного транспортного засобу."
 
 #: src/marouter/marouter_main.cpp:391 src/od2trips_main.cpp:285
 msgid "Loading failed."
@@ -1274,7 +1282,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:189
 msgid "Changing a vehicle ID is not permitted"
-msgstr ""
+msgstr "Зміна ідентифікатору транспортного засобу не дозволяється"
 
 #: src/microsim/MSBaseVehicle.cpp:362
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
@@ -1314,7 +1322,7 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:547
 #, c-format
 msgid "No route for vehicle '%' found."
-msgstr ""
+msgstr "Не знайдено жодного маршруту для траспортного засобу '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:617
 #, c-format
@@ -1353,6 +1361,8 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:962
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
+"Швидкість відправлення транспортного засобу '%' занадто висока для "
+"транспортного засобу типу '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:971
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
