@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-05-27 19:05+0000\n"
+"PO-Revision-Date: 2026-06-04 19:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -2822,12 +2822,12 @@ msgstr "Reimposta"
 #: src/netedit/GNEApplicationWindow.cpp:2826
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
-msgstr ""
+msgstr "disegna elemento nell'ordine usuale"
 
 #: src/netedit/GNEApplicationWindow.cpp:2827
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
-msgstr ""
+msgstr "disegna gli elementi ispezionati nell'ordine usuale"
 
 #: src/netedit/GNEApplicationWindow.cpp:2829
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
@@ -2845,15 +2845,15 @@ msgstr "Segna questo elemento per essere disegnato sopra tutto il resto"
 
 #: src/netedit/GNEApplicationWindow.cpp:2834
 msgid "Unfront all element"
-msgstr ""
+msgstr "disegna tutti gli elementi nell'ordine usuale"
 
 #: src/netedit/GNEApplicationWindow.cpp:2835
 msgid "Unfront all elements"
-msgstr ""
+msgstr "Disegna tutti gli elementi nell'ordine usuale"
 
 #: src/netedit/GNEApplicationWindow.cpp:2838
 msgid "Front element (only inspected elements)"
-msgstr ""
+msgstr "Disegna elemento sopra gli altri (solo elementi ispezionati)"
 
 #: src/netedit/GNEApplicationWindow.cpp:3376
 msgid "Force save network"
@@ -17734,6 +17734,8 @@ msgstr "(nessuna proiezione definita)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1807
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr ""
+"Non è stato possibile trasformare le coordinate dell'immagine di sfondo % da "
+"WGS84 e quindi vengono trattate come UTM."
 
 #~ msgid "Enable or disable lefthand position"
 #~ msgstr "(Dis)attiva posizione sul lato sinistro"
