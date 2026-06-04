@@ -40,11 +40,11 @@ Contact
 -------
 
 To stay informed, we have a mailing list for SUMO, which
-[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-user) to.
-Messages to the list can be sent to sumo-user@eclipse.org.
+[you can subscribe](https://accounts.eclipse.org/mailing-list/sumo-user) to.
+Messages to the list can be sent to sumo-user@eclipse.org (this requires a subscription for the sending address).
 SUMO announcements will be made through the sumo-announce@eclipse.org list;
-[you can subscribe](https://dev.eclipse.org/mailman/listinfo/sumo-announce) to it as well.
-For further contact information, have a look at [this page](https://sumo.dlr.de/docs/Contact.html).
+[you can subscribe](https://accounts.eclipse.org/mailing-list/sumo-announce) to it as well.
+For further contact information, have a look at [the contact page](https://sumo.dlr.de/docs/Contact.html).
 
 
 Build and Installation
@@ -70,7 +70,7 @@ cmake -B build .
 cmake --build build -j$(nproc)
 ```
 
-For [detailed build instructions, have a look at our Documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
+For [detailed build instructions, have a look at our documentation](https://sumo.dlr.de/docs/Developer/Main.html#build_instructions).
 
 
 Getting started
@@ -93,7 +93,7 @@ Improving SUMO
 
 Please use the [GitHub issue tracking tool](https://github.com/eclipse-sumo/sumo/issues) for bugs and requests,
 or file them to the sumo-user@eclipse.org list. Before
-filing a bug, please consider to check with a current repository checkout
+filing a bug, please consider to check with a current repository checkout or a [nightly build](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots)
 whether the problem has already been fixed.
 
 We welcome patches, pull requests and other contributions! For details see [our contribution guidelines](CONTRIBUTING.md).
