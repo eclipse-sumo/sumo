@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-04T17:02:16.261132+01:00 by Eclipse SUMO netedit v1_27_0+0074-5f1e3489d5c
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="truck" vClass="truck" speedTable="0 13.89 27.78" maxAccelProfile="1.3 0.8 0"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" type="truck" depart="0.00" from="E0" to="E4" departSpeed="avg"/>
+</routes>
