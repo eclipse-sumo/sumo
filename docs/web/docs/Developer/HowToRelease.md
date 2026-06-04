@@ -151,7 +151,6 @@ If everything is fine:
   - unzip the special source release `tar xzf sumo_{{Version}}.orig.tar.gz`
   - run `cd sumo-{{Version}} && tools/build_config/ubuntu_release.sh` and enter the release comment
   - upload using `dput -f ppa:sumo/stable ../sumo_{{Version}}*_source.changes`
-- start a pull request against [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO)
 - upload the wheels to PyPI using `twine upload /s/daily/ciwheels/*{{Version}}*.whl`
   - you might need to do this with an up to date twine in a virtual environment, see https://github.com/pypi/warehouse/issues/15611
 - scenarios (optional)
@@ -170,9 +169,14 @@ If everything is fine:
 
 The trunk is now open for changes again.
 
-- wait for the automated [flatpak](https://github.com/flathub/org.eclipse.sumo) pull request to appear and built, then accept it
 - re-enable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in CMakeLists.txt
 - insert a new empty "Git Main" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes
 - drink your favorite beverage and/or eat cake
+
+### The day after
+
+- check for a successful build of the automated [flatpak](https://github.com/flathub/org.eclipse.sumo) pull request, then accept it
+- check whether the automated [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/e/EclipseFoundation/SUMO) update was successful (also for the extra package)
+- more cake
