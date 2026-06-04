@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-06-03 19:33+0000\n"
+"PO-Revision-Date: 2026-06-04 14:13+0000\n"
 "Last-Translator: Larysa Zhuchyi <larysa.zhuchyi@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/uk/>\n"
@@ -26,7 +26,7 @@ msgstr "Читає вхідні дані"
 
 #: src/activitygen/AGActivityGen.cpp:54
 msgid "Consolidating statistics"
-msgstr ""
+msgstr "Підсумувати статистику"
 
 #: src/activitygen/AGActivityGen.cpp:58
 msgid "Building street representation"
@@ -46,15 +46,15 @@ msgstr "Генерує популяцію"
 
 #: src/activitygen/AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Виділення школи"
 
 #: src/activitygen/AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Виділення робочих місць"
 
 #: src/activitygen/AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Виділення місць для автомобілей"
 
 #: src/activitygen/AGActivityGenHandler.cpp:174
 #: src/activitygen/AGActivityGenHandler.cpp:181
@@ -111,7 +111,7 @@ msgstr "Встановлює протяжність симуляції в дня
 
 #: src/activitygen/activitygen_main.cpp:63 src/router/ROLoader.cpp:111
 msgid "Missing definition of network to load!"
-msgstr ""
+msgstr "Відсутнє визначення мережі для завантаження!"
 
 #: src/activitygen/activitygen_main.cpp:66
 #, c-format
@@ -133,6 +133,8 @@ msgid ""
 "Generates trips of persons throughout a day for the microscopic, multi-modal "
 "traffic simulation SUMO."
 msgstr ""
+"Генерує подорожі осіб протягом дня для мікроскопічної мультимодальної "
+"симуляції руху SUMO."
 
 #: src/activitygen/activitygen_main.cpp:112
 #, c-format
@@ -262,7 +264,7 @@ msgstr ""
 
 #: src/dfrouter/RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Залишати маршрути навіть якщо існує більш короткий"
 
 #: src/dfrouter/RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
@@ -296,15 +298,15 @@ msgstr ""
 
 #: src/dfrouter/RODFFrame.cpp:174
 msgid "Multiply flow times with TIME to get seconds"
-msgstr ""
+msgstr "Помножити час потоку з TIME щоб отримати секунди"
 
 #: src/dfrouter/RODFFrame.cpp:177
 msgid "Subtracts TIME seconds from (scaled) flow times"
-msgstr ""
+msgstr "Відняти TIME секунди від (масштабованих) часів потоку"
 
 #: src/dfrouter/RODFFrame.cpp:180
 msgid "Expected distance between two successive data sets"
-msgstr ""
+msgstr "Очікувана дистанція між двома послідовними наборами даних"
 
 #: src/dfrouter/RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
