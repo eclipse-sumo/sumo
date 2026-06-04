@@ -156,6 +156,16 @@ if (SWIG_FOUND)
         install(TARGETS libsumocs DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     endif(ENABLE_CS_BINDINGS)
 
+    if (ENABLE_C_BINDINGS)
+        set(CMAKE_SWIG_FLAGS -namespace libsumoc -nocxx)
+        set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/c)
+        set(SWIG_MODULE_libsumoc_EXTRA_DEPS ${LIBSUMO_HEADERS} libsumo_typemap.i)
+        SWIG_ADD_LIBRARY(libsumoc LANGUAGE C SOURCES libsumo.i)
+        target_link_libraries(libsumoc ${sumo_link_libraries})
+        set_target_properties(libsumoc PROPERTIES FOLDER "libsumo" PREFIX "")
+        install(TARGETS libsumoc DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    endif(ENABLE_C_BINDINGS)
+
     if (ENABLE_PYTHON_BINDINGS)
         if (Python_Development.Module_FOUND)
             set(CMAKE_SWIG_FLAGS -keyword) # is necessary for using keyword args
