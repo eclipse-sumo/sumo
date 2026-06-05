@@ -115,6 +115,13 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     myTrainParams.resCoef_constant = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT, INVALID_DOUBLE);
     myTrainParams.resCoef_linear = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR, INVALID_DOUBLE);
     myTrainParams.resCoef_quadratic = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC, INVALID_DOUBLE);
+    // curve resistance parameters
+    myTrainParams.curveResistance = vtype->getParameter().getCFParam(SUMO_ATTR_CURVE_RESISTANCE, myTrainParams.curveResistance);
+    myTrainParams.roeckl_sharp_radius = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_SHARP_RADIUS, myTrainParams.roeckl_sharp_radius);
+    myTrainParams.roeckl_numerator = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_NUMERATOR, myTrainParams.roeckl_numerator);
+    myTrainParams.roeckl_numerator_sharp = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_NUMERATOR_SHARP, myTrainParams.roeckl_numerator_sharp);
+    myTrainParams.roeckl_offset = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_OFFSET, myTrainParams.roeckl_offset);
+    myTrainParams.roeckl_offset_sharp = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_OFFSET_SHARP, myTrainParams.roeckl_offset_sharp);
 
     if (myTrainParams.maxPower != INVALID_DOUBLE && myTrainParams.maxTraction == INVALID_DOUBLE) {
         throw ProcessError(TLF("Undefined maxPower for vType '%'.", vtype->getID()));
@@ -198,6 +205,26 @@ MSCFModel_Rail::getWeight(const MSVehicle* const veh) const {
     return veh->getVehicleType().getMass() / 1000;
 }
 
+double
+MSCFModel_Rail::getCurveResistance(const MSVehicle* veh) const {
+    if (myTrainParams.curveResistance > 0) {
+        const double r = veh->getCurveRadius();
+        if (r == std::numeric_limits<double>::max()) {
+            return 0;
+        } else if (r >= myTrainParams.roeckl_sharp_radius) {
+            return 0.001 * myTrainParams.curveResistance * myTrainParams.roeckl_numerator / (r - myTrainParams.roeckl_offset);
+        } else if (r > myTrainParams.roeckl_offset_sharp) {
+            return 0.001 * myTrainParams.curveResistance * myTrainParams.roeckl_numerator_sharp / (r - myTrainParams.roeckl_offset_sharp);
+        } else {
+            WRITE_WARNINGF("Cannot compute curve resistance for vehicle '%' with radius % at time %",
+                    veh->getID(), r, time2string(SIMSTEP));
+            return 0;
+        }
+    }
+    return 0;
+}
+
+
 double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const {
 
     if (speed >= myTrainParams.vmax) {
@@ -210,8 +237,9 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
 
     double slope = veh->getSlope();
     double gr = getWeight(veh) * GRAVITY * sin(DEG2RAD(slope)); //kN
+    double cr = getWeight(veh) * getCurveResistance(veh); //kN
 
-    double totalRes = res + gr; //kN
+    double totalRes = res + gr + cr; //kN
 
     double trac = myTrainParams.getTraction(speed); // kN
     double a;
@@ -235,8 +263,9 @@ double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) co
 
     const double slope = veh->getSlope();
     const double gr = getWeight(veh) * GRAVITY * sin(DEG2RAD(slope)); //kN
+    const double cr = getWeight(veh) * getCurveResistance(veh);
     const double res = myTrainParams.getResistance(speed); // kN
-    const double totalRes = res + gr; //kN
+    const double totalRes = res + gr + cr; //kN
     const double a = myTrainParams.decl + totalRes / getRotWeight(veh);
     const double vMin = speed - ACCEL2SPEED(a);
     if (MSGlobals::gSemiImplicitEulerUpdate) {

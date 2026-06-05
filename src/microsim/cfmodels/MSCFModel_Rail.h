@@ -82,6 +82,13 @@ private:
         double resCoef_constant; // kN
         double resCoef_linear;  // kN / (km/h)
         double resCoef_quadratic; // kN / (km/h)^2
+                                  //
+        double curveResistance = 0;
+        double roeckl_sharp_radius = 300;
+        double roeckl_numerator = 6380;
+        double roeckl_numerator_sharp = 4910;
+        double roeckl_offset = 55;
+        double roeckl_offset_sharp = 30;
 
         double getResistance(double speed) const;
         double getTraction(double speed) const;
@@ -121,6 +128,8 @@ protected:
     // @brief return weight in tons
     double getWeight(const MSVehicle* const veh) const;
 
+    // @brief Röckl formula which returns kN
+    double getCurveResistance(const MSVehicle* veh) const;
 
 private:
 

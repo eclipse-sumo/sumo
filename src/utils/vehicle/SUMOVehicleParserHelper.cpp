@@ -1470,6 +1470,12 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_CONSTANT);
         railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR);
         railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC);
+        railParams.insert(SUMO_ATTR_CURVE_RESISTANCE);
+        railParams.insert(SUMO_ATTR_ROECKL_SHARP_RADIUS);
+        railParams.insert(SUMO_ATTR_ROECKL_NUMERATOR);
+        railParams.insert(SUMO_ATTR_ROECKL_NUMERATOR_SHARP);
+        railParams.insert(SUMO_ATTR_ROECKL_OFFSET);
+        railParams.insert(SUMO_ATTR_ROECKL_OFFSET_SHARP);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
         // ACC
