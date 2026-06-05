@@ -72,6 +72,16 @@ MSCFModel::~MSCFModel() {}
 
 MSCFModel::VehicleVariables::~VehicleVariables() {}
 
+void
+MSCFModel::VehicleVariables::saveState(OutputDevice& /* out */, const MSCFModel& cfm) const {
+    WRITE_WARNINGF(TL("carFollowModel of vType '%' cannot save state"), cfm.myType->getID());
+}
+
+
+void
+MSCFModel::VehicleVariables::loadState(const SUMOSAXAttributes& /* attrs */) {
+}
+
 
 double
 MSCFModel::brakeGap(const double speed, const double decel, const double headwayTime) const {

@@ -7848,6 +7848,9 @@ MSVehicle::saveState(OutputDevice& out) {
     for (MSVehicleDevice* const dev : myDevices) {
         dev->saveState(out);
     }
+    if (myCFVariables != nullptr) {
+        myCFVariables->saveState(out, getCarFollowModel());
+    }
     out.closeTag();
 }
 
