@@ -7,6 +7,9 @@ rail
 # save state in taxi simulation at different times
 taxi
 
+# test state saving for carFollowModels that use vehicleVariables
+cfModels
+
 # two vehicles saved and reloaded
 plain
 

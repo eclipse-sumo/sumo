@@ -1,0 +1,6 @@
+-c save_state.sumocfg
+--save-state.times 50
+: 
+-c load_state.sumocfg
+--compare tripinfo
+tests/complex/state/runner.py
