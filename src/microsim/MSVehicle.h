@@ -736,6 +736,10 @@ public:
         return myAngle;
     }
 
+    /** @brief Returns the vehicle's current curve radius in m
+     */
+    double getCurveRadius() const;
+
 
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
@@ -1872,6 +1876,9 @@ protected:
      */
     double getDistanceToLeaveJunction() const;
 
+    /// @brief get the change in angle from the last simulation step
+    double getAngleDiff() const;
+
 protected:
 
     /// @brief The time the vehicle waits (is not faster than 0.1m/s) in seconds
@@ -1945,6 +1952,10 @@ protected:
 
     /// @brief the angle in radians (@todo consider moving this into myState)
     double myAngle;
+    /// @brief the angle in radians before lane changing
+    double myRawAngle;
+    /// @brief the angle in radians from the previous simulation step (for computing curve radius)
+    double myLastAngle;
 
     /// @brief distance to the next stop or doubleMax if there is none
     double myStopDist;
