@@ -61,7 +61,7 @@ timeLoss 1.5079033750798434
 departure 0.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -153,7 +153,7 @@ timeLoss 2.223049661509682
 departure 0.0
 departDelay 0.0
 lcStrategic 2.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.5
 minGapLat 0.5
@@ -245,7 +245,7 @@ timeLoss 0.0
 departure -1073741824.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -357,7 +357,7 @@ timeLoss 1.3772867181431419
 departure 10.0
 departDelay 3.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -719,7 +719,7 @@ timeLoss -0.2502250225022503
 departure 125.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -865,7 +865,7 @@ timeLoss 0.0
 departure -1073741824.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -949,7 +949,7 @@ timeLoss 0.0
 departure -1073741824.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -1033,7 +1033,7 @@ timeLoss 0.0
 departure -1073741824.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
@@ -1117,7 +1117,7 @@ timeLoss 0.0
 departure -1073741824.0
 departDelay 0.0
 lcStrategic 1.00
-lcCooperative 1.00
+lcCooperative 0.10
 lcSpeedGain 1.00
 maxSpeedLat 1.0
 minGapLat 0.6
