@@ -191,6 +191,20 @@ private:
         VehicleVariables() : levelOfService(1.) {}
         /// @brief state variable for remembering speed deviation history (lambda)
         double levelOfService;
+
+        /** @brief Saves the vehicle variables
+         *
+         * The default implementation writes a warning and does nothing.
+         * @param[in] out The OutputDevice to write the information into
+         */
+        void saveState(OutputDevice& out, const MSCFModel& cfm) const;
+
+        /** @brief Loads the state of the vehicle variables from the given description
+         *
+         * The default implementation does nothing.
+         * @param[in] attrs XML attributes describing the current state
+         */
+        void loadState(const SUMOSAXAttributes& attrs);
     };
 
 

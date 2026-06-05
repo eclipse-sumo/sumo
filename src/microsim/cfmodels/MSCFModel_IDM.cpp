@@ -52,6 +52,22 @@ MSCFModel_IDM::MSCFModel_IDM(const MSVehicleType* vtype, bool idmm) :
 MSCFModel_IDM::~MSCFModel_IDM() {}
 
 
+void
+MSCFModel_IDM::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, "IDMM");
+    std::ostringstream internals;
+    internals << levelOfService;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_IDM::VehicleVariables::loadState(const SUMOSAXAttributes& /* attrs */) {
+}
+
+
 double
 MSCFModel_IDM::minNextSpeed(double speed, const MSVehicle* const /*veh*/) const {
     // permit exceeding myDecel when approaching stops
