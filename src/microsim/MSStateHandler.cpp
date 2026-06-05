@@ -111,6 +111,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset) :
     myCurrentLink(nullptr),
     myAttrs(nullptr),
     myVCAttrs(nullptr),
+    myCFMAttrs(nullptr),
     myLastParameterised(nullptr),
     myRemoved(0),
     myFlowIndex(-1),
@@ -310,6 +311,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         }
         case SUMO_TAG_DEVICE: {
             myDeviceAttrs.push_back(attrs.clone());
+            break;
+        }
+        case SUMO_TAG_CFM_VARIABLES: {
+            myCFMAttrs = attrs.clone();
             break;
         }
         case SUMO_TAG_REMINDER: {
@@ -624,6 +629,16 @@ MSStateHandler::closeVehicle() {
             }
             delete myReminderAttrs.back();
             myReminderAttrs.pop_back();
+        }
+        if (myCFMAttrs != nullptr) {
+            assert(!MSGlobals::gUseMesoSim);
+            MSVehicle* microVeh = dynamic_cast<MSVehicle*>(v);
+            const MSCFModel::VehicleVariables* vars = microVeh->getCarFollowVariables();
+            if (vars != nullptr) {
+                const_cast<MSCFModel::VehicleVariables*>(vars)->loadState(*myCFMAttrs);
+            }
+            delete myCFMAttrs;
+            myCFMAttrs = nullptr;
         }
     } else {
         const std::string embeddedRouteID = "!" + myVehicleParameter->id;

@@ -23,6 +23,7 @@
 
 #include "MSCFModel_IDM.h"
 #include <microsim/MSVehicle.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 //#define DEBUG_V
 //#define DEBUG_INSERTION_SPEED
@@ -64,7 +65,14 @@ MSCFModel_IDM::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /
 
 
 void
-MSCFModel_IDM::VehicleVariables::loadState(const SUMOSAXAttributes& /* attrs */) {
+MSCFModel_IDM::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "IDMM") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for IDMM", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> levelOfService;
 }
 
 
