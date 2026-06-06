@@ -33,6 +33,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 //#define DEBUG_V
 
@@ -65,6 +66,29 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
 
 
 MSCFModel_Wiedemann::~MSCFModel_Wiedemann() {}
+
+
+void
+MSCFModel_Wiedemann::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "Wiedemann");
+    std::ostringstream internals;
+    internals << accelSign;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_Wiedemann::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "Wiedemann") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for Wiedemann", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> accelSign;
+}
 
 
 double
