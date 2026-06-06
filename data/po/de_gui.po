@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-17 13:41+0100\n"
-"PO-Revision-Date: 2026-05-10 19:23+0000\n"
+"PO-Revision-Date: 2026-06-06 08:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/gui/GUIApplicationWindow.cpp:314 src/gui/GUIApplicationWindow.cpp:317
 #: src/gui/GUIApplicationWindow.cpp:2316 src/gui/GUIApplicationWindow.cpp:2317
@@ -2819,12 +2819,12 @@ msgstr "Wiederherstellen"
 #: src/netedit/GNEApplicationWindow.cpp:2826
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
-msgstr ""
+msgstr "Element in der normalen Reihenfolge zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2827
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
-msgstr ""
+msgstr "Geprüfte Elemente in der normalen Reihenfolge zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2829
 #: src/netedit/GNEApplicationWindowHelper.cpp:1315
@@ -2842,15 +2842,15 @@ msgstr "Element über allen anderen zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2834
 msgid "Unfront all element"
-msgstr ""
+msgstr "Alle Elemente in der normalen Reihenfolge zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2835
 msgid "Unfront all elements"
-msgstr ""
+msgstr "Alle Elemente in der normalen Reihenfolge zeichnen"
 
 #: src/netedit/GNEApplicationWindow.cpp:2838
 msgid "Front element (only inspected elements)"
-msgstr ""
+msgstr "Element über allen anderen zeichnen (nur geprüfte Elemente)"
 
 #: src/netedit/GNEApplicationWindow.cpp:3376
 msgid "Force save network"
