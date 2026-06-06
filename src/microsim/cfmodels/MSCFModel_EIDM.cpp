@@ -42,6 +42,7 @@
 #include <microsim/devices/MSDevice_GLOSA.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 //#define DEBUG_V
 
@@ -79,6 +80,64 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
 }
 
 MSCFModel_EIDM::~MSCFModel_EIDM() {}
+
+void
+MSCFModel_EIDM::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "EIDM");
+    std::ostringstream internals;
+    internals << minaccel << " ";
+    internals << wouldacc << " ";
+    internals << lastacc << " ";
+    internals << realacc << " ";
+    internals << lastrealacc << " ";
+    internals << realleaderacc << " ";
+    internals << lastleaderacc << " ";
+    internals << v0_int << " ";
+    internals << v0_old << " ";
+    internals << t_off << " ";
+    internals << myw_gap << " ";
+    internals << myw_speed << " ";
+    internals << myw_error << " ";
+    internals << myv_est_l << " ";
+    internals << myv_est << " ";
+    internals << mys_est << " ";
+    internals << myrespectMinGap << " ";
+    internals << myap_update;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_EIDM::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "EIDM") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for EIDM", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> minaccel;
+    bis >> wouldacc;
+    bis >> lastacc;
+    bis >> realacc;
+    bis >> lastrealacc;
+    bis >> realleaderacc;
+    bis >> lastleaderacc;
+    bis >> v0_int;
+    bis >> v0_old;
+    bis >> t_off;
+    bis >> myw_gap;
+    bis >> myw_speed;
+    bis >> myw_error;
+    bis >> myv_est_l;
+    bis >> myv_est;
+    bis >> mys_est;
+    bis >> myrespectMinGap;
+    bis >> myap_update;
+}
+
+
 
 double
 MSCFModel_EIDM::insertionFollowSpeed(const MSVehicle* const /*veh*/, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
