@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-03-30 14:46+0200\n"
-"PO-Revision-Date: 2026-05-28 18:02+0000\n"
+"PO-Revision-Date: 2026-06-06 08:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7851,7 +7851,7 @@ msgstr "INT (s) als Räumzeit an Fußgängerfurten nutzen."
 
 #: src/netbuild/NBFrame.cpp:629
 msgid "Use INT as green phase duration for pedestrian scramble phase (s)."
-msgstr ""
+msgstr "INT als Freigabedauer (s) für eine Fußgängerdiagonalphase nutzen."
 
 #: src/netbuild/NBFrame.cpp:634
 msgid "TLSs in STR[] will be shifted by half-phase"
@@ -13489,7 +13489,7 @@ msgstr "Haltversatz erfordert einen Versatzwert"
 #: src/utils/common/SUMOVehicleClass.cpp:358
 #, c-format
 msgid "Invalid character in vehicle class '%' encountered."
-msgstr ""
+msgstr "Ungültiges Zeichen in der Fahrzeugklasse '%' gefunden."
 
 #: src/utils/common/SUMOVehicleClass.cpp:360
 #, c-format
@@ -14533,6 +14533,8 @@ msgstr ""
 msgid ""
 "Routing algorithm CH does not support dynamic closing of edges and lanes%"
 msgstr ""
+"Der Routing-Algorithmus CH unterstützt dynamische Kanten- und "
+"Fahrstreifensperren nicht%"
 
 #: src/utils/router/CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
@@ -14545,6 +14547,8 @@ msgid ""
 "Routing algorithm CHWrapper does not support dynamic closing of edges and "
 "lanes%"
 msgstr ""
+"Der Routing-Algorithmus CHWrapper unterstützt dynamische Kanten- und "
+"Fahrstreifensperren nicht%"
 
 #: src/utils/router/IntermodalNetwork.h:301
 #, c-format
