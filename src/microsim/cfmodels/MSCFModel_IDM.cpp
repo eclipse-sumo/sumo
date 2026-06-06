@@ -55,7 +55,7 @@ MSCFModel_IDM::~MSCFModel_IDM() {}
 
 void
 MSCFModel_IDM::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
-    out.openTag(SUMO_TAG_DEVICE);
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
     out.writeAttr(SUMO_ATTR_ID, "IDMM");
     std::ostringstream internals;
     internals << levelOfService;
