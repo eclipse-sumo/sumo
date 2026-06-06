@@ -305,12 +305,6 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 }
 
 
-MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
-    VehicleVariables* ret = new VehicleVariables();
-    return ret;
-}
-
-
 double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     return MSCFModel::finalizeSpeed(veh, vPos);
 }

@@ -52,8 +52,6 @@ public:
 
     double getSpeedAfterMaxDecel(double v) const;
 
-    MSCFModel::VehicleVariables* createVehicleVariables() const;
-
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
@@ -96,29 +94,6 @@ private:
 
 public:
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
-
-//    class VehicleVariables : public MSCFModel::VehicleVariables {
-//
-//    public:
-//
-//        const std::string getTrainType() const { return myTrainType; };
-//
-//        void setTrainType(std::string trainType) { myTrainType = trainType; }
-//
-//        bool isNotYetInitialized() {
-//            return notYetInitialized;
-//        }
-//
-//        void setInitialized() {
-//            notYetInitialized = false;
-//        }
-//
-//    private:
-//        std::string myTrainType;
-//        bool notYetInitialized = true;
-//
-//
-//    };
 
 protected:
 
