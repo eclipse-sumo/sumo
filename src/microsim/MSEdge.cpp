@@ -1745,6 +1745,7 @@ MSEdge::getMesoPositions() const {
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != nullptr; segment = segment->getNextSegment()) {
                 const double segLength = segment->getLength();
+                const double lanesCovered = segment->numQueues() == 1 ? std::round(segment->getCapacity() / segLength) : 1.;
                 if (laneIndex < segment->numQueues()) {
                     // make a copy so we don't have to worry about synchronization
                     std::vector<MEVehicle*> queue = segment->getQueue(laneIndex);
@@ -1761,13 +1762,13 @@ MSEdge::getMesoPositions() const {
                         const double oldPos = it != old.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
                         if (i > 0) {
                             earliestExitTime += segment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
-                            maxPos = MIN2(maxPos, prevPos - vehLength);
+                            maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
                         }
                         const double entry = veh->getLastEntryTimeSeconds();
                         const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
                         // check if we overlap with the previous vehicle such that the gui has the chance to add some lateral offset
                         if (overlap == 0 && prevPos - pos < vehLength) {
-                            overlap = 1;
+                            overlap = lanesCovered > 1. ? -3 : -1;
                         } else {
                             overlap = 0;
                         }
