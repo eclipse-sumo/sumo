@@ -37,6 +37,7 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUINet.h>
+#include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleControl.h>
 #include <mesogui/GUIMEVehicle.h>
@@ -444,7 +445,8 @@ GUIViewTraffic::onGamingClick(Position pos) {
         if (makeCurrent()) {
             for (GUIGlObject* o : getGUIGlObjectsAtPosition(getPositionInformation(), MIN2(minDist, 20.0))) {
                 if (o->getType() == GLO_REROUTER_EDGE) {
-                    const double dist = o->getCenter().distanceTo2D(pos);
+                    const MSEdge* const edge = dynamic_cast<GUITriggeredRerouter::GUITriggeredRerouterEdge*>(o)->getEdge();
+                    const double dist = edge->getFromJunction()->getPosition().distanceTo2D(pos);
                     if (dist < minDistRR) {
                         minDistRR = dist;
                         minRR = o;
