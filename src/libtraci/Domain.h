@@ -78,20 +78,16 @@ void CLASS::subscribeParameterWithKey(const std::string& objectID, const std::st
 std::string \
 CLASS::getParameter(const std::string& objectID, const std::string& param) { \
     tcpip::Storage content; \
-    content.writeByte(libsumo::TYPE_STRING); \
-    content.writeString(param); \
+    StoHelp::writeTypedString(content, param); \
     return Dom::getString(libsumo::VAR_PARAMETER, objectID, &content); \
 } \
 \
 void \
 CLASS::setParameter(const std::string& objectID, const std::string& key, const std::string& value) { \
     tcpip::Storage content; \
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND); \
-    content.writeInt(2); \
-    content.writeUnsignedByte(libsumo::TYPE_STRING); \
-    content.writeString(key); \
-    content.writeUnsignedByte(libsumo::TYPE_STRING); \
-    content.writeString(value); \
+    StoHelp::writeCompound(content, 2); \
+    StoHelp::writeTypedString(content, key); \
+    StoHelp::writeTypedString(content, value); \
     Connection::getActive().doCommand(libsumo::CMD_SET_##DOMAIN##_VARIABLE, libsumo::VAR_PARAMETER, objectID, &content); \
 } \
 \

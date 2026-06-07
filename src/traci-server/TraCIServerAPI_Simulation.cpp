@@ -134,9 +134,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         case libsumo::VAR_COLLISIONS: {
             std::vector<libsumo::TraCICollision> collisions = libsumo::Simulation::getCollisions();
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-            const int cnt = 1 + (int)collisions.size() * 4;
-            server.getWrapperStorage().writeInt(cnt);
+            StoHelp::writeCompound(server.getWrapperStorage(), 1 + (int)collisions.size() * 4);
             StoHelp::writeTypedInt(server.getWrapperStorage(), (int)collisions.size());
             for (const auto& c : collisions) {
                 StoHelp::writeTypedString(server.getWrapperStorage(), c.collider);
@@ -152,13 +150,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             break;
         }
         case libsumo::VAR_NET_BOUNDING_BOX: {
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_POLYGON);
-            libsumo::TraCIPositionVector tb = libsumo::Simulation::getNetBoundary();
-            server.getWrapperStorage().writeByte(2);
-            server.getWrapperStorage().writeDouble(tb.value[0].x);
-            server.getWrapperStorage().writeDouble(tb.value[0].y);
-            server.getWrapperStorage().writeDouble(tb.value[1].x);
-            server.getWrapperStorage().writeDouble(tb.value[1].y);
+            StoHelp::writePolygon(server.getWrapperStorage(), libsumo::Simulation::getNetBoundary());
             break;
         }
         case libsumo::POSITION_CONVERSION: {
@@ -387,20 +379,16 @@ TraCIServerAPI_Simulation::commandPositionConversion(tcpip::Storage& inputStorag
         }
         break;
         case libsumo::POSITION_2D:
+            StoHelp::writeTypedPosition2D(outputStorage, cartesianPos.x(), cartesianPos.y());
+            break;
         case libsumo::POSITION_3D:
+            StoHelp::writeTypedPosition3D(outputStorage, cartesianPos.x(), cartesianPos.y(), cartesianPos.z());
+            break;
         case libsumo::POSITION_LON_LAT:
+            StoHelp::writeTypedPosition2D(outputStorage, geoPos.x(), geoPos.y(), true);
+            break;
         case libsumo::POSITION_LON_LAT_ALT:
-            outputStorage.writeUnsignedByte(destPosType);
-            if (destPosType == libsumo::POSITION_LON_LAT || destPosType == libsumo::POSITION_LON_LAT_ALT) {
-                outputStorage.writeDouble(geoPos.x());
-                outputStorage.writeDouble(geoPos.y());
-            } else {
-                outputStorage.writeDouble(cartesianPos.x());
-                outputStorage.writeDouble(cartesianPos.y());
-            }
-            if (destPosType != libsumo::POSITION_2D && destPosType != libsumo::POSITION_LON_LAT) {
-                outputStorage.writeDouble(z);
-            }
+            StoHelp::writeTypedPosition3D(outputStorage, geoPos.x(), geoPos.y(), geoPos.z(), true);
             break;
         default:
             throw libsumo::TraCIException("Destination position type not supported");

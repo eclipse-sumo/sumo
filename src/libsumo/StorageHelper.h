@@ -188,7 +188,6 @@ public:
         libsumo::TraCIPosition p;
         p.x = ret.readDouble();
         p.y = ret.readDouble();
-        p.z = 0.;
         return p;
     }
 
@@ -505,7 +504,7 @@ public:
     }
 
     static inline void writeTypedPositionRoadmap(tcpip::Storage& content, const std::string& edgeID,
-                                                 double pos, int laneIndex) {
+            double pos, int laneIndex) {
         content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
         content.writeString(edgeID);
         content.writeDouble(pos);

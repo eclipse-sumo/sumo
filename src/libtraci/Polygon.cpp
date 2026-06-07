@@ -116,16 +116,8 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedObj
     tcpip::Storage content;
     StoHelp::writeCompound(content, 5);
     StoHelp::writeTypedString(content, trackedObjectID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
-    content.writeInt((int)timeSpan.size());
-    for (const double d : timeSpan) {
-        content.writeDouble(d);
-    }
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
-    content.writeInt((int)alphaSpan.size());
-    for (const double d : alphaSpan) {
-        content.writeDouble(d);
-    }
+    StoHelp::writeTypedDoubleList(content, timeSpan);
+    StoHelp::writeTypedDoubleList(content, alphaSpan);
     StoHelp::writeTypedUnsignedByte(content, looped);
     StoHelp::writeTypedUnsignedByte(content, rotate);
     Dom::set(libsumo::VAR_ADD_DYNAMICS, polygonID, &content);

@@ -588,8 +588,7 @@ Person::setActionStepLength(const std::string& personID, double actionStepLength
 void
 Person::remove(const std::string& personID, char reason) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeUnsignedByte(reason);
+    StoHelp::writeTypedByte(content, reason);
     Dom::set(libsumo::REMOVE, personID, &content);
 }
 

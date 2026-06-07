@@ -173,12 +173,10 @@ TraCIServer::wrapDoubleList(const std::string& /* objID */, const int /* variabl
 
 bool
 TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, const libsumo::TraCIPosition& value) {
-    const bool includeZ = variable == libsumo::VAR_POSITION3D;
-    myWrapperStorage.writeUnsignedByte(includeZ ? libsumo::POSITION_3D : libsumo::POSITION_2D);
-    myWrapperStorage.writeDouble(value.x);
-    myWrapperStorage.writeDouble(value.y);
-    if (includeZ) {
-        myWrapperStorage.writeDouble(value.z);
+    if (variable == libsumo::VAR_POSITION3D) {
+        StoHelp::writeTypedPosition3D(myWrapperStorage, value.x, value.y, value.z);
+    } else {
+        StoHelp::writeTypedPosition2D(myWrapperStorage, value);
     }
     return true;
 }
@@ -186,17 +184,7 @@ TraCIServer::wrapPosition(const std::string& /* objID */, const int variable, co
 
 bool
 TraCIServer::wrapPositionVector(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIPositionVector& shape) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    if (shape.value.size() < 256) {
-        myWrapperStorage.writeUnsignedByte((int)shape.value.size());
-    } else {
-        myWrapperStorage.writeUnsignedByte(0);
-        myWrapperStorage.writeInt((int)shape.value.size());
-    }
-    for (const libsumo::TraCIPosition& pos : shape.value) {
-        myWrapperStorage.writeDouble(pos.x);
-        myWrapperStorage.writeDouble(pos.y);
-    }
+    StoHelp::writePolygon(myWrapperStorage, shape);
     return true;
 }
 

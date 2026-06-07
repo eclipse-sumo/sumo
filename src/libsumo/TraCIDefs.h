@@ -177,6 +177,8 @@ struct TraCIResult {
  * @brief A 2D or 3D-position, for 2D positions z == INVALID_DOUBLE_VALUE
  */
 struct TraCIPosition : TraCIResult {
+    TraCIPosition() = default;
+    TraCIPosition(double x, double y, double z = INVALID_DOUBLE_VALUE) : x(x), y(y), z(z) {}
     std::string getString() const override {
         std::ostringstream os;
         os << "TraCIPosition(" << x << "," << y;
@@ -242,7 +244,11 @@ struct TraCIPositionVector : TraCIResult {
         std::ostringstream os;
         os << "[";
         for (const TraCIPosition& v : value) {
-            os << "(" << v.x << "," << v.y << "," << v.z << ")";
+            os << "(" << v.x << "," << v.y;
+            if (v.z != INVALID_DOUBLE_VALUE) {
+                os << "," << v.z;
+            }
+            os << ")";
         }
         os << "]";
         return os.str();

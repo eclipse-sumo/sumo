@@ -119,12 +119,9 @@ GUI::removeView(const std::string& viewID) {
 void
 GUI::setBoundary(const std::string& viewID, double xmin, double ymin, double xmax, double ymax) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_POLYGON);
-    content.writeUnsignedByte(2);
-    content.writeDouble(xmin);
-    content.writeDouble(ymin);
-    content.writeDouble(xmax);
-    content.writeDouble(ymax);
+    libsumo::TraCIPositionVector v;
+    v.value = {{xmin, ymin}, {xmax, ymax}};
+    StoHelp::writePolygon(content, v);
     Dom::set(libsumo::VAR_VIEW_BOUNDARY, viewID, &content);
 }
 
