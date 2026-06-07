@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-06T12:16:15.557153+01:00 by Eclipse SUMO sumo v1_27_0+0104-95b906f777d
+<!-- generated on 2026-06-07T20:51:42.156615+01:00 by Eclipse SUMO sumo v1_27_0+0107-6862125be7f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_27_0+0104-95b906f777d" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0107-6862125be7f" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="24" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -103,33 +103,43 @@
     <vType id="DEFAULT_VEHTYPE"/>
     <vehicle id="v.0" depart="0.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.060000" state="2256 0 0 5.100000 36000 42.573511 49000 0 0 0" pos="73.220787 68.220787 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 36000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.0" state="0/1to1/1_0 0 10 -5.1 36000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="SmartSK" state="0 1.76083 0 "/>
     </vehicle>
     <vehicle id="v.1" depart="2.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.938300" state="2256 2000 0 5.100000 33000 41.445042 49000 0 0 0" pos="57.222174 52.222174 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 33000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.1" state="0/1to1/1_0 0 9.383 -5.1 33000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="SmartSK" state="8.49861 1 0 "/>
     </vehicle>
     <vehicle id="v.2" depart="4.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.010400" state="2256 4000 0 5.100000 32000 40.975846 49000 0 0 0" pos="45.760050 40.760050 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 32000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.2" state="0/1to1/1_0 0 7.28884 -5.1 32000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="SmartSK" state="3.96212 1.64169 0 "/>
     </vehicle>
     <vehicle id="v.3" depart="6.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.082700" state="2256 7000 0 5.100000 36000 40.780683 49000 0 0 0" pos="18.301542 13.301542 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 36000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.3" state="0/1to1/1_0 0 4.81083 -5.1 36000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="SmartSK" state="19.9585 1.67005 0 "/>
     </vehicle>
     <vehicle id="v.4" depart="8.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.030300" state="2256 11000 0 5.100000 35000 37.664278 49000 0 0 0" pos="8.558943 3.558943 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 35000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.4" state="0/1to1/1_0 0 2.50932 -5.1 35000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="SmartSK" state="2.2426 1.3739 0 "/>
     </vehicle>
     <vehicle id="v.5" depart="10.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.831000" state="2256 9223372036854774807 0 -1.000000 0 0.000000 0 0 0 0" pos="5.100000 0.100000 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.5"/>
+        <cfmVars id="SmartSK" state="0 1 0 "/>
     </vehicle>
     <vehicle id="v.6" depart="12.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.045800" state="2256 9223372036854774807 0 -1.000000 0 0.000000 0 0 0 0" pos="0.000000 0.000000 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.6"/>
+        <cfmVars id="SmartSK" state="0 1 0 "/>
     </vehicle>
     <vehicle id="v.7" depart="14.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.886000" state="2256 9223372036854774807 0 -1.000000 0 0.000000 0 0 0 0" pos="0.000000 0.000000 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.7"/>
+        <cfmVars id="SmartSK" state="0 1 0 "/>
     </vehicle>
     <vehicle id="v.8" depart="16.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.937900" state="2256 9223372036854774807 0 -1.000000 0 0.000000 0 0 0 0" pos="0.000000 0.000000 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.8"/>
+        <cfmVars id="SmartSK" state="0 1 0 "/>
     </vehicle>
     <vehicle id="v.9" depart="18.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.856900" state="2256 9223372036854774807 0 -1.000000 0 0.000000 0 0 0 0" pos="0.000000 0.000000 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.9"/>
+        <cfmVars id="SmartSK" state="0 1 0 "/>
     </vehicle>
     <lane id="0/1to1/1_0">
         <vehicles value="v.4 v.3 v.2 v.1 v.0"/>

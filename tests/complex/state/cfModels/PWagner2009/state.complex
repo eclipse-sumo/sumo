@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-06T12:17:16.752959+01:00 by Eclipse SUMO sumo v1_27_0+0104-95b906f777d
+<!-- generated on 2026-06-07T20:51:42.195482+01:00 by Eclipse SUMO sumo v1_27_0+0107-6862125be7f
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_27_0+0104-95b906f777d" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0107-6862125be7f" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="24" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -103,33 +103,43 @@
     <vType id="DEFAULT_VEHTYPE"/>
     <vehicle id="v.0" depart="0.000" departSpeed="avg" route="r1" distance="400 0" speedFactor="1.060000" state="2256 0 1 5.100000 0 6.211781 49000 0 0 0" pos="58.655123 53.655123 10.600000" speed="10.600000 10.600000" angle="90.000000" posLat="0.000000" waitingTime="100000 2 8000 9000 10000 11000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.0" state="0/1to1/1_0 0 10 394.9 2000 0 2 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <vehicle id="v.1" depart="2.000" departSpeed="avg" route="r1" distance="400 0" speedFactor="0.938300" state="2256 2000 1 5.100000 0 1.224816 49000 0 0 0" pos="34.608551 29.608551 9.383000" speed="9.383000 9.383000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.1" state="0/1to1/1_0 0 9.383 394.9 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <vehicle id="v.2" depart="4.000" departSpeed="avg" route="r1" distance="400 0" speedFactor="1.010400" state="2256 4000 1 5.100000 0 5.586342 49000 0 0 0" pos="3.335604 398.335604 5.144495" speed="5.144495 2.717401" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.2" state="0/1to1/1_0 0 9.9915 394.9 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="2.42709"/>
     </vehicle>
     <vehicle id="v.3" depart="6.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.082700" state="2256 6000 0 5.100000 4000 10.364039 49000 0 0 0" pos="358.449550 353.449550 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 4000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.3" state="0/1to1/1_0 0 9.9915 -5.1 4000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <vehicle id="v.4" depart="8.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.030300" state="2256 8000 0 5.100000 4000 7.283316 49000 0 0 0" pos="352.482993 347.482993 0.000000" speed="0.000000 0.000000" angle="90.000000" posLat="0.000000" waitingTime="100000 1 0 4000" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.4" state="0/1to1/1_0 0 10.2285 -5.1 4000 1 1 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <vehicle id="v.5" depart="10.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.831000" state="2256 10000 0 5.100000 0 0.000000 49000 0 0 0" pos="329.190000 324.190000 8.310000" speed="8.310000 8.310000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.5" state="0/1to1/1_0 0 8.31 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <vehicle id="v.6" depart="12.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="1.045800" state="2256 13000 0 5.100000 0 7.496735 49000 0 0 0" pos="303.187147 298.187147 3.347508" speed="3.347508 4.421692" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.6" state="0/1to1/1_0 0 9.25554 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="-1.07418"/>
     </vehicle>
     <vehicle id="v.7" depart="14.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.886000" state="2256 15000 0 5.100000 0 1.531917 49000 0 0 0" pos="292.767218 287.767218 7.063192" speed="7.063192 7.961596" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.7" state="0/1to1/1_0 0 8.86 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="-0.898404"/>
     </vehicle>
     <vehicle id="v.8" depart="16.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.937900" state="2256 18000 0 5.100000 0 2.122796 49000 0 0 0" pos="275.939295 270.939295 9.175742" speed="9.175742 8.912293" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.8" state="0/1to1/1_0 0 9.24066 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0.263449"/>
     </vehicle>
     <vehicle id="v.9" depart="18.000" departSpeed="avg" route="r1" distance="0 0" speedFactor="0.856900" state="2256 20000 0 5.100000 0 0.000000 49000 0 0 0" pos="253.601000 248.601000 8.569000" speed="8.569000 8.569000" angle="90.000000" posLat="0.000000" waitingTime="100000 0" lcStateBase="0.000000" lcState2="0 0 0 0 0">
         <device id="tripinfo_v.9" state="0/1to1/1_0 0 8.569 -5.1 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <cfmVars id="PWagner2009" state="0"/>
     </vehicle>
     <lane id="0/1to1/1_0">
         <vehicles value="v.9 v.8 v.7 v.6 v.5 v.4 v.3"/>
