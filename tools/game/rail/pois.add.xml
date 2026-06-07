@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poi id="1" type="left-click signal to toggle red/green" color="invisible" layer="202.00" x="0.00" y="0.00"/>
-    <poi id="2" type="right-click U-Symbol to switch tracks" color="invisible" layer="202.00" x="0.00" y="-10.00"/>
+    <poi id="1" type="Mausklick schaltet das Signal bzw. die Weiche" color="invisible" layer="202.00" x="0.00" y="0.00"/>
+    <poi id="2" type="click a signal or a switch to change it" color="invisible" layer="202.00" x="0.00" y="-10.00"/>
 </additional>
