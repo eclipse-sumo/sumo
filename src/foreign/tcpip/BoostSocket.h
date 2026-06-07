@@ -42,6 +42,22 @@ typedef tcpip::Socket TraCISocket;
 
 #include <boost/asio.hpp>
 
+// On macOS, boost/asio transitively includes <sys/termios.h> which #defines
+// baud-rate constants (B0, B50, B75, ...) as bare integer literals. These
+// collide with parameter / member names elsewhere in the project (notably
+// PROJ's proj.h, which has a `double B0` parameter). Undefine them so the
+// preprocessor symbols don't leak into translation units that include this
+// header before geometry headers.
+#ifdef B0
+#undef B0
+#endif
+#ifdef B50
+#undef B50
+#endif
+#ifdef B75
+#undef B75
+#endif
+
 #include <foreign/tcpip/storage.h>
 
 
