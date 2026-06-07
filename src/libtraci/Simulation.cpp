@@ -413,9 +413,7 @@ libsumo::TraCIRoadPosition
 Simulation::convertRoad(double x, double y, bool isGeo, const std::string& vClass) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 3);
-    content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y, isGeo);
     StoHelp::writeTypedUnsignedByte(content, libsumo::POSITION_ROADMAP);
     StoHelp::writeTypedString(content, vClass);
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
@@ -432,9 +430,7 @@ libsumo::TraCIPosition
 Simulation::convertGeo(double x, double y, bool fromGeo) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(fromGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y, fromGeo);
     StoHelp::writeTypedUnsignedByte(content, fromGeo ? libsumo::POSITION_2D : libsumo::POSITION_LON_LAT);
     return Dom::getPos(libsumo::POSITION_CONVERSION, "", &content, !fromGeo);
 }
@@ -444,12 +440,8 @@ double
 Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo, bool isDriving) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 3);
-    content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
-    content.writeDouble(x1);
-    content.writeDouble(y1);
-    content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
-    content.writeDouble(x2);
-    content.writeDouble(y2);
+    StoHelp::writeTypedPosition2D(content, x1, y1, isGeo);
+    StoHelp::writeTypedPosition2D(content, x2, y2, isGeo);
     content.writeUnsignedByte(isDriving ? libsumo::REQUEST_DRIVINGDIST : libsumo::REQUEST_AIRDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, "", &content);
 }

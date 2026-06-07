@@ -485,20 +485,20 @@ public:
         content.writeUnsignedByte(c.a);
     }
 
-    static inline void writeTypedPosition2D(tcpip::Storage& content, const libsumo::TraCIPosition& pos) {
-        content.writeUnsignedByte(libsumo::POSITION_2D);
+    static inline void writeTypedPosition2D(tcpip::Storage& content, const libsumo::TraCIPosition& pos, bool isGeo = false) {
+        content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
         content.writeDouble(pos.x);
         content.writeDouble(pos.y);
     }
 
-    static inline void writeTypedPosition2D(tcpip::Storage& content, double x, double y) {
-        content.writeUnsignedByte(libsumo::POSITION_2D);
+    static inline void writeTypedPosition2D(tcpip::Storage& content, double x, double y, bool isGeo = false) {
+        content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
         content.writeDouble(x);
         content.writeDouble(y);
     }
 
-    static inline void writeTypedPosition3D(tcpip::Storage& content, double x, double y, double z) {
-        content.writeUnsignedByte(libsumo::POSITION_3D);
+    static inline void writeTypedPosition3D(tcpip::Storage& content, double x, double y, double z, bool isGeo = false) {
+        content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
         content.writeDouble(x);
         content.writeDouble(y);
         content.writeDouble(z);
