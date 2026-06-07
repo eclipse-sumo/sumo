@@ -22,8 +22,14 @@
 #pragma once
 #include <config.h>
 
-#include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
+#ifdef HAVE_BOOST_ASIO
+class BoostSocket;
+typedef BoostSocket TraCISocket;
+#else
+namespace tcpip { class Socket; }
+typedef tcpip::Socket TraCISocket;
+#endif
 #include "OutputDevice.h"
 #include <utils/common/UtilExceptions.h>
 #include <string>
@@ -88,6 +94,6 @@ private:
     std::ostringstream myMessage;
 
     /// @brief the socket to transfer the data
-    tcpip::Socket* mySocket;
+    TraCISocket* mySocket;
 
 };

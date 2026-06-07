@@ -26,7 +26,14 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include <foreign/tcpip/socket.h>
+#ifdef HAVE_BOOST_ASIO
+class BoostSocket;
+typedef BoostSocket TraCISocket;
+#else
+namespace tcpip { class Socket; }
+typedef tcpip::Socket TraCISocket;
+#endif
+#include <foreign/tcpip/storage.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
 
@@ -953,7 +960,7 @@ protected:
 protected:
     std::map<int, TraCIScopeWrapper*> myDomains;
     /// @brief The socket
-    tcpip::Socket* mySocket;
+    TraCISocket* mySocket;
     /// @brief The reusable output storage
     mutable tcpip::Storage myOutput;
     /// @brief The reusable input storage

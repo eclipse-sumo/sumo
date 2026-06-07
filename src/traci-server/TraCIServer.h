@@ -29,11 +29,18 @@
 #include <config.h>
 
 #include <map>
+#include <memory>
 #include <string>
 #include <set>
 
 #define BUILD_TCPIP
-#include <foreign/tcpip/socket.h>
+#ifdef HAVE_BOOST_ASIO
+class BoostSocket;
+typedef BoostSocket TraCISocket;
+#else
+namespace tcpip { class Socket; }
+typedef tcpip::Socket TraCISocket;
+#endif
 #include <foreign/tcpip/storage.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/common/SUMOTime.h>
@@ -215,18 +222,16 @@ private:
     struct SocketInfo {
     public:
         /// @brief constructor
-        SocketInfo(tcpip::Socket* socket, SUMOTime t)
-            : targetTime(t), socket(socket) {}
-        /// @brief destructor
-        ~SocketInfo() {
-            delete socket;
-        }
+        SocketInfo(TraCISocket* socket, SUMOTime t);
+        /// @brief destructor (defined out-of-line so the complete BoostSocket
+        /// type is visible to std::unique_ptr's deleter)
+        ~SocketInfo();
         /// @brief next point of action for the client
         SUMOTime targetTime;
         /// @brief whether a "half step" has been done, executing only the move
         bool executeMove = false;
         /// @brief Socket object for this client
-        tcpip::Socket* socket;
+        std::unique_ptr<TraCISocket> socket;
         /// @brief container for vehicle state changes since last step taken by this client
         std::map<MSNet::VehicleState, std::vector<std::string> > vehicleStateChanges;
         /// @brief container for transportable state changes since last step taken by this client

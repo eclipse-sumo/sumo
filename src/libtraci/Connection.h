@@ -28,9 +28,17 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <memory>
 #include <thread>
 #include <mutex>
-#include <foreign/tcpip/socket.h>
+#ifdef HAVE_BOOST_ASIO
+class BoostSocket;
+typedef BoostSocket TraCISocket;
+#else
+namespace tcpip { class Socket; }
+typedef tcpip::Socket TraCISocket;
+#endif
+#include <foreign/tcpip/storage.h>
 #include <libsumo/Subscription.h>
 
 
@@ -172,12 +180,16 @@ private:
      */
     Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe);
 
+    /// @brief Destructor, releases the socket (defined in .cpp because
+    /// std::unique_ptr<TraCISocket> needs the complete type to destroy)
+    ~Connection();
+
 private:
     const std::string myLabel;
     FILE* const myProcessPipe;
     std::thread* myProcessReader;
     /// @brief The socket
-    tcpip::Socket mySocket;
+    std::unique_ptr<TraCISocket> mySocket;
     /// @brief The reusable output storage
     mutable tcpip::Storage myOutput;
     /// @brief The reusable input storage

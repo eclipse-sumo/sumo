@@ -21,6 +21,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #include "TraCIAPI.h"
+#include <foreign/tcpip/BoostSocket.h>
 
 
 // ===========================================================================
@@ -71,7 +72,7 @@ TraCIAPI::~TraCIAPI() {
 
 void
 TraCIAPI::connect(const std::string& host, int port) {
-    mySocket = new tcpip::Socket(host, port);
+    mySocket = new TraCISocket(host, port);
     try {
         mySocket->connect();
     } catch (tcpip::SocketException&) {

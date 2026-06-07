@@ -38,8 +38,7 @@
 #include <map>
 #include <iostream>
 #include <algorithm>
-#include <foreign/tcpip/socket.h>
-#include <foreign/tcpip/storage.h>
+#include <foreign/tcpip/BoostSocket.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/common/NamedObjectCont.h>
@@ -442,6 +441,13 @@ TraCIServer::getWrapperStorage() {
 
 
 
+TraCIServer::SocketInfo::SocketInfo(TraCISocket* socket, SUMOTime t)
+    : targetTime(t), socket(socket) {}
+
+
+TraCIServer::SocketInfo::~SocketInfo() = default;
+
+
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
     : myTargetTime(begin), myLastContextSubscription(nullptr) {
 #ifdef DEBUG_MULTI_CLIENTS
@@ -538,7 +544,7 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 
     try {
         WRITE_MESSAGEF(TL("***Starting server on port % ***"), toString(port));
-        tcpip::Socket serverSocket(port);
+        TraCISocket serverSocket(port);
         if (numClients > 1) {
             WRITE_MESSAGEF(TL("  waiting for % clients..."), toString(numClients));
         }

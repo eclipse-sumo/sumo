@@ -30,7 +30,7 @@
 #include <chrono>
 #include <vector>
 #include "OutputDevice_Network.h"
-#include "foreign/tcpip/socket.h"
+#include <foreign/tcpip/BoostSocket.h>
 #include "utils/common/ToString.h"
 
 
@@ -39,7 +39,7 @@
 // ==========================================================================
 OutputDevice_Network::OutputDevice_Network(const std::string& host,
         const int port) : OutputDevice(0, host + ":" + toString(port)) {
-    mySocket = new tcpip::Socket(host, port);
+    mySocket = new TraCISocket(host, port);
     for (int wait = 1; wait < 10; wait += 1) {
         try {
             mySocket->connect();

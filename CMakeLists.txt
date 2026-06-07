@@ -661,13 +661,25 @@ if (ENABLE_BOOST)
     # init boost library
     set(BOOST_LIBRARIES "")
 
+    # Boost.Asio is header-only; only requires boost_headers.
+    if(boost_headers_FOUND)
+        message(STATUS "Boost headers " ${boost_headers_VERSION} " found, enabling Boost.Asio networking")
+        set(HAVE_BOOST_ASIO 1)
+        get_target_property(Boost_include Boost::headers INTERFACE_INCLUDE_DIRECTORIES)
+        include_directories(${Boost_include})
+        # boost::asio needs threads on POSIX
+        if (NOT WIN32)
+            find_package(Threads REQUIRED)
+            list(APPEND BOOST_LIBRARIES Threads::Threads)
+        endif ()
+    else()
+        message(STATUS "Boost headers not found, disabling Boost.Asio networking (falling back to bundled tcpip socket)")
+    endif()
+
     # continue if boost was found
     if(boost_filesystem_FOUND AND boost_process_FOUND AND boost_headers_FOUND)
         message(STATUS "Boost headers, filesystem and process " ${boost_headers_VERSION} " found, enabling stacktrace support")
         set(HAVE_BOOST 1)
-        # set includes
-        get_target_property(Boost_include Boost::headers INTERFACE_INCLUDE_DIRECTORIES)
-        include_directories(${Boost_include})
         # add boost libraries
         list(APPEND BOOST_LIBRARIES Boost::filesystem Boost::process Boost::headers)
     else()

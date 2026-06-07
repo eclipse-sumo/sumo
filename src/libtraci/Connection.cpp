@@ -27,6 +27,7 @@
 #include <array>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIDefs.h>
+#include <foreign/tcpip/BoostSocket.h>
 #include "Connection.h"
 
 
@@ -42,16 +43,16 @@ std::map<const std::string, Connection*> Connection::myConnections;
 // member method definitions
 // ===========================================================================
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
-    myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
+    myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(new TraCISocket(host, port)) {
     if (pipe != nullptr) {
         myProcessReader = new std::thread(&Connection::readOutput, this);
     }
     for (int i = 0; i <= numRetries; i++) {
         try {
-            mySocket.connect();
+            mySocket->connect();
             break;
         } catch (tcpip::SocketException& e) {
-            mySocket.close();
+            mySocket->close();
             if (i == numRetries) {
                 close();
                 throw libsumo::FatalTraCIError("Could not connect in " + toString(numRetries + 1) + " tries");
@@ -62,6 +63,9 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
         }
     }
 }
+
+
+Connection::~Connection() = default;
 
 
 void
@@ -87,19 +91,19 @@ Connection::readOutput() {
 
 void
 Connection::close() {
-    if (mySocket.has_client_connection()) {
+    if (mySocket->has_client_connection()) {
         std::unique_lock<std::mutex> lock{ myMutex };
         tcpip::Storage outMsg;
         // command length
         outMsg.writeUnsignedByte(1 + 1);
         // command id
         outMsg.writeUnsignedByte(libsumo::CMD_CLOSE);
-        mySocket.sendExact(outMsg);
+        mySocket->sendExact(outMsg);
 
         tcpip::Storage inMsg;
         std::string acknowledgement;
         check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
-        mySocket.close();
+        mySocket->close();
     }
     if (myProcessReader != nullptr) {
         myProcessReader->join();
@@ -127,7 +131,7 @@ Connection::simulationStep(double time) {
     outMsg.writeUnsignedByte(libsumo::CMD_SIMSTEP);
     outMsg.writeDouble(time);
     // send request message
-    mySocket.sendExact(outMsg);
+    mySocket->sendExact(outMsg);
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, libsumo::CMD_SIMSTEP);
@@ -156,7 +160,7 @@ Connection::setOrder(int order) {
     outMsg.writeUnsignedByte(libsumo::CMD_SETORDER);
     // client index
     outMsg.writeInt(order);
-    mySocket.sendExact(outMsg);
+    mySocket->sendExact(outMsg);
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, libsumo::CMD_SETORDER);
@@ -165,7 +169,7 @@ Connection::setOrder(int order) {
 
 void
 Connection::createCommand(int cmdID, int varID, const std::string* const objID, tcpip::Storage* add) const {
-    if (!mySocket.has_client_connection()) {
+    if (!mySocket->has_client_connection()) {
         throw libsumo::FatalTraCIError("Connection already closed.");
     }
     myOutput.reset();
@@ -203,7 +207,7 @@ Connection::createCommand(int cmdID, int varID, const std::string* const objID, 
 void
 Connection::subscribe(int domID, const std::string& objID, double beginTime, double endTime,
                       int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
-    if (!mySocket.has_client_connection()) {
+    if (!mySocket->has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
     const bool isContext = domain != -1;
@@ -248,7 +252,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
     complete.writeStorage(outMsg);
     std::unique_lock<std::mutex> lock{ myMutex };
     // send message
-    mySocket.sendExact(complete);
+    mySocket->sendExact(complete);
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, domID);
@@ -265,7 +269,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
 
 void
 Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCommandId, std::string* acknowledgement) {
-    mySocket.receiveExact(inMsg);
+    mySocket->receiveExact(inMsg);
     int cmdLength;
     int cmdId;
     int resultType;
@@ -328,7 +332,7 @@ Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expec
 tcpip::Storage&
 Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add, int expectedType) {
     createCommand(command, var, &id, add);
-    mySocket.sendExact(myOutput);
+    mySocket->sendExact(myOutput);
     myInput.reset();
     check_resultState(myInput, command);
     if (expectedType >= 0) {
@@ -342,7 +346,7 @@ void
 Connection::addFilter(int var, tcpip::Storage* add) {
     std::unique_lock<std::mutex> lock{ myMutex };
     createCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, var, nullptr, add);
-    mySocket.sendExact(myOutput);
+    mySocket->sendExact(myOutput);
     myInput.reset();
     check_resultState(myInput, libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }

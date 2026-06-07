@@ -21,10 +21,10 @@
 #include <config.h>
 #include <cstdlib>
 
-#include <foreign/tcpip/socket.h>
 #define LIBTRACI 1
 #include "Connection.h"
 #include "Domain.h"
+#include <foreign/tcpip/BoostSocket.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/GUI.h>
 #include <libsumo/Simulation.h>
@@ -50,7 +50,7 @@ std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int port, int numRetries, const std::string& label, const bool verbose,
                   const std::string& /* traceFile */, bool /* traceGetters */, void* /* _stdout */) {
     if (port == -1) {
-        port = tcpip::Socket::getFreeSocketPort();
+        port = TraCISocket::getFreeSocketPort();
     }
     std::ostringstream oss;
     for (const std::string& s : cmd) {

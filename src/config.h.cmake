@@ -213,6 +213,9 @@
 /* defined if Boost is available */
 #cmakedefine HAVE_BOOST
 
+/* defined if Boost.Asio is available (Boost headers present) */
+#cmakedefine HAVE_BOOST_ASIO
+
 /* defined if zlib is available */
 #cmakedefine HAVE_ZLIB
 
