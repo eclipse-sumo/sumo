@@ -409,10 +409,7 @@ double
 Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos, int laneIndex) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(laneIndex);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID, pos, laneIndex);
     content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, vehID, &content);
 }
@@ -422,9 +419,7 @@ double
 Vehicle::getDrivingDistance2D(const std::string& vehID, double x, double y) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, vehID, &content);
 }

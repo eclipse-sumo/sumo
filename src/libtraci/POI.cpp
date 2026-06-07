@@ -102,9 +102,7 @@ POI::setType(const std::string& poiID, const std::string& poiType) {
 void
 POI::setPosition(const std::string& poiID, double x, double y) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     Dom::set(libsumo::VAR_POSITION, poiID, &content);
 }
 
@@ -147,9 +145,7 @@ POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor
     StoHelp::writeTypedString(content, poiType);
     StoHelp::writeTypedColor(content, color);
     StoHelp::writeTypedInt(content, layer);
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     StoHelp::writeTypedString(content, imgFile);
     StoHelp::writeTypedDouble(content, width);
     StoHelp::writeTypedDouble(content, height);

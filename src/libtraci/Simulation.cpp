@@ -393,10 +393,7 @@ libsumo::TraCIPosition
 Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(laneIndex);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID, pos, laneIndex);
     StoHelp::writeTypedUnsignedByte(content, toGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     return Dom::getPos(libsumo::POSITION_CONVERSION, "", &content, toGeo);
 }
@@ -406,10 +403,7 @@ libsumo::TraCIPosition
 Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(laneIndex);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID, pos, laneIndex);
     StoHelp::writeTypedUnsignedByte(content, toGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
     return Dom::getPos3D(libsumo::POSITION_CONVERSION, "", &content, toGeo);
 }
@@ -465,14 +459,8 @@ double
 Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 3);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID1);
-    content.writeDouble(pos1);
-    content.writeUnsignedByte(0);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID2);
-    content.writeDouble(pos2);
-    content.writeUnsignedByte(0);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID1, pos1, 0);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID2, pos2, 0);
     content.writeUnsignedByte(isDriving ? libsumo::REQUEST_DRIVINGDIST : libsumo::REQUEST_AIRDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, "", &content);
 }

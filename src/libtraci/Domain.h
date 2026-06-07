@@ -153,9 +153,7 @@ public:
         std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
         libsumo::TraCIPosition p;
-        p.x = result.readDouble();
-        p.y = result.readDouble();
-        p.z = result.readDouble();
+        p = StoHelp::readPosition3D(result);
         return p;
     }
 
@@ -178,10 +176,7 @@ public:
         std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
         tcpip::Storage& result = get(var, id, add, libsumo::TYPE_COLOR);
         libsumo::TraCIColor c;
-        c.r = (unsigned char)result.readUnsignedByte();
-        c.g = (unsigned char)result.readUnsignedByte();
-        c.b = (unsigned char)result.readUnsignedByte();
-        c.a = (unsigned char)result.readUnsignedByte();
+        c = StoHelp::readColor(result);
         return c;
     }
 

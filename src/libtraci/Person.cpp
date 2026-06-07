@@ -95,10 +95,7 @@ double
 Person::getWalkingDistance(const std::string& personID, const std::string& edgeID, double pos, int laneIndex) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-    content.writeString(edgeID);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(laneIndex);
+    StoHelp::writeTypedPositionRoadmap(content, edgeID, pos, laneIndex);
     content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, personID, &content);
 }
@@ -108,9 +105,7 @@ double
 Person::getWalkingDistance2D(const std::string& personID, double x, double y) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 2);
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
     return Dom::getDouble(libsumo::DISTANCE_REQUEST, personID, &content);
 }

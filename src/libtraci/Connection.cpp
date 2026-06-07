@@ -381,10 +381,7 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                 }
                 case libsumo::TYPE_COLOR: {
                     auto c = std::make_shared<libsumo::TraCIColor>();
-                    c->r = (unsigned char)inMsg.readUnsignedByte();
-                    c->g = (unsigned char)inMsg.readUnsignedByte();
-                    c->b = (unsigned char)inMsg.readUnsignedByte();
-                    c->a = (unsigned char)inMsg.readUnsignedByte();
+                    *c = StoHelp::readColor(inMsg);
                     into[objectID][variableID] = c;
                     break;
                 }

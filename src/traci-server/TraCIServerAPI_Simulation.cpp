@@ -383,10 +383,7 @@ TraCIServerAPI_Simulation::commandPositionConversion(tcpip::Storage& inputStorag
                 throw libsumo::TraCIException("No matching lane found.");
             }
             // write result that is added to response msg
-            outputStorage.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-            outputStorage.writeString(roadPos.first->getEdge().getID());
-            outputStorage.writeDouble(roadPos.second);
-            outputStorage.writeUnsignedByte(roadPos.first->getIndex());
+            StoHelp::writeTypedPositionRoadmap(outputStorage, roadPos.first->getEdge().getID(), roadPos.second, roadPos.first->getIndex());
         }
         break;
         case libsumo::POSITION_2D:

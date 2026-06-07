@@ -91,9 +91,7 @@ GUI::setAngle(const std::string& viewID, double angle) {
 void
 GUI::setOffset(const std::string& viewID, double x, double y) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     Dom::set(libsumo::VAR_VIEW_OFFSET, viewID, &content);
 }
 

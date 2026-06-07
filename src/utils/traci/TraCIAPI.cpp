@@ -384,10 +384,7 @@ TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int 
                 }
                 case libsumo::TYPE_COLOR: {
                     auto c = std::make_shared<libsumo::TraCIColor>();
-                    c->r = (unsigned char)inMsg.readUnsignedByte();
-                    c->g = (unsigned char)inMsg.readUnsignedByte();
-                    c->b = (unsigned char)inMsg.readUnsignedByte();
-                    c->a = (unsigned char)inMsg.readUnsignedByte();
+                    *c = StoHelp::readColor(inMsg);
                     into[objectID][variableID] = c;
                     break;
                 }
@@ -680,9 +677,7 @@ TraCIAPI::GUIScope::setZoom(const std::string& viewID, double zoom) const {
 void
 TraCIAPI::GUIScope::setOffset(const std::string& viewID, double x, double y) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     myParent.createCommand(libsumo::CMD_SET_GUI_VARIABLE, libsumo::VAR_VIEW_OFFSET, viewID, &content);
     myParent.processSet(libsumo::CMD_SET_GUI_VARIABLE);
 }
@@ -1130,9 +1125,7 @@ TraCIAPI::POIScope::setType(const std::string& poiID, const std::string& setType
 void
 TraCIAPI::POIScope::setPosition(const std::string& poiID, double x, double y) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_POSITION, poiID, &content);
     myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
@@ -1178,9 +1171,7 @@ TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libs
     StoHelp::writeTypedString(content, type);
     StoHelp::writeTypedColor(content, c);
     StoHelp::writeTypedInt(content, layer);
-    content.writeUnsignedByte(libsumo::POSITION_2D);
-    content.writeDouble(x);
-    content.writeDouble(y);
+    StoHelp::writeTypedPosition2D(content, x, y);
     StoHelp::writeTypedString(content, imgFile);
     StoHelp::writeTypedDouble(content, width);
     StoHelp::writeTypedDouble(content, height);
@@ -1469,9 +1460,7 @@ TraCIAPI::SimulationScope::convert3D(const std::string& edgeID, double pos, int 
     content.writeByte(posType);
     myParent.createCommand(libsumo::CMD_GET_SIM_VARIABLE, libsumo::POSITION_CONVERSION, "", &content);
     if (myParent.processGet(libsumo::CMD_GET_SIM_VARIABLE, posType)) {
-        result.x = myParent.myInput.readDouble();
-        result.y = myParent.myInput.readDouble();
-        result.z = myParent.myInput.readDouble();
+        result = StoHelp::readPosition3D(myParent.myInput);
     }
     return result;
 }
@@ -3390,9 +3379,7 @@ TraCIAPI::TraCIScopeWrapper::getPolygon(int var, const std::string& id, tcpip::S
         }
         for (int i = 0; i < size; ++i) {
             libsumo::TraCIPosition p;
-            p.x = myParent.myInput.readDouble();
-            p.y = myParent.myInput.readDouble();
-            p.z = 0.;
+            p = StoHelp::readPosition2D(myParent.myInput);
             ret.value.push_back(p);
         }
     }
@@ -3405,9 +3392,7 @@ TraCIAPI::TraCIScopeWrapper::getPos(int var, const std::string& id, tcpip::Stora
     libsumo::TraCIPosition p;
     myParent.createCommand(myCmdGetID, var, id, add);
     if (myParent.processGet(myCmdGetID, libsumo::POSITION_2D)) {
-        p.x = myParent.myInput.readDouble();
-        p.y = myParent.myInput.readDouble();
-        p.z = 0;
+        p = StoHelp::readPosition2D(myParent.myInput);
     }
     return p;
 }
@@ -3418,9 +3403,7 @@ TraCIAPI::TraCIScopeWrapper::getPos3D(int var, const std::string& id, tcpip::Sto
     libsumo::TraCIPosition p;
     myParent.createCommand(myCmdGetID, var, id, add);
     if (myParent.processGet(myCmdGetID, libsumo::POSITION_3D)) {
-        p.x = myParent.myInput.readDouble();
-        p.y = myParent.myInput.readDouble();
-        p.z = myParent.myInput.readDouble();
+        p = StoHelp::readPosition3D(myParent.myInput);
     }
     return p;
 }
@@ -3469,10 +3452,7 @@ TraCIAPI::TraCIScopeWrapper::getCol(int var, const std::string& id, tcpip::Stora
     libsumo::TraCIColor c;
     myParent.createCommand(myCmdGetID, var, id, add);
     if (myParent.processGet(myCmdGetID, libsumo::TYPE_COLOR)) {
-        c.r = (unsigned char)myParent.myInput.readUnsignedByte();
-        c.g = (unsigned char)myParent.myInput.readUnsignedByte();
-        c.b = (unsigned char)myParent.myInput.readUnsignedByte();
-        c.a = (unsigned char)myParent.myInput.readUnsignedByte();
+        c = StoHelp::readColor(myParent.myInput);
     }
     return c;
 }

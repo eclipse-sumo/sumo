@@ -162,6 +162,12 @@ public:
         if (ret.readUnsignedByte() != libsumo::TYPE_COLOR && error != "") {
             throw TraCIException(error);
         }
+        return readColor(ret);
+    }
+
+    /// Read just the 4 RGBA bytes of a TraCIColor (assumes the type byte has
+    /// already been consumed, e.g. by processGet).
+    static inline libsumo::TraCIColor readColor(tcpip::Storage& ret) {
         libsumo::TraCIColor into;
         into.r = static_cast<unsigned char>(ret.readUnsignedByte());
         into.g = static_cast<unsigned char>(ret.readUnsignedByte());
@@ -174,9 +180,24 @@ public:
         if (ret.readUnsignedByte() != libsumo::POSITION_2D && error != "") {
             throw TraCIException(error);
         }
+        return readPosition2D(ret);
+    }
+
+    /// Read 2 doubles (x, y) into a TraCIPosition; type byte must already be consumed.
+    static inline libsumo::TraCIPosition readPosition2D(tcpip::Storage& ret) {
         libsumo::TraCIPosition p;
         p.x = ret.readDouble();
         p.y = ret.readDouble();
+        p.z = 0.;
+        return p;
+    }
+
+    /// Read 3 doubles (x, y, z) into a TraCIPosition; type byte must already be consumed.
+    static inline libsumo::TraCIPosition readPosition3D(tcpip::Storage& ret) {
+        libsumo::TraCIPosition p;
+        p.x = ret.readDouble();
+        p.y = ret.readDouble();
+        p.z = ret.readDouble();
         return p;
     }
 
@@ -468,6 +489,27 @@ public:
         content.writeUnsignedByte(libsumo::POSITION_2D);
         content.writeDouble(pos.x);
         content.writeDouble(pos.y);
+    }
+
+    static inline void writeTypedPosition2D(tcpip::Storage& content, double x, double y) {
+        content.writeUnsignedByte(libsumo::POSITION_2D);
+        content.writeDouble(x);
+        content.writeDouble(y);
+    }
+
+    static inline void writeTypedPosition3D(tcpip::Storage& content, double x, double y, double z) {
+        content.writeUnsignedByte(libsumo::POSITION_3D);
+        content.writeDouble(x);
+        content.writeDouble(y);
+        content.writeDouble(z);
+    }
+
+    static inline void writeTypedPositionRoadmap(tcpip::Storage& content, const std::string& edgeID,
+                                                 double pos, int laneIndex) {
+        content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
+        content.writeString(edgeID);
+        content.writeDouble(pos);
+        content.writeUnsignedByte(laneIndex);
     }
 
     static inline void writeCompound(tcpip::Storage& content, int size) {
