@@ -29,6 +29,7 @@
 #include "MSCFModel_Krauss.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <utils/common/RandHelper.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 
 
@@ -62,6 +63,31 @@ MSCFModel_Krauss::MSCFModel_Krauss(const MSVehicleType* vtype) :
 
 
 MSCFModel_Krauss::~MSCFModel_Krauss() {}
+
+
+void
+MSCFModel_Krauss::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "Krauss");
+    std::ostringstream internals;
+    internals << accelDawdle << " ";
+    internals << updateOffset;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_Krauss::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "Krauss") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for Krauss", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> accelDawdle;
+    bis >> updateOffset;
+}
 
 
 double

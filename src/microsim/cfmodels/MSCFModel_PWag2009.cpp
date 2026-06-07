@@ -26,6 +26,7 @@
 #include <microsim/MSLane.h>
 #include "MSCFModel_PWag2009.h"
 #include <utils/common/RandHelper.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 
 // ===========================================================================
@@ -44,6 +45,29 @@ MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype) :
 
 
 MSCFModel_PWag2009::~MSCFModel_PWag2009() {}
+
+
+void
+MSCFModel_PWag2009::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "PWagner2009");
+    std::ostringstream internals;
+    internals << aOld;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_PWag2009::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "PWagner2009") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for PWagner2009", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> aOld;
+}
 
 
 double

@@ -39,6 +39,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <math.h>
 #include <microsim/MSNet.h>
@@ -92,6 +93,30 @@ MSCFModel_ACC::MSCFModel_ACC(const MSVehicleType* vtype) :
 
 MSCFModel_ACC::~MSCFModel_ACC() {}
 
+
+void
+MSCFModel_ACC::ACCVehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "ACC");
+    std::ostringstream internals;
+    internals << ACC_ControlMode << " ";
+    internals << lastUpdateTime;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_ACC::ACCVehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "ACC") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for ACC", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> ACC_ControlMode;
+    bis >> lastUpdateTime;
+}
 
 double
 MSCFModel_ACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred, const CalcReason /*usage*/) const {
