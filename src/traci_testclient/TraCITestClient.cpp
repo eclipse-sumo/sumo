@@ -41,6 +41,7 @@
 #define BUILD_TCPIP
 #include <foreign/tcpip/storage.h>
 #include <foreign/tcpip/socket.h>
+#include <foreign/tcpip/BoostSocket.h>
 
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
