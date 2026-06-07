@@ -159,47 +159,14 @@ TraCIAPI::send_commandSetOrder(int order) const {
 void
 TraCIAPI::createCommand(int cmdID, int varID, const std::string& objID, tcpip::Storage* add) const {
     myOutput.reset();
-    // command length
-    int length = 1 + 1 + 1 + 4 + (int) objID.length();
-    if (add != nullptr) {
-        length += (int)add->size();
-    }
-    if (length <= 255) {
-        myOutput.writeUnsignedByte(length);
-    } else {
-        myOutput.writeUnsignedByte(0);
-        myOutput.writeInt(length + 4);
-    }
-    myOutput.writeUnsignedByte(cmdID);
-    myOutput.writeUnsignedByte(varID);
-    myOutput.writeString(objID);
-    // additional values
-    if (add != nullptr) {
-        myOutput.writeStorage(*add);
-    }
+    StoHelp::writeCommand(myOutput, cmdID, varID, &objID, add);
 }
 
 
 void
 TraCIAPI::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const {
     myOutput.reset();
-    // command length
-    int length = 1 + 1 + 1;
-    if (add != nullptr) {
-        length += (int)add->size();
-    }
-    if (length <= 255) {
-        myOutput.writeUnsignedByte(length);
-    } else {
-        myOutput.writeUnsignedByte(0);
-        myOutput.writeInt(length + 4);
-    }
-    myOutput.writeUnsignedByte(cmdID);
-    myOutput.writeUnsignedByte(varID);
-    // additional values
-    if (add != nullptr) {
-        myOutput.writeStorage(*add);
-    }
+    StoHelp::writeCommand(myOutput, cmdID, varID, nullptr, add);
 }
 
 
@@ -209,24 +176,14 @@ TraCIAPI::send_commandSubscribeObjectVariable(int domID, const std::string& objI
     if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
-    tcpip::Storage outMsg;
-    // command length (domID, objID, beginTime, endTime, length, vars)
-    int varNo = (int) vars.size();
-    outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
-    // command id
-    outMsg.writeUnsignedByte(domID);
-    // time
-    outMsg.writeDouble(beginTime);
-    outMsg.writeDouble(endTime);
-    // object id
-    outMsg.writeString(objID);
-    // command id
-    outMsg.writeUnsignedByte((int)vars.size());
-    for (int i = 0; i < varNo; ++i) {
-        outMsg.writeUnsignedByte(vars[i]);
+    tcpip::Storage body;
+    StoHelp::writeSubscriptionHeader(body, beginTime, endTime, objID);
+    body.writeUnsignedByte((int)vars.size());
+    for (const int v : vars) {
+        body.writeUnsignedByte(v);
     }
-    // send message
+    tcpip::Storage outMsg;
+    StoHelp::writeCommand(outMsg, domID, -1, nullptr, &body);
     mySocket->sendExact(outMsg);
 }
 
@@ -237,27 +194,14 @@ TraCIAPI::send_commandSubscribeObjectContext(int domID, const std::string& objID
     if (mySocket == nullptr) {
         throw tcpip::SocketException("Socket is not initialised");
     }
-    tcpip::Storage outMsg;
-    // command length (domID, objID, beginTime, endTime, length, vars)
-    int varNo = (int) vars.size();
-    outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + 8 + 1 + varNo);
-    // command id
-    outMsg.writeUnsignedByte(domID);
-    // time
-    outMsg.writeDouble(beginTime);
-    outMsg.writeDouble(endTime);
-    // object id
-    outMsg.writeString(objID);
-    // domain and range
-    outMsg.writeUnsignedByte(domain);
-    outMsg.writeDouble(range);
-    // command id
-    outMsg.writeUnsignedByte((int)vars.size());
-    for (int i = 0; i < varNo; ++i) {
-        outMsg.writeUnsignedByte(vars[i]);
+    tcpip::Storage body;
+    StoHelp::writeSubscriptionHeader(body, beginTime, endTime, objID, domain, range);
+    body.writeUnsignedByte((int)vars.size());
+    for (const int v : vars) {
+        body.writeUnsignedByte(v);
     }
-    // send message
+    tcpip::Storage outMsg;
+    StoHelp::writeCommand(outMsg, domID, -1, nullptr, &body);
     mySocket->sendExact(outMsg);
 }
 

@@ -169,34 +169,7 @@ Connection::createCommand(int cmdID, int varID, const std::string* const objID, 
         throw libsumo::FatalTraCIError("Connection already closed.");
     }
     myOutput.reset();
-    // command length
-    int length = 1 + 1;
-    if (varID >= 0) {
-        length += 1;
-        if (objID != nullptr) {
-            length += 4 + (int)objID->length();
-        }
-    }
-    if (add != nullptr) {
-        length += (int)add->size();
-    }
-    if (length <= 255) {
-        myOutput.writeUnsignedByte(length);
-    } else {
-        myOutput.writeUnsignedByte(0);
-        myOutput.writeInt(length + 4);
-    }
-    myOutput.writeUnsignedByte(cmdID);
-    if (varID >= 0) {
-        myOutput.writeUnsignedByte(varID);
-        if (objID != nullptr) {
-            myOutput.writeString(*objID);
-        }
-    }
-    // additional values
-    if (add != nullptr) {
-        myOutput.writeStorage(*add);
-    }
+    StoHelp::writeCommand(myOutput, cmdID, varID, objID, add);
 }
 
 
@@ -207,45 +180,36 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
         throw tcpip::SocketException("Socket is not initialised");
     }
     const bool isContext = domain != -1;
-    tcpip::Storage outMsg;
-    outMsg.writeUnsignedByte(domID); // command id
-    outMsg.writeDouble(beginTime);
-    outMsg.writeDouble(endTime);
-    outMsg.writeString(objID);
-    if (isContext) {
-        outMsg.writeUnsignedByte(domain);
-        outMsg.writeDouble(range);
-    }
+    tcpip::Storage body;
+    StoHelp::writeSubscriptionHeader(body, beginTime, endTime, objID, isContext ? domain : -1, range);
     if (vars.size() == 1 && vars.front() == -1) {
         if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE && !isContext) {
             // default for vehicles is edge id and lane position
-            outMsg.writeUnsignedByte(2);
-            outMsg.writeUnsignedByte(libsumo::VAR_ROAD_ID);
-            outMsg.writeUnsignedByte(libsumo::VAR_LANEPOSITION);
+            body.writeUnsignedByte(2);
+            body.writeUnsignedByte(libsumo::VAR_ROAD_ID);
+            body.writeUnsignedByte(libsumo::VAR_LANEPOSITION);
         } else {
             // default for detectors is vehicle number, for all others (and contexts) id list
-            outMsg.writeUnsignedByte(1);
+            body.writeUnsignedByte(1);
             const bool isDetector = domID == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE
                                     || domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE
                                     || domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE
                                     || domID == libsumo::CMD_SUBSCRIBE_LANE_VARIABLE
                                     || domID == libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE;
-            outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
+            body.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
         }
     } else {
-        outMsg.writeUnsignedByte((int)vars.size());
+        body.writeUnsignedByte((int)vars.size());
         for (const int v : vars) {
-            outMsg.writeUnsignedByte(v);
+            body.writeUnsignedByte(v);
             const auto& paramEntry = params.find(v);
             if (paramEntry != params.end()) {
-                outMsg.writeStorage(*StoHelp::toStorage(*paramEntry->second));
+                body.writeStorage(*StoHelp::toStorage(*paramEntry->second));
             }
         }
     }
     tcpip::Storage complete;
-    complete.writeUnsignedByte(0);
-    complete.writeInt(5 + (int)outMsg.size());
-    complete.writeStorage(outMsg);
+    StoHelp::writeCommand(complete, domID, -1, nullptr, &body);
     std::unique_lock<std::mutex> lock{ myMutex };
     // send message
     mySocket.sendExact(complete);

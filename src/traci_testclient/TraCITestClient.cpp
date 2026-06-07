@@ -504,54 +504,45 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         }
         return length;
     } else if (dataTypeS == "<color>") {
+        libsumo::TraCIColor c;
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_COLOR);
-        into.writeUnsignedByte(valI);
-        for (int i = 0; i < 3; ++i) {
-            defFile >> valI;
-            into.writeUnsignedByte(valI);
-        }
+        c.r = (unsigned char)valI;
+        defFile >> valI;
+        c.g = (unsigned char)valI;
+        defFile >> valI;
+        c.b = (unsigned char)valI;
+        defFile >> valI;
+        c.a = (unsigned char)valI;
+        StoHelp::writeTypedColor(into, c);
         return 1 + 4;
     } else if (dataTypeS == "<position2D>") {
-        defFile >> valF;
-        into.writeUnsignedByte(libsumo::POSITION_2D);
-        into.writeDouble(valF);
-        defFile >> valF;
-        into.writeDouble(valF);
+        double x, y;
+        defFile >> x >> y;
+        StoHelp::writeTypedPosition2D(into, x, y);
         return 1 + 8 + 8;
     } else if (dataTypeS == "<position3D>") {
-        defFile >> valF;
-        into.writeUnsignedByte(libsumo::POSITION_3D);
-        into.writeDouble(valF);
-        defFile >> valF;
-        into.writeDouble(valF);
-        defFile >> valF;
-        into.writeDouble(valF);
+        double x, y, z;
+        defFile >> x >> y >> z;
+        StoHelp::writeTypedPosition3D(into, x, y, z);
         return 1 + 8 + 8 + 8;
     } else if (dataTypeS == "<positionRoadmap>") {
         std::string valueS;
         defFile >> valueS;
-        into.writeUnsignedByte(libsumo::POSITION_ROADMAP);
-        into.writeString(valueS);
-        int length = 1 + 8 + (int) valueS.length();
         defFile >> valF;
-        into.writeDouble(valF);
         defFile >> valI;
-        into.writeUnsignedByte(valI);
-        return length + 4 + 1;
+        StoHelp::writeTypedPositionRoadmap(into, valueS, valF, valI);
+        return 1 + 4 + (int)valueS.length() + 8 + 1;
     } else if (dataTypeS == "<shape>") {
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_POLYGON);
-        into.writeUnsignedByte(valI);
-        int length = 1 + 1;
+        libsumo::TraCIPositionVector poly;
+        poly.value.reserve(valI);
         for (int i = 0; i < valI; ++i) {
             double x, y;
             defFile >> x >> y;
-            into.writeDouble(x);
-            into.writeDouble(y);
-            length += 8 + 8;
+            poly.value.emplace_back(x, y);
         }
-        return length;
+        StoHelp::writePolygon(into, poly);
+        return 1 + 1 + valI * (8 + 8);
     }
     msg << "## Unknown data type: " << dataTypeS;
     return 0;

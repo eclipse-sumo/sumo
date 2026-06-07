@@ -241,6 +241,21 @@ public:
         return ret.readUnsignedByte() != 0;
     }
 
+    /// Read the header of a subscription request: begin time, end time, object id
+    /// and (when hasContext) the context domain and range. The command id and the
+    /// variable list are read by the caller.
+    static inline void readSubscriptionHeader(tcpip::Storage& content,
+            double& beginTime, double& endTime, std::string& objID,
+            bool hasContext, int& contextDomain, double& range) {
+        beginTime = content.readDouble();
+        endTime = content.readDouble();
+        objID = content.readString();
+        if (hasContext) {
+            contextDomain = content.readUnsignedByte();
+            range = content.readDouble();
+        }
+    }
+
     static inline void readStage(tcpip::Storage& inputStorage, libsumo::TraCIStage& stage, const std::string& error = "") {
         stage.type = readTypedInt(inputStorage, error);
         stage.vType = readTypedString(inputStorage, error);
@@ -501,6 +516,56 @@ public:
         content.writeDouble(x);
         content.writeDouble(y);
         content.writeDouble(z);
+    }
+
+    /// Write a TraCI command frame: variable-length length prefix, cmdID,
+    /// optionally varID (when >= 0) and optionally objID (when not nullptr),
+    /// followed by the payload in `add` if provided.
+    static inline void writeCommand(tcpip::Storage& content, int cmdID,
+                                    int varID = -1, const std::string* objID = nullptr,
+                                    tcpip::Storage* add = nullptr) {
+        int length = 1 + 1;
+        if (varID >= 0) {
+            length += 1;
+            if (objID != nullptr) {
+                length += 4 + (int)objID->length();
+            }
+        }
+        if (add != nullptr) {
+            length += (int)add->size();
+        }
+        if (length <= 255) {
+            content.writeUnsignedByte(length);
+        } else {
+            content.writeUnsignedByte(0);
+            content.writeInt(length + 4);
+        }
+        content.writeUnsignedByte(cmdID);
+        if (varID >= 0) {
+            content.writeUnsignedByte(varID);
+            if (objID != nullptr) {
+                content.writeString(*objID);
+            }
+        }
+        if (add != nullptr) {
+            content.writeStorage(*add);
+        }
+    }
+
+    /// Write the time/object portion of a subscription request: begin time, end time,
+    /// object id and (for context subscriptions, i.e. contextDomain != -1) the context
+    /// domain and range. The command id is written by writeCommand; the variable list
+    /// is written by the caller.
+    static inline void writeSubscriptionHeader(tcpip::Storage& content,
+            double beginTime, double endTime, const std::string& objID,
+            int contextDomain = -1, double range = 0.) {
+        content.writeDouble(beginTime);
+        content.writeDouble(endTime);
+        content.writeString(objID);
+        if (contextDomain != -1) {
+            content.writeUnsignedByte(contextDomain);
+            content.writeDouble(range);
+        }
     }
 
     static inline void writeTypedPositionRoadmap(tcpip::Storage& content, const std::string& edgeID,

@@ -1595,13 +1595,12 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
 
 bool
 TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasContext) {
-    const double beginTime = myInputStorage.readDouble();
-    const double endTime = myInputStorage.readDouble();
+    double beginTime, endTime, range = 0.;
+    std::string id;
+    int domain = 0;
+    StoHelp::readSubscriptionHeader(myInputStorage, beginTime, endTime, id, hasContext, domain, range);
     const SUMOTime begin = beginTime == libsumo::INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == libsumo::INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
-    const std::string id = myInputStorage.readString();
-    const int domain = hasContext ? myInputStorage.readUnsignedByte() : 0;
-    double range = hasContext ? myInputStorage.readDouble() : 0.;
     if (commandId == libsumo::CMD_SUBSCRIBE_SIM_CONTEXT) {
         range = std::numeric_limits<double>::max();
     }
