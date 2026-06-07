@@ -102,13 +102,8 @@ Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& s
     tcpip::Storage content;
     StoHelp::writeCompound(content, 6);
     StoHelp::writeTypedString(content, polygonType);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(color.r);
-    content.writeUnsignedByte(color.g);
-    content.writeUnsignedByte(color.b);
-    content.writeUnsignedByte(color.a);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(fill);
+    StoHelp::writeTypedColor(content, color);
+    StoHelp::writeTypedUnsignedByte(content, fill);
     StoHelp::writeTypedInt(content, layer);
     StoHelp::writePolygon(content, shape);
     StoHelp::writeTypedDouble(content, lineWidth);
@@ -131,10 +126,8 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedObj
     for (const double d : alphaSpan) {
         content.writeDouble(d);
     }
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(looped);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(rotate);
+    StoHelp::writeTypedUnsignedByte(content, looped);
+    StoHelp::writeTypedUnsignedByte(content, rotate);
     Dom::set(libsumo::VAR_ADD_DYNAMICS, polygonID, &content);
 }
 

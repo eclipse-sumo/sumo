@@ -137,27 +137,17 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
             const int cnt = 1 + (int)collisions.size() * 4;
             server.getWrapperStorage().writeInt(cnt);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-            server.getWrapperStorage().writeInt((int)collisions.size());
+            StoHelp::writeTypedInt(server.getWrapperStorage(), (int)collisions.size());
             for (const auto& c : collisions) {
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.collider);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.victim);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.colliderType);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.victimType);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(c.colliderSpeed);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(c.victimSpeed);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.type);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                server.getWrapperStorage().writeString(c.lane);
-                server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                server.getWrapperStorage().writeDouble(c.pos);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.collider);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.victim);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.colliderType);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.victimType);
+                StoHelp::writeTypedDouble(server.getWrapperStorage(), c.colliderSpeed);
+                StoHelp::writeTypedDouble(server.getWrapperStorage(), c.victimSpeed);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.type);
+                StoHelp::writeTypedString(server.getWrapperStorage(), c.lane);
+                StoHelp::writeTypedDouble(server.getWrapperStorage(), c.pos);
             }
             break;
         }
@@ -228,8 +218,7 @@ TraCIServerAPI_Simulation::processGet(TraCIServer& server, tcpip::Storage& input
             const std::string vtype = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as twelfth parameter.");
             const std::string destStop = StoHelp::readTypedString(inputStorage, "Retrieval of a route requires a string as thirteenth parameter.");
             const std::vector<libsumo::TraCIStage>& result = libsumo::Simulation::findIntermodalRoute(from, to, modes, depart, routingMode, speed, walkFactor, departPos, arrivalPos, departPosLat, ptype, vtype, destStop);
-            server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-            server.getWrapperStorage().writeInt((int)result.size());
+            StoHelp::writeCompound(server.getWrapperStorage(), (int)result.size());
             for (const libsumo::TraCIStage& s : result) {
                 StoHelp::writeStage(server.getWrapperStorage(), s);
             }

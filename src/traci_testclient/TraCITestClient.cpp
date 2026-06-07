@@ -44,6 +44,7 @@
 
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
+#include <libsumo/StorageHelper.h>
 #include "TraCITestClient.h"
 
 
@@ -460,23 +461,19 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
     double valF;
     if (dataTypeS == "<int>") {
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        into.writeInt(valI);
+        StoHelp::writeTypedInt(into, valI);
         return 4 + 1;
     } else if (dataTypeS == "<byte>") {
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_BYTE);
-        into.writeByte(valI);
+        StoHelp::writeTypedByte(into, valI);
         return 1 + 1;
     }  else if (dataTypeS == "<ubyte>") {
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        into.writeUnsignedByte(valI);
+        StoHelp::writeTypedUnsignedByte(into, valI);
         return 1 + 1;
     } else if (dataTypeS == "<double>") {
         defFile >> valF;
-        into.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        into.writeDouble(valF);
+        StoHelp::writeTypedDouble(into, valF);
         return 8 + 1;
     } else if (dataTypeS == "<string>") {
         std::string valueS;
@@ -484,8 +481,7 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         if (valueS == "\"\"") {
             valueS = "";
         }
-        into.writeUnsignedByte(libsumo::TYPE_STRING);
-        into.writeString(valueS);
+        StoHelp::writeTypedString(into, valueS);
         return 4 + 1 + (int) valueS.length();
     } else if (dataTypeS == "<string*>") {
         std::vector<std::string> slValue;
@@ -497,13 +493,11 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
             slValue.push_back(tmp);
             length += 4 + int(tmp.length());
         }
-        into.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-        into.writeStringList(slValue);
+        StoHelp::writeTypedStringList(into, slValue);
         return length;
     } else if (dataTypeS == "<compound>") {
         defFile >> valI;
-        into.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        into.writeInt(valI);
+        StoHelp::writeCompound(into, valI);
         int length = 1 + 4;
         for (int i = 0; i < valI; ++i) {
             length += setValueTypeDependant(into, defFile, msg);

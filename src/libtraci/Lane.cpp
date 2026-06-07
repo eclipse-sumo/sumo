@@ -28,6 +28,7 @@
 #define LIBTRACI 1
 #include <libsumo/Lane.h>
 #include <libsumo/TraCIConstants.h>
+#include <libsumo/StorageHelper.h>
 #include "Domain.h"
 
 
@@ -231,8 +232,7 @@ Lane::getLastStepVehicleIDs(const std::string& laneID) {
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toLaneID);
+    StoHelp::writeTypedString(content, toLaneID);
     return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
 }
 
@@ -252,8 +252,7 @@ Lane::getPendingVehicles(const std::string& laneID) {
 double
 Lane::getAngle(const std::string& laneID, double relativePosition) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(relativePosition);
+    StoHelp::writeTypedDouble(content, relativePosition);
     return Dom::getDouble(libsumo::VAR_ANGLE, laneID, &content);
 }
 

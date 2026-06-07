@@ -451,6 +451,25 @@ public:
         content.writeStringList(value);
     }
 
+    static inline void writeTypedDoubleList(tcpip::Storage& content, const std::vector<double>& value) {
+        content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
+        content.writeDoubleList(value);
+    }
+
+    static inline void writeTypedColor(tcpip::Storage& content, const libsumo::TraCIColor& c) {
+        content.writeUnsignedByte(libsumo::TYPE_COLOR);
+        content.writeUnsignedByte(c.r);
+        content.writeUnsignedByte(c.g);
+        content.writeUnsignedByte(c.b);
+        content.writeUnsignedByte(c.a);
+    }
+
+    static inline void writeTypedPosition2D(tcpip::Storage& content, const libsumo::TraCIPosition& pos) {
+        content.writeUnsignedByte(libsumo::POSITION_2D);
+        content.writeDouble(pos.x);
+        content.writeDouble(pos.y);
+    }
+
     static inline void writeCompound(tcpip::Storage& content, int size) {
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         content.writeInt(size);

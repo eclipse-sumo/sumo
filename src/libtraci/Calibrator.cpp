@@ -22,6 +22,7 @@
 #define LIBTRACI 1
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/Calibrator.h>
+#include <libsumo/StorageHelper.h>
 #include "Connection.h"
 #include "Domain.h"
 
@@ -115,8 +116,7 @@ void
 Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed,
                     const std::string& typeID, const std::string& routeID, const std::string& departLane, const std::string& departSpeed) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(8);
+    StoHelp::writeCompound(content, 8);
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(begin);
     content.writeByte(libsumo::TYPE_DOUBLE);

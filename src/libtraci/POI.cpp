@@ -145,11 +145,7 @@ POI::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor
     tcpip::Storage content;
     StoHelp::writeCompound(content, 9);
     StoHelp::writeTypedString(content, poiType);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(color.r);
-    content.writeUnsignedByte(color.g);
-    content.writeUnsignedByte(color.b);
-    content.writeUnsignedByte(color.a);
+    StoHelp::writeTypedColor(content, color);
     StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);
@@ -175,18 +171,12 @@ void
 POI::highlight(const std::string& poiID, const libsumo::TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, alphaMax > 0 ? 5 : 2);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(col.r);
-    content.writeUnsignedByte(col.g);
-    content.writeUnsignedByte(col.b);
-    content.writeUnsignedByte(col.a);
+    StoHelp::writeTypedColor(content, col);
     StoHelp::writeTypedDouble(content, size);
     if (alphaMax > 0) {
-        content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        content.writeUnsignedByte(alphaMax);
+        StoHelp::writeTypedUnsignedByte(content, alphaMax);
         StoHelp::writeTypedDouble(content, duration);
-        content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        content.writeUnsignedByte(type);
+        StoHelp::writeTypedUnsignedByte(content, type);
     }
     Dom::set(libsumo::VAR_HIGHLIGHT, poiID, &content);
 }

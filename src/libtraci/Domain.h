@@ -213,39 +213,31 @@ public:
 
     static void setInt(int var, const std::string& id, int value) {
         tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        content.writeInt(value);
+        StoHelp::writeTypedInt(content, value);
         set(var, id, &content);
     }
 
     static void setDouble(int var, const std::string& id, double value) {
         tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(value);
+        StoHelp::writeTypedDouble(content, value);
         set(var, id, &content);
     }
 
     static void setString(int var, const std::string& id, const std::string& value) {
         tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(value);
+        StoHelp::writeTypedString(content, value);
         set(var, id, &content);
     }
 
     static void setStringVector(int var, const std::string& id, const std::vector<std::string>& value) {
         tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-        content.writeStringList(value);
+        StoHelp::writeTypedStringList(content, value);
         set(var, id, &content);
     }
 
     static void setCol(int var, const std::string& id, const libsumo::TraCIColor value) {
         tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_COLOR);
-        content.writeUnsignedByte(value.r);
-        content.writeUnsignedByte(value.g);
-        content.writeUnsignedByte(value.b);
-        content.writeUnsignedByte(value.a);
+        StoHelp::writeTypedColor(content, value);
         set(var, id, &content);
     }
 

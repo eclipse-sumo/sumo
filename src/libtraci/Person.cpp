@@ -168,8 +168,7 @@ Person::getNextEdge(const std::string& personID) {
 std::vector<std::string>
 Person::getEdges(const std::string& personID, int nextStageIndex) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(nextStageIndex);
+    StoHelp::writeTypedInt(content, nextStageIndex);
     return Dom::getStringVector(libsumo::VAR_EDGES, personID, &content);
 }
 
@@ -177,8 +176,7 @@ Person::getEdges(const std::string& personID, int nextStageIndex) {
 libsumo::TraCIStage
 Person::getStage(const std::string& personID, int nextStageIndex) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(nextStageIndex);
+    StoHelp::writeTypedInt(content, nextStageIndex);
     return Dom::getTraCIStage(libsumo::VAR_STAGE, personID, &content);
 }
 
@@ -364,16 +362,11 @@ Person::setBoardingDuration(const std::string& personID, double boardingDuration
 void
 Person::add(const std::string& personID, const std::string& edgeID, double pos, double departInSecs, const std::string typeID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(typeID);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(departInSecs);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(pos);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedString(content, typeID);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, departInSecs);
+    StoHelp::writeTypedDouble(content, pos);
     Dom::set(libsumo::ADD, personID, &content);
 }
 
@@ -381,7 +374,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
 void
 Person::appendStage(const std::string& personID, const libsumo::TraCIStage& stage) {
     tcpip::Storage content;
-    libsumo::StorageHelper::writeStage(content, stage);
+    StoHelp::writeStage(content, stage);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -389,11 +382,9 @@ Person::appendStage(const std::string& personID, const libsumo::TraCIStage& stag
 void
 Person::replaceStage(const std::string& personID, const int stageIndex, const libsumo::TraCIStage& stage) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(stageIndex);
-    libsumo::StorageHelper::writeStage(content, stage);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedInt(content, stageIndex);
+    StoHelp::writeStage(content, stage);
     Dom::set(libsumo::REPLACE_STAGE, personID, &content);
 }
 
@@ -401,16 +392,11 @@ Person::replaceStage(const std::string& personID, const int stageIndex, const li
 void
 Person::appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_DRIVING);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toEdge);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(lines);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_DRIVING);
+    StoHelp::writeTypedString(content, toEdge);
+    StoHelp::writeTypedString(content, lines);
+    StoHelp::writeTypedString(content, stopID);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -418,16 +404,11 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
 void
 Person::appendWaitingStage(const std::string& personID, double duration, const std::string& description, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_WAITING);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(description);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_WAITING);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedString(content, description);
+    StoHelp::writeTypedString(content, stopID);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -435,20 +416,13 @@ Person::appendWaitingStage(const std::string& personID, double duration, const s
 void
 Person::appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration, double speed, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(6);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_WALKING);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(edges);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_WALKING);
+    StoHelp::writeTypedStringList(content, edges);
+    StoHelp::writeTypedDouble(content, arrivalPos);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedString(content, stopID);
     Dom::set(libsumo::APPEND_STAGE, personID, &content);
 }
 
@@ -462,8 +436,7 @@ Person::removeStage(const std::string& personID, int nextStageIndex) {
 void
 Person::rerouteTraveltime(const std::string& personID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(0);
+    StoHelp::writeCompound(content, 0);
     Dom::set(libsumo::CMD_REROUTE_TRAVELTIME, personID, &content);
 }
 
@@ -471,14 +444,10 @@ Person::rerouteTraveltime(const std::string& personID) {
 void
 Person::moveTo(const std::string& personID, const std::string& laneID, double pos, double posLat) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(3);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(laneID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(posLat);
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedString(content, laneID);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedDouble(content, posLat);
     Dom::set(libsumo::VAR_MOVE_TO, personID, &content);
 }
 
@@ -486,18 +455,12 @@ Person::moveTo(const std::string& personID, const std::string& laneID, double po
 void
 Person::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute, double matchThreshold) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(6);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(x);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(angle);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(keepRoute);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, x);
+    StoHelp::writeTypedDouble(content, y);
+    StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedByte(content, keepRoute);
     StoHelp::writeTypedDouble(content, matchThreshold);
     Dom::set(libsumo::MOVE_TO_XY, personID, &content);
 }

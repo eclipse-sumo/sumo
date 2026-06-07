@@ -111,8 +111,7 @@ void
 Simulation::load(const std::vector<std::string>& args) {
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(args);
+    StoHelp::writeTypedStringList(content, args);
     Connection::getActive().doCommand(libsumo::CMD_LOAD, -1, "", &content);
 }
 
@@ -398,8 +397,7 @@ Simulation::convert2D(const std::string& edgeID, double pos, int laneIndex, bool
     content.writeString(edgeID);
     content.writeDouble(pos);
     content.writeUnsignedByte(laneIndex);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(toGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
+    StoHelp::writeTypedUnsignedByte(content, toGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     return Dom::getPos(libsumo::POSITION_CONVERSION, "", &content, toGeo);
 }
 
@@ -412,8 +410,7 @@ Simulation::convert3D(const std::string& edgeID, double pos, int laneIndex, bool
     content.writeString(edgeID);
     content.writeDouble(pos);
     content.writeUnsignedByte(laneIndex);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(toGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
+    StoHelp::writeTypedUnsignedByte(content, toGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
     return Dom::getPos3D(libsumo::POSITION_CONVERSION, "", &content, toGeo);
 }
 
@@ -425,8 +422,7 @@ Simulation::convertRoad(double x, double y, bool isGeo, const std::string& vClas
     content.writeUnsignedByte(isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
+    StoHelp::writeTypedUnsignedByte(content, libsumo::POSITION_ROADMAP);
     StoHelp::writeTypedString(content, vClass);
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::POSITION_CONVERSION, "", &content, libsumo::POSITION_ROADMAP);
@@ -445,8 +441,7 @@ Simulation::convertGeo(double x, double y, bool fromGeo) {
     content.writeUnsignedByte(fromGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(fromGeo ? libsumo::POSITION_2D : libsumo::POSITION_LON_LAT);
+    StoHelp::writeTypedUnsignedByte(content, fromGeo ? libsumo::POSITION_2D : libsumo::POSITION_LON_LAT);
     return Dom::getPos(libsumo::POSITION_CONVERSION, "", &content, !fromGeo);
 }
 

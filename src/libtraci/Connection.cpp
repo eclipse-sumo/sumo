@@ -238,7 +238,7 @@ Connection::subscribe(int domID, const std::string& objID, double beginTime, dou
             outMsg.writeUnsignedByte(v);
             const auto& paramEntry = params.find(v);
             if (paramEntry != params.end()) {
-                outMsg.writeStorage(*libsumo::StorageHelper::toStorage(*paramEntry->second));
+                outMsg.writeStorage(*StoHelp::toStorage(*paramEntry->second));
             }
         }
     }

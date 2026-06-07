@@ -22,6 +22,7 @@
 #define LIBTRACI 1
 #include <iterator>
 #include <libsumo/Edge.h>
+#include <libsumo/StorageHelper.h>
 #include "Connection.h"
 #include "Domain.h"
 
@@ -193,8 +194,7 @@ Edge::getPendingVehicles(const std::string& edgeID) {
 double
 Edge::getAngle(const std::string& edgeID, double relativePosition) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(relativePosition);
+    StoHelp::writeTypedDouble(content, relativePosition);
     return Dom::getDouble(libsumo::VAR_ANGLE, edgeID, &content);
 }
 

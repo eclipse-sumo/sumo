@@ -496,8 +496,7 @@ std::vector<std::pair<std::string, double> >
 Vehicle::getNeighbors(const std::string& vehID, const int mode) {
     std::vector<std::pair<std::string, double> > neighs;
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-    content.writeUnsignedByte(mode);
+    StoHelp::writeTypedUnsignedByte(content, mode);
     std::unique_lock<std::mutex> lock{ libtraci::Connection::getActive().getMutex() };
     tcpip::Storage& ret = Dom::get(libsumo::VAR_NEIGHBORS, vehID, &content);
     const int items = ret.readInt(); // components
@@ -1246,18 +1245,12 @@ void
 Vehicle::highlight(const std::string& vehID, const libsumo::TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, alphaMax > 0 ? 5 : 2);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(col.r);
-    content.writeUnsignedByte(col.g);
-    content.writeUnsignedByte(col.b);
-    content.writeUnsignedByte(col.a);
+    StoHelp::writeTypedColor(content, col);
     StoHelp::writeTypedDouble(content, size);
     if (alphaMax > 0) {
-        content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        content.writeUnsignedByte(alphaMax);
+        StoHelp::writeTypedUnsignedByte(content, alphaMax);
         StoHelp::writeTypedDouble(content, duration);
-        content.writeUnsignedByte(libsumo::TYPE_UBYTE);
-        content.writeUnsignedByte(type);
+        StoHelp::writeTypedUnsignedByte(content, type);
     }
     Dom::set(libsumo::VAR_HIGHLIGHT, vehID, &content);
 }

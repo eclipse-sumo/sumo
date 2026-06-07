@@ -138,40 +138,35 @@ TraCIServer::wrapConnectionVector(const std::string& /* objID */, const int /* v
 
 bool
 TraCIServer::wrapDouble(const std::string& /* objID */, const int /* variable */, const double value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    myWrapperStorage.writeDouble(value);
+    StoHelp::writeTypedDouble(myWrapperStorage, value);
     return true;
 }
 
 
 bool
 TraCIServer::wrapInt(const std::string& /* objID */, const int /* variable */, const int value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    myWrapperStorage.writeInt(value);
+    StoHelp::writeTypedInt(myWrapperStorage, value);
     return true;
 }
 
 
 bool
 TraCIServer::wrapString(const std::string& /* objID */, const int /* variable */, const std::string& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-    myWrapperStorage.writeString(value);
+    StoHelp::writeTypedString(myWrapperStorage, value);
     return true;
 }
 
 
 bool
 TraCIServer::wrapStringList(const std::string& /* objID */, const int /* variable */, const std::vector<std::string>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    myWrapperStorage.writeStringList(value);
+    StoHelp::writeTypedStringList(myWrapperStorage, value);
     return true;
 }
 
 
 bool
 TraCIServer::wrapDoubleList(const std::string& /* objID */, const int /* variable */, const std::vector<double>& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
-    myWrapperStorage.writeDoubleList(value);
+    StoHelp::writeTypedDoubleList(myWrapperStorage, value);
     return true;
 }
 
@@ -208,11 +203,7 @@ TraCIServer::wrapPositionVector(const std::string& /* objID */, const int /* var
 
 bool
 TraCIServer::wrapColor(const std::string& /* objID */, const int /* variable */, const libsumo::TraCIColor& value) {
-    myWrapperStorage.writeUnsignedByte(libsumo::TYPE_COLOR);
-    myWrapperStorage.writeUnsignedByte(value.r);
-    myWrapperStorage.writeUnsignedByte(value.g);
-    myWrapperStorage.writeUnsignedByte(value.b);
-    myWrapperStorage.writeUnsignedByte(value.a);
+    StoHelp::writeTypedColor(myWrapperStorage, value);
     return true;
 }
 
@@ -1585,8 +1576,7 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
                     std::string msg = tmpOutput.readString();
                     outputStorage.writeUnsignedByte(*i);
                     outputStorage.writeUnsignedByte(libsumo::RTYPE_ERR);
-                    outputStorage.writeUnsignedByte(libsumo::TYPE_STRING);
-                    outputStorage.writeString(msg);
+                    StoHelp::writeTypedString(outputStorage, msg);
                     errors = errors + msg;
                 }
             }

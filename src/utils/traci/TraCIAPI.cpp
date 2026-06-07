@@ -21,6 +21,7 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #include "TraCIAPI.h"
+#include <libsumo/StorageHelper.h>
 
 
 // ===========================================================================
@@ -472,8 +473,7 @@ TraCIAPI::load(const std::vector<std::string>& args) {
     content.writeUnsignedByte(0);
     content.writeInt(1 + 4 + 1 + 1 + 4 + numChars + 4 * (int)args.size());
     content.writeUnsignedByte(libsumo::CMD_LOAD);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(args);
+    StoHelp::writeTypedStringList(content, args);
     mySocket->sendExact(content);
     tcpip::Storage inMsg;
     check_resultState(inMsg, libsumo::CMD_LOAD);
@@ -996,8 +996,7 @@ std::vector<std::string>
 TraCIAPI::LaneScope::getFoes(const std::string& laneID, const std::string& toLaneID) const {
     std::vector<std::string> r;
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toLaneID);
+    StoHelp::writeTypedString(content, toLaneID);
     myParent.createCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_FOES, laneID, &content);
     if (myParent.processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_STRINGLIST)) {
         const int size = myParent.myInput.readInt();
@@ -1142,11 +1141,7 @@ TraCIAPI::POIScope::setPosition(const std::string& poiID, double x, double y) co
 void
 TraCIAPI::POIScope::setColor(const std::string& poiID, const libsumo::TraCIColor& c) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeTypedColor(content, c);
     myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_COLOR, poiID, &content);
     myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
@@ -1179,28 +1174,17 @@ TraCIAPI::POIScope::setImageFile(const std::string& poiID, const std::string& im
 void
 TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libsumo::TraCIColor& c, const std::string& type, int layer, const std::string& imgFile, double width, double height, double angle) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(8);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(type);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(layer);
+    StoHelp::writeCompound(content, 8);
+    StoHelp::writeTypedString(content, type);
+    StoHelp::writeTypedColor(content, c);
+    StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::POSITION_2D);
     content.writeDouble(x);
     content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(imgFile);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(width);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(height);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(angle);
+    StoHelp::writeTypedString(content, imgFile);
+    StoHelp::writeTypedDouble(content, width);
+    StoHelp::writeTypedDouble(content, height);
+    StoHelp::writeTypedDouble(content, angle);
     myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::ADD, poiID, &content);
     myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
@@ -1208,8 +1192,7 @@ TraCIAPI::POIScope::add(const std::string& poiID, double x, double y, const libs
 void
 TraCIAPI::POIScope::remove(const std::string& poiID, int layer) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(layer);
+    StoHelp::writeTypedInt(content, layer);
     myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::REMOVE, poiID, &content);
     myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
 }
@@ -1246,8 +1229,7 @@ TraCIAPI::PolygonScope::getColor(const std::string& polygonID) const {
 void
 TraCIAPI::PolygonScope::setLineWidth(const std::string& polygonID, const double lineWidth) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(lineWidth);
+    StoHelp::writeTypedDouble(content, lineWidth);
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::VAR_WIDTH, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
 }
@@ -1255,8 +1237,7 @@ TraCIAPI::PolygonScope::setLineWidth(const std::string& polygonID, const double 
 void
 TraCIAPI::PolygonScope::setType(const std::string& polygonID, const std::string& setType) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(setType);
+    StoHelp::writeTypedString(content, setType);
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::VAR_TYPE, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
 }
@@ -1284,11 +1265,7 @@ TraCIAPI::PolygonScope::setShape(const std::string& polygonID, const libsumo::Tr
 void
 TraCIAPI::PolygonScope::setColor(const std::string& polygonID, const libsumo::TraCIColor& c) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeTypedColor(content, c);
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::VAR_COLOR, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
 }
@@ -1296,20 +1273,13 @@ TraCIAPI::PolygonScope::setColor(const std::string& polygonID, const libsumo::Tr
 void
 TraCIAPI::PolygonScope::add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& c, bool fill, const std::string& type, int layer) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(type);
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, type);
+    StoHelp::writeTypedColor(content, c);
     content.writeUnsignedByte(libsumo::TYPE_UBYTE);
     int f = fill ? 1 : 0;
     content.writeUnsignedByte(f);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(layer);
+    StoHelp::writeTypedInt(content, layer);
     content.writeUnsignedByte(libsumo::TYPE_POLYGON);
     content.writeUnsignedByte((int)shape.value.size());
     for (int i = 0; i < (int)shape.value.size(); ++i) {
@@ -1323,8 +1293,7 @@ TraCIAPI::PolygonScope::add(const std::string& polygonID, const libsumo::TraCIPo
 void
 TraCIAPI::PolygonScope::remove(const std::string& polygonID, int layer) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(layer);
+    StoHelp::writeTypedInt(content, layer);
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::REMOVE, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
 }
@@ -1342,8 +1311,7 @@ TraCIAPI::RouteScope::getEdges(const std::string& routeID) const {
 void
 TraCIAPI::RouteScope::add(const std::string& routeID, const std::vector<std::string>& edges) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(edges);
+    StoHelp::writeTypedStringList(content, edges);
     myParent.createCommand(libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::ADD, routeID, &content);
     myParent.processSet(libsumo::CMD_SET_ROUTE_VARIABLE);
 }
@@ -1600,24 +1568,18 @@ TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::str
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_COMPOUND);
     content.writeInt(5);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(fromEdge);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toEdge);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(vType);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(pos);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(routingMode);
+    StoHelp::writeTypedString(content, fromEdge);
+    StoHelp::writeTypedString(content, toEdge);
+    StoHelp::writeTypedString(content, vType);
+    StoHelp::writeTypedDouble(content, pos);
+    StoHelp::writeTypedInt(content, routingMode);
     return getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
 void
 TraCIAPI::SimulationScope::loadState(const std::string& path) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(path);
+    StoHelp::writeTypedString(content, path);
     myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_LOAD_SIMSTATE, "", &content);
     myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
 }
@@ -1625,8 +1587,7 @@ TraCIAPI::SimulationScope::loadState(const std::string& path) const {
 void
 TraCIAPI::SimulationScope::saveState(const std::string& destination) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(destination);
+    StoHelp::writeTypedString(content, destination);
     myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SAVE_SIMSTATE, "", &content);
     myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
 }
@@ -1634,8 +1595,7 @@ TraCIAPI::SimulationScope::saveState(const std::string& destination) const {
 void
 TraCIAPI::SimulationScope::writeMessage(const std::string msg) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(msg);
+    StoHelp::writeTypedString(content, msg);
     myParent.createCommand(libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_MESSAGE, "", &content);
     myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
 }
@@ -1773,8 +1733,7 @@ TraCIAPI::TrafficLightScope::getServedPersonCount(const std::string& tlsID, int 
 void
 TraCIAPI::TrafficLightScope::setRedYellowGreenState(const std::string& tlsID, const std::string& state) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(state);
+    StoHelp::writeTypedString(content, state);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::TL_RED_YELLOW_GREEN_STATE, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }
@@ -1782,8 +1741,7 @@ TraCIAPI::TrafficLightScope::setRedYellowGreenState(const std::string& tlsID, co
 void
 TraCIAPI::TrafficLightScope::setPhase(const std::string& tlsID, int index) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(index);
+    StoHelp::writeTypedInt(content, index);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::TL_PHASE_INDEX, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }
@@ -1791,8 +1749,7 @@ TraCIAPI::TrafficLightScope::setPhase(const std::string& tlsID, int index) const
 void
 TraCIAPI::TrafficLightScope::setPhaseName(const std::string& tlsID, const std::string& name) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(name);
+    StoHelp::writeTypedString(content, name);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::VAR_NAME, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }
@@ -1800,8 +1757,7 @@ TraCIAPI::TrafficLightScope::setPhaseName(const std::string& tlsID, const std::s
 void
 TraCIAPI::TrafficLightScope::setProgram(const std::string& tlsID, const std::string& programID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(programID);
+    StoHelp::writeTypedString(content, programID);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::TL_PROGRAM, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }
@@ -1809,8 +1765,7 @@ TraCIAPI::TrafficLightScope::setProgram(const std::string& tlsID, const std::str
 void
 TraCIAPI::TrafficLightScope::setPhaseDuration(const std::string& tlsID, double phaseDuration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(phaseDuration);
+    StoHelp::writeTypedDouble(content, phaseDuration);
     myParent.createCommand(libsumo::CMD_SET_TL_VARIABLE, libsumo::TL_PHASE_DURATION, tlsID, &content);
     myParent.processSet(libsumo::CMD_SET_TL_VARIABLE);
 }
@@ -1818,38 +1773,24 @@ TraCIAPI::TrafficLightScope::setPhaseDuration(const std::string& tlsID, double p
 void
 TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(logic.programID);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(logic.type);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(logic.currentPhaseIndex);
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt((int)logic.phases.size());
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, logic.programID);
+    StoHelp::writeTypedInt(content, logic.type);
+    StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
+    StoHelp::writeCompound(content, (int)logic.phases.size());
     for (const std::shared_ptr<libsumo::TraCIPhase>& p : logic.phases) {
-        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        content.writeInt(6);
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p->duration);
-        content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(p->state);
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p->minDur);
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(p->maxDur);
-        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-        content.writeInt((int)p->next.size());
+        StoHelp::writeCompound(content, 6);
+        StoHelp::writeTypedDouble(content, p->duration);
+        StoHelp::writeTypedString(content, p->state);
+        StoHelp::writeTypedDouble(content, p->minDur);
+        StoHelp::writeTypedDouble(content, p->maxDur);
+        StoHelp::writeCompound(content, (int)p->next.size());
         for (int n : p->next) {
-            content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-            content.writeInt(n);
+            StoHelp::writeTypedInt(content, n);
         }
-        content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(p->name);
+        StoHelp::writeTypedString(content, p->name);
     }
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt((int)logic.subParameter.size());
+    StoHelp::writeCompound(content, (int)logic.subParameter.size());
     for (const auto& item : logic.subParameter) {
         content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
         content.writeInt(2);
@@ -1974,8 +1915,7 @@ TraCIAPI::VehicleTypeScope::getColor(const std::string& typeID) const {
 void
 TraCIAPI::VehicleTypeScope::setLength(const std::string& typeID, double length) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(length);
+    StoHelp::writeTypedDouble(content, length);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_LENGTH, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -1983,8 +1923,7 @@ TraCIAPI::VehicleTypeScope::setLength(const std::string& typeID, double length) 
 void
 TraCIAPI::VehicleTypeScope::setMaxSpeed(const std::string& typeID, double speed) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
+    StoHelp::writeTypedDouble(content, speed);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_MAXSPEED, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -1992,8 +1931,7 @@ TraCIAPI::VehicleTypeScope::setMaxSpeed(const std::string& typeID, double speed)
 void
 TraCIAPI::VehicleTypeScope::setVehicleClass(const std::string& typeID, const std::string& clazz) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(clazz);
+    StoHelp::writeTypedString(content, clazz);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_VEHICLECLASS, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2001,8 +1939,7 @@ TraCIAPI::VehicleTypeScope::setVehicleClass(const std::string& typeID, const std
 void
 TraCIAPI::VehicleTypeScope::setSpeedFactor(const std::string& typeID, double factor) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(factor);
+    StoHelp::writeTypedDouble(content, factor);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_SPEED_FACTOR, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2010,8 +1947,7 @@ TraCIAPI::VehicleTypeScope::setSpeedFactor(const std::string& typeID, double fac
 void
 TraCIAPI::VehicleTypeScope::setSpeedDeviation(const std::string& typeID, double deviation) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(deviation);
+    StoHelp::writeTypedDouble(content, deviation);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_SPEED_DEVIATION, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2020,8 +1956,7 @@ TraCIAPI::VehicleTypeScope::setSpeedDeviation(const std::string& typeID, double 
 void
 TraCIAPI::VehicleTypeScope::setEmissionClass(const std::string& typeID, const std::string& clazz) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(clazz);
+    StoHelp::writeTypedString(content, clazz);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_EMISSIONCLASS, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2029,8 +1964,7 @@ TraCIAPI::VehicleTypeScope::setEmissionClass(const std::string& typeID, const st
 void
 TraCIAPI::VehicleTypeScope::setWidth(const std::string& typeID, double width) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(width);
+    StoHelp::writeTypedDouble(content, width);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_WIDTH, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2038,8 +1972,7 @@ TraCIAPI::VehicleTypeScope::setWidth(const std::string& typeID, double width) co
 void
 TraCIAPI::VehicleTypeScope::setHeight(const std::string& typeID, double height) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(height);
+    StoHelp::writeTypedDouble(content, height);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_HEIGHT, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2047,8 +1980,7 @@ TraCIAPI::VehicleTypeScope::setHeight(const std::string& typeID, double height) 
 void
 TraCIAPI::VehicleTypeScope::setMinGap(const std::string& typeID, double minGap) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(minGap);
+    StoHelp::writeTypedDouble(content, minGap);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_MINGAP, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2057,8 +1989,7 @@ TraCIAPI::VehicleTypeScope::setMinGap(const std::string& typeID, double minGap) 
 void
 TraCIAPI::VehicleTypeScope::setMinGapLat(const std::string& typeID, double minGapLat) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(minGapLat);
+    StoHelp::writeTypedDouble(content, minGapLat);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_MINGAP_LAT, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2066,8 +1997,7 @@ TraCIAPI::VehicleTypeScope::setMinGapLat(const std::string& typeID, double minGa
 void
 TraCIAPI::VehicleTypeScope::setMaxSpeedLat(const std::string& typeID, double speed) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
+    StoHelp::writeTypedDouble(content, speed);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_MAXSPEED_LAT, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2075,8 +2005,7 @@ TraCIAPI::VehicleTypeScope::setMaxSpeedLat(const std::string& typeID, double spe
 void
 TraCIAPI::VehicleTypeScope::setLateralAlignment(const std::string& typeID, const std::string& latAlignment) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(latAlignment);
+    StoHelp::writeTypedString(content, latAlignment);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_LATALIGNMENT, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2084,8 +2013,7 @@ TraCIAPI::VehicleTypeScope::setLateralAlignment(const std::string& typeID, const
 void
 TraCIAPI::VehicleTypeScope::copy(const std::string& origTypeID, const std::string& newTypeID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(newTypeID);
+    StoHelp::writeTypedString(content, newTypeID);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::COPY, origTypeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2093,8 +2021,7 @@ TraCIAPI::VehicleTypeScope::copy(const std::string& origTypeID, const std::strin
 void
 TraCIAPI::VehicleTypeScope::setShapeClass(const std::string& typeID, const std::string& clazz) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(clazz);
+    StoHelp::writeTypedString(content, clazz);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_SHAPECLASS, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2102,8 +2029,7 @@ TraCIAPI::VehicleTypeScope::setShapeClass(const std::string& typeID, const std::
 void
 TraCIAPI::VehicleTypeScope::setAccel(const std::string& typeID, double accel) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(accel);
+    StoHelp::writeTypedDouble(content, accel);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_ACCEL, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2111,8 +2037,7 @@ TraCIAPI::VehicleTypeScope::setAccel(const std::string& typeID, double accel) co
 void
 TraCIAPI::VehicleTypeScope::setDecel(const std::string& typeID, double decel) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(decel);
+    StoHelp::writeTypedDouble(content, decel);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_DECEL, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2120,8 +2045,7 @@ TraCIAPI::VehicleTypeScope::setDecel(const std::string& typeID, double decel) co
 void
 TraCIAPI::VehicleTypeScope::setEmergencyDecel(const std::string& typeID, double decel) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(decel);
+    StoHelp::writeTypedDouble(content, decel);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_EMERGENCY_DECEL, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2129,8 +2053,7 @@ TraCIAPI::VehicleTypeScope::setEmergencyDecel(const std::string& typeID, double 
 void
 TraCIAPI::VehicleTypeScope::setApparentDecel(const std::string& typeID, double decel) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(decel);
+    StoHelp::writeTypedDouble(content, decel);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_APPARENT_DECEL, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2138,8 +2061,7 @@ TraCIAPI::VehicleTypeScope::setApparentDecel(const std::string& typeID, double d
 void
 TraCIAPI::VehicleTypeScope::setImperfection(const std::string& typeID, double imperfection) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(imperfection);
+    StoHelp::writeTypedDouble(content, imperfection);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_IMPERFECTION, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2147,8 +2069,7 @@ TraCIAPI::VehicleTypeScope::setImperfection(const std::string& typeID, double im
 void
 TraCIAPI::VehicleTypeScope::setTau(const std::string& typeID, double tau) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(tau);
+    StoHelp::writeTypedDouble(content, tau);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_TAU, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2156,11 +2077,7 @@ TraCIAPI::VehicleTypeScope::setTau(const std::string& typeID, double tau) const 
 void
 TraCIAPI::VehicleTypeScope::setColor(const std::string& typeID, const libsumo::TraCIColor& c) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeTypedColor(content, c);
     myParent.createCommand(libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::VAR_COLOR, typeID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLETYPE_VARIABLE);
 }
@@ -2187,8 +2104,7 @@ TraCIAPI::VehicleScope::getAcceleration(const std::string& vehicleID) const {
 double
 TraCIAPI::VehicleScope::getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
+    StoHelp::writeCompound(content, 5);
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     content.writeByte(libsumo::TYPE_DOUBLE);
@@ -2206,8 +2122,7 @@ TraCIAPI::VehicleScope::getFollowSpeed(const std::string& vehicleID, double spee
 double
 TraCIAPI::VehicleScope::getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
+    StoHelp::writeCompound(content, 4);
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     content.writeByte(libsumo::TYPE_DOUBLE);
@@ -2222,8 +2137,7 @@ TraCIAPI::VehicleScope::getSecureGap(const std::string& vehicleID, double speed,
 double
 TraCIAPI::VehicleScope::getStopSpeed(const std::string& vehicleID, double speed, double gap) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
+    StoHelp::writeCompound(content, 2);
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     content.writeByte(libsumo::TYPE_DOUBLE);
@@ -2665,39 +2579,24 @@ TraCIAPI::VehicleScope::add(const std::string& vehicleID,
         depart = toString(myParent.simulation.getCurrentTime() / 1000.0);
     }
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(14);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(routeID);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(typeID);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(depart);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(departLane);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(departPos);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(departSpeed);
+    StoHelp::writeCompound(content, 14);
+    StoHelp::writeTypedString(content, routeID);
+    StoHelp::writeTypedString(content, typeID);
+    StoHelp::writeTypedString(content, depart);
+    StoHelp::writeTypedString(content, departLane);
+    StoHelp::writeTypedString(content, departPos);
+    StoHelp::writeTypedString(content, departSpeed);
 
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(arrivalLane);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(arrivalSpeed);
+    StoHelp::writeTypedString(content, arrivalLane);
+    StoHelp::writeTypedString(content, arrivalPos);
+    StoHelp::writeTypedString(content, arrivalSpeed);
 
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(fromTaz);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toTaz);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(line);
+    StoHelp::writeTypedString(content, fromTaz);
+    StoHelp::writeTypedString(content, toTaz);
+    StoHelp::writeTypedString(content, line);
 
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(personCapacity);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(personNumber);
+    StoHelp::writeTypedInt(content, personCapacity);
+    StoHelp::writeTypedInt(content, personNumber);
 
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::ADD_FULL, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
@@ -2718,8 +2617,7 @@ TraCIAPI::VehicleScope::remove(const std::string& vehicleID, char reason) const 
 void
 TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::string& edgeID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
+    StoHelp::writeTypedString(content, edgeID);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGETARGET, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2728,12 +2626,9 @@ TraCIAPI::VehicleScope::changeTarget(const std::string& vehicleID, const std::st
 void
 TraCIAPI::VehicleScope::changeLane(const std::string& vehicleID, int laneIndex, double duration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(laneIndex);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2742,14 +2637,10 @@ TraCIAPI::VehicleScope::changeLane(const std::string& vehicleID, int laneIndex, 
 void
 TraCIAPI::VehicleScope::changeLaneRelative(const std::string& vehicleID, int laneChange, double duration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(3);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(laneChange);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(1);
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedByte(content, laneChange);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedByte(content, 1);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2758,8 +2649,7 @@ TraCIAPI::VehicleScope::changeLaneRelative(const std::string& vehicleID, int lan
 void
 TraCIAPI::VehicleScope::changeSublane(const std::string& vehicleID, double latDist) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(latDist);
+    StoHelp::writeTypedDouble(content, latDist);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGESUBLANE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2768,8 +2658,7 @@ TraCIAPI::VehicleScope::changeSublane(const std::string& vehicleID, double latDi
 void
 TraCIAPI::VehicleScope::setRouteID(const std::string& vehicleID, const std::string& routeID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(routeID);
+    StoHelp::writeTypedString(content, routeID);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_ROUTE_ID, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2799,8 +2688,7 @@ TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool cur
     }
 
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(0);
+    StoHelp::writeCompound(content, 0);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_REROUTE_TRAVELTIME, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2808,14 +2696,10 @@ TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool cur
 void
 TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position, int reason) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(3);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(laneID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(position);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(reason);
+    StoHelp::writeCompound(content, 3);
+    StoHelp::writeTypedString(content, laneID);
+    StoHelp::writeTypedDouble(content, position);
+    StoHelp::writeTypedInt(content, reason);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_MOVE_TO, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2823,20 +2707,13 @@ TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& 
 void
 TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string& edgeID, const int lane, const double x, const double y, const double angle, const int keepRoute) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(6);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(lane);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(x);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(angle);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(keepRoute);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedInt(content, lane);
+    StoHelp::writeTypedDouble(content, x);
+    StoHelp::writeTypedDouble(content, y);
+    StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedByte(content, keepRoute);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::MOVE_TO_XY, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2845,12 +2722,9 @@ TraCIAPI::VehicleScope::moveToXY(const std::string& vehicleID, const std::string
 void
 TraCIAPI::VehicleScope::slowDown(const std::string& vehicleID, double speed, double duration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedDouble(content, duration);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_SLOWDOWN, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2864,15 +2738,11 @@ TraCIAPI::VehicleScope::openGap(const std::string& vehicleID, double newTau, dou
     } else {
         content.writeInt(3);
     }
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(newTau);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(changeRate);
+    StoHelp::writeTypedDouble(content, newTau);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedDouble(content, changeRate);
     if (maxDecel > 0) {
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(maxDecel);
+        StoHelp::writeTypedDouble(content, maxDecel);
     }
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_OPENGAP, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
@@ -2881,8 +2751,7 @@ TraCIAPI::VehicleScope::openGap(const std::string& vehicleID, double newTau, dou
 void
 TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
+    StoHelp::writeTypedDouble(content, speed);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_SPEED, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2890,12 +2759,9 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) con
 void
 TraCIAPI::VehicleScope::setAcceleration(const std::string& vehicleID, double accel, double duration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(accel);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, accel);
+    StoHelp::writeTypedDouble(content, duration);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_ACCELERATION, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2903,12 +2769,9 @@ TraCIAPI::VehicleScope::setAcceleration(const std::string& vehicleID, double acc
 void
 TraCIAPI::VehicleScope::setPreviousSpeed(const std::string& vehicleID, double prevSpeed, double prevAcceleration) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(prevSpeed);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(prevAcceleration);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, prevSpeed);
+    StoHelp::writeTypedDouble(content, prevAcceleration);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_PREV_SPEED, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2935,22 +2798,14 @@ void
 TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string edgeID, const double endPos, const int laneIndex,
                                 const double duration, const int flags, const double startPos, const double until) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(7);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(endPos);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(laneIndex);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(flags);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(startPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(until);
+    StoHelp::writeCompound(content, 7);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, endPos);
+    StoHelp::writeTypedByte(content, laneIndex);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedByte(content, flags);
+    StoHelp::writeTypedDouble(content, startPos);
+    StoHelp::writeTypedDouble(content, until);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_STOP, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2958,8 +2813,7 @@ TraCIAPI::VehicleScope::setStop(const std::string vehicleID, const std::string e
 void
 TraCIAPI::VehicleScope::setType(const std::string& vehicleID, const std::string& typeID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(typeID);
+    StoHelp::writeTypedString(content, typeID);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_TYPE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2967,8 +2821,7 @@ TraCIAPI::VehicleScope::setType(const std::string& vehicleID, const std::string&
 void
 TraCIAPI::VehicleScope::setSpeedFactor(const std::string& vehicleID, double factor) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(factor);
+    StoHelp::writeTypedDouble(content, factor);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_FACTOR, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2976,8 +2829,7 @@ TraCIAPI::VehicleScope::setSpeedFactor(const std::string& vehicleID, double fact
 void
 TraCIAPI::VehicleScope::setMinGap(const std::string& vehicleID, double minGap) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(minGap);
+    StoHelp::writeTypedDouble(content, minGap);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_MINGAP, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2985,8 +2837,7 @@ TraCIAPI::VehicleScope::setMinGap(const std::string& vehicleID, double minGap) c
 void
 TraCIAPI::VehicleScope::setMaxSpeed(const std::string& vehicleID, double speed) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
+    StoHelp::writeTypedDouble(content, speed);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_MAXSPEED, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -2994,11 +2845,7 @@ TraCIAPI::VehicleScope::setMaxSpeed(const std::string& vehicleID, double speed) 
 void
 TraCIAPI::VehicleScope::setColor(const std::string& vehicleID, const libsumo::TraCIColor& c) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeTypedColor(content, c);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_COLOR, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3006,8 +2853,7 @@ TraCIAPI::VehicleScope::setColor(const std::string& vehicleID, const libsumo::Tr
 void
 TraCIAPI::VehicleScope::setLine(const std::string& vehicleID, const std::string& line) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(line);
+    StoHelp::writeTypedString(content, line);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_LINE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3027,8 +2873,7 @@ TraCIAPI::VehicleScope::setVia(const std::string& vehicleID, const std::vector<s
 void
 TraCIAPI::VehicleScope::setSignals(const std::string& vehicleID, int signals) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(signals);
+    StoHelp::writeTypedInt(content, signals);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_SIGNALS, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3036,8 +2881,7 @@ TraCIAPI::VehicleScope::setSignals(const std::string& vehicleID, int signals) co
 void
 TraCIAPI::VehicleScope::setRoutingMode(const std::string& vehicleID, int routingMode) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(routingMode);
+    StoHelp::writeTypedInt(content, routingMode);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_ROUTING_MODE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3045,8 +2889,7 @@ TraCIAPI::VehicleScope::setRoutingMode(const std::string& vehicleID, int routing
 void
 TraCIAPI::VehicleScope::setShapeClass(const std::string& vehicleID, const std::string& clazz) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(clazz);
+    StoHelp::writeTypedString(content, clazz);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_SHAPECLASS, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3055,8 +2898,7 @@ TraCIAPI::VehicleScope::setShapeClass(const std::string& vehicleID, const std::s
 void
 TraCIAPI::VehicleScope::setEmissionClass(const std::string& vehicleID, const std::string& clazz) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(clazz);
+    StoHelp::writeTypedString(content, clazz);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_EMISSIONCLASS, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
@@ -3174,8 +3016,7 @@ TraCIAPI::VehicleScope::addSubscriptionFilterEmpty(int filterType) const {
 void
 TraCIAPI::VehicleScope::addSubscriptionFilterFloat(int filterType, double val) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(val);
+    StoHelp::writeTypedDouble(content, val);
     myParent.createFilterCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, filterType, &content);
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }
@@ -3184,8 +3025,7 @@ TraCIAPI::VehicleScope::addSubscriptionFilterFloat(int filterType, double val) c
 void
 TraCIAPI::VehicleScope::addSubscriptionFilterStringList(int filterType, const std::vector<std::string>& vals) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(vals);
+    StoHelp::writeTypedStringList(content, vals);
     myParent.createFilterCommand(libsumo::CMD_ADD_SUBSCRIPTION_FILTER, filterType, &content);
     myParent.processSet(libsumo::CMD_ADD_SUBSCRIPTION_FILTER);
 }
@@ -3316,8 +3156,7 @@ TraCIAPI::PersonScope::removeStages(const std::string& personID) const {
 void
 TraCIAPI::PersonScope::rerouteTraveltime(const std::string& personID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(0);
+    StoHelp::writeCompound(content, 0);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::CMD_REROUTE_TRAVELTIME, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3326,16 +3165,11 @@ TraCIAPI::PersonScope::rerouteTraveltime(const std::string& personID) const {
 void
 TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeID, double pos, double depart, const std::string typeID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(typeID);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(depart);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(pos);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedString(content, typeID);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, depart);
+    StoHelp::writeTypedDouble(content, pos);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::ADD, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3343,34 +3177,20 @@ TraCIAPI::PersonScope::add(const std::string& personID, const std::string& edgeI
 void
 TraCIAPI::PersonScope::appendStage(const std::string& personID, const libsumo::TraCIStage& stage) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(13);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(stage.type);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.vType);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.line);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.destStop);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(stage.edges);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.travelTime);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.cost);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.length);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.intended);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.depart);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.departPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(stage.arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stage.description);
+    StoHelp::writeCompound(content, 13);
+    StoHelp::writeTypedInt(content, stage.type);
+    StoHelp::writeTypedString(content, stage.vType);
+    StoHelp::writeTypedString(content, stage.line);
+    StoHelp::writeTypedString(content, stage.destStop);
+    StoHelp::writeTypedStringList(content, stage.edges);
+    StoHelp::writeTypedDouble(content, stage.travelTime);
+    StoHelp::writeTypedDouble(content, stage.cost);
+    StoHelp::writeTypedDouble(content, stage.length);
+    StoHelp::writeTypedString(content, stage.intended);
+    StoHelp::writeTypedDouble(content, stage.depart);
+    StoHelp::writeTypedDouble(content, stage.departPos);
+    StoHelp::writeTypedDouble(content, stage.arrivalPos);
+    StoHelp::writeTypedString(content, stage.description);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::APPEND_STAGE, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3379,16 +3199,11 @@ TraCIAPI::PersonScope::appendStage(const std::string& personID, const libsumo::T
 void
 TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, double duration, const std::string& description, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_WAITING);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(description);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_WAITING);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedString(content, description);
+    StoHelp::writeTypedString(content, stopID);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::APPEND_STAGE, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3396,20 +3211,13 @@ TraCIAPI::PersonScope::appendWaitingStage(const std::string& personID, double du
 void
 TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration, double speed, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(6);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_WALKING);
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeStringList(edges);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(arrivalPos);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(duration);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 6);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_WALKING);
+    StoHelp::writeTypedStringList(content, edges);
+    StoHelp::writeTypedDouble(content, arrivalPos);
+    StoHelp::writeTypedDouble(content, duration);
+    StoHelp::writeTypedDouble(content, speed);
+    StoHelp::writeTypedString(content, stopID);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::APPEND_STAGE, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3417,16 +3225,11 @@ TraCIAPI::PersonScope::appendWalkingStage(const std::string& personID, const std
 void
 TraCIAPI::PersonScope::appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID) {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(4);
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(libsumo::STAGE_DRIVING);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(toEdge);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(lines);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(stopID);
+    StoHelp::writeCompound(content, 4);
+    StoHelp::writeTypedInt(content, libsumo::STAGE_DRIVING);
+    StoHelp::writeTypedString(content, toEdge);
+    StoHelp::writeTypedString(content, lines);
+    StoHelp::writeTypedString(content, stopID);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::APPEND_STAGE, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3443,12 +3246,9 @@ TraCIAPI::PersonScope::removeStage(const std::string& personID, int nextStageInd
 void
 TraCIAPI::PersonScope::moveTo(const std::string& personID, const std::string& edgeID, double position) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(position);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, position);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_MOVE_TO, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3456,18 +3256,12 @@ TraCIAPI::PersonScope::moveTo(const std::string& personID, const std::string& ed
 void
 TraCIAPI::PersonScope::moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle, const int keepRoute) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(5);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(edgeID);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(x);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(y);
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(angle);
-    content.writeUnsignedByte(libsumo::TYPE_BYTE);
-    content.writeByte(keepRoute);
+    StoHelp::writeCompound(content, 5);
+    StoHelp::writeTypedString(content, edgeID);
+    StoHelp::writeTypedDouble(content, x);
+    StoHelp::writeTypedDouble(content, y);
+    StoHelp::writeTypedDouble(content, angle);
+    StoHelp::writeTypedByte(content, keepRoute);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::MOVE_TO_XY, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3475,8 +3269,7 @@ TraCIAPI::PersonScope::moveToXY(const std::string& personID, const std::string& 
 void
 TraCIAPI::PersonScope::setSpeed(const std::string& personID, double speed) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
+    StoHelp::writeTypedDouble(content, speed);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_SPEED, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3485,8 +3278,7 @@ TraCIAPI::PersonScope::setSpeed(const std::string& personID, double speed) const
 void
 TraCIAPI::PersonScope::setType(const std::string& personID, const std::string& typeID) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(typeID);
+    StoHelp::writeTypedString(content, typeID);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_TYPE, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3494,8 +3286,7 @@ TraCIAPI::PersonScope::setType(const std::string& personID, const std::string& t
 void
 TraCIAPI::PersonScope::setSpeedFactor(const std::string& personID, double factor) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(factor);
+    StoHelp::writeTypedDouble(content, factor);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_SPEED_FACTOR, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3503,8 +3294,7 @@ TraCIAPI::PersonScope::setSpeedFactor(const std::string& personID, double factor
 void
 TraCIAPI::PersonScope::setLength(const std::string& personID, double length) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(length);
+    StoHelp::writeTypedDouble(content, length);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_LENGTH, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3513,8 +3303,7 @@ TraCIAPI::PersonScope::setLength(const std::string& personID, double length) con
 void
 TraCIAPI::PersonScope::setWidth(const std::string& personID, double width) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(width);
+    StoHelp::writeTypedDouble(content, width);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_WIDTH, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3522,8 +3311,7 @@ TraCIAPI::PersonScope::setWidth(const std::string& personID, double width) const
 void
 TraCIAPI::PersonScope::setHeight(const std::string& personID, double height) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(height);
+    StoHelp::writeTypedDouble(content, height);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_HEIGHT, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3531,8 +3319,7 @@ TraCIAPI::PersonScope::setHeight(const std::string& personID, double height) con
 void
 TraCIAPI::PersonScope::setMinGap(const std::string& personID, double minGap) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(minGap);
+    StoHelp::writeTypedDouble(content, minGap);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_MINGAP, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3541,11 +3328,7 @@ TraCIAPI::PersonScope::setMinGap(const std::string& personID, double minGap) con
 void
 TraCIAPI::PersonScope::setColor(const std::string& personID, const libsumo::TraCIColor& c) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COLOR);
-    content.writeUnsignedByte(c.r);
-    content.writeUnsignedByte(c.g);
-    content.writeUnsignedByte(c.b);
-    content.writeUnsignedByte(c.a);
+    StoHelp::writeTypedColor(content, c);
     myParent.createCommand(libsumo::CMD_SET_PERSON_VARIABLE, libsumo::VAR_COLOR, personID, &content);
     myParent.processSet(libsumo::CMD_SET_PERSON_VARIABLE);
 }
@@ -3768,8 +3551,7 @@ TraCIAPI::TraCIScopeWrapper::getParameter(const std::string& objectID, const std
 std::pair<std::string, std::string>
 TraCIAPI::TraCIScopeWrapper::getParameterWithKey(const std::string& objectID, const std::string& key) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(key);
+    StoHelp::writeTypedString(content, key);
 
     myParent.createCommand(myCmdGetID, libsumo::VAR_PARAMETER_WITH_KEY, objectID, &content);
     if (myParent.processGet(myCmdGetID, libsumo::TYPE_COMPOUND)) {
@@ -3787,12 +3569,9 @@ TraCIAPI::TraCIScopeWrapper::getParameterWithKey(const std::string& objectID, co
 void
 TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std::string& key, const std::string& value) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(key);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(value);
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedString(content, key);
+    StoHelp::writeTypedString(content, value);
     myParent.createCommand(myCmdSetID, libsumo::VAR_PARAMETER, objectID, &content);
     myParent.processSet(myCmdSetID);
 }
@@ -3801,8 +3580,7 @@ TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std
 void
 TraCIAPI::TraCIScopeWrapper::setInt(int var, const std::string& id, int value) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-    content.writeInt(value);
+    StoHelp::writeTypedInt(content, value);
     myParent.createCommand(myCmdSetID, var, id, &content);
     myParent.processSet(myCmdSetID);
 }
@@ -3811,8 +3589,7 @@ TraCIAPI::TraCIScopeWrapper::setInt(int var, const std::string& id, int value) c
 void
 TraCIAPI::TraCIScopeWrapper::setDouble(int var, const std::string& id, double value) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(value);
+    StoHelp::writeTypedDouble(content, value);
     myParent.createCommand(myCmdSetID, var, id, &content);
     myParent.processSet(myCmdSetID);
 }
@@ -3821,8 +3598,7 @@ TraCIAPI::TraCIScopeWrapper::setDouble(int var, const std::string& id, double va
 void
 TraCIAPI::TraCIScopeWrapper::setString(int var, const std::string& id, const std::string& value) const {
     tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(value);
+    StoHelp::writeTypedString(content, value);
     myParent.createCommand(myCmdSetID, var, id, &content);
     myParent.processSet(myCmdSetID);
 }

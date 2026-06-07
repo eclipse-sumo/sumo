@@ -126,7 +126,7 @@ Helper::subscribe(const int commandId, const std::string& id, const std::vector<
         if (p == params.end()) {
             parameters.push_back(std::make_shared<tcpip::Storage>());
         } else {
-            parameters.push_back(libsumo::StorageHelper::toStorage(*p->second));
+            parameters.push_back(StoHelp::toStorage(*p->second));
         }
     }
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
