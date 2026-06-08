@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-06-03 21:31+0200\n"
+"POT-Creation-Date: 2026-06-08 20:52+0200\n"
 "PO-Revision-Date: 2026-06-03 21:31+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -639,8 +639,8 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:716
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and "
-"hour:minute:seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
+"seconds display."
 msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:730
@@ -739,6 +739,7 @@ msgid "Open Shapes"
 msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1119 src/gui/GUIApplicationWindow.cpp:1147
+#, c-format
 msgid "Loading of % failed."
 msgstr ""
 
@@ -813,10 +814,12 @@ msgid "Open sumo config in netedit"
 msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1851
+#, c-format
 msgid "Loading of '%' failed!"
 msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1865
+#, c-format
 msgid "'%' loaded."
 msgstr ""
 
@@ -946,75 +949,75 @@ msgstr ""
 msgid "Overflow in time computation occurred."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:110 src/netedit/GNEViewNet.cpp:389
+#: src/gui/GUIViewTraffic.cpp:111 src/netedit/GNEViewNet.cpp:389
 msgid "Locate Junctions"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:110
+#: src/gui/GUIViewTraffic.cpp:111
 msgid "Locate a junction within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:115 src/netedit/GNEViewNet.cpp:393
+#: src/gui/GUIViewTraffic.cpp:116 src/netedit/GNEViewNet.cpp:393
 msgid "Locate Edges"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:115
+#: src/gui/GUIViewTraffic.cpp:116
 msgid "Locate an edge within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:120 src/netedit/GNEViewNet.cpp:401
+#: src/gui/GUIViewTraffic.cpp:121 src/netedit/GNEViewNet.cpp:401
 msgid "Locate Vehicles"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:120
+#: src/gui/GUIViewTraffic.cpp:121
 msgid "Locate a vehicle within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:125 src/netedit/GNEViewNet.cpp:405
+#: src/gui/GUIViewTraffic.cpp:126 src/netedit/GNEViewNet.cpp:405
 msgid "Locate Persons"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:125
+#: src/gui/GUIViewTraffic.cpp:126
 msgid "Locate a person within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:130
+#: src/gui/GUIViewTraffic.cpp:131
 msgid "Locate Container"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:130
+#: src/gui/GUIViewTraffic.cpp:131
 msgid "Locate a container within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:135 src/netedit/GNEViewNet.cpp:428
+#: src/gui/GUIViewTraffic.cpp:136 src/netedit/GNEViewNet.cpp:428
 msgid "Locate TLS"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:135
+#: src/gui/GUIViewTraffic.cpp:136
 msgid "Locate a tls within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:140 src/netedit/GNEViewNet.cpp:432
+#: src/gui/GUIViewTraffic.cpp:141 src/netedit/GNEViewNet.cpp:432
 msgid "Locate Additional"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:140
+#: src/gui/GUIViewTraffic.cpp:141
 msgid "Locate an additional structure within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:145 src/netedit/GNEViewNet.cpp:436
+#: src/gui/GUIViewTraffic.cpp:146 src/netedit/GNEViewNet.cpp:436
 msgid "Locate PoI"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:145
+#: src/gui/GUIViewTraffic.cpp:146
 msgid "Locate a PoI within the network."
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:150 src/netedit/GNEViewNet.cpp:440
+#: src/gui/GUIViewTraffic.cpp:151 src/netedit/GNEViewNet.cpp:440
 msgid "Locate Polygon"
 msgstr ""
 
-#: src/gui/GUIViewTraffic.cpp:150
+#: src/gui/GUIViewTraffic.cpp:151
 msgid "Locate a Polygon within the network."
 msgstr ""
 
@@ -1152,6 +1155,7 @@ msgstr ""
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:56
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:60
+#, c-format
 msgid "Hotkey '%' is not supported"
 msgstr ""
 
@@ -2174,6 +2178,7 @@ msgid "time gap on lane [s]"
 msgstr ""
 
 #: src/guisim/GUIVehicle.cpp:139
+#, c-format
 msgid "waiting time (accumulated, % s) [s]"
 msgstr ""
 
@@ -2527,22 +2532,27 @@ msgid "&Reload Network"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1321
+#, c-format
 msgid "Loading of netedit config '%' failed"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1324
+#, c-format
 msgid "Loading of sumo config '%' failed"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1327
+#, c-format
 msgid "Loading of netconvert config '%' failed"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1330
+#, c-format
 msgid "Loading of network '%' failed"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1333
+#, c-format
 msgid "Loading of OSM Network '%' failed"
 msgstr ""
 
@@ -2567,26 +2577,32 @@ msgid ""
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1356
+#, c-format
 msgid "Netedit config '%' loaded"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
+#, c-format
 msgid "Sumo config '%' loaded"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
+#, c-format
 msgid "Netconvert config '%' loaded"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
+#, c-format
 msgid "Network '%' loaded"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
+#, c-format
 msgid "OSM Network '%' loaded"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:1371
+#, c-format
 msgid "Network '%' loaded through console"
 msgstr ""
 
@@ -2741,10 +2757,12 @@ msgid "Running '%'."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:2219
+#, c-format
 msgid "Loading network '%' in SUMO-GUI."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:2228
+#, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
 msgstr ""
 
@@ -2910,10 +2928,12 @@ msgid "load additionals from '%'"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3945
+#, c-format
 msgid "Loading of additional file '%' failed."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:3948
+#, c-format
 msgid "Loading of additional file '%' successfully."
 msgstr ""
 
@@ -2975,10 +2995,12 @@ msgid "loading demand elements from '%'"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4156
+#, c-format
 msgid "Loading of route file '%' failed."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4159
+#, c-format
 msgid "Loading of route file '%' successfully."
 msgstr ""
 
@@ -3026,10 +3048,12 @@ msgid "loading data elements from '%'."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4335
+#, c-format
 msgid "Loading of data file '%' failed."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4338
+#, c-format
 msgid "Loading of data file '%' successfully."
 msgstr ""
 
@@ -3066,10 +3090,12 @@ msgid "load meanDatas from '%'"
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4513
+#, c-format
 msgid "Loading of meandata file '%' failed."
 msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4516
+#, c-format
 msgid "Loading of meandata file '%' successfully."
 msgstr ""
 
@@ -3115,6 +3141,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:4905
 #: src/netedit/GNEApplicationWindow.cpp:4954
+#, c-format
 msgid "% of '%' failed."
 msgstr ""
 
@@ -3136,6 +3163,7 @@ msgstr ""
 
 #: src/netedit/GNEApplicationWindow.cpp:5002
 #: src/netedit/GNEApplicationWindow.cpp:5050
+#, c-format
 msgid "% of % failed."
 msgstr ""
 
@@ -4407,6 +4435,7 @@ msgid "[0, 360]"
 msgstr ""
 
 #: src/netedit/GNEAttributeProperties.cpp:661
+#, c-format
 msgid "Attribute '%' already inserted"
 msgstr ""
 
@@ -5023,22 +5052,27 @@ msgstr ""
 #: src/netedit/GNETagProperties.cpp:260 src/netedit/GNETagProperties.cpp:272
 #: src/netedit/GNETagProperties.cpp:284 src/netedit/GNETagProperties.cpp:296
 #: src/netedit/GNETagProperties.cpp:308 src/netedit/GNETagProperties.cpp:320
+#, c-format
 msgid "Attribute '%' not defined"
 msgstr ""
 
 #: src/netedit/GNETagProperties.cpp:357
+#, c-format
 msgid "Attribute '%' doesn't exist"
 msgstr ""
 
 #: src/netedit/GNETagProperties.cpp:364
+#, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:91
+#, c-format
 msgid "Property for tag '%' not defined"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:104
+#, c-format
 msgid "TagPropertySet for tag '%' not defined"
 msgstr ""
 
@@ -7152,6 +7186,7 @@ msgid "PersonStop"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6081
+#, c-format
 msgid "Center view over element % after creation"
 msgstr ""
 
@@ -8028,6 +8063,7 @@ msgid ""
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7422
+#, c-format
 msgid "speed of the person for this % in m/s (not together with duration)"
 msgstr ""
 
@@ -8193,6 +8229,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7790
 #: src/netedit/GNETagPropertiesDatabase.cpp:7796
+#, c-format
 msgid "The name of the lane the % shall be located at"
 msgstr ""
 
@@ -8245,6 +8282,7 @@ msgid ""
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7890
+#, c-format
 msgid "The position on the lane the % shall be laid on in meters"
 msgstr ""
 
@@ -8253,10 +8291,12 @@ msgid "Detect persons instead of vehicles (pedestrians or passengers)"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7911
+#, c-format
 msgid "The RGBA color with which the % shall be displayed"
 msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7921
+#, c-format
 msgid ""
 "The aggregation period the values the % detector collects shall be summed up"
 msgstr ""
@@ -8413,6 +8453,7 @@ msgid "Only one lane per edge will be restricted to %."
 msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1048 src/netedit/GNEViewNet.cpp:1055
+#, c-format
 msgid "Set vclass to % for selected lanes"
 msgstr ""
 
@@ -8430,6 +8471,7 @@ msgid "restrict lane to "
 msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1116 src/netedit/GNEViewNet.cpp:1123
+#, c-format
 msgid "Add vclass % to selected lanes"
 msgstr ""
 
@@ -8451,6 +8493,7 @@ msgid "add vclass for "
 msgstr ""
 
 #: src/netedit/GNEViewNet.cpp:1198 src/netedit/GNEViewNet.cpp:1205
+#, c-format
 msgid "Remove vclass % from selected lanes"
 msgstr ""
 
@@ -9696,6 +9739,7 @@ msgid "Open Parameter Template"
 msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:323
+#, c-format
 msgid "Loading of Parameters From % failed."
 msgstr ""
 
@@ -9741,10 +9785,12 @@ msgid "Key of Parameter cannot be empty"
 msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:451
+#, c-format
 msgid "Key '%' of Parameter contains invalid characters"
 msgstr ""
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:454
+#, c-format
 msgid "Key '%' already exist"
 msgstr ""
 
@@ -10068,6 +10114,7 @@ msgid "% of % '%' cannot be updated because"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:83
+#, c-format
 msgid "at least one % must be defined."
 msgstr ""
 
@@ -10123,11 +10170,13 @@ msgid "Error editing %"
 msgstr ""
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1805
+#, c-format
 msgid "The % cannot be updated because attribute % is invalid."
 msgstr ""
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:35
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:46
+#, c-format
 msgid "Save % as"
 msgstr ""
 
@@ -10501,6 +10550,7 @@ msgid ""
 msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:107
+#, c-format
 msgid "change % of invalid additionals"
 msgstr ""
 
@@ -10645,6 +10695,7 @@ msgid "Fix stop positions and save"
 msgstr ""
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:345
+#, c-format
 msgid "change % of invalid stops"
 msgstr ""
 
@@ -10939,10 +10990,12 @@ msgid "Grouped by categories"
 msgstr ""
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:268
+#, c-format
 msgid "Use current % file"
 msgstr ""
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:273
+#, c-format
 msgid "Select % file"
 msgstr ""
 
@@ -11028,6 +11081,7 @@ msgid ""
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:214
+#, c-format
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
 msgstr ""
@@ -11049,6 +11103,7 @@ msgid "add charging station '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:351
+#, c-format
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
@@ -11086,6 +11141,7 @@ msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:556
+#, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
@@ -11097,6 +11153,7 @@ msgid "add lane area detector '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
+#, c-format
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
@@ -11135,6 +11192,7 @@ msgid "add rerouter '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:963
+#, c-format
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr ""
@@ -11144,6 +11202,7 @@ msgid "add rerouter interval in '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:979
+#, c-format
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr ""
@@ -11181,6 +11240,7 @@ msgid "add VSS Step in '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1285
+#, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr ""
@@ -11190,6 +11250,7 @@ msgid "add vaporizer in '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1347
+#, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr ""
 
@@ -11218,6 +11279,7 @@ msgid "add traction substation '"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1547
+#, c-format
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
@@ -11240,6 +11302,7 @@ msgid "add POI lane '%'"
 msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
+#, c-format
 msgid "Could not build POI with ID '%' in netedit"
 msgstr ""
 
@@ -11271,6 +11334,7 @@ msgid "Both myEdge and myLane aren't defined"
 msgstr ""
 
 #: src/netedit/elements/additional/GNECalibratorFlow.cpp:118
+#, c-format
 msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
@@ -11480,6 +11544,7 @@ msgstr ""
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
+#, c-format
 msgid "Could not build % in netedit"
 msgstr ""
 
@@ -11488,6 +11553,7 @@ msgid "Edge doesn't exist."
 msgstr ""
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
+#, c-format
 msgid "Attribute '%' doesn't exist."
 msgstr ""
 
@@ -12041,6 +12107,7 @@ msgid "Replace junction by geometry point"
 msgstr ""
 
 #: src/netedit/elements/network/GNEJunction.cpp:527
+#, c-format
 msgid "Split junction (% end points)"
 msgstr ""
 
@@ -12057,6 +12124,7 @@ msgid "Convert to roundabout (using junction attribute radius %)"
 msgstr ""
 
 #: src/netedit/elements/network/GNEJunction.cpp:544
+#, c-format
 msgid " of % junctions"
 msgstr ""
 
@@ -12149,6 +12217,7 @@ msgid "Unexpected LinkState '%'"
 msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:1996
+#, c-format
 msgid "Edge operations (% selected)"
 msgstr ""
 
@@ -12221,6 +12290,7 @@ msgid "Smooth elevation of %"
 msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:2086
+#, c-format
 msgid "Lane operations (% selected)"
 msgstr ""
 
@@ -12289,6 +12359,7 @@ msgid "Transform to restricted %"
 msgstr ""
 
 #: src/netedit/elements/network/GNELane.cpp:2176
+#, c-format
 msgid "Template operations (% selected)"
 msgstr ""
 
@@ -12380,6 +12451,7 @@ msgid "Change parent of this element"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:653
+#, c-format
 msgid "Inspect % parent"
 msgstr ""
 
@@ -12420,6 +12492,7 @@ msgid "Open dialog for editing generic parameters"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:214
+#, c-format
 msgid "Open % dialog"
 msgstr ""
 
@@ -12430,10 +12503,12 @@ msgstr ""
 #: src/netedit/frames/GNEAttributesEditorType.cpp:474
 #: src/netedit/frames/GNEAttributesEditorType.cpp:535
 #: src/netedit/frames/GNEAttributesEditorType.cpp:568
+#, c-format
 msgid "change multiple % attributes"
 msgstr ""
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:538
+#, c-format
 msgid "change % attribute"
 msgstr ""
 
@@ -12540,6 +12615,7 @@ msgid "Hierarchy"
 msgstr ""
 
 #: src/netedit/frames/GNEElementTree.cpp:201
+#, c-format
 msgid "Default Vehicle Type '%' cannot be removed"
 msgstr ""
 
@@ -13037,6 +13113,7 @@ msgid ""
 msgstr ""
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
+#, c-format
 msgid "-Click over % to select"
 msgstr ""
 
@@ -13050,10 +13127,12 @@ msgid "Use selected %s"
 msgstr ""
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
+#, c-format
 msgid "% selector"
 msgstr ""
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:150
+#, c-format
 msgid "List of % cannot be empty"
 msgstr ""
 
@@ -13126,6 +13205,7 @@ msgid "clear Edge Template"
 msgstr ""
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:215
+#, c-format
 msgid "Set edge '%' as Template"
 msgstr ""
 
@@ -13713,10 +13793,12 @@ msgid "To TAZ"
 msgstr ""
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
+#, c-format
 msgid "A % must be defined within a dataSet."
 msgstr ""
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
+#, c-format
 msgid "A % must be defined within an interval."
 msgstr ""
 
@@ -14804,6 +14886,7 @@ msgid "TAZ shape needs at least three points"
 msgstr ""
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1497
+#, c-format
 msgid "Created % sources and sinks"
 msgstr ""
 
@@ -15152,6 +15235,7 @@ msgid "Current selected wire isn't valid."
 msgstr ""
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:119
+#, c-format
 msgid "A % needs at least two lane positions"
 msgstr ""
 
@@ -15247,10 +15331,12 @@ msgid "load shapes from '"
 msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:226
+#, c-format
 msgid "Loading of shape file '%' failed"
 msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:229
+#, c-format
 msgid "Loading of shape file '%' successfully"
 msgstr ""
 
@@ -15259,10 +15345,12 @@ msgid "Execute python tool '"
 msgstr ""
 
 #: src/netedit/tools/GNEPythonTool.cpp:195
+#, c-format
 msgid "Loaded % configuration."
 msgstr ""
 
 #: src/netedit/tools/GNEPythonTool.cpp:211
+#, c-format
 msgid "Saved % configuration."
 msgstr ""
 
@@ -15327,10 +15415,12 @@ msgid "Ignoring item '%' because of invalid type %\n"
 msgstr ""
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
+#, c-format
 msgid "Item '%' not found\n"
 msgstr ""
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:244
+#, c-format
 msgid "% objects ignored, % objects not found\n"
 msgstr ""
 
@@ -15415,6 +15505,7 @@ msgid "Object must be a lane"
 msgstr ""
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:304
+#, c-format
 msgid "Copy % name to clipboard"
 msgstr ""
 
@@ -16298,6 +16389,7 @@ msgid "auto-center"
 msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:338
+#, c-format
 msgid "% objects"
 msgstr ""
 
