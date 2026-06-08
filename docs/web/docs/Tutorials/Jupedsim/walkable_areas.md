@@ -8,7 +8,7 @@ This tutorial demonstrates the different possibilities to define 2D walkable are
 You can find the used dxf file and the resulting **configuration files** for this tutorial [here](https://github.com/PedestrianDynamics/SUMO-JuPedSim-Simulations/tree/main/tutorials/areas).
 
 
-## Configration Options
+## Configuration Options
 
 
 There are three different ways to define 2D walkable areas for *SUMO-JuPedSim*:
