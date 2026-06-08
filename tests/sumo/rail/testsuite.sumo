@@ -74,6 +74,9 @@ uncontrolled_links
 # check default rail type
 default_rail_type
 
+# see #18063
+bunching
+
 # railway-specific bugs
 bugs
 
