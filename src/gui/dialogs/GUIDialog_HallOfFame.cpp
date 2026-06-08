@@ -43,9 +43,9 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     // main text
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
     myHeadlineFont = new FXFont(getApp(), "Arial", 12, FXFont::Bold);
-    (new FXLabel(descriptionFrame, "SUMO User Conference 2025 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
+    (new FXLabel(descriptionFrame, "SUMO Conference 2026 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "", GUIIconSubSys::getIcon(GUIIcon::HALL_OF_FAME), GUIDesignLabelIcon);
-    new FXLabel(descriptionFrame, "Voted best presentation:\n\"Towards Improved Traffic Impact Assessments for Construction Sites\"\nRobert Hilbrich, Jürgen Besler, Natalie Dust, Heiner Kretzer and Bertram Monninkhoff\n", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, "SUMO guru of the year: Juri Penell", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
     (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo/conference");
