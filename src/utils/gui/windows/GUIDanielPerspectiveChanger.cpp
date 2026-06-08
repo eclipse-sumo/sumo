@@ -26,6 +26,7 @@
 #include <utils/geom/Position.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
+#include "GUIMainWindow.h"
 #include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
 
@@ -239,7 +240,8 @@ GUIDanielPerspectiveChanger::onMouseMove(void* data) {
     const int xdiff = myMouseXPosition - e->win_x;
     const int ydiff = myMouseYPosition - e->win_y;
     const bool moved = xdiff != 0 || ydiff != 0;
-    const bool pastDelay = !gSchemeStorage.getDefault().gaming && FXThread::time() > (myMouseDownTime + myDragDelay);
+    // no drag events in gaming mode
+    const bool pastDelay = !GUIMainWindow::getInstance()->isGaming() && FXThread::time() > (myMouseDownTime + myDragDelay);
     switch (myMouseButtonState) {
         case MOUSEBTN_LEFT:
         case MOUSEBTN_MIDDLE:
@@ -312,7 +314,7 @@ GUIDanielPerspectiveChanger::changeCanvasSizeLeft(int change) {
 long
 GUIDanielPerspectiveChanger::onKeyPress(void* data) {
     // ignore key events in gaming mode
-    if (gSchemeStorage.getDefault().gaming) {
+    if (GUIMainWindow::getInstance()->isGaming()) {
         return 0;
     }
     FXEvent* e = (FXEvent*) data;
