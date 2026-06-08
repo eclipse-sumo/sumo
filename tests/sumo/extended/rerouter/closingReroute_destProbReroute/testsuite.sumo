@@ -15,3 +15,8 @@ closing_disconnects_dest_disallow_destProb
 # stops are not reachable and the route should be terminated
 # 
 stops_terminateRoute
+
+# combine closing rerouter with dest_prob rerouter.
+# stops are not reachable and the route should be terminated
+# 
+stops_terminateRoute_disallow
