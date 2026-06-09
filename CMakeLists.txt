@@ -336,17 +336,17 @@ if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-*")
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-*")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/zlib-*")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-*")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-*")
-    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-*")
+    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/dependencies/freetype-*")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*")        # needed for Arrow
-    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*")      # needed for Arrow
-    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*")    # needed for Arrow
-    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*")  # needed for Arrow
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/lz4-*")        # needed for Arrow
+    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/zstd-*")      # needed for Arrow
+    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/bzip2-*")    # needed for Arrow
+    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/dependencies/thrift-*")  # needed for Arrow
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-*")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-*")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
@@ -359,36 +359,38 @@ if (SUMO_LIBRARIES AND WIN32)
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
+                                 "${FMT_PATH}/bin/*.dll"
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  )
     if (ENABLE_GDAL OR ENABLE_PROJ)
         file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/curl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libssh2-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/openssl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/sqlite-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
     endif ()
     if (ENABLE_FOX)
         file(GLOB _FOX_DLLS "${FOX_PATH}/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/libpng-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
                             )
         list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS})
     endif ()
     if (ENABLE_GDAL)
         file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/freexl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libxml2-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libiconv-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/freexl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libexpat-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/minizip-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
                              "${GDAL_PATH}/bin/gdal*.exe"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
@@ -412,10 +414,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     if (ENABLE_PARQUET)
         file(GLOB _ARROW_DLLS "${ARROW_PATH}/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/thrift-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/zstd-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/lz4-*/bin/*.dll"
                               )
         list(APPEND SUMO_LIBRARIES_DLL ${_ARROW_DLLS})
     endif ()
@@ -426,7 +428,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif(INSTALL_DLL_RUNTIMES)
     if (MSVC_VERSION GREATER 1919)
         # fmt in SUMOLibraries only works with MSVC 2019 and later
-        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/fmt-*")
+        file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
     endif ()
     if (ENABLE_GTEST)
         # declare flag for use google test
@@ -452,7 +454,7 @@ if (SUMO_LIBRARIES AND WIN32)
             set(GTEST_FOUND true)
         endif ()
     endif ()
-    file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
+    file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/bin/swig.exe")
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
 else ()
     # for Linux and Mac only
@@ -501,10 +503,10 @@ endif (FREETYPE_FOUND)
 
 if (ENABLE_FMT)
     if (SUMO_LIBRARIES AND WIN32)
-        find_package(fmt PATHS ${fmt_PATH} NO_DEFAULT_PATH)
+        find_package(fmt PATHS ${FMT_PATH} NO_DEFAULT_PATH)
         if (fmt_FOUND)
             message(STATUS "Found FMT (SUMOLibraries): " ${fmt_DIR})
-            include_directories(SYSTEM "${fmt_PATH}/include")
+            include_directories(SYSTEM "${FMT_PATH}/include")
             set(FMT_LIBRARY fmt::fmt)
             set(HAVE_FMT 1)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
