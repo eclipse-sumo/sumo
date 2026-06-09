@@ -683,7 +683,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
     }
     switch (dld) {
         case DepartLaneDefinition::GIVEN:
-            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVClass())) {
                 return nullptr;
             }
             return (*myLanes)[departLane];
@@ -720,11 +720,11 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                 if (((*i).length - departPos) >= bestLength) {
                     if (isInternal()) {
                         for (MSLane* lane : *myLanes) {
-                            if (lane->getNormalSuccessorLane() == (*i).lane) {
+                            if (lane->getNormalSuccessorLane() == (*i).lane && lane->allowsVehicleClass(veh.getVClass()) ) {
                                 bestLanes->push_back(lane);
                             }
                         }
-                    } else {
+                    } else if ((*i).lane->allowsVehicleClass(veh.getVClass())) {
                         bestLanes->push_back((*i).lane);
                     }
                 }
