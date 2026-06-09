@@ -14,6 +14,7 @@ title: ChangeLog
   - Fixed insufficient backward safety gaps on lanes that are shared by road and rail traffic #18041
   - Loading state with an invalid begin time no longer results in an unexpected simulation start time #18048
   - Fixed bug where sampling from vTypeDistribution diverged after calling **--load-state** #16989
+  - Fixed diminished energy consumption from radial drag immediately after departure #18059
 
 - netedit
   - Fixed invalid error message when loading a route with an unknown stopping place #16333
@@ -21,6 +22,8 @@ title: ChangeLog
   - selected connections now remain visible at high zoom when selection scaling is active #17309  
 
 - sumo-gui
+  - meso vehicles no do not flicker while waiting in a queue #18045 (regression in 1.27.0)
+  - meso vehicles do not overlap while queued on a single lane #18044 (regression in 1.27.0)
   - Fixed invalid meso segment markers in network with length/geometry mismatch #18036
 
 - meso
@@ -30,8 +33,19 @@ title: ChangeLog
 
 ### Enhancements
 
+- sumo
+  - CarFollowModel "Rail', can now include train resistance due to curvature by setting vType attribute `curveResitance="1"`. The underlying Röckl model exposes 5 configuration parameters (i.e. to adapt to different gauges and wheel bases). #18057
+  - CarFollowingModels now save their state (VehicleVariables) #18055
+
 - tools
   - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
+  - gtfs2pt.py: keep longer stop when merging stops on the same lane, added option **--access-radius** for adding pedestrian access #17858
+
+### Miscellaneous
+
+- Changing the view (mouse move, zoom and pan) are now disabled in gaming mode #11112
+- Fixed code signing issues for libsumo on macOS #18021
+- Fixed problem when importing libsumo and pyarrow simultaneously on Windows #17324
 
 ## Version 1.27.0 (21.05.2026)
 
