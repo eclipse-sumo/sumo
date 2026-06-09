@@ -2,7 +2,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="freightTrain" vClass="rail" length="72" speedFactor="0.6" decel="1" accel="1" imgFile="../images/locomotive.png" color="white"
-           personCapacity="12" boardingDuration="10" jmIgnoreJunctionFoeProb="1">
+           containerCapacity="12" loadingDuration="10" jmIgnoreJunctionFoeProb="1">
         <param key="seatingWidth" value="1"/>
         <param key="locomotiveLength" value="12"/>
         <param key="carriageLength" value="10"/>
@@ -27,10 +27,11 @@
         <stop trainStop="ts_3" duration="60"/>
     </trip>
     <vType id="DEFAULT_PEDTYPE" width="2" length="2"/>
-    <personFlow id="y" begin="0" number="35" period="exp(0.07)" color="yellow">
+    <vType id="DEFAULT_CONTAINERTYPE" width="2" length="2"/>
+    <containerFlow id="y" begin="0" number="35" period="exp(0.07)" color="yellow">
         <stop trainStop="ts_6" duration="0"/>
-        <ride trainStop="ts_1" lines="trip_0"/>
-    </personFlow>
+        <transport trainStop="ts_1" lines="trip_0"/>
+    </containerFlow>
     <personFlow id="g" begin="0" number="20" period="exp(0.05)" color="green">
         <stop trainStop="ts_2" duration="0"/>
         <ride trainStop="ts_4" lines="trip_1 trip_2"/>
