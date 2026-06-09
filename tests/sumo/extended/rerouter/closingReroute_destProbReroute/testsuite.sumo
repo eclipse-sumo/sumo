@@ -12,6 +12,21 @@ unaffected
 closing_disconnects_dest_disallow_destProb
 
 # combine closing rerouter with dest_prob rerouter.
+# the vehicle starts on a closed edge and the next follower edge is also closed
+# 
+terminateRoute_departClosed
+
+# combine closing rerouter with dest_prob rerouter.
+# the vehicle starts on a closed edge and the next follower edge is also closed
+# 
+terminateRoute_departClosed_departLaneBest
+
+# combine closing rerouter with dest_prob rerouter.
+# the vehicle starts on a closed edge and the next follower edge is also closed
+# 
+terminateRoute_departClosed_trip
+
+# combine closing rerouter with dest_prob rerouter.
 # stops are not reachable and the route should be terminated
 # 
 stops_terminateRoute
