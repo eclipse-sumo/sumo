@@ -353,6 +353,10 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-*")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
+    if (MSVC_VERSION GREATER 1919)
+        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
+    endif ()
 
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
@@ -391,6 +395,7 @@ if (SUMO_LIBRARIES AND WIN32)
                              "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/minizip-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/pcre2-*/bin/pcre2-8*.dll"
                              "${GDAL_PATH}/bin/gdal*.exe"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
@@ -426,10 +431,6 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
-    if (MSVC_VERSION GREATER 1919)
-        # fmt in SUMOLibraries only works with MSVC 2019 and later
-        file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
-    endif ()
     if (ENABLE_GTEST)
         # declare flag for use google test
         set(USE_GOOGLETEST true)
