@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-09 18:51:45.198033 by Eclipse SUMO randomTrips.py v1_27_0+0147-90a88126154
+<configuration>
+    <net-file value="net.net.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+    <marouter value="True"/>
+    <period value="600.0"/>
+</configuration>
+-->
+
+<!-- generated on 2026-06-09T18:51:45.194114+01:00 by Eclipse SUMO marouter v1_27_0+0147-90a88126154
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <routing-threads value="16"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</marouterConfiguration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="22.78" probability="1.00000000" edges="120 120.180.00 -109 -109.80.00 -11"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="1" depart="600.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="23.03" probability="1.00000000" edges="-3.180.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="2" depart="1200.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="24.16" probability="1.00000000" edges="15.180.00 -15 -15.180.00 15"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="3" depart="1800.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="38.86" probability="1.00000000" edges="58 -37 -37.80.00 -23 -23.80.00 109 109.80.00 123 123.121.42 -123 -123.121.42"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="4" depart="2400.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="22.74" probability="1.00000000" edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11"/>
+        </routeDistribution>
+    </vehicle>
+    <vehicle id="5" depart="3000.00" departLane="free" departSpeed="max">
+        <routeDistribution>
+            <route cost="40.92" probability="1.00000000" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -109 -109.80.00 23 23.80.00 -23 -23.80.00"/>
+        </routeDistribution>
+    </vehicle>
+</routes>
