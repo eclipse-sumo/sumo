@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-09 18:57:06.314948 by Eclipse SUMO routeSampler.py v1_27_0+0148-503c7fe8326
+<configuration>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <verbose value="True"/>
+    <verbose.histograms value="True"/>
+    <verbose.timing value="True"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <vehicle id="0" depart="0.08">
+        <route edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -109 -109.80.00 23 23.80.00 -23 -23.80.00"/>
+    </vehicle>
+    <vehicle id="1" depart="0.70">
+        <route edges="120 120.180.00 -109 -109.80.00 -11"/>
+    </vehicle>
+    <vehicle id="2" depart="2.28">
+        <route edges="120 120.180.00 -109 -109.80.00 -11"/>
+    </vehicle>
+    <vehicle id="3" depart="4.62">
+        <route edges="-3.180.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/>
+    </vehicle>
+    <vehicle id="4" depart="23.04">
+        <route edges="15.180.00 -15 -15.180.00 15"/>
+    </vehicle>
+    <vehicle id="5" depart="39.59">
+        <route edges="120 120.180.00 -109 -109.80.00 -11"/>
+    </vehicle>
+    <vehicle id="6" depart="51.95">
+        <route edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="7" depart="60.55">
+        <route edges="58 -37 -37.80.00 -23 -23.80.00 109 109.80.00 123 123.121.42 -123 -123.121.42"/>
+    </vehicle>
+    <vehicle id="8" depart="61.13">
+        <route edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="9" depart="96.40">
+        <route edges="-58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11"/>
+    </vehicle>
+    <vehicle id="10" depart="98.23">
+        <route edges="120 120.180.00 -109 -109.80.00 -11"/>
+    </vehicle>
+</routes>
