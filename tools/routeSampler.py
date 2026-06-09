@@ -284,6 +284,18 @@ class Routes:
                             print("Warning: probability must be positive for route in vehicle '%s'" % tag.id,
                                   file=sys.stderr)
                             prob = 0
+                    elif tag.hasChild('routeDistribution') and tag.routeDistribution[0].hasChild('route'):
+                        for route in tag.routeDistribution[0].route:
+                            edges = tuple(route.edges.split())
+                            if route.stop:
+                                stops = list(route.stop)
+                            if route.hasAttribute("probability"):
+                                self.withProb += 1
+                                prob = float(route.probability)
+                            if prob <= 0:
+                                print("Warning: probability must be positive for route in vehicle '%s'" % tag.id,
+                                      file=sys.stderr)
+                                prob = 0
                     else:
                         if not warned:
                             print("Warning: Ignoring %s in file '%s' because it does not contain edges." % (
