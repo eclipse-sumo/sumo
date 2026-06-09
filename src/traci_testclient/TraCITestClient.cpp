@@ -445,17 +445,18 @@ TraCITestClient::setValueTypeDependant(tcpip::Storage& into, std::ifstream& defF
         into.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
         return 1;
     } else if (dataTypeS == "<objSubscription>") {
-        int beginTime, endTime, numVars;
-        defFile >> beginTime >> endTime >> numVars;
-        into.writeInt(beginTime);
-        into.writeInt(endTime);
-        into.writeInt(numVars);
+        double beginTime, endTime;
+        std::string objID;
+        int numVars;
+        defFile >> beginTime >> endTime >> objID >> numVars;
+        StoHelp::writeSubscriptionHeader(into, beginTime, endTime, objID);
+        into.writeUnsignedByte(numVars);
         for (int i = 0; i < numVars; ++i) {
             int var;
             defFile >> var;
             into.writeUnsignedByte(var);
         }
-        return 4 + 4 + 4 + numVars;
+        return 8 + 8 + 4 + (int)objID.length() + 1 + numVars;
     }
     int valI;
     double valF;
