@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-03 19:34+0000\n"
+"PO-Revision-Date: 2026-06-10 09:43+0000\n"
 "Last-Translator: sepur2025 <felipe.tiburcio@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/pt/>\n"
@@ -3419,7 +3419,7 @@ msgstr ""
 
 #: src/microsim/MSVehicle.cpp:779 src/utils/common/UtilExceptions.h:179
 msgid "should not happen"
-msgstr ""
+msgstr "não deveria acontecer"
 
 #: src/microsim/MSVehicle.cpp:980
 msgid ""
@@ -3446,7 +3446,7 @@ msgstr ""
 
 #: src/microsim/MSVehicle.cpp:4778
 msgid " for unknown reasons"
-msgstr ""
+msgstr " por razões desconhecidas"
 
 #: src/microsim/MSVehicle.cpp:4780
 msgid ""
@@ -3896,7 +3896,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:353
 msgid "Unknown vType '%'."
-msgstr ""
+msgstr "Tipo de veículo '%' desconhecido."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:357
 msgid "No edge in fcd replay file for person '%' at time %."
@@ -3908,7 +3908,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:371
 msgid "Duplicate person '%'."
-msgstr ""
+msgstr "Pessoa duplicada '%'."
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:384
 msgid "Could not add route '%'."
@@ -3916,7 +3916,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_FCDReplay.cpp:393
 msgid "Duplicate vehicle '%'."
-msgstr ""
+msgstr "Veículo duplicado '%'."
 
 #: src/microsim/devices/MSDevice_Friction.cpp:48
 msgid ""
@@ -4446,11 +4446,11 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:138
 msgid "Invalid device.stationfinder.chargingStrategy '%'."
-msgstr ""
+msgstr "Estratégia inválida para device.stationfinder.chargingStrategy '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:148
 msgid "Invalid device.stationfinder.rescueAction '%'."
-msgstr ""
+msgstr "Ação inválida de device.stationfinder.rescueAction '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:164
 msgid ""
@@ -4720,7 +4720,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:991
 #: src/microsim/devices/MSDevice_ToC.cpp:1012
 msgid "Unknown ToCState '%'"
-msgstr ""
+msgstr "Estado ToC desconhecido '%'"
 
 #: src/microsim/devices/MSDevice_Transportable.cpp:69
 #, c-format
@@ -4735,7 +4735,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDispatch.cpp:321
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "Reservas de grupo inconsistentes."
 
 #: src/microsim/devices/MSDispatch.cpp:325
 msgid "Inconsistent group reservations (2)."
@@ -4909,7 +4909,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1255
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "Condição não suportada '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1287
 msgid "Parsing expressions with % elements ('%') is not supported"
@@ -4938,7 +4938,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1381
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "Expressão vazia inválida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1452
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1467
@@ -4996,7 +4996,7 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:169
 msgid "Listing output lanes"
-msgstr ""
+msgstr "Listando faixas de destino"
 
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:243
 #: src/microsim/traffic_lights/MSSOTLTrafficLightLogic.cpp:277
@@ -6130,7 +6130,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:124
 msgid "Omits internal links"
-msgstr ""
+msgstr "Omite conexões internas"
 
 #: src/netbuild/NBFrame.cpp:127
 msgid ""
@@ -6164,7 +6164,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:148
 msgid "Disables building turnarounds"
-msgstr ""
+msgstr "Desativa a criação de retornos"
 
 #: src/netbuild/NBFrame.cpp:152
 msgid "Disables building turnarounds at tls-controlled junctions"
@@ -6891,7 +6891,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:715
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "Remove arestas isoladas"
 
 #: src/netbuild/NBFrame.cpp:719
 msgid "Only keep lanes with width in meters > FLOAT"
@@ -6945,7 +6945,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:770
 msgid "Avoids edge splitting"
-msgstr ""
+msgstr "Evita a divisão de arestas"
 
 #: src/netbuild/NBFrame.cpp:780
 #, c-format
@@ -7111,11 +7111,11 @@ msgstr "Remover loops internos"
 
 #: src/netbuild/NBNetBuilder.cpp:94
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "Encontrando vias isoladas"
 
 #: src/netbuild/NBNetBuilder.cpp:99
 msgid "Finding largest components"
-msgstr ""
+msgstr "Encontrando componentes maiores"
 
 #: src/netbuild/NBNetBuilder.cpp:107 src/netbuild/NBNetBuilder.cpp:161
 msgid "Revising public transport stops based on pt lines"
@@ -7123,7 +7123,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:112
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "Removendo arestas indesejadas"
 
 #: src/netbuild/NBNetBuilder.cpp:119
 #, c-format
@@ -7155,7 +7155,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:213
 msgid "Joining tram edges"
-msgstr ""
+msgstr "Combinando arestas ferroviária (tram)"
 
 #: src/netbuild/NBNetBuilder.cpp:217
 msgid " Joined % tram edges into roads."
@@ -7163,7 +7163,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:256
 msgid "Joining junction clusters"
-msgstr ""
+msgstr "Combinando grupos de junções"
 
 #: src/netbuild/NBNetBuilder.cpp:261
 #, c-format
@@ -7177,7 +7177,7 @@ msgstr ""
 #: src/netbuild/NBNetBuilder.cpp:268
 #, c-format
 msgid " Joined % junctions."
-msgstr ""
+msgstr " % junções unidas."
 
 #: src/netbuild/NBNetBuilder.cpp:273
 msgid "Joining lanes"
@@ -7191,7 +7191,7 @@ msgstr ""
 #: src/netbuild/NBNetBuilder.cpp:286
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % nós removidos."
 
 #: src/netbuild/NBNetBuilder.cpp:312
 msgid "Reducing geometries"
@@ -13175,15 +13175,15 @@ msgstr ""
 
 #: src/utils/xml/CommonXMLStructure.cpp:1237
 msgid "Undefined vehicleType parameter"
-msgstr ""
+msgstr "Parâmetro de tipo de veículo indefinido"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1247
 msgid "Undefined vehicle parameter"
-msgstr ""
+msgstr "Parâmetro de veículo indefinido"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1257
 msgid "Undefined stop parameter"
-msgstr ""
+msgstr "Parâmetro de parada indefinido"
 
 #: src/utils/xml/CommonXMLStructure.cpp:1524
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
@@ -13195,7 +13195,7 @@ msgstr ""
 
 #: src/utils/xml/GenericSAXHandler.cpp:222
 msgid " In file '"
-msgstr ""
+msgstr " No arquivo '"
 
 #: src/utils/xml/GenericSAXHandler.cpp:223
 msgid " At line/column "
