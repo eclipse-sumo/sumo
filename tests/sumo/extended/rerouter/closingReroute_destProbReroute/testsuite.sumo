@@ -20,3 +20,8 @@ stops_terminateRoute
 # stops are not reachable and the route should be terminated
 # 
 stops_terminateRoute_disallow
+
+# combine closing rerouter with dest_prob rerouter.
+# stops are not reachable and the route should be terminated
+# 
+stops_terminateRoute_skip
