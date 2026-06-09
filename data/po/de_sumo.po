@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-06 08:07+0000\n"
+"PO-Revision-Date: 2026-06-10 09:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -679,7 +679,7 @@ msgstr "Beim Erstellen von IDs für geklonte Fahrzeuge benutztes Suffix"
 
 #: src/duarouter/RODUAFrame.cpp:117 src/microsim/devices/MSDevice_Taxi.cpp:113
 msgid "Network permissions that can be accessed by taxis"
-msgstr ""
+msgstr "Für Taxis zugängliche Netzberechtigungen"
 
 #: src/duarouter/RODUAFrame.cpp:127 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
@@ -1922,6 +1922,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:171
 msgid "Save the Floating Car Data using utm/unshifted coordinates (x/y)"
 msgstr ""
+"Floating Car Data mit UTM / nicht verschobenen Koordinaten (x/y) speichern"
 
 #: src/microsim/MSFrame.cpp:173
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
@@ -3008,7 +3009,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:795
 msgid "Enable mesoscopic position interpolation"
-msgstr ""
+msgstr "Interpolation der mesoskopischen Position aktivieren"
 
 #: src/microsim/MSFrame.cpp:807
 msgid "Load visualisation settings from FILE"
@@ -4055,14 +4056,15 @@ msgstr ""
 #, c-format
 msgid "carFollowModel of vType '%' cannot save state"
 msgstr ""
+"das Fahrzeugfolgemodell des Fahrzeugtyps '%' kann den Zustand nicht speichern"
 
 #: src/microsim/cfmodels/MSCFModel_ACC.cpp:114
 msgid "incompatible carFollowModel '%' when loading state for ACC"
-msgstr ""
+msgstr "mit Laden des ACC-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_CACC.cpp:125
 msgid "incompatible carFollowModel '%' when loading state for CACC"
-msgstr ""
+msgstr "mit Laden des CACC-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_CC.cpp:66
 msgid ""
@@ -4082,15 +4084,15 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_EIDM.cpp:117
 msgid "incompatible carFollowModel '%' when loading state for EIDM"
-msgstr ""
+msgstr "mit Laden des EIDM-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_IDM.cpp:72
 msgid "incompatible carFollowModel '%' when loading state for IDMM"
-msgstr ""
+msgstr "mit Laden des IDMM-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Kerner.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for BKerner"
-msgstr ""
+msgstr "mit Laden des BKerner-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:59
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -4098,11 +4100,12 @@ msgstr "Runde 'Sigma-Schritt' zu % für den Fahrzeugtyp '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:85
 msgid "incompatible carFollowModel '%' when loading state for Krauss"
-msgstr ""
+msgstr "mit Laden des Krauss-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_PWag2009.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for PWagner2009"
 msgstr ""
+"mit Laden des PWagner2009-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
@@ -4166,11 +4169,11 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_SmartSK.cpp:96
 msgid "incompatible carFollowModel '%' when loading state for SmartSK"
-msgstr ""
+msgstr "mit Laden des SmartSK-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Wiedemann.cpp:87
 msgid "incompatible carFollowModel '%' when loading state for Wiedemann"
-msgstr ""
+msgstr "mit Laden des Wiedemann-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/devices/MSDevice.cpp:188
 #, c-format
@@ -8889,6 +8892,8 @@ msgstr ""
 #, c-format
 msgid "Stop '%' named '%' from line '%' on edge '%' is not part of the route."
 msgstr ""
+"Der Halt '%' namens '%' der Linie '%' auf der Kante '%' liegt nicht entlang "
+"der Route."
 
 #: src/netbuild/NBPTLine.cpp:378
 #, c-format
@@ -8896,6 +8901,8 @@ msgid ""
 "Stop '%' named '%' from line '%' on edge '%' is not part of the route "
 "downstream of the previous stop."
 msgstr ""
+"Der Halt '%' namens '%' der Linie '%' auf der Kante '%' liegt nicht entlang "
+"der Route stromabwärts des vorherigen Halts."
 
 #: src/netbuild/NBPTLineCont.cpp:121
 msgid ""
