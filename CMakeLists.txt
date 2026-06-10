@@ -53,6 +53,13 @@ cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
 
+# The command and parameters for rm / remove_directory change in cmake
+if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
+    set(remove_command "rm" "-rf")
+else()
+    set(remove_command "remove_directory")
+endif()
+
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
 
@@ -700,7 +707,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
+include(GNUInstallDirs)
 if (MSVC)
+    set(CMAKE_INSTALL_LIBDIR bin)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
@@ -722,8 +731,6 @@ if (MSVC)
             FILES_MATCHING
             PATTERN "thriftmd.dll"
             PATTERN "zstd.dll")
-else ()
-    include(GNUInstallDirs)
 endif ()
 if (SKBUILD OR MSVC)
     set(DATA_PATH "")
@@ -829,12 +836,11 @@ if (SUMO_LIBRARIES AND WIN32)
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
     if (PROJ_DATA_DIR)
-        # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-        set(PROJ_DATA ${TARGET_DIR}/share/proj/proj.db)
+        # proj 7 needs to copy "share/proj" folder in SUMO_HOME/data
+        set(PROJ_DATA ${TARGET_DIR}/data/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/share/proj
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/data/proj
                            DEPENDS ${PROJ_DATA_DIR}/proj.db)
-        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
 # set install dll targets, for non-Windows they depend on nothing

@@ -112,6 +112,7 @@ install(DIRECTORY libsumo DESTINATION include COMPONENT runtime
         FILES_MATCHING PATTERN "*.h"
         PATTERN "*Helper.h" EXCLUDE
         PATTERN "Subscription.h" EXCLUDE)
+export(EXPORT SUMOConfig NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
 configure_file(config.h.cmake config.h)
 
