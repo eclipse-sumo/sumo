@@ -10,4 +10,5 @@ edge_names
 # aggregate by hour
 interval
 timeColumn
+time_humanReadable
 timeFormat
