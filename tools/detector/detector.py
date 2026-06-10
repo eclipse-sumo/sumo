@@ -22,6 +22,7 @@ import os
 import sys
 from collections import defaultdict
 from xml.sax import make_parser, handler
+from datetime import datetime
 
 MAX_POS_DEVIATION = 10
 
@@ -41,7 +42,19 @@ def relError(actual, expected):
         return (actual - expected) / expected
 
 
-def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None):
+def parseFormattedTime(value, timeFormat, timeOffset=None):
+    if timeFormat is None:
+        return float(value) - (0 if timeOffset is None else float(timeOffset))
+    else:
+        dt = datetime.strptime(value, timeFormat)
+        if timeOffset is None:
+            offset = datetime(dt.year, 1, 1)
+        else:
+            offset = datetime.strptime(timeOffset, timeFormat)
+        return (dt - offset).total_seconds()
+
+
+def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None, timeFormat=None, timeOffset=None):
     detIdx = -1
     flowIdx = -1
     speedIdx = -1
@@ -66,7 +79,7 @@ def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", s
                     curTime = None
                     timeIsValid = True
                 else:
-                    curTime = float(flowDef[timeIdx])
+                    curTime = parseFormattedTime(flowDef[timeIdx], timeFormat, timeOffset)
                     timeIsValid = (end is None and curTime == begin) or (
                         curTime >= begin and curTime < end)
                 if timeIsValid:
@@ -221,11 +234,13 @@ class DetectorReader(handler.ContentHandler):
                 group.clearFlow(begin, interval)
 
     def readFlows(self, flowFile, det="Detector", flow="qPKW",
-                  speed=None, time=None, timeVal=None, timeMax=None, addDetectors=False):
+                  speed=None, time=None, timeVal=None, timeMax=None,
+                  addDetectors=False, timeFormat=None, timeOffset=None):
         values = parseFlowFile(
             flowFile,
             detCol=det, timeCol=time, flowCol=flow,
-            speedCol=speed, begin=timeVal, end=timeMax)
+            speedCol=speed, begin=timeVal, end=timeMax, timeFormat=timeFormat,
+            timeOffset=timeOffset)
         hadFlow = False
         for det, time, flow, speed in values:
             if addDetectors and det not in self._det2edge:
@@ -244,7 +259,8 @@ class DetectorReader(handler.ContentHandler):
                 group.addDetFlowTime(time, flow, speed)
         return hadFlow
 
-    def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time"):
+    def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time",
+            timeFormat=None, timeOffset=None):
         timeIdx = 1
         with open(flowFile) as f:
             for fl in f:
@@ -255,7 +271,7 @@ class DetectorReader(handler.ContentHandler):
                     if time in flowDef:
                         timeIdx = flowDef.index(time)
                 elif len(flowDef) > timeIdx:
-                    curTime = float(flowDef[timeIdx])
+                    curTime = parseFormattedTime(flowDef[timeIdx], timeFormat, timeOffset)
                     if tMin is None or tMin > curTime:
                         tMin = curTime
                     if tMax is None or tMax < curTime:
@@ -267,3 +283,4 @@ class DetectorReader(handler.ContentHandler):
             for group in detData:
                 if group.isValid:
                     yield edge, group
+
