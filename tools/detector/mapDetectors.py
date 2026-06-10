@@ -108,7 +108,7 @@ def main():
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
             if poutf:
-                poutf.write('    <poi id="%s" x="%.8f" y="%.8f">\n' % (detID, lon, lat))
+                poutf.write('    <poi id="%s" lon="%.8f" lat="%.8f">\n' % (detID, lon, lat))
                 if extraCols:
                     for col in extraCols:
                         poutf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
