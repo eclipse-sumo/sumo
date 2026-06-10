@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-10 13:05:19.408494 by Eclipse SUMO mapDetectors.py v1_27_0+0161-c28dd35b7a4
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <poi-output value="pois.add.xml"/>
+    <id-column value="customID"/>
+    <max-radius value="100.0"/>
+    <write-params value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="8032" x="144.95495898" y="-37.81776326">
+        <param key="direction" value="N"/>
+        <param key="comment" value="example"/>
+    </poi>
+    <poi id="8026" x="144.95534315" y="-37.81765244">
+        <param key="direction" value="S"/>
+        <param key="comment" value="example2"/>
+    </poi>
+    <poi id="64464" x="144.96583164" y="-37.81237646">
+        <param key="direction" value="S"/>
+        <param key="comment" value="example3"/>
+    </poi>
+    <poi id="17547" x="144.98827160" y="-37.81102936">
+        <param key="direction" value="NE"/>
+        <param key="comment" value="example4"/>
+    </poi>
+</additional>
