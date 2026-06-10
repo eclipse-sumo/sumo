@@ -32,6 +32,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
+from sumolib.statistics import Statistics
 
 
 def get_options(args=None):
@@ -78,6 +79,7 @@ def get_options(args=None):
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
+    mapErrors = Statistics("mappingError", printDev=True)
     seenIDs = set()
     poutf = None
     if options.poiOut is not None:
@@ -128,8 +130,9 @@ def main():
                 continue
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
-            pos = min(best.getLength(),
-                      sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
+            pos, error = best.getClosestLanePosAndDist((x, y))
+            pos = min(best.getLength(), pos)
+            mapErrors.add(error, detID)
 
             commentStart, commentEnd = "", ""
             if detID in seenIDs:
@@ -164,6 +167,10 @@ def main():
     if poutf:
         poutf.write('</additional>\n')
         poutf.close()
+
+    if options.verbose:
+        print(mapErrors)
+
 
 if __name__ == "__main__":
     main()
