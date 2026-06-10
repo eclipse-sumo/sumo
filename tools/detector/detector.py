@@ -24,6 +24,11 @@ from collections import defaultdict
 from xml.sax import make_parser, handler
 from datetime import datetime
 
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+from sumolib.miscutils import parseTime  # noqa
+
 MAX_POS_DEVIATION = 10
 
 
@@ -44,7 +49,7 @@ def relError(actual, expected):
 
 def parseFormattedTime(value, timeFormat, timeOffset=None):
     if timeFormat is None:
-        return float(value) - (0 if timeOffset is None else float(timeOffset))
+        return parseTime(value) - (0 if timeOffset is None else parseTime(timeOffset))
     else:
         dt = datetime.strptime(value, timeFormat)
         if timeOffset is None:
