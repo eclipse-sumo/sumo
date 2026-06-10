@@ -45,6 +45,8 @@ def get_options(args=None):
                     help="the field separator of the detector input file")
     ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
                     help="define the output file for generated mapped detectors")
+    ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
+                    help="file to write the input stop coordinates to")
     ap.add_argument("-i", "--id-column", default="id", dest="id",
                     help="Read detector ids from the given column")
     ap.add_argument("-x", "--longitude-column", default="lon", dest="lon",
@@ -77,6 +79,11 @@ def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
     seenIDs = set()
+    poutf = None
+    if options.poiOut is not None:
+        poutf = sumolib.openz(options.poiOut, 'w')
+        sumolib.writeXMLHeader(poutf, "$Id$", "additional", options=options)
+
     with sumolib.openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="additional", options=options)
         inputf = sumolib.openz(options.detfile)
@@ -100,6 +107,14 @@ def main():
             lon = float(row[options.lon])
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
+            if poutf:
+                poutf.write('    <poi id="%s" x="%.8f" y="%.8f">\n' % (detID, lon, lat))
+                if extraCols:
+                    for col in extraCols:
+                        poutf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
+                            sumolib.xml.xmlescape(col),
+                            sumolib.xml.xmlescape(row[col])))
+                poutf.write('    </poi>\n')
 
             lanes = []
             radius = 0.1
@@ -146,6 +161,9 @@ def main():
         outf.write('</additional>\n')
         inputf.close()
 
+    if poutf:
+        poutf.write('</additional>\n')
+        poutf.close()
 
 if __name__ == "__main__":
     main()
