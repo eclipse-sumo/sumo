@@ -10,3 +10,4 @@ edge_names
 # aggregate by hour
 interval
 timeColumn
+timeFormat
