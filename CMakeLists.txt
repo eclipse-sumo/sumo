@@ -246,6 +246,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
 else()
     # we search for Interpreter _and_ Development to make sure the versions match
     find_package(Python REQUIRED COMPONENTS Interpreter OPTIONAL_COMPONENTS Development.Module)
+    message(STATUS "Found Python: " ${Python_EXECUTABLE})
 endif()
 if (${CMAKE_VERSION} VERSION_LESS 3.18.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))
     message(WARNING "Language bindings require at least CMake 3.18.")
