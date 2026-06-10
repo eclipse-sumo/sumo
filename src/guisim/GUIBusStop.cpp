@@ -60,12 +60,6 @@ GUIBusStop::GUIBusStop(const std::string& id, SumoXMLTag element, const std::vec
     MSStoppingPlace(id, element, lines, lane, frompos, topos, name, personCapacity, parkingLength, color, angle),
     GUIGlObject_AbstractAdd(GLO_BUS_STOP, id, GUIIconSubSys::getIcon(GUIIcon::BUSSTOP)),
     myEmptyColor(RGBColor::INVISIBLE) {
-    // see MSVehicleControl defContainerType
-    myWidth = MAX2(1.0, ceil((double)myTransportableCapacity / getTransportablesAbreast()) * myTransportableDepth);
-    initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
-    if (myLane.getShape(true).size() > 0) {
-        initShape(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2, true);
-    }
 }
 
 
@@ -112,6 +106,12 @@ GUIBusStop::finishedLoading() {
         } catch (ProcessError& e) {
             WRITE_WARNINGF("Could not parse color '%' (%)", getParameter("emptyColor"), e.what());
         }
+    }
+    // see MSVehicleControl defContainerType
+    myWidth = MAX2(1.0, ceil((double)myTransportableCapacity / getTransportablesAbreast()) * myTransportableDepth);
+    initShape(myFGShape, myFGShapeRotations, myFGShapeLengths, myFGSignPos, myFGSignRot);
+    if (myLane.getShape(true).size() > 0) {
+        initShape(myFGShape2, myFGShapeRotations2, myFGShapeLengths2, myFGSignPos2, myFGSignRot2, true);
     }
 }
 
