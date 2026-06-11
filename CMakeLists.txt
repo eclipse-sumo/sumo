@@ -825,6 +825,7 @@ if (SUMO_LIBRARIES AND WIN32)
                                    COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
                                    DEPENDS ${DLL_PATH})
                 list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
+                list(APPEND SUMO_LIBRARIES_RELEASE_DLL ${TARGET_DLL})
             endif ()
         endif()
     endforeach(DLL_PATH)
