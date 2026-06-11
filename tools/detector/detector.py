@@ -59,7 +59,8 @@ def parseFormattedTime(value, timeFormat, timeOffset=None):
         return (dt - offset).total_seconds()
 
 
-def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW", begin=None, end=None, timeFormat=None, timeOffset=None):
+def parseFlowFile(flowFile, detCol="Detector", timeCol="Time", flowCol="qPKW", speedCol="vPKW",
+                  begin=None, end=None, timeFormat=None, timeOffset=None):
     detIdx = -1
     flowIdx = -1
     speedIdx = -1
@@ -265,7 +266,7 @@ class DetectorReader(handler.ContentHandler):
         return hadFlow
 
     def findTimes(self, flowFile, tMin, tMax, det="Detector", time="Time",
-            timeFormat=None, timeOffset=None):
+                  timeFormat=None, timeOffset=None):
         timeIdx = 1
         with open(flowFile) as f:
             for fl in f:
@@ -288,4 +289,3 @@ class DetectorReader(handler.ContentHandler):
             for group in detData:
                 if group.isValid:
                     yield edge, group
-

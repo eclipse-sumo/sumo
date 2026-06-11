@@ -17,14 +17,10 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
-import math
 import sys
 import os
 import csv
 from collections import defaultdict
-import matplotlib.pyplot as plt
-
-import detector
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -58,19 +54,19 @@ def get_options(args=None):
 
 
 def main(options):
-    counts = defaultdict(lambda : 0)
+    counts = defaultdict(lambda: 0)
 
     stats = Statistics("Total detector counts",
-            printDev=True,
-            histogram=options.binwidth > 0,
-            scale=options.binwidth,
-            printSum=True)
+                       printDev=True,
+                       histogram=options.binwidth > 0,
+                       scale=options.binwidth,
+                       printSum=True)
 
     intervalCounts = Statistics("interval counts",
-            printDev=True,
-            histogram=options.binwidth > 0,
-            scale=options.binwidth,
-            printSum=True)
+                                printDev=True,
+                                histogram=options.binwidth > 0,
+                                scale=options.binwidth,
+                                printSum=True)
 
     for file in options.flowfiles:
         inputf = sumolib.openz(file)
@@ -106,6 +102,7 @@ def main(options):
             for c, i in highestCounts:
                 f.write('    <detector ids="%s" count="%s"/>\n' % (i, c))
             f.write('<flowStats>\n')
+
 
 if __name__ == "__main__":
     main(get_options())

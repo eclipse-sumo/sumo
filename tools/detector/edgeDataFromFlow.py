@@ -88,7 +88,8 @@ def main(options):
     tMax = None
     for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
-        tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax,
+        tMin, tMax = detReader.findTimes(
+                options.flowfile, tMin, tMax,
                 options.detcol, options.timecol,
                 options.timeFormat, options.timeOffset)
         hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol,
