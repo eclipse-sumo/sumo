@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-04-04 04:09+0000\n"
+"PO-Revision-Date: 2026-06-11 07:55+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.6\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -660,7 +660,7 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:117 src/microsim/devices/MSDevice_Taxi.cpp:113
 msgid "Network permissions that can be accessed by taxis"
-msgstr ""
+msgstr "Izin jaringan yang dapat diakses oleh taksi"
 
 #: src/duarouter/RODUAFrame.cpp:127 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
@@ -1864,7 +1864,7 @@ msgstr "Simpan Floating Car Data menggunakan koordinat geo (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:171
 msgid "Save the Floating Car Data using utm/unshifted coordinates (x/y)"
-msgstr ""
+msgstr "Simpan Floating Car Data menggunakan koordinat UTM/tidak digeser (x/y)"
 
 #: src/microsim/MSFrame.cpp:173
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
@@ -2919,7 +2919,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:795
 msgid "Enable mesoscopic position interpolation"
-msgstr ""
+msgstr "Aktifkan interpolasi posisi mesoscopic"
 
 #: src/microsim/MSFrame.cpp:807
 msgid "Load visualisation settings from FILE"
@@ -3945,15 +3945,15 @@ msgstr ""
 #: src/microsim/cfmodels/MSCFModel.cpp:77
 #, c-format
 msgid "carFollowModel of vType '%' cannot save state"
-msgstr ""
+msgstr "carFollowModel dari vType '%' tidak dapat menyimpan state"
 
 #: src/microsim/cfmodels/MSCFModel_ACC.cpp:114
 msgid "incompatible carFollowModel '%' when loading state for ACC"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk ACC"
 
 #: src/microsim/cfmodels/MSCFModel_CACC.cpp:125
 msgid "incompatible carFollowModel '%' when loading state for CACC"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk CACC"
 
 #: src/microsim/cfmodels/MSCFModel_CC.cpp:66
 msgid ""
@@ -3973,15 +3973,15 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_EIDM.cpp:117
 msgid "incompatible carFollowModel '%' when loading state for EIDM"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk EIDM"
 
 #: src/microsim/cfmodels/MSCFModel_IDM.cpp:72
 msgid "incompatible carFollowModel '%' when loading state for IDMM"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk IDMM"
 
 #: src/microsim/cfmodels/MSCFModel_Kerner.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for BKerner"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk BKerner"
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:59
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -3989,11 +3989,11 @@ msgstr "Membulatkan 'sigmaStep' ke % untuk vType '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:85
 msgid "incompatible carFollowModel '%' when loading state for Krauss"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk Krauss"
 
 #: src/microsim/cfmodels/MSCFModel_PWag2009.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for PWagner2009"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk PWagner2009"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
@@ -4055,11 +4055,11 @@ msgstr "Selain pembaruan euler semi-implisit belum diimplementasikan. Keluar!"
 
 #: src/microsim/cfmodels/MSCFModel_SmartSK.cpp:96
 msgid "incompatible carFollowModel '%' when loading state for SmartSK"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk SmartSK"
 
 #: src/microsim/cfmodels/MSCFModel_Wiedemann.cpp:87
 msgid "incompatible carFollowModel '%' when loading state for Wiedemann"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk Wiedemann"
 
 #: src/microsim/devices/MSDevice.cpp:188
 #, c-format
@@ -5135,7 +5135,7 @@ msgstr "Re-dispatch tidak menyebutkan penjemputan untuk pelanggan yang ada '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:589
 msgid "Could not add taxi stop for %, desc=% time=% error=%"
-msgstr ""
+msgstr "Tidak dapat menambahkan perhentian taksi untuk %, desc=% time=% error=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:625
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
@@ -7173,6 +7173,8 @@ msgid ""
 "Split edges to improve positioning of guessed signals and prevent switches "
 "as rail_signals"
 msgstr ""
+"Pisahkan edge untuk meningkatkan penempatan sinyal hasil tebakan dan "
+"mencegah peralihan sebagai rail_signal"
 
 #: src/netbuild/NBFrame.cpp:281 src/netgen/netgen_main.cpp:94
 msgid "List rail classes that may run without rail signals"
@@ -8703,6 +8705,8 @@ msgstr ""
 #, c-format
 msgid "Stop '%' named '%' from line '%' on edge '%' is not part of the route."
 msgstr ""
+"Perhentian '%' bernama '%' dari jalur '%' pada edge '%' bukan bagian dari "
+"rute."
 
 #: src/netbuild/NBPTLine.cpp:378
 #, c-format
@@ -8710,6 +8714,8 @@ msgid ""
 "Stop '%' named '%' from line '%' on edge '%' is not part of the route "
 "downstream of the previous stop."
 msgstr ""
+"Perhentian '%' bernama '%' dari jalur '%' pada edge '%' bukan bagian dari "
+"rute di hilir dari perhentian sebelumnya."
 
 #: src/netbuild/NBPTLineCont.cpp:121
 msgid ""
@@ -11324,6 +11330,8 @@ msgid ""
 "State was written at a different time=% than the begin time % (set option "
 "load-state.offset to force a different begin)!"
 msgstr ""
+"State ditulis pada waktu=% yang berbeda dari waktu awal % (atur opsi load-"
+"state.offset untuk memaksa waktu awal yang berbeda)!"
 
 #: src/netload/NLBuilder.cpp:217 src/router/RONet.cpp:272
 #, c-format
@@ -14330,7 +14338,7 @@ msgstr ""
 
 #: src/utils/router/IntermodalRouter.h:204
 msgid "No connection between % '%' and % '%' found%."
-msgstr ""
+msgstr "Tidak ditemukan koneksi antara % '%' dan % '%' %."
 
 #: src/utils/router/IntermodalRouter.h:233
 #: src/utils/router/PedestrianRouter.h:126
