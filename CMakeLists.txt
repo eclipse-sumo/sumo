@@ -381,6 +381,7 @@ if (SUMO_LIBRARIES AND WIN32)
                              "${SUMO_LIBRARIES}/dependencies/openssl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/sqlite-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
     endif ()
@@ -401,7 +402,6 @@ if (SUMO_LIBRARIES AND WIN32)
                              "${SUMO_LIBRARIES}/dependencies/libexpat-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/minizip-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/pcre2-*/bin/pcre2-8*.dll"
                              "${GDAL_PATH}/bin/gdal*.exe"
                              )
