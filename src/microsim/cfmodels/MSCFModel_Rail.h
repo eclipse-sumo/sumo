@@ -52,8 +52,6 @@ public:
 
     double getSpeedAfterMaxDecel(double v) const;
 
-    MSCFModel::VehicleVariables* createVehicleVariables() const;
-
     double finalizeSpeed(MSVehicle* const veh, double vPos) const;
 
     double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed,
@@ -82,6 +80,13 @@ private:
         double resCoef_constant; // kN
         double resCoef_linear;  // kN / (km/h)
         double resCoef_quadratic; // kN / (km/h)^2
+                                  //
+        double curveResistance = 0;
+        double roeckl_sharp_radius = 300;
+        double roeckl_numerator = 6380;
+        double roeckl_numerator_sharp = 4910;
+        double roeckl_offset = 55;
+        double roeckl_offset_sharp = 30;
 
         double getResistance(double speed) const;
         double getTraction(double speed) const;
@@ -89,29 +94,6 @@ private:
 
 public:
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason usage = CalcReason::CURRENT) const;
-
-//    class VehicleVariables : public MSCFModel::VehicleVariables {
-//
-//    public:
-//
-//        const std::string getTrainType() const { return myTrainType; };
-//
-//        void setTrainType(std::string trainType) { myTrainType = trainType; }
-//
-//        bool isNotYetInitialized() {
-//            return notYetInitialized;
-//        }
-//
-//        void setInitialized() {
-//            notYetInitialized = false;
-//        }
-//
-//    private:
-//        std::string myTrainType;
-//        bool notYetInitialized = true;
-//
-//
-//    };
 
 protected:
 
@@ -121,6 +103,8 @@ protected:
     // @brief return weight in tons
     double getWeight(const MSVehicle* const veh) const;
 
+    // @brief Röckl formula which returns kN
+    double getCurveResistance(const MSVehicle* veh) const;
 
 private:
 

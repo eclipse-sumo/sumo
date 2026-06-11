@@ -30,4 +30,4 @@ Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 2 pt stops because they could not be assigned to the network
 Warning: 23 total messages of type: Edge '%' has a grade of %%.
-Warning: 7 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.
+Warning: 7 total messages of type: Stop '%' named '%' from line '%' on edge '%' is not part of the route.

@@ -683,7 +683,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
     }
     switch (dld) {
         case DepartLaneDefinition::GIVEN:
-            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVClass())) {
                 return nullptr;
             }
             return (*myLanes)[departLane];
@@ -720,11 +720,11 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                 if (((*i).length - departPos) >= bestLength) {
                     if (isInternal()) {
                         for (MSLane* lane : *myLanes) {
-                            if (lane->getNormalSuccessorLane() == (*i).lane) {
+                            if (lane->getNormalSuccessorLane() == (*i).lane && lane->allowsVehicleClass(veh.getVClass()) ) {
                                 bestLanes->push_back(lane);
                             }
                         }
-                    } else {
+                    } else if ((*i).lane->allowsVehicleClass(veh.getVClass())) {
                         bestLanes->push_back((*i).lane);
                     }
                 }
@@ -1735,7 +1735,8 @@ MSEdge::getMesoPositions() const {
     assert(MSGlobals::gUseMesoSim);
     if (myLastCacheUpdate < SIMSTEP) {
         myLastCacheUpdate = SIMSTEP;
-        myCachedMesoPos.clear();
+        auto old = std::move(myCachedMesoPos);
+        myCachedMesoPos.clear();  // moved-from map is valid-but-unspecified; make it defined-empty
         int laneIndex = 0;
         const double now = SIMTIME;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
@@ -1743,7 +1744,8 @@ MSEdge::getMesoPositions() const {
             double segmentOffset = 0; // offset at start of current segment
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != nullptr; segment = segment->getNextSegment()) {
-                const double length = segment->getLength();
+                const double segLength = segment->getLength();
+                const double lanesCovered = segment->numQueues() == 1 ? std::round(segment->getCapacity() / segLength) : 1.;
                 if (laneIndex < segment->numQueues()) {
                     // make a copy so we don't have to worry about synchronization
                     std::vector<MEVehicle*> queue = segment->getQueue(laneIndex);
@@ -1755,14 +1757,19 @@ MSEdge::getMesoPositions() const {
                         const MEVehicle* const veh = queue[queueSize - i - 1];
                         earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
                         const double vehLength = veh->getVehicleType().getLengthWithGap();
+                        double maxPos = segmentOffset + segLength;
+                        auto it = old.find(veh);
+                        const double oldPos = it != old.end() ? it->second.first : 0.;  // store the old position to prevent backwards moving vehicles
                         if (i > 0) {
                             earliestExitTime += segment->getMinTauWithVehLength(vehLength, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+                            maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
                         }
                         const double entry = veh->getLastEntryTimeSeconds();
-                        const double pos = segmentOffset + length * (now - entry) / (STEPS2TIME(earliestExitTime) - entry);
+                        assert(STEPS2TIME(earliestExitTime) > entry);
+                        const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
                         // check if we overlap with the previous vehicle such that the gui has the chance to add some lateral offset
                         if (overlap == 0 && prevPos - pos < vehLength) {
-                            overlap = 1;
+                            overlap = lanesCovered > 1. ? -3 : -1;
                         } else {
                             overlap = 0;
                         }
@@ -1770,7 +1777,7 @@ MSEdge::getMesoPositions() const {
                         prevPos = pos;
                     }
                 }
-                segmentOffset += length;
+                segmentOffset += segLength;
             }
         }
     }

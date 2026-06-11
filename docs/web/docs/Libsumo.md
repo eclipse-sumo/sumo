@@ -55,8 +55,8 @@ make again if you previously did a build without swig).
 For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
 python path you should be able to use them as described below.
-If you want to enable the experimental C# support, make sure that
-you have `ENABLE_CS_BINDINGS` set in your cmake configuration.
+If you want to enable the experimental C or C# support, make sure that
+you have `ENABLE_C_BINDINGS` respectively `ENABLE_CS_BINDINGS` set in your cmake configuration.
 
 !!! note
     Make sure to add `"/your/path/to/sumo/tools"` to the `PYTHONPATH` environment variable.

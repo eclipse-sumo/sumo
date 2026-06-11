@@ -269,3 +269,7 @@ Example call
 ```
 
 The algorithm for finding and filtering sidings uses the same options as [createOvertakingReroutes.py](#createovertakingreroutespy). If option **--add-stop-signals** is set, sidings are also accepted if they do not have a signal yet.
+
+# abstractRail.py
+
+Converts a geodetical rail network into an abstract (schematic) rail network. See [full documentation](Net.md#abstractrailpy).

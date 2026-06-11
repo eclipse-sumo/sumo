@@ -263,6 +263,12 @@
         <xsd:attribute name="resCoef_constant" type="floatType"/>
         <xsd:attribute name="resCoef_linear" type="floatType"/>
         <xsd:attribute name="resCoef_quadratic" type="floatType"/>
+        <xsd:attribute name="curveResistance" type="floatType"/>
+        <xsd:attribute name="roeckl_sharp_radius" type="floatType"/>
+        <xsd:attribute name="roeckl_numerator" type="floatType"/>
+        <xsd:attribute name="roeckl_numerator_sharp" type="floatType"/>
+        <xsd:attribute name="roeckl_offset" type="floatType"/>
+        <xsd:attribute name="roeckl_offset_sharp" type="floatType"/>
     </xsd:complexType>
 
     <xsd:complexType name="cfIDMType">

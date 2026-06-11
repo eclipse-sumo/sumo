@@ -173,6 +173,11 @@ MSTransportable::getDeparture() const {
     return -1;
 }
 
+const MSEdge*
+MSTransportable::getCurrentEdge() const {
+    const MSLane* lane = getLane();
+    return lane == nullptr ? getEdge() : &lane->getEdge();
+}
 
 double
 MSTransportable::getEdgePos() const {

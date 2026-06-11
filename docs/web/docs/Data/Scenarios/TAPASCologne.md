@@ -11,7 +11,7 @@ title: TAPASCologne
 license. You **must tell where the data is from**, it is **not allowed
 to use it for commercial** purposes, as soon as you use it **we want to
 be informed** about it (use the
-[sumo-user](https://dev.eclipse.org/mailman/listinfo/sumo-user) mailing list).
+[sumo-user](https://accounts.eclipse.org/mailing-list/sumo-user) mailing list).
 
 The data can be [downloaded from our scenario
 repository](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).

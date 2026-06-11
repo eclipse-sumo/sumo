@@ -385,13 +385,19 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList) {
     undoList->begin(this, ("change " + getTagStr() + " attribute").c_str());
-    // drop all additional children
-    while (getChildAdditionals().size() > 0) {
-        undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);
+    // drop all additional symbol children
+    std::vector<GNEAdditional*> symbols;
+    for (const auto symbol : getChildAdditionals()) {
+        if (symbol->getTagProperty()->isSymbol()) {
+            symbols.push_back(symbol);
+        }
+    }
+    for (const auto symbol : symbols) {
+        undoList->add(new GNEChange_Additional(symbol, false), true);
     }
     // get edge vector
     const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
-    // create new VSS Symbols
+    // create new Rerouter Symbols
     for (const auto& edge : edges) {
         // create VSS Symbol
         GNEAdditional* VSSSymbol = new GNERerouterSymbol(this, edge);

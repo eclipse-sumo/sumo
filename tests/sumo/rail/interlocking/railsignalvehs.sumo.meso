@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:02.204263+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-05-22T11:33:08.159224+01:00 by Eclipse SUMO sumo v1_27_0+0010-ad0de344202
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,6 +33,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -53,30 +55,51 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-vehicle-output>
     <railSignal id="gneJ1">
         <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
-            <driveWay id="gneJ1.1"/>
+            <driveWay id="gneJ1.1">
+                <entry id="ICE0" time="16459.00" reason="junction"/>
+                <exit id="ICE0" time="16500.00" reason="arrived"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
-            <driveWay id="gneJ1.0"/>
+            <driveWay id="gneJ1.0">
+                <entry id="RB1" time="16086.00" reason="junction"/>
+                <exit id="RB1" time="16286.00" reason="junction"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ2">
         <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
-            <driveWay id="gneJ2.1"/>
+            <driveWay id="gneJ2.1">
+                <entry id="ICE0" time="16285.00" reason="junction"/>
+                <exit id="ICE0" time="16459.00" reason="junction"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-            <driveWay id="gneJ2.0"/>
+            <driveWay id="gneJ2.0">
+                <entry id="RB1" time="16286.00" reason="junction"/>
+                <exit id="RB1" time="16324.00" reason="junction"/>
+            </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ3">
         <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
-            <driveWay id="gneJ3.1"/>
+            <driveWay id="gneJ3.1">
+                <entry id="ICE0" time="16266.00" reason="junction"/>
+                <exit id="ICE0" time="16285.00" reason="junction"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
         <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
-            <driveWay id="gneJ3.2"/>
+            <driveWay id="gneJ3.2">
+                <entry id="RB2" time="16359.00" reason="junction"/>
+                <exit id="RB2" time="16386.00" reason="arrived"/>
+            </driveWay>
         </link>
         <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
-            <driveWay id="gneJ3.0"/>
+            <driveWay id="gneJ3.0">
+                <entry id="RB1" time="16324.00" reason="junction"/>
+                <exit id="RB1" time="16358.00" reason="arrived"/>
+            </driveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ5">
@@ -88,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <departJunction id="gneJ10">
         <driveWay id="gneJ10.d0">
             <entry id="RB2" time="16250.00" reason="departed"/>
-            <exit id="RB2" time="16334.00" reason="junction"/>
+            <exit id="RB2" time="16359.00" reason="junction"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ7">

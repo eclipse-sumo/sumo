@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-05-29T17:42:48.838846+01:00 by Eclipse SUMO sumo v1_27_0+0066-15de6bcccab
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo2.xml"/>
+    </output>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v7" depart="700.00" departLane="SC_0" departPos="0.00" departSpeed="15.15" departDelay="0.00" arrival="714.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="15.15" duration="14.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v7" vType="t2" speedFactor="1.09" vaporized=""/>
+    <tripinfo id="v8" depart="800.00" departLane="SC_0" departPos="0.00" departSpeed="12.82" departDelay="0.00" arrival="816.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="12.82" duration="16.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v8" vType="t2" speedFactor="0.92" vaporized=""/>
+    <tripinfo id="v9" depart="900.00" departLane="SC_0" departPos="0.00" departSpeed="15.60" departDelay="0.00" arrival="913.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalSpeed="15.60" duration="13.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v9" vType="t1" speedFactor="1.12" vaporized=""/>
+</tripinfos>

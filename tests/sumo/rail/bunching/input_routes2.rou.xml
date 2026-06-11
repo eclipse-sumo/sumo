@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-08T16:53:00.503793+01:00 by Eclipse SUMO netedit v1_27_0+0113-cc190734d94
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="pf_0" begin="600.00" end="7200" perHour="4000">
+        <stop trainStop="ts_0" duration="0"/>
+        <ride trainStop="ts_2"/>
+    </personFlow>
+    <personFlow id="pf_1" begin="600.00" end="7200" perHour="4000">
+        <stop trainStop="ts_1" duration="0"/>
+        <ride trainStop="ts_3"/>
+    </personFlow>
+    <personFlow id="pf_2" begin="600.00" end="7200" perHour="4000">
+        <stop trainStop="ts_2" duration="0"/>
+        <ride trainStop="ts_0"/>
+    </personFlow>
+    <personFlow id="pf_3" begin="600.00" end="7200" perHour="4000">
+        <stop trainStop="ts_3" duration="0"/>
+        <ride trainStop="ts_1"/>
+    </personFlow>
+
+    <!-- special high demand -->
+    <personFlow id="special" begin="2400" end="2401" number="200">
+        <stop trainStop="ts_0" duration="0"/>
+        <ride trainStop="ts_2"/>
+    </personFlow>
+</routes>

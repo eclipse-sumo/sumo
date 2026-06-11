@@ -349,6 +349,29 @@ Example:
         resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
 ```
 
+## Curve Resistance
+Resistance computation for curves is disabled by default because a give network model may not be accurate enough to allow computing sensible values (i.e. abstract networks with sharp 45 degree switches).
+To enable computation, set vType attribute `curveResistance="1"`
+The formula is computed from vType attributes as follows:
+```
+  mass * roeckl_numerator / (curveRadius - roeckl_offset)
+```
+For a curve radius below attribute `roeckl_sharp_radius`, the values `roeckl_numerator_sharp` and `roeckl_offset_sharp` are used instead.
+All defaults are given below. They are tailored to mainline rail on a gauge of 1,435mmm
+
+!!! caution
+    For rail networks with lower gauge and very shape turns (or rolling stock with short wheel base), the values should be adapted. Attempting to compute resistance for a radius below the offset value will raise a warning.
+
+| Attribute Name  | Default Value          | 
+| ------------------- | ------------------ | 
+| curveResistance     | 0                  | 
+| roeckl_sharp_radius | 300                | 
+| roeckl_numerator    | 6380               | 
+| roeckl_numerator_sharp | 4910            | 
+| roeckl_offset | 55                       | 
+| roeckl_offset_sharp | 30                 | 
+
+
 ## Effects of train length
 
 The length of a train has several imporant effects on a railway simulation:

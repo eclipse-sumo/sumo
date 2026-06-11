@@ -237,7 +237,7 @@ MSNet::MSNet(MSVehicleControl* vc, MSEventControl* beginOfTimestepEvents,
     }
     OptionsCont& oc = OptionsCont::getOptions();
     myStep = string2time(oc.getString("begin"));
-    myStateLoaderTime = myStep,
+    myStateLoaderTime = myStep - 1,
     myMaxTeleports = oc.getInt("max-num-teleports");
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");

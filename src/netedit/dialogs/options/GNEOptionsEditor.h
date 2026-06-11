@@ -67,6 +67,9 @@ public:
     /// @brief check if option was modified
     bool isOptionModified() const;
 
+    /// @brief check if option require save network
+    bool requireSaveNetwork() const;
+
     /// @brief reset options
     void resetAllOptions();
 
@@ -111,6 +114,9 @@ protected:
 
     /// @brief flag for check if options was modified
     bool myOptionsModified = false;
+
+    /// @brief flag for check if options require save network
+    bool myRequireSaveNetwork = false;
 
 private:
     /// @brief checkable button for show toolTips

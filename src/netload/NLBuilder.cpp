@@ -157,19 +157,30 @@ NLBuilder::build() {
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
 
     bool stateBeginMismatch = false;
+    const SUMOTime stateOffset = string2time(myOptions.getString("load-state.offset"));
     if (myOptions.isSet("load-state")) {
         // first, load only the time
         const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
-        if (myOptions.isDefault("begin")) {
+        bool defaultBegin = myOptions.isDefault("begin");
+        if (stateTime != string2time(myOptions.getString("begin"))) {
+            if (myOptions.isDefault("load-state.offset")) {
+                if (!defaultBegin) {
+                    WRITE_WARNINGF(TL("State was written at a different time=% than the begin time % (set option load-state.offset to force a different begin)!"),
+                            time2string(stateTime), myOptions.getString("begin"));
+                }
+                myOptions.resetWritable("begin");
+                defaultBegin = true;
+            } else {
+                stateBeginMismatch = true;
+            }
+        }
+        if (defaultBegin) {
             myOptions.set("begin", time2string(stateTime));
-            myNet.setLoaderTime(stateTime);
+            // if vehicles are deliberately removed from the state, we must allow them to be reloaded from a route file at state time
+            SUMOTime allowReloadOffset = myOptions.isDefault("load-state.remove-vehicles") ? 0 : 1;
+            myNet.setLoaderTime(stateTime - allowReloadOffset);
             if (TraCIServer::getInstance() != nullptr) {
                 TraCIServer::getInstance()->stateLoaded(stateTime);
-            }
-        } else {
-            if (stateTime != string2time(myOptions.getString("begin"))) {
-                WRITE_WARNINGF(TL("State was written at a different time=% than the begin time %!"), time2string(stateTime), myOptions.getString("begin"));
-                stateBeginMismatch = true;
             }
         }
         myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
@@ -286,7 +297,7 @@ NLBuilder::build() {
     if (myOptions.isSet("load-state")) {
         const std::string& f = myOptions.getString("load-state");
         long before = PROGRESS_BEGIN_TIME_MESSAGE(TLF("Loading state from '%'", f));
-        MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
+        MSStateHandler h(f, stateOffset);
         XMLSubSys::runParser(h, f);
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;

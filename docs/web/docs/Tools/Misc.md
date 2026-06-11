@@ -84,6 +84,8 @@ The available attributes to animate are:
 - Angle using the **--rotate** option. The option value consists of pairs of time and angle values (in degrees, separator: colon) joined by semicolon.
 - Offset/center position using the **--translate** option. The option value consists of pairs of time and position values (separator: colon, position dimensions separated by comma) joined by semicolon.
 
+Set the option **--relative** for zoom/rotate/offset values to be interpreted relatively to the previous state (either the initial view or the result of the previous animation result).
+
 # distributeChargingStations.py
 
 Charging stations are usually placed on (existing) parking spaces. This tool helps to equip a defined share of given parking spaces with charging infrastructure. In practice, this means generating the

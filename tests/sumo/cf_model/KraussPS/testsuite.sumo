@@ -1,3 +1,6 @@
 steep_incline
 bike_uphill_level_downhill
 car_uphill_level_downhill
+
+# test effect of maxAccelProfile
+truck_level_up_level_down_level

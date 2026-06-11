@@ -1,0 +1,2 @@
+Error: Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files
+Quitting (on error).

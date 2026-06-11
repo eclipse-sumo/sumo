@@ -62,4 +62,4 @@ Warning: 15 total messages of type: Converting invalid rail_crossing to priority
 Warning: 26 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 27 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 14 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
-Warning: 16 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.
+Warning: 16 total messages of type: Stop '%' named '%' from line '%' on edge '%' is not part of the route.

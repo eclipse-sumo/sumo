@@ -1623,7 +1623,7 @@ GUILane::splitAtSegments(const PositionVector& shape) {
     double offset = 0;
     for (int i = 0; i < no; ++i) {
         offset += slength;
-        Position pos = shape.positionAtOffset(offset);
+        Position pos = shape.positionAtOffset(interpolateLanePosToGeometryPos(offset));
         int index = result.indexOfClosest(pos);
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
             index = result.insertAtClosest(pos, false);

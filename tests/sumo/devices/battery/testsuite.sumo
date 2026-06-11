@@ -1,6 +1,9 @@
 # Vehicle charging battery with a non-constant charging rate
 chargingCurve
 
+# Vehicle charging battery with a non-constant charging rate
+chargingCurve_custom
+
 # chargingStations located in different places
 braunschweig
 

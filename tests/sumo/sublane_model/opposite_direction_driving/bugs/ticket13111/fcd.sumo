@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-12-04T17:00:28.126488+01:00 by Eclipse SUMO sumo v1_25_0+0219-77d6ba9b4e3
+<!-- generated on 2026-05-27T11:31:07.326556+01:00 by Eclipse SUMO sumo v1_27_0+0028-4afeaf1bc48
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,6 +33,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <lateral-resolution value="0.75"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -1724,7 +1726,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="1.20"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="1.17"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="26967263#7_1" posLat="1.20"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="1.04"/>
         <vehicle id="bike.21" lane=":1535884767_2_0" posLat="0.08"/>
         <vehicle id="bike.22" lane="26967263#6_1" posLat="0.04"/>
         <vehicle id="bike.23" lane="26967263#6_1" posLat="0.00"/>
@@ -1760,9 +1762,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.80"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="1.17"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.22" lane=":1535884767_2_0" posLat="0.04"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.20"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.04"/>
+        <vehicle id="bike.22" lane=":1535884767_2_0" posLat="0.12"/>
         <vehicle id="bike.23" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
@@ -1796,9 +1798,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.92"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="1.05"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.22" lane=":1535884767_2_0" posLat="0.00"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.04"/>
+        <vehicle id="bike.22" lane=":1535884767_2_0" posLat="-0.00"/>
         <vehicle id="bike.23" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
@@ -1833,8 +1835,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.92"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.50"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.04"/>
         <vehicle id="bike.22" lane="26967263#7_1" posLat="0.40"/>
         <vehicle id="bike.23" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
@@ -1869,10 +1871,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.92"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.03"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.16"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.40"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.28"/>
         <vehicle id="bike.22" lane="26967263#7_1" posLat="1.40"/>
-        <vehicle id="bike.23" lane=":1535884767_2_0" posLat="0.04"/>
+        <vehicle id="bike.23" lane=":1535884767_2_0" posLat="0.00"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
@@ -1905,10 +1907,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.68"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.16"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.40"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.28"/>
         <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.23" lane="26967263#7_1" posLat="0.80"/>
+        <vehicle id="bike.23" lane="26967263#7_1" posLat="0.60"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
@@ -1942,10 +1944,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.28"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.40"/>
-        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.24"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.28"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.40"/>
         <vehicle id="bike.24" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
@@ -1979,11 +1981,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="-26967263#7_1" posLat="0.88"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.56"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.40"/>
-        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.23" lane="26967263#7_1" posLat="1.40"/>
-        <vehicle id="bike.24" lane="26967263#6_1" posLat="0.24"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.28"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.24" lane="26967263#6_1" posLat="0.40"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
@@ -2017,11 +2019,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.17" lane="26967263#7_1" posLat="1.28"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.03"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.40"/>
-        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.02"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.44"/>
-        <vehicle id="bike.24" lane=":1535884767_2_0" posLat="0.64"/>
+        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.28"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.04"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.36"/>
+        <vehicle id="bike.24" lane=":1535884767_2_0" posLat="0.84"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
@@ -2050,16 +2052,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.12" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.13" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.04"/>
+        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane=":1535884741_1_0" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#7_1" posLat="0.32"/>
         <vehicle id="bike.18" lane="-26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.35"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.64"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="1.48"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
         <vehicle id="bike.22" lane="-26967263#7_1" posLat="0.90"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.04"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.48"/>
         <vehicle id="bike.25" lane="26967263#6_1" posLat="0.24"/>
         <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
@@ -2085,22 +2087,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="91.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.04"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.24"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.04"/>
         <vehicle id="bike.13" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.40"/>
+        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#7_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane=":1535884741_0_0" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.47"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.40"/>
-        <vehicle id="bike.22" lane="-26967263#7_1" posLat="0.38"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.25" lane=":1535884767_2_0" posLat="0.48"/>
-        <vehicle id="bike.26" lane="26967263#6_1" posLat="0.00"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="0.48"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="0.14"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="0.92"/>
+        <vehicle id="bike.25" lane=":1535884767_2_0" posLat="0.72"/>
+        <vehicle id="bike.26" lane="26967263#6_1" posLat="0.24"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#6_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
@@ -2124,22 +2126,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="92.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.80"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.56"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.04"/>
         <vehicle id="bike.13" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.16"/>
+        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#7_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.07"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.22" lane="-26967263#7_1" posLat="0.78"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.98"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.26" lane="26967263#6_1" posLat="0.04"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="0.14"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.02"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="1.32"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.26" lane="26967263#6_1" posLat="0.40"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.28" lane=":1535884767_2_0" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
@@ -2158,28 +2160,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.42" lane="26967263#5_1" posLat="0.00"/>
         <vehicle id="bike.5" lane="26967263#9_1" posLat="0.00"/>
         <vehicle id="bike.7" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.24"/>
+        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.12"/>
         <vehicle id="bike.9" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="shuttle.0" lane="26967263#7_1" posLat="0.00"/>
     </timestep>
     <timestep time="93.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.80"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.56"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.04"/>
         <vehicle id="bike.13" lane="-26967263#8_1" posLat="0.40"/>
         <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.16"/>
+        <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#7_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="0.58"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.22" lane="26967263#7_1" posLat="1.26"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.26"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.26" lane=":1535884767_2_0" posLat="0.36"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="-26967263#7_1" posLat="1.02"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.62"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="1.40"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.29"/>
+        <vehicle id="bike.26" lane=":1535884767_2_0" posLat="0.60"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
@@ -2198,28 +2200,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.42" lane="26967263#5_1" posLat="0.00"/>
         <vehicle id="bike.5" lane="26967263#9_1" posLat="0.00"/>
         <vehicle id="bike.7" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.60"/>
+        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.40"/>
         <vehicle id="bike.9" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="shuttle.0" lane="26967263#7_1" posLat="0.00"/>
     </timestep>
     <timestep time="94.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.68"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.08"/>
         <vehicle id="bike.13" lane="-26967263#8_1" posLat="1.40"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.77"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane=":1535884741_1_0" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="-26967263#7_1" posLat="1.18"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.22" lane="26967263#7_1" posLat="0.30"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.06"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.20" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="26967263#7_1" posLat="1.02"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.42"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.04"/>
         <vehicle id="bike.27" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
@@ -2239,32 +2241,32 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="bike.43" lane="26967263#5_1" posLat="0.00"/>
         <vehicle id="bike.5" lane="26967263#9_1" posLat="0.00"/>
         <vehicle id="bike.7" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.24"/>
+        <vehicle id="bike.8" lane="26967263#7_1" posLat="0.08"/>
         <vehicle id="bike.9" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="shuttle.0" lane="26967263#7_1" posLat="0.00"/>
     </timestep>
     <timestep time="95.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.08"/>
         <vehicle id="bike.13" lane="26967263#8_1" posLat="0.64"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.45"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane=":1535884741_1_0" posLat="1.06"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.00"/>
-        <vehicle id="bike.22" lane="26967263#7_1" posLat="0.02"/>
-        <vehicle id="bike.23" lane="-26967263#7_1" posLat="0.82"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.08"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.20" lane=":1535884741_1_0" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="26967263#7_1" posLat="0.14"/>
+        <vehicle id="bike.23" lane="-26967263#7_1" posLat="1.18"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="1.12"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.24"/>
         <vehicle id="bike.27" lane=":1535884767_2_0" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
-        <vehicle id="bike.30" lane=":1535884767_2_0" posLat="1.17"/>
+        <vehicle id="bike.30" lane="26967263#6_1" posLat="1.17"/>
         <vehicle id="bike.31" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.32" lane="26967263#6_1" posLat="0.00"/>
         <vehicle id="bike.33" lane="26967263#6_1" posLat="0.00"/>
@@ -2285,22 +2287,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="96.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="1.16"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.12"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.12"/>
         <vehicle id="bike.13" lane="26967263#8_1" posLat="0.04"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.45"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.20" lane="26967263#8_1" posLat="0.18"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.00"/>
+        <vehicle id="bike.20" lane="26967263#8_1" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
         <vehicle id="bike.22" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.23" lane="26967263#7_1" posLat="1.22"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.16"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.23" lane="26967263#7_1" posLat="0.86"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="1.02"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.24"/>
         <vehicle id="bike.27" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane="26967263#6_1" posLat="0.00"/>
@@ -2326,22 +2328,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="97.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="26967263#7_1" posLat="1.46"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.20"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.27"/>
         <vehicle id="bike.13" lane=":1535884734_2_0" posLat="0.00"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.45"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.20" lane="26967263#8_1" posLat="0.00"/>
-        <vehicle id="bike.21" lane="-26967263#7_1" posLat="1.12"/>
-        <vehicle id="bike.22" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.23" lane="26967263#7_1" posLat="0.26"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane=":1535884741_1_0" posLat="0.00"/>
+        <vehicle id="bike.23" lane="26967263#7_1" posLat="0.10"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="0.62"/>
         <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.24"/>
         <vehicle id="bike.27" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane=":1535884767_2_0" posLat="0.00"/>
@@ -2367,23 +2369,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="98.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="-26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.27"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.27"/>
         <vehicle id="bike.13" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.45"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.20" lane="26967263#8_1" posLat="0.00"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="1.04"/>
-        <vehicle id="bike.22" lane=":1535884741_1_0" posLat="0.00"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.32"/>
+        <vehicle id="bike.22" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.23" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.27" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="0.02"/>
+        <vehicle id="bike.25" lane="26967263#7_1" posLat="1.21"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.27"/>
+        <vehicle id="bike.27" lane="26967263#7_1" posLat="0.12"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.29" lane=":1535884767_2_0" posLat="0.00"/>
         <vehicle id="bike.30" lane="26967263#7_1" posLat="1.17"/>
@@ -2408,25 +2410,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="99.00">
         <vehicle id="bike.10" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.11" lane="-26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.12" lane="26967263#7_1" posLat="-0.00"/>
+        <vehicle id="bike.11" lane="26967263#7_1" posLat="0.27"/>
+        <vehicle id="bike.12" lane="26967263#7_1" posLat="0.27"/>
         <vehicle id="bike.13" lane="26967263#9_1" posLat="0.00"/>
-        <vehicle id="bike.14" lane="26967263#7_1" posLat="-0.45"/>
+        <vehicle id="bike.14" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.15" lane="26967263#7_1" posLat="0.00"/>
         <vehicle id="bike.16" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.17" lane="26967263#8_1" posLat="-0.00"/>
         <vehicle id="bike.18" lane="-26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.19" lane="26967263#7_1" posLat="-1.17"/>
         <vehicle id="bike.20" lane="26967263#8_1" posLat="0.00"/>
-        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.16"/>
+        <vehicle id="bike.21" lane="26967263#7_1" posLat="0.44"/>
         <vehicle id="bike.22" lane="26967263#8_1" posLat="0.00"/>
         <vehicle id="bike.23" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.24" lane="26967263#7_1" posLat="1.17"/>
+        <vehicle id="bike.24" lane="-26967263#7_1" posLat="0.42"/>
         <vehicle id="bike.25" lane="26967263#7_1" posLat="1.17"/>
-        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.00"/>
-        <vehicle id="bike.27" lane="26967263#7_1" posLat="0.04"/>
+        <vehicle id="bike.26" lane="26967263#7_1" posLat="0.83"/>
+        <vehicle id="bike.27" lane="26967263#7_1" posLat="0.88"/>
         <vehicle id="bike.28" lane="26967263#7_1" posLat="-1.17"/>
-        <vehicle id="bike.29" lane="26967263#7_1" posLat="0.00"/>
+        <vehicle id="bike.29" lane="26967263#7_1" posLat="0.24"/>
         <vehicle id="bike.30" lane="26967263#7_1" posLat="1.17"/>
         <vehicle id="bike.31" lane=":1535884767_2_0" posLat="0.92"/>
         <vehicle id="bike.32" lane="26967263#6_1" posLat="0.00"/>

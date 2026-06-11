@@ -205,9 +205,9 @@ Other useful cmake configuration options:
   debugging the release build or using a different profiler
 - `-D ENABLE_PROJ=OFF` disable PROJ
 - `-D ENABLE_FOX=OFF` disable FOX toolkit (GUI and multithreading)
-- `-D PYTHON_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci)
+- `-D Python_EXECUTABLE=/usr/bin/python3` select a different python version (also for libsumo / libtraci, note the capitalization)
 - `-D MVN_EXECUTABLE=` disable maven packaging (especially useful if you have no network connection)
-- `-D ENABLE_CS_BINDINGS=ON` enable C# bindings when compiling libsumo / libtraci
+- `-D ENABLE_C_BINDINGS=ON` enable C bindings when compiling libsumo (requires SWIG at least version 4.3)
 
 After this is finished, run
 

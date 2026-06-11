@@ -65,4 +65,4 @@ please send a request to sumo-dev (see below) or follow
 
 Contact the project developers via the project's "dev" list.
 
-* https://dev.eclipse.org/mailman/listinfo/sumo-dev
+* https://accounts.eclipse.org/mailing-list/sumo-dev

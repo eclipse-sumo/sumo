@@ -1,0 +1,18 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vTypeDistribution id="tD">
+        <vType id="t1" sigma="0" length="3"/>
+        <vType id="t2" sigma="0"/>
+    </vTypeDistribution>
+    <route id="r1" edges="SC CN"/>
+    <vehicle id="v0" depart="000" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v1" depart="100" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v2" depart="200" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v3" depart="300" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v4" depart="400" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v5" depart="500" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v6" depart="600" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v7" depart="700" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v8" depart="800" departSpeed="avg" route="r1" type="tD"/>
+    <vehicle id="v9" depart="900" departSpeed="avg" route="r1" type="tD"/>
+
+</routes>

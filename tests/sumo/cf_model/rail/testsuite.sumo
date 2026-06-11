@@ -3,3 +3,6 @@ accel
 
 # test all trains' accelaration on level ground
 accel_level
+
+# test curve resistance
+curves

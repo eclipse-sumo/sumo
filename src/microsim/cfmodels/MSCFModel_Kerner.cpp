@@ -28,6 +28,7 @@
 #include <microsim/MSLane.h>
 #include "MSCFModel_Kerner.h"
 #include <utils/common/RandHelper.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 
 // ===========================================================================
@@ -45,6 +46,28 @@ MSCFModel_Kerner::MSCFModel_Kerner(const MSVehicleType* vtype) :
 
 MSCFModel_Kerner::~MSCFModel_Kerner() {}
 
+
+void
+MSCFModel_Kerner::VehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "BKerner");
+    std::ostringstream internals;
+    internals << rand;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_Kerner::VehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "BKerner") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for BKerner", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> rand;
+}
 
 double
 MSCFModel_Kerner::finalizeSpeed(MSVehicle* const veh, double vPos) const {

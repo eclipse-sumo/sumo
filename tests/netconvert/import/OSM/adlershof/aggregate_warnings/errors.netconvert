@@ -10,6 +10,7 @@ Warning: PT stop '851572693' has been moved to edge '-46150481#0'.
 Warning: PT stop '1553912606' has been moved to edge '-141968830#1'.
 Warning: Stop '837697182' named 'Johannes-Sasse-Ring' from line '1119047' on edge '141968799' is not part of the route.
 Warning: Stop '837696912' named 'Akeleiweg' from line '1119047' on edge '141968853#0' is not part of the route.
+Warning: Stop '664609173' named 'August-Froehlich-Straße' from line '1200744' on edge '145586617#0' is not part of the route downstream of the previous stop.
 Warning: Removing pt stop '588394564' on non existing edge ''.
 Warning: Removing pt stop '588394577' on non existing edge ''.
 Warning: Removed 7 pt stops because they could not be assigned to the network
@@ -23,4 +24,4 @@ Warning: 3 total messages of type: Discarding unusable type '%' (first occurrenc
 Warning: 12 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
 Warning: 3 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 7 total messages of type: Removing pt stop '%' on non existing edge '%'.
-Warning: 12 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.
+Warning: 11 total messages of type: Stop '%' named '%' from line '%' on edge '%' is not part of the route.

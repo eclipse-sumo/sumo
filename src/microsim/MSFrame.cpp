@@ -99,7 +99,7 @@ MSFrame::fillOptions() {
     oc.addDescription("load-state", "Input", TL("Loads a network state from FILE"));
     oc.doRegister("load-state.offset", new Option_String("0", "TIME"));//!!! check, describe
     oc.addDescription("load-state.offset", "Input", TL("Shifts all times loaded from a saved state by the given offset"));
-    oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({""})));
+    oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({})));
     oc.addDescription("load-state.remove-vehicles", "Input", TL("Removes vehicles with the given IDs from the loaded state"));
 
     oc.doRegister("junction-taz", new Option_Bool(false));

@@ -30,6 +30,7 @@
 #include "MSCFModel.h"
 #include "MSCFModel_ACC.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 
 // ===========================================================================
 // class declarations
@@ -225,6 +226,16 @@ private:
         /// @brief The vehicle's CACC  precious time step gap error
         int    CACC_ControlMode;
         CommunicationsOverrideMode CACC_CommunicationsOverrideMode;
+
+        /** @brief Saves the vehicle variables
+         * @param[in] out The OutputDevice to write the information into
+         */
+        void saveState(OutputDevice& out, const MSCFModel& cfm) const;
+
+        /** @brief Loads the state of the vehicle variables from the given description
+         * @param[in] attrs XML attributes describing the current state
+         */
+        void loadState(const SUMOSAXAttributes& attrs);
     };
 
 private:

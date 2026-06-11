@@ -30,6 +30,8 @@
 #include <microsim/MSLink.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/output/MSXMLRawOut.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <microsim/MSVehicleControl.h>
@@ -369,7 +371,30 @@ bool
 MESegment::initialise(MEVehicle* veh, SUMOTime time) {
     int qIdx = 0;
     if (hasSpaceFor(veh, time, qIdx, true) == time) {
+        const bool isRail = veh->isRail();
+        // see MSLane::isInsertionSuccess
+        if (isRail && veh->getInsertionChecks() != (int)InsertionCheck::NONE
+                && veh->getParameter().departProcedure != DepartDefinition::SPLIT
+                && MSRailSignalControl::isSignalized(veh->getVClass())
+                && isRailwayOrShared(myEdge.getPermissions())) {
+            const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(veh);
+            MSEdgeVector occupied;
+            if (dw->foeDriveWayOccupied(false, veh, occupied)) {
+                myEdge.getLanes()[0]->setParameter("insertionBlocked:" + veh->getID(), dw->getID());
+                return false;
+            }
+        }
         receive(veh, qIdx, time, true);
+        if (isRail) {
+            myEdge.getLanes()[0]->unsetParameter("insertionConstraint:" + veh->getID());
+            //unsetParameter("insertionOrder:" + veh->getID());
+            //unsetParameter("insertionBlocked:" + veh->getID());
+            //// rail_signal (not traffic_light) requires approach information for
+            //// switching correctly at the start of the next simulation step
+            //if (firstRailSignal != nullptr && firstRailSignal->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+            //    veh->registerInsertionApproach(firstRailSignal, firstRailSignalDist);
+            //}
+        }
         // we can check only after insertion because insertion may change the route via devices
         std::string msg;
         if (MSGlobals::gCheckRoutes && !veh->hasValidRoute(msg)) {

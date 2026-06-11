@@ -131,9 +131,8 @@ If you just want to have a simple typo fixed you can always drop us a line at <s
 
 ### How do I unsubscribe from the mailing list?
 
-Go to <https://www.eclipse.org/mailman/listinfo/sumo-user>. At the
-bottom of the page you will find a form that allows you to enter your
-email address to unsubscribe it from the list.
+Go to <https://accounts.eclipse.org/mailing-list/sumo-user>. After
+logging in with your Eclipse account a button appears to unsubscribe it from the list.
 
 ## General Problem Solving
 
@@ -1239,7 +1238,7 @@ Under windows these settings must be configured using `regedit` i.e. at the regi
 Starting with version 1.26.0 (specifically v1_25_0-454), it is possible to scale fonts and icons sizes in the gui-settings ('UI Scaling' in the openGL tab). The application must be restarted for the setting to take effect.
 
 In older versions the fox-registry (see above) must be used to change the 'normalfont'. On Linux and MaCOS this can be accomplished by creating the file *~/.foxrc/Desktop* with the following line:
-`normalfont="Arial,200"` 
+`normalfont="Arial,200"`
 (with any desired font or size)
 
 ## Upgrading

@@ -31,21 +31,23 @@
 GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
     GNEAdditional(net, SUMO_TAG_DEST_PROB_REROUTE),
     GNEAdditionalListed(this),
-    myNewEdgeDestination(nullptr),
     myProbability(0) {
 }
 
 
-GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
+GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent, SUMO_TAG_DEST_PROB_REROUTE, ""),
     GNEAdditionalListed(this),
     myNewEdgeDestination(newEdgeDestination),
     myProbability(probability) {
     // set parents
     setParent<GNEAdditional*>(rerouterIntervalParent);
-    setParent<GNEEdge*>(newEdgeDestination);
-    // update boundary of rerouter parent
-    rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
+    GNEEdge* realEdge = myNet->getAttributeCarriers()->retrieveEdge(newEdgeDestination, false);
+    if (realEdge) {
+        setParent<GNEEdge*>(realEdge);
+        // update boundary of rerouter parent
+        rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
+    }
 }
 
 
@@ -150,7 +152,7 @@ GNEDestProbReroute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getMicrosimID();
         case SUMO_ATTR_EDGE:
-            return myNewEdgeDestination->getID();
+            return myNewEdgeDestination;
         case SUMO_ATTR_PROB:
             return toString(myProbability);
         case GNE_ATTR_PARENT:
@@ -203,7 +205,9 @@ GNEDestProbReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            return (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            return (value == "keepDestination"
+                    || value == "terminateRoute"
+                    || (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr));
         case SUMO_ATTR_PROB:
             return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) <= 1;
         default:
@@ -220,7 +224,7 @@ GNEDestProbReroute::getPopUpID() const {
 
 std::string
 GNEDestProbReroute::getHierarchyName() const {
-    return getTagStr() + ": " + myNewEdgeDestination->getID();
+    return getTagStr() + ": " + myNewEdgeDestination;
 }
 
 // ===========================================================================
@@ -235,7 +239,7 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             setAdditionalID(value);
             break;
         case SUMO_ATTR_EDGE:
-            myNewEdgeDestination = myNet->getAttributeCarriers()->retrieveEdge(value);
+            myNewEdgeDestination = value;
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

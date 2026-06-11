@@ -10,6 +10,9 @@ closingReroute
 # test algorithms for picking an alternative route when the main route is closed
 # see #17815, #17816
 closingRouteChoice
+
+# test combination of closing edge and changing destination of affected vehicles
+closingReroute_destProbReroute
 optimizeStops
 closingLaneReroute
 routeProb
@@ -25,15 +28,6 @@ parking
 
 # rerouting pedestrians
 person
-
-# combine closing rerouter with dest_prob rerouter.
-# Also test the special dest values 'keepDestination' and 'terminateRoute'.
-# Vehicles which's route do not take them across the closed edges should not be affected.
-closing_and_dest_prob_and_specialDestinations
-
-# combine closing rerouter with dest_prob rerouter.
-# Vehicles that do not drive through the closed area should not be affected
-closing_and_dest_prob_unaffected
 closing_timeThreshold
 
 # closing an edge with probability 0.5
@@ -60,10 +54,6 @@ closing_disconnects_dest
 
 # the destination edge is not reachable and the closed edge disallows all traffic
 closing_disconnects_dest_disallow
-
-# the destination edge is not reachable and the closed edge disallows all traffic,
-# vehicles should pick a new destination
-closing_disconnects_dest_disallow_destProb
 
 # a vehicle on an internal edge suddenly has its follower edge disallowed
 disallowed_while_on_internal

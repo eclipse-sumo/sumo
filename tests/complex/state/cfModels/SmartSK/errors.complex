@@ -1,0 +1,80 @@
+Warning: Teleporting vehicle 'v.0'; waited too long (jam), lane='0/1to1/1_0', time=314.00.
+Warning: Vehicle 'v.0' ends teleporting on edge '1/1to2/1', time=314.00.
+Warning: Teleporting vehicle 'v.1'; waited too long (jam), lane='0/1to1/1_0', time=317.00.
+Warning: Vehicle 'v.1' ends teleporting on edge '1/1to2/1', time=317.00.
+Warning: Teleporting vehicle 'v.2'; waited too long (jam), lane='0/1to1/1_0', time=318.00.
+Warning: Vehicle 'v.2' ends teleporting on edge '1/1to2/1', time=318.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (jam), lane='0/1to1/1_0', time=319.00.
+Warning: Vehicle 'v.3' ends teleporting on edge '1/1to2/1', time=319.00.
+Warning: Teleporting vehicle 'v.4'; waited too long (jam), lane='0/1to1/1_0', time=320.00.
+Warning: Vehicle 'v.4' ends teleporting on edge '1/1to2/1', time=320.00.
+Warning: Teleporting vehicle 'v.1'; collision with vehicle 'v.0', lane='1/1to2/1_0', gap=-0.28, time=323.00, stage=move.
+Warning: Vehicle 'v.1' teleports beyond arrival edge '1/1to2/1', time=323.00.
+Warning: Teleporting vehicle 'v.5'; waited too long (yield), lane='0/1to1/1_0', time=634.00.
+Warning: Vehicle 'v.5' ends teleporting on edge '1/1to2/1', time=634.00.
+Warning: Teleporting vehicle 'v.6'; waited too long (yield), lane='0/1to1/1_0', time=635.00.
+Warning: Vehicle 'v.6' ends teleporting on edge '1/1to2/1', time=635.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (jam), lane='1/1to2/1_0', time=637.00.
+Warning: Vehicle 'v.3' teleports beyond arrival edge '1/1to2/1', time=637.00.
+Warning: Teleporting vehicle 'v.0'; waited too long (jam), lane='1/1to2/1_0', time=638.00.
+Warning: Vehicle 'v.0' teleports beyond arrival edge '1/1to2/1', time=638.00.
+Warning: Teleporting vehicle 'v.7'; waited too long (yield), lane='0/1to1/1_0', time=638.00.
+Warning: Vehicle 'v.7' ends teleporting on edge '1/1to2/1', time=638.00.
+Warning: Teleporting vehicle 'v.8'; waited too long (yield), lane='0/1to1/1_0', time=639.00.
+Warning: Vehicle 'v.8' ends teleporting on edge '1/1to2/1', time=639.00.
+Warning: Teleporting vehicle 'v.9'; waited too long (yield), lane='0/1to1/1_0', time=953.00.
+Warning: Vehicle 'v.9' ends teleporting on edge '1/1to2/1', time=953.00.
+Warning: Teleporting vehicle 'v.8'; waited too long (jam), lane='1/1to2/1_0', time=958.00.
+Warning: Vehicle 'v.8' teleports beyond arrival edge '1/1to2/1', time=958.00.
+Warning: Teleporting vehicle 'v.7'; waited too long (jam), lane='1/1to2/1_0', time=959.00.
+Warning: Vehicle 'v.7' teleports beyond arrival edge '1/1to2/1', time=959.00.
+Warning: Teleporting vehicle 'v.9'; waited too long (jam), lane='1/1to2/1_0', time=1254.00.
+Warning: Vehicle 'v.9' teleports beyond arrival edge '1/1to2/1', time=1254.00.
+Warning: Teleporting vehicle 'v.6'; waited too long (jam), lane='1/1to2/1_0', time=1255.00.
+Warning: Vehicle 'v.6' teleports beyond arrival edge '1/1to2/1', time=1255.00.
+Warning: Teleporting vehicle 'v.2'; waited too long (jam), lane='1/1to2/1_0', time=1256.00.
+Warning: Vehicle 'v.2' teleports beyond arrival edge '1/1to2/1', time=1256.00.
+Warning: Teleporting vehicle 'v.5'; waited too long (jam), lane='1/1to2/1_0', time=1257.00.
+Warning: Vehicle 'v.5' teleports beyond arrival edge '1/1to2/1', time=1257.00.
+Warning: Teleporting vehicle 'v.4'; waited too long (jam), lane='1/1to2/1_0', time=1258.00.
+Warning: Vehicle 'v.4' teleports beyond arrival edge '1/1to2/1', time=1258.00.
+Warning: Teleporting vehicle 'v.0'; waited too long (jam), lane='0/1to1/1_0', time=314.00.
+Warning: Vehicle 'v.0' ends teleporting on edge '1/1to2/1', time=314.00.
+Warning: Teleporting vehicle 'v.1'; waited too long (jam), lane='0/1to1/1_0', time=317.00.
+Warning: Vehicle 'v.1' ends teleporting on edge '1/1to2/1', time=317.00.
+Warning: Teleporting vehicle 'v.2'; waited too long (jam), lane='0/1to1/1_0', time=318.00.
+Warning: Vehicle 'v.2' ends teleporting on edge '1/1to2/1', time=318.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (jam), lane='0/1to1/1_0', time=319.00.
+Warning: Vehicle 'v.3' ends teleporting on edge '1/1to2/1', time=319.00.
+Warning: Teleporting vehicle 'v.4'; waited too long (jam), lane='0/1to1/1_0', time=320.00.
+Warning: Vehicle 'v.4' ends teleporting on edge '1/1to2/1', time=320.00.
+Warning: Teleporting vehicle 'v.1'; collision with vehicle 'v.0', lane='1/1to2/1_0', gap=-0.28, time=323.00, stage=move.
+Warning: Vehicle 'v.1' teleports beyond arrival edge '1/1to2/1', time=323.00.
+Warning: Teleporting vehicle 'v.5'; waited too long (yield), lane='0/1to1/1_0', time=634.00.
+Warning: Vehicle 'v.5' ends teleporting on edge '1/1to2/1', time=634.00.
+Warning: Teleporting vehicle 'v.6'; waited too long (yield), lane='0/1to1/1_0', time=635.00.
+Warning: Vehicle 'v.6' ends teleporting on edge '1/1to2/1', time=635.00.
+Warning: Teleporting vehicle 'v.3'; waited too long (jam), lane='1/1to2/1_0', time=637.00.
+Warning: Vehicle 'v.3' teleports beyond arrival edge '1/1to2/1', time=637.00.
+Warning: Teleporting vehicle 'v.0'; waited too long (jam), lane='1/1to2/1_0', time=638.00.
+Warning: Vehicle 'v.0' teleports beyond arrival edge '1/1to2/1', time=638.00.
+Warning: Teleporting vehicle 'v.7'; waited too long (yield), lane='0/1to1/1_0', time=638.00.
+Warning: Vehicle 'v.7' ends teleporting on edge '1/1to2/1', time=638.00.
+Warning: Teleporting vehicle 'v.8'; waited too long (yield), lane='0/1to1/1_0', time=639.00.
+Warning: Vehicle 'v.8' ends teleporting on edge '1/1to2/1', time=639.00.
+Warning: Teleporting vehicle 'v.9'; waited too long (yield), lane='0/1to1/1_0', time=953.00.
+Warning: Vehicle 'v.9' ends teleporting on edge '1/1to2/1', time=953.00.
+Warning: Teleporting vehicle 'v.8'; waited too long (jam), lane='1/1to2/1_0', time=958.00.
+Warning: Vehicle 'v.8' teleports beyond arrival edge '1/1to2/1', time=958.00.
+Warning: Teleporting vehicle 'v.7'; waited too long (jam), lane='1/1to2/1_0', time=959.00.
+Warning: Vehicle 'v.7' teleports beyond arrival edge '1/1to2/1', time=959.00.
+Warning: Teleporting vehicle 'v.9'; waited too long (jam), lane='1/1to2/1_0', time=1254.00.
+Warning: Vehicle 'v.9' teleports beyond arrival edge '1/1to2/1', time=1254.00.
+Warning: Teleporting vehicle 'v.6'; waited too long (jam), lane='1/1to2/1_0', time=1255.00.
+Warning: Vehicle 'v.6' teleports beyond arrival edge '1/1to2/1', time=1255.00.
+Warning: Teleporting vehicle 'v.2'; waited too long (jam), lane='1/1to2/1_0', time=1256.00.
+Warning: Vehicle 'v.2' teleports beyond arrival edge '1/1to2/1', time=1256.00.
+Warning: Teleporting vehicle 'v.5'; waited too long (jam), lane='1/1to2/1_0', time=1257.00.
+Warning: Vehicle 'v.5' teleports beyond arrival edge '1/1to2/1', time=1257.00.
+Warning: Teleporting vehicle 'v.4'; waited too long (jam), lane='1/1to2/1_0', time=1258.00.
+Warning: Vehicle 'v.4' teleports beyond arrival edge '1/1to2/1', time=1258.00.

@@ -559,6 +559,12 @@ public:
         return myMinDecelerationRail;
     }
 
+    /// @brief return the maximum minGap for all vehicles that ever entered the network
+    double getMaxMinGap() const {
+        return myMaxMinGap;
+    }
+
+
     void adaptIntermodalRouter(MSTransportableRouter& router) const;
 
     /// @brief sets the demand scaling factor
@@ -706,6 +712,8 @@ private:
     double myMinDeceleration;
     /// @brief The minimum deceleration capability for all rail vehicles in the network
     double myMinDecelerationRail;
+    /// @brief The maximum minGap value encountered in the simulation
+    double myMaxMinGap;
 
     /// @brief List of vehicles which belong to public transport
     std::vector<SUMOVehicle*> myPTVehicles;

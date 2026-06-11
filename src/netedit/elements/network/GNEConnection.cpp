@@ -394,7 +394,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
     if (checkDrawConnection()) {
         // get connection exaggeration
-        const double connectionExaggeration = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
+        const double connectionExaggeration = s.junctionSize.getExaggeration(s, this, 1);
         // get detail level
         const auto d = s.getDetailLevel(connectionExaggeration);
         // check if draw shape superposed (used in train lanes)
@@ -743,7 +743,7 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
     // Set color
     GLHelper::setColor(connectionColor);
     // continue depending of detail level
-    if (d <= GUIVisualizationSettings::Detail::JunctionElementDetails) {
+    if ((d <= GUIVisualizationSettings::Detail::JunctionElementDetails) || (s.junctionSize.constantSizeSelected && isAttributeCarrierSelected())) {
         // draw geometry
         GLHelper::drawBoxLines(superposedGeometry.getShape(), superposedGeometry.getShapeRotations(), superposedGeometry.getShapeLengths(),
                                s.connectionSettings.connectionWidth * exaggeration);

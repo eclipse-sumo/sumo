@@ -12,3 +12,6 @@ arbitrary
 
 # test interaction of speed adaption with large bestlane-offset and insertion checks.
 insertion
+
+# see #18034
+connection_disallowed

@@ -98,6 +98,7 @@
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="device" type="deviceType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="cfmVars" type="cfmVarsType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="rem" type="remType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
@@ -149,6 +150,12 @@
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="customers" type="xsd:string" use="optional"/>
         <xsd:attribute name="reservations" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="cfmVarsType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="optional"/>
+        <!-- model specific attributes -->
     </xsd:complexType>
 
     <xsd:complexType name="remType">

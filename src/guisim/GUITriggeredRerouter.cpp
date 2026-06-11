@@ -505,7 +505,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 }
             }
 
-        } else if (myEdgeType == REROUTER_TRIGGER_EDGE) {
+        } else if (myEdgeType == REROUTER_TRIGGER_EDGE && !s.gaming) {
             // draw rerouter symbol onto all lanes
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
@@ -551,7 +551,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0);
                     glRotated(rot, 0, 0, 1);
-                    glTranslated(0, 0, getType());
+                    glTranslated(0, s.gaming ? 3 : 0, getType());
                     glScaled(exaggeration, exaggeration, 1);
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -564,13 +564,11 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     glVertex2d(0 + 0.0, 0);
                     glVertex2d(0 + w, 6);
                     glEnd();
-
-                    // draw "P"
-                    GLHelper::drawText("P", Position(0, 3.5), .1, 2, RGBColor::BLACK, 180);
-
-                    // draw Probability for this target edge
-                    GLHelper::drawText((toString((int)(routeProb * 100)) + "%").c_str(), Position(0, 5), .1, 0.7, RGBColor::BLACK, 180);
-
+                    if (!s.gaming) {
+                        GLHelper::drawText("P", Position(0, 3.5), .1, 2, RGBColor::BLACK, 180);
+                        // draw probability for this target edge
+                        GLHelper::drawText((toString((int)(routeProb * 100)) + "%").c_str(), Position(0, 5), .1, 0.7, RGBColor::BLACK, 180);
+                    }
                     GLHelper::popMatrix();
                 }
             }

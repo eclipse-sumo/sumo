@@ -154,6 +154,16 @@ private:
         /// @brief The vehicle's ACC control mode. 0 for speed control and 1 for gap control
         int ACC_ControlMode;
         SUMOTime lastUpdateTime;
+
+        /** @brief Saves the vehicle variables
+         * @param[in] out The OutputDevice to write the information into
+         */
+        void saveState(OutputDevice& out, const MSCFModel& cfm) const;
+
+        /** @brief Loads the state of the vehicle variables from the given description
+         * @param[in] attrs XML attributes describing the current state
+         */
+        void loadState(const SUMOSAXAttributes& attrs);
     };
 
 

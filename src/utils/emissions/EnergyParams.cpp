@@ -108,14 +108,13 @@ EnergyParams::~EnergyParams() {}
 
 
 void
-EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle) {
+EnergyParams::setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angleDiff) {
     if ((stopDuration >= 0 && myStopDurationSeconds < 0.) || (stopDuration < 0 && myStopDurationSeconds >= 0.)) {
         myStopDurationSeconds = STEPS2TIME(stopDuration);
         myAmParking = parking;
     }
     myWaitingTimeSeconds = STEPS2TIME(waitingTime);
-    myLastAngle = myAngle;
-    myAngle = angle;
+    myAngleDiff = angleDiff;
 }
 
 
@@ -141,7 +140,7 @@ EnergyParams::getTotalMass(const double defaultEmptyMass, const double defaultLo
 
 double
 EnergyParams::getAngleDiff() const {
-    return myLastAngle == INVALID_DOUBLE ? 0. : GeomHelper::angleDiff(myLastAngle, myAngle);
+    return myAngleDiff;
 }
 
 

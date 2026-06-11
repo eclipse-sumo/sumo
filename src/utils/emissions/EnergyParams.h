@@ -66,7 +66,7 @@ public:
      * @param[in] waitingTime the current total waiting time
      * @param[in] angle the current absolute angle of the vehicle
      */
-    void setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angle);
+    void setDynamicValues(const SUMOTime stopDuration, const bool parking, const SUMOTime waitingTime, const double angleDiff);
 
     /**@brief Sets the empty mass of the vehicle (type)
      * This is to be used by traci/libsumo
@@ -151,8 +151,7 @@ private:
     double myStopDurationSeconds = -1.;
     bool myAmParking = false;
     double myWaitingTimeSeconds = -1.;
-    double myLastAngle = INVALID_DOUBLE;
-    double myAngle = INVALID_DOUBLE;
+    double myAngleDiff = 0;
     double myTransportableMass = 0.;
 
     static const EnergyParams* myDefault;

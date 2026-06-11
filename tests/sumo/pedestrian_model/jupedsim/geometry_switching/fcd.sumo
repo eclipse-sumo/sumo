@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-10T11:46:41.956844+01:00 by Eclipse SUMO sumo v1_24_0+1357-9f1dd917abb
+<!-- generated on 2026-05-23T10:43:23.709994+01:00 by Eclipse SUMO sumo v1_27_0+0014-eb301bc99a0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,6 +29,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
         <pedestrian.model value="jupedsim"/>
     </processing>
@@ -149,7 +151,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="pf_0.9" x="101.77" y="7.63" angle="257.12" type="DEFAULT_PEDTYPE" speed="1.21" pos="8.90" edge="E1" slope="0.00"/>
         <person id="pf_0.8" x="100.25" y="7.36" angle="259.79" type="DEFAULT_PEDTYPE" speed="1.39" pos="10.44" edge="E1" slope="0.00"/>
         <person id="pf_0.15" x="91.62" y="9.27" angle="265.56" type="DEFAULT_PEDTYPE" speed="0.00" pos="19.04" edge="E1" slope="0.00"/>
-        <person id="pf_0.12" x="84.27" y="9.31" angle="235.36" type="DEFAULT_PEDTYPE" speed="1.30" pos="26.97" edge="E1" slope="0.00"/>
+        <person id="pf_0.12" x="84.07" y="9.38" angle="229.52" type="DEFAULT_PEDTYPE" speed="1.39" pos="27.17" edge="E1" slope="0.00"/>
         <person id="pf_0.11" x="81.70" y="7.72" angle="183.75" type="DEFAULT_PEDTYPE" speed="1.09" pos="29.45" edge="E1" slope="0.00"/>
         <person id="pf_0.10" x="80.59" y="6.63" angle="273.04" type="DEFAULT_PEDTYPE" speed="1.15" pos="30.49" edge="E1" slope="0.00"/>
         <person id="pf_0.14" x="79.64" y="10.01" angle="273.32" type="DEFAULT_PEDTYPE" speed="0.00" pos="31.64" edge="E1" slope="0.00"/>
@@ -295,10 +297,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="pf_0.55" x="105.02" y="10.82" angle="259.61" type="DEFAULT_PEDTYPE" speed="0.00" pos="5.12" edge="E1" slope="0.00"/>
         <person id="pf_0.54" x="104.87" y="10.19" angle="237.51" type="DEFAULT_PEDTYPE" speed="1.39" pos="5.38" edge="E1" slope="0.00"/>
         <person id="pf_0.51" x="104.07" y="10.44" angle="234.41" type="DEFAULT_PEDTYPE" speed="1.39" pos="6.12" edge="E1" slope="0.00"/>
-        <person id="pf_0.49" x="94.90" y="7.26" angle="178.98" type="DEFAULT_PEDTYPE" speed="1.39" pos="15.93" edge="E1" slope="0.00"/>
-        <person id="pf_0.53" x="92.26" y="8.97" angle="191.97" type="DEFAULT_PEDTYPE" speed="1.39" pos="18.43" edge="E1" slope="0.00"/>
+        <person id="pf_0.49" x="93.23" y="8.51" angle="231.36" type="DEFAULT_PEDTYPE" speed="1.39" pos="17.50" edge="E1" slope="0.00"/>
+        <person id="pf_0.53" x="92.26" y="8.97" angle="192.94" type="DEFAULT_PEDTYPE" speed="1.39" pos="18.43" edge="E1" slope="0.00"/>
         <person id="pf_0.47" x="91.36" y="6.57" angle="264.78" type="DEFAULT_PEDTYPE" speed="1.24" pos="19.51" edge="E1" slope="0.00"/>
-        <person id="pf_0.46" x="83.90" y="6.44" angle="272.36" type="DEFAULT_PEDTYPE" speed="1.20" pos="27.18" edge="E1" slope="0.00"/>
+        <person id="pf_0.46" x="82.35" y="7.95" angle="216.51" type="DEFAULT_PEDTYPE" speed="1.33" pos="28.81" edge="E1" slope="0.00"/>
         <person id="pf_0.56" x="75.31" y="11.41" angle="273.32" type="DEFAULT_PEDTYPE" speed="0.00" pos="36.04" edge="E1" slope="0.00"/>
         <person id="pf_0.52" x="73.28" y="9.23" angle="274.42" type="DEFAULT_PEDTYPE" speed="1.39" pos="38.37" edge="E1" slope="0.00"/>
         <person id="pf_0.50" x="70.90" y="7.67" angle="279.01" type="DEFAULT_PEDTYPE" speed="1.04" pos="40.43" edge="E1" slope="0.00"/>

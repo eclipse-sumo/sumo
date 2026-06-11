@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:01.797897+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-05-22T11:33:06.443767+01:00 by Eclipse SUMO sumo v1_27_0+0010-ad0de344202
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -47,7 +49,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-vehicle-output>
     <railSignal id="B">
         <link linkIndex="0" from="-b_0" to=":B_0_0">
-            <driveWay id="B.1"/>
+            <driveWay id="B.1">
+                <entry id="t0" time="29.00" reason="junction"/>
+                <exit id="t0" time="44.00" reason="junction"/>
+            </driveWay>
         </link>
         <link linkIndex="1" from="a_0" to=":B_1_0">
             <driveWay id="B.0"/>

@@ -1,0 +1,8 @@
+-c save_state.sumocfg
+--save-state.times 50
+--default.carfollowmodel BKerner
+: 
+-c load_state.sumocfg
+--default.carfollowmodel BKerner
+--compare tripinfo
+tests/complex/state/runner.py

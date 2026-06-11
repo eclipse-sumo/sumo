@@ -72,7 +72,7 @@ Description: Simulation of Urban MObility (SUMO), tools and scripts
  The binary contains different tools and scripts.
 
 Package: sumo-dev
-Architecture: all
+Architecture: any
 Depends: sumo
 Description: Simulation of Urban MObility (SUMO), developer headers
  SUMO is an open source,

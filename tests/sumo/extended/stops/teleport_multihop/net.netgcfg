@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <building_defaults>
         <default.lanenumber value="1"/>
         <default.speed value="10"/>
-        <default-junction-type value="traffic_light"/>
+        <default.junctions.type value="traffic_light"/>
     </building_defaults>
 
     <junctions>

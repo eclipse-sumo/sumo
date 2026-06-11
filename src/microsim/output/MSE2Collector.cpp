@@ -729,7 +729,7 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveRem
             }
 #endif
         } else {
-            assert(veh.isPerson());
+            assert(veh.isPerson() || myDetectPersons > (int)PersonMode::WALK);
         }
         return false;
     }

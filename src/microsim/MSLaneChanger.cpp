@@ -2092,7 +2092,7 @@ MSLaneChanger::getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*, 
         if (oncoming.first->getLaneChangeModel().getShadowLane() != opposite) {
             opposite = oncoming.first->getLane();
         }
-        oncoming = opposite->getFollower(oncoming.first, oncoming.first->getPositionOnLane(opposite), searchDist, mLinkMode);
+        oncoming = opposite->getFollower(oncoming.first, oncoming.first->getPositionOnLane(opposite), searchDist, mLinkMode, true);
         if (oncoming.first != nullptr) {
             gap += oncoming.second + oncoming.first->getVehicleType().getLength();
 #ifdef DEBUG_CHANGE_OPPOSITE

@@ -713,7 +713,10 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             MSVehicleRouter& router = hasReroutingDevice
                                       ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited)
                                       : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), prohibited);
-            bool ok = veh.reroute(now, getID(), router, false, false, canChangeDest, newEdge);
+            bool ok = false;
+            try {
+                ok = veh.reroute(now, getID(), router, false, false, canChangeDest, newEdge);
+            } catch (ProcessError&) {}
             if (!ok && !keepDestination && canChangeDest) {
                 // destination unreachable due to closed intermediate edges. pick among alternative targets
                 RandomDistributor<MSEdge*> edgeProbs2 = rerouteDef->edgeProbs;
@@ -724,14 +727,18 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                     if (newEdge == &mySpecialDest_terminateRoute) {
                         newEdge = veh.getEdge();
                         newArrivalPos = veh.getPositionOnLane(); // instant arrival
+                        while (veh.hasStops()) {
+                            veh.abortNextStop();
+                        }
                     }
                     if (newEdge == &mySpecialDest_keepDestination && !rerouteDef->permissionsAllowAll) {
                         newEdge = lastEdge;
                         break;
                     }
-                    ok = veh.reroute(now, getID(), router, false, false, true, newEdge);
+                    try {
+                        ok = veh.reroute(now, getID(), router, false, false, true, newEdge);
+                    } catch (ProcessError&) {}
                 }
-
             }
             resetClosedEdges(hasReroutingDevice, tObject);
             if (ok) {

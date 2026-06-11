@@ -14,6 +14,7 @@ option(ENABLE_NETEDIT "Enable build of netedit" ON)
 option(ENABLE_PYTHON_BINDINGS "Build Python Bindings" ON)
 option(ENABLE_JAVA_BINDINGS "Build Java Bindings" ON)
 option(ENABLE_CS_BINDINGS "Build C# Bindings" ON)
+option(ENABLE_C_BINDINGS "Build C Bindings" OFF)
 option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(ENABLE_TCMALLOC "Use tcmalloc if installed" ON)
 option(ENABLE_PARQUET "Compile with Parquet support" ON)
@@ -50,7 +51,14 @@ endif ()
 # the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
 cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
-set(PACKAGE_VERSION "1.27.0")
+set(PACKAGE_VERSION "git")
+
+# The command and parameters for rm / remove_directory change in cmake
+if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
+    set(remove_command "rm" "-rf")
+else()
+    set(remove_command "remove_directory")
+endif()
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -245,6 +253,7 @@ if (${CMAKE_VERSION} VERSION_LESS 3.12.0)
 else()
     # we search for Interpreter _and_ Development to make sure the versions match
     find_package(Python REQUIRED COMPONENTS Interpreter OPTIONAL_COMPONENTS Development.Module)
+    message(STATUS "Found Python: " ${Python_EXECUTABLE})
 endif()
 if (${CMAKE_VERSION} VERSION_LESS 3.18.0 AND (ENABLE_PYTHON_BINDINGS OR ENABLE_JAVA_BINDINGS OR ENABLE_CS_BINDINGS))
     message(WARNING "Language bindings require at least CMake 3.18.")
@@ -334,59 +343,66 @@ if (SUMO_LIBRARIES AND WIN32)
     # Special option for MinGW32
     message(STATUS "Using 64 bit libraries from SUMO_LIBRARIES placed in " ${SUMO_LIBRARIES})
     file(GLOB XERCES_PATH "${SUMO_LIBRARIES}/xerces-c-*")
-    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zlib-*")
+    file(GLOB ZLIB_PATH "${SUMO_LIBRARIES}/zlib-*")
     file(GLOB PROJ_PATH "${SUMO_LIBRARIES}/proj-*")
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-*")
-    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/freetype-*")
+    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/dependencies/freetype-*")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
     file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*")        # needed for Arrow
-    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*")      # needed for Arrow
-    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*")    # needed for Arrow
-    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*")  # needed for Arrow
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/lz4-*")        # needed for Arrow
+    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/zstd-*")      # needed for Arrow
+    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/bzip2-*")    # needed for Arrow
+    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/dependencies/thrift-*")  # needed for Arrow
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-*")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-*")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-*")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
+    if (MSVC_VERSION GREATER 1919)
+        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
+    endif ()
 
     # set all paths in prefix
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
+                                 "${FMT_PATH}/bin/*.dll"
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  )
     if (ENABLE_GDAL OR ENABLE_PROJ)
         file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/curl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libssh2-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/openssl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/sqlite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/curl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libssh2-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/openssl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/sqlite-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
     endif ()
     if (ENABLE_FOX)
         file(GLOB _FOX_DLLS "${FOX_PATH}/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/libpng-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/3rdPartyLibs/tiff-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/libpng-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
                             )
         list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS})
     endif ()
     if (ENABLE_GDAL)
         file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libxml2-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libiconv-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/freexl-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/libexpat-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/librttopo-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/3rdPartyLibs/minizip-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libxml2-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libiconv-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/freexl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/libexpat-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/minizip-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/pcre2-*/bin/pcre2-8*.dll"
                              "${GDAL_PATH}/bin/gdal*.exe"
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
@@ -410,10 +426,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     if (ENABLE_PARQUET)
         file(GLOB _ARROW_DLLS "${ARROW_PATH}/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/bzip2-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/thrift-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/zstd-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/3rdPartyLibs/lz4-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/thrift-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/zstd-*/bin/*.dll"
+                              "${SUMO_LIBRARIES}/dependencies/lz4-*/bin/*.dll"
                               )
         list(APPEND SUMO_LIBRARIES_DLL ${_ARROW_DLLS})
     endif ()
@@ -422,35 +438,27 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
-    if (MSVC_VERSION GREATER 1919)
-        # fmt in SUMOLibraries only works with MSVC 2019 and later
-        file(GLOB fmt_PATH "${SUMO_LIBRARIES}/fmt-*")
-    endif ()
-    if (ENABLE_GTEST)
-        # declare flag for use google test
-        set(USE_GOOGLETEST true)
-        # check if use google test
-        if (WIN32)
-            if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
-                message(STATUS "Disabled Google Test in Mingw32")
-                set(USE_GOOGLETEST false)
-            elseif(CLANG_COMPILER)
-                message(STATUS "Disabled Google Test in Clang (Windows)")
-                set(USE_GOOGLETEST false)
-            endif ()
-        endif()
-        if (USE_GOOGLETEST)
-            file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-?.??.?")
-            message(STATUS "Found Google test: " ${GTEST_ROOT})
-            include_directories("${GTEST_ROOT}/include")
-            # set both google test library
-            set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
-            # set google test DLLs
-            file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll")
-            set(GTEST_FOUND true)
+    # check if use google test
+    if (WIN32)
+        if (GNU_COMPILER AND NOT USE_MINGW_64BITS)
+            message(STATUS "Disabled Google Test in Mingw32")
+            set(ENABLE_GTEST OFF)
+        elseif(CLANG_COMPILER)
+            message(STATUS "Disabled Google Test in Clang (Windows)")
+            set(ENABLE_GTEST OFF)
         endif ()
+    endif()
+    if (ENABLE_GTEST)
+        file(GLOB GTEST_ROOT "${SUMO_LIBRARIES}/googletest-*")
+        message(STATUS "Found Google test: " ${GTEST_ROOT})
+        include_directories("${GTEST_ROOT}/include")
+        # set both google test library
+        set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
+        # set google test DLLs
+        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll" "${SUMO_LIBRARIES}/dependencies/abseil-*/bin/*.dll" "${SUMO_LIBRARIES}/dependencies/re2-*/bin/*.dll")
+        set(GTEST_FOUND true)
     endif ()
-    file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/swig.exe")
+    file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/bin/swig.exe")
     file(GLOB MVN_EXECUTABLE "${SUMO_LIBRARIES}/apache-maven-*/bin/mvn.cmd")
 else ()
     # for Linux and Mac only
@@ -499,10 +507,10 @@ endif (FREETYPE_FOUND)
 
 if (ENABLE_FMT)
     if (SUMO_LIBRARIES AND WIN32)
-        find_package(fmt PATHS ${fmt_PATH} NO_DEFAULT_PATH)
+        find_package(fmt PATHS ${FMT_PATH} NO_DEFAULT_PATH)
         if (fmt_FOUND)
             message(STATUS "Found FMT (SUMOLibraries): " ${fmt_DIR})
-            include_directories(SYSTEM "${fmt_PATH}/include")
+            include_directories(SYSTEM "${FMT_PATH}/include")
             set(FMT_LIBRARY fmt::fmt)
             set(HAVE_FMT 1)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
@@ -546,6 +554,10 @@ endif ()
 find_package(SWIG 3.0.12)
 if (SWIG_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
+    if (ENABLE_C_BINDINGS AND SWIG_VERSION VERSION_LESS 4.3)
+        message(WARNING "C language bindings require SWIG >= 4.3. Disabling C bindings.")
+        set(ENABLE_C_BINDINGS OFF)
+    endif ()
 endif ()
 
 if (ENABLE_TCMALLOC)
@@ -580,11 +592,11 @@ endif()
 # Eigen (for overhead wire / electric circuit simulation)
 if (ENABLE_EIGEN)
     find_package(Eigen3)
-    if (EIGEN3_FOUND)
-        include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+    if (EIGEN3_FOUND OR TARGET Eigen3::Eigen)
+        include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR} ${EIGEN3_PATH}/include/eigen3)
         set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
-    endif (EIGEN3_FOUND)
+    endif ()
 endif (ENABLE_EIGEN)
 
 if (ENABLE_GDAL)
@@ -691,7 +703,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
+include(GNUInstallDirs)
 if (MSVC)
+    set(CMAKE_INSTALL_LIBDIR bin)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
@@ -713,8 +727,6 @@ if (MSVC)
             FILES_MATCHING
             PATTERN "thriftmd.dll"
             PATTERN "zstd.dll")
-else ()
-    include(GNUInstallDirs)
 endif ()
 if (SKBUILD OR MSVC)
     set(DATA_PATH "")
@@ -806,6 +818,13 @@ if (SUMO_LIBRARIES AND WIN32)
             else ()
                 list(APPEND TARGET_ALL_DLLS $<$<CONFIG:Debug>:${TARGET_DLL}>)
             endif ()
+            if (DLL_BASENAME STREQUAL "z.dll")
+                set(TARGET_DLL ${TARGET_DIR}/bin/zlib.dll)
+                add_custom_command(OUTPUT ${TARGET_DLL}
+                                   COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
+                                   DEPENDS ${DLL_PATH})
+                list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
+            endif ()
         endif()
     endforeach(DLL_PATH)
     # copy OSG dlls
@@ -820,12 +839,11 @@ if (SUMO_LIBRARIES AND WIN32)
                            DEPENDS ${OSG_PLUGIN_DLL})
     endif (HAVE_OSG)
     if (PROJ_DATA_DIR)
-        # proj 7 needs to copy "share/proj" folder in SUMO_HOME/share
-        set(PROJ_DATA ${TARGET_DIR}/share/proj/proj.db)
+        # proj 7 needs to copy "share/proj" folder in SUMO_HOME/data
+        set(PROJ_DATA ${TARGET_DIR}/data/proj/proj.db)
         add_custom_command(OUTPUT ${PROJ_DATA}
-                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/share/proj
+                           COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_DATA_DIR} ${TARGET_DIR}/data/proj
                            DEPENDS ${PROJ_DATA_DIR}/proj.db)
-        install(DIRECTORY ${TARGET_DIR}/share/ DESTINATION ${DATA_PATH}share COMPONENT data)
     endif ()
 endif()
 # set install dll targets, for non-Windows they depend on nothing
