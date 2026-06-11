@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-05-28 18:02+0000\n"
+"PO-Revision-Date: 2026-06-12 20:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -676,7 +676,7 @@ msgstr ""
 
 #: src/duarouter/RODUAFrame.cpp:117 src/microsim/devices/MSDevice_Taxi.cpp:113
 msgid "Network permissions that can be accessed by taxis"
-msgstr ""
+msgstr "Autorizzazioni di rete accessibili per taxi"
 
 #: src/duarouter/RODUAFrame.cpp:127 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
@@ -1927,7 +1927,7 @@ msgstr "Salva Floating Car Data utilizzando coordinate geografiche (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:171
 msgid "Save the Floating Car Data using utm/unshifted coordinates (x/y)"
-msgstr ""
+msgstr "Salva Floating Car Data con coordinate UTM / senza spostamento (x/y)"
 
 #: src/microsim/MSFrame.cpp:173
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
@@ -3013,7 +3013,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:795
 msgid "Enable mesoscopic position interpolation"
-msgstr ""
+msgstr "Attiva interpolazione della posizione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:807
 msgid "Load visualisation settings from FILE"
