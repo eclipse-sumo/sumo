@@ -1,0 +1,6 @@
+Error: Attribute length of lane ':J1_0_0' is invalid (nan)
+Error: An unknown lane (':J1_0_0') was tried to be set as incoming to junction 'J1'.
+Error: An unknown lane (':J1_0_0') should be set as a via-lane for lane 'E1_0'.
+Error: Unknown from-edge ':J1_0' in connection.
+Error: Unknown from-node 'J1' for edge ':J1_0'.
+Quitting (on error).
