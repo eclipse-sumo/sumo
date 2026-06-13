@@ -21,7 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include <iostream>
+#include <iosfwd>
 #include <utils/common/UtilExceptions.h>
 
 
