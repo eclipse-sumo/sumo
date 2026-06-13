@@ -22,9 +22,13 @@
 #pragma once
 #include <config.h>
 #include <iostream>
-#include <random>
-#include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class SumoRNG;
 
 
 // ===========================================================================

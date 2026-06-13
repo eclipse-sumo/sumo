@@ -21,6 +21,8 @@
 
 #include "GUITextureSubSys.h"
 
+#include <cassert>
+
 #include "textures/E3.cpp"
 #include "textures/E3Selected.cpp"
 #include "textures/LaneBike.cpp"
