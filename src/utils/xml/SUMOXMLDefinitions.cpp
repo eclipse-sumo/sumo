@@ -28,6 +28,7 @@
 #include <cassert>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/Translation.h>
 
 #include "SUMOXMLDefinitions.h"
 

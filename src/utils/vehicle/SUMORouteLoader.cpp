@@ -22,6 +22,7 @@
 
 #include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/common/Translation.h>
 #include "SUMORouteHandler.h"
 #include "SUMORouteLoader.h"
 

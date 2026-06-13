@@ -24,6 +24,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/SysUtils.h>
 #include "StdDefs.h"
+#include "Translation.h"
 #include "RandHelper.h"
 
 

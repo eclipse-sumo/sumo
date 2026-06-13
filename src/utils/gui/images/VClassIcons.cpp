@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/Translation.h>
 #include <utils/foxtools/fxheader.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 

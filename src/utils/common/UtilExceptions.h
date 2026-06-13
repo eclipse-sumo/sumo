@@ -23,10 +23,9 @@
 #pragma once
 #include <config.h>
 
+#include <cassert>
 #include <string>
 #include <stdexcept>
-
-#include "Translation.h"
 
 // ===========================================================================
 // class definitions
@@ -143,8 +142,11 @@ public:
 class OutOfBoundsException : public ProcessError {
 
 public:
+    /// @brief constructor (default message: "Out Of Bounds")
+    OutOfBoundsException();
+
     /// @brief constructor
-    OutOfBoundsException(const std::string& msg = TL("Out Of Bounds"));
+    OutOfBoundsException(const std::string& msg);
 };
 
 
@@ -176,7 +178,7 @@ public:
 /// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
 #ifdef MSVC_TEST_SERVER
 #ifdef _DEBUG
-#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError(TL("should not happen"));}
+#define SOFT_ASSERT(expr) if (!(expr)) {throw ProcessError("should not happen");}
 #else
 #define SOFT_ASSERT(expr)
 #endif

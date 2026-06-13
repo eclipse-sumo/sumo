@@ -21,6 +21,7 @@
 
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/Translation.h>
 
 #include "MFXUtils.h"
 

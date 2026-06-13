@@ -22,6 +22,7 @@
 #include "GUITextureSubSys.h"
 
 #include <cassert>
+#include <utils/common/Translation.h>
 
 #include "textures/E3.cpp"
 #include "textures/E3Selected.cpp"

@@ -22,6 +22,7 @@
 
 #include <memory>
 #include "OutputFormatter.h"
+#include <utils/common/Translation.h>
 
 
 // ===========================================================================
