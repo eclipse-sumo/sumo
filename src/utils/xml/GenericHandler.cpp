@@ -78,7 +78,7 @@ GenericHandler::startElement(const XMLCh* const /*uri*/,
                              const XMLCh* const /*localname*/,
                              const XMLCh* const qname,
                              const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    std::string name = StringUtils::transcode(qname);
+    std::string name = XMLSubSys::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
         WRITE_WARNINGF(TL("Found root element '%' in file '%' (expected '%')."), name, getFileName(), myExpectedRoot);
     }
@@ -112,7 +112,7 @@ void
 GenericHandler::endElement(const XMLCh* const /*uri*/,
                            const XMLCh* const /*localname*/,
                            const XMLCh* const qname) {
-    std::string name = StringUtils::transcode(qname);
+    std::string name = XMLSubSys::transcode(qname);
     int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size() != 0) {
@@ -163,7 +163,7 @@ GenericHandler::registerParent(const int tag, GenericHandler* handler) {
 void
 GenericHandler::characters(const XMLCh* const chars, const XERCES3_SIZE_t length) {
     if (myCollectCharacterData) {
-        myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
+        myCharactersVector.push_back(XMLSubSys::transcode(chars, (int)length));
     }
 }
 

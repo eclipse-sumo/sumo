@@ -28,6 +28,7 @@
 #include <foreign/zstr/zstr.hpp>
 #endif
 #include <utils/common/StringUtils.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/UtilExceptions.h>
 #include "OutputDevice_File.h"
 
@@ -48,7 +49,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool bin
         return;
 #endif
     }
-    const std::string& localName = StringUtils::transcodeToLocal(fullName);
+    const std::string& localName = XMLSubSys::transcodeToLocal(fullName);
     std::ios_base::openmode mode = std::ios_base::out;
     if (binary) {
         mode |= std::ios_base::binary;

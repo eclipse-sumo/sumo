@@ -18,6 +18,7 @@
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
 #include <config.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include <regex>
 
@@ -2250,13 +2251,13 @@ GNEApplicationWindowHelper::GNESumoConfigHandler::loadSumoConfig() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(mySumoConfigFile).c_str());
+        parser.parse(XMLSubSys::transcodeToLocal(mySumoConfigFile).c_str());
         // allow to load with invalid options
         if (handler.errorOccurred()) {
             WRITE_WARNING(TLF("There are invalid options in sumo configuration '%'.", mySumoConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TLF("Could not load sumo configuration '%':\n %", mySumoConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load sumo configuration '%':\n %", mySumoConfigFile, XMLSubSys::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2301,13 +2302,13 @@ GNEApplicationWindowHelper::GNENetconvertConfigHandler::loadNetconvertConfig() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(myNetconvertConfigFile).c_str());
+        parser.parse(XMLSubSys::transcodeToLocal(myNetconvertConfigFile).c_str());
         // allow to load with invalid options
         if (handler.errorOccurred()) {
             WRITE_WARNING(TLF("There are invalid options in netconvert configuration '%'.", myNetconvertConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TLF("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load netconvert configuration '%':\n %", myNetconvertConfigFile, XMLSubSys::transcode(e.getMessage())));
         return false;
     }
     // relocate files
@@ -2348,13 +2349,13 @@ GNEApplicationWindowHelper::GNENeteditConfigHandler::loadNeteditConfig() {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(myNeteditConfigFile).c_str());
+        parser.parse(XMLSubSys::transcodeToLocal(myNeteditConfigFile).c_str());
         // allow to load with invalid options
         if (handler.errorOccurred()) {
             WRITE_WARNING(TLF("There are invalid options in netedit configuration '%'.", myNeteditConfigFile));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TLF("Could not load netedit configuration '%':\n %", myNeteditConfigFile, StringUtils::transcode(e.getMessage())));
+        WRITE_ERROR(TLF("Could not load netedit configuration '%':\n %", myNeteditConfigFile, XMLSubSys::transcode(e.getMessage())));
         return false;
     }
     // relocate files

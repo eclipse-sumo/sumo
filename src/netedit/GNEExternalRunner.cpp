@@ -18,6 +18,7 @@
 // External runner for python and external tools
 /****************************************************************************/
 #include <config.h>
+#include <utils/xml/XMLSubSys.h>
 
 #ifdef HAVE_BOOST
 #ifdef _MSC_VER
@@ -180,7 +181,7 @@ GNEExternalRunner::run() {
     }
     // open process showing std::err in console
 #ifdef WIN32
-    myPipe = _popen(StringUtils::transcodeToLocal(runCommand + " 2>&1").c_str(), "r");
+    myPipe = _popen(XMLSubSys::transcodeToLocal(runCommand + " 2>&1").c_str(), "r");
 #else
     myPipe = popen((runCommand + " 2>&1").c_str(), "r");
 #endif

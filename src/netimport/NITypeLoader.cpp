@@ -67,7 +67,7 @@ NITypeLoader::load(SUMOSAXHandler& handler, const std::vector<std::string>& file
             PROGRESS_DONE_MESSAGE();
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& toCatch) {
-        exceptMsg = StringUtils::transcode(toCatch.getMessage()) + "\n  ";
+        exceptMsg = XMLSubSys::transcode(toCatch.getMessage()) + "\n  ";
         raise = true;
     } catch (const ProcessError& toCatch) {
         exceptMsg = std::string(toCatch.what()) + "\n  ";
