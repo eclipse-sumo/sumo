@@ -21,7 +21,9 @@
 #include <config.h>
 
 #include <memory>
+#include <algorithm>
 #include "OutputFormatter.h"
+#include <utils/common/ToString.h>
 #include <utils/common/Translation.h>
 
 
