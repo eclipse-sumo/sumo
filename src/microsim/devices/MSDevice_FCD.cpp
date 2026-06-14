@@ -51,6 +51,7 @@ bool MSDevice_FCD::myEdgeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterInitialized(false);
 bool MSDevice_FCD::myShapeFilterDesired(false);
 SumoXMLAttrMask MSDevice_FCD::myWrittenAttributes;
+bool MSDevice_FCD::mySkipEmpty(false);
 
 
 // ===========================================================================
@@ -173,6 +174,7 @@ MSDevice_FCD::initOnce() {
     myMaxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
     myParamsToWrite = oc.getStringVector("fcd-output.params");
     myRadius = oc.getFloat("device.fcd.radius");
+    mySkipEmpty = oc.getBool("fcd-output.skip-empty");
     if (oc.isSet("fcd-output.filter-edges.input-file")) {
         const std::string file = oc.getString("fcd-output.filter-edges.input-file");
         std::ifstream strm(file.c_str());

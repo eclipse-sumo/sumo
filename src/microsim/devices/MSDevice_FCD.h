@@ -115,6 +115,10 @@ public:
         return myWrittenAttributes;
     }
 
+    static inline bool skipEmpty() {
+        return mySkipEmpty;
+    }
+
     /// @brief initialize edge filter and attribute mask (once)
     static void initOnce();
 
@@ -158,6 +162,9 @@ private:
     /// @brief bit mask for checking attributes to be written
     static SumoXMLAttrMask myWrittenAttributes;
     static SumoXMLAttrMask getDefaultMask();
+
+    /// @brief whether time steps without vehicles will generate output
+    static bool mySkipEmpty;
 
 private:
     /// @brief Invalidated copy constructor.
