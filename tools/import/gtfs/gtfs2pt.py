@@ -39,7 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible, PRACTIVAL_INFINITY  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
