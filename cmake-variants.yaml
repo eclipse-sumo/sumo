@@ -1,27 +1,19 @@
 buildType:
-  default: release
+  default: Release
   choices:
-    release:
+    Release:
       short: Release
       long: Release
       buildType: Release
       settings:
         CMAKE_BUILD_TYPE: Release
-    clang-debug:
-      short: clang-Debug
-      long: Debug with clang
-      buildType: Debug
-      settings:
-        CMAKE_BUILD_TYPE: Debug
-        CMAKE_C_COMPILER: clang
-        CMAKE_CXX_COMPILER: clang++
-    debug:
+    Debug:
       short: Debug
       long: Debug
       buildType: Debug
       settings:
         CMAKE_BUILD_TYPE: Debug
-    minimal:
+    Minimal:
       short: Minimal
       long: Minimal build without optional libs / GUI
       buildType: Release
@@ -33,7 +25,7 @@ buildType:
         ENABLE_CS_BINDINGS: OFF
         ENABLE_JAVA_BINDINGS: OFF
         ENABLE_PYTHON_BINDINGS: OFF
-    profiling:
+    Profiling:
       short: Profiling
       long: Profiling
       buildType: RelWithDebInfo
