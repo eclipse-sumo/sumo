@@ -348,7 +348,6 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-*")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/dependencies/freetype-*")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
-    file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
     file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/lz4-*")        # needed for Arrow
     file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/zstd-*")      # needed for Arrow
@@ -361,8 +360,9 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
     if (MSVC_VERSION GREATER 1919)
-        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        # fmt and gettext in SUMOLibraries only work with MSVC 2019 and later
         file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
+        file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     endif ()
 
     # set all paths in prefix
