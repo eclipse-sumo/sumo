@@ -358,6 +358,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
             if rid not in fixed:
                 route, indices = routes[rid]
                 routeFixed = [route[0]]
+                startIndex = 0
                 i = 1
                 for routeEdgeID in route[1:]:
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]),
@@ -370,6 +371,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                         if len(routeFixed) > len(route) // 2:
                             break
                         routeFixed = [routeEdgeID]
+                        startIndex = i
                     else:
                         added = len(path) - 2
                         if len(path) > 2:
@@ -383,6 +385,13 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                 i += added
                         routeFixed += [e.getID() for e in path[1:]]
                     i += 1
+                if startIndex > 0:
+                    for j, index in enumerate(indices):
+                        if index is not None:
+                            if index < startIndex:
+                                indices[j] = None
+                            else:
+                                indices[j] -= startIndex
                 routes[rid] = routeFixed, indices
                 fixed[rid] = [edgeMap[e] for e in routeFixed], indices
             route, indices = fixed[rid]
