@@ -16,7 +16,7 @@
 # @date    2013-10-23
 
 from __future__ import print_function
-from .miscutils import euclidean, PRACTIVAL_INFINITY
+from .miscutils import euclidean, PRACTICAL_INFINITY
 from .geomhelper import polygonOffsetWithMinimumDistanceToPoint, positionAtShapeOffset
 
 try:
@@ -188,7 +188,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                                 baseDiff = abs(lastBase + advance -
                                                path[-1].getLength() - base - airLineDist) + penalty
                                 if cost > maxGap and maxGap > 0:
-                                    pathCost = PRACTIVAL_INFINITY
+                                    pathCost = PRACTICAL_INFINITY
                                     extension = ()
                                 else:
                                     extension = (edge,)
@@ -235,7 +235,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                     minPath = minPath[cropIndex+1:]
                 result += minPath
                 # signal disconnect
-                resultDetours.append(PRACTIVAL_INFINITY)
+                resultDetours.append(PRACTICAL_INFINITY)
             else:
                 resultDetours.append(-1)
             resultIndices.append(None)
@@ -255,9 +255,9 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
             for i in result:
                 print("path:%s" % i.getID())
     # remove disconnect info if no positions where mapped after the first unmapped
-    if PRACTIVAL_INFINITY in resultDetours:
+    if PRACTICAL_INFINITY in resultDetours:
         for i, d in enumerate(resultDetours):
-            if d == PRACTIVAL_INFINITY:
+            if d == PRACTICAL_INFINITY:
                 if all([d2 == -1 for d2 in resultDetours[i + 1:]]):
                     resultDetours[i] = -1
     return result

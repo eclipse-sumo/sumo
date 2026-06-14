@@ -3579,7 +3579,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
         // get netedit config file
         auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
         // configuration
-        std::ofstream out(StringUtils::transcodeToLocal(neteditConfigFile));
+        std::ofstream out(XMLSubSys::transcodeToLocal(neteditConfigFile));
         if (out.good()) {
             const auto& neteditOptions = OptionsCont::getOptions();
             // write netedit config
@@ -3594,7 +3594,7 @@ GNEApplicationWindow::onCmdSaveNeteditConfig(FXObject* sender, FXSelector sel, v
             if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::SUMO_CONFIG)) {
                 // get SumoConfig file
                 const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
-                std::ofstream sumoCfg(StringUtils::transcodeToLocal(sumoConfigFile));
+                std::ofstream sumoCfg(XMLSubSys::transcodeToLocal(sumoConfigFile));
                 if (sumoCfg.good()) {
                     // before saving sumo config, check if force enable option junction-taz
                     if (myNet->getAttributeCarriers()->requireJunctionTazOption()) {
@@ -3707,7 +3707,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
         // get SumoConfig file
         const auto sumoConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::SUMO_CONFIG);
         // confinguration
-        std::ofstream out(StringUtils::transcodeToLocal(sumoConfigFile));
+        std::ofstream out(XMLSubSys::transcodeToLocal(sumoConfigFile));
         if (out.good()) {
             // before saving sumo config, check if force enable option junction-taz
             if (myNet->getAttributeCarriers()->requireJunctionTazOption()) {
@@ -3724,7 +3724,7 @@ GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void
                 // get netedit config file
                 auto neteditConfigFile = myFileBucketHandler->getDefaultFilename(FileBucket::Type::NETEDIT_CONFIG);
                 // configuration
-                std::ofstream neteditCfg(StringUtils::transcodeToLocal(neteditConfigFile));
+                std::ofstream neteditCfg(XMLSubSys::transcodeToLocal(neteditConfigFile));
                 if (neteditCfg.good()) {
                     // write netedit config
                     neteditOptions.writeConfiguration(neteditCfg, true, false, false, myFileBucketHandler->getDefaultFolder(FileBucket::Type::NETEDIT_CONFIG), true);

@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 #include "SUMOTime.h"
+#include "Translation.h"
 
 
 // ===========================================================================

@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/frames/GNEAttributesEditor.h>
+#include <utils/common/Translation.h>
 
 #include "GNETypeDistributionFrame.h"
 

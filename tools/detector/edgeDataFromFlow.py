@@ -52,6 +52,10 @@ def get_options(args=None):
                         help="Read detector time from the given column")
     parser.add_argument("--time-scale", type=int, default=60, dest="timescale",
                         help="Interpretation of time units in seconds (default 60)")
+    parser.add_argument("--time-format", dest="timeFormat",
+                        help="Format string for interpreting custom time values")
+    parser.add_argument("--time-offset", dest="timeOffset",
+                        help="time value to subbtract from parsed times")
     parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW", type=str,
                         help="which columns contains flows (specified via column header)", metavar="STRING")
     parser.add_argument("-b", "--begin", default=0, type=ArgumentParser.time,
@@ -84,9 +88,15 @@ def main(options):
     tMax = None
     for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
-        tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax, options.detcol, options.timecol)
+        tMin, tMax = detReader.findTimes(
+                options.flowfile, tMin, tMax,
+                options.detcol, options.timecol,
+                options.timeFormat, options.timeOffset)
         hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol,
-                                      time=options.timecol, timeVal=0, timeMax=1440)
+                                      time=options.timecol, timeVal=tMin,
+                                      timeMax=tMin + 1000,
+                                      timeFormat=options.timeFormat,
+                                      timeOffset=options.timeOffset)
         if options.verbose:
             print("flowColumn: %s hasData: %s" % (flowcol, hasData))
         readers[flowcol] = detReader
@@ -111,7 +121,10 @@ def main(options):
             for flowcol in flowcols:
                 detReader = detector.DetectorReader(options.detfile, LaneMap())
                 detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol, time=options.timecol,
-                                    timeVal=beginM, timeMax=iEndM, addDetectors=(options.detfile is None))
+                                    timeVal=beginM, timeMax=iEndM,
+                                    addDetectors=(options.detfile is None),
+                                    timeFormat=options.timeFormat,
+                                    timeOffset=options.timeOffset)
                 for edge, detData in detReader._edge2DetData.items():
                     maxFlow = 0
                     nGroups = 0

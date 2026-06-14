@@ -100,7 +100,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const /*localname*/,
                                 const XMLCh* const qname,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
-    std::string name = StringUtils::transcode(qname);
+    std::string name = XMLSubSys::transcode(qname);
     if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
         WRITE_WARNINGF(TL("Found root element '%' in file '%' (expected '%')."), name, getFileName(), myExpectedRoot);
     }
@@ -134,7 +134,7 @@ void
 GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname) {
-    std::string name = StringUtils::transcode(qname);
+    std::string name = XMLSubSys::transcode(qname);
     int element = convertTag(name);
     // collect characters
     if (myCharactersVector.size() != 0) {
@@ -186,7 +186,7 @@ void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
     if (myCollectCharacterData) {
-        myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
+        myCharactersVector.push_back(XMLSubSys::transcode(chars, (int)length));
     }
 }
 
@@ -206,12 +206,12 @@ GenericSAXHandler::buildErrorMessage(const XERCES_CPP_NAMESPACE::SAXParseExcepti
     std::ostringstream buf;
     const XMLCh* const sysId = exception.getSystemId();
     if (sysId != nullptr) {
-        const std::string url = StringUtils::transcode(sysId);
+        const std::string url = XMLSubSys::transcode(sysId);
         if (StringUtils::startsWith(url, "http:") || StringUtils::startsWith(url, "https:")) {
             buf << "Failed to read " << url << ".\n";
         }
     }
-    if (StringUtils::transcode(exception.getMessage()).find("NetAccessor") != std::string::npos) {
+    if (XMLSubSys::transcode(exception.getMessage()).find("NetAccessor") != std::string::npos) {
         buf << "No network access.\n";
     }
     if (buf.tellp() == 0) {

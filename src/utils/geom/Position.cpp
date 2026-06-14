@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include <limits>
+#include <utils/common/StdDefs.h>
 #include "GeomHelper.h"
 #include "Position.h"
 

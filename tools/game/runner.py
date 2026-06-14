@@ -214,6 +214,9 @@ def computeScoreDRT(gamename):
 
 
 def computeScoreRail(gamename):
+    for s in sumolib.xml.parse(os.path.join(BASE, "output", gamename + ".stats.xml"), "performance"):
+        if float(s.end) != parseEndTime(os.path.join(BASE, gamename + ".sumocfg")):
+            return 0, 0, False
     expectedMeanWait = 360
     rideCount = 0
     score = 0

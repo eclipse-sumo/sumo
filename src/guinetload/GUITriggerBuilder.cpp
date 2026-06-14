@@ -149,8 +149,8 @@ GUITriggerBuilder::endParkingArea() {
 void
 GUITriggerBuilder::endStoppingPlace() {
     if (myCurrentStop != nullptr) {
-        static_cast<GUINet*>(MSNet::getInstance())->registerRenderedObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
         myCurrentStop->finishedLoading();
+        static_cast<GUINet*>(MSNet::getInstance())->registerRenderedObject(dynamic_cast<GUIGlObject*>(myCurrentStop));
         myCurrentStop = nullptr;
     } else {
         throw InvalidArgument("Could not end a stopping place that is not opened.");

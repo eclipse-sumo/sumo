@@ -48,13 +48,6 @@ endif()
 # Set the temporary folder name to collect the contents for the ZIP archive
 set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
 
-# The command and parameters for rm / remove_directory change in cmake
-if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
-    set(remove_command "rm" "-rf")
-else()
-    set(remove_command "remove_directory")
-endif()
-
 ###########################################################
 # Define the custom target FMI to have all of these files
 # built (also as part of ALL - but of course this happens

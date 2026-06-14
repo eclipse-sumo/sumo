@@ -1,0 +1,15 @@
+Loading routes finished after 00:00:00
+Loading counts finished after 00:00:00
+Loaded 6 routes (6 distinct)
+input route edge count: count 6, min 4.00 (4), max 12.00 (0), mean 7.67, Q1 5.00, median 7.00, Q3 11.00
+ histogram: [(4, 1), (5, 1), (7, 2), (11, 1), (12, 1)]
+input route detector count: count 6, min 3.00 (4), max 11.00 (0), mean 6.67, Q1 4.00, median 6.00, Q3 10.00
+ histogram: [(3, 1), (4, 1), (6, 2), (10, 1), (11, 1)]
+Wrote 11 routes (6 distinct) achieving total count 64 (8.52%) at 138 locations. GEH<5 for 7.25%
+result route edge count: count 11, min 4.00 (4), max 12.00 (0), mean 6.82, Q1 5.00, median 7.00, Q3 7.00
+ histogram: [(4, 1), (5, 4), (7, 4), (11, 1), (12, 1)]
+result route detector count: count 11, min 3.00 (4), max 11.00 (0), mean 5.82, Q1 4.00, median 6.00, Q3 6.00
+ histogram: [(3, 1), (4, 4), (6, 4), (10, 1), (11, 1)]
+GEH: count 138, min 0.00 ([-58.121.42 -31] 109 109), max 40.00 ([-3 -3.180.00] 800 0), mean 15.99, Q1 11.44, median 14.77, Q3 20.89
+Warning: underflow locations: count 130, min 1.00 (('-58.121.42', '64')), max 22.00 (('3', '3.180.00')), mean 5.28, Q1 2.00, median 3.00, Q3 6.00 (total 687)
+Sampling all intervals finished after 00:00:00

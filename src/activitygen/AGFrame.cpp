@@ -30,6 +30,7 @@
 
 #include "AGFrame.h"
 #include <utils/common/StdDefs.h>
+#include <utils/common/Translation.h>
 #include <router/ROFrame.h>
 #include <duarouter/RODUAFrame.h>
 #include <utils/common/SystemFrame.h>

@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <fstream>
+#include <iostream>
 #include <utils/common/MsgHandler.h>
 
 #include "InternalTest.h"

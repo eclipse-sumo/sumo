@@ -91,13 +91,11 @@ set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
     OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
     OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
 target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
-install(TARGETS libsumocpp EXPORT SUMOConfig
-    DESTINATION bin COMPONENT runtime
+install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-export(TARGETS libsumocpp NAMESPACE SUMO:: FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
 if (SWIG_FOUND)
     include(${SWIG_USE_FILE})
@@ -114,7 +112,13 @@ if (SWIG_FOUND)
                 set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} -DHAVE_LIBSUMOGUI)
             endif()
             set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
-            set(SWIG_MODULE_libsumojni_EXTRA_DEPS ${LIBSUMO_HEADERS} libsumo_typemap.i)
+            set(SWIG_CLEAN_STAMP ${CMAKE_CURRENT_BINARY_DIR}/java.cleaned)
+            add_custom_command(OUTPUT ${SWIG_CLEAN_STAMP}
+                COMMAND ${CMAKE_COMMAND} -E ${remove_command} ${CMAKE_SWIG_OUTDIR}
+                COMMAND ${CMAKE_COMMAND} -E touch ${SWIG_CLEAN_STAMP}
+                DEPENDS libsumo.i libsumo_typemap.i ${LIBSUMO_HEADERS}
+                COMMENT "Cleaning SWIG libsumo java output directory")
+            set(SWIG_MODULE_libsumojni_EXTRA_DEPS ${SWIG_CLEAN_STAMP})
             SWIG_ADD_LIBRARY(libsumojni LANGUAGE java SOURCES libsumo.i)
             if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
@@ -123,6 +127,7 @@ if (SWIG_FOUND)
             if (MVN_EXECUTABLE)
                 ADD_CUSTOM_COMMAND(TARGET libsumojni POST_BUILD
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libsumo.Constants
+                    COMMAND ${CMAKE_COMMAND} -E ${remove_command} src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libsumo
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libsumo $<TARGET_FILE_DIR:libsumojni>

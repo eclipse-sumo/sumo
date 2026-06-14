@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-10 15:16:24.043625 by Eclipse SUMO edgeDataFromFlow.py v1_27_0+0170-8a3b990499a
+  options: -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml <doubleminus>id-column DetectorName <doubleminus>time-column Stunde <doubleminus>time-scale 1 <doubleminus>time-format %Y-%m-%dT%H:%M:%SZ <doubleminus>time-offset 2025-11-23T00:00:00Z <doubleminus>interval 3600 -b 19:0:0 -e 24:0:0 <doubleminus>verbose
+-->
+
+<data>
+    <interval id="flowdata" begin="68400" end="72000">
+        <edge id="1" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+    <interval id="flowdata" begin="72000" end="75600">
+        <edge id="1" qLKW="0" qPKW="210.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+    <interval id="flowdata" begin="75600" end="79200">
+        <edge id="1" qLKW="0" qPKW="500.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+    <interval id="flowdata" begin="79200" end="82800">
+        <edge id="1" qLKW="0" qPKW="430.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="4" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="5" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="6" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="8" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="9" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="off7" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on3" qLKW="0" qPKW="0" groups="1"/>
+        <edge id="on7" qLKW="0" qPKW="0" groups="1"/>
+    </interval>
+</data>

@@ -1051,16 +1051,16 @@ GNEAdditionalHandler::buildDestProbReroute(const CommonXMLStructure::SumoBaseObj
     // get edge
     GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(newEdgeDestinationID, false);
     // check parents
-    if (edge == nullptr) {
+    if (edge == nullptr && newEdgeDestinationID != "keepDestination" && newEdgeDestinationID != "terminateRoute") {
         return writeErrorInvalidParent(SUMO_TAG_DEST_PROB_REROUTE, "", {SUMO_TAG_EDGE}, newEdgeDestinationID);
     } else if (rerouterInterval == nullptr) {
         return writeErrorInvalidParent(SUMO_TAG_DEST_PROB_REROUTE, "", {SUMO_TAG_INTERVAL}, "");
     } else {
         // create dest probability reroute
-        GNEAdditional* destProbReroute = new GNEDestProbReroute(rerouterInterval, edge, probability);
+        GNEAdditional* destProbReroute = new GNEDestProbReroute(rerouterInterval, newEdgeDestinationID, probability);
         // add it to interval parent depending of allowUndoRedo
         if (myAllowUndoRedo) {
-            myNet->getUndoList()->begin(destProbReroute, TL("add dest prob reroute in '") + edge->getID() + "'");
+            myNet->getUndoList()->begin(destProbReroute, TL("add dest prob reroute to '") + newEdgeDestinationID + "'");
             myNet->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
             myNet->getUndoList()->end();
         } else {

@@ -49,13 +49,11 @@ set_target_properties(libtracicpp PROPERTIES FOLDER "libtraci" PREFIX ""
     OUTPUT_NAME libtracicpp${BINARY_SUFFIX}
     OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
 target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
-install(TARGETS libtracicpp EXPORT SUMOConfig
-    DESTINATION bin COMPONENT runtime
+install(TARGETS libtracicpp EXPORT SUMOConfig COMPONENT runtime
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-export(TARGETS libtracicpp NAMESPACE SUMO:: APPEND FILE "${CMAKE_BINARY_DIR}/SUMOConfig.cmake")
 
 if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
     target_link_libraries(libtracicpp PRIVATE -Wl,--whole-archive ${libtcpip} -Wl,--no-whole-archive)
@@ -75,7 +73,13 @@ if (SWIG_FOUND)
             include_directories(${JNI_INCLUDE_DIRS})
             set(CMAKE_SWIG_FLAGS -package org.eclipse.sumo.libtraci)
             set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/java)
-            set(SWIG_MODULE_libtracijni_EXTRA_DEPS ${libtraci_HEADERS} ../libsumo/libsumo_typemap.i)
+            set(SWIG_CLEAN_STAMP ${CMAKE_CURRENT_BINARY_DIR}/java.cleaned)
+            add_custom_command(OUTPUT ${SWIG_CLEAN_STAMP}
+                COMMAND ${CMAKE_COMMAND} -E ${remove_command} ${CMAKE_SWIG_OUTDIR}
+                COMMAND ${CMAKE_COMMAND} -E touch ${SWIG_CLEAN_STAMP}
+                DEPENDS libtraci.i ../libsumo/libsumo_typemap.i ${libtraci_HEADERS}
+                COMMENT "Cleaning SWIG libtraci java output directory")
+            set(SWIG_MODULE_libtracijni_EXTRA_DEPS ${SWIG_CLEAN_STAMP})
             SWIG_ADD_LIBRARY(libtracijni LANGUAGE java SOURCES libtraci.i)
             if ((GNU_COMPILER OR CLANG_COMPILER) AND NOT APPLE)
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
@@ -86,6 +90,7 @@ if (SWIG_FOUND)
             if (MVN_EXECUTABLE)
                 ADD_CUSTOM_COMMAND(TARGET libtracijni POST_BUILD
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/traci/rebuildConstants.py -o java/Constants.java -j org.eclipse.sumo.libtraci.Constants
+                    COMMAND ${CMAKE_COMMAND} -E ${remove_command} src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E make_directory src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${CMAKE_COMMAND} -E copy_directory java src/main/java/org/eclipse/sumo/libtraci
                     COMMAND ${Python_EXECUTABLE} ${SUMO_TOOLS_DIR}/build_config/pom.py libtraci $<TARGET_FILE_DIR:libtracijni>

@@ -26,7 +26,6 @@
 #include <chrono>
 #include <sstream>
 #include <iomanip>
-#include <xercesc/util/XMLString.hpp>
 #include <utils/common/StdDefs.h>
 
 
@@ -172,24 +171,6 @@ public:
     /// @brief parse a speed value with a unit
     static double parseSpeed(const std::string& sData, const bool defaultKmph = true);
 
-    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
-     * @throw an EmptyData - exception if the given pointer is 0
-     */
-    static inline std::string transcode(const XMLCh* const data) {
-        return transcode(data, (int)XERCES_CPP_NAMESPACE::XMLString::stringLen(data));
-    }
-
-    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8 considering the given length
-     * @throw EmptyData if the given pointer is 0
-     */
-    static std::string transcode(const XMLCh* const data, int length);
-
-    /// @brief convert a string from the local codepage to UTF-8
-    static std::string transcodeFromLocal(const std::string& localString);
-
-    /// @brief convert a string from UTF-8 to the local codepage
-    static std::string transcodeToLocal(const std::string& utf8String);
-
     /// @brief remove leading whitespace from string
     static std::string trim_left(const std::string s, const std::string& t = " \t\n");
 
@@ -204,9 +185,6 @@ public:
 
     /// @brief write with maximum precision if needed but remove trailing zeros
     static std::string adjustDecimalValue(double value, int precision);
-
-    /// @brief must be called when shutting down the xml subsystem
-    static void resetTranscoder();
 
     /// @brief adds a new formatted message
     // variadic function
@@ -236,6 +214,4 @@ private:
             os << *format;
         }
     }
-
-    static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
 };

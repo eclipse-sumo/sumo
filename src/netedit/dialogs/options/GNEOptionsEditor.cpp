@@ -18,6 +18,7 @@
 // A Dialog for setting options (see OptionsCont)
 /****************************************************************************/
 #include <config.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include <fstream>
 
@@ -245,7 +246,7 @@ GNEOptionsEditor::onCmdSaveOptions(FXObject*, FXSelector, void*) {
                                           GNEFileDialog::ConfigType::NETEDIT);
     // check file
     if (optionsFileDialog.getResult() == GNEDialog::Result::ACCEPT) {
-        std::ofstream out(StringUtils::transcodeToLocal(optionsFileDialog.getFilename()));
+        std::ofstream out(XMLSubSys::transcodeToLocal(optionsFileDialog.getFilename()));
         myOptionsContainer.writeConfiguration(out, true, false, false, optionsFileDialog.getFilename(), true);
         out.close();
     }
@@ -354,13 +355,13 @@ GNEOptionsEditor::loadConfiguration(const std::string& file) {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(file).c_str());
+        parser.parse(XMLSubSys::transcodeToLocal(file).c_str());
         if (handler.errorOccurred()) {
             WRITE_ERROR(TL("Could not load configuration '") + file + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + XMLSubSys::transcode(e.getMessage()));
         return false;
     }
     // write info

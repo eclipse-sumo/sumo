@@ -22,6 +22,8 @@
 #include <config.h>
 
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/Translation.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GUIIcons.h"
 #include "GUIIconSubSys.h"

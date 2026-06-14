@@ -27,6 +27,7 @@
 #include <xercesc/sax/SAXParseException.hpp>
 #include <xercesc/sax/SAXException.hpp>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
@@ -67,7 +68,7 @@ TemplateHandler::parseTemplate(OptionsCont& options, const std::string& template
             throw ProcessError(TLF("Could not load template '%'.", templateString));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load template '" + templateString + "':\n " + StringUtils::transcode(e.getMessage()));
+        throw ProcessError("Could not load template '" + templateString + "':\n " + XMLSubSys::transcode(e.getMessage()));
     }
     // mark al loaded options as default
     options.resetDefault();
@@ -85,7 +86,7 @@ TemplateHandler::~TemplateHandler() {}
 void
 TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::AttributeList& attributes) {
     // get current topic
-    myOptionName = StringUtils::transcode(name);
+    myOptionName = XMLSubSys::transcode(name);
     if (myLevel++ == 0) {
         // skip root elemnt
         return;
@@ -105,8 +106,8 @@ TemplateHandler::startElement(const XMLCh* const name, XERCES_CPP_NAMESPACE::Att
         std::string listSep = "";
         // iterate over attributes
         for (int i = 0; i < (int)attributes.getLength(); i++) {
-            const std::string attributeName = StringUtils::transcode(attributes.getName(i));
-            const std::string attributeValue = StringUtils::transcode(attributes.getValue(i));
+            const std::string attributeName = XMLSubSys::transcode(attributes.getName(i));
+            const std::string attributeValue = XMLSubSys::transcode(attributes.getValue(i));
             // check attribute name
             if (attributeName == "value") {
                 value = attributeValue;
@@ -237,7 +238,7 @@ TemplateHandler::endElement(const XMLCh* const /*name*/) {
 
 void
 TemplateHandler::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_WARNING(StringUtils::transcode(exception.getMessage()));
+    WRITE_WARNING(XMLSubSys::transcode(exception.getMessage()));
     WRITE_WARNING(" (At line/column " \
                   + toString(exception.getLineNumber() + 1) + '/' \
                   + toString(exception.getColumnNumber()) + ").");
@@ -247,7 +248,7 @@ TemplateHandler::warning(const XERCES_CPP_NAMESPACE::SAXParseException& exceptio
 
 void
 TemplateHandler::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(XMLSubSys::transcode(exception.getMessage()));
     WRITE_ERROR(" (At line/column "
                 + toString(exception.getLineNumber() + 1) + '/'
                 + toString(exception.getColumnNumber()) + ").");
@@ -257,7 +258,7 @@ TemplateHandler::error(const XERCES_CPP_NAMESPACE::SAXParseException& exception)
 
 void
 TemplateHandler::fatalError(const XERCES_CPP_NAMESPACE::SAXParseException& exception) {
-    WRITE_ERROR(StringUtils::transcode(exception.getMessage()));
+    WRITE_ERROR(XMLSubSys::transcode(exception.getMessage()));
     WRITE_ERROR(" (At line/column "
                 + toString(exception.getLineNumber() + 1) + '/'
                 + toString(exception.getColumnNumber()) + ").");

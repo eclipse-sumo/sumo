@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-10 13:05:19.422324 by Eclipse SUMO mapDetectors.py v1_27_0+0161-c28dd35b7a4
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <poi-output value="pois.add.xml"/>
+    <id-column value="customID"/>
+    <max-radius value="100.0"/>
+    <write-params value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="8032" lane="323916051#2_0" pos="44.29" file="detector.out.xml" freq="3600">
+        <param key="direction" value="N"/>
+        <param key="comment" value="example"/>
+    </inductionLoop>
+    <inductionLoop id="8026" lane="323916051#2_0" pos="12.21" file="detector.out.xml" freq="3600">
+        <param key="direction" value="S"/>
+        <param key="comment" value="example2"/>
+    </inductionLoop>
+</additional>

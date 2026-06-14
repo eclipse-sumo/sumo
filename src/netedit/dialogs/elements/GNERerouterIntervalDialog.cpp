@@ -197,10 +197,8 @@ GNERerouterIntervalDialog::DestProbReroutesList::DestProbReroutesList(GNEReroute
 
 long
 GNERerouterIntervalDialog::DestProbReroutesList::addNewElement() {
-    // get edge
-    const auto edge = myElementDialogParent->getElement()->getNet()->getAttributeCarriers()->getEdges().begin()->second;
     // create dest prob reroute
-    return insertElement(new GNEDestProbReroute(myElementDialogParent->getElement(), edge, 1));
+    return insertElement(new GNEDestProbReroute(myElementDialogParent->getElement(), "keepDestination", 1));
 }
 
 

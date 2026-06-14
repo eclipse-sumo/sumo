@@ -19,6 +19,7 @@ Warning: Stop '837696912' named 'Akeleiweg' from line '1119047' on edge '1419688
 Warning: Stop '837696524' named 'James-Franck-Straße' from line '1119047' on edge '46039050#4' is not part of the route.
 Warning: Stop '1560223236' named 'Rudower Chaussee/Wegedornstraße' from line '1119047' on edge '143308587#0' is not part of the route.
 Warning: Stop '852932398' named 'Wegedornstraße/Semmelweisstraße' from line '1119047' on edge '46150481#0' is not part of the route.
+Warning: Stop '664609173' named 'August-Froehlich-Straße' from line '1200744' on edge '145586617#0' is not part of the route downstream of the previous stop.
 Warning: Removing pt stop '588394564' on non existing edge ''.
 Warning: Removing pt stop '588394577' on non existing edge ''.
 Warning: Removing pt stop '588394578' on non existing edge ''.
@@ -39,4 +40,4 @@ Warning: 18 total messages of type: Could not find edge for parkingArea '%'.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 12 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
 Warning: 7 total messages of type: Removing pt stop '%' on non existing edge '%'.
-Warning: 12 total messages of type: Stop '%' named '%' from line '%' on edge '%' is %.
+Warning: 11 total messages of type: Stop '%' named '%' from line '%' on edge '%' is not part of the route.

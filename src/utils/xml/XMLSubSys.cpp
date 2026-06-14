@@ -23,11 +23,15 @@
 
 #include <cstdint>
 #include <xercesc/util/PlatformUtils.hpp>
+#include <xercesc/util/TransService.hpp>
+#include <xercesc/util/TranscodingException.hpp>
+#include <xercesc/util/XMLString.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/framework/XMLGrammarPoolImpl.hpp>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/UtilExceptions.h>
 #include "SUMOSAXHandler.h"
 #include "SUMOSAXReader.h"
 #include "XMLSubSys.h"
@@ -47,6 +51,7 @@ std::string XMLSubSys::myNetValidationScheme = "local";
 std::string XMLSubSys::myRouteValidationScheme = "local";
 XERCES_CPP_NAMESPACE::XMLGrammarPool* XMLSubSys::myGrammarPool = nullptr;
 bool XMLSubSys::myNeedsValidationWarning = true;
+XERCES_CPP_NAMESPACE::XMLLCPTranscoder* XMLSubSys::myLCPTranscoder = nullptr;
 
 
 // ===========================================================================
@@ -58,7 +63,7 @@ XMLSubSys::init() {
         XMLPlatformUtils::Initialize();
         myNextFreeReader = 0;
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Error during XML-initialization:\n " + StringUtils::transcode(e.getMessage()));
+        throw ProcessError("Error during XML-initialization:\n " + XMLSubSys::transcode(e.getMessage()));
     }
 }
 
@@ -124,7 +129,7 @@ XMLSubSys::close() {
     delete myGrammarPool;
     myGrammarPool = nullptr;
     XMLPlatformUtils::Terminate();
-    StringUtils::resetTranscoder();
+    myLCPTranscoder = nullptr;
 }
 
 
@@ -181,7 +186,7 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
     } catch (const std::exception& ex) {
         errorMsg = TLF("Error occurred: % while parsing '%'", ex.what(), file);
     } catch (const XERCES_CPP_NAMESPACE::SAXException& e) {
-        errorMsg = TLF("SAX error occurred while parsing '%':\n %", file, StringUtils::transcode(e.getMessage()));
+        errorMsg = TLF("SAX error occurred while parsing '%':\n %", file, XMLSubSys::transcode(e.getMessage()));
     } catch (...) {
         errorMsg = TLF("Unspecified error occurred while parsing '%'", file);
     }
@@ -193,6 +198,66 @@ XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
         }
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
+}
+
+
+std::string
+XMLSubSys::transcode(const XMLCh* const data, int length) {
+    if (data == 0) {
+        throw EmptyData();
+    }
+    if (length < 0) {
+        length = (int)XERCES_CPP_NAMESPACE::XMLString::stringLen(data);
+    }
+    if (length == 0) {
+        return "";
+    }
+#if _XERCES_VERSION < 30100
+    char* t = XERCES_CPP_NAMESPACE::XMLString::transcode(data);
+    std::string result(t);
+    XERCES_CPP_NAMESPACE::XMLString::release(&t);
+    return result;
+#else
+    try {
+        XERCES_CPP_NAMESPACE::TranscodeToStr utf8(data, "UTF-8");
+        return reinterpret_cast<const char*>(utf8.str());
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {
+        return "?";
+    }
+#endif
+}
+
+
+std::string
+XMLSubSys::transcodeFromLocal(const std::string& localString) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            return transcode(myLCPTranscoder->transcode(localString.c_str()));
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return localString;
+}
+
+
+std::string
+XMLSubSys::transcodeToLocal(const std::string& utf8String) {
+#if _XERCES_VERSION > 30100
+    try {
+        if (myLCPTranscoder == nullptr) {
+            myLCPTranscoder = XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgTransService->makeNewLCPTranscoder(XERCES_CPP_NAMESPACE::XMLPlatformUtils::fgMemoryManager);
+        }
+        if (myLCPTranscoder != nullptr) {
+            XERCES_CPP_NAMESPACE::TranscodeFromStr utf8(reinterpret_cast<const XMLByte*>(utf8String.c_str()), utf8String.size(), "UTF-8");
+            return myLCPTranscoder->transcode(utf8.str());
+        }
+    } catch (XERCES_CPP_NAMESPACE::TranscodingException&) {}
+#endif
+    return utf8String;
 }
 
 

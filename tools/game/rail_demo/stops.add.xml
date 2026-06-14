@@ -7,20 +7,26 @@
     <!-- StoppingPlaces -->
     <trainStop id="ts_1" lane="-E30.50_0" startPos="10.00" endPos="-10.00" color="187,187,52" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
     <trainStop id="ts_2" lane="E1_0" startPos="10.00" endPos="-10.00" color="0,128,0" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
-    <trainStop id="ts_3" lane="E2_0" startPos="10.00" endPos="-10.00" color="blue" personCapacity="20">
+    <trainStop id="ts_3" lane="E2_0" startPos="9.00" endPos="-10.00" color="blue" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
-    <trainStop id="ts_4" lane="-E17_0" startPos="10.00" endPos="-10.00" color="0,128,0" personCapacity="20">
+    <trainStop id="ts_4" lane="-E17_0" startPos="9.00" endPos="-10.00" color="0,128,0" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
     <trainStop id="ts_5" lane="-E18_0" startPos="10.00" endPos="-10.00" color="blue" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
     <trainStop id="ts_6" lane="E3_0" startPos="10.00" endPos="-10.00" color="187,187,52" personCapacity="20">
         <param key="waitingWidth" value="4"/>
+        <param key="waitingDepth" value="4"/>
     </trainStop>
 </additional>

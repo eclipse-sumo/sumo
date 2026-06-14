@@ -23,6 +23,8 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/StdDefs.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 

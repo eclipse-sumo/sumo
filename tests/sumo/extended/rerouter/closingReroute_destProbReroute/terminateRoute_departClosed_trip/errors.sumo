@@ -1,0 +1,4 @@
+Warning: Could not insert vehicle 'veh' on any lane of edge 'beg2left', time=10.00.
+Warning: Could not insert vehicle 'veh' on any lane of edge 'beg2left', time=11.00.
+Warning: Could not insert vehicle 'veh' on any lane of edge 'beg2left', time=12.00.
+Warning: 86390 total messages of type: Could not insert vehicle '%' on any lane of edge '%', time=%.

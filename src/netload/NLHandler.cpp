@@ -548,6 +548,17 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     const double maxSpeed = attrs.get<double>(SUMO_ATTR_SPEED, id.c_str(), ok);
     const double friction = attrs.getOpt<double>(SUMO_ATTR_FRICTION, id.c_str(), ok, (double)(1.), false);
     const double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
+    // sanity check values that could lead to crashing later on
+    if (std::isnan(length)) {
+        WRITE_ERRORF(TL("Attribute length of lane '%' is invalid (%)"), id, length);
+        myCurrentIsBroken = true;
+        return;
+    }
+    if (std::isnan(maxSpeed)) {
+        WRITE_ERRORF(TL("Attribute maxSpeed of lane '%' is invalid (%)"), id, maxSpeed);
+        myCurrentIsBroken = true;
+        return;
+    }
     const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "", false);
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
     const std::string changeLeftS = attrs.getOpt<std::string>(SUMO_ATTR_CHANGE_LEFT, id.c_str(), ok, "");

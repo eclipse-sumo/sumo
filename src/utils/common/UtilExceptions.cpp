@@ -42,6 +42,7 @@
 #endif
 
 #include "UtilExceptions.h"
+#include "Translation.h"
 
 // ===========================================================================
 // class definitions
@@ -135,6 +136,11 @@ BoolFormatException::BoolFormatException(const std::string& data) :
 // ---------------------------------------------------------------------------
 // ProcessError - methods
 // ---------------------------------------------------------------------------
+
+OutOfBoundsException::OutOfBoundsException() :
+    ProcessError(TL("Out Of Bounds")) {
+}
+
 
 OutOfBoundsException::OutOfBoundsException(const std::string& msg) :
     ProcessError(msg) {

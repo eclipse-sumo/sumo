@@ -32,42 +32,45 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
+from sumolib.statistics import Statistics  # noqa
 
 
 def get_options(args=None):
-    optParser = sumolib.options.ArgumentParser(
+    ap = sumolib.options.ArgumentParser(
         description="Map detector locations to a network and write inductionLoop-definitions")
-    optParser.add_argument("-n", "--net-file", dest="netfile", category="input", type=optParser.net_file,
-                           help="define the net file (mandatory)")
-    optParser.add_argument("-d", "--detector-file", dest="detfile", category="input", type=optParser.file,
-                           help="csv input file with detector ids and coordinates")
-    optParser.add_argument("--delimiter", default=";",
-                           help="the field separator of the detector input file")
-    optParser.add_argument("-o", "--output-file", dest="outfile", category="output", type=optParser.file,
-                           help="define the output file for generated mapped detectors")
-    optParser.add_argument("-i", "--id-column", default="id", dest="id",
-                           help="Read detector ids from the given column")
-    optParser.add_argument("-x", "--longitude-column", default="lon", dest="lon",
-                           help="Read detector x-coordinate (lon) from the given column")
-    optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
-                           help="Read detector y-coordinate (lat) from the given column")
-    optParser.add_argument("--max-radius", type=float, default="100", dest="maxRadius",
-                           help="specify maximum distance error when mapping coordinates")
-    optParser.add_argument("--vclass", default="passenger",
-                           help="only consider edges that permit the given vClass")
-    optParser.add_argument("--det-output-file", dest="detOut", default="detector.out.xml", category="output",
-                           type=optParser.file, help="Define the output file that generated detectors shall write to")
-    optParser.add_argument("--interval", default=3600, type=optParser.time,
-                           help="Define the aggregation interval of generated detectors")
-    optParser.add_argument("--write-params", action="store_true", dest="writeParams", default=False,
-                           help="Write additional columns as detector parameters")
-    optParser.add_argument('--all-lanes', dest='allLanes', action='store_true',
-                           help='If set, an induction loop is placed on each lane of the target edges.')
-    optParser.add_argument("-v", "--verbose", action="store_true", default=False,
-                           help="tell me what you are doing")
-    options = optParser.parse_args(args=args)
+    ap.add_argument("-n", "--net-file", dest="netfile", category="input", type=ap.net_file,
+                    help="define the net file (mandatory)")
+    ap.add_argument("-d", "--detector-file", dest="detfile", category="input", type=ap.file,
+                    help="csv input file with detector ids and coordinates")
+    ap.add_argument("--delimiter", default=";",
+                    help="the field separator of the detector input file")
+    ap.add_argument("-o", "--output-file", dest="outfile", category="output", type=ap.file,
+                    help="define the output file for generated mapped detectors")
+    ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
+                    help="file to write the input stop coordinates to")
+    ap.add_argument("-i", "--id-column", default="id", dest="id",
+                    help="Read detector ids from the given column")
+    ap.add_argument("-x", "--longitude-column", default="lon", dest="lon",
+                    help="Read detector x-coordinate (lon) from the given column")
+    ap.add_argument("-y", "--latitude-column", default="lat", dest="lat",
+                    help="Read detector y-coordinate (lat) from the given column")
+    ap.add_argument("--max-radius", type=float, default="100", dest="maxRadius",
+                    help="specify maximum distance error when mapping coordinates")
+    ap.add_argument("--vclass", default="passenger",
+                    help="only consider edges that permit the given vClass")
+    ap.add_argument("--det-output-file", dest="detOut", default="detector.out.xml", category="output",
+                    type=ap.file, help="Define the output file that generated detectors shall write to")
+    ap.add_argument("--interval", default=3600, type=ap.time,
+                    help="Define the aggregation interval of generated detectors")
+    ap.add_argument("--write-params", action="store_true", dest="writeParams", default=False,
+                    help="Write additional columns as detector parameters")
+    ap.add_argument('--all-lanes', dest='allLanes', action='store_true',
+                    help='If set, an induction loop is placed on each lane of the target edges.')
+    ap.add_argument("-v", "--verbose", action="store_true", default=False,
+                    help="tell me what you are doing")
+    options = ap.parse_args(args=args)
     if not options.netfile or not options.detfile or not options.outfile:
-        optParser.print_help()
+        ap.print_help()
         sys.exit(1)
 
     return options
@@ -76,7 +79,13 @@ def get_options(args=None):
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
+    mapErrors = Statistics("mappingError", printDev=True)
     seenIDs = set()
+    poutf = None
+    if options.poiOut is not None:
+        poutf = sumolib.openz(options.poiOut, 'w')
+        sumolib.writeXMLHeader(poutf, "$Id$", "additional", options=options)
+
     with sumolib.openz(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, root="additional", options=options)
         inputf = sumolib.openz(options.detfile)
@@ -100,6 +109,14 @@ def main():
             lon = float(row[options.lon])
             lat = float(row[options.lat])
             x, y = net.convertLonLat2XY(lon, lat)
+            if poutf:
+                poutf.write('    <poi id="%s" lon="%.8f" lat="%.8f">\n' % (detID, lon, lat))
+                if extraCols:
+                    for col in extraCols:
+                        poutf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (
+                            sumolib.xml.xmlescape(col),
+                            sumolib.xml.xmlescape(row[col])))
+                poutf.write('    </poi>\n')
 
             lanes = []
             radius = 0.1
@@ -113,8 +130,9 @@ def main():
                 continue
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
-            pos = min(best.getLength(),
-                      sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
+            pos, error = best.getClosestLanePosAndDist((x, y))
+            pos = min(best.getLength(), pos)
+            mapErrors.add(error, detID)
 
             commentStart, commentEnd = "", ""
             if detID in seenIDs:
@@ -145,6 +163,13 @@ def main():
 
         outf.write('</additional>\n')
         inputf.close()
+
+    if poutf:
+        poutf.write('</additional>\n')
+        poutf.close()
+
+    if options.verbose:
+        print(mapErrors)
 
 
 if __name__ == "__main__":

@@ -255,6 +255,14 @@ GeoConvHelper::init(OptionsCont& oc) {
     }
 
 #ifdef PROJ_API_FILE
+#ifdef PROJ_VERSION_MAJOR
+#ifdef WIN32
+    if (getenv("SUMO_HOME") != nullptr) {
+        const char* paths[] = { (std::string(getenv("SUMO_HOME")) + "/data/proj").c_str() };
+        proj_context_set_search_paths(PJ_DEFAULT_CTX, 1, paths);
+    }
+#endif
+#endif
     if (oc.getBool("proj.inverse") && oc.getString("proj") == "!") {
         WRITE_ERROR(TL("Inverse projection works only with explicit proj parameters."));
         return false;

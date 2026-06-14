@@ -38,6 +38,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/XMLSubSys.h>
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
 #endif
@@ -58,7 +59,7 @@ void
 OptionsIO::setArgs(int argc, char** argv) {
     myArgs.clear();
     for (int i = 0; i < argc; i++) {
-        myArgs.push_back(StringUtils::transcodeFromLocal(argv[i]));
+        myArgs.push_back(XMLSubSys::transcodeFromLocal(argv[i]));
     }
 }
 
@@ -116,12 +117,12 @@ OptionsIO::loadConfiguration() {
         try {
             parser.setDocumentHandler(&handler);
             parser.setErrorHandler(&handler);
-            parser.parse(StringUtils::transcodeToLocal(path).c_str());
+            parser.parse(XMLSubSys::transcodeToLocal(path).c_str());
             if (handler.errorOccurred()) {
                 throw ProcessError(TLF("Could not load configuration '%'.", path));
             }
         } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-            throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
+            throw ProcessError("Could not load configuration '" + path + "':\n " + XMLSubSys::transcode(e.getMessage()));
         }
         oc.relocateFiles(path);
         if (verbose) {
@@ -154,11 +155,11 @@ OptionsIO::getRoot(const std::string& filename) {
             throw ProcessError(TLF("Could not open '%'.", filename));
         }
 #ifdef HAVE_ZLIB
-        zstr::ifstream istream(StringUtils::transcodeToLocal(filename).c_str(), std::fstream::in | std::fstream::binary);
+        zstr::ifstream istream(XMLSubSys::transcodeToLocal(filename).c_str(), std::fstream::in | std::fstream::binary);
         IStreamInputSource inputStream(istream);
         const bool result = parser.parseFirst(inputStream, token);
 #else
-        const bool result = parser.parseFirst(StringUtils::transcodeToLocal(filename).c_str(), token);
+        const bool result = parser.parseFirst(XMLSubSys::transcodeToLocal(filename).c_str(), token);
 #endif
         if (!result) {
             throw ProcessError(TLF("Can not read XML-file '%'.", filename));
@@ -168,7 +169,7 @@ OptionsIO::getRoot(const std::string& filename) {
             throw ProcessError(TLF("Could not load '%'.", filename));
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        throw ProcessError("Could not load '" + filename + "':\n " + StringUtils::transcode(e.getMessage()));
+        throw ProcessError("Could not load '" + filename + "':\n " + XMLSubSys::transcode(e.getMessage()));
     }
     return handler.getItem();
 }

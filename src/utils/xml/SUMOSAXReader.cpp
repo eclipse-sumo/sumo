@@ -32,6 +32,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/XMLSubSys.h>
 #include "GenericSAXHandler.h"
 #ifdef HAVE_ZLIB
 #include <foreign/zstr/zstr.hpp>
@@ -114,10 +115,10 @@ SUMOSAXReader::parse(std::string systemID) {
     }
     ensureSAXReader();
 #ifdef HAVE_ZLIB
-    zstr::ifstream istream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary);
+    zstr::ifstream istream(XMLSubSys::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary);
     myXMLReader->parse(IStreamInputSource(istream));  // NOSONAR
 #else
-    myXMLReader->parse(StringUtils::transcodeToLocal(systemID).c_str());  // NOSONAR
+    myXMLReader->parse(XMLSubSys::transcodeToLocal(systemID).c_str());  // NOSONAR
 #endif
 }
 
@@ -141,11 +142,11 @@ SUMOSAXReader::parseFirst(std::string systemID) {
     ensureSAXReader();
     myToken = XERCES_CPP_NAMESPACE::XMLPScanToken();
 #ifdef HAVE_ZLIB
-    myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(StringUtils::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary));
+    myIStream = std::unique_ptr<zstr::ifstream>(new zstr::ifstream(XMLSubSys::transcodeToLocal(systemID).c_str(), std::fstream::in | std::fstream::binary));
     myInputStream = std::unique_ptr<IStreamInputSource>(new IStreamInputSource(*myIStream));
     return myXMLReader->parseFirst(*myInputStream, myToken);  // NOSONAR
 #else
-    return myXMLReader->parseFirst(StringUtils::transcodeToLocal(systemID).c_str(), myToken);  // NOSONAR
+    return myXMLReader->parseFirst(XMLSubSys::transcodeToLocal(systemID).c_str(), myToken);  // NOSONAR
 #endif
 }
 
@@ -213,7 +214,7 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     if (myNoOp) {
         return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
     }
-    const std::string url = StringUtils::transcode(systemId);
+    const std::string url = XMLSubSys::transcode(systemId);
     const std::string::size_type pos = url.find("/xsd/");
     if (pos != std::string::npos) {
         const char* sumoPath = std::getenv("SUMO_HOME");

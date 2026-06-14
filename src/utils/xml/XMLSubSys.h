@@ -144,6 +144,19 @@ public:
                           const bool isExternal = false, const bool catchExceptions = true);
 
 
+    /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
+     * @param[in] length number of XMLCh code units to transcode, or -1 to derive from the null-terminator
+     * @throw EmptyData if the given pointer is 0
+     */
+    static std::string transcode(const XMLCh* const data, int length = -1);
+
+    /// @brief convert a string from the local codepage to UTF-8
+    static std::string transcodeFromLocal(const std::string& localString);
+
+    /// @brief convert a string from UTF-8 to the local codepage
+    static std::string transcodeToLocal(const std::string& utf8String);
+
+
 private:
     static std::string warnLocalScheme(const std::string& newScheme, const bool haveSUMO_HOME);
 
@@ -168,5 +181,8 @@ private:
 
     /// @brief Whether a warning about missing SUMO_HOME should be emitted
     static bool myNeedsValidationWarning;
+
+    /// @brief reusable transcoder for local <-> UTF-8 conversions
+    static XERCES_CPP_NAMESPACE::XMLLCPTranscoder* myLCPTranscoder;
 
 };

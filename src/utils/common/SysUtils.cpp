@@ -19,6 +19,7 @@
 // A few system-specific functions
 /****************************************************************************/
 #include <config.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -79,7 +80,7 @@ SysUtils::runHiddenCommand(const std::string& cmd) {
     StartupInfo.wShowWindow = SW_HIDE;
 
     // "/c" option - Do the command then terminate the command window
-    std::string winCmd = "CMD.exe /c " + StringUtils::transcodeToLocal(cmd);
+    std::string winCmd = "CMD.exe /c " + XMLSubSys::transcodeToLocal(cmd);
     char* args = new char[winCmd.size() + 1];
     args[0] = 0;
     strcpy(args, winCmd.c_str());

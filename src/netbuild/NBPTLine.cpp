@@ -371,12 +371,13 @@ NBPTLine::removeInvalidEdges(const NBEdgeCont& ec) {
             auto riPrev = ri;
             ri = std::find(ri, myRoute.end(), e);
             if (ri == myRoute.end()) {
-                std::string reason = std::find(myRoute.begin(), myRoute.end(), e) == myRoute.end()
-                    ? TL("not part of the route")
-                    : TL("not part of the route downstream of the previous stop");
-
-                WRITE_WARNINGF(TL("Stop '%' named '%' from line '%' on edge '%' is %."),
-                        stop->getID(), stop->getName(), getLineID(), stop->getEdgeId(), reason);
+                if (std::find(myRoute.begin(), myRoute.end(), e) == myRoute.end()) {
+                    WRITE_WARNINGF(TL("Stop '%' named '%' from line '%' on edge '%' is not part of the route."),
+                        stop->getID(), stop->getName(), getLineID(), stop->getEdgeId());
+                } else {
+                    WRITE_WARNINGF(TL("Stop '%' named '%' from line '%' on edge '%' is not part of the route downstream of the previous stop."),
+                        stop->getID(), stop->getName(), getLineID(), stop->getEdgeId());
+                }
                 ri = riPrev;
             }
             it++;

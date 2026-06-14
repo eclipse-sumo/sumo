@@ -58,7 +58,8 @@ inline std::string toString(const T& t, std::streamsize accuracy = gPrecision) {
 template <>
 inline std::string toString(const double& val, std::streamsize accuracy) {
 #ifdef HAVE_FMT
-    return fmt::format("{:.{}f}", val, accuracy);
+    // for the runtime wrapper see https://github.com/fmtlib/fmt/issues/3107
+    return fmt::format(fmt::runtime("{:.{}f}"), val, accuracy);
 #else
     std::ostringstream oss;
     oss.setf(std::ios::fixed, std::ios::floatfield);

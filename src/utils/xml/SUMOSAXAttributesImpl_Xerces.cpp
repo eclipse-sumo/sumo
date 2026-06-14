@@ -64,7 +64,7 @@ std::string
 SUMOSAXAttributesImpl_Xerces::getString(int id, bool* isPresent) const {
     const XMLCh* const xString = getAttributeValueSecure(id);
     if (xString != nullptr) {
-        return StringUtils::transcode(getAttributeValueSecure(id));
+        return XMLSubSys::transcode(getAttributeValueSecure(id));
     }
     *isPresent = false;
     return "";
@@ -94,7 +94,7 @@ SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
 double
 SUMOSAXAttributesImpl_Xerces::getFloat(const std::string& id) const {
     XMLCh* t = XERCES_CPP_NAMESPACE::XMLString::transcode(id.c_str());
-    const std::string utf8 = StringUtils::transcode(myAttrs.getValue(t));
+    const std::string utf8 = XMLSubSys::transcode(myAttrs.getValue(t));
     XERCES_CPP_NAMESPACE::XMLString::release(&t);
     return StringUtils::toDouble(utf8);
 }
@@ -118,7 +118,7 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string& id,
     if (v == nullptr) {
         return str;
     } else {
-        return StringUtils::transcode(v);
+        return XMLSubSys::transcode(v);
     }
 }
 
@@ -134,8 +134,8 @@ SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
 void
 SUMOSAXAttributesImpl_Xerces::serialize(std::ostream& os) const {
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        os << " " << StringUtils::transcode(myAttrs.getLocalName(i));
-        os << "=\"" << StringUtils::transcode(myAttrs.getValue(i)) << "\"";
+        os << " " << XMLSubSys::transcode(myAttrs.getLocalName(i));
+        os << "=\"" << XMLSubSys::transcode(myAttrs.getValue(i)) << "\"";
     }
 }
 
@@ -144,7 +144,7 @@ std::vector<std::string>
 SUMOSAXAttributesImpl_Xerces::getAttributeNames() const {
     std::vector<std::string> result;
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        result.push_back(StringUtils::transcode(myAttrs.getLocalName(i)));
+        result.push_back(XMLSubSys::transcode(myAttrs.getLocalName(i)));
     }
     return result;
 }
@@ -154,7 +154,7 @@ SUMOSAXAttributes*
 SUMOSAXAttributesImpl_Xerces::clone() const {
     std::map<std::string, std::string> attrs;
     for (int i = 0; i < (int)myAttrs.getLength(); ++i) {
-        attrs[StringUtils::transcode(myAttrs.getLocalName(i))] = StringUtils::transcode(myAttrs.getValue(i));
+        attrs[XMLSubSys::transcode(myAttrs.getLocalName(i))] = XMLSubSys::transcode(myAttrs.getValue(i));
     }
     return new SUMOSAXAttributesImpl_Cached(attrs, myPredefinedTagsMML, getObjectType());
 }

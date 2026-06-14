@@ -683,7 +683,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
     }
     switch (dld) {
         case DepartLaneDefinition::GIVEN:
-            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
+            if ((int) myLanes->size() <= departLane || !(*myLanes)[departLane]->allowsVehicleClass(veh.getVClass())) {
                 return nullptr;
             }
             return (*myLanes)[departLane];
@@ -720,11 +720,11 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                 if (((*i).length - departPos) >= bestLength) {
                     if (isInternal()) {
                         for (MSLane* lane : *myLanes) {
-                            if (lane->getNormalSuccessorLane() == (*i).lane) {
+                            if (lane->getNormalSuccessorLane() == (*i).lane && lane->allowsVehicleClass(veh.getVClass()) ) {
                                 bestLanes->push_back(lane);
                             }
                         }
-                    } else {
+                    } else if ((*i).lane->allowsVehicleClass(veh.getVClass())) {
                         bestLanes->push_back((*i).lane);
                     }
                 }
@@ -1765,6 +1765,7 @@ MSEdge::getMesoPositions() const {
                             maxPos = MIN2(maxPos, prevPos - vehLength / lanesCovered);
                         }
                         const double entry = veh->getLastEntryTimeSeconds();
+                        assert(STEPS2TIME(earliestExitTime) > entry);
                         const double pos = MAX2(MIN2(segmentOffset + segLength * (now - entry) / (STEPS2TIME(earliestExitTime) - entry), maxPos), oldPos);
                         // check if we overlap with the previous vehicle such that the gui has the chance to add some lateral offset
                         if (overlap == 0 && prevPos - pos < vehLength) {

@@ -19,6 +19,7 @@
 /****************************************************************************/
 
 #include <netedit/GNEApplicationWindow.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SysUtils.h>
@@ -182,13 +183,13 @@ GNEPythonTool::loadConfiguration(const std::string& file) {
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
-        parser.parse(StringUtils::transcodeToLocal(file).c_str());
+        parser.parse(XMLSubSys::transcodeToLocal(file).c_str());
         if (handler.errorOccurred()) {
             WRITE_ERROR(TL("Could not load tool configuration '") + file + "'.");
             return false;
         }
     } catch (const XERCES_CPP_NAMESPACE::XMLException& e) {
-        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + StringUtils::transcode(e.getMessage()));
+        WRITE_ERROR(TL("Could not load tool configuration '") + file + "':\n " + XMLSubSys::transcode(e.getMessage()));
         return false;
     }
     // write info

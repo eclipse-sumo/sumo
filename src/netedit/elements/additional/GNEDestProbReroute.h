@@ -42,7 +42,7 @@ public:
     GNEDestProbReroute(GNENet* net);
 
     /// @brief constructor
-    GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
+    GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newEdgeDestination, double probability);
 
     /// @brief destructor
     ~GNEDestProbReroute();
@@ -172,7 +172,7 @@ public:
 
 protected:
     /// @brief id of new edge destination
-    GNEEdge* myNewEdgeDestination;
+    std::string myNewEdgeDestination;
 
     /// @brief probability with which a vehicle will use the given edge as destination
     double myProbability;

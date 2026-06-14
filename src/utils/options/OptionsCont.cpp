@@ -40,6 +40,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/xml/XMLSubSys.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include "Option.h"
 #include "OptionsIO.h"
@@ -689,7 +690,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(StringUtils::transcodeToLocal(configPath).c_str());
+        std::ofstream out(XMLSubSys::transcodeToLocal(configPath).c_str());
         if (!out.good()) {
             throw ProcessError(TLF("Could not save configuration to '%'", configPath));
         } else {
@@ -706,7 +707,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
+        std::ofstream out(XMLSubSys::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
             throw ProcessError(TLF("Could not save template to '%'", getString("save-template")));
         } else {
@@ -722,7 +723,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeSchema(std::cout);
             return true;
         }
-        std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
+        std::ofstream out(XMLSubSys::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
             throw ProcessError(TLF("Could not save schema to '%'", getString("save-schema")));
         } else {

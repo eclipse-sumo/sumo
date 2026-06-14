@@ -49,3 +49,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      # currently this only runs sumo --version but already mounts the workspace
+      # so that we can use it for running texttest (TODO)
+      - name: Smoke test
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/work" -w /work \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly \
+            sumo --version

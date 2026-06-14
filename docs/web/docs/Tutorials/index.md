@@ -64,8 +64,10 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 (a transcription is available [here](2025.md#transcription))
 
 # JuPedSim Tutorials
+* [JuPedSim Introduction](Jupedsim/JuPedSim_Intro.md)
 * [Crossing Simulation](Jupedsim/crossing-simulation.md)
 * [Definition of 2D Walkable Areas](Jupedsim/walkable_areas.md)
+* [Routing](Jupedsim/routing.md)
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"

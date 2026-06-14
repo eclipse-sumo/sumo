@@ -79,3 +79,6 @@ missing_first_param
 
 # only warn about unknown vClass (to improve upward compatibility)
 unknown_vClass
+
+# refuse loading
+nan_length

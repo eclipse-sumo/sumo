@@ -69,6 +69,9 @@ short). A detector file should look as follows:
 </detectors>
 ```
 
+!!! note
+    it is also possible to load [inductionLoop definitions](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with option **--detector-files**. This may be more convenient since they can be created with [netedit](../Netedit/index.md).
+
 This means that each detector is initially described using its id, a
 lane it is placed on, and a position on the lane. To be exact:
 

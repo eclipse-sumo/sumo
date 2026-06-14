@@ -24,6 +24,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/StdDefs.h>
+#include <utils/common/Translation.h>
 
 // ===========================================================================
 // class declarations
