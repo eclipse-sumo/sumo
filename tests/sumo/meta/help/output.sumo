@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_26_0+1384-cf32525a297
+Eclipse SUMO sumo v1_27_0+0202-1c25520502a
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -115,6 +115,8 @@ Output Options:
                                         in the FCD output
   --fcd-output.filter-shapes STR[]     List shape names that should be used to
                                         filter the FCD output
+  --fcd-output.skip-empty              Do not save data for time steps which
+                                        have no vehicles / transportables
   --person-fcd-output FILE             Save fcd for persons and container to
                                         separate FILE
   --device.ssm.filter-edges.input-file FILE  Restrict SSM device output to the

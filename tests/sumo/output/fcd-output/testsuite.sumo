@@ -87,5 +87,8 @@ emissions
 
 # filter output with shape
 shape_filter
+
+# do not print empty timesteps
+skipEmpty
 begin
 period_begin

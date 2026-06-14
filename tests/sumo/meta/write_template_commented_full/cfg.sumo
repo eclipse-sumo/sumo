@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T15:38:41.183498+01:00 by Eclipse SUMO sumo v1_26_0+1384-cf32525a297
+<!-- generated on 2026-06-14T16:37:03.261565+01:00 by Eclipse SUMO sumo v1_27_0+0202-1c25520502a
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -182,6 +182,9 @@
 
         <!-- List shape names that should be used to filter the FCD output -->
         <fcd-output.filter-shapes value="" type="STR[]"/>
+
+        <!-- Do not save data for time steps which have no vehicles / transportables -->
+        <fcd-output.skip-empty value="false" type="BOOL"/>
 
         <!-- Save fcd for persons and container to separate FILE -->
         <person-fcd-output value="" synonymes="person-fcd" type="FILE"/>
