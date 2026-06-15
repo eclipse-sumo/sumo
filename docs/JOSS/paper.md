@@ -77,6 +77,14 @@ SUMO has been designed to be useful in the assessment of a wide range of transpo
 
 SUMO also features in teaching, for example in courses at the TH Wildau, TU Munich, and the TU Berlin (all in Germany), to name but a few. Many tutorials do exist, which have also been extended in order to teach traffic modelling and simulation.
 
+# Research impact statement
+
+Since its inception in 2001, `SUMO` has established itself as one of the world's leading open-source traffic simulation platforms. It has been downloaded nearly half a million times by users from 203 countries[^1] and is maintained by DLR's core development team and an active community with more than 78k commits from over 230 contributors on GitHub, accompanied by approximately 627,000 words of online documentation. Continuous development is reflected in a regular release cycle, with up to four new versions published each year, all of which are recorded on Zenodo since 2023 ([SUMO releases](https://zenodo.org/records/20312733)). The scientific impact is demonstrated by over 13,000 citations across its five most cited publications on Google Scholar. The ecosystem is further supported by the `SUMO` conference (since 2013), which attracts around 50–100 participants annually and includes tutorials, Q&A sessions, scientific talks, posters, and workshops. Since 2018, `SUMO` has also been a project within the Eclipse Foundation.
+
+Overall, these metrics highlight SUMO's significant impact on transportation research and its role as a widely recognized platform for studying multimodal traffic operations, intelligent railway and transportation systems, as well as emerging mobility concepts.
+
+[^1]: See: [sourceforge.net/projects/sumo](https://sourceforge.net/projects/sumo/files/sumo/stats/map?dates=2002-01-13%20to%202026-06-11)
+
 # Similar and/or related packages
 
 Especially regarding transport demand and the computation of the user equilibrium, the best-known tool for this is MATSim [@MATSim:2016]. A much less developed approach which is not simulation-based can be found in @Ortmann2022. Many smaller tools may exist, for a more traffic flow optimized tooling the user is referred to Martin Treiber's [movsim](https://github.com/movsim/movsim) [@Treiber:2010], or Open Traffic Sim [@opentrafficsim]. On the other side of the spectrum, there are simulators focusing on very detailed single-vehicle models, including their sensors, such as CARLA [@Carla].
