@@ -87,6 +87,12 @@ The following example has been picked as a use case where the simulation induces
 
 ![Crash probability as function of qMajor and qMinor.\label{fig:pCrash}](pCrash-vs-qMaj-qMin.png)
 
+# AI usage disclosure
+
+In general, the SUMO code base has been and continues to be maintained by the development team over the past 25 years without the use of generative AI. That said, in recent years some AI tools have proven useful for solving individual issues and have partly replaced traditional searches on platforms such as Stack Overflow. In particular, the translation of the software into currently 17 languages by the community is probably supported by AI-based translation tools[^2]. Therefore, some degree of AI-assisted contribution to SUMO as an open-source project cannot be generally excluded.
+
+[^2]: See: [SUMO Translating](https://sumo.dlr.de/docs/Developer/Translating.html)
+
 # Acknowledgements
 
 We acknowledge financial support by the German Aerospace Center, and by multiple projects (and the related funds) that have helped a lot during the 20+ years of SUMO's development. Furthermore we thank the Eclipse Foundation for hosting the project.
