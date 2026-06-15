@@ -37,12 +37,29 @@ to set an initial value and get different but still repeatable pseudo-randomness
 
 ## Edge Probabilities
 
-The option **--fringe-factor** {{DT_FLOAT}} increases the probability that trips will start/end at the
-fringe of the network. If the value *10* is given, edges that have no
-successor or no predecessor will be 10 times more likely to be chosen as
-start- or endpoint of a trip. This is useful when modelling
-through-traffic which starts and ends at the outside of the simulated
-area.
+The tool *randomTrips* assigns three probabilities to every edge:
+- the probability of being used for departure
+- the probability of being used for arrival
+- the probability of being used as an intermediate waypoint (only if option **--intermediate** is set)
+
+A larger number of options are available for influencing these probabilities and these are described below. It is also possible to [save and load custom probabilities](#customized_weights).
+
+### Fringe-factor
+
+For most types of simulation scenarios, a significant amount of traffic is through-traffic that originates and leaves at the fringe of the network. To account for this fact,
+the option **--fringe-factor** {{DT_FLOAT}} can be used to give a relative boost in probability for edges that are classified as network fringe.
+By default, all edges without successors or without predecessors are considered as fringe.
+If the value *10* is given, edges that such edges will be 10 times more likely to be chosen as start- or endpoint of a trip.
+The special value **--fringe-factor max** may be used to force all traffic to enter and exit at the fringe.
+
+Further options relating to the fringe:
+
+ - **--fringe-speed-exponent** {{DT_FLOAT}}: can be used to further differentiate fringe edges according to the speed limit.
+ - **--fringe-threshold** {{DT_FLOAT}}: Only edges with speed above {{DT_FLOAT}} are considered as fringe
+ - **--allow-fringe**: Allow departur on edges that have no successor and arriving on edges that have no predecessor (i.e. if the scenario has a single long edge).
+ - **--fringe-junctions**: Classify edges as fringe only if the their from-junction (for departures) or to-junction (for arrivals) has set a value for attibute `fringe` ("inner" our "outer").
+
+### Further options
 
 The probabilities for selecting an edge may also be weighted by
 
@@ -127,6 +144,8 @@ starting edges and inserted with high speed on a reasonable lane.
 
 !!! note
     Quoting of trip attributes on Linux may also use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
+
+The option **--fringe-start-attributes** works in the same way as **--trip-attributes** but will only be applied to vehicles start on a [fringe edge](#fringe_factor).
 
 ### Setting a vehicle type from an external file
 
