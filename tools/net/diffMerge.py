@@ -23,7 +23,6 @@ from __future__ import print_function
 
 import sys
 import os
-from collections import defaultdict
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
@@ -78,7 +77,7 @@ def main(options):
                     target.add(o.id)
 
         allIDs = [set.union(*[deleted[i], created[i], changed[i]]) for i in [0, 1]]
-        print("%s id clashes: %s" % (type, ' '.join(allIDs[0] & allIDs[1]))) 
+        print("%s id clashes: %s" % (type, ' '.join(allIDs[0] & allIDs[1])))
 
 
 if __name__ == "__main__":
