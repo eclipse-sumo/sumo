@@ -707,7 +707,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // calculate junction contour (always before children)
             calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
             // draw Junction childs
-            drawJunctionChildren(s, d);
+            drawJunctionChildren(s);
         }
         // update drawing toggle
         *myDrawingToggle = myNet->getViewNet()->getDrawingToggle();
@@ -1882,7 +1882,7 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     // draw crossings
     for (const auto& crossing : myGNECrossings) {
         crossing->drawGL(s);
