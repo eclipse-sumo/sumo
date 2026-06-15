@@ -124,10 +124,13 @@ until the defined interval ends. This may be used to simulate traffic
 jams, caused by spontaneous road closing.
 
 !!! caution
-      When using modified permissions, it may be necessary to use the option **--ignore-route-errors** as vehicles which are inserted while the closing is active may raise a route error otherwise. Furthermore, permissions may cause emergency braking. This can be mitigated by placing [VariableSpeedSigns](../Simulation/Variable_Speed_Signs.md) ahead of the closing and slowing down traffic briefly before the closing.
+      When using modified permissions, one of the options **--ignore-route-errors** or **--device.rerouting-mode 8** must be set. Otherwise, vehicles which are inserted while the closing is active may raise a route error. Ignoring all route errors runs the risk of masking problems that are not related to rerouters, and thus mode=8 is recommended. It is also possible to set the rerouting mode with [generic parameters](GenericParameters.md).
 
 !!! caution
     When using modified permissions together with option/param **device.rerouting.mode=8**, there should be at most one rerouter definition at any one time in the simulation that contains all closings. Otherwise vehicles may loop endlessly between two closed edges (because all closings other than the current rerouter are ignored).
+
+!!! note      
+    Closing lanes or edges by setting attribute 'allow' or 'disallow' may cause emergency braking. This can be mitigated by placing [VariableSpeedSigns](../Simulation/Variable_Speed_Signs.md) ahead of the closing and slowing down traffic briefly before the closing.
 
 ## Closing a Lane
 
