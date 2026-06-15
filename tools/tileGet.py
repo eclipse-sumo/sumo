@@ -84,13 +84,18 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
 
 def gdalCmd(*args):
     """Run a GDAL command line tool, raising on failure."""
-    subprocess.check_call([str(a) for a in args],
-                          stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    env = dict(os.environ)
+    if os.name == "nt" and "SUMO_HOME" in env:
+        env["PROJ_DATA"] = os.path.join(env["SUMO_HOME"], "data", "proj")
+    subprocess.check_call([str(a) for a in args], stdout=subprocess.DEVNULL, env=env)
 
 
 def getGeoTransform(filename):
     """Return (geotransform, xsize, ysize) of a raster using gdalinfo."""
-    info = json.loads(subprocess.check_output(["gdalinfo", "-json", filename]))
+    env = dict(os.environ)
+    if os.name == "nt" and "SUMO_HOME" in env:
+        env["PROJ_DATA"] = os.path.join(env["SUMO_HOME"], "data", "proj")
+    info = json.loads(subprocess.check_output(["gdalinfo", "-json", filename], env=env))
     return info["geoTransform"], info["size"][0], info["size"][1]
 
 
@@ -330,7 +335,7 @@ def get(args=None):
     prefix = os.path.join(options.output_dir, options.prefix)
     mapQuest = "mapquest" in options.url
     with sumolib.openz(os.path.join(options.output_dir, options.decals_file), "w") as decals:
-        sumolib.xml.writeHeader(decals, root="viewsettings")
+        sumolib.xml.writeHeader(decals, root="viewsettings", options=options)
         if "MapServer" in options.url or "berlin" in options.url:
             pattern = "/{z}/{x}/{y}.png" if "berlin" in options.url else "/{z}/{y}/{x}"
             retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern)
