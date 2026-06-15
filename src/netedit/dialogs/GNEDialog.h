@@ -23,7 +23,7 @@
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/tests/InternalTestStep.h>
 
-#include "GNEDialogEnum.h"
+#include <utils/tests/DialogType.h>
 
 // ===========================================================================
 // class declarations

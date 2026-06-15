@@ -11,11 +11,14 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEDialogEnum.h
+/// @file    DialogType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2025
 ///
-// Enums for list all dialog types (used for Internal tests)
+// Enum of dialog types used by the internal test system to identify and
+// drive dialogs from the netedit GUI.  Lives in utils/tests because it
+// forms the (test-driver <-> GUI dialog) contract; netedit includes it
+// from here so that the test layer does not have to depend on netedit.
 /****************************************************************************/
 #pragma once
 #include <config.h>
