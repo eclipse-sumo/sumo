@@ -385,13 +385,13 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                 i += added
                         routeFixed += [e.getID() for e in path[1:]]
                     i += 1
-                if startIndex > 0:
-                    for j, index in enumerate(indices):
-                        if index is not None:
-                            if index < startIndex:
-                                indices[j] = None
-                            else:
-                                indices[j] -= startIndex
+                for j, index in enumerate(indices):
+                    if index is not None:
+                        newIndex = index - startIndex
+                        if 0 <= newIndex < len(routeFixed):
+                            indices[j] = newIndex
+                        else:
+                            indices[j] = None
                 routes[rid] = routeFixed, indices
                 fixed[rid] = [edgeMap[e] for e in routeFixed], indices
             route, indices = fixed[rid]
