@@ -455,6 +455,7 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     myNumVehicles--;
     myEdge.lock();
     MEVehicle* nextLeader = q.remove(v);
+    myEdge.invalidateMesoCache();
     myEdge.unlock();
     return nextLeader;
 }
@@ -694,6 +695,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
                 cars.insert(cars.begin(), veh);
             }
         }
+        myEdge.invalidateMesoCache();
         myEdge.unlock();
         myNumVehicles++;
         if (!isDepart && !isTeleport) {

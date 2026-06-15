@@ -400,6 +400,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
         for (const auto& item : getMesoPositions()) {
             const GUIMEVehicle* const veh = static_cast<const GUIMEVehicle*>(item.first);
             const GUILane* const lane = static_cast<GUILane*>((*myLanes)[veh->getQueIndex()]);
+            assert(this == &veh->getSegment()->getEdge());
             const Position p = lane->geometryPositionAtOffset(item.second.first, (double)item.second.second * 0.5);
             const double angle = lane->getShape(s.secondaryShape).rotationAtOffset(lane->interpolateLanePosToGeometryPos(item.second.first));
             veh->drawOnPos(s, p, angle);

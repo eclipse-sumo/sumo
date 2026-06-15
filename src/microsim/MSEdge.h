@@ -884,6 +884,10 @@ public:
 
     const std::map<const MEVehicle*, std::pair<double, int> >& getMesoPositions() const;
 
+    inline void invalidateMesoCache() const {
+        myLastCacheUpdate = -1;
+    }
+
 protected:
     /** @class by_id_sorter
      * @brief Sorts edges by their ids
