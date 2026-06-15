@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-10 09:43+0000\n"
+"PO-Revision-Date: 2026-06-15 19:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5284,6 +5284,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Taxi.cpp:589
 msgid "Could not add taxi stop for %, desc=% time=% error=%"
 msgstr ""
+"Für % konnte kein Taxi-Halt(Beschreibung= %, zur Zeit %, Fehler=%) "
+"hinzugefügt werden"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:625
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
@@ -10428,6 +10430,8 @@ msgid ""
 "Skipped applying OSM placement on % edge(s): % due to non-explicit one-way "
 "and % due to opposite-direction auxiliary edges."
 msgstr ""
+"Die OSM-Platzierung wurde an % Kanten wegen nicht expliziten Einbahnstraßen "
+"und an % Kanten wegen Hilfskanten der Gegenrichtung ausgelassen."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:431
 msgid "Could not insert junction '%'."
@@ -10454,17 +10458,23 @@ msgstr "Überspringe Kante '%', da sie eine Geschwindigkeit von % hat."
 #: src/netimport/NIImporter_OpenStreetMap.cpp:843
 msgid "Ignoring placement for edge '%' because lane count is invalid."
 msgstr ""
+"Die Kantenplatzierung von % wird wegen der ungültigen Fahrstreifenanzahl "
+"ignoriert."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:858
 msgid ""
 "Ignoring placement for edge '%' because lane index '%' is out of range [1, "
 "%]."
 msgstr ""
+"Die Kantenplatzierung von % wird wegen des Fahrstreifenindizes '%' außerhalb "
+"des erlaubten Intervalls [1,%] ignoriert."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:887
 msgid ""
 "Ignoring placement for edge '%' because offset shape computation failed."
 msgstr ""
+"Die Kantenplatzierung von '%' wird ignoriert, weil der versetzte Shape nicht "
+"berechnet werden konnte."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:963
 msgid ""
@@ -10574,6 +10584,8 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2168
 msgid "Ignoring unsupported placement value '%' for edge '%'."
 msgstr ""
+"Der nicht unterstütze Kantenplatzierungswert '%' von Kante '%' wird "
+"ignoriert."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2185
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -11558,6 +11570,9 @@ msgid ""
 "State was written at a different time=% than the begin time % (set option "
 "load-state.offset to force a different begin)!"
 msgstr ""
+"Der Zustand wurde zu einem Zeitpunkt % geschrieben, der sich vom Beginn % "
+"unterscheidet (aktiviere die Option load-state.offset, um einen anderen "
+"Beginn zu erzwingen)!"
 
 #: src/netload/NLBuilder.cpp:217 src/router/RONet.cpp:272
 #, c-format
