@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <iosfwd>
 #include <utils/common/Named.h>
 
 
