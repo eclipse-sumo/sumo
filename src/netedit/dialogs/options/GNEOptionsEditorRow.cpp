@@ -292,15 +292,16 @@ long
 GNEOptionsEditorRow::OptionBool::onCmdSetOption(FXObject*, FXSelector, void*) {
     myOptionsEditor->myOptionsContainer.resetWritable();
     // check if reset or set
-    if (myCheckButton->getCheck() == myOptionsEditor->myOriginalOptionsContainer.getBool(myName)) {
+    const bool check = myCheckButton->getCheck() == TRUE;
+    if (check == myOptionsEditor->myOriginalOptionsContainer.getBool(myName)) {
         myOptionsEditor->myOptionsContainer.resetDefault(myName);
-    } else if (myCheckButton->getCheck()) {
+    } else if (check) {
         myOptionsEditor->myOptionsContainer.set(myName, "true");
     } else {
         myOptionsEditor->myOptionsContainer.set(myName, "false");
     }
     // set text
-    if (myCheckButton->getCheck()) {
+    if (check) {
         myCheckButton->setText(TL("true"));
     } else {
         myCheckButton->setText(TL("false"));
