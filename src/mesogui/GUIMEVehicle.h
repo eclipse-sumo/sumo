@@ -141,6 +141,8 @@ public:
      */
     GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
+    std::string getDriveWays() const;
+
     /// @brief whether this vehicle is selected in the GUI
     bool isSelected() const override;
 

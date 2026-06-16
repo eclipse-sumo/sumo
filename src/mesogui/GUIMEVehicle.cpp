@@ -33,6 +33,7 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/devices/MSVehicleDevice.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <guisim/GUILane.h>
 
 #include "GUIMEVehicle.h"
@@ -120,6 +121,9 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getContainerNumber));
+    if (isRailway(getVClass())) {
+        ret->mkItem(TL("driveways"), true, new FunctionBindingString<GUIMEVehicle>(this, &GUIMEVehicle::getDriveWays));
+    }
     // meso specific values
     ret->mkItem("event time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getEventTimeSeconds));
     ret->mkItem("entry time [s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getLastEntryTimeSeconds));
@@ -334,6 +338,20 @@ GUIMEVehicle::getVisualPosition(bool s2, const double offset) const {
     }
     return MEVehicle::getPosition(offset);
 }
+
+
+std::string
+GUIMEVehicle::getDriveWays() const {
+    std::vector<std::string> result;
+    for (auto item : myMoveReminders) {
+        const MSDriveWay* dw = dynamic_cast<const MSDriveWay*>(item.first);
+        if (dw) {
+            result.push_back(dw->getID());
+        }
+    }
+    return StringUtils::wrapText(joinToStringSorting(result, " "), 60);
+}
+
 
 bool
 GUIMEVehicle::isSelected() const {
