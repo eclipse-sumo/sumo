@@ -1487,20 +1487,34 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->myFoes.clear();
     // check for self-intersecting forward-section in movingBlock mode
     if (movingBlock && uniqueFoes.count(dw) == 0) {
-        std::set<const MSJunction*> forwardJunctions;
-        for (const MSLane* fw : dw->myForward) {
+        std::map<const MSJunction*, std::vector<const MSLink*> > forwardJunctions;
+        int iLast = dw->myForward.size() - 1;
+        bool selfIntersect = false;
+        for (int i = 0; i < iLast && !selfIntersect; i++) {
+            const MSLane* fw = dw->myForward[i];
             if (fw->isNormal()) {
                 const MSJunction* fwTo = fw->getEdge().getToJunction();
-                if (forwardJunctions.count(fwTo) == 1) {
-                    dw->myFoes.push_back(dw);
+                const MSLink* link = fw->getLinkTo(dw->myForward[i + 1]);
+                if (link != nullptr) {
+                    for (const MSLink* link2 : forwardJunctions[fwTo]) {
+                        const std::vector<MSLink*>& foeLinks = link->getFoeLinks();
+                        const std::vector<MSLink*>& foeLinks2 = link2->getFoeLinks();
+                        if (std::find(foeLinks.begin(), foeLinks.end(), link2) != foeLinks.end()
+                                || std::find(foeLinks2.begin(), foeLinks2.end(), link) != foeLinks2.end()
+                                || link->getLane()->getBidiLane() == link2->getLaneBefore()
+                                || link2->getLane()->getBidiLane() == link->getLaneBefore()) {
+                            dw->myFoes.push_back(dw);
+                            selfIntersect = true;
 #ifdef DEBUG_ADD_FOES
-                    if (DEBUG_COND_DW(dw)) {
-                        std::cout << " self-intersecting movingBlock for dw=" << dw->getID() << "\n";
-                    }
+                            if (DEBUG_COND_DW(dw)) {
+                                std::cout << " self-intersecting movingBlock for dw=" << dw->getID() << "\n";
+                            }
 #endif
-                    break;
+                            break;
+                        }
+                    }
+                    forwardJunctions[fwTo].push_back(link);
                 }
-                forwardJunctions.insert(fwTo);
             }
         }
     }
