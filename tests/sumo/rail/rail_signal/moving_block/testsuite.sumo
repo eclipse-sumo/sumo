@@ -20,6 +20,9 @@ protect_reversal_noSignal
 protect_selfintersecting
 protect_selfintersecting2
 
+# see #18106
+not_selfintersecting
+
 # see #17623
 intermediate_insertion
 
