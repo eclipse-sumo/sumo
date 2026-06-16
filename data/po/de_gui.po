@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-06-06 08:07+0000\n"
+"PO-Revision-Date: 2026-06-16 17:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -12237,7 +12237,7 @@ msgstr "Fahrzeuge unterstützen keine Haltepunkte an Kanten"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1275
 msgid "A stop requires only either stoppingPlace, edge or lane"
-msgstr ""
+msgstr "Una fermata richiede sia un luogo di fermata, un arco o una corsia"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1277
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
@@ -14702,6 +14702,8 @@ msgstr "Fehler beim Speichern der Verbindungsoperationen"
 #, c-format
 msgid "Connection edition cannot be saved because route '%s' is broken."
 msgstr ""
+"La modifica del collegamento non può essere salvata perché l'itinerario '%s' "
+"è interrotto."
 
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:140
 msgid "Changes accepted"
@@ -15844,10 +15846,13 @@ msgstr "Präfix für finales Netz"
 #: src/netedit/tools/GNENetDiffTool.cpp:159
 msgid "Write selection files for created, deleted and changed elements"
 msgstr ""
+"Scrivi file di selezioni di elementi che sono stati creati, rimossi o "
+"cambiati"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:162
 msgid "Write shape files for created, deleted and changed elements"
 msgstr ""
+"Scrivi file di forme di elementi che sono stati creati, rimossi o cambiati"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "Write geo coordinates instead of network coordinates"
@@ -15878,10 +15883,12 @@ msgstr ""
 #: src/netedit/tools/GNENetDiffTool.cpp:184
 msgid "Comma-separated list of element names to copy (if they are unchanged)"
 msgstr ""
+"Elenco di nomi di elementi  da copiare separati da virgole (se non sono "
+"stati modificati)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:187
 msgid "Path to binaries"
-msgstr ""
+msgstr "Percorso dei programmi"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:191
 msgid "Select modified elements"
