@@ -234,6 +234,7 @@ GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr
     const bool s2 = s.secondaryShape;
     for (; i != r->end(); ++i) {
         const GUILane* lane = static_cast<GUILane*>((*i)->getLanes()[0]);
+        GLHelper::setColor(col);
         GLHelper::drawBoxLines(lane->getShape(s2), lane->getShapeRotations(s2), lane->getShapeLengths(s2), exaggeration);
         if (s.showRouteIndex) {
             std::string label = toString((int)(i - myCurrEdge));
