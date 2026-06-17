@@ -1,7 +1,7 @@
 Loading net ... done.
 Skipped until: 0.00
-Edge 'beg2left' not connected to edge 'left2end' for vehicle '0'.
-Edge 'left2end' not connected to edge 'absEnd' for vehicle '0'.
-DijkstraRouter answered 2 queries and explored 3.00 edges on average.
+Edge 'left' not connected to edge 'middle' for vehicle '0'.
+Edge 'middle' not connected to edge 'absEnd' for vehicle '0'.
+DijkstraRouter answered 3 queries and explored 3.33 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Success.
