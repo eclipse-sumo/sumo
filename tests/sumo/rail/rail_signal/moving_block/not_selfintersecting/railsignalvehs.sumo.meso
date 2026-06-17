@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-17T01:11:27.356552+01:00 by Eclipse SUMO sumo v1_27_0+0229-03224c947de
+<!-- generated on 2026-06-17T01:41:27.433301+01:00 by Eclipse SUMO sumo v1_27_0+0230-6a48ca7daf0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,9 +53,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
             <driveWay id="gneJ8.0">
                 <entry id="v0" time="56.00" reason="junction"/>
+                <entry id="v1" time="63.00" reason="junction"/>
                 <exit id="v0" time="316.00" reason="arrived"/>
-                <entry id="v1" time="317.00" reason="junction"/>
-                <exit id="v1" time="410.00" reason="arrived"/>
+                <exit id="v1" time="322.00" reason="arrived"/>
             </driveWay>
         </link>
     </railSignal>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <entry id="v0" time="1.00" reason="departed"/>
             <entry id="v1" time="20.00" reason="departed"/>
             <exit id="v0" time="56.00" reason="junction"/>
-            <exit id="v1" time="317.00" reason="junction"/>
+            <exit id="v1" time="63.00" reason="junction"/>
         </driveWay>
     </departJunction>
 </railsignal-vehicle-output>
