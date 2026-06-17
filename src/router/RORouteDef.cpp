@@ -281,10 +281,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     newEdges.push_back(*i);
                     //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
                 } else {
-                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
-                        std::cout << " beforeRepair newEdges=" << toString(newEdges) << " last=" << last->getID() << "\n";
-                    }
-
                     int numEdgesBefore = (int)newEdges.size();
                     //                router.setHint(targets.begin(), i, &veh, begin);
                     if (myTryRepair && lastMandatory < (int)newEdges.size() && last != newEdges[lastMandatory]) {
@@ -328,9 +324,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         } else if (detourFactor > 1.1) {
                             WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                         }
-                    }
-                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
-                        std::cout << " at=" << numEdgesBefore << " before=" << numEdgesBefore << " after=" << newEdges.size() << " new=" << toString(newEdges) << "\n";
                     }
                 }
             }
