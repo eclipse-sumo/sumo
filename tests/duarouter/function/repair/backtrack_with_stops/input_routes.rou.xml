@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="bus" vClass="bus"/>
+    <vehicle id="0" type="bus" depart="0">
+        <route edges="absBeg middle left absEnd"/>
+        <stop lane="absBeg_0" endPos="50" duration="10"/>
+        <stop lane="left_0" endPos="10" duration="10"/>
+    </vehicle>
+</routes>

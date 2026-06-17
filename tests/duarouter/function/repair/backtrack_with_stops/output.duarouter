@@ -1,0 +1,11 @@
+Loading net ... done.
+Skipped until: 0.00
+Removing invalid edge 'middle' from route for vehicle '0'.
+There are stop edges which were not part of the original route for vehicle '0'.
+Edge 'absBeg' not connected to edge 'absBeg' for vehicle '0'.
+Edge 'absBeg' not connected to edge 'left' for vehicle '0'.
+Edge 'left' not connected to edge 'absEnd' for vehicle '0'.
+    Taking detour of 286.74m to avoid gap of 707.11m)
+DijkstraRouter answered 3 queries and explored 2.67 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+Success.
