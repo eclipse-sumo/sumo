@@ -247,6 +247,13 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         newEdges.push_back(targets.front());
         auto nextMandatory = mandatory.begin() + 1;
+        while (targets.front() == nextMandatory->edge
+                && (nextMandatory->edge != (nextMandatory - 1)->edge
+                    || nextMandatory->pos >= (nextMandatory - 1)->pos
+                    // ignore invalid via stop pos
+                    || nextMandatory->pos < 0)) {
+            nextMandatory++;
+        }
         int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
@@ -327,7 +334,11 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     }
                 }
             }
-            if (*i == nextMandatory->edge) {
+            while (*i == nextMandatory->edge
+                    && (nextMandatory->edge != (nextMandatory - 1)->edge
+                        || nextMandatory->pos >= (nextMandatory - 1)->pos
+                        // ignore invalid via stop pos
+                        || nextMandatory->pos < 0)) {
                 nextMandatory++;
                 lastMandatory = (int)newEdges.size() - 1;
             }
