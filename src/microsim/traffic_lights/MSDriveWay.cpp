@@ -1507,7 +1507,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                             selfIntersect = true;
 #ifdef DEBUG_ADD_FOES
                             if (DEBUG_COND_DW(dw)) {
-                                std::cout << " self-intersecting movingBlock for dw=" << dw->getID() << "\n";
+                                std::cout << " self-intersecting movingBlock for dw=" << dw->getID() << " at junction " << fwTo->getID() << " link=" << link->getDescription() << " link2=" << link2->getDescription() << "\n";
                             }
 #endif
                             break;
