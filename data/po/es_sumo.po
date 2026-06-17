@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-05-11 14:32+0000\n"
+"PO-Revision-Date: 2026-06-17 07:57+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -673,7 +673,7 @@ msgstr "Sufijo a usar al crear IDs para vehículos clonados"
 
 #: src/duarouter/RODUAFrame.cpp:117 src/microsim/devices/MSDevice_Taxi.cpp:113
 msgid "Network permissions that can be accessed by taxis"
-msgstr ""
+msgstr "Permisos de la red a los que pueden acceder los taxis"
 
 #: src/duarouter/RODUAFrame.cpp:127 src/marouter/ROMAFrame.cpp:206
 msgid "Use FLOAT as Gawron's beta"
@@ -980,6 +980,9 @@ msgid ""
 "Ignoring veh '%' no-opposite subscription filter for geographic range object "
 "collection. Consider using the 'lanes' filter."
 msgstr ""
+"Ignorando el filtro de suscripción no-opposite del vehículo '%' para la "
+"recopilación de objetos dentro de un rango geográfico. Considere usar el "
+"filtro 'lanes'."
 
 #: src/libsumo/Helper.cpp:1090
 msgid ""
@@ -1010,6 +1013,8 @@ msgid ""
 "addSubscriptionFilterLateralDistance could not determine shape of lane '%' "
 "with a lateral shift of %."
 msgstr ""
+"addSubscriptionFilterLateralDistance no pudo determinar la forma del carril "
+"'%' con un desplazamiento lateral de %."
 
 #: src/libsumo/Helper.cpp:1422
 msgid "Vehicle '%' was removed though being controlled by TraCI"
@@ -1125,6 +1130,8 @@ msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
 msgstr ""
+"Ignorando el filtro de suscripción de cambio de carril con un desplazamiento "
+"hacia un carril no adyacente %."
 
 #: src/libsumo/VehicleType.cpp:339
 #, c-format
@@ -1248,6 +1255,8 @@ msgid ""
 "Use left-turn penalty FLOAT to calculate link travel time when searching "
 "routes"
 msgstr ""
+"Usar una penalización por giro a la izquierda de FLOAT para calcular el "
+"tiempo de viaje de los enlaces al buscar rutas"
 
 #: src/marouter/ROMAFrame.cpp:181
 msgid ""
@@ -1265,10 +1274,14 @@ msgstr ""
 #: src/marouter/ROMAFrame.cpp:188
 msgid "Use FLOAT as the upper bound to determine auxiliary link cost"
 msgstr ""
+"Usar FLOAT como límite superior para determinar el costo de enlaces "
+"auxiliares"
 
 #: src/marouter/ROMAFrame.cpp:192
 msgid "Use FLOAT as the lower bound to determine auxiliary link cost"
 msgstr ""
+"Usar FLOAT como límite inferior para determinar el costo de enlaces "
+"auxiliares"
 
 #: src/marouter/ROMAFrame.cpp:195
 msgid ""
@@ -1596,7 +1609,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2086 src/microsim/MSBaseVehicle.cpp:2299
 msgid "disallowed stop lane '%'"
-msgstr ""
+msgstr "carril de parada '%' no permitido"
 
 #: src/microsim/MSBaseVehicle.cpp:2105 src/microsim/MSBaseVehicle.cpp:2200
 #: src/microsim/MSBaseVehicle.cpp:2352
@@ -1909,7 +1922,7 @@ msgstr "Guardar el Floating Car Data usando coordenadas geográficas (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:171
 msgid "Save the Floating Car Data using utm/unshifted coordinates (x/y)"
-msgstr ""
+msgstr "Guardar Floating Car Data usando coordenadas UTM / sin desplazar (x/y)"
 
 #: src/microsim/MSFrame.cpp:173
 msgid "Add the vehicle signal state to the FCD output (brake lights etc.)"
@@ -2016,12 +2029,16 @@ msgstr "Guardar información de viaje de un solo vehículo en FILE"
 msgid ""
 "Write tripinfo output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Incluir en el archivo de salida tripinfo los vehículos que no hayan llegado "
+"al finalizar la simulación"
 
 #: src/microsim/MSFrame.cpp:230
 msgid ""
 "Write tripinfo output for vehicles which have not departed at simulation end "
 "because of depart delay"
 msgstr ""
+"Incluir en el archivo de salida tripinfo los vehículos que no hayan partido "
+"al finalizar la simulación debido a un retraso de salida"
 
 #: src/microsim/MSFrame.cpp:234
 msgid "Save personinfo and containerinfo to separate FILE"
@@ -2060,6 +2077,8 @@ msgstr ""
 msgid ""
 "Write vehroute output for vehicles which have not arrived at simulation end"
 msgstr ""
+"Incluir en el archivo de salida vehroute los vehículos que no hayan llegado "
+"al finalizar la simulación"
 
 #: src/microsim/MSFrame.cpp:271
 msgid "Skip vehroute output for public transport vehicles"
