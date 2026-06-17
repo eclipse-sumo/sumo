@@ -349,10 +349,10 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/dependencies/freetype-*")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/compression/lz4-*")      # needed for Arrow
-    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/compression/zstd-*")    # needed for Arrow
-    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/compression/bzip2-*")  # needed for Arrow
     file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/dependencies/thrift-*")            # needed for Arrow
+    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/compression/bzip2-*")
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/compression/lz4-*")
+    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/compression/zstd-*")
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-*")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-*")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
@@ -374,25 +374,27 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  )
+    file(GLOB _TIFF_DLLS "${SUMO_LIBRARIES}/dependencies/image/tiff-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/image/jpeg-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/image/libwebp-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/compression/xz-*/bin/*.dll"
+                         "${ZSTD_PATH}/bin/*.dll"
+                         )
     if (ENABLE_GDAL OR ENABLE_PROJ)
         file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/curl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/libssh2-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/openssl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/sqlite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/image/tiff-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/image/jpeg-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/image/libwebp-*/bin/*.dll"
                              )
-        list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
+        list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS} ${_TIFF_DLLS})
     endif ()
     if (ENABLE_FOX)
         file(GLOB _FOX_DLLS "${FOX_PATH}/bin/*.dll"
                             "${SUMO_LIBRARIES}/dependencies/compression/bzip2-*/bin/*.dll"
                             "${SUMO_LIBRARIES}/dependencies/image/libpng-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/dependencies/image/tiff-*/bin/*.dll"
                             )
-        list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS})
+        list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS} ${_TIFF_DLLS})
     endif ()
     if (ENABLE_GDAL)
         file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
@@ -404,9 +406,8 @@ if (SUMO_LIBRARIES AND WIN32)
                              "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/compression/minizip-ng-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/compression/zlib-ng-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/compression/xz-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/pcre2-*/bin/pcre2-8*.dll"
-                             "${GDAL_PATH}/bin/gdal*.exe"
+                             "${GDAL_PATH}/bin/gdal*.exe"  # for tileGet.py
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
     endif ()
@@ -429,10 +430,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     if (ENABLE_PARQUET)
         file(GLOB _ARROW_DLLS "${ARROW_PATH}/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/image/bzip2-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/thrift-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/compression/zstd-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/compression/lz4-*/bin/*.dll"
+                              "${BZIP2_PATH}/bin/*.dll"
+                              "${THRIFT_PATH}/bin/*.dll"
+                              "${ZSTD_PATH}/bin/*.dll"
+                              "${LZ4_PATH}/bin/*.dll"
                               )
         list(APPEND SUMO_LIBRARIES_DLL ${_ARROW_DLLS})
     endif ()
