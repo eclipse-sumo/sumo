@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T22:47:21.930824+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
+<!-- generated on 2026-06-17T16:31:03.831367+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,11 @@
         <save-state.rng value="true"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -23,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="500.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="20" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -97,5 +102,5 @@
     <vType id="t2" sigma="0"/>
     <vTypeDistribution id="tD" vTypes="t1 t2" probabilities="1.00 1.00"/>
     <flowState id="v" type="tD" begin="0.00" end="1000.00" period="100" departSpeed="avg" next="500.00" route="r1" done="5" index="5"/>
-    <tlLogic id="C" programID="0" phase="4" duration="5000" active="1"/>
+    <tlLogic id="C" programID="0" phase="4" duration="5000" until="528000" cycleTime="50000" active="1"/>
 </snapshot>

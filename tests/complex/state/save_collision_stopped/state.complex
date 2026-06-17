@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:30.970363+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-06-17T16:31:04.617306+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -36,7 +36,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="50.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="always_right" state="1" edges="3si 2o"/>
     <route id="horizontal" state="1" edges="1si 2o"/>
     <delay number="26" begin="100" end="0" depart="468.000" time="0.000" speedFactor="1.000" decel="4.500"/>
@@ -171,6 +171,6 @@
     <lane id="3si_0">
         <vehicles value="always_right.12 always_right.11 always_right.10 always_right.9 always_right.8 always_right.7 always_right.6 always_right.5 always_right.4"/>
     </lane>
-    <tlLogic id="0" programID="0" phase="4" duration="5000" active="0"/>
-    <tlLogic id="0" programID="freaky" phase="0" duration="50000" active="1"/>
+    <tlLogic id="0" programID="0" phase="4" duration="5000" until="76000" cycleTime="50000" active="0"/>
+    <tlLogic id="0" programID="freaky" phase="0" duration="50000" until="100000" cycleTime="50000" active="1"/>
 </snapshot>

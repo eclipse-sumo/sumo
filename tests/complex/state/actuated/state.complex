@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T22:47:23.745475+01:00 by Eclipse SUMO sumo v1_26_0+1060-3a52a1f345d
+<!-- generated on 2026-06-17T16:31:04.943391+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -19,6 +19,8 @@
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -31,7 +33,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1060-3a52a1f345d" time="104.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="104.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
-    <tlLogic id="C" programID="0" phase="1" duration="3000" active="1" state="3704.00 3704.00 3704.00 3704.00 3704.00 3704.00 3704.00 3704.00"/>
+    <tlLogic id="C" programID="0" phase="1" duration="3000" until="104000" cycleTime="8000" active="1" state="3704.00 3704.00 3704.00 3704.00 3704.00 3704.00 3704.00 3704.00"/>
 </snapshot>

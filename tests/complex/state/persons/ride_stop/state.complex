@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-20T09:06:08.161140+01:00 by Eclipse SUMO sumo v1_26_0+1678-6b9b3d63f0c
+<!-- generated on 2026-06-17T16:31:02.998117+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1678-6b9b3d63f0c" time="200.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="200.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <delay number="0" begin="1" end="1" depart="0.00" time="174.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
@@ -38,21 +38,21 @@
             <stop lane="1/1to0/1_0" endPos="400.00" duration="100.00" started="174.00" ended="-1"/>
         </person>
     </transportables>
-    <tlLogic id="0/0" programID="0" phase="2" duration="30000" active="1"/>
-    <tlLogic id="0/1" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="0/2" programID="0" phase="2" duration="30000" active="1"/>
-    <tlLogic id="1/0" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="1/1" programID="0" phase="0" duration="28000" active="1"/>
-    <tlLogic id="1/2" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="2/0" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="2/1" programID="0" phase="0" duration="28000" active="1"/>
-    <tlLogic id="2/2" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="3/0" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="3/1" programID="0" phase="0" duration="28000" active="1"/>
-    <tlLogic id="3/2" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="4/0" programID="0" phase="2" duration="30000" active="1"/>
-    <tlLogic id="4/1" programID="0" phase="4" duration="3000" active="1"/>
-    <tlLogic id="4/2" programID="0" phase="2" duration="30000" active="1"/>
+    <tlLogic id="0/0" programID="0" phase="2" duration="30000" until="201000" cycleTime="64000" active="1"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="30000" until="201000" cycleTime="64000" active="1"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="1/1" programID="0" phase="0" duration="28000" until="203000" cycleTime="28000" active="1"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="2/1" programID="0" phase="0" duration="28000" until="203000" cycleTime="28000" active="1"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="3/1" programID="0" phase="0" duration="28000" until="203000" cycleTime="28000" active="1"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="30000" until="201000" cycleTime="64000" active="1"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="3000" until="228000" cycleTime="46000" active="1"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="30000" until="201000" cycleTime="64000" active="1"/>
     <routingEngine last="199000" index="20">
         <edge id="1/1to0/1" speed="9.73" pastSpeed="10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 1.60 2.40 3.20 4.00 4.80 5.60 6.40 7.20 8.00 8.80 9.60 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00"/>
         <edge id="2/1to1/1" speed="8.43" pastSpeed="10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 5.55 1.05 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.80 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00 10.00"/>

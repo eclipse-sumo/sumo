@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:12:31.469562+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-06-17T16:28:24.079254+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,13 +18,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="35765"/>
+        <remote-port value="39731"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="10.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC"/>
     <delay number="1" begin="10" end="9" depart="0.00" time="9.00" speedFactor="1.08" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>
@@ -33,5 +33,5 @@
     <lane id="SC_0">
         <vehicles value="v.9"/>
     </lane>
-    <tlLogic id="C" programID="0" phase="0" duration="10000" active="1"/>
+    <tlLogic id="C" programID="0" phase="0" duration="10000" until="33000" cycleTime="10000" active="1"/>
 </snapshot>

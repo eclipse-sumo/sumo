@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T09:35:31.750143+01:00 by Eclipse SUMO sumo v1_26_0+1236-c2b170ebd7a
+<!-- generated on 2026-06-17T16:31:04.938202+01:00 by Eclipse SUMO sumo v1_27_0+0241-2652dfd357b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -28,7 +28,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1236-c2b170ebd7a" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_0+0241-2652dfd357b" time="20.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r0" state="1" edges="SC"/>
     <delay number="3" begin="10" end="6" depart="3.00" time="46.00" speedFactor="1.08" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" maxSpeed="5.00" sigma="0"/>
@@ -51,5 +51,5 @@
     <lane id="SC_0">
         <vehicles value="f.8 f.6 f.4"/>
     </lane>
-    <tlLogic id="C" programID="0" phase="0" duration="20000" active="1"/>
+    <tlLogic id="C" programID="0" phase="0" duration="20000" until="33000" cycleTime="20000" active="1"/>
 </snapshot>
