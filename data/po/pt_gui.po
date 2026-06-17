@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-05-30 13:01+0000\n"
-"Last-Translator: João Pedro Egidio da Silva <joao.egidio@joinville.sc.gov."
-"br>\n"
+"PO-Revision-Date: 2026-06-18 09:06+0000\n"
+"Last-Translator: sepur2025 <felipe.tiburcio@joinville.sc.gov.br>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/pt/>\n"
 "Language: pt\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -5477,7 +5476,7 @@ msgstr "Se essa aresta é parte de uma rotatória"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:864
 msgid "The name of a routingType"
-msgstr ""
+msgstr "O nome de um routingType"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:876
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
@@ -8109,7 +8108,7 @@ msgstr "O ID do tipo de container que será usado para esse container"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7106
 msgid "The position at which the container shall enter the net"
-msgstr ""
+msgstr "A posição em que o container deve entrar na rede"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7117
 #: src/netedit/GNETagPropertiesDatabase.cpp:7485
@@ -8131,11 +8130,11 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7137
 msgid "Whether a person or container or both may end the stop"
-msgstr ""
+msgstr "Se uma pessoa, um container ou ambos devem finalizar a parada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7144
 msgid "List of elements that must board the vehicle before it may continue"
-msgstr ""
+msgstr "Lista de elementos que devem abordar o veículo antes de continuar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7149
 msgid "Joins this train to another upon reaching the stop"
@@ -8143,7 +8142,7 @@ msgstr "Une esse trem com outro ao chegar na parada"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7155
 msgid "List of elements that can board the vehicle before it may continue"
-msgstr ""
+msgstr "Lista de elementos que podem abordar o veículo antes de continuar"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7160
 msgid "Whether the vehicle stops on the road or beside"
@@ -8151,7 +8150,7 @@ msgstr "Se o veículo para na pista ou no acostamento"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7167
 msgid "Activity displayed for stopped person in GUI and output files"
-msgstr ""
+msgstr "Atividade exibida para pessoa parada na GUI e nos arquivos de saída"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7172
 msgid ""
@@ -8171,7 +8170,7 @@ msgstr ""
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7183
 msgid "Speed to be kept while driving between startPos and endPos"
-msgstr ""
+msgstr "Velocidade a ser mantida ao dirigir entre startPos e endPos"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7189
 msgid ""
