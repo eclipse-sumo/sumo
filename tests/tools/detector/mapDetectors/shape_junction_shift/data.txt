@@ -1,0 +1,2 @@
+customID,lat,lon
+testDet,-37.817492, 144.955704

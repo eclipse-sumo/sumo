@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-18 15:43:59.120501 by Eclipse SUMO mapDetectors.py v1_27_0+0257-88b5f23ad40
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <poi-output value="pois.add.xml"/>
+    <id-column value="customID"/>
+    <max-radius value="100.0"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="testDet" lon="144.95570400" lat="-37.81749200">
+    </poi>
+</additional>

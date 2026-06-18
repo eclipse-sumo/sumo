@@ -11,3 +11,7 @@ poi
 
 # Copy of basic
 poi_params
+
+# handle case where the edge shape is far away from the original junction position 
+# see #18085
+shape_junction_shift
