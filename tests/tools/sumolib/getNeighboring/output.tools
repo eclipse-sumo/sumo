@@ -1,4 +1,4 @@
 neighboring lanes: NS_1, 1.5999999999999943
 neighboring edges: 
-neighboring lanes: NS_1, 1.5999999999999943
-neighboring edges: 
+neighboring lanes: CE_0, 0.0 CE_1, 0.0 CN_0, 0.0 CN_1, 0.0 NS_1, 1.5999999999999943 SC_0, 0.0 SC_1, 0.0 CE_0, 0.0 CE_1, 0.0 CN_0, 0.0 CN_1, 0.0 NS_1, 1.5999999999999943 SC_0, 0.0 SC_1, 0.0
+neighboring edges: CE, 0.0 CN, 0.0 SC, 0.0
