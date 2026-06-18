@@ -121,7 +121,7 @@ def main():
             lanes = []
             radius = 0.1
             while not lanes and radius <= options.maxRadius:
-                lanes = net.getNeighboringLanes(x, y, radius, True)
+                lanes = net.getNeighboringLanes(x, y, radius, False)
                 lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
                 radius *= 10
             if not lanes:
