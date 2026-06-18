@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T09:44:45.401166+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-06-18T08:03:13.598419+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,12 +13,17 @@
         <save-state.transportables value="true"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <no-step-log value="true"/>
     </report>
 
     <traci_server>
-        <remote-port value="41399"/>
+        <remote-port value="43417"/>
     </traci_server>
 
     <mesoscopic>
@@ -29,7 +34,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_27_0+0246-77aedaaf8e3" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!0" state="0" edges="WC CE"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="car" sigma="0"/>
@@ -38,17 +43,17 @@
         <device id="tripinfo_0" state="WC_0 14.7234 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_0" state="0 0"/>
     </vehicle>
-    <transportables type="person" state="1 1 0 0 0 0 0 0 0 0">
-        <person id="p1" type="ped" depart="0.00" speedFactor="0.9383" state="262146 1 0 0 0 0 1001">
-            <walk edges="WC CW CE"/>
+    <transportables type="person" state="1 1 0 0 0 0 0 0 0">
+        <person id="p1" type="ped" depart="0.00" speedFactor="0.9383" state="262146 1 0 0 0 -1 0 1001">
+            <walk edges="WC CW CE" started="0.00" ended="-1"/>
         </person>
     </transportables>
     <segment id="WC:0">
         <vehicles time="-1" blockTime="-9223372036854775808" value="0"/>
         <vehicles time="-1" blockTime="-9223372036854775808" value=""/>
     </segment>
-    <tlLogic id="C" programID="0" phase="0" duration="1000" active="1"/>
-    <routingEngine last="1000" index="1">
+    <tlLogic id="C" programID="0" phase="0" duration="1000" until="33000" cycleTime="1000" active="1"/>
+    <routingEngine last="0" index="1">
         <edge id="WC" speed="13.89" pastSpeed="14.72 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89 13.89"/>
     </routingEngine>
 </snapshot>
