@@ -247,7 +247,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         newEdges.push_back(targets.front());
         auto nextMandatory = mandatory.begin() + 1;
-        while (targets.front() == nextMandatory->edge
+        while (nextMandatory != mandatory.end()
+                && targets.front() == nextMandatory->edge
                 && (nextMandatory->edge != (nextMandatory - 1)->edge
                     || nextMandatory->pos >= (nextMandatory - 1)->pos
                     // ignore invalid via stop pos
@@ -327,7 +328,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     }
                 }
             }
-            while (*i == nextMandatory->edge
+            while (nextMandatory != mandatory.end()
+                    && *i == nextMandatory->edge
                     && (nextMandatory->edge != (nextMandatory - 1)->edge
                         || nextMandatory->pos >= (nextMandatory - 1)->pos
                         // ignore invalid via stop pos
