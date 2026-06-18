@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-17 07:57+0000\n"
+"PO-Revision-Date: 2026-06-18 09:57+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2097,6 +2097,8 @@ msgstr "Incluir información sobre aristas entre paradas"
 msgid ""
 "Write the vehicle speedFactor (defaults to 'true' if departSpeed is written)"
 msgstr ""
+"Guardar el factor de velocidad del vehículo (speedFactor) en la salida "
+"(activo de forma predeterminada si se escribe el departSpeed)"
 
 #: src/microsim/MSFrame.cpp:283
 msgid "Include internal edges in the output"
@@ -2184,10 +2186,11 @@ msgstr "Guardar el reporte sobre bloqueos en FILE"
 #: src/microsim/MSFrame.cpp:335
 msgid "Save movereminder states of selected vehicles into FILE"
 msgstr ""
+"Guardar los estados de movereminder de los vehículos seleccionados en FILE"
 
 #: src/microsim/MSFrame.cpp:337
 msgid "List of vehicle ids which shall save their movereminder states"
-msgstr ""
+msgstr "Lista de IDs de vehículos cuyos estados de movereminder deben guardarse"
 
 #: src/microsim/MSFrame.cpp:341
 msgid "Use TIME[] as times at which a network state written"
@@ -2195,7 +2198,7 @@ msgstr "Usar TIME[] como momentos en los cuales guardar el estado de red"
 
 #: src/microsim/MSFrame.cpp:343
 msgid "save state repeatedly after TIME period"
-msgstr ""
+msgstr "guardar el estado repetidamente con el período TIME"
 
 #: src/microsim/MSFrame.cpp:345
 msgid "Keep only the last INT periodic state files"
@@ -2417,6 +2420,8 @@ msgid ""
 "Whether rail-signal-constraint based deadlocks shall be cleared by removing "
 "a constraint"
 msgstr ""
+"Si los bloqueos causados por restricciones basadas en señales ferroviarias "
+"deben resolverse eliminando una restricción"
 
 #: src/microsim/MSFrame.cpp:457
 msgid ""
@@ -2540,10 +2545,14 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:518
 msgid "List vehicle classes that default to moving-block operations"
 msgstr ""
+"Listar las clases de vehículos que utilizan una separación móvil de forma "
+"predeterminada"
 
 #: src/microsim/MSFrame.cpp:521
 msgid "Maximum signal distance above which zipper conflicts are ignored"
 msgstr ""
+"Distancia máxima a la señal por encima de la cual se ignoran los conflictos "
+"de incorporación tipo zipper"
 
 #: src/microsim/MSFrame.cpp:524
 msgid "Do not build blocks longer than FLOAT and issue a warning instead"
@@ -4052,6 +4061,8 @@ msgstr ""
 #, c-format
 msgid "carFollowModel of vType '%' cannot save state"
 msgstr ""
+"El modelo de seguimiento vehicular del tipo de vehículo '%' no puede guardar "
+"su estado"
 
 #: src/microsim/cfmodels/MSCFModel_ACC.cpp:114
 msgid "incompatible carFollowModel '%' when loading state for ACC"
