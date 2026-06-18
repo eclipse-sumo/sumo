@@ -1,5 +1,5 @@
 on("ready", function(){
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(globalThis.location.search);
     const PORT = params.has("port") ? params.get("port") : "8010";
 
     /**
@@ -42,8 +42,8 @@ on("ready", function(){
         toJSON: function(){
             if(this.enable.checked){
                 return {
-                    fringeFactor: parseFloat(this.fringeFactor.value),
-                    count: parseFloat(this.count.value)
+                    fringeFactor: Number.parseFloat(this.fringeFactor.value),
+                    count: Number.parseFloat(this.count.value)
                 };
             }
             return null;
@@ -394,15 +394,15 @@ on("ready", function(){
     function setPosition(lon, lat){
         if(!lon || !lat){
             var latLon = elem("#lat_lon").value.split(" ");
-            lon = parseFloat(latLon[1]);
-            lat = parseFloat(latLon[0]);
+            lon = Number.parseFloat(latLon[1]);
+            lat = Number.parseFloat(latLon[0]);
         } else {
             elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
         var leftHandBounds = [
             [[50, -11], [60, 1]], // British Isles
-            [[50.986099, 0.774536], [53.146770, 1.779785]], // British Isles (part2)
+            [[50.986099, 0.774536], [53.14677, 1.779785]], // British Isles (part2)
             [[3, 66], [30, 90]], // India, Pakistan
             [[-45, 95], [2, 179]], // Australia, Indonesia
             [[-35, -20], [-15, 40]], // Southern Africa
@@ -430,13 +430,21 @@ on("ready", function(){
         cache: false,
         dataType: "json",
             success: function(data) {
+                if (!Array.isArray(data) || data.length === 0) {
+                    globalThis.alert('Could not locate address: ' + query);
+                    return;
+                }
                 var result = data[0];
-                var lon = parseFloat(result.lon);
-                var lat = parseFloat(result.lat);
+                var lon = Number.parseFloat(result.lon);
+                var lat = Number.parseFloat(result.lat);
+                if (Number.isNaN(lon) || Number.isNaN(lat)) {
+                    globalThis.alert('Could not locate address: ' + query);
+                    return;
+                }
                 setPosition(lon, lat);
             },
             error: function (request, status, err) {
-                window.alert('Could not locate address: ' + err);
+                globalThis.alert('Could not locate address: ' + err);
             }
         });
     }
@@ -504,7 +512,7 @@ on("ready", function(){
 
     function errorMessage(error) {
         if (presentedErrorLog == false) {
-            window.alert("Server connection failed (" + error + "). Please (re-)open the OSM Web Wizard by using osmWebWizard.py or the link in your start menu.");
+            globalThis.alert("Server connection failed (" + error + "). Please (re-)open the OSM Web Wizard by using osmWebWizard.py or the link in your start menu.");
             presentedErrorLog = true;
         }
     }
@@ -577,7 +585,7 @@ on("ready", function(){
         }
     }
 
-    if (window.location.protocol == "file:") {
+    if (globalThis.location.protocol == "file:") {
         connectSocket();
     }
 
@@ -663,7 +671,7 @@ on("ready", function(){
             }
         });
 
-        if (window.location.protocol == "file:") {
+        if (globalThis.location.protocol == "file:") {
             try {
                 socket.send(JSON.stringify(data));
             } catch(e){
