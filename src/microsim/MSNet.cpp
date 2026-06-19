@@ -324,6 +324,12 @@ MSNet::~MSNet() {
         myContainerControl = nullptr; // just to have that clear for later cleanups
     }
     delete myVehicleControl; // must happen after deleting transportables
+    // ShapeContainer registers polygon-update commands with the event controls.
+    // It must be torn down before the event controls so that ~ShapeContainer
+    // can still deschedule() its (live) commands; the event controls then
+    // delete the commands themselves.
+    delete myShapeContainer;
+    myShapeContainer = nullptr;
     // delete events late so that vehicles can get rid of references first
     delete myBeginOfTimestepEvents;
     myBeginOfTimestepEvents = nullptr;
@@ -331,7 +337,6 @@ MSNet::~MSNet() {
     myEndOfTimestepEvents = nullptr;
     delete myInsertionEvents;
     myInsertionEvents = nullptr;
-    delete myShapeContainer;
     delete myEdgeWeights;
     for (auto& router : myRouterTT) {
         delete router.second;
