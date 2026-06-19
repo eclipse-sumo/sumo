@@ -78,7 +78,7 @@ GNEChange_Edge::undo() {
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
     }
     // enable save networkElements
-    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
+    myEdge->getNet()->requireRecompute();
 }
 
 
@@ -104,7 +104,7 @@ GNEChange_Edge::redo() {
         removeElementFromParentsAndChildren(myEdge);
     }
     // enable save networkElements
-    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
+    myEdge->getNet()->requireRecompute();
 }
 
 

@@ -2601,7 +2601,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
             // aditionally, check if network requires saving
             if (neteditOptionsDialog.requireSaveNetwork()) {
-                myNet->getSavingStatus()->requireSaveNetwork();
+                myNet->requireRecompute();
             }
         }
     }
@@ -5086,7 +5086,7 @@ GNEApplicationWindow::loadTrafficLights(const std::string operation) {
             update();
         }
         // requiere save network
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
         // if defined, require save netedit config
         if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
@@ -5126,7 +5126,7 @@ GNEApplicationWindow::loadEdgeTypes(const std::string operation) {
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
         // requiere save network
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
         // if defined, require save netedit config
         if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();

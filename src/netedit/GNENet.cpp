@@ -1618,6 +1618,7 @@ GNENet::computeJunction(GNEJunction* junction) {
 void
 GNENet::requireRecompute() {
     myNeedRecompute = true;
+    mySavingStatus->requireSaveNetwork();
 }
 
 

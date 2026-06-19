@@ -520,7 +520,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 
@@ -679,7 +679,7 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // add it into myEdgeTypes again
         myEdgeTypes[edgeType->getID()] = edgeType;
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 
@@ -825,7 +825,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
             lane->updateConnectionIDs();
         }
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 

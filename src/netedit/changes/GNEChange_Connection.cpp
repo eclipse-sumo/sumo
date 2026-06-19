@@ -54,7 +54,7 @@ GNEChange_Connection::undo() {
         myEdge->addConnection(myNBEdgeConnection, mySelectedElement);
     }
     // enable save networkElements
-    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
+    myEdge->getNet()->requireRecompute();
 }
 
 
@@ -68,7 +68,7 @@ GNEChange_Connection::redo() {
         myEdge->removeConnection(myNBEdgeConnection);
     }
     // enable save networkElements
-    myEdge->getNet()->getSavingStatus()->requireSaveNetwork();
+    myEdge->getNet()->requireRecompute();
 }
 
 
