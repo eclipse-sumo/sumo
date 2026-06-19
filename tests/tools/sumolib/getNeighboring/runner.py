@@ -32,6 +32,7 @@ import sumolib.net  # noqa
 def printResult(objects):
     return ' '.join(["%s, %s" % (o.getID(), d) for o, d in objects])
 
+
 r = 2
 net = sumolib.net.readNet(sys.argv[1])
 for includeJunctions in [False, True]:

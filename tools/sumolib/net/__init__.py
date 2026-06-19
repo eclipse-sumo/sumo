@@ -227,8 +227,8 @@ class Net:
         self._tlss = []
         self._ranges = [[sys.float_info.max, -sys.float_info.max], [sys.float_info.max, -sys.float_info.max]]
         self._roundabouts = []
-        self._rtreeEdges = {True: None, False: None} # different rTrees depending on includeJunctions
-        self._rtreeLanes = {True: None, False: None} # different rTrees depending on includeJunctions
+        self._rtreeEdges = {True: None, False: None}  # different rTrees depending on includeJunctions
+        self._rtreeLanes = {True: None, False: None}  # different rTrees depending on includeJunctions
         self._allLanes = []
         self._origIdx = None
         self._proj = None
