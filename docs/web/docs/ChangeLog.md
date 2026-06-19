@@ -22,7 +22,7 @@ title: ChangeLog
   - Fixed invalid traffic light signal phase loading simulation state (with WAUT) #18105
 
 - netedit
-  - Fxied crash after renaming tlLogic #18116 (regression in 1.27.0)
+  - Fixed crash after renaming tlLogic #18116 (regression in 1.27.0)
   - Fixed invalid error message when loading a route with an unknown stopping place #16333
   - TAZs with one shape point no longer writes an invalid center #16845
   - selected connections now remain visible at high zoom when selection scaling is active #17309
