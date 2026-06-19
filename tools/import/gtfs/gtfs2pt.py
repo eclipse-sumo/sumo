@@ -411,18 +411,16 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                 laneID, start, end = s.lane, float(s.startPos), float(s.endPos)
             else:
                 result = None
-                skip = False
+                candidate_edges = route[lastIndex:]
+                if stopIndex < len(indices):
+                    if indices[stopIndex] is None:
+                        candidate_edges = []
+                    else:
+                        candidate_edges = [route[indices[stopIndex]]]
                 if stopLookup.hasCandidates():
                     xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
                     candidates = stopLookup.getCandidates(xy, options.radius)
                     if candidates:
-                        candidate_edges = route[lastIndex:]
-                        if stopIndex < len(indices):
-                            if indices[stopIndex] is None:
-                                skip = True
-                                candidate_edges = []
-                            else:
-                                candidate_edges = [route[indices[stopIndex]]]
                         on_route = [s for s in candidates if sumolib._laneID2edgeID(s.lane) in candidate_edges]
                         if on_route:
                             bestDist = 1e3 * options.radius
@@ -446,9 +444,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                 if dist < bestDist:
                                     bestDist = dist
                                     result = (lane.getID(), float(stopObj.startPos), endPos)
-                if result is None and not skip:
+                if result is None and candidate_edges:
                     result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
-                                                  route[lastIndex:], gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
+                                                  candidate_edges, gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
                     if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
                         print("Warning! Adding stop at index %s that was not loaded for %s." % (
                             stopIndex, veh), file=sys.stderr)
