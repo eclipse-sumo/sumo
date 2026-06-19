@@ -588,6 +588,7 @@ MSLink::recheckSetRequestInformation() {
             double lbcSibCont = MIN2(siblingCont->getLength(), MAX2(0.0, sibling->getLength() + siblingCont->getLength() - distToDivergence));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
             std::cout << " siblingContinuation: distToDivergence=" << distToDivergence << " lbcSibCont=" << lbcSibCont << "\n";
+            std::cout << " conflictIndex=" << conflictIndex << " foeLane=" << foeLane->getID() << " foeExitLink=" << foeExitLink->getDescription() << " intLane=" << intLane->getID() << "\n";
 #endif
             ConflictInfo ci2 = ConflictInfo(lbcSibCont, intLane->getWidth());
             ci2.foeConflictIndex = conflictIndex;
@@ -645,7 +646,7 @@ MSLink::computeDistToDivergence(const MSLane* lane, const MSLane* sibling, doubl
     }
 
 #ifdef MSLink_DEBUG_CROSSING_POINTS_DETAILS
-    std::cout << "   sameSource=" << sameSource << " minDist=" << minDist << " backDist=" << l.back().distanceTo2D(s.back()) << "\n";
+    std::cout << "   sameSource=" << sameSource << " lane=" << lane->getID() << " sib=" << sibling->getID() << " minDist=" << minDist << " backDist=" << l.back().distanceTo2D(s.back()) << "\n";
 #endif
     if (l.back().distanceTo2D(s.back()) > minDist) {
         // compute the final divergence point
@@ -1619,7 +1620,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                    isInternalJunctionLink() || isExitLinkAfterInternalJunction()));
         if (gDebugFlag1) {
             std::cout << " distToCrossing=" << distToCrossing << " foeLane=" << foeLane->getID() << " cWidth=" << crossingWidth
-                      << " flag=" << myConflicts[i].flag
+                      << " flag=" << myConflicts[i].flag << " i=" << i << " fcIndex=" << myConflicts[i].foeConflictIndex
                       << " ijl=" << isInternalJunctionLink() << " sT=" << sameTarget << " sS=" << sameSource
                       << " lbc=" << myConflicts[i].getLengthBehindCrossing(this)
                       << " flbc=" << myConflicts[i].getFoeLengthBehindCrossing(foeExitLink)
