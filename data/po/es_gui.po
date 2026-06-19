@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-05-11 14:32+0000\n"
+"PO-Revision-Date: 2026-06-19 09:00+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -15802,26 +15802,31 @@ msgstr "Prefijo para la red de salida"
 #: src/netedit/tools/GNENetDiffTool.cpp:159
 msgid "Write selection files for created, deleted and changed elements"
 msgstr ""
+"Escribir archivos de selección para elementos creados, eliminados y "
+"modificados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:162
 msgid "Write shape files for created, deleted and changed elements"
 msgstr ""
+"Escribir archivos de formas para elementos creados, eliminados y modificados"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "Write geo coordinates instead of network coordinates"
-msgstr ""
+msgstr "Escribir coordenadas geográficas en lugar de coordenadas de la red"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:169
 msgid "Give more output"
-msgstr ""
+msgstr "Mostrar información más detallada"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:172
 msgid "Interpret source and dest as plain-xml prefix instead of network names"
 msgstr ""
+"Interpretar origen y destino como prefijo plain-xml en lugar de como nombres "
+"de red"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:175
 msgid "Compare source and dest files directly"
-msgstr ""
+msgstr "Comparar directamente los archivos de origen y destino"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:178
 msgid ""
