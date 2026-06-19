@@ -17,8 +17,12 @@ title: ChangeLog
   - Fixed diminished energy consumption from radial drag immediately after departure #18059
   - Fixed invalid error when vehicles with stops are affected by a closingReroute #18070
   - Vehicles with departLane "best" or "best_prob" are no longer inserted on forbidden edges #18077
+  - Fixed crash when attempting to load networks with NaN in edge lengths or speeds (no raises an error instead) #18094
+  - Fixed invalid driveway foes in moving-block mode #18106
+  - Fixed invalid traffic light signal phase loading simulation state (with WAUT) #18105
 
 - netedit
+  - Fxied crash after renaming tlLogic #18116 (regression in 1.27.0)
   - Fixed invalid error message when loading a route with an unknown stopping place #16333
   - TAZs with one shape point no longer writes an invalid center #16845
   - selected connections now remain visible at high zoom when selection scaling is active #17309
@@ -26,8 +30,10 @@ title: ChangeLog
   - rerouter intervals no longer disappears when editing attribute edges in inspect mode #18071
 
 - sumo-gui
+  - Fixed invalid color for shown route when activating vehicle id background color (meso only) #18112 (regression in 1.11.0)
   - meso vehicles no do not flicker while waiting in a queue #18045 (regression in 1.27.0)
   - meso vehicles do not overlap while queued on a single lane #18044 (regression in 1.27.0)
+  - fixed crash in meso #18100 (regression in 1.27.0)
   - Fixed invalid meso segment markers in network with length/geometry mismatch #18036
   - busStop parameter "waitingDepth" now increases the visual width of the busStop as intended #18080
 
@@ -36,8 +42,13 @@ title: ChangeLog
   - fixed unsafe rail insertion #18028
   - fixed invalid rail signal state in network with internal links #6990, #18027
 
+- duarouter
+  - Fixed crash when called with **--repair** #18109 (regression in 1.24.0)
+
 - tools
   - routeSampler.py: can now load marouter output (routeDistributions) #18079
+  - sumolib: getNeighboringEdges and getNeighboringLanes now return consist results when called with different arguments for includeJunctions #18086
+  - mapDetectors.py: fixed mapping issues for positions close to a junction coordinate #18085
 
 ### Enhancements
 
@@ -45,9 +56,15 @@ title: ChangeLog
   - CarFollowModel "Rail', can now include train resistance due to curvature by setting vType attribute `curveResitance="1"`. The underlying Röckl model exposes 5 configuration parameters (i.e. to adapt to different gauges and wheel bases). #18057
   - CarFollowingModels now save their state (VehicleVariables) #18055
 
+- sumo-gui
+  - Context menu function 'show cursor geo position in google-maps' now sets a map pin at the cursor position. (existing installations of SUMO must use the Application Settings dialog to change the query string to "https://www.google.com/maps/search/?api=1&query=%lat,%lon&zoom=19") #18114
+
 - tools
   - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
   - gtfs2pt.py: keep longer stop when merging stops on the same lane, added option **--access-radius** for adding pedestrian access #17858
+  - mapDetectors.py: Added option **--poi-output** for easier debugging
+  - mapDetectors.py: now reports mapping errors #18084
+  - edgeDataFromFlow.py: added options **--time-format** and **--time-offset** to handle arbitrary timestamp/date formats #18087
 
 ### Miscellaneous
 
