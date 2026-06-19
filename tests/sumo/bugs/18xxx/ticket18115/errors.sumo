@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle 'f_0.122'; waited too long (yield), lane=':C_10_1', time=906.00.
+Warning: Vehicle 'f_0.122' ends teleporting on edge '255697927', time=906.00.
+Warning: Teleporting vehicle 'f_0.724'; waited too long (yield), lane=':C_10_1', time=2128.00.
+Warning: Vehicle 'f_0.724' ends teleporting on edge '255697927', time=2128.00.
+Warning: Teleporting vehicle 'f_0.1111'; waited too long (yield), lane=':C_10_1', time=2958.00.
+Warning: Vehicle 'f_0.1111' ends teleporting on edge '255697927', time=2958.00.
+Warning: Teleporting vehicle 'f_0.1644'; waited too long (yield), lane=':C_10_1', time=4057.00.
+Warning: Vehicle 'f_0.1644' ends teleporting on edge '255697927', time=4057.00.
