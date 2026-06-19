@@ -375,6 +375,7 @@ class Net:
         try:
             if rtree is None:
                 rtree = self._initRTree(self._edges, includeJunctions)
+                self._rtreeEdges[includeJunctions] = rtree
             for i in rtree.intersection((x - r, y - r, x + r, y + r)):
                 e = self._edges[i]
                 d = sumolib.geomhelper.distancePointToPolygon(
@@ -399,6 +400,7 @@ class Net:
                 for the_edge in self._edges:
                     self._allLanes += the_edge.getLanes()
                 rtree = self._initRTree(self._allLanes, includeJunctions)
+                self._rtreeLanes[includeJunctions] = rtree
             for i in rtree.intersection((x - r, y - r, x + r, y + r)):
                 the_lane = self._allLanes[i]
                 d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
