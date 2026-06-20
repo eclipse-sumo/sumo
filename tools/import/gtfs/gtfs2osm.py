@@ -505,7 +505,7 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
                   "edge_id"] = edge
 
 
-def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=-1):
+def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=None):
     # get edges near stop location
     x, y = net.convertLonLat2XY(lon, lat)
     edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
@@ -514,7 +514,7 @@ def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, 
         for lane in edge.getLanes():
             if lane.allows(pt_class):
                 pos = lane.getClosestLanePosAndDist((x, y))[0]
-                if pos > last_pos or edge.getID() != edge_set[0]:
+                if last_pos is None or pos > last_pos[1] or edge.getID() != last_pos[0]:
                     start = max(0, pos - (stop_length / 2. if center else stop_length))
                     end = min(start + stop_length, lane.getLength())
                     return lane.getID(), start, end

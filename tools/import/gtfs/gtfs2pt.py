@@ -417,6 +417,9 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                         candidate_edges = []
                     else:
                         candidate_edges = [route[indices[stopIndex]]]
+                        e = net.getEdge(candidate_edges[0])
+                        if indices[stopIndex] + 1 < len(route) and len(e.getOutgoing()) == 1:
+                            candidate_edges += [route[indices[stopIndex] + 1]]
                 if stopLookup.hasCandidates():
                     xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
                     candidates = stopLookup.getCandidates(xy, options.radius)
@@ -445,8 +448,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                     bestDist = dist
                                     result = (lane.getID(), float(stopObj.startPos), endPos)
                 if result is None and candidate_edges:
-                    result = gtfs2osm.getBestLane(net, veh.x, veh.y, 200, stopLength, options.center_stops,
-                                                  candidate_edges, gtfs2osm.OSM2SUMO_MODES[mode], lastPos)
+                    result = gtfs2osm.getBestLane(net, veh.x, veh.y, options.radius, stopLength, options.center_stops,
+                                                  candidate_edges, gtfs2osm.OSM2SUMO_MODES[mode], (route[lastIndex], lastPos))
                     if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
                         print("Warning! Adding stop at index %s that was not loaded for %s." % (
                             stopIndex, veh), file=sys.stderr)
