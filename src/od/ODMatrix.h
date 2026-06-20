@@ -178,7 +178,9 @@ public:
     void writeFlows(const SUMOTime begin, const SUMOTime end,
                     OutputDevice& dev, const bool noVtype,
                     const std::string& prefix,
-                    bool asProbability = false, bool pedestrians = false, bool persontrips = false,
+                    bool asProbability = false,
+                    bool asPoisson = false,
+                    bool pedestrians = false, bool persontrips = false,
                     const std::string& modes = "");
 
 

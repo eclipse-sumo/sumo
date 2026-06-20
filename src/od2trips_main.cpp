@@ -107,6 +107,9 @@ fillOptions() {
     oc.doRegister("flow-output.probability", new Option_Bool(false));
     oc.addDescription("flow-output.probability", "Output", TL("Writes probabilistic flow instead of evenly spaced flow"));
 
+    oc.doRegister("flow-output.poisson", new Option_Bool(false));
+    oc.addDescription("flow-output.poisson", "Output", TL("Writes poisson distributed flow instead of evenly spaced flow"));
+
     oc.doRegister("pedestrians", new Option_Bool(false));
     oc.addDescription("pedestrians", "Output", TL("Writes pedestrians instead of vehicles"));
 
@@ -199,6 +202,10 @@ checkOptions() {
     }
     if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
         WRITE_ERROR(TL("No trip table output file (-o) or flow-output is specified."));
+        ok = false;
+    }
+    if (oc.getBool("flow-output.probability") && oc.getBool("flow-output.poisson")) {
+        WRITE_ERROR(TL("Only one of the options 'flow-output.probability' and 'flow-output.poisson' may be set."));
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
@@ -307,7 +314,9 @@ main(int argc, char** argv) {
             matrix.writeFlows(string2time(oc.getString("begin")), end,
                               OutputDevice::getDeviceByOption("flow-output"),
                               oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
-                              oc.getBool("flow-output.probability"), oc.getBool("pedestrians"),
+                              oc.getBool("flow-output.probability"),
+                              oc.getBool("flow-output.poisson"),
+                              oc.getBool("pedestrians"),
                               oc.getBool("persontrips"), modes);
             haveOutput = true;
         }

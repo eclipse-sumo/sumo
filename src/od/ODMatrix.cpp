@@ -343,7 +343,9 @@ void
 ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                      OutputDevice& dev, bool noVtype,
                      const std::string& prefix,
-                     bool asProbability, bool pedestrians, bool persontrips,
+                     bool asProbability,
+                     bool asPoisson,
+                     bool pedestrians, bool persontrips,
                      const std::string& modes) {
     if (myContainer.size() == 0) {
         return;
@@ -354,7 +356,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
     for (std::vector<ODCell*>::const_iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
         const ODCell* const c = *i;
         if (c->end > begin && c->begin < end) {
-            const double probability = asProbability ? float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin) : 1;
+            const double probability = float(c->vehicleNumber) / STEPS2TIME(c->end - c->begin);
             if (probability <= 0) {
                 continue;
             }
@@ -362,7 +364,9 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             if (pedestrians) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
                 dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
-                if (!asProbability) {
+                if (asPoisson) {
+                    dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(probability, 10) + ")");
+                } else if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
@@ -382,7 +386,9 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             } else if (persontrips) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
                 dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
-                if (!asProbability) {
+                if (asPoisson) {
+                    dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(probability, 10) + ")");
+                } else if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
@@ -407,8 +413,9 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.openTag(SUMO_TAG_FLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
                 dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin));
                 dev.writeAttr(SUMO_ATTR_END, time2string(c->end));
-
-                if (!asProbability) {
+                if (asPoisson) {
+                    dev.writeAttr(SUMO_ATTR_PERIOD, "exp(" + StringUtils::adjustDecimalValue(probability, 10) + ")");
+                } else if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
                     if (probability > 1) {
