@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:22.575808+01:00 by Eclipse SUMO od2trips v1_25_0+0045-28a3daf62ee
+<!-- generated on 2026-06-20T23:11:07.698608+01:00 by Eclipse SUMO od2trips v1_27_0+0274-c1887d2568b
 -->
 
 <od2tripsConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -37,6 +37,7 @@
         <output-file value="" synonymes="o output" deprecated="output" type="FILE" help="Writes trip definitions into FILE"/>
         <flow-output value="" type="FILE" help="Writes flow definitions into FILE"/>
         <flow-output.probability value="false" type="BOOL" help="Writes probabilistic flow instead of evenly spaced flow"/>
+        <flow-output.poisson value="false" type="BOOL" help="Writes poisson distributed flow instead of evenly spaced flow"/>
         <pedestrians value="false" type="BOOL" help="Writes pedestrians instead of vehicles"/>
         <persontrips value="false" type="BOOL" help="Writes persontrips instead of vehicles"/>
         <persontrips.modes value="" type="STR[]" help="Add modes attribute to personTrips"/>
