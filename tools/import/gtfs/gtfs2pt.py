@@ -419,6 +419,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                         candidate_edges = [route[indices[stopIndex]]]
                         e = net.getEdge(candidate_edges[0])
                         if indices[stopIndex] + 1 < len(route) and len(e.getOutgoing()) == 1:
+                            # also accept the next downstream edge if it is the only follower
+                            # this helps to prevent matching to very short junction edges
                             candidate_edges += [route[indices[stopIndex] + 1]]
                 if stopLookup.hasCandidates():
                     xy = net.convertLonLat2XY(float(veh.x), float(veh.y))
