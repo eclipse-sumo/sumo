@@ -1,9 +1,14 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-# Copyright (C) 2001-2026 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2026 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    header_weight.py
@@ -305,7 +310,7 @@ def main() -> int:
     p.add_argument("--source-root", "-s", default=None, type=Path,
                    help="Repository root")
     p.add_argument("--filter", "-f", default="src",
-                   help="Only consider headers whose path (relative to source root) starts with this prefix, e.g. 'src/netedit/'")
+                   help="Only consider headers whose path (relative to source root) starts with this prefix, e.g. 'src/netedit/'")  # noqa
     p.add_argument("--top", "-n", type=int, default=30, help="Show this many headers/edges (default: 30)")
     p.add_argument("--min-reach", type=int, default=2,
                    help="Skip headers included by fewer TUs than this (default: 2)")

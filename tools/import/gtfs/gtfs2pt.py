@@ -449,7 +449,8 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                                     result = (lane.getID(), float(stopObj.startPos), endPos)
                 if result is None and candidate_edges:
                     result = gtfs2osm.getBestLane(net, veh.x, veh.y, options.radius, stopLength, options.center_stops,
-                                                  candidate_edges, gtfs2osm.OSM2SUMO_MODES[mode], (route[lastIndex], lastPos))
+                                                  candidate_edges, gtfs2osm.OSM2SUMO_MODES[mode],
+                                                  (route[lastIndex], lastPos))
                     if options.warn_unmapped and result is not None and stopLookup.hasCandidates():
                         print("Warning! Adding stop at index %s that was not loaded for %s." % (
                             stopIndex, veh), file=sys.stderr)
