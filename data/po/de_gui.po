@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-06-16 17:42+0000\n"
+"PO-Revision-Date: 2026-06-21 11:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -15882,9 +15882,7 @@ msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:184
 msgid "Comma-separated list of element names to copy (if they are unchanged)"
-msgstr ""
-"Elenco di nomi di elementi  da copiare separati da virgole (se non sono "
-"stati modificati)"
+msgstr "Kommagetrennte Liste an zu kopierenden Elementen (falls unverändert)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:187
 msgid "Path to binaries"
