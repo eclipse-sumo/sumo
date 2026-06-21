@@ -44,11 +44,11 @@ if hasattr(sys, "_is_gil_enabled") and not sys._is_gil_enabled():
     warnings.warn("This package has not been validated in free-threaded Python (no-GIL mode).")
 if hasattr(os, "add_dll_directory"):
     # since Python 3.8 the DLL search path has to be set explicitly see https://bugs.python.org/issue43173
-    if SUMO_DATA_HOME and os.path.exists(os.path.join(SUMO_DATA_HOME, "bin", "zlib.dll")):
+    if SUMO_DATA_HOME and os.path.exists(os.path.join(SUMO_DATA_HOME, "bin", "z.dll")):
         os.add_dll_directory(os.path.abspath(os.path.join(SUMO_DATA_HOME, "bin")))
-    elif "SUMO_HOME" in os.environ and os.path.exists(os.path.join(os.environ["SUMO_HOME"], "bin", "zlib.dll")):
+    elif "SUMO_HOME" in os.environ and os.path.exists(os.path.join(os.environ["SUMO_HOME"], "bin", "z.dll")):
         os.add_dll_directory(os.path.join(os.environ["SUMO_HOME"], "bin"))
-    elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "zlib.dll")):
+    elif os.path.exists(os.path.join(os.path.dirname(__file__), "..", "..", "bin", "z.dll")):
         os.add_dll_directory(os.path.join(os.path.dirname(__file__), "..", "..", "bin"))
 
 try:

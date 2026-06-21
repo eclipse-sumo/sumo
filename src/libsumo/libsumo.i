@@ -11,8 +11,8 @@
             System.err.println("The recommended minimal Java version is 21.0.5.");
         }
         if (System.getProperty("os.name").startsWith("Windows")) {
-            System.loadLibrary("libcrypto-3-x64");
-            System.loadLibrary("libssl-3-x64");
+            System.loadLibrary("libcrypto");
+            System.loadLibrary("libssl");
         }
         System.loadLibrary("libsumojni");
     }
