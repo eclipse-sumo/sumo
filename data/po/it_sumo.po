@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-12 20:01+0000\n"
+"PO-Revision-Date: 2026-06-21 11:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4060,14 +4060,15 @@ msgstr ""
 #, c-format
 msgid "carFollowModel of vType '%' cannot save state"
 msgstr ""
+"il modello di guida del tipo di veicolo '%' non può salvare il suo stato"
 
 #: src/microsim/cfmodels/MSCFModel_ACC.cpp:114
 msgid "incompatible carFollowModel '%' when loading state for ACC"
-msgstr ""
+msgstr "modello di guida '%' incompatibile con il caricamento di uno stato ACC"
 
 #: src/microsim/cfmodels/MSCFModel_CACC.cpp:125
 msgid "incompatible carFollowModel '%' when loading state for CACC"
-msgstr ""
+msgstr "modello di guida '%' incompatibile con il caricamento di uno stato CACC"
 
 #: src/microsim/cfmodels/MSCFModel_CC.cpp:66
 msgid ""
@@ -4087,15 +4088,16 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_EIDM.cpp:117
 msgid "incompatible carFollowModel '%' when loading state for EIDM"
-msgstr ""
+msgstr "modello di guida '%' incompatibile con il caricamento di uno stato EIDM"
 
 #: src/microsim/cfmodels/MSCFModel_IDM.cpp:72
 msgid "incompatible carFollowModel '%' when loading state for IDMM"
-msgstr ""
+msgstr "modello di guida '%' incompatibile con il caricamento di uno stato IDMM"
 
 #: src/microsim/cfmodels/MSCFModel_Kerner.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for BKerner"
 msgstr ""
+"modello di guida '%' incompatibile con il caricamento di uno stato BKerner"
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:59
 msgid "Rounding 'sigmaStep' to % for vType '%'"
@@ -4104,10 +4106,13 @@ msgstr "Arrotondo 'sigmaStep' a % per il tipo di veicolo '%'"
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:85
 msgid "incompatible carFollowModel '%' when loading state for Krauss"
 msgstr ""
+"modello di guida '%' incompatibile con il caricamento di uno stato Krauss"
 
 #: src/microsim/cfmodels/MSCFModel_PWag2009.cpp:66
 msgid "incompatible carFollowModel '%' when loading state for PWagner2009"
 msgstr ""
+"modello di guida '%' incompatibile con il caricamento di uno stato "
+"PWagner2009"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
@@ -4172,10 +4177,12 @@ msgstr ""
 #: src/microsim/cfmodels/MSCFModel_SmartSK.cpp:96
 msgid "incompatible carFollowModel '%' when loading state for SmartSK"
 msgstr ""
+"modello di guida '%' incompatibile con il caricamento di uno stato SmartSK"
 
 #: src/microsim/cfmodels/MSCFModel_Wiedemann.cpp:87
 msgid "incompatible carFollowModel '%' when loading state for Wiedemann"
 msgstr ""
+"modello di guida '%' incompatibile con il caricamento di uno stato Wiedemann"
 
 #: src/microsim/devices/MSDevice.cpp:188
 #, c-format
