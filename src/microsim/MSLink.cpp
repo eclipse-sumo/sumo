@@ -460,9 +460,9 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 const MSLane* const siblingCont = sibling->getLinkCont().front()->getViaLaneOrLane();
                 if (siblingCont->isInternal() && lane->getShape().distance2D(siblingCont->getShape().front()) < minDist) {
                     // there may still be overlap with siblingCont (when considering vehicle widths)
-                    const double distToDivergence2 = computeDistToDivergence(lane, siblingCont, minDist, true, sibling->getLength());
-                    double lbcLane2 = MAX2(0.0, lane->getLength() - lane->interpolateGeometryPosToLanePos(distToDivergence2));
-                    ConflictInfo ci2 = ConflictInfo(lbcLane2, siblingCont->getWidth(), CONFLICT_SIBLING_CONTINUATION);
+                    const double maxCommonLength = MIN2(lane->getLength(), sibling->getLength() + siblingCont->getLength());
+                    const double lengthBehindDivergence = MAX2(0.0, lane->getLength() - maxCommonLength);
+                    ConflictInfo ci2 = ConflictInfo(lengthBehindDivergence, siblingCont->getWidth(), CONFLICT_SIBLING_CONTINUATION);
                     myConflicts.push_back(ci2);
                     myFoeLanes.push_back(siblingCont);
                     myRecheck.insert({this, siblingCont->getLinkCont().front()});
