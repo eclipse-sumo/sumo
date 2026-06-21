@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-08 11:00:59.171634 by Eclipse SUMO gtfs2pt.py v1_26_0+1530-6c035dc6a12
+<!-- generated on 2026-06-21 08:44:20.959570 by Eclipse SUMO gtfs2pt.py v1_27_0+0279-a98528887a8
 <configuration>
     <merged-csv value="data/data.csv"/>
     <human-readable-time value="True"/>
@@ -91,6 +91,7 @@
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
     </busStop>
     <busStop id="281591.12" lane="1312568317_0" startPos="41.77" endPos="56.77" friendlyPos="true" name="Zeuthen, Seegarten"/>
+    <busStop id="109251.6" lane="-27004036#0_0" startPos="286.62" endPos="299.62" friendlyPos="true" name="Miersdorf, See"/>
     <busStop id="109328.0" lane="782804639_0" startPos="124.09" endPos="139.09" friendlyPos="true" name="S Eichwalde"/>
     <busStop id="109328.1" lane="-415907064#2_0" startPos="42.73" endPos="57.73" friendlyPos="true" name="Schulzendorf (LDS), K.-Marx-Str."/>
     <busStop id="281066.1" lane="1031560365_0" startPos="61.75" endPos="76.75" friendlyPos="true" name="Zeuthen, Miersdorfer Chaussee">
@@ -100,6 +101,7 @@
         <access friendlyPos="true" lane="36478925_0" pos="20.21" length="113.12"/>
         <access friendlyPos="true" lane="7941957_0" pos="209.87" length="144.71"/>
     </busStop>
+    <busStop id="281066.2" lane="1031560365_0" startPos="493.10" endPos="506.10" friendlyPos="true" name="Miersdorf, Kirche"/>
     <busStop id="281153.1" lane="4930561_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Schulzendorf (LDS), Flutgraben">
         <access friendlyPos="true" lane="-4920483_0" pos="397.08" length="128.08"/>
         <access friendlyPos="true" lane="4920483_0" pos="0.00" length="126.41"/>
@@ -112,6 +114,7 @@
         <access friendlyPos="true" lane="4920444_0" pos="0.00" length="22.09"/>
         <access friendlyPos="true" lane="4930526_0" pos="0.00" length="53.12"/>
     </busStop>
+    <busStop id="154260.0" lane="-70532934_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Moßkopfring (Berlin)"/>
     <busStop id="154260.2" lane="-389273284#0_0" startPos="0.00" endPos="10.06" friendlyPos="true" name="Fährallee (Berlin)"/>
     <busStop id="154260.3" lane="-10587012_0" startPos="707.64" endPos="722.64" friendlyPos="true" name="Zeltplatz (Berlin)"/>
     <busStop id="154260.4" lane="-10587012_0" startPos="2012.76" endPos="2027.76" friendlyPos="true" name="Teikyo-University (Berlin)"/>
@@ -126,6 +129,7 @@
         <access friendlyPos="true" lane="-1453868940_0" pos="100.87" length="32.72"/>
         <access friendlyPos="true" lane="1013489691_0" pos="0.00" length="29.41"/>
     </trainStop>
+    <trainStop id="92988.0" lane="-153134060#5_0" startPos="0.00" endPos="110.00" friendlyPos="true" name="S Wildau"/>
     <trainStop id="92988.1" lane="1236950970_0" startPos="0.00" endPos="170.92" friendlyPos="true" name="S Zeuthen">
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
@@ -136,6 +140,7 @@
         <access friendlyPos="true" lane="-7941955_0" pos="0.00" length="83.55"/>
         <access friendlyPos="true" lane="7941955_0" pos="68.73" length="83.39"/>
     </trainStop>
+    <trainStop id="93347.2" lane="153134060#5_0" startPos="67.47" endPos="177.47" friendlyPos="true" name="S Wildau"/>
     <trainStop id="259570.3" lane="170799109_0" startPos="485.72" endPos="510.72" friendlyPos="true" name="Schappachstr. (Berlin)">
         <access friendlyPos="true" lane="-1449474929_0" pos="0.00" length="20.76"/>
         <access friendlyPos="true" lane="1449474922_0" pos="439.40" length="21.37"/>
