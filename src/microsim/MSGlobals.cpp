@@ -59,7 +59,6 @@ MELoop* MSGlobals::gMesoNet;
 
 bool MSGlobals::gOverheadWireSolver;
 bool MSGlobals::gOverheadWireRecuperation;
-bool MSGlobals::gOverheadWireCurrentLimits;
 
 bool MSGlobals::gSemiImplicitEulerUpdate(true); // default for unitTest
 

@@ -52,6 +52,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/traction_wire/Circuit.h>
 #include "MSFrame.h"
 
 
@@ -1185,7 +1186,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");
     MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
-    MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
+    Circuit::enforceCurrentLimits(oc.getBool("overhead-wire.substation-current-limits"));
     MSGlobals::gInsertionChecks = SUMOVehicleParameter::parseInsertionChecks(oc.getString("insertion-checks"));
     MSGlobals::gMaxRailSignalBlockLength = oc.getFloat("railsignal.max-block-length");
 

@@ -32,12 +32,13 @@
 #include <mutex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include <microsim/MSGlobals.h>
 #include "Element.h"
 #include "Node.h"
 #include "Circuit.h"
 
 static std::mutex circuit_lock;
+
+bool Circuit::myCurrentLimits = false;
 
 Node* Circuit::addNode(std::string name) {
     if (getNode(name) != nullptr) {
@@ -376,7 +377,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
             // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
             if ((A * x - b).norm() < 1e-6) {
                 //current limits
-                if (currentSumActual > getCurrentLimit() && MSGlobals::gOverheadWireCurrentLimits) {
+                if (currentSumActual > getCurrentLimit() && Circuit::myCurrentLimits) {
                     alphaReason = ALPHA_CURRENT_LIMITS;
                     alpha_notSolution.push_back(alpha);
                     if (x_best_exist) {

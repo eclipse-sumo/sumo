@@ -126,9 +126,6 @@ public:
     // whether recuperation into the overhead wire is allowed
     static bool gOverheadWireRecuperation;
 
-    // whether traction substation current limits are taken into account when solving the overhead wire circuit
-    static bool gOverheadWireCurrentLimits;
-
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 

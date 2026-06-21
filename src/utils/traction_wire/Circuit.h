@@ -61,6 +61,12 @@ class Node;
  */
 class Circuit {
 
+public:
+    /// @brief whether per-substation overhead-wire current limits should be enforced
+    static void enforceCurrentLimits(const bool val) {
+        myCurrentLimits = val;
+    }
+
 private:
 
     std::vector<Node*>* nodes;
@@ -84,6 +90,9 @@ private:
     * stable solution. This is then reported as alphaBest.
     */
     double alphaBest;
+
+    /// @brief whether per-substation overhead-wire current limits should be enforced
+    static bool myCurrentLimits;
 public:
     /**
      * @brief Flag of alpha scaling parameter
