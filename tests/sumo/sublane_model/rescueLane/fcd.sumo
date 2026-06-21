@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-11 20:57:34 by Eclipse SUMO sumo Version v1_15_0+0944-c751163
+<!-- generated on 2026-06-21T09:56:49.153062+01:00 by Eclipse SUMO sumo v1_27_0+0279-a98528887a8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -25,6 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <lateral-resolution value="0.64"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -37,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.fcd.explicit value="rescue"/>
     </fcd_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
@@ -218,22 +220,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="rescue" x="103.20" y="96.40" angle="0.00" type="rescue" speed="5.20" pos="6.80" lane=":C_10_0" slope="0.00"/>
     </timestep>
     <timestep time="92.00">
-        <vehicle id="rescue" x="103.20" y="104.20" angle="0.00" type="rescue" speed="7.80" pos="14.60" lane=":C_10_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.42" y="104.20" angle="1.63" type="rescue" speed="7.80" pos="14.60" lane=":C_10_0" slope="0.00"/>
     </timestep>
     <timestep time="93.00">
-        <vehicle id="rescue" x="103.20" y="114.60" angle="0.00" type="rescue" speed="10.40" pos="4.20" lane="CN_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.42" y="114.60" angle="0.00" type="rescue" speed="10.40" pos="4.20" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="94.00">
-        <vehicle id="rescue" x="103.20" y="127.60" angle="0.00" type="rescue" speed="13.00" pos="17.20" lane="CN_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.42" y="127.60" angle="0.00" type="rescue" speed="13.00" pos="17.20" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="95.00">
-        <vehicle id="rescue" x="103.20" y="141.49" angle="0.00" type="rescue" speed="13.89" pos="31.09" lane="CN_0" slope="0.00"/>
+        <vehicle id="rescue" x="103.42" y="141.49" angle="0.00" type="rescue" speed="13.89" pos="31.09" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="96.00">
-        <vehicle id="rescue" x="104.20" y="155.38" angle="4.12" type="rescue" speed="13.89" pos="44.98" lane="CN_0" slope="0.00"/>
+        <vehicle id="rescue" x="104.22" y="155.38" angle="3.29" type="rescue" speed="13.89" pos="44.98" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="97.00">
-        <vehicle id="rescue" x="104.86" y="169.27" angle="2.72" type="rescue" speed="13.89" pos="58.87" lane="CN_0" slope="0.00"/>
+        <vehicle id="rescue" x="104.86" y="169.27" angle="2.64" type="rescue" speed="13.89" pos="58.87" lane="CN_0" slope="0.00"/>
     </timestep>
     <timestep time="98.00">
         <vehicle id="rescue" x="105.50" y="183.16" angle="2.64" type="rescue" speed="13.89" pos="72.76" lane="CN_0" slope="0.00"/>
