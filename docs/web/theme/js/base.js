@@ -259,7 +259,7 @@ for (let video of videos) {
 	let id = new URL(video.href).searchParams.get('v');
 
     // Add the ID to the data-youtube attribute
-	video.setAttribute('data-youtube', id);
+    video.dataset.youtube = id;
 
 	// Add a role of button
 	video.setAttribute('role', 'button');
@@ -286,7 +286,7 @@ function clickHandler (event) {
 	event.preventDefault();
 
 	// Get the video ID
-	let id = link.getAttribute('data-youtube');
+    let id = link.dataset.youtube;
 
 	// Create the player
 	let player = document.createElement('div');
