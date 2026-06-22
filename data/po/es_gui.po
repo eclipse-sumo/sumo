@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-06-22 13:23+0000\n"
+"PO-Revision-Date: 2026-06-22 13:33+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -12213,6 +12213,7 @@ msgstr "Los vehículos no admiten paradas en aristas"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1275
 msgid "A stop requires only either stoppingPlace, edge or lane"
 msgstr ""
+"Una parada requiere solo uno de estos elementos: stoppingPlace, edge o lane"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1277
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
