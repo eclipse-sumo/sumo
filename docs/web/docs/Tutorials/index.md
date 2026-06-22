@@ -62,6 +62,10 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=ccc2mnGX_Mg">Watch the 2025 Tutorial</a>
 (a transcription is available [here](2025.md#transcription))
+<br>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=zrMRpP47T_M">Watch the 2026 Tutorial</a>
+(a transcription is available [here](2026.md#transcription))
 
 # JuPedSim Tutorials
 * [JuPedSim Introduction](Jupedsim/JuPedSim_Intro.md)
