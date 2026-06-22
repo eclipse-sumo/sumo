@@ -42,7 +42,7 @@ jobs:
     - name: Cloning SUMO
       # We just need the tests, so we are fine with a shallow checkout.
       # This also ensures we have the same commit as with the initial checkout.
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Downloading wheels artifact
       uses: actions/download-artifact@v8
