@@ -474,8 +474,46 @@ GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) 
     // begin undoList operation
     mySelectorFrameParent->getViewNet()->getUndoList()->begin(Supermode::NETWORK, GUIIcon::SIMPLIFYNETWORK, TL("reduce network"));
     // invert and clear
-    onCmdInvert(0, 0, 0);
-    onCmdDelete(0, 0, 0);
+    if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        // special case for network elements. we take only the junction and edges
+        std::unordered_set<GNENetworkElement*> networkElementsToRemove;
+        std::unordered_set<GNENetworkElement*> edgesToKeep;
+        // add non selected junction and edges
+        for (const auto& junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            if (!junction.second->isAttributeCarrierSelected()) {
+                networkElementsToRemove.insert(junction.second);
+            }
+            // due we iterate over all junctions, only it's necessary iterate over incoming edges
+            for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
+                if (!incomingEdge->isAttributeCarrierSelected()) {
+                    networkElementsToRemove.insert(incomingEdge);
+                } else {
+                    edgesToKeep.insert(incomingEdge);
+                }
+            }
+        }
+        // now special case: we need to save all junctions related with the edges to keep
+        for (const auto& edge : edgesToKeep) {
+            for (const auto& junctionParent : edge->getParentJunctions()) {
+                auto it = networkElementsToRemove.find(junctionParent);
+                if (it != networkElementsToRemove.end()) {
+                    networkElementsToRemove.erase(it);
+                }
+            }
+        }
+        // also remove shape elements that aren't selected
+        const auto shapeElementsToRemove = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getUnselectedShapes();
+        // remove elements (first start with shapes due POILanes)
+        for (const auto shapeElement : shapeElementsToRemove) {
+            mySelectorFrameParent->getViewNet()->getNet()->deleteAdditional(shapeElement, mySelectorFrameParent->getViewNet()->getUndoList());
+        }
+        for (const auto networkElement : networkElementsToRemove) {
+            mySelectorFrameParent->getViewNet()->getNet()->deleteNetworkElement(networkElement, mySelectorFrameParent->getViewNet()->getUndoList());
+        }
+    } else {
+        onCmdInvert(0, 0, 0);
+        onCmdDelete(0, 0, 0);
+    }
     // end undoList operation
     mySelectorFrameParent->getViewNet()->getUndoList()->end();
     return 1;
