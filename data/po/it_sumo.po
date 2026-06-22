@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-21 11:06+0000\n"
+"PO-Revision-Date: 2026-06-22 19:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5297,6 +5297,8 @@ msgstr "L'invio ripetuto non contiene la fermata del cliente esistente '%'"
 #: src/microsim/devices/MSDevice_Taxi.cpp:589
 msgid "Could not add taxi stop for %, desc=% time=% error=%"
 msgstr ""
+"Non ho potuto aggiungere la fermata di taxi per % (descrizione=%, alle ore "
+"%, errore=%)"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:625
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
@@ -7430,6 +7432,8 @@ msgid ""
 "Split edges to improve positioning of guessed signals and prevent switches "
 "as rail_signals"
 msgstr ""
+"Separa archi prer migliorare le posizioni dei segnali indovinati e per "
+"prevenire di usare scambi come segnali ferroviari"
 
 #: src/netbuild/NBFrame.cpp:281 src/netgen/netgen_main.cpp:94
 msgid "List rail classes that may run without rail signals"
@@ -8979,6 +8983,8 @@ msgstr ""
 #, c-format
 msgid "Stop '%' named '%' from line '%' on edge '%' is not part of the route."
 msgstr ""
+"La fermata '%' chiamata '%' della linea '%' sull'arco '%' non fa parte "
+"dell'itinerario."
 
 #: src/netbuild/NBPTLine.cpp:378
 #, c-format
@@ -8986,6 +8992,8 @@ msgid ""
 "Stop '%' named '%' from line '%' on edge '%' is not part of the route "
 "downstream of the previous stop."
 msgstr ""
+"La fermata '%' chiamata '%' della linea '%' sull'arco '%' non fa parte "
+"dell'itinerario a valle della fermata precedente."
 
 #: src/netbuild/NBPTLineCont.cpp:121
 msgid ""
@@ -11684,6 +11692,8 @@ msgid ""
 "State was written at a different time=% than the begin time % (set option "
 "load-state.offset to force a different begin)!"
 msgstr ""
+"Lo stato è stato scritto a un'ora differente=% dell'ora iniziale % (imposta "
+"l'opzione load-state.offset per imporre un inizio differente)!"
 
 #: src/netload/NLBuilder.cpp:217 src/router/RONet.cpp:272
 #, c-format
@@ -12135,6 +12145,8 @@ msgstr "Scrivi i nomi originali (se disponibili) come parametro"
 #: src/netwrite/NWFrame.cpp:109
 msgid "Writes IDs of nodes remove with --geometry.remove into edge param"
 msgstr ""
+"Scrive codici identificativi di nodi rimossi con --geometry.remove in un "
+"parametro di arco"
 
 #: src/netwrite/NWFrame.cpp:112
 msgid "Writes street signs as POIs to FILE"
@@ -14772,7 +14784,7 @@ msgstr ""
 
 #: src/utils/router/IntermodalRouter.h:204
 msgid "No connection between % '%' and % '%' found%."
-msgstr ""
+msgstr "Non è stato incontrato nessun collegamento tra % '%' e % '%'%."
 
 #: src/utils/router/IntermodalRouter.h:233
 #: src/utils/router/PedestrianRouter.h:126
