@@ -3,7 +3,7 @@ title: HighwayDetector
 ---
 
 This tutorial describes how to set up a traffic scenario using mainly
-[netedit](../Netedit/index.md), [dfrouter](../dfrouter.md), and some
+[netedit](../Netedit/index.md), and some
 python tools; when you already have a fairly good network source for your
 simulation site and also a good coverage of the network with detectors
 giving you aggregated counts (and maybe speeds) of the vehicles in the
@@ -15,147 +15,72 @@ calibration and not so much on network tweaking.
 
 Selected edges (blue) are of minor priority and will be discarded
 
+A [video tutorial](https://www.youtube.com/watch?v=ccc2mnGX_Mg) and [example files](https://sumo.dlr.de/daily/sumo2025_tutorial.zip) can also be found amond the [SUMO Conference Tutorials](index.md#sumo_user_conference_tutorials).
+
 ## Network
 
 Assuming you are already familiar with network extraction from your
 favorite mapping source, you can open your net with
 [netedit](../Netedit/index.md) and reduce it to your area of interest.
-Assume you have a navteq file you can select (and then delete) all edges
-with a priority of less than -1 to reduce it to a highway network.
-Afterwards one can use rectangle selection (hold shift) to further limit
-the area considered. You also might want to enable ramp guessing in the
-options dialog. If the network has been prepared by an older version of
-SUMO, it is probably a good idea to recalculate all the connections
-afterwards. Do so by selecting all junctions in select mode and then
-resetting them in connect mode. There may still be missing ramps and
-unusual connections which could not be guessed automatically and which
-should be fixed manually after setting up the basic scenario.
+Assuming you have an OSM-based network, you can select edges with 'motorway' in their type (highway.motorway, highway.motorway_link),
+and then click the 'Reduce' button.
+
+!!! caution
+    in SUMO version 1.27.0 and earlier it's better you call `netconvert -s old.net.xml -o new.net.xml --keep-edges.by-type highway.motorway,highway.motorway_link` because the reduce operation may reduce connections and crossings unless special care is taken.
 
 ## Detector data
 
-### Locating detectors
+Detector data frequently comes in the form of two distinct pieces of information:
 
-Your final network should have locations for induction loops on many of
-the available edges. If you have detector positions as geo-coordinates
-it usually requires some manual work to locate the detectors in the
-network. A starting point can be to use the python sumolib to match the
-positions to the network:
+1. a file that specifies detector ids and locations in geo-coordinates. This can be imported with the [mapDetectors.py
+   tool](../Tools/Detector.md#mapdetectorspy).
+2. a file that gives time stamps, detector ids and corresponding measurements. This can be imported with the
+   [edgeDataFromFlow.py tool](../Tools/Detector.md#edgedatafromflowpy)
 
-```python
-if 'SUMO_HOME' in os.environ:
-    sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib
-
-net = sumolib.net.readNet(<NETFILE>)
-detectors = []
-for id, lon, lat in <DETECTOR_INPUTFILE>:
-    xy_pos = net.convertLonLat2XY(lon, lat)
-    # look 10m around the position
-    lanes = net.getNeighboringLanes(xy_pos[0], xy_pos[1], 10)
-    # attention, result is unsorted
-        bestLane = None
-        ref_d = 9999.
-    for lane, dist in lanes:
-        # now process them and determine a "bestLane"
-        # ...
-                if dist < ref_d:
-                    ref_d = dist
-                    bestLane = lane
-            pos, d = bestLane.getClosestLanePosAndDist(xy_pos)
-    detectors.append(sumolib.sensors.inductive_loop.InductiveLoop(id, bestLane.getID(), pos))
-sumolib.files.additional.write(<DETECTORFILE>, detectors)
-```
-
-The period of data aggregation for data collection is 60 seconds by
-default. The default output file name is set as none. Detector type
-(source, sink, between) can also be given if it is available. An example
-of the output file is shown below.
-
-```xml
-<additional xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/additional_file.xsd">
-<e1Detector id=""det0"" lane="262667814#2.7_0" pos="80.2550814486" period="60" file="NUL" friendlyPos="True"/>
-<e1Detector id=""det1"" lane="262667814#2.7_1" pos="90.2522181762" period="60" file="NUL" friendlyPos="True"/>
-<e1Detector id=""det2"" lane="262667814#2.7_2" pos="91.6879752087" period="60" file="NUL" friendlyPos="True"/>
-</additional>
-```
-
-Be aware to have the python rtree library installed if you are working
-with large networks, it will speed up the geometry lookups tremendously.
-Depending on the quality of your network and detector location data, you
-should probably not always choose the closest lane but also consider
-whether the number of lanes / the speed limit match your expectations.
-After the initial positioning you can load the file for fine tuning as
-an additional file into [netedit](../Netedit/index.md).
-
-### Processing input data
-
-A common format for detector data is an aggregation into slots of one
-minute. The [dfrouter](../dfrouter.md) can process files with the
-following formats:
-
-- Detector definition
-
-In addition to the above mentioned detector definition, the following
-definition can also be applied.
-
-```xml
-<detectors xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/detectors_file.xsd">
-<detectorDefinition id="MQ11Fs1" lane="ErnstRuska2O_0" pos="5.00" type="source"/>
-<detectorDefinition id="MQ12Fs1" lane="ErnstRuska2W_0" pos="-5.00" type="between"/>
-<detectorDefinition id="MQ13Fs1N" lane="EinsteinN_0" pos="5.00" type="sink"/>
-</detectors>
-```
-
-- Flow data
-
-The data about detector id, time and the number of each vehicle type
-must be given, while speed data is optional. All data is saved in csv
-format.
+The corresponding commands could look like this:
 
 ```
-Detector_id;Time(minutes);Number_of_passenger_cars;Number_of_trucks;Average_speed_of passenger_cars;Average_speed_of_trucks
+python $SUMO_HOME/tools/detector/mapDetectors.py -n motorway.net.xml.gz --detector-file detectors.csv --output-file detectorss.add.xml --id-column detector_name --max-radius 100.0
+python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectorss.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count
+```
+The above command assumes that time stamps are in minutes of the day and data is aggregated per hour.
+
+If the timestamps are absolute dates and in a different aggregation period, the command to obtain hourly counts could like this:
+
+```
+python $SUMO_HOME/tools/detector/edgeDataFromFlow.py --detector-file detectorss.add.xml --detector-flow-file detector_data.csv --output-file edgedata.xml --id-column detector_name --time-column time --flow-columns count --time-scale 1 --time-format %Y-%m-%dT%H:%M:%SZ --time-offset 2025-11-24T00:00:00Z --end 86400.0 --interval 3600.0
 ```
 
 ## Determining the routes
 
-### flowrouter.py ( more information at [Tools/Detector](../Tools/Detector.md))
-
-This script is based on the maximal flow theory and does flow routing
-similar to the [dfrouter](../dfrouter.md). Three mandatory input
-files are needed, i.e. the SUMO network (.net.xml) and two files, which
-specify detectors and flows respectively. The type of the detectors
-(source, sink, in between) can be detected by the script or read from the
-given detector file. As an example the script can be executed as
+The [recommended all-purpose tool](../Demand/Routes_from_Observation_Points.md#choosing_the_right_tool) for importing traffic from counting data is [routeSampler.py](../Tools/Turns.md#routesamplerpy).
+This tool requires some initial routes which are deemed "plausible" and which then guide the interpretation of the counting data.
+A simple way to get started is to compute fastest routes between random origins and destinations. This avoids loops and detours.
 
 ```
-tools/detector/flowrouter.py -n net.net.xml -d detector.det.xml -f flow.csv`
+python $SUMO_HOME/tools/randomTrips.py -n motorway.net.xml.gz -r sampleRoutes.rou.xml
+python $SUMO_HOME/tools/routeSampler.py -r sampleRoutes.rou.xml --edgedata-files edgedata.xml --edgedata-attribute count -o motorway.rou.xml
 ```
 
-Moreover, there are options, which are not available in
-[dfrouter](../dfrouter.md), for considering different parameters,
-such as speed, parking facilities, flow restrictions, maximal (turning)
-flows and vehicle types, in order to restrict the route searching space.
+## Comparison of the detected and the estimated flows
 
-### [dfrouter](../dfrouter.md)
+There are two stages where deviations between measured and simulated counts can be introduced:
 
-There are different options to set up the route searching/calibration
-conditions and to manage the content of an output file. The available
-options and the respective definitions can be found at
-[dfrouter](../dfrouter.md). As an example the execution call is
+### routeSampler.py mismatch
 
-```
-dfrouter -n net.net.xml -d detectors.det.xml -f flows.csv -o routes.rou.xml`
-```
+When routeSampler.py fails to find a good solution, the
+option **--mismatch-output** can be used to write the mismatch between measured and assigned traffic
+counts. The most likely source of mismatch is an unsuitable set of candidate routes (i.e. too long or too short).
+See a detailed treatment at the [routeSampler documentation](../Tools/Turns.md#quality_control).
+Ther
 
-Moreover, it is also possible to set up a configuration file with use of
-a XML schema definition
-([dfrouterConfiguration.xsd](https://sumo.dlr.de/xsd/dfrouterConfiguration.xsd)).
+### Simulation mismatch
 
-### Comparison of the detected and the estimated flows
+The simulation may fail to replicate the real traffic pattern and thus cars pass the detector locations at the
+wrong time.
 
-According to the aforementioned methods, routes can be
-estimated/generated with given detector data, and then used in the
-simulation for estimating edge flows. Two scripts can be used to check
+
+Two scripts can be used to check
 to what extent the estimated flows correspond to the detected flows for
 multiple intervals.
 
@@ -188,13 +113,11 @@ execution call is as following:
 tools/detector/flowFromRoutes.py -d detectors.det.xml -e emitters.flows.xml -f detector_flows.txt -r routes.rou.xml`
 ```
 
-, where `emitters.flows.xml` defines the route flows; `detector_flows.txt`
-defines the detected flow data; `routes.rou.xml` defines the edge
-composition of each route. There are options to define the analysis
-interval. In addition to the above mentioned outputs in the
-flowFromEdgeData.py it is also possible to get the GEH-statistics with
-use of the respective options **--geh** and **--geh-threshold**.
+Diagnosing and fixing simulation mismatch requires investigation the following sources of error:
 
-## Calibrating the data
+- network quality (missing lanes and connections may cause unrealistic jamming)
+- traffic light quality (control algorithm mismatch can cause higher or lower flow)
+- traffic participant calibration (i.e. time headways and merging gap acceptance)
+- routeSampler result ambiguity: the space of traffic inputs that match a given set of counts is large. Not all of them
+  may be compatible with realistic traffic flow
 
-### Speed calibration
