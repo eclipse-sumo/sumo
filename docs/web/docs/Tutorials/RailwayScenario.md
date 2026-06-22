@@ -11,6 +11,8 @@ The OSM data is obtained from [geofabrik](https://download.geofabrik.de/europe/g
 The GTFS data is obtained from the
 [VBB](https://unternehmen.vbb.de/fileadmin/user_upload/VBB/Dokumente/API-Datensaetze/gtfs-mastscharf/GTFS.zip).
 
+![rail_tutorial_bb](../images/rail_tutorial_bb.png "rail_tutorial_bb.png")
+
 # Filtering OSM
 
 For our purpose we only require the railway specific OSM data. Filtering can be accomplished with [osmconvert](https://wiki.openstreetmap.org/wiki/Osmconvert) and
