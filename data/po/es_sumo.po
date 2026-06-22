@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-19 09:00+0000\n"
+"PO-Revision-Date: 2026-06-22 13:33+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7687,12 +7687,16 @@ msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes (at "
 "roundabouts)"
 msgstr ""
+"Permitir conducir a una vía de varios carriles aunque existan vehículos en "
+"conflicto en otros carriles (en rotondas)"
 
 #: src/netbuild/NBFrame.cpp:464
 msgid ""
 "Allow driving onto a multi-lane road if there are foes on other lanes "
 "(everywhere)"
 msgstr ""
+"Permitir conducir a una vía de varios carriles aunque existan vehículos en "
+"conflicto en otros carriles (en todos los casos)"
 
 #: src/netbuild/NBFrame.cpp:468
 msgid "Guess pedestrian sidewalks based on edge speed"
@@ -7796,6 +7800,8 @@ msgstr ""
 msgid ""
 "Sets minimum value for the sum of all incoming lane speeds when guessing TLS"
 msgstr ""
+"Establece el valor mínimo para la suma de las velocidades de todos los "
+"carriles de entrada al adivinar semáforos"
 
 #: src/netbuild/NBFrame.cpp:545
 msgid "Sets district nodes as tls-controlled"
@@ -12325,12 +12331,12 @@ msgstr ""
 #: src/od/ODDistrictCont.cpp:57
 #, c-format
 msgid "District '%' does not provide any valid source."
-msgstr ""
+msgstr "El distrito '%' no proporciona ninguna fuente válida."
 
 #: src/od/ODDistrictCont.cpp:73
 #, c-format
 msgid "District '%' does not provide any valid sink."
-msgstr ""
+msgstr "El distrito '%' no proporciona ningún sumidero válido."
 
 #: src/od/ODDistrictCont.cpp:84
 #, c-format
