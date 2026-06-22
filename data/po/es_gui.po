@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:52+0200\n"
-"PO-Revision-Date: 2026-06-19 09:00+0000\n"
+"PO-Revision-Date: 2026-06-22 13:23+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15833,18 +15833,22 @@ msgid ""
 "Generate patch that can be applied during initial network import (exports "
 "additional connection elements)"
 msgstr ""
+"Generar un parche que pueda aplicarse durante la importación inicial de la "
+"red (exporta elementos de conexión adicionales)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:181
 msgid "Avoid saving plain xml files of source and destination networks"
-msgstr ""
+msgstr "Evitar guardar archivos XML planos de las redes de origen y destino"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:184
 msgid "Comma-separated list of element names to copy (if they are unchanged)"
 msgstr ""
+"Lista de nombres de elementos, separados por comas, que se copiarán (si no "
+"han sido modificados)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:187
 msgid "Path to binaries"
-msgstr ""
+msgstr "Ruta a los archivos binarios"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:191
 msgid "Select modified elements"
