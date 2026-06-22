@@ -18,7 +18,7 @@ For our purpose we only require the railway specific OSM data. Filtering can be 
 
 ```
 osmconvert brandenburg-latest.osm.pbf -o=osm.o5m
-osmfilter osm.o5m --keep-ways=railway= --keep-nodes= --keep-relations=route=train --keep-relations=route=light_rail --drop-author --drop-tags=note= old_name= source= name:etymology:wikidata= wikipedia= > osm_rail.xml
+osmfilter osm.o5m --keep-ways=railway= --keep-nodes= --keep-relations=route=train --keep-relations=route=light_rail --drop-author --drop-tags="note= old_name= source= name:etymology:wikidata= wikipedia=" > osm_rail.xml
 ```
 
 # Importing and processing the rail network
@@ -27,7 +27,7 @@ The import consists of two stages: importing the OSM data with netconvert and th
 based on network topology to improve rail routing and stop track assignment.
 
 ```
-netconvert --osm-files osm_raiml.xml --ptstop-output osm.stops.xml --ptline-output osm_ptlines.xml -o net.net.xml.gz -l osm.log --keep-edges.by-vclass rail,rail_urban --no-internal-links --railway.signal.guess.by-stops --railway.topology.all-bidi --ptline-clean-up --railway.topology.ptline-priority rail,rail_urban --output.street-names
+netconvert --osm-files osm_rail.xml --ptstop-output osm.stops.xml --ptline-output osm_ptlines.xml -o net.net.xml.gz -l osm.log --keep-edges.by-vclass rail,rail_urban --no-internal-links --railway.signal.guess.by-stops --railway.topology.all-bidi --ptline-clean-up --railway.topology.ptline-priority rail,rail_urban --output.street-names
 python $SUMO_HOME/tools/net/patchRailPriorities.py -n net.net.xml.gz -o net2.net.xml.gz -r osm_ptlines.xml -s osm.stops.xml -O osm.stops2.xml --add-stop-signals
 ```
 
