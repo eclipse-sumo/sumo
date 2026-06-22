@@ -28,6 +28,10 @@
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wdeprecated-enum-enum-conversion"
 #endif
+#ifdef _MSC_VER
+#pragma warning(disable: 5054)
+#endif
+
 #include <fx.h>
 
 // More info: https://devblogs.microsoft.com/cppblog/broken-warnings-theory/
