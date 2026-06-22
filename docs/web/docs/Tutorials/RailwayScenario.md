@@ -5,7 +5,7 @@ title: RailwayScenario
 # Overview 
 
 The following tutorial explains how to build a railways scenario for the combined German states of Berlin and
-Brandenburg based on OSM and GTFS data.
+Brandenburg based on OSM and GTFS data. The resulting scenario models scheduled passenger traffic for one day of operations.
 
 The OSM data is obtained from [geofabrik](https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf).
 The GTFS data is obtained from the
@@ -69,5 +69,6 @@ The relevant options are explained in the following
 
 - **--time-to-teleport 1800**: Trains may have to wait due to missing railway siginals. To avoid premature teleporting, it is useful to increase the default from 300s to 1800s.
 - **--time-to-teleport.railsignal-deadlock  300**: With this option, the simulation detectors circular infrastructure depenencies that cannot resolve themselves. 
-- **--railsignal.max-block-length 1e5 -H**: This option is relevant to prevent deadlocks on long single-track sections. It avoids deadlocks at the cost of extra computational time and memory. When simulationg at the country scale, a smaller value such as 1e5 should be used
+- **--railsignal.max-block-length 1e5**: This option is relevant to prevent deadlocks on long single-track sections. It avoids deadlocks at the cost of extra computational time and memory. When simulationg at the country scale, a smaller value such as 1e5 should be used
+- **-H**: human readable-times are friendlier in a simulation that covers a whole day
 
