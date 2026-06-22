@@ -33,7 +33,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         path: sumo
         fetch-depth: 0
@@ -58,7 +58,7 @@ jobs:
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}

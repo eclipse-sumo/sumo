@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Cloning repository
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
 
     - name: Lychee Link Checker
       uses: lycheeverse/lychee-action@master  # to be removed once --accept-timeouts got released
