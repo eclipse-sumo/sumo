@@ -68,7 +68,7 @@ MSPModel_JuPedSim_gRPC::MSPModel_JuPedSim_gRPC(const OptionsCont& oc, MSNet* net
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
     myJPSModel = oc.getString("pedestrian.jupedsim.model");
-    if (!StringUtils::endsWith(myJPSModel, "Model")) {
+    if (myJPSModel.find("Model") == std::string::npos) {
         // TODO warn about outdated model name
         myJPSModel += "Model";
         if (myJPSModel == "CollisionFreeSpeedV2Model") {
@@ -175,7 +175,7 @@ MSPModel_JuPedSim_gRPC::addWaypoint(const std::string& agentID, const WaypointDe
     sumo_jupedsim_api::AddWaypointStageRequest waypointRequest;
     waypointRequest.set_simulation_id(myJPSSimulation);
     waypointRequest.mutable_point()->set_x(coords.x());
-    waypointRequest.mutable_point()->set_y( coords.y());
+    waypointRequest.mutable_point()->set_y(coords.y());
     waypointRequest.set_distance(std::get<2>(waypoint));
     grpc::ClientContext waypointContext;
     sumo_jupedsim_api::AddWaypointStageResponse waypointResponse;
@@ -295,6 +295,10 @@ MSPModel_JuPedSim_gRPC::add(MSTransportable* person, MSStageMoving* stage, SUMOT
     }
     JPS_StageId startingStage = 0;
     for (const auto& p : waypoints) {
+        const JPS_StageId waiting = std::get<0>(p);
+        if (waiting != 0) {
+            journeyRequest.add_stage_ids(waiting);
+        }
         JPS_StageId waypoint = addWaypoint(person->getID(), p);
         if (waypoint == -1) {
             return nullptr;
@@ -460,37 +464,19 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             assert(!arrived); // The person has not arrived yet.
             stage->activateEntryReminders(person);
             // Adapt speed to lane's speed limit.
-            // const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
-            // switch (myJPSModel) {
-            //     case JPS_Model::CollisionFreeSpeed: {
-            //         JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
-            //         if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-            //             JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
-            //         }
-            //         break;
-            //     }
-            //     case JPS_Model::CollisionFreeSpeedV2: {
-            //         JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
-            //         if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
-            //             JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
-            //         }
-            //         break;
-            //     }
-            //     case JPS_Model::GeneralizedCentrifugalForce: {
-            //         JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
-            //         if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
-            //             JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
-            //         }
-            //         break;
-            //     }
-            //     case JPS_Model::SocialForce: {
-            //         JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
-            //         if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
-            //             JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
-            //         }
-            //         break;
-            //     }
-            // }
+            // TODO make this a bulk request
+            sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
+            desiredSpeedRequest.set_simulation_id(myJPSSimulation);
+            auto speeds = desiredSpeedRequest.desired_speeds();
+            speeds[state->getAgentId()] = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
+            grpc::ClientContext desiredSpeedContext;
+            sumo_jupedsim_api::EmptyResponse desiredSpeedResponse;
+            const grpc::Status desiredSpeedStatus = myGrpcStub->SetDesiredSpeedOfAgents(&desiredSpeedContext, desiredSpeedRequest, &desiredSpeedResponse);
+            if (!desiredSpeedStatus.ok()) {
+                const std::string error = TLF("Error while setting desired speed for %: %",
+                                              person->getID(), desiredSpeedStatus.error_message());
+                throw ProcessError(error);
+            }
         }
         const double speed = person->getSpeed();
         for (int offset = 0; offset < 2; offset++) {
@@ -515,7 +501,8 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
                 waitingSetStateRequest.set_stage_id(waitingStage);
                 waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
                 grpc::ClientContext waitingSetStateContext;
-                const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, nullptr);
+                sumo_jupedsim_api::EmptyResponse waitingSetStateResponse;
+                const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, &waitingSetStateResponse);
                 if (!waitingSetStateStatus.ok()) {
                     const std::string error = TLF("Error while setting waiting status for %: %",
                                                   waitingStage, waitingSetStateStatus.error_message());
@@ -1116,19 +1103,18 @@ MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool e
     }
     sumo_jupedsim_api::AddWaitingSetStageRequest waitingSetRequest;
     waitingSetRequest.set_simulation_id(myJPSSimulation);
-    sumo_jupedsim_api::Point* point = waitingSetRequest.add_points();
 
     for (const Position& p : pv) {
         GEOSCoordSequence* seq = GEOSCoordSeq_create(1, 2); // 1 point, 2 dimensions
         GEOSCoordSeq_setX(seq, 0, p.x());
         GEOSCoordSeq_setY(seq, 0, p.y());
-        GEOSGeometry* point = GEOSGeom_createPoint(seq);
-        if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
+        GEOSGeometry* geosPoint = GEOSGeom_createPoint(seq);
+        if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, geosPoint)) {
             sumo_jupedsim_api::Point* point = waitingSetRequest.add_points();
             point->set_x(p.x());
             point->set_y(p.y());
         }
-        GEOSGeom_destroy(point);
+        GEOSGeom_destroy(geosPoint);
     }
     grpc::ClientContext waitingSetContext;
     sumo_jupedsim_api::AddWaitingSetStageResponse waitingSetResponse;
@@ -1145,7 +1131,8 @@ MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool e
     waitingSetStateRequest.set_stage_id(waitingStage);
     waitingSetStateRequest.set_state(sumo_jupedsim_api::INACTIVE);
     grpc::ClientContext waitingSetStateContext;
-    const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, nullptr);
+    sumo_jupedsim_api::EmptyResponse waitingSetStateResponse;
+    const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, &waitingSetStateResponse);
     if (!waitingSetStateStatus.ok()) {
         const std::string error = TLF("Error while setting waiting status for % on '%': %",
                                       entry ? "entry" : "exit", crossing->getID(), waitingSetStateStatus.error_message());

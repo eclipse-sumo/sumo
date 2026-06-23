@@ -1139,12 +1139,12 @@ MSFrame::checkOptions() {
     }
 
 #ifdef HAVE_JUPEDSIM
-    const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
-    const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
-    if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
-        WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
-        ok = false;
-    }
+    // const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
+    // const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
+    // if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
+    //     WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
+    //     ok = false;
+    // }
 #endif
 
     ok &= MSDevice::checkOptions(oc);
