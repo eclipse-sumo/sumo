@@ -358,6 +358,7 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
     file(GLOB GL2PS_PATH "${SUMO_LIBRARIES}/gl2ps-*")
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
+    file(GLOB GRPC_PATH "${SUMO_LIBRARIES}/grpc*/install")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
     if (MSVC_VERSION GREATER 1919)
         # fmt and gettext in SUMOLibraries only work with MSVC 2019 and later
@@ -366,7 +367,7 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
 
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GRPC_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${PROJ_PATH};${FOX_PATH};${FREETYPE_PATH};${GETTEXT_PATH};${GETTEXT_PATH}/tools/gettext;${ARROW_PATH};${LZ4_PATH};${ZSTD_PATH};${BZIP2_PATH};${THRIFT_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH};${BOOST_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${ZLIB_PATH}/bin/*.dll"
@@ -662,6 +663,18 @@ if (ENABLE_JUPEDSIM)
     else (jupedsim_FOUND)
         message(STATUS "Could NOT find JuPedSim! Skipping JuPedSim integration.")
     endif (jupedsim_FOUND)
+    if(MSVC)
+        add_definitions(-D_WIN32_WINNT=0x600)
+    endif()
+    find_package(Protobuf CONFIG REQUIRED)
+    find_package(gRPC CONFIG REQUIRED)
+    set(_PROTOBUF_PROTOC $<TARGET_FILE:protobuf::protoc>)
+    set(_GRPC_CPP_PLUGIN_EXECUTABLE $<TARGET_FILE:gRPC::grpc_cpp_plugin>)
+    set(_GRPC_GRPCPP gRPC::grpc++)
+    set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
+    message(STATUS "Using protobuf ${Protobuf_VERSION} and gRPC ${gRPC_VERSION}")
+    # disabling boost for now, it does not seem to work with grpc
+    set(ENABLE_BOOST OFF)
 endif ()
 
 if (ENABLE_BOOST)

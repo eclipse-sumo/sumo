@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+package sumo_jupedsim_api;
+
+import "google/protobuf/struct.proto";
+
+
+message Point {
+  double x = 1;
+  double y = 2;
+  optional double z = 3;
+}
+
+message Polygon {
+  repeated Point points = 1;
+}
+
+// The walkable area: an outer boundary plus zero or more obstacles, supplied
+// in one call. The caller already knows the full geometry, so there is no
+// separate "add obstacles afterwards" step.
+message CreateGeometryRequest {
+  Polygon boundary = 1;
+  repeated Polygon obstacles = 2;
+}
+
+message CreateGeometryResponse {
+  int64 geometry_id = 1;
+}
+
+message CreateSimulationRequest {
+  int64 geometry_id = 1;
+  string model_class = 2;
+  double delta_t = 3;
+}
+
+message CreateSimulationResponse {
+  int64 simulation_id = 1;
+}
+
+message CreateAgentRequest {
+  int64 simulation_id = 1;
+  string agent_model_class = 2;
+  google.protobuf.Struct agent_model_parameters = 3;
+}
+
+message CreateAgentResponse {
+  int64 agent_id = 1;
+}
+
+message AddWaypointStageRequest {
+  int64 simulation_id = 1;
+  Point point = 2;
+  double distance = 3;
+}
+
+message AddWaypointStageResponse {
+  int64 waypoint_id = 1;
+}
+
+message AddExitStageRequest {
+  int64 simulation_id = 1;
+  repeated Point polygon = 2;
+}
+
+message AddExitStageResponse {
+  int64 stage_id = 1;
+}
+
+message AddJourneyRequest {
+  int64 simulation_id = 1;
+  repeated int64 stage_ids = 2;
+}
+
+message AddJourneyResponse {
+  int64 journey_id = 1;
+}
+
+message AgentCoreProperties {
+  Point position = 1;
+  Point orientation = 2;
+}
+
+message GetCorePropertiesOfAllAgentsRequest {
+  int64 simulation_id = 1;
+}
+
+message GetCorePropertiesOfAllAgentsResponse {
+  map<int64, AgentCoreProperties> properties = 1;
+}
+
+message IterateRequest {
+  int64 simulation_id = 1;
+  // Number of simulation steps to advance. If unset (or < 1), defaults to 1.
+  optional int64 count = 2;
+}
+
+message IterateResponse {
+}
+
+message SimulationIdRequest {
+  int64 simulation_id = 1;
+}
+
+message CountResponse {
+  int64 count = 1;
+}
+
+// Generic response for RPCs that only signal success/failure (failure travels
+// via the gRPC status channel).
+message EmptyResponse {
+}
+
+message SwitchGeometryRequest {
+  int64 simulation_id = 1;
+  int64 geometry_id = 2;  // a geometry previously registered via CreateGeometry
+}
+
+message RemoveAgentsRequest {
+  int64 simulation_id = 1;
+  repeated int64 agent_ids = 2;
+}
+
+message SwitchAgentJourneyRequest {
+  int64 simulation_id = 1;
+  int64 agent_id = 2;
+  int64 journey_id = 3;
+  int64 stage_id = 4;
+}
+
+message AgentIdsResponse {
+  repeated int64 agent_ids = 1;
+}
+
+message GetAgentsInRegionRequest {
+  int64 simulation_id = 1;
+  Polygon region = 2;
+}
+
+message GetDesiredSpeedRequest {
+  int64 simulation_id = 1;
+  repeated int64 agent_ids = 2;
+}
+
+message DesiredSpeedResponse {
+  map<int64, double> desired_speeds = 1;
+}
+
+message SetDesiredSpeedRequest {
+  int64 simulation_id = 1;
+  map<int64, double> desired_speeds = 2;
+}
+
+enum WaitingSetState {
+  ACTIVE = 0;
+  INACTIVE = 1;
+}
+
+message AddWaitingSetStageRequest {
+  int64 simulation_id = 1;
+  repeated Point points = 2;
+}
+
+message AddWaitingSetStageResponse {
+  int64 stage_id = 1;
+}
+
+message SetWaitingSetStateRequest {
+  int64 simulation_id = 1;
+  int64 stage_id = 2;
+  WaitingSetState state = 3;
+}
+
+message GetWaitingSetStateRequest {
+  int64 simulation_id = 1;
+  int64 stage_id = 2;
+}
+
+message GetWaitingSetStateResponse {
+  WaitingSetState state = 1;
+  int64 count_waiting = 2;
+  int64 count_targeting = 3;
+}
+
+service JuPedSimService {
+  rpc CreateGeometry(CreateGeometryRequest) returns (CreateGeometryResponse);
+  rpc SwitchGeometry(SwitchGeometryRequest) returns (EmptyResponse);
+  rpc CreateSimulation(CreateSimulationRequest) returns (CreateSimulationResponse);
+  rpc CreateAgent(CreateAgentRequest) returns (CreateAgentResponse);
+  rpc RemoveAgents(RemoveAgentsRequest) returns (EmptyResponse);
+  rpc SwitchAgentJourney(SwitchAgentJourneyRequest) returns (EmptyResponse);
+  rpc GetAgentsInRegion(GetAgentsInRegionRequest) returns (AgentIdsResponse);
+  rpc GetDesiredSpeedOfAgents(GetDesiredSpeedRequest) returns (DesiredSpeedResponse);
+  rpc SetDesiredSpeedOfAgents(SetDesiredSpeedRequest) returns (EmptyResponse);
+  rpc AddWaypointStage(AddWaypointStageRequest) returns (AddWaypointStageResponse);
+  rpc AddExitStage(AddExitStageRequest) returns (AddExitStageResponse);
+  rpc AddWaitingSetStage(AddWaitingSetStageRequest) returns (AddWaitingSetStageResponse);
+  rpc SetWaitingSetState(SetWaitingSetStateRequest) returns (EmptyResponse);
+  rpc GetWaitingSetState(GetWaitingSetStateRequest) returns (GetWaitingSetStateResponse);
+  rpc AddJourney(AddJourneyRequest) returns (AddJourneyResponse);
+  rpc GetCorePropertiesOfAllAgents(GetCorePropertiesOfAllAgentsRequest) returns (GetCorePropertiesOfAllAgentsResponse);
+  rpc GetAgentCount(SimulationIdRequest) returns (CountResponse);
+  rpc GetIterationCount(SimulationIdRequest) returns (CountResponse);
+  rpc Iterate(IterateRequest) returns (IterateResponse);
+}
