@@ -1,0 +1,7 @@
+-n input_net.net.xml
+--output=net.net.xml
+--ptstop-files input_ptstops.xml
+--ptline-files input_ptlines.xml
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+--ignore-errors
