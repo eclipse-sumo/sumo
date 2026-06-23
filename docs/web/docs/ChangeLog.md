@@ -17,9 +17,9 @@ title: ChangeLog
   - Fixed diminished energy consumption from radial drag immediately after departure #18059
   - Fixed invalid error when vehicles with stops are affected by a closingReroute #18070
   - Vehicles with departLane "best" or "best_prob" are no longer inserted on forbidden edges #18077
-  - Fixed crash when attempting to load networks with NaN in edge lengths or speeds (no raises an error instead) #18094
+  - Fixed crash when attempting to load networks with NaN in edge lengths or speeds (now raises an error instead) #18094
   - Fixed invalid driveway foes in moving-block mode #18106
-  - Fixed invalid traffic light signal phase loading simulation state (with WAUT) #18105
+  - Fixed invalid traffic light signal phase when loading simulation state (with WAUT) #18105
 
 - netedit
   - Fixed crash after renaming tlLogic #18116 (regression in 1.27.0)
@@ -27,7 +27,7 @@ title: ChangeLog
   - TAZs with one shape point no longer writes an invalid center #16845
   - selected connections now remain visible at high zoom when selection scaling is active #17309
   - rerouterDialog now allows to set special destination "terminateRoute" and "keepDestination" in destProbReroute #18072
-  - rerouter intervals no longer disappears when editing attribute edges in inspect mode #18071
+  - rerouter intervals no longer disappears when editing attribute `edges` in inspect mode #18071
 
 - sumo-gui
   - Fixed invalid color for shown route when activating vehicle id background color (meso only) #18112 (regression in 1.11.0)
@@ -47,13 +47,13 @@ title: ChangeLog
 
 - tools
   - routeSampler.py: can now load marouter output (routeDistributions) #18079
-  - sumolib: getNeighboringEdges and getNeighboringLanes now return consist results when called with different arguments for includeJunctions #18086
+  - sumolib: getNeighboringEdges and getNeighboringLanes now return consistent results when called with different arguments for `includeJunctions` #18086
   - mapDetectors.py: fixed mapping issues for positions close to a junction coordinate #18085
 
 ### Enhancements
 
 - sumo
-  - CarFollowModel "Rail', can now include train resistance due to curvature by setting vType attribute `curveResitance="1"`. The underlying Röckl model exposes 5 configuration parameters (i.e. to adapt to different gauges and wheel bases). #18057
+  - CarFollowModel "Rail', can now include train resistance due to curvature by setting vType attribute `curveResistance="1"`. The underlying Röckl model exposes 5 configuration parameters (i.e. to adapt to different gauges and wheel bases). #18057
   - CarFollowingModels now save their state (VehicleVariables) #18055
 
 - sumo-gui
