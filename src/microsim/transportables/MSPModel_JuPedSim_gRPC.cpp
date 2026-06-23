@@ -368,76 +368,90 @@ MSPModel_JuPedSim_gRPC::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
-//     const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
-//     JPS_ErrorMessage message = nullptr;
-//     for (int i = 0; i < nbrIterations; ++i) {
-//         // Perform one JuPedSim iteration.
-//         bool ok = JPS_Simulation_Iterate(myJPSSimulation, &message);
-//         if (!ok) {
-//             WRITE_ERRORF(TL("Error during iteration %: %"), i, JPS_ErrorMessage_GetMessage(message));
-//         }
-//     }
+    const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
+    sumo_jupedsim_api::IterateRequest iterateRequest;
+    iterateRequest.set_simulation_id(myJPSSimulation);
+    iterateRequest.set_count(nbrIterations);
+    grpc::ClientContext iterateContext;
+    sumo_jupedsim_api::IterateResponse iterateResponse;
+    const grpc::Status iterateStatus = myGrpcStub->Iterate(&iterateContext, iterateRequest, &iterateResponse);
+    if (!iterateStatus.ok()) {
+        WRITE_WARNINGF(TL("JuPedSim gRPC Iterate failed: %"), iterateStatus.error_message());
+        return DELTA_T;
+    }
 
-//     // Update the state of all pedestrians.
-//     // If necessary, this could be done more often in the loop above but the more precise positions are probably never visible.
-//     // If it is needed for model correctness (precise stopping / arrivals) we should rather reduce SUMO's step-length.
-//     for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
-//         PState* const state = *stateIt;
+    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsRequest propertiesRequest;
+    propertiesRequest.set_simulation_id(myJPSSimulation);
+    grpc::ClientContext propertiesContext;
+    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsResponse propertiesResponse;
+    const grpc::Status propertiesStatus = myGrpcStub->GetCorePropertiesOfAllAgents(&propertiesContext, propertiesRequest, &propertiesResponse);
+    if (!propertiesStatus.ok()) {
+        WRITE_WARNINGF(TL("JuPedSim gRPC GetCorePropertiesOfAllAgents failed: %"), propertiesStatus.error_message());
+        return DELTA_T;
+    }
+    const auto& properties = propertiesResponse.properties();
 
-//         if (state->isWaitingToEnter()) {
-//             // insertion failed at first try so we retry with some noise
-//             Position p = state->getPosition(*state->getStage(), time);
-//             p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
-//             p.sety(p.y() + RandHelper::rand(-.5, .5));
-//             tryPedestrianInsertion(state, p);
-//             ++stateIt;
-//             continue;
-//         }
+    for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
+        PState* const state = *stateIt;
 
-//         MSPerson* const person = state->getPerson();
-//         MSStageWalking* const stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
-//         if (stage == nullptr) {
-//             // It seems we kept the state for another stage but the new stage is not a walk.
-//             // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
-//             // We cannot check this earlier because when the old stage ends the next stage might not know yet whether it will be a walk.
-//             registerArrived(state->getAgentId());
-//             stateIt = myPedestrianStates.erase(stateIt);
-//             continue;
-//         }
+        if (state->isWaitingToEnter()) {
+            // insertion failed at first try so we retry with some noise
+            Position p = state->getPosition(*state->getStage(), time);
+            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5));
+            tryPedestrianInsertion(state, p);
+            ++stateIt;
+            continue;
+        }
 
-//         // Updates the agent position.
-//         const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
-//         const JPS_Point position = JPS_Agent_GetPosition(agent);
-//         state->setPosition(position.x, position.y);
+        MSPerson* const person = state->getPerson();
+        MSStageWalking* const stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
+        if (stage == nullptr) {
+            // It seems we kept the state for another stage but the new stage is not a walk.
+            // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
+            // We cannot check this earlier because when the old stage ends the next stage might not know yet whether it will be a walk.
+            registerArrived(state->getAgentId());
+            stateIt = myPedestrianStates.erase(stateIt);
+            continue;
+        }
 
-//         // Updates the agent direction.
-//         const JPS_Point orientation = JPS_Agent_GetOrientation(agent);
-//         state->setAngle(atan2(orientation.y, orientation.x));
+        // Updates the agent position.
+        const auto agentIt = properties.find(state->getAgentId());
+        if (agentIt == properties.end()) {
+            WRITE_WARNINGF(TL("JuPedSim gRPC unknown agent: %"), state->getAgentId());
+            continue;
+        }
+        const sumo_jupedsim_api::Point& pos = agentIt->second.position();
+        WRITE_WARNING("  after " + toString(time) + " steps: agent " + toString(state->getAgentId())
+                        + " at (" + toString(pos.x()) + ", " + toString(pos.y()) + ")");
+        state->setPosition(pos.x(), pos.y());
+        const sumo_jupedsim_api::Point& orientation = agentIt->second.orientation();
+        state->setAngle(atan2(orientation.y(), orientation.x()));
 
-//         // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
-//         Position newPosition(position.x, position.y);
-//         ConstMSEdgeVector route = stage->getEdges();
-//         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
-//         const double oldLanePos = state->getEdgePos(time);
-//         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
-//         double bestDistance = std::numeric_limits<double>::max();
-//         MSLane* candidateLane = nullptr;
-//         double candidateLaneLongitudinalPosition = 0.0;
-//         int routeOffset = 0;
-//         const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
-//                            forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
+        // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
+        Position newPosition(pos.x(), pos.y());
+        ConstMSEdgeVector route = stage->getEdges();
+        const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+        const double oldLanePos = state->getEdgePos(time);
+        ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
+        double bestDistance = std::numeric_limits<double>::max();
+        MSLane* candidateLane = nullptr;
+        double candidateLaneLongitudinalPosition = 0.0;
+        int routeOffset = 0;
+        const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
+                           forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
 
-//         if (found) {
-//             if (candidateLane != state->getLane()) {
-//                 if (state->getLane() != nullptr) {
-//                     auto& peds = myActiveLanes[state->getLane()];
-//                     peds.erase(std::find(peds.begin(), peds.end(), state));
-//                 }
-//                 myActiveLanes[candidateLane].push_back(state);
-//                 state->setLane(candidateLane);
-//             }
-//             state->setLanePosition(candidateLaneLongitudinalPosition);
-//         }
+        if (found) {
+            if (candidateLane != state->getLane()) {
+                if (state->getLane() != nullptr) {
+                    auto& peds = myActiveLanes[state->getLane()];
+                    peds.erase(std::find(peds.begin(), peds.end(), state));
+                }
+                myActiveLanes[candidateLane].push_back(state);
+                state->setLane(candidateLane);
+            }
+            state->setLanePosition(candidateLaneLongitudinalPosition);
+        }
 
 //         const MSEdge* const expectedEdge = stage->getEdge();
 //         if (found && expectedEdge->isNormal() && candidateLane->getEdge().isNormal() && &candidateLane->getEdge() != expectedEdge) {
@@ -518,8 +532,8 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
 //                 }
 //             }
 //         }
-//         ++stateIt;
-//     }
+        ++stateIt;
+    }
 
 //     // Remove pedestrians that are in a predefined area, at a predefined rate.
 //     for (const auto& area : myAreas) {
