@@ -491,7 +491,7 @@ title: ChangeLog
   - traci and libsumo python libraries now provide the standard __version__ attribute #17366
 
 - tools
-  - attributeCompare.py: Now supports special id-attribute @FILE #17334
+  - attributeCompare.py: Now supports special id-attribute \@FILE #17334
   - [visum_convertXMLRoutes.py](Tools/Import/VISUM.md#visum_convertxmlroutespy): new tool for importing VISUM routes file #17347
   - generateRerouters.py: Added option **--closed-edges.input-file** for loading edges to close from a selection file #17359
   - generateRerouters.py: major speed-up #17362
