@@ -77,6 +77,14 @@ SUMO has been designed to be useful in the assessment of a wide range of transpo
 
 SUMO also features in teaching, for example in courses at the TH Wildau, TU Munich, and the TU Berlin (all in Germany), to name but a few. Many tutorials do exist, which have also been extended in order to teach traffic modelling and simulation.
 
+# Software design
+
+SUMO was initiated over 25 years ago, when no comparable open-source traffic simulation framework existed, making the development of a new software platform the only viable option. The software is a modular framework with a simulation core that emphasises computational efficiency and deterministic execution on shared-memory systems, prioritising single-core performance over multi-core parallelisation (still in progress). It is complemented by graphical applications, command-line tools, and utilities for network generation, demand modelling, visualisation, and analysis. Portability was a key design objective, achieved through the use of C++, Python, and platform-independent libraries to support Windows, Linux, and macOS. Interoperability with external software is provided through standardized XML-based input and output formats, with additional support for CSV and Parquet exports, as well as APIs such as TraCI and libsumo for simulation control and co-simulation.
+
+SUMO is complemented by a set of bundled extensions included in the distribution, which originate from external development efforts. These components, such as hybridPy, Cadyts, LiSuM, and SAGA, extend SUMO functionality for tasks such as demand generation, calibration, traffic signal control integration, and activity-based demand modelling, with varying levels of maintenance and support.[^1]
+
+[^1]: See: [https://sumo.dlr.de/docs/Contributed/](https://sumo.dlr.de/docs/Contributed/)
+
 # Research impact statement
 
 Since its inception in 2001, `SUMO` has established itself as one of the world's leading open-source traffic simulation platforms. It has been downloaded nearly half a million times by users from 203 countries[^1] and is maintained by DLR's core development team and an active community with more than 78k commits from over 230 contributors on GitHub, accompanied by approximately 627,000 words of online documentation. Continuous development is reflected in a regular release cycle, with up to four new versions published each year, all of which are recorded on Zenodo since 2023 ([SUMO releases](https://zenodo.org/records/20312733)). The scientific impact is demonstrated by over 13,000 citations across its five most cited publications on Google Scholar. The ecosystem is further supported by the `SUMO` conference (since 2013), which attracts around 50–100 participants annually and includes tutorials, Q&A sessions, scientific talks, posters, and workshops. Since 2018, `SUMO` has also been a project within the Eclipse Foundation.
