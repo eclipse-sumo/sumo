@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-08 20:51+0200\n"
-"PO-Revision-Date: 2026-06-22 13:33+0000\n"
+"PO-Revision-Date: 2026-06-23 07:48+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3156,6 +3156,8 @@ msgstr "el valor mínimo de paso es 0.001."
 #: src/microsim/MSFrame.cpp:999
 msgid "The save-state time=% will not be used before simulation end at %."
 msgstr ""
+"El tiempo de guardado de estado (programado para el instante = %) no se "
+"utilizará antes de que la simulación finalice en %."
 
 #: src/microsim/MSFrame.cpp:1011
 msgid ""
@@ -5326,7 +5328,7 @@ msgstr "La reasignación no indicó la recogida para el cliente existente '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:589
 msgid "Could not add taxi stop for %, desc=% time=% error=%"
-msgstr ""
+msgstr "No se pudo agregar la parada de taxi para %, tipo=% tiempo=% error=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:625
 msgid "Taxi '%' aborts waiting for customers: % at time=%."
@@ -5394,6 +5396,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:129
 msgid "Probability that a dynamically triggered TOR is not answered in time."
 msgstr ""
+"Probabilidad de que una solicitud de toma de control (TOR) activada "
+"dinámicamente no sea respondida a tiempo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:131
 msgid "If true, the vehicle tries to change to the right during an MRM."
@@ -5446,6 +5450,8 @@ msgstr ""
 msgid ""
 "Rate of adaptation towards the increased headway during ToC preparation."
 msgstr ""
+"Tasa de adaptación hacia el aumento del intervalo de seguimiento durante la "
+"preparación para la toma de control (ToC)."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:147
 msgid ""
@@ -6606,7 +6612,7 @@ msgstr ""
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:682
 msgid "Reversed % sequences (count by length: %)"
-msgstr ""
+msgstr "Se invirtieron % secuencias (cantidad por longitud: %)"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:713
 msgid "Ignoring buffer stop junction '%' with % edges."
@@ -7336,6 +7342,8 @@ msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
 msgstr ""
+"Asociar las paradas fuera de la red vial con la línea de transporte público "
+"correspondiente si están dentro de la distancia indicada"
 
 #: src/netbuild/NBFrame.cpp:243
 msgid "Repair topology of the railway network"
@@ -8076,7 +8084,7 @@ msgstr "Solo mantener aristas cuyo tipo esté presente en STR[]"
 
 #: src/netbuild/NBFrame.cpp:708
 msgid "Only keep the INT largest weakly connected components"
-msgstr ""
+msgstr "Mantener solo los INT componentes débilmente conectados más grandes"
 
 #: src/netbuild/NBFrame.cpp:711
 msgid "Remove edges where type is in STR[]"
@@ -9696,6 +9704,8 @@ msgstr ""
 msgid ""
 "Whether edges shoulds carry information on the usage of typemap defaults"
 msgstr ""
+"Si las aristas deben conservar información sobre el uso de los valores "
+"predeterminados del typemap"
 
 #: src/netimport/NIFrame.cpp:243
 msgid "The edge lengths given in the MATSim-file will be kept"
@@ -12440,10 +12450,12 @@ msgstr "No se pudo acceder al archivo de rutas '%' para cargar."
 #: src/od/ODMatrix.cpp:736
 msgid "Assuming 24 entries for a day timeline, but got %."
 msgstr ""
+"Se asumen 24 entradas para una línea temporal de un día, pero se obtuvieron "
+"%."
 
 #: src/od/ODMatrix.cpp:746
 msgid "Broken time line definition: missing a value in '%'."
-msgstr ""
+msgstr "Definición de línea temporal incorrecta: falta un valor en '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:561 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
