@@ -1,4 +1,2 @@
-Error: Edge 'E2' for stop 'bs_0' not found
-Error: Could not add access outside a stopping place.
-Error: No nodes loaded.
-Quitting (on error).
+Warning: Edge 'E2' for stop 'bs_0' not found
+Warning: Edge 'E2' in route of line 'test' not found
