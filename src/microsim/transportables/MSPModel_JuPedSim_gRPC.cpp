@@ -531,168 +531,151 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
         ++stateIt;
     }
 
-//     // Remove pedestrians that are in a predefined area, at a predefined rate.
-//     for (const auto& area : myAreas) {
-//         const std::vector<JPS_Point>& areaBoundary = area->areaBoundary;
-//         JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
-//         if (area->areaType == "vanishing_area") {
-//             const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
-//             const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
-//             if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
-//                 for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
-//                     const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
-//                     if (agentID != 0) {
-//                         auto lambda = [agentID](const PState * const p) {
-//                             return p->getAgentId() == agentID;
-//                         };
-//                         std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
-//                         if (iterator != myPedestrianStates.end()) {
-//                             const PState* const state = *iterator;
-//                             MSPerson* const person = state->getPerson();
-//                             // Code below only works if the removal happens at the last stage.
-//                             const bool finalStage = person->getNumRemainingStages() == 1;
-//                             if (finalStage) {
-//                                 WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area->id);
-//                                 while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
-//                                 registerArrived(agentID);
-//                                 myPedestrianStates.erase(iterator);
-//                                 area->lastRemovalTime = time;
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         } else {  // areaType == "influencer"
-//             for (JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea); agentID != 0; agentID = JPS_AgentIdIterator_Next(agentsInArea)) {
-//                 if (area->params.count("speed") > 0) {
-//                     const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, agentID, nullptr);
-//                     const double newMaxSpeed = StringUtils::toDouble(area->params.at("speed"));
-//                     switch (myJPSModel) {
-//                         case JPS_Model::CollisionFreeSpeed: {
-//                             JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
-//                             if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-//                                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
-//                             }
-//                             break;
-//                         }
-//                         case JPS_Model::CollisionFreeSpeedV2: {
-//                             JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
-//                             if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
-//                                 JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
-//                             }
-//                             break;
-//                         }
-//                         case JPS_Model::GeneralizedCentrifugalForce: {
-//                             JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
-//                             if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
-//                                 JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
-//                             }
-//                             break;
-//                         }
-//                         case JPS_Model::SocialForce: {
-//                             JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
-//                             if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
-//                                 JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
-//                             }
-//                             break;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//         JPS_AgentIdIterator_Free(agentsInArea);
-//     }
+    // Remove pedestrians that are in a predefined area, at a predefined rate.
+    for (const auto& area : myAreas) {
+        sumo_jupedsim_api::GetAgentsInRegionRequest agentsRequest;
+        agentsRequest.set_simulation_id(myJPSSimulation);
+        agentsRequest.set_allocated_region(&area->areaBoundary);
+        const sumo_jupedsim_api::AgentIdsResponse agentsResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetAgentsInRegion,
+                                     agentsRequest, TL("Error while retrieving agents in area: "));
+        agentsRequest.release_region();
+        const int numAgents = agentsResponse.agent_ids_size();
+        if (numAgents == 0) {
+            continue;
+        }
+        if (area->areaType == "vanishing_area") {
+            const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
+            const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
+            if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
+                for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
+                    const JPS_AgentId agentID = agentsResponse.agent_ids(0);
+                    auto lambda = [agentID](const PState * const p) {
+                        return p->getAgentId() == agentID;
+                    };
+                    std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
+                    if (iterator != myPedestrianStates.end()) {
+                        const PState* const state = *iterator;
+                        MSPerson* const person = state->getPerson();
+                        // Code below only works if the removal happens at the last stage.
+                        const bool finalStage = person->getNumRemainingStages() == 1;
+                        if (finalStage) {
+                            WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area->id);
+                            while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+                            registerArrived(agentID);
+                            myPedestrianStates.erase(iterator);
+                            area->lastRemovalTime = time;
+                        }
+                    }
+                }
+            }
+        } else {  // areaType == "influencer"
+            if (area->params.count("speed") == 0) {
+                continue;
+            }
+            const double newSpeed = StringUtils::toDouble(area->params.at("speed"));
+            sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
+            desiredSpeedRequest.set_simulation_id(myJPSSimulation);
+            auto speeds = desiredSpeedRequest.desired_speeds();
+            for (int i = 0; i < numAgents; i++) {
+                speeds[agentsResponse.agent_ids(i)] = newSpeed;
+            }
+            grpc::ClientContext desiredSpeedContext;
+            sumo_jupedsim_api::EmptyResponse desiredSpeedResponse;
+            const grpc::Status desiredSpeedStatus = myGrpcStub->SetDesiredSpeedOfAgents(&desiredSpeedContext, desiredSpeedRequest, &desiredSpeedResponse);
+            if (!desiredSpeedStatus.ok()) {
+                throw ProcessError(TLF("Error while setting desired speed for area: %", desiredSpeedStatus.error_message()));
+            }
+        }
+    }
 
-//     // Add dynamically additional geometry from train carriages that are stopped.
-//     const auto& stoppingPlaces = myNetwork->getStoppingPlaces(SumoXMLTag::SUMO_TAG_BUS_STOP);
-//     std::vector<SUMOTrafficObject::NumericalID> allStoppedTrainIDs;
-//     std::vector<const MSVehicle*> allStoppedTrains;
-//     for (const auto& stop : stoppingPlaces) {
-//         std::vector<const SUMOVehicle*> stoppedTrains = stop.second->getStoppedVehicles();
-//         for (const SUMOVehicle* train : stoppedTrains) {
-//             allStoppedTrainIDs.push_back(train->getNumericalID());
-//             allStoppedTrains.push_back(dynamic_cast<const MSVehicle*>(train));
-//         }
-//     }
-//     if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
-//         removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
-//         if (!allStoppedTrainIDs.empty()) {
-//             std::vector<GEOSGeometry*> carriagePolygons;
-//             std::vector<GEOSGeometry*> rampPolygons;
-//             for (const MSVehicle* train : allStoppedTrains) {
-//                 if (train->getLeavingPersonNumber() > 0) {
-//                     const SUMOVTypeParameter& vTypeParam = train->getVehicleType().getParameter();
-//                     MSTrainHelper trainHelper = MSTrainHelper(train);
-//                     trainHelper.computeDoorPositions();
-//                     const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
-//                     for (const MSTrainHelper::Carriage* carriage : carriages) {
-//                         Position dir = carriage->front - carriage->back;
-//                         if (dir.length2D() == 0.0) {
-//                             continue;
-//                         }
-//                         dir.norm2D();
-//                         Position perp = Position(-dir.y(), dir.x());
-//                         // Create carriages geometry.
-//                         double p = trainHelper.getHalfWidth();
-//                         PositionVector carriageShape;
-//                         carriageShape.push_back(carriage->front + perp * p);
-//                         carriageShape.push_back(carriage->back + perp * p);
-//                         carriageShape.push_back(carriage->back - perp * p);
-//                         carriageShape.push_back(carriage->front - perp * p);
-//                         carriagePolygons.push_back(createGeometryFromShape(carriageShape));
-//                         // Create ramps geometry.
-//                         p += vTypeParam.maxPlatformDistance;
-//                         const double d = 0.5 * vTypeParam.carriageDoorWidth;
-//                         for (const Position& door : carriage->doorPositions) {
-//                             PositionVector rampShape;
-//                             rampShape.push_back(door - perp * p + dir * d);
-//                             rampShape.push_back(door - perp * p - dir * d);
-//                             rampShape.push_back(door + perp * p - dir * d);
-//                             rampShape.push_back(door + perp * p + dir * d);
-//                             rampPolygons.push_back(createGeometryFromShape(rampShape));
-//                         }
-//                     }
-//                 }
-//             }
-//             if (!carriagePolygons.empty()) {
-//                 GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
-//                 GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
-//                 GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
-//                 if (carriagesAndRampsUnion == nullptr) {
-//                     WRITE_WARNING(TL("Error while generating geometry for carriages."));
-//                 } else {
-//                     GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
-// #ifdef DEBUG_GEOMETRY_GENERATION
-//                     //dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
-// #endif
-//                     int nbrComponents = 0;
-//                     double maxArea = 0.0;
-//                     double totalArea = 0.0;
-//                     const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
-//                     if (nbrComponents > 1) {
-//                         WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
-//                                        nbrComponents, maxArea / totalArea * 100.0, "%");
-//                     }
-// #ifdef DEBUG_GEOMETRY_GENERATION
-//                     //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
-// #endif
-//                     // myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-//                     // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
-//                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
-//                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
-//                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
-//                 }
-//                 GEOSGeom_destroy(rampsCollection);
-//                 GEOSGeom_destroy(carriagesCollection);
-//             }
-//         } else {
-//             // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
-//             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
-//         }
-//         myAllStoppedTrainIDs = allStoppedTrainIDs;
-//     }
-
-//     JPS_ErrorMessage_Free(message);
+    // Add dynamically additional geometry from train carriages that are stopped.
+    const auto& stoppingPlaces = myNetwork->getStoppingPlaces(SumoXMLTag::SUMO_TAG_BUS_STOP);
+    std::vector<SUMOTrafficObject::NumericalID> allStoppedTrainIDs;
+    std::vector<const MSVehicle*> allStoppedTrains;
+    for (const auto& stop : stoppingPlaces) {
+        std::vector<const SUMOVehicle*> stoppedTrains = stop.second->getStoppedVehicles();
+        for (const SUMOVehicle* train : stoppedTrains) {
+            allStoppedTrainIDs.push_back(train->getNumericalID());
+            allStoppedTrains.push_back(dynamic_cast<const MSVehicle*>(train));
+        }
+    }
+    if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
+        removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
+        if (!allStoppedTrainIDs.empty()) {
+            std::vector<GEOSGeometry*> carriagePolygons;
+            std::vector<GEOSGeometry*> rampPolygons;
+            for (const MSVehicle* train : allStoppedTrains) {
+                if (train->getLeavingPersonNumber() > 0) {
+                    const SUMOVTypeParameter& vTypeParam = train->getVehicleType().getParameter();
+                    MSTrainHelper trainHelper = MSTrainHelper(train);
+                    trainHelper.computeDoorPositions();
+                    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
+                    for (const MSTrainHelper::Carriage* carriage : carriages) {
+                        Position dir = carriage->front - carriage->back;
+                        if (dir.length2D() == 0.0) {
+                            continue;
+                        }
+                        dir.norm2D();
+                        Position perp = Position(-dir.y(), dir.x());
+                        // Create carriages geometry.
+                        double p = trainHelper.getHalfWidth();
+                        PositionVector carriageShape;
+                        carriageShape.push_back(carriage->front + perp * p);
+                        carriageShape.push_back(carriage->back + perp * p);
+                        carriageShape.push_back(carriage->back - perp * p);
+                        carriageShape.push_back(carriage->front - perp * p);
+                        carriagePolygons.push_back(createGeometryFromShape(carriageShape));
+                        // Create ramps geometry.
+                        p += vTypeParam.maxPlatformDistance;
+                        const double d = 0.5 * vTypeParam.carriageDoorWidth;
+                        for (const Position& door : carriage->doorPositions) {
+                            PositionVector rampShape;
+                            rampShape.push_back(door - perp * p + dir * d);
+                            rampShape.push_back(door - perp * p - dir * d);
+                            rampShape.push_back(door + perp * p - dir * d);
+                            rampShape.push_back(door + perp * p + dir * d);
+                            rampPolygons.push_back(createGeometryFromShape(rampShape));
+                        }
+                    }
+                }
+            }
+            if (!carriagePolygons.empty()) {
+                GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
+                GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
+                GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
+                if (carriagesAndRampsUnion == nullptr) {
+                    WRITE_WARNING(TL("Error while generating geometry for carriages."));
+                } else {
+                    GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
+#ifdef DEBUG_GEOMETRY_GENERATION
+                    //dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+#endif
+                    int nbrComponents = 0;
+                    double maxArea = 0.0;
+                    double totalArea = 0.0;
+                    const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
+                    if (nbrComponents > 1) {
+                        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
+                                       nbrComponents, maxArea / totalArea * 100.0, "%");
+                    }
+#ifdef DEBUG_GEOMETRY_GENERATION
+                    //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
+#endif
+                    myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
+                    // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                    removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
+                    preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
+                    GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
+                }
+                GEOSGeom_destroy(rampsCollection);
+                GEOSGeom_destroy(carriagesCollection);
+            }
+        } else {
+            // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+        }
+        myAllStoppedTrainIDs = allStoppedTrainIDs;
+    }
 
     return DELTA_T;
 }
@@ -1264,25 +1247,27 @@ MSPModel_JuPedSim_gRPC::polygonChanged(const SUMOPolygon* const poly, const bool
     if (poly->getShapeType() == "jupedsim.vanishing_area" || poly->getShapeType() == "jupedsim.influencer") {
         SUMOTime lastRemovalTime = 0;
         if (!added) {
-            // for (auto areaIt = myAreas.begin(); areaIt != myAreas.end(); ++areaIt) {
-            //     if (poly->getID() == (*areaIt)->id) {
-            //         lastRemovalTime = (*areaIt)->lastRemovalTime;
-            //         myAreas.erase(areaIt);
-            //         break;
-            //     }
-            // }
+            for (auto areaIt = myAreas.begin(); areaIt != myAreas.end(); ++areaIt) {
+                if (poly->getID() == (*areaIt)->id) {
+                    lastRemovalTime = (*areaIt)->lastRemovalTime;
+                    myAreas.erase(areaIt);
+                    break;
+                }
+            }
         }
         if (!removed) {
-            // std::vector<JPS_Point> areaBoundary;
-            // for (const Position& p : poly->getShape()) {
-            //     areaBoundary.push_back({p.x(), p.y()});
-            // }
+            sumo_jupedsim_api::Polygon areaBoundary;
+            for (const Position& p : poly->getShape()) {
+                sumo_jupedsim_api::Point* point = areaBoundary.add_points();
+                point->set_x(p.x());
+                point->set_y(p.y());
+            }
             // // Make sure the shape is not repeating the first point.
             // if (areaBoundary.back().x == areaBoundary.front().x && areaBoundary.back().y == areaBoundary.front().y) {
             //     areaBoundary.pop_back();
             // }
-            // const std::string type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
-            // myAreas.emplace_back(std::unique_ptr<AreaData>(new AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap(), lastRemovalTime}));
+            const std::string type = StringTokenizer(poly->getShapeType(), ".").getVector()[1];
+            myAreas.emplace_back(std::unique_ptr<AreaData>(new AreaData{poly->getID(), type, areaBoundary, poly->getParametersMap(), lastRemovalTime}));
         }
     }
 }

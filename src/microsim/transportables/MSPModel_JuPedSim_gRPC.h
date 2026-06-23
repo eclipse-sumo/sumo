@@ -204,18 +204,18 @@ private:
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
 
     /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
-    // struct AreaData {
-    //     const std::string id;
-    //     const std::string areaType;
-    //     const std::vector<JPS_Point> areaBoundary;
-    //     const Parameterised::Map& params;
+    struct AreaData {
+        const std::string id;
+        const std::string areaType;
+        sumo_jupedsim_api::Polygon areaBoundary;
+        const Parameterised::Map& params;
 
-    //     /// @brief The last time a pedestrian was removed in a vanishing area.
-    //     SUMOTime lastRemovalTime;
-    // };
+        /// @brief The last time a pedestrian was removed in a vanishing area.
+        SUMOTime lastRemovalTime;
+    };
 
     /// @brief Array of special areas.
-    // std::vector<std::unique_ptr<AreaData> > myAreas;
+    std::vector<std::unique_ptr<AreaData> > myAreas;
 
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
@@ -251,4 +251,17 @@ private:
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
     JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);
+
+    template <class Request, class Response>
+    Response
+    callGrpc(grpc::Status (sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
+             const Request& request, const std::string& what) {
+        grpc::ClientContext context;
+        Response response;
+        const grpc::Status status = ((*myGrpcStub).*method)(&context, request, &response);
+        if (!status.ok()) {
+            throw ProcessError(what + status.error_message());
+        }
+        return response;
+    }
 };
