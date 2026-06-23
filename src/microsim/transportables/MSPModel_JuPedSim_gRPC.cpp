@@ -305,7 +305,7 @@ MSPModel_JuPedSim_gRPC::add(MSTransportable* person, MSStageMoving* stage, SUMOT
         }
         journeyRequest.add_stage_ids(waypoint);
         if (startingStage == 0) {
-            startingStage = waypoint;
+            startingStage = waiting != 0 ? waiting : waypoint;
         }
     }
     grpc::ClientContext journeyContext;
