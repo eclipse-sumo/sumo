@@ -651,6 +651,8 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.jupedsim.wkt.geo", "Output", TL("Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"));
     oc.doRegister("pedestrian.jupedsim.py", new Option_FileName());
     oc.addDescription("pedestrian.jupedsim.py", "Output", TL("The filename to output the JuPedSim setup as Python script"));
+    oc.doRegister("pedestrian.jupedsim.address", new Option_String("localhost:50051"));
+    oc.addDescription("pedestrian.jupedsim.address", "Processing", TL("The address to connect to the JuPedSim gRPC server"));
 #endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));
@@ -1167,12 +1169,12 @@ MSFrame::checkOptions() {
     }
 
 #ifdef HAVE_JUPEDSIM
-    const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
-    const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
-    if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
-        WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
-        ok = false;
-    }
+    // const std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
+    // const std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
+    // if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
+    //     WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
+    //     ok = false;
+    // }
 #endif
 
     ok &= MSDevice::checkOptions(oc);
