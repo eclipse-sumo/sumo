@@ -26,7 +26,6 @@
 #include <vector>
 #include <map>
 #include <geos_c.h>
-#include <jupedsim/jupedsim.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
@@ -58,6 +57,10 @@ class OutputDevice;
  */
 class MSPModel_JuPedSim_gRPC : public MSPModel_Interacting, public ShapeListener {
 public:
+    typedef int64_t JPS_StageId;
+    typedef int64_t JPS_AgentId;
+    typedef int64_t JPS_JourneyId;
+
     MSPModel_JuPedSim_gRPC(const OptionsCont& oc, MSNet* net);
     ~MSPModel_JuPedSim_gRPC();
 
@@ -194,25 +197,25 @@ private:
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
     int64_t myJPSGeometryWithTrainsAndRamps;
     std::string myJPSModel;
-    JPS_OperationalModel myJPSOperationalModel;
+    // JPS_OperationalModel myJPSOperationalModel;
     int64_t myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
     std::shared_ptr<grpc::Channel> myGrpcChannel;
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
 
     /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
-    struct AreaData {
-        const std::string id;
-        const std::string areaType;
-        const std::vector<JPS_Point> areaBoundary;
-        const Parameterised::Map& params;
+    // struct AreaData {
+    //     const std::string id;
+    //     const std::string areaType;
+    //     const std::vector<JPS_Point> areaBoundary;
+    //     const Parameterised::Map& params;
 
-        /// @brief The last time a pedestrian was removed in a vanishing area.
-        SUMOTime lastRemovalTime;
-    };
+    //     /// @brief The last time a pedestrian was removed in a vanishing area.
+    //     SUMOTime lastRemovalTime;
+    // };
 
     /// @brief Array of special areas.
-    std::vector<std::unique_ptr<AreaData> > myAreas;
+    // std::vector<std::unique_ptr<AreaData> > myAreas;
 
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
@@ -232,8 +235,8 @@ private:
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    bool addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage);
-    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint);
+    // bool addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage);
+    JPS_StageId addWaypoint(const std::string& agentID, const WaypointDesc& waypoint);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
