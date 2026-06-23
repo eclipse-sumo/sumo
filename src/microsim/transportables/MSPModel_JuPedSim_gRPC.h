@@ -30,7 +30,17 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
-
+#pragma push_macro("TS")
+#pragma push_macro("Min")
+#pragma push_macro("Max")
+#undef TS
+#undef Min
+#undef Max
+#include <grpcpp/grpcpp.h>
+#include "jupedsim.grpc.pb.h"
+#pragma pop_macro("TS")
+#pragma pop_macro("Min")
+#pragma pop_macro("Max")
 
 // ===========================================================================
 // class declarations
@@ -179,14 +189,16 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    JPS_Geometry myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    int64_t myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    JPS_Geometry myJPSGeometryWithTrainsAndRamps;
-    JPS_Model myJPSModel;
+    int64_t myJPSGeometryWithTrainsAndRamps;
+    std::string myJPSModel;
     JPS_OperationalModel myJPSOperationalModel;
-    JPS_Simulation myJPSSimulation;
+    int64_t myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
+    std::shared_ptr<grpc::Channel> myGrpcChannel;
+    std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
 
     /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
     struct AreaData {
@@ -226,13 +238,13 @@ private:
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static GEOSCoordSequence* convertToGEOSPoints(PositionVector shape);
-    static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
+    static void convertToJPSPoints(const GEOSGeometry* geometry, sumo_jupedsim_api::Polygon* into);
     static PositionVector convertToSUMOPoints(const GEOSGeometry* geometry);
     static double getLinearRingArea(const GEOSGeometry* linearRing);
     void removePolygonFromDrawing(const std::string& polygonId);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
     static const GEOSGeometry* getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea);
-    static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
+    int64_t buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
     JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);

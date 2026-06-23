@@ -68,15 +68,14 @@ MSPModel_JuPedSim_gRPC::MSPModel_JuPedSim_gRPC(const OptionsCont& oc, MSNet* net
     myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
-    std::string model = oc.getString("pedestrian.jupedsim.model");
-    if (model == "CollisionFreeSpeed") {
-        myJPSModel = JPS_Model::CollisionFreeSpeed;
-    } else if (model == "CollisionFreeSpeedV2") {
-        myJPSModel = JPS_Model::CollisionFreeSpeedV2;
-    } else if (model == "GeneralizedCentrifugalForce") {
-        myJPSModel = JPS_Model::GeneralizedCentrifugalForce;
-    } else if (model == "SocialForce") {
-        myJPSModel = JPS_Model::SocialForce;
+    myJPSModel = oc.getString("pedestrian.jupedsim.model") + "Model";
+    const std::string address = oc.getString("pedestrian.jupedsim.address");
+    myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
+    myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
+    if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(2))) {
+        WRITE_WARNINGF(TL("Connected to JuPedSim gRPC server on '%'."), address);
+    } else {
+        WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
     }
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
@@ -89,12 +88,7 @@ MSPModel_JuPedSim_gRPC::~MSPModel_JuPedSim_gRPC() {
         (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
     }
 
-    JPS_Simulation_Free(myJPSSimulation);
-    JPS_OperationalModel_Free(myJPSOperationalModel);
-    JPS_Geometry_Free(myJPSGeometry);
-    if (myJPSGeometryWithTrainsAndRamps != nullptr) {
-        JPS_Geometry_Free(myJPSGeometryWithTrainsAndRamps);
-    }
+    // TODO: clear simulation, operational model and geometries?
 
     GEOSGeom_destroy(myGEOSPedestrianNetwork);
     finishGEOS();
@@ -117,7 +111,7 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
 
     JPS_AgentId agentId = 0;
     JPS_ErrorMessage message = nullptr;
-
+/*
     switch (myJPSModel) {
         case JPS_Model::CollisionFreeSpeed: {
             JPS_CollisionFreeSpeedModelAgentParameters agentParameters{};
@@ -161,6 +155,7 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
             break;
         }
     }
+        */
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding person '%' as JuPedSim agent: %"), state->getPerson()->getID(), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
@@ -196,37 +191,37 @@ MSPModel_JuPedSim_gRPC::addStage(JPS_JourneyDescription journey, JPS_StageId& pr
 
 bool
 MSPModel_JuPedSim_gRPC::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint) {
-    JPS_ErrorMessage message = nullptr;
-    const Position& coords = std::get<1>(waypoint);
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {coords.x(), coords.y()},
-                                   std::get<2>(waypoint), &message);
-    if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        return false;
-    }
-    const JPS_StageId waiting = std::get<0>(waypoint);
-    if (waiting != 0) {
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "journey.add(" << waiting << ")\n";
-            if (predecessor != 0) {
-                (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(" << waiting << "))\n";
-            }
-        }
-        if (!addStage(journey, predecessor, agentID, waiting)) {
-            return false;
-        }
-    }
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "ws = simulation.add_waypoint_stage((" << coords.x() << "," << coords.y() << "), " << std::get<2>(waypoint) << ")\n"
-                          "journey.add(ws)\n";
-        if (predecessor != 0) {
-            (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(ws))\n";
-        }
-    }
-    if (!addStage(journey, predecessor, agentID, waypointId)) {
-        return false;
-    }
+    // JPS_ErrorMessage message = nullptr;
+    // const Position& coords = std::get<1>(waypoint);
+    // const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {coords.x(), coords.y()},
+    //                                std::get<2>(waypoint), &message);
+    // if (message != nullptr) {
+    //     WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
+    //     JPS_ErrorMessage_Free(message);
+    //     return false;
+    // }
+    // const JPS_StageId waiting = std::get<0>(waypoint);
+    // if (waiting != 0) {
+    //     if (myPythonScript != nullptr) {
+    //         (*myPythonScript) << "journey.add(" << waiting << ")\n";
+    //         if (predecessor != 0) {
+    //             (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(" << waiting << "))\n";
+    //         }
+    //     }
+    //     if (!addStage(journey, predecessor, agentID, waiting)) {
+    //         return false;
+    //     }
+    // }
+    // if (myPythonScript != nullptr) {
+    //     (*myPythonScript) << "ws = simulation.add_waypoint_stage((" << coords.x() << "," << coords.y() << "), " << std::get<2>(waypoint) << ")\n"
+    //                       "journey.add(ws)\n";
+    //     if (predecessor != 0) {
+    //         (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(ws))\n";
+    //     }
+    // }
+    // if (!addStage(journey, predecessor, agentID, waypointId)) {
+    //     return false;
+    // }
     return true;
 }
 
@@ -331,64 +326,64 @@ MSPModel_JuPedSim_gRPC::add(MSTransportable* person, MSStageMoving* stage, SUMOT
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
     waypoints.push_back({finalWait, arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)});
 
-    JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "\njourney = jps.JourneyDescription()\n";
-    }
-    JPS_StageId startingStage = 0;
-    JPS_StageId predecessor = 0;
-    for (const auto& p : waypoints) {
-        if (!addWaypoint(journeyDesc, predecessor, person->getID(), p)) {
-            JPS_JourneyDescription_Free(journeyDesc);
-            return nullptr;
-        }
-        if (startingStage == 0) {
-            startingStage = std::get<0>(waypoints.front()) == 0 ? predecessor : std::get<0>(waypoints.front());
-        }
-    }
-    JPS_ErrorMessage message = nullptr;
-    JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journeyDesc, &message);
-    JPS_JourneyDescription_Free(journeyDesc);
-    if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding a journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        return nullptr;
-    }
+    // JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
+    // if (myPythonScript != nullptr) {
+    //     (*myPythonScript) << "\njourney = jps.JourneyDescription()\n";
+    // }
+    // JPS_StageId startingStage = 0;
+    // JPS_StageId predecessor = 0;
+    // for (const auto& p : waypoints) {
+    //     if (!addWaypoint(journeyDesc, predecessor, person->getID(), p)) {
+    //         JPS_JourneyDescription_Free(journeyDesc);
+    //         return nullptr;
+    //     }
+    //     if (startingStage == 0) {
+    //         startingStage = std::get<0>(waypoints.front()) == 0 ? predecessor : std::get<0>(waypoints.front());
+    //     }
+    // }
+    // JPS_ErrorMessage message = nullptr;
+    // JPS_JourneyId journeyId = JPS_Simulation_AddJourney(myJPSSimulation, journeyDesc, &message);
+    // JPS_JourneyDescription_Free(journeyDesc);
+    // if (message != nullptr) {
+    //     WRITE_WARNINGF(TL("Error while adding a journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
+    //     JPS_ErrorMessage_Free(message);
+    //     return nullptr;
+    // }
 
     PState* state = nullptr;
-    for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
-        if (pstate->getPerson() == person) {
-            state = pstate;
-            break;
-        }
-    }
-    if (state == nullptr) {
-        state = new PState(static_cast<MSPerson*>(person), stage, journeyId, startingStage, waypoints);
-        state->setLanePosition(stage->getDepartPos() + radius + POSITION_EPS);
-        state->setPosition(departurePosition.x(), departurePosition.y());
-        state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
-        myPedestrianStates.push_back(state);
-        myNumActivePedestrians++;
-    } else {
-        state->reinit(stage, journeyId, startingStage, waypoints);
-    }
-    if (state->isWaitingToEnter()) {
-        const Position p = state->getPosition(*state->getStage(), now);
-        tryPedestrianInsertion(state, p);
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
-                              "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
-                              << startingStage << ",position=(" << departurePosition.x() << "," << departurePosition.y()
-                              << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
-        }
-    } else {
-        JPS_Simulation_SwitchAgentJourney(myJPSSimulation, state->getAgentId(), journeyId, startingStage, &message);
-        if (message != nullptr) {
-            WRITE_WARNINGF(TL("Error while switching to a new journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
-            JPS_ErrorMessage_Free(message);
-            return nullptr;
-        }
-    }
+    // for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
+    //     if (pstate->getPerson() == person) {
+    //         state = pstate;
+    //         break;
+    //     }
+    // }
+    // if (state == nullptr) {
+    //     state = new PState(static_cast<MSPerson*>(person), stage, journeyId, startingStage, waypoints);
+    //     state->setLanePosition(stage->getDepartPos() + radius + POSITION_EPS);
+    //     state->setPosition(departurePosition.x(), departurePosition.y());
+    //     state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
+    //     myPedestrianStates.push_back(state);
+    //     myNumActivePedestrians++;
+    // } else {
+    //     state->reinit(stage, journeyId, startingStage, waypoints);
+    // }
+    // if (state->isWaitingToEnter()) {
+    //     const Position p = state->getPosition(*state->getStage(), now);
+    //     tryPedestrianInsertion(state, p);
+    //     if (myPythonScript != nullptr) {
+    //         (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
+    //                           "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
+    //                           << startingStage << ",position=(" << departurePosition.x() << "," << departurePosition.y()
+    //                           << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
+    //     }
+    // } else {
+    //     JPS_Simulation_SwitchAgentJourney(myJPSSimulation, state->getAgentId(), journeyId, startingStage, &message);
+    //     if (message != nullptr) {
+    //         WRITE_WARNINGF(TL("Error while switching to a new journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
+    //         JPS_ErrorMessage_Free(message);
+    //         return nullptr;
+    //     }
+    // }
     return state;
 }
 
@@ -410,321 +405,321 @@ MSPModel_JuPedSim_gRPC::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
-    const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
-    JPS_ErrorMessage message = nullptr;
-    for (int i = 0; i < nbrIterations; ++i) {
-        // Perform one JuPedSim iteration.
-        bool ok = JPS_Simulation_Iterate(myJPSSimulation, &message);
-        if (!ok) {
-            WRITE_ERRORF(TL("Error during iteration %: %"), i, JPS_ErrorMessage_GetMessage(message));
-        }
-    }
+//     const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
+//     JPS_ErrorMessage message = nullptr;
+//     for (int i = 0; i < nbrIterations; ++i) {
+//         // Perform one JuPedSim iteration.
+//         bool ok = JPS_Simulation_Iterate(myJPSSimulation, &message);
+//         if (!ok) {
+//             WRITE_ERRORF(TL("Error during iteration %: %"), i, JPS_ErrorMessage_GetMessage(message));
+//         }
+//     }
 
-    // Update the state of all pedestrians.
-    // If necessary, this could be done more often in the loop above but the more precise positions are probably never visible.
-    // If it is needed for model correctness (precise stopping / arrivals) we should rather reduce SUMO's step-length.
-    for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
-        PState* const state = *stateIt;
+//     // Update the state of all pedestrians.
+//     // If necessary, this could be done more often in the loop above but the more precise positions are probably never visible.
+//     // If it is needed for model correctness (precise stopping / arrivals) we should rather reduce SUMO's step-length.
+//     for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
+//         PState* const state = *stateIt;
 
-        if (state->isWaitingToEnter()) {
-            // insertion failed at first try so we retry with some noise
-            Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5));
-            tryPedestrianInsertion(state, p);
-            ++stateIt;
-            continue;
-        }
+//         if (state->isWaitingToEnter()) {
+//             // insertion failed at first try so we retry with some noise
+//             Position p = state->getPosition(*state->getStage(), time);
+//             p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
+//             p.sety(p.y() + RandHelper::rand(-.5, .5));
+//             tryPedestrianInsertion(state, p);
+//             ++stateIt;
+//             continue;
+//         }
 
-        MSPerson* const person = state->getPerson();
-        MSStageWalking* const stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
-        if (stage == nullptr) {
-            // It seems we kept the state for another stage but the new stage is not a walk.
-            // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
-            // We cannot check this earlier because when the old stage ends the next stage might not know yet whether it will be a walk.
-            registerArrived(state->getAgentId());
-            stateIt = myPedestrianStates.erase(stateIt);
-            continue;
-        }
+//         MSPerson* const person = state->getPerson();
+//         MSStageWalking* const stage = dynamic_cast<MSStageWalking*>(person->getCurrentStage());
+//         if (stage == nullptr) {
+//             // It seems we kept the state for another stage but the new stage is not a walk.
+//             // So let's remove the state because after the new stage we will be elsewhere and need to be reinserted for JuPedSim anyway.
+//             // We cannot check this earlier because when the old stage ends the next stage might not know yet whether it will be a walk.
+//             registerArrived(state->getAgentId());
+//             stateIt = myPedestrianStates.erase(stateIt);
+//             continue;
+//         }
 
-        // Updates the agent position.
-        const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
-        const JPS_Point position = JPS_Agent_GetPosition(agent);
-        state->setPosition(position.x, position.y);
+//         // Updates the agent position.
+//         const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
+//         const JPS_Point position = JPS_Agent_GetPosition(agent);
+//         state->setPosition(position.x, position.y);
 
-        // Updates the agent direction.
-        const JPS_Point orientation = JPS_Agent_GetOrientation(agent);
-        state->setAngle(atan2(orientation.y, orientation.x));
+//         // Updates the agent direction.
+//         const JPS_Point orientation = JPS_Agent_GetOrientation(agent);
+//         state->setAngle(atan2(orientation.y, orientation.x));
 
-        // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
-        Position newPosition(position.x, position.y);
-        ConstMSEdgeVector route = stage->getEdges();
-        const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
-        const double oldLanePos = state->getEdgePos(time);
-        ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
-        double bestDistance = std::numeric_limits<double>::max();
-        MSLane* candidateLane = nullptr;
-        double candidateLaneLongitudinalPosition = 0.0;
-        int routeOffset = 0;
-        const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
-                           forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
+//         // Find on which edge the pedestrian is, using route's forward-looking edges because of how moveToXY is written.
+//         Position newPosition(position.x, position.y);
+//         ConstMSEdgeVector route = stage->getEdges();
+//         const int routeIndex = (int)(stage->getRouteStep() - stage->getRoute().begin());
+//         const double oldLanePos = state->getEdgePos(time);
+//         ConstMSEdgeVector forwardRoute = ConstMSEdgeVector(route.begin() + routeIndex, route.end());
+//         double bestDistance = std::numeric_limits<double>::max();
+//         MSLane* candidateLane = nullptr;
+//         double candidateLaneLongitudinalPosition = 0.0;
+//         int routeOffset = 0;
+//         const bool found = libsumo::Helper::moveToXYMap_matchingRoutePosition(newPosition, "",
+//                            forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
 
-        if (found) {
-            if (candidateLane != state->getLane()) {
-                if (state->getLane() != nullptr) {
-                    auto& peds = myActiveLanes[state->getLane()];
-                    peds.erase(std::find(peds.begin(), peds.end(), state));
-                }
-                myActiveLanes[candidateLane].push_back(state);
-                state->setLane(candidateLane);
-            }
-            state->setLanePosition(candidateLaneLongitudinalPosition);
-        }
+//         if (found) {
+//             if (candidateLane != state->getLane()) {
+//                 if (state->getLane() != nullptr) {
+//                     auto& peds = myActiveLanes[state->getLane()];
+//                     peds.erase(std::find(peds.begin(), peds.end(), state));
+//                 }
+//                 myActiveLanes[candidateLane].push_back(state);
+//                 state->setLane(candidateLane);
+//             }
+//             state->setLanePosition(candidateLaneLongitudinalPosition);
+//         }
 
-        const MSEdge* const expectedEdge = stage->getEdge();
-        if (found && expectedEdge->isNormal() && candidateLane->getEdge().isNormal() && &candidateLane->getEdge() != expectedEdge) {
-            const bool arrived = stage->moveToNextEdge(person, time, 1, nullptr);
-            UNUSED_PARAMETER(arrived);
-            assert(!arrived); // The person has not arrived yet.
-            stage->activateEntryReminders(person);
-            // Adapt speed to lane's speed limit.
-            const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
-            switch (myJPSModel) {
-                case JPS_Model::CollisionFreeSpeed: {
-                    JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
-                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-                        JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
-                    }
-                    break;
-                }
-                case JPS_Model::CollisionFreeSpeedV2: {
-                    JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
-                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
-                        JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
-                    }
-                    break;
-                }
-                case JPS_Model::GeneralizedCentrifugalForce: {
-                    JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
-                    if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
-                        JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
-                    }
-                    break;
-                }
-                case JPS_Model::SocialForce: {
-                    JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
-                    if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
-                        JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
-                    }
-                    break;
-                }
-            }
-        }
-        const double speed = person->getSpeed();
-        for (int offset = 0; offset < 2; offset++) {
-            const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
-            if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
-                const JPS_StageId waitingStage = std::get<0>(*waypoint);
-                const MSLane* const crossing = myCrossings[waitingStage];
-                const MSLink* link = crossing->getIncomingLanes().front().viaLink;
-                if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
-                    // we are walking backwards on a traffic light, there are different links to check
-                    link = crossing->getLinkCont().front();
-                    if (link->getTLLogic() == nullptr) {
-                        link = crossing->getLogicalPredecessorLane()->getLinkTo(crossing);
-                    }
-                }
-                // compare to and maybe adapt for MSPModel_Striping.cpp:1264
-                const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");
-                const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
-                                               person->getImpatience(), speed, 0, 0, nullptr, false, person);
-                const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
-                JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
-            }
-        }
-        stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
-        // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
-        // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
-        const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
-        if (newPosition.distanceTo2D(std::get<1>(*state->getNextWaypoint())) < std::get<2>(*state->getNextWaypoint()) + slack) {
-            // If near the last waypoint, remove the agent.
-            if (state->advanceNextWaypoint()) {
-                // TODO this only works if the final stage is actually a walk
-                const bool finalStage = person->getNumRemainingStages() == 1;
-                const JPS_AgentId agentID = state->getAgentId();
-                while (!stage->moveToNextEdge(person, time, 1, nullptr));
-                if (finalStage) {
-                    registerArrived(agentID);
-                    stateIt = myPedestrianStates.erase(stateIt);
-                    continue;
-                }
-            }
-        }
-        ++stateIt;
-    }
+//         const MSEdge* const expectedEdge = stage->getEdge();
+//         if (found && expectedEdge->isNormal() && candidateLane->getEdge().isNormal() && &candidateLane->getEdge() != expectedEdge) {
+//             const bool arrived = stage->moveToNextEdge(person, time, 1, nullptr);
+//             UNUSED_PARAMETER(arrived);
+//             assert(!arrived); // The person has not arrived yet.
+//             stage->activateEntryReminders(person);
+//             // Adapt speed to lane's speed limit.
+//             const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
+//             switch (myJPSModel) {
+//                 case JPS_Model::CollisionFreeSpeed: {
+//                     JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+//                     if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+//                         JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+//                     }
+//                     break;
+//                 }
+//                 case JPS_Model::CollisionFreeSpeedV2: {
+//                     JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
+//                     if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
+//                         JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
+//                     }
+//                     break;
+//                 }
+//                 case JPS_Model::GeneralizedCentrifugalForce: {
+//                     JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
+//                     if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
+//                         JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
+//                     }
+//                     break;
+//                 }
+//                 case JPS_Model::SocialForce: {
+//                     JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
+//                     if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
+//                         JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
+//                     }
+//                     break;
+//                 }
+//             }
+//         }
+//         const double speed = person->getSpeed();
+//         for (int offset = 0; offset < 2; offset++) {
+//             const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
+//             if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
+//                 const JPS_StageId waitingStage = std::get<0>(*waypoint);
+//                 const MSLane* const crossing = myCrossings[waitingStage];
+//                 const MSLink* link = crossing->getIncomingLanes().front().viaLink;
+//                 if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
+//                     // we are walking backwards on a traffic light, there are different links to check
+//                     link = crossing->getLinkCont().front();
+//                     if (link->getTLLogic() == nullptr) {
+//                         link = crossing->getLogicalPredecessorLane()->getLinkTo(crossing);
+//                     }
+//                 }
+//                 // compare to and maybe adapt for MSPModel_Striping.cpp:1264
+//                 const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");
+//                 const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
+//                                                person->getImpatience(), speed, 0, 0, nullptr, false, person);
+//                 const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
+//                 JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
+//             }
+//         }
+//         stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
+//         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
+//         // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
+//         const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
+//         if (newPosition.distanceTo2D(std::get<1>(*state->getNextWaypoint())) < std::get<2>(*state->getNextWaypoint()) + slack) {
+//             // If near the last waypoint, remove the agent.
+//             if (state->advanceNextWaypoint()) {
+//                 // TODO this only works if the final stage is actually a walk
+//                 const bool finalStage = person->getNumRemainingStages() == 1;
+//                 const JPS_AgentId agentID = state->getAgentId();
+//                 while (!stage->moveToNextEdge(person, time, 1, nullptr));
+//                 if (finalStage) {
+//                     registerArrived(agentID);
+//                     stateIt = myPedestrianStates.erase(stateIt);
+//                     continue;
+//                 }
+//             }
+//         }
+//         ++stateIt;
+//     }
 
-    // Remove pedestrians that are in a predefined area, at a predefined rate.
-    for (const auto& area : myAreas) {
-        const std::vector<JPS_Point>& areaBoundary = area->areaBoundary;
-        JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
-        if (area->areaType == "vanishing_area") {
-            const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
-            const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
-            if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
-                for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
-                    const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
-                    if (agentID != 0) {
-                        auto lambda = [agentID](const PState * const p) {
-                            return p->getAgentId() == agentID;
-                        };
-                        std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
-                        if (iterator != myPedestrianStates.end()) {
-                            const PState* const state = *iterator;
-                            MSPerson* const person = state->getPerson();
-                            // Code below only works if the removal happens at the last stage.
-                            const bool finalStage = person->getNumRemainingStages() == 1;
-                            if (finalStage) {
-                                WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area->id);
-                                while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
-                                registerArrived(agentID);
-                                myPedestrianStates.erase(iterator);
-                                area->lastRemovalTime = time;
-                            }
-                        }
-                    }
-                }
-            }
-        } else {  // areaType == "influencer"
-            for (JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea); agentID != 0; agentID = JPS_AgentIdIterator_Next(agentsInArea)) {
-                if (area->params.count("speed") > 0) {
-                    const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, agentID, nullptr);
-                    const double newMaxSpeed = StringUtils::toDouble(area->params.at("speed"));
-                    switch (myJPSModel) {
-                        case JPS_Model::CollisionFreeSpeed: {
-                            JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
-                            if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-                                JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
-                            }
-                            break;
-                        }
-                        case JPS_Model::CollisionFreeSpeedV2: {
-                            JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
-                            if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
-                                JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
-                            }
-                            break;
-                        }
-                        case JPS_Model::GeneralizedCentrifugalForce: {
-                            JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
-                            if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
-                                JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
-                            }
-                            break;
-                        }
-                        case JPS_Model::SocialForce: {
-                            JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
-                            if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
-                                JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        JPS_AgentIdIterator_Free(agentsInArea);
-    }
+//     // Remove pedestrians that are in a predefined area, at a predefined rate.
+//     for (const auto& area : myAreas) {
+//         const std::vector<JPS_Point>& areaBoundary = area->areaBoundary;
+//         JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
+//         if (area->areaType == "vanishing_area") {
+//             const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
+//             const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
+//             if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
+//                 for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
+//                     const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
+//                     if (agentID != 0) {
+//                         auto lambda = [agentID](const PState * const p) {
+//                             return p->getAgentId() == agentID;
+//                         };
+//                         std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
+//                         if (iterator != myPedestrianStates.end()) {
+//                             const PState* const state = *iterator;
+//                             MSPerson* const person = state->getPerson();
+//                             // Code below only works if the removal happens at the last stage.
+//                             const bool finalStage = person->getNumRemainingStages() == 1;
+//                             if (finalStage) {
+//                                 WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area->id);
+//                                 while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+//                                 registerArrived(agentID);
+//                                 myPedestrianStates.erase(iterator);
+//                                 area->lastRemovalTime = time;
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         } else {  // areaType == "influencer"
+//             for (JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea); agentID != 0; agentID = JPS_AgentIdIterator_Next(agentsInArea)) {
+//                 if (area->params.count("speed") > 0) {
+//                     const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, agentID, nullptr);
+//                     const double newMaxSpeed = StringUtils::toDouble(area->params.at("speed"));
+//                     switch (myJPSModel) {
+//                         case JPS_Model::CollisionFreeSpeed: {
+//                             JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+//                             if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+//                                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+//                             }
+//                             break;
+//                         }
+//                         case JPS_Model::CollisionFreeSpeedV2: {
+//                             JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
+//                             if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
+//                                 JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
+//                             }
+//                             break;
+//                         }
+//                         case JPS_Model::GeneralizedCentrifugalForce: {
+//                             JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
+//                             if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
+//                                 JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
+//                             }
+//                             break;
+//                         }
+//                         case JPS_Model::SocialForce: {
+//                             JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
+//                             if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
+//                                 JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
+//                             }
+//                             break;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//         JPS_AgentIdIterator_Free(agentsInArea);
+//     }
 
-    // Add dynamically additional geometry from train carriages that are stopped.
-    const auto& stoppingPlaces = myNetwork->getStoppingPlaces(SumoXMLTag::SUMO_TAG_BUS_STOP);
-    std::vector<SUMOTrafficObject::NumericalID> allStoppedTrainIDs;
-    std::vector<const MSVehicle*> allStoppedTrains;
-    for (const auto& stop : stoppingPlaces) {
-        std::vector<const SUMOVehicle*> stoppedTrains = stop.second->getStoppedVehicles();
-        for (const SUMOVehicle* train : stoppedTrains) {
-            allStoppedTrainIDs.push_back(train->getNumericalID());
-            allStoppedTrains.push_back(dynamic_cast<const MSVehicle*>(train));
-        }
-    }
-    if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
-        removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
-        if (!allStoppedTrainIDs.empty()) {
-            std::vector<GEOSGeometry*> carriagePolygons;
-            std::vector<GEOSGeometry*> rampPolygons;
-            for (const MSVehicle* train : allStoppedTrains) {
-                if (train->getLeavingPersonNumber() > 0) {
-                    const SUMOVTypeParameter& vTypeParam = train->getVehicleType().getParameter();
-                    MSTrainHelper trainHelper = MSTrainHelper(train);
-                    trainHelper.computeDoorPositions();
-                    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
-                    for (const MSTrainHelper::Carriage* carriage : carriages) {
-                        Position dir = carriage->front - carriage->back;
-                        if (dir.length2D() == 0.0) {
-                            continue;
-                        }
-                        dir.norm2D();
-                        Position perp = Position(-dir.y(), dir.x());
-                        // Create carriages geometry.
-                        double p = trainHelper.getHalfWidth();
-                        PositionVector carriageShape;
-                        carriageShape.push_back(carriage->front + perp * p);
-                        carriageShape.push_back(carriage->back + perp * p);
-                        carriageShape.push_back(carriage->back - perp * p);
-                        carriageShape.push_back(carriage->front - perp * p);
-                        carriagePolygons.push_back(createGeometryFromShape(carriageShape));
-                        // Create ramps geometry.
-                        p += vTypeParam.maxPlatformDistance;
-                        const double d = 0.5 * vTypeParam.carriageDoorWidth;
-                        for (const Position& door : carriage->doorPositions) {
-                            PositionVector rampShape;
-                            rampShape.push_back(door - perp * p + dir * d);
-                            rampShape.push_back(door - perp * p - dir * d);
-                            rampShape.push_back(door + perp * p - dir * d);
-                            rampShape.push_back(door + perp * p + dir * d);
-                            rampPolygons.push_back(createGeometryFromShape(rampShape));
-                        }
-                    }
-                }
-            }
-            if (!carriagePolygons.empty()) {
-                GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
-                GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
-                GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
-                if (carriagesAndRampsUnion == nullptr) {
-                    WRITE_WARNING(TL("Error while generating geometry for carriages."));
-                } else {
-                    GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
-#ifdef DEBUG_GEOMETRY_GENERATION
-                    //dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
-#endif
-                    int nbrComponents = 0;
-                    double maxArea = 0.0;
-                    double totalArea = 0.0;
-                    const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
-                    if (nbrComponents > 1) {
-                        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
-                                       nbrComponents, maxArea / totalArea * 100.0, "%");
-                    }
-#ifdef DEBUG_GEOMETRY_GENERATION
-                    //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
-#endif
-                    myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-                    JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
-                    removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
-                    preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
-                    GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
-                }
-                GEOSGeom_destroy(rampsCollection);
-                GEOSGeom_destroy(carriagesCollection);
-            }
-        } else {
-            JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
-            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
-        }
-        myAllStoppedTrainIDs = allStoppedTrainIDs;
-    }
+//     // Add dynamically additional geometry from train carriages that are stopped.
+//     const auto& stoppingPlaces = myNetwork->getStoppingPlaces(SumoXMLTag::SUMO_TAG_BUS_STOP);
+//     std::vector<SUMOTrafficObject::NumericalID> allStoppedTrainIDs;
+//     std::vector<const MSVehicle*> allStoppedTrains;
+//     for (const auto& stop : stoppingPlaces) {
+//         std::vector<const SUMOVehicle*> stoppedTrains = stop.second->getStoppedVehicles();
+//         for (const SUMOVehicle* train : stoppedTrains) {
+//             allStoppedTrainIDs.push_back(train->getNumericalID());
+//             allStoppedTrains.push_back(dynamic_cast<const MSVehicle*>(train));
+//         }
+//     }
+//     if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
+//         removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
+//         if (!allStoppedTrainIDs.empty()) {
+//             std::vector<GEOSGeometry*> carriagePolygons;
+//             std::vector<GEOSGeometry*> rampPolygons;
+//             for (const MSVehicle* train : allStoppedTrains) {
+//                 if (train->getLeavingPersonNumber() > 0) {
+//                     const SUMOVTypeParameter& vTypeParam = train->getVehicleType().getParameter();
+//                     MSTrainHelper trainHelper = MSTrainHelper(train);
+//                     trainHelper.computeDoorPositions();
+//                     const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
+//                     for (const MSTrainHelper::Carriage* carriage : carriages) {
+//                         Position dir = carriage->front - carriage->back;
+//                         if (dir.length2D() == 0.0) {
+//                             continue;
+//                         }
+//                         dir.norm2D();
+//                         Position perp = Position(-dir.y(), dir.x());
+//                         // Create carriages geometry.
+//                         double p = trainHelper.getHalfWidth();
+//                         PositionVector carriageShape;
+//                         carriageShape.push_back(carriage->front + perp * p);
+//                         carriageShape.push_back(carriage->back + perp * p);
+//                         carriageShape.push_back(carriage->back - perp * p);
+//                         carriageShape.push_back(carriage->front - perp * p);
+//                         carriagePolygons.push_back(createGeometryFromShape(carriageShape));
+//                         // Create ramps geometry.
+//                         p += vTypeParam.maxPlatformDistance;
+//                         const double d = 0.5 * vTypeParam.carriageDoorWidth;
+//                         for (const Position& door : carriage->doorPositions) {
+//                             PositionVector rampShape;
+//                             rampShape.push_back(door - perp * p + dir * d);
+//                             rampShape.push_back(door - perp * p - dir * d);
+//                             rampShape.push_back(door + perp * p - dir * d);
+//                             rampShape.push_back(door + perp * p + dir * d);
+//                             rampPolygons.push_back(createGeometryFromShape(rampShape));
+//                         }
+//                     }
+//                 }
+//             }
+//             if (!carriagePolygons.empty()) {
+//                 GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
+//                 GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
+//                 GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
+//                 if (carriagesAndRampsUnion == nullptr) {
+//                     WRITE_WARNING(TL("Error while generating geometry for carriages."));
+//                 } else {
+//                     GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
+// #ifdef DEBUG_GEOMETRY_GENERATION
+//                     //dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+// #endif
+//                     int nbrComponents = 0;
+//                     double maxArea = 0.0;
+//                     double totalArea = 0.0;
+//                     const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
+//                     if (nbrComponents > 1) {
+//                         WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
+//                                        nbrComponents, maxArea / totalArea * 100.0, "%");
+//                     }
+// #ifdef DEBUG_GEOMETRY_GENERATION
+//                     //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
+// #endif
+//                     // myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
+//                     // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+//                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
+//                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
+//                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
+//                 }
+//                 GEOSGeom_destroy(rampsCollection);
+//                 GEOSGeom_destroy(carriagesCollection);
+//             }
+//         } else {
+//             // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+//             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+//         }
+//         myAllStoppedTrainIDs = allStoppedTrainIDs;
+//     }
 
-    JPS_ErrorMessage_Free(message);
+//     JPS_ErrorMessage_Free(message);
 
     return DELTA_T;
 }
@@ -732,7 +727,7 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
 
 void MSPModel_JuPedSim_gRPC::registerArrived(const JPS_AgentId agentID) {
     myNumActivePedestrians--;
-    JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+    // JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
 }
 
 
@@ -956,9 +951,8 @@ MSPModel_JuPedSim_gRPC::convertToSUMOPoints(const GEOSGeometry* geometry) {
 }
 
 
-std::vector<JPS_Point>
-MSPModel_JuPedSim_gRPC::convertToJPSPoints(const GEOSGeometry* geometry) {
-    std::vector<JPS_Point> pointVector;
+void
+MSPModel_JuPedSim_gRPC::convertToJPSPoints(const GEOSGeometry* geometry, sumo_jupedsim_api::Polygon* into) {
     const GEOSCoordSequence* coordinateSequence = GEOSGeom_getCoordSeq(geometry);
     unsigned int coordinateSequenceSize;
     GEOSCoordSeq_getSize(coordinateSequence, &coordinateSequenceSize);
@@ -968,9 +962,10 @@ MSPModel_JuPedSim_gRPC::convertToJPSPoints(const GEOSGeometry* geometry) {
     for (unsigned int i = 0; i < coordinateSequenceSize - 1; i++) {
         GEOSCoordSeq_getX(coordinateSequence, i, &x);
         GEOSCoordSeq_getY(coordinateSequence, i, &y);
-        pointVector.push_back({x, y});
+        sumo_jupedsim_api::Point* point = into->add_points();
+        point->set_x(x);
+        point->set_y(y);
     }
-    return pointVector;
 }
 
 
@@ -1032,15 +1027,22 @@ MSPModel_JuPedSim_gRPC::getLargestComponent(const GEOSGeometry* polygon, int& nb
 }
 
 
-JPS_Geometry
+int64_t
 MSPModel_JuPedSim_gRPC::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon) {
-    JPS_GeometryBuilder geometryBuilder = JPS_GeometryBuilder_Create();
+    sumo_jupedsim_api::CreateGeometryRequest geometryRequest;
+    sumo_jupedsim_api::Polygon* boundary = geometryRequest.mutable_boundary();
 
     // Handle the exterior polygon.
     const GEOSGeometry* exterior =  GEOSGetExteriorRing(polygon);
-    std::vector<JPS_Point> exteriorCoordinates = convertToJPSPoints(exterior);
-    JPS_GeometryBuilder_AddAccessibleArea(geometryBuilder, exteriorCoordinates.data(), exteriorCoordinates.size());
-
+    convertToJPSPoints(exterior, boundary);
+    grpc::ClientContext geometryContext;
+    sumo_jupedsim_api::CreateGeometryResponse geometryResponse;
+    const grpc::Status geometryStatus = myGrpcStub->CreateGeometry(&geometryContext, geometryRequest, &geometryResponse);
+    if (!geometryStatus.ok()) {
+        WRITE_WARNINGF(TL("JuPedSim gRPC CreateGeometry failed: %"), geometryStatus.error_message());
+        return -1;
+    }
+/*
     // Handle the interior polygons (holes).
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
     if (nbrInteriorRings != -1) {
@@ -1053,16 +1055,8 @@ MSPModel_JuPedSim_gRPC::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* pol
             }
         }
     }
-
-    JPS_ErrorMessage message = nullptr;
-    JPS_Geometry geometry = JPS_GeometryBuilder_Build(geometryBuilder, &message);
-    if (geometry == nullptr) {
-        const std::string error = TLF("Error while generating geometry: %", JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        throw ProcessError(error);
-    }
-    JPS_GeometryBuilder_Free(geometryBuilder);
-    return geometry;
+*/
+    return geometryResponse.geometry_id();
 }
 
 
@@ -1116,54 +1110,54 @@ JPS_StageId
 MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool entry) {
     JPS_ErrorMessage message = nullptr;
     JPS_StageId waitingStage = 0;
-    PositionVector shape = crossing->getShape();
-    const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
-    shape.extrapolate2D((shape.length() + radius) / shape.length());
-    const double offset = 2 * radius + POSITION_EPS;
-    const double lonOffset = entry ? NUMERICAL_EPS : shape.length() - NUMERICAL_EPS;
-    PositionVector pv;
-    pv.push_back(shape.positionAtOffset(lonOffset));
-    for (double latOff = offset; latOff < crossing->getWidth() / 2. - offset; latOff += offset) {
-        PositionVector moved(shape);
-        moved.move2side(latOff);
-        pv.push_back(moved.positionAtOffset(lonOffset));
-        moved.move2side(-2. * latOff);
-        pv.push_back(moved.positionAtOffset(lonOffset));
-    }
-    if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
-        pv.push_back(crossing->getIncomingLanes().front().lane->getShape().getCentroid());
-    }
-    if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
-        pv.push_back(crossing->getLinkCont().front()->getLane()->getShape().getCentroid());
-    }
-    std::vector<JPS_Point> points;
-    for (const Position& p : pv) {
-        GEOSCoordSequence* seq = GEOSCoordSeq_create(1, 2); // 1 point, 2 dimensions
-        GEOSCoordSeq_setX(seq, 0, p.x());
-        GEOSCoordSeq_setY(seq, 0, p.y());
-        GEOSGeometry* point = GEOSGeom_createPoint(seq);
-        if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
-            points.push_back({p.x(), p.y()});
-        }
-        GEOSGeom_destroy(point);
-    }
-    waitingStage = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, points.data(), points.size(), &message);
-    if (message != nullptr) {
-        const std::string error = TLF("Error while adding waiting set for % on '%': %",
-                                      entry ? "entry" : "exit", crossing->getID(), JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        throw ProcessError(error);
-    }
-    const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
-    JPS_WaitingSetProxy_SetWaitingSetState(proxy, JPS_WaitingSet_Inactive);
-    myCrossings[waitingStage] = crossing;
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "ws = simulation.add_waiting_set_stage([";
-        for (const JPS_Point& p : points) {
-            (*myPythonScript) << "(" << p.x << "," << p.y << "),";
-        }
-        (*myPythonScript) << "])\nsimulation.get_stage(ws).state = jps.stages.WaitingSetState.INACTIVE\n";
-    }
+    // PositionVector shape = crossing->getShape();
+    // const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
+    // shape.extrapolate2D((shape.length() + radius) / shape.length());
+    // const double offset = 2 * radius + POSITION_EPS;
+    // const double lonOffset = entry ? NUMERICAL_EPS : shape.length() - NUMERICAL_EPS;
+    // PositionVector pv;
+    // pv.push_back(shape.positionAtOffset(lonOffset));
+    // for (double latOff = offset; latOff < crossing->getWidth() / 2. - offset; latOff += offset) {
+    //     PositionVector moved(shape);
+    //     moved.move2side(latOff);
+    //     pv.push_back(moved.positionAtOffset(lonOffset));
+    //     moved.move2side(-2. * latOff);
+    //     pv.push_back(moved.positionAtOffset(lonOffset));
+    // }
+    // if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
+    //     pv.push_back(crossing->getIncomingLanes().front().lane->getShape().getCentroid());
+    // }
+    // if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
+    //     pv.push_back(crossing->getLinkCont().front()->getLane()->getShape().getCentroid());
+    // }
+    // std::vector<JPS_Point> points;
+    // for (const Position& p : pv) {
+    //     GEOSCoordSequence* seq = GEOSCoordSeq_create(1, 2); // 1 point, 2 dimensions
+    //     GEOSCoordSeq_setX(seq, 0, p.x());
+    //     GEOSCoordSeq_setY(seq, 0, p.y());
+    //     GEOSGeometry* point = GEOSGeom_createPoint(seq);
+    //     if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
+    //         points.push_back({p.x(), p.y()});
+    //     }
+    //     GEOSGeom_destroy(point);
+    // }
+    // waitingStage = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, points.data(), points.size(), &message);
+    // if (message != nullptr) {
+    //     const std::string error = TLF("Error while adding waiting set for % on '%': %",
+    //                                   entry ? "entry" : "exit", crossing->getID(), JPS_ErrorMessage_GetMessage(message));
+    //     JPS_ErrorMessage_Free(message);
+    //     throw ProcessError(error);
+    // }
+    // const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
+    // JPS_WaitingSetProxy_SetWaitingSetState(proxy, JPS_WaitingSet_Inactive);
+    // myCrossings[waitingStage] = crossing;
+    // if (myPythonScript != nullptr) {
+    //     (*myPythonScript) << "ws = simulation.add_waiting_set_stage([";
+    //     for (const JPS_Point& p : points) {
+    //         (*myPythonScript) << "(" << p.x << "," << p.y << "),";
+    //     }
+    //     (*myPythonScript) << "])\nsimulation.get_stage(ws).state = jps.stages.WaitingSetState.INACTIVE\n";
+    // }
     return waitingStage;
 }
 
@@ -1190,7 +1184,7 @@ MSPModel_JuPedSim_gRPC::initialize(const OptionsCont& oc) {
     }
     // For the moment, only one connected component is supported.
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetworkLargestComponent);
-    myJPSGeometryWithTrainsAndRamps = nullptr;
+    myJPSGeometryWithTrainsAndRamps = -1;
     preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
     PROGRESS_DONE_MESSAGE();
     JPS_ErrorMessage message = nullptr;
@@ -1204,7 +1198,7 @@ MSPModel_JuPedSim_gRPC::initialize(const OptionsCont& oc) {
             rangeGeometryRepulsion = 0.019;
         }
     }
-
+/*
     switch (myJPSModel) {
         case JPS_Model::CollisionFreeSpeed: {
             JPS_CollisionFreeSpeedModelBuilder modelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(
@@ -1249,11 +1243,18 @@ MSPModel_JuPedSim_gRPC::initialize(const OptionsCont& oc) {
         JPS_ErrorMessage_Free(message);
         throw ProcessError(error);
     }
-    myJPSSimulation = JPS_Simulation_Create(myJPSOperationalModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
-    if (myJPSSimulation == nullptr) {
-        const std::string error = TLF("Error creating the simulation: %", JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        throw ProcessError(error);
+        */
+    sumo_jupedsim_api::CreateSimulationRequest simulationRequest;
+    simulationRequest.set_geometry_id(myJPSGeometry);
+    simulationRequest.set_model_class(myJPSModel);
+    simulationRequest.set_delta_t(STEPS2TIME(myJPSDeltaT));
+    grpc::ClientContext simulationContext;
+    sumo_jupedsim_api::CreateSimulationResponse simulationResponse;
+    const grpc::Status simulationStatus = myGrpcStub->CreateSimulation(&simulationContext, simulationRequest, &simulationResponse);
+    if (simulationStatus.ok()) {
+        myJPSSimulation = simulationResponse.simulation_id();
+    } else {
+        throw ProcessError(TLF("JuPedSim gRPC CreateSimulation failed: %", simulationStatus.error_message()));
     }
     // Polygons that define vanishing areas aren't part of the regular JuPedSim geometry.
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
