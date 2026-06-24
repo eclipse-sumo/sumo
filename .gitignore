@@ -126,6 +126,7 @@ __pycache__
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
 /tools/contributed/traas/target
+/tools/jupedsim_grpc/*_pb2*.py
 /tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
 /tools/libtraci/_libtraci.*

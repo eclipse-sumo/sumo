@@ -55,9 +55,13 @@ target_link_libraries(microsim_transportables
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
 
 if (HAVE_JUPEDSIM AND gRPC_FOUND)
-    get_filename_component(jps_proto "../../../tools/jupedsim_grpc/jupedsim.proto" ABSOLUTE)
+    get_filename_component(jps_python_dir "../../../tools/jupedsim_grpc" ABSOLUTE)
+    set(jps_proto "${jps_python_dir}/jupedsim.proto")
     protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE cpp APPEND_PATH PROTOC_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
     protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE grpc APPEND_PATH PROTOC_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}"
                       PLUGIN "protoc-gen-grpc=$<TARGET_FILE:gRPC::grpc_cpp_plugin>" GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc)
+    protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE python APPEND_PATH PROTOC_OUT_DIR "${jps_python_dir}")
+    protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE grpc APPEND_PATH PROTOC_OUT_DIR "${jps_python_dir}"
+                      PLUGIN "protoc-gen-grpc=$<TARGET_FILE:gRPC::grpc_python_plugin>" GENERATE_EXTENSIONS _pb2_grpc.py)
     include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 endif ()
