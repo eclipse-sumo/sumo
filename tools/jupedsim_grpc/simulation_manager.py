@@ -169,7 +169,6 @@ class SimulationManager:
         journey = jps.JourneyDescription(stage_ids=stage_ids)
         for i in range(1, len(stage_ids)):
             journey.set_transition_for_stage(stage_ids[i-1], jps.Transition.create_fixed_transition(stage_ids[i]))
-            print("setting fixed transition", stage_ids[i-1], stage_ids[i])
         journey_id = simulation.add_journey(journey)
         self._journeys[journey_id] = simulation_id
         return jupedsim_pb2.AddJourneyResponse(journey_id=journey_id), None
@@ -178,7 +177,6 @@ class SimulationManager:
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"
         waypoint_id = simulation.add_waypoint_stage((x, y), distance)
-        print("adding new waypoint", waypoint_id, x, y)
         self._stages[waypoint_id] = simulation_id
         return jupedsim_pb2.AddWaypointStageResponse(
             waypoint_id=waypoint_id
@@ -199,7 +197,6 @@ class SimulationManager:
         if len(points) < 1:
             return None, "waiting set needs at least 1 point"
         stage_id = simulation.add_waiting_set_stage(points)
-        print("added waiting set", stage_id)
         self._stages[stage_id] = simulation_id
         return jupedsim_pb2.AddWaitingSetStageResponse(stage_id=stage_id), None
 

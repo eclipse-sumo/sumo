@@ -104,8 +104,6 @@ MSPModel_JuPedSim_gRPC::~MSPModel_JuPedSim_gRPC() {
 void
 MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p) {
     const MSVehicleType& type = state->getPerson()->getVehicleType();
-    // Add one agent at (1, 1) heading along the journey (model params travel as a
-    // google.protobuf.Struct, mirroring the Python client).
     sumo_jupedsim_api::CreateAgentRequest agentRequest;
     agentRequest.set_simulation_id(myJPSSimulation);
     agentRequest.set_agent_model_class(myJPSModel);
@@ -137,7 +135,7 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
     sumo_jupedsim_api::CreateAgentResponse agentResponse;
     const grpc::Status agentStatus = myGrpcStub->CreateAgent(&agentContext, agentRequest, &agentResponse);
     if (!agentStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC CreateAgent failed: %"), agentStatus.error_message());
+        WRITE_WARNINGF(TL("Error while adding person '%' as JuPedSim agent: %"), state->getPerson()->getID(), agentStatus.error_message());
         return;
     }
     state->setAgentId(agentResponse.agent_id());
