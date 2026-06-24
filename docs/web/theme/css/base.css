@@ -575,15 +575,17 @@ font-weight: 700;
 margin-top: .3em;
 }
 
-hTitles {
+h1.h-title {
 font-size: 1.8em;
 font-weight: 700;
 color: #338033; /* for incompatible Browsers  */
 color: var(--hTitles-color);
-margin-bottom: .5rem;
+margin-bottom: 1rem;
 font-family: inherit;
 line-height: 1.2;
 margin-top: 10px;
+border-bottom: 0.5px solid #338033;
+padding-bottom: 5px;
 }
 
 .sumoLogo {
