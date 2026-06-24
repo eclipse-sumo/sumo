@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-22 13:33+0000\n"
+"PO-Revision-Date: 2026-06-24 08:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5473,7 +5473,7 @@ msgstr "Si esta arista forma parte de una rotonda"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:864
 msgid "The name of a routingType"
-msgstr ""
+msgstr "El nombre de un routingType"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:876
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
@@ -5549,12 +5549,16 @@ msgstr "El ancho del paso peatonal (crossings)"
 #: src/netedit/GNETagPropertiesDatabase.cpp:982
 msgid "sets the tls-index for this crossing (-1 means automatic assignment)"
 msgstr ""
+"Establece el índice de semáforo para este paso peatonal (-1 significa "
+"asignación automática)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:988
 msgid ""
 "sets the opposite-direction tls-index for this crossing (-1 means not "
 "assigned)"
 msgstr ""
+"Establece el índice de semáforo para la dirección opuesta de este paso "
+"peatonal (-1 indica que no está asignado)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:994
 msgid "Overrides default shape of pedestrian crossing"
