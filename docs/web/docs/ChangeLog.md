@@ -43,6 +43,7 @@ title: ChangeLog
   - busStop parameter "waitingDepth" now increases the visual width of the busStop as intended #18080
 
 - meso
+  - The default option **--no-internal-links** was changed to 'true' when running with **--mesosim**. This is a soft roll-back of #17842 to avoid #18131. The changed default is intended to be temporary until the model can be fixed to correctly propagate jams over short segments. (regression in 1.27.0)
   - traffic light type "delay_based" (unsupported by meso) now gives a warning #18026
   - fixed unsafe rail insertion #18028
   - fixed invalid rail signal state in network with internal links #6990, #18027
