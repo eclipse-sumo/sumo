@@ -113,6 +113,7 @@
 #include "icons/yellow_person.xpm"
 
 #include "icons/teleport.xpm"
+#include "icons/insertion_delay.xpm"
 
 #include "icons/colorwheel.xpm"
 #include "icons/removedb.xpm"
@@ -709,6 +710,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
 
     myIcons[GUIIcon::TELEPORT] = new FXXPMIcon(a, teleport_xpm);
+    myIcons[GUIIcon::INSERTION_DELAY] = new FXXPMIcon(a, insertion_delay_xpm);
 
     myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
