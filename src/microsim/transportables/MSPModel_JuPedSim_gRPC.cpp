@@ -117,7 +117,7 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
     google::protobuf::ListValue* position = agentParams["position"].mutable_list_value();
     position->add_values()->set_number_value(p.x());
     position->add_values()->set_number_value(p.y());
-    if (myJPSModel == "GeneralizedCentrifugalForceModel") {
+    if (myJPSModel == "GeneralizedCentrifugalForceModel" || myJPSModel == "SocialForceModel") {
         const double angle = state->getAngle(*state->getStage(), 0);
         double orientation_x = 0.;
         double orientation_y = 0.;
