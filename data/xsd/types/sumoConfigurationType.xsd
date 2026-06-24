@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-20T17:44:57.381492+01:00 by Eclipse SUMO sumo v1_26_0+1616-c90c1dc4a14
+<!-- generated on 2026-06-24T21:27:02.744287+01:00 by Eclipse SUMO sumo v1_27_0+0344-274e100a87e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -93,6 +93,7 @@
             <xsd:element name="fcd-output.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.filter-shapes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.skip-empty" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="person-fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-28T19:23:48.697873+01:00 by Eclipse SUMO od2trips v1_25_0+1221-39583a3f647
+<!-- generated on 2026-06-24T21:27:02.183085+01:00 by Eclipse SUMO od2trips v1_27_0+0344-274e100a87e
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -42,6 +42,7 @@
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="flow-output.probability" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="flow-output.poisson" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrians" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="persontrips" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="persontrips.modes" type="strArrayOptionType" minOccurs="0"/>

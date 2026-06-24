@@ -71,6 +71,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | Writes trip definitions into FILE |
 | **--flow-output** {{DT_FILE}} | Writes flow definitions into FILE |
 | **--flow-output.probability** {{DT_BOOL}} | Writes probabilistic flow instead of evenly spaced flow; *default:* **false** |
+| **--flow-output.poisson** {{DT_BOOL}} | Writes poisson distributed flow instead of evenly spaced flow; *default:* **false** |
 | **--pedestrians** {{DT_BOOL}} | Writes pedestrians instead of vehicles; *default:* **false** |
 | **--persontrips** {{DT_BOOL}} | Writes persontrips instead of vehicles; *default:* **false** |
 | **--persontrips.modes** {{DT_STR_LIST}} | Add modes attribute to personTrips |
