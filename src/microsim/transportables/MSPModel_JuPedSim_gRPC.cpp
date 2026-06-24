@@ -79,7 +79,7 @@ MSPModel_JuPedSim_gRPC::MSPModel_JuPedSim_gRPC(const OptionsCont& oc, MSNet* net
     myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
     myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
     if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(2))) {
-        WRITE_WARNINGF(TL("Connected to JuPedSim gRPC server on '%'."), address);
+        WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
     } else {
         WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
     }
@@ -141,36 +141,13 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
         return;
     }
     state->setAgentId(agentResponse.agent_id());
-    WRITE_WARNINGF(TL("Added remote JuPedSim agent (id %); stepping the remote simulation:"), toString(agentResponse.agent_id()));
 }
-
-
-// bool
-// MSPModel_JuPedSim_gRPC::addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage) {
-//     JPS_ErrorMessage message = nullptr;
-//     if (predecessor != 0) {
-//         const JPS_Transition transition = JPS_Transition_CreateFixedTransition(stage, &message);
-//         if (message != nullptr) {
-//             WRITE_WARNINGF(TL("Error while creating fixed transition for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
-//             JPS_ErrorMessage_Free(message);
-//             return false;
-//         }
-//         JPS_JourneyDescription_SetTransitionForStage(journey, predecessor, transition, &message);
-//         if (message != nullptr) {
-//             WRITE_WARNINGF(TL("Error while setting transition for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
-//             JPS_ErrorMessage_Free(message);
-//             return false;
-//         }
-//         JPS_Transition_Free(transition);
-//     }
-//     JPS_JourneyDescription_AddStage(journey, stage);
-//     predecessor = stage;
-//     return true;
-// }
 
 
 MSPModel_JuPedSim_gRPC::JPS_StageId
 MSPModel_JuPedSim_gRPC::addWaypoint(const std::string& agentID, const WaypointDesc& waypoint) {
+    // Unlike the previous implementation we do not need to set the transitions explicitly anymore,
+    // the intermediate JuPedSim GRPC service handles this for us.
     const Position& coords = std::get<1>(waypoint);
     sumo_jupedsim_api::AddWaypointStageRequest waypointRequest;
     waypointRequest.set_simulation_id(myJPSSimulation);
@@ -426,8 +403,6 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             continue;
         }
         const sumo_jupedsim_api::Point& pos = agentIt->second.position();
-        WRITE_WARNING("  after " + toString(time) + " steps: agent " + toString(state->getAgentId())
-                        + " at (" + toString(pos.x()) + ", " + toString(pos.y()) + ")");
         state->setPosition(pos.x(), pos.y());
         const sumo_jupedsim_api::Point& orientation = agentIt->second.orientation();
         state->setAngle(atan2(orientation.y(), orientation.x()));
