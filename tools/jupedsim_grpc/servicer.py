@@ -61,6 +61,17 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             return jupedsim_pb2.CreateSimulationResponse()
         return response
 
+    def GetModelClasses(  # noqa: N802
+        self, request, context
+    ) -> jupedsim_pb2.GetModelClassesResponse:
+        """gRPC RPC method."""
+        response, error = self._manager.get_model_classes()
+        if error:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details(error)
+            return jupedsim_pb2.GetModelClassesResponse()
+        return response
+
     def CreateAgent(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
     ) -> jupedsim_pb2.CreateAgentResponse:

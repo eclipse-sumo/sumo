@@ -182,10 +182,32 @@ message GetWaitingSetStateResponse {
   int64 count_targeting = 3;
 }
 
+// A single constructor parameter of a model or agent-parameters class, as
+// reflected from the installed JuPedSim version.
+message ModelParameter {
+  string name = 1;     // e.g. "body_force"
+  string type = 2;     // e.g. "float", "int", "tuple[float, float]"
+  string default = 3;  // Python repr of the default value, e.g. "120000" or "(0.0, 0.0)"
+}
+
+message ModelClassInfo {
+  string model_class = 1;                        // e.g. "SocialForceModel"
+  repeated ModelParameter model_parameters = 2;  // constructor params of the model class
+  repeated ModelParameter agent_parameters = 3;  // constructor params of "{model_class}AgentParameters"
+}
+
+message GetModelClassesRequest {
+}
+
+message GetModelClassesResponse {
+  repeated ModelClassInfo models = 1;
+}
+
 service JuPedSimService {
   rpc CreateGeometry(CreateGeometryRequest) returns (CreateGeometryResponse);
   rpc SwitchGeometry(SwitchGeometryRequest) returns (EmptyResponse);
   rpc CreateSimulation(CreateSimulationRequest) returns (CreateSimulationResponse);
+  rpc GetModelClasses(GetModelClassesRequest) returns (GetModelClassesResponse);
   rpc CreateAgent(CreateAgentRequest) returns (CreateAgentResponse);
   rpc RemoveAgents(RemoveAgentsRequest) returns (EmptyResponse);
   rpc SwitchAgentJourney(SwitchAgentJourneyRequest) returns (EmptyResponse);
