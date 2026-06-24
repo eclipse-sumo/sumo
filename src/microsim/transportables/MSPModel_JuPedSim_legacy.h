@@ -184,7 +184,7 @@ private:
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
     JPS_Geometry myJPSGeometryWithTrainsAndRamps;
     JPS_Model myJPSModel;
-    JPS_OperationalModel myJPSOperationalModel;
+    JPS_OperationalModel myJPSOperationalModel = nullptr;
     JPS_Simulation myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
 

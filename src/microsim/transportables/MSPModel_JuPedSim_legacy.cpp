@@ -69,14 +69,16 @@ MSPModel_JuPedSim_legacy::MSPModel_JuPedSim_legacy(const OptionsCont& oc, MSNet*
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
     std::string model = oc.getString("pedestrian.jupedsim.model");
-    if (model == "CollisionFreeSpeed") {
+    if (model == "CollisionFreeSpeed" || model == "CollisionFreeSpeedModel") {
         myJPSModel = JPS_Model::CollisionFreeSpeed;
-    } else if (model == "CollisionFreeSpeedV2") {
+    } else if (model == "CollisionFreeSpeedV2" || model == "CollisionFreeSpeedModelV2") {
         myJPSModel = JPS_Model::CollisionFreeSpeedV2;
-    } else if (model == "GeneralizedCentrifugalForce") {
+    } else if (model == "GeneralizedCentrifugalForce" || model == "GeneralizedCentrifugalForceModel") {
         myJPSModel = JPS_Model::GeneralizedCentrifugalForce;
-    } else if (model == "SocialForce") {
+    } else if (model == "SocialForce" || model == "SocialForceModel") {
         myJPSModel = JPS_Model::SocialForce;
+    } else {
+        throw ProcessError(TLF("Unknown JuPedSim model '%'.", model));
     }
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
