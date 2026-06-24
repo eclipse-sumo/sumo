@@ -1,3 +1,4 @@
+import dataclasses
 import os
 import sys
 import threading
@@ -9,6 +10,35 @@ from google.protobuf import json_format
 sys.path.insert(0, os.path.dirname(__file__))
 
 import jupedsim_pb2
+
+
+def _type_name(annotation):
+    """Render a type annotation as a readable string (e.g. "tuple[float, float]")."""
+    if isinstance(annotation, str):  # PEP 563 string annotation
+        return annotation
+    if isinstance(annotation, type):
+        return annotation.__name__
+    return str(annotation)
+
+
+def _describe_params(cls):
+    """Extract name, type and default value of data classes."""
+    params = []
+    if not dataclasses.is_dataclass(cls):
+        return params
+    for field in dataclasses.fields(cls):
+        if field.default is not dataclasses.MISSING:
+            default = repr(field.default)
+        elif field.default_factory is not dataclasses.MISSING:
+            default = repr(field.default_factory())
+        else:
+            default = ""
+        params.append(jupedsim_pb2.ModelParameter(
+            name=field.name,
+            type=_type_name(field.type),
+            default=default,
+        ))
+    return params
 
 
 class SimulationManager:
@@ -85,6 +115,26 @@ class SimulationManager:
         return jupedsim_pb2.CreateSimulationResponse(
             simulation_id=simulation_id
         ), None
+
+    def get_model_classes(self):
+        # Reflect model classes and their parameters from JuPedSim.
+        models = []
+        for name in sorted(dir(jps)):
+            cls = getattr(jps, name)
+            if not isinstance(cls, type) or not dataclasses.is_dataclass(cls):
+                # Model classes have to be data classes
+                continue
+            agent_params_name = f"{name}AgentParameters"
+            agent_params_cls = getattr(jps, agent_params_name, None)
+            if agent_params_cls is None:
+                # Only a model class if a corresponding "{model_class}AgentParameters" exist as well
+                continue
+            models.append(jupedsim_pb2.ModelClassInfo(
+                model_class=name,
+                model_parameters=_describe_params(cls),
+                agent_parameters=_describe_params(agent_params_cls),
+            ))
+        return jupedsim_pb2.GetModelClassesResponse(models=models), None
 
     def create_agent(self, simulation_id, agent_model_class, parameters):
         if (simulation := self._simulations.get(simulation_id, None)) is None:

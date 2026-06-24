@@ -30,8 +30,11 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
-#ifdef HAVE_JUPEDSIM
-#include <microsim/transportables/MSPModel_JuPedSim_gRPC.h>
+#ifdef HAVE_JUPEDSIM_GRPC
+#include <microsim/transportables/MSPModel_JuPedSim.h>
+#endif
+#ifdef HAVE_JUPEDSIM_LEGACY
+#include <microsim/transportables/MSPModel_JuPedSim_legacy.h>
 #endif
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -67,9 +70,13 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         const std::string& model = oc.getString("pedestrian.model");
         if (model == "striping") {
             myMovementModel = new MSPModel_Striping(oc, net);
-#ifdef HAVE_JUPEDSIM
+#ifdef HAVE_JUPEDSIM_GRPC
         } else if (model == "jupedsim") {
-            myMovementModel = new MSPModel_JuPedSim_gRPC(oc, net);
+            myMovementModel = new MSPModel_JuPedSim(oc, net);
+#endif
+#ifdef HAVE_JUPEDSIM_LEGACY
+        } else if (model == "jupedsim_legacy") {
+            myMovementModel = new MSPModel_JuPedSim_legacy(oc, net);
 #endif
         } else if (model != "nonInteracting") {
             delete myNonInteractingModel;
