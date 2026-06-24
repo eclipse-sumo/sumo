@@ -344,12 +344,12 @@ MSPModel_JuPedSim_gRPC::add(MSTransportable* person, MSStageMoving* stage, SUMOT
                               << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
         }
     } else {
-        // JPS_Simulation_SwitchAgentJourney(myJPSSimulation, state->getAgentId(), journeyId, startingStage, &message);
-        // if (message != nullptr) {
-        //     WRITE_WARNINGF(TL("Error while switching to a new journey for person '%': %"), person->getID(), JPS_ErrorMessage_GetMessage(message));
-        //     JPS_ErrorMessage_Free(message);
-        //     return nullptr;
-        // }
+        sumo_jupedsim_api::SwitchAgentJourneyRequest switchRequest;
+        switchRequest.set_agent_id(state->getAgentId());
+        switchRequest.set_journey_id(journeyId);
+        switchRequest.set_stage_id(startingStage);
+        callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchAgentJourney, switchRequest,
+                 TLF("Error while switching journey for agent '%': ", person->getID()));
     }
     return state;
 }
@@ -534,11 +534,9 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
     // Remove pedestrians that are in a predefined area, at a predefined rate.
     for (const auto& area : myAreas) {
         sumo_jupedsim_api::GetAgentsInRegionRequest agentsRequest;
-        agentsRequest.set_simulation_id(myJPSSimulation);
-        agentsRequest.set_allocated_region(&area->areaBoundary);
+        *agentsRequest.mutable_region() = area->areaBoundary;
         const sumo_jupedsim_api::AgentIdsResponse agentsResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetAgentsInRegion,
                                      agentsRequest, TL("Error while retrieving agents in area: "));
-        agentsRequest.release_region();
         const int numAgents = agentsResponse.agent_ids_size();
         if (numAgents == 0) {
             continue;
@@ -662,7 +660,9 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
                     //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                     myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-                    // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                    sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
+                    switchRequest.set_geometry_id(myJPSGeometryWithTrainsAndRamps);
+                    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("Error while switching to train geometry: "));
                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -671,7 +671,9 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-            // JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+            sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
+            switchRequest.set_geometry_id(myJPSGeometry);
+            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("Error while switching to default geometry: "));
             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
@@ -683,7 +685,9 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
 
 void MSPModel_JuPedSim_gRPC::registerArrived(const JPS_AgentId agentID) {
     myNumActivePedestrians--;
-    // JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+    sumo_jupedsim_api::RemoveAgentsRequest removeRequest;
+    removeRequest.add_agent_ids(agentID);
+    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::RemoveAgents, removeRequest, TL("Error while removing agent: "));
 }
 
 
