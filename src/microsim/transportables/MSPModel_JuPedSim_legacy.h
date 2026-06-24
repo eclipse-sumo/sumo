@@ -11,35 +11,26 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSPModel_JuPedSim_gRPC.h
+/// @file    MSPModel_JuPedSim_legacy.h
 /// @author  Gregor Laemmel
 /// @author  Benjamin Coueraud
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 13 Jan 2014
 ///
-// The pedestrian following model that can instantiate different pedestrian models
-// that come with the JuPedSim third-party simulation framework.
+// The old implementation of the JuPedSim coupling.
+// This is only being kept for reference and will probably be removed soon.
 /****************************************************************************/
 #pragma once
 #include <config.h>
 #include <vector>
 #include <map>
 #include <geos_c.h>
+#include <jupedsim/jupedsim.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
-#pragma push_macro("TS")
-#pragma push_macro("Min")
-#pragma push_macro("Max")
-#undef TS
-#undef Min
-#undef Max
-#include <grpcpp/grpcpp.h>
-#include "jupedsim.grpc.pb.h"
-#pragma pop_macro("TS")
-#pragma pop_macro("Min")
-#pragma pop_macro("Max")
+
 
 // ===========================================================================
 // class declarations
@@ -51,18 +42,14 @@ class OutputDevice;
 // class definitions
 // ===========================================================================
 /**
- * @class MSPModel_JuPedSim_gRPC
+ * @class MSPModel_JuPedSim_legacy
  * @brief A pedestrian following model that acts as a proxy for pedestrian models
  * provided by the JuPedSim third-party simulation framework.
  */
-class MSPModel_JuPedSim_gRPC : public MSPModel_Interacting, public ShapeListener {
+class MSPModel_JuPedSim_legacy : public MSPModel_Interacting, public ShapeListener {
 public:
-    typedef int64_t JPS_StageId;
-    typedef int64_t JPS_AgentId;
-    typedef int64_t JPS_JourneyId;
-
-    MSPModel_JuPedSim_gRPC(const OptionsCont& oc, MSNet* net);
-    ~MSPModel_JuPedSim_gRPC();
+    MSPModel_JuPedSim_legacy(const OptionsCont& oc, MSNet* net);
+    ~MSPModel_JuPedSim_legacy();
 
     MSTransportableStateAdapter* add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) override;
     void remove(MSTransportableStateAdapter* state) override;
@@ -76,14 +63,14 @@ public:
 
     class Event : public Command {
     public:
-        explicit Event(MSPModel_JuPedSim_gRPC* model)
+        explicit Event(MSPModel_JuPedSim_legacy* model)
             : myModel(model) { }
         SUMOTime execute(SUMOTime currentTime) override {
             return myModel->execute(currentTime);
         }
 
     private:
-        MSPModel_JuPedSim_gRPC* myModel;
+        MSPModel_JuPedSim_legacy* myModel;
     };
 
     enum class JPS_Model {
@@ -131,7 +118,7 @@ private:
         }
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
 
-        const MSPModel_JuPedSim_gRPC::WaypointDesc* getNextWaypoint(const int offset = 0) const;
+        const MSPModel_JuPedSim_legacy::WaypointDesc* getNextWaypoint(const int offset = 0) const;
 
         inline JPS_AgentId getAgentId() const {
             return myAgentId;
@@ -165,7 +152,7 @@ private:
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
-        std::vector<MSPModel_JuPedSim_gRPC::WaypointDesc> myWaypoints;
+        std::vector<MSPModel_JuPedSim_legacy::WaypointDesc> myWaypoints;
         JPS_AgentId myAgentId;
     };
 
@@ -192,22 +179,20 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    int64_t myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    JPS_Geometry myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    int64_t myJPSGeometryWithTrainsAndRamps;
-    std::string myJPSModel;
-    // JPS_OperationalModel myJPSOperationalModel;
-    int64_t myJPSSimulation;
+    JPS_Geometry myJPSGeometryWithTrainsAndRamps;
+    JPS_Model myJPSModel;
+    JPS_OperationalModel myJPSOperationalModel;
+    JPS_Simulation myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
-    std::shared_ptr<grpc::Channel> myGrpcChannel;
-    std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
 
     /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
     struct AreaData {
         const std::string id;
         const std::string areaType;
-        sumo_jupedsim_api::Polygon areaBoundary;
+        const std::vector<JPS_Point> areaBoundary;
         const Parameterised::Map& params;
 
         /// @brief The last time a pedestrian was removed in a vanishing area.
@@ -231,40 +216,24 @@ private:
     static const RGBColor PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR;
     static const std::string PEDESTRIAN_NETWORK_ID;
     static const std::string PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID;
-    static const std::vector<MSPModel_JuPedSim_gRPC::PState*> noPedestrians;
+    static const std::vector<MSPModel_JuPedSim_legacy::PState*> noPedestrians;
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    JPS_StageId addWaypoint(const std::string& agentID, const WaypointDesc& waypoint);
+    bool addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage);
+    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static GEOSCoordSequence* convertToGEOSPoints(PositionVector shape);
-    static void convertToJPSPoints(const GEOSGeometry* geometry, sumo_jupedsim_api::Polygon* into);
+    static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static PositionVector convertToSUMOPoints(const GEOSGeometry* geometry);
     static double getLinearRingArea(const GEOSGeometry* linearRing);
     void removePolygonFromDrawing(const std::string& polygonId);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
     static const GEOSGeometry* getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea);
-    int64_t buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
+    static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
     JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);
-
-    template <class Request, class Response>
-    Response
-    callGrpc(grpc::Status (sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
-             Request& request, const std::string& what, const bool warnOnly=false) {
-        grpc::ClientContext context;
-        Response response;
-        request.set_simulation_id(myJPSSimulation);
-        const grpc::Status status = ((*myGrpcStub).*method)(&context, request, &response);
-        if (!status.ok()) {
-            if (!warnOnly) {
-                throw ProcessError(what + status.error_message());
-            }
-            WRITE_WARNING(what + status.error_message());
-        }
-        return response;
-    }
 };

@@ -201,8 +201,11 @@
 /* defined and set to version if JuPedSim is available */
 #cmakedefine JPS_VERSION @JPS_VERSION@
 
-/* defined if JuPedSim is available */
-#cmakedefine HAVE_JUPEDSIM
+/* defined if JuPedSim is available as library */
+#cmakedefine HAVE_JUPEDSIM_LEGACY
+
+/* defined if JuPedSim is available via gRPC */
+#cmakedefine HAVE_JUPEDSIM_GRPC
 
 /* defined if osg is available */
 #cmakedefine HAVE_OSG

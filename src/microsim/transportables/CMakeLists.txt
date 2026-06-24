@@ -1,20 +1,19 @@
-if (HAVE_JUPEDSIM)
+if (HAVE_JUPEDSIM_LEGACY)
     set(microsim_transportables_JPS_SRCS
-        MSPModel_JuPedSim.cpp
-        MSPModel_JuPedSim.h
+        MSPModel_JuPedSim_legacy.cpp
+        MSPModel_JuPedSim_legacy.h
         )
-
-    if (gRPC_FOUND)
-        set(jps_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.cc")
-        set(jps_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.h")
-        set(jps_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.cc")
-        set(jps_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.h")
-        set(microsim_transportables_JPS_GRPC_SRCS
-            MSPModel_JuPedSim_gRPC.cpp MSPModel_JuPedSim_gRPC.h
-            ${jps_proto_srcs} ${jps_proto_hdrs} ${jps_grpc_srcs} ${jps_grpc_hdrs}
-            )
-    endif()
-endif ()
+endif()
+if (HAVE_JUPEDSIM_GRPC)
+    set(jps_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.cc")
+    set(jps_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.h")
+    set(jps_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.cc")
+    set(jps_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.h")
+    set(microsim_transportables_JPS_GRPC_SRCS
+        MSPModel_JuPedSim.cpp MSPModel_JuPedSim.h
+        ${jps_proto_srcs} ${jps_proto_hdrs} ${jps_grpc_srcs} ${jps_grpc_hdrs}
+        )
+endif()
 set(microsim_transportables_STAT_SRCS
         MSPerson.cpp
         MSPerson.h
@@ -50,11 +49,11 @@ set(microsim_transportables_STAT_SRCS
 
 add_library(microsim_transportables STATIC ${microsim_transportables_STAT_SRCS} ${remote_model})
 target_link_libraries(microsim_transportables
-    PUBLIC $<$<BOOL:${HAVE_JUPEDSIM}>:jupedsim::jupedsim> ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF}
+    PUBLIC $<$<BOOL:${HAVE_JUPEDSIM_LEGACY}>:jupedsim::jupedsim> ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF}
 )
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
 
-if (HAVE_JUPEDSIM AND gRPC_FOUND)
+if (HAVE_JUPEDSIM_GRPC)
     get_filename_component(jps_python_dir "../../../tools/jupedsim_grpc" ABSOLUTE)
     set(jps_proto "${jps_python_dir}/jupedsim.proto")
     protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE cpp APPEND_PATH PROTOC_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
