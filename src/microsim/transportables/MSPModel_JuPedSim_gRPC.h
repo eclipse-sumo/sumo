@@ -220,7 +220,7 @@ private:
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
-    std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
+    std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId>, ComparatorNumericalIdLess> myCrossingWaits;
     std::map<JPS_StageId, const MSLane*> myCrossings;
 
     static const int GEOS_QUADRANT_SEGMENTS;
@@ -254,13 +254,16 @@ private:
     template <class Request, class Response>
     Response
     callGrpc(grpc::Status (sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
-             Request& request, const std::string& what) {
+             Request& request, const std::string& what, const bool warnOnly=false) {
         grpc::ClientContext context;
         Response response;
         request.set_simulation_id(myJPSSimulation);
         const grpc::Status status = ((*myGrpcStub).*method)(&context, request, &response);
         if (!status.ok()) {
-            throw ProcessError(what + status.error_message());
+            if (!warnOnly) {
+                throw ProcessError(what + status.error_message());
+            }
+            WRITE_WARNING(what + status.error_message());
         }
         return response;
     }

@@ -57,7 +57,9 @@ class SimulationManager:
             return None, str(e)
         return jupedsim_pb2.EmptyResponse(), None
 
-    def create_simulation(self, geometry_id, model_class, delta_t):
+    def create_simulation(
+        self, geometry_id, model_class, delta_t, parameters=None
+    ):
         if delta_t <= 0:
             return None, "delta_t must be positive"
         if (geometry := self._geometries.get(geometry_id, None)) is None:
@@ -66,9 +68,17 @@ class SimulationManager:
             return None, "model_class must not be empty"
         if (jps_model_cls := getattr(jps, model_class, None)) is None:
             return None, f"model {model_class} does not exist in JuPedSim"
+        param_dict = {}
+        if parameters is not None:
+            param_dict = json_format.MessageToDict(parameters)
+        # The model class is a dataclass; unset parameters keep their defaults.
+        try:
+            model = jps_model_cls(**param_dict)
+        except TypeError as e:
+            return None, str(e)
         simulation_id = self.generate_simulation_id()
         self._simulations[simulation_id] = jps.Simulation(
-            model=jps_model_cls(),
+            model=model,
             geometry=geometry,
             dt=delta_t,
         )
@@ -169,7 +179,6 @@ class SimulationManager:
         journey = jps.JourneyDescription(stage_ids=stage_ids)
         for i in range(1, len(stage_ids)):
             journey.set_transition_for_stage(stage_ids[i-1], jps.Transition.create_fixed_transition(stage_ids[i]))
-            print("setting fixed transition", stage_ids[i-1], stage_ids[i])
         journey_id = simulation.add_journey(journey)
         self._journeys[journey_id] = simulation_id
         return jupedsim_pb2.AddJourneyResponse(journey_id=journey_id), None
@@ -178,7 +187,6 @@ class SimulationManager:
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"
         waypoint_id = simulation.add_waypoint_stage((x, y), distance)
-        print("adding new waypoint", waypoint_id, x, y)
         self._stages[waypoint_id] = simulation_id
         return jupedsim_pb2.AddWaypointStageResponse(
             waypoint_id=waypoint_id
@@ -199,7 +207,6 @@ class SimulationManager:
         if len(points) < 1:
             return None, "waiting set needs at least 1 point"
         stage_id = simulation.add_waiting_set_stage(points)
-        print("added waiting set", stage_id)
         self._stages[stage_id] = simulation_id
         return jupedsim_pb2.AddWaitingSetStageResponse(stage_id=stage_id), None
 
