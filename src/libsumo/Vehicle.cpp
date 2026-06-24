@@ -2272,6 +2272,9 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double pos,
         moveReminderReason = MSMoveReminder::NOTIFICATION_DEPARTED;
     }
     l->forceVehicleInsertion(veh, pos, moveReminderReason);
+    if (veh->getLaneChangeModel().isOpposite()) {
+        veh->getLaneChangeModel().changedToOpposite();
+    }
 }
 
 
