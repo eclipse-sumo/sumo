@@ -58,6 +58,7 @@ title: ChangeLog
   - routeSampler.py: can now load marouter output (routeDistributions) #18079
   - sumolib: getNeighboringEdges and getNeighboringLanes now return consistent results when called with different arguments for `includeJunctions` #18086
   - mapDetectors.py: fixed mapping issues for positions close to a junction coordinate #18085
+  - gtfspt.py: several fixes concerning stop placement on partial routes #18099
 
 ### Enhancements
 
