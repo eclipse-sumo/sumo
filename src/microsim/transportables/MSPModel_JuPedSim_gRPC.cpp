@@ -470,17 +470,10 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
                 const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
                                                person->getImpatience(), speed, 0, 0, nullptr, false, person);
                 sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
-                waitingSetStateRequest.set_simulation_id(myJPSSimulation);
                 waitingSetStateRequest.set_stage_id(waitingStage);
                 waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
-                grpc::ClientContext waitingSetStateContext;
-                sumo_jupedsim_api::EmptyResponse waitingSetStateResponse;
-                const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, &waitingSetStateResponse);
-                if (!waitingSetStateStatus.ok()) {
-                    const std::string error = TLF("Error while setting waiting status for %: %",
-                                                  waitingStage, waitingSetStateStatus.error_message());
-                    throw ProcessError(error);
-                }
+                callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
+                         TLF("Error while setting waiting status for %:", crossing->getID()));
             }
         }
         stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
@@ -1060,9 +1053,8 @@ MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool e
     if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
         pv.push_back(crossing->getLinkCont().front()->getLane()->getShape().getCentroid());
     }
-    sumo_jupedsim_api::AddWaitingSetStageRequest waitingSetRequest;
-    waitingSetRequest.set_simulation_id(myJPSSimulation);
 
+    sumo_jupedsim_api::AddWaitingSetStageRequest waitingSetRequest;
     for (const Position& p : pv) {
         GEOSCoordSequence* seq = GEOSCoordSeq_create(1, 2); // 1 point, 2 dimensions
         GEOSCoordSeq_setX(seq, 0, p.x());
@@ -1072,31 +1064,20 @@ MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool e
             sumo_jupedsim_api::Point* point = waitingSetRequest.add_points();
             point->set_x(p.x());
             point->set_y(p.y());
+        } else {
+            WRITE_WARNINGF("Waiting point %,% is not in geometry for % on '%'.", p.x(), p.y(), entry ? "entry" : "exit", crossing->getID())
         }
         GEOSGeom_destroy(geosPoint);
     }
-    grpc::ClientContext waitingSetContext;
-    sumo_jupedsim_api::AddWaitingSetStageResponse waitingSetResponse;
-    const grpc::Status waitingSetStatus = myGrpcStub->AddWaitingSetStage(&waitingSetContext, waitingSetRequest, &waitingSetResponse);
-    if (!waitingSetStatus.ok()) {
-        const std::string error = TLF("Error while adding waiting set for % on '%': %",
-                                      entry ? "entry" : "exit", crossing->getID(), waitingSetStatus.error_message());
-        throw ProcessError(error);
-    }
+    auto waitingSetResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddWaitingSetStage, waitingSetRequest,
+                                       TLF("Error while adding waiting set for % on '%':", entry ? "entry" : "exit", crossing->getID()));
     JPS_StageId waitingStage = waitingSetResponse.stage_id();
 
     sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
-    waitingSetStateRequest.set_simulation_id(myJPSSimulation);
     waitingSetStateRequest.set_stage_id(waitingStage);
     waitingSetStateRequest.set_state(sumo_jupedsim_api::INACTIVE);
-    grpc::ClientContext waitingSetStateContext;
-    sumo_jupedsim_api::EmptyResponse waitingSetStateResponse;
-    const grpc::Status waitingSetStateStatus = myGrpcStub->SetWaitingSetState(&waitingSetStateContext, waitingSetStateRequest, &waitingSetStateResponse);
-    if (!waitingSetStateStatus.ok()) {
-        const std::string error = TLF("Error while setting waiting status for % on '%': %",
-                                      entry ? "entry" : "exit", crossing->getID(), waitingSetStateStatus.error_message());
-        throw ProcessError(error);
-    }
+    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
+             TLF("Error while setting waiting status for % on '%':", entry ? "entry" : "exit", crossing->getID()));
 
     myCrossings[waitingStage] = crossing;
     return waitingStage;

@@ -1144,6 +1144,8 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
         GEOSGeometry* point = GEOSGeom_createPoint(seq);
         if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
             points.push_back({p.x(), p.y()});
+        } else {
+            WRITE_WARNINGF("Waiting point %,% is not in geometry for % on '%'.", p.x(), p.y(), entry ? "entry" : "exit", crossing->getID())
         }
         GEOSGeom_destroy(point);
     }
