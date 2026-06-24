@@ -959,6 +959,9 @@ MSFrame::checkOptions() {
         if (oc.isDefault("pedestrian.model")) {
             oc.setDefault("pedestrian.model", "nonInteracting");
         }
+        if (oc.isDefault("no-internal-links")) {
+            oc.setDefault("no-internal-links", "true");
+        }
     }
     if (string2time(oc.getString("device.fcd.begin")) < 0) {
         oc.setDefault("device.fcd.begin", oc.getString("begin"));
