@@ -111,26 +111,28 @@ MSPModel_JuPedSim_gRPC::tryPedestrianInsertion(PState* state, const Position& p)
     agentParams["journey_id"].set_number_value(static_cast<double>(state->getJourneyId()));
     agentParams["stage_id"].set_number_value(static_cast<double>(state->getStageId()));
     agentParams["desired_speed"].set_number_value(state->getPerson()->getMaxSpeed());
-    agentParams["radius"].set_number_value(getRadius(type));
+    if (myJPSModel != "GeneralizedCentrifugalForceModel") {
+        agentParams["radius"].set_number_value(getRadius(type));
+    }
     google::protobuf::ListValue* position = agentParams["position"].mutable_list_value();
     position->add_values()->set_number_value(p.x());
     position->add_values()->set_number_value(p.y());
-/*
-    const double angle = state->getAngle(*state->getStage(), 0);
-    double orientation_x = 0.;
-    double orientation_y = 0.;
-    if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
-        orientation_y = 1.;
-    } else if (fabs(angle + M_PI / 2) < NUMERICAL_EPS) {
-        orientation_y = -1.;
-    } else {
-        orientation_x = 1.;
-        orientation_y = tan(angle);
+    if (myJPSModel == "GeneralizedCentrifugalForceModel") {
+        const double angle = state->getAngle(*state->getStage(), 0);
+        double orientation_x = 0.;
+        double orientation_y = 0.;
+        if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
+            orientation_y = 1.;
+        } else if (fabs(angle + M_PI / 2) < NUMERICAL_EPS) {
+            orientation_y = -1.;
+        } else {
+            orientation_x = 1.;
+            orientation_y = tan(angle);
+        }
+        google::protobuf::ListValue* orientation = agentParams["orientation"].mutable_list_value();
+        orientation->add_values()->set_number_value(orientation_x);
+        orientation->add_values()->set_number_value(orientation_y);
     }
-    google::protobuf::ListValue* orientation = agentParams["orientation"].mutable_list_value();
-    orientation->add_values()->set_number_value(orientation_x);
-    orientation->add_values()->set_number_value(orientation_y);
-*/
     grpc::ClientContext agentContext;
     sumo_jupedsim_api::CreateAgentResponse agentResponse;
     const grpc::Status agentStatus = myGrpcStub->CreateAgent(&agentContext, agentRequest, &agentResponse);
@@ -616,7 +618,7 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
                     myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
                     sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
                     switchRequest.set_geometry_id(myJPSGeometryWithTrainsAndRamps);
-                    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("Error while switching to train geometry: "));
+                    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to train geometry: "), true);
                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -627,7 +629,7 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
         } else {
             sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
             switchRequest.set_geometry_id(myJPSGeometry);
-            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("Error while switching to default geometry: "));
+            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to default geometry: "), true);
             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
