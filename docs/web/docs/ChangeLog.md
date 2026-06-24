@@ -20,6 +20,8 @@ title: ChangeLog
   - Fixed crash when attempting to load networks with NaN in edge lengths or speeds (now raises an error instead) #18094
   - Fixed invalid driveway foes in moving-block mode #18106
   - Fixed invalid traffic light signal phase when loading simulation state (with WAUT) #18105
+  - Fixed deadlock on junction with parallel internal lanes #18115
+  - Fixed collision on junction with unusual geometry #5013  
 
 - netedit
   - Fixed crash after renaming tlLogic #18116 (regression in 1.27.0)
@@ -28,6 +30,9 @@ title: ChangeLog
   - selected connections now remain visible at high zoom when selection scaling is active #17309
   - rerouterDialog now allows to set special destination "terminateRoute" and "keepDestination" in destProbReroute #18072
   - rerouter intervals no longer disappears when editing attribute `edges` in inspect mode #18071
+  - Fixed crash after calling undo and 'select parents' #18120
+  - Fixed invalid edge removal when using function 'reduce' and having an edge selected together with its lanes #18121
+  - Fixed awkward workflow for reducing the network based on edge attributes (i.e. type). It was previously necessary to add junctions to the selection (via a manual 'add parents' step) and easy to mess up connections. Now it works in the same way as the netconvert **--keep-edges...** options #18122
 
 - sumo-gui
   - Fixed invalid color for shown route when activating vehicle id background color (meso only) #18112 (regression in 1.11.0)
@@ -45,6 +50,9 @@ title: ChangeLog
 - duarouter
   - Fixed crash when called with **--repair** #18109 (regression in 1.24.0)
 
+- TraCI
+  - Fixed reversed driving after calling moveTo on a vehicle that is overtaking through the opposite direction #18051
+
 - tools
   - routeSampler.py: can now load marouter output (routeDistributions) #18079
   - sumolib: getNeighboringEdges and getNeighboringLanes now return consistent results when called with different arguments for `includeJunctions` #18086
@@ -58,6 +66,13 @@ title: ChangeLog
 
 - sumo-gui
   - Context menu function 'show cursor geo position in google-maps' now sets a map pin at the cursor position. (existing installations of SUMO must use the Application Settings dialog to change the query string to "https://www.google.com/maps/search/?api=1&query=%lat,%lon&zoom=19") #18114
+  - Can now configure the color of parkingAreas and parkingSpaces (also in netedit) #16180
+
+- netconvert
+  - Option **--ignore-errors** can now be used to adapt public transport stops and ptlines to a reduced network #18125
+
+- od2trips
+  - Added option **--flow-output.poisson** to generate poission distributed insertions when option **--flow-output** is set. refs #18117
 
 - tools
   - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
@@ -65,6 +80,7 @@ title: ChangeLog
   - mapDetectors.py: Added option **--poi-output** for easier debugging
   - mapDetectors.py: now reports mapping errors #18084
   - edgeDataFromFlow.py: added options **--time-format** and **--time-offset** to handle arbitrary timestamp/date formats #18087
+  - Added function `sumolib.net.node.getTLSID()` #18124
 
 ### Miscellaneous
 
@@ -72,6 +88,7 @@ title: ChangeLog
 - Fixed code signing issues for libsumo on macOS #18021
 - Fixed problem when importing libsumo and pyarrow simultaneously on Windows #17324
 - Installing libsumo no longer depends on the sumo binaries package #16588
+- Added new [Railway scenario tutorial](Tutorials/RailwayScenario.md) #17929
 
 ## Version 1.27.0 (21.05.2026)
 
