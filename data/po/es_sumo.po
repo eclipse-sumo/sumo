@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-23 07:48+0000\n"
+"PO-Revision-Date: 2026-06-24 08:29+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1929,6 +1929,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:192
 msgid "Do not save data for time steps which have no vehicles / transportables"
 msgstr ""
+"No guardar datos para los pasos de tiempo en los que no haya vehículos ni "
+"personas/carga transportada"
 
 #: src/microsim/MSFrame.cpp:196
 msgid "Save fcd for persons and container to separate FILE"
@@ -11456,7 +11458,7 @@ msgstr ""
 
 #: src/netload/NLHandler.cpp:558
 msgid "Attribute maxSpeed of lane '%' is invalid (%)"
-msgstr ""
+msgstr "El valor del atributo maxSpeed del carril '%' no es válido (%)"
 
 #: src/netload/NLHandler.cpp:573
 msgid ""
@@ -11989,6 +11991,7 @@ msgstr ""
 #: src/od2trips_main.cpp:111
 msgid "Writes poisson distributed flow instead of evenly spaced flow"
 msgstr ""
+"Escribir flujo distribuido según Poisson en lugar de espaciado uniformemente"
 
 #: src/od2trips_main.cpp:114
 msgid "Writes pedestrians instead of vehicles"
@@ -12826,11 +12829,11 @@ msgstr "Saltando el cruce aislado '%'."
 
 #: src/router/RONetHandler.cpp:376
 msgid "unknown from-edge '%' in connection"
-msgstr ""
+msgstr "arista de origen '%' desconocida en la conexión"
 
 #: src/router/RONetHandler.cpp:379
 msgid "unknown to-edge '%' in connection"
-msgstr ""
+msgstr "arista destino '%' desconocida en la conexión"
 
 #: src/router/RONetHandler.cpp:407
 msgid "unknown via-edge '%' in connection"
@@ -14223,6 +14226,8 @@ msgid ""
 "The parameter '%' is not allowed in this context.\n"
 " Switch or parameter name expected."
 msgstr ""
+"El parámetro '%' no está permitido en este contexto.\n"
+" Se espera una opción o un nombre de parámetro."
 
 #: src/utils/options/OptionsParser.cpp:159
 msgid "Mixed parameter syntax in '%'."
