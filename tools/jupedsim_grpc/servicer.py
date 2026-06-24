@@ -53,6 +53,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.geometry_id,
             request.model_class,
             request.delta_t,
+            request.model_parameters,
         )
         if error:
             context.set_code(grpc.StatusCode.INVALID_ARGUMENT)

@@ -31,6 +31,7 @@ message CreateSimulationRequest {
   int64 geometry_id = 1;
   string model_class = 2;
   double delta_t = 3;
+  google.protobuf.Struct model_parameters = 4;
 }
 
 message CreateSimulationResponse {

@@ -439,17 +439,10 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             // Adapt speed to lane's speed limit.
             // TODO make this a bulk request
             sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
-            desiredSpeedRequest.set_simulation_id(myJPSSimulation);
             auto speeds = desiredSpeedRequest.desired_speeds();
             speeds[state->getAgentId()] = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
-            grpc::ClientContext desiredSpeedContext;
-            sumo_jupedsim_api::EmptyResponse desiredSpeedResponse;
-            const grpc::Status desiredSpeedStatus = myGrpcStub->SetDesiredSpeedOfAgents(&desiredSpeedContext, desiredSpeedRequest, &desiredSpeedResponse);
-            if (!desiredSpeedStatus.ok()) {
-                const std::string error = TLF("Error while setting desired speed for %: %",
-                                              person->getID(), desiredSpeedStatus.error_message());
-                throw ProcessError(error);
-            }
+            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetDesiredSpeedOfAgents, desiredSpeedRequest,
+                     TLF("Error while setting desired speed for %: ", person->getID()));
         }
         const double speed = person->getSpeed();
         for (int offset = 0; offset < 2; offset++) {
@@ -538,17 +531,12 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             }
             const double newSpeed = StringUtils::toDouble(area->params.at("speed"));
             sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
-            desiredSpeedRequest.set_simulation_id(myJPSSimulation);
             auto speeds = desiredSpeedRequest.desired_speeds();
             for (int i = 0; i < numAgents; i++) {
                 speeds[agentsResponse.agent_ids(i)] = newSpeed;
             }
-            grpc::ClientContext desiredSpeedContext;
-            sumo_jupedsim_api::EmptyResponse desiredSpeedResponse;
-            const grpc::Status desiredSpeedStatus = myGrpcStub->SetDesiredSpeedOfAgents(&desiredSpeedContext, desiredSpeedRequest, &desiredSpeedResponse);
-            if (!desiredSpeedStatus.ok()) {
-                throw ProcessError(TLF("Error while setting desired speed for area: %", desiredSpeedStatus.error_message()));
-            }
+            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetDesiredSpeedOfAgents, desiredSpeedRequest,
+                     TL("Error while setting desired speed for area: "));
         }
     }
 
@@ -1065,7 +1053,7 @@ MSPModel_JuPedSim_gRPC::addWaitingSet(const MSLane* const crossing, const bool e
             point->set_x(p.x());
             point->set_y(p.y());
         } else {
-            WRITE_WARNINGF("Waiting point %,% is not in geometry for % on '%'.", p.x(), p.y(), entry ? "entry" : "exit", crossing->getID())
+            WRITE_WARNINGF("Waiting point %,% is not in the geometry for % on '%'.", p.x(), p.y(), entry ? "entry" : "exit", crossing->getID())
         }
         GEOSGeom_destroy(geosPoint);
     }
@@ -1119,57 +1107,27 @@ MSPModel_JuPedSim_gRPC::initialize(const OptionsCont& oc) {
             rangeGeometryRepulsion = 0.019;
         }
     }
-/*
-    JPS_ErrorMessage message = nullptr;
-    switch (myJPSModel) {
-        case JPS_Model::CollisionFreeSpeed: {
-            JPS_CollisionFreeSpeedModelBuilder modelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(
-                        oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"),
-                        oc.getFloat("pedestrian.jupedsim.range-neighbor-repulsion"),
-                        strengthGeometryRepulsion,
-                        rangeGeometryRepulsion);
-            myJPSOperationalModel = JPS_CollisionFreeSpeedModelBuilder_Build(modelBuilder, &message);
-            JPS_CollisionFreeSpeedModelBuilder_Free(modelBuilder);
-            break;
-        }
-        case JPS_Model::CollisionFreeSpeedV2: {
-            JPS_CollisionFreeSpeedModelV2Builder modelBuilder = JPS_CollisionFreeSpeedModelV2Builder_Create();
-            myJPSOperationalModel = JPS_CollisionFreeSpeedModelV2Builder_Build(modelBuilder, &message);
-            JPS_CollisionFreeSpeedModelV2Builder_Free(modelBuilder);
-            break;
-        }
-        case JPS_Model::GeneralizedCentrifugalForce: {
-            JPS_GeneralizedCentrifugalForceModelBuilder modelBuilder = JPS_GeneralizedCentrifugalForceModelBuilder_Create(
-                        oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"),
-                        strengthGeometryRepulsion,
-                        2.0,
-                        2.0,
-                        0.1,
-                        0.1,
-                        9.0,
-                        3.0);
-            myJPSOperationalModel = JPS_GeneralizedCentrifugalForceModelBuilder_Build(modelBuilder, &message);
-            JPS_GeneralizedCentrifugalForceModelBuilder_Free(modelBuilder);
-            break;
-        }
-        case JPS_Model::SocialForce: {
-            JPS_SocialForceModelBuilder modelBuilder = JPS_SocialForceModelBuilder_Create(120000.0, 240000.0);
-            myJPSOperationalModel = JPS_SocialForceModelBuilder_Build(modelBuilder, &message);
-            JPS_SocialForceModelBuilder_Free(modelBuilder);
-            break;
-        }
-    }
-
-    if (myJPSOperationalModel == nullptr) {
-        const std::string error = TLF("Error creating the pedestrian model: %", JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        throw ProcessError(error);
-    }
-        */
     sumo_jupedsim_api::CreateSimulationRequest simulationRequest;
     simulationRequest.set_geometry_id(myJPSGeometry);
     simulationRequest.set_model_class(myJPSModel);
     simulationRequest.set_delta_t(STEPS2TIME(myJPSDeltaT));
+    // Default server side arguments for the models.
+    // TODO: Better handling of this as this is still hard-coded for each model class.
+    auto& modelParams = *simulationRequest.mutable_model_parameters()->mutable_fields();
+    if (myJPSModel == "CollisionFreeSpeedModel") {
+        modelParams["strength_neighbor_repulsion"].set_number_value(oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"));
+        modelParams["range_neighbor_repulsion"].set_number_value(oc.getFloat("pedestrian.jupedsim.range-neighbor-repulsion"));
+        modelParams["strength_geometry_repulsion"].set_number_value(strengthGeometryRepulsion);
+        modelParams["range_geometry_repulsion"].set_number_value(rangeGeometryRepulsion);
+    } else if (myJPSModel == "CollisionFreeSpeedModelV2") {
+        // Empty - did not set any parameters in old implementation
+    } else if (myJPSModel == "GeneralizedCentrifugalForceModel") {
+        modelParams["strength_neighbor_repulsion"].set_number_value(oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"));
+        modelParams["strength_geometry_repulsion"].set_number_value(strengthGeometryRepulsion);
+    } else if (myJPSModel == "SocialForceModel") {
+        modelParams["body_force"].set_number_value(120000.0);
+        modelParams["friction"].set_number_value(240000.0);
+    }
     grpc::ClientContext simulationContext;
     sumo_jupedsim_api::CreateSimulationResponse simulationResponse;
     const grpc::Status simulationStatus = myGrpcStub->CreateSimulation(&simulationContext, simulationRequest, &simulationResponse);
