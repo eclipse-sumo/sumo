@@ -6,3 +6,6 @@ odometer
 
 # continously correct vehicle positions
 controller_loop
+
+# handle moveTo while overtaking through the opposite direction
+opposite_driving

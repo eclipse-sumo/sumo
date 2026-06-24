@@ -1,0 +1,8 @@
+<routes>
+    <route id="r" edges="WC CE"/>
+    <vType id="long" vClass="bus"/>
+    <vehicle id="blocker" type="long" route="r" depart="0" departSpeed="avg">
+        <stop edge="WC" endPos="50" duration="30"/>
+    </vehicle>
+    <vehicle id="ego" route="r" depart="0" departSpeed="avg"/>
+</routes>
