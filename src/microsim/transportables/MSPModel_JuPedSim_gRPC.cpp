@@ -156,7 +156,7 @@ MSPModel_JuPedSim_gRPC::addWaypoint(const std::string& agentID, const WaypointDe
     sumo_jupedsim_api::AddWaypointStageResponse waypointResponse;
     const grpc::Status waypointStatus = myGrpcStub->AddWaypointStage(&waypointContext, waypointRequest, &waypointResponse);
     if (!waypointStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC AddWaypointStage failed: %"), waypointStatus.error_message());
+        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, waypointStatus.error_message());
         return -1;
     }
     return waypointResponse.waypoint_id();
@@ -968,14 +968,7 @@ MSPModel_JuPedSim_gRPC::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* pol
     // Handle the exterior polygon.
     const GEOSGeometry* exterior =  GEOSGetExteriorRing(polygon);
     convertToJPSPoints(exterior, boundary);
-    grpc::ClientContext geometryContext;
-    sumo_jupedsim_api::CreateGeometryResponse geometryResponse;
-    const grpc::Status geometryStatus = myGrpcStub->CreateGeometry(&geometryContext, geometryRequest, &geometryResponse);
-    if (!geometryStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC CreateGeometry failed: %"), geometryStatus.error_message());
-        return -1;
-    }
-/*
+
     // Handle the interior polygons (holes).
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
     if (nbrInteriorRings != -1) {
@@ -983,15 +976,21 @@ MSPModel_JuPedSim_gRPC::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* pol
             const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
             double area = getLinearRingArea(linearRing);
             if (area > GEOS_MIN_AREA) {
-                std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
-                JPS_GeometryBuilder_ExcludeFromAccessibleArea(geometryBuilder, holeCoordinates.data(), holeCoordinates.size());
+                sumo_jupedsim_api::Polygon* hole = geometryRequest.add_obstacles();
+                convertToJPSPoints(linearRing, hole);
             }
         }
     }
-*/
+    grpc::ClientContext geometryContext;
+    sumo_jupedsim_api::CreateGeometryResponse geometryResponse;
+    const grpc::Status geometryStatus = myGrpcStub->CreateGeometry(&geometryContext, geometryRequest, &geometryResponse);
+    if (!geometryStatus.ok()) {
+        WRITE_WARNINGF(TL("JuPedSim gRPC CreateGeometry failed: %"), geometryStatus.error_message());
+        return -1;
+    }
+
     return geometryResponse.geometry_id();
 }
-
 
 void
 MSPModel_JuPedSim_gRPC::dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates) {

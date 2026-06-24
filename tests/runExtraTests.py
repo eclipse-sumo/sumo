@@ -47,8 +47,7 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False)
 
     env["TEXTTEST_HOME"] = root
     env["LANG"] = "C"
-    if "SUMO_HOME" not in env:
-        env["SUMO_HOME"] = os.path.join(root, "..")
+    env["SUMO_HOME"] = os.path.join(root, "..")
     for binary in APPS + ("emissionsDrivingCycle", "emissionsMap", "netgenerate"):
         env[binary.upper() + "_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", "sumo-gui" + suffix)
