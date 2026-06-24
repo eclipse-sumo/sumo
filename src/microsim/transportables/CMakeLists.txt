@@ -5,23 +5,10 @@ if (HAVE_JUPEDSIM)
         )
 
     if (gRPC_FOUND)
-        get_filename_component(jps_proto "./jupedsim.proto" ABSOLUTE)
-        get_filename_component(jps_proto_path "${jps_proto}" PATH)
         set(jps_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.cc")
         set(jps_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.pb.h")
         set(jps_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.cc")
         set(jps_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/jupedsim.grpc.pb.h")
-        # TODO this should probably be replaced by protobuf_generate_cpp
-        add_custom_command(
-            OUTPUT "${jps_proto_srcs}" "${jps_proto_hdrs}" "${jps_grpc_srcs}" "${jps_grpc_hdrs}"
-            COMMAND ${_PROTOBUF_PROTOC}
-            ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-                --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
-                  -I "${jps_proto_path}"
-                --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-                "${jps_proto}"
-            DEPENDS "${jps_proto}")
-        include_directories("${CMAKE_CURRENT_BINARY_DIR}")
         set(microsim_transportables_JPS_GRPC_SRCS
             MSPModel_JuPedSim_gRPC.cpp MSPModel_JuPedSim_gRPC.h
             ${jps_proto_srcs} ${jps_proto_hdrs} ${jps_grpc_srcs} ${jps_grpc_hdrs}
@@ -66,3 +53,11 @@ target_link_libraries(microsim_transportables
     PUBLIC $<$<BOOL:${HAVE_JUPEDSIM}>:jupedsim::jupedsim> ${_GRPC_GRPCPP} ${_PROTOBUF_LIBPROTOBUF}
 )
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
+
+if (HAVE_JUPEDSIM AND gRPC_FOUND)
+    get_filename_component(jps_proto "../../../tools/jupedsim_grpc/jupedsim.proto" ABSOLUTE)
+    protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE cpp APPEND_PATH PROTOC_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+    protobuf_generate(TARGET microsim_transportables PROTOS "${jps_proto}" LANGUAGE grpc APPEND_PATH PROTOC_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}"
+                      PLUGIN "protoc-gen-grpc=$<TARGET_FILE:gRPC::grpc_cpp_plugin>" GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc)
+    include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+endif ()
