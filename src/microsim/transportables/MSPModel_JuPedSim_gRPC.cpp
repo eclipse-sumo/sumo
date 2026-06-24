@@ -439,8 +439,8 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             // Adapt speed to lane's speed limit.
             // TODO make this a bulk request
             sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
-            auto speeds = desiredSpeedRequest.desired_speeds();
-            speeds[state->getAgentId()] = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
+            auto speeds = desiredSpeedRequest.mutable_desired_speeds();
+            (*speeds)[state->getAgentId()] = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
             callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetDesiredSpeedOfAgents, desiredSpeedRequest,
                      TLF("Error while setting desired speed for %: ", person->getID()));
         }
@@ -531,9 +531,9 @@ MSPModel_JuPedSim_gRPC::execute(SUMOTime time) {
             }
             const double newSpeed = StringUtils::toDouble(area->params.at("speed"));
             sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
-            auto speeds = desiredSpeedRequest.desired_speeds();
+            auto speeds = desiredSpeedRequest.mutable_desired_speeds();
             for (int i = 0; i < numAgents; i++) {
-                speeds[agentsResponse.agent_ids(i)] = newSpeed;
+                (*speeds)[agentsResponse.agent_ids(i)] = newSpeed;
             }
             callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetDesiredSpeedOfAgents, desiredSpeedRequest,
                      TL("Error while setting desired speed for area: "));
