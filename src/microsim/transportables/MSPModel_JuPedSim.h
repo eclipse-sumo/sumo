@@ -26,6 +26,15 @@
 #include <vector>
 #include <map>
 #include <geos_c.h>
+#ifdef HAVE_BOOST
+#if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
+#include <boost/process/v1.hpp>
+namespace bp = boost::process::v1;
+#else
+#include <boost/process.hpp>
+namespace bp = boost::process;
+#endif
+#endif
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
@@ -197,9 +206,11 @@ private:
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
     int64_t myJPSGeometryWithTrainsAndRamps;
     std::string myJPSModel;
-    // JPS_OperationalModel myJPSOperationalModel;
     int64_t myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
+#ifdef HAVE_BOOST
+    bp::child* myJuPedSimServer = nullptr;
+#endif
     std::shared_ptr<grpc::Channel> myGrpcChannel;
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
 
