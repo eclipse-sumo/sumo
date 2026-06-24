@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main ([nightly development builds](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots))
+## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
 ### Bugfixes
 
@@ -21,7 +21,7 @@ title: ChangeLog
   - Fixed invalid driveway foes in moving-block mode #18106
   - Fixed invalid traffic light signal phase when loading simulation state (with WAUT) #18105
   - Fixed deadlock on junction with parallel internal lanes #18115
-  - Fixed collision on junction with unusual geometry #5013  
+  - Fixed collision on junction with unusual geometry #5013
 
 - netedit
   - Fixed crash after renaming tlLogic #18116 (regression in 1.27.0)
