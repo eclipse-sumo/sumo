@@ -51,7 +51,7 @@ endif ()
 # the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
 cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
-set(PACKAGE_VERSION "1.27.1")
+set(PACKAGE_VERSION "git")
 
 # The command and parameters for rm / remove_directory change in cmake
 if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)

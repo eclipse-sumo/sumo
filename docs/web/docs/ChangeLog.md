@@ -1,6 +1,10 @@
 ---
 title: ChangeLog
 ---
+## Git Main ([nightly development builds](https://sumo.dlr.de/docs/Downloads.php#nightly_snapshots))
+
+### Bugfixes
+
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
