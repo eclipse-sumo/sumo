@@ -79,18 +79,15 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     std::string address = oc.getString("pedestrian.jupedsim.address");
     address = "localhost:50051"; // for debugging
     if (address == "") {
+#ifdef HAVE_BOOST
+        namespace bp = boost::process::v1;
+        bp::ipstream out;
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
-        std::string command = "python tools/jupedsim_grpc/servicer.py --port " + port + " 2>&1";
-#ifndef WIN32
-        command += " &";
-#endif
-        std::cout << "Calling " << command << std::endl;
-#ifdef WIN32
-        FILE* pipe = _popen(command.c_str(), "r");
-#else
-        FILE* pipe = popen(command.c_str(), "r");
-#endif
+        // std::string command = "python tools/jupedsim_grpc/servicer.py --port " + port + " 2>&1";
+        std::string command = "python 2>&1";
+        myJuPedSimServer = new bp::child(command, bp::std_out > out);
         address = "localhost:" + port;
+#endif
     }
 
     myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
@@ -109,6 +106,9 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     clearState();
     if (myPythonScript != nullptr) {
         (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
+    }
+    if (myJuPedSimServer != nullptr) {
+        myJuPedSimServer->terminate();
     }
 
     // TODO: clear simulation, operational model and geometries?

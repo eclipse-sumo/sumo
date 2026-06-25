@@ -22,11 +22,6 @@
 
 #ifdef HAVE_OSG
 
-// Define NOMIMAX, due osg may include windows.h somewhere so we need to guard against macro pollution
-#ifdef WIN32
-#define NOMINMAX
-#endif
-
 // avoid certain warnings in MSVC
 #ifdef _MSC_VER
 // avoid warnings in clang
@@ -76,11 +71,6 @@
 // pop MSVC warnings
 #ifdef _MSC_VER
 #pragma warning(pop)
-#endif
-
-// Undefine NOMIMAX
-#ifdef WIN32
-#undef NOMINMAX
 #endif
 
 #endif
