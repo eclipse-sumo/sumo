@@ -651,7 +651,7 @@ endif ()
 
 if (ENABLE_JUPEDSIM)
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
-    find_package(Protobuf CONFIG)
+    find_package(Protobuf)
     find_package(gRPC CONFIG)
     if (jupedsim_FOUND OR (Protobuf_FOUND AND gRPC_FOUND))
         find_package(GEOS 3.3.0)

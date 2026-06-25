@@ -19,6 +19,7 @@ libgdal-dev
 libgeos-dev
 libgl2ps-dev
 libgoogle-perftools-dev
+libgrpc++-dev
 libgtest-dev
 libproj-dev
 libv8-dev
