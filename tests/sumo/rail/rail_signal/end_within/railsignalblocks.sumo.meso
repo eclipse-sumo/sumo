@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-25T18:09:55.072051+01:00 by Eclipse SUMO sumo v1_27_1+0002-81985359ab3
+<!-- generated on 2026-06-25T18:10:50.338366+01:00 by Eclipse SUMO sumo v1_27_1+0002-81985359ab3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
+        <no-internal-links value="false"/>
         <time-to-teleport.railsignal-deadlock value="200"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
@@ -38,15 +38,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
 </sumoConfiguration>
 -->
 
 <railsignal-block-output>
     <railSignal id="J1">
-        <link linkIndex="0" from="E0_0" to="E1_0">
+        <link linkIndex="0" from="E0_0" to=":J1_1_0">
             <driveWay id="J1.0" vehicle="v1" edges="E1 E2">
-                <forward lanes="E1_0 E2_0"/>
-                <bidi lanes="-E1_0 -E21_0"/>
+                <forward lanes=":J1_1_0 E1_0 :J2_1_0 E2_0"/>
+                <bidi lanes=":J1_0_0 -E1_0 :J2_0_0 -E21_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals="J4_0"/>
                 <foes driveWays="J1.0 J4.0.0"/>
@@ -54,24 +59,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <railSignal id="J4">
-        <link linkIndex="0" from="-E4_0" to="-E3_0">
+        <link linkIndex="0" from="-E4_0" to=":J4_0_0">
             <driveWay id="J4.0" vehicle="v0" edges="-E3 -E2 -E20 -E21 -E1 -E0">
-                <forward lanes="-E3_0 -E2_0 -E20_0 -E21_0 -E1_0 -E0_0"/>
-                <bidi lanes="E3_0 E2.200_0 E2.100_0 E2_0 E1_0 E0_0"/>
+                <forward lanes=":J4_0_0 -E3_0 :J3_0_0 -E2_0 :J7_1_0 -E20_0 :J9_0_0 -E21_0 :J2_0_0 -E1_0 :J1_0_0 -E0_0"/>
+                <bidi lanes=":J4_1_0 E3_0 :J3_3_0 E2.200_0 :J7_2_0 E2.100_0 :J9_1_0 E2_0 :J2_1_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
                 <conflictLinks signals=""/>
                 <foes driveWays="J0.d0 J1.0 J4.0"/>
             </driveWay>
             <subDriveWay id="J4.0.0" vehicle="" edges="-E3 -E2 -E20 -E21 -E1">
-                <forward lanes="-E3_0 -E2_0 -E20_0 -E21_0 -E1_0"/>
+                <forward lanes=":J4_0_0 -E3_0 :J3_0_0 -E2_0 :J7_1_0 -E20_0 :J9_0_0 -E21_0 :J2_0_0 -E1_0 :J1_0_0"/>
             </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="J5">
         <driveWay id="J5.d0" vehicle="v0" edges="-E4 -E3 -E2 -E20 -E21 -E1 -E0">
             <forward lanes="-E4_0"/>
-            <bidi lanes="E4_0 E3_0"
-                    deadlockCheck="E2.200_0 E2.100_0 E2_0 E1_0 E0_0"/>
+            <bidi lanes="E4_0 :J4_1_0 E3_0 :J3_3_0"
+                    deadlockCheck="E2.200_0 :J7_2_0 E2.100_0 :J9_1_0 E2_0 :J2_1_0 E1_0 :J1_1_0 E0_0"/>
             <flank lanes=""/>
             <conflictLinks signals=""/>
             <foes driveWays="J5.d0"/>
@@ -80,7 +85,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <departJunction id="J0">
         <driveWay id="J0.d0" vehicle="v1" edges="E0 E1 E2">
             <forward lanes="E0_0"/>
-            <bidi lanes="-E0_0 -E1_0 -E21_0"/>
+            <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E21_0"/>
             <flank lanes=""/>
             <conflictLinks signals="J4_0"/>
             <foes driveWays="J0.d0 J4.0"/>
