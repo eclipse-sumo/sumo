@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNENet* net) :
     GNEDetector(net, entryExitTag),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
@@ -50,6 +54,9 @@ GNEEntryExitDetector::GNEEntryExitDetector(SumoXMLTag entryExitTag, GNEAdditiona
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEEntryExitDetector::~GNEEntryExitDetector() {

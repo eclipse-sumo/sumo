@@ -59,6 +59,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), SUMO_TAG_JUNCTION),
     myMoveElementJunction(new GNEMoveElementJunction(this)),
@@ -70,6 +74,9 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEJunction::~GNEJunction() {
