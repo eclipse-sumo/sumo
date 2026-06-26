@@ -82,6 +82,7 @@ private:
         double resCoef_quadratic; // kN / (km/h)^2
                                   //
         double curveResistance = 0;
+        double curveIntegration = 0;
         double roeckl_sharp_radius = 300;
         double roeckl_numerator = 6380;
         double roeckl_numerator_sharp = 4910;

@@ -117,6 +117,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     myTrainParams.resCoef_quadratic = vtype->getParameter().getCFParam(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC, INVALID_DOUBLE);
     // curve resistance parameters
     myTrainParams.curveResistance = vtype->getParameter().getCFParam(SUMO_ATTR_CURVE_RESISTANCE, myTrainParams.curveResistance);
+    myTrainParams.curveIntegration = vtype->getParameter().getCFParam(SUMO_ATTR_CURVE_INTEGRATION, myTrainParams.curveIntegration);
     myTrainParams.roeckl_sharp_radius = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_SHARP_RADIUS, myTrainParams.roeckl_sharp_radius);
     myTrainParams.roeckl_numerator = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_NUMERATOR, myTrainParams.roeckl_numerator);
     myTrainParams.roeckl_numerator_sharp = vtype->getParameter().getCFParam(SUMO_ATTR_ROECKL_NUMERATOR_SHARP, myTrainParams.roeckl_numerator_sharp);
