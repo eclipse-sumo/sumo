@@ -67,7 +67,6 @@ MSCFModel_Rail::RailVehicleVariables::saveState(OutputDevice& out, const MSCFMod
         internals << item.first << " " << item.second << " ";
     }
     out.writeAttr(SUMO_ATTR_STATE, internals.str());
-    out.writeAttr(SUMO_ATTR_STATE, internals.str());
     out.closeTag();
 }
 
