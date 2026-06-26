@@ -25,6 +25,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
@@ -51,6 +52,78 @@ MSCFModel_Rail::TrainParams::getTraction(double speed) const {
         return LinearApproxHelpers::getInterpolatedValue(traction, speed); // kN
     }
 }
+
+
+// ===========================================================================
+// RailVehicleVariables method definitions
+// ===========================================================================
+void
+MSCFModel_Rail::RailVehicleVariables::saveState(OutputDevice& out, const MSCFModel& /*cfm*/) const {
+    out.openTag(SUMO_TAG_CFM_VARIABLES);
+    out.writeAttr(SUMO_ATTR_ID, "Rail");
+    std::ostringstream internals;
+    internals << odometerAngles.size() << " ";
+    for (auto item : odometerAngles) {
+        internals << item.first << " " << item.second << " ";
+    }
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
+    out.closeTag();
+}
+
+
+void
+MSCFModel_Rail::RailVehicleVariables::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string cfmID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    if (cfmID != "Rail") {
+        throw ProcessError(TLF("incompatible carFollowModel '%' when loading state for Rail", cfmID));
+    }
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    int odometerAnglesSize;
+    bis >> odometerAnglesSize;
+    for (int i = 0; i < odometerAnglesSize; i++) {
+        double o;
+        double a;
+        bis >> o;
+        bis >> a;
+        odometerAngles.push_back(std::make_pair(o, a));
+    }
+}
+
+
+
+double
+MSCFModel_Rail::RailVehicleVariables::getIntegratedRadius(const MSVehicle* veh, double curveIntegration) {
+    const double odo = veh->getOdometer();
+    // add new data point
+    if (odometerAngles.empty() || odometerAngles.back().first != odo) {
+        odometerAngles.push_back(std::make_pair(odo, veh->getAngle()));
+        // clean up old data points beyond integration distance
+        while (odometerAngles.size() > 2) {
+            double distCleaned = odometerAngles.back().first - odometerAngles[1].first;
+            if (distCleaned >= curveIntegration) {
+                odometerAngles.erase(odometerAngles.begin());
+            } else {
+                break;
+            }
+        }
+    }
+    if (odometerAngles.size() > 1) {
+        const double dist = odometerAngles.back().first - odometerAngles.front().first;
+        const double angleDiff = GeomHelper::angleDiff(odometerAngles.back().second, odometerAngles.front().second);
+        if (dist < curveIntegration) {
+            return veh->getCurveRadius();
+        }
+        return angleDiff == 0
+            ? std::numeric_limits<double>::max()
+            : dist / fabs(angleDiff);
+    } else {
+        return veh->getCurveRadius();
+    }
+}
+
+
 
 // ===========================================================================
 // method definitions
@@ -209,7 +282,9 @@ MSCFModel_Rail::getWeight(const MSVehicle* const veh) const {
 double
 MSCFModel_Rail::getCurveResistance(const MSVehicle* veh) const {
     if (myTrainParams.curveResistance > 0) {
-        const double r = veh->getCurveRadius();
+        RailVehicleVariables* vars = (RailVehicleVariables*)veh->getCarFollowVariables();
+        assert(vars != nullptr);
+        const double r = vars->getIntegratedRadius(veh, myTrainParams.curveIntegration);
         if (r == std::numeric_limits<double>::max()) {
             return 0;
         } else if (r >= myTrainParams.roeckl_sharp_radius) {
