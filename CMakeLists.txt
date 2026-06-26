@@ -667,25 +667,18 @@ if (ENABLE_JUPEDSIM)
 endif ()
 
 if (ENABLE_BOOST)
-    # BOOST (needed for stacktrace, minimum version 1.80.0)
-    find_package(boost_filesystem CONFIG QUIET)
-    find_package(boost_process CONFIG QUIET)
-    find_package(boost_headers CONFIG QUIET)
-
-    # init boost library
-    set(BOOST_LIBRARIES "")
-
-    # continue if boost was found
-    if(boost_filesystem_FOUND AND boost_process_FOUND AND boost_headers_FOUND)
-        message(STATUS "Boost headers, filesystem and process " ${boost_headers_VERSION} " found, enabling stacktrace support")
+    # Boost (needed for stacktrace, and process management)
+    find_package(Boost 1.80.0 CONFIG QUIET COMPONENTS filesystem process)
+    if(Boost_filesystem_FOUND AND (Boost_process_FOUND OR Boost_VERSION VERSION_LESS 1.88))
+        message(STATUS "Boost headers " ${boost_headers_VERSION} " found, enabling stacktrace support")
         set(HAVE_BOOST 1)
-        # set includes
-        get_target_property(Boost_include Boost::headers INTERFACE_INCLUDE_DIRECTORIES)
-        include_directories(${Boost_include})
-        # add boost libraries
-        list(APPEND BOOST_LIBRARIES Boost::filesystem Boost::process Boost::headers)
+        set(BOOST_LIBRARIES Boost::filesystem Boost::headers)
+        if (Boost_process_FOUND)
+            list(APPEND BOOST_LIBRARIES Boost::process)
+        endif()
     else()
         message(STATUS "Boost not found, building without stacktrace support")
+        set(BOOST_LIBRARIES "")
     endif()
 endif ()
 
