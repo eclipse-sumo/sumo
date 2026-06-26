@@ -710,9 +710,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-include(GNUInstallDirs)
 if (MSVC)
     set(CMAKE_INSTALL_LIBDIR bin)
+endif ()
+include(GNUInstallDirs)
+if (MSVC)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
