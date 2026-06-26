@@ -29,7 +29,7 @@
 #endif
 #if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
 #include <boost/process/v1.hpp>
-namespace bp = bp;
+namespace bp = boost::process::v1;
 #else
 #include <boost/process.hpp>
 namespace bp = boost::process;
