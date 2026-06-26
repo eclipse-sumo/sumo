@@ -22,7 +22,7 @@
 --hljs-attribute-color: #000080;
 --hljs-literal-color: #008080;
 --hljs-comment-color: #998;
---hljs-symbol-color:  #990073;
+--hljs-symbol-color: #990073;
 --hljs-addition-bg: #dfd;
 }
 
@@ -58,16 +58,15 @@ body {
 padding-top: 50px;
 font-size: .95em;
 line-height: 1.4;
-background: #f6f6f6; /* for incompatible Browsers  */
+background: #f6f6f6; /* for incompatible Browsers */
 background:var(--body-bg-color);
-color: #495057; /* for incompatible Browsers  */
+color: #495057; /* for incompatible Browsers */
 color: var(--body-color);
 
 /* https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/ */
 overflow-wrap: break-word;
 word-wrap: break-word;
 -ms-word-break: break-all;
-word-break: break-word;
 -ms-hyphens: auto;
 -moz-hyphens: auto;
 -webkit-hyphens: auto;
@@ -107,7 +106,7 @@ padding-left: 0 !important;
 }
 
 .table-striped tbody tr:nth-of-type(2n+1) {
-background-color: rgba(0,0,0,.05) !important; /* for incompatible Browsers  */
+background-color: rgba(0,0,0,.05) !important; /* for incompatible Browsers */
 background-color: var(--table-stripe-color) !important;
 }
 
@@ -120,12 +119,12 @@ border-radius: 4px;
 }
 
 .toc {
-background-color: #f6f6f6 !important; /* for incompatible Browsers  */
+background-color: #f6f6f6 !important; /* for incompatible Browsers */
 background-color: var(--toc-bg-color) !important;
 }
 
 .main-area {
-background: #fff; /* for incompatible Browsers  */
+background: #fff; /* for incompatible Browsers */
 background: var(--main-area-bg-color) !important;
 padding:20px;
 border-radius:8px 0 0 8px;
@@ -146,14 +145,14 @@ pointer-events: none;
 }
 
 h1 {
-color: #444; /* for incompatible Browsers  */
+color: #444; /* for incompatible Browsers */
 color: var(--h-color);
 font-size: 1.9em;
 font-weight: 700;
 }
 
 h2, h3, h4, h5, h6 {
-color: #444; /* for incompatible Browsers  */
+color: #444; /* for incompatible Browsers */
 color: var(--h-color);
 font-weight: 300;
 }
@@ -341,7 +340,7 @@ padding: .5em;
 
 .admonition.note { /* csslint allow: adjoining-classes */
 color: #000;
-background-color: #ffd; /* for incompatible Browsers  */
+background-color: #ffd; /* for incompatible Browsers */
 background-color: var(--note-bg-color);
 border: 1px dashed #fc4;
 padding: .5em;
@@ -355,7 +354,7 @@ border-color: #bce8f1;
 
 .admonition.conference { /* csslint allow: adjoining-classes */
 color: var(--note-conference-color);
-background-color: #abdd8b; /* for incompatible Browsers  */
+background-color: #abdd8b; /* for incompatible Browsers */
 background-color: var(--note-conference-bg-color);
 border-color: #338033;
 }
@@ -453,9 +452,9 @@ font-size: 1rem !important;
 }
 
 .navbar-light .navbar-toggler {
-color: #495057; /* for incompatible Browsers  */
+color: #495057; /* for incompatible Browsers */
 color: var(--body-color);
-border-color: #495057; /* for incompatible Browsers  */
+border-color: #495057; /* for incompatible Browsers */
 border-color: var(--body-color);
 }
 
@@ -575,15 +574,17 @@ font-weight: 700;
 margin-top: .3em;
 }
 
-hTitles {
+h1.h-title {
 font-size: 1.8em;
 font-weight: 700;
-color: #338033; /* for incompatible Browsers  */
+color: #338033; /* for incompatible Browsers */
 color: var(--hTitles-color);
-margin-bottom: .5rem;
+margin-bottom: 1rem;
 font-family: inherit;
 line-height: 1.2;
 margin-top: 10px;
+border-bottom: 0.5px solid #338033;
+padding-bottom: 5px;
 }
 
 .sumoLogo {
@@ -594,7 +595,7 @@ margin-bottom: 10px;
 border-radius: 50%;
 -webkit-border-radius: 50%;
 -moz-border-radius: 50%;
-box-shadow: 0 0 8px rgba(0,0,0,.4); /* for incompatible Browsers  */
+box-shadow: 0 0 8px rgba(0,0,0,.4); /* for incompatible Browsers */
 box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
 -webkit-box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
 -moz-box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
@@ -605,7 +606,7 @@ list-style-position: outside;
 }
 
 table {
-border: 1px solid #dee2e6; /* for incompatible Browsers  */
+border: 1px solid #dee2e6; /* for incompatible Browsers */
 border: 1px solid var(--table-border-color);
 }
 
@@ -625,7 +626,7 @@ white-space:nowrap !important;
 thead th {
 vertical-align: center;
 text-align: center;
-background: #dfd; /* for incompatible Browsers  */
+background: #dfd; /* for incompatible Browsers */
 background: var(--thead-color);
 word-break: keep-all !important;
 }
@@ -744,7 +745,6 @@ background-color:#bcbabb;
 
 .tutorial-video {
 width: 560px;
-/* height: 315px; */
 }
 
 .video-container {

@@ -27,6 +27,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNENet* net):
     GNEAdditional(net, SUMO_TAG_PARKING_AREA_REROUTE),
     GNEAdditionalListed(this) {
@@ -44,6 +48,9 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalPare
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}

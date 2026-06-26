@@ -529,6 +529,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal.default-classes", new Option_StringVector(StringVector({"rail", "rail_fast", "rail_electric", "rail_urban", "subway"})));
     oc.addDescription("railsignal.default-classes", "Processing", TL("List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"));
 
+    oc.doRegister("slope-centered", new Option_Bool(false));
+    oc.addDescription("slope-centered", "Processing", TL("Compute slope at the vehicle center of mass instead of integrating over front and back"));
+
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", TL("Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"));
 
@@ -963,6 +966,9 @@ MSFrame::checkOptions() {
         if (oc.isDefault("pedestrian.model")) {
             oc.setDefault("pedestrian.model", "nonInteracting");
         }
+        if (oc.isDefault("no-internal-links")) {
+            oc.setDefault("no-internal-links", "true");
+        }
     }
     if (string2time(oc.getString("device.fcd.begin")) < 0) {
         oc.setDefault("device.fcd.begin", oc.getString("begin"));
@@ -1223,6 +1229,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTLSYellowMinDecel = oc.getFloat("tls.yellow.min-decel");
     MSGlobals::gUseStopEnded = oc.getBool("use-stop-ended");
     MSGlobals::gUseStopStarted = oc.getBool("use-stop-started");
+    MSGlobals::gSlopeCentered = oc.getBool("slope-centered");
 
     SVCPermissions defaultClasses = 0;
     for (const std::string& vClassName : oc.getStringVector("railsignal.default-classes")) {

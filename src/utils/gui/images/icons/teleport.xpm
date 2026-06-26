@@ -1,0 +1,32 @@
+/* XPM */
+static const char * teleport_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 10 1",
+"     c None",
+".    c #563E5E",
+"X    c #BA87CC",
+"o    c #BEA6CC",
+"O    c #9A6FA8",
+"u    c #D3B8E3",
+"n    c #2C72D6",
+"m    c #b9e0f6",
+"p    c #7EBFFF",
+"Z    c #8095DD",
+/* pixels */
+"                ",
+"                ",
+"      mnm       ",
+"     mnpn       ",
+"     mnpn       ",
+"    OZn...      ",
+"   uuZnXXX.     ",
+"  OooZnXXXX...  ",
+" uuuuZnXXXXXXX. ",
+"OooooZnXXXXXXXX.",
+"uuuuuZnXXXXXXXX.",
+" OoooZn....XX...",
+"   uumnpn  ..   ",
+"     mnpn       ",
+"      mnm       ",
+"                "
+};

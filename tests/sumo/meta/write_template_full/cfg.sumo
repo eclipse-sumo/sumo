@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-14T16:37:03.196251+01:00 by Eclipse SUMO sumo v1_27_0+0202-1c25520502a
+<!-- generated on 2026-06-26T09:46:12.853313+01:00 by Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -188,6 +188,7 @@
         <railsignal.moving-block.max-dist value="200" type="FLOAT" help="Maximum signal distance above which zipper conflicts are ignored"/>
         <railsignal.max-block-length value="20000" type="FLOAT" help="Do not build blocks longer than FLOAT and issue a warning instead"/>
         <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban,subway" type="STR[]" help="List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"/>
+        <slope-centered value="false" type="BOOL" help="Compute slope at the vehicle center of mass instead of integrating over front and back"/>
         <time-to-impatience value="180" type="TIME" help="Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"/>
         <default.departspeed value="avg" type="STR" help="Select default depart speed"/>
         <default.departlane value="best_prob" type="STR" help="Select default depart lane"/>

@@ -540,7 +540,9 @@ on("ready", function(){
         if(!address)
             address = "localhost";
         try {
-            socket = new WebSocket("ws://" + address + ":" + PORT);
+            // we use this locally but if someone wants to try over https, we are prepared
+            var proto = (globalThis.location.protocol === "https:") ? "wss://" : "ws://";
+            socket = new WebSocket(proto + address + ":" + PORT);
         } catch(e){
             // connection failed, wait five seconds, then try again
             setTimeout(connectSocket, 5000);

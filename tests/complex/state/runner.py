@@ -42,10 +42,11 @@ idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
 loadParams = sys.argv[idx + 1:]
 # work around texttests limitation of removing duplicate options
-if '--mesosim' in loadParams and '--mesosim' not in saveParams:
-    saveParams.append('--mesosim')
-if '--mesosim' in saveParams and '--mesosim' not in loadParams:
-    loadParams.append('--mesosim')
+for option in ['--mesosim', '--no-internal-links=false']:
+    if option in loadParams and option not in saveParams:
+        saveParams.append(option)
+    if option in saveParams and option not in loadParams:
+        loadParams.append(option)
 
 # need to add runner.py again in options.complex.meso to ensure it is the
 # last entry

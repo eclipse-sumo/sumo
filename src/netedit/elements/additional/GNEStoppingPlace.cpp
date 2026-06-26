@@ -34,6 +34,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEStoppingPlace::GNEStoppingPlace(GNENet* net, SumoXMLTag tag) :
     GNEAdditional(net, tag),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
@@ -57,6 +61,9 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, FileBucke
     // set parents
     setParent<GNELane*>(lane);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEStoppingPlace::~GNEStoppingPlace() {

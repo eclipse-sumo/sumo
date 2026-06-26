@@ -7,8 +7,8 @@
 
     <input>
         <net-file value="input_net_A.net.xml"/>
-        <route-files value="netedit_B.txt.rou.xml"/>
-        <additional-files value="netedit_B.txt.add.xml,netedit_B.txt.dat.add.xml"/>
+        <route-files value="netedit_A.rou.xml"/>
+        <additional-files value="netedit_A.add.xml,netedit_A.dat.add.xml"/>
     </input>
 
 </sumoConfiguration>

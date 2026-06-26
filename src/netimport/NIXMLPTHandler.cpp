@@ -52,7 +52,8 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myCurrentStop(nullptr),
     myCurrentLine(nullptr),
     myCurrentCompletion(0),
-    myCurrentStopWasIgnored(false)
+    myCurrentStopWasIgnored(false),
+    myWarnOnly(OptionsCont::getOptions().getBool("ignore-errors"))
 { }
 
 
@@ -140,6 +141,19 @@ NIXMLPTHandler::myEndElement(int element) {
 }
 
 
+bool
+NIXMLPTHandler::reportError(const std::string& msg, const std::string& edgeID, const std::string& id) {
+    const bool ignored = myEdgeCont.wasIgnored(edgeID);
+    if (!ignored && !myWarnOnly) {
+        WRITE_ERRORF(msg, edgeID, id);
+        return true;
+    } else if (!ignored) {
+        WRITE_WARNINGF(msg, edgeID, id);
+    }
+    return false;
+}
+
+
 void
 NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
@@ -151,7 +165,7 @@ NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
     const double parkingLength = attrs.getOpt<double>(SUMO_ATTR_PARKING_LENGTH, id.c_str(), ok, 0);
     const RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     const std::string lines = attrs.getOpt<std::string>(SUMO_ATTR_LINES, id.c_str(), ok, "");
-    const int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
+    int laneIndex = NBEdge::getLaneIndexFromLaneID(laneID);
     std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
@@ -162,17 +176,20 @@ NIXMLPTHandler::addPTStop(int element, const SUMOSAXAttributes& attrs) {
         }
     }
     if (edge == nullptr) {
-        if (!myEdgeCont.wasIgnored(edgeID)) {
-            WRITE_ERRORF(TL("Edge '%' for stop '%' not found"), edgeID, id);
-        } else {
+        if (!reportError(TL("Edge '%' for stop '%' not found"), edgeID, id)) {
             myCurrentStopWasIgnored = true;
             NBPTStopCont::addIgnored(id);
         }
         return;
     }
     if (edge->getNumLanes() <= laneIndex) {
-        WRITE_ERRORF(TL("Lane '%' for stop '%' not found"), laneID, id);
-        return;
+        if (myWarnOnly) {
+            WRITE_WARNINGF(TL("Lane '%' for stop '%' not found. Using leftmost lane"), laneID, id);
+            laneIndex = edge->getNumLanes() - 1;
+        } else {
+            WRITE_ERRORF(TL("Lane '%' for stop '%' not found"), laneID, id);
+            return;
+        }
     }
     SVCPermissions permissions = edge->getPermissions(laneIndex);
     // possibly the stops were written for a different network. If the lane is not a typical public transport stop lane, assume bus as the default
@@ -227,9 +244,7 @@ NIXMLPTHandler::addAccess(const SUMOSAXAttributes& attrs) {
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     if (myEdgeCont.retrieve(edgeID) == nullptr) {
-        if (!myEdgeCont.wasIgnored(edgeID)) {
-            WRITE_ERRORF(TL("Edge '%' for access to stop '%' not found"), edgeID, myCurrentStop->getID());
-        }
+        reportError(TL("Edge '%' for access to stop '%' not found"), edgeID, myCurrentStop->getID());
         return;
     }
     const double pos = attrs.get<double>(SUMO_ATTR_POSITION, "access", ok);
@@ -314,9 +329,7 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
-            if (!myEdgeCont.wasIgnored(edgeID)) {
-                WRITE_ERRORF(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getName());
-            }
+            reportError(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getLineID());
         } else {
             edges.push_back(edge);
         }
@@ -334,9 +347,7 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
-            if (!myEdgeCont.wasIgnored(edgeID)) {
-                WRITE_ERRORF(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getName());
-            }
+            reportError(TL("Edge '%' in route of line '%' not found"), edgeID, myCurrentLine->getLineID());
         } else {
             edges.push_back(edge);
         }

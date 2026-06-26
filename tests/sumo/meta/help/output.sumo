@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_0+0202-1c25520502a
+Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -351,6 +351,9 @@ Processing Options:
   --railsignal.default-classes STR[]   List vehicle classes that uses
                                         block-based insertion checks even when
                                         the network has no rail signals for them
+  --slope-centered                     Compute slope at the vehicle center of
+                                        mass instead of integrating over front
+                                        and back
   --time-to-impatience TIME            Specify how long a vehicle may wait
                                         until impatience grows from 0 to 1,
                                         defaults to 300, non-positive values

@@ -53,11 +53,15 @@ print("connections from %s:\n%s" % (internal_lane.getID(),
 internal_lane_incoming = sorted(internal_lane.getIncoming())
 print("lanes to %s: %s" % (internal_lane.getID(),
                            ' '.join([li.getID() for li in internal_lane_incoming])))
+
+node = net.getNode("C")
+
 assert internal_edge.getFunction() == 'internal'
 assert internal_edge.isSpecial()
 assert internal_lane.getEdge().isSpecial()
 assert internal_edge.getFromNode().getID() == "C"
 assert internal_edge.getToNode().getID() == "C"
+assert node.getTLSID() == "C"
 
 # params
 print("edgeParams",     printSorted(net.getEdge("CE").getParams()))

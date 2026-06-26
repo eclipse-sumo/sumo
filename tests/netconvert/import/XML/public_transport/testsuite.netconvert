@@ -13,6 +13,9 @@ filter_access
 # load ptstops and ptlines and reduce the network
 filter_ptline
 
+# load ptstops and ptlines and a reduced network
+filter_ptline2
+
 # load ptstops and ptlines and then patch a ptline period
 patch_ptline
 negative_stop_pos

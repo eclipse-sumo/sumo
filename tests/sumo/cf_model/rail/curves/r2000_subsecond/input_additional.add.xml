@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-05T12:44:13.295848+01:00 by Eclipse SUMO netedit v1_27_0+0086-2a5813ab81b
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="train" carFollowModel="Rail" trainType="Freight" vClass="rail" curveResistance="1"/>
+</additional>

@@ -417,10 +417,10 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 // TODO optimize: no need to regenerate the whole plan
                 MSTransportable::MSTransportablePlan* plan = makePlan(person->getParameter(), routeEdges, std::get<4>(desc.second), t);
                 const int stageIndex = person->getNumRemainingStages() - 1;
-                MSStage* const final = person->getNextStage(stageIndex);
+                const MSStage* const finalStage = person->getNextStage(stageIndex);
                 bool append = false;
                 for (MSStage* const stage : *plan) {
-                    if (stage->getStageType() == final->getStageType() && stage->getFromEdge() == final->getFromEdge()) {
+                    if (stage->getStageType() == finalStage->getStageType() && stage->getFromEdge() == finalStage->getFromEdge()) {
                         // TODO: circular plans?
                         append = true;
                     }

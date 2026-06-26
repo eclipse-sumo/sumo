@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-06-08 20:52+0200\n"
+"POT-Creation-Date: 2026-06-23 14:58+0200\n"
 "PO-Revision-Date: 2026-02-02 10:51+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -52,7 +52,7 @@ msgid "&File"
 msgstr "파일 (&F)"
 
 #: src/gui/GUIApplicationWindow.cpp:468
-#: src/netedit/GNEApplicationWindowHelper.cpp:206
+#: src/netedit/GNEApplicationWindowHelper.cpp:207
 msgid "New Window"
 msgstr "새 창 열기"
 
@@ -118,7 +118,7 @@ msgid "Save current options as a configuration file."
 msgstr "현재 설정을 구성 파일로 저장합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:494
-#: src/netedit/GNEApplicationWindowHelper.cpp:314
+#: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close"
 msgstr "시뮬레이션 닫기"
 
@@ -186,22 +186,22 @@ msgid "Opens a dialog for editing breakpoints."
 msgstr "중단점 편집 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:528
-#: src/netedit/GNEApplicationWindowHelper.cpp:1303
+#: src/netedit/GNEApplicationWindowHelper.cpp:1304
 msgid "Edit Visualisation"
 msgstr "시각화 편집"
 
 #: src/gui/GUIApplicationWindow.cpp:528
-#: src/netedit/GNEApplicationWindowHelper.cpp:1303
+#: src/netedit/GNEApplicationWindowHelper.cpp:1304
 msgid "Opens a dialog for editing visualization settings."
 msgstr "시각화 설정 편집 대화상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:531
-#: src/netedit/GNEApplicationWindowHelper.cpp:1306
+#: src/netedit/GNEApplicationWindowHelper.cpp:1307
 msgid "Edit Viewport"
 msgstr "뷰포트 편집"
 
 #: src/gui/GUIApplicationWindow.cpp:531
-#: src/netedit/GNEApplicationWindowHelper.cpp:1306
+#: src/netedit/GNEApplicationWindowHelper.cpp:1307
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr "표시 영역, 확대/축소 및 회전을 편집하는 대화 상자를 엽니다."
 
@@ -268,47 +268,47 @@ msgid "&Locate"
 msgstr "검색(&L)"
 
 #: src/gui/GUIApplicationWindow.cpp:561
-#: src/netedit/GNEApplicationWindowHelper.cpp:1349
-#: src/netedit/GNEApplicationWindowHelper.cpp:2014
+#: src/netedit/GNEApplicationWindowHelper.cpp:1350
+#: src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "&Junctions"
 msgstr "Junctions(&J)"
 
 #: src/gui/GUIApplicationWindow.cpp:561
-#: src/netedit/GNEApplicationWindowHelper.cpp:2014
+#: src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "Open a dialog for locating a Junction."
 msgstr "Junction 검색 대화상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:564
-#: src/netedit/GNEApplicationWindowHelper.cpp:1354
-#: src/netedit/GNEApplicationWindowHelper.cpp:2017
+#: src/netedit/GNEApplicationWindowHelper.cpp:1355
+#: src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "&Edges"
 msgstr "Edges(&E)"
 
 #: src/gui/GUIApplicationWindow.cpp:564
-#: src/netedit/GNEApplicationWindowHelper.cpp:2017
+#: src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "Open a dialog for locating an Edge."
 msgstr "Edge 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:567
-#: src/netedit/GNEApplicationWindowHelper.cpp:1419
-#: src/netedit/GNEApplicationWindowHelper.cpp:2023
+#: src/netedit/GNEApplicationWindowHelper.cpp:1420
+#: src/netedit/GNEApplicationWindowHelper.cpp:2024
 msgid "&Vehicles"
 msgstr "차량(&V)"
 
 #: src/gui/GUIApplicationWindow.cpp:567
-#: src/netedit/GNEApplicationWindowHelper.cpp:2023
+#: src/netedit/GNEApplicationWindowHelper.cpp:2024
 msgid "Open a dialog for locating a Vehicle."
 msgstr "차량 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:570
-#: src/netedit/GNEApplicationWindowHelper.cpp:1424
-#: src/netedit/GNEApplicationWindowHelper.cpp:2026
+#: src/netedit/GNEApplicationWindowHelper.cpp:1425
+#: src/netedit/GNEApplicationWindowHelper.cpp:2027
 #, fuzzy
 msgid "&Persons"
 msgstr "Person(&P)"
 
 #: src/gui/GUIApplicationWindow.cpp:570
-#: src/netedit/GNEApplicationWindowHelper.cpp:2026
+#: src/netedit/GNEApplicationWindowHelper.cpp:2027
 #, fuzzy
 msgid "Open a dialog for locating a Person."
 msgstr "Person 검색 대화 상자를 엽니다."
@@ -318,48 +318,48 @@ msgid "&Container"
 msgstr "컨테이너(&C)"
 
 #: src/gui/GUIApplicationWindow.cpp:573
-#: src/netedit/GNEApplicationWindowHelper.cpp:2029
+#: src/netedit/GNEApplicationWindowHelper.cpp:2030
 msgid "Open a dialog for locating a Container."
 msgstr "컨테이너 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:576
-#: src/netedit/GNEApplicationWindowHelper.cpp:2038
+#: src/netedit/GNEApplicationWindowHelper.cpp:2039
 msgid "&TLS"
 msgstr "TLS(&T)"
 
 #: src/gui/GUIApplicationWindow.cpp:576
-#: src/netedit/GNEApplicationWindowHelper.cpp:2038
+#: src/netedit/GNEApplicationWindowHelper.cpp:2039
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "신호등 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:579
-#: src/netedit/GNEApplicationWindowHelper.cpp:636
-#: src/netedit/GNEApplicationWindowHelper.cpp:2041
+#: src/netedit/GNEApplicationWindowHelper.cpp:637
+#: src/netedit/GNEApplicationWindowHelper.cpp:2042
 msgid "&Additional"
 msgstr "추가 요소(&A)"
 
 #: src/gui/GUIApplicationWindow.cpp:579
-#: src/netedit/GNEApplicationWindowHelper.cpp:2041
+#: src/netedit/GNEApplicationWindowHelper.cpp:2042
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "추가 요소 (구조물 등) 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:582
-#: src/netedit/GNEApplicationWindowHelper.cpp:2044
+#: src/netedit/GNEApplicationWindowHelper.cpp:2045
 msgid "P&oI"
 msgstr "POI(&O)"
 
 #: src/gui/GUIApplicationWindow.cpp:582
-#: src/netedit/GNEApplicationWindowHelper.cpp:2044
+#: src/netedit/GNEApplicationWindowHelper.cpp:2045
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "POI(Point of Interest) 검색 대화 상자를 엽니다."
 
 #: src/gui/GUIApplicationWindow.cpp:585
-#: src/netedit/GNEApplicationWindowHelper.cpp:2047
+#: src/netedit/GNEApplicationWindowHelper.cpp:2048
 msgid "Po&lygon"
 msgstr "Polygon(&L)"
 
 #: src/gui/GUIApplicationWindow.cpp:585
-#: src/netedit/GNEApplicationWindowHelper.cpp:2047
+#: src/netedit/GNEApplicationWindowHelper.cpp:2048
 msgid "Open a dialog for locating a Polygon."
 msgstr "Polygon 검색 대화 상자를 엽니다."
 
@@ -524,7 +524,7 @@ msgid "&Others..."
 msgstr "기타(&O)..."
 
 #: src/gui/GUIApplicationWindow.cpp:647
-#: src/netedit/GNEApplicationWindowHelper.cpp:2141
+#: src/netedit/GNEApplicationWindowHelper.cpp:2142
 msgid "Show Status Line"
 msgstr "상태 표시줄 표시"
 
@@ -533,12 +533,12 @@ msgid "Toggle the Status Bar on/off."
 msgstr "화면 최하단의 상태 표시줄을 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:648
-#: src/netedit/GNEApplicationWindowHelper.cpp:2144
+#: src/netedit/GNEApplicationWindowHelper.cpp:2145
 msgid "Show Message Window"
 msgstr "메시지(로그) 창 표시"
 
 #: src/gui/GUIApplicationWindow.cpp:648
-#: src/netedit/GNEApplicationWindowHelper.cpp:2144
+#: src/netedit/GNEApplicationWindowHelper.cpp:2145
 msgid "Toggle the Message Window on/off."
 msgstr "메시지(로그) 창 표시를 전환합니다."
 
@@ -559,7 +559,7 @@ msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "시뮬레이션 지연 입력란 표시를 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:655
-#: src/netedit/GNEApplicationWindowHelper.cpp:2148
+#: src/netedit/GNEApplicationWindowHelper.cpp:2149
 msgid "Clear Message Window"
 msgstr "메시지(로그) 창 비우기"
 
@@ -577,7 +577,7 @@ msgid "&Online Documentation"
 msgstr "온라인 문서 (&O)"
 
 #: src/gui/GUIApplicationWindow.cpp:664
-#: src/netedit/GNEApplicationWindowHelper.cpp:2164
+#: src/netedit/GNEApplicationWindowHelper.cpp:2165
 msgid "Open Online documentation."
 msgstr "온라인 문서 열기."
 
@@ -586,7 +586,7 @@ msgid "&Changelog"
 msgstr "업데이트 내역(&C)"
 
 #: src/gui/GUIApplicationWindow.cpp:667
-#: src/netedit/GNEApplicationWindowHelper.cpp:2167
+#: src/netedit/GNEApplicationWindowHelper.cpp:2168
 msgid "Open Changelog."
 msgstr "업데이트 내역을 엽니다."
 
@@ -595,7 +595,7 @@ msgid "&Hotkeys"
 msgstr "단축키(&H)"
 
 #: src/gui/GUIApplicationWindow.cpp:669
-#: src/netedit/GNEApplicationWindowHelper.cpp:2169
+#: src/netedit/GNEApplicationWindowHelper.cpp:2170
 msgid "Open Hotkeys."
 msgstr "단축키를 엽니다."
 
@@ -604,7 +604,7 @@ msgid "&Tutorial"
 msgstr "튜토리얼(&T)"
 
 #: src/gui/GUIApplicationWindow.cpp:671
-#: src/netedit/GNEApplicationWindowHelper.cpp:2171
+#: src/netedit/GNEApplicationWindowHelper.cpp:2172
 msgid "Open Tutorial."
 msgstr "튜토리얼을 엽니다."
 
@@ -650,8 +650,8 @@ msgstr "\tStep\tStep을 1회 수행합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:716
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
-"seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and "
+"hour:minute:seconds display."
 msgstr "시간:\t시간 형식 전환\t초와 시:분:초 표시 간에 전환합니다."
 
 #: src/gui/GUIApplicationWindow.cpp:730
@@ -709,32 +709,32 @@ msgid "Time spent waiting accumulated for emergency vehicles"
 msgstr "긴급 차량의 누적 대기 시간"
 
 #: src/gui/GUIApplicationWindow.cpp:837
-#: src/netedit/GNEApplicationWindowHelper.cpp:156
+#: src/netedit/GNEApplicationWindowHelper.cpp:157
 msgid "Cl&ear Recent Networks"
 msgstr "최근 Network 지우기(&e)"
 
 #: src/gui/GUIApplicationWindow.cpp:838
-#: src/netedit/GNEApplicationWindowHelper.cpp:157
+#: src/netedit/GNEApplicationWindowHelper.cpp:158
 msgid "No Recent Networks"
 msgstr "최근 Network 없음"
 
 #: src/gui/GUIApplicationWindow.cpp:842
-#: src/netedit/GNEApplicationWindowHelper.cpp:161
+#: src/netedit/GNEApplicationWindowHelper.cpp:162
 msgid "Recent Networks"
 msgstr "최근 Network"
 
 #: src/gui/GUIApplicationWindow.cpp:860
-#: src/netedit/GNEApplicationWindowHelper.cpp:179
+#: src/netedit/GNEApplicationWindowHelper.cpp:180
 msgid "Cl&ear Recent Configs"
 msgstr "최근 구성 비우기 (&E)"
 
 #: src/gui/GUIApplicationWindow.cpp:861
-#: src/netedit/GNEApplicationWindowHelper.cpp:180
+#: src/netedit/GNEApplicationWindowHelper.cpp:181
 msgid "No Recent Configs"
 msgstr "최근 구성 파일 없음"
 
 #: src/gui/GUIApplicationWindow.cpp:865
-#: src/netedit/GNEApplicationWindowHelper.cpp:184
+#: src/netedit/GNEApplicationWindowHelper.cpp:185
 msgid "Recent Configs"
 msgstr "최근 구성 파일"
 
@@ -755,7 +755,6 @@ msgid "Open Shapes"
 msgstr "Shape 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1119 src/gui/GUIApplicationWindow.cpp:1147
-#, c-format
 msgid "Loading of % failed."
 msgstr "% 로딩에 실패했습니다."
 
@@ -835,12 +834,10 @@ msgid "Open sumo config in netedit"
 msgstr "sumo 구성을 netedit에서 열기"
 
 #: src/gui/GUIApplicationWindow.cpp:1851
-#, c-format
 msgid "Loading of '%' failed!"
 msgstr "'%' 로드에 실패했습니다!"
 
 #: src/gui/GUIApplicationWindow.cpp:1865
-#, c-format
 msgid "'%' loaded."
 msgstr "'%'가 로드되었습니다."
 
@@ -1121,15 +1118,15 @@ msgstr "텍스처 허용"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:101
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:137
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1075
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2585
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1079
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2595
 msgid "&OK"
 msgstr "확인(&O)"
 
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:102
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:138
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1076
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2586
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1080
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2596
 msgid "&Cancel"
 msgstr "취소(&C)"
 
@@ -1167,8 +1164,8 @@ msgstr "중단점 저장"
 #: src/utils/gui/div/GUIDialog_GLChosenEditor.cpp:165
 #: src/utils/gui/tracker/GUIParameterTracker.cpp:258
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:246
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1187
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1270
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1191
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1274
 #, fuzzy
 msgid "Storing failed!"
 msgstr "Storing에 실패했습니다!"
@@ -1197,7 +1194,6 @@ msgstr "- 이메일 보내기"
 #: src/guisim/Command_Hotkey_InductionLoop.cpp:59
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:56
 #: src/guisim/Command_Hotkey_TrafficLight.cpp:60
-#, c-format
 msgid "Hotkey '%' is not supported"
 msgstr "지원되지 않는 단축키 '%'"
 
@@ -1279,13 +1275,13 @@ msgid "Abort stop"
 msgstr "Abort stop"
 
 #: src/guisim/GUIBaseVehicle.cpp:393
-#: src/netedit/GNEApplicationWindowHelper.cpp:721
+#: src/netedit/GNEApplicationWindowHelper.cpp:722
 msgid "Stop"
 msgstr "정지"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1328
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1396
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1332
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1400
 msgid "Remove"
 msgstr "제거"
 
@@ -1487,7 +1483,7 @@ msgid "length"
 msgstr "길이"
 
 #: src/guisim/GUIContainer.cpp:187 src/guisim/GUIPerson.cpp:257
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2270
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2280
 msgid "width"
 msgstr "너비"
 
@@ -2357,7 +2353,7 @@ msgid "time gap on lane [s]"
 msgstr "차로 시간 간격 [s]"
 
 #: src/guisim/GUIVehicle.cpp:139
-#, fuzzy, c-format
+#, fuzzy
 msgid "waiting time (accumulated, % s) [s]"
 msgstr "대기 시간 (누적, % s) [s]"
 
@@ -2404,7 +2400,7 @@ msgstr "삽입 주기 [s]"
 msgid "insertion probability"
 msgstr "삽입 확률"
 
-#: src/guisim/GUIVehicle.cpp:163 src/mesogui/GUIMEVehicle.cpp:100
+#: src/guisim/GUIVehicle.cpp:163 src/mesogui/GUIMEVehicle.cpp:101
 #, fuzzy
 msgid "poisson rate"
 msgstr "포아송(poisson) 비율"
@@ -2512,7 +2508,7 @@ msgstr "최좌측 Edge sublane [#]"
 msgid "lane change maneuver distance [m]"
 msgstr "차로 변경 기동 거리 [m]"
 
-#: src/guisim/GUIVehicle.cpp:201
+#: src/guisim/GUIVehicle.cpp:201 src/mesogui/GUIMEVehicle.cpp:125
 #, fuzzy
 msgid "driveways"
 msgstr "진로"
@@ -2631,7 +2627,7 @@ msgstr "action step 길이 [s]"
 msgid "person capacity"
 msgstr "승객 수용량"
 
-#: src/guisim/GUIVehicle.cpp:260 src/mesogui/GUIMEVehicle.cpp:152
+#: src/guisim/GUIVehicle.cpp:260 src/mesogui/GUIMEVehicle.cpp:156
 msgid "boarding time [s]"
 msgstr "탑승 시간 [s]"
 
@@ -2639,7 +2635,7 @@ msgstr "탑승 시간 [s]"
 msgid "container capacity"
 msgstr "컨테이너 수용량"
 
-#: src/guisim/GUIVehicle.cpp:262 src/mesogui/GUIMEVehicle.cpp:154
+#: src/guisim/GUIVehicle.cpp:262 src/mesogui/GUIMEVehicle.cpp:158
 msgid "loading time [s]"
 msgstr "적재 시간 [s]"
 
@@ -2757,27 +2753,22 @@ msgid "&Reload Network"
 msgstr "Network 다시 불러오기(&R)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1321
-#, c-format
 msgid "Loading of netedit config '%' failed"
 msgstr "netedit 설정 '%' 불러오기 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:1324
-#, c-format
 msgid "Loading of sumo config '%' failed"
 msgstr "sumo 설정 '%' 불러오기 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:1327
-#, c-format
 msgid "Loading of netconvert config '%' failed"
 msgstr "netconvert 설정 '%' 불러오기 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:1330
-#, c-format
 msgid "Loading of network '%' failed"
 msgstr "Network '%' 불러오기 실패"
 
 #: src/netedit/GNEApplicationWindow.cpp:1333
-#, c-format
 msgid "Loading of OSM Network '%' failed"
 msgstr "OSM Network '%' 불러오기 실패"
 
@@ -2804,32 +2795,26 @@ msgstr ""
 "불러오세요"
 
 #: src/netedit/GNEApplicationWindow.cpp:1356
-#, c-format
 msgid "Netedit config '%' loaded"
 msgstr "Netedit 설정 '%' 불러옴"
 
 #: src/netedit/GNEApplicationWindow.cpp:1359
-#, c-format
 msgid "Sumo config '%' loaded"
 msgstr "Sumo 구성 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1362
-#, c-format
 msgid "Netconvert config '%' loaded"
 msgstr "Netconvert 구성 '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1365
-#, c-format
 msgid "Network '%' loaded"
 msgstr "Network '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1368
-#, c-format
 msgid "OSM Network '%' loaded"
 msgstr "OSM Network '%' 로드됨"
 
 #: src/netedit/GNEApplicationWindow.cpp:1371
-#, c-format
 msgid "Network '%' loaded through console"
 msgstr "Network '%'가 콘솔을 통해 로드됨"
 
@@ -2900,7 +2885,7 @@ msgid "Output"
 msgstr "출력(Output)"
 
 #: src/netedit/GNEApplicationWindow.cpp:1555
-#: src/netedit/GNEApplicationWindowHelper.cpp:705
+#: src/netedit/GNEApplicationWindowHelper.cpp:706
 #: src/netedit/GNETagPropertiesDatabase.cpp:2127
 #: src/netedit/GNETagPropertiesDatabase.cpp:2603
 msgid "Route"
@@ -2986,24 +2971,22 @@ msgid "Running '%'."
 msgstr "'%' 실행 중."
 
 #: src/netedit/GNEApplicationWindow.cpp:2219
-#, c-format
 msgid "Loading network '%' in SUMO-GUI."
 msgstr "SUMO-GUI에서 Network '%' 불러오는 중."
 
 #: src/netedit/GNEApplicationWindow.cpp:2228
-#, c-format
 msgid "Loading sumo config '%' in SUMO-GUI."
 msgstr "SUMO-GUI에서 sumo 설정 '%' 불러오는 중."
 
 #: src/netedit/GNEApplicationWindow.cpp:2651
-#: src/netedit/GNEApplicationWindowHelper.cpp:1283
+#: src/netedit/GNEApplicationWindowHelper.cpp:1284
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "되돌리기"
 
 #: src/netedit/GNEApplicationWindow.cpp:2684
-#: src/netedit/GNEApplicationWindowHelper.cpp:1286
+#: src/netedit/GNEApplicationWindowHelper.cpp:1287
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
@@ -3022,7 +3005,7 @@ msgid "Unfront inspected elements"
 msgstr "검사된 요소 전면 해제"
 
 #: src/netedit/GNEApplicationWindow.cpp:2831
-#: src/netedit/GNEApplicationWindowHelper.cpp:1315
+#: src/netedit/GNEApplicationWindowHelper.cpp:1316
 #: src/netedit/frames/GNEAttributesEditorType.cpp:82
 #: src/netedit/frames/GNEAttributesEditorType.cpp:413
 #, fuzzy
@@ -3174,12 +3157,12 @@ msgid "load additionals from '%'"
 msgstr "'%'에서 추가 요소 불러오기"
 
 #: src/netedit/GNEApplicationWindow.cpp:3945
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of additional file '%' failed."
 msgstr "추가 요소 파일 '%' 불러오기 실패."
 
 #: src/netedit/GNEApplicationWindow.cpp:3948
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of additional file '%' successfully."
 msgstr "추가 요소 파일 '%' 불러오기 성공."
 
@@ -3255,12 +3238,12 @@ msgid "loading demand elements from '%'"
 msgstr "%'에서 Demand elements 불러오기"
 
 #: src/netedit/GNEApplicationWindow.cpp:4156
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of route file '%' failed."
 msgstr "route 파일 '%' 불러오기 실패."
 
 #: src/netedit/GNEApplicationWindow.cpp:4159
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of route file '%' successfully."
 msgstr "route 파일 '%' 불러오기 성공."
 
@@ -3318,12 +3301,10 @@ msgid "loading data elements from '%'."
 msgstr "%'에서 data elements 불러오기."
 
 #: src/netedit/GNEApplicationWindow.cpp:4335
-#, c-format
 msgid "Loading of data file '%' failed."
 msgstr "데이터 파일 '%' 불러오기 실패."
 
 #: src/netedit/GNEApplicationWindow.cpp:4338
-#, c-format
 msgid "Loading of data file '%' successfully."
 msgstr "데이터 파일 '%' 불러오기 성공."
 
@@ -3368,12 +3349,12 @@ msgid "load meanDatas from '%'"
 msgstr "'%'에서 meanData 불러오기"
 
 #: src/netedit/GNEApplicationWindow.cpp:4513
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of meandata file '%' failed."
 msgstr "meandata 파일 '%' 불러오기 실패."
 
 #: src/netedit/GNEApplicationWindow.cpp:4516
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of meandata file '%' successfully."
 msgstr "meandata 파일 '%' 불러오기 성공."
 
@@ -3429,7 +3410,7 @@ msgstr "%'에서 추가 elements %개."
 
 #: src/netedit/GNEApplicationWindow.cpp:4905
 #: src/netedit/GNEApplicationWindow.cpp:4954
-#, fuzzy, c-format
+#, fuzzy
 msgid "% of '%' failed."
 msgstr "'%' 중 %개 실패."
 
@@ -3455,7 +3436,7 @@ msgstr "%'에서 데이터 elements %개."
 
 #: src/netedit/GNEApplicationWindow.cpp:5002
 #: src/netedit/GNEApplicationWindow.cpp:5050
-#, fuzzy, c-format
+#, fuzzy
 msgid "% of % failed."
 msgstr "% 중 %개 실패."
 
@@ -3481,1310 +3462,1310 @@ msgstr "'%'에서 TLS 프로그램 %개."
 msgid "% edge types from '%'."
 msgstr "%'에서 edge types %개."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:136
+#: src/netedit/GNEApplicationWindowHelper.cpp:137
 #, fuzzy
 msgid "nets"
 msgstr "nets"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:137
+#: src/netedit/GNEApplicationWindowHelper.cpp:138
 #, fuzzy
 msgid "configs"
 msgstr "구성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:202
+#: src/netedit/GNEApplicationWindowHelper.cpp:203
 msgid "New Network"
 msgstr "새 Network"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:202
+#: src/netedit/GNEApplicationWindowHelper.cpp:203
 msgid "Create a new network."
 msgstr "새 Network를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:206
+#: src/netedit/GNEApplicationWindowHelper.cpp:207
 msgid "Open a new netedit window."
 msgstr "새 netedit 창을 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:210
+#: src/netedit/GNEApplicationWindowHelper.cpp:211
 msgid "Generate Network"
 msgstr "Network 생성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:210
+#: src/netedit/GNEApplicationWindowHelper.cpp:211
 msgid "Create network using netgenerate."
 msgstr "netgenerate를 사용하여 Network를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:217
+#: src/netedit/GNEApplicationWindowHelper.cpp:218
 msgid "Load Netedit config..."
 msgstr "Netedit 설정 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:217
+#: src/netedit/GNEApplicationWindowHelper.cpp:218
 msgid "Load a netedit configuration file."
 msgstr "netedit 설정 파일을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:221
+#: src/netedit/GNEApplicationWindowHelper.cpp:222
 msgid "Load Sumo config..."
 msgstr "Sumo 설정 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:221
+#: src/netedit/GNEApplicationWindowHelper.cpp:222
 msgid "Load a SUMO configuration file."
 msgstr "SUMO 설정 파일을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:228
+#: src/netedit/GNEApplicationWindowHelper.cpp:229
 msgid "Open Network..."
 msgstr "Network 열기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:228
+#: src/netedit/GNEApplicationWindowHelper.cpp:229
 msgid "Open a SUMO network."
 msgstr "SUMO Network를 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:232
+#: src/netedit/GNEApplicationWindowHelper.cpp:233
 msgid "Open Netconvert Configuration..."
 msgstr "Netconvert 설정 열기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:232
+#: src/netedit/GNEApplicationWindowHelper.cpp:233
 msgid "Open a configuration file with NETCONVERT options."
 msgstr "NETCONVERT 옵션이 포함된 설정 파일을 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:236
+#: src/netedit/GNEApplicationWindowHelper.cpp:237
 msgid "Import Foreign Network..."
 msgstr "외부 Network 가져오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:236
+#: src/netedit/GNEApplicationWindowHelper.cpp:237
 msgid "Import a foreign network such as OSM."
 msgstr "OSM과 같은 외부 Network를 가져옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:243
+#: src/netedit/GNEApplicationWindowHelper.cpp:244
 msgid "Save Network"
 msgstr "Network 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:243
+#: src/netedit/GNEApplicationWindowHelper.cpp:244
 msgid "Save the network."
 msgstr "Network를 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:247
+#: src/netedit/GNEApplicationWindowHelper.cpp:248
 msgid "Save Network As..."
 msgstr "Network를 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:247
+#: src/netedit/GNEApplicationWindowHelper.cpp:248
 msgid "Save the network to another file."
 msgstr "Network를 다른 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:251
+#: src/netedit/GNEApplicationWindowHelper.cpp:252
 msgid "Save Plain XML..."
 msgstr "평문 XML로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:251
+#: src/netedit/GNEApplicationWindowHelper.cpp:252
 msgid "Save a plain XML representation of the network."
 msgstr "Network의 평문 XML 표현을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:255
+#: src/netedit/GNEApplicationWindowHelper.cpp:256
 msgid "Save Joined Junctions..."
 msgstr "Joined Junctions 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:255
+#: src/netedit/GNEApplicationWindowHelper.cpp:256
 msgid "Save log of joined junctions (allows reproduction of joins)."
 msgstr "연결된 Junction의 로그를 저장합니다 (연결 재현 가능)."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:262
+#: src/netedit/GNEApplicationWindowHelper.cpp:263
 msgid "Reload"
 msgstr "다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:262
-#: src/netedit/GNEApplicationWindowHelper.cpp:266
+#: src/netedit/GNEApplicationWindowHelper.cpp:263
+#: src/netedit/GNEApplicationWindowHelper.cpp:267
 msgid "Reload the network."
 msgstr "Network를 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:266
+#: src/netedit/GNEApplicationWindowHelper.cpp:267
 msgid "Reload Network"
 msgstr "Network 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:273
+#: src/netedit/GNEApplicationWindowHelper.cpp:274
 msgid "Netedit Config"
 msgstr "Netedit 구성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:277
+#: src/netedit/GNEApplicationWindowHelper.cpp:278
 msgid "Sumo Config"
 msgstr "Sumo 구성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:281
+#: src/netedit/GNEApplicationWindowHelper.cpp:282
 msgid "Traffic Lights"
 msgstr "신호등"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:285
+#: src/netedit/GNEApplicationWindowHelper.cpp:286
 msgid "Edge Types"
 msgstr "Edge 유형"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:289
+#: src/netedit/GNEApplicationWindowHelper.cpp:290
 msgid "Additionals and Shapes"
 msgstr "Additionals and Shapes"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:293
+#: src/netedit/GNEApplicationWindowHelper.cpp:294
 msgid "Demand Elements"
 msgstr "Demand Elements"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:297
+#: src/netedit/GNEApplicationWindowHelper.cpp:298
 #, fuzzy
 msgid "Data Elements"
 msgstr "Data Elements"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:301
+#: src/netedit/GNEApplicationWindowHelper.cpp:302
 #, fuzzy
 msgid "MeanData Elements"
 msgstr "MeanData Elements"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:306
+#: src/netedit/GNEApplicationWindowHelper.cpp:307
 #, fuzzy
 msgid "Allow undoing element loading"
 msgstr "element 불러오기 실행 취소 허용"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:306
+#: src/netedit/GNEApplicationWindowHelper.cpp:307
 msgid ""
 "Allow to undo loading of elements (Slow if a lot of elements are loaded)"
 msgstr ""
 "요소 불러오기 실행 취소를 허용 (로드된 요소가 많을 시, 속도 저하 발생할 수 있"
 "음)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:314
+#: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close the network."
 msgstr "Network를 닫습니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:364
+#: src/netedit/GNEApplicationWindowHelper.cpp:365
 #: src/netedit/GNEViewNetHelper.cpp:2272
 msgid "Save Netedit Config"
 msgstr "Netedit config 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:364
+#: src/netedit/GNEApplicationWindowHelper.cpp:365
 msgid "Save netedit configuration file."
 msgstr "netedit config 파일을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:368
+#: src/netedit/GNEApplicationWindowHelper.cpp:369
 msgid "Save Netedit Config As..."
 msgstr "Netedit Config 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:368
+#: src/netedit/GNEApplicationWindowHelper.cpp:369
 msgid "Save netedit configuration in a new file."
 msgstr "netedit config을 새 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:374
+#: src/netedit/GNEApplicationWindowHelper.cpp:375
 msgid "Reload Netedit Config"
 msgstr "Netedit Config 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:374
+#: src/netedit/GNEApplicationWindowHelper.cpp:375
 msgid "Reload netedit configuration."
 msgstr "netedit config을 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:382
+#: src/netedit/GNEApplicationWindowHelper.cpp:383
 #: src/netedit/GNEViewNetHelper.cpp:2277
 msgid "Save Sumo Config"
 msgstr "Sumo Config 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:382
+#: src/netedit/GNEApplicationWindowHelper.cpp:383
 msgid "Save sumo configuration file."
 msgstr "sumo config 파일을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:386
+#: src/netedit/GNEApplicationWindowHelper.cpp:387
 msgid "Save Sumo Config As..."
 msgstr "Sumo Config 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:386
+#: src/netedit/GNEApplicationWindowHelper.cpp:387
 msgid "Save sumo configuration in a new file."
 msgstr "sumo config를 새 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:392
+#: src/netedit/GNEApplicationWindowHelper.cpp:393
 msgid "Reload Sumo Config"
 msgstr "Sumo Config 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:392
+#: src/netedit/GNEApplicationWindowHelper.cpp:393
 #, fuzzy
 msgid "Reload sumo configuration."
 msgstr "sumo config을 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:400
+#: src/netedit/GNEApplicationWindowHelper.cpp:401
 #, fuzzy
 msgid "Load TLS Programs..."
 msgstr "TLS 프로그램 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:400
+#: src/netedit/GNEApplicationWindowHelper.cpp:401
 msgid "Load programs for traffic lights in the current net."
 msgstr "현재 Network의 신호등 프로그램을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:406
+#: src/netedit/GNEApplicationWindowHelper.cpp:407
 #, fuzzy
 msgid "Save TLS Programs"
 msgstr "TLS 프로그램 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:406
+#: src/netedit/GNEApplicationWindowHelper.cpp:407
 #, fuzzy
 msgid "Save all traffic light programs of the current network."
 msgstr "현재 Network의 모든 traffic light program을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:410
+#: src/netedit/GNEApplicationWindowHelper.cpp:411
 #, fuzzy
 msgid "Save TLS Programs As..."
 msgstr "TLS 프로그램 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:410
+#: src/netedit/GNEApplicationWindowHelper.cpp:411
 #, fuzzy
 msgid "Save all traffic light programs of the current network to another file."
 msgstr "현재 Network의 모든 traffic light program을 다른 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:416
+#: src/netedit/GNEApplicationWindowHelper.cpp:417
 #, fuzzy
 msgid "Reload TLS Programs"
 msgstr "TLS 프로그램 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:416
+#: src/netedit/GNEApplicationWindowHelper.cpp:417
 #, fuzzy
 msgid "Reload TLS Programs."
 msgstr "TLS 프로그램을 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:424
+#: src/netedit/GNEApplicationWindowHelper.cpp:425
 #, fuzzy
 msgid "Load Edge Types..."
 msgstr "Edge Types 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:424
+#: src/netedit/GNEApplicationWindowHelper.cpp:425
 #, fuzzy
 msgid "Load edge types in the current net."
 msgstr "현재 net에 Edge 유형을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:430
+#: src/netedit/GNEApplicationWindowHelper.cpp:431
 #, fuzzy
 msgid "Save Edge Types"
 msgstr "Edge 유형 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:430
+#: src/netedit/GNEApplicationWindowHelper.cpp:431
 #, fuzzy
 msgid "Save edge types of the current net."
 msgstr "현재 net의 Edge 유형을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:434
+#: src/netedit/GNEApplicationWindowHelper.cpp:435
 #, fuzzy
 msgid "Save Edge Types As..."
 msgstr "Edge 유형 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:434
+#: src/netedit/GNEApplicationWindowHelper.cpp:435
 msgid "Save edge types of the current net to another file."
 msgstr "현재 net의 Edge 유형을 다른 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:440
+#: src/netedit/GNEApplicationWindowHelper.cpp:441
 #, fuzzy
 msgid "Reload edge types"
 msgstr "Edge 유형 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:440
+#: src/netedit/GNEApplicationWindowHelper.cpp:441
 #, fuzzy
 msgid "Reload edge types."
 msgstr "Edge 유형을 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:448
+#: src/netedit/GNEApplicationWindowHelper.cpp:449
 #, fuzzy
 msgid "Load Additionals..."
 msgstr "추가 elements 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:448
+#: src/netedit/GNEApplicationWindowHelper.cpp:449
 #, fuzzy
 msgid "Load additionals and shapes."
 msgstr "추가 elements와 Shape을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:454
+#: src/netedit/GNEApplicationWindowHelper.cpp:455
 #, fuzzy
 msgid "Save Additionals"
 msgstr "추가 elements 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:454
+#: src/netedit/GNEApplicationWindowHelper.cpp:455
 #, fuzzy
 msgid "Save additionals and shapes."
 msgstr "추가 elements와 Shape을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:458
+#: src/netedit/GNEApplicationWindowHelper.cpp:459
 #, fuzzy
 msgid "Save Additionals unified as..."
 msgstr "추가 elements 통합 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:458
+#: src/netedit/GNEApplicationWindowHelper.cpp:459
 #, fuzzy
 msgid "Save all additional elements to the chosen file."
 msgstr "모든 추가 elements를 선택한 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:462
+#: src/netedit/GNEApplicationWindowHelper.cpp:463
 msgid "Save JuPedSim Elements as..."
 msgstr "JuPedSim elements 다른 이름으로 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:462
+#: src/netedit/GNEApplicationWindowHelper.cpp:463
 msgid "Save JuPedSim elements in a separated file."
 msgstr "JuPedSim elements를 별도 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:468
+#: src/netedit/GNEApplicationWindowHelper.cpp:469
 #, fuzzy
 msgid "Reload Additionals"
 msgstr "추가 elements 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:468
+#: src/netedit/GNEApplicationWindowHelper.cpp:469
 #, fuzzy
 msgid "Reload additionals."
 msgstr "추가 elements를 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:476
+#: src/netedit/GNEApplicationWindowHelper.cpp:477
 #, fuzzy
 msgid "Load Demand Elements..."
 msgstr "Demand elements 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:476
+#: src/netedit/GNEApplicationWindowHelper.cpp:477
 #, fuzzy
 msgid "Load demand elements."
 msgstr "Demand elements를 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:482
+#: src/netedit/GNEApplicationWindowHelper.cpp:483
 #, fuzzy
 msgid "Save Demand Elements"
 msgstr "Demand elements 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:482
+#: src/netedit/GNEApplicationWindowHelper.cpp:483
 #, fuzzy
 msgid "Save demand elements."
 msgstr "Demand elements를 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:486
+#: src/netedit/GNEApplicationWindowHelper.cpp:487
 #, fuzzy
 msgid "Save Demand Elements unified as..."
 msgstr "Demand elements 통합 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:486
+#: src/netedit/GNEApplicationWindowHelper.cpp:487
 #, fuzzy
 msgid "Save all demand elements to the chosen file"
 msgstr "모든 Demand elements를 선택한 파일로 저장합니다"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:492
+#: src/netedit/GNEApplicationWindowHelper.cpp:493
 #, fuzzy
 msgid "Reload Demand Elements"
 msgstr "Demand elements 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:492
+#: src/netedit/GNEApplicationWindowHelper.cpp:493
 #, fuzzy
 msgid "Reload demand elements."
 msgstr "Demand elements를 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:500
+#: src/netedit/GNEApplicationWindowHelper.cpp:501
 #, fuzzy
 msgid "Load Data Elements..."
 msgstr "데이터 elements 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:500
+#: src/netedit/GNEApplicationWindowHelper.cpp:501
 #, fuzzy
 msgid "Load data elements."
 msgstr "데이터 elements를 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:506
+#: src/netedit/GNEApplicationWindowHelper.cpp:507
 #, fuzzy
 msgid "Save Data Elements"
 msgstr "데이터 elements 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:506
+#: src/netedit/GNEApplicationWindowHelper.cpp:507
 #, fuzzy
 msgid "Save data elements."
 msgstr "데이터 elements를 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:510
+#: src/netedit/GNEApplicationWindowHelper.cpp:511
 #, fuzzy
 msgid "Save Data Elements unified as..."
 msgstr "데이터 elements 통합 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:510
+#: src/netedit/GNEApplicationWindowHelper.cpp:511
 #, fuzzy
 msgid "Save all data elements to the chosen file."
 msgstr "모든 데이터 elements를 선택한 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:516
+#: src/netedit/GNEApplicationWindowHelper.cpp:517
 #, fuzzy
 msgid "Reload Data Elements"
 msgstr "데이터 elements 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:516
+#: src/netedit/GNEApplicationWindowHelper.cpp:517
 #, fuzzy
 msgid "Reload data elements."
 msgstr "데이터 elements를 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:524
+#: src/netedit/GNEApplicationWindowHelper.cpp:525
 #, fuzzy
 msgid "Load MeanDatas..."
 msgstr "MeanData 불러오기..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:524
+#: src/netedit/GNEApplicationWindowHelper.cpp:525
 #, fuzzy
 msgid "Load meanDatas and shapes."
 msgstr "meanData와 도형을 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:530
+#: src/netedit/GNEApplicationWindowHelper.cpp:531
 #, fuzzy
 msgid "Save MeanDatas"
 msgstr "MeanData 저장"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:530
+#: src/netedit/GNEApplicationWindowHelper.cpp:531
 #, fuzzy
 msgid "Save meanDatas and shapes."
 msgstr "meanData와 도형을 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:534
+#: src/netedit/GNEApplicationWindowHelper.cpp:535
 #, fuzzy
 msgid "Save MeanDatas unified as..."
 msgstr "MeanData 통합 저장..."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:534
+#: src/netedit/GNEApplicationWindowHelper.cpp:535
 #, fuzzy
 msgid "Save all meanData elements to the chosen file."
 msgstr "모든 meanData elements를 선택한 파일로 저장합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:540
+#: src/netedit/GNEApplicationWindowHelper.cpp:541
 #, fuzzy
 msgid "Reload MeanDatas"
 msgstr "MeanData 다시 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:540
+#: src/netedit/GNEApplicationWindowHelper.cpp:541
 #, fuzzy
 msgid "Reload meanDatas."
 msgstr "meanData를 다시 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:557
+#: src/netedit/GNEApplicationWindowHelper.cpp:558
 #, fuzzy
 msgid "&Inspect"
 msgstr "검사(&I)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:557
+#: src/netedit/GNEApplicationWindowHelper.cpp:558
 #, fuzzy
 msgid "Inspect elements and change their attributes."
 msgstr "elements를 검사하고 속성을 변경합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:560
+#: src/netedit/GNEApplicationWindowHelper.cpp:561
 msgid "&Delete"
 msgstr "삭제(&D)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:560
+#: src/netedit/GNEApplicationWindowHelper.cpp:561
 #, fuzzy
 msgid "Delete elements."
 msgstr "elements를 삭제합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:563
+#: src/netedit/GNEApplicationWindowHelper.cpp:564
 #, fuzzy
 msgid "&Select"
 msgstr "선택(&S)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:563
+#: src/netedit/GNEApplicationWindowHelper.cpp:564
 #, fuzzy
 msgid "Select elements."
 msgstr "elements를 선택합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:612
-#: src/netedit/GNEApplicationWindowHelper.cpp:702
+#: src/netedit/GNEApplicationWindowHelper.cpp:613
+#: src/netedit/GNEApplicationWindowHelper.cpp:703
 msgid "&Move"
 msgstr "이동(&M)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:612
-#: src/netedit/GNEApplicationWindowHelper.cpp:702
+#: src/netedit/GNEApplicationWindowHelper.cpp:613
+#: src/netedit/GNEApplicationWindowHelper.cpp:703
 #, fuzzy
 msgid "Move elements."
 msgstr "elements를 이동합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:616
+#: src/netedit/GNEApplicationWindowHelper.cpp:617
 #, fuzzy
 msgid "&Edge"
 msgstr "Edge(&E)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:616
+#: src/netedit/GNEApplicationWindowHelper.cpp:617
 #, fuzzy
 msgid "Create junction and edges."
 msgstr "junction과 Edge룰 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:620
+#: src/netedit/GNEApplicationWindowHelper.cpp:621
 msgid "&Traffic light"
 msgstr "신호등(&T)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:620
+#: src/netedit/GNEApplicationWindowHelper.cpp:621
 #, fuzzy
 msgid "Modes traffic lights over junctions."
 msgstr "교차로의 신호등을 설정합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:624
+#: src/netedit/GNEApplicationWindowHelper.cpp:625
 msgid "&Connection"
 msgstr "연결(&C)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:624
+#: src/netedit/GNEApplicationWindowHelper.cpp:625
 msgid "Modes connections between lanes."
 msgstr "차로 간 연결을 설정합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:628
+#: src/netedit/GNEApplicationWindowHelper.cpp:629
 #, fuzzy
 msgid "Pro&hibition"
 msgstr "금지(&H)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:628
+#: src/netedit/GNEApplicationWindowHelper.cpp:629
 #, fuzzy
 msgid "Modes connection prohibitions."
 msgstr "연결 금지를 설정합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:632
+#: src/netedit/GNEApplicationWindowHelper.cpp:633
 msgid "C&rossing"
 msgstr "횡단보도(&R)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:632
+#: src/netedit/GNEApplicationWindowHelper.cpp:633
 msgid "Create crossings between edges."
 msgstr "Edge 간 횡단보도를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:636
+#: src/netedit/GNEApplicationWindowHelper.cpp:637
 #, fuzzy
 msgid "Create additional elements."
 msgstr "추가 elements를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:640
+#: src/netedit/GNEApplicationWindowHelper.cpp:641
 #, fuzzy
 msgid "&Wire"
 msgstr "전선(&W)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:640
+#: src/netedit/GNEApplicationWindowHelper.cpp:641
 #, fuzzy
 msgid "Create wires."
 msgstr "전선을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:644
+#: src/netedit/GNEApplicationWindowHelper.cpp:645
 #, fuzzy
 msgid "TA&Z"
 msgstr "TAZ(&Z)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:644
+#: src/netedit/GNEApplicationWindowHelper.cpp:645
 #, fuzzy
 msgid "Create Traffic Assignment Zones."
 msgstr "교통 배정 구역을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:648
+#: src/netedit/GNEApplicationWindowHelper.cpp:649
 #, fuzzy
 msgid "&POI-Poly"
 msgstr "POI-Poly(&P)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:648
+#: src/netedit/GNEApplicationWindowHelper.cpp:649
 #, fuzzy
 msgid "Create Points-Of-Interest and polygons."
 msgstr "관심 지점과 폴리곤을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:652
+#: src/netedit/GNEApplicationWindowHelper.cpp:653
 #, fuzzy
 msgid "Deca&ls"
 msgstr "데칼(&L)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:652
+#: src/netedit/GNEApplicationWindowHelper.cpp:653
 #, fuzzy
 msgid "Create decals."
 msgstr "데칼을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:705
+#: src/netedit/GNEApplicationWindowHelper.cpp:706
 msgid "Create Routes."
 msgstr "Route 생성."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:708
+#: src/netedit/GNEApplicationWindowHelper.cpp:709
 #, fuzzy
 msgid "Route distribution"
 msgstr "Route 분포"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:708
+#: src/netedit/GNEApplicationWindowHelper.cpp:709
 #, fuzzy
 msgid "Create and edit route distributions."
 msgstr "Route 분포를 생성하고 편집합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:712
+#: src/netedit/GNEApplicationWindowHelper.cpp:713
 #: src/netedit/elements/demand/GNEVehicle.cpp:109
 msgid "Vehicle"
 msgstr "차량"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:712
+#: src/netedit/GNEApplicationWindowHelper.cpp:713
 msgid "Create vehicles."
 msgstr "차량을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:715
+#: src/netedit/GNEApplicationWindowHelper.cpp:716
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:438
 #, fuzzy
 msgid "Type"
 msgstr "유형"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:715
+#: src/netedit/GNEApplicationWindowHelper.cpp:716
 #, fuzzy
 msgid "Create types (vehicles, person and containers)."
 msgstr "유형을 생성합니다 (차량, 보행자, 컨테이너)."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:718
+#: src/netedit/GNEApplicationWindowHelper.cpp:719
 #: src/netedit/GNETagPropertiesDatabase.cpp:2689
 #, fuzzy
 msgid "TypeDistribution"
 msgstr "유형 분포"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:718
+#: src/netedit/GNEApplicationWindowHelper.cpp:719
 #, fuzzy
 msgid "Create and edit type distributions."
 msgstr "유형 분포를 생성하고 편집합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:721
+#: src/netedit/GNEApplicationWindowHelper.cpp:722
 #, fuzzy
 msgid "Create stops."
 msgstr "정차를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:724
+#: src/netedit/GNEApplicationWindowHelper.cpp:725
 #: src/netedit/GNETagPropertiesDatabase.cpp:3340
 #, fuzzy
 msgid "Person"
 msgstr "보행자"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:724
+#: src/netedit/GNEApplicationWindowHelper.cpp:725
 #, fuzzy
 msgid "Create persons."
 msgstr "보행자를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:727
+#: src/netedit/GNEApplicationWindowHelper.cpp:728
 #, fuzzy
 msgid "Person plan"
 msgstr "보행자 계획"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:727
+#: src/netedit/GNEApplicationWindowHelper.cpp:728
 #, fuzzy
 msgid "Create person plans."
 msgstr "보행자 계획을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:730
+#: src/netedit/GNEApplicationWindowHelper.cpp:731
 #: src/netedit/GNETagPropertiesDatabase.cpp:3380
 #: src/netedit/frames/GNETagSelector.cpp:116
 msgid "Container"
 msgstr "컨테이너"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:730
+#: src/netedit/GNEApplicationWindowHelper.cpp:731
 msgid "Create containers."
 msgstr "컨테이너를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:733
+#: src/netedit/GNEApplicationWindowHelper.cpp:734
 #, fuzzy
 msgid "Container plan"
 msgstr "컨테이너 계획"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:733
+#: src/netedit/GNEApplicationWindowHelper.cpp:734
 #, fuzzy
 msgid "Create container plans."
 msgstr "컨테이너 계획을 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:768
+#: src/netedit/GNEApplicationWindowHelper.cpp:769
 msgid "&EdgeData"
 msgstr "EdgeData(&E)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:768
+#: src/netedit/GNEApplicationWindowHelper.cpp:769
 #, fuzzy
 msgid "Create edgeData elements."
 msgstr "edgeData elements를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:771
+#: src/netedit/GNEApplicationWindowHelper.cpp:772
 #, fuzzy
 msgid "Edge&Relation"
 msgstr "EdgeRelation(&R)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:771
+#: src/netedit/GNEApplicationWindowHelper.cpp:772
 #, fuzzy
 msgid "Create edgeRelation elements."
 msgstr "edgeRelation 요소를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:774
+#: src/netedit/GNEApplicationWindowHelper.cpp:775
 #, fuzzy
 msgid "TA&ZRelation"
 msgstr "TAZRelation(&Z)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:774
+#: src/netedit/GNEApplicationWindowHelper.cpp:775
 #, fuzzy
 msgid "Create TAZRelation elements."
 msgstr "TAZRelation 요소를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:777
+#: src/netedit/GNEApplicationWindowHelper.cpp:778
 #, fuzzy
 msgid "&MeanData"
 msgstr "평균 데이터(&M)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:777
+#: src/netedit/GNEApplicationWindowHelper.cpp:778
 msgid "Create MeanData edge/lanes."
 msgstr "MeanData Edge/차로를 생성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:860
-#: src/netedit/GNEApplicationWindowHelper.cpp:1045
+#: src/netedit/GNEApplicationWindowHelper.cpp:861
+#: src/netedit/GNEApplicationWindowHelper.cpp:1046
 #: src/netedit/GNEViewNetHelper.cpp:2715 src/netedit/GNEViewNetHelper.cpp:2999
 msgid "Show grid"
 msgstr "그리드 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:865
-#: src/netedit/GNEApplicationWindowHelper.cpp:1050
-#: src/netedit/GNEApplicationWindowHelper.cpp:1176
+#: src/netedit/GNEApplicationWindowHelper.cpp:866
+#: src/netedit/GNEApplicationWindowHelper.cpp:1051
+#: src/netedit/GNEApplicationWindowHelper.cpp:1177
 #: src/netedit/GNEViewNetHelper.cpp:2722 src/netedit/GNEViewNetHelper.cpp:3006
 #: src/netedit/GNEViewNetHelper.cpp:3278
 #, fuzzy
 msgid "Hide junction shape"
 msgstr "junction shape 숨기기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:870
+#: src/netedit/GNEApplicationWindowHelper.cpp:871
 #, fuzzy
 msgid "Draw vehicles spread in lane or in depart position"
 msgstr "차량을 차로에 분산 또는 출발 위치에 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:875
-#: src/netedit/GNEApplicationWindowHelper.cpp:1191
+#: src/netedit/GNEApplicationWindowHelper.cpp:876
+#: src/netedit/GNEApplicationWindowHelper.cpp:1192
 #: src/netedit/GNEViewNetHelper.cpp:2736 src/netedit/GNEViewNetHelper.cpp:3297
 #, fuzzy
 msgid "Show demand elements"
 msgstr "Demand elements 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:880
+#: src/netedit/GNEApplicationWindowHelper.cpp:881
 #, fuzzy
 msgid "Clicking should target lanes"
 msgstr "클릭은 차선을 대상으로 해야 합니다"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:885
+#: src/netedit/GNEApplicationWindowHelper.cpp:886
 #: src/netedit/GNEViewNetHelper.cpp:2749
 #, fuzzy
 msgid "Show connections over junctions"
 msgstr "교차로 위 연결 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:890
+#: src/netedit/GNEApplicationWindowHelper.cpp:891
 #: src/netedit/GNEViewNetHelper.cpp:2756
 #, fuzzy
 msgid "Hide connections"
 msgstr "연결 숨기기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:895
+#: src/netedit/GNEApplicationWindowHelper.cpp:896
 #, fuzzy
 msgid "Show sub-additional elements"
 msgstr "하위 추가 요소 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:900
+#: src/netedit/GNEApplicationWindowHelper.cpp:901
 #: src/netedit/GNEViewNetHelper.cpp:2770
 #, fuzzy
 msgid "Show TAZ elements"
 msgstr "TAZ 요소 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:905
+#: src/netedit/GNEApplicationWindowHelper.cpp:906
 #, fuzzy
 msgid "Selecting multiple edges automatically select their junctions"
 msgstr "여러 Edge 선택 시 자동으로 교차로 선택"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:910
+#: src/netedit/GNEApplicationWindowHelper.cpp:911
 #, fuzzy
 msgid "Clicking should apply state changes to all phases of TLS plan"
 msgstr "클릭 시 TLS 계획의 모든 단계에 상태 변경 적용"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:915
+#: src/netedit/GNEApplicationWindowHelper.cpp:916
 #, fuzzy
 msgid "Don't ask for confirmation before merging junction"
 msgstr "교차로 병합 전 묻지 않음"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:920
+#: src/netedit/GNEApplicationWindowHelper.cpp:921
 #, fuzzy
 msgid "Create consecutive edges"
 msgstr "연속(consecutive) edges 생성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:925
+#: src/netedit/GNEApplicationWindowHelper.cpp:926
 #, fuzzy
 msgid "Create an edge in the opposite direction"
 msgstr "반대 방향으로 Edge 생성"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:930
+#: src/netedit/GNEApplicationWindowHelper.cpp:931
 #, fuzzy
 msgid "Apply mouse movement to elevation"
 msgstr "마우스 이동을 고도에 적용"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:935
+#: src/netedit/GNEApplicationWindowHelper.cpp:936
 #, fuzzy
 msgid "Show bubbles over junctions shapes"
 msgstr "교차로 형태 위에 버블 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1055
+#: src/netedit/GNEApplicationWindowHelper.cpp:1056
 #: src/netedit/GNEViewNetHelper.cpp:3013
 #, fuzzy
 msgid "Draw vehicles spread/depart position"
 msgstr "차량 분산/출발 위치 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1060
-#: src/netedit/GNEApplicationWindowHelper.cpp:1186
+#: src/netedit/GNEApplicationWindowHelper.cpp:1061
+#: src/netedit/GNEApplicationWindowHelper.cpp:1187
 #: src/netedit/GNEViewNetHelper.cpp:3020 src/netedit/GNEViewNetHelper.cpp:3291
 #, fuzzy
 msgid "Show shapes"
 msgstr "shapes 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1065
+#: src/netedit/GNEApplicationWindowHelper.cpp:1066
 #: src/netedit/GNEViewNetHelper.cpp:3027
 #, fuzzy
 msgid "Show all trips"
 msgstr "모든 trips 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1070
+#: src/netedit/GNEApplicationWindowHelper.cpp:1071
 #: src/netedit/GNEViewNetHelper.cpp:3034
 #, fuzzy
 msgid "Show all person plans"
 msgstr "모든 보행자 계획 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1075
+#: src/netedit/GNEApplicationWindowHelper.cpp:1076
 #: src/netedit/GNEViewNetHelper.cpp:3041
 #, fuzzy
 msgid "Lock selected person"
 msgstr "선택한 보행자 잠금"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1080
+#: src/netedit/GNEApplicationWindowHelper.cpp:1081
 #, fuzzy
 msgid "Show all container plans"
 msgstr "모든 컨테이너 계획 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1085
+#: src/netedit/GNEApplicationWindowHelper.cpp:1086
 #: src/netedit/GNEViewNetHelper.cpp:3055
 #, fuzzy
 msgid "Lock selected container"
 msgstr "선택한 컨테이너 잠금"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1090
+#: src/netedit/GNEApplicationWindowHelper.cpp:1091
 #: src/netedit/GNEViewNetHelper.cpp:3062
 #, fuzzy
 msgid "Show non-inspected demand elements"
 msgstr "검사되지 않은 Demand 요소 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1095
+#: src/netedit/GNEApplicationWindowHelper.cpp:1096
 #: src/netedit/GNEViewNetHelper.cpp:3069
 #, fuzzy
 msgid "Show number of overlapped routes"
 msgstr "겹친 Route 수 보기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1181
+#: src/netedit/GNEApplicationWindowHelper.cpp:1182
 #: src/netedit/GNEViewNetHelper.cpp:3285
 #, fuzzy
 msgid "Show additionals"
 msgstr "추가 요소 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1196
+#: src/netedit/GNEApplicationWindowHelper.cpp:1197
 #, fuzzy
 msgid "Draw TAZRel from center"
 msgstr "TAZRel을 중심에서 그리기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1201
+#: src/netedit/GNEApplicationWindowHelper.cpp:1202
 #, fuzzy
 msgid "Draw TAZ fill"
 msgstr "TAZ 채우기 그리기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1206
+#: src/netedit/GNEApplicationWindowHelper.cpp:1207
 #, fuzzy
 msgid "Only draw TAZRel from"
 msgstr "TAZRel 출발지만 그리기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1211
+#: src/netedit/GNEApplicationWindowHelper.cpp:1212
 #, fuzzy
 msgid "Only draw TAZRel to"
 msgstr "TAZRel 도착지만 그리기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1283
+#: src/netedit/GNEApplicationWindowHelper.cpp:1284
 msgid "Undo the last change."
 msgstr "마지막 변경 실행 취소."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1286
+#: src/netedit/GNEApplicationWindowHelper.cpp:1287
 msgid "Redo the last change."
 msgstr "마지막 변경 다시 실행."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1289
+#: src/netedit/GNEApplicationWindowHelper.cpp:1290
 msgid "Show undo/redo history"
 msgstr "실행 취소/다시 실행 기록 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1289
+#: src/netedit/GNEApplicationWindowHelper.cpp:1290
 msgid "Open undo/redo history dialog."
 msgstr "실행 취소/다시 실행 기록 대화상자를 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1293
+#: src/netedit/GNEApplicationWindowHelper.cpp:1294
 msgid "Allow undo-redo"
 msgstr "실행 취소/다시 실행 허용"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1315
+#: src/netedit/GNEApplicationWindowHelper.cpp:1316
 #, fuzzy
 msgid "Mark current inspected element as front element"
 msgstr "현재 검사된 요소를 전면 요소로 표시"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1324
+#: src/netedit/GNEApplicationWindowHelper.cpp:1325
 #, fuzzy
 msgid "Load additionals in sumo-gui"
 msgstr "sumo-gui에서 추가 요소 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1324
+#: src/netedit/GNEApplicationWindowHelper.cpp:1325
 #, fuzzy
 msgid "Load additionals in sumo-gui."
 msgstr "sumo-gui에서 추가 요소를 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1328
+#: src/netedit/GNEApplicationWindowHelper.cpp:1329
 #, fuzzy
 msgid "Load demand in sumo-gui"
 msgstr "sumo-gui에서 Demand 불러오기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1328
+#: src/netedit/GNEApplicationWindowHelper.cpp:1329
 #, fuzzy
 msgid "Load demand in sumo-gui."
 msgstr "sumo-gui에서 Demand를 불러옵니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1332
+#: src/netedit/GNEApplicationWindowHelper.cpp:1333
 #, fuzzy
 msgid "Open in sumo-gui"
 msgstr "sumo-gui에서 열기"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1332
+#: src/netedit/GNEApplicationWindowHelper.cpp:1333
 msgid "Opens the sumo-gui application with the current network."
 msgstr "현재 Network로 sumo-gui 프로그램을 실행합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1359
+#: src/netedit/GNEApplicationWindowHelper.cpp:1360
 msgid "&Lanes"
 msgstr "차로(&L)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1364
+#: src/netedit/GNEApplicationWindowHelper.cpp:1365
 msgid "&Connections"
 msgstr "연결(&C)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1369
+#: src/netedit/GNEApplicationWindowHelper.cpp:1370
 msgid "C&rossings"
 msgstr "횡단보도(&R)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1374
+#: src/netedit/GNEApplicationWindowHelper.cpp:1375
 msgid "Walkin&gAreas"
 msgstr "보행 영역(&G)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1379
+#: src/netedit/GNEApplicationWindowHelper.cpp:1380
 msgid "&Additionals"
 msgstr "추가 요소(&A)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1384
+#: src/netedit/GNEApplicationWindowHelper.cpp:1385
 msgid "&TAZs"
 msgstr "TAZ(&T)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1389
+#: src/netedit/GNEApplicationWindowHelper.cpp:1390
 msgid "&Wires"
 msgstr "전선(&W)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1394
+#: src/netedit/GNEApplicationWindowHelper.cpp:1395
 msgid "&Polygons"
 msgstr "폴리곤(&P)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1399
+#: src/netedit/GNEApplicationWindowHelper.cpp:1400
 msgid "P&OIs"
 msgstr "POI(&O)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1404
+#: src/netedit/GNEApplicationWindowHelper.cpp:1405
 msgid "WalkableAreas"
 msgstr "보행 가능 영역"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1409
+#: src/netedit/GNEApplicationWindowHelper.cpp:1410
 msgid "Obstacles"
 msgstr "장애물"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1414
+#: src/netedit/GNEApplicationWindowHelper.cpp:1415
 msgid "&Routes"
 msgstr "Routes(&R)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1429
+#: src/netedit/GNEApplicationWindowHelper.cpp:1430
 #, fuzzy
 msgid "Person&Trips"
 msgstr "보행자 통행(&T)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1434
+#: src/netedit/GNEApplicationWindowHelper.cpp:1435
 #, fuzzy
 msgid "&Walks"
 msgstr "도보(&W)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1439
+#: src/netedit/GNEApplicationWindowHelper.cpp:1440
 #, fuzzy
 msgid "Ri&des"
 msgstr "Rides(&D)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1444
-#: src/netedit/GNEApplicationWindowHelper.cpp:2029
+#: src/netedit/GNEApplicationWindowHelper.cpp:1445
+#: src/netedit/GNEApplicationWindowHelper.cpp:2030
 msgid "&Containers"
 msgstr "컨테이너(&C)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1449
+#: src/netedit/GNEApplicationWindowHelper.cpp:1450
 #, fuzzy
 msgid "Tra&nsports"
 msgstr "운송(&N)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1454
+#: src/netedit/GNEApplicationWindowHelper.cpp:1455
 #, fuzzy
 msgid "Trans&hips"
 msgstr "Tranships(&H)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1459
+#: src/netedit/GNEApplicationWindowHelper.cpp:1460
 #, fuzzy
 msgid "Stop&s"
 msgstr "Stops(&S)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1464
+#: src/netedit/GNEApplicationWindowHelper.cpp:1465
 #, fuzzy
 msgid "&EdgeDatas"
 msgstr "Edge 데이터(&E)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1469
+#: src/netedit/GNEApplicationWindowHelper.cpp:1470
 #, fuzzy
 msgid "E&dgeRelDatas"
 msgstr "Edge 관계 데이터(&D)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1474
+#: src/netedit/GNEApplicationWindowHelper.cpp:1475
 #, fuzzy
 msgid "Edge&TAZRel"
 msgstr "Edge TAZ 관계(&T)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1482
+#: src/netedit/GNEApplicationWindowHelper.cpp:1483
 #, fuzzy
 msgid "Lock selected elements"
 msgstr "선택한 요소 잠금"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1482
+#: src/netedit/GNEApplicationWindowHelper.cpp:1483
 #, fuzzy
 msgid "selected elements"
 msgstr "선택된 요소"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1489
+#: src/netedit/GNEApplicationWindowHelper.cpp:1490
 #, fuzzy
 msgid "Lock all elements"
 msgstr "모든 요소 잠금"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1489
+#: src/netedit/GNEApplicationWindowHelper.cpp:1490
 #, fuzzy
 msgid "all elements"
 msgstr "모든 요소"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1493
+#: src/netedit/GNEApplicationWindowHelper.cpp:1494
 #, fuzzy
 msgid "Unlock all elements"
 msgstr "모든 요소 잠금 해제"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1853
+#: src/netedit/GNEApplicationWindowHelper.cpp:1854
 #, fuzzy
 msgid "Compute Junctions"
 msgstr "교차로 계산"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1853
+#: src/netedit/GNEApplicationWindowHelper.cpp:1854
 #, fuzzy
 msgid "Compute junction shape and logic."
 msgstr "교차로 형태와 로직을 계산합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1856
+#: src/netedit/GNEApplicationWindowHelper.cpp:1857
 #, fuzzy
 msgid "Compute Junctions with volatile options"
 msgstr "휘발성 옵션으로 교차로 계산"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1856
+#: src/netedit/GNEApplicationWindowHelper.cpp:1857
 #, fuzzy
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr "휘발성 교차로를 사용하여 교차로 형태와 로직을 계산합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1859
+#: src/netedit/GNEApplicationWindowHelper.cpp:1860
 #, fuzzy
 msgid "Clean Junctions"
 msgstr "교차로 정리"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1859
+#: src/netedit/GNEApplicationWindowHelper.cpp:1860
 #, fuzzy
 msgid "Remove solitary junctions."
 msgstr "고립된 교차로를 제거합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1862
+#: src/netedit/GNEApplicationWindowHelper.cpp:1863
 #, fuzzy
 msgid "Join Selected Junctions"
 msgstr "선택한 교차로 연결"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1862
+#: src/netedit/GNEApplicationWindowHelper.cpp:1863
 #, fuzzy
 msgid "Join selected junctions into a single junction."
 msgstr "선택한 교차로를 하나의 교차로로 연결합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1865
+#: src/netedit/GNEApplicationWindowHelper.cpp:1866
 #, fuzzy
 msgid "Clean invalid crossings"
 msgstr "잘못된 횡단보도 정리"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1865
+#: src/netedit/GNEApplicationWindowHelper.cpp:1866
 #, fuzzy
 msgid "Clear invalid crossings."
 msgstr "잘못된 횡단보도를 지웁니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1871
+#: src/netedit/GNEApplicationWindowHelper.cpp:1872
 msgid "Recompute Network in Data Mode"
 msgstr "데이터 모드에서 Network 재계산"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1877
+#: src/netedit/GNEApplicationWindowHelper.cpp:1878
 #, fuzzy
 msgid "Compute demand"
 msgstr "Demand 계산"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1877
+#: src/netedit/GNEApplicationWindowHelper.cpp:1878
 #, fuzzy
 msgid "Computes demand elements."
 msgstr "Demand 요소를 계산합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1880
+#: src/netedit/GNEApplicationWindowHelper.cpp:1881
 #, fuzzy
 msgid "Clean routes"
 msgstr "Route 정리"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1880
+#: src/netedit/GNEApplicationWindowHelper.cpp:1881
 msgid "Removes routes without vehicles."
 msgstr "차량이 없는 route 삭제."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1883
+#: src/netedit/GNEApplicationWindowHelper.cpp:1884
 msgid "Join routes"
 msgstr "route 결합(Join)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1883
+#: src/netedit/GNEApplicationWindowHelper.cpp:1884
 #, fuzzy
 msgid "Joins routes with the same edges."
 msgstr "동일한 edge를 가진 route 결합(Join)."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1886
+#: src/netedit/GNEApplicationWindowHelper.cpp:1887
 #, fuzzy
 msgid "Adjust person plans"
 msgstr "보행자 계획 조정"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1886
+#: src/netedit/GNEApplicationWindowHelper.cpp:1887
 #, fuzzy
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr "보행자 계획 조정 (시작/종료 위치, 도착 위치 등)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1889
+#: src/netedit/GNEApplicationWindowHelper.cpp:1890
 #, fuzzy
 msgid "Clean invalid route elements"
 msgstr "잘못된 Route 요소 정리"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1889
+#: src/netedit/GNEApplicationWindowHelper.cpp:1890
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr "유효하지 않은 Route를 가진 요소(Route, Trip, Flow 등)를 삭제."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1895
+#: src/netedit/GNEApplicationWindowHelper.cpp:1896
 msgid "Sumo options"
 msgstr "Sumo 옵션"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1895
+#: src/netedit/GNEApplicationWindowHelper.cpp:1896
 #, fuzzy
 msgid "Configure sumo Options."
 msgstr "sumo 옵션을 구성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1901
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:96
+#: src/netedit/GNEApplicationWindowHelper.cpp:1902
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:97
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 #, fuzzy
 msgid "Options"
 msgstr "옵션"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1901
+#: src/netedit/GNEApplicationWindowHelper.cpp:1902
 #, fuzzy
 msgid "Configure netedit Options."
 msgstr "netedit 옵션을 구성합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2020
+#: src/netedit/GNEApplicationWindowHelper.cpp:2021
 #, fuzzy
 msgid "&WalkingAreas"
 msgstr "보행 영역(&W)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2020
+#: src/netedit/GNEApplicationWindowHelper.cpp:2021
 #, fuzzy
 msgid "Open a dialog for locating a Walking Area."
 msgstr "보행 영역 찾기 대화상자를 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2032
+#: src/netedit/GNEApplicationWindowHelper.cpp:2033
 #, fuzzy
 msgid "&Route"
 msgstr "Route(&R)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2032
+#: src/netedit/GNEApplicationWindowHelper.cpp:2033
 #, fuzzy
 msgid "Open a dialog for locating a Route."
 msgstr "Route 찾기 대화상자를 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2035
+#: src/netedit/GNEApplicationWindowHelper.cpp:2036
 #, fuzzy
 msgid "&Stops"
 msgstr "정차(&S)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2035
+#: src/netedit/GNEApplicationWindowHelper.cpp:2036
 #, fuzzy
 msgid "Open a dialog for locating a Stop."
 msgstr "정차 찾기 대화상자를 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2141
+#: src/netedit/GNEApplicationWindowHelper.cpp:2142
 #, fuzzy
 msgid "Toggle this Status Bar on/off."
 msgstr "이 상태 표시줄을 켜고 끕니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2148
+#: src/netedit/GNEApplicationWindowHelper.cpp:2149
 #, fuzzy
 msgid "Clear the Message Window."
 msgstr "메시지 창을 지웁니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2164
+#: src/netedit/GNEApplicationWindowHelper.cpp:2165
 #, fuzzy
 msgid "Online Documentation"
 msgstr "온라인 문서"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2167
+#: src/netedit/GNEApplicationWindowHelper.cpp:2168
 #, fuzzy
 msgid "Changelog"
 msgstr "변경 로그"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2169
+#: src/netedit/GNEApplicationWindowHelper.cpp:2170
 #, fuzzy
 msgid "Hotkeys"
 msgstr "단축키"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2171
+#: src/netedit/GNEApplicationWindowHelper.cpp:2172
 #, fuzzy
 msgid "Tutorial"
 msgstr "튜토리얼"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2173
+#: src/netedit/GNEApplicationWindowHelper.cpp:2174
 #, fuzzy
 msgid "Feedback"
 msgstr "피드백"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2173
+#: src/netedit/GNEApplicationWindowHelper.cpp:2174
 #, fuzzy
 msgid "Open feedback channels."
 msgstr "피드백 채널을 엽니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2176
+#: src/netedit/GNEApplicationWindowHelper.cpp:2177
 #, fuzzy
 msgid "About"
 msgstr "정보"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2176
+#: src/netedit/GNEApplicationWindowHelper.cpp:2177
 #, fuzzy
 msgid "About netedit."
 msgstr "netedit 정보."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2213
+#: src/netedit/GNEApplicationWindowHelper.cpp:2214
 msgid "&Network"
 msgstr "Network(&N)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2213
+#: src/netedit/GNEApplicationWindowHelper.cpp:2214
 msgid "Select network mode."
 msgstr "Network 모드를 선택합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2216
+#: src/netedit/GNEApplicationWindowHelper.cpp:2217
 #, fuzzy
 msgid "&Demand"
 msgstr "Demand(&D)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2216
+#: src/netedit/GNEApplicationWindowHelper.cpp:2217
 #, fuzzy
 msgid "Select demand mode."
 msgstr "Demand 모드를 선택합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2219
+#: src/netedit/GNEApplicationWindowHelper.cpp:2220
 #, fuzzy
 msgid "&Data"
 msgstr "데이터(&D)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2219
+#: src/netedit/GNEApplicationWindowHelper.cpp:2220
 #, fuzzy
 msgid "Select data mode."
 msgstr "데이터 모드를 선택합니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2256
+#: src/netedit/GNEApplicationWindowHelper.cpp:2257
 #, fuzzy
 msgid "There are invalid options in sumo configuration '%'."
 msgstr "sumo 설정 '%'에 잘못된 옵션이 있습니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2259
+#: src/netedit/GNEApplicationWindowHelper.cpp:2260
 #, fuzzy
 msgid ""
 "Could not load sumo configuration '%':\n"
@@ -4793,16 +4774,16 @@ msgstr ""
 "sumo 설정 '%'을(를) 불러올 수 없습니다:\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2271
+#: src/netedit/GNEApplicationWindowHelper.cpp:2272
 msgid "No network defined in sumo configuration '%'."
 msgstr "sumo 설정 '%'에 Network가 정의되지 않았습니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2307
+#: src/netedit/GNEApplicationWindowHelper.cpp:2308
 #, fuzzy
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr "netconvert 설정 '%'에 잘못된 옵션이 있습니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2310
+#: src/netedit/GNEApplicationWindowHelper.cpp:2311
 #, fuzzy
 msgid ""
 "Could not load netconvert configuration '%':\n"
@@ -4811,12 +4792,12 @@ msgstr ""
 "netconvert 설정 '%'을(를) 불러올 수 없습니다:\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2354
+#: src/netedit/GNEApplicationWindowHelper.cpp:2355
 #, fuzzy
 msgid "There are invalid options in netedit configuration '%'."
 msgstr "netedit 설정 '%'에 잘못된 옵션이 있습니다."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2357
+#: src/netedit/GNEApplicationWindowHelper.cpp:2358
 #, fuzzy
 msgid ""
 "Could not load netedit configuration '%':\n"
@@ -4825,7 +4806,7 @@ msgstr ""
 "netedit 설정 '%'을(를) 불러올 수 없습니다:\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2476
+#: src/netedit/GNEApplicationWindowHelper.cpp:2477
 #, fuzzy
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr "'%' 요소를 버킷 '%'에서 업데이트할 수 없습니다"
@@ -4907,7 +4888,7 @@ msgid "position"
 msgstr "위치"
 
 #: src/netedit/GNEAttributeProperties.cpp:356
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2269
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2279
 #, fuzzy
 msgid "color"
 msgstr "색상"
@@ -4949,162 +4930,162 @@ msgid "[0, 360]"
 msgstr "[0, 360]"
 
 #: src/netedit/GNEAttributeProperties.cpp:661
-#, fuzzy, c-format
+#, fuzzy
 msgid "Attribute '%' already inserted"
 msgstr "속성 '%' 이미 삽입됨"
 
-#: src/netedit/GNEExternalRunner.cpp:86
+#: src/netedit/GNEExternalRunner.cpp:87
 #, fuzzy
 msgid "cancelled by user\n"
 msgstr "사용자에 의해 취소됨\n"
 
-#: src/netedit/GNEExternalRunner.cpp:118 src/netedit/GNEExternalRunner.cpp:199
+#: src/netedit/GNEExternalRunner.cpp:119 src/netedit/GNEExternalRunner.cpp:200
 #, fuzzy
 msgid "starting process...\n"
 msgstr "프로세스 시작 중...\n"
 
-#: src/netedit/GNEExternalRunner.cpp:163 src/netedit/GNEExternalRunner.cpp:229
+#: src/netedit/GNEExternalRunner.cpp:164 src/netedit/GNEExternalRunner.cpp:230
 #, fuzzy
 msgid "process finished\n"
 msgstr "프로세스 완료\n"
 
-#: src/netedit/GNEExternalRunner.cpp:169
+#: src/netedit/GNEExternalRunner.cpp:170
 #, fuzzy
 msgid "Error running tool using boost::process"
 msgstr "boost::process를 사용한 도구 실행 오류"
 
-#: src/netedit/GNEExternalRunner.cpp:215
+#: src/netedit/GNEExternalRunner.cpp:216
 #, fuzzy
 msgid "error processing command\n"
 msgstr "명령 처리 오류\n"
 
-#: src/netedit/GNELoadThread.cpp:201
+#: src/netedit/GNELoadThread.cpp:202
 #, fuzzy
 msgid "Performing initial computation ..."
 msgstr "초기 계산 수행 중 ..."
 
-#: src/netedit/GNELoadThread.cpp:235
+#: src/netedit/GNELoadThread.cpp:236
 msgid "Failed to build network."
 msgstr "Network 구축 실패."
 
-#: src/netedit/GNELoadThread.cpp:279
+#: src/netedit/GNELoadThread.cpp:280
 #, fuzzy
 msgid "Start plain GUI with empty net"
 msgstr "빈 Network로 plain GUI 시작"
 
-#: src/netedit/GNELoadThread.cpp:280
+#: src/netedit/GNELoadThread.cpp:281
 msgid "Open a SUMO network"
 msgstr "SUMO Network 열기"
 
-#: src/netedit/GNELoadThread.cpp:281
+#: src/netedit/GNELoadThread.cpp:282
 #, fuzzy
 msgid "Open a configuration file (netedit or netconvert config)"
 msgstr "설정 파일 열기 (netedit 또는 netconvert 설정)"
 
-#: src/netedit/GNELoadThread.cpp:282
+#: src/netedit/GNELoadThread.cpp:283
 #, fuzzy
 msgid "Open a SUMO config file"
 msgstr "SUMO 설정 파일 열기"
 
-#: src/netedit/GNELoadThread.cpp:306
+#: src/netedit/GNELoadThread.cpp:307
 #, fuzzy
 msgid "Load netedit config"
 msgstr "netedit 설정 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:312
+#: src/netedit/GNELoadThread.cpp:313
 #, fuzzy
 msgid "Load sumo config"
 msgstr "sumo 설정 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:318
+#: src/netedit/GNELoadThread.cpp:319
 #, fuzzy
 msgid "Load netconvert config"
 msgstr "netconvert 설정 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:324
+#: src/netedit/GNELoadThread.cpp:325
 #, fuzzy
 msgid "Load additional and shapes descriptions from FILE(s)"
 msgstr "FILE에서 추가 요소 및 도형 설명 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:329
+#: src/netedit/GNELoadThread.cpp:330
 #, fuzzy
 msgid "Load demand elements descriptions from FILE(s)"
 msgstr "FILE에서 Demand 요소 설명 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:334
+#: src/netedit/GNELoadThread.cpp:335
 #, fuzzy
 msgid "Load data elements descriptions from FILE(s)"
 msgstr "FILE에서 데이터 요소 설명 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:339
+#: src/netedit/GNELoadThread.cpp:340
 #, fuzzy
 msgid "Load meanData descriptions from FILE(s)"
 msgstr "FILE에서 meanData 설명 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:343
+#: src/netedit/GNELoadThread.cpp:344
 #, fuzzy
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
 msgstr "netedit 설정 불러오기 후 Route 값 초기화 (추가 요소, Route, 데이터...)"
 
-#: src/netedit/GNELoadThread.cpp:346
+#: src/netedit/GNELoadThread.cpp:347
 #, fuzzy
 msgid ""
 "If enabled, automatically save a netconvert configuration after saving a "
 "netedit config"
 msgstr "활성화 시 netedit 설정 저장 후 netconvert 설정 자동 저장"
 
-#: src/netedit/GNELoadThread.cpp:349
+#: src/netedit/GNELoadThread.cpp:350
 #, fuzzy
 msgid "Load element selection"
 msgstr "요소 선택 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:352
+#: src/netedit/GNELoadThread.cpp:353
 #, fuzzy
 msgid "Test file"
 msgstr "테스트 파일"
 
-#: src/netedit/GNELoadThread.cpp:357
+#: src/netedit/GNELoadThread.cpp:358
 #, fuzzy
 msgid "File in which TLS Programs must be saved"
 msgstr "TLS 프로그램을 저장할 파일"
 
-#: src/netedit/GNELoadThread.cpp:361
+#: src/netedit/GNELoadThread.cpp:362
 #, fuzzy
 msgid "File in which edgeTypes must be saved"
 msgstr "Edge 유형을 저장할 파일"
 
-#: src/netedit/GNELoadThread.cpp:368
+#: src/netedit/GNELoadThread.cpp:369
 msgid "Start netedit with a new network"
 msgstr "새 Network로 netedit 시작"
 
-#: src/netedit/GNELoadThread.cpp:371
+#: src/netedit/GNELoadThread.cpp:372
 #, fuzzy
 msgid "Write attribute help to file"
 msgstr "속성 도움말을 파일에 쓰기"
 
-#: src/netedit/GNELoadThread.cpp:374
+#: src/netedit/GNELoadThread.cpp:375
 #, fuzzy
 msgid "Ignore question dialog during changing between supermodes in undo-redo"
 msgstr "실행 취소/다시 실행에서 슈퍼모드 변경 시 질문 대화상자 무시"
 
-#: src/netedit/GNELoadThread.cpp:377
+#: src/netedit/GNELoadThread.cpp:378
 #, fuzzy
 msgid "Ignore additional elements during loading of sumo-configs"
 msgstr "sumo-configs 불러오기 시 추가 요소 무시"
 
-#: src/netedit/GNELoadThread.cpp:380
+#: src/netedit/GNELoadThread.cpp:381
 #, fuzzy
 msgid "Ignore route elements during loading of sumo-configs"
 msgstr "sumo-configs 불러오기 시 Route 요소 무시"
 
-#: src/netedit/GNELoadThread.cpp:383
+#: src/netedit/GNELoadThread.cpp:384
 #, fuzzy
 msgid ""
 "If the lane is shorter than the additional, automatically enable friendlyPos"
 msgstr "차로가 추가 요소보다 짧으면 자동으로 friendlyPos 활성화"
 
-#: src/netedit/GNELoadThread.cpp:386
+#: src/netedit/GNELoadThread.cpp:387
 msgid ""
 "If enabled, loaded elements will be saved regardless of whether they have "
 "been edited or not (usually used in netedit test)"
@@ -5112,247 +5093,247 @@ msgstr ""
 "활성화 시 편집 여부와 관계없이 불러온 요소 저장됨 (보통 netedit 테스트에서 사"
 "용됨)"
 
-#: src/netedit/GNELoadThread.cpp:391
+#: src/netedit/GNELoadThread.cpp:392
 #, fuzzy
 msgid "Prefix for node naming"
 msgstr "노드 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:394
+#: src/netedit/GNELoadThread.cpp:395
 #, fuzzy
 msgid "Prefix for edge naming"
 msgstr "Edge 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:397
+#: src/netedit/GNELoadThread.cpp:398
 #, fuzzy
 msgid "Enable edge-infix (<fromNodeID><infix><toNodeID>)"
 msgstr "Edge 중위사 활성화 (<시작노드ID><중위사><종료노드ID>)"
 
-#: src/netedit/GNELoadThread.cpp:402
+#: src/netedit/GNELoadThread.cpp:403
 #, fuzzy
 msgid "Prefix for busStop naming"
 msgstr "버스 정류장 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:405
+#: src/netedit/GNELoadThread.cpp:406
 #, fuzzy
 msgid "Prefix for trainStop naming"
 msgstr "기차역 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:408
+#: src/netedit/GNELoadThread.cpp:409
 #, fuzzy
 msgid "Prefix for containerStop naming"
 msgstr "컨테이너 정류장 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:411
+#: src/netedit/GNELoadThread.cpp:412
 #, fuzzy
 msgid "Prefix for chargingStation naming"
 msgstr "충전소 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:414
+#: src/netedit/GNELoadThread.cpp:415
 #, fuzzy
 msgid "Prefix for parkingArea naming"
 msgstr "주차 구역 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:417
+#: src/netedit/GNELoadThread.cpp:418
 #, fuzzy
 msgid "Prefix for e1Detector naming"
 msgstr "e1검지기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:420
+#: src/netedit/GNELoadThread.cpp:421
 #, fuzzy
 msgid "Prefix for e2Detector naming"
 msgstr "e2검지기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:423
+#: src/netedit/GNELoadThread.cpp:424
 #, fuzzy
 msgid "Prefix for e3Detector naming"
 msgstr "e3검지기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:426
+#: src/netedit/GNELoadThread.cpp:427
 #, fuzzy
 msgid "Prefix for e1InstantDetector naming"
 msgstr "e1즉시검지기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:429
+#: src/netedit/GNELoadThread.cpp:430
 #, fuzzy
 msgid "Prefix for rerouter naming"
 msgstr "우회기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:432
+#: src/netedit/GNELoadThread.cpp:433
 #, fuzzy
 msgid "Prefix for calibrator naming"
 msgstr "보정기 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:435
+#: src/netedit/GNELoadThread.cpp:436
 #, fuzzy
 msgid "Prefix for routeProbe naming"
 msgstr "routeProbe 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:438
+#: src/netedit/GNELoadThread.cpp:439
 #, fuzzy
 msgid "Prefix for variable speed sign naming"
 msgstr "가변 속도 표지판 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:441
+#: src/netedit/GNELoadThread.cpp:442
 #, fuzzy
 msgid "Prefix for traction substation naming"
 msgstr "견인 변전소 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:444
+#: src/netedit/GNELoadThread.cpp:445
 #, fuzzy
 msgid "Prefix for overhead wire naming"
 msgstr "가공선 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:447
+#: src/netedit/GNELoadThread.cpp:448
 #, fuzzy
 msgid "Prefix for polygon naming"
 msgstr "폴리곤 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:450
+#: src/netedit/GNELoadThread.cpp:451
 #, fuzzy
 msgid "Prefix for poi naming"
 msgstr "POI 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:453
+#: src/netedit/GNELoadThread.cpp:454
 #, fuzzy
 msgid "Prefix for jps walkable area naming"
 msgstr "jps 보행 가능 구역 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:456
+#: src/netedit/GNELoadThread.cpp:457
 #, fuzzy
 msgid "Prefix for jps obstacle naming"
 msgstr "jps 장애물 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:461
+#: src/netedit/GNELoadThread.cpp:462
 #, fuzzy
 msgid "Prefix for route naming"
 msgstr "Route 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:464
+#: src/netedit/GNELoadThread.cpp:465
 #, fuzzy
 msgid "Prefix for route distribution naming"
 msgstr "Route 분포 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:467
+#: src/netedit/GNELoadThread.cpp:468
 #, fuzzy
 msgid "Prefix for type naming"
 msgstr "유형 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:470
+#: src/netedit/GNELoadThread.cpp:471
 #, fuzzy
 msgid "Prefix for type distribution naming"
 msgstr "유형 분포 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:473
+#: src/netedit/GNELoadThread.cpp:474
 #, fuzzy
 msgid "Prefix for vehicle naming"
 msgstr "차량 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:476
+#: src/netedit/GNELoadThread.cpp:477
 #, fuzzy
 msgid "Prefix for trip naming"
 msgstr "통행 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:479
+#: src/netedit/GNELoadThread.cpp:480
 #, fuzzy
 msgid "Prefix for flow naming"
 msgstr "흐름 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:482
+#: src/netedit/GNELoadThread.cpp:483
 #, fuzzy
 msgid "Prefix for person naming"
 msgstr "보행자 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:485
+#: src/netedit/GNELoadThread.cpp:486
 #, fuzzy
 msgid "Prefix for personFlow naming"
 msgstr "보행자 흐름 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:488
+#: src/netedit/GNELoadThread.cpp:489
 #, fuzzy
 msgid "Prefix for container naming"
 msgstr "컨테이너 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:491
+#: src/netedit/GNELoadThread.cpp:492
 #, fuzzy
 msgid "Prefix for containerFlow naming"
 msgstr "컨테이너 흐름 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:496
+#: src/netedit/GNELoadThread.cpp:497
 #, fuzzy
 msgid "Prefix for dataSet naming"
 msgstr "데이터셋 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:501
+#: src/netedit/GNELoadThread.cpp:502
 #, fuzzy
 msgid "Prefix for meanDataEdge naming"
 msgstr "meanData Edge 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:504
+#: src/netedit/GNELoadThread.cpp:505
 #, fuzzy
 msgid "Prefix for meanDataLane naming"
 msgstr "meanData 차로 명명 접두사"
 
-#: src/netedit/GNELoadThread.cpp:511
+#: src/netedit/GNELoadThread.cpp:512
 #, fuzzy
 msgid "Disable icons of special lanes"
 msgstr "특수 차로 아이콘 비활성화"
 
-#: src/netedit/GNELoadThread.cpp:514
+#: src/netedit/GNELoadThread.cpp:515
 #, fuzzy
 msgid "Disable textures"
 msgstr "텍스처 비활성화"
 
-#: src/netedit/GNELoadThread.cpp:517
+#: src/netedit/GNELoadThread.cpp:518
 #, fuzzy
 msgid "Load visualisation settings from FILE"
 msgstr "FILE에서 시각화 설정 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:522
+#: src/netedit/GNELoadThread.cpp:523
 #, fuzzy
 msgid "Load current viewport from registry"
 msgstr "레지스트리에서 현재 뷰포트 불러오기"
 
-#: src/netedit/GNELoadThread.cpp:525
+#: src/netedit/GNELoadThread.cpp:526
 #, fuzzy
 msgid "Create initial window with the given x,y size"
 msgstr "주어진 x,y 크기로 초기 창 생성"
 
-#: src/netedit/GNELoadThread.cpp:528
+#: src/netedit/GNELoadThread.cpp:529
 #, fuzzy
 msgid "Create initial window at the given x,y position"
 msgstr "주어진 x,y 위치에 초기 창 생성"
 
-#: src/netedit/GNELoadThread.cpp:533
+#: src/netedit/GNELoadThread.cpp:534
 #, fuzzy
 msgid "Enable overlay for screen recognition"
 msgstr "화면 인식을 위한 오버레이 활성화"
 
-#: src/netedit/GNELoadThread.cpp:536
+#: src/netedit/GNELoadThread.cpp:537
 #, fuzzy
 msgid "Enable output messages during GUI-Testing"
 msgstr "GUI 테스트 중 출력 메시지 활성화"
 
-#: src/netedit/GNELoadThread.cpp:539
+#: src/netedit/GNELoadThread.cpp:540
 #, fuzzy
 msgid "Enable output messages during GUI-Testing specific of gl functions"
 msgstr "gl 함수 관련 GUI 테스트 중 출력 메시지 활성화"
 
-#: src/netedit/GNELoadThread.cpp:542
+#: src/netedit/GNELoadThread.cpp:543
 #, fuzzy
 msgid "Save gui settings in the given settings-output file"
 msgstr "주어진 설정 출력 파일에 GUI 설정 저장"
 
-#: src/netedit/GNELoadThread.cpp:549
+#: src/netedit/GNELoadThread.cpp:550
 #, fuzzy
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr "시작 시간을 초 단위로 정의; 시뮬레이션은 이 시간에 시작"
 
-#: src/netedit/GNELoadThread.cpp:552
+#: src/netedit/GNELoadThread.cpp:553
 #, fuzzy
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr "종료 시간을 초 단위로 정의; 시뮬레이션은 이 시간에 종료"
 
-#: src/netedit/GNELoadThread.cpp:555
+#: src/netedit/GNELoadThread.cpp:556
 #, fuzzy
 msgid ""
 "Length of the default interval length between action points for the car-"
@@ -5365,7 +5346,7 @@ msgstr ""
 "면 시뮬레이션 단계 길이가 기본값으로 사용됨. 차량 또는 VType별 설정이 기본값"
 "을 재정의함. 시뮬레이션 단계 길이의 배수여야 함."
 
-#: src/netedit/GNELoadThread.cpp:558
+#: src/netedit/GNELoadThread.cpp:559
 #, fuzzy
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
@@ -5374,7 +5355,7 @@ msgstr ""
 "기본 속도 편차 선택. 음수 값은 vClass별 기본값 사용 (기본 승객 클래스의 경우 "
 "0.1)"
 
-#: src/netedit/GNELoadThread.cpp:601
+#: src/netedit/GNELoadThread.cpp:602
 #, fuzzy
 msgid "Failed to reset options."
 msgstr "옵션 초기화 실패."
@@ -5552,147 +5533,147 @@ msgstr "데이터 요소 계산 중 ..."
 msgid "Finished computing data elements."
 msgstr "데이터 요소 계산 완료."
 
-#: src/netedit/GNENet.cpp:1661
+#: src/netedit/GNENet.cpp:1662
 #, fuzzy
 msgid "Position of joined junction"
 msgstr "연결된 교차로 위치"
 
-#: src/netedit/GNENet.cpp:1662
+#: src/netedit/GNENet.cpp:1663
 #, fuzzy
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr "연결된 교차로와 같은 위치에 선택되지 않은 다른 교차로가 있습니다."
 
-#: src/netedit/GNENet.cpp:1663
+#: src/netedit/GNENet.cpp:1664
 #, fuzzy
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "다른 선택된 교차로와 연결됩니다. 계속하시겠습니까?"
 
-#: src/netedit/GNENet.cpp:1767 src/netedit/GNENet.cpp:1773
+#: src/netedit/GNENet.cpp:1768 src/netedit/GNENet.cpp:1774
 msgid "Clear crossings"
 msgstr "횡단보도 지우기"
 
-#: src/netedit/GNENet.cpp:1768
+#: src/netedit/GNENet.cpp:1769
 msgid "There are no invalid crossings to remove."
 msgstr "제거할 잘못된 횡단보도가 없습니다."
 
-#: src/netedit/GNENet.cpp:1774
+#: src/netedit/GNENet.cpp:1775
 #, fuzzy
 msgid "Crossings will be cleared. Continue?"
 msgstr "횡단보도가 지워집니다. 계속하시겠습니까?"
 
-#: src/netedit/GNENet.cpp:1777
+#: src/netedit/GNENet.cpp:1778
 #, fuzzy
 msgid "clear crossings"
 msgstr "횡단보도 지우기"
 
-#: src/netedit/GNENet.cpp:1792
+#: src/netedit/GNENet.cpp:1793
 #, fuzzy
 msgid "clear junctions"
 msgstr "교차로 지우기"
 
-#: src/netedit/GNENet.cpp:1820
+#: src/netedit/GNENet.cpp:1821
 msgid "clear unused routes"
 msgstr "사용하지 않는 route 제거"
 
-#: src/netedit/GNENet.cpp:1875
+#: src/netedit/GNENet.cpp:1876
 msgid "merge routes"
 msgstr "route 병합"
 
-#: src/netedit/GNENet.cpp:1929
+#: src/netedit/GNENet.cpp:1930
 msgid "adjust person plans"
 msgstr "보행자 계획 조정"
 
-#: src/netedit/GNENet.cpp:1969
+#: src/netedit/GNENet.cpp:1970
 msgid "remove invalid demand elements"
 msgstr "잘못된 Demand 요소 제거"
 
-#: src/netedit/GNENet.cpp:1984
+#: src/netedit/GNENet.cpp:1985
 msgid "replace junction by geometry"
 msgstr "교차로를 Geometry로 대체"
 
-#: src/netedit/GNENet.cpp:2020
+#: src/netedit/GNENet.cpp:2021
 #, fuzzy
 msgid "Junction isn't removable"
 msgstr "Jucntion은 제거 불가합니다"
 
-#: src/netedit/GNENet.cpp:2032
+#: src/netedit/GNENet.cpp:2033
 #, fuzzy
 msgid "split junction"
 msgstr "교차로 분할"
 
-#: src/netedit/GNENet.cpp:2070
+#: src/netedit/GNENet.cpp:2071
 msgid "Could not rename split node to '%'"
 msgstr "분할 노드의 이름을 '%'(으)로 변경할 수 없습니다"
 
-#: src/netedit/GNENet.cpp:2112
+#: src/netedit/GNENet.cpp:2113
 #, fuzzy
 msgid "clear junction connections"
 msgstr "교차로 연결 지우기"
 
-#: src/netedit/GNENet.cpp:2124
+#: src/netedit/GNENet.cpp:2125
 #, fuzzy
 msgid "reset junction connections"
 msgstr "교차로 연결 초기화"
 
-#: src/netedit/GNENet.cpp:2135
+#: src/netedit/GNENet.cpp:2136
 #, fuzzy
 msgid "clear additional elements"
 msgstr "추가 요소 지우기"
 
-#: src/netedit/GNENet.cpp:2148
+#: src/netedit/GNENet.cpp:2149
 #, fuzzy
 msgid "clear demand elements"
 msgstr "Demand 요소 지우기"
 
-#: src/netedit/GNENet.cpp:2170
+#: src/netedit/GNENet.cpp:2171
 #, fuzzy
 msgid "clear data elements"
 msgstr "데이터 요소 지우기"
 
-#: src/netedit/GNENet.cpp:2181
+#: src/netedit/GNENet.cpp:2182
 #, fuzzy
 msgid "clear meanData elements"
 msgstr "meanData 요소 지우기"
 
-#: src/netedit/GNENet.cpp:2518 src/netedit/GNENet.cpp:2611
+#: src/netedit/GNENet.cpp:2519 src/netedit/GNENet.cpp:2612
 msgid "Duplicated ID"
 msgstr "중복된 ID"
 
-#: src/netedit/GNENet.cpp:2952
+#: src/netedit/GNENet.cpp:2953
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "Network 크기가 1광년을 초과합니다. 입력을 재검토하세요."
 
-#: src/netedit/GNENetHelper.cpp:1550
+#: src/netedit/GNENetHelper.cpp:1564
 msgid "Default vType doesn't exist"
 msgstr "기본 vType이 존재하지 않음"
 
-#: src/netedit/GNENetHelper.cpp:3514
+#: src/netedit/GNENetHelper.cpp:3528
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network"
 msgstr "Network"
 
-#: src/netedit/GNENetHelper.cpp:3546
+#: src/netedit/GNENetHelper.cpp:3560
 msgid "additional elements"
 msgstr "추가 요소"
 
-#: src/netedit/GNENetHelper.cpp:3578
+#: src/netedit/GNENetHelper.cpp:3592
 msgid "demand elements"
 msgstr "Demand 요소"
 
-#: src/netedit/GNENetHelper.cpp:3610
+#: src/netedit/GNENetHelper.cpp:3624
 msgid "data elements"
 msgstr "데이터 요소"
 
-#: src/netedit/GNENetHelper.cpp:3642
+#: src/netedit/GNENetHelper.cpp:3656
 msgid "meanData elements"
 msgstr "meanData 요소"
 
-#: src/netedit/GNENetHelper.cpp:3690
+#: src/netedit/GNENetHelper.cpp:3704
 msgid "Redo replace in TLS"
 msgstr "Redo replace in TLS"
 
-#: src/netedit/GNENetHelper.cpp:3696
+#: src/netedit/GNENetHelper.cpp:3710
 #, fuzzy
 msgid "Undo replace in TLS"
 msgstr "TLS에서 교체 실행 취소"
@@ -5700,27 +5681,24 @@ msgstr "TLS에서 교체 실행 취소"
 #: src/netedit/GNETagProperties.cpp:260 src/netedit/GNETagProperties.cpp:272
 #: src/netedit/GNETagProperties.cpp:284 src/netedit/GNETagProperties.cpp:296
 #: src/netedit/GNETagProperties.cpp:308 src/netedit/GNETagProperties.cpp:320
-#, fuzzy, c-format
+#, fuzzy
 msgid "Attribute '%' not defined"
 msgstr "속성 '%' 정의되지 않음"
 
 #: src/netedit/GNETagProperties.cpp:357
-#, fuzzy, c-format
+#, fuzzy
 msgid "Attribute '%' doesn't exist"
 msgstr "속성 '%' 존재하지 않음"
 
 #: src/netedit/GNETagProperties.cpp:364
-#, c-format
 msgid "Invalid index '%' used in getAttributeProperties(int)"
 msgstr "getAttributeProperties(int)에서 잘못된 인덱스 '%' 사용됨"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:91
-#, c-format
 msgid "Property for tag '%' not defined"
 msgstr "태그 '%'의 속성이 정의되지 않음"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:104
-#, c-format
 msgid "TagPropertySet for tag '%' not defined"
 msgstr "태그 '%'의 TagPropertySet이 정의되지 않음"
 
@@ -5800,7 +5778,7 @@ msgstr "TAZ 요소"
 #: src/netedit/frames/GNETagSelector.cpp:104
 #: src/netedit/frames/common/GNESelectorFrame.cpp:116
 #: src/netedit/frames/demand/GNEVehicleFrame.cpp:130
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2009
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2013
 #, fuzzy
 msgid "Vehicles"
 msgstr "차량"
@@ -8160,7 +8138,7 @@ msgid "PersonStop"
 msgstr "보행자 정차"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:6081
-#, fuzzy, c-format
+#, fuzzy
 msgid "Center view over element % after creation"
 msgstr "생성 후 요소 % 위에 뷰 중심"
 
@@ -9241,7 +9219,7 @@ msgid ""
 msgstr "여행 그룹의 ID. 같은 그룹의 사람들은 택시를 공유할 수 있음"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7422
-#, fuzzy, c-format
+#, fuzzy
 msgid "speed of the person for this % in m/s (not together with duration)"
 msgstr "이 %에 대한 보행자 속도 (m/s) (duration과 함께 사용 불가)"
 
@@ -9444,7 +9422,7 @@ msgstr "시뮬레이션 Network의 Edge ID"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7790
 #: src/netedit/GNETagPropertiesDatabase.cpp:7796
-#, fuzzy, c-format
+#, fuzzy
 msgid "The name of the lane the % shall be located at"
 msgstr "%가 위치할 차로의 이름"
 
@@ -9506,7 +9484,7 @@ msgid ""
 msgstr "주어진 차량 클래스를 명시적으로 금지 (주어지지 않으면 허용됨)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7890
-#, fuzzy, c-format
+#, fuzzy
 msgid "The position on the lane the % shall be laid on in meters"
 msgstr "%가 설치될 차로의 위치 (미터)"
 
@@ -9516,12 +9494,12 @@ msgid "Detect persons instead of vehicles (pedestrians or passengers)"
 msgstr "차량 대신 사람 감지 (보행자 또는 승객)"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7911
-#, fuzzy, c-format
+#, fuzzy
 msgid "The RGBA color with which the % shall be displayed"
 msgstr "%가 표시될 RGBA 색상"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:7921
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "The aggregation period the values the % detector collects shall be summed up"
 msgstr "% 검지기가 수집한 값을 합산할 집계 기간"
@@ -9708,7 +9686,7 @@ msgid "Only one lane per edge will be restricted to %."
 msgstr "Edge당 하나의 차로만 %로 제한됩니다."
 
 #: src/netedit/GNEViewNet.cpp:1048 src/netedit/GNEViewNet.cpp:1055
-#, fuzzy, c-format
+#, fuzzy
 msgid "Set vclass to % for selected lanes"
 msgstr "선택한 차로에 대해 vclass를 %로 설정"
 
@@ -9729,7 +9707,7 @@ msgid "restrict lane to "
 msgstr "차로를 다음으로 제한 "
 
 #: src/netedit/GNEViewNet.cpp:1116 src/netedit/GNEViewNet.cpp:1123
-#, fuzzy, c-format
+#, fuzzy
 msgid "Add vclass % to selected lanes"
 msgstr "선택한 차로에 vclass % 추가"
 
@@ -9755,7 +9733,7 @@ msgid "add vclass for "
 msgstr "다음에 대한 vclass 추가 "
 
 #: src/netedit/GNEViewNet.cpp:1198 src/netedit/GNEViewNet.cpp:1205
-#, fuzzy, c-format
+#, fuzzy
 msgid "Remove vclass % from selected lanes"
 msgstr "선택한 차로에서 vclass % 제거"
 
@@ -10168,7 +10146,7 @@ msgid "Set mode for editing network elements. (F2)"
 msgstr "Network elements 편집 모드로 설정. (F2)"
 
 #: src/netedit/GNEViewNetHelper.cpp:2408
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2263
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2273
 #, fuzzy
 msgid "Demand"
 msgstr "Demand"
@@ -10184,7 +10162,7 @@ msgid "Set mode for editing traffic demand. (F3)"
 msgstr "교통 Demand 편집 모드 설정. (F3)"
 
 #: src/netedit/GNEViewNetHelper.cpp:2413
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2421
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2431
 #, fuzzy
 msgid "Data"
 msgstr "데이터"
@@ -10871,12 +10849,12 @@ msgstr "삭제 다시 실행 "
 msgid "change '%' attribute in % '%' to '%'"
 msgstr "% '%'의 '%' 속성을 '%'(으)로 변경"
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:167
+#: src/netedit/changes/GNEChange_Attribute.cpp:163
 #, fuzzy
 msgid "Undo change "
 msgstr "변경 실행 취소 "
 
-#: src/netedit/changes/GNEChange_Attribute.cpp:173
+#: src/netedit/changes/GNEChange_Attribute.cpp:169
 #, fuzzy
 msgid "Redo change "
 msgstr "변경 다시 실행 "
@@ -11287,7 +11265,7 @@ msgid "Open Parameter Template"
 msgstr "매개변수 템플릿 열기"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:323
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of Parameters From % failed."
 msgstr "%에서 매개변수 불러오기 실패."
 
@@ -11342,12 +11320,12 @@ msgid "Key of Parameter cannot be empty"
 msgstr "매개변수 키는 비워둘 수 없음"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:451
-#, fuzzy, c-format
+#, fuzzy
 msgid "Key '%' of Parameter contains invalid characters"
 msgstr "매개변수 키 '%'에 잘못된 문자가 포함됨"
 
 #: src/netedit/dialogs/GNEParametersDialog.cpp:454
-#, fuzzy, c-format
+#, fuzzy
 msgid "Key '%' already exist"
 msgstr "키 '%'가 이미 존재함"
 
@@ -11649,8 +11627,8 @@ msgstr "색상 편집 대화상자 열기"
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:120
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:269
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:282
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:304
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:331
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:305
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:332
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:757
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:769
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:783
@@ -11662,9 +11640,9 @@ msgstr "참"
 #: src/netedit/dialogs/elements/GNEAttributeCarrierDialog.cpp:123
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:272
 #: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:285
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:306
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:328
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:334
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:307
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:329
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:335
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:760
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:772
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:789
@@ -11693,7 +11671,7 @@ msgid "there are invalid %s."
 msgstr "잘못된 %s가 있습니다."
 
 #: src/netedit/dialogs/elements/GNECalibratorDialog.cpp:91
-#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:228
+#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:226
 #, fuzzy
 msgid "No routes in net"
 msgstr "net에 Route 없음"
@@ -11739,7 +11717,7 @@ msgid "% of % '%' cannot be updated because"
 msgstr "% '%'의 %를 업데이트할 수 없습니다. 이유:"
 
 #: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:83
-#, fuzzy, c-format
+#, fuzzy
 msgid "at least one % must be defined."
 msgstr "최소 하나의 %가 정의되어야 합니다."
 
@@ -11752,12 +11730,12 @@ msgstr "net에 Edge 없음"
 msgid "No lanes in net"
 msgstr "net에 차로 없음"
 
-#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:224
+#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:222
 #, fuzzy
 msgid "Rerouter has more than one edge"
 msgstr "우회기에 둘 이상의 Edge가 있음"
 
-#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:259
+#: src/netedit/dialogs/elements/GNERerouterIntervalDialog.cpp:257
 #, fuzzy
 msgid "No parkingAreas in net"
 msgstr "net에 주차 구역(parkingAreas) 없음"
@@ -11805,13 +11783,13 @@ msgid "Error editing %"
 msgstr "% 편집 오류"
 
 #: src/netedit/dialogs/elements/GNEVehicleTypeDialog.cpp:1805
-#, fuzzy, c-format
+#, fuzzy
 msgid "The % cannot be updated because attribute % is invalid."
 msgstr "속성 %가 잘못되어 %를 업데이트할 수 없습니다."
 
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:35
 #: src/netedit/dialogs/file/GNEFileDialog.cpp:46
-#, fuzzy, c-format
+#, fuzzy
 msgid "Save % as"
 msgstr "% 다른 이름으로 저장"
 
@@ -11973,7 +11951,7 @@ msgid "Name"
 msgstr "이름"
 
 #: src/netedit/dialogs/file/GNEFileSelector.cpp:439
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1696
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1700
 #, fuzzy
 msgid "Size"
 msgstr "크기"
@@ -12275,7 +12253,7 @@ msgid ""
 msgstr "추가 요소 저장 취소 및 잘못된 정류장과 E2 검지기 선택"
 
 #: src/netedit/dialogs/fix/GNEFixAdditionalElementsDialog.cpp:107
-#, fuzzy, c-format
+#, fuzzy
 msgid "change % of invalid additionals"
 msgstr "잘못된 추가 요소의 % 변경"
 
@@ -12453,7 +12431,7 @@ msgid "Fix stop positions and save"
 msgstr "정차 위치 수정 및 저장"
 
 #: src/netedit/dialogs/fix/GNEFixDemandElementsDialog.cpp:345
-#, fuzzy, c-format
+#, fuzzy
 msgid "change % of invalid stops"
 msgstr "잘못된 정차의 % 변경"
 
@@ -12614,86 +12592,86 @@ msgstr "netedit 옵션 편집"
 msgid "Run netgenerate with advanced options"
 msgstr "고급 옵션으로 netgenerate 실행"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:77
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:145
 #, fuzzy
 msgid "Toggle Menu Tooltips"
 msgstr "메뉴 툴팁 전환"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:77
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:78
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:68
 #: src/utils/gui/windows/GUIGlChildWindow.cpp:145
 #, fuzzy
 msgid "Toggles whether tooltips in the menu shall be shown."
 msgstr "메뉴에서 툴팁 표시 여부를 전환합니다."
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:79
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:80
 #, fuzzy
 msgid "Save options"
 msgstr "옵션 저장"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:81
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:82
 #, fuzzy
 msgid "Save configuration file"
 msgstr "설정 파일 저장"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:82
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:83
 #, fuzzy
 msgid "Load options"
 msgstr "옵션 불러오기"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:84
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:85
 #, fuzzy
 msgid "Load configuration file"
 msgstr "설정 파일 불러오기"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:85
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:86
 #, fuzzy
 msgid "Default options"
 msgstr "기본 옵션"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:87
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:88
 #, fuzzy
 msgid "Reset all options to default"
 msgstr "모든 옵션을 기본값으로 초기화"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:95
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:96
 #, fuzzy
 msgid "Topics"
 msgstr "주제"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:152
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:153
 #, fuzzy
 msgid "Search"
 msgstr "검색"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:154
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:155
 #, fuzzy
 msgid "Include description in search"
 msgstr "검색에 설명 포함"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:242
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:260
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:243
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:261
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:144
 #: src/netedit/dialogs/tools/GNEPythonToolDialog.cpp:160
 #, fuzzy
 msgid "options file"
 msgstr "옵션 파일"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:359
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:360
 #, fuzzy
 msgid "Could not load configuration '"
 msgstr "설정을 불러올 수 없음 '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:363
-#: src/netedit/tools/GNEPythonTool.cpp:187
-#: src/netedit/tools/GNEPythonTool.cpp:191
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:364
+#: src/netedit/tools/GNEPythonTool.cpp:188
+#: src/netedit/tools/GNEPythonTool.cpp:192
 #, fuzzy
 msgid "Could not load tool configuration '"
 msgstr "도구 설정을 불러올 수 없음 '"
 
-#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:367
+#: src/netedit/dialogs/options/GNEOptionsEditor.cpp:368
 msgid "Loaded configuration."
 msgstr "구성이 로드되었습니다."
 
@@ -12703,13 +12681,13 @@ msgstr "구성이 로드되었습니다."
 msgid "Reset value"
 msgstr "값 초기화"
 
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:644
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:645
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:72
 #, fuzzy
 msgid "Select filename"
 msgstr "파일 이름 선택"
 
-#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:680
+#: src/netedit/dialogs/options/GNEOptionsEditorRow.cpp:681
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:223
 #, fuzzy
 msgid "XML file"
@@ -12814,12 +12792,12 @@ msgid "Grouped by categories"
 msgstr "카테고리별 그룹화"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:268
-#, fuzzy, c-format
+#, fuzzy
 msgid "Use current % file"
 msgstr "현재 % 파일 사용"
 
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:273
-#, fuzzy, c-format
+#, fuzzy
 msgid "Select % file"
 msgstr "% 파일 선택"
 
@@ -12925,7 +12903,7 @@ msgstr ""
 "netedit에서 접근을 구축할 수 없음; % '%'가 이미 Edge '%'에 접근을 소유함"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:214
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
 msgstr "netedit에서 접근을 구축할 수 없음; 차로 '%'는 보행자를 지원하지 않음"
@@ -12951,7 +12929,7 @@ msgid "add charging station '"
 msgstr "충전소 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:351
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
@@ -12999,7 +12977,7 @@ msgstr "유도 루프 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:493
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:556
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
@@ -13013,7 +12991,7 @@ msgid "add lane area detector '"
 msgstr "차로 영역 검지기 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:547
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; Lanes aren't "
 "consecutives."
@@ -13062,7 +13040,7 @@ msgid "add rerouter '"
 msgstr "우회기 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:963
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build interval with ID '%' in netedit; begin is greater than end."
 msgstr "netedit에서 ID '%'인 간격을 구축할 수 없음; begin이 end보다 큼."
@@ -13073,7 +13051,7 @@ msgid "add rerouter interval in '"
 msgstr "우회기 간격 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:979
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build interval with begin '%' and end '%' in '%' due overlapping."
 msgstr "'%'에서 begin '%'와 end '%'인 간격을 중복으로 인해 구축할 수 없음."
@@ -13089,9 +13067,8 @@ msgid "add closing reroute in '"
 msgstr "폐쇄 우회 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1063
-#, fuzzy
-msgid "add dest prob reroute in '"
-msgstr "목적지 확률 우회 추가 '"
+msgid "add dest prob reroute to '"
+msgstr ""
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1093
 #, fuzzy
@@ -13119,7 +13096,7 @@ msgid "add VSS Step in '"
 msgstr "VSS 단계 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1285
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
 msgstr "netedit에서 ID '%'인 기화기를 구축할 수 없음; begin이 end보다 큼."
@@ -13130,7 +13107,7 @@ msgid "add vaporizer in '"
 msgstr "기화기 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1347
-#, fuzzy, c-format
+#, fuzzy
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr "netedit에서 ID '%'인 TAZ를 구축할 수 없음; 잘못된 형태."
 
@@ -13165,7 +13142,7 @@ msgid "add traction substation '"
 msgstr "견인 변전소 추가 '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1547
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "Could not build overhead wire with ID '%' in netedit; Lanes aren't "
 "consecutives."
@@ -13192,7 +13169,7 @@ msgid "add POI lane '%'"
 msgstr "POI 차로 추가 '%'"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
-#, fuzzy, c-format
+#, fuzzy
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "netedit에서 ID '%'인 POI를 구축할 수 없음"
 
@@ -13230,7 +13207,7 @@ msgid "Both myEdge and myLane aren't defined"
 msgstr "myEdge와 myLane 모두 정의되지 않음"
 
 #: src/netedit/elements/additional/GNECalibratorFlow.cpp:118
-#, fuzzy, c-format
+#, fuzzy
 msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
@@ -13489,7 +13466,7 @@ msgstr "meanData 차로 추가"
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:161
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
-#, fuzzy, c-format
+#, fuzzy
 msgid "Could not build % in netedit"
 msgstr "netedit에서 %를 구축할 수 없음"
 
@@ -13499,7 +13476,7 @@ msgid "Edge doesn't exist."
 msgstr "Edge가 존재하지 않음."
 
 #: src/netedit/elements/data/GNEMeanDataHandler.cpp:179
-#, fuzzy, c-format
+#, fuzzy
 msgid "Attribute '%' doesn't exist."
 msgstr "속성 '%'가 존재하지 않음."
 
@@ -14173,7 +14150,7 @@ msgid "Replace junction by geometry point"
 msgstr "지오메트리 포인트로 교차로 대체"
 
 #: src/netedit/elements/network/GNEJunction.cpp:527
-#, fuzzy, c-format
+#, fuzzy
 msgid "Split junction (% end points)"
 msgstr "교차로 분할 (% 끝점)"
 
@@ -14193,7 +14170,7 @@ msgid "Convert to roundabout (using junction attribute radius %)"
 msgstr "회전교차로로 변환 (교차로 속성 반경 % 사용)"
 
 #: src/netedit/elements/network/GNEJunction.cpp:544
-#, fuzzy, c-format
+#, fuzzy
 msgid " of % junctions"
 msgstr " % 교차로의"
 
@@ -14308,7 +14285,7 @@ msgid "Unexpected LinkState '%'"
 msgstr "예기치 않은 LinkState '%'"
 
 #: src/netedit/elements/network/GNELane.cpp:1996
-#, fuzzy, c-format
+#, fuzzy
 msgid "Edge operations (% selected)"
 msgstr "Edge 작업 (% 선택됨)"
 
@@ -14398,7 +14375,7 @@ msgid "Smooth elevation of %"
 msgstr "%의 고도 부드럽게"
 
 #: src/netedit/elements/network/GNELane.cpp:2086
-#, fuzzy, c-format
+#, fuzzy
 msgid "Lane operations (% selected)"
 msgstr "차로 작업 (% 선택됨)"
 
@@ -14481,7 +14458,7 @@ msgid "Transform to restricted %"
 msgstr "제한된 %로 변환"
 
 #: src/netedit/elements/network/GNELane.cpp:2176
-#, fuzzy, c-format
+#, fuzzy
 msgid "Template operations (% selected)"
 msgstr "템플릿 작업 (% 선택됨)"
 
@@ -14594,7 +14571,7 @@ msgid "Change parent of this element"
 msgstr "이 요소의 부모 변경"
 
 #: src/netedit/frames/GNEAttributesEditorRow.cpp:653
-#, fuzzy, c-format
+#, fuzzy
 msgid "Inspect % parent"
 msgstr "% 부모 검사"
 
@@ -14644,7 +14621,7 @@ msgid "Open dialog for editing generic parameters"
 msgstr "일반 매개변수 편집 대화상자 열기"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:214
-#, fuzzy, c-format
+#, fuzzy
 msgid "Open % dialog"
 msgstr "% 대화상자 열기"
 
@@ -14656,12 +14633,12 @@ msgstr "속성 %에서 잘못된 값 '%'"
 #: src/netedit/frames/GNEAttributesEditorType.cpp:474
 #: src/netedit/frames/GNEAttributesEditorType.cpp:535
 #: src/netedit/frames/GNEAttributesEditorType.cpp:568
-#, fuzzy, c-format
+#, fuzzy
 msgid "change multiple % attributes"
 msgstr "여러 % 속성 변경"
 
 #: src/netedit/frames/GNEAttributesEditorType.cpp:538
-#, fuzzy, c-format
+#, fuzzy
 msgid "change % attribute"
 msgstr "% 속성 변경"
 
@@ -14793,7 +14770,7 @@ msgid "Hierarchy"
 msgstr "계층 구조"
 
 #: src/netedit/frames/GNEElementTree.cpp:201
-#, fuzzy, c-format
+#, fuzzy
 msgid "Default Vehicle Type '%' cannot be removed"
 msgstr "기본 차량 유형 '%'는 제거할 수 없음"
 
@@ -15081,7 +15058,7 @@ msgstr "- 평균 속도: "
 #: src/netedit/frames/GNEPathLegendModule.cpp:32
 #: src/netedit/frames/GNEPlanCreatorLegend.cpp:32
 #: src/netedit/frames/common/GNEMoveFrame.cpp:653
-#: src/netedit/frames/common/GNESelectorFrame.cpp:936
+#: src/netedit/frames/common/GNESelectorFrame.cpp:974
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:101
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:331
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:636
@@ -15343,7 +15320,7 @@ msgstr "정차"
 #: src/netedit/frames/GNETagSelector.cpp:110
 #: src/netedit/frames/common/GNESelectorFrame.cpp:117
 #: src/netedit/frames/demand/GNEPersonFrame.cpp:41
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2100
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2104
 #, fuzzy
 msgid "Persons"
 msgstr "보행자"
@@ -15397,7 +15374,7 @@ msgstr ""
 " 선택해야 합니다"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:85
-#, fuzzy, c-format
+#, fuzzy
 msgid "-Click over % to select"
 msgstr "-선택하려면 % 위를 클릭"
 
@@ -15412,12 +15389,12 @@ msgid "Use selected %s"
 msgstr "선택된 %s 사용"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:89
-#, fuzzy, c-format
+#, fuzzy
 msgid "% selector"
 msgstr "% 선택기"
 
 #: src/netedit/frames/GNEViewObjectSelector.cpp:150
-#, fuzzy, c-format
+#, fuzzy
 msgid "List of % cannot be empty"
 msgstr "% 목록은 비워둘 수 없음"
 
@@ -15507,7 +15484,7 @@ msgid "clear Edge Template"
 msgstr "Edge 템플릿 지우기"
 
 #: src/netedit/frames/common/GNEInspectorFrame.cpp:215
-#, fuzzy, c-format
+#, fuzzy
 msgid "Set edge '%' as Template"
 msgstr "Edge '%'를 템플릿으로 설정"
 
@@ -15822,7 +15799,7 @@ msgid "Selection information"
 msgstr "선택 정보"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:100
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2192
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2196
 #, fuzzy
 msgid "Junctions"
 msgstr "교차로"
@@ -15873,20 +15850,20 @@ msgid "TAZs"
 msgstr "TAZ"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:109
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2352
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2362
 #, fuzzy
 msgid "Polygons"
 msgstr "폴리곤"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:110
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2310
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2320
 #, fuzzy
 msgid "POIs"
 msgstr "POI"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:121
 #: src/netedit/frames/demand/GNEContainerFrame.cpp:41
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2153
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2157
 #, fuzzy
 msgid "Containers"
 msgstr "컨테이너"
@@ -16054,77 +16031,77 @@ msgstr "선택 반전"
 msgid "reduce network"
 msgstr "Network 축소"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:606
+#: src/netedit/frames/common/GNESelectorFrame.cpp:644
 #, fuzzy
 msgid "Confirm selection operation"
 msgstr "선택 작업 확인"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:607
+#: src/netedit/frames/common/GNESelectorFrame.cpp:645
 #, fuzzy
 msgid "There are locked elements in the current selection."
 msgstr "현재 선택에 잠긴 요소가 있음."
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:608
+#: src/netedit/frames/common/GNESelectorFrame.cpp:646
 #, fuzzy
 msgid "Apply operation to locked elements?"
 msgstr "잠긴 요소에 작업을 적용할까요?"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:638
+#: src/netedit/frames/common/GNESelectorFrame.cpp:676
 #, fuzzy
 msgid "Hierarchy operations"
 msgstr "계층 작업"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:644
+#: src/netedit/frames/common/GNESelectorFrame.cpp:682
 #, fuzzy
 msgid "Select parents"
 msgstr "부모 선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:651
-#: src/netedit/frames/common/GNESelectorFrame.cpp:662
+#: src/netedit/frames/common/GNESelectorFrame.cpp:689
+#: src/netedit/frames/common/GNESelectorFrame.cpp:700
 #, fuzzy
 msgid "Select"
 msgstr "선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:653
-#: src/netedit/frames/common/GNESelectorFrame.cpp:664
+#: src/netedit/frames/common/GNESelectorFrame.cpp:691
+#: src/netedit/frames/common/GNESelectorFrame.cpp:702
 #, fuzzy
 msgid "Unselect"
 msgstr "선택 해제"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:655
+#: src/netedit/frames/common/GNESelectorFrame.cpp:693
 #, fuzzy
 msgid "Select children"
 msgstr "자식 선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:786
+#: src/netedit/frames/common/GNESelectorFrame.cpp:824
 #, fuzzy
 msgid "select parents"
 msgstr "부모 선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:910
+#: src/netedit/frames/common/GNESelectorFrame.cpp:948
 #, fuzzy
 msgid "select children"
 msgstr "자식 선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:938
+#: src/netedit/frames/common/GNESelectorFrame.cpp:976
 #, fuzzy
 msgid "Hold <SHIFT> for rectangle selection."
 msgstr "사각형 선택을 위해 <SHIFT>를 누르세요."
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:938
+#: src/netedit/frames/common/GNESelectorFrame.cpp:976
 #, fuzzy
 msgid "Press <DEL> to delete selected objects."
 msgstr "선택된 객체를 삭제하려면 <DEL>을 누르세요."
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:949
+#: src/netedit/frames/common/GNESelectorFrame.cpp:987
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:317
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:168
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2384
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2394
 #, fuzzy
 msgid "Selection"
 msgstr "선택"
 
-#: src/netedit/frames/common/GNESelectorFrame.cpp:1112
+#: src/netedit/frames/common/GNESelectorFrame.cpp:1150
 #, fuzzy
 msgid "selection"
 msgstr "선택"
@@ -16240,12 +16217,12 @@ msgid "To TAZ"
 msgstr "도착 TAZ"
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:177
-#, fuzzy, c-format
+#, fuzzy
 msgid "A % must be defined within a dataSet."
 msgstr "%는 데이터셋 내에서 정의되어야 함."
 
 #: src/netedit/frames/data/GNETAZRelDataFrame.cpp:179
-#, fuzzy, c-format
+#, fuzzy
 msgid "A % must be defined within an interval."
 msgstr "%는 구간 내에서 정의되어야 함."
 
@@ -16343,7 +16320,7 @@ msgstr "현재 선택된 보행자 계획이 유효하지 않음."
 msgid "PersonPlans"
 msgstr "보행자 계획"
 
-#: src/netedit/frames/demand/GNERouteDistributionFrame.cpp:30
+#: src/netedit/frames/demand/GNERouteDistributionFrame.cpp:31
 #, fuzzy
 msgid "Route Distributions"
 msgstr "Route 분포"
@@ -16444,7 +16421,7 @@ msgstr "정차는 Route의 Edge 위에 배치해야 함"
 msgid "Stop must be placed over an embedded route's edge"
 msgstr "정차는 embedded route의 Edge 위에 배치해야 함"
 
-#: src/netedit/frames/demand/GNETypeDistributionFrame.cpp:30
+#: src/netedit/frames/demand/GNETypeDistributionFrame.cpp:31
 #, fuzzy
 msgid "Type Distributions"
 msgstr "유형 분포"
@@ -16576,7 +16553,7 @@ msgid "Current selected vehicle type isn't valid."
 msgstr "현재 선택된 차량 유형이 유효하지 않음."
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:43
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2475
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2485
 #, fuzzy
 msgid "Legend"
 msgstr "범례"
@@ -16890,8 +16867,8 @@ msgstr "Edge 유형/템플릿 사용"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:96
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:457
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1327
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1395
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1331
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1399
 #, fuzzy
 msgid "Add"
 msgstr "추가"
@@ -17100,8 +17077,8 @@ msgstr " 선택됨"
 msgid " Invalid"
 msgstr " 잘못됨"
 
-#: src/netedit/frames/network/GNEDecalFrame.cpp:29
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1858
+#: src/netedit/frames/network/GNEDecalFrame.cpp:31
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1862
 #, fuzzy
 msgid "Decals"
 msgstr "데칼"
@@ -17598,7 +17575,7 @@ msgid "TAZ shape needs at least three points"
 msgstr "TAZ 형태에는 최소 3개의 포인트가 필요"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:1497
-#, fuzzy, c-format
+#, fuzzy
 msgid "Created % sources and sinks"
 msgstr "% 출발지 및 도착지 생성됨"
 
@@ -18032,7 +18009,7 @@ msgid "Current selected wire isn't valid."
 msgstr "현재 선택된 전선이 유효하지 않음."
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:119
-#, fuzzy, c-format
+#, fuzzy
 msgid "A % needs at least two lane positions"
 msgstr "%에는 최소 두 개의 차로 위치가 필요"
 
@@ -18138,27 +18115,25 @@ msgid "load shapes from '"
 msgstr "형태 로드: '"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:226
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of shape file '%' failed"
 msgstr "형태 파일 '%' 로드 실패"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:229
-#, fuzzy, c-format
+#, fuzzy
 msgid "Loading of shape file '%' successfully"
 msgstr "형태 파일 '%' 로드 성공"
 
-#: src/netedit/tools/GNEPythonTool.cpp:43
+#: src/netedit/tools/GNEPythonTool.cpp:44
 #, fuzzy
 msgid "Execute python tool '"
 msgstr "Python 도구 실행 '"
 
-#: src/netedit/tools/GNEPythonTool.cpp:195
-#, c-format
+#: src/netedit/tools/GNEPythonTool.cpp:196
 msgid "Loaded % configuration."
 msgstr "구성 % 로드됨."
 
-#: src/netedit/tools/GNEPythonTool.cpp:211
-#, c-format
+#: src/netedit/tools/GNEPythonTool.cpp:212
 msgid "Saved % configuration."
 msgstr "구성 % 저장됨."
 
@@ -18238,12 +18213,12 @@ msgid "Ignoring item '%' because of invalid type %\n"
 msgstr "잘못된 유형 %로 인해 항목 '%' 무시\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:237
-#, fuzzy, c-format
+#, fuzzy
 msgid "Item '%' not found\n"
 msgstr "항목 '%'를 찾을 수 없음\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:244
-#, fuzzy, c-format
+#, fuzzy
 msgid "% objects ignored, % objects not found\n"
 msgstr "% 객체 무시됨, % 객체 찾을 수 없음\n"
 
@@ -18348,7 +18323,7 @@ msgid "Object must be a lane"
 msgstr "객체는 차로여야 함"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:304
-#, fuzzy, c-format
+#, fuzzy
 msgid "Copy % name to clipboard"
 msgstr "% 이름을 클립보드에 복사"
 
@@ -18421,15 +18396,15 @@ msgstr "POI '%' 대체"
 msgid "Replacing polygon '%'"
 msgstr "폴리곤 '%' 대체"
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1187
+#: src/utils/gui/images/GUIIconSubSys.cpp:1189
 msgid "Instance was previously created"
 msgstr "인스턴스가 이전에 생성됨"
 
-#: src/utils/gui/images/GUITextureSubSys.cpp:191
+#: src/utils/gui/images/GUITextureSubSys.cpp:194
 msgid "Undefined texture"
 msgstr "정의되지 않은 텍스처"
 
-#: src/utils/gui/images/VClassIcons.cpp:106
+#: src/utils/gui/images/VClassIcons.cpp:107
 msgid "Invalid vClass"
 msgstr "잘못된 vClass"
 
@@ -19380,7 +19355,7 @@ msgid "auto-center"
 msgstr "자동 중앙"
 
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:338
-#, fuzzy, c-format
+#, fuzzy
 msgid "% objects"
 msgstr "% 객체"
 
@@ -19419,697 +19394,705 @@ msgstr "뷰포트 저장"
 msgid "View Settings"
 msgstr "뷰 설정"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1069
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1073
 #, fuzzy
 msgid "Enter a name"
 msgstr "이름 입력"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1071
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1075
 #, fuzzy
 msgid "Please enter an alphanumeric name: "
 msgstr "영숫자 이름을 입력하세요: "
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1153
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1157
 #, fuzzy
 msgid "Export view settings"
 msgstr "뷰 설정 내보내기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1206
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1210
 #, fuzzy
 msgid "Import view settings"
 msgstr "뷰 설정 가져오기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1223
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1240
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1227
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1244
 #, fuzzy
 msgid "Load Decals"
 msgstr "데칼 로드"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1257
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1261
 #, fuzzy
 msgid "Save Decals"
 msgstr "데칼 저장"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1324
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1392
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1328
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1396
 #, fuzzy
 msgid "No Data"
 msgstr "데이터 없음"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1691
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1736
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1695
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1740
 #, fuzzy
 msgid "Only for selected"
 msgstr "선택된 항목만"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1693
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1697
 #, fuzzy
 msgid "constant text size"
 msgstr "고정 텍스트 크기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1701
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1874
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1912
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2027
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2117
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2170
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2196
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2315
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2357
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2427
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1705
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1878
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1916
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2031
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2121
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2174
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2200
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2325
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2367
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2437
 #, fuzzy
 msgid "Color"
 msgstr "색상"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1703
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1869
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1707
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1873
 #, fuzzy
 msgid "Background"
 msgstr "배경"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1734
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1738
 #, fuzzy
 msgid "Draw with constant size when zoomed out"
 msgstr "축소 시 일정 크기로 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1739
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1743
 #, fuzzy
 msgid "Minimum Size"
 msgstr "최소 크기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1743
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1747
 #, fuzzy
 msgid "Exaggerate by"
 msgstr "과장 정도"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1782
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1786
 #, fuzzy
 msgid "Recalibrate Rainbow"
 msgstr "무지개 재보정"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1789
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1793
 #, fuzzy
 msgid "min"
 msgstr "최소"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1794
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1798
 #, fuzzy
 msgid "max"
 msgstr "최대"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1799
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1803
 #, fuzzy
 msgid "center"
 msgstr "중앙"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1804
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1808
 #, fuzzy
 msgid "fix range"
 msgstr "범위 고정"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1849
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1853
 #, fuzzy
 msgid "Save the setting to registry"
 msgstr "설정을 레지스트리에 저장"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1850
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1854
 #, fuzzy
 msgid "Remove the setting from registry"
 msgstr "레지스트리에서 설정 제거"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1851
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1855
 #, fuzzy
 msgid "Export setting to file"
 msgstr "설정을 파일로 내보내기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1852
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1856
 #, fuzzy
 msgid "Load setting from file"
 msgstr "파일에서 설정 로드"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1855
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1859
 #, fuzzy
 msgid "Export includes:"
 msgstr "내보내기 포함:"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1856
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1860
 #, fuzzy
 msgid "Viewport"
 msgstr "뷰포트"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1857
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1861
 #, fuzzy
 msgid "Delay"
 msgstr "지연"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1859
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1863
 #, fuzzy
 msgid "Breakpoints"
 msgstr "중단점"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1878
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1882
 #, fuzzy
 msgid "Decals:"
 msgstr "데칼:"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1881
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1885
 #, fuzzy
 msgid "&Load XML Decals"
 msgstr "XML 데칼 로드(&L)"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1882
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1886
 #, fuzzy
 msgid "&Save XML Decals"
 msgstr "XML 데칼 저장(&S)"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1883
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1887
 #, fuzzy
 msgid "&Clear Decals"
 msgstr "데칼 지우기(&C)"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1888
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1892
 #, fuzzy
 msgid "Toggle grid"
 msgstr "그리드 전환"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1892
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1896
 #, fuzzy
 msgid "x-spacing"
 msgstr "x 간격"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1897
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1901
 #, fuzzy
 msgid "y-spacing"
 msgstr "y 간격"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1906
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1910
 #, fuzzy
 msgid "Streets"
 msgstr "도로"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1915
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1935
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2031
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2048
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2121
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2174
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2200
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2319
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2361
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2430
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2448
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1919
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1939
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2035
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2052
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2125
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2178
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2204
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2329
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2371
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2440
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2458
 #, fuzzy
 msgid "Interpolate"
 msgstr "보간"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1932
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1936
 #, fuzzy
 msgid "Scale width"
 msgstr "폭 스케일"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1952
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1956
 #, fuzzy
 msgid "Show bike markings"
 msgstr "자전거 표시 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1954
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1958
 #, fuzzy
 msgid "Show turning arrows"
 msgstr "회전 화살표 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1957
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1961
 #, fuzzy
 msgid "Show right-of-way rules"
 msgstr "우선권 규칙 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1959
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1963
 #, fuzzy
 msgid "Realistic stop line colors"
 msgstr "현실적인 정지선 색상"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1962
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1966
 #, fuzzy
 msgid "Show lane borders"
 msgstr "차로 경계 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1964
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1968
 #, fuzzy
 msgid "Show lane direction"
 msgstr "차로 방향 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1967
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1971
 #, fuzzy
 msgid "Hide macro connectors"
 msgstr "매크로 커넥터 숨기기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1969
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 #, fuzzy
 msgid "Show sublanes"
 msgstr "하위 차로 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1972
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1976
 #, fuzzy
 msgid "Show rails"
 msgstr "철로 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1975
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1979
 #, fuzzy
 msgid "Spread bidirectional railways/roads"
 msgstr "양방향 철도/도로 분산"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1976
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1980
 #, fuzzy
 msgid ""
 "Make both directional edges for a bidirectional railways or roads visible"
 msgstr "양방향 철도 또는 도로의 양방향 Edge 모두 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1979
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1983
 #, fuzzy
 msgid "Secondary shape"
 msgstr "보조 형태"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1988
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1992
 #, fuzzy
 msgid "Exaggerate width by"
 msgstr "폭 과장 정도"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1994
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1998
 #, fuzzy
 msgid "Minimum size"
 msgstr "최소 크기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2000
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2004
 #, fuzzy
 msgid "Show edge id"
 msgstr "Edge ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2001
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2005
 #, fuzzy
 msgid "Show street name"
 msgstr "도로 이름 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2002
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2006
 #, fuzzy
 msgid "Show edge color value"
 msgstr "Edge 색상 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2003
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2007
 #, fuzzy
 msgid "Show edge scale value"
 msgstr "Edge 스케일 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2014
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2105
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2158
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2018
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2109
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
 #, fuzzy
 msgid "Show As"
 msgstr "표시 형식"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2017
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2108
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2161
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2021
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2112
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2165
 #, fuzzy
 msgid "'triangles'"
 msgstr "'삼각형'"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2018
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2162
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2022
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2166
 #, fuzzy
 msgid "'boxes'"
 msgstr "'박스'"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2019
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2110
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2163
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2023
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2114
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2167
 #, fuzzy
 msgid "'simple shapes'"
 msgstr "'단순 형태'"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2020
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2111
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2164
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2024
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2115
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2168
 #, fuzzy
 msgid "'raster images'"
 msgstr "'래스터 이미지'"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2021
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2109
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2025
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2113
 #, fuzzy
 msgid "'circles'"
 msgstr "'원'"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2045
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2445
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2049
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2455
 #, fuzzy
 msgid "Scale size"
 msgstr "크기 스케일"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2057
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2061
 #, fuzzy
 msgid "Show vehicle id"
 msgstr "차량 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2058
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2062
 #, fuzzy
 msgid "Show vehicle color value"
 msgstr "차량 색상 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2059
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2063
 #, fuzzy
 msgid "Show vehicle scale value"
 msgstr "차량 스케일 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2060
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2064
 #, fuzzy
 msgid "Show vehicle text param"
 msgstr "차량 텍스트 매개변수 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2066
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2070
 #, fuzzy
 msgid "Show blinker / brake lights"
 msgstr "방향지시등 / 브레이크등 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2068
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2072
 #, fuzzy
 msgid "Show minimum gap"
 msgstr "최소 간격 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2070
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2074
 #, fuzzy
 msgid "Show brake gap"
 msgstr "제동 간격 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2072
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2076
 #, fuzzy
 msgid "Show Bluetooth range"
 msgstr "블루투스 범위 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2074
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
 #, fuzzy
 msgid "Show route index"
 msgstr "Route 인덱스 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2076
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2080
 #, fuzzy
 msgid "Scale length with geometry"
 msgstr "지오메트리에 따라 길이 스케일"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2082
 #, fuzzy
 msgid "Show stopping info"
 msgstr "정차 정보 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2078
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2082
 #, fuzzy
 msgid "Show parking info"
 msgstr "주차 정보 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2081
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2085
 #, fuzzy
 msgid "Show charging info"
 msgstr "충전 정보 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2083
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2087
 #, fuzzy
 msgid "Draw reversed vehicles in reverse"
 msgstr "역방향 차량을 역방향으로 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2128
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2132
 #, fuzzy
 msgid "Show person id"
 msgstr "보행자 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2129
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2133
 #, fuzzy
 msgid "Show person color value"
 msgstr "보행자 색상 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2137
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2141
 msgid "Show JuPedSim pedestrian network"
 msgstr "JuPedSim 보행자 Network 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2181
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2185
 #, fuzzy
 msgid "Show container id"
 msgstr "컨테이너 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2208
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2212
 #, fuzzy
 msgid "Draw junction shape"
 msgstr "교차로 형태 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2210
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2214
 #, fuzzy
 msgid "Draw crossings/walkingareas"
 msgstr "횡단보도/보행구역 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2212
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2216
 #, fuzzy
 msgid "Show lane to lane connections"
 msgstr "차로 간 연결 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2216
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2220
 #, fuzzy
 msgid "Show link tls index"
 msgstr "링크 TLS 인덱스 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2217
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2221
 #, fuzzy
 msgid "Show link junction index"
 msgstr "링크 교차로 인덱스 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2218
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2222
 #, fuzzy
 msgid "Show junction id"
 msgstr "교차로 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2219
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2223
 #, fuzzy
 msgid "Show internal junction id"
 msgstr "내부 교차로 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2220
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2224
 #, fuzzy
 msgid "Show internal edge id"
 msgstr "내부 Edge ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2221
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2225
 #, fuzzy
 msgid "Show crossing and walkingarea id"
 msgstr "횡단보도 및 보행구역 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2222
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2226
 #, fuzzy
 msgid "Show traffic light phase index"
 msgstr "신호등 단계 인덱스 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2223
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2227
 #, fuzzy
 msgid "Show traffic light phase name"
 msgstr "신호등 단계 이름 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2224
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2228
 #, fuzzy
 msgid "Show junction name"
 msgstr "교차로 이름 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2230
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2234
 #, fuzzy
 msgid "Additional"
 msgstr "추가 요소"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2235
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2239
 #, fuzzy
 msgid "Show object id"
 msgstr "객체 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2236
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2240
 #, fuzzy
 msgid "Show full name"
 msgstr "전체 이름 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2243
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2247
 #, fuzzy
 msgid "StoppingPlace"
 msgstr "정차 장소"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2244
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2248
 #, fuzzy
 msgid "body"
 msgstr "본체"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2245
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2249
 #, fuzzy
 msgid "sign"
 msgstr "표지판"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2268
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2259
+msgid "parking area"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2262
+msgid "parking space"
+msgstr ""
+
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2278
 #, fuzzy
 msgid "element"
 msgstr "요소"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2326
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2336
 #, fuzzy
 msgid "POI detail"
 msgstr "POI 상세"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2331
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2368
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2341
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2378
 #, fuzzy
 msgid "Custom Layer"
 msgstr "사용자 정의 레이어"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2337
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2347
 #, fuzzy
 msgid "Show poi id"
 msgstr "POI ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2338
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2348
 #, fuzzy
 msgid "Show poi type"
 msgstr "POI 유형 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2339
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2349
 #, fuzzy
 msgid "Show poi text param"
 msgstr "POI 텍스트 매개변수 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2374
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2384
 #, fuzzy
 msgid "Show polygon id"
 msgstr "폴리곤 ID 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2375
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2385
 #, fuzzy
 msgid "Show polygon types"
 msgstr "폴리곤 유형 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2389
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2399
 #, fuzzy
 msgid "Default Selection Color"
 msgstr "기본 선택 색상"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2392
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2402
 #, fuzzy
 msgid "Miscellaneous"
 msgstr "기타"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2458
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2468
 #, fuzzy
 msgid "Exaggerate edgeRelation width by"
 msgstr "Edge 관계 폭 과장 정도"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2463
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2473
 #, fuzzy
 msgid "Exaggerate tazRelation width by"
 msgstr "TAZ 관계 폭 과장 정도"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2469
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2479
 #, fuzzy
 msgid "Show data color value"
 msgstr "데이터 색상 값 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2480
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2490
 #, fuzzy
 msgid "Show Size Legend"
 msgstr "크기 범례 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2483
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2493
 #, fuzzy
 msgid "Show Edge Color Legend"
 msgstr "Edge 색상 범례 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2486
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2496
 #, fuzzy
 msgid "Show Vehicle Color Legend"
 msgstr "차량 색상 범례 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2498
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2508
 #, fuzzy
 msgid "UI Scaling"
 msgstr "UI 스케일링"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2505
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2515
 #, fuzzy
 msgid "Combobox max rows"
 msgstr "콤보박스 최대 행 수"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2509
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2519
 #, fuzzy
 msgid "Disable hide by zoom"
 msgstr "줌으로 숨기기 비활성화"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2510
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2520
 #, fuzzy
 msgid "Disable hiding edges with high zoom out"
 msgstr "높은 축소 시 Edge 숨기기 비활성화"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2513
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2523
 #, fuzzy
 msgid "Dither"
 msgstr "디더링"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2519
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2529
 #, fuzzy
 msgid "Draw boundaries"
 msgstr "경계 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2522
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2532
 #, fuzzy
 msgid "Force draw for rectangle selection"
 msgstr "사각형 선택 강제 그리기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2525
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2535
 #, fuzzy
 msgid "Disable dotted contours during selection/deletion"
 msgstr "선택/삭제 시 점선 윤곽 비활성화"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2528
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2538
 #, fuzzy
 msgid "Recalculate boundaries"
 msgstr "경계 재계산"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2531
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2541
 #, fuzzy
 msgid "Show geometry point indices"
 msgstr "지오메트리 포인트 인덱스 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2537
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2547
 #, fuzzy
 msgid "3D view"
 msgstr "3D 뷰"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2542
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2552
 #, fuzzy
 msgid "Ignore color scheme for vehicles"
 msgstr "차량 색상 체계 무시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2544
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2554
 #, fuzzy
 msgid "Show TLS link markers"
 msgstr "TLS 링크 마커 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2547
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2557
 #, fuzzy
 msgid "Show domes around TLS models from decals"
 msgstr "데칼에서 TLS 모델 주위에 돔 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2550
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2560
 #, fuzzy
 msgid "Show auto-generated TLS models"
 msgstr "자동 생성된 TLS 모델 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2552
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2562
 #, fuzzy
 msgid "Show head-up display"
 msgstr "헤드업 디스플레이 표시"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2558
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2568
 #, fuzzy
 msgid "Sun brightness"
 msgstr "태양 밝기"
 
-#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2570
+#: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2580
 #, fuzzy
 msgid "Sky color"
 msgstr "하늘 색상"
@@ -20317,6 +20300,10 @@ msgstr "(프로젝션이 정의되지 않음)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1801
 msgid "Could not transform coordinates from WGS84 in decal %, assuming UTM."
 msgstr "데칼 %에서 WGS84 좌표를 변환할 수 없습니다, UTM으로 가정합니다."
+
+#, fuzzy
+#~ msgid "add dest prob reroute in '"
+#~ msgstr "목적지 확률 우회 추가 '"
 
 #, fuzzy
 #~ msgid "The id of the vehicle type to use for this trip"

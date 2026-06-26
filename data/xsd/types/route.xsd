@@ -264,6 +264,7 @@
         <xsd:attribute name="resCoef_linear" type="floatType"/>
         <xsd:attribute name="resCoef_quadratic" type="floatType"/>
         <xsd:attribute name="curveResistance" type="floatType"/>
+        <xsd:attribute name="curveIntegration" type="floatType"/>
         <xsd:attribute name="roeckl_sharp_radius" type="floatType"/>
         <xsd:attribute name="roeckl_numerator" type="floatType"/>
         <xsd:attribute name="roeckl_numerator_sharp" type="floatType"/>

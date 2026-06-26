@@ -70,3 +70,6 @@ ticket5029
 
 # distance from lane center should be less relevant than angle if the vehicle is fully on the lane
 ticket15282
+
+# handle moveTo while overtaking through the opposite direction
+opposite_driving

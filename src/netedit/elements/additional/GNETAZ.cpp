@@ -43,6 +43,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_TAZ),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, ""),
@@ -60,6 +64,9 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, FileBucket* fileBucket, const
     // update geometry
     updateGeometry();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNETAZ::~GNETAZ() {

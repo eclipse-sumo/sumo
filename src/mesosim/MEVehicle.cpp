@@ -92,7 +92,8 @@ MEVehicle::getAngle() const {
 double
 MEVehicle::getSlope() const {
     const MSLane* const lane = getEdge()->getLanes()[MAX2(0, getQueIndex())];
-    return lane->getShape().slopeDegreeAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()));
+    return lane->getShape().slopeDegreeAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()
+                - (MSGlobals::gSlopeCentered ? getLength() / 2 : 0)));
 }
 
 

@@ -145,7 +145,7 @@ starting edges and inserted with high speed on a reasonable lane.
 !!! note
     Quoting of trip attributes on Linux may also use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
-The option **--fringe-start-attributes** works in the same way as **--trip-attributes** but will only be applied to vehicles start on a [fringe edge](#fringe_factor).
+The option **--fringe-start-attributes** works in the same way as **--trip-attributes** but will only be applied to vehicles start on a [fringe edge](#fringe-factor).
 
 ### Setting a vehicle type from an external file
 
