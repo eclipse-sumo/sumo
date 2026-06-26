@@ -80,7 +80,6 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     address = "localhost:50051"; // for debugging
     if (address == "") {
 #ifdef HAVE_BOOST
-        namespace bp = boost::process::v1;
         bp::ipstream out;
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
         // std::string command = "python tools/jupedsim_grpc/servicer.py --port " + port + " 2>&1";

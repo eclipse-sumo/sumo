@@ -27,9 +27,13 @@
 #include <map>
 #include <geos_c.h>
 #ifdef HAVE_BOOST
+#if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
+#include <boost/process/v1.hpp>
+namespace bp = boost::process::v1;
+#else
 #include <boost/process.hpp>
-#include <boost/process/v1/child.hpp>
-#include <boost/process/v1/io.hpp>
+namespace bp = boost::process;
+#endif
 #endif
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
@@ -205,7 +209,7 @@ private:
     int64_t myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
 #ifdef HAVE_BOOST
-    boost::process::v1::child* myJuPedSimServer = nullptr;
+    bp::child* myJuPedSimServer = nullptr;
 #endif
     std::shared_ptr<grpc::Channel> myGrpcChannel;
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
