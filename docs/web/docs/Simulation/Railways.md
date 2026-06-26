@@ -359,12 +359,15 @@ The formula is computed from vType attributes as follows:
 For a curve radius below attribute `roeckl_sharp_radius`, the values `roeckl_numerator_sharp` and `roeckl_offset_sharp` are used instead.
 All defaults are given below. They are tailored to mainline rail on a gauge of 1,435mmm
 
+By default, curvature will be integrated over at least *100m*. If the geometry data of the network is very sparse it may be nessary to set a larger value using vType attribute `curveIntegration`.
+
 !!! caution
     For rail networks with lower gauge and very shape turns (or rolling stock with short wheel base), the values should be adapted. Attempting to compute resistance for a radius below the offset value will raise a warning.
 
 | Attribute Name  | Default Value          | 
 | ------------------- | ------------------ | 
 | curveResistance     | 0                  | 
+| curveIntegration    | 100                | 
 | roeckl_sharp_radius | 300                | 
 | roeckl_numerator    | 6380               | 
 | roeckl_numerator_sharp | 4910            | 
