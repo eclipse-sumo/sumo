@@ -12,8 +12,8 @@ from simulation_manager import SimulationManager
 
 
 class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
-    def __init__(self):
-        self._manager = SimulationManager()
+    def __init__(self, debug=False, sqlite=False):
+        self._manager = SimulationManager(debug=debug, sqlite=sqlite)
 
     def CreateGeometry(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
@@ -304,8 +304,10 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
 class Server:
     """Context manager for a running gRPC server."""
 
-    def __init__(self, port=50051):
+    def __init__(self, port=50051, debug=False, sqlite=False):
         self._port = port
+        self._debug = debug
+        self._sqlite = sqlite
         self._server = None
 
     def __enter__(self):
@@ -322,7 +324,7 @@ class Server:
             options=[("grpc.so_reuseport", 0)],
         )
         jupedsim_pb2_grpc.add_JuPedSimServiceServicer_to_server(
-            JuPedSimServiceServicer(), self._server
+            JuPedSimServiceServicer(self._debug, self._sqlite), self._server
         )
         # bound_port is 0 if the port is already in use with SO_REUSEPORT disabled (see above).
         bound_port = self._server.add_insecure_port(f"[::]:{self._port}")
@@ -345,8 +347,8 @@ class Server:
         return self._port
 
 
-def serve(port=50051):
-    with Server(port) as server:
+def serve(port=50051, debug=False, sqlite=False):
+    with Server(port, debug, sqlite) as server:
         try:
             server.wait_for_termination()
         except KeyboardInterrupt:
@@ -361,5 +363,13 @@ if __name__ == "__main__":
         "--port", type=int, default=50051,
         help="TCP port to listen on (default: 50051)",
     )
+    parser.add_argument(
+        "--debug", action="store_true",
+        help="Dumps a 'simulation{id}.py' per simulation that can be run as-is.",
+    )
+    parser.add_argument(
+        "--sqlite", action="store_true",
+        help="Writes a trajectory db 'simulation{id}.sqlite' per simulation.",
+    )
     args = parser.parse_args()
-    serve(args.port)
+    serve(args.port, args.debug, args.sqlite)
