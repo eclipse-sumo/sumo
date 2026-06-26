@@ -207,7 +207,6 @@ private:
     int64_t myJPSGeometryWithTrainsAndRamps;
     std::string myJPSModel;
     int64_t myJPSSimulation;
-    OutputDevice* myPythonScript = nullptr;
 #ifdef HAVE_BOOST
     bp::child* myJuPedSimServer = nullptr;
 #endif

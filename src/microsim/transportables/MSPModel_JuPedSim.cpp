@@ -86,6 +86,9 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
         const std::string sumoHome = (sumoHomeEnv == nullptr) ? "." : sumoHomeEnv;
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
         std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
+        if (oc.isSet("pedestrian.jupedsim.py")) {
+            command += " --debug";
+        }
         // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
         myJuPedSimServer = new bp::child(command);
         address = "localhost:" + port;
@@ -106,9 +109,6 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
 
 MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     clearState();
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
-    }
 #ifdef HAVE_BOOST
     if (myJuPedSimServer != nullptr) {
         myJuPedSimServer->terminate();
@@ -288,9 +288,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
 
     sumo_jupedsim_api::AddJourneyRequest journeyRequest;
     journeyRequest.set_simulation_id(myJPSSimulation);
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "\njourney = jps.JourneyDescription()\n";
-    }
     JPS_StageId startingStage = 0;
     for (const auto& p : waypoints) {
         const JPS_StageId waiting = std::get<0>(p);
@@ -335,12 +332,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     if (state->isWaitingToEnter()) {
         const Position p = state->getPosition(*state->getStage(), now);
         tryPedestrianInsertion(state, p);
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
-                              "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
-                              << startingStage << ",position=(" << departurePosition.x() << "," << departurePosition.y()
-                              << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
-        }
     } else {
         sumo_jupedsim_api::SwitchAgentJourneyRequest switchRequest;
         switchRequest.set_agent_id(state->getAgentId());
@@ -1162,14 +1153,6 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     // Polygons that define vanishing areas aren't part of the regular JuPedSim geometry.
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         polygonChanged(polygonWithID.second, true, false);
-    }
-    if (OutputDevice::createDeviceByOption("pedestrian.jupedsim.py")) {
-        myPythonScript = &OutputDevice::getDeviceByOption("pedestrian.jupedsim.py");
-        myPythonScript->setPrecision(10);
-        (*myPythonScript) << "import jupedsim as jps\nimport shapely\n\n"
-                          "with open('" << filename << "') as f: geom = shapely.from_wkt(f.read())\n"
-                          "simulation = jps.Simulation(dt=" << STEPS2TIME(myJPSDeltaT) << ", model=jps.CollisionFreeSpeedModel(), geometry=geom,\n"
-                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n";
     }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
