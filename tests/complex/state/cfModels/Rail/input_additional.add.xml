@@ -1,0 +1,3 @@
+<add>
+    <vType id="DEFAULT_VEHTYPE" carFollowModel="Rail" type="Freight" curveResistance="1"/>
+</add>

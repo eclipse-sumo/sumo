@@ -1,0 +1,9 @@
+Warning: Vehicle 'v.0' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.87, offset=2.32), time=21.00.
+Warning: Vehicle 'v.2' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.30, offset=2.12), time=101.00.
+Warning: Vehicle 'v.4' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.68, offset=1.32), time=186.00.
+Warning: Vehicle 'v.6' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.75, offset=0.24), time=274.00.
+Warning: Vehicle 'v.8' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-4.84, offset=2.37), time=360.00.
+Warning: Vehicle 'v.2' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.30, offset=2.12), time=101.00.
+Warning: Vehicle 'v.4' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.68, offset=1.32), time=186.00.
+Warning: Vehicle 'v.6' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-5.75, offset=0.24), time=274.00.
+Warning: Vehicle 'v.8' performs emergency stop at the end of lane '0/1to1/1_0' because of a red traffic light (decel=-4.84, offset=2.37), time=360.00.
