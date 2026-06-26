@@ -58,6 +58,11 @@ public:
     bool usingShortcuts() override {
         return myHaveAdditionalWalkableAreas;
     }
+    /// @brief precise lateral positioning when leaving trains is supported by JuPedSim
+    bool usingDoors() override {
+        return true;
+    }
+
     void registerArrived(const JPS_AgentId agentID);
     void clearState() override;
 
@@ -156,6 +161,9 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    /// @brief The random number generator for fluctuations on insertion
+    SumoRNG myRNG;
+
     /// @brief The network on which the simulation runs.
     MSNet* const myNetwork;
 
@@ -179,10 +187,10 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    JPS_Geometry myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    JPS_Geometry myJPSGeometry = nullptr; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    JPS_Geometry myJPSGeometryWithTrainsAndRamps;
+    JPS_Geometry myJPSGeometryWithTrainsAndRamps = nullptr;
     JPS_Model myJPSModel;
     JPS_OperationalModel myJPSOperationalModel = nullptr;
     JPS_Simulation myJPSSimulation;
