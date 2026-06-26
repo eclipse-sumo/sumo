@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CPack-WIX patch file.
+
+    Adds the `SumoExtras` ComponentGroup (defined in cpack_extras.wxs)
+    to the top-level installer feature so that the environment-variable
+    and file-association components are actually installed, and sets a
+    couple of ARP (Add/Remove Programs) properties.
+-->
+<CPackWiXPatch>
+
+    <CPackWiXFragment Id="#PRODUCTFEATURE">
+        <ComponentGroupRef Id="SumoExtras"/>
+    </CPackWiXFragment>
+
+    <CPackWiXFragment Id="#PRODUCT">
+        <Property Id="ARPNOMODIFY" Value="1"/>
+    </CPackWiXFragment>
+
+</CPackWiXPatch>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Extra WiX source merged into the CPack-generated installer.
+
+    It provides things that CPack/WIX cannot express on its own:
+      * SUMO_HOME, PATH and PYTHONPATH system environment variables
+      * the `Sumo.Document` ProgId with the .sumocfg file association
+        and "Set Program Access and Defaults" capability keys
+
+    All elements are pulled into the package via the
+    `SumoExtras` ComponentGroup which is added to the root feature
+    by `cpack_patch.xml`.
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
+
+            <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
+                <CreateFolder/>
+                <Environment Id="SUMO_HOME"   Name="SUMO_HOME"  Value="[INSTALL_ROOT]"
+                             Permanent="no" Part="all"  Action="set" System="yes" />
+            </Component>
+
+            <Component Id="SumoPathEnvironment" Guid="17359CBF-8C61-4C3D-B5A7-4407AFF096AA">
+                <CreateFolder/>
+                <Environment Id="PATH"        Name="PATH"       Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
+                             Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+
+            <Component Id="SumoPythonPathEnvironment" Guid="3C6E4C8E-C4D3-483D-93C0-546A04D360F0">
+                <CreateFolder/>
+                <Environment Id="PYTHONPATH"  Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
+                             Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+
+            <Component Id="SumoFileAssociation" Guid="BD1FC8EE-2B15-11E1-BA48-028037EC0200">
+                <CreateFolder/>
+
+                <!-- "Set Program Access and Defaults" / default-program registration -->
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                               Name="ApplicationDescription" Value="Simulation of Urban Mobility" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                               Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities"
+                               Name="ApplicationName" Value="SUMO" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\DefaultIcon"
+                               Value="[INSTALL_ROOT]bin\sumo-gui.exe,1" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\FileAssociations"
+                               Name=".sumocfg" Value="Sumo.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\MIMEAssociations"
+                               Name="application/sumo" Value="Sumo.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\Capabilities\shell\Open\command"
+                               Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\RegisteredApplications"
+                               Name="Sumo" Value="Software\[Manufacturer]\[ProductName]\Capabilities" Type="string" />
+
+                <!-- App Paths so Start->Run "sumo-gui" works -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
+                               Value="[INSTALL_ROOT]bin\sumo-gui.exe" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\sumo-gui.exe"
+                               Name="Path" Value="[INSTALL_ROOT]bin" Type="string" />
+
+                <!-- "Open with" list / Win7 jump menu pinning -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\SupportedTypes"
+                               Name=".sumocfg" Value="" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open"
+                               Name="Simulation of Urban Mobility" Value="SUMO" Type="string" />
+
+                <!-- Sumo.Document ProgId -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document"
+                               Name="SumoCfg" Value="SUMO Configuration File" Type="string" />
+                <ProgId Id="Sumo.Document" Description="SUMO Configuration File"
+                        Icon="[INSTALL_ROOT]bin\sumo-gui.exe" Advertise="no">
+                    <Extension Id="sumocfg" ContentType="application/sumo">
+                        <Verb Id="open" Command="Open with SUMO"
+                              TargetFile="sumo-gui.exe" Argument="-c &quot;%1&quot;" />
+                    </Extension>
+                </ProgId>
+            </Component>
+
+        </ComponentGroup>
+    </Fragment>
+</Wix>
