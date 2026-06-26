@@ -107,9 +107,11 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     if (myPythonScript != nullptr) {
         (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
     }
+#ifdef HAVE_BOOST
     if (myJuPedSimServer != nullptr) {
         myJuPedSimServer->terminate();
     }
+#endif
 
     // TODO: clear simulation, operational model and geometries?
 
