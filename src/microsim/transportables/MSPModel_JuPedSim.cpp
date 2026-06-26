@@ -77,14 +77,17 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
         }
     }
     std::string address = oc.getString("pedestrian.jupedsim.address");
-    address = "localhost:50051"; // for debugging
+    // address = "localhost:50051"; // for debugging
     if (address == "") {
 #ifdef HAVE_BOOST
-        bp::ipstream out;
+        const char* pythonEnv = getenv("PYTHON");
+        const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
+        const char* sumoHomeEnv = getenv("SUMO_HOME");
+        const std::string sumoHome = (sumoHomeEnv == nullptr) ? "." : sumoHomeEnv;
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
-        // std::string command = "python tools/jupedsim_grpc/servicer.py --port " + port + " 2>&1";
-        std::string command = "python 2>&1";
-        myJuPedSimServer = new bp::child(command, bp::std_out > out);
+        std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
+        // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
+        myJuPedSimServer = new bp::child(command);
         address = "localhost:" + port;
 #endif
     }
