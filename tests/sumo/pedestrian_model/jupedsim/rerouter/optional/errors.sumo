@@ -412,6 +412,9 @@ Warning: No connection between edge 'E1' and edge 'E3' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.182' walking to edge 'E4'. Using edge end instead.
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.181' walking to edge 'E4'. Using edge end instead.
+Warning: While switching to default geometry: Could not switch the geometry.
+The following agents would be outside of the new geometry: 222, 225, 227, 228, 229, 230, 231
+
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.184' walking to edge 'E4'. Using edge end instead.
 Warning: No connection between edge 'E1' and edge 'E2' found.

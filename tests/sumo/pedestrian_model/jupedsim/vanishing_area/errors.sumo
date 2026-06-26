@@ -1,6 +1,8 @@
 Warning: Polygon ':1387_c0' at junction '1387' has been replaced by its convex hull as it is not simple.
 Warning: Polygon ':1387_c1' at junction '1387' has been replaced by its convex hull as it is not simple.
 Warning: Polygon ':532_c0' at junction '532' has been replaced by its convex hull as it is not simple.
+Warning: Waiting point 1803.27,2057.55 is not in the geometry for exit on ':1387_c0_0'.
+Warning: Waiting point 1803.27,2057.55 is not in the geometry for entry on ':1387_c2_0'.
 Warning: Error while adding person 'pf_3.0' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7259956858807, 2076.4857056783767): distance 0
 Warning: Error while adding person 'pf_3.1' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7259956858807, 2076.4857056783767): distance 0
 Warning: Error while adding person 'pf_3.1' as JuPedSim agent: Model constraint violation: Agent (1799.2714751071517, 2076.477150879593) too close to agent (1799.1461875573377, 2076.032947826347): distance 0.46153366361662884
@@ -516,7 +518,7 @@ Warning: Error while adding person 'pf_2.47' as JuPedSim agent: Model constraint
 Warning: Error while adding person 'pf_2.48' as JuPedSim agent: Model constraint violation: Agent (1799.9659119932667, 2076.262916490461) too close to agent (1799.7179676112762, 2076.4697856196317): distance 0.3229105962405803
 Warning: Error while adding person 'pf_3.48' as JuPedSim agent: Model constraint violation: Agent (1800.1518748840072, 2076.509429539812) too close to agent (1799.7179676112762, 2076.4697856196317): distance 0.435714541570604
 Warning: The pedestrian model uses infrastructure which is not in the network, timeLoss and routeLength may be invalid.
-Warning: Error while adding person 'pf_0.49' as JuPedSim agent: Model constraint violation: Agent (1596.697789162289, 1889.6794100865457) too close to agent (1596.8931058029473, 1890.1045750807543): distance 0.4678823168474331
+Warning: Error while adding person 'pf_0.49' as JuPedSim agent: Model constraint violation: Agent (1596.697789162289, 1889.6794100865457) too close to agent (1596.893105802947, 1890.1045750807539): distance 0.46788231684692494
 Warning: Error while adding person 'pf_1.49' as JuPedSim agent: Model constraint violation: Agent (1790.9633184770448, 1899.297358680172) too close to agent (1790.7935791023867, 1899.2338882893139): distance 0.18121795116655534
 Warning: Error while adding person 'pf_2.49' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7179676112762, 2076.4697856196317): distance 0.01782970140801002
 Warning: Error while adding person 'pf_3.49' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7179676112762, 2076.4697856196317): distance 0.01782970140801002

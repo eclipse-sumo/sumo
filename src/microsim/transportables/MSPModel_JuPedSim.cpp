@@ -709,7 +709,10 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                     //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                     myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-                    JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                    const bool ok = JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, &message);
+                    if (!ok) {
+                        WRITE_WARNINGF(TL("While switching to train geometry: %"), JPS_ErrorMessage_GetMessage(message));
+                    }
                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -718,7 +721,10 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-            JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
+            const bool ok = JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, &message);
+            if (!ok) {
+                WRITE_WARNINGF(TL("While switching to default geometry: %"), JPS_ErrorMessage_GetMessage(message));
+            }
             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
@@ -1144,6 +1150,8 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
         GEOSGeometry* point = GEOSGeom_createPoint(seq);
         if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
             points.push_back({p.x(), p.y()});
+        } else {
+            WRITE_WARNINGF("Waiting point %,% is not in the geometry for % on '%'.", p.x(), p.y(), entry ? "entry" : "exit", crossing->getID())
         }
         GEOSGeom_destroy(point);
     }
