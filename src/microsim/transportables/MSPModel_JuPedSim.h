@@ -80,6 +80,10 @@ public:
     bool usingShortcuts() override {
         return myHaveAdditionalWalkableAreas;
     }
+    /// @brief precise lateral positioning when leaving trains is supported by JuPedSim
+    bool usingDoors() override {
+        return true;
+    }
     void registerArrived(const JPS_AgentId agentID);
     void clearState() override;
 
@@ -178,6 +182,9 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    /// @brief The random number generator for fluctuations on insertion
+    SumoRNG myRNG;
+
     /// @brief The network on which the simulation runs.
     MSNet* const myNetwork;
 
@@ -201,13 +208,12 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    int64_t myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    int64_t myJPSGeometry = -1; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    int64_t myJPSGeometryWithTrainsAndRamps;
+    int64_t myJPSGeometryWithTrainsAndRamps = -1;
     std::string myJPSModel;
     int64_t myJPSSimulation;
-    OutputDevice* myPythonScript = nullptr;
 #ifdef HAVE_BOOST
     bp::child* myJuPedSimServer = nullptr;
 #endif
@@ -264,8 +270,8 @@ private:
 
     template <class Request, class Response>
     Response
-    callGrpc(grpc::Status (sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
-             Request& request, const std::string& what, const bool warnOnly=false) {
+    callGrpc(grpc::Status(sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
+             Request& request, const std::string& what, const bool warnOnly = false) {
         grpc::ClientContext context;
         Response response;
         request.set_simulation_id(myJPSSimulation);

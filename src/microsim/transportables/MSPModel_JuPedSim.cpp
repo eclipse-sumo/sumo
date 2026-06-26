@@ -37,6 +37,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSTrainHelper.h>
+#include <microsim/MSRouteHandler.h>
 #include <libsumo/Helper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -65,9 +66,10 @@ const std::vector<MSPModel_JuPedSim::PState*> MSPModel_JuPedSim::noPedestrians;
 // method definitions
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
-    myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
+    myRNG("JuPedSim"), myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
+    RandHelper::initRandGlobal(&myRNG);
     myJPSModel = oc.getString("pedestrian.jupedsim.model");
     if (myJPSModel.find("Model") == std::string::npos) {
         // TODO warn about outdated model name
@@ -77,14 +79,20 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
         }
     }
     std::string address = oc.getString("pedestrian.jupedsim.address");
-    address = "localhost:50051"; // for debugging
+    // address = "localhost:50051"; // for debugging
     if (address == "") {
 #ifdef HAVE_BOOST
-        bp::ipstream out;
+        const char* pythonEnv = getenv("PYTHON");
+        const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
+        const char* sumoHomeEnv = getenv("SUMO_HOME");
+        const std::string sumoHome = (sumoHomeEnv == nullptr) ? "." : sumoHomeEnv;
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
-        // std::string command = "python tools/jupedsim_grpc/servicer.py --port " + port + " 2>&1";
-        std::string command = "python 2>&1";
-        myJuPedSimServer = new bp::child(command, bp::std_out > out);
+        std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
+        if (oc.isSet("pedestrian.jupedsim.py")) {
+            command += " --debug";
+        }
+        // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
+        myJuPedSimServer = new bp::child(command);
         address = "localhost:" + port;
 #endif
     }
@@ -103,9 +111,6 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
 
 MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     clearState();
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
-    }
 #ifdef HAVE_BOOST
     if (myJuPedSimServer != nullptr) {
         myJuPedSimServer->terminate();
@@ -209,8 +214,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                 const Boundary& bbox = tazShape->getShape().getBoxBoundary();
                 while (!tazShape->getShape().around(departurePosition)) {
                     // TODO: Optimize for speed if necessary or at least abort trying to find a point.
-                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax()));
-                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax()));
+                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax(), &myRNG));
+                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax(), &myRNG));
                 }
             }
         }
@@ -222,7 +227,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             departureRelativePositionY = 0.0;
         }
         if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
-            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth, &myRNG);
         }
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos() + radius + POSITION_EPS, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
@@ -285,9 +290,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
 
     sumo_jupedsim_api::AddJourneyRequest journeyRequest;
     journeyRequest.set_simulation_id(myJPSSimulation);
-    if (myPythonScript != nullptr) {
-        (*myPythonScript) << "\njourney = jps.JourneyDescription()\n";
-    }
     JPS_StageId startingStage = 0;
     for (const auto& p : waypoints) {
         const JPS_StageId waiting = std::get<0>(p);
@@ -332,12 +334,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     if (state->isWaitingToEnter()) {
         const Position p = state->getPosition(*state->getStage(), now);
         tryPedestrianInsertion(state, p);
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
-                              "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
-                              << startingStage << ",position=(" << departurePosition.x() << "," << departurePosition.y()
-                              << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
-        }
     } else {
         sumo_jupedsim_api::SwitchAgentJourneyRequest switchRequest;
         switchRequest.set_agent_id(state->getAgentId());
@@ -396,8 +392,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
             Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5));
+            p.setx(p.x() + RandHelper::rand(-.5, .5, &myRNG));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5, &myRNG));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -515,7 +511,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         sumo_jupedsim_api::GetAgentsInRegionRequest agentsRequest;
         *agentsRequest.mutable_region() = area->areaBoundary;
         const sumo_jupedsim_api::AgentIdsResponse agentsResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetAgentsInRegion,
-                                     agentsRequest, TL("Error while retrieving agents in area: "));
+                agentsRequest, TL("Error while retrieving agents in area: "));
         const int numAgents = agentsResponse.agent_ids_size();
         if (numAgents == 0) {
             continue;
@@ -524,8 +520,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
             const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
             if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
-                for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
-                    const JPS_AgentId agentID = agentsResponse.agent_ids(0);
+                for (int k = 0; k < MIN2(nbrPeriodsCoveringTimestep, numAgents); k++) {
+                    const JPS_AgentId agentID = agentsResponse.agent_ids(k);
                     auto lambda = [agentID](const PState * const p) {
                         return p->getAgentId() == agentID;
                     };
@@ -645,10 +641,13 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-            sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
-            switchRequest.set_geometry_id(myJPSGeometry);
-            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to default geometry: "), true);
-            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+            if (myJPSGeometryWithTrainsAndRamps != -1) {
+                sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
+                switchRequest.set_geometry_id(myJPSGeometry);
+                callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to default geometry: "), true);
+                preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+                myJPSGeometryWithTrainsAndRamps = -1;
+            }
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
     }
@@ -1159,14 +1158,6 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     // Polygons that define vanishing areas aren't part of the regular JuPedSim geometry.
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         polygonChanged(polygonWithID.second, true, false);
-    }
-    if (OutputDevice::createDeviceByOption("pedestrian.jupedsim.py")) {
-        myPythonScript = &OutputDevice::getDeviceByOption("pedestrian.jupedsim.py");
-        myPythonScript->setPrecision(10);
-        (*myPythonScript) << "import jupedsim as jps\nimport shapely\n\n"
-                          "with open('" << filename << "') as f: geom = shapely.from_wkt(f.read())\n"
-                          "simulation = jps.Simulation(dt=" << STEPS2TIME(myJPSDeltaT) << ", model=jps.CollisionFreeSpeedModel(), geometry=geom,\n"
-                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n";
     }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
