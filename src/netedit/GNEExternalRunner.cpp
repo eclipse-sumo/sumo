@@ -29,15 +29,10 @@
 #endif
 #if __has_include(<boost/process/v1.hpp>)  // Boost 1.86+
 #include <boost/process/v1.hpp>
-#include <boost/process/v1/child.hpp>
-#include <boost/process/v1/io.hpp>
 namespace bp = bp;
 #else
 #include <boost/process.hpp>
-#include <boost/process/child.hpp>
-#include <boost/process/io.hpp>
 namespace bp = boost::process;
-#pragma GCC diagnostic pop
 #endif
 #ifdef _MSC_VER
 #pragma warning(pop)
