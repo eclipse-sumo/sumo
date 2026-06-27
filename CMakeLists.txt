@@ -49,7 +49,7 @@ if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 endif ()
 
 # the part after ... sets all cmake policies to "new" which have been introduced up to that cmake version
-cmake_minimum_required(VERSION 3.5...3.21 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5...3.31 FATAL_ERROR)
 project("${PROJECT_NAME}" CXX C)
 set(PACKAGE_VERSION "git")
 
@@ -723,11 +723,14 @@ if (MSVC)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
+    # all dependency dlls (in Release version), we exclude libsumo because it is part of the runtime component
     install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin COMPONENT dll
             FILES_MATCHING
             PATTERN "*.bat"
             PATTERN "*.dll"
             PATTERN "gdal*.exe"
+            PATTERN "libsumo*.dll" EXCLUDE
+            PATTERN "libtraci*.dll" EXCLUDE
             PATTERN "*d.dll" EXCLUDE
             PATTERN "*_Debug.dll" EXCLUDE
             PATTERN "gtest*.dll" EXCLUDE)
@@ -738,17 +741,17 @@ if (MSVC)
             PATTERN "zstd.dll")
 endif ()
 if (SKBUILD OR MSVC)
-    set(DATA_PATH "")
+    set(DATA_PATH "./")
 else ()
     set(DATA_PATH "share/sumo/")
 endif ()
 # Pre-built Java archives sitting in the source tree's bin/ directory.
-install(DIRECTORY bin DESTINATION ${SUMO_BIN_DIR} COMPONENT runtime
+install(DIRECTORY ${SUMO_BIN_DIR} DESTINATION bin COMPONENT runtime
         FILES_MATCHING PATTERN "*.jar")
 # Root-level documentation files (LICENSE, AUTHORS, README*, ChangeLog, CITATION.cff)
 file(GLOB SUMO_ROOT_MD_FILES "*.md")
 install(FILES LICENSE AUTHORS ChangeLog CITATION.cff ${SUMO_ROOT_MD_FILES}
-        DESTINATION ${DATA_PATH} COMPONENT root_docs)
+        DESTINATION ${DATA_PATH} COMPONENT docs OPTIONAL)
 # Documentation produced by the `userdoc`, `pydoc`, `javadoc`, `examples` targets.
 foreach (_sumo_doc_dir userdoc pydoc javadoc tutorial examples)
     install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs/${_sumo_doc_dir}

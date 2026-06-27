@@ -46,7 +46,7 @@ set(CPACK_PACKAGE_CONTACT           "sumo-dev@eclipse.org")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Simulation of Urban MObility")
 set(CPACK_PACKAGE_HOMEPAGE_URL      "https://eclipse.dev/sumo")
 set(CPACK_PACKAGE_VERSION           "${SUMO_CPACK_VERSION}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Eclipse\\Sumo")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "Eclipse/Sumo")
 set(CPACK_PACKAGE_FILE_NAME         "sumo-${SUMO_CPACK_VERSION}")
 
 # License file used by the installer. Can be overridden from the command
@@ -65,7 +65,6 @@ set(CPACK_COMPONENTS_ALL
     data            # XML schemata, edge type maps
     docs            # user/python/java/tutorial/examples docs
     include_files   # C++ headers, sources zip
-    root_docs       # LICENSE, AUTHORS, README, ChangeLog, ...
 )
 set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME       "Main program")
 set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "Executables and Python tools.")
@@ -80,10 +79,6 @@ set(CPACK_COMPONENT_DOCS_DISPLAY_NAME          "Documentation")
 set(CPACK_COMPONENT_DOCS_DESCRIPTION           "User, Python and Java documentation, tutorials and examples.")
 set(CPACK_COMPONENT_INCLUDE_FILES_DISPLAY_NAME "Includes")
 set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "C/C++ header files for libsumo / libtraci.")
-set(CPACK_COMPONENT_ROOT_DOCS_DISPLAY_NAME     "License & readme")
-set(CPACK_COMPONENT_ROOT_DOCS_DESCRIPTION      "License text and readme files.")
-set(CPACK_COMPONENT_ROOT_DOCS_HIDDEN           TRUE)
-set(CPACK_COMPONENT_ROOT_DOCS_REQUIRED         TRUE)
 
 # ---------------------------------------------------------------------------
 # WIX-specific configuration

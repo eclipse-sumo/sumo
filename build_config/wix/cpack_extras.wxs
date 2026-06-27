@@ -13,6 +13,7 @@
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
+        <Property Id="SUMOGUIEXEPATH" Value="[INSTALL_ROOT]bin\sumo-gui.exe" />
         <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
 
             <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
@@ -69,11 +70,11 @@
                 <!-- Sumo.Document ProgId -->
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document"
                                Name="SumoCfg" Value="SUMO Configuration File" Type="string" />
-                <ProgId Id="Sumo.Document" Description="SUMO Configuration File"
-                        Icon="[INSTALL_ROOT]bin\sumo-gui.exe" Advertise="no">
-                    <Extension Id="sumocfg" ContentType="application/sumo">
-                        <Verb Id="open" Command="Open with SUMO"
-                              TargetFile="sumo-gui.exe" Argument="-c &quot;%1&quot;" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\DefaultIcon"
+                               Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
+                <ProgId Id="Sumo.Document" Description="SUMO Configuration File" Advertise="no">
+                    <Extension Id="SumoCfg" ContentType="application/sumo">
+                        <Verb Id="open" Command="Open with SUMO GUI" TargetProperty="SUMOGUIEXEPATH" Argument="-c &quot;%1&quot;" />
                     </Extension>
                 </ProgId>
             </Component>
