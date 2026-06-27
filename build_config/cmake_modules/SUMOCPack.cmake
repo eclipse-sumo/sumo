@@ -1,20 +1,26 @@
-# SUMOCPack.cmake
-#
-# Configures CPack to build a Windows MSI installer for SUMO using the
-# built-in WIX generator. This file replaces the previous custom
-# `tools/build_config/wix.py` + hand-written `build_config/wix/*.wxs`
-# workflow.
-#
-# The WIX generator is only activated for MSVC builds. On other
-# platforms this module is a no-op (CPack is not invoked at all).
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2026-2026 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-if (DEFINED SUMO_CPACK_INCLUDED)
-    return()
-endif ()
-set(SUMO_CPACK_INCLUDED TRUE)
+# @file    SUMOCPack.cmake
+# @author  Michael Behrisch
+# @date    2026-06-27
+#
+# Configures CPack to build a Zip and a Windows MSI installer for SUMO using the
+# built-in WIX generator.
 
-if (NOT MSVC)
-    return()
+if (MSVC)
+    set(CPACK_GENERATOR "WIX;ZIP")
+else ()
+    set(CPACK_GENERATOR "ZIP")
 endif ()
 
 # ---------------------------------------------------------------------------
@@ -27,13 +33,16 @@ endif ()
 set(SUMO_CPACK_VERSION "0.0.0")
 if (Python_EXECUTABLE)
     execute_process(
-        COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/version.py --pep440
-        OUTPUT_VARIABLE _sumo_pep440
+        COMMAND ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build_config/version.py --pep440 -
+        OUTPUT_VARIABLE _version_pep440
         OUTPUT_STRIP_TRAILING_WHITESPACE
-        RESULT_VARIABLE _sumo_pep440_res
-        ERROR_QUIET)
-    if (_sumo_pep440_res EQUAL 0 AND _sumo_pep440 MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)")
-        set(SUMO_CPACK_VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
+        RESULT_VARIABLE _version_pep440_res)
+    if (_version_pep440_res EQUAL 0)
+        if (_version_pep440 MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)$")
+            set(SUMO_CPACK_VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}")
+        elseif (_version_pep440 MATCHES "^([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.post([0-9]+)")
+            set(SUMO_CPACK_VERSION "${CMAKE_MATCH_1}.${CMAKE_MATCH_2}.${CMAKE_MATCH_3}.${CMAKE_MATCH_4}")
+        endif ()
     endif ()
 endif ()
 
@@ -65,6 +74,7 @@ set(CPACK_COMPONENTS_ALL
     data            # XML schemata, edge type maps
     docs            # user/python/java/tutorial/examples docs
     include_files   # C++ headers, sources zip
+    tools           # Python tools
 )
 set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME       "Main program")
 set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "Executables and Python tools.")
@@ -79,22 +89,22 @@ set(CPACK_COMPONENT_DOCS_DISPLAY_NAME          "Documentation")
 set(CPACK_COMPONENT_DOCS_DESCRIPTION           "User, Python and Java documentation, tutorials and examples.")
 set(CPACK_COMPONENT_INCLUDE_FILES_DISPLAY_NAME "Includes")
 set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "C/C++ header files for libsumo / libtraci.")
+set(CPACK_COMPONENT_TOOLS_DISPLAY_NAME         "Tools")
+set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "Additional Python tooling e.g. for generating networks and demand.")
 
 # ---------------------------------------------------------------------------
 # WIX-specific configuration
 # ---------------------------------------------------------------------------
-set(CPACK_GENERATOR "WIX;ZIP")
-
 # Stable upgrade GUID (matches the value previously used by sumo.wxs so
 # that the new installer upgrades existing SUMO installations cleanly).
-set(CPACK_WIX_UPGRADE_GUID          "A764BC4F-2B15-11E1-9E7E-028037EC0200")
-set(CPACK_WIX_PRODUCT_ICON          "${CMAKE_SOURCE_DIR}/build_config/wix/webWizard.ico")
-set(CPACK_WIX_UI_BANNER             "${CMAKE_SOURCE_DIR}/build_config/wix/bannrbmp.bmp")
-set(CPACK_WIX_UI_DIALOG             "${CMAKE_SOURCE_DIR}/build_config/wix/dlgbmp.bmp")
-set(CPACK_WIX_PROGRAM_MENU_FOLDER   "SUMO")
-set(CPACK_WIX_ROOT_FEATURE_TITLE    "SUMO ${SUMO_CPACK_VERSION}")
+set(CPACK_WIX_UPGRADE_GUID             "A764BC4F-2B15-11E1-9E7E-028037EC0200")
+set(CPACK_WIX_PRODUCT_ICON             "${CMAKE_SOURCE_DIR}/build_config/wix/webWizard.ico")
+set(CPACK_WIX_UI_BANNER                "${CMAKE_SOURCE_DIR}/build_config/wix/bannrbmp.bmp")
+set(CPACK_WIX_UI_DIALOG                "${CMAKE_SOURCE_DIR}/build_config/wix/dlgbmp.bmp")
+set(CPACK_WIX_PROGRAM_MENU_FOLDER      "SUMO")
+set(CPACK_WIX_ROOT_FEATURE_TITLE       "SUMO ${SUMO_CPACK_VERSION}")
 set(CPACK_WIX_ROOT_FEATURE_DESCRIPTION "Simulation of Urban MObility")
-set(CPACK_WIX_PROPERTY_ARPCOMMENTS  "Simulation of Urban MObility")
+set(CPACK_WIX_PROPERTY_ARPCOMMENTS     "Simulation of Urban MObility")
 set(CPACK_WIX_PROPERTY_ARPURLINFOABOUT "https://eclipse.dev/sumo")
 set(CPACK_WIX_PROPERTY_ARPHELPLINK     "https://sumo.dlr.de/docs/")
 

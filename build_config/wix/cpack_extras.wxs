@@ -13,7 +13,6 @@
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
-        <Property Id="SUMOGUIEXEPATH" Value="[INSTALL_ROOT]bin\sumo-gui.exe" />
         <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
 
             <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
@@ -62,23 +61,65 @@
                                Name="Path" Value="[INSTALL_ROOT]bin" Type="string" />
 
                 <!-- "Open with" list / Win7 jump menu pinning -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe"
+                               Name="FriendlyAppName" Value="SUMO GUI" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open\command"
+                               Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\SupportedTypes"
                                Name=".sumocfg" Value="" Type="string" />
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\sumo-gui.exe\shell\open"
-                               Name="Simulation of Urban Mobility" Value="SUMO" Type="string" />
 
-                <!-- Sumo.Document ProgId -->
-                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document"
-                               Name="SumoCfg" Value="SUMO Configuration File" Type="string" />
+                <!-- Sumo.Document ProgId: registry entries for the sumocfg -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.sumocfg" Value="Sumo.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document" Value="SUMO Configuration File" Type="string" />
                 <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\DefaultIcon"
                                Value="[INSTALL_ROOT]bin\sumo-gui.exe,0" Type="string" />
-                <ProgId Id="Sumo.Document" Description="SUMO Configuration File" Advertise="no">
-                    <Extension Id="SumoCfg" ContentType="application/sumo">
-                        <Verb Id="open" Command="Open with SUMO GUI" TargetProperty="SUMOGUIEXEPATH" Argument="-c &quot;%1&quot;" />
-                    </Extension>
-                </ProgId>
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Sumo.Document\shell\open\command"
+                               Value="&quot;[INSTALL_ROOT]bin\sumo-gui.exe&quot; -c &quot;%1&quot;" Type="string" />
             </Component>
 
+            <Component Id="NeteditFileAssociation" Guid="32AD5722-97BE-492E-BE4E-F2D165188A0F">
+                <CreateFolder/>
+
+                <!-- "Set Program Access and Defaults" / default-program registration -->
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                            Name="ApplicationDescription" Value="SUMO Network Editor" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                            Name="ApplicationIcon" Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities"
+                            Name="ApplicationName" Value="SUMO Netedit" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\DefaultIcon"
+                            Value="[INSTALL_ROOT]bin\netedit.exe,1" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\FileAssociations"
+                            Name=".netecfg" Value="SumoNetedit.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\MIMEAssociations"
+                            Name="application/sumo-netedit" Value="SumoNetedit.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]Netedit\Capabilities\shell\Open\command"
+                            Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
+                <RegistryValue Root="HKLM" Key="Software\[Manufacturer]\[ProductName]\RegisteredApplications"
+                            Name="SumoNetedit" Value="Software\[Manufacturer]\[ProductName]Netedit\Capabilities" Type="string" />
+
+                <!-- App Paths so Start->Run "netedit" works -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
+                            Value="[INSTALL_ROOT]bin\netedit.exe" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\netedit.exe"
+                            Name="Path" Value="[INSTALL_ROOT]bin" Type="string" />
+
+                <!-- "Open with" list / Win7 jump menu pinning -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe"
+                            Name="FriendlyAppName" Value="SUMO Netedit" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe\shell\open\command"
+                            Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Applications\netedit.exe\SupportedTypes"
+                            Name=".netecfg" Value="" Type="string" />
+
+                <!-- SumoNetedit.Document ProgId: registry entries for the netecfg -->
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\.netecfg" Value="SumoNetedit.Document" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document" Value="Sumo Netedit Configuration File" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\DefaultIcon"
+                            Value="[INSTALL_ROOT]bin\netedit.exe,0" Type="string" />
+                <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\SumoNetedit.Document\shell\open\command"
+                            Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
+            </Component>
         </ComponentGroup>
     </Fragment>
 </Wix>

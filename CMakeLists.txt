@@ -766,7 +766,7 @@ if (SKBUILD)
     set(EXCLUDE_LIBTRACI "libtraci")
 endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
-install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
+install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools COMPONENT tools
         USE_SOURCE_PERMISSIONS COMPONENT runtime
         PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
