@@ -121,5 +121,23 @@
                             Value="&quot;[INSTALL_ROOT]bin\netedit.exe&quot; -c &quot;%1&quot;" Type="string" />
             </Component>
         </ComponentGroup>
+
+        <!-- <Icon Id="webwizIcon" SourceFile="webWizard.ico" /> -->
+        <ComponentGroup Id="SumoShortcuts" Directory="PROGRAM_MENU_FOLDER">
+            <Component Id="StartCommandLineShortcut" Guid="0F045CF0-2B14-11E1-9943-028037EC0200">
+                <Shortcut Id="startmenuBat" Name="SUMO (Command Line Environment)" Target="[INSTALL_ROOT]bin\start-command-line.bat" />
+                <RemoveFolder Id="RemoveStartCommandLineShortcut" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\Shortcuts"
+                            Name="StartCommandLine" Value="1" Type="integer" KeyPath="yes" />
+            </Component>
+
+            <Component Id="OSMWebWizardShortcut" Guid="020B4F21-0E79-41C8-A745-28CA9B426126">
+                <Shortcut Id="startWebWizPy" Name="SUMO OSM Web Wizard" Target="[INSTALL_ROOT]tools\osmWebWizard.py" />
+                <!-- <Shortcut Id="startWebWizPy" Name="SUMO OSM Web Wizard" Target="[INSTALL_ROOT]tools\osmWebWizard.py" Icon="webwizIcon" IconIndex="0" /> -->
+                <RemoveFolder Id="RemoveOSMWebWizardShortcut" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\Shortcuts"
+                            Name="OSMWebWizard" Value="1" Type="integer" KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
     </Fragment>
 </Wix>

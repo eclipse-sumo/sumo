@@ -120,8 +120,7 @@ set(CPACK_WIX_EXTENSIONS    "WixUtilExtension")
 # Desktop / start-menu shortcuts created automatically by CPack-WIX.
 # Format: <executable-without-extension>;<label>
 set(CPACK_PACKAGE_EXECUTABLES
-    "sumo-gui"  "sumo-gui"
-    "netedit"   "netedit")
-set(CPACK_CREATE_DESKTOP_LINKS "sumo-gui;netedit")
+    "sumo-gui"  "SUMO GUI"
+    "netedit"   "SUMO netedit")
 
 include(CPack)
