@@ -77,7 +77,7 @@ set(CPACK_COMPONENTS_ALL
     tools           # Python tools
 )
 set(CPACK_COMPONENT_RUNTIME_DISPLAY_NAME       "Main program")
-set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "Executables and Python tools.")
+set(CPACK_COMPONENT_RUNTIME_DESCRIPTION        "SUMO binaries and libsumo / libtraci C++ dlls.")
 set(CPACK_COMPONENT_RUNTIME_REQUIRED           TRUE)
 set(CPACK_COMPONENT_DLL_DISPLAY_NAME           "Runtime libraries")
 set(CPACK_COMPONENT_DLL_DESCRIPTION            "Required Windows DLLs.")
@@ -88,9 +88,9 @@ set(CPACK_COMPONENT_DATA_DESCRIPTION           "Additional data like XML schemat
 set(CPACK_COMPONENT_DOCS_DISPLAY_NAME          "Documentation")
 set(CPACK_COMPONENT_DOCS_DESCRIPTION           "User, Python and Java documentation, tutorials and examples.")
 set(CPACK_COMPONENT_INCLUDE_FILES_DISPLAY_NAME "Includes")
-set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "C/C++ header files for libsumo / libtraci.")
+set(CPACK_COMPONENT_INCLUDE_FILES_DESCRIPTION  "C++ header files for libsumo / libtraci.")
 set(CPACK_COMPONENT_TOOLS_DISPLAY_NAME         "Tools")
-set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "Additional Python tooling e.g. for generating networks and demand.")
+set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "Additional Python tooling.")
 
 # ---------------------------------------------------------------------------
 # WIX-specific configuration
@@ -98,7 +98,7 @@ set(CPACK_COMPONENT_TOOLS_DESCRIPTION          "Additional Python tooling e.g. f
 # Stable upgrade GUID (matches the value previously used by sumo.wxs so
 # that the new installer upgrades existing SUMO installations cleanly).
 set(CPACK_WIX_UPGRADE_GUID             "A764BC4F-2B15-11E1-9E7E-028037EC0200")
-set(CPACK_WIX_PRODUCT_ICON             "${CMAKE_SOURCE_DIR}/build_config/wix/webWizard.ico")
+set(CPACK_WIX_PRODUCT_ICON             "${CMAKE_SOURCE_DIR}/data/logo/sumo-application-icon.ico")
 set(CPACK_WIX_UI_BANNER                "${CMAKE_SOURCE_DIR}/build_config/wix/bannrbmp.bmp")
 set(CPACK_WIX_UI_DIALOG                "${CMAKE_SOURCE_DIR}/build_config/wix/dlgbmp.bmp")
 set(CPACK_WIX_PROGRAM_MENU_FOLDER      "SUMO")

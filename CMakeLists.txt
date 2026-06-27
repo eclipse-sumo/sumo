@@ -766,8 +766,8 @@ if (SKBUILD)
     set(EXCLUDE_LIBTRACI "libtraci")
 endif ()
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data COMPONENT data)
-install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools COMPONENT tools
-        USE_SOURCE_PERMISSIONS COMPONENT runtime
+install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
+        USE_SOURCE_PERMISSIONS COMPONENT tools
         PATTERN "build_config/sumo" EXCLUDE  # needed for the scikit build
         PATTERN "calibration" EXCLUDE
         PATTERN "lisum-core" EXCLUDE
@@ -792,11 +792,12 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
                 PATTERN "*.txt" EXCLUDE)
     endif ()
 endif ()
+message(STATUS "install \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}")
 install(CODE "
-    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
-" COMPONENT runtime)
-if (DATA_PATH)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
+    execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
+" COMPONENT tools)
+if (NOT WIN32)
+    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)" COMPONENT runtime)
 endif ()
 
 install(EXPORT SUMOConfig DESTINATION ${DATA_PATH}cmake NAMESPACE SUMO:: COMPONENT runtime)
