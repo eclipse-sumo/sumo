@@ -49,7 +49,8 @@ def get_latest_artifact_url(options):
             workflow_run_ids.append(workflow_run['id'])
     for workflow_run in response.json()['workflow_runs']:
         if options.verbose:
-            print("Found workflow", workflow_run['id'], workflow_run['status'], workflow_run['conclusion'], workflow_run['head_branch'])
+            print("Found workflow", workflow_run['id'], workflow_run['status'],
+                  workflow_run['conclusion'], workflow_run['head_branch'])
         if (workflow_run['status'] == "completed"
             and (options.allow_failed or workflow_run['conclusion'] == "success")
                 and workflow_run['head_branch'] == options.branch):
