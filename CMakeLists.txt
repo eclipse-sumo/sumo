@@ -792,7 +792,6 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.6.0)
                 PATTERN "*.txt" EXCLUDE)
     endif ()
 endif ()
-message(STATUS "install \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}")
 install(CODE "
     execute_process(COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/build_config/version.py --pep440 \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${DATA_PATH}tools/sumolib/version.py)
 " COMPONENT tools)

@@ -13,21 +13,97 @@
 -->
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
+        <!-- Optional environment check -->
+        <Property Id="RUNPYTHONCHECK" Value="1" />
+        <Property Id="SUMOHOMEENV" Value="1" />
+        <Property Id="PATHPYTHONENV" Value="1" />
+        <Property Id="PIPINSTALLREQ" />
+        <Property Id="PIPINSTALLLIBSUMO" />
+
+        <UI>
+            <Dialog Id="SUMOOptionsDlg" Width="370" Height="270" Title="SUMO Setup Options">
+                <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next" />
+                <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="Back" />
+                <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="Setup Options" />
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Configure optional checks and environment settings" />
+
+                <Control Id="RunPythonCheckBox" Type="CheckBox" X="20" Y="100" Width="320" Height="17"
+                         Property="RUNPYTHONCHECK" CheckBoxValue="1" Text="Check for Python and required packages during installation." />
+                <Control Id="SumoHomeEnvCheckBox" Type="CheckBox" X="20" Y="125" Width="320" Height="17"
+                         Property="SUMOHOMEENV" CheckBoxValue="1" Text="Set SUMO_HOME environment variable." />
+                <Control Id="PathPythonEnvCheckBox" Type="CheckBox" X="20" Y="150" Width="320" Height="17"
+                         Property="PATHPYTHONENV" CheckBoxValue="1" Text="Add SUMO to PATH and PYTHONPATH." />
+                <Control Id="PipInstallReqCheckBox" Type="CheckBox" X="20" Y="175" Width="320" Height="17"
+                         Property="PIPINSTALLREQ" CheckBoxValue="1" Text="Install the tool dependencies into the active Python." />
+                <Control Id="PipInstallLibsumoCheckBox" Type="CheckBox" X="20" Y="200" Width="320" Height="17"
+                         Property="PIPINSTALLLIBSUMO" CheckBoxValue="1" Text="Install libsumo for Python into the active Python." />
+            </Dialog>
+
+            <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="SUMOOptionsDlg" Order="2">1</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg">1</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+            <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SUMOOptionsDlg" Order="2">1</Publish>
+        </UI>
+
+        <!-- Python and JuPedSim detection via command line -->
+        <CustomAction Id="SetPythonCheckCmd" Property="QtExecCmdLine"
+                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;if (-not (Get-Command python.exe -ErrorAction SilentlyContinue)) { (New-Object -ComObject WScript.Shell).Popup('Python not found. It is either not installed or your PATH variable does not contain it. Some SUMO tools (e. g. osmWebWizard) need a Python installation.', 0, 'SUMO Setup', 0x30) }&quot;" />
+        <CustomAction Id="CheckPython" BinaryKey="WixCA" DllEntry="CAQuietExec"
+                      Execute="immediate" Return="ignore" />
+        <CustomAction Id="SetJPSPackageCheckCmd" Property="QtExecCmdLine"
+                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;python.exe -c 'import jupedsim' 2&gt;$null; if ($LASTEXITCODE -ne 0) { (New-Object -ComObject WScript.Shell).Popup('Python package ''jupedsim'' not found. Please install via pip.', 0, 'SUMO Setup', 0x30) }&quot;" />
+        <CustomAction Id="CheckJPSPackage" BinaryKey="WixCA" DllEntry="CAQuietExec"
+                      Execute="immediate" Return="ignore" />
+
+        <!-- pip installs for tool dependencies / libsumo -->
+        <CustomAction Id="SetPipInstallReqCmd" Property="QtExecCmdLine"
+                      Value="&quot;python.exe&quot; -m pip install -r &quot;[INSTALL_ROOT]tools\requirements.txt&quot;" />
+        <CustomAction Id="RunPipInstallReq" BinaryKey="WixCA" DllEntry="CAQuietExec"
+                      Execute="immediate" Return="ignore" />
+
+        <CustomAction Id="SetPipInstallLibsumoCmd" Property="QtExecCmdLine"
+                      Value="&quot;python.exe&quot; -m pip install libsumo" />
+        <CustomAction Id="RunPipInstallLibsumo" BinaryKey="WixCA" DllEntry="CAQuietExec"
+                      Execute="immediate" Return="ignore" />
+
+        <InstallExecuteSequence>
+            <Custom Action="SetPythonCheckCmd" After="InstallFinalize">RUNPYTHONCHECK</Custom>
+            <Custom Action="CheckPython" After="SetPythonCheckCmd">RUNPYTHONCHECK</Custom>
+            <Custom Action="SetJPSPackageCheckCmd" After="CheckPython">RUNPYTHONCHECK</Custom>
+            <Custom Action="CheckJPSPackage" After="SetJPSPackageCheckCmd">RUNPYTHONCHECK</Custom>
+
+            <Custom Action="SetPipInstallReqCmd" After="CheckJPSPackage">PIPINSTALLREQ</Custom>
+            <Custom Action="RunPipInstallReq" After="SetPipInstallReqCmd">PIPINSTALLREQ</Custom>
+            <Custom Action="SetPipInstallLibsumoCmd" After="RunPipInstallReq">PIPINSTALLLIBSUMO</Custom>
+            <Custom Action="RunPipInstallLibsumo" After="SetPipInstallLibsumoCmd">PIPINSTALLLIBSUMO</Custom>
+        </InstallExecuteSequence>
+
         <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
 
             <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
+                <Condition>SUMOHOMEENV</Condition>
                 <CreateFolder/>
                 <Environment Id="SUMO_HOME"   Name="SUMO_HOME"  Value="[INSTALL_ROOT]"
                              Permanent="no" Part="all"  Action="set" System="yes" />
             </Component>
 
             <Component Id="SumoPathEnvironment" Guid="17359CBF-8C61-4C3D-B5A7-4407AFF096AA">
+                <Condition>PATHPYTHONENV</Condition>
                 <CreateFolder/>
                 <Environment Id="PATH"        Name="PATH"       Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
 
             <Component Id="SumoPythonPathEnvironment" Guid="3C6E4C8E-C4D3-483D-93C0-546A04D360F0">
+                <Condition>PATHPYTHONENV</Condition>
                 <CreateFolder/>
                 <Environment Id="PYTHONPATH"  Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
