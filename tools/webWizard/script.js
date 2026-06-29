@@ -17,15 +17,15 @@ on("ready", function(){
         init: function(display, internal, fringeFactor, count, enabled){
             this.internal = internal;
 
-            var node = elem("<div>", {className: "container"});
-            var header = elem("<h4>", {textContent: display});
+            let node = elem("<div>", {className: "container"});
+            let header = elem("<h4>", {textContent: display});
             header.append("<img>", {src: "images/" + internal + ".png"});
             node.append(header);
             this.enable = elem("<input>", {type: "checkbox", checked: enabled});
             node.append(this.enable);
 
-            var options = elem("<div>", {className: "options"});
-            var label = elem("<label>", {textContent: "Through Traffic Factor"});
+            let options = elem("<div>", {className: "options"});
+            let label = elem("<label>", {textContent: "Through Traffic Factor"});
             this.fringeFactor = elem("<input>", {type: "number", min: .5, max: 100, step: .1, value: fringeFactor});
             label.append(this.fringeFactor);
             options.append(label);
@@ -50,7 +50,7 @@ on("ready", function(){
         }
     };
 
-    var vehicleClasses = [
+    const vehicleClasses = [
         new Settings("Cars", "passenger", 5, 12, true),
         new Settings("Trucks", "truck", 5, 8),
         new Settings("Bus", "bus", 5, 4),
@@ -72,16 +72,16 @@ on("ready", function(){
             this.category = category;
             this.typeList = typeList;
 
-            var node = elem("<div>", {className: "container"});
-            var header = elem("<h4>", {textContent: category});
-            var checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
+            let node = elem("<div>", {className: "container"});
+            let header = elem("<h4>", {textContent: category});
+            let checkbox = elem("<input>",{type: "checkbox", checked:true, className: "checkAll", id: category.toLowerCase()});
             node.append(header);
             node.append(checkbox);
 
-            var types = elem("<div>", {className: "roadTypes " + category.toLowerCase()});
-            var label = elem("<label>");
+            let types = elem("<div>", {className: "roadTypes " + category.toLowerCase()});
+            let label = elem("<label>");
 
-            for (var i = 0; i < typeList.length; i++) {
+            for (let i = 0; i < typeList.length; i++) {
                 label = elem("<label>", {textContent: typeList[i]});
                 let roadTypeId = this.category + "_" + typeList[i]
                 this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: roadTypeId});
@@ -95,9 +95,9 @@ on("ready", function(){
         },
 
         getEnabledTypeList: function () {
-            var retEnabledTypeList = [];
-            for (var j = 0; j < this.typeList.length; j++) {
-                var roadTypeId = this.category + "_" + this.typeList[j];
+            let retEnabledTypeList = [];
+            for (let j = 0; j < this.typeList.length; j++) {
+                let roadTypeId = this.category + "_" + this.typeList[j];
                 if (document.getElementById(roadTypeId).checked) {
                     retEnabledTypeList.push(this.typeList[j]);
                     if (this.typeList[j].match(/^(motorway|trunk|primary|secondary|tertiary)$/)) {
@@ -113,29 +113,29 @@ on("ready", function(){
     categories["Highway"] = ["motorway", "trunk", "primary","secondary", "tertiary", "unclassified", "residential",
         "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
-        "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
+        "stairs"]; //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
     categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed", "monorail"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
     categories["Aerialway"] = ["cable_car", "gondola"];
     categories["Route"] = ["ferry"];
 
-    var roadClasses = [];
+    let roadClasses = [];
 
     for (const [key, value] of Object.entries(categories)) {
         roadClasses.push(new RoadTypes(key, value));
     }
 
-    var activeTab = null;
+    let activeTab = null;
 
     /**
      * @function
      * @param id: the id of the tab to open
      */
     function openTab(id){
-        var tab = elems(".tab")[id];
-        var side = elem("#side");
-        var control = elems(".controls")[id];
+        let tab = elems(".tab")[id];
+        let side = elem("#side");
+        let control = elems(".controls")[id];
 
         // clicked on the open tab, close everything
         if(activeTab === id){
@@ -168,10 +168,10 @@ on("ready", function(){
 
     openTab(0);
 
-    var canvas = elem("canvas");
-    var canvasActive = false;
-    var canvasRect = [.1, .1, .75, .9];
-    var ctx = canvas.getContext("2d");
+    let canvas = elem("canvas");
+    let canvasActive = false;
+    let canvasRect = [.1, .1, .75, .9];
+    let ctx = canvas.getContext("2d");
 
     /**
      * @function
@@ -191,7 +191,7 @@ on("ready", function(){
      * draws the rect on the canvas, to select an area
      **/
     function draw(){
-        var x0 = canvas.width * canvasRect[0],
+        let x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
             x1 = canvas.width * canvasRect[2],
             y1 = canvas.height * canvasRect[3];
@@ -205,7 +205,7 @@ on("ready", function(){
         ctx.clearRect(x0, y0, x1 - x0, y1 - y0);
     }
 
-    var mouse = {
+    let mouse = {
         x: 0, // last x coordinate
         y: 0, // last y coordinates
         area: null // if mouse button is down, and in which function; move or resize
@@ -220,12 +220,12 @@ on("ready", function(){
     });
 
     function changeMousePointer(x, y, down){
-        var x0 = canvas.width * canvasRect[0],
+        let x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
             x1 = canvas.width * canvasRect[2],
             y1 = canvas.height * canvasRect[3];
 
-        var cursor = "", t = 20; //tolerance
+        let cursor = "", t = 20; //tolerance
 
         if(lequal(x0 - t, x, x1 + t) && lequal(y0 - t, y, y1 + t)){
             if(lequal(y0 - t, y, y0 + t))
@@ -250,7 +250,7 @@ on("ready", function(){
 
     canvas.on("mousemove", function(evt){
         changeMousePointer(evt.clientX, evt.clientY);
-        var dx = (evt.clientX - mouse.x) / canvas.width, dy = (evt.clientY - mouse.y) / canvas.height;
+        let dx = (evt.clientX - mouse.x) / canvas.width, dy = (evt.clientY - mouse.y) / canvas.height;
         mouse.x = evt.clientX;
         mouse.y = evt.clientY;
         if(mouse.area !== null){
@@ -317,15 +317,15 @@ on("ready", function(){
         }
     }
 
-    var canvasToggle = elem("#canvas-toggle");
+    const canvasToggle = elem("#canvas-toggle");
 
     canvasToggle.on("click", toggleCanvas);
     toggleCanvas();
 
     // Enable/disable pt mode checkboxes depending on the main publicTransport checkbox
-    var ptModesContainer = elem("#pt-modes");
+    let ptModesContainer = elem("#pt-modes");
     function updatePtModesState() {
-        var enabled = elem("#publicTransport").checked;
+        let enabled = elem("#publicTransport").checked;
         if(ptModesContainer) {
             Array.from(ptModesContainer.querySelectorAll("input[type=checkbox]")).forEach(function(ch){ ch.disabled = !enabled; });
         }
@@ -334,24 +334,24 @@ on("ready", function(){
     updatePtModesState();
 
     // function to check or uncheck all checkboxes for a certain roadType
-    var checkOrUncheckAll = function() {
+    let checkOrUncheckAll = function() {
         Array.from(document.querySelectorAll(".roadTypes." + this.getAttribute("id") + " input[type=checkbox]")).forEach(el => el.checked = this.checked);
     };
 
     // listen if a roadType checkbox is selected/unselected
-    var roadTypeCheckboxes = document.getElementsByClassName("checkAll");
+    let roadTypeCheckboxes = document.getElementsByClassName("checkAll");
 
     Array.from(roadTypeCheckboxes).forEach(function(element) {
         element.addEventListener("click", checkOrUncheckAll);
     });
 
     // Base map (using Leaflet)
-    var worldBounds = L.latLngBounds(
+    const worldBounds = L.latLngBounds(
         L.latLng(-85, -180),
         L.latLng(85, 180)
     );
 
-    var map = L.map("map", {
+    let map = L.map("map", {
         maxBounds: worldBounds,
         worldCopyJump: false,
         zoomControl: true,
@@ -365,7 +365,7 @@ on("ready", function(){
         prefix: false
     }).addTo(map);
 
-    var tileLayers = {
+    const tileLayers = {
         "OpenStreetMap": L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             noWrap: true,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap contributors</a>'
@@ -393,14 +393,14 @@ on("ready", function(){
 
     function setPosition(lon, lat){
         if(!lon || !lat){
-            var latLon = elem("#lat_lon").value.split(" ");
+            let latLon = elem("#lat_lon").value.split(" ");
             lon = Number.parseFloat(latLon[1]);
             lat = Number.parseFloat(latLon[0]);
         } else {
             elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
         }
 
-        var leftHandBounds = [
+        const leftHandBounds = [
             [[50, -11], [60, 1]], // British Isles
             [[50.986099, 0.774536], [53.14677, 1.779785]], // British Isles (part2)
             [[3, 66], [30, 90]], // India, Pakistan
@@ -410,7 +410,7 @@ on("ready", function(){
         ];
 
         elem("#leftHand").checked = false;
-        for (var i = 0; i < leftHandBounds.length; i++) {
+        for (let i = 0; i < leftHandBounds.length; i++) {
             if (
                 lat >= leftHandBounds[i][0][0] && lat <= leftHandBounds[i][1][0] &&
                 lon >= leftHandBounds[i][0][1] && lon <= leftHandBounds[i][1][1]
@@ -424,7 +424,7 @@ on("ready", function(){
     }
 
     function setPositionByString() {
-        var query = elem("#address").value;
+        let query = elem("#address").value;
         $.ajax({
         url: "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback",
         cache: false,
@@ -434,9 +434,9 @@ on("ready", function(){
                     globalThis.alert('Could not locate address: ' + query);
                     return;
                 }
-                var result = data[0];
-                var lon = Number.parseFloat(result.lon);
-                var lat = Number.parseFloat(result.lat);
+                let result = data[0];
+                let lon = Number.parseFloat(result.lon);
+                let lat = Number.parseFloat(result.lat);
                 if (Number.isNaN(lon) || Number.isNaN(lat)) {
                     globalThis.alert('Could not locate address: ' + query);
                     return;
@@ -455,12 +455,12 @@ on("ready", function(){
         }
     });
 
-/*     var getJSON = function(url, callback) {
-        var xhr = new XMLHttpRequest();
+/*     let getJSON = function(url, callback) {
+        let xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'json';
         xhr.onload = function() {
-          var status = xhr.status;
+          let status = xhr.status;
           if (status == 200) {
             callback(null, xhr.response);
           } else {
@@ -500,17 +500,17 @@ on("ready", function(){
      * whenever the map coordinates changes, update the input boxes
      */
     map.on("move", function(){
-        var center = map.getCenter();
-        var lat = center.lat;
-        var lon = center.lng;
+        let center = map.getCenter();
+        let lat = center.lat;
+        let lon = center.lng;
 
         elem("#lat_lon").value = lat.toFixed(6) + " " + lon.toFixed(6);
     });
 
-    var socket;
-    var totalSteps;
-    var currentStep;
-    var presentedErrorLog = false;
+    let socket;
+    let totalSteps;
+    let currentStep;
+    let presentedErrorLog = false;
     let progressTimer = null;
 
     function errorMessage(error) {
@@ -538,13 +538,13 @@ on("ready", function(){
      * connects to the socket, when it fails it tries it again after five seconds
      */
     function connectSocket(){
-        var address = location.hostname;
+        let address = location.hostname;
         // when accessing via file, location.hostname is an empty string, so guess that the server is on localhost
         if(!address)
             address = "localhost";
         try {
             // we use this locally but if someone wants to try over https, we are prepared
-            var proto = (globalThis.location.protocol === "https:") ? "wss://" : "ws://";
+            let proto = (globalThis.location.protocol === "https:") ? "wss://" : "ws://";
             socket = new WebSocket(proto + address + ":" + PORT);
         } catch(e){
             // connection failed, wait five seconds, then try again
@@ -560,11 +560,11 @@ on("ready", function(){
     }
 
     function messageHandler(evt){
-        var message = evt.data;
+        let message = evt.data;
         // get the first space
-        var index = message.indexOf(" ");
+        let index = message.indexOf(" ");
         // split the message type from the message
-        var type = message.substr(0, index);
+        let type = message.substr(0, index);
         message = message.substr(index + 1);
 
         if(type === "zip"){
@@ -585,7 +585,7 @@ on("ready", function(){
                 }
             }
         } else if(type === "steps"){
-            totalSteps = parseInt(message);
+            totalSteps = Number.parseInt(message);
             currentStep = 0;
         }
     }
@@ -607,17 +607,17 @@ on("ready", function(){
      * generate and send the data to the websocket
      */
     function startBuild(){
-        var bounds = map.getBounds();
-        var cor = {
+        let bounds = map.getBounds();
+        let cor = {
             left: bounds.getWest(),
             bottom: bounds.getSouth(),
             right: bounds.getEast(),
             top: bounds.getNorth()
         };
 
-        var data = {
+        let data = {
             poly: elem("#polygons").checked,
-            duration: parseInt(elem("#duration").value),
+            duration: Number.parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
             ptModes: {
                 bus: elem("#pt_bus").checked,
@@ -637,13 +637,13 @@ on("ready", function(){
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
             verbose: elem("#verbose").checked,
             vehicles: {},
-            roadTypes:{}                                                            // sab-inf
+            roadTypes:{} // sab-inf
         };
 
         // calculates the coordinates of the rectangle if area-picking is active
         if(canvasActive){
-            var width = cor.right - cor.left;
-            var height = cor.bottom - cor.top;
+            let width = cor.right - cor.left;
+            let height = cor.bottom - cor.top;
             data.coords = [
                 cor.left + width * canvasRect[0],
                 cor.top + height * canvasRect[3],
@@ -654,13 +654,13 @@ on("ready", function(){
             data.coords = [cor.left, cor.bottom, cor.right, cor.top];
 
         vehicleClasses.forEach(function(vehicleClass){
-            var result = vehicleClass.toJSON();
+            let result = vehicleClass.toJSON();
             if(result)
                 data.vehicles[vehicleClass.internal] = result;
         });
 
         roadClasses.forEach(function(roadType){
-            var result = roadType.getEnabledTypeList();
+            let result = roadType.getEnabledTypeList();
             if(result){
                 // in OSM "pedestrians" have also the key "highway", therefore we prepare the data accordingly
                 if(roadType.category == "Pedestrians" || roadType.category == "Highway"){
@@ -704,10 +704,10 @@ on("ready", function(){
      * shows a download dialog to save the zip file
      */
     function showZip(uri){
-        var url = "data:application/zip;base64," + uri;
+        let url = "data:application/zip;base64," + uri;
 
         // using a temporarily link to trigger the download dialog
-        var link = elem("<a>", {
+        let link = elem("<a>", {
             download: "osm.zip",
             href: url,
             target: "_blank"

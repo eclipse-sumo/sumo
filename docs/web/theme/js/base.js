@@ -17,7 +17,7 @@ $(document).ready(function() {
         $('#dark-mode-div').hide();
       }
 
-    var search_term = getSearchTerm(),
+    let search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),
         $keyboard_modal = $('#mkdocs_keyboard_modal');
 
@@ -46,8 +46,8 @@ $(document).ready(function() {
     // Keyboard navigation
     document.addEventListener("keydown", function(e) {
         if ($(e.target).is(':input')) return true;
-        var key = e.which || e.keyCode || window.event && window.event.keyCode;
-        var page;
+        let key = e.which || e.keyCode || window.event && window.event.keyCode;
+        let page;
         switch (key) {
             case shortcuts.search:
                 e.preventDefault();
@@ -74,9 +74,9 @@ $(document).ready(function() {
 
     // Improve the scrollspy behavior when users click on a TOC item.
     $(".bs-sidenav a").on("click", function() {
-        var clicked = this;
+        let clicked = this;
         setTimeout(function() {
-            var active = $('.nav li.active a');
+            let active = $('.nav li.active a');
             active = active[active.length - 1];
             if (clicked !== active) {
                 $(active).parent().removeClass("active");
