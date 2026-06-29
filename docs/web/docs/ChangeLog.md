@@ -5,6 +5,18 @@ title: ChangeLog
 
 ### Bugfixes
 
+- netedit
+  - Junction context menu operation 'clearing connections' no longer generates an invalid network if the junction had tls-controlled pedestrian crossings #18145 (regression in 1.27.0)
+
+- netconvert
+  - Fixed crash when rail signal connection link index is patched #18142
+
+### Enhancements
+
+- sumo
+  - Added option **--slope-centered** to replicate simplfied slope computation found in other simulators #18111
+  - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
+  
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
