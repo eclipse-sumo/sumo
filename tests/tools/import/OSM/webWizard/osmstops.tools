@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-26T08:33:37.452668+01:00 by Eclipse SUMO netconvert v1_26_0+0842-d04a789bc5c
+<!-- generated on 2026-06-29T18:25:04.895103+01:00 by Eclipse SUMO netconvert v1_27_1+0036-0c84ddc3683
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.26Mar083321.2032220/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.29Jun182502.3737824/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -64,7 +64,7 @@
         <access lane="272795479_0" pos="3.12" length="6.55" friendlyPos="1"/>
         <access lane="72157168#5_0" pos="2.83" length="17.56" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="-1823298700" name="S+U Friedrichstraße" lane="-195411594#1_0" startPos="40.71" endPos="65.71" friendlyPos="true">
+    <trainStop id="-1823298700" name="S+U Friedrichstraße" lane="-195411594#1_0" startPos="40.76" endPos="65.76" friendlyPos="true">
         <access lane="175885742_0" pos="4.80" length="16.68" friendlyPos="1"/>
         <access lane="43185731_0" pos="0.00" length="14.30" friendlyPos="1"/>
         <access lane="465376239_0" pos="53.39" length="13.46" friendlyPos="1"/>
@@ -145,10 +145,10 @@
         <access lane="522374555#1_0" pos="0.00" length="8.08" friendlyPos="1"/>
     </trainStop>
     <trainStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="0.91" endPos="25.91" friendlyPos="true" lines="M1">
-        <access lane="54618192#2_0" pos="0.77" length="48.59" friendlyPos="1"/>
         <access lane="59286191_0" pos="12.91" length="28.94" friendlyPos="1"/>
         <access lane="59286499_0" pos="0.00" length="22.48" friendlyPos="1"/>
-        <access lane="59286500#0_0" pos="2.55" length="13.50" friendlyPos="1"/>
+        <access lane="59286500#0_0" pos="1.03" length="14.10" friendlyPos="1"/>
+        <access lane="59286500#1_0" pos="0.00" length="13.37" friendlyPos="1"/>
         <access lane="59286500#2_0" pos="0.00" length="14.21" friendlyPos="1"/>
     </trainStop>
     <trainStop id="1668685086" name="U Oranienburger Tor" lane="154321040#2_0" startPos="339.88" endPos="364.88" friendlyPos="true" lines="M5 M1">
@@ -203,14 +203,14 @@
         <access lane="171829093_0" pos="4.91" length="7.82" friendlyPos="1"/>
         <access lane="171829099#1_0" pos="0.20" length="19.33" friendlyPos="1"/>
         <access lane="171829099#2_0" pos="0.20" length="18.78" friendlyPos="1"/>
-        <access lane="171829099#4_0" pos="0.00" length="19.82" friendlyPos="1"/>
+        <access lane="171829099#3_0" pos="0.00" length="18.96" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="1860777041" name="S+U Alexanderplatz/Gontardstraße" lane="150394034#1_0" startPos="33.51" endPos="58.51" friendlyPos="true" lines="M4 M5 M6">
+    <trainStop id="1860777041" name="S+U Alexanderplatz/Gontardstraße" lane="150394034#1_0" startPos="33.62" endPos="58.62" friendlyPos="true" lines="M4 M5 M6">
         <access lane="169230291#2_0" pos="5.00" length="7.82" friendlyPos="1"/>
         <access lane="175499825_0" pos="0.29" length="8.36" friendlyPos="1"/>
         <access lane="175499826_0" pos="0.15" length="11.75" friendlyPos="1"/>
-        <access lane="175499833#0_0" pos="0.20" length="12.58" friendlyPos="1"/>
         <access lane="175499833#1_0" pos="0.20" length="11.92" friendlyPos="1"/>
+        <access lane="175499833#2_0" pos="0.00" length="12.50" friendlyPos="1"/>
     </trainStop>
     <trainStop id="1862699772" name="S Oranienburger Straße" lane="154321040#2_0" startPos="7.91" endPos="32.91" friendlyPos="true" lines="M5 M1">
         <access lane="-4396823#0_0" pos="167.13" length="9.07" friendlyPos="1"/>
@@ -260,7 +260,7 @@
         <access lane="272780750#0_0" pos="0.00" length="12.59" friendlyPos="1"/>
         <access lane="272795502#2_0" pos="6.82" length="3.29" friendlyPos="1"/>
         <access lane="346206377#2_0" pos="4.13" length="11.81" friendlyPos="1"/>
-        <access lane="346212656#5_0" pos="4.79" length="13.63" friendlyPos="1"/>
+        <access lane="346206377#3_0" pos="0.00" length="11.87" friendlyPos="1"/>
     </trainStop>
     <trainStop id="2094266778" name="U Alexanderplatz" lane="200422335#1_0" startPos="0.00" endPos="200.00" friendlyPos="true" lines="U2">
         <access lane="272795491_0" pos="3.55" length="7.87" friendlyPos="1"/>
@@ -433,18 +433,18 @@
         <access lane="4773465#1_0" pos="26.99" length="27.26" friendlyPos="1"/>
         <access lane="557076767#1_0" pos="82.35" length="35.33" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="30731497" name="U Alexanderplatz" lane="93628049#4_0" startPos="44.38" endPos="69.38" friendlyPos="true" lines="M4 M5 M6">
+    <trainStop id="30731497" name="U Alexanderplatz" lane="93628049#4_0" startPos="44.82" endPos="69.82" friendlyPos="true" lines="M4 M5 M6">
         <access lane="272810807_0" pos="0.00" length="18.25" friendlyPos="1"/>
         <access lane="346206356#0_0" pos="0.00" length="9.71" friendlyPos="1"/>
         <access lane="346206389#2_0" pos="45.22" length="16.08" friendlyPos="1"/>
         <access lane="346206393_0" pos="0.20" length="17.83" friendlyPos="1"/>
         <access lane="565537148#0_0" pos="2.01" length="13.60" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="30731508" name="S+U Alexanderplatz/Gontardstraße" lane="93628049#1_0" startPos="33.51" endPos="58.51" friendlyPos="true" lines="M4 M5 M6">
+    <trainStop id="30731508" name="S+U Alexanderplatz/Gontardstraße" lane="93628049#1_0" startPos="33.87" endPos="58.87" friendlyPos="true" lines="M4 M5 M6">
         <access lane="169195791#2_0" pos="41.77" length="13.13" friendlyPos="1"/>
-        <access lane="169195791#3_0" pos="0.00" length="20.32" friendlyPos="1"/>
         <access lane="169230291#3_0" pos="18.70" length="13.66" friendlyPos="1"/>
         <access lane="175499828#0_0" pos="0.12" length="15.34" friendlyPos="1"/>
+        <access lane="175499828#1_0" pos="0.20" length="11.76" friendlyPos="1"/>
         <access lane="175499828#2_0" pos="0.00" length="12.13" friendlyPos="1"/>
     </trainStop>
     <trainStop id="30731700" name="U Oranienburger Tor" lane="167272531#9_0" startPos="0.00" endPos="0.70" friendlyPos="true" lines="12 M1">
@@ -454,12 +454,12 @@
         <access lane="521729368#0_0" pos="0.28" length="11.34" friendlyPos="1"/>
         <access lane="521729368#1_0" pos="0.27" length="5.83" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="30732068" name="Memhardstraße" lane="4791000#1_0" startPos="46.46" endPos="71.46" friendlyPos="true" lines="M2">
+    <trainStop id="30732068" name="Memhardstraße" lane="4791000#1_0" startPos="48.61" endPos="73.61" friendlyPos="true" lines="M2">
         <access lane="171829094_0" pos="5.47" length="7.77" friendlyPos="1"/>
         <access lane="171829097_0" pos="9.14" length="4.65" friendlyPos="1"/>
         <access lane="379904843#2_0" pos="0.20" length="17.80" friendlyPos="1"/>
         <access lane="379904843#3_0" pos="0.00" length="18.06" friendlyPos="1"/>
-        <access lane="379904843#5_0" pos="0.00" length="22.32" friendlyPos="1"/>
+        <access lane="379904843#4_0" pos="0.00" length="19.75" friendlyPos="1"/>
     </trainStop>
     <busStop id="3352479219" name="Fischerinsel" lane="4773463#0_1" startPos="29.89" endPos="44.89" friendlyPos="true" lines="M48 248 N42 265"/>
     <busStop id="3352479220" name="Fischerinsel" lane="23851917#0_1" startPos="22.34" endPos="37.34" friendlyPos="true" lines="M48 248 N42"/>
@@ -587,11 +587,11 @@
         <access lane="380365961_0" pos="0.00" length="35.00" friendlyPos="1"/>
         <access lane="380365964_0" pos="1.69" length="67.64" friendlyPos="1"/>
     </trainStop>
-    <trainStop id="4673135647" name="Spandauer Straße/Marienkirche" lane="150394035#1_0" startPos="45.48" endPos="70.48" friendlyPos="true" lines="M4 M5 M6">
+    <trainStop id="4673135647" name="Spandauer Straße/Marienkirche" lane="150394035#1_0" startPos="45.49" endPos="70.49" friendlyPos="true" lines="M4 M5 M6">
         <access lane="100113532_0" pos="6.08" length="6.83" friendlyPos="1"/>
-        <access lane="171826985#3_0" pos="61.82" length="23.40" friendlyPos="1"/>
         <access lane="171826987#1_0" pos="0.20" length="17.14" friendlyPos="1"/>
         <access lane="171826987#2_0" pos="0.20" length="17.01" friendlyPos="1"/>
+        <access lane="171826987#3_0" pos="0.00" length="17.04" friendlyPos="1"/>
         <access lane="171826987#4_0" pos="0.00" length="18.62" friendlyPos="1"/>
     </trainStop>
     <trainStop id="474368351" name="S Friedrichstraße" lane="465376248_0" startPos="539.61" endPos="739.61" friendlyPos="true" lines="S1 S2 S25 S26">
