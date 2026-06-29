@@ -518,8 +518,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             const SUMOTime period = area->params.count("period") > 0 ? string2time(area->params.at("period")) : 1000;
             const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
             if (time - area->lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
-                for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
-                    const JPS_AgentId agentID = agentsResponse.agent_ids(0);
+                for (int k = 0; k < MIN2(nbrPeriodsCoveringTimestep, numAgents); k++) {
+                    const JPS_AgentId agentID = agentsResponse.agent_ids(k);
                     auto lambda = [agentID](const PState * const p) {
                         return p->getAgentId() == agentID;
                     };
