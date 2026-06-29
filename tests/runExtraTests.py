@@ -26,7 +26,7 @@ APPS = ("activitygen", "dfrouter", "duarouter", "jtrrouter", "marouter",
         "netconvert", "netedit", "od2trips", "polyconvert", "sumo")
 
 
-def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False):
+def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False, force_local=False):
     if type(args) is list:
         args = " ".join(args)
     if os.name != "posix":
@@ -47,7 +47,8 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False)
 
     env["TEXTTEST_HOME"] = root
     env["LANG"] = "C"
-    env["SUMO_HOME"] = os.path.join(root, "..")
+    if "SUMO_HOME" not in env or force_local:
+        env["SUMO_HOME"] = os.path.join(root, "..")
     for binary in APPS + ("emissionsDrivingCycle", "emissionsMap", "netgenerate"):
         env[binary.upper() + "_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(env["SUMO_HOME"], "bin", "sumo-gui" + suffix)
@@ -80,6 +81,8 @@ if __name__ == "__main__":
     optParser.add_argument("-g", "--gui", default=False, action="store_true", help="run gui tests")
     optParser.add_argument("-f", "--force-gui", default=False, action="store_true",
                            help="run tests with sumo-gui instead of sumo")
+    optParser.add_argument("-l", "--force-local", default=False, action="store_true",
+                           help="run tests with the local binaries instead of using SUMO_HOME")
     optParser.add_argument("-a", "--apps", help="run the given apps")
     options, args = optParser.parse_known_args()
-    run(options.suffix, ["-" + a for a in args], options.gui, True, options.apps, options.force_gui)
+    run(options.suffix, ["-" + a for a in args], options.gui, True, options.apps, options.force_gui, options.force_local)
