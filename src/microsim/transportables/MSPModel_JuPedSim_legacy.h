@@ -179,10 +179,10 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    JPS_Geometry myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    JPS_Geometry myJPSGeometry = nullptr; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    JPS_Geometry myJPSGeometryWithTrainsAndRamps;
+    JPS_Geometry myJPSGeometryWithTrainsAndRamps = nullptr;
     JPS_Model myJPSModel;
     JPS_OperationalModel myJPSOperationalModel = nullptr;
     JPS_Simulation myJPSSimulation;

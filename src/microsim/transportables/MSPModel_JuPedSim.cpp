@@ -37,6 +37,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSTrainHelper.h>
+#include <microsim/MSRouteHandler.h>
 #include <libsumo/Helper.h>
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
@@ -390,8 +391,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
             Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5));
+            p.setx(p.x() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -639,10 +640,13 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-            sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
-            switchRequest.set_geometry_id(myJPSGeometry);
-            callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to default geometry: "), true);
-            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+            if (myJPSGeometryWithTrainsAndRamps != -1) {
+                sumo_jupedsim_api::SwitchGeometryRequest switchRequest;
+                switchRequest.set_geometry_id(myJPSGeometry);
+                callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SwitchGeometry, switchRequest, TL("While switching to default geometry: "), true);
+                preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+                myJPSGeometryWithTrainsAndRamps = -1;
+            }
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
     }

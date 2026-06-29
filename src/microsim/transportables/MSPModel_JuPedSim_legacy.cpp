@@ -431,8 +431,8 @@ MSPModel_JuPedSim_legacy::execute(SUMOTime time) {
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
             Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5));
+            p.setx(p.x() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -723,11 +723,14 @@ MSPModel_JuPedSim_legacy::execute(SUMOTime time) {
                 GEOSGeom_destroy(carriagesCollection);
             }
         } else {
-            const bool ok = JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, &message);
-            if (!ok) {
-                WRITE_WARNINGF(TL("While switching to default geometry: %"), JPS_ErrorMessage_GetMessage(message));
+            if (myJPSGeometryWithTrainsAndRamps != nullptr) {
+                const bool ok = JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, &message);
+                if (!ok) {
+                    WRITE_WARNINGF(TL("While switching to default geometry: %"), JPS_ErrorMessage_GetMessage(message));
+                }
+                preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
+                myJPSGeometryWithTrainsAndRamps = nullptr;
             }
-            preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
     }

@@ -201,10 +201,10 @@ private:
     bool myHaveAdditionalWalkableAreas;
 
     /// @brief The JPS polygon representing the largest connected component of the pedestrian network.
-    int64_t myJPSGeometry; // Kept because of dynamic geometry switching and JPS_Simulation object.
+    int64_t myJPSGeometry = -1; // Kept because of dynamic geometry switching and JPS_Simulation object.
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
-    int64_t myJPSGeometryWithTrainsAndRamps;
+    int64_t myJPSGeometryWithTrainsAndRamps = -1;
     std::string myJPSModel;
     int64_t myJPSSimulation;
 #ifdef HAVE_BOOST
