@@ -478,7 +478,10 @@ on("ready", function(){
      * set the coordinates of the map to current coordinates (got from browser)
      */
     elem("#buttonCurrent").on("click", function(){
-        if(!navigator.geolocation) return;
+        if(!navigator.geolocation) {
+            globalThis.alert("Unable to access your location. Geolocation is either not supported by your browser or is not enabled.");
+            return;
+        }
 
         navigator.geolocation.getCurrentPosition(function(position){
             setPosition(position.coords.longitude, position.coords.latitude);
