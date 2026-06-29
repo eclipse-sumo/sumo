@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-01-21T01:21:23.139562+01:00 by Eclipse SUMO netconvert v1_25_0+1116-1a3cca9b2c4
+<!-- generated on 2026-06-29T18:02:24.709584+01:00 by Eclipse SUMO netconvert v1_27_1+0036-0c84ddc3683
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -108,7 +108,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="2621259936" type="priority" x="1066.32" y="286.90" incLanes="47069121#1_0" intLanes="" shape="1066.48,285.31 1066.16,288.49 1066.48,285.31 1066.16,288.49">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="271142354" type="rail_crossing" x="1043.83" y="284.69" incLanes="-47069121#1_0 47069121#0_0 24906633#0_0" intLanes="" shape="1046.73,286.58 1047.04,283.40 1046.23,283.14 1045.95,282.89 1045.77,282.55 1045.68,282.14 1045.67,281.64 1042.48,281.39 1042.25,282.20 1042.03,282.47 1041.72,282.64 1041.34,282.71 1040.88,282.70 1040.47,285.87 1041.32,286.15 1041.59,286.39 1041.77,286.71 1041.85,287.10 1041.84,287.56 1045.01,287.98 1045.29,287.14 1045.54,286.86 1045.86,286.67 1046.26,286.58">
+    <junction id="271142354" type="priority" x="1043.83" y="284.69" incLanes="-47069121#1_0 47069121#0_0 24906633#0_0" intLanes="" shape="1046.73,286.58 1047.04,283.40 1046.23,283.14 1045.95,282.89 1045.77,282.55 1045.68,282.14 1045.67,281.64 1042.48,281.39 1042.25,282.20 1042.03,282.47 1041.72,282.64 1041.34,282.71 1040.88,282.70 1040.47,285.87 1041.32,286.15 1041.59,286.39 1041.77,286.71 1041.85,287.10 1041.84,287.56 1045.01,287.98 1045.29,287.14 1045.54,286.86 1045.86,286.67 1046.26,286.58">
         <request index="0" response="000" foes="100"/>
         <request index="1" response="000" foes="100"/>
         <request index="2" response="011" foes="011"/>
@@ -130,13 +130,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="-239198955" to="194083390" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-47069119" to="-194083396" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-47069121#0" to="-239198955" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-47069121#1" to="-47069121#0" fromLane="0" toLane="0" tl="271142354" linkIndex="-1" dir="s" state="M"/>
+    <connection from="-47069121#1" to="-47069121#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="194083390" to="-47069119" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="194083396" to="47069119" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="239198955" to="47069121#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="24906633#0" to="24906633#1" fromLane="0" toLane="0" tl="271142354" linkIndex="0" dir="s" state="o"/>
+    <connection from="24906633#0" to="24906633#1" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="47069119" to="47069122" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="47069121#0" to="47069121#1" fromLane="0" toLane="0" tl="271142354" linkIndex="-1" dir="s" state="M"/>
+    <connection from="47069121#0" to="47069121#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="47069121#1" to="-47069121#1" fromLane="0" toLane="0" speed="0.10" dir="t" state="M"/>
     <connection from="47069122" to="239198955" fromLane="0" toLane="0" dir="s" state="M"/>
 
