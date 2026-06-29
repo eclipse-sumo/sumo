@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-24 08:29+0000\n"
+"PO-Revision-Date: 2026-06-29 10:43+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5608,10 +5608,14 @@ msgstr ""
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
+"En el semáforo actuado '%', el valor de minDur (%) es demasiado corto para "
+"una separación del detector de %m."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:433
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
+"En el semáforo actuado '%', la fase actuada % no tiene un detector que "
+"controle."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:476
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
