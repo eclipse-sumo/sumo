@@ -112,8 +112,6 @@ GNEChange_Attribute::undo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty()->isNetworkElement()) {
-            myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-            // any attribute change could impact junction logic and thus requires recompute
             myAC->getNet()->requireRecompute();
         } else if (myAC->getTagProperty()->isAdditionalElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveAdditionals();
@@ -146,8 +144,6 @@ GNEChange_Attribute::redo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty()->isNetworkElement()) {
-            myAC->getNet()->getSavingStatus()->requireSaveNetwork();
-            // any attribute change could impact junction logic and thus requires recompute
             myAC->getNet()->requireRecompute();
         } else if (myAC->getTagProperty()->isAdditionalElement()) {
             myAC->getNet()->getSavingStatus()->requireSaveAdditionals();

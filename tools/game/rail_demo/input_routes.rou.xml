@@ -44,11 +44,11 @@
         <stop trainStop="ts_6" duration="0"/>
         <transport trainStop="ts_1" lines="freight_0"/>
     </containerFlow>
-    <personFlow id="g" begin="0" number="20000" period="exp(0.05)" color="green">
+    <personFlow id="g" begin="0" number="20000" period="exp(0.05)" color="#00c600">
         <stop trainStop="ts_2" duration="0"/>
         <ride trainStop="ts_4" lines="trip_1 trip_2"/>
     </personFlow>
-    <personFlow id="b" begin="0" number="45000" period="exp(0.1)" color="cyan">
+    <personFlow id="b" begin="0" number="45000" period="exp(0.1)" color="#8080ff">
         <stop trainStop="ts_3" duration="0"/>
         <ride trainStop="ts_5" lines="trip_1 trip_2"/>
     </personFlow>

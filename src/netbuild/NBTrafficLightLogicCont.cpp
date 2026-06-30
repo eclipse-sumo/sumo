@@ -130,6 +130,12 @@ NBTrafficLightLogicCont::removeProgram(const std::string id, const std::string p
             delete myDefinitions[id][programID];
         }
         myDefinitions[id].erase(programID);
+        if (myComputed.count(id) && myComputed[id].count(programID)) {
+            if (del) {
+                delete myComputed[id][programID];
+            }
+            myComputed[id].erase(programID);
+        }
         return true;
     } else {
         return false;

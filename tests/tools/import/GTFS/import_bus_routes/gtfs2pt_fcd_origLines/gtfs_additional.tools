@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-31 11:34:57.680925 by Eclipse SUMO gtfs2pt.py v1_26_0+0911-c97a2c4c8e5
+<!-- generated on 2026-06-20 21:40:11.799929 by Eclipse SUMO gtfs2pt.py v1_27_0+0273-b359ca6840d
 <configuration>
     <gtfs value="gtfs.zip"/>
     <date value="20201111"/>
     <modes value="bus"/>
     <vtype-output value="vehtypes.xml"/>
+    <original-lines value="True"/>
     <network value="net.net.xml"/>
 </configuration>
 -->
@@ -21,7 +22,7 @@
     <busStop id="132185783.2" lane="30425275#0_0" startPos="29.12" endPos="42.12" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
     <busStop id="132185783.3" lane="8108069_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Altstadtmarkt"/>
     <busStop id="132185783.4" lane="-320399277#2_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Güldenstraße"/>
-    <busStop id="132185783.5" lane="-25290640_0" startPos="18.61" endPos="31.61" friendlyPos="true" name="Braunschweig Goslarsche Straße"/>
+    <busStop id="132185783.5" lane="-283066855_0" startPos="0.00" endPos="8.17" friendlyPos="true" name="Braunschweig Goslarsche Straße"/>
     <busStop id="132218462.0" lane="51353826#0_0" startPos="16.57" endPos="29.57" friendlyPos="true" name="Braunschweig John-F.-Kennedy-Platz"/>
     <busStop id="132218462.1" lane="25730281#0_0" startPos="4.63" endPos="17.63" friendlyPos="true" name="Braunschweig Schloss"/>
     <busStop id="132218462.2" lane="27220209#0_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus"/>

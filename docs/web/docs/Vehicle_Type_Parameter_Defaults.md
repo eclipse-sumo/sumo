@@ -26,7 +26,7 @@ but if you do please revisit your vType settings.
 
 ### On default emission classes
 Note that with the transition to [HBEFA4](Models/Emissions/HBEFA4-based.md) there are no more aggregated emission classes like `HDV` available.
-That means the default emission class for each vehicle class is usually the most frequent vehicle in the 2022 fleet composition as estimated in the HBEFA. This can vastly understimate real emissions which may be dominated by older vehicles, so if precision is important you are encouraged to use a distribution of vehicle types fitting your modelled vehicle fleet. It is also possible to go back to the [HBEFA3](Models/Emissions/HBEFA3-based.md) classes.
+That means the default emission class for each vehicle class is usually the most frequent vehicle in the 2022 fleet composition as estimated in the HBEFA. This can vastly underestimate real emissions which may be dominated by older vehicles, so if precision is important you are encouraged to use a distribution of vehicle types fitting your modelled vehicle fleet. It is also possible to go back to the [HBEFA3](Models/Emissions/HBEFA3-based.md) classes.
 
 Please also note that the default emission class for all electric trains is `zero` and all other trains (and ships) still use the dirtiest diesel emissions of the HBEFA3 model. You are encouraged to model your train (and ship) explicitly if consumption is of interest. This includes adapting parameters like the mass (which means the empty vehicle mass) and loading.
 

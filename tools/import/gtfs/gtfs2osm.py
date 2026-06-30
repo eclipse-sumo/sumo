@@ -505,18 +505,19 @@ def _addToDataFrame(gtfs_data, row, shapes_dict, stop, edge):
                   "edge_id"] = edge
 
 
-def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=-1):
+def getBestLane(net, lon, lat, radius, stop_length, center, edge_set, pt_class, last_pos=None):
     # get edges near stop location
     x, y = net.convertLonLat2XY(lon, lat)
     edges = [e for e in net.getNeighboringEdges(x, y, radius, includeJunctions=False) if e[0].getID() in edge_set]
     # sort by distance but have edges longer than stop length first
+    # TODO we should rather go for maximum overlap but it is unclear how to weight this against distance
     for edge, _ in sorted(edges, key=lambda x: (x[0].getLength() <= stop_length, x[1])):
         for lane in edge.getLanes():
             if lane.allows(pt_class):
                 pos = lane.getClosestLanePosAndDist((x, y))[0]
-                if pos > last_pos or edge.getID() != edge_set[0]:
-                    start = max(0, pos - (stop_length / 2. if center else stop_length))
-                    end = min(start + stop_length, lane.getLength())
+                start = max(0, pos - (stop_length / 2. if center else stop_length))
+                end = min(start + stop_length, lane.getLength())
+                if last_pos is None or end >= last_pos[1] or edge.getID() != last_pos[0]:
                     return lane.getID(), start, end
     return None
 

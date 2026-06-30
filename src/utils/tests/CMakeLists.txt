@@ -1,4 +1,5 @@
 set(utils_tests_STAT_SRCS
+    DialogType.h
     InternalTest.cpp
     InternalTest.h
     InternalTestStep.cpp

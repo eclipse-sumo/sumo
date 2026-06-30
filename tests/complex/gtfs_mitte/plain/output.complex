@@ -1,5 +1,5 @@
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/complex.perf.13May063704.1884920/complex.perf/gtfs_mitte/plain/test'.
+Building scenario in '/home/micha/.texttest/tmp/complex.perf.21Jun084343.95145/complex.perf/gtfs_mitte/plain/test'.
 generating trips...
 Skipping line '1231708' because it only drives at night
 Skipping line '2194813' because it only drives at night
@@ -21,11 +21,11 @@ Skipping line '3353027' because it only drives at night
 Skipping line '35040' because it only drives at night
 Skipping line '6187328' because it only drives at night
 Skipping line '6187329' because it only drives at night
-Imported 100 lines with 305 stops and skipped 16 lines
+Imported 102 lines with 309 stops and skipped 16 lines
    bus: 44
    light_rail: 18
    subway: 8
-   train: 8
+   train: 10
    tram: 22
 done.
 running SUMO to determine actual departure times...
@@ -33,8 +33,8 @@ done.
 creating routes...
 done.
 Written configuration to 'osm.sumocfg'
-function import_gtfs called at Wed, 13 May 2026 06:38:25 +0000
-function import_gtfs finished after 0.748600 seconds
+function import_gtfs called at Sun, 21 Jun 2026 08:44:37 +0000
+function import_gtfs finished after 0.560150 seconds
 Success.
 Success.
 Success.

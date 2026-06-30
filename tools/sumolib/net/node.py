@@ -42,6 +42,14 @@ class Node:
     def getID(self):
         return self._id
 
+    def getTLSID(self):
+        for e in self.getIncoming():
+            for to, cons in e.getOutgoing().items():
+                for c in cons:
+                    if c.getTLSID():
+                        return c.getTLSID()
+        return None
+
     def setShape(self, shape):
         """Set the shape of the node.
 

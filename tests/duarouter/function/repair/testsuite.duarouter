@@ -26,6 +26,12 @@ backtrack_at_deadend
 # Routing should resume from the last mandatory edge.
 backtrack_at_deadend_ignore
 
+# see #18109
+backtrack_with_stops
+
+# see #18109
+backtrack_with_stops2
+
 # the (mandatory) destination edge already occurs in the middle of the route.
 # If there are no mandatory edges left besides the destination, the route ends on the first encounter.
 destination_occurs_twice

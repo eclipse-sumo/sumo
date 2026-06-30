@@ -114,7 +114,7 @@ void GNEChange_Crossing::undo() {
         }
     }
     // enable save networkElements
-    myJunctionParent->getNet()->getSavingStatus()->requireSaveNetwork();
+    myJunctionParent->getNet()->requireRecompute();
 }
 
 
@@ -168,7 +168,7 @@ void GNEChange_Crossing::redo() {
         }
     }
     // enable save networkElements
-    myJunctionParent->getNet()->getSavingStatus()->requireSaveNetwork();
+    myJunctionParent->getNet()->requireRecompute();
 }
 
 

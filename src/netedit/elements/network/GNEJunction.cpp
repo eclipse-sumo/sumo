@@ -59,6 +59,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), SUMO_TAG_JUNCTION),
     myMoveElementJunction(new GNEMoveElementJunction(this)),
@@ -70,6 +74,9 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEJunction::~GNEJunction() {
@@ -707,7 +714,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // calculate junction contour (always before children)
             calculateJunctioncontour(s, d, junctionExaggeration, drawBubble);
             // draw Junction childs
-            drawJunctionChildren(s, d);
+            drawJunctionChildren(s);
         }
         // update drawing toggle
         *myDrawingToggle = myNet->getViewNet()->getDrawingToggle();
@@ -1882,7 +1889,7 @@ GNEJunction::drawJunctionName(const GUIVisualizationSettings& s) const {
 
 
 void
-GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     // draw crossings
     for (const auto& crossing : myGNECrossings) {
         crossing->drawGL(s);

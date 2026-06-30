@@ -3166,9 +3166,7 @@ NBNode::buildCrossings() {
     const double defaultWidth = OptionsCont::getOptions().getFloat("default.crossing-width");
     for (auto& c : myCrossings) {
         c->valid = true;
-        if (!isTLControlled()) {
-            c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
-        }
+        c->tlID = ""; // reset for Netedit, set via setCrossingTLIndices()
         c->id = ":" + getID() + "_c" + toString(index++);
         c->width = (c->customWidth == NBEdge::UNSPECIFIED_WIDTH) ? defaultWidth : c->customWidth;
         // reset fields, so repeated computation (Netedit) will successfully perform the checks

@@ -432,7 +432,7 @@ public:
 
 
     /** @brief restores the tls state */
-    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, bool active);
+    virtual void loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime timeInCycle, bool active);
 
     virtual void loadExtraState(const std::string& /*state*/) {}
 

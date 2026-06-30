@@ -23,13 +23,13 @@
 #include <utils/common/Named.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSRoute.h>
+#include <microsim/MSLink.h>
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
 class MSLane;
-class MSLink;
 class MSRailSignal;
 
 // ===========================================================================

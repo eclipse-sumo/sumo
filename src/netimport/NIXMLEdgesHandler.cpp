@@ -379,7 +379,7 @@ void
 NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
     if (myCurrentEdge == nullptr) {
         if (!OptionsCont::getOptions().isInStringVector("remove-edges.explicit", myCurrentID)) {
-            WRITE_ERRORF("Additional lane information could not be set - the edge with id '%s' is not known.", myCurrentID);
+            WRITE_ERRORF("Additional lane information could not be set - the edge with id '%' is not known.", myCurrentID);
         }
         return;
     }

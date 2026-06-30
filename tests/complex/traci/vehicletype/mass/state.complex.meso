@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T09:44:39.821080+01:00 by Eclipse SUMO sumo v1_26_0+1063-474b3a0336b
+<!-- generated on 2026-06-18T08:04:07.309645+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -11,6 +11,8 @@
 
     <processing>
         <time-to-teleport value="-1"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -20,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="46179"/>
+        <remote-port value="46747"/>
     </traci_server>
 
     <mesoscopic>
@@ -36,7 +38,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1063-474b3a0336b" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_27_0+0246-77aedaaf8e3" time="30.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="1fi 1si"/>
     <delay number="3" begin="4" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" mass="1234.00" sigma="0"/>
@@ -59,5 +61,5 @@
     <segment id="1si:0">
         <vehicles time="-1" blockTime="22922" value="veh0"/>
     </segment>
-    <tlLogic id="0" programID="0" phase="0" duration="30000" active="1"/>
+    <tlLogic id="0" programID="0" phase="0" duration="30000" until="31000" cycleTime="30000" active="1"/>
 </snapshot>

@@ -126,15 +126,15 @@ public:
     // whether recuperation into the overhead wire is allowed
     static bool gOverheadWireRecuperation;
 
-    // whether traction substation current limits are taken into account when solving the overhead wire circuit
-    static bool gOverheadWireCurrentLimits;
-
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 
     /// whether the simulation should replay previous stop times
     static bool gUseStopEnded;
     static bool gUseStopStarted;
+
+    /// whether to use a simplified slope computation (for compatibility with other simulations)
+    static bool gSlopeCentered;
 
     /// whether unit tests are being run
     static bool gUnitTests;

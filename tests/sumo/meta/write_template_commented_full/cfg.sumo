@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T15:38:41.183498+01:00 by Eclipse SUMO sumo v1_26_0+1384-cf32525a297
+<!-- generated on 2026-06-26T09:46:12.867725+01:00 by Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -182,6 +182,9 @@
 
         <!-- List shape names that should be used to filter the FCD output -->
         <fcd-output.filter-shapes value="" type="STR[]"/>
+
+        <!-- Do not save data for time steps which have no vehicles / transportables -->
+        <fcd-output.skip-empty value="false" type="BOOL"/>
 
         <!-- Save fcd for persons and container to separate FILE -->
         <person-fcd-output value="" synonymes="person-fcd" type="FILE"/>
@@ -524,6 +527,9 @@
 
         <!-- List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them -->
         <railsignal.default-classes value="rail,rail_fast,rail_electric,rail_urban,subway" type="STR[]"/>
+
+        <!-- Compute slope at the vehicle center of mass instead of integrating over front and back -->
+        <slope-centered value="false" type="BOOL"/>
 
         <!-- Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth -->
         <time-to-impatience value="180" type="TIME"/>

@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <microsim/transportables/MSPModel_Striping.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 

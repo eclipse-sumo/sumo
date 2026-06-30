@@ -154,6 +154,7 @@ private:
 
     /// @brief whether the current stop should be discarded
     bool myCurrentStopWasIgnored;
+    bool myWarnOnly;
 
     int myMissingBefore;
     int myMissingAfter;
@@ -201,6 +202,8 @@ private:
      */
     void addPTLineFromFlow(const SUMOSAXAttributes& attrs);
 
+    /// @brief reprot error or warning depending on options and explicit edge removal
+    bool reportError(const std::string& msg, const std::string& edgeID, const std::string& id);
 
 private:
     /** @brief invalid copy constructor */

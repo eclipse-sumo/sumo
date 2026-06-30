@@ -7,3 +7,6 @@ r500
 # resistance computation is not active
 r500_default
 r2000
+
+# test smooth curvature computation independent of step length
+r2000_subsecond

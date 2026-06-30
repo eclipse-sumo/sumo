@@ -19,7 +19,6 @@ set(netedit_dialogs_SRCS
    GNECrashDialog.h
    GNEDialog.cpp
    GNEDialog.h
-   GNEDialogEnum.h
    GNEGeometryPointDialog.cpp
    GNEGeometryPointDialog.h
    GNEHelpAttributesDialog.cpp

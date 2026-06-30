@@ -62,6 +62,10 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=ccc2mnGX_Mg">Watch the 2025 Tutorial</a>
 (a transcription is available [here](2025.md#transcription))
+<br>
+
+<a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=zrMRpP47T_M">Watch the 2026 Tutorial</a>
+(a transcription is available [here](2026.md#transcription))
 
 # JuPedSim Tutorials
 * [JuPedSim Introduction](Jupedsim/JuPedSim_Intro.md)
@@ -73,6 +77,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
 * [ScenarioGuide](ScenarioGuide.md) - High level outline of the steps needed to build a simulation scenario
 * [HighwayDetector](HighwayDetector.md) - How to create a highway scenario based on induction loop data
+* [RailwayScenario](RailwayScenario.md) - How to create a large railway scenario from OSM and GTFS data
 * [FundamentalDiagram](FundamentalDiagram.md) - How to compute a fundamental diagram with SUMO
 * [PT from OpenStreetMap](PT_from_OpenStreetMap.md) - Creating a runnable public transit scenario entirely from [OpenStreetMap](https://www.openstreetmap.org/)
 * [Importing GTFS](GTFS.md) - Importing public transport schedules from public sources using the General Transit Feed Specification

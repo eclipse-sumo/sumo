@@ -260,17 +260,16 @@ SUMORouteHandler::myEndElement(int element) {
             if (myVehicleParameter == nullptr) {
                 break;
             }
-            if (myVehicleParameter->repetitionNumber > 0) {
-                myVehicleParameter->repetitionNumber++; // for backwards compatibility
-                // it is a flow, thus no break here
-                FALLTHROUGH;
-            } else {
+            if (myVehicleParameter->repetitionNumber <= 0) {
                 closeVehicle();
                 delete myVehicleParameter;
                 myVehicleParameter = nullptr;
                 myParamStack.pop_back();
                 break;
             }
+            myVehicleParameter->repetitionNumber++; // for backwards compatibility
+            // it is a flow, thus no break here
+            FALLTHROUGH;
         case SUMO_TAG_FLOW:
             if (myVehicleParameter) {
                 closeFlow();

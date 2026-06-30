@@ -42,6 +42,9 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/transportables/MSPModel.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MEVehicle.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
@@ -77,10 +80,18 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myOverrideEntryTime(-1),
     myVehicleDataCont(),
     myVehiclesOnDet(),
-    myLastIntervalEnd(-1) {
+    myLastIntervalEnd(-1),
+    mySegment(nullptr)
+{
     assert(length >= 0);
     assert(myPosition >= 0 && myEndPosition <= myLane->getLength());
     reset();
+    if (MSGlobals::gUseMesoSim) {
+        // used by actuated tls
+        mySegment = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), myPosition);
+        mySegment->addDetector(this);
+        mySegmentPos = myPosition - mySegment->getIndex() * mySegment->getLength();
+    }
 }
 
 
@@ -105,6 +116,19 @@ bool
 MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /* enteredLane */) {
     // vehicles must be kept if the "inductionloop" wants to detect passeengers
     if (!vehicleApplies(veh) && (veh.isPerson() || myDetectPersons <= (int)PersonMode::WALK)) {
+        return false;
+    }
+    if (MSGlobals::gUseMesoSim) {
+        MEVehicle* mesoveh = dynamic_cast<MEVehicle*>(&veh);
+        assert(mesoveh != nullptr);
+        const MESegment* seg = mesoveh->getSegment();
+        if (seg->numQueues() == 1 || mesoveh->getQueIndex() == myLane->getIndex()) {
+            const double slength = seg->getLength();
+            // extrapolate movement
+            const double exLeaveTime = mesoveh->getLastEntryTime() + (mesoveh->getEventTime() - mesoveh->getLastEntryTime()) * mySegmentPos / slength;
+            //std::cout << SIMTIME << " det=" << getID() << " veh=" << veh.getID() << " entry=" << STEPS2TIME(mesoveh->getLastEntryTime()) << " et=" << STEPS2TIME(mesoveh->getEventTime()) << " exLeaveTime=" << STEPS2TIME(exLeaveTime) << "\n";
+            myNextMesoLeaveTimes.push(exLeaveTime);
+        }
         return false;
     }
     if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
@@ -280,6 +304,10 @@ MSInductLoop::getTimeSinceLastDetection() const {
         // detector is occupied
         return 0;
     }
+    if (MSGlobals::gUseMesoSim) {
+        //std::cout << SIMTIME << " det=" << getID() << " qBefore=" << myNextMesoLeaveTimes.size() << " last=" << STEPS2TIME(getLastDetectionTime()) << " qAfter=" << myNextMesoLeaveTimes.size() << " top=" << (myNextMesoLeaveTimes.empty() ? -1 : myNextMesoLeaveTimes.top()) << "\n";
+        return SIMTIME - STEPS2TIME(getLastDetectionTime());
+    }
     return SIMTIME - myLastLeaveTime;
 }
 
@@ -339,6 +367,24 @@ MSInductLoop::getLastDetectionTime() const {
     }
     if (myVehiclesOnDet.size() != 0) {
         return MSNet::getInstance()->getCurrentTimeStep();
+    }
+    if (MSGlobals::gUseMesoSim
+            && !myNextMesoLeaveTimes.empty()
+            && myNextMesoLeaveTimes.top() < SIMSTEP) {
+        // find the latest time that is already in the past
+        SUMOTime last = myNextMesoLeaveTimes.top();
+        if (myNextMesoLeaveTimes.size() > 1) {
+            myNextMesoLeaveTimes.pop();
+            while (myNextMesoLeaveTimes.size() > 0 && myNextMesoLeaveTimes.top() < SIMSTEP) {
+                last = myNextMesoLeaveTimes.top();
+                myNextMesoLeaveTimes.pop();
+            }
+            myNextMesoLeaveTimes.push(last);
+        }
+        const SUMOTime blockTime = mySegment->getQueueBlockTime(MIN2(mySegment->numQueues() - 1, myLane->getIndex()));
+        const SUMOTime last2 = blockTime - TIME2STEPS((mySegment->getLength() - mySegmentPos) / myLane->getSpeedLimit());
+        //std::cout << SIMTIME << " det=" << getID() << " last=" << last << " last2=" << last2 << " block=" << blockTime << " times=" << myNextMesoLeaveTimes.size() << "\n";
+        return MAX2(last, last2);
     }
     return TIME2STEPS(myLastLeaveTime);
 }

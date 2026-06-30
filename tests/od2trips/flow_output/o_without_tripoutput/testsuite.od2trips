@@ -7,3 +7,5 @@
 # Spreads 100 vehicles over an hour probabilistically
 100vehs_hour_probability
 
+# Spreads 100 vehicles over an hour probabilistically
+100vehs_hour_poisson

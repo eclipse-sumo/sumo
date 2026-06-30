@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEOverheadWire::GNEOverheadWire(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_OVERHEAD_WIRE_SECTION),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_STARTPOS, myStartPosOverLane,
@@ -55,6 +59,9 @@ GNEOverheadWire::GNEOverheadWire(const std::string& id, GNENet* net, FileBucket*
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEOverheadWire::~GNEOverheadWire() {

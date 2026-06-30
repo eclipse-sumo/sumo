@@ -52,6 +52,7 @@
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SystemFrame.h>
+#include <utils/traction_wire/Circuit.h>
 #include "MSFrame.h"
 
 
@@ -187,6 +188,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.attributes", "Output", TL("List attributes that should be included in the FCD output"));
     oc.doRegister("fcd-output.filter-shapes", new Option_StringVector());
     oc.addDescription("fcd-output.filter-shapes", "Output", TL("List shape names that should be used to filter the FCD output"));
+    oc.doRegister("fcd-output.skip-empty", new Option_Bool(false));
+    oc.addDescription("fcd-output.skip-empty", "Output", TL("Do not save data for time steps which have no vehicles / transportables"));
 
     oc.doRegister("person-fcd-output", new Option_FileName());
     oc.addSynonyme("person-fcd-output", "person-fcd");
@@ -525,6 +528,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("railsignal.default-classes", new Option_StringVector(StringVector({"rail", "rail_fast", "rail_electric", "rail_urban", "subway"})));
     oc.addDescription("railsignal.default-classes", "Processing", TL("List vehicle classes that uses block-based insertion checks even when the network has no rail signals for them"));
+
+    oc.doRegister("slope-centered", new Option_Bool(false));
+    oc.addDescription("slope-centered", "Processing", TL("Compute slope at the vehicle center of mass instead of integrating over front and back"));
 
     oc.doRegister("time-to-impatience", new Option_String("180", "TIME"));
     oc.addDescription("time-to-impatience", "Processing", TL("Specify how long a vehicle may wait until impatience grows from 0 to 1, defaults to 300, non-positive values disable impatience growth"));
@@ -956,6 +962,9 @@ MSFrame::checkOptions() {
         if (oc.isDefault("pedestrian.model")) {
             oc.setDefault("pedestrian.model", "nonInteracting");
         }
+        if (oc.isDefault("no-internal-links")) {
+            oc.setDefault("no-internal-links", "true");
+        }
     }
     if (string2time(oc.getString("device.fcd.begin")) < 0) {
         oc.setDefault("device.fcd.begin", oc.getString("begin"));
@@ -1183,7 +1192,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");
     MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
-    MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
+    Circuit::enforceCurrentLimits(oc.getBool("overhead-wire.substation-current-limits"));
     MSGlobals::gInsertionChecks = SUMOVehicleParameter::parseInsertionChecks(oc.getString("insertion-checks"));
     MSGlobals::gMaxRailSignalBlockLength = oc.getFloat("railsignal.max-block-length");
 
@@ -1225,6 +1234,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gTLSYellowMinDecel = oc.getFloat("tls.yellow.min-decel");
     MSGlobals::gUseStopEnded = oc.getBool("use-stop-ended");
     MSGlobals::gUseStopStarted = oc.getBool("use-stop-started");
+    MSGlobals::gSlopeCentered = oc.getBool("slope-centered");
 
     SVCPermissions defaultClasses = 0;
     for (const std::string& vClassName : oc.getStringVector("railsignal.default-classes")) {

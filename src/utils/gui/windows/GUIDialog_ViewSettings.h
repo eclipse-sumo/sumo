@@ -310,6 +310,10 @@ protected:
     FXColorWell* myTrainStopColorSign = nullptr;
     FXColorWell* myContainerStopColor = nullptr;
     FXColorWell* myContainerStopColorSign = nullptr;
+    FXColorWell* myParkingAreaColor = nullptr;
+    FXColorWell* myParkingAreaColorSign = nullptr;
+    FXColorWell* myParkingSpaceColor = nullptr;
+    FXColorWell* myParkingSpaceColorSign = nullptr;
     FXColorWell* myChargingStationColor = nullptr;
     FXColorWell* myChargingStationColorSign = nullptr;
     FXColorWell* myStopColor = nullptr;

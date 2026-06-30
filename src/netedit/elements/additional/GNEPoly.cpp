@@ -39,6 +39,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
                   GNEAdditional(net, tag),
@@ -99,6 +103,9 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket*
     // update geometry
     updateGeometry();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEPoly::~GNEPoly() {

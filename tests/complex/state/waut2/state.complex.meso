@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-10T09:56:17.952980+01:00 by Eclipse SUMO sumo v1_26_0+1069-536c72a0369
+<!-- generated on 2026-06-18T07:58:32.806455+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -15,6 +15,11 @@
         <save-state.files value="state.xml"/>
     </output>
 
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+    </processing>
+
     <report>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
@@ -27,7 +32,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1069-536c72a0369" time="200.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_27_0+0246-77aedaaf8e3" time="200.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="r1" state="1" edges="E0 E1"/>
     <delay number="1" begin="20" end="19" depart="0.00" time="285.00" speedFactor="1.00" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE" speedFactor="normc(1.00,0.00)" sigma="0"/>
@@ -41,8 +46,8 @@
     <segment id="E1:0">
         <vehicles time="194398" blockTime="198867" value="v.19"/>
     </segment>
-    <tlLogic id="J1" programID="0" phase="0" duration="20000" active="0"/>
-    <tlLogic id="J1" programID="pGreen" phase="0" duration="100000" active="1"/>
-    <tlLogic id="J1" programID="pRed" phase="1" duration="97000" active="0"/>
-    <tlLogic id="J1" programID="pZConfounder" phase="0" duration="5000" active="0"/>
+    <tlLogic id="J1" programID="0" phase="0" duration="20000" until="262000" cycleTime="20000" active="0"/>
+    <tlLogic id="J1" programID="pGreen" phase="0" duration="100000" until="200000" cycleTime="0" active="1"/>
+    <tlLogic id="J1" programID="pRed" phase="1" duration="97000" until="200000" cycleTime="0" active="0"/>
+    <tlLogic id="J1" programID="pZConfounder" phase="0" duration="5000" until="200000" cycleTime="5000" active="0"/>
 </snapshot>

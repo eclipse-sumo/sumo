@@ -229,7 +229,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // Build the induct loop and set it into the container
                 const double detLength = getDouble("detector-length:" + lane->getID(), detDefaultLength);
                 std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
-                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors));
+                loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, detLength, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors, true));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
                 continue;
@@ -799,12 +799,11 @@ MSActuatedTrafficLightLogic::changeStepAndDuration(MSTLLogicControl& tlcontrol,
 
 
 void
-MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, bool active) {
+MSActuatedTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime /*timeInCycle*/, bool active) {
     myAmActive = active;
     const SUMOTime lastSwitch = t - spentDuration;
     myStep = step;
     myPhases[myStep]->myLastSwitch = lastSwitch;
-    const SUMOTime nextSwitch = t + MAX2((SUMOTime)0, getPhase(step).minDuration - spentDuration);
     mySwitchCommand->deschedule(this);
     mySwitchCommand = new SwitchCommand(tlcontrol, this, nextSwitch);
     MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, nextSwitch);
@@ -944,9 +943,6 @@ MSActuatedTrafficLightLogic::gapControl() {
     //intergreen times should not be lengthend
     assert((int)myPhases.size() > myStep);
     double result = std::numeric_limits<double>::max();
-    if (MSGlobals::gUseMesoSim) {
-        return result;
-    }
     // switch off active colors
     if (myShowDetectors) {
         for (InductLoopInfo& loopInfo : myInductLoops) {

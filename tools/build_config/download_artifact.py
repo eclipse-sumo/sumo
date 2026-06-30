@@ -48,6 +48,9 @@ def get_latest_artifact_url(options):
             # there seems to be no easy way to identify a tag so we take the first letter
             workflow_run_ids.append(workflow_run['id'])
     for workflow_run in response.json()['workflow_runs']:
+        if options.verbose:
+            print("Found workflow", workflow_run['id'], workflow_run['status'],
+                  workflow_run['conclusion'], workflow_run['head_branch'])
         if (workflow_run['status'] == "completed"
             and (options.allow_failed or workflow_run['conclusion'] == "success")
                 and workflow_run['head_branch'] == options.branch):
@@ -57,8 +60,10 @@ def get_latest_artifact_url(options):
         raise RuntimeError("No successful workflow run found in branch '%s'." % options.branch)
 
     for workflow_run_id in workflow_run_ids:
-        response = request("%sruns/%s/artifacts" % (prefix, workflow_run_id), options.token)
+        response = request("%sruns/%s/artifacts?per_page=100" % (prefix, workflow_run_id), options.token)
         for artifact in response.json()['artifacts']:
+            if options.verbose:
+                print("Found artifact", artifact['name'])
             if artifact['name'].startswith(options.prefix):
                 yield "%sartifacts/%s/zip" % (prefix, artifact['id'])
 

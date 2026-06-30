@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/dialogs/GNEDialogEnum.h>
+#include <utils/tests/DialogType.h>
 #include <utils/foxtools/fxheader.h>
 
 #include "InternalTest.h"

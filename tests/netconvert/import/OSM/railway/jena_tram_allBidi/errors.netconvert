@@ -24,10 +24,6 @@ Warning: Could not find corresponding edge or compatible lane for free-floating 
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '12590354345' (Hugo-Schrade-Straße). Thus, it will be removed!
 Warning: Cannot assign stop 1854212875 on edge '1350384122' to pt line '3474899'. Ignoring!
 Warning: Cannot assign stop 1854212875 on edge '1350384122' to pt line '3474911'. Ignoring!
-Warning: Converting invalid rail_crossing to priority junction '1839033754'.
-Warning: Converting invalid rail_crossing to priority junction '1839997596'.
-Warning: Converting invalid rail_crossing to priority junction '1839997600'.
-Warning: Converting invalid rail_crossing to priority junction '2470156337'.
 Warning: Stop '1854212875' named 'Winzerla' from line '3474899' on edge '1350384122' is not part of the route.
 Warning: Stop '1854212875' named 'Winzerla' from line '3474911' on edge '1350384122' is not part of the route.
 Warning: 12 total messages of type: No way found for reference '%' in relation '%'

@@ -399,7 +399,7 @@ private:
     void drawJunctionName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
-    void drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawJunctionChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief calculate contour
     void calculateJunctioncontour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,

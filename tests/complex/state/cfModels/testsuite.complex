@@ -9,3 +9,6 @@ BKerner
 PWagner2009
 SmartSK
 CC
+
+# saves additional states when accounting for curveResistance
+Rail

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-17T10:28:14.245664+01:00 by Eclipse SUMO sumo v1_26_0+1238-9348d776a1c
+<!-- generated on 2026-06-18T08:01:02.174119+01:00 by Eclipse SUMO sumo v1_27_0+0246-77aedaaf8e3
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net.net.xml"/>
-        <additional-files value="input_additional.add.xml"/>
-        <load-state value="state.xml"/>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="400"/>
+        <save-state.files value="state.xml"/>
     </output>
 
     <processing>
@@ -31,13 +32,28 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="160.00">
-        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <vehicle id="0" depart="0.00" arrival="27.00">
+        <route edges="beg middle end"/>
     </vehicle>
 
-    <vehicle id="1" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.0600" arrival="175.00">
-        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
-        <stop lane="3/1to2/1_0" duration="10.00"/>
+    <vehicle id="a" depart="100.00" arrival="131.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="1" depart="110.00" arrival="139.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="b" depart="390.00" arrival="417.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="2" depart="410.00" arrival="438.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="3" depart="600.00" arrival="635.00">
+        <route edges="beg middle end"/>
     </vehicle>
 
 </routes>

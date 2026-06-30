@@ -247,6 +247,14 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         }
         newEdges.push_back(targets.front());
         auto nextMandatory = mandatory.begin() + 1;
+        while (nextMandatory != mandatory.end()
+                && targets.front() == nextMandatory->edge
+                && (nextMandatory->edge != (nextMandatory - 1)->edge
+                    || nextMandatory->pos >= (nextMandatory - 1)->pos
+                    // ignore invalid via stop pos
+                    || nextMandatory->pos < 0)) {
+            nextMandatory++;
+        }
         int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
@@ -274,10 +282,6 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                     newEdges.push_back(*i);
                     //std::cout << " skipJump mIndex=" << (nextMandatory - 1 - mandatory.begin()) << " last=" << last->getID() << " next=" << (*i)->getID() << " newEdges=" << toString(newEdges) << "\n";
                 } else {
-                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
-                        std::cout << " beforeRepair newEdges=" << toString(newEdges) << " last=" << last->getID() << "\n";
-                    }
-
                     int numEdgesBefore = (int)newEdges.size();
                     //                router.setHint(targets.begin(), i, &veh, begin);
                     if (myTryRepair && lastMandatory < (int)newEdges.size() && last != newEdges[lastMandatory]) {
@@ -322,12 +326,14 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                             WRITE_MESSAGEF("    Taking detour of %m to avoid gap of %m)", detour, airDist);
                         }
                     }
-                    if (veh.getID() == "10.T0.1-13-P-j26-1.2.H.0") {
-                        std::cout << " at=" << numEdgesBefore << " before=" << numEdgesBefore << " after=" << newEdges.size() << " new=" << toString(newEdges) << "\n";
-                    }
                 }
             }
-            if (*i == nextMandatory->edge) {
+            while (nextMandatory != mandatory.end()
+                    && *i == nextMandatory->edge
+                    && (nextMandatory->edge != (nextMandatory - 1)->edge
+                        || nextMandatory->pos >= (nextMandatory - 1)->pos
+                        // ignore invalid via stop pos
+                        || nextMandatory->pos < 0)) {
                 nextMandatory++;
                 lastMandatory = (int)newEdges.size() - 1;
             }

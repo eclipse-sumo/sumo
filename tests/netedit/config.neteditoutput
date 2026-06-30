@@ -19,12 +19,15 @@ copy_test_path:netconvert_A.netedit
 copy_test_path:netconvert_B.netedit
 
 # NETWORKS
+copy_test_path:netedit_A_net_xml.netedit
 copy_test_path:input_net_A_net_xml.netedit
+copy_test_path:input_net_A_net_xml_gz.netedit
 copy_test_path:input_net_A_xml_gz.netedit
 copy_test_path:input_net_A_xml.netedit
 copy_test_path:input_net_A_txt.netedit
 
 copy_test_path:input_net_B_net_xml.netedit
+copy_test_path:input_net_B_net_xml_gz.netedit
 copy_test_path:input_net_B_xml_gz.netedit
 copy_test_path:input_net_B_xml.netedit
 copy_test_path:input_net_B_txt.netedit

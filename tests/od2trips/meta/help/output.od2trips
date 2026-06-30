@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips v1_25_0+0045-28a3daf62ee
+Eclipse SUMO od2trips v1_27_0+0274-c1887d2568b
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -54,6 +54,8 @@ Output Options:
   --flow-output FILE               Writes flow definitions into FILE
   --flow-output.probability        Writes probabilistic flow instead of evenly
                                     spaced flow
+  --flow-output.poisson            Writes poisson distributed flow instead of
+                                    evenly spaced flow
   --pedestrians                    Writes pedestrians instead of vehicles
   --persontrips                    Writes persontrips instead of vehicles
   --persontrips.modes STR[]        Add modes attribute to personTrips

@@ -30,6 +30,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNETractionSubstation::GNETractionSubstation(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_TRACTION_SUBSTATION),
     GNEAdditionalSquared(this) {
@@ -46,6 +50,9 @@ GNETractionSubstation::GNETractionSubstation(const std::string& id, GNENet* net,
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNETractionSubstation::~GNETractionSubstation() {

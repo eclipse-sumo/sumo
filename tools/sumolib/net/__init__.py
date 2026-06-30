@@ -227,8 +227,8 @@ class Net:
         self._tlss = []
         self._ranges = [[sys.float_info.max, -sys.float_info.max], [sys.float_info.max, -sys.float_info.max]]
         self._roundabouts = []
-        self._rtreeEdges = None
-        self._rtreeLanes = None
+        self._rtreeEdges = {True: None, False: None}  # different rTrees depending on includeJunctions
+        self._rtreeLanes = {True: None, False: None}  # different rTrees depending on includeJunctions
         self._allLanes = []
         self._origIdx = None
         self._proj = None
@@ -371,10 +371,12 @@ class Net:
     # Please be aware that the resulting list of edges is NOT sorted
     def getNeighboringEdges(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         edges = []
+        rtree = self._rtreeEdges[includeJunctions]
         try:
-            if self._rtreeEdges is None:
-                self._rtreeEdges = self._initRTree(self._edges, includeJunctions)
-            for i in self._rtreeEdges.intersection((x - r, y - r, x + r, y + r)):
+            if rtree is None:
+                rtree = self._initRTree(self._edges, includeJunctions)
+                self._rtreeEdges[includeJunctions] = rtree
+            for i in rtree.intersection((x - r, y - r, x + r, y + r)):
                 e = self._edges[i]
                 d = sumolib.geomhelper.distancePointToPolygon(
                     (x, y), e.getShape(includeJunctions))
@@ -392,12 +394,14 @@ class Net:
 
     def getNeighboringLanes(self, x, y, r=0.1, includeJunctions=True, allowFallback=True):
         lanes = []
+        rtree = self._rtreeLanes[includeJunctions]
         try:
-            if self._rtreeLanes is None:
+            if rtree is None:
                 for the_edge in self._edges:
                     self._allLanes += the_edge.getLanes()
-                self._rtreeLanes = self._initRTree(self._allLanes, includeJunctions)
-            for i in self._rtreeLanes.intersection((x - r, y - r, x + r, y + r)):
+                rtree = self._initRTree(self._allLanes, includeJunctions)
+                self._rtreeLanes[includeJunctions] = rtree
+            for i in rtree.intersection((x - r, y - r, x + r, y + r)):
                 the_lane = self._allLanes[i]
                 d = sumolib.geomhelper.distancePointToPolygon((x, y), the_lane.getShape(includeJunctions))
                 if d < r:

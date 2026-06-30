@@ -42,11 +42,6 @@ Warning: Cannot assign stop 3115234152 on edge '572322449' to pt line '5601863'.
 Warning: Ambiguous tram edges '12089777#1' and '219012222' for lane '-163302813#0_0'.
 Warning: Ambiguous tram edges '218990870#0' and '219014586#1' for lane '163302813#0_0'.
 Warning: Found sharp turn with radius 8.45 at the start of edge '11990237#0'.
-Warning: Converting invalid rail_crossing to priority junction '10268308575'.
-Warning: Converting invalid rail_crossing to priority junction '10268308584'.
-Warning: Converting invalid rail_crossing to priority junction '10268336874'.
-Warning: Converting invalid rail_crossing to priority junction '10268336886'.
-Warning: Converting invalid rail_crossing to priority junction '10268336891'.
 Warning: Stop '4881603356' named 'Bahnhof Oerlikon' from line '10412930' on edge '496693720' is not part of the route.
 Warning: Stop '538163640' named 'Bahnhof Oerlikon' from line '10532084' on edge '525176584#1' is not part of the route.
 Warning: Stop '4512555327' named 'Bahnhof Oerlikon Nord' from line '10535024' on edge '454724139#0' is not part of the route.
@@ -58,7 +53,6 @@ Warning: Removing pt stop '5710994953' on non existing edge ''.
 Warning: Removing pt stop '5710994954' on non existing edge ''.
 Warning: Removed 4 pt stops because they could not be assigned to the network
 Warning: 6 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 15 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 26 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 27 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 14 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.

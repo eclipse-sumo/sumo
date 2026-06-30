@@ -28,6 +28,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_CLOSING_LANE_REROUTE),
     GNEAdditionalListed(this),
@@ -47,6 +51,9 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalPare
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}

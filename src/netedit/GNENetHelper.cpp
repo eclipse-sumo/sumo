@@ -520,7 +520,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 
@@ -679,7 +679,7 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEEdgeType* edgeType, const s
         // add it into myEdgeTypes again
         myEdgeTypes[edgeType->getID()] = edgeType;
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 
@@ -825,7 +825,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
             lane->updateConnectionIDs();
         }
         // net has to be saved
-        myNet->getSavingStatus()->requireSaveNetwork();
+        myNet->requireRecompute();
     }
 }
 
@@ -1098,6 +1098,20 @@ GNENetHelper::AttributeCarriers::getSelectedShapes() const {
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
             if (additional.second->getTagProperty()->isShapeElement() && additional.second->isAttributeCarrierSelected()) {
+                result.push_back(additional.second);
+            }
+        }
+    }
+    return result;
+}
+
+std::vector<GNEAdditional*>
+GNENetHelper::AttributeCarriers::getUnselectedShapes() const {
+    std::vector<GNEAdditional*> result;
+    // returns additionals depending of selection
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            if (additional.second->getTagProperty()->isShapeElement() && !additional.second->isAttributeCarrierSelected()) {
                 result.push_back(additional.second);
             }
         }

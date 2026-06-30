@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_VSS),
     GNEAdditionalSquared(this) {
@@ -47,6 +51,9 @@ GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, F
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEVariableSpeedSign::~GNEVariableSpeedSign() {

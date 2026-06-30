@@ -33,6 +33,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional(net, GNE_TAG_CALIBRATOR_FLOW),
     GNEAdditionalListed(this) {
@@ -61,6 +65,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, const SUMO
     // set default vehsperhour
     setAttribute(SUMO_ATTR_VEHSPERHOUR, "1800");
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,

@@ -87,7 +87,7 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime t) {
             vars.executeOnSwitchActions();
         }
     }
-    myAssumedNextSwitch += next;
+    myAssumedNextSwitch = t + next;
     return next;
 }
 
@@ -646,9 +646,9 @@ MSTrafficLightLogic::getLatestEnd(int step) const {
 
 
 void
-MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, bool active) {
+MSTrafficLightLogic::loadState(MSTLLogicControl& tlcontrol, SUMOTime t, int step, SUMOTime spentDuration, SUMOTime nextSwitch, SUMOTime /*timeInCycle*/, bool active) {
     myAmActive = active;
-    const SUMOTime remaining = getPhase(step).duration - spentDuration;
+    const SUMOTime remaining = nextSwitch - t;
     changeStepAndDuration(tlcontrol, t, step, remaining);
     if (myAmActive) {
         setTrafficLightSignals(t - spentDuration);

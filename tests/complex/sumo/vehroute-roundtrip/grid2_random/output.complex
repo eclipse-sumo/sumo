@@ -1,48 +1,50 @@
-Loading net-file from 'input_net.net.xml' ... done (10ms).
+Loading net-file from 'input_net.net.xml' ... done (19ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_27_0+0048-a3478af8069 started with time: 0.00.
-Simulation ended at time: 1382.00.
+Simulation version v1_27_0+0279-a98528887a8 started with time: 0.00.
+Simulation ended at time: 1415.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.80s
- Real time factor: 1736.18
- UPS: 365737.437186
+ Duration: 1.94s
+ Real time factor: 730.511
+ UPS: 154107.382550
 Vehicles:
  Inserted: 2000
  Running: 0
  Waiting: 0
+ Teleports: 2 (Jam: 1, Yield: 1)
 Statistics (avg of 2000):
- RouteLength: 473.29
- Speed: 4.23
- Duration: 145.56
- WaitingTime: 74.56
- TimeLoss: 108.57
- DepartDelay: 5.08
-DijkstraRouter answered 5463 queries and explored 39.30 edges on average.
-DijkstraRouter spent 0.04s answering queries (0.01ms on average).
-Loading net-file from 'input_net.net.xml' ... done (9ms).
+ RouteLength: 470.56
+ Speed: 4.16
+ Duration: 149.25
+ WaitingTime: 79.01
+ TimeLoss: 112.53
+ DepartDelay: 7.63
+DijkstraRouter answered 5577 queries and explored 40.91 edges on average.
+DijkstraRouter spent 0.08s answering queries (0.01ms on average).
+Loading net-file from 'input_net.net.xml' ... done (10ms).
 Loading route-files incrementally from 'vr.xml'
 Loading done.
-Simulation version v1_27_0+0048-a3478af8069 started with time: 0.00.
-Simulation ended at time: 1382.00.
+Simulation version v1_27_0+0279-a98528887a8 started with time: 0.00.
+Simulation ended at time: 1415.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 0.62s
- Real time factor: 2229.03
- UPS: 469559.677419
+ Duration: 1.48s
+ Real time factor: 958.023
+ UPS: 201656.059580
 Vehicles:
  Inserted: 2000
  Running: 0
  Waiting: 0
+ Teleports: 2 (Jam: 1, Yield: 1)
 Statistics (avg of 2000):
- RouteLength: 473.29
- Speed: 4.23
- Duration: 145.56
- WaitingTime: 74.56
- TimeLoss: 108.57
- DepartDelay: 0.00
-<     <performance clockBegin="1779951136.24" clockEnd="1779951137.04" clockDuration="0.80" traciDuration="0.00" realTimeFactor="1736.18" vehicleUpdatesPerSecond="365737.44" personUpdatesPerSecond="0.00" begin="0.00" end="1382.00" duration="1382.00"/>
->     <performance clockBegin="1779951137.09" clockEnd="1779951137.71" clockDuration="0.62" traciDuration="0.00" realTimeFactor="2229.03" vehicleUpdatesPerSecond="469559.68" personUpdatesPerSecond="0.00" begin="0.00" end="1382.00" duration="1382.00"/>
-<     <vehicleTripStatistics count="2000" routeLength="473.29" speed="4.23" duration="145.56" waitingTime="74.56" timeLoss="108.57" departDelay="5.08" departDelayWaiting="-1.00" totalTravelTime="291127.00" totalDepartDelay="10171.00"/>
->     <vehicleTripStatistics count="2000" routeLength="473.29" speed="4.23" duration="145.56" waitingTime="74.56" timeLoss="108.57" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="291127.00" totalDepartDelay="0.00"/>
+ RouteLength: 470.56
+ Speed: 4.16
+ Duration: 148.92
+ WaitingTime: 78.73
+ TimeLoss: 112.19
+ DepartDelay: 0.10
+<     <performance clockBegin="1782029124.34" clockEnd="1782029126.28" clockDuration="1.94" traciDuration="0.00" realTimeFactor="730.51" vehicleUpdatesPerSecond="154107.38" personUpdatesPerSecond="0.00" begin="0.00" end="1415.00" duration="1415.00"/>
+>     <performance clockBegin="1782029126.35" clockEnd="1782029127.83" clockDuration="1.48" traciDuration="0.00" realTimeFactor="958.02" vehicleUpdatesPerSecond="201656.06" personUpdatesPerSecond="0.00" begin="0.00" end="1415.00" duration="1415.00"/>
+<     <vehicleTripStatistics count="2000" routeLength="470.56" speed="4.16" duration="149.25" waitingTime="79.01" timeLoss="112.53" departDelay="7.63" departDelayWaiting="-1.00" totalTravelTime="298506.00" totalDepartDelay="15266.00"/>
+>     <vehicleTripStatistics count="2000" routeLength="470.56" speed="4.16" duration="148.92" waitingTime="78.73" timeLoss="112.19" departDelay="0.10" departDelayWaiting="-1.00" totalTravelTime="297846.00" totalDepartDelay="198.00"/>

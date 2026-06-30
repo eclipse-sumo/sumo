@@ -225,8 +225,10 @@ if (NOT ISOLATED_BUILD)
     # force Visual Studio to leave out the Release / Debug dirs
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_SOURCE_DIR}/bin)
 endif()
 
 # Debug messages
@@ -348,12 +350,11 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}/fox-*")
     file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}/dependencies/freetype-*")
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen-*")
-    file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     file(GLOB ARROW_PATH "${SUMO_LIBRARIES}/apache-arrow-*")
-    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/lz4-*")        # needed for Arrow
-    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/zstd-*")      # needed for Arrow
-    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/bzip2-*")    # needed for Arrow
-    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/dependencies/thrift-*")  # needed for Arrow
+    file(GLOB THRIFT_PATH "${SUMO_LIBRARIES}/dependencies/thrift-*")            # needed for Arrow
+    file(GLOB BZIP2_PATH "${SUMO_LIBRARIES}/dependencies/compression/bzip2-*")
+    file(GLOB LZ4_PATH "${SUMO_LIBRARIES}/dependencies/compression/lz4-*")
+    file(GLOB ZSTD_PATH "${SUMO_LIBRARIES}/dependencies/compression/zstd-*")
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-*")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-*")
     file(GLOB OSG_PATH "${SUMO_LIBRARIES}/OSG-*")
@@ -361,8 +362,9 @@ if (SUMO_LIBRARIES AND WIN32)
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/geos-*")
     file(GLOB BOOST_PATH "${SUMO_LIBRARIES}/boost-*")
     if (MSVC_VERSION GREATER 1919)
-        # fmt in SUMOLibraries only works with MSVC 2019 and later
+        # fmt and gettext in SUMOLibraries only work with MSVC 2019 and later
         file(GLOB FMT_PATH "${SUMO_LIBRARIES}/fmt-*")
+        file(GLOB GETTEXT_PATH "${SUMO_LIBRARIES}/gettext-*")
     endif ()
 
     # set all paths in prefix
@@ -374,36 +376,40 @@ if (SUMO_LIBRARIES AND WIN32)
                                  "${FREETYPE_PATH}/bin/*.dll"
                                  "${GETTEXT_PATH}/bin/*.dll"
                                  )
+    file(GLOB _TIFF_DLLS "${SUMO_LIBRARIES}/dependencies/image/tiff-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/image/jpeg-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/image/libwebp-*/bin/*.dll"
+                         "${SUMO_LIBRARIES}/dependencies/compression/xz-*/bin/*.dll"
+                         "${ZSTD_PATH}/bin/*.dll"
+                         )
     if (ENABLE_GDAL OR ENABLE_PROJ)
         file(GLOB _PROJ_DLLS "${PROJ_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/curl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/libssh2-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/openssl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/sqlite-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/jpeg-*/bin/*.dll"
                              )
-        list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS})
+        list(APPEND SUMO_LIBRARIES_DLL ${_PROJ_DLLS} ${_TIFF_DLLS})
     endif ()
     if (ENABLE_FOX)
         file(GLOB _FOX_DLLS "${FOX_PATH}/bin/*.dll"
-                            "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/dependencies/libpng-*/bin/*.dll"
-                            "${SUMO_LIBRARIES}/dependencies/tiff-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/compression/bzip2-*/bin/*.dll"
+                            "${SUMO_LIBRARIES}/dependencies/image/libpng-*/bin/*.dll"
                             )
-        list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS})
+        list(APPEND SUMO_LIBRARIES_DLL ${_FOX_DLLS} ${_TIFF_DLLS})
     endif ()
     if (ENABLE_GDAL)
         file(GLOB _GDAL_DLLS "${GDAL_PATH}/bin/*.dll"
                              "${SUMO_LIBRARIES}/libspatialite-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/libxml2-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/libiconv-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/freexl-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/gis/freexl-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/libexpat-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/librttopo-*/bin/*.dll"
-                             "${SUMO_LIBRARIES}/dependencies/minizip-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/compression/minizip-ng-*/bin/*.dll"
+                             "${SUMO_LIBRARIES}/dependencies/compression/zlib-ng-*/bin/*.dll"
                              "${SUMO_LIBRARIES}/dependencies/pcre2-*/bin/pcre2-8*.dll"
-                             "${GDAL_PATH}/bin/gdal*.exe"
+                             "${GDAL_PATH}/bin/gdal*.exe"  # for tileGet.py
                              )
         list(APPEND SUMO_LIBRARIES_DLL ${_GDAL_DLLS})
     endif ()
@@ -426,10 +432,10 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     if (ENABLE_PARQUET)
         file(GLOB _ARROW_DLLS "${ARROW_PATH}/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/bzip2-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/thrift-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/zstd-*/bin/*.dll"
-                              "${SUMO_LIBRARIES}/dependencies/lz4-*/bin/*.dll"
+                              "${BZIP2_PATH}/bin/*.dll"
+                              "${THRIFT_PATH}/bin/*.dll"
+                              "${ZSTD_PATH}/bin/*.dll"
+                              "${LZ4_PATH}/bin/*.dll"
                               )
         list(APPEND SUMO_LIBRARIES_DLL ${_ARROW_DLLS})
     endif ()
@@ -455,7 +461,7 @@ if (SUMO_LIBRARIES AND WIN32)
         # set both google test library
         set(GTEST_BOTH_LIBRARIES "${GTEST_ROOT}/lib/gtest.lib" "${GTEST_ROOT}/lib/gtest_main.lib")
         # set google test DLLs
-        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll" "${SUMO_LIBRARIES}/dependencies/abseil-*/bin/*.dll" "${SUMO_LIBRARIES}/dependencies/re2-*/bin/*.dll")
+        file(GLOB GTEST_DLL "${GTEST_ROOT}/bin/gtest*.dll" "${SUMO_LIBRARIES}/dependencies/google/abseil-*/bin/*.dll" "${SUMO_LIBRARIES}/dependencies/google/re2-*/bin/*.dll")
         set(GTEST_FOUND true)
     endif ()
     file(GLOB SWIG_EXECUTABLE "${SUMO_LIBRARIES}/swigwin-*/bin/swig.exe")
@@ -661,25 +667,19 @@ if (ENABLE_JUPEDSIM)
 endif ()
 
 if (ENABLE_BOOST)
-    # BOOST (needed for stacktrace, minimum version 1.80.0)
-    find_package(boost_filesystem CONFIG QUIET)
-    find_package(boost_process CONFIG QUIET)
-    find_package(boost_headers CONFIG QUIET)
-
-    # init boost library
-    set(BOOST_LIBRARIES "")
-
-    # continue if boost was found
-    if(boost_filesystem_FOUND AND boost_process_FOUND AND boost_headers_FOUND)
-        message(STATUS "Boost headers, filesystem and process " ${boost_headers_VERSION} " found, enabling stacktrace support")
+    # Boost (needed for stacktrace, and process management)
+    find_package(Boost 1.80.0 CONFIG QUIET COMPONENTS filesystem process)
+    if(Boost_filesystem_FOUND AND (Boost_process_FOUND OR Boost_VERSION VERSION_LESS 1.88))
+        message(STATUS "Boost headers " ${boost_headers_VERSION} " found, enabling stacktrace support")
         set(HAVE_BOOST 1)
-        # set includes
-        get_target_property(Boost_include Boost::headers INTERFACE_INCLUDE_DIRECTORIES)
-        include_directories(${Boost_include})
-        # add boost libraries
-        list(APPEND BOOST_LIBRARIES Boost::filesystem Boost::process Boost::headers)
+        set(BOOST_LIBRARIES Boost::filesystem Boost::headers)
+        include_directories(${Boost_INCLUDE_DIRS})
+        if (Boost_process_FOUND)
+            list(APPEND BOOST_LIBRARIES Boost::process)
+        endif()
     else()
         message(STATUS "Boost not found, building without stacktrace support")
+        set(BOOST_LIBRARIES "")
     endif()
 endif ()
 
@@ -704,9 +704,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
-include(GNUInstallDirs)
 if (MSVC)
     set(CMAKE_INSTALL_LIBDIR bin)
+endif ()
+include(GNUInstallDirs)
+if (MSVC)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/sumo-${PACKAGE_VERSION}")
     endif()
@@ -818,14 +820,6 @@ if (SUMO_LIBRARIES AND WIN32)
                 list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
             else ()
                 list(APPEND TARGET_ALL_DLLS $<$<CONFIG:Debug>:${TARGET_DLL}>)
-            endif ()
-            if (DLL_BASENAME STREQUAL "z.dll")
-                set(TARGET_DLL ${TARGET_DIR}/bin/zlib.dll)
-                add_custom_command(OUTPUT ${TARGET_DLL}
-                                   COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
-                                   DEPENDS ${DLL_PATH})
-                list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
-                list(APPEND SUMO_LIBRARIES_RELEASE_DLL ${TARGET_DLL})
             endif ()
         endif()
     endforeach(DLL_PATH)

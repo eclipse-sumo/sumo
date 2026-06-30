@@ -886,7 +886,9 @@ MSTLLogicControl::clearState(SUMOTime time, bool quickReload) {
                     offset -= phases[step]->duration;
                     step++;
                 }
-                logic->loadState(*this, time, step, offset, logic->isActive());
+                SUMOTime nextSwitch = time + phases[step]->duration - offset;
+                SUMOTime timeInCycle = (time - offset) % logic->getDefaultCycleTime();
+                logic->loadState(*this, time, step, offset, nextSwitch, timeInCycle, logic->isActive());
             }
         }
     }

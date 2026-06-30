@@ -38,6 +38,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
     Shape(""),
     GNEAdditional(net, tag),
@@ -91,6 +95,9 @@ GNEPOI::GNEPOI(const std::string& id, GNENet* net, FileBucket* fileBucket, const
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEPOI::~GNEPOI() {

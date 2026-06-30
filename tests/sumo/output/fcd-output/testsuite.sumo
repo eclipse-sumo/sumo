@@ -15,6 +15,9 @@ vectorized
 
 # check whether slope works
 cartesian_slope
+
+# test option --slope-centered
+cartesian_slope_centered
 cartesian_slope_geom
 cartesian_slope_length
 
@@ -87,5 +90,8 @@ emissions
 
 # filter output with shape
 shape_filter
+
+# do not print empty timesteps
+skipEmpty
 begin
 period_begin

@@ -39,6 +39,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(), SUMO_TAG_CONNECTION),
     myMoveElementConnection(new GNEMoveElementConnection(this)),
@@ -49,6 +53,9 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     setParents<GNELane*>({from, to});
     setParents<GNEEdge*>({from->getParentEdge(), to->getParentEdge()});
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEConnection::~GNEConnection() {

@@ -64,6 +64,8 @@ enum class GUIIcon {
     HALL_OF_FAME,
     CLEARMESSAGEWINDOW,
     GITHUB,
+    TELEPORT,
+    INSERTION_DELAY,
     /// @}
 
     /// @name netedit view icons

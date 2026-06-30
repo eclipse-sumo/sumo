@@ -112,6 +112,9 @@
 #include "icons/green_person.xpm"
 #include "icons/yellow_person.xpm"
 
+#include "icons/teleport.xpm"
+#include "icons/insertion_delay.xpm"
+
 #include "icons/colorwheel.xpm"
 #include "icons/removedb.xpm"
 #include "icons/recenter_view.xpm"
@@ -705,6 +708,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::YELLOWEDGE] = new FXXPMIcon(a, yellow_edge_xpm);
     myIcons[GUIIcon::YELLOWVEHICLE] = new FXXPMIcon(a, yellow_vehicle_xpm);
     myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
+
+    myIcons[GUIIcon::TELEPORT] = new FXXPMIcon(a, teleport_xpm);
+    myIcons[GUIIcon::INSERTION_DELAY] = new FXXPMIcon(a, insertion_delay_xpm);
 
     myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
     myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);

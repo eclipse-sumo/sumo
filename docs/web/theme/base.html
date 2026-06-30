@@ -113,7 +113,7 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
                 <div class="col-md-9 main-area" role="main">
                   {% if page and not (page.is_top_level and page.is_index and page.file.url == "index.html") %} <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
                   {% include "breadcrumbs.html" %}
-                  <hTitles>{{page.title}}<hr style="border: 0.5px solid #338033; margin-top: 5px !important;"></hTitles>
+                  <h1 class="h-title">{{page.title}}</h1>
                   {% endif %}
                   {% include "content.html" %}
                 </div>

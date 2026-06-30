@@ -1,0 +1,8 @@
+Warning: Teleporting vehicle '1431'; waited too long (jam), lane=':J3_2_0', time=1043.00.
+Warning: Teleporting vehicle '1364'; waited too long (yield), lane='D0D1_0', time=1044.00.
+Warning: Vehicle '1364' ends teleporting on edge '-E1D1', time=1046.00.
+Warning: Vehicle '1431' ends teleporting on edge '-C1D1', time=1059.00.
+Warning: Teleporting vehicle '1431'; waited too long (jam), lane=':J3_2_0', time=1043.00.
+Warning: Teleporting vehicle '1364'; waited too long (yield), lane='D0D1_0', time=1044.00.
+Warning: Vehicle '1364' ends teleporting on edge '-E1D1', time=1046.00.
+Warning: Vehicle '1431' ends teleporting on edge '-C1D1', time=1059.00.

@@ -1471,6 +1471,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR);
         railParams.insert(SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC);
         railParams.insert(SUMO_ATTR_CURVE_RESISTANCE);
+        railParams.insert(SUMO_ATTR_CURVE_INTEGRATION);
         railParams.insert(SUMO_ATTR_ROECKL_SHARP_RADIUS);
         railParams.insert(SUMO_ATTR_ROECKL_NUMERATOR);
         railParams.insert(SUMO_ATTR_ROECKL_NUMERATOR_SHARP);

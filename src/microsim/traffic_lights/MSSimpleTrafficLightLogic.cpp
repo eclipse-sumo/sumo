@@ -335,6 +335,8 @@ MSSimpleTrafficLightLogic::saveStateAttrs(OutputDevice& out) const {
     out.writeAttr(SUMO_ATTR_PROGRAMID, getProgramID());
     out.writeAttr(SUMO_ATTR_PHASE, getCurrentPhaseIndex());
     out.writeAttr(SUMO_ATTR_DURATION, getSpentDuration());
+    out.writeAttr(SUMO_ATTR_UNTIL, getNextSwitchTime());
+    out.writeAttr(SUMO_ATTR_CYCLETIME, getTimeInCycle());
     out.writeAttr(SUMO_ATTR_ACTIVE, myAmActive);
 }
 

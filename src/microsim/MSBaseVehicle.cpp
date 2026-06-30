@@ -1446,7 +1446,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     MSStop stop(stopPar);
     if (stopPar.lane == "") {
         MSEdge* e = MSEdge::dictionary(stopPar.edge);
-        stop.lane = e->getFirstAllowed(getVClass(), getRoutingMode());
+        stop.lane = e->getFirstAllowed(getVClass(), false, getRoutingMode());
         if (stop.lane == nullptr) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on any lane of edge '" + stopPar.edge + "'.";
             return false;
@@ -1704,11 +1704,11 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
 #ifdef DEBUG_ADD_STOP
     if (DEBUG_COND) {
         std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size()
-            << " routeIndex=" << (stop.edge - myRoute->begin())
-            << " stopIndex=" << std::distance(myStops.begin(), iter)
-            //<< " searchStart=" << (*searchStart - myRoute->begin())
-            //<< " route=" << toString(myRoute->getEdges())
-            << "\n";
+                  << " routeIndex=" << (stop.edge - myRoute->begin())
+                  << " stopIndex=" << std::distance(myStops.begin(), iter)
+                  //<< " searchStart=" << (*searchStart - myRoute->begin())
+                  //<< " route=" << toString(myRoute->getEdges())
+                  << "\n";
     }
 #endif
     return true;
@@ -2312,7 +2312,7 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     const ConstMSEdgeVector& oldEdges = getRoute().getEdges();
     std::vector<MSStop> stops(myStops.begin(), myStops.end());
     const int junctionOffset = ((getLane() != nullptr && getLane()->isInternal())
-            || getRerouteOrigin() != getCurrentRouteEdge()) ? 1 : 0;
+                                || getRerouteOrigin() != getCurrentRouteEdge()) ? 1 : 0;
     MSRouteIterator itStart = nextStopIndex == 0 ? getCurrentRouteEdge() + junctionOffset : stops[nextStopIndex - 1].edge;
     double startPos = nextStopIndex == 0 ? getPositionOnLane() : stops[nextStopIndex - 1].pars.endPos;
     MSRouteIterator itEnd = nextStopIndex == n ? oldEdges.end() - 1 : stops[nextStopIndex].edge;

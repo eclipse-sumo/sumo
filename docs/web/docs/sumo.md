@@ -114,6 +114,7 @@ configuration:
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
 | **--fcd-output.attributes** {{DT_STR_LIST}} | List attributes that should be included in the FCD output |
 | **--fcd-output.filter-shapes** {{DT_STR_LIST}} | List shape names that should be used to filter the FCD output |
+| **--fcd-output.skip-empty** {{DT_BOOL}} | Do not save data for time steps which have no vehicles / transportables; *default:* **false** |
 | **--person-fcd-output** {{DT_FILE}} | Save fcd for persons and container to separate FILE |
 | **--device.ssm.filter-edges.input-file** {{DT_FILE}} | Restrict SSM device output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
