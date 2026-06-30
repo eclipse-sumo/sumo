@@ -753,4 +753,4 @@ used. The attribute `source` must be set to the ID of the junction the rail sign
 - Overlap (Durchrutschweg) after a rail signal (which guarantees safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
 - Axle counters are assumed after every signal and every railway switch and correspondingly, partial driveways (Teilfahrstraßen) are used in the most efficient manner
 - Stretching and shorting of long trains is not modelled
-- Operational restricting on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
+- Operational restrictions on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
