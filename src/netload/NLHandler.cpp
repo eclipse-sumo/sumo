@@ -822,6 +822,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
             WRITE_ERRORF(TL("Traffic light '%' has unknown type '%'."), id, typeS);
         }
         if (MSGlobals::gUseMesoSim && type != TrafficLightType::STATIC
+                && type != TrafficLightType::ACTUATED
                 && type != TrafficLightType::RAIL_SIGNAL
                 && type != TrafficLightType::RAIL_CROSSING
                 && type != TrafficLightType::OFF) {

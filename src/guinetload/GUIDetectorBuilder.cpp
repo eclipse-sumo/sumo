@@ -52,8 +52,8 @@ GUIDetectorBuilder::createInductLoop(const std::string& id,
                                      MSLane* lane, double pos, double length,
                                      const std::string name, const std::string& vTypes,
                                      const std::string& nextEdges,
-                                     int detectPersons, bool show) {
-    if (MSGlobals::gUseMesoSim) {
+                                     int detectPersons, bool show, bool forceMicro) {
+    if (MSGlobals::gUseMesoSim && !forceMicro) {
         return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, name, vTypes, nextEdges, detectPersons, show);
     } else {
         return new GUIInductLoop(id, lane, pos, length, name, vTypes, nextEdges, detectPersons, show);

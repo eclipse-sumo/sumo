@@ -421,8 +421,9 @@ NLDetectorBuilder::createInductLoop(const std::string& id,
                                     const std::string& vTypes,
                                     const std::string& nextEdges,
                                     int detectPersons,
-                                    bool /*show*/) {
-    if (MSGlobals::gUseMesoSim) {
+                                    bool /*show*/,
+                                    bool forceMicro) {
+    if (MSGlobals::gUseMesoSim && !forceMicro) {
         return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, name, vTypes, nextEdges, detectPersons);
     }
     return new MSInductLoop(id, lane, pos, length, name, vTypes, nextEdges, detectPersons, false);

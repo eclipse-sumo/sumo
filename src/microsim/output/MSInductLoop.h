@@ -28,6 +28,7 @@
 #include <string>
 #include <deque>
 #include <map>
+#include <queue>
 #include <functional>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
@@ -37,6 +38,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MESegment;
 class MSVehicle;
 class OutputDevice;
 
@@ -374,6 +376,9 @@ protected:
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
 
+    /// @brief extrapolated leave times for meso vehicle
+    mutable std::priority_queue<SUMOTime, std::vector<SUMOTime>, std::greater<SUMOTime>> myNextMesoLeaveTimes;
+
     /// @brief overrides the time since last detection
     double myOverrideTime;
 
@@ -397,6 +402,12 @@ protected:
 
     SUMOTime myLastIntervalEnd;
     SUMOTime myLastIntervalBegin;
+
+    /// @brief current segment (for actuated tls in meso)
+    MESegment* mySegment;
+
+    /// @brief position relative to the current segment
+    double mySegmentPos;
 
 private:
     /// @brief Invalidated copy constructor.
