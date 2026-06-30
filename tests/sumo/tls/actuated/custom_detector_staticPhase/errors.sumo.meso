@@ -1,1 +1,2 @@
-Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback.
+Error: Unknown detector 'customLoop3' in expression 'customLoop3 customArea4'
+Quitting (on error).
