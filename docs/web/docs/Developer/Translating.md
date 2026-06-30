@@ -32,7 +32,7 @@ use `WRITE_MESSAGEF(TL("The vehicle '%' has a problem."), id);` (this works for
 
 Please be aware that changing a translatable string in the code (even if you just fix a typo)
 will invalidate (i.e. remove) all translations. This does not mean you should not do it, you
-should just review the changes to the translation files as well. In case you want to keep the translations 
+should just review the changes to the translation files as well. In case you want to keep the translations
 but fix a typo in the translatable string, please consider using [our helper scripts](#change_original_strings) for that task.
 
 The translations should not be applied to debug and developer messages. This includes everything
@@ -78,9 +78,9 @@ or run `tools/build_config/i18n.py -l <lang>` and make a pull request with the r
 
 # For developers
 
-The translated strings from Weblate are not pushed automatically to our github repo because automatic pushing
+The translated strings from Weblate are not pushed automatically to our GitHub repo because automatic pushing
 is generally a bad idea and weblate does not have the rights. If you want to merge the commits in weblate into
-the main github you have to do the following in your local git clone of SUMO:
+the main GitHub you have to do the following in your local git clone of SUMO:
 ```
 git pull  # make sure you are up to date and on the target branch (usually main)
 git remote add weblate https://hosted.weblate.org/git/eclipse-sumo/sumo-gui-netedit/  # add Weblate repo (only necessary once)

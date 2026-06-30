@@ -142,7 +142,7 @@ the following conditions are met
 - the vehicle is stopped in range of the person
   - if the vehicle is stopped at a busStop or other stoppling place, all locations along the stop are in range
   - if the vehicle stop defines attributes `startPos` and `endPos` any location within these values is in range
-  - if the vehicle is within range of option **--ride.stop-tolerance** (default *10*) 
+  - if the vehicle is within range of option **--ride.stop-tolerance** (default *10*)
 
 !!! note
     The `lines` attribute can be used to hail taxis, see [taxi](../Simulation/Taxi.md) for more information
@@ -202,7 +202,7 @@ to be inside the range of the stop.
 Stops define a delay until the next element of a plan is started. They
 can be used to model activities such as working or shopping. Stops for
 persons follow the specification at
-[Specification\#Stops](index.md#stops). However, the attributes `index`, `triggered`, `containerTriggered` and `parking` are not evaluated. 
+[Specification\#Stops](index.md#stops). However, the attributes `index`, `triggered`, `containerTriggered` and `parking` are not evaluated.
 With a `<stop>` it is possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
 positions without delay, it is possible to use two stops at different locations in sequence and set attribute `jump` for the first stop.
@@ -228,7 +228,7 @@ person will enter the vehicle and start its ride. If such a vehicle
 exists but the person is not positioned between the start and end
 position of the vehicle's stop, the person will still enter if the
 vehicle is triggered by the person and the distance between person and
-vehicle is at most 10 metres. It does not check whether the vehicle has
+vehicle is at most 10 meters. It does not check whether the vehicle has
 the aspired destination on the current route. The first time the vehicle
 stops (on a well defined stop) at the destination edge, the ride is
 finished and the person proceeds with the next step in the plan.

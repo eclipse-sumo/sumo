@@ -40,7 +40,7 @@ to follow the [TextTest installation
 instructions](https://texttest.sourceforge.net/index.php?page=documentation_trunk&n=install_texttest)
 and the additional info there.
 
-For MacOS the following command should install all dependencies:
+For macOS the following command should install all dependencies:
 
 `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
