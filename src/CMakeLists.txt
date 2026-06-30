@@ -68,7 +68,6 @@ endif ()
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)
-set_target_properties(sumo PROPERTIES OUTPUT_NAME_RELWITHDEBINFO sumo${BINARY_SUFFIX}R)
 target_link_libraries(sumo ${sumolibs} libsumostatic ${TCMALLOC_LIBRARY})
 add_dependencies(sumo generate-version-h install_dll)
 
