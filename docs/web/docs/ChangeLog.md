@@ -14,9 +14,8 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
-  - Added option **--slope-centered** to replicate simplfied slope computation found in other simulators #18111
+  - Added option **--slope-centered** to replicate simplified slope computation found in other simulators #18111
   - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
-  
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
@@ -90,7 +89,7 @@ title: ChangeLog
   - Option **--ignore-errors** can now be used to adapt public transport stops and ptlines to a reduced network #18125
 
 - od2trips
-  - Added option **--flow-output.poisson** to generate poission distributed insertions when option **--flow-output** is set. refs #18117
+  - Added option **--flow-output.poisson** to generate poisson distributed insertions when option **--flow-output** is set. refs #18117
 
 - tools
   - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
@@ -308,7 +307,7 @@ title: ChangeLog
 - netedit
   - Edge attribute routingType is now supported #17095
   - Element context menu for multiple objects at the same spot now shows selection status (also in sumo-gui) #17731
-  - Phase attribute "next" automaticaly updates when adding new phases #16488
+  - Phase attribute "next" automatically updates when adding new phases #16488
   - Added 18 more tools to the menu #17950
 
 - sumo-gui
