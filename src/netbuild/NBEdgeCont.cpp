@@ -1985,7 +1985,10 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                 Position p1 = tramShape.positionAtOffset2D(offset1);
                 Position p2 = tramShape.positionAtOffset2D(offset2);
                 double tramAngle = GeomHelper::legacyDegree(p1.angleTo2D(p2), true);
-                bool angleOK = GeomHelper::getMinAngleDiff(tramAngle, edge->getTotalAngle()) < JOIN_TRAM_MAX_ANGLE;
+                double laneAngle = GeomHelper::legacyDegree(laneShape[0].angleTo2D(laneShape[-1]), true);
+                const double angleMismatch = MIN2(GeomHelper::getMinAngleDiff(tramAngle, edge->getTotalAngle()),
+                        GeomHelper::getMinAngleDiff(tramAngle, laneAngle));
+                bool angleOK = angleMismatch < JOIN_TRAM_MAX_ANGLE;
                 if (angleOK && offset2 > offset1) {
                     std::pair<NBEdge*, int> key = std::make_pair(edge, minLane);
                     if (matches.count(key) == 0) {
