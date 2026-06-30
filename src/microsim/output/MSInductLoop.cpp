@@ -375,7 +375,7 @@ MSInductLoop::getLastDetectionTime() const {
         SUMOTime last = myNextMesoLeaveTimes.top();
         if (myNextMesoLeaveTimes.size() > 1) {
             myNextMesoLeaveTimes.pop();
-            while (myNextMesoLeaveTimes.size() > 1 && myNextMesoLeaveTimes.top() < SIMSTEP) {
+            while (myNextMesoLeaveTimes.size() > 0 && myNextMesoLeaveTimes.top() < SIMSTEP) {
                 last = myNextMesoLeaveTimes.top();
                 myNextMesoLeaveTimes.pop();
             }
