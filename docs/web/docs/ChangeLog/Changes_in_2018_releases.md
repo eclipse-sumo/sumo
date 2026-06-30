@@ -266,9 +266,9 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 - Simulation
   - All car-following models now respect the vType-attribute
     *emergencyDecel* as an absolute bound on deceleration. Issue #3556
-  - Fixed some issues when using [continous lane
+  - Fixed some issues when using [continuous lane
     change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #3767, Issue #3769, Issue #3770, Issue #3771, Issue #4364
-  - Fixed back-and-forth changing when using [continous lane
+  - Fixed back-and-forth changing when using [continuous lane
     change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #4010
   - Fixed loading of teleporting vehicles from simulation state in
     *.sbx* format. Issue #3787
@@ -493,7 +493,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
   - Rerouters now support the attribute *vTypes* which restricts
     their effect to vehicles from the given list of vehicle type
     IDs. Issue #4031
-  - Vehicles are forming a coridor for emergency vehicles Issue #1967
+  - Vehicles are forming a corridor for emergency vehicles Issue #1967
   - Added option **--default.speeddev** {{DT_FLOAT}} to control the default speed deviation of all
     vehicle types that do not define it. Issue #4421
   - Added lane/edge-attribute stopOffset for defining vClass
@@ -689,8 +689,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     algorithms](../Simulation/Routing.md#routing_algorithms).
 
 - Simulation
-  - `<vTypeProbe>` is now deprecated in favour of FCD-output filtering
-  - `<vaporizer>` is now deprecated in favour of calibrators.
+  - `<vTypeProbe>` is now deprecated in favor of FCD-output filtering
+  - `<vaporizer>` is now deprecated in favor of calibrators.
   - The default arrival position for person walks is now the middle
     of the destination edge. This reduces the asymmetry from
     arriving in forward or backward direction. Issue #3843
@@ -735,7 +735,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 
 - TraCI
   - TraCI Version is now 18
-  - Embedded python is now deprecated in favour of
+  - Embedded python is now deprecated in favor of
     [Libsumo](../Libsumo.md).
   - TraCI now consistently represents time in seconds as a double
     precision floating point. This affects all client

@@ -103,7 +103,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Vehicles on edges that are shorter than their geometrical length are no longer exaggerated lengthwise #17074
   - Fixed crash when deleting last item of coloring/scaling scheme levels #17138 (also applies to netedit)
   - Rerouter ids are now shown #16715
-  - JuPedSim obstacles are now shown at their configured z-coordinae in 3D-view #17246
+  - JuPedSim obstacles are now shown at their configured z-coordinate in 3D-view #17246
   - Fixed crash after saving gui settings to registry under a new name #17265
 
 - meso
@@ -203,12 +203,12 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
 
 ### Miscellaneous
 
-- Option **--junctions.join-same** whas changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
+- Option **--junctions.join-same** was changed from type *BOOL* to type *FLOAT* and now requires a distance argument. The previous behavior can be approximated by setting a value of *0.01* #16969
 - sumo now warns when setting option **--threads** with an argument greater than 1 #17057
 - Added warnings and errors for different problems with a configuration file #17069
 - Command line output under Windows now uses UTF charset #17093
 - [Automatic rerouting](../Demand/Automatic_Routing.md) will no longer take place if the new route has the same travel time as the old route. #4635
-- Vehicles with the bluelight device no longer set prefered lateral alignment to `arbitrary` #17124
+- Vehicles with the bluelight device no longer set preferred lateral alignment to `arbitrary` #17124
 - duaIterate.py: option **--binary** was removed #16777
 - The attribute order in the FCD output of persons was changed and is now similar to the vehicles (affects only the type attribute).
 - The nightly sumogame now loads all 3D objects #3032
@@ -370,7 +370,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - net2sel.py: Added new tool to obtain selection file with junctions and edges from .net.xml #16907
   - routeSampler.py: Named route output now always writes the usage count as route "probability" attribute #16919
   - route2poly.py: when using **--standalone** with **--scale-width**, named routes are scaled by attribute probability  #16920
-  - route2poly.py: when using option **--scale-width**, routes are sorted by count/probability in descending order. Option **--filter-count** can be used to exlude routes with low count #16921
+  - route2poly.py: when using option **--scale-width**, routes are sorted by count/probability in descending order. Option **--filter-count** can be used to exclude routes with low count #16921
 
 
 ### Miscellaneous

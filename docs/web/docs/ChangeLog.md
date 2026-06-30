@@ -380,7 +380,7 @@ title: ChangeLog
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in netstate dump. #16882
 - The OpenStreetMap Attribution of OSMWebWizard is no longer hidden behind the sidebar #17743
 - Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
-- The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pdoc documentation.
+- The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pydoc documentation.
 - The python module SUMOPy was superseded by hybridPY which extends the functionality and supports python 3 #17365
 - The maximum Parquet/Arrow version to use is 23.0, newer versions require a newer compiler which needs to be enabled explicitly at build time
 

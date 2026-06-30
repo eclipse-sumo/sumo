@@ -2,7 +2,7 @@
 title: RailwayScenario
 ---
 
-# Overview 
+# Overview
 
 The following tutorial explains how to build a railways scenario for the combined German states of Berlin and
 Brandenburg based on OSM and GTFS data. The resulting scenario models scheduled passenger traffic for one day of operations.
@@ -37,8 +37,8 @@ The relevant netconvert options are explained in the following
 
 - **--ptstop-output osm.stops.xml**: Required for guiding GTFS import
 - **--ptline-output osm_ptlines.xml**: Required for post-processing the network to find passing loops
-- **--no-internal-links**: speeds up simulationg and processing of large networks by removing details that are not needed for rail simulations
-- **--railway.signal.guess.by-stops**: heuristicaly add signals at stations (unless they already exist). This covers gaps in OSM signal coverage
+- **--no-internal-links**: speeds up simulation and processing of large networks by removing details that are not needed for rail simulations
+- **--railway.signal.guess.by-stops**: heuristically add signals at stations (unless they already exist). This covers gaps in OSM signal coverage
 - **--railway.topology.all-bidi**: Helps to cover track-direction errors in OSM
 - **--ptline-clean-up**: removes stops that were not used by public transport lines in the OSM data. Avoids bad track assignment
 - **--railway.topology.ptline-priority rail,rail_urban**: Assigns edge priorities according to use by trains and urban rail. This is critical for correct track assignment
@@ -69,8 +69,7 @@ sumo -n net2.net.xml.gz -a gtfs_pt_stops.add.xml,vtypes.xml -r gtfs_pt_vehicles.
 
 The relevant options are explained in the following
 
-- **--time-to-teleport 1800**: Trains may have to wait due to missing railway siginals. To avoid premature teleporting, it is useful to increase the default from 300s to 1800s.
-- **--time-to-teleport.railsignal-deadlock  300**: With this option, the simulation detectors circular infrastructure depenencies that cannot resolve themselves. 
-- **--railsignal.max-block-length 1e5**: This option is relevant to prevent deadlocks on long single-track sections. It avoids deadlocks at the cost of extra computational time and memory. When simulationg at the country scale, a smaller value such as 1e5 should be used
+- **--time-to-teleport 1800**: Trains may have to wait due to missing railway signals. To avoid premature teleporting, it is useful to increase the default from 300s to 1800s.
+- **--time-to-teleport.railsignal-deadlock  300**: With this option, the simulation detectors circular infrastructure dependencies that cannot resolve themselves.
+- **--railsignal.max-block-length 1e5**: This option is relevant to prevent deadlocks on long single-track sections. It avoids deadlocks at the cost of extra computational time and memory. When simulating at the country scale, a smaller value such as 1e5 should be used
 - **-H**: human readable-times are friendlier in a simulation that covers a whole day
-
