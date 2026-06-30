@@ -1321,6 +1321,20 @@ RORouteHandler::retrieveEdge(const std::string& id) {
     return myNet.getEdge(id);
 }
 
+
+const SUMOVTypeParameter*
+RORouteHandler::getVTypeParameter(const std::string& refid) {
+    if (refid == "") {
+        return nullptr;
+    }
+    if (!myNet.knowsVType(refid)) {
+        myErrorOutput->inform(TLF("Unknown vehicle type '%'.", refid));
+        return nullptr;
+    }
+    return myNet.getVehicleTypeSecure(refid);
+}
+
+
 bool
 RORouteHandler::checkLastDepart() {
     if (!myUnsortedInput) {
@@ -1328,5 +1342,6 @@ RORouteHandler::checkLastDepart() {
     }
     return true;
 }
+
 
 /****************************************************************************/

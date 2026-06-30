@@ -189,6 +189,10 @@ protected:
     ROEdge* retrieveEdge(const std::string& id) override;
 
 protected:
+
+    const SUMOVTypeParameter* getVTypeParameter(const std::string& refid);
+
+protected:
     /// @brief The current route
     RONet& myNet;
 

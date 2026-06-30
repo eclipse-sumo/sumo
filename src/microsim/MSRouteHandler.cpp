@@ -1879,6 +1879,13 @@ MSRouteHandler::getRNG() {
 }
 
 
+const SUMOVTypeParameter*
+MSRouteHandler::getVTypeParameter(const std::string& refid) {
+    const auto t = MSNet::getInstance()->getVehicleControl().getVType(refid);
+    return t != nullptr ? &t->getParameter() : nullptr;
+}
+
+
 MSEdge*
 MSRouteHandler::retrieveEdge(const std::string& id) {
     return MSEdge::dictionary(id);

@@ -86,12 +86,12 @@ public:
      * @param[in] attr The SAX-attributes to get vehicle parameter from
      * @param[in] hardFail enable or disable hard fails if a parameter is invalid
      * @param[in] file The name of the file being parsed (for resolving paths)
-     * @param[in] hardFail enable or disable hard fails if a parameter is invalid
+     * @param[in] base base parameters to copy values from (may be nullptr)
      * @exception ProcessError If an attribute's value is invalid and hardFail is enabled
      * @see SUMOVTypeParameter
      * @note: the caller is responsible for deleting the returned pointer
      */
-    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file);
+    static SUMOVTypeParameter* beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file, const SUMOVTypeParameter* const base);
 
     /** @brief Parse string containing AngleTimes triplets (angle, entry time, exit time)
      *

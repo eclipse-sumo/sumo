@@ -95,12 +95,12 @@ public:
      * Returns 0 when no item with the given id is stored within the container
      *
      * @param[in] id The id of the item to retrieve
-     * @return The item stored under the given id, or 0 if no such item exists
+     * @return The item stored under the given id, or nullptr if no such item exists
      */
     T get(const std::string& id) const {
         auto it = myMap.find(id);
         if (it == myMap.end()) {
-            return 0;
+            return nullptr;
         } else {
             return it->second;
         }
