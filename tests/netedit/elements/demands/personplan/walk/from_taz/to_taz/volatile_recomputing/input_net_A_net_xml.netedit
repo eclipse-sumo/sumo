@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-26 16:38:01 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2026-07-01T17:29:15.903733+01:00 by Eclipse SUMO netedit v1_27_1+0057-a004b7109fb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,51 +14,47 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/input_additionals_A.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/input_routes_A.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/input_datas_A.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/vehicle/volatilerecomputing/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -326,25 +322,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":Junction1_c0" to=":Junction1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction1_w0" to="Edge5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="Edge4" to=":Junction1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction1_w1" to=":Junction1_c0" fromLane="0" toLane="0" tl="Junction1" linkIndex="2" dir="s" state="M"/>
+    <connection from=":Junction1_w1" to=":Junction1_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction1_w1" to="Edge1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="Edge0" to=":Junction1_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction2_c0" to=":Junction2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction2_w0" to="Edge2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="Edge1" to=":Junction2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction2_w1" to=":Junction2_c0" fromLane="0" toLane="0" tl="Junction2" linkIndex="2" dir="s" state="M"/>
+    <connection from=":Junction2_w1" to=":Junction2_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction2_w1" to="Edge4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="Edge3" to=":Junction2_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction3_c0" to=":Junction3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction3_w0" to="EdgeBike0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="Edge2" to=":Junction3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction3_w1" to=":Junction3_c0" fromLane="0" toLane="0" tl="Junction3" linkIndex="4" dir="s" state="M"/>
+    <connection from=":Junction3_w1" to=":Junction3_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction3_w1" to="Edge3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EdgeBike1" to=":Junction3_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction4_c0" to=":Junction4_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction4_w0" to="EdgeCenter0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EdgeBike0" to=":Junction4_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction4_w1" to=":Junction4_c0" fromLane="0" toLane="0" tl="Junction4" linkIndex="4" dir="s" state="M"/>
+    <connection from=":Junction4_w1" to=":Junction4_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction4_w1" to="EdgeBike1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="EdgeCenter1" to=":Junction4_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w0" to="EdgeCenter1" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-26 08:14:22 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2026-07-01T16:56:13.812376+01:00 by Eclipse SUMO netedit v1_27_1+0057-a004b7109fb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,51 +14,47 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/input_additionals_A.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/input_routes_A.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/input_datas_A.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/input_net_A.net.xml"/>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="input_additionals_A.add.xml"/>
+        <route-files value="input_routes_A.rou.xml"/>
+        <data-files value="input_datas_A.dat.xml"/>
+        <meandata-files value="input_meandatas_A.add.xml"/>
+        <sumo-net-file value="input_net_A.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/input_net_A.net.xml"/>
+        <output-file value="input_net_A.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <netedit>
         <ignore-supermode-question value="true"/>
+        <force-saving value="true"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/gui-settings.xml"/>
+        <gui-settings-file value="input_guisettings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="guisettings.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/connections/clear/log.txt"/>
+        <error-log value="log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -171,16 +167,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":JunctionCenter_c1" to=":JunctionCenter_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_c2" to=":JunctionCenter_w2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_c3" to=":JunctionCenter_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionCenter_w0" to=":JunctionCenter_c3" fromLane="0" toLane="0" tl="JunctionCenter" linkIndex="7" dir="s" state="M"/>
+    <connection from=":JunctionCenter_w0" to=":JunctionCenter_c3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_w0" to="E4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E5" to=":JunctionCenter_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionCenter_w1" to=":JunctionCenter_c0" fromLane="0" toLane="0" tl="JunctionCenter" linkIndex="4" dir="s" state="M"/>
+    <connection from=":JunctionCenter_w1" to=":JunctionCenter_c0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_w1" to="E5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E6" to=":JunctionCenter_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionCenter_w2" to=":JunctionCenter_c1" fromLane="0" toLane="0" tl="JunctionCenter" linkIndex="5" dir="s" state="M"/>
+    <connection from=":JunctionCenter_w2" to=":JunctionCenter_c1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_w2" to="E6" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E7" to=":JunctionCenter_w2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionCenter_w3" to=":JunctionCenter_c2" fromLane="0" toLane="0" tl="JunctionCenter" linkIndex="6" dir="s" state="M"/>
+    <connection from=":JunctionCenter_w3" to=":JunctionCenter_c2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionCenter_w3" to="E7" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E4" to=":JunctionCenter_w3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":JunctionRight_w0" to="-E6" fromLane="0" toLane="0" dir="s" state="M"/>
