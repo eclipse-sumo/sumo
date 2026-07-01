@@ -1769,7 +1769,7 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVi
     // move matrix junction center
     glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.5);
     // draw filled circle
-    GLHelper::drawFilledCircleDetailled(d, bubbleRadius);
+    GLHelper::drawFilledCircleDetailed(d, bubbleRadius);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -1841,7 +1841,7 @@ GNEJunction::drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisu
         // move matrix junction center
         glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.7);
         // draw filled circle
-        GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.edgeGeometryPointRadius);
+        GLHelper::drawFilledCircleDetailed(d, s.neteditSizeSettings.edgeGeometryPointRadius);
         // pop matrix
         GLHelper::popMatrix();
     }

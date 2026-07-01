@@ -229,7 +229,7 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
         GLHelper::setColor(RGBColor::RED);
     }
     // draw circle
-    GLHelper::drawFilledCircleDetailled(d, (double) 1.3);
+    GLHelper::drawFilledCircleDetailed(d, (double) 1.3);
     // draw details
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // move to front
@@ -241,7 +241,7 @@ GNEVariableSpeedSignSymbol::drawVSSSymbol(const GUIVisualizationSettings& s, con
             GLHelper::setColor(RGBColor::BLACK);
         }
         // draw another circle
-        GLHelper::drawFilledCircleDetailled(d, (double) 1.1);
+        GLHelper::drawFilledCircleDetailed(d, (double) 1.1);
         // move to front
         glTranslated(0, 0, 0.1);
         // draw speed

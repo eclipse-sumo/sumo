@@ -362,7 +362,7 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings::Detail d, const 
             // set color
             GLHelper::setColor(color);
             // draw circle detailled
-            GLHelper::drawFilledCircleDetailled(d, exaggeratedRadio);
+            GLHelper::drawFilledCircleDetailed(d, exaggeratedRadio);
             // pop geometry point matrix
             GLHelper::popMatrix();
             // draw elevation or special symbols (Start, End and Block)

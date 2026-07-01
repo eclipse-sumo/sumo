@@ -444,7 +444,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
         // set color
         GLHelper::setColor(baseColor);
         // Draw circle
-        GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolExternalRadius);
+        GLHelper::drawFilledCircleDetailed(d, s.stoppingPlaceSettings.symbolExternalRadius);
         // continue depending of rectangle selection
         if (d <= GUIVisualizationSettings::Detail::Text) {
             // Traslate to front
@@ -452,7 +452,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualiza
             // set color
             GLHelper::setColor(signColor);
             // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolInternalRadius);
+            GLHelper::drawFilledCircleDetailed(d, s.stoppingPlaceSettings.symbolInternalRadius);
             // draw H depending of detailSettings
             GLHelper::drawText(word, Position(), .1, s.stoppingPlaceSettings.symbolInternalTextSize, baseColor);
         }
