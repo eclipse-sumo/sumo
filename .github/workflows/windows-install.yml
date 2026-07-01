@@ -2,6 +2,7 @@ name: windows-install
 
 on:
   workflow_dispatch:
+  push:
   schedule:
     - cron:  '25 11 * * *'
 
