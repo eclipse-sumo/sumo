@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-01T12:50:47.896101+01:00 by Eclipse SUMO sumo v1_27_1+0080-9278fe47fd6
+<!-- generated on 2026-07-01T14:31:12.689093+01:00 by Eclipse SUMO sumo v1_27_1+0081-46d2462d0c9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,4 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="taxi" depart="0.00" departLane="A0B0_1" departPos="0.00" departSpeed="12.13" departDelay="0.00" arrival="150.00" arrivalLane="C0D0_1" arrivalPos="285.60" arrivalSpeed="13.89" duration="150.00" routeLength="2063.48" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="1.00" rerouteNo="2" devices="vehroute_taxi tripinfo_taxi routing_taxi taxi_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
 </tripinfos>
