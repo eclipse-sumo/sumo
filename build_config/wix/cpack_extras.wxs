@@ -17,8 +17,6 @@
         <Property Id="RUNPYTHONCHECK" Value="1" />
         <Property Id="SUMOHOMEENV" Value="1" />
         <Property Id="PATHPYTHONENV" Value="1" />
-        <Property Id="PIPINSTALLREQ" />
-        <Property Id="PIPINSTALLLIBSUMO" />
 
         <UI>
             <Dialog Id="SUMOOptionsDlg" Width="370" Height="270" Title="SUMO Setup Options">
@@ -35,43 +33,72 @@
                 <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="Setup Options" />
                 <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Configure optional checks and environment settings" />
 
-                <Control Id="PythonLink" Type="Hyperlink" X="20" Y="50" Width="290" Height="30">
-                    <Text><![CDATA[It is strongly recommended to <a href="https://www.python.org/downloads/">install Python</a> (if you do not have it already).]]></Text>
-                </Control>
-                <Control Id="RunPythonCheckBox" Type="CheckBox" X="20" Y="75" Width="320" Height="17"
-                         Property="RUNPYTHONCHECK" CheckBoxValue="1" Text="Check for Python and required packages during installation." />
-                <Control Id="SumoHomeEnvCheckBox" Type="CheckBox" X="20" Y="100" Width="320" Height="17"
+                <Control Id="SumoHomeEnvCheckBox" Type="CheckBox" X="20" Y="50" Width="320" Height="17"
                          Property="SUMOHOMEENV" CheckBoxValue="1" Text="Set SUMO_HOME environment variable." />
-                <Control Id="PathPythonEnvCheckBox" Type="CheckBox" X="20" Y="125" Width="320" Height="17"
+                <Control Id="PathPythonEnvCheckBox" Type="CheckBox" X="20" Y="70" Width="320" Height="17"
                          Property="PATHPYTHONENV" CheckBoxValue="1" Text="Add SUMO to PATH and PYTHONPATH." />
-                <Control Id="PipInstallReqCheckBox" Type="CheckBox" X="20" Y="150" Width="320" Height="17"
-                         Property="PIPINSTALLREQ" CheckBoxValue="1" Text="Install the tool dependencies into the active Python." />
-                <Control Id="PipInstallLibsumoCheckBox" Type="CheckBox" X="20" Y="175" Width="320" Height="17"
-                         Property="PIPINSTALLLIBSUMO" CheckBoxValue="1" Text="Install libsumo for Python into the active Python." />
-                <Control Id="LibsumoRemark" Type="Text" X="20" Y="200" Width="290" Height="30" NoPrefix="yes"
-                         Text="Be aware that the installation of the dependencies (by checking the boxes above) might take some minutes and will add packages to your system python even if you cancel the SUMO installation or uninstall it later. If you want to do it manually call 'pip install libsumo -r %SUMO_HOME%/tools/requirements.txt'." />
+
+                <Control Id="PythonMissingText" Type="Text" X="20" Y="100" Width="300" Height="15" NoPrefix="yes"
+                         Text="{\WixUI_Font_Title}Python was not found!">
+                    <Condition Action="hide">PYTHONFOUND = "1"</Condition>
+                </Control>
+                <Control Id="PythonDownloadLink" Type="Hyperlink" X="20" Y="115" Width="300" Height="30">
+                    <Text><![CDATA[It is strongly recommended to <a href="https://www.python.org/downloads/">install it</a>.]]></Text>
+                    <Condition Action="hide">PYTHONFOUND = "1"</Condition>
+                </Control>
+                <Control Id="RunPythonCheckBox" Type="CheckBox" X="20" Y="100" Width="320" Height="17"
+                         Property="RUNPYTHONCHECK" CheckBoxValue="1" Text="Check for recommended Python packages during installation.">
+                    <Condition Action="hide">PYTHONFOUND = "0"</Condition>
+                </Control>
+                <Control Id="PipInstallReqCheckBox" Type="CheckBox" X="20" Y="120" Width="320" Height="17"
+                         Property="PIPINSTALLREQ" CheckBoxValue="1" Text="Install the tool dependencies into the active Python.">
+                    <Condition Action="hide">PYTHONFOUND = "0"</Condition>
+                </Control>
+                <Control Id="PipInstallLibsumoCheckBox" Type="CheckBox" X="20" Y="140" Width="320" Height="17"
+                         Property="PIPINSTALLLIBSUMO" CheckBoxValue="1" Text="Install libsumo for Python into the active Python.">
+                    <Condition Action="hide">PYTHONFOUND = "0"</Condition>
+                </Control>
+                <Control Id="LibsumoRemark" Type="Text" X="20" Y="160" Width="290" Height="47" NoPrefix="yes"
+                         Text="Be aware that the installation of the dependencies (by checking the boxes above) might take some minutes and will add packages to your system python even if you cancel the SUMO installation or uninstall it later. If you want to do it manually call 'pip install libsumo -r %SUMO_HOME%/tools/requirements.txt'.">
+                    <Condition Action="hide">PYTHONFOUND = "0"</Condition>
+                </Control>
+                <Control Id="WingetNote" Type="Text" X="20" Y="210" Width="290" Height="30" NoPrefix="yes"
+                         Text="Tip: Use 'winget install SUMO --scope user' to install for the current user only (no admin rights)." >
+                    <Condition Action="hide">MSIINSTALLPERUSER</Condition>
+                </Control>
             </Dialog>
 
             <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="SUMOOptionsDlg" Order="2">1</Publish>
             <Publish Dialog="SUMOOptionsDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg">1</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetPythonCheckCmd" Order="1">RUNPYTHONCHECK</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="CheckPython" Order="2">RUNPYTHONCHECK</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetPipInstallReqCmd" Order="3">PIPINSTALLREQ</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="RunPipInstallReq" Order="4">PIPINSTALLREQ</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetPipInstallLibsumoCmd" Order="5">PIPINSTALLLIBSUMO</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="RunPipInstallLibsumo" Order="6">PIPINSTALLLIBSUMO</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetJPSPackageCheckCmd" Order="7">RUNPYTHONCHECK</Publish>
-            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="CheckJPSPackage" Order="8">RUNPYTHONCHECK</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetPipInstallReqCmd" Order="1">PIPINSTALLREQ</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="RunPipInstallReq" Order="2">PIPINSTALLREQ</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetPipInstallLibsumoCmd" Order="3">PIPINSTALLLIBSUMO</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="RunPipInstallLibsumo" Order="4">PIPINSTALLLIBSUMO</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="SetJPSPackageCheckCmd" Order="5">RUNPYTHONCHECK</Publish>
+            <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="DoAction" Value="CheckJPSPackage" Order="6">RUNPYTHONCHECK</Publish>
 
             <Publish Dialog="SUMOOptionsDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="9">1</Publish>
             <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SUMOOptionsDlg" Order="2">1</Publish>
         </UI>
 
-        <!-- Python and JuPedSim detection via command line -->
+        <!-- Python detection via command line -->
+        <InstallUISequence>
+            <Custom Action="SetPythonCheckCmd" Before="CheckPython">1</Custom>
+            <Custom Action="CheckPython" Before="AppSearch">1</Custom>
+        </InstallUISequence>
+
+        <!-- PowerShell writes HKCU marker = 1 if python present, else 0 -->
         <CustomAction Id="SetPythonCheckCmd" Property="QtExecCmdLine"
-                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;if (-not (Get-Command python.exe -ErrorAction SilentlyContinue)) { (New-Object -ComObject WScript.Shell).Popup('Python not found. It is either not installed or your PATH variable does not contain it. Some SUMO tools (e. g. osmWebWizard) need a Python installation.', 0, 'SUMO Setup', 0x30) }&quot;" />
+                      Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;$found = if (Get-Command python.exe -ErrorAction SilentlyContinue) { '1' } else { '0' }; New-Item -Path 'HKCU:\Software\Eclipse\SUMO\Setup' -Force | Out-Null; Set-ItemProperty -Path 'HKCU:\Software\Eclipse\SUMO\Setup' -Name 'PythonFound' -Type String -Value $found&quot;" />
         <CustomAction Id="CheckPython" BinaryKey="WixCA" DllEntry="CAQuietExec"
                       Execute="immediate" Return="ignore" />
+
+        <!-- Read it back into a property -->
+        <Property Id="PYTHONFOUND">
+            <RegistrySearch Id="PythonFoundSearch" Root="HKCU"
+                Key="Software\Eclipse\SUMO\Setup" Name="PythonFound" Type="raw" />
+        </Property>
+
         <CustomAction Id="SetJPSPackageCheckCmd" Property="QtExecCmdLine"
                       Value="&quot;powershell.exe&quot; -NoProfile -WindowStyle Hidden -Command &quot;python.exe -c 'import jupedsim' 2&gt;$null; if ($LASTEXITCODE -ne 0) { (New-Object -ComObject WScript.Shell).Popup('Python package ''jupedsim'' not found. Please install via pip.', 0, 'SUMO Setup', 0x30) }&quot;" />
         <CustomAction Id="CheckJPSPackage" BinaryKey="WixCA" DllEntry="CAQuietExec"
@@ -79,7 +106,7 @@
 
         <!-- pip installs for tool dependencies / libsumo -->
         <CustomAction Id="SetPipInstallReqCmd" Property="QtExecCmdLine"
-                      Value="&quot;python.exe&quot; -m pip install jupedsim lxml matplotlib pyproj rtree shapely" />
+                      Value="&quot;python.exe&quot; -m pip install grpcio jupedsim lxml matplotlib pyproj rtree shapely" />
         <CustomAction Id="RunPipInstallReq" BinaryKey="WixCA" DllEntry="CAQuietExec"
                       Execute="immediate" Return="ignore" />
 
