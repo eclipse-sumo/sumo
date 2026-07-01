@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-01 16:50:38.870693 by Eclipse SUMO instantOutToEdgeCounts.py v1_27_1+0087-f6338537335
+<!-- generated on 2026-07-01 16:54:11.529849 by Eclipse SUMO instantOutToEdgeCounts.py v1_27_1+0093-f7452378e5a
 <configuration>
     <detector-data value="input_data.xml"/>
     <detector-file value="input_additional.add.xml"/>
@@ -12,127 +12,127 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poi id="A0A1.120.00_0" lane="A0A1.120.00_0" pos="32.80" type="2">
-        <param key="53.72" value="1">
-        <param key="103.72" value="1">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A0A1.120.00_1" lane="A0A1.120.00_1" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A0A1.120.00_2" lane="A0A1.120.00_2" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A0B0_0" lane="A0B0_0" pos="54.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A0B0.120.00_0" lane="A0B0.120.00_0" pos="32.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A0B0.120.00_1" lane="A0B0.120.00_1" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A0B0.120.00_2" lane="A0B0.120.00_2" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A1B1.120.00_0" lane="A1B1.120.00_0" pos="32.80" type="1">
-        <param key="53.72" value="1">
-        <param key="103.72" value="0">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A1B1.120.00_1" lane="A1B1.120.00_1" pos="32.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A1B1.120.00_2" lane="A1B1.120.00_2" pos="32.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A2A1_0" lane="A2A1_0" pos="54.80" type="3">
-        <param key="53.72" value="2">
-        <param key="103.72" value="1">
+        <param key="53.72" value="2"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A2A1.120.00_0" lane="A2A1.120.00_0" pos="32.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="A2A1.120.00_1" lane="A2A1.120.00_1" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A2A1.120.00_2" lane="A2A1.120.00_2" pos="32.80" type="2">
-        <param key="53.72" value="2">
-        <param key="103.72" value="0">
+        <param key="53.72" value="2"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="A2B2_0" lane="A2B2_0" pos="54.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B0A0_0" lane="B0A0_0" pos="91.60" type="3">
-        <param key="53.72" value="1">
-        <param key="103.72" value="2">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="2"/>
     </poi>
     <poi id="B0B1_0" lane="B0B1_0" pos="52.80" type="2">
-        <param key="53.72" value="1">
-        <param key="103.72" value="1">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B1A1_0" lane="B1A1_0" pos="52.80" type="1">
-        <param key="53.72" value="1">
-        <param key="103.72" value="0">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B1B0.120.00_0" lane="B1B0.120.00_0" pos="32.80" type="4">
-        <param key="53.72" value="1">
-        <param key="103.72" value="3">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="3"/>
     </poi>
     <poi id="B1B0.120.00_1" lane="B1B0.120.00_1" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B1B0.120.00_2" lane="B1B0.120.00_2" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B1C1_0" lane="B1C1_0" pos="52.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B1C1.120.00_0" lane="B1C1.120.00_0" pos="32.80" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B1C1.120.00_1" lane="B1C1.120.00_1" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B1C1.120.00_2" lane="B1C1.120.00_2" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B2B1_0" lane="B2B1_0" pos="52.80" type="3">
-        <param key="53.72" value="2">
-        <param key="103.72" value="1">
+        <param key="53.72" value="2"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B2B1.120.00_0" lane="B2B1.120.00_0" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B2B1.120.00_1" lane="B2B1.120.00_1" pos="32.80" type="3">
-        <param key="53.72" value="2">
-        <param key="103.72" value="1">
+        <param key="53.72" value="2"/>
+        <param key="103.72" value="1"/>
     </poi>
     <poi id="B2B1.120.00_2" lane="B2B1.120.00_2" pos="32.80" type="0">
-        <param key="53.72" value="0">
-        <param key="103.72" value="0">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="0"/>
     </poi>
     <poi id="B2C2_0" lane="B2C2_0" pos="91.60" type="3">
-        <param key="53.72" value="1">
-        <param key="103.72" value="2">
+        <param key="53.72" value="1"/>
+        <param key="103.72" value="2"/>
     </poi>
     <poi id="C1C0_0" lane="C1C0_0" pos="91.60" type="1">
-        <param key="53.72" value="0">
-        <param key="103.72" value="1">
+        <param key="53.72" value="0"/>
+        <param key="103.72" value="1"/>
     </poi>
 </additional>
