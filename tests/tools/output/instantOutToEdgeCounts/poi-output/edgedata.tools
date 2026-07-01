@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-01 16:50:38.865917 by Eclipse SUMO instantOutToEdgeCounts.py v1_27_1+0087-f6338537335
+<configuration>
+    <detector-data value="input_data.xml"/>
+    <detector-file value="input_additional.add.xml"/>
+    <output-file value="edgedata.xml"/>
+    <poi-output value="pois.add.xml"/>
+    <period value="50.0"/>
+</configuration>
+-->
+
+<edgeData>
+    <interval id="input_data.xml" begin="3.72" end="53.72">
+        <edge id="A0A1.120.00" count="1"/>
+        <edge id="A1B1.120.00" count="1"/>
+        <edge id="A2A1" count="2"/>
+        <edge id="A2A1.120.00" count="2"/>
+        <edge id="B0A0" count="1"/>
+        <edge id="B0B1" count="1"/>
+        <edge id="B1A1" count="1"/>
+        <edge id="B1B0.120.00" count="1"/>
+        <edge id="B2B1" count="2"/>
+        <edge id="B2B1.120.00" count="2"/>
+        <edge id="B2C2" count="1"/>
+    </interval>
+    <interval id="input_data.xml" begin="53.72" end="103.72">
+        <edge id="A0A1.120.00" count="1"/>
+        <edge id="A0B0" count="1"/>
+        <edge id="A0B0.120.00" count="1"/>
+        <edge id="A1B1.120.00" count="2"/>
+        <edge id="A2A1" count="1"/>
+        <edge id="A2A1.120.00" count="1"/>
+        <edge id="A2B2" count="1"/>
+        <edge id="B0A0" count="2"/>
+        <edge id="B0B1" count="1"/>
+        <edge id="B1B0.120.00" count="3"/>
+        <edge id="B1C1" count="1"/>
+        <edge id="B1C1.120.00" count="1"/>
+        <edge id="B2B1" count="1"/>
+        <edge id="B2B1.120.00" count="1"/>
+        <edge id="B2C2" count="2"/>
+        <edge id="C1C0" count="1"/>
+    </interval>
+</edgeData>
