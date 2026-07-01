@@ -4,6 +4,9 @@
 # use a ride definition to call a taxi
 1person_initialStop
 
+# see #18163
+initialStop2
+
 # test taxi device attribute end
 end_of_work
 
