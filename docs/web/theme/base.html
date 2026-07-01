@@ -106,17 +106,17 @@ Build Date UTC : {{ build_date_utc.strftime('%d %B %Y %H:%M:%S') }}
         <div class="container-fluid">
           <div class="row">
             {%- block content %}
-                <div class="col-md-3">
+                <aside class="col-md-3">
                   <div class="text-center"><a href="{{ 'index.html'|url }}" style="display: inline-block; margin-top: 5px;"><img src="{{'images/sumo-logo.png'|url}}" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
                   {% include "toc.html" %}
-                </div>
-                <div class="col-md-9 main-area" role="main">
+                </aside>
+                <main class="col-md-9 main-area">
                   {% if page and not (page.is_top_level and page.is_index and page.file.url == "index.html") %} <!-- page.is_homepage seems to be broken in Mkdocs > 1.1.0 -->
                   {% include "breadcrumbs.html" %}
                   <h1 class="h-title">{{page.title}}</h1>
                   {% endif %}
                   {% include "content.html" %}
-                </div>
+                </main>
             {%- endblock %}
           </div>
           <button onclick="goTopFunction()" id="goToTop" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
