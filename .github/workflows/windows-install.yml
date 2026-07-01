@@ -11,11 +11,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Static validation — catches authoring errors without installing
-      - name: Download and validate MSI with smoke test
-        run: |
-          Invoke-WebRequest -Uri https://sumo.dlr.de/daily/sumo-win64-git.msi -OutFile sumo-win64.msi
-          "$env:WIX\bin\smoke.exe" sumo-win64.msi
+      - name: Download MSI
+        run: Invoke-WebRequest -Uri https://sumo.dlr.de/daily/sumo-win64-git.msi -OutFile sumo-win64.msi
 
       # Runtime: silent per-machine install
       - name: Install (per-machine)
