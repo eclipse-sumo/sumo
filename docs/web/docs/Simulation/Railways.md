@@ -231,13 +231,18 @@ By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard
 
 ### Heuristic generation
 
-By setting the [netconvert](../netconvert.md)-option **--railway.signal.guess-by-stops**, additional signal based on loaded public transport stops.
+By setting the [netconvert](../netconvert.md)-option **--railway.signal.guess.by-stops**, additional signals are generated based on loaded public transport stops.
 Stops are either loaded from the input (i.e. OSM) or with option **--ptstop-files**.
 
 For each public transport stop, at most two signals will be added:
 
-- a signal at the end of the stop edge (unless the node happens to be a switch)
+- a signal at the end of the stop edge 
 - a signal at the start of the stop edge or the next upstream edge that is at least 200m upstream of the stop edge end (unless the node happens to be a switch)
+
+!!! note
+    By default, this operationg may declare railway switches as rail signals. The switches and signals will continue to work normally but there will be no overlap (Durchrutschweg)
+
+By also setting option **--railway.signal.guess.by-stops.split** the edges will be split in order create suitable rail_signal nodes near the stop location. This also ensures that switches remain uncontrolled.
 
 The minimum distance of 200m between the two signals can be customized with option **--osm.stop-outout.length.train**.
 
