@@ -107,6 +107,8 @@ set(CPACK_WIX_ROOT_FEATURE_DESCRIPTION "Simulation of Urban MObility")
 set(CPACK_WIX_PROPERTY_ARPCOMMENTS     "Simulation of Urban MObility")
 set(CPACK_WIX_PROPERTY_ARPURLINFOABOUT "https://eclipse.dev/sumo")
 set(CPACK_WIX_PROPERTY_ARPHELPLINK     "https://sumo.dlr.de/docs/")
+# It is deprecated but currently the easiest way to make a combined user/machine installer work
+set(CPACK_WIX_INSTALL_SCOPE            "NONE")
 
 # Provide extra WiX sources for things CPack cannot express natively:
 #   * SUMO_HOME / PATH / PYTHONPATH environment variables

@@ -18,6 +18,27 @@
         <Property Id="SUMOHOMEENV" Value="1" />
         <Property Id="PATHPYTHONENV" Value="1" />
 
+        <!-- Required for MSIINSTALLPERUSER=1 on the command line to take effect.
+            ALLUSERS=2 tells the engine to defer scope resolution until it sees
+            MSIINSTALLPERUSER; without it, ALLUSERS resolves to 1 (per-machine),
+            With MSIINSTALLPERUSER=1 on the command line it resolves to 0 = per-user. -->
+        <Property Id="ALLUSERS" Secure="yes" Value="2" />
+        <Property Id="MSIINSTALLPERUSER" Secure="yes" />
+
+        <CustomAction Id="SetInstallRootPerUser" Property="INSTALL_ROOT"
+                      Value="[LocalAppDataFolder]SUMO" Execute="immediate" />
+        <CustomAction Id="SetInstallRootPerMachine" Property="INSTALL_ROOT"
+                      Value="[ProgramFiles64Folder]SUMO" Execute="immediate" />
+
+        <InstallUISequence>
+            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
+            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT MSIINSTALLPERUSER="1"</Custom>
+        </InstallUISequence>
+        <InstallExecuteSequence>
+            <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
+            <Custom Action="SetInstallRootPerMachine" After="SetInstallRootPerUser">NOT MSIINSTALLPERUSER="1"</Custom>
+        </InstallExecuteSequence>
+
         <UI>
             <Dialog Id="SUMOOptionsDlg" Width="370" Height="270" Title="SUMO Setup Options">
                 <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Next" />
