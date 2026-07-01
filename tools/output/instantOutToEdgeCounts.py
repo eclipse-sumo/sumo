@@ -123,7 +123,7 @@ def main(options):
                 outf.write(' ' * 4 + '<poi id="%s" lane="%s" pos="%s" type="%s">\n' % (
                         det, lane, pos, sum(counts)))
                 for i, c in enumerate(counts):
-                    outf.write(' ' * 8 + '<param key="%s" value="%s">\n' % (begin + i * period, c))
+                    outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (begin + i * period, c))
                 outf.write(' ' * 4 + '</poi>\n')
             outf.write('</additional>\n')
 
