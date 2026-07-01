@@ -57,6 +57,7 @@ jam_max
 
 # a jam test for reaching 100% occupancy
 jam_max_sublane
+speedThresholdRelative
 
 # discount non-driving lanes from laneDensity calculation
 laneDensity_sidewalk
