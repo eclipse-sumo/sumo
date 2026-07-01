@@ -108,7 +108,7 @@ jobs:
         name: windows-${{ matrix.build_type }}-installers
         path: |
           D:/cpkg/sumo-*
-          D:/cpkg/install.log
+          D:/cpkg/_CPack_Packages/win64/WIX/wix.log
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.
