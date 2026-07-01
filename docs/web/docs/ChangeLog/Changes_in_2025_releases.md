@@ -142,8 +142,8 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - The junction model parameter `jmDriveRedSpeed` now takes effect when emergency vehicles with the bluelight device pass an intersection on red #17120
   - Vehicles with the bluelight device can now pass a junction from the wrong turn lane without first reducing their speed to 0 #17123
   - Vehicles that are driving outside their edge now permit increased lateral acceleration and lateral speed to return to the road #17131
-  - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleanar tabular outputs (csv, parqet) #16814
-  - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retrieve the number of pedestrions on approach to a crossing #17229
+  - Added option **--person-fcd-output** to separate the outputs of vehicles and persons. This also leads to cleaner tabular outputs (csv, parquet) #16814
+  - Actuated tls with custom conditions now supports expression `p:TLINDEX` to retrieve the number of pedestrians on approach to a crossing #17229
   - All insertion warnings/errors now report the failure time #17259
   - summary-output now includes the number of discarded vehicles #17282
   - When option **--summary-output.period** is set, summary-output will always include the final simulation step #17283
@@ -179,7 +179,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - Option **--weights.reversal-penalty** can now be used to configure a penalty for train reversal when routing. A negative value disables reversals #17269
 
 - netconvert
-  - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification withh **--geometry.remove** #16937
+  - Added option **--output.removed-nodes** which preserves ids of nodes that were removing during simplification with **--geometry.remove** #16937
   - Added option **--junctions.attach-removed** which can be used to merge networks that were processed with option **--output.removed-nodes** and correctly re-attach at removed junctions #16968
   - Option **--junctions.join-same** now supports setting the matching distance for joining #16969
   - Added new edge attribute `routingType` which can be used to influence routing together with the new `<preference>` element #17094
@@ -950,7 +950,7 @@ title: Changes in the 2025 releases (versions 1.22.0, 1.23.0, 1.23.1, 1.24.0 and
   - randomTrips.py: Added option **--marouter** to write routes which take into account traffic load on the network #15881
   - randomTrips.py: option **--flows** can now be used together with **--pedestrians** or **--persontrips** to create personFlows #12791
   - randomTrips.py: Added option **--poisson** to generate poisson-distributed flows (with option **--flows**) #13178
-  - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed) #15900
+  - routeStats.py: Added option **--edges-file** for counting the number of times per route that a specific edge (i.e. a counting) location was passed #15900
   - routeSampler.py: Added option **--verbose.timing** to print wall-clock-time performance statistics #15910
   - routeSampler.py: Major increase in processing speed for long routes #15911
   - routeSampler.py: Added option **--depart-distribution** to distribute departures within the counting data intervals #15909

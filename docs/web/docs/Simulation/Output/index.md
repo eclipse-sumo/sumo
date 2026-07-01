@@ -17,9 +17,9 @@ using command line options, the others have to be defined within {{AdditionalFil
 
 ## Converting Outputs
 
-All output files written by SUMO are in XML-format by default. However, by setting the file extension *.csv* or *.parqet* files will instead by written [tabular output](../../TabularOutputs.md) instead.
+All output files written by SUMO are in XML-format by default. However, by setting the file extension *.csv* or *.parquet* files will instead by written [tabular output](../../TabularOutputs.md) instead.
 It is also possible to convert existing XML output files with the python tool [xml2csv.py](../../Tools/Xml.md#xml2csvpy) to a flat-file (CSV) format which can be opened
-with most spread-sheet software. 
+with most spread-sheet software.
 
 The file endings *.xml.gz* or *.csv.gz* will automatically switch to gzip-compressed output files.
 Note, that *.xml.gz* files are also accepted as input by all SUMO applications.
