@@ -21,7 +21,7 @@ jobs:
       - name: Verify installation
         run: |
           # Check binary exists
-          if (-not (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe")) {
+          if (-not (Test-Path "C:\Program Files (x86)\SUMO\bin\sumo-gui.exe")) {
             throw "sumo-gui.exe not found after install"
           }
           # Check env var was set (needs a fresh process to see system env)
@@ -35,7 +35,7 @@ jobs:
 
       - name: Verify uninstall
         run: |
-          if (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe") {
+          if (Test-Path "C:\Program Files (x86)\SUMO\bin\sumo-gui.exe") {
             throw "sumo-gui.exe still present after uninstall"
           }
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
