@@ -697,10 +697,16 @@ public:
 
 
     /** @brief Returns the speed limit of the edge
-     * @caution The speed limit of the first lane is retured; should probably be the fastest edge
+     * @caution The speed limit of the first lane is retured; should probably be the fastest lane
      * @return The maximum speed allowed on this edge
      */
     double getSpeedLimit() const;
+
+    /** @brief Returns the speed limit of the edge
+     * @caution The speed limit of the first lane is retured; should probably be the fastest lane
+     * @return The maximum speed allowed on this edge
+     */
+    double getSpeedLimit(SUMOVehicleClass svc) const;
 
     /// @brief return shape.length() / myLength
     double getLengthGeometryFactor() const;

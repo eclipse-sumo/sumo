@@ -276,6 +276,7 @@
         </xsd:attribute>
         <xsd:attribute name="minSamples" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="speedThreshold" type="floatType" use="optional"/>
+        <xsd:attribute name="speedThresholdRelative" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">
