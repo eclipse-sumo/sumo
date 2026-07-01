@@ -190,7 +190,7 @@ protected:
 
 protected:
 
-    const SUMOVTypeParameter* getVTypeParameter(const std::string& refid);
+    const SUMOVTypeParameter* getVTypeParameter(const std::string& refid) override;
 
 protected:
     /// @brief The current route
