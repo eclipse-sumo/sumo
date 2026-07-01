@@ -1,6 +1,9 @@
 # use a ride definition to call a taxi
 1person
 
+# use a ride definition to call a taxi
+1person_initialStop
+
 # test taxi device attribute end
 end_of_work
 
