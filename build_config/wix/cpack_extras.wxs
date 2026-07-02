@@ -26,9 +26,9 @@
         <Property Id="MSIINSTALLPERUSER" Secure="yes" />
 
         <CustomAction Id="SetInstallRootPerUser" Property="INSTALL_ROOT"
-                      Value="[LocalAppDataFolder]SUMO" Execute="immediate" />
+                      Value="[LocalAppDataFolder]Eclipse\Sumo" Execute="immediate" />
         <CustomAction Id="SetInstallRootPerMachine" Property="INSTALL_ROOT"
-                      Value="[ProgramFiles64Folder]SUMO" Execute="immediate" />
+                      Value="[ProgramFiles64Folder]Eclipse\Sumo" Execute="immediate" />
 
         <InstallUISequence>
             <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
