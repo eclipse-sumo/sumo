@@ -1710,6 +1710,8 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
                 edge->getFromNode()->invalidateTLS(tlc, true, false);
                 edge->getToNode()->invalidateTLS(tlc, true, false);
             }
+        } else if (!fromPermissions && edge->getSpeed() > maxSpeed && !edge->hasRestrictedLane(svc)) {
+            edge->disallowVehicleClass(-1, svc);
         }
     }
     return lanesCreated;
