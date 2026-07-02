@@ -1,0 +1,8 @@
+
+location_netOffset;location_convBoundary;location_origBoundary;location_projParameter;node_id;node_x;node_y;node_type;node_tl
+100.00,100.00;0.00,0.00,200.00,200.00;-10000000000.00,-10000000000.00,10000000000.00,10000000000.00;!;;;;;
+;;;;C;100.00;100.00;traffic_light;C
+E;200.00;100.00;priority
+N;100.00;200.00;priority
+S;100.00;0.00;priority
+W;0.00;100.00;priority

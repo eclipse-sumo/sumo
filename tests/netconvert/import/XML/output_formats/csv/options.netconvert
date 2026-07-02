@@ -1,0 +1,2 @@
+--edge-files=input_plain2.edg.xml --node-files=input_plain2.nod.xml --plain-output-prefix=plain
+--output.format csv
