@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-02T22:55:56.069709+01:00 by Eclipse SUMO sumo v1_27_1+0106-74cb3d7f8b0
+<!-- generated on 2026-07-02T23:03:48.992984+01:00 by Eclipse SUMO sumo v1_27_1+0109-0c8f91f28c0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -86,10 +86,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="1" x="99.00" y="-1.60" z="99.00" angle="90.00" type="t1" speed="10.00" pos="140.00" lane="1_0" slope="45.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="1" x="107.67" y="-1.60" z="96.16" angle="90.00" type="t1" speed="10.00" pos="8.58" lane="2_0" slope="-26.57"/>
+        <vehicle id="1" x="107.67" y="-1.60" z="96.16" angle="90.00" type="t1" speed="10.00" pos="8.58" lane="2_0" slope="45.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="1" x="116.62" y="-1.60" z="91.69" angle="90.00" type="t1" speed="10.00" pos="18.58" lane="2_0" slope="-26.57"/>
+        <vehicle id="1" x="116.62" y="-1.60" z="91.69" angle="90.00" type="t1" speed="10.00" pos="18.58" lane="2_0" slope="45.00"/>
     </timestep>
     <timestep time="17.00">
         <vehicle id="1" x="125.56" y="-1.60" z="87.22" angle="90.00" type="t1" speed="10.00" pos="28.58" lane="2_0" slope="-26.57"/>
@@ -119,10 +119,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="1" x="197.12" y="-1.60" z="51.44" angle="90.00" type="t1" speed="10.00" pos="108.58" lane="2_0" slope="-26.57"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="1" x="206.06" y="-1.60" z="53.03" angle="90.00" type="t1" speed="10.00" pos="6.78" lane="3_0" slope="26.57"/>
+        <vehicle id="1" x="206.06" y="-1.60" z="53.03" angle="90.00" type="t1" speed="10.00" pos="6.78" lane="3_0" slope="-26.57"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="1" x="215.01" y="-1.60" z="57.50" angle="90.00" type="t1" speed="10.00" pos="16.78" lane="3_0" slope="26.57"/>
+        <vehicle id="1" x="215.01" y="-1.60" z="57.50" angle="90.00" type="t1" speed="10.00" pos="16.78" lane="3_0" slope="-26.57"/>
     </timestep>
     <timestep time="28.00">
         <vehicle id="1" x="223.95" y="-1.60" z="61.98" angle="90.00" type="t1" speed="10.00" pos="26.78" lane="3_0" slope="26.57"/>
@@ -152,10 +152,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="1" x="295.51" y="-1.60" z="97.75" angle="90.00" type="t1" speed="10.00" pos="106.78" lane="3_0" slope="26.57"/>
     </timestep>
     <timestep time="37.00">
-        <vehicle id="1" x="303.52" y="-1.60" z="96.48" angle="90.00" type="t1" speed="10.00" pos="4.98" lane="4_0" slope="-45.00"/>
+        <vehicle id="1" x="303.52" y="-1.60" z="96.48" angle="90.00" type="t1" speed="10.00" pos="4.98" lane="4_0" slope="26.57"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="1" x="310.59" y="-1.60" z="89.41" angle="90.00" type="t1" speed="10.00" pos="14.98" lane="4_0" slope="-45.00"/>
+        <vehicle id="1" x="310.59" y="-1.60" z="89.41" angle="90.00" type="t1" speed="10.00" pos="14.98" lane="4_0" slope="26.57"/>
     </timestep>
     <timestep time="39.00">
         <vehicle id="1" x="317.66" y="-1.60" z="82.34" angle="90.00" type="t1" speed="10.00" pos="24.98" lane="4_0" slope="-45.00"/>
@@ -194,10 +194,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="1" x="395.45" y="-1.60" z="4.55" angle="90.00" type="t1" speed="10.00" pos="134.98" lane="4_0" slope="-45.00"/>
     </timestep>
     <timestep time="51.00">
-        <vehicle id="1" x="403.18" y="-1.60" z="1.59" angle="90.00" type="t1" speed="10.00" pos="3.56" lane="5_0" slope="26.57"/>
+        <vehicle id="1" x="403.18" y="-1.60" z="1.59" angle="90.00" type="t1" speed="10.00" pos="3.56" lane="5_0" slope="-45.00"/>
     </timestep>
     <timestep time="52.00">
-        <vehicle id="1" x="412.13" y="-1.60" z="6.06" angle="90.00" type="t1" speed="10.00" pos="13.56" lane="5_0" slope="26.57"/>
+        <vehicle id="1" x="412.13" y="-1.60" z="6.06" angle="90.00" type="t1" speed="10.00" pos="13.56" lane="5_0" slope="-45.00"/>
     </timestep>
     <timestep time="53.00">
         <vehicle id="1" x="421.07" y="-1.60" z="10.54" angle="90.00" type="t1" speed="10.00" pos="23.56" lane="5_0" slope="26.57"/>
