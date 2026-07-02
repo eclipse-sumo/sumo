@@ -122,7 +122,7 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
         MEVehicle* mesoveh = dynamic_cast<MEVehicle*>(&veh);
         assert(mesoveh != nullptr);
         const MESegment* seg = mesoveh->getSegment();
-        if (seg->numQueues() == 1 || mesoveh->getQueIndex() == myLane->getIndex()) {
+        if (seg != nullptr && (seg->numQueues() == 1 || mesoveh->getQueIndex() == myLane->getIndex())) {
             const double slength = seg->getLength();
             // extrapolate movement
             const double exLeaveTime = mesoveh->getLastEntryTime() + (mesoveh->getEventTime() - mesoveh->getLastEntryTime()) * mySegmentPos / slength;
