@@ -69,9 +69,9 @@ jobs:
           if (-not (Test-Path $expected)) {
             throw "sumo-gui.exe not found at per-user path: $expected"
           }
-          # Check env var was set (needs a fresh process to see system env)
-          $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME")
-          if (-not $sumoHome) { throw "SUMO_HOME not set" }
+          # Check env var was set (can only check registry, real environment takes some extra steps)
+          $sumoHome = (Get-ItemProperty -Path 'HKCU:\Environment' -Name 'SUMO_HOME' -ErrorAction SilentlyContinue).SUMO_HOME
+          if (-not $sumoHome) { throw "SUMO_HOME not set in HKCU" }
           Write-Host "SUMO_HOME=$sumoHome"
         shell: pwsh
 
@@ -88,7 +88,7 @@ jobs:
           if (Test-Path "$env:LOCALAPPDATA\SUMO\bin\sumo-gui.exe") {
             throw "sumo-gui.exe still present after uninstall"
           }
-          $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME")
+          $sumoHome = (Get-ItemProperty -Path 'HKCU:\Environment' -Name 'SUMO_HOME' -ErrorAction SilentlyContinue).SUMO_HOME
           if ($sumoHome) { throw "SUMO_HOME still set after uninstall: $sumoHome" }
         shell: pwsh
 
