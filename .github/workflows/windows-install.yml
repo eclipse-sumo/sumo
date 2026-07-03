@@ -2,9 +2,8 @@ name: windows-install
 
 on:
   workflow_dispatch:
-  push:
   schedule:
-    - cron:  '25 11 * * *'
+    - cron:  '25 6 * * *'
 
 jobs:
   test-installer:
@@ -23,7 +22,7 @@ jobs:
           if ($proc.ExitCode -ne 0) {
               throw "msiexec failed with exit code $($proc.ExitCode)"
           }
-  
+
       - name: Verify installation
         shell: pwsh
         run: |
