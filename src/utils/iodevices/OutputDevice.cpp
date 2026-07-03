@@ -72,6 +72,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
     // build the device
     const OptionsCont& oc = OptionsCont::getOptions();
     const int len = (int)name.length();
+    bool isCSV = (oc.exists("output.format") && oc.getString("output.format") == "csv") || (len > 4 && name.substr(len - 4) == ".csv") || (len > 7 && name.substr(len - 7) == ".csv.gz");
     bool isParquet = (oc.exists("output.format") && oc.getString("output.format") == "parquet") || (len > 8 && name.substr(len - 8) == ".parquet");
 #ifndef HAVE_PARQUET
     if (isParquet) {
@@ -83,8 +84,10 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
     // check whether the device shall print to stdout
     if (name == "stdout") {
         dev = OutputDevice_COUT::getDevice();
+        isCSV = isParquet = false;
     } else if (name == "stderr") {
         dev = OutputDevice_CERR::getDevice();
+        isCSV = isParquet = false;
     } else if (FileHelpers::isSocket(name)) {
         try {
             const bool ipv6 = name[0] == '[';  // IPv6 addresses may be written like '[::1]:8000'
@@ -125,7 +128,7 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
         dev = new OutputDevice_File(name2, isParquet);
     }
-    if ((oc.exists("output.format") && oc.getString("output.format") == "csv") || (len > 4 && name.substr(len - 4) == ".csv") || (len > 7 && name.substr(len - 7) == ".csv.gz")) {
+    if (isCSV) {
         dev->setFormatter(new CSVFormatter(oc.getString("output.column-header"), oc.getString("output.column-separator")[0]));
     }
 #ifdef HAVE_PARQUET
