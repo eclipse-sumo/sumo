@@ -11,8 +11,8 @@ pipeline {
         stage('Signing SUMO binaries') {
           steps {
               sh '''
-                # Cloning SUMO
-                tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
+                # tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
+                curl -s -o sumo-win64-unsigned.zip https://sumo.dlr.de/daily/sumo-win64-ci.zip
                 unzip -q -o sumo-win64-unsigned.zip
                 for file in sumo-*/bin/*.dll sumo-*/bin/*.exe; do
                     signed_file="\${file}-signed"
