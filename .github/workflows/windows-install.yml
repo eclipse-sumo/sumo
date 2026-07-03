@@ -28,7 +28,7 @@ jobs:
         shell: pwsh
         run: |
           # Check binary exists
-          if (-not (Test-Path "C:\Program Files\Eclipse\Sumo\bin\sumo-gui.exe")) {
+          if (-not (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe")) {
             throw "sumo-gui.exe not found after install"
           }
           # Check env var was set (needs a fresh process to see system env)
@@ -47,7 +47,7 @@ jobs:
       - name: Verify uninstall
         shell: pwsh
         run: |
-          if (Test-Path "C:\Program Files\Eclipse\Sumo\bin\sumo-gui.exe") {
+          if (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe") {
             throw "sumo-gui.exe still present after uninstall"
           }
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
@@ -65,7 +65,7 @@ jobs:
 
       - name: Verify per-user installation path
         run: |
-          $expected = "$env:LOCALAPPDATA\Eclipse\Sumo\bin\sumo-gui.exe"
+          $expected = "$env:LOCALAPPDATA\SUMO\bin\sumo-gui.exe"
           if (-not (Test-Path $expected)) {
             throw "sumo-gui.exe not found at per-user path: $expected"
           }
@@ -85,7 +85,7 @@ jobs:
 
       - name: Verify uninstall (per-user)
         run: |
-          if (Test-Path "$env:LOCALAPPDATA\Eclipse\Sumo\bin\sumo-gui.exe") {
+          if (Test-Path "$env:LOCALAPPDATA\SUMO\bin\sumo-gui.exe") {
             throw "sumo-gui.exe still present after uninstall"
           }
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME")

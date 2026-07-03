@@ -26,9 +26,9 @@
         <Property Id="MSIINSTALLPERUSER" Secure="yes" />
 
         <CustomAction Id="SetInstallRootPerUser" Property="INSTALL_ROOT"
-                      Value="[LocalAppDataFolder]Eclipse\Sumo" Execute="immediate" />
+                      Value="[LocalAppDataFolder]SUMO" Execute="immediate" />
         <CustomAction Id="SetInstallRootPerMachine" Property="INSTALL_ROOT"
-                      Value="[ProgramFiles64Folder]Eclipse\Sumo" Execute="immediate" />
+                      Value="[ProgramFiles64Folder]SUMO" Execute="immediate" />
 
         <InstallUISequence>
             <Custom Action="SetInstallRootPerUser" Before="CostFinalize">MSIINSTALLPERUSER="1"</Custom>
@@ -139,24 +139,42 @@
         <ComponentGroup Id="SumoExtras" Directory="INSTALL_ROOT">
 
             <Component Id="SumoHomeEnvironment" Guid="67D3110C-F900-461F-B836-177A7AE88BB9">
-                <Condition>SUMOHOMEENV</Condition>
+                <Condition>SUMOHOMEENV AND NOT MSIINSTALLPERUSER="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="SUMO_HOME"   Name="SUMO_HOME"  Value="[INSTALL_ROOT]"
                              Permanent="no" Part="all"  Action="set" System="yes" />
             </Component>
+            <Component Id="SumoHomeEnvironmentUser" Guid="A43C17FA-4675-4219-8E2A-E149E06A42C4">
+                <Condition>SUMOHOMEENV AND MSIINSTALLPERUSER="1"</Condition>
+                <CreateFolder/>
+                <Environment Id="SUMO_HOME_USER" Name="SUMO_HOME" Value="[INSTALL_ROOT]"
+                             Permanent="no" Part="all" Action="set" System="no" />
+            </Component>
 
             <Component Id="SumoPathEnvironment" Guid="17359CBF-8C61-4C3D-B5A7-4407AFF096AA">
-                <Condition>PATHPYTHONENV</Condition>
+                <Condition>PATHPYTHONENV AND NOT MSIINSTALLPERUSER="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PATH"        Name="PATH"       Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
             </Component>
+            <Component Id="SumoPathEnvironmentUser" Guid="E4A47E8E-C0AB-435D-97E7-389D806CF419">
+                <Condition>PATHPYTHONENV AND MSIINSTALLPERUSER="1"</Condition>
+                <CreateFolder/>
+                <Environment Id="PATH_USER" Name="PATH" Value="[INSTALL_ROOT]bin;[INSTALL_ROOT]tools"
+                             Permanent="no" Part="last" Action="set" System="no" />
+            </Component>
 
             <Component Id="SumoPythonPathEnvironment" Guid="3C6E4C8E-C4D3-483D-93C0-546A04D360F0">
-                <Condition>PATHPYTHONENV</Condition>
+                <Condition>PATHPYTHONENV AND NOT MSIINSTALLPERUSER="1"</Condition>
                 <CreateFolder/>
                 <Environment Id="PYTHONPATH"  Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
                              Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+            <Component Id="SumoPythonPathEnvironmentUser" Guid="47260E4A-760A-44E3-8F96-E8C1F6CBB57A">
+                <Condition>PATHPYTHONENV AND MSIINSTALLPERUSER="1"</Condition>
+                <CreateFolder/>
+                <Environment Id="PYTHONPATH_USER" Name="PYTHONPATH" Value="[INSTALL_ROOT]tools"
+                             Permanent="no" Part="last" Action="set" System="no" />
             </Component>
 
             <Component Id="SumoFileAssociation" Guid="BD1FC8EE-2B15-11E1-BA48-028037EC0200">

@@ -55,7 +55,7 @@ set(CPACK_PACKAGE_CONTACT           "sumo-dev@eclipse.org")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Simulation of Urban MObility")
 set(CPACK_PACKAGE_HOMEPAGE_URL      "https://eclipse.dev/sumo")
 set(CPACK_PACKAGE_VERSION           "${SUMO_CPACK_VERSION}")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Eclipse/Sumo")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "SUMO")
 set(CPACK_PACKAGE_FILE_NAME         "sumo-${SUMO_CPACK_VERSION}")
 
 # License file used by the installer. Can be overridden from the command
