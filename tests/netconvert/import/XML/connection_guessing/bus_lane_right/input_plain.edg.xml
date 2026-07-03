@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-03T12:40:08.325028+01:00 by Eclipse SUMO netedit v1_27_1+0118-a1b5cc81c39
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-291312.59,-5499668.60" convBoundary="0.00,100.00,200.00,100.00" origBoundary="6.030969,49.549099,6.216758,49.652578" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-a" from="J1" to="J0" priority="9" type="highway.primary" numLanes="3" speed="13.89">
+        <lane index="0" allow="bus"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+    <edge id="-b" from="J2" to="J1" priority="9" type="highway.primary" numLanes="3" speed="13.89">
+        <lane index="0" allow="bus"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+    <edge id="a" from="J0" to="J1" priority="9" type="highway.primary" numLanes="3" speed="13.89">
+        <lane index="0" allow="bus"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+    <edge id="b" from="J1" to="J2" priority="9" type="highway.primary" numLanes="3" speed="13.89">
+        <lane index="0" allow="bus"/>
+        <lane index="1" allow="passenger"/>
+        <lane index="2" allow="passenger"/>
+    </edge>
+</edges>

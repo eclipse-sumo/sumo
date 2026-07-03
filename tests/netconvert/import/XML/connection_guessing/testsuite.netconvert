@@ -115,6 +115,9 @@ bus_switch_lane
 # test for #16291
 bus_only_preferred
 
+# see #18181
+bus_lane_right
+
 # test for #15161
 verge_left
 
