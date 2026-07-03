@@ -12,13 +12,9 @@ pipeline {
           steps {
               sh '''
                 # Cloning SUMO
-                git -c advice.detachedHead=false clone -q --filter=tree:0 --branch main https://github.com/eclipse-sumo/sumo.git
-                python3 -m venv a_env
-                source a_env/bin/activate
-                pip install requests
-                sumo/tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
+                tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
                 unzip -q -o sumo-win64-unsigned.zip
-                for file in sumo-*/bin/*; do
+                for file in sumo-*/bin/*.dll sumo-*/bin/*.exe; do
                     signed_file="\${file}-signed"
                     curl -s -o "\${signed_file}" -F "file=@\${file}" https://cbi.eclipse.org/authenticode/sign
                     # keep the original permissions

@@ -17,24 +17,26 @@
 
 import argparse
 import io
+import json
 import os
 import sys
+import urllib.request
 import zipfile
-
-import requests
 
 
 def request(url, token):
     if token:
-        return requests.get(url, headers={"Authorization": "Bearer " + token})
-    return requests.get(url)
+        req = urllib.request.Request(url, headers={"Authorization": "Bearer " + token})
+    else:
+        req = urllib.request.Request(url)
+    return json.loads(urllib.request.urlopen(req).read())
 
 
 def get_latest_artifact_url(options):
     prefix = "%s/repos/%s/%s/actions/" % (options.api_url, options.owner, options.repository)
     workflow_id = 0
     response = request(prefix + "workflows", options.token)
-    for workflow in response.json()['workflows']:
+    for workflow in response['workflows']:
         # for several workflows with the same name we take the one most recently created (highest id)
         if workflow['name'] == options.workflow and workflow['id'] > workflow_id:
             workflow_id = workflow['id']
@@ -43,11 +45,11 @@ def get_latest_artifact_url(options):
 
     workflow_run_ids = []
     response = request("%sworkflows/%s/runs" % (prefix, workflow_id), options.token)
-    for workflow_run in response.json()['workflow_runs']:
+    for workflow_run in response['workflow_runs']:
         if options.branch == "main" and workflow_run['head_branch'][:1] == "v":
             # there seems to be no easy way to identify a tag so we take the first letter
             workflow_run_ids.append(workflow_run['id'])
-    for workflow_run in response.json()['workflow_runs']:
+    for workflow_run in response['workflow_runs']:
         if options.verbose:
             print("Found workflow", workflow_run['id'], workflow_run['status'],
                   workflow_run['conclusion'], workflow_run['head_branch'])
@@ -61,7 +63,7 @@ def get_latest_artifact_url(options):
 
     for workflow_run_id in workflow_run_ids:
         response = request("%sruns/%s/artifacts?per_page=100" % (prefix, workflow_run_id), options.token)
-        for artifact in response.json()['artifacts']:
+        for artifact in response['artifacts']:
             if options.verbose:
                 print("Found artifact", artifact['name'])
             if artifact['name'].startswith(options.prefix):
