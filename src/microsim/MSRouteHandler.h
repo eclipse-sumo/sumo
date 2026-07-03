@@ -186,6 +186,8 @@ protected:
 
     SumoRNG* getRNG() override;
 
+    const SUMOVTypeParameter* getVTypeParameter(const std::string& refid) override;
+
 protected:
     /// @brief The current route
     ConstMSEdgeVector myActiveRoute;

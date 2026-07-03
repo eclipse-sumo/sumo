@@ -81,6 +81,9 @@ same_edge
 # Tests whether processing vehicle parameter works
 vtypecheck
 
+# Tests whether processing vehicle parameter works
+vtyperef
+
 # test trip validation (trip input and trip output)
 write-trips
 

@@ -234,9 +234,9 @@ MSIdling_TaxiStand::idle(MSDevice_Taxi* taxi) {
         stop.actType = "idling";
         stop.parkingarea = pa->getID();
         stop.parking = ParkingType::OFFROAD;
-        const int nextStopIndex = (int)veh.getStops().size();
+        stop.index = (int)veh.getStops().size();
         std::string error;
-        if (!veh.insertStop(nextStopIndex, stop, "taxi:taxistand", false, error)) {
+        if (!veh.insertStop(stop.index, stop, "taxi:taxistand", false, error)) {
             WRITE_WARNING("Stop insertion failed for idling taxi '" + veh.getID() + "' (" + error + ").");
         } else {
             //std::cout << SIMTIME << " taxistandsVeh=" << veh.getID() << "  driving to parkingArea " << pa->getID() << "\n";

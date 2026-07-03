@@ -143,7 +143,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myCurrentVType = nullptr;
             }
             // create a new vType
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
+            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName(), getVTypeParameter(attrs.getStringSecure(SUMO_ATTR_REFID, "")));
             myParamStack.push_back(myCurrentVType);
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:

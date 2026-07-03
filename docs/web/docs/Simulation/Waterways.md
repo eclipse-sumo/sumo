@@ -26,7 +26,7 @@ They can also be explicitly specified by setting `allow="ship"`.
 
 To allow overtaking, it is recommended to build a network that enables [opposite direction driving](OppositeDirectionDriving.md).
 
-If a linear body of water is wide enough to accomodate more than two ships, it can either be modelled by
+If a linear body of water is wide enough to accommodate more than two ships, it can either be modelled by
 
 - defining multiple lanes per direction
 - defining a single wide lane per direction and enabling the [sublane model](SublaneModel.md#sublane-model)

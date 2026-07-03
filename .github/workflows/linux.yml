@@ -33,7 +33,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         path: sumo
         fetch-depth: 0
@@ -58,7 +58,7 @@ jobs:
 
     - name: Cloning jupedsim
       if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: PedestrianDynamics/jupedsim
         ref: ${{ matrix.jps_version }}
@@ -67,7 +67,7 @@ jobs:
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2
+      uses: hendrikmuhs/ccache-action@v1.2.23
       with:
         key: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.compiler }}
 

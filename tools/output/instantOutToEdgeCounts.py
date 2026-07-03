@@ -40,11 +40,13 @@ def get_options(args=None):
                     help="the detector definitions to read")
     ap.add_argument("-o", "--output-file", category="output", dest="outfile", type=ap.additional_file,
                     help="define the output filename")
+    ap.add_argument("--poi-output", category="output", type=ap.file, dest="poiOut",
+                    help="file to write the individual detector counts as poi parameters")
     ap.add_argument("-b", "--begin", type=ap.time,
                     help="begin time")
     ap.add_argument("-e", "--end", type=ap.time,
                     help="end time")
-    ap.add_argument("-p", "--period", metavar="FLOAT",
+    ap.add_argument("-p", "--period", type=ap.time,
                     help="The interval duration for grouping counts")
     ap.add_argument("-t", "--event-type", dest="eType", default="leave",
                     help="The event type to read (default 'leave')")
@@ -54,9 +56,11 @@ def get_options(args=None):
 
 def parseDetectors(options):
     det2edge = dict()
+    det2pos = dict()
     for det in sumolib.xml.parse(options.detfile, "instantInductionLoop"):
         det2edge[det.id] = lane2edge(det.lane)
-    return det2edge
+        det2pos[det.id] = (det.lane, det.pos)
+    return det2edge, det2pos
 
 
 def parseTimes(options):
@@ -76,7 +80,7 @@ def writeEdges(outf, edgeCounts):
 
 def main(options):
     times = parseTimes(options)
-    det2edge = parseDetectors(options)
+    det2edge, det2pos = parseDetectors(options)
 
     begin = times.min if options.begin is None else options.begin
     absEnd = times.max if options.end is None else options.end
@@ -88,6 +92,9 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "edgeData", options=options, rootAttrs=None)
 
         edgeCounts = defaultdict(lambda: 0)
+        detCounts = defaultdict(list)
+        for det in det2pos:
+            detCounts[det].append(0)
 
         for event in sumolib.xml.parse_fast(options.detdata, 'instantOut', ['id', 'time', 'state']):
             if event.state == options.eType:
@@ -95,6 +102,8 @@ def main(options):
                 if t > end:
                     if end > 0:
                         writeEdges(outf, edgeCounts)
+                        for det in det2pos:
+                            detCounts[det].append(0)
                         begin = end
                     if t > absEnd:
                         break
@@ -102,8 +111,21 @@ def main(options):
                     outf.write(' ' * 4 + '<interval id="%s" begin="%s" end="%s">\n' % (
                         options.detdata, begin, begin + period))
                 edgeCounts[det2edge[event.id]] += 1
+                detCounts[event.id][-1] += 1
         writeEdges(outf, edgeCounts)
         outf.write('</edgeData>\n')
+
+    if options.poiOut:
+        with sumolib.openz(options.poiOut, 'w') as outf:
+            sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
+            for det, counts in detCounts.items():
+                lane, pos = det2pos[det]
+                outf.write(' ' * 4 + '<poi id="%s" lane="%s" pos="%s" type="%s">\n' % (
+                        det, lane, pos, sum(counts)))
+                for i, c in enumerate(counts):
+                    outf.write(' ' * 8 + '<param key="%s" value="%s"/>\n' % (begin + i * period, c))
+                outf.write(' ' * 4 + '</poi>\n')
+            outf.write('</additional>\n')
 
 
 if __name__ == "__main__":

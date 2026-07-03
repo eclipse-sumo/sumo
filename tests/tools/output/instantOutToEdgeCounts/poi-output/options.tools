@@ -1,0 +1,3 @@
+-i input_data.xml -d input_additional.add.xml -o edgedata.xml
+--poi-output pois.add.xml
+--period 50

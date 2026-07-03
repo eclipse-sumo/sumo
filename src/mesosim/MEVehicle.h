@@ -172,6 +172,10 @@ public:
         return 0;
     }
 
+    bool instantStopping() const {
+        return true;
+    }
+
     ///@brief ends the current stop and performs loading/unloading
     void processStop();
 

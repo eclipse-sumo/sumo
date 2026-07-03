@@ -1237,7 +1237,7 @@ Under windows these settings must be configured using `regedit` i.e. at the regi
 
 Starting with version 1.26.0 (specifically v1_25_0-454), it is possible to scale fonts and icons sizes in the gui-settings ('UI Scaling' in the openGL tab). The application must be restarted for the setting to take effect.
 
-In older versions the fox-registry (see above) must be used to change the 'normalfont'. On Linux and MaCOS this can be accomplished by creating the file *~/.foxrc/Desktop* with the following line:
+In older versions the fox-registry (see above) must be used to change the 'normalfont'. On Linux and macOS this can be accomplished by creating the file *~/.foxrc/Desktop* with the following line:
 `normalfont="Arial,200"`
 (with any desired font or size)
 

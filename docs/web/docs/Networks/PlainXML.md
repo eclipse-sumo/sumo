@@ -1144,6 +1144,7 @@ which control multiple intersections.
 | **toLane**     | int                | the lane index of the outgoing lane (numbers starting with 0)                      |
 | **tl**         | string             | id of the traffic light which controls this connection                             |
 | **linkIndex**  | int                | the index in the *state*-attribute of the `<phase>`-elements which controls this connection |
+| linkIndex2     | int                | the index in the *state*-attribute of the `<phase>`-elements which controls the internal junction link (by default this is uncontrolled) |
 
 You can easily get examples for this type of file by loading a
 *sumo.net.xml* in [netconvert](../netconvert.md) and using option **--plain-output-prefix**.

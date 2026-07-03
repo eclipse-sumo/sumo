@@ -1039,7 +1039,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GUIVisualizationSettings& s, co
         glTranslated(pos.x(), pos.y(), 0.1);
         glRotated(rot, 0, 0, 1);
         // draw geometry point
-        GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
+        GLHelper::drawFilledCircleDetailed(d, s.neteditSizeSettings.additionalGeometryPointRadius, fromAngle, toAngle);
         // pop geometry point matrix
         GLHelper::popMatrix();
     }

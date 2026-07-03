@@ -122,7 +122,7 @@ vehicle's stop, the container will be loaded onto the vehicle. If such a
 vehicle exists but the container is not positioned between the start and
 end position of the vehicle's stop, the container will still be loaded
 if the vehicle is triggered by the a container and the distance between
-container and vehicle is at most 10 metres. It will not be checked
+container and vehicle is at most 10 meters. It will not be checked
 whether the vehicle has the aspired destination on the current route.
 The first time the vehicle stops (on a well defined stop) at the
 destination edge, the transport is finished and the container proceeds

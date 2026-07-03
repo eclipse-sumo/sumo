@@ -33,14 +33,22 @@ VTypesHandler::VTypesHandler(const std::string& file, std::map<std::string, SUMO
     myVTypes(vTypes)
 {}
 
+
 void
 VTypesHandler::closeVType() {
     myVTypes[myCurrentVType->id] = myCurrentVType;
     myCurrentVType = nullptr;
 }
 
+
 VTypesHandler::~VTypesHandler() {}
 
+
+const SUMOVTypeParameter*
+VTypesHandler::getVTypeParameter(const std::string& refid) {
+    const auto& typeRef = myVTypes.find(refid);
+    return typeRef != myVTypes.end() ? typeRef->second : nullptr;
+}
 
 
 /****************************************************************************/

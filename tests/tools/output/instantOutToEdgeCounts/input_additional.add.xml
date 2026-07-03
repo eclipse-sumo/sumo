@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-01 16:39:42.996305 by Eclipse SUMO generateDetectors.py v1_27_1+0087-f6338537335
+<configuration>
+    <net-file value="net.net.xml"/>
+    <output value="det.add.xml"/>
+    <edge-probability value="0.5"/>
+    <detector-type value="instantInductionLoop"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="A0A1.120.00_0" lane="A0A1.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0A1.120.00_1" lane="A0A1.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0A1.120.00_2" lane="A0A1.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0B0_0" lane="A0B0_0" pos="54.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0B0.120.00_0" lane="A0B0.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0B0.120.00_1" lane="A0B0.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A0B0.120.00_2" lane="A0B0.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A1B1.120.00_0" lane="A1B1.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A1B1.120.00_1" lane="A1B1.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A1B1.120.00_2" lane="A1B1.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A2A1_0" lane="A2A1_0" pos="54.80" file="det.out.xml"/>
+    <instantInductionLoop id="A2A1.120.00_0" lane="A2A1.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A2A1.120.00_1" lane="A2A1.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A2A1.120.00_2" lane="A2A1.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="A2B2_0" lane="A2B2_0" pos="54.80" file="det.out.xml"/>
+    <instantInductionLoop id="B0A0_0" lane="B0A0_0" pos="91.60" file="det.out.xml"/>
+    <instantInductionLoop id="B0B1_0" lane="B0B1_0" pos="52.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1A1_0" lane="B1A1_0" pos="52.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1B0.120.00_0" lane="B1B0.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1B0.120.00_1" lane="B1B0.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1B0.120.00_2" lane="B1B0.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1C1_0" lane="B1C1_0" pos="52.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1C1.120.00_0" lane="B1C1.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1C1.120.00_1" lane="B1C1.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B1C1.120.00_2" lane="B1C1.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B2B1_0" lane="B2B1_0" pos="52.80" file="det.out.xml"/>
+    <instantInductionLoop id="B2B1.120.00_0" lane="B2B1.120.00_0" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B2B1.120.00_1" lane="B2B1.120.00_1" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B2B1.120.00_2" lane="B2B1.120.00_2" pos="32.80" file="det.out.xml"/>
+    <instantInductionLoop id="B2C2_0" lane="B2C2_0" pos="91.60" file="det.out.xml"/>
+    <instantInductionLoop id="C1C0_0" lane="C1C0_0" pos="91.60" file="det.out.xml"/>
+</additional>

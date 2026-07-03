@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cloning SUMO
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           filter: tree:0
@@ -69,7 +69,7 @@ jobs:
 
     steps:
       - name: Cloning SUMO
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           filter: tree:0
@@ -78,7 +78,7 @@ jobs:
 
       - name: Cloning SUMO Libraries
         if: matrix.os == 'windows-latest'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: DLR-TS/SUMOLibraries
           path: SUMOLibraries
@@ -94,7 +94,7 @@ jobs:
           echo 'MACOSX_DEPLOYMENT_TARGET=14.0' >> $GITHUB_ENV
 
       - name: ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+        uses: hendrikmuhs/ccache-action@v1.2.23
         with:
           key: ${{ matrix.os }}-${{ matrix.manylinux }}
           variant: ${{ matrix.os == 'windows-latest' && 'sccache' || 'ccache' }}

@@ -102,11 +102,10 @@ public:
     }
 
 protected:
-
+    const SUMOVTypeParameter* getVTypeParameter(const std::string& refid);
 
 private:
     std::map<std::string, SUMOVTypeParameter*>& myVTypes;
-
 
 private:
     /// @brief invalidated copy constructor
@@ -114,6 +113,4 @@ private:
 
     /// @brief invalidated assignment operator
     VTypesHandler& operator=(const VTypesHandler& s);
-
-
 };

@@ -219,14 +219,18 @@ public:
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
+     * @param[in] haltSpeedRel the maximum relative speed to consider a vehicle waiting
      * @param[in] vTypes the set of vehicle types to consider
+     * @param[in] writeAttributes the list of attributes that shall be written
+     * @param[in] edges the list of edges for which output shall be written
+     * @param[in] aggregate Whether a single aggregated value shall be written
      */
     MSMeanData_Net(const std::string& id,
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const std::string& excludeEmpty,
                    const bool withInternal, const bool trackVehicles, const int detectPersons,
                    const double maxTravelTime, const double minSamples,
-                   const double haltSpeed, const std::string& vTypes,
+                   const double haltSpeed, const double haltSpeedRel, const std::string& vTypes,
                    const std::string& writeAttributes,
                    const std::vector<MSEdge*>& edges,
                    AggregateType aggregate);
@@ -257,8 +261,11 @@ protected:
     void resetOnly(SUMOTime stopTime);
 
 private:
-    /// @brief the minimum sample seconds
+    /// @brief the minimum speed to consider a vehicle halting
     const double myHaltSpeed;
+
+    /// @brief the minimum relative speed to consider a vehicle halting
+    const double myHaltSpeedRel;
 
     /// @brief Invalidated copy constructor.
     MSMeanData_Net(const MSMeanData_Net&);

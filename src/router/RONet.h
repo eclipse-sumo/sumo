@@ -358,6 +358,9 @@ public:
     /// @brief returns whether a vehicle with the given id was already loaded
     bool knowsVehicle(const std::string& id) const;
 
+    /// @brief returns whether a vehicle type or distribution with the given id was already loaded
+    bool knowsVType(const std::string& id) const;
+
     /// @brief returns departure time for the given vehicle id
     SUMOTime getDeparture(const std::string& vehID) const;
 

@@ -5,17 +5,32 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed invalid error when using idle-algorithm 'taxistand' with an initial stop #18162
+
+- meso
+  - Fixed invalid error 'too close too brake' when inserting stop #18163
+  - Fixed crash when using idle-algorithm 'taxistand' #18159
+
 - netedit
   - Junction context menu operation 'clearing connections' no longer generates an invalid network if the junction had tls-controlled pedestrian crossings #18145 (regression in 1.27.0)
 
 - netconvert
   - Fixed crash when rail signal connection link index is patched #18142
+  - OSM: no longer importing superfluous tls where tram runs on road #18146
+  - Fixed missed joins when using **--edges.join-tram-dist** on a network with joined junctions #18154
 
 ### Enhancements
 
 - sumo
   - Added option **--slope-centered** to replicate simplified slope computation found in other simulators #18111
   - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
+  - vehicle types can be initialized with values from another vType by using attribute `refId` #18144
+  - Elements `<edgeData>` and `<laneData>` now support attribute `speedThresholdRelative` as an optional condition for recording `waitingTime` #18161
+
+ 
+- meso
+  - Now supports traffic light type 'actuated' #8735
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 

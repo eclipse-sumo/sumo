@@ -87,13 +87,14 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
         // do not write configuration for netgen
         return;
     }
+    const std::string ext = oc.getString("output.format");
     OptionsCont* tmp = oc.clone();
-    tmp->set("node-files", prefix + ".nod.xml");
-    tmp->set("edge-files", prefix + ".edg.xml");
-    tmp->set("connection-files", prefix + ".con.xml");
-    tmp->set("tllogic-files", prefix + ".tll.xml");
+    tmp->set("node-files", prefix + ".nod." + ext);
+    tmp->set("edge-files", prefix + ".edg." + ext);
+    tmp->set("connection-files", prefix + ".con." + ext);
+    tmp->set("tllogic-files", prefix + ".tll." + ext);
     if (haveTypes) {
-        tmp->set("type-files", prefix + ".typ.xml");
+        tmp->set("type-files", prefix + ".typ." + ext);
     }
     tmp->setDefault("sumo-net-file", "");
     tmp->setDefault("plain-output-prefix", "");
@@ -112,6 +113,7 @@ NWWriter_XML::writeConfig(const OptionsCont& oc, const std::string& prefix, bool
 
 void
 NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc) {
+    const std::string ext = oc.getString("output.format");
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     if (useGeo && !gch.usingGeoProjection()) {
@@ -120,7 +122,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
     }
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".nod.xml");
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".nod." + ext);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
@@ -206,7 +208,8 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
 
 void
 NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& tc) {
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".typ.xml");
+    const std::string ext = OptionsCont::getOptions().getString("output.format");
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".typ." + ext);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader(toString(SUMO_TAG_TYPES), "types_file.xsd", attrs);
@@ -218,15 +221,16 @@ NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& 
 
 void
 NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec) {
+    const std::string ext = oc.getString("output.format");
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    OutputDevice& edevice = OutputDevice::getDevice(prefix + ".edg.xml");
+    OutputDevice& edevice = OutputDevice::getDevice(prefix + ".edg." + ext);
     edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
-    OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con.xml");
+    OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con." + ext);
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
     const bool writeLanes = oc.getBool("plain-output.lanes");
@@ -431,9 +435,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
 
 void
 NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicCont& tc, NBEdgeCont& ec) {
+    const std::string ext = OptionsCont::getOptions().getString("output.format");
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
-    OutputDevice& device = OutputDevice::getDevice(prefix + ".tll.xml");
+    OutputDevice& device = OutputDevice::getDevice(prefix + ".tll." + ext);
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections

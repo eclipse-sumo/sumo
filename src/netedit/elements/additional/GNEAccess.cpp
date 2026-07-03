@@ -244,7 +244,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // translate to geometry position
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(d, radius * accessExaggeration);
+            GLHelper::drawFilledCircleDetailed(d, radius * accessExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon

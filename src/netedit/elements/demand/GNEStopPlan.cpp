@@ -253,7 +253,7 @@ GNEStopPlan::drawGL(const GUIVisualizationSettings& s) const {
                 // set stop color
                 GLHelper::setColor(stopColor);
                 // draw filled circle
-                GLHelper::drawFilledCircleDetailled(d, 0.1 + s.additionalSettings.stopEdgeSize);
+                GLHelper::drawFilledCircleDetailed(d, 0.1 + s.additionalSettings.stopEdgeSize);
             }
             // pop layer matrix
             GLHelper::popMatrix();

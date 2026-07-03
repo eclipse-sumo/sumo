@@ -753,17 +753,22 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
 
 
 SUMOVTypeParameter*
-SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file) {
-    // first obtain ID
-    std::string id = parseID(attrs, SUMO_TAG_VTYPE);
-    // check if ID is valid
+SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const bool hardFail, const std::string& file, const SUMOVTypeParameter* const base) {
+    const std::string id = parseID(attrs, SUMO_TAG_VTYPE);
     if (!id.empty()) {
-        SUMOVehicleClass vClass = SVC_PASSENGER;
+        // create vType
+        SUMOVehicleClass vClass = base == nullptr ? SVC_PASSENGER : base->vehicleClass;
         if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
             vClass = parseVehicleClass(attrs, id);
         }
-        // create vType
-        SUMOVTypeParameter* vType = new SUMOVTypeParameter(id, vClass);
+        SUMOVTypeParameter* vType;
+        if (base == nullptr) {
+            vType = new SUMOVTypeParameter(id, vClass);
+        } else {
+            vType = new SUMOVTypeParameter(*base);
+            vType->id = id;
+            vType->vehicleClass = vClass;
+        }
         // parse attributes
         if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
             vType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;

@@ -8,13 +8,17 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-03 21:31+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-07-02 13:01+0000\n"
+"Last-Translator: aya-samy-aly <aya.aly@univ-cotedazur.fr>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
+"gui-netedit/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -26,7 +30,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1713
 #: src/netedit/GNEApplicationWindow.cpp:1714
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:312
 #: src/netedit/GNEApplicationWindow.cpp:581
@@ -41,12 +45,12 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:343
 #: src/netedit/GNEApplicationWindow.cpp:608
 msgid "Ready."
-msgstr ""
+msgstr "جاهز."
 
 #: src/gui/GUIApplicationWindow.cpp:466
 #: src/netedit/GNEApplicationWindow.cpp:1447
 msgid "&File"
-msgstr ""
+msgstr "&ملف"
 
 #: src/gui/GUIApplicationWindow.cpp:468
 #: src/netedit/GNEApplicationWindowHelper.cpp:207
@@ -92,7 +96,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:484
 #: src/netedit/GNEApplicationWindow.cpp:1079
 msgid "&Reload"
-msgstr ""
+msgstr "&إعادة التحميل"
 
 #: src/gui/GUIApplicationWindow.cpp:484
 msgid "Reloads the simulation / the network."
@@ -100,7 +104,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Quick-Reload"
-msgstr ""
+msgstr "إعادة التحميل السريع"
 
 #: src/gui/GUIApplicationWindow.cpp:487
 msgid "Reloads the simulation (but not network)."
@@ -117,7 +121,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:494
 #: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close"
-msgstr ""
+msgstr "اغلق"
 
 #: src/gui/GUIApplicationWindow.cpp:494
 msgid "Close the simulation."
@@ -126,7 +130,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1467
 msgid "&Quit"
-msgstr ""
+msgstr "&خروج"
 
 #: src/gui/GUIApplicationWindow.cpp:502
 #: src/netedit/GNEApplicationWindow.cpp:1467
@@ -136,7 +140,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:511
 #: src/netedit/GNEApplicationWindow.cpp:1482
 msgid "&Edit"
-msgstr ""
+msgstr "&تعديل"
 
 #: src/gui/GUIApplicationWindow.cpp:513 src/gui/GUIApplicationWindow.cpp:885
 msgid "Edit Selected..."
@@ -234,7 +238,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:547
 msgid "&Settings"
-msgstr ""
+msgstr "&الإعدادات"
 
 #: src/gui/GUIApplicationWindow.cpp:549
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
@@ -260,13 +264,13 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:559
 #: src/netedit/GNEApplicationWindow.cpp:1518
 msgid "&Locate"
-msgstr ""
+msgstr "&تحديد الموقع"
 
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindowHelper.cpp:1350
 #: src/netedit/GNEApplicationWindowHelper.cpp:2015
 msgid "&Junctions"
-msgstr ""
+msgstr "&التقاطعات"
 
 #: src/gui/GUIApplicationWindow.cpp:561
 #: src/netedit/GNEApplicationWindowHelper.cpp:2015
@@ -277,7 +281,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1355
 #: src/netedit/GNEApplicationWindowHelper.cpp:2018
 msgid "&Edges"
-msgstr ""
+msgstr "&الأطراف"
 
 #: src/gui/GUIApplicationWindow.cpp:564
 #: src/netedit/GNEApplicationWindowHelper.cpp:2018
@@ -288,7 +292,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1420
 #: src/netedit/GNEApplicationWindowHelper.cpp:2024
 msgid "&Vehicles"
-msgstr ""
+msgstr "&المركبات"
 
 #: src/gui/GUIApplicationWindow.cpp:567
 #: src/netedit/GNEApplicationWindowHelper.cpp:2024
@@ -299,7 +303,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:1425
 #: src/netedit/GNEApplicationWindowHelper.cpp:2027
 msgid "&Persons"
-msgstr ""
+msgstr "&الأشخاص"
 
 #: src/gui/GUIApplicationWindow.cpp:570
 #: src/netedit/GNEApplicationWindowHelper.cpp:2027
@@ -308,7 +312,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:573
 msgid "&Container"
-msgstr ""
+msgstr "&حاوية"
 
 #: src/gui/GUIApplicationWindow.cpp:573
 #: src/netedit/GNEApplicationWindowHelper.cpp:2030
@@ -318,7 +322,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:576
 #: src/netedit/GNEApplicationWindowHelper.cpp:2039
 msgid "&TLS"
-msgstr ""
+msgstr "&TLS"
 
 #: src/gui/GUIApplicationWindow.cpp:576
 #: src/netedit/GNEApplicationWindowHelper.cpp:2039
@@ -329,7 +333,7 @@ msgstr ""
 #: src/netedit/GNEApplicationWindowHelper.cpp:637
 #: src/netedit/GNEApplicationWindowHelper.cpp:2042
 msgid "&Additional"
-msgstr ""
+msgstr "&إضافة"
 
 #: src/gui/GUIApplicationWindow.cpp:579
 #: src/netedit/GNEApplicationWindowHelper.cpp:2042
@@ -339,7 +343,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:582
 #: src/netedit/GNEApplicationWindowHelper.cpp:2045
 msgid "P&oI"
-msgstr ""
+msgstr "P&oI"
 
 #: src/gui/GUIApplicationWindow.cpp:582
 #: src/netedit/GNEApplicationWindowHelper.cpp:2045
@@ -349,7 +353,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:585
 #: src/netedit/GNEApplicationWindowHelper.cpp:2048
 msgid "Po&lygon"
-msgstr ""
+msgstr "&مضلع"
 
 #: src/gui/GUIApplicationWindow.cpp:585
 #: src/netedit/GNEApplicationWindowHelper.cpp:2048
@@ -384,12 +388,12 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:596
 msgid "Simulation"
-msgstr ""
+msgstr "محاكاة"
 
 #: src/gui/GUIApplicationWindow.cpp:598 src/netedit/dialogs/GNEDialog.cpp:477
 #: src/netedit/dialogs/GNEDialog.cpp:494
 msgid "Run"
-msgstr ""
+msgstr "تشغيل"
 
 #: src/gui/GUIApplicationWindow.cpp:598
 msgid "Start/ Resume the simulation."
@@ -398,7 +402,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:601
 msgctxt "Simulation"
 msgid "Stop"
-msgstr ""
+msgstr "توقف"
 
 #: src/gui/GUIApplicationWindow.cpp:601
 msgid "Halt the simulation."
@@ -406,7 +410,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:604
 msgid "Step"
-msgstr ""
+msgstr "خطوة"
 
 #: src/gui/GUIApplicationWindow.cpp:604
 msgid "Perform one simulation step."
@@ -414,7 +418,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:607
 msgid "Delay+"
-msgstr ""
+msgstr "تأخير+"
 
 #: src/gui/GUIApplicationWindow.cpp:607
 msgid "Increase simulation step delay."
@@ -422,7 +426,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:609
 msgid "Delay-"
-msgstr ""
+msgstr "تأخير-"
 
 #: src/gui/GUIApplicationWindow.cpp:609
 msgid "Decrease simulation step delay."
@@ -435,7 +439,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2887
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:71
 msgid "Save"
-msgstr ""
+msgstr "حفظ"
 
 #: src/gui/GUIApplicationWindow.cpp:611
 msgid "Save the current simulation state to a file."
@@ -447,7 +451,7 @@ msgstr ""
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:2884
 #: src/utils/gui/windows/GUIDialog_EditViewport.cpp:69
 msgid "Load"
-msgstr ""
+msgstr "تحميل"
 
 #: src/gui/GUIApplicationWindow.cpp:614
 msgid "Load simulation state for the current network from file."
@@ -456,7 +460,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:618
 #: src/netedit/GNEApplicationWindow.cpp:1589
 msgid "&Window"
-msgstr ""
+msgstr "&نافذة"
 
 #: src/gui/GUIApplicationWindow.cpp:619 src/gui/GUIApplicationWindow.cpp:766
 msgid "Open new view"
@@ -492,7 +496,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:630
 msgid "Cascade"
-msgstr ""
+msgstr "شلال"
 
 #: src/gui/GUIApplicationWindow.cpp:630
 msgid "Cascade the views."
@@ -502,7 +506,7 @@ msgstr ""
 #: src/gui/dialogs/GUIDialog_Breakpoints.cpp:101
 #: src/utils/gui/windows/GUIDialog_ChooserAbstract.cpp:104
 msgid "&Close"
-msgstr ""
+msgstr "&إغلاق"
 
 #: src/gui/GUIApplicationWindow.cpp:634
 msgid "Close the selected view."
@@ -510,7 +514,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:644
 msgid "&Others..."
-msgstr ""
+msgstr "&أخرى..."
 
 #: src/gui/GUIApplicationWindow.cpp:647
 #: src/netedit/GNEApplicationWindowHelper.cpp:2142
@@ -559,7 +563,7 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:662
 #: src/netedit/GNEApplicationWindow.cpp:1595
 msgid "&Help"
-msgstr ""
+msgstr "&مساعدة"
 
 #: src/gui/GUIApplicationWindow.cpp:664
 msgid "&Online Documentation"
@@ -572,7 +576,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:667
 msgid "&Changelog"
-msgstr ""
+msgstr "&سجل التغييرات"
 
 #: src/gui/GUIApplicationWindow.cpp:667
 #: src/netedit/GNEApplicationWindowHelper.cpp:2168
@@ -581,7 +585,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:669
 msgid "&Hotkeys"
-msgstr ""
+msgstr "&مفاتيح الاختصار"
 
 #: src/gui/GUIApplicationWindow.cpp:669
 #: src/netedit/GNEApplicationWindowHelper.cpp:2170
@@ -590,7 +594,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:671
 msgid "&Tutorial"
-msgstr ""
+msgstr "&دليل تعليمي"
 
 #: src/gui/GUIApplicationWindow.cpp:671
 #: src/netedit/GNEApplicationWindowHelper.cpp:2172
@@ -599,7 +603,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:673
 msgid "&Feedback"
-msgstr ""
+msgstr "&التعليقات"
 
 #: src/gui/GUIApplicationWindow.cpp:673
 msgid "Open feedback dialog."
@@ -607,7 +611,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:676
 msgid "&About"
-msgstr ""
+msgstr "&نبذة"
 
 #: src/gui/GUIApplicationWindow.cpp:676
 msgid "About sumo-gui."
@@ -748,7 +752,7 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:1171
 msgid "Auto-Reloading."
-msgstr ""
+msgstr "إعادة التحميل التلقائي."
 
 #: src/gui/GUIApplicationWindow.cpp:1171
 msgid "TraCI-Loading."
@@ -1226,13 +1230,13 @@ msgstr ""
 #: src/guisim/GUIBaseVehicle.cpp:393
 #: src/netedit/GNEApplicationWindowHelper.cpp:722
 msgid "Stop"
-msgstr ""
+msgstr "وقف"
 
 #: src/guisim/GUIBaseVehicle.cpp:394
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1332
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1400
 msgid "Remove"
-msgstr ""
+msgstr "إزالة"
 
 #: src/guisim/GUIBaseVehicle.cpp:883 src/guisim/GUIVehicle.cpp:636
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
@@ -1243,7 +1247,7 @@ msgstr ""
 #: src/guisim/GUIInductLoop.cpp:140 src/guisim/GUIInstantInductLoop.cpp:97
 #: src/guisim/GUIJunctionWrapper.cpp:122 src/guisim/GUIParkingArea.cpp:110
 msgid "name"
-msgstr ""
+msgstr "اسم"
 
 #: src/guisim/GUIBusStop.cpp:150 src/guisim/GUIChargingStation.cpp:84
 #: src/guisim/GUIOverheadWire.cpp:109 src/guisim/GUIParkingArea.cpp:111

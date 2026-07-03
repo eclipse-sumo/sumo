@@ -200,6 +200,9 @@ protected:
     bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
 
 protected:
+    virtual const SUMOVTypeParameter* getVTypeParameter(const std::string& refid) = 0;
+
+protected:
     /// @brief flag to enable or disable hard fails
     const bool myHardFail;
 

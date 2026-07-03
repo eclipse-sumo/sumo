@@ -28,7 +28,7 @@ jobs:
 
           osl = (os.environ.get('INPUT_OS') or 'macos-14,macos-15,ubuntu-latest,ubuntu-24.04-arm,windows-latest').split(",")
           manylinux = ["default", "manylinux2014", "manylinux_2_28"]
-          python_versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+          python_versions = ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
           include_build = []
           include_test = []

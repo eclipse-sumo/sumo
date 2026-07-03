@@ -463,6 +463,7 @@ These values have the following meanings:
 | Attribute Name    | Value Type                        | Default                                                             | Description      |
 | ----------------- | --------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
 | **id**            | id (string)                       | \-                                                                  | The name of the vehicle type      |
+| refId             | id (string)                       | \-                                                                  | The name of the vehicle type used for initializing the new type's default values     |
 | accel             | float                             | 2.6                                                                 | The acceleration ability of vehicles of this type (in m/s^2) |
 | decel             | float                             | 4.5                                                                 | The deceleration ability of vehicles of this type (in m/s^2)                                                                                                                                                           |
 | apparentDecel     | float                             | `==decel`                                                           | The apparent deceleration of the vehicle as used by the standard model (in m/s^2). The follower uses this value as expected maximal deceleration of the leader.                                                        |
@@ -507,6 +508,11 @@ one can find definitions of the assigned vehicles' shapes, emissions,
 and assignment to abstract vehicle classes. These concepts will be
 described in the following. Also, you may find further descriptions of
 implemented car-following models in the subsection [\#Car-Following Models](#car-following_models).
+
+!!! note
+    The refId is evaluated when reading the vType definition, so if you reference a vTypeDistribution here,
+    the new vType will always evaluate to the same value later.
+
 
 ## Speed Distributions
 
