@@ -16,7 +16,7 @@ jobs:
 
       # Runtime: silent per-machine install
       - name: Install (per-machine)
-        run: msiexec.exe /i sumo-win64.msi /qn /l*v install.log -Wait -PassThru
+        run: msiexec.exe /i sumo-win64.msi /qn /l*v install.log
 
       - name: Verify installation
         run: |
@@ -31,7 +31,7 @@ jobs:
         shell: pwsh
 
       - name: Uninstall
-        run: msiexec.exe /x sumo-win64.msi /qn /l*v uninstall.log -Wait -PassThru
+        run: msiexec.exe /x sumo-win64.msi /qn /l*v uninstall.log
 
       - name: Verify uninstall
         run: |
@@ -44,7 +44,7 @@ jobs:
 
       # Runtime: silent per-user install
       - name: Install (per-user via MSIINSTALLPERUSER)
-        run: msiexec.exe /i sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v install_user.log -Wait -PassThru
+        run: msiexec.exe /i sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v install_user.log
 
       - name: Verify per-user installation path
         run: |
@@ -59,7 +59,7 @@ jobs:
         shell: pwsh
 
       - name: Uninstall (per-user)
-        run: msiexec.exe /x sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v uninstall_user.log -Wait -PassThru
+        run: msiexec.exe /x sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v uninstall_user.log
 
       - name: Verify uninstall (per-user)
         run: |
