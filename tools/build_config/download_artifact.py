@@ -76,8 +76,9 @@ if __name__ == "__main__":
     ap.add_argument("--workflow", default="cibuildwheel")
     ap.add_argument("--branch", default="main")
     ap.add_argument("--token", help="GitHub authentication token")
-    ap.add_argument("--directory", help="output directory")
+    ap.add_argument("--directory", default=".", help="output directory")
     ap.add_argument("--prefix", default="cibw", help="prefix of the artifact zip file")
+    ap.add_argument("--rename", help="change the basename to the given one but keep the suffix")
     ap.add_argument("--allow-failed", action="store_true", default=False, help="download even if the build failed")
     ap.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me more")
     options = ap.parse_args()
@@ -95,5 +96,9 @@ if __name__ == "__main__":
         if response.status_code == 200:
             with zipfile.ZipFile(io.BytesIO(response.content)) as zip:
                 zip.extractall(options.directory)
+                if options.rename:
+                    for f in zip.namelist():
+                        os.rename(os.path.join(options.directory, f),
+                                  os.path.join(options.directory, options.rename + os.path.splitext(f)[1]))
         if options.verbose:
             print(artifact_url, response)
