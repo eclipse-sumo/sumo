@@ -53,7 +53,7 @@ jobs:
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2
+      uses: hendrikmuhs/ccache-action@v1.2.23
       with:
         key: ${{ matrix.build_type }}
         variant: sccache
