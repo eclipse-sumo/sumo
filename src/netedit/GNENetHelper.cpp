@@ -462,7 +462,7 @@ GNENetHelper::AttributeCarriers::getSelectedJunctions() const {
 
 
 GNEJunction*
-GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
+GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction, bool afterVolatile) {
     // increase reference
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
@@ -473,7 +473,11 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     // add edge into grid
     myNet->addGLObjectIntoGrid(junction);
     // update geometry
-    junction->updateGeometry();
+    if (afterVolatile) {
+        junction->updateGeometryAfterNetbuild(false);
+    } else {
+        junction->updateGeometry();
+    }
     // add z in net boundary
     myNet->addZValueInBoundary(junction->getNBNode()->getPosition().z());
     return junction;
@@ -2359,7 +2363,7 @@ GNENetHelper::AttributeCarriers::generateMeanDataID(SumoXMLTag tag) const {
 void
 GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
     myNet->getNetBuilder()->getNodeCont().insert(junction->getNBNode());
-    registerJunction(junction);
+    registerJunction(junction, false);
 }
 
 

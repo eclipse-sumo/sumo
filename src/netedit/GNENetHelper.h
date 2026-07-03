@@ -166,7 +166,7 @@ struct GNENetHelper {
         std::vector<GNEJunction*> getSelectedJunctions() const;
 
         /// @brief registers a junction in containers
-        GNEJunction* registerJunction(GNEJunction* junction);
+        GNEJunction* registerJunction(GNEJunction* junction, bool afterVolatile);
 
         /// @brief clear junctions
         void clearJunctions();
