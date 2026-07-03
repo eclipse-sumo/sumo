@@ -1,7 +1,7 @@
-nodes_version;location_netOffset;location_convBoundary;location_origBoundary;location_projParameter;node_id;node_x;node_y;node_type;node_tl
-1.20;100.00,100.00;0.00,0.00,200.00,200.00;-10000000000.00,-10000000000.00,10000000000.00,10000000000.00;!;;;;;
-1.20;;;;;C;100.00;100.00;traffic_light;C
-1.20;;;;;E;200.00;100.00;priority;
-1.20;;;;;N;100.00;200.00;priority;
-1.20;;;;;S;100.00;0.00;priority;
-1.20;;;;;W;0.00;100.00;priority;
+nodes_version;location_netOffset;location_convBoundary;location_origBoundary;location_projParameter;node_id;node_x;node_y;node_type;node_tl;node_tlType;node_controlledInner;node_radius;node_keepClear
+1.20;100.00,100.00;0.00,0.00,200.00,200.00;-10000000000.00,-10000000000.00,10000000000.00,10000000000.00;!;;;;;;;;;
+1.20;;;;;C;100.00;100.00;traffic_light;C;;;;
+1.20;;;;;E;200.00;100.00;priority;;;;;
+1.20;;;;;N;100.00;200.00;priority;;;;;
+1.20;;;;;S;100.00;0.00;priority;;;;;
+1.20;;;;;W;0.00;100.00;priority;;;;;

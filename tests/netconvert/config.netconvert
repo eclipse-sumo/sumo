@@ -62,6 +62,11 @@ csv_plain_edges:plain.edg.csv
 csv_plain_connections:plain.con.csv
 csv_plain_tllogic:plain.tll.csv
 csv_plain_types:plain.typ.csv
+parquet_plain_nodes:plain.nod.parquet
+parquet_plain_edges:plain.edg.parquet
+parquet_plain_connections:plain.con.parquet
+parquet_plain_tllogic:plain.tll.parquet
+parquet_plain_types:plain.typ.parquet
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
@@ -76,6 +81,13 @@ pois:pois.add.xml
 additional:additional.xml
 ptlines:ptlines.xml
 topology:topology.xml
+
+[collate_script]
+parquet_plain_nodes:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_edges:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_connections:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_tllogic:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_types:python -u $SUMO_HOME/tools/output/parquet2csv.py
 
 [run_dependent_text]
 plain_nodes:<!--{[->]}-->
