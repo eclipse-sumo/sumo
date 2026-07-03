@@ -2,4 +2,4 @@
 adlershof_csv
 
 # a complex network to parquet
-#adlershof_parquet
+adlershof_parquet
