@@ -137,6 +137,9 @@ struct ParquetFormatter::Impl {
     /// @brief whether there is still unwritten data
     bool myNeedsWrite = false;
 
+    /// @brief whether any root attribute have been encountered
+    bool myHaveRootAttrs = false;
+
     /// @brief the attributes which are expected for a complete row (including null values)
     SumoXMLAttrMask myExpectedAttrs;
 
@@ -173,10 +176,16 @@ struct ParquetFormatter::Impl {
         myNeedsWrite = true;
         if (!myWroteHeader) {
             const std::string fieldName = getAttrString(toString(attr));
+            int idx = 0;
             for (const auto& field : mySchema->fields()) {
                 if (field->name() == fieldName) {
+                    // there might be missing attributes inbetween, so make sure the position of the attribute in the header matches the current number of values
+                    while (idx > myValues.size()) {
+                        myValues.push_back(nullptr);
+                    }
                     return;
                 }
+                idx++;
             }
             mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(fieldName, dataType()));
             auto builder = std::make_shared<BUILDER>();
@@ -224,6 +233,24 @@ ParquetFormatter::ParquetFormatter(const std::string& columnNames, const std::st
 ParquetFormatter::~ParquetFormatter() = default;
 
 
+bool
+ParquetFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                                 const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                                 bool /* includeConfig */) {
+    if (attrs.size() > 2) {
+        myImpl->myHaveRootAttrs = true;
+        openTag(into, rootElement);
+        for (const auto& a : attrs) {
+            if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
+                writeAttr(into, a.first, a.second, false);
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
     myImpl->myXMLStack.push_back((int)myImpl->myValues.size());
@@ -254,7 +281,8 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         // the auto detection case: the first closed tag determines the depth
         myImpl->myMaxDepth = (int)myImpl->myXMLStack.size();
     }
-    if ((myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() || myImpl->myXMLStack.empty()) && !myImpl->myWroteHeader) {
+    const bool eof = myImpl->myXMLStack.empty() || (myImpl->myHaveRootAttrs && myImpl->myXMLStack.size() == 1);
+    if ((myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() || eof) && !myImpl->myWroteHeader) {
         // we are at the correct depth or the document has ended (XML stack is empty)
         // so we should initialize the writer with the schema (if not done yet)
         if (!myImpl->myCheckColumns) {

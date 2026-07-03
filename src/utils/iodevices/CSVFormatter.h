@@ -42,6 +42,19 @@ public:
     /// @brief Destructor
     virtual ~CSVFormatter() { }
 
+    /** @brief Writes an "XML header"
+     *
+     * For CSV output the header is only relevant if it contains additional attributes.
+     *
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     * @param[in] attrs Additional attributes to save within the rootElement
+     * @return whether something has been written
+     */
+    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                        const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                        bool /* includeConfig */);
+
     /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
      * @param[in] into The output stream to use (unused)
@@ -124,14 +137,16 @@ private:
             if (myHeaderFormat != "plain" && !(myHeaderFormat == "auto" && std::find(myHeader.begin(), myHeader.end(), headerName) == myHeader.end())) {
                 headerName = myCurrentTag + "_" + headerName;
             }
-            if (std::find(myHeader.begin(), myHeader.end(), headerName) == myHeader.end()) {
+            const auto colIt = std::find(myHeader.begin(), myHeader.end(), headerName);
+            if (colIt == myHeader.end()) {
                 for (std::string& row : myBufferedRows) {
                     row += mySeparator;
                 }
-                while (myValues.size() < myHeader.size()) {
-                    myValues.emplace_back("");
-                }
+                myValues.resize(myHeader.size());
                 myHeader.emplace_back(headerName);
+            } else {
+                // there might be missing attributes inbetween, so make sure header position and value size match
+                myValues.resize(std::distance(myHeader.begin(), colIt));
             }
         }
     }
@@ -162,6 +177,9 @@ private:
 
     /// @brief whether any attribute has been written since the last row was emitted
     bool myNeedsWrite = false;
+
+    /// @brief whether any root attribute have been encountered
+    bool myHaveRootAttrs = false;
 
     /// @brief partial rows buffered before the schema is known (depth < myMaxDepth)
     std::vector<std::string> myBufferedRows;

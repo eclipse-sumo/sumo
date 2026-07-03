@@ -123,6 +123,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
 
     OutputDevice& device = OutputDevice::getDevice(prefix + ".nod." + ext);
+    device.setExpectedAttributes(0, 4);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
@@ -210,6 +211,7 @@ void
 NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& tc) {
     const std::string ext = OptionsCont::getOptions().getString("output.format");
     OutputDevice& device = OutputDevice::getDevice(prefix + ".typ." + ext);
+    device.setExpectedAttributes(0, 4);
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     device.writeXMLHeader(toString(SUMO_TAG_TYPES), "types_file.xsd", attrs);
@@ -229,6 +231,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     OutputDevice& edevice = OutputDevice::getDevice(prefix + ".edg." + ext);
+    edevice.setExpectedAttributes(0, 4);
     edevice.writeXMLHeader("edges", "edges_file.xsd", attrs);
     OutputDevice& cdevice = OutputDevice::getDevice(prefix + ".con." + ext);
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
@@ -360,7 +363,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
                     cdevice.openTag(SUMO_TAG_CONNECTION);
                     cdevice.writeAttr(SUMO_ATTR_FROM, e->getID());
                     cdevice.closeTag();
-                    cdevice << "\n";
+                    cdevice.lf();
                 }
             }
         } else {
@@ -372,7 +375,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
                 }
                 NWWriter_SUMO::writeConnection(cdevice, *e, c, false, NWWriter_SUMO::PLAIN, geoAccuracy);
             }
-            cdevice << "\n";
+            cdevice.lf();
         }
     }
     // write roundabout information to the edges-files
@@ -439,6 +442,7 @@ NWWriter_XML::writeTrafficLights(const std::string& prefix, NBTrafficLightLogicC
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     OutputDevice& device = OutputDevice::getDevice(prefix + ".tll." + ext);
+    device.setExpectedAttributes(0, 4);
     device.writeXMLHeader("tlLogics", "tllogic_file.xsd", attrs);
     NWWriter_SUMO::writeTrafficLights(device, tc);
     // we also need to remember the associations between tlLogics and connections
@@ -463,19 +467,9 @@ NWWriter_XML::writeJoinedJunctions(const std::string& filename, NBNodeCont& nc) 
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION);
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("nodes", "nodes_file.xsd", attrs);
-    const std::vector<std::set<std::string> >& clusters = nc.getJoinedClusters();
-    for (std::vector<std::set<std::string> >::const_iterator it = clusters.begin(); it != clusters.end(); it++) {
-        assert((*it).size() > 0);
-        device.openTag(SUMO_TAG_JOIN);
-        // prepare string
-        std::ostringstream oss;
-        for (std::set<std::string>::const_iterator it_id = it->begin(); it_id != it->end(); it_id++) {
-            oss << *it_id << " ";
-        }
-        // remove final space
-        std::string ids = oss.str();
-        device.writeAttr(SUMO_ATTR_NODES, ids.substr(0, ids.size() - 1));
-        device.closeTag();
+    for (const std::set<std::string>& joined : nc.getJoinedClusters()) {
+        assert(joined.size() > 0);
+        device.openTag(SUMO_TAG_JOIN).writeAttr(SUMO_ATTR_NODES, joined).closeTag();
     }
     device.close();
 }

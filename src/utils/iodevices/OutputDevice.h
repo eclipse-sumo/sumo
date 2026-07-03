@@ -229,7 +229,9 @@ public:
     /** @brief writes a line feed if applicable
      */
     void lf() {
-        getOStream() << "\n";
+        if (myFormatter->getType() == OutputFormatterType::XML) {
+            getOStream() << "\n";
+        }
     }
 
     /** @brief writes a named attribute

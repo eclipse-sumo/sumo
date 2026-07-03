@@ -45,6 +45,19 @@ public:
     /// @brief Destructor (out-of-line: Impl is incomplete here)
     ~ParquetFormatter() override;
 
+    /** @brief Writes an "XML header"
+     *
+     * For Parquet output the header is only relevant if it contains additional attributes.
+     *
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     * @param[in] attrs Additional attributes to save within the rootElement
+     * @return whether something has been written
+     */
+    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                        const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                        bool /* includeConfig */);
+
     void openTag(std::ostream& into, const std::string& xmlElement) override;
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement) override;
     bool closeTag(std::ostream& into, const std::string& comment = "") override;

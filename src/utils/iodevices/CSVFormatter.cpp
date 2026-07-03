@@ -39,6 +39,24 @@ CSVFormatter::CSVFormatter(const std::string& columnNames, const char separator)
 }
 
 
+bool
+CSVFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                             const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                             bool /* includeConfig */) {
+    if (attrs.size() > 2) {
+        myHaveRootAttrs = true;
+        openTag(into, rootElement);
+        for (const auto& a : attrs) {
+            if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
+                writeAttr(into, a.first, a.second, false);
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
     myXMLStack.push_back((int)myValues.size());
@@ -69,7 +87,8 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         // the auto detection case: the first closed tag determines the depth
         myMaxDepth = (int)myXMLStack.size();
     }
-    if ((myMaxDepth == (int)myXMLStack.size() || myXMLStack.empty()) && !myWroteHeader) {
+    const bool eof = myXMLStack.empty() || (myHaveRootAttrs && myXMLStack.size() == 1);
+    if ((myMaxDepth == (int)myXMLStack.size() || eof) && !myWroteHeader) {
         // First complete row or EOF: write the header
         if (!myCheckColumns) {
             WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
@@ -82,6 +101,7 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         myWroteHeader = true;
     }
     if (myNeedsWrite) {
+        myValues.resize(myHeader.size());
 #ifdef HAVE_FMT
         const std::string row = fmt::format("{}", fmt::join(myValues, std::string_view(&mySeparator, 1)));
 #else
@@ -97,7 +117,7 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         }
         myBufferedRows.clear();
     }
-    if (!myXMLStack.empty()) {
+    if (!eof) {
         if ((int)myValues.size() > myXMLStack.back()) {
             myValues.resize(myXMLStack.back());
         }
