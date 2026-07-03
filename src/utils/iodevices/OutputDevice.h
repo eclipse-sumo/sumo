@@ -277,7 +277,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, const SumoXMLAttrMask& attributeMask, const bool isNull = false) {
-        assert((int)attr <= (int)attributeMask.size());
+        assert(attributeMask.none() || (int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || attributeMask.test(attr)) {
             if (myFormatter->getType() == OutputFormatterType::XML) {
                 if (!isNull) {

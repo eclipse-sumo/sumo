@@ -312,7 +312,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         myImpl->mySeenAttrs.reset();
         myImpl->myNeedsWrite = false;
     }
-    if (writeBatch || (myImpl->myXMLStack.empty() && !myImpl->myBuilders.empty())) {
+    if (writeBatch || (eof && !myImpl->myBuilders.empty())) {
         std::vector<std::shared_ptr<arrow::Array> > data;
         for (auto& builder : myImpl->myBuilders) {
             std::shared_ptr<arrow::Array> column;
