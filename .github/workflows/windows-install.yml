@@ -1,0 +1,100 @@
+name: windows-install
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron:  '25 11 * * *'
+
+jobs:
+  test-installer:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download MSI
+        run: Invoke-WebRequest -Uri https://sumo.dlr.de/daily/sumo-win64-ci.msi -OutFile sumo-win64.msi
+
+      # Runtime: silent per-machine install
+      - name: Install (per-machine)
+        shell: pwsh
+        run: |
+          # Cannot simply start msiexec because it hands over the installation to another process and may finish before the actual installation
+          $proc = Start-Process msiexec.exe -ArgumentList '/i sumo-win64.msi /qn /l*v install.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
+  
+      - name: Verify installation
+        shell: pwsh
+        run: |
+          # Check binary exists
+          if (-not (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe")) {
+            throw "sumo-gui.exe not found after install"
+          }
+          # Check env var was set (needs a fresh process to see system env)
+          $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
+          if (-not $sumoHome) { throw "SUMO_HOME not set" }
+          Write-Host "SUMO_HOME=$sumoHome"
+
+      - name: Uninstall
+        shell: pwsh
+        run: |
+          $proc = Start-Process msiexec.exe -ArgumentList '/x sumo-win64.msi /qn /l*v uninstall.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
+
+      - name: Verify uninstall
+        shell: pwsh
+        run: |
+          if (Test-Path "C:\Program Files\SUMO\bin\sumo-gui.exe") {
+            throw "sumo-gui.exe still present after uninstall"
+          }
+          $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
+          if ($sumoHome) { throw "SUMO_HOME still set after uninstall: $sumoHome" }
+
+      # Runtime: silent per-user install
+      - name: Install (per-user via MSIINSTALLPERUSER)
+        shell: pwsh
+        run: |
+          # Cannot simply start msiexec because it hands over the installation to another process and may finish before the actual installation
+          $proc = Start-Process msiexec.exe -ArgumentList '/i sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v install.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
+
+      - name: Verify per-user installation path
+        run: |
+          $expected = "$env:LOCALAPPDATA\SUMO\bin\sumo-gui.exe"
+          if (-not (Test-Path $expected)) {
+            throw "sumo-gui.exe not found at per-user path: $expected"
+          }
+          # Check env var was set (can only check registry, real environment takes some extra steps)
+          $sumoHome = (Get-ItemProperty -Path 'HKCU:\Environment' -Name 'SUMO_HOME' -ErrorAction SilentlyContinue).SUMO_HOME
+          if (-not $sumoHome) { throw "SUMO_HOME not set in HKCU" }
+          Write-Host "SUMO_HOME=$sumoHome"
+        shell: pwsh
+
+      - name: Uninstall (per-user)
+        shell: pwsh
+        run: |
+          $proc = Start-Process msiexec.exe -ArgumentList '/x sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v uninstall.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
+
+      - name: Verify uninstall (per-user)
+        run: |
+          if (Test-Path "$env:LOCALAPPDATA\SUMO\bin\sumo-gui.exe") {
+            throw "sumo-gui.exe still present after uninstall"
+          }
+          $sumoHome = (Get-ItemProperty -Path 'HKCU:\Environment' -Name 'SUMO_HOME' -ErrorAction SilentlyContinue).SUMO_HOME
+          if ($sumoHome) { throw "SUMO_HOME still set after uninstall: $sumoHome" }
+        shell: pwsh
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: installer-logs
+          path: "*.log"

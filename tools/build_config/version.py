@@ -60,6 +60,9 @@ def create_version_file(versionFile, revision):
 
 
 def filter_pep440(input_name, output_name, plat=False):
+    if input_name == "-":
+        sys.stdout.write(get_pep440_version())
+        return
     with open(input_name) as inf:
         inp = inf.read()
     with open(output_name, "w") as outf:

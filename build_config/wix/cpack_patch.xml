@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CPack-WIX patch file.
+
+    Adds the `SumoExtras` ComponentGroup (defined in cpack_extras.wxs)
+    to the top-level installer feature so that the environment-variable
+    and file-association components are actually installed.
+-->
+<CPackWiXPatch>
+
+    <CPackWiXFragment Id="#PRODUCTFEATURE">
+        <ComponentGroupRef Id="SumoExtras"/>
+        <ComponentGroupRef Id="SumoShortcuts" />
+    </CPackWiXFragment>
+
+</CPackWiXPatch>

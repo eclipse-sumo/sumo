@@ -92,17 +92,23 @@ jobs:
     - name: Building TraaS
       run: cmake --build build_msvc --config Release --target traas
 
-    - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v7
-      with:
-        name: windows-${{ matrix.build_type }}-binaries
-        path: bin
-        retention-days: 30
-
     - name: Running examples and unit tests
       run: |
         cmake --build build_msvc --config Release --target examples
         ctest --test-dir build_msvc --output-on-failure
+
+    - name: Building installers
+      run: |
+        cd build_msvc
+        cpack -D CPACK_PACKAGE_DIRECTORY=D:/cpkg
+
+    - name: Uploading artifacts (SUMO installers)
+      uses: actions/upload-artifact@v7
+      with:
+        name: windows-${{ matrix.build_type }}-installers
+        path: |
+          D:/cpkg/sumo-*
+          D:/cpkg/_CPack_Packages/win64/WIX/wix.log
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.
