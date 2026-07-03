@@ -16,9 +16,16 @@ jobs:
 
       # Runtime: silent per-machine install
       - name: Install (per-machine)
-        run: msiexec.exe /i sumo-win64.msi /qn /l*v install.log
-
+        shell: pwsh
+        run: |
+          # Cannot simply start msiexec because it hands over the installation to another process and may finish before the actual installation
+          $proc = Start-Process msiexec.exe -ArgumentList '/i sumo-win64.msi /qn /l*v install.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
+  
       - name: Verify installation
+        shell: pwsh
         run: |
           # Check binary exists
           if (-not (Test-Path "C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe")) {
@@ -28,23 +35,33 @@ jobs:
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
           if (-not $sumoHome) { throw "SUMO_HOME not set" }
           Write-Host "SUMO_HOME=$sumoHome"
-        shell: pwsh
 
       - name: Uninstall
-        run: msiexec.exe /x sumo-win64.msi /qn /l*v uninstall.log
+        shell: pwsh
+        run: |
+          $proc = Start-Process msiexec.exe -ArgumentList '/x sumo-win64.msi /qn /l*v uninstall.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
 
       - name: Verify uninstall
+        shell: pwsh
         run: |
           if (Test-Path "C:\Program Files (x86)\Eclipse\Sumo\bin\sumo-gui.exe") {
             throw "sumo-gui.exe still present after uninstall"
           }
           $sumoHome = [System.Environment]::GetEnvironmentVariable("SUMO_HOME", "Machine")
           if ($sumoHome) { throw "SUMO_HOME still set after uninstall: $sumoHome" }
-        shell: pwsh
 
       # Runtime: silent per-user install
       - name: Install (per-user via MSIINSTALLPERUSER)
-        run: msiexec.exe /i sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v install_user.log
+        shell: pwsh
+        run: |
+          # Cannot simply start msiexec because it hands over the installation to another process and may finish before the actual installation
+          $proc = Start-Process msiexec.exe -ArgumentList '/i sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v install.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
 
       - name: Verify per-user installation path
         run: |
@@ -59,7 +76,12 @@ jobs:
         shell: pwsh
 
       - name: Uninstall (per-user)
-        run: msiexec.exe /x sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v uninstall_user.log
+        shell: pwsh
+        run: |
+          $proc = Start-Process msiexec.exe -ArgumentList '/x sumo-win64.msi MSIINSTALLPERUSER=1 /qn /l*v uninstall.log' -Wait -PassThru
+          if ($proc.ExitCode -ne 0) {
+              throw "msiexec failed with exit code $($proc.ExitCode)"
+          }
 
       - name: Verify uninstall (per-user)
         run: |
