@@ -165,26 +165,16 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
                 tlType = toString(tl->getType());
             }
         }
-        device.writeOptionalAttr(SUMO_ATTR_TLID, tlsIDs, 0, tlsIDs.empty());
-        device.writeOptionalAttr(SUMO_ATTR_TLTYPE, tlType, 0, tlType == "");
-        device.writeOptionalAttr(SUMO_ATTR_CONTROLLED_INNER, controlledInnerEdges, 0, controlledInnerEdges.empty());
-        if (n->hasCustomShape()) {
-            writeShape(device, gch, n->getShape(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
-        }
-        device.writeOptionalAttr(SUMO_ATTR_RADIUS, n->getRadius(), 0, n->getRadius() == NBNode::UNSPECIFIED_RADIUS);
-        device.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear(), 0, n->getKeepClear());
-        if (n->getRightOfWay() != RightOfWay::DEFAULT) {
-            device.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n->getRightOfWay()));
-        }
-        if (n->getFringeType() != FringeType::DEFAULT) {
-            device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
-        }
-        if (n->getRoundaboutType() != RoundaboutType::DEFAULT) {
-            device.writeAttr<std::string>(SUMO_ATTR_ROUNDABOUT, toString(n->getRoundaboutType()));
-        }
-        if (n->getName() != "") {
-            device.writeAttr<std::string>(SUMO_ATTR_NAME, StringUtils::escapeXML(n->getName()));
-        }
+        device.writeOptionalAttr(SUMO_ATTR_TLID, tlsIDs, tlsIDs.empty());
+        device.writeOptionalAttr(SUMO_ATTR_TLTYPE, tlType, tlType == "");
+        device.writeOptionalAttr(SUMO_ATTR_CONTROLLED_INNER, controlledInnerEdges, controlledInnerEdges.empty());
+        NWWriter_SUMO::writeShape(device, gch, n->getShape(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy, n->hasCustomShape());
+        device.writeOptionalAttr(SUMO_ATTR_RADIUS, n->getRadius(), n->getRadius() == NBNode::UNSPECIFIED_RADIUS);
+        device.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear(), n->getKeepClear());
+        device.writeOptionalAttr(SUMO_ATTR_RIGHT_OF_WAY, toString(n->getRightOfWay()), n->getRightOfWay() == RightOfWay::DEFAULT);
+        device.writeOptionalAttr(SUMO_ATTR_FRINGE, toString(n->getFringeType()), n->getFringeType() == FringeType::DEFAULT);
+        device.writeOptionalAttr(SUMO_ATTR_ROUNDABOUT, toString(n->getRoundaboutType()), n->getRoundaboutType() == RoundaboutType::DEFAULT);
+        device.writeOptionalAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(n->getName()), n->getName() == "");
         n->writeParams(device);
         device.closeTag();
     }
@@ -244,9 +234,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         edevice.writeOptionalAttr(SUMO_ATTR_SPEED, e->getSpeed(), 0, e->hasLaneSpecificSpeed());
         edevice.writeOptionalAttr(SUMO_ATTR_FRICTION, e->getFriction(), 0, e->getFriction() == NBEdge::UNSPECIFIED_FRICTION || e->hasLaneSpecificFriction());
         // write non-default geometry
-        if (!e->hasDefaultGeometry()) {
-            writeShape(edevice, gch, e->getGeometry(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
-        }
+        NWWriter_SUMO::writeShape(edevice, gch, e->getGeometry(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy, !e->hasDefaultGeometry());
         // write the spread type if not default ("right")
         edevice.writeOptionalAttr(SUMO_ATTR_SPREADTYPE, toString(e->getLaneSpreadFunction()), 0, e->getLaneSpreadFunction() == defaultSpread);
         // write the length if it was specified
@@ -254,9 +242,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
         // some attributes can be set by edge default or per lane. Write as default if possible (efficiency)
         edevice.writeOptionalAttr(SUMO_ATTR_WIDTH, e->getLaneWidth(), 0, e->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH || e->hasLaneSpecificWidth());
         edevice.writeOptionalAttr(SUMO_ATTR_ENDOFFSET, e->getEndOffset(), 0, e->getEndOffset() == NBEdge::UNSPECIFIED_OFFSET || e->hasLaneSpecificEndOffset());
-        if (!e->hasLaneSpecificPermissions()) {
-            writePermissions(edevice, e->getPermissions(0));
-        }
+        // SVC_UNSPECIFIED is here a shortcut for do not write
+        writePermissions(edevice, e->hasLaneSpecificPermissions() ? SVC_UNSPECIFIED : e->getPermissions(0));
         if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().isDefined()) {
             NWWriter_SUMO::writeStopOffsets(edevice, e->getEdgeStopOffset());
         }
@@ -285,9 +272,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
                 if (lane.accelRamp) {
                     edevice.writeAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp);
                 }
-                if (lane.customShape.size() > 0 || writeLanes) {
-                    writeShape(edevice, gch, lane.customShape.size() > 0 ? lane.customShape : lane.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
-                }
+                NWWriter_SUMO::writeShape(edevice, gch, lane.customShape.size() > 0 ? lane.customShape : lane.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, lane.customShape.size() > 0 || writeLanes);
                 if (lane.type != "") {
                     edevice.writeAttr(SUMO_ATTR_TYPE, lane.type);
                 }
@@ -329,12 +314,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             }
         } else {
             for (NBEdge::Connection c : connections) {
-                if (useGeo) {
-                    for (Position& p : c.customShape) {
-                        gch.cartesian2geo(p);
-                    }
-                }
-                NWWriter_SUMO::writeConnection(cdevice, *e, c, false, NWWriter_SUMO::PLAIN, geoAccuracy);
+                NWWriter_SUMO::writeConnection(cdevice, *e, c, false, NWWriter_SUMO::PLAIN, useGeo, geoAccuracy);
             }
             cdevice.lf();
         }
@@ -366,12 +346,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             if (c->customTLIndex2 != -1) {
                 cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX2, c->customTLIndex2);
             }
-            if (c->customShape.size() != 0) {
-                writeShape(cdevice, gch, c->customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
-            }
-            if (c->outlineShape.size() != 0) {
-                writeShape(cdevice, gch, c->outlineShape, SUMO_ATTR_OUTLINESHAPE, useGeo, geoAccuracy);
-            }
+            NWWriter_SUMO::writeShape(cdevice, gch, c->customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c->customShape.size() != 0);
+            NWWriter_SUMO::writeShape(cdevice, gch, c->outlineShape, SUMO_ATTR_OUTLINESHAPE, useGeo, geoAccuracy, c->outlineShape.size() != 0);
             c->writeParams(cdevice);
             cdevice.closeTag();
         }
@@ -382,9 +358,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             cdevice.openTag(SUMO_TAG_WALKINGAREA);
             cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
             cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
-            if (wacs.shape.size() != 0) {
-                writeShape(cdevice, gch, wacs.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
-            }
+            NWWriter_SUMO::writeShape(cdevice, gch, wacs.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, wacs.shape.size() != 0);
             if (wacs.width != NBEdge::UNSPECIFIED_WIDTH) {
                 cdevice.writeAttr(SUMO_ATTR_WIDTH, wacs.width);
             }
@@ -488,23 +462,6 @@ NWWriter_XML::writeDistricts(const OptionsCont& oc, NBDistrictCont& dc) {
     device.writeXMLHeader("additional", "additional_file.xsd");
     for (std::map<std::string, NBDistrict*>::const_iterator i = dc.begin(); i != dc.end(); i++) {
         NWWriter_SUMO::writeDistrict(device, *(*i).second);
-    }
-}
-
-
-void
-NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy) {
-    if (useGeo) {
-        for (int i = 0; i < (int) shape.size(); i++) {
-            gch.cartesian2geo(shape[i]);
-        }
-    }
-    if (geoAccuracy) {
-        out.setPrecision(gPrecisionGeo);
-    }
-    out.writeAttr(attr, shape);
-    if (geoAccuracy) {
-        out.setPrecision();
     }
 }
 

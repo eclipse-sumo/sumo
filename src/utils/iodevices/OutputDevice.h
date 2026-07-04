@@ -236,6 +236,8 @@ public:
 
     /** @brief writes a named attribute
      *
+     * The attribute is always written even with XML output. The isNull flag is only for tabular outputs.
+     *
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
      * @param[in] isNull Whether the value should be represented as None / null in output formats which support it
@@ -267,6 +269,23 @@ public:
     static const SumoXMLAttrMask parseWrittenAttributes(const std::vector<std::string>& attrList, const std::string& desc,
             const std::map<std::string, SumoXMLAttrMask>& special = std::map<std::string, SumoXMLAttrMask>());
 
+    /** @brief writes a named attribute unless null
+     *
+     * If isNull is true the attribute is not written with XML output. For tabular outputs the behavior is the same as writeAttr.
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     * @param[in] isNull Whether the value should be filtered or represented as None / null in output formats which support it
+     * @return The OutputDevice for further processing
+     */
+    template <typename T>
+    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, const bool isNull = false) {
+        if (myFormatter->getType() == OutputFormatterType::XML && isNull) {
+            return *this;
+        }
+        return writeAttr(attr, val, isNull);
+    }
+
     /** @brief writes a named attribute unless filtered
      *
      * @param[in] attr The attribute (name)
@@ -279,17 +298,7 @@ public:
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, const SumoXMLAttrMask& attributeMask, const bool isNull = false) {
         assert(attributeMask.none() || (int)attr <= (int)attributeMask.size());
         if (attributeMask.none() || attributeMask.test(attr)) {
-            if (myFormatter->getType() == OutputFormatterType::XML) {
-                if (!isNull) {
-                    PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-                }
-#ifdef HAVE_PARQUET
-            } else if (myFormatter->getType() == OutputFormatterType::PARQUET) {
-                static_cast<ParquetFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
-#endif
-            } else {
-                static_cast<CSVFormatter*>(myFormatter)->writeAttr(getOStream(), attr, val, isNull);
-            }
+            return writeOptionalAttr(attr, val, isNull);
         }
         return *this;
     }
