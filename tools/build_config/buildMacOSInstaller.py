@@ -143,9 +143,6 @@ def create_framework_dir(name, longname, pkg_id, version, sumo_build_directory, 
     shutil.rmtree(os.path.join(version_dir, name, "share", "sumo", "tools", "libsumo"), ignore_errors=True)
     shutil.rmtree(os.path.join(version_dir, name, "share", "sumo", "tools", "libtraci"), ignore_errors=True)
 
-    # We need to add a symlink to the binary folder to have the same folder structure
-    os.symlink("../../bin", os.path.join(version_dir, name, "share", "sumo", "bin"))
-
     # Determine library dependencies
     print(" - Delocating binaries and libraries")
     os.chdir(os.path.join(version_dir, name))
