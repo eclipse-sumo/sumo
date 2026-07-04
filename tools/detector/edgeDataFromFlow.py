@@ -44,7 +44,11 @@ def get_options(args=None):
                         help="read detectors from FILE", metavar="FILE")
     parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", type=ArgumentParser.file,
                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
+    parser.add_argument("-n", "--net-file", dest="netfile", category="input", type=ArgumentParser.net_file,
+                        help="read network to determine detectors that provide turn counts", metavar="FILE")
     parser.add_argument("-o", "--output-file", dest="output", category="output", type=ArgumentParser.edgedata_file,
+                        help="output edgeData FILE (mandatory)", metavar="FILE")
+    parser.add_argument("-t", "--turn-output", dest="turnOut", category="output", type=ArgumentParser.edgedata_file,
                         help="output edgeData FILE (mandatory)", metavar="FILE")
     parser.add_argument("--id-column", default="Detector", dest="detcol",
                         help="Read detector ids from the given column")
@@ -73,12 +77,30 @@ def get_options(args=None):
         parser.print_help()
         sys.exit()
 
+    if options.turnOut and not options.netfile:
+        print("Option --net-file must be set to compute --turn-output", file=sys.stderr)
+        sys.exit()
+    if options.turnOut and not options.detfile:
+        print("Option --net-file must be set to compute --detector-file", file=sys.stderr)
+        sys.exit()
+
     return options
 
 
 class LaneMap:
     def get(self, key, default):
         return key[0:-2]
+
+def getDetectorTurns(net, detfile):
+    det2turn = {}  # detID -> (fromEdge, toEdge)
+    for det in sumolib.xml.parse(detfile, ['e1Detector', 'inductionLoop']):
+        lane = net.getLane(det.lane)
+        edge = lane.getEdge()
+        if len(edge.getOutgoing()) > 1:
+            out = lane.getOutgoingEdges()
+            if len(out) == 1:
+                det2turn[det.id] = (edge.getID(), out[0].getID())
+    return det2turn
 
 
 def main(options):
@@ -109,10 +131,18 @@ def main(options):
     intervalM = int(sumolib.miscutils.parseTime(options.interval, ts) / ts)
     endM = min(int(sumolib.miscutils.parseTime(options.end, ts) / ts), tMax)
 
-    with open(options.output, "w") as outf:
+    outf_turn = None
+    det2turn = None
+    root = "measurements" if options.cadyts else "data"
+    if options.turnOut:
+        net = sumolib.net.readNet(options.netfile)
+        det2turn = getDetectorTurns(net, options.detfile)
+        outf_turn = sumolib.openz(options.turnOut, "w")
+        sumolib.writeXMLHeader(outf_turn, "$Id$", root, options=options)
+
+    with sumolib.openz(options.output, "w") as outf:
         root = "measurements" if options.cadyts else "data"
-        sumolib.xml.writeHeader(outf)
-        outf.write('<%s>\n' % root)
+        sumolib.writeXMLHeader(outf, "$Id$", root, options=options)
         while beginM <= endM:
             iEndM = beginM + intervalM
             edges = defaultdict(dict)  # edge : {attr:val}
@@ -148,9 +178,35 @@ def main(options):
                     attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
                     outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
                 outf.write('    </interval>\n')
+
+            if outf_turn is not None:
+                detVals = defaultdict(dict)  # detID : {attr:val}
+                for flowcol in flowcols:
+                    values = detector.parseFlowFile(options.flowfile,
+                                                    detCol=options.detcol,
+                                                    timeCol=options.timecol, flowCol=flowcol,
+                                                    begin=beginM, end=iEndM,
+                                                    timeFormat=options.timeFormat,
+                                                    timeOffset=options.timeOffset)
+                    for det, time, flow, speed in values:
+                        if det in det2turn:
+                            detVals[det][flowcol] = flow
+
+                if detVals:
+                    outf_turn.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * ts, iEndM * ts))
+                    for det in sorted(detVals.keys()):
+                        fromEdge, toEdge = det2turn[det]
+                        attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(detVals[det].items())])
+                        outf_turn.write('        <edgeRelation from="%s" to="%s" %s/>\n' % (fromEdge, toEdge, attrs))
+                    outf_turn.write('    </interval>\n')
+
+
             beginM += intervalM
         outf.write('</%s>\n' % root)
 
+    if outf_turn is not None:
+        outf_turn.write('</%s>\n' % root)
+        outf_turn.close()
 
 if __name__ == "__main__":
     main(get_options())
