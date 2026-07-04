@@ -166,14 +166,15 @@ def main(options, platform="x64"):
             for lib in ("libsumo", "libtraci"):
                 shutil.rmtree(os.path.join(installDir, "tools", lib), ignore_errors=True)
             status.printLog("Creating sumo.zip and sumo.msi via CPack.")
-            cpack_cmd = ["cpack", "-G", "WIX;ZIP", "-C", "Release",
+            cpack_cmd = ["cpack", "-G", "WIX;ZIP", "-C", "Release", "-B", "C:/temp",
                          "-D", "CPACK_PACKAGE_FILE_NAME=" + os.path.basename(binaryZip),
                          "-D", "CPACK_RESOURCE_FILE_LICENSE=" + cpack_license_rtf]
             status.log_subprocess(cpack_cmd, cwd=buildDir)
             for ext in (".zip", ".msi"):
-                produced = binaryZip + ext
+                produced = "C:/temp/" + os.path.basename(binaryZip) + ext
                 if os.path.exists(produced):
                     shutil.copy(produced, options.remoteDir)
+                    os.rename(produced, binaryZip + ext)
         except Exception as ziperr:
             status.printLog("Warning: Could not create installer for %s (%s)!" % (binaryZip, ziperr))
 
