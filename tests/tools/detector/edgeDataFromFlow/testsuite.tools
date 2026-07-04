@@ -1,6 +1,9 @@
 # only flow on the main motorway, aggregate by hour
 basic
 
+# create turn-count data for detectors that have a unique successor edge
+turnData
+
 # generate cadyts output
 cadyts
 

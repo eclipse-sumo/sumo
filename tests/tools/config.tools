@@ -30,6 +30,7 @@ copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.xml
 copy_test_path:input_tazrel.xml
 copy_test_path:input_detectors.det.xml
+copy_test_path:input_detectors.add.xml
 copy_test_path:input_stops.xml
 copy_test_path:input_stopinfos.xml
 copy_test_path:input_config.xml
@@ -122,6 +123,7 @@ connections:connections.con.xml
 turndefs:turn-defs.xml
 turns:turns.xml
 edgedata:edgedata.xml
+turndata:turndata.xml
 od:od.xml
 changednet:input_net.net.xml.chg
 edges:edges.edg.xml
@@ -348,6 +350,7 @@ xmlstats1:<performance
 xmlstats2:<performance
 xmlstats3:<performance
 edgedata:<!-- generated on{[->]}-->
+turndata:<!-- generated on{[->]}-->
 od:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
