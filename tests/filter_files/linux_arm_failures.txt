@@ -16,6 +16,7 @@ appdata=duarouter
 appdata=jtrrouter
 appdata=marouter
 appdata=netconvert
+import/XML/output_formats/parquet
 import/XML/types/spread_types/default
 import/XML/types/spread_types/right
 import/XML/types/spread_types/center
@@ -28,6 +29,7 @@ import/XML/3D/large_junction
 import/XML/bidi/TWLT_sidewalks
 import/SUMO/elevation
 export/amitran/adlershof_dlr
+export/tabular/adlershof_parquet
 function/tls_programs/joined/joined_rw2
 function/roundabouts/internal_speed
 function/junctions.join-same/basic
@@ -80,8 +82,6 @@ output/fcd-output/persons/separate_parquet
 extended/rerouter/closingLaneReroute/closingLane
 extended/rerouter/closingLaneReroute/closingLane_all
 extended/calibrator/high_flow
-extended/bidiEdge/TWLT_side2
-extended/bidiEdge/TWLT_tls
 cf_model/fundamental/circle_krauss_d30_t1
 cf_model/fundamental/circle_2lane_idm
 cf_model/fundamental/circle_ramp_krauss_d50_s0.8
