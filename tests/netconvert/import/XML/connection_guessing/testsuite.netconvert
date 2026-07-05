@@ -118,6 +118,12 @@ bus_only_preferred
 # see #18181
 bus_lane_right
 
+# see #18181
+bus_lane_right_4arm
+
+# see #18181
+bus_lane_right_4arm_allowBoth
+
 # test for #15161
 verge_left
 
