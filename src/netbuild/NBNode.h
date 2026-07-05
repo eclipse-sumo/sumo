@@ -122,6 +122,8 @@ public:
 
         /// @brief whether the outgoing edge is exclusively used by bikes
         bool myIsBikeEdge;
+        /// @brief whether the outgoing edge is exclusively used by buses
+        bool myIsBusEdge;
 
     private:
         /// @brief Invalidated assignment operator.
