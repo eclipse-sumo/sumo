@@ -65,7 +65,6 @@ public:
      *
      * @param[in] into The output stream to use
      * @param[in] xmlElement Name of element to open
-     * @return The OutputDevice for further processing
      */
     void openTag(std::ostream& into, const std::string& xmlElement);
 
@@ -82,7 +81,6 @@ public:
      *
      * @param[in] into The output stream to use
      * @return Whether a further element existed in the stack and could be closed
-     * @todo it is not verified that the topmost element was closed
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
 

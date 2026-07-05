@@ -122,6 +122,7 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
             myValues.resize(myXMLStack.back());
         }
         myXMLStack.pop_back();
+        return true;
     }
     return false;
 }

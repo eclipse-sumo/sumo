@@ -40,7 +40,7 @@ public:
     CSVFormatter(const std::string& columnNames, const char separator = ';');
 
     /// @brief Destructor
-    virtual ~CSVFormatter() { }
+    virtual ~CSVFormatter() override { }
 
     /** @brief Writes an "XML header"
      *
@@ -53,36 +53,40 @@ public:
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
                         const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
-                        bool /* includeConfig */);
+                        bool /* includeConfig */) override;
 
     /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
      * @param[in] into The output stream to use (unused)
-     * @param[in] xmlElement Name of element to open (unused)
-     * @return The OutputDevice for further processing
+     * @param[in] xmlElement Name of the element to open
      */
-    void openTag(std::ostream& into, const std::string& xmlElement);
+    void openTag(std::ostream& into, const std::string& xmlElement) override;
 
     /** @brief Keeps track of an open XML tag by adding a new element to the stack
      *
      * @param[in] into The output stream to use (unused)
-     * @param[in] xmlElement Name of element to open (unused)
+     * @param[in] xmlElement Enum identifier of the element to open
      */
-    void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
+    void openTag(std::ostream& into, const SumoXMLTag& xmlElement) override;
 
     /** @brief Closes the most recently opened tag
      *
-     * @param[in] into The output stream to use
-     * @return Whether a further element existed in the stack and could be closed
-     * @todo it is not verified that the topmost element was closed
-     */
-    bool closeTag(std::ostream& into, const std::string& comment = "");
-
-    /** @brief writes a named attribute
+     * This is where the main action starts. This function determines whether a row is completed and can be written.
      *
      * @param[in] into The output stream to use
-     * @param[in] attr The attribute (name)
+     * @param[in] comment A comment to write after the tag (ignored for CSV)
+     * @return Whether a further element existed in the stack and could be closed
+     */
+    bool closeTag(std::ostream& into, const std::string& comment = "") override;
+
+    /** @brief Writes a named attribute
+     *
+     * This calls checkAttr to check/add this to the known attributes and then adds the string conversion to myValues.
+     *
+     * @param[in] into The output stream to use (used only to determine precision)
+     * @param[in] attr The attribute (name as enum value)
      * @param[in] val The attribute value
+     * @param[in] isNull whether this actually a null value (writes the empty string)
      */
     template <class T>
     void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool isNull) {
@@ -90,6 +94,15 @@ public:
         myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
 
+    /** @brief Writes a named attribute
+     *
+     * This calls checkHeader to check/add this to the known attributes and then adds the string conversion to myValues.
+     *
+     * @param[in] into The output stream to use (used only to determine precision)
+     * @param[in] attr The attribute (name as string)
+     * @param[in] val The attribute value
+     * @param[in] isNull whether this actually a null value (writes the empty string)
+     */
     template <class T>
     void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool isNull) {
         assert(!myCheckColumns);
@@ -97,16 +110,34 @@ public:
         myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
 
-    void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) {
+    /** @brief Writes a time value using time2string
+     *
+     * @param[in] into The output stream to use (unused)
+     * @param[in] attr The attribute (name as enum value)
+     * @param[in] val The attribute value
+     */
+    void writeTime(std::ostream& /* into */, const SumoXMLAttr attr, const SUMOTime val) override {
         checkAttr(attr);
         myValues.emplace_back(time2string(val));
     }
 
-    bool wroteHeader() const {
+    /** @brief Whether a complete row has been encountered and triggered header writing
+     *
+     * @return Whether the CSV header has been written
+     */
+    bool wroteHeader() const override {
         return myWroteHeader;
     }
 
-    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
+    /** @brief Which elements are expected and which maximum depth the XML tree has.
+     *
+     * This is not necessary for the functionality but very useful for debugging and tracking whether expected attributes
+     * are still missing (triggers an error in checkAttr). If expected is empty, no tracking takes place.
+     *
+     * @param[in] expected The enum values of the attrs which should be present before a row can be written.
+     * @param[in] depth The maximum expected depth of nested XML elements.
+     */
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth) override {
         myExpectedAttrs = expected;
         myMaxDepth = depth;
         myCheckColumns = expected.any();
@@ -117,7 +148,7 @@ private:
      * It checks whether the written attribute is expected in the column based format.
      * The check does only apply to the deepest level of the XML hierarchy and not to the order of the columns just to the presence.
      *
-     * @param[in] attr The attribute (name)
+     * @param[in] attr The attribute (name as enum value)
      */
     inline void checkAttr(const SumoXMLAttr attr) {
         if (myCheckColumns && myMaxDepth == (int)myXMLStack.size()) {

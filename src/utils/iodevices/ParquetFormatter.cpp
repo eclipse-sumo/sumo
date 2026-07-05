@@ -180,7 +180,7 @@ struct ParquetFormatter::Impl {
             for (const auto& field : mySchema->fields()) {
                 if (field->name() == fieldName) {
                     // there might be missing attributes inbetween, so make sure the position of the attribute in the header matches the current number of values
-                    while (idx > myValues.size()) {
+                    while (idx > (int)myValues.size()) {
                         myValues.push_back(nullptr);
                     }
                     return;
@@ -328,6 +328,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
             myImpl->myValues.resize(myImpl->myXMLStack.back());
         }
         myImpl->myXMLStack.pop_back();
+        return true;
     }
     return false;
 }
