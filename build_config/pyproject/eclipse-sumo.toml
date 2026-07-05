@@ -2,7 +2,7 @@
 # all dependencies below (except for scikit) are just to enable the tool detection in netedit
 requires = [ "scikit-build-core>=0.10",
     "lxml",
-    "pandas",
+    "pandas<3",
     "matplotlib"
 ]
 build-backend = "scikit_build_core.build"
