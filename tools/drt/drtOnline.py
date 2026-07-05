@@ -36,6 +36,7 @@ if 'SUMO_HOME' in os.environ:
 from sumolib import checkBinary  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.options import ArgumentParser  # noqa
+from sumolib.net import lane2edge
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
@@ -487,7 +488,7 @@ def main():
                     # if route serve same reservations and have the same stops
                     # get travel time of current route
                     tt_current_route = step
-                    edges = [taxi_stop.lane.split("_")[0] for taxi_stop
+                    edges = [lane2edge(taxi_stop.lane) for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
                     stop_types = [taxi_stop.actType for taxi_stop
                                   in traci.vehicle.getStops(veh_id)]
