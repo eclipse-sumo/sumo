@@ -161,7 +161,8 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     }
     const bool withBikes = myIsBikeEdge || incomingEdge->getPermissions() == SVC_BICYCLE;
     std::vector<int> approachingLanes = incomingEdge->getConnectionLanes(myCurrentOutgoing, withBikes, true);
-    if (approachingLanes.size() > myAvailableLanes.size()) {
+    if (approachingLanes.size() > myAvailableLanes.size() ||
+            (incomingEdge->getSpecialLane(SVC_BUS) >= 0 && myCurrentOutgoing->getSpecialLane(SVC_BUS) >= 0)) {
         const bool withBusLanes = myIsBusEdge || ((incomingEdge->getPermissions() & SVC_BUS) != 0 && (incomingEdge->getPermissions() & ~(SVC_BUS | SVC_VULNERABLE)) == 0);
         approachingLanes = incomingEdge->getConnectionLanes(myCurrentOutgoing, withBikes, withBusLanes);
     }
