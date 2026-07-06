@@ -110,8 +110,8 @@ def getDetectorTurns(net, detfile):
 
 
 def expectedLanes(net, edgeID):
-    edge = net.getEdge(edgeID)
-    return len([l for l in edge.getLanes() if len(l.getPermissions() & sumolib.net.lane.SUMO_ROAD_MOTOR_CLASSES) > 0])
+    lanes = net.getEdge(edgeID).getLanes()
+    return len([lane for lane in lanes if len(lane.getPermissions() & sumolib.net.lane.SUMO_ROAD_MOTOR_CLASSES) > 0])
 
 
 def main(options):
@@ -122,9 +122,9 @@ def main(options):
     for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
         tMin, tMax = detReader.findTimes(
-                options.flowfile, tMin, tMax,
-                options.detcol, options.timecol,
-                options.timeFormat, options.timeOffset)
+            options.flowfile, tMin, tMax,
+            options.detcol, options.timecol,
+            options.timeFormat, options.timeOffset)
         hasData = detReader.readFlows(options.flowfile, flow=flowcol, det=options.detcol,
                                       time=options.timecol, timeVal=tMin,
                                       timeMax=tMin + 1000,
@@ -235,6 +235,7 @@ def main(options):
 
     if options.verbose and skipped:
         print("Skipped %s incomplete groups" % (len(skipped)))
+
 
 if __name__ == "__main__":
     main(get_options())
