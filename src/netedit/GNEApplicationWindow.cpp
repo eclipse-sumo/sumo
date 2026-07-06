@@ -3687,10 +3687,6 @@ GNEApplicationWindow::onUpdSaveNeteditConfigAs(FXObject* sender, FXSelector, voi
 
 long
 GNEApplicationWindow::onCmdSaveSumoConfig(FXObject* sender, FXSelector sel, void* ptr) {
-    // first check if netedit config is already saved
-    if (myNet->getSavingStatus()->isSumoConfigSaved()) {
-        return 1;
-    }
     // obtain netedit option container
     auto& neteditOptions = OptionsCont::getOptions();
     // reset containers
