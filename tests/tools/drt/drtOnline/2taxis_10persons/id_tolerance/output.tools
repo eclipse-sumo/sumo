@@ -25,7 +25,7 @@ New reservations: ['7', '8', '9']
 Pending reservations: ['3', '4', '6']
 Solve DARP with simple_rerouting
 Solve ILP
-Dispatch: taxiB_4y_8y_9y_8z_4z_9z
+Dispatch: taxi_B_4y_8y_9y_8z_4z_9z
 
 Run dispatcher
 Pending reservations: ['3', '6', '7']
