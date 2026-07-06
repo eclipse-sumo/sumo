@@ -3785,6 +3785,7 @@ GNEApplicationWindow::onCmdSaveSumoConfigAs(FXObject* sender, FXSelector sel, vo
         if (myFileBucketHandler->isFilenameDefined(FileBucket::Type::NETEDIT_CONFIG)) {
             return onCmdSaveNeteditConfig(sender, sel, ptr);
         } else {
+            myNet->getSavingStatus()->requireSaveSumoConfig();
             return onCmdSaveSumoConfig(sender, sel, ptr);
         }
     } else {
