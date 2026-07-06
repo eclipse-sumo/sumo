@@ -108,17 +108,17 @@ most of the issues. The rank tries to distinguish between "good" (arrow
 upwards, green) and "bad" (arrow downwards, red) influences on the
 overall simulation quality.
 
-- ![Image:level16px_00.gif](../../images/Level16px_00.gif "Image:level16px_00.gif") Network Topology and Edge Parameter (from OSM)
-  - ![Image:level16px_+3.gif](../../images/level16px_+3.gif "Image:level16px_+3.gif") Completeness
+- ![Image:arrow_side0.gif](../../images/arrow_side0.gif "Image:arrow_side0.gif") Network Topology and Edge Parameter (from OSM)
+  - ![Image:arrow_up3.gif](../../images/arrow_up3.gif "Image:arrow_up3.gif") Completeness
     - Seems to be quite complete (including even minor roads) when
       compared to other (commercial or administral) road networks;
       still, there is no information about "black spots";
     - **todo:** build density plot comparing commercial and this
       network (legal?)
-  - ![Image:level16px_-3.gif](../../images/Level16px_-3.gif "Image:level16px_-3.gif") Junction topology
+  - ![Image:arrow_down3.gif](../../images/arrow_down3.gif "Image:arrow_down3.gif") Junction topology
     - Lots of complex junctions which should be simplified
       (automatic joining failed)
-  - ![Image:level16px_-3.gif](../../images/Level16px_-3.gif "Image:level16px_-3.gif") Lane Number Information
+  - ![Image:arrow_down3.gif](../../images/arrow_down3.gif "Image:arrow_down3.gif") Lane Number Information
     - The information about lane numbers is stored via types,
       mainly. For several roads, an explicit lane number is
       given. It can be safely assumed that many turning-lanes are
@@ -126,38 +126,38 @@ overall simulation quality.
     - **todo:** evaluate how much information is given explicitly
     - **todo:** compare to images, write down lane number per
       street
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Maximum Speed Information
+  - ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") Maximum Speed Information
     - Again, mostly available via types, as for lane numbers; is
       assumed to be mismatching on some places
     - Where can one get better information from?
-- ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Traffic Management Artifacts
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Traffic Light Positions
+- ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") Traffic Management Artifacts
+  - ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") Traffic Light Positions
     - Given for some junctions (nodes); Still, there seem to be no
       information whether a node not marked as controlled is
       really uncontrolled
     - **todo:** Try to find further controlled junctions or
       improve guessing
-  - ![Image:level16px_-3.gif](../../images/Level16px_-3.gif "Image:level16px_-3.gif") Traffic Light Programs
+  - ![Image:arrow_down3.gif](../../images/arrow_down3.gif "Image:arrow_down3.gif") Traffic Light Programs
     - Ungiven
     - **todo:** Ask about the default cycle time (if there is one)
       in Cologne; apply at least this one to the generated tls
       logics
-  - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") Other Traffic Management Artifacts
+  - ![Image:arrow_down1.gif](../../images/arrow_down1.gif "Image:arrow_down1.gif") Other Traffic Management Artifacts
     - completely ungiven
-  - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") Closures, Roads At Work
+  - ![Image:arrow_down1.gif](../../images/arrow_down1.gif "Image:arrow_down1.gif") Closures, Roads At Work
     - completely ungiven
-- ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Public Transport
+- ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") Public Transport
   - completely ungiven
-- ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") Demand Data
-  - ![Image:level16px_+5.gif](../../images/level16px_+5.gif "Image:level16px_+5.gif") Activity-Based single Person Trips
-    - ![Image:level16px_+5.gif](../../images/level16px_+5.gif
-      "Image:level16px_+5.gif") No Time Aggregation
-    - ![Image:level16px_+5.gif](../../images/level16px_+5.gif
-      "Image:level16px_+5.gif") No Start/End Position Aggregation
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") unverified
-  - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") starts partially at highways
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") ad-hoc, erroneous mapping to OSM
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") shortest path routing, no [DUE](../../duarouter.md) as of release 0.0.3
+- ![Image:arrow_down1.gif](../../images/arrow_down1.gif "Image:arrow_down1.gif") Demand Data
+  - ![Image:arrow_up5.gif](../../images/arrow_up5.gif "Image:arrow_up5.gif") Activity-Based single Person Trips
+    - ![Image:arrow_up5.gif](../../images/arrow_up5.gif
+      "Image:arrow_up5.gif") No Time Aggregation
+    - ![Image:arrow_up5.gif](../../images/arrow_up5.gif
+      "Image:arrow_up5.gif") No Start/End Position Aggregation
+  - ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") unverified
+  - ![Image:arrow_down1.gif](../../images/arrow_down1.gif "Image:arrow_down1.gif") starts partially at highways
+  - ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") ad-hoc, erroneous mapping to OSM
+  - ![Image:arrow_down2.gif](../../images/arrow_down2.gif "Image:arrow_down2.gif") shortest path routing, no [DUE](../../duarouter.md) as of release 0.0.3
 
 The below images show the structure of demand data over 24 hour period.
 This shows normal behavior of mobility. Peak hours like \~8-9am ,
