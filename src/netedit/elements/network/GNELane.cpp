@@ -1080,7 +1080,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         GUIGeometry::drawGeometryPoints(myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
                                         s.colorSettings.editShapeColor.changedBrightness(-32),
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                        true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop shape edited matrix
         GLHelper::popMatrix();
     }

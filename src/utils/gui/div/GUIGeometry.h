@@ -108,7 +108,7 @@ public:
     /// @brief draw geometry points
     static void drawGeometryPoints(const GUIVisualizationSettings::Detail d, const PositionVector& shape,
                                    const RGBColor& color, const double radius, const double exaggeration,
-                                   const bool editingElevation);
+                                   const bool drawSymbols, const bool editingElevation);
 
     /// @brief draw line between parent and children (used in netedit)
     static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,

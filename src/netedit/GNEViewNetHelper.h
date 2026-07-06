@@ -842,6 +842,9 @@ struct GNEViewNetHelper {
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 
+        /// @brief check if draw polygon symbols
+        bool showPolygonSymbols() const;
+
         /// @brief checkable button to show grid button
         MFXCheckableButton* menuCheckToggleGrid = nullptr;
 

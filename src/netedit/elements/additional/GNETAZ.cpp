@@ -319,6 +319,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
                     // draw geometry points
                     GUIGeometry::drawGeometryPoints(d, myAdditionalGeometry.getShape(), darkerColor, geometryPointSize, TAZExaggeration,
+                                                    myNet->getViewNet()->getNetworkViewOptions().showPolygonSymbols(),
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                     // draw dotted contours for geometry points if we're in move mode
                     if (moveMode) {

@@ -1825,7 +1825,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, junctionOpenShape, darkerColor,
                                             s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                            true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     }
 }

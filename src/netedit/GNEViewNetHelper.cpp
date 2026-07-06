@@ -2990,6 +2990,16 @@ GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
     }
 }
 
+
+bool
+GNEViewNetHelper::NetworkViewOptions::showPolygonSymbols() const {
+    if (menuCheckShowPolygonSymbols->shown()) {
+        return (menuCheckShowPolygonSymbols->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::DemandViewOptions - methods
 // ---------------------------------------------------------------------------
