@@ -90,7 +90,9 @@ jobs:
         cmake --build build_msvc_debug
 
     - name: Building optional targets (TraaS, examples, userdoc)
-      run: cmake --build build_msvc --config Release --target traas examples userdoc
+      run: |
+        cmake --build build_msvc --target traas
+        cmake --build build_msvc --target examples userdoc
 
     - name: Running examples and unit tests
       run: ctest --test-dir build_msvc --output-on-failure
