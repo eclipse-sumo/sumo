@@ -89,14 +89,13 @@ jobs:
         cmake -Bbuild_msvc_debug -GNinja -DCMAKE_BUILD_TYPE=Debug
         cmake --build build_msvc_debug
 
-    - name: Building optional targets (TraaS, examples, userdoc)
-      run: |
-        cmake --build build_msvc --target traas
-        cmake --build build_msvc --target examples
-        cmake --build build_msvc --target userdoc
+    - name: Building TraaS
+      run: cmake --build build_msvc --target traas
 
     - name: Running examples and unit tests
-      run: ctest --test-dir build_msvc --output-on-failure
+      run: |
+        cmake --build build_msvc --target examples
+        ctest --test-dir build_msvc --output-on-failure
 
     - name: Building installers
       run: |
