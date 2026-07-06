@@ -67,7 +67,7 @@ jobs:
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
-        python -m pip install -r tools/req_ci.txt texttest pipdeptree
+        python -m pip install -r tools/req_ci.txt -r docs/web/requirements.txt texttest pipdeptree
         pipdeptree
 
     - name: Building SUMO plain
@@ -89,18 +89,16 @@ jobs:
         cmake -Bbuild_msvc_debug -GNinja -DCMAKE_BUILD_TYPE=Debug
         cmake --build build_msvc_debug
 
-    - name: Building TraaS
-      run: cmake --build build_msvc --config Release --target traas
+    - name: Building optional targets (TraaS, examples, userdoc)
+      run: cmake --build build_msvc --config Release --target traas examples userdoc
 
     - name: Running examples and unit tests
-      run: |
-        cmake --build build_msvc --config Release --target examples
-        ctest --test-dir build_msvc --output-on-failure
+      run: ctest --test-dir build_msvc --output-on-failure
 
     - name: Building installers
       run: |
         cd build_msvc
-        cpack -D CPACK_PACKAGE_DIRECTORY=D:/cpkg
+        cpack -B D:/cpkg
 
     - name: Uploading artifacts (SUMO installers)
       uses: actions/upload-artifact@v7
