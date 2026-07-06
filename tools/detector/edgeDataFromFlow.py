@@ -146,7 +146,7 @@ def main(options):
     if options.netfile:
         net = sumolib.net.readNet(options.netfile)
 
-    numSkipped = 0
+    skipped = set()
     outf_turn = None
     det2turn = None
     root = "measurements" if options.cadyts else "data"
@@ -178,10 +178,11 @@ def main(options):
                         if group.isValid:
                             if options.skipIncomplete:
                                 if expectedLanes(net, edge) > len(group.lanes):
-                                    numSkipped += 1
-                                    if options.verbose:
-                                        print("Skipped group on edge '%s' at pos %s because only %s of %s lanes have detectors" % (  # noqa
-                                            edge, group.pos, len(group.lanes), expectedLanes(net, edge)))
+                                    if (edge, group.pos) not in skipped:
+                                        skipped.add((edge, group.pos))
+                                        if options.verbose:
+                                            print("Skipped group on edge '%s' at pos %s because only %s of %s lanes have detectors" % (  # noqa
+                                                edge, group.pos, len(group.lanes), expectedLanes(net, edge)))
                                     continue
                             maxFlow = max(maxFlow, group.totalFlow)
                             nGroups += 1
@@ -232,8 +233,8 @@ def main(options):
         outf_turn.write('</%s>\n' % root)
         outf_turn.close()
 
-    if options.verbose and numSkipped > 0:
-        print("Skipped %s incomplete groups" % (numSkipped))
+    if options.verbose and skipped:
+        print("Skipped %s incomplete groups" % (len(skipped)))
 
 if __name__ == "__main__":
     main(get_options())
