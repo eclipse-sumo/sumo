@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-05T14:14:52.471535+01:00 by Eclipse SUMO sumo v1_27_0+0087-433f31e3998
+<!-- generated on 2026-07-06T08:51:03.432210+01:00 by Eclipse SUMO sumo v1_27_1+0164-10066b3fcb3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,5 +46,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="t_0" depart="0.00" departLane="B98B99_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="200.00" routeLength="7508.72" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="30.05" rerouteNo="0" devices="tripinfo_t_0" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t_0" depart="0.00" departLane="B98B99_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="200.00" routeLength="7513.54" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="29.95" rerouteNo="0" devices="tripinfo_t_0" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>
