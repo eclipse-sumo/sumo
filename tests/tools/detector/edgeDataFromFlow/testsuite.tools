@@ -4,6 +4,9 @@ basic
 # create turn-count data for detectors that have a unique successor edge
 turnData
 
+# do not write edge counting data unless all (vehicular) lanes of an edge are covered with detectors
+skip_incomplete
+
 # generate cadyts output
 cadyts
 
