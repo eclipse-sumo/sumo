@@ -1365,7 +1365,11 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return vtypeid;
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
-                return toString(color);
+                if (color.isRandom()) {
+                    return "random";
+                } else {
+                    return toString(color);
+                }
             } else {
                 return myTagProperty->getDefaultStringValue(SUMO_ATTR_COLOR);
             }

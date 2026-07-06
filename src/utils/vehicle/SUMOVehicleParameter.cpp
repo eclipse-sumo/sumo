@@ -176,7 +176,11 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     }
     // color
     if (wasSet(VEHPARS_COLOR_SET)) {
-        dev.writeAttr(SUMO_ATTR_COLOR, color);
+        if (color.isRandom()) {
+            dev.writeAttr(SUMO_ATTR_COLOR, "random");
+        } else {
+            dev.writeAttr(SUMO_ATTR_COLOR, color);
+        }
     }
     // line
     if (wasSet(VEHPARS_LINE_SET)) {
