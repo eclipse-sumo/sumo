@@ -78,6 +78,10 @@ SUMO_VEHICLE_CLASSES_DEPRECATED = set([
     "rail_slow",
     "rail_fast"])
 
+SUMO_ROAD_MOTOR_CLASSES = set([
+    "passenger", "hov", "taxi", "bus", "coach", "delivery", "truck", "trailer",
+    "motorcycle", "moped", "evehicle"])
+
 
 def is_vehicle_class(s):
     return s in SUMO_VEHICLE_CLASSES

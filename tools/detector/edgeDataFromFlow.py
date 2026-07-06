@@ -68,6 +68,8 @@ def get_options(args=None):
                         help="custom end time (minutes or H:M:S)")
     parser.add_argument("-i", "--interval", default=1440, type=ArgumentParser.time,
                         help="custom aggregation interval (minutes or H:M:S)")
+    parser.add_argument("-s", "--skip-incomplete", dest="skipIncomplete", action="store_true",
+                        default=False, help="Only write edge data if all vehicular lanes have a detector")
     parser.add_argument("--cadyts", action="store_true",
                         default=False, help="generate output in cadyts format")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
@@ -82,6 +84,9 @@ def get_options(args=None):
         sys.exit()
     if options.turnOut and not options.detfile:
         print("Option --net-file must be set to compute --detector-file", file=sys.stderr)
+        sys.exit()
+    if options.skipIncomplete and not options.netfile:
+        print("Option --net-file must be set when using --skip-incomplete", file=sys.stderr)
         sys.exit()
 
     return options
@@ -102,6 +107,11 @@ def getDetectorTurns(net, detfile):
             if len(out) == 1:
                 det2turn[det.id] = (edge.getID(), out[0].getID())
     return det2turn
+
+
+def expectedLanes(net, edgeID):
+    edge = net.getEdge(edgeID)
+    return len([l for l in edge.getLanes() if len(l.getPermissions() & sumolib.net.lane.SUMO_ROAD_MOTOR_CLASSES) > 0])
 
 
 def main(options):
@@ -132,11 +142,15 @@ def main(options):
     intervalM = int(sumolib.miscutils.parseTime(options.interval, ts) / ts)
     endM = min(int(sumolib.miscutils.parseTime(options.end, ts) / ts), tMax)
 
+    net = None
+    if options.netfile:
+        net = sumolib.net.readNet(options.netfile)
+
+    numSkipped = 0
     outf_turn = None
     det2turn = None
     root = "measurements" if options.cadyts else "data"
     if options.turnOut:
-        net = sumolib.net.readNet(options.netfile)
         det2turn = getDetectorTurns(net, options.detfile)
         outf_turn = sumolib.openz(options.turnOut, "w")
         sumolib.writeXMLHeader(outf_turn, "$Id$", root, options=options)
@@ -147,6 +161,7 @@ def main(options):
         while beginM <= endM:
             iEndM = beginM + intervalM
             edges = defaultdict(dict)  # edge : {attr:val}
+            usedGroups = defaultdict(lambda: 0)
             maxGroups = defaultdict(lambda: 0)  # edge : nGroups
 
             for flowcol in flowcols:
@@ -161,13 +176,22 @@ def main(options):
                     nGroups = 0
                     for group in detData:
                         if group.isValid:
+                            if options.skipIncomplete:
+                                if expectedLanes(net, edge) > len(group.lanes):
+                                    numSkipped += 1
+                                    if options.verbose:
+                                        print("Skipped group on edge '%s' at pos %s because only %s of %s lanes have detectors" % (  # noqa
+                                            edge, group.pos, len(group.lanes), expectedLanes(net, edge)))
+                                    continue
                             maxFlow = max(maxFlow, group.totalFlow)
                             nGroups += 1
                     # if options.verbose:
                     #    print("flowColumn: %s edge: %s flow: %s groups: %s" % (
                     #        flowcol, edge, maxFlow, nGroups))
-                    edges[edge][flowcol] = maxFlow
+                    if nGroups > 0:
+                        edges[edge][flowcol] = maxFlow
                     maxGroups[edge] = max(maxGroups[edge], nGroups)
+                    usedGroups[edge] = nGroups
 
             if options.cadyts:
                 for edge in sorted(edges.keys()):
@@ -177,7 +201,7 @@ def main(options):
                 outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * ts, iEndM * ts))
                 for edge in sorted(edges.keys()):
                     attrs = ' '.join(['%s="%s"' % (k, v) for k, v in sorted(edges[edge].items())])
-                    outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
+                    outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, usedGroups[edge]))
                 outf.write('    </interval>\n')
 
             if outf_turn is not None:
@@ -208,6 +232,8 @@ def main(options):
         outf_turn.write('</%s>\n' % root)
         outf_turn.close()
 
+    if options.verbose and numSkipped > 0:
+        print("Skipped %s incomplete groups" % (numSkipped))
 
 if __name__ == "__main__":
     main(get_options())
