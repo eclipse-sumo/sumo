@@ -91,6 +91,7 @@ class LaneMap:
     def get(self, key, default):
         return key[0:-2]
 
+
 def getDetectorTurns(net, detfile):
     det2turn = {}  # detID -> (fromEdge, toEdge)
     for det in sumolib.xml.parse(detfile, ['e1Detector', 'inductionLoop']):
@@ -200,13 +201,13 @@ def main(options):
                         outf_turn.write('        <edgeRelation from="%s" to="%s" %s/>\n' % (fromEdge, toEdge, attrs))
                     outf_turn.write('    </interval>\n')
 
-
             beginM += intervalM
         outf.write('</%s>\n' % root)
 
     if outf_turn is not None:
         outf_turn.write('</%s>\n' % root)
         outf_turn.close()
+
 
 if __name__ == "__main__":
     main(get_options())
