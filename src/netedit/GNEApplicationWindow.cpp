@@ -3675,7 +3675,7 @@ long
 GNEApplicationWindow::onUpdSaveNeteditConfigAs(FXObject* sender, FXSelector, void*) {
     // check if enable or disable save netedit config button
     if (myNet == nullptr) {
-        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+        return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     } else if (myNet->getAttributeCarriers()->getEdges().size() == 0) {
         // a config requieres at least ONE edge
         return sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
