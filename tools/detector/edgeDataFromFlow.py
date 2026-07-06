@@ -115,7 +115,6 @@ def expectedLanes(net, edgeID):
 
 
 def main(options):
-    readers = {}
     flowcols = options.flowcols.split(',')
     tMin = None
     tMax = None
@@ -132,7 +131,6 @@ def main(options):
                                       timeOffset=options.timeOffset)
         if options.verbose:
             print("flowColumn: %s hasData: %s" % (flowcol, hasData))
-        readers[flowcol] = detReader
 
     if options.verbose:
         print("found data from minute %s to %s" % (int(tMin), int(tMax)))
