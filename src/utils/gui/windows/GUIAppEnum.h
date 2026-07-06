@@ -855,6 +855,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,
     /// @brief automatically create opposite edge
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
+    /// @brief show polygon symbols
+    MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS,
     /// @brief Add edge to selected items - menu entry
     MID_GNE_ADDSELECT_EDGE,
     /// @brief Remove edge from selected items - Menu Entry

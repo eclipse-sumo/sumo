@@ -890,6 +890,9 @@ struct GNEViewNetHelper {
         /// @brief check checkable to create auto create opposite edge
         MFXCheckableButton* menuCheckAutoOppositeEdge = nullptr;
 
+        /// @brief check checkable to show polygon symbols
+        MFXCheckableButton* menuCheckShowPolygonSymbols = nullptr;
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;

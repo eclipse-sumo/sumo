@@ -937,6 +937,12 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                   GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
                                   myApplicationWindow, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES);
 
+    menuCheckShowPolygonSymbols = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                  TL("Show polygon symbols"), "Alt+9", "",
+                                  GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWPOLYGONSYMBOLS),
+                                  myApplicationWindow, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS);
+    menuCheckShowPolygonSymbols->setCheck(TRUE);
+
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -960,6 +966,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckMoveElevation->hide();
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
+    menuCheckShowPolygonSymbols->hide();
     separator->hide();
 }
 
@@ -1026,6 +1033,10 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcut
     }
     if (menuCheckShowJunctionBubble->shown()) {
         menuCheckShowJunctionBubble->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckShowPolygonSymbols->shown()) {
+        menuCheckShowPolygonSymbols->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
 }
@@ -2814,6 +2825,9 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowJunctionBubble) {
         // Call manually onCmdToggleShowJunctionBubble
         viewNet->onCmdToggleShowJunctionBubbles(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowPolygonSymbols) {
+        // Call manually onCmdToggleShowPolygonSymbols
+        viewNet->onCmdToggleShowPolygonSymbols(obj, sel, nullptr);
     } else {
         return false;
     }
