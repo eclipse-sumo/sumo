@@ -2,9 +2,4 @@ flowColumn: qPKW hasData: True
 flowColumn: qLKW hasData: False
 found data from minute 0 to 60
 Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped group on edge 'E1' at pos 75.26 because only 2 of 4 lanes have detectors
-Skipped 6 incomplete groups
+Skipped 1 incomplete groups
