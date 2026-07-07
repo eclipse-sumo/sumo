@@ -144,11 +144,12 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myCurrentVType = nullptr;
             }
             // create a new vType
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName(), getVTypeParameter(attrs.getStringSecure(SUMO_ATTR_REFID, "")));
             if (attrs.hasAttribute(SUMO_ATTR_REFID) && !attrs.hasAttribute(SUMO_ATTR_ID)) {
                 bool ok = true;
                 myCurrentVTypeRef = attrs.get<std::string>(SUMO_ATTR_REFID, nullptr, ok);
                 myCurrentVTypeProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myCurrentVTypeRef.c_str(), ok, -1);
+            } else {
+                myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName(), getVTypeParameter(attrs.getStringSecure(SUMO_ATTR_REFID, "")));
             }
             myParamStack.push_back(myCurrentVType);
             break;
