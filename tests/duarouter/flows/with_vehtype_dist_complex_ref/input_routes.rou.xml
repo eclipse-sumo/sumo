@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-07T13:08:54.050589+01:00 by Eclipse SUMO netedit v1_27_1+0193-0cc689d9cbe
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- VTypes -->
+    <vType id="v1" probability="2.00" sigma="0"/>
+    <vType id="v1.1" probability="0.50" sigma="0"/>
+    <vType id="v1.2" probability="0.50" sigma="0"/>
+    <vType id="v2" probability="1.00" sigma="0"/>
+    <vType id="v2.1" probability="1.00" sigma="0"/>
+    <vType id="v2.2" probability="1.00" sigma="0"/>
+    <vTypeDistribution id="dist1">
+        <vType refId="v1"/>
+        <vType refId="v2"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="dist2">
+        <vType refId="v1" probability="0.80"/>
+        <vType refId="v2" probability="0.20"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="dist3">
+        <vType refId="v1.1"/>
+        <vType refId="v1.2"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="dist4">
+        <vType refId="v2.1"/>
+        <vType refId="v2.2"/>
+    </vTypeDistribution>
+    <vTypeDistribution id="dist5">
+        <vType refId="dist3" probability="0.80"/>
+        <vType refId="dist4" probability="0.20"/>
+    </vTypeDistribution>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <flow id="1" type="dist1" begin="0.00" number="10" period="2">
+        <route edges="beg middle end"/>
+    </flow>
+    <flow id="2" type="dist2" begin="0.00" number="10" period="2">
+        <route edges="beg middle end"/>
+    </flow>
+    <flow id="3" type="dist5" begin="30.00" number="100" period="2">
+        <route edges="beg middle end"/>
+    </flow>
+</routes>
