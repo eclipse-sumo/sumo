@@ -672,14 +672,31 @@ RORouteHandler::closeVehicle() {
 
 void
 RORouteHandler::closeVType() {
-    if (myNet.addVehicleType(myCurrentVType)) {
-        if (myCurrentVTypeDistribution != nullptr) {
-            myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
+    if (myCurrentVTypeRef.empty()) {
+        myNet.addVehicleType(myCurrentVType);
+        if (OptionsCont::getOptions().isSet("restriction-params")) {
+            const std::vector<std::string> paramKeys = OptionsCont::getOptions().getStringVector("restriction-params");
+            myCurrentVType->cacheParamRestrictions(paramKeys);
         }
     }
-    if (OptionsCont::getOptions().isSet("restriction-params")) {
-        const std::vector<std::string> paramKeys = OptionsCont::getOptions().getStringVector("restriction-params");
-        myCurrentVType->cacheParamRestrictions(paramKeys);
+    if (myCurrentVTypeDistribution != nullptr) {
+        if (myCurrentVTypeRef.empty()) {
+            myCurrentVTypeDistribution->add(myCurrentVType, myCurrentVType->defaultProbability);
+        } else {
+            const RandomDistributor<SUMOVTypeParameter*>* const dist = myNet.getVTypeDistribution(myCurrentVTypeRef);
+            if (dist != nullptr) {
+                const double distProb = (myCurrentVTypeProbability >= 0 ? myCurrentVTypeProbability : 1) / dist->getOverallProb();
+                std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                for (SUMOVTypeParameter* const type : dist->getVals()) {
+                    myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                    probIt++;
+                }
+            } else {
+                SUMOVTypeParameter* const type = myNet.getVehicleTypeSecure(myCurrentVTypeRef);
+                double probability = myCurrentVTypeProbability >= 0 ? myCurrentVTypeProbability : type->defaultProbability;
+                myCurrentVTypeDistribution->add(type, probability);
+            }
+        }
     }
     myCurrentVType = nullptr;
 }
