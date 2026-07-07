@@ -183,7 +183,7 @@ class DetectorReader(handler.ContentHandler):
             parser.setContentHandler(self)
             parser.parse(detFile)
 
-    def addDetector(self, id, pos, edge, detType, lane = None):
+    def addDetector(self, id, pos, edge, detType, lane=None):
         if id in self._det2edge:
             print("Warning! Detector %s already known." % id, file=sys.stderr)
             return
