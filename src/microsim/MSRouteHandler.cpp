@@ -312,6 +312,7 @@ void
 MSRouteHandler::closeVehicleTypeDistribution() {
     if (myCurrentVTypeDistribution != nullptr) {
         if (MSGlobals::gStateLoaded && MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(myCurrentVTypeDistributionID)) {
+            myCurrentVTypeDistribution = nullptr;
             delete myCurrentVTypeDistribution;
             return;
         }
