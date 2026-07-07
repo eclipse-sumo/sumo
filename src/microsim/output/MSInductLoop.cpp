@@ -81,8 +81,7 @@ MSInductLoop::MSInductLoop(const std::string& id, MSLane* const lane,
     myVehicleDataCont(),
     myVehiclesOnDet(),
     myLastIntervalEnd(-1),
-    mySegment(nullptr)
-{
+    mySegment(nullptr) {
     assert(length >= 0);
     assert(myPosition >= 0 && myEndPosition <= myLane->getLength());
     reset();
@@ -123,9 +122,9 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
         assert(mesoveh != nullptr);
         const MESegment* seg = mesoveh->getSegment();
         if (seg != nullptr && (seg->numQueues() == 1 || mesoveh->getQueIndex() == myLane->getIndex())) {
-            const double slength = seg->getLength();
+            const SUMOTime onSegTime = mesoveh->getEventTime() - mesoveh->getLastEntryTime();
             // extrapolate movement
-            const double exLeaveTime = mesoveh->getLastEntryTime() + (mesoveh->getEventTime() - mesoveh->getLastEntryTime()) * mySegmentPos / slength;
+            const SUMOTime exLeaveTime = mesoveh->getLastEntryTime() + (SUMOTime)((double)onSegTime * mySegmentPos / seg->getLength());
             //std::cout << SIMTIME << " det=" << getID() << " veh=" << veh.getID() << " entry=" << STEPS2TIME(mesoveh->getLastEntryTime()) << " et=" << STEPS2TIME(mesoveh->getEventTime()) << " exLeaveTime=" << STEPS2TIME(exLeaveTime) << "\n";
             myNextMesoLeaveTimes.push(exLeaveTime);
         }

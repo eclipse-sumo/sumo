@@ -51,6 +51,11 @@
 // ===========================================================================
 // helper class definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about hidden function arrow::io::Writable::Write */
+#pragma warning(disable: 4266)
+#endif
 class ArrowOStreamWrapper : public arrow::io::OutputStream {
 public:
     ArrowOStreamWrapper(std::ostream& out)
@@ -89,6 +94,9 @@ private:
     std::ostream& myOStream;
     bool myAmOpen;
 };
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 // ===========================================================================

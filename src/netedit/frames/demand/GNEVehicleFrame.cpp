@@ -609,7 +609,7 @@ GNEVehicleFrame::buildVehicleOverRoute(SumoXMLTag vehicleTag, GNEDemandElement* 
         // center view after creation
         const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
         if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
-            myViewNet->centerTo(vehicle->getPositionInView(), false);
+            myViewNet->centerToPos(vehicle->getPositionInView(), false);
         }
         // refresh attributes editor
         myVehicleAttributesEditor->refreshAttributesEditor();
