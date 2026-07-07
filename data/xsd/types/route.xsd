@@ -3,7 +3,23 @@
 
     <xsd:include schemaLocation="base.xsd" />
 
+    <xsd:complexType name="vTypeRefType">
+        <xsd:complexContent>
+            <xsd:extension base="vTypeBaseType">
+                <xsd:attribute name="id" type="idType" use="optional"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="vTypeType">
+        <xsd:complexContent>
+            <xsd:extension base="vTypeBaseType">
+                <xsd:attribute name="id" type="idType" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="vTypeBaseType">
         <xsd:sequence>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:sequence minOccurs="0">
@@ -27,7 +43,6 @@
                 <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
             </xsd:sequence>
         </xsd:sequence>
-        <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="refId" type="idType"/>
         <xsd:attribute name="length" type="positiveFloatType"/>
         <xsd:attribute name="minGap" type="nonNegativeFloatType"/>
@@ -883,7 +898,7 @@
 
     <xsd:complexType name="vTypeDistributionType">
         <xsd:sequence minOccurs="0">
-            <xsd:element name="vType" type="vTypeType" maxOccurs="unbounded"/>
+            <xsd:element name="vType" type="vTypeRefType" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
