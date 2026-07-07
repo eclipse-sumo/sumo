@@ -236,6 +236,12 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
+    /// @brief if the currently parsed vType is only a reference to an existing type, store the refId
+    std::string myCurrentVTypeRef;
+
+    /// @brief if the currently parsed vType is only a reference, store the probability here
+    double myCurrentVTypeProbability;
+
     /// @brief The default value for flow begins
     SUMOTime myBeginDefault;
 
