@@ -12,6 +12,8 @@ git
 graphviz
 help2man
 hugo
+libboost-dev
+libboost-filesystem-dev
 libeigen3-dev
 libfmt-dev
 libfox-1.6-dev

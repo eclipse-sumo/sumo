@@ -44,6 +44,7 @@ SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& e
     myActiveRouteColor(nullptr),
     myCurrentCosts(0.),
     myCurrentVType(nullptr),
+    myCurrentVTypeProbability(-1),
     myBeginDefault(OptionsCont::getOptions().exists("begin") ? string2time(OptionsCont::getOptions().getString("begin")) : 0),
     myEndDefault(OptionsCont::getOptions().exists("end") ? string2time(OptionsCont::getOptions().getString("end")) : -1),
     myFirstDepart(-1),
@@ -143,7 +144,13 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myCurrentVType = nullptr;
             }
             // create a new vType
-            myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName());
+            if (attrs.hasAttribute(SUMO_ATTR_REFID) && !attrs.hasAttribute(SUMO_ATTR_ID)) {
+                bool ok = true;
+                myCurrentVTypeRef = attrs.get<std::string>(SUMO_ATTR_REFID, nullptr, ok);
+                myCurrentVTypeProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myCurrentVTypeRef.c_str(), ok, -1);
+            } else {
+                myCurrentVType = SUMOVehicleParserHelper::beginVTypeParsing(attrs, myHardFail, getFileName(), getVTypeParameter(attrs.getStringSecure(SUMO_ATTR_REFID, "")));
+            }
             myParamStack.push_back(myCurrentVType);
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
@@ -228,8 +235,12 @@ SUMORouteHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_VTYPE:
             closeVType();
-            delete myCurrentVType;
+            if (myCurrentVTypeRef.empty()) {
+                delete myCurrentVType;
+            }
             myCurrentVType = nullptr;
+            myCurrentVTypeRef = "";
+            myCurrentVTypeProbability = -1;
             myParamStack.pop_back();
             break;
         case SUMO_TAG_PERSON:
@@ -376,7 +387,11 @@ SUMORouteHandler::addParam(const SUMOSAXAttributes& attrs) {
         }
         // add parameter in current created element
         if (!myParamStack.empty()) {
-            myParamStack.back()->setParameter(key, val);
+            if (!myCurrentVTypeRef.empty() && myParamStack.back() == myCurrentVType) {
+                WRITE_WARNINGF(TL("Ignoring param for referenced vType %"), myCurrentVType->id);
+            } else {
+                myParamStack.back()->setParameter(key, val);
+            }
         }
     }
 }

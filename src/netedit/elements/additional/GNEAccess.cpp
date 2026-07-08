@@ -33,6 +33,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEAccess::GNEAccess(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_ACCESS),
     myMoveElementLaneSingle(new GNEMoveElementLaneSingle(this, SUMO_ATTR_POSITION, myPosOverLane, myFriendlyPos,
@@ -56,6 +60,9 @@ GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, const double pos, co
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEAccess::~GNEAccess() {
@@ -237,7 +244,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             // translate to geometry position
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
             // draw circle
-            GLHelper::drawFilledCircleDetailled(d, radius * accessExaggeration);
+            GLHelper::drawFilledCircleDetailed(d, radius * accessExaggeration);
             // pop layer matrix
             GLHelper::popMatrix();
             // draw lock icon

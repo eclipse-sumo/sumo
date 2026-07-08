@@ -1,0 +1,5 @@
+-d input_detectors.add.xml -f input_flows.txt -o edgedata.xml
+-n input_net.net.xml
+--turn-output turndata.xml
+--verbose
+-i 30

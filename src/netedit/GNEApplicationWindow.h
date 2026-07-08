@@ -226,6 +226,9 @@ public:
     /// @brief called when the command/FXCall save netedit config is updated
     long onUpdSaveNeteditConfig(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save netedit config as is updated
+    long onUpdSaveNeteditConfigAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save SumoConfig is executed
     long onCmdSaveSumoConfig(FXObject*, FXSelector, void*);
 
@@ -234,6 +237,9 @@ public:
 
     /// @brief called when the command/FXCall save SumoConfig is updated
     long onUpdSaveSumoConfig(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save SumoConfig as is updated
+    long onUpdSaveSumoConfigAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);

@@ -133,6 +133,9 @@ public:
     static bool gUseStopEnded;
     static bool gUseStopStarted;
 
+    /// whether to use a simplified slope computation (for compatibility with other simulations)
+    static bool gSlopeCentered;
+
     /// whether unit tests are being run
     static bool gUnitTests;
 

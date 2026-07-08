@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNELaneAreaDetector::GNELaneAreaDetector(SumoXMLTag tag, GNENet* net) :
     GNEDetector(net, tag),
     myMoveElementLaneDouble(new GNEMoveElementLaneDouble(this, SUMO_ATTR_POSITION, myStartPosOverLane,
@@ -75,6 +79,9 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     // set parents
     setParents<GNELane*>(lanes);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNELaneAreaDetector::~GNELaneAreaDetector() {

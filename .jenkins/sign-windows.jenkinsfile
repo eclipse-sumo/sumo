@@ -1,0 +1,60 @@
+import groovy.json.JsonSlurper
+
+pipeline {
+    agent {
+        label 'ubuntu-latest'
+    }
+    environment {
+        GITHUB_TOKEN = credentials('github-bot-token')
+    }
+    options {
+        skipDefaultCheckout()
+    }
+    stages {
+        stage('Signing SUMO binaries') {
+          steps {
+              sh '''
+                # tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
+                curl -s -o sumo-win64-unsigned.zip https://sumo.dlr.de/daily/sumo-win64-ci.zip
+                unzip -q -o sumo-win64-unsigned.zip
+                for file in sumo-*/bin/*.dll sumo-*/bin/*.exe; do
+                    signed_file="\${file}-signed"
+                    curl -s -o "\${signed_file}" -F "file=@\${file}" https://cbi.eclipse.org/authenticode/sign
+                    # keep the original permissions
+                    chmod --reference="\${file}" "\${signed_file}"
+                    mv -v "\${signed_file}" "\${file}"
+                done
+                zip -q -r sumo-win64-signed.zip sumo-*
+                '''
+
+                // Upload the files to Eclipse download storage area
+                sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                    sh """
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org mkdir -p /home/data/httpd/download.eclipse.org/sumo/daily
+                        scp -o BatchMode=yes sumo-win64-signed.zip genie.sumo@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/sumo/daily/
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org ls -al /home/data/httpd/download.eclipse.org/sumo/daily
+                    """
+                }
+            }
+        }
+        stage('Signing SUMO msi') {
+          steps {
+              sh '''
+                # tools/build_config/download_artifact.py --token \$GITHUB_TOKEN --workflow windows --prefix windows-plain --rename sumo-win64-unsigned
+                file="sumo-win64-unsigned.msi"
+                curl -s -o \$file https://sumo.dlr.de/daily/sumo-win64-ci.msi
+                signed_file="sumo-win64-signed.msi"
+                curl -s -o "\${signed_file}" -F "file=@\${file}" https://cbi.eclipse.org/authenticode/sign
+                '''
+
+                // Upload the files to Eclipse download storage area
+                sshagent(['projects-storage.eclipse.org-bot-ssh']) {
+                    sh """
+                        scp -o BatchMode=yes sumo-win64-signed.msi genie.sumo@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/sumo/daily/
+                        ssh -o BatchMode=yes genie.sumo@projects-storage.eclipse.org ls -al /home/data/httpd/download.eclipse.org/sumo/daily
+                    """
+                }
+            }
+        }
+    }
+}

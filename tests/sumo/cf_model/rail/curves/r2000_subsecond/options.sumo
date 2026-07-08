@@ -1,0 +1,4 @@
+--step-length 0.2
+-e 100
+--fcd-output fcd.xml
+--fcd-output.attributes acceleration

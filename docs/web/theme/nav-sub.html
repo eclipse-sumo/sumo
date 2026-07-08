@@ -1,10 +1,9 @@
-<!-- sonar-ignore-start -->
 {%- if not nav_item.children %}
-<li>
+<li><!-- //NOSONAR -->
     <a href="{{ nav_item.url|url }}" class="dropdown-item{% if nav_item.active %} active{% endif %}">{{ nav_item.title }}</a>
 </li>
 {%- else %}
-  <li class="dropdown-submenu">
+  <li class="dropdown-submenu"><!-- //NOSONAR -->
     <a href="#" class="dropdown-item">{{ nav_item.title }}</a>
     <ul class="dropdown-menu">
         {%- for nav_item in nav_item.children %}
@@ -13,4 +12,3 @@
     </ul>
   </li>
 {%- endif %}
-<!-- sonar-ignore-end -->

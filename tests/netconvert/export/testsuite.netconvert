@@ -4,3 +4,6 @@ dlr_navteq
 
 # test amitran-output
 amitran
+
+# test tabular output
+tabular

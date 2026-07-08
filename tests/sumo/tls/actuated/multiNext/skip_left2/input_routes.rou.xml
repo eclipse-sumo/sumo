@@ -1,0 +1,13 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <route id="WE" edges="WC CE"/>
+   <route id="SN" edges="SC CN"/>
+   <route id="ES" edges="EC CS"/>
+   <route id="NW" edges="NC CW"/>
+   <route id="EW" edges="EC CW"/>
+   <route id="WN" edges="WC CN"/>
+   <flow id="WE" route="WE" begin="0" period="4" end="1000"/>
+   <flow id="SN" route="SN" begin="0" period="40" end="1000"/>
+   <flow id="EW" route="EW" begin="0" period="4" end="1000"/>
+   <flow id="WN" route="WN" begin="0" period="10" end="1000"/>
+</routes>

@@ -37,13 +37,19 @@ else:
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
+SEP = "|"
+
+
+def extract_stops(route_id):
+    return route_id.replace('y', '').replace('z', '').split(SEP)
+
 
 def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                  veh_time_dropoff, rv_dict, pairs_dua_times):
     """
     Search all combinations between two reservations. Notation: the first of
     the reservations is defined as 'res1' and the second as 'res2' and 'p'
-    refers to pick up and 'd' to drop off a reservation. Then 'res2p_res1d'
+    refers to pick up and 'd' to drop off a reservation. Then 'res2p|res1d'
     means pickup reservation 2 and then drop off reservation 1.
     """
 
@@ -54,21 +60,20 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 2 before latest drop off of req 1
 
         # calculate travel times for each pair
-        res1p_res2p = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                          res2.fromEdge))
+        res1p_res2p = pairs_dua_times.get("%s%s%s" % (res1.fromEdge, SEP, res2.fromEdge))
         if res1p_res2p is None:
             res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
                               routingMode=options.routing_mode).travelTime)
         res1p_res2p += veh_time_pickup
-        res2p_res2d = rv_dict.get('%sy_%sz' % (res2.id, res2.id))
+        res2p_res2d = rv_dict.get('%sy%s%sz' % (res2.id, SEP, res2.id))
         if res2p_res2d is None:
             res2p_res2d = res2.direct + veh_time_dropoff
-            pair = '%sy_%sz' % (res2.id, res2.id)  # 2p2d
+            pair = '%sy%s%sz' % (res2.id, SEP, res2.id)  # 2p2d
             rv_dict[pair] = [res2p_res2d, -1, [res2.id, res2.id]]
         else:
             res2p_res2d = res2p_res2d[0]
 
-        res2d_res1d = pairs_dua_times.get("%s_%s" % (res2.toEdge, res1.toEdge))
+        res2d_res1d = pairs_dua_times.get("%s%s%s" % (res2.toEdge, SEP, res1.toEdge))
         if res2d_res1d is None:
             res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
                               routingMode=options.routing_mode).travelTime)
@@ -84,9 +89,9 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             pass  # not possible
         else:
             # pairs are possible
-            pair = '%sy_%sy' % (res1.id, res2.id)  # 1p2p
+            pair = '%sy%s%sy' % (res1.id, SEP, res2.id)  # 1p2p
             rv_dict[pair] = [res1p_res2p, 1, [res1.id, res2.id]]
-            pair = '%sz_%sz' % (res2.id, res1.id)  # 2d1d
+            pair = '%sz%s%sz' % (res2.id, SEP, res1.id)  # 2d1d
             rv_dict[pair] = [res2d_res1d, -1, [res2.id, res1.id]]
 
     # combination 1p2p 2p1d 1d2d
@@ -96,10 +101,9 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 1 before latest drop off of req 2
 
         # calculate travel times for each pair
-        res1p_res2p = rv_dict.get('%sy_%sy' % (res1.id, res2.id))
+        res1p_res2p = rv_dict.get('%sy%s%sy' % (res1.id, SEP, res2.id))
         if res1p_res2p is None:
-            res1p_res2p = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                              res2.fromEdge))
+            res1p_res2p = pairs_dua_times.get("%s%s%s" % (res1.fromEdge, SEP, res2.fromEdge))
             if res1p_res2p is None:
                 res1p_res2p = int(findRoute(res1.fromEdge, res2.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime)
@@ -107,14 +111,13 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         else:
             res1p_res2p = res1p_res2p[0]
 
-        res2p_res1d = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                                     res1.toEdge))
+        res2p_res1d = pairs_dua_times.get("%s%s%s" % (res2.fromEdge, SEP, res1.toEdge))
         if res2p_res1d is None:
             res2p_res1d = int(findRoute(res2.fromEdge, res1.toEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime)
         res2p_res1d += veh_time_dropoff
 
-        res1d_res2d = pairs_dua_times.get("%s_%s" % (res1.toEdge, res2.toEdge))
+        res1d_res2d = pairs_dua_times.get("%s%s%s" % (res1.toEdge, SEP, res2.toEdge))
         if res1d_res2d is None:
             res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime)
@@ -130,12 +133,12 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             pass  # not possible
         else:
             # pairs are possible
-            pair = '%sy_%sy' % (res1.id, res2.id)  # 1p2p
+            pair = '%sy%s%sy' % (res1.id, SEP, res2.id)  # 1p2p
             if rv_dict.get(pair) is None:
                 rv_dict[pair] = [res1p_res2p, 1, [res1.id, res2.id]]
-            pair = '%sy_%sz' % (res2.id, res1.id)  # 2p1d
+            pair = '%sy%s%sz' % (res2.id, SEP, res1.id)  # 2p1d
             rv_dict[pair] = [res2p_res1d, -1, [res2.id, res1.id]]
-            pair = '%sz_%sz' % (res1.id, res2.id)  # 1d2d
+            pair = '%sz%s%sz' % (res1.id, SEP, res2.id)  # 1d2d
             rv_dict[pair] = [res1d_res2d, -1, [res1.id, res2.id]]
 
     # combination 2p1p 1p2d 2d1d
@@ -145,25 +148,22 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 2 before latest drop off of req 1
 
         # calculate travel times for each pair
-        res2p_res1p = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                          res1.fromEdge))
+        res2p_res1p = pairs_dua_times.get("%s%s%s" % (res2.fromEdge, SEP, res1.fromEdge))
         if res2p_res1p is None:
             res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge, veh_type,
                               routingMode=options.routing_mode).travelTime)
         res2p_res1p += veh_time_pickup
 
-        res1p_res2d = pairs_dua_times.get("%s_%s" % (res1.fromEdge,
-                                          res2.toEdge))
+        res1p_res2d = pairs_dua_times.get("%s%s%s" % (res1.fromEdge, SEP, res2.toEdge))
         if res1p_res2d is None:
             res1p_res2d = int(findRoute(res1.fromEdge, res2.toEdge, veh_type,
                               routingMode=options.routing_mode).travelTime)
         res1p_res2d += veh_time_dropoff
 
-        res2d_res1d = rv_dict.get('%sz_%sz' % (res2.id, res1.id))
+        res2d_res1d = rv_dict.get('%sz%s%sz' % (res2.id, SEP, res1.id))
         if res2d_res1d is None:
             # if 2d1d not added to dict in steps before
-            res2d_res1d = pairs_dua_times.get("%s_%s" % (res2.toEdge,
-                                              res1.toEdge))
+            res2d_res1d = pairs_dua_times.get("%s%s%s" % (res2.toEdge, SEP, res1.toEdge))
             if res2d_res1d is None:
                 res2d_res1d = int(findRoute(res2.toEdge, res1.toEdge, veh_type,
                                   routingMode=options.routing_mode).travelTime)
@@ -181,11 +181,11 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             pass  # not possible
         else:
             # pairs are possible
-            pair = '%sy_%sy' % (res2.id, res1.id)  # 2p1p
+            pair = '%sy%s%sy' % (res2.id, SEP, res1.id)  # 2p1p
             rv_dict[pair] = [res2p_res1p, 1, [res2.id, res1.id]]
-            pair = '%sy_%sz' % (res1.id, res2.id)  # 1p2d
+            pair = '%sy%s%sz' % (res1.id, SEP, res2.id)  # 1p2d
             rv_dict[pair] = [res1p_res2d, -1, [res1.id, res2.id]]
-            pair = '%sz_%sz' % (res1.id, res2.id)  # 2d1d
+            pair = '%sz%s%sz' % (res1.id, SEP, res2.id)  # 2d1d
             if rv_dict.get(pair) is None:
                 rv_dict[pair] = [res2d_res1d, -1, [res2.id, res1.id]]
 
@@ -196,12 +196,12 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 1 before latest drop off of req 2
 
         # calculate travel times for each pair
-        res2p_res1p = rv_dict.get('%sy_%sy' % (res2.id, res1.id), False)
-        res1d_res2d = rv_dict.get('%sz_%sz' % (res1.id, res2.id), False)
-        res1p_res1d = rv_dict.get('%sy_%sz' % (res1.id, res1.id), False)
+        res2p_res1p = rv_dict.get('%sy%s%sy' % (res2.id, SEP, res1.id), False)
+        res1d_res2d = rv_dict.get('%sz%s%sz' % (res1.id, SEP, res2.id), False)
+        res1p_res1d = rv_dict.get('%sy%s%sz' % (res1.id, SEP, res1.id), False)
         if not res1p_res1d:
             res1p_res1d = res1.direct + veh_time_dropoff
-            pair = '%sy_%sz' % (res1.id, res1.id)  # 1p1d
+            pair = '%sy%s%sz' % (res1.id, SEP, res1.id)  # 1p1d
             rv_dict[pair] = [res1p_res1d, -1, [res1.id, res1.id]]
         else:
             res1p_res1d = res1p_res1d[0]
@@ -209,8 +209,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         if not res2p_res1p or not res1d_res2d:
             # if 2p1p 1d2d not added to dict in steps before
             if not res2p_res1p:
-                res2p_res1p = pairs_dua_times.get("%s_%s" % (res2.fromEdge,
-                                                  res1.fromEdge))
+                res2p_res1p = pairs_dua_times.get("%s%s%s" % (res2.fromEdge, SEP, res1.fromEdge))
                 if res2p_res1p is None:
                     res2p_res1p = int(findRoute(res2.fromEdge, res1.fromEdge,
                                       veh_type, routingMode=options.routing_mode).travelTime)
@@ -218,15 +217,14 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
             else:
                 res2p_res1p = res2p_res1p[0]
             if not res1d_res2d:
-                res1d_res2d = pairs_dua_times.get("%s_%s" % (res1.toEdge,
-                                                  res2.toEdge))
+                res1d_res2d = pairs_dua_times.get("%s%s%s" % (res1.toEdge, SEP, res2.toEdge))
                 if res1d_res2d is None:
                     res1d_res2d = int(findRoute(res1.toEdge, res2.toEdge,
                                       veh_type, routingMode=options.routing_mode).travelTime)
                 res1d_res2d += veh_time_dropoff
             else:
                 res1d_res2d = res1d_res2d[0]
-            res1p_res1d = rv_dict.get('%sy_%sz' % (res1.id, res1.id))[0]
+            res1p_res1d = rv_dict.get('%sy%s%sz' % (res1.id, SEP, res1.id))[0]
 
             # check if time windows constrains are fulfilled
             time_res1p = res2.tw_pickup[0] + res2p_res1p
@@ -238,10 +236,10 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
                 pass  # not possible
             else:
                 # pairs are possible
-                pair = '%sy_%sy' % (res2.id, res1.id)  # 2p1p
+                pair = '%sy%s%sy' % (res2.id, SEP, res1.id)  # 2p1p
                 if not rv_dict.get(pair, False):
                     rv_dict[pair] = [res2p_res1p, 1, [res2.id, res1.id]]
-                pair = '%sz_%sz' % (res1.id, res2.id)  # 1d2d
+                pair = '%sz%s%sz' % (res1.id, SEP, res2.id)  # 1d2d
                 if not rv_dict.get(pair, False):
                     rv_dict[pair] = [res1d_res2d, -1, [res1.id, res2.id]]
 
@@ -250,8 +248,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 1 before latest pick up of req 2
 
         # calculate travel times for each pair
-        res1d_res2p = pairs_dua_times.get("%s_%s" % (res1.toEdge,
-                                          res2.fromEdge))
+        res1d_res2p = pairs_dua_times.get("%s%s%s" % (res1.toEdge, SEP, res2.fromEdge))
         if res1d_res2p is None:
             res1d_res2p = int(findRoute(res1.toEdge, res2.fromEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime)
@@ -259,7 +256,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
 
         # check if time windows constrains are fulfilled
         if (res1.tw_dropoff[0] + res1d_res2p) < res2.tw_pickup[1]:
-            pair = '%sz_%sy' % (res1.id, res2.id)  # 1d2p
+            pair = '%sz%s%sy' % (res1.id, SEP, res2.id)  # 1d2p
             rv_dict[pair] = [res1d_res2p, 1, [res1.id, res2.id]]
 
     # pair 2d1p
@@ -267,8 +264,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
         # if earliest drop off of req 2 before latest pick up of req 1
 
         # calculate travel times for each pair
-        res2d_res1p = pairs_dua_times.get("%s_%s" % (res2.toEdge,
-                                          res1.fromEdge))
+        res2d_res1p = pairs_dua_times.get("%s%s%s" % (res2.toEdge, SEP, res1.fromEdge))
         if res2d_res1p is None:
             res2d_res1p = int(findRoute(res2.toEdge, res1.fromEdge, veh_type,
                                         routingMode=options.routing_mode).travelTime)
@@ -276,7 +272,7 @@ def res_res_pair(options, res1, res2, veh_type, veh_time_pickup,
 
         # check if time windows constrains are fulfilled
         if (res2.tw_dropoff[0] + res2d_res1p) < res1.tw_pickup[1]:
-            pair = '%sz_%sy' % (res2.id, res1.id)  # 2d1p
+            pair = '%sz%s%sy' % (res2.id, SEP, res1.id)  # 2d1p
             rv_dict[pair] = [res2d_res1p, 1, [res2.id, res1.id]]
 
 
@@ -306,8 +302,7 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
             res_possible = False
             # add vehicle-reservation pairs
             for edge, vehicles in veh_edges.items():
-                pickup_time = pairs_dua_times.get("%s_%s" % (edge,
-                                                  res.fromEdge))
+                pickup_time = pairs_dua_times.get("%s%s%s" % (edge, SEP, res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime
@@ -316,7 +311,7 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
                     continue
                 # if vehicle on time, add to rv graph
                 for veh_id in vehicles:
-                    route_id = '%s_%sy' % (veh_id, res_id)
+                    route_id = '%s%s%sy' % (veh_id, SEP, res_id)
                     rv_dict[route_id] = [pickup_time+veh_time_pickup, 1, [veh_id, res_id]]
                     res_possible = True
 
@@ -332,7 +327,7 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
                 continue
 
             # add direct route pair
-            route_id = '%sy_%sz' % (res_id, res_id)  # y: pickup / z: drop off
+            route_id = '%sy%s%sz' % (res_id, SEP, res_id)  # y: pickup / z: drop off
             rv_dict[route_id] = [res.direct+veh_time_dropoff, -1, [res_id, res_id]]
 
             # add reservation-reservation pairs
@@ -359,22 +354,21 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
 
             remove = True
             for edge, vehicles in veh_edges.items():
-                pickup_time = pairs_dua_times.get("%s_%s" % (edge,
-                                                  res.fromEdge))
+                pickup_time = pairs_dua_times.get("%s%s%s" % (edge, SEP, res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime
                 if step+pickup_time <= res.tw_pickup[1]:
                     # if vehicle on time, add to rv graph
                     for veh_id in vehicles:
-                        route_id = '%s_%sy' % (veh_id, res_id)
+                        route_id = '%s%s%sy' % (veh_id, SEP, res_id)
                         if rv_dict.get(route_id, False):
                             rv_dict[route_id][0] = pickup_time+60
                             remove = False
                 else:
                     # remove pair if pick-up not possible
                     for veh_id in vehicles:
-                        route_id = '%s_%sy' % (veh_id, res_id)
+                        route_id = '%s%s%sy' % (veh_id, SEP, res_id)
                         if rv_dict.get(route_id, False):
                             rv_dict.pop(route_id)
 
@@ -389,7 +383,7 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
 
         elif res_id not in res_id_picked:
             # if reservation assigned but not picked up
-            route_id = '%s_%sy' % (res.vehicle, res_id)
+            route_id = '%s%s%sy' % (res.vehicle, SEP, res_id)
             if rv_dict.get(route_id, False):
                 # update travel time to pickup
                 if traci.vehicle.getRoadID(res.vehicle).startswith(':'):
@@ -398,8 +392,7 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
                     from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
                 else:
                     from_edge = traci.vehicle.getRoadID(res.vehicle)
-                pickup_time = pairs_dua_times.get("%s_%s" % (from_edge,
-                                                  res.fromEdge))
+                pickup_time = pairs_dua_times.get("%s%s%s" % (from_edge, SEP, res.fromEdge))
                 if pickup_time is None:
                     pickup_time = findRoute(from_edge, res.fromEdge, veh_type,
                                             routingMode=options.routing_mode).travelTime
@@ -417,19 +410,18 @@ def get_rv(options, res_id_new, res_id_picked, res_all,
                 from_edge = traci.vehicle.getRoute(res.vehicle)[edge_index]
             else:
                 from_edge = traci.vehicle.getRoadID(res.vehicle)
-            dropoff_time = pairs_dua_times.get("%s_%s" % (from_edge,
-                                               res.toEdge))
+            dropoff_time = pairs_dua_times.get("%s%s%s" % (from_edge, SEP, res.toEdge))
             if dropoff_time is None:
                 dropoff_time = int(findRoute(from_edge, res.toEdge, veh_type,
                                              routingMode=options.routing_mode).travelTime)
-            route_id = '%s_%sz' % (res.vehicle, res_id)
+            route_id = '%s%s%sz' % (res.vehicle, SEP, res_id)
             rv_dict[route_id] = [dropoff_time+veh_time_dropoff, -1, [res.vehicle, res_id]]
         else:
             print("Error: Reservation state not considered")
 
     # remove rejected, served and picked up reservations from rv graph
     if res_rv_remove:
-        [rv_dict.pop(key) for key in list(rv_dict) if set(res_rv_remove) & set(key.split("_"))]
+        [rv_dict.pop(key) for key in list(rv_dict) if set(res_rv_remove) & set(key.split(SEP))]
 
     # remove rejected reservations from res_all
     if res_all_remove:
@@ -495,34 +487,34 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked,
                 else:
                     # next stop valid
                     if next_act == 'pickup':
-                        first_pairs = ["%s_%sy" % (veh_id, next_id)]
+                        first_pairs = ["%s%s%sy" % (veh_id, SEP, next_id)]
                     else:
-                        first_pairs = ["%s_%sz" % (veh_id, next_id)]
+                        first_pairs = ["%s%s%sz" % (veh_id, SEP, next_id)]
                     break
         else:
             # if not, consider all possible
             first_pairs = [pair for pair in pairs
-                           if pair.split("_")[0] == veh_id]
+                           if pair.split(SEP)[0] == veh_id]
 
         for first_pair in first_pairs:
             # search all possible trips ids starting with this
             trip = first_pair
             i = 1
             while (i <= (len(filter_valid)-1)*2 and
-                   len(trip.split("_"))-1 < (len(filter_valid)-1)*2):
+                   len(trip.split(SEP))-1 < (len(filter_valid)-1)*2):
                 for pair in pairs:
-                    if pair.split("_")[0] != trip.split("_")[-1]:
+                    if pair.split(SEP)[0] != trip.split(SEP)[-1]:
                         continue  # if pairs are not compatible
 
-                    trip_new = ("_").join([trip, pair.split("_")[-1]])
+                    trip_new = (SEP).join([trip, pair.split(SEP)[-1]])
 
                     # check if pick up before drop off
-                    stops = trip_new.split("_")
+                    stops = trip_new.split(SEP)
                     # consider picked requests
                     trip_pick = list(res_picked_veh)
-                    trip_pick.extend([stop[:-1] for stop in trip_new.split('_')[1:]
+                    trip_pick.extend([stop[:-1] for stop in trip_new.split(SEP)[1:]
                                      if stop.endswith("y")])
-                    trip_drop = [stop[:-1] for stop in trip_new.split('_')[1:]
+                    trip_drop = [stop[:-1] for stop in trip_new.split(SEP)[1:]
                                  if stop.endswith("z")]
                     if (len(trip_pick) != len(set(trip_pick))
                        or len(trip_drop) != len(set(trip_drop))):
@@ -564,7 +556,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked,
                         continue  # capacity surpass
 
                     # check time window for stop
-                    stop_id = pair.split("_")[-1]
+                    stop_id = pair.split(SEP)[-1]
                     if stop_id.endswith('y'):
                         stop_tw = res_all[stop_id[:-1]].tw_pickup
                         if trip_time > stop_tw[1]:
@@ -582,7 +574,7 @@ def simple_rerouting(options, res_id_unassigned, res_id_picked,
                     # add trip id
                     trip_id[trip_new] = [trip_time, pax]
 
-                    # if len(trip_new.split("_")) % 2 == 1:
+                    # if len(trip_new.split(SEP)) % 2 == 1:
                     # check if all reservation served
                     if set(trip_pick) == set(trip_drop):
                         # if requests assigned to vehicle, they must be on trip
@@ -631,18 +623,18 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
         if (perf_counter() - start_time) > options.rtv_time:
             # limit trip search time
             break
-        if pair.split("_")[0] != trip_id.split("_")[-1]:
+        if pair.split(SEP)[0] != trip_id.split(SEP)[-1]:
             continue  # if pairs are not compatible
 
-        new_trip_id = ("_").join([trip_id, pair.split("_")[-1]])
+        new_trip_id = (SEP).join([trip_id, pair.split(SEP)[-1]])
 
         # check if pick up before drop off
-        stops = new_trip_id.split("_")
+        stops = new_trip_id.split(SEP)
         # consider picked requests
         trip_pick = list(res_picked_veh)
-        trip_pick.extend([stop[:-1] for stop in new_trip_id.split('_')[1:]
+        trip_pick.extend([stop[:-1] for stop in new_trip_id.split(SEP)[1:]
                          if stop.endswith("y")])
-        trip_drop = [stop[:-1] for stop in new_trip_id.split('_')[1:]
+        trip_drop = [stop[:-1] for stop in new_trip_id.split(SEP)[1:]
                      if stop.endswith("z")]
         if (len(trip_pick) != len(set(trip_pick))
            or len(trip_drop) != len(set(trip_drop))):
@@ -679,7 +671,7 @@ def search_trips(trip, pairs, res_assigned_veh, res_picked_veh, res_all,
             continue  # capacity surpass
 
         # check time window for stop
-        stop_id = pair.split("_")[-1]
+        stop_id = pair.split(SEP)[-1]
         if stop_id.endswith('y'):
             stop_tw = res_all[stop_id[:-1]].tw_pickup
             if new_trip_time > stop_tw[1]:
@@ -799,19 +791,19 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
                     else:
                         # next stop valid
                         if next_act == 'pickup':
-                            trip_id = "%s_%sy" % (veh_id, next_id)
+                            trip_id = "%s%s%sy" % (veh_id, SEP, next_id)
                             trip_time = rv_dict[trip_id][0]
                             trips_tree[i] = [[trip_id, trip_time+step, 1]]
                             break
                         else:
-                            trip_id = "%s_%sz" % (veh_id, next_id)
+                            trip_id = "%s%s%sz" % (veh_id, SEP, next_id)
                             trip_time = rv_dict[trip_id][0]
                             trips_tree[i] = [[trip_id, trip_time+step, -1]]
                             break
             if not trips_tree[i]:
                 # if vehicle not assigned or no valid stop found, consider all
                 trips_tree[i] = [[pair, rv_dict[pair][0]+step, 1] for pair in pairs
-                                 if pair.split("_")[0] == veh_id]
+                                 if pair.split(SEP)[0] == veh_id]
 
             start_time = perf_counter()
             while trips_tree[i]:
@@ -837,7 +829,7 @@ def exhaustive_search(options, res_id_unassigned, res_id_picked, res_all,
 
             veh_bin = [0] * len(fleet)  # list of assigned vehicles for ILP
             veh_bin[fleet.index(veh_id)] = 1
-            copy_rtv_keys = [key for key in rtv_dict.keys() if key.split("_")[0] == equal_veh_id]
+            copy_rtv_keys = [key for key in rtv_dict.keys() if key.split(SEP)[0] == equal_veh_id]
             for key in copy_rtv_keys:
                 new_trip_id = key.replace(equal_veh_id, veh_id)
                 trip_time = rtv_dict[key][0]

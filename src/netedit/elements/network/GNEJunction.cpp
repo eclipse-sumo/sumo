@@ -59,6 +59,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), SUMO_TAG_JUNCTION),
     myMoveElementJunction(new GNEMoveElementJunction(this)),
@@ -70,6 +74,9 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEJunction::~GNEJunction() {
@@ -1762,7 +1769,7 @@ GNEJunction::drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVi
     // move matrix junction center
     glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.5);
     // draw filled circle
-    GLHelper::drawFilledCircleDetailled(d, bubbleRadius);
+    GLHelper::drawFilledCircleDetailed(d, bubbleRadius);
     // pop matrix
     GLHelper::popMatrix();
 }
@@ -1818,7 +1825,7 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, junctionOpenShape, darkerColor,
                                             s.neteditSizeSettings.junctionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                            true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     }
 }
@@ -1834,7 +1841,7 @@ GNEJunction::drawJunctionCenter(const GUIVisualizationSettings& s, const GUIVisu
         // move matrix junction center
         glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1.7);
         // draw filled circle
-        GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.edgeGeometryPointRadius);
+        GLHelper::drawFilledCircleDetailed(d, s.neteditSizeSettings.edgeGeometryPointRadius);
         // pop matrix
         GLHelper::popMatrix();
     }

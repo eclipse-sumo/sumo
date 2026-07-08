@@ -27,6 +27,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_STEP),
     GNEAdditionalListed(this) {
@@ -44,6 +48,9 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedS
     // update boundary of rerouter parent
     variableSpeedSign->updateCenteringBoundary(true);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}

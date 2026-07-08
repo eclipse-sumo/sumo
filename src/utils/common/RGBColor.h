@@ -40,6 +40,7 @@ class SumoRNG;
  * The cube is meant to lie between (0, 0, 0) and (255, 255, 255)
  */
 class RGBColor {
+
 public:
     /** @brief Constructor
      */
@@ -49,8 +50,9 @@ public:
      * @param[in] red The red component's value
      * @param[in] green The green component's value
      * @param[in] blue The blue component's value
+     * @param[in] if the given color is random
      */
-    RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
+    RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255, bool random = false);
 
     /** @brief Returns the red-amount of the color
      * @return The red component's value
@@ -90,6 +92,9 @@ public:
 
     /// @brief check if RGBColor is valid
     bool isValid() const;
+
+    /// @brief check if color is random
+    bool isRandom() const;
 
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
@@ -163,16 +168,17 @@ public:
      * @param[in] h Hue (0-360)
      * @param[in] s Saturation (0-1)
      * @param[in] v Value (0-1)
+     * @param[in] random if the value is random
      * @return The color as RGB
      */
-    static RGBColor fromHSV(double h, double s, double v);
+    static RGBColor fromHSV(double h, double s, double v, bool random = false);
 
     /** @brief Return color with random hue
      * @param[in] s Saturation (0-1)
      * @param[in] v Value (0-1)
      * @return The color as RGB
      */
-    static RGBColor randomHue(double s = 1, double v = 1);
+    static RGBColor randomHue(double s = 1, double v = 1, bool random = false);
 
     /** @brief Writes the color to the given stream
     * @param[out] os The stream to write to
@@ -210,10 +216,13 @@ public:
 
 private:
     /// @brief The color amounts
-    unsigned char myRed, myGreen, myBlue, myAlpha;
+    unsigned char myRed = 0, myGreen = 0, myBlue = 0, myAlpha = 0;
 
     /// @brief flag to check if color is valid
-    bool myValid;
+    bool myValid = true;
+
+    /// @brief flag to check if color is random
+    bool myRandom = false;
 
     /// @brief A random number generator to generate random colors independent of other randomness
     static SumoRNG myRNG;

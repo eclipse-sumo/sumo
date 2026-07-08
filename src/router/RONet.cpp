@@ -535,6 +535,13 @@ RONet::knowsVehicle(const std::string& id) const {
     return myVehIDs.find(id) != myVehIDs.end();
 }
 
+
+bool
+RONet::knowsVType(const std::string& id) const {
+    return myVehicleTypes.get(id) != nullptr || myVTypeDistDict.find(id) != myVTypeDistDict.end();
+}
+
+
 SUMOTime
 RONet::getDeparture(const std::string& vehID) const {
     auto it = myVehIDs.find(vehID);

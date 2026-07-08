@@ -77,7 +77,7 @@ public:
      * @param[in] plain Whether only plain-xml output should be written (omit some attributes)
      */
     static void writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                                bool includeInternal, ConnectionStyle style = SUMONET, bool geoAccuracy = false);
+                                bool includeInternal, ConnectionStyle style = SUMONET, bool useGeo = false, bool geoAccuracy = false);
 
     /// @brief writes the given prohibitions
     static void writeProhibitions(OutputDevice& into, const NBConnectionProhibits& prohibitions, const NBEdgeCont& ec);
@@ -106,6 +106,7 @@ public:
      */
     static void writeDistrict(OutputDevice& into, const NBDistrict& d);
 
+    static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy, bool needsWrite);
 
 private:
     /// @name Methods for writing network parts

@@ -921,6 +921,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "resCoef_linear",                 SUMO_ATTR_RESISTANCE_COEFFICIENT_LINEAR },
     { "resCoef_quadratic",              SUMO_ATTR_RESISTANCE_COEFFICIENT_QUADRATIC },
     { "curveResistance",                SUMO_ATTR_CURVE_RESISTANCE },
+    { "curveIntegration",               SUMO_ATTR_CURVE_INTEGRATION },
     { "roeckl_sharp_radius",            SUMO_ATTR_ROECKL_SHARP_RADIUS },
     { "roeckl_numerator",               SUMO_ATTR_ROECKL_NUMERATOR },
     { "roeckl_numerator_sharp",         SUMO_ATTR_ROECKL_NUMERATOR_SHARP },
@@ -1109,6 +1110,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "contPos",                SUMO_ATTR_CONTPOS },
     { "timeThreshold",          SUMO_ATTR_HALTING_TIME_THRESHOLD },
     { "speedThreshold",         SUMO_ATTR_HALTING_SPEED_THRESHOLD },
+    { "speedThresholdRelative", SUMO_ATTR_HALTING_SPEED_THRESHOLD_RELATIVE },
     { "jamThreshold",           SUMO_ATTR_JAM_DIST_THRESHOLD },
     { "show",                   SUMO_ATTR_SHOW_DETECTOR },
     // E3 detector

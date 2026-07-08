@@ -1426,11 +1426,13 @@ NBEdge::getIncomingEdges() const {
 
 
 std::vector<int>
-NBEdge::getConnectionLanes(NBEdge* currentOutgoing, bool withBikes) const {
+NBEdge::getConnectionLanes(NBEdge* currentOutgoing, bool withBikes, bool withBusLanes) const {
     std::vector<int> ret;
     if (currentOutgoing != myTurnDestination) {
         for (const Connection& c : myConnections) {
-            if (c.toEdge == currentOutgoing && (withBikes || getPermissions(c.fromLane) != SVC_BICYCLE)) {
+            if (c.toEdge == currentOutgoing
+                    && (withBikes || getPermissions(c.fromLane) != SVC_BICYCLE)
+                    && (withBusLanes || getPermissions(c.fromLane) != SVC_BUS)) {
                 ret.push_back(c.fromLane);
             }
         }

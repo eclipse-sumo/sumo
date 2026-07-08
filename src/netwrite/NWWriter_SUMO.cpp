@@ -758,7 +758,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
 
 void
 NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                               bool includeInternal, ConnectionStyle style, bool geoAccuracy) {
+                               bool includeInternal, ConnectionStyle style, bool useGeo, bool geoAccuracy) {
     assert(c.toEdge != 0);
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
@@ -766,18 +766,10 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
     into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
     into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
     if (style != TLL) {
-        if (c.mayDefinitelyPass) {
-            into.writeAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass);
-        }
-        if (c.keepClear == KEEPCLEAR_FALSE) {
-            into.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false);
-        }
-        if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) {
-            into.writeAttr(SUMO_ATTR_CONTPOS, c.contPos);
-        }
-        if (c.permissions != SVC_UNSPECIFIED) {
-            writePermissions(into, c.permissions);
-        }
+        into.writeOptionalAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass, !c.mayDefinitelyPass);
+        into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
+        into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
+        writePermissions(into, c.permissions);
         if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING) {
             into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft));
         }
@@ -790,15 +782,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.customLength != NBEdge::UNSPECIFIED_LOADED_LENGTH) {
             into.writeAttr(SUMO_ATTR_LENGTH, c.customLength);
         }
-        if (c.customShape.size() != 0) {
-            if (geoAccuracy) {
-                into.setPrecision(gPrecisionGeo);
-            }
-            into.writeAttr(SUMO_ATTR_SHAPE, c.customShape);
-            if (geoAccuracy) {
-                into.setPrecision();
-            }
-        }
+        writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
         if (c.uncontrolled != false) {
             into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);
         }
@@ -1127,6 +1111,27 @@ NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset
         }
         into.writeAttr(SUMO_ATTR_VALUE, stopOffset.getOffset());
         into.closeTag();
+    }
+}
+
+
+void
+NWWriter_SUMO::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy, bool needsWrite) {
+    if (!needsWrite) {
+        out.writeOptionalAttr(attr, shape, true);
+        return;
+    }
+    if (useGeo) {
+        for (int i = 0; i < (int) shape.size(); i++) {
+            gch.cartesian2geo(shape[i]);
+        }
+    }
+    if (geoAccuracy) {
+        out.setPrecision(gPrecisionGeo);
+    }
+    out.writeAttr(attr, shape);
+    if (geoAccuracy) {
+        out.setPrecision();
     }
 }
 

@@ -16,6 +16,9 @@ delete_node_joinedTLS
 # delete a node (but not all incident edges)
 delete_node_invalid
 
+# see #18142
+delete_railsignal_edge
+
 # test the diff after applying --junctions.join to a network
 join_junctions
 

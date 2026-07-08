@@ -31,6 +31,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNERerouter::GNERerouter(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_REROUTER),
     GNEAdditionalSquared(this) {
@@ -51,6 +55,9 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, FileBucket* fileBuc
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNERerouter::~GNERerouter() {

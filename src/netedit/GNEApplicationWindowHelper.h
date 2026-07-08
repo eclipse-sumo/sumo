@@ -529,6 +529,9 @@ struct GNEApplicationWindowHelper {
             /// @brief check checkable to create auto create opposite edge
             MFXMenuCheckIcon* menuCheckAutoOppositeEdge = nullptr;
 
+            /// @brief check checkable to show the start and end symbols in polygons
+            MFXMenuCheckIcon* menuCheckShowPolygonSymbols = nullptr;
+
             /// @brief separator
             FXMenuSeparator* separator = nullptr;
 

@@ -1,2 +1,5 @@
 simple_rerouting
 exhaustive_search
+
+# see #18167
+id_tolerance

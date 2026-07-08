@@ -3,7 +3,7 @@ title: RawDump
 ---
 
 !!! caution
-    deprecated in favour of [fcd-output](FCDOutput.md).
+    deprecated in favor of [fcd-output](FCDOutput.md).
 
 The network dump (also called *netstate output* or *netstate dump*) was
 the first output capability that was implemented in SUMO. It contains

@@ -95,6 +95,14 @@ with_vehtype_dist2
 # test distribution of 2 types with different probabilities
 with_vehtype_dist_overrideProbs
 
+# test different definition styles for vTypeDistribution including nested
+with_vehtype_dist_complex
+
+# test different definition styles for vTypeDistribution including nested 
+# 
+# definition style with refID
+with_vehtype_dist_complex_ref
+
 # same as noid_increasing_time, but a vehicle type distribution is used and written
 with_vehtype_keepdist
 

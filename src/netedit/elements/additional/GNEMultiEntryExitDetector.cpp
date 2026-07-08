@@ -30,6 +30,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_ENTRY_EXIT_DETECTOR),
     GNEAdditionalSquared(this) {
@@ -58,6 +62,9 @@ GNEMultiEntryExitDetector::GNEMultiEntryExitDetector(const std::string& id, GNEN
         myOutputFilename = id + ".xml";
     }
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEMultiEntryExitDetector::~GNEMultiEntryExitDetector() {

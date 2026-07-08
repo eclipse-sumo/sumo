@@ -396,7 +396,7 @@ GNEWalkingArea::drawTesselatedWalkingArea(const GUIVisualizationSettings& s, con
         // draw geometry points
         GUIGeometry::drawGeometryPoints(d, myTesselation.getShape(), GLHelper::getColor().changedBrightness(-32),
                                         s.neteditSizeSettings.crossingGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                        true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
     }
 }
 

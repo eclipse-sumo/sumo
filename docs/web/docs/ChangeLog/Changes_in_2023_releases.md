@@ -148,7 +148,7 @@ title: Changes in the 2023 releases (versions 1.16.0, 1.17.0, 1.18.0 and 1.19.0)
   - meandata2vss.py: can now create variable speed signs from edge mean data. #13804
 
 - TraCI
-  - Rail signal constraints can now bew added via traci. #13853
+  - Rail signal constraints can now be added via traci. #13853
 
 - Other
   - od2trips now supports pedestrian types #13606

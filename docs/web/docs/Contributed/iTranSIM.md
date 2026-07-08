@@ -33,7 +33,7 @@ that data can be exchanged between the systems. To simulate the traffic
 the microscopic traffic simulator SUMO (Simulation of Urban Mobility) is
 used. SUMO is an open source project, maintained by researchers at the
 Centre for Applied Informatics at the University of Cologne and the
-Institute of Transport Research at the German Aerospace Centre.
+Institute of Transport Research at the German Aerospace Center.
 
 The accuracy of vehicle location based on simulation could not be
 evaluated yet because a vital part of the necessary infrastructure is

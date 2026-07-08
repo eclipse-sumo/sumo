@@ -552,7 +552,7 @@ protected:
 
 private:
     /// @brief Init Junctions and edges
-    void initJunctionsAndEdges();
+    void initJunctionsAndEdges(bool afterVolatile);
 
     /// @brief return true if there are already a Junction in the given position, false in other case
     bool checkJunctionPosition(const Position& pos);

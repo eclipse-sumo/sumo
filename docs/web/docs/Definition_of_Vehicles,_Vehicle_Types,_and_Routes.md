@@ -463,6 +463,7 @@ These values have the following meanings:
 | Attribute Name    | Value Type                        | Default                                                             | Description      |
 | ----------------- | --------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------- |
 | **id**            | id (string)                       | \-                                                                  | The name of the vehicle type      |
+| refId             | id (string)                       | \-                                                                  | The name of the vehicle type used for initializing the new type's default values     |
 | accel             | float                             | 2.6                                                                 | The acceleration ability of vehicles of this type (in m/s^2) |
 | decel             | float                             | 4.5                                                                 | The deceleration ability of vehicles of this type (in m/s^2)                                                                                                                                                           |
 | apparentDecel     | float                             | `==decel`                                                           | The apparent deceleration of the vehicle as used by the standard model (in m/s^2). The follower uses this value as expected maximal deceleration of the leader.                                                        |
@@ -507,6 +508,11 @@ one can find definitions of the assigned vehicles' shapes, emissions,
 and assignment to abstract vehicle classes. These concepts will be
 described in the following. Also, you may find further descriptions of
 implemented car-following models in the subsection [\#Car-Following Models](#car-following_models).
+
+!!! note
+    The refId is evaluated when reading the vType definition, so if you reference a vTypeDistribution here,
+    the new vType will always evaluate to the same value later.
+
 
 ## Speed Distributions
 
@@ -864,12 +870,13 @@ lists which parameter are used by which model(s). [Details on car-following mode
 | resCoef_constant    |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#custom_dynamics_model_with_parameterized_curves) | Rail      |
 | resCoef_linear      |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#custom_dynamics_model_with_parameterized_curves) | Rail      |
 | resCoef_quadratic   |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#custom_dynamics_model_with_parameterized_curves) | Rail      |
-| curveResistance     |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
-| roeckl_sharp_radius |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
-| roeckl_numerator    |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
-| roeckl_numerator_sharp  |                  | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
-| roeckl_offset       |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
-| roeckl_offset_sharp |                      | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| curveResistance     |                0     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| curveIntegration    |              100     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| roeckl_sharp_radius |              300     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| roeckl_numerator    |             6380     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| roeckl_numerator_sharp  |         4910     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| roeckl_offset       |               55     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
+| roeckl_offset_sharp |               30     | > 0      | parameter for [modelling train dynamics with parameterized curve](Simulation/Railways.md#curve_resistance) | Rail      |
 | tpreview                     | 4.00                                                  | >= 1     | The look ahead time headway for the desired speed. Lower values result in late and hard braking when turning at junctions or when speed limits change (s)       | EIDM      |
 | tPersDrive                   | 3.00                                                  | >= 1     | Correlation time of the Wiener Process for the driving error (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (s)            | EIDM      |
 | tPersEstimate                | 10.00                                                 | >= 1     | Correlation time of the Wiener Process for the estimation errors (originally from [Human Driver Model](https://doi.org/10.1016/j.physa.2005.05.001)) (s)        | EIDM      |

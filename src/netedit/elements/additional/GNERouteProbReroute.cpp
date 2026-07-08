@@ -28,6 +28,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNERouteProbReroute::GNERouteProbReroute(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_ROUTE_PROB_REROUTE),
     GNEAdditionalListed(this) {
@@ -44,6 +48,9 @@ GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, 
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNERouteProbReroute::~GNERouteProbReroute() {}

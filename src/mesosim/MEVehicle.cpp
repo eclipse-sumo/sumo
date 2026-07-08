@@ -92,7 +92,8 @@ MEVehicle::getAngle() const {
 double
 MEVehicle::getSlope() const {
     const MSLane* const lane = getEdge()->getLanes()[MAX2(0, getQueIndex())];
-    return lane->getShape().slopeDegreeAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()));
+    return lane->getShape().slopeDegreeAtOffset(lane->interpolateLanePosToGeometryPos(getPositionOnLane()
+                - (MSGlobals::gSlopeCentered ? getLength() / 2 : 0)));
 }
 
 
@@ -246,6 +247,7 @@ SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
     const SUMOTime initialTime = time;
     bool hadStop = false;
+    bool reachedStop = false;
     for (MSStop& stop : myStops) {
         if (stop.joinTriggered) {
             WRITE_WARNINGF(TL("Join stops are not available in meso yet (vehicle '%', segment '%')."),
@@ -268,6 +270,7 @@ MEVehicle::checkStop(SUMOTime time) {
             time = MAX2(cur, stop.pars.ended);
         }
         if (!stop.reached) {
+            reachedStop = true;
             stop.reached = true;
             stop.pars.started = myLastEntryTime;
             stop.endBoarding = stop.pars.extension >= 0 ? time + stop.pars.extension : SUMOTime_MAX;
@@ -279,15 +282,17 @@ MEVehicle::checkStop(SUMOTime time) {
                                    getID(), mySegment->getID(), time2string(time));
                 }
             }
-            MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
-            if (taxi != nullptr) {
-                taxi->notifyMove(*this, 0, 0, 0);
-            }
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
+    }
+    if (reachedStop) {
+        MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
+        if (taxi != nullptr) {
+            taxi->notifyMove(*this, 0, 0, 0);
+        }
     }
     MSDevice_Tripinfo* tripinfo = static_cast<MSDevice_Tripinfo*>(getDevice(typeid(MSDevice_Tripinfo)));
     if (tripinfo != nullptr) {

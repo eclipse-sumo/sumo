@@ -421,8 +421,9 @@ NLDetectorBuilder::createInductLoop(const std::string& id,
                                     const std::string& vTypes,
                                     const std::string& nextEdges,
                                     int detectPersons,
-                                    bool /*show*/) {
-    if (MSGlobals::gUseMesoSim) {
+                                    bool /*show*/,
+                                    bool forceMicro) {
+    if (MSGlobals::gUseMesoSim && !forceMicro) {
         return new MEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, name, vTypes, nextEdges, detectPersons);
     }
     return new MSInductLoop(id, lane, pos, length, name, vTypes, nextEdges, detectPersons, false);
@@ -507,7 +508,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         const bool useLanes, const std::string& excludeEmpty,
         const bool withInternal, const bool trackVehicles, const int detectPersons,
         const double maxTravelTime, const double minSamples,
-        const double haltSpeed, const std::string& vTypes,
+        const double haltSpeed, const double haltSpeedRel, const std::string& vTypes,
         const std::string& writeAttributes,
         std::vector<MSEdge*> edges,
         AggregateType aggregate,
@@ -527,7 +528,7 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
             (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC)) ||
             (type == "performance")) {
         det = new MSMeanData_Net(id, begin, end, useLanes, excludeEmpty,
-                                 withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
+                                 withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, haltSpeedRel, vTypes, writeAttributes, edges, aggregate);
     } else if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::EMISSIONS)) || (type == "hbefa")) {
         if (type == "hbefa") {
             WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead."));

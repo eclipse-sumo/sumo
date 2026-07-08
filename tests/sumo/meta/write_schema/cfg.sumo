@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-14T16:37:03.252403+01:00 by Eclipse SUMO sumo v1_27_0+0202-1c25520502a
+<!-- generated on 2026-06-26T09:46:12.833417+01:00 by Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -216,6 +216,7 @@
             <xsd:element name="railsignal.moving-block.max-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.max-block-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railsignal.default-classes" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="slope-centered" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="time-to-impatience" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="default.departspeed" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.departlane" type="strOptionType" minOccurs="0"/>

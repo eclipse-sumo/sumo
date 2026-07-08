@@ -244,7 +244,7 @@ One thing to note here is the usage of the dispatch algorithm which will determi
 which request to serve next.
 
 ## Running the scenario generation and the scenario
-Now finally we can run by double clicking the script or if you are on a Linux / MacOS console:
+Now finally we can run by double clicking the script or if you are on a Linux / macOS console:
 ```
 ./createNetTaxi.py
 ```

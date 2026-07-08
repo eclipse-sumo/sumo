@@ -6,10 +6,10 @@ Warning: Could not find corresponding edge or compatible lane for free-floating 
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2425943543' (Koelnmesse). Thus, it will be removed!
 Warning: Could not find corresponding edge or compatible lane for free-floating pt stop '2547316987' (Stegerwaldsiedlung). Thus, it will be removed!
 Warning: Converting invalid rail_crossing to priority junction '143456953'.
-Warning: Converting invalid rail_crossing to priority junction '1716377947'.
-Warning: Converting invalid rail_crossing to priority junction '1716377951'.
-Warning: Converting invalid rail_crossing to priority junction '2547316940'.
 Warning: Converting invalid rail_crossing to priority junction '2547316975'.
+Warning: Converting invalid rail_crossing to priority junction '576284145'.
+Warning: Converting invalid rail_crossing to priority junction '6875994934'.
+Warning: Converting invalid rail_crossing to priority junction '6875994936'.
 Warning: Found sharp turn with radius 5.61 at the start of edge '20832138'.
 Warning: Speed of straight connection '411043475#0_0->132406503_0' reduced by 10.54 due to turning radius of 38.03 (length=18.66, angle=43.71).
 Warning: Speed of straight connection '132406507#0_0->132406507#1_0' reduced by 7.14 due to turning radius of 77.48 (length=2.35, angle=16.75).
@@ -17,5 +17,5 @@ Warning: Speed of straight connection '132406507#0_1->132406507#1_1' reduced by 
 Warning: Speed of straight connection '132406504#1_1->132406495#0_0' reduced by 9.43 due to turning radius of 61.20 (length=4.84, angle=19.59).
 Warning: Speed of straight connection '132406504#1_2->132406495#0_1' reduced by 13.26 due to turning radius of 38.33 (length=3.01, angle=19.59).
 Warning: Writing incomplete roundabout. Edges: '157285910#0 157285910#1' no longer exist'
-Warning: 12 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 6 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 8 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

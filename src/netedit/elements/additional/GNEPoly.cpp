@@ -39,6 +39,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
                   GNEAdditional(net, tag),
@@ -99,6 +103,9 @@ GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket*
     // update geometry
     updateGeometry();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNEPoly::~GNEPoly() {
@@ -874,6 +881,7 @@ GNEPoly::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
         const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
         // draw geometry points
         GUIGeometry::drawGeometryPoints(d, myAdditionalGeometry.getShape(), color, geometryPointSize, exaggeration,
+                                        myNet->getViewNet()->getNetworkViewOptions().showPolygonSymbols(),
                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // draw dotted contours for geometry points if we're in move mode
         if (moveMode) {

@@ -434,10 +434,10 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         n->node = node;
         if (n->railwayCrossing) {
-            if (n->getParameter("crossing:barrier") != "no") {
+            if (n->getParameter("crossing:barrier", "no") != "no"
+                    || n->getParameter("crossing.light") == "yes"
+                    || n->tlsControlled) {
                 node->reinit(pos, SumoXMLNodeType::RAIL_CROSSING);
-            } else if (n->getParameter("crossing.light") == "yes") {
-                node->reinit(pos, SumoXMLNodeType::TRAFFIC_LIGHT);
             }
         } else if (n->railwaySignal) {
             node->reinit(pos, SumoXMLNodeType::RAIL_SIGNAL);

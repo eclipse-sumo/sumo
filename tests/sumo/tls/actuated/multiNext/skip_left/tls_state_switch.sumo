@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-10-12T16:44:25.429906+01:00 by Eclipse SUMO sumo v1_24_0+1269-a7da7ebfcdc
+<!-- generated on 2026-06-30T09:54:30.264901+01:00 by Eclipse SUMO sumo v1_27_1+0046-8671af4b981
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 

@@ -842,6 +842,9 @@ struct GNEViewNetHelper {
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 
+        /// @brief check if draw polygon symbols
+        bool showPolygonSymbols() const;
+
         /// @brief checkable button to show grid button
         MFXCheckableButton* menuCheckToggleGrid = nullptr;
 
@@ -889,6 +892,9 @@ struct GNEViewNetHelper {
 
         /// @brief check checkable to create auto create opposite edge
         MFXCheckableButton* menuCheckAutoOppositeEdge = nullptr;
+
+        /// @brief check checkable to show polygon symbols
+        MFXCheckableButton* menuCheckShowPolygonSymbols = nullptr;
 
     private:
         /// @brief pointer to net

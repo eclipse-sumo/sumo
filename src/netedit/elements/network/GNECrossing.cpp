@@ -33,6 +33,10 @@
 // method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNECrossing::GNECrossing(GNENet* net) :
     GNENetworkElement(net, "", SUMO_TAG_CROSSING),
     myMoveElementCrossing(new GNEMoveElementCrossing(this)),
@@ -48,6 +52,9 @@ GNECrossing::GNECrossing(GNEJunction* junction, std::vector<NBEdge*> crossingEdg
     // set parent
     setParent<GNEJunction*>(junction);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNECrossing::~GNECrossing() {
@@ -536,7 +543,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, myCrossingGeometry.getShape(), darkerColor,
                                             s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                            true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
         // pop layer matrix
         GLHelper::popMatrix();

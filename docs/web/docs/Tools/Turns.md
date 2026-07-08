@@ -284,7 +284,7 @@ By setting option **--optimize `<INT>`**. The number of times that a route is us
 When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
 
 The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simultaneously minimizing the total number of used routes (vehicles).
-  A higher value, favours solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**.
+  A higher value, favors solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**.
 
 !!! note
     Optimization requires [scipy](https://www.scipy.org/).
@@ -302,7 +302,7 @@ There is a range of reasons that could lead to a deviation between the routeSamp
 
 - Selecting a set of routes to match a given set of counts is generally an underdetermined problem which means there is of not a unique solution. If there are insufficient constraints on the solution space (not enough counts), the chosen solution may appear implausible
 - Input routes are not representative of the real routes (see [here](#obtaining_initial_routes) for helpful options)
-     - not covering the counting locations       
+     - not covering the counting locations
      - containing unlikely routes
      - having routes in unrealistic proportions (which then biases the sampling algorithm towards unlikely routes)
 - Temporal patterns are not captured by the given interval data (i.e. by only having counts for the whole day). This can be mitigated by option **--depart-distribution**.

@@ -205,7 +205,7 @@ private:
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
-    std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
+    std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId>, ComparatorNumericalIdLess> myCrossingWaits;
     std::map<JPS_StageId, const MSLane*> myCrossings;
 
     static const int GEOS_QUADRANT_SEGMENTS;

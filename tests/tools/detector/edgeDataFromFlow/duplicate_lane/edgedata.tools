@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-08 08:51:39.554939 by Eclipse SUMO edgeDataFromFlow.py v1_27_1+0213-5ef68f7d358
+<configuration>
+    <detector-file value="input_detectors.det.xml"/>
+    <detector-flow-file value="input_flows.txt"/>
+    <output-file value="edgedata.xml"/>
+    <verbose value="True"/>
+</configuration>
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/data_file.xsd">
+    <interval id="flowdata" begin="0" end="86400">
+        <edge id="1" qLKW="0" qPKW="900.0" groups="1"/>
+        <edge id="2" qLKW="0" qPKW="900.0" groups="1"/>
+    </interval>
+</data>

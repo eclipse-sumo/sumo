@@ -43,6 +43,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNETAZ::GNETAZ(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_TAZ),
     TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, ""),
@@ -60,6 +64,9 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, FileBucket* fileBucket, const
     // update geometry
     updateGeometry();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNETAZ::~GNETAZ() {
@@ -312,6 +319,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
                     // draw geometry points
                     GUIGeometry::drawGeometryPoints(d, myAdditionalGeometry.getShape(), darkerColor, geometryPointSize, TAZExaggeration,
+                                                    myNet->getViewNet()->getNetworkViewOptions().showPolygonSymbols(),
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                     // draw dotted contours for geometry points if we're in move mode
                     if (moveMode) {
@@ -333,13 +341,13 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(darkerColor);
                 // draw circle
-                GLHelper::drawFilledCircleDetailled(d, centerRadius);
+                GLHelper::drawFilledCircleDetailed(d, centerRadius);
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
                 GLHelper::setColor(color);
                 // draw circle
-                GLHelper::drawFilledCircleDetailled(d, centerRadius * 0.8);
+                GLHelper::drawFilledCircleDetailed(d, centerRadius * 0.8);
                 // pop center matrix
                 GLHelper::popMatrix();
             }

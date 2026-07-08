@@ -1231,6 +1231,17 @@ MSVehicle::getSlope() const {
     if (myLane == nullptr) {
         return 0;
     }
+    if (MSGlobals::gSlopeCentered) {
+        MSLane* centerLane = myLane;
+        double centerPos = getPositionOnLane() - getLength() / 2;
+        int furtherIndex = 0;
+        while (centerPos < 0 && furtherIndex < (int)myFurtherLanes.size()) {
+            centerLane = myFurtherLanes[furtherIndex];
+            centerPos += centerLane->getLength();
+            furtherIndex++;
+        }
+        return centerLane->getShape().slopeDegreeAtOffset(centerLane->interpolateLanePosToGeometryPos(centerPos));
+    }
     const double posLat = myState.myPosLat; // @todo get rid of the '-'
     Position p1 = getPosition();
     Position p2 = getBackPosition();

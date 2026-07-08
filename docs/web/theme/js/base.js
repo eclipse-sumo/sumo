@@ -1,11 +1,10 @@
-function getSearchTerm(){
-    let sPageURL = window.location.search.substring(1);
-    let sURLVariables = sPageURL.split('&');
-    for (let i = 0; i < sURLVariables.length; i++)
-    {
-        let sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == 'q')
-        {
+function getSearchTerm() {
+    const sPageURL = window.location.search.substring(1);
+    const sURLVariables = sPageURL.split('&');
+
+    for (const variable of sURLVariables) {
+        const sParameterName = variable.split('=');
+        if (sParameterName[0] === 'q') {
             return sParameterName[1];
         }
     }
@@ -13,11 +12,11 @@ function getSearchTerm(){
 
 $(document).ready(function() {
 
-    if (navigator.userAgent.match(/msie|trident/i)) {
+    if (/msie|trident/i.test(navigator.userAgent)) {
         $('#dark-mode-div').hide();
-      }
+    }
 
-    var search_term = getSearchTerm(),
+    let search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),
         $keyboard_modal = $('#mkdocs_keyboard_modal');
 
@@ -46,8 +45,8 @@ $(document).ready(function() {
     // Keyboard navigation
     document.addEventListener("keydown", function(e) {
         if ($(e.target).is(':input')) return true;
-        var key = e.which || e.keyCode || window.event && window.event.keyCode;
-        var page;
+        const key = e.key;
+        let page;
         switch (key) {
             case shortcuts.search:
                 e.preventDefault();
@@ -66,18 +65,20 @@ $(document).ready(function() {
         }
         if (page) {
             $keyboard_modal.modal('hide');
-            window.location.href = page;
+            globalThis.location.href = page;
         }
     });
 
     $('table').addClass('table table-striped table-hover');
 
     // Improve the scrollspy behavior when users click on a TOC item.
-    $(".bs-sidenav a").on("click", function() {
-        var clicked = this;
-        setTimeout(function() {
-            var active = $('.nav li.active a');
+    $(".bs-sidenav a").on("click", function(event) {
+        const clicked = event.currentTarget;
+
+        setTimeout(() => {
+            let active = $('.nav li.active a');
             active = active[active.length - 1];
+
             if (clicked !== active) {
                 $(active).parent().removeClass("active");
                 $(clicked).parent().addClass("active");
@@ -98,117 +99,102 @@ $("li.disabled a").click(function() {
 });
 
 const keyCodes = {
-  8: 'backspace',
-  9: 'tab',
-  13: 'enter',
-  16: 'shift',
-  17: 'ctrl',
-  18: 'alt',
-  19: 'pause/break',
-  20: 'caps lock',
-  27: 'escape',
-  32: 'spacebar',
-  33: 'page up',
-  34: 'page down',
-  35: 'end',
-  36: 'home',
-  37: '&larr;',
-  38: '&uarr;',
-  39: '&rarr;',
-  40: '&darr;',
-  45: 'insert',
-  46: 'delete',
-  48: '0',
-  49: '1',
-  50: '2',
-  51: '3',
-  52: '4',
-  53: '5',
-  54: '6',
-  55: '7',
-  56: '8',
-  57: '9',
-  65: 'a',
-  66: 'b',
-  67: 'c',
-  68: 'd',
-  69: 'e',
-  70: 'f',
-  71: 'g',
-  72: 'h',
-  73: 'i',
-  74: 'j',
-  75: 'k',
-  76: 'l',
-  77: 'm',
-  78: 'n',
-  79: 'o',
-  80: 'p',
-  81: 'q',
-  82: 'r',
-  83: 's',
-  84: 't',
-  85: 'u',
-  86: 'v',
-  87: 'w',
-  88: 'x',
-  89: 'y',
-  90: 'z',
-  91: 'Left Windows Key / Left ⌘',
-  92: 'Right Windows Key',
-  93: 'Windows Menu / Right ⌘',
-  96: 'numpad 0',
-  97: 'numpad 1',
-  98: 'numpad 2',
-  99: 'numpad 3',
-  100: 'numpad 4',
-  101: 'numpad 5',
-  102: 'numpad 6',
-  103: 'numpad 7',
-  104: 'numpad 8',
-  105: 'numpad 9',
-  106: 'multiply',
-  107: 'add',
-  109: 'subtract',
-  110: 'decimal point',
-  111: 'divide',
-  112: 'f1',
-  113: 'f2',
-  114: 'f3',
-  115: 'f4',
-  116: 'f5',
-  117: 'f6',
-  118: 'f7',
-  119: 'f8',
-  120: 'f9',
-  121: 'f10',
-  122: 'f11',
-  123: 'f12',
-  124: 'f13',
-  125: 'f14',
-  126: 'f15',
-  127: 'f16',
-  128: 'f17',
-  129: 'f18',
-  130: 'f19',
-  131: 'f20',
-  132: 'f21',
-  133: 'f22',
-  134: 'f23',
-  135: 'f24',
-  144: 'num lock',
-  145: 'scroll lock',
-  186: '&semi;',
-  187: '&equals;',
-  188: '&comma;',
-  189: '&hyphen;',
-  190: '&period;',
-  191: '&quest;',
-  192: '&grave;',
-  219: '&lsqb;',
-  220: '&bsol;',
-  221: '&rsqb;',
-  222: '&apos;',
+  Backspace: 'backspace',
+  Tab: 'tab',
+  Enter: 'enter',
+  Shift: 'shift',
+  Control: 'ctrl',
+  Alt: 'alt',
+  Pause: 'pause/break',
+  CapsLock: 'caps lock',
+  Escape: 'escape',
+  ' ': 'spacebar',
+  PageUp: 'page up',
+  PageDown: 'page down',
+  End: 'end',
+  Home: 'home',
+  ArrowLeft: '&larr;',
+  ArrowUp: '&uarr;',
+  ArrowRight: '&rarr;',
+  ArrowDown: '&darr;',
+  Insert: 'insert',
+  Delete: 'delete',
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  a: 'a',
+  b: 'b',
+  c: 'c',
+  d: 'd',
+  e: 'e',
+  f: 'f',
+  g: 'g',
+  h: 'h',
+  i: 'i',
+  j: 'j',
+  k: 'k',
+  l: 'l',
+  m: 'm',
+  n: 'n',
+  o: 'o',
+  p: 'p',
+  q: 'q',
+  r: 'r',
+  s: 's',
+  t: 't',
+  u: 'u',
+  v: 'v',
+  w: 'w',
+  x: 'x',
+  y: 'y',
+  z: 'z',
+  Meta: 'Windows / ⌘',
+  '*': 'multiply',
+  '+': 'add',
+  '-': 'subtract',
+  '.': '&period;',
+  '/': '&quest;',
+  F1: 'f1',
+  F2: 'f2',
+  F3: 'f3',
+  F4: 'f4',
+  F5: 'f5',
+  F6: 'f6',
+  F7: 'f7',
+  F8: 'f8',
+  F9: 'f9',
+  F10: 'f10',
+  F11: 'f11',
+  F12: 'f12',
+  F13: 'f13',
+  F14: 'f14',
+  F15: 'f15',
+  F16: 'f16',
+  F17: 'f17',
+  F18: 'f18',
+  F19: 'f19',
+  F20: 'f20',
+  F21: 'f21',
+  F22: 'f22',
+  F23: 'f23',
+  F24: 'f24',
+  NumLock: 'num lock',
+  ScrollLock: 'scroll lock',
+  ';': '&semi;',
+  '=': '&equals;',
+  ',': '&comma;',
+  '[': '&lsqb;',
+  '\\': '&bsol;',
+  ']': '&rsqb;',
+  "'": '&apos;',
+  '`': '&grave;',
 };
 
 ////////////////////////////////////////////////////

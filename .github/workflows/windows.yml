@@ -30,7 +30,7 @@ jobs:
 
     steps:
     - name: Cloning SUMO
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
         filter: tree:0
@@ -38,7 +38,7 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Cloning SUMO Libraries
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         repository: DLR-TS/SUMOLibraries
         path: SUMOLibraries
@@ -53,7 +53,7 @@ jobs:
     - name: ccache
       # do a clean build once a day
       if: github.event_name != 'schedule'
-      uses: hendrikmuhs/ccache-action@v1.2
+      uses: hendrikmuhs/ccache-action@v1.2.23
       with:
         key: ${{ matrix.build_type }}
         variant: sccache
@@ -67,7 +67,7 @@ jobs:
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
-        python -m pip install -r tools/req_ci.txt texttest pipdeptree
+        python -m pip install -r tools/req_ci.txt -r docs/web/requirements.txt texttest pipdeptree
         pipdeptree
 
     - name: Building SUMO plain
@@ -90,19 +90,25 @@ jobs:
         cmake --build build_msvc_debug
 
     - name: Building TraaS
-      run: cmake --build build_msvc --config Release --target traas
-
-    - name: Uploading artifacts (SUMO binaries)
-      uses: actions/upload-artifact@v7
-      with:
-        name: windows-${{ matrix.build_type }}-binaries
-        path: bin
-        retention-days: 30
+      run: cmake --build build_msvc --target traas
 
     - name: Running examples and unit tests
       run: |
-        cmake --build build_msvc --config Release --target examples
+        cmake --build build_msvc --target examples
         ctest --test-dir build_msvc --output-on-failure
+
+    - name: Building installers
+      run: |
+        cd build_msvc
+        cpack -B D:/cpkg
+
+    - name: Uploading artifacts (SUMO installers)
+      uses: actions/upload-artifact@v7
+      with:
+        name: windows-${{ matrix.build_type }}-installers
+        path: |
+          D:/cpkg/sumo-*
+          D:/cpkg/_CPack_Packages/win64/WIX/wix.log
 
     # The following tests need to be split because of resource constraints. If they are not in separate steps
     # a failing texttest run will not let the step fail because only the final exit code counts.

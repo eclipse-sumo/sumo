@@ -183,7 +183,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
     scenarios
 
 - netconvert
-  - prunning on a bounding box was revalidated; tests were added
+  - pruning on a bounding box was revalidated; tests were added
 
 - dfrouter
   - made reading of detector positions more fault-tolerant

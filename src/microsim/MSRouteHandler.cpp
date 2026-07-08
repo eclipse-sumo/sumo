@@ -312,6 +312,7 @@ void
 MSRouteHandler::closeVehicleTypeDistribution() {
     if (myCurrentVTypeDistribution != nullptr) {
         if (MSGlobals::gStateLoaded && MSNet::getInstance()->getVehicleControl().hasVTypeDistribution(myCurrentVTypeDistributionID)) {
+            myCurrentVTypeDistribution = nullptr;
             delete myCurrentVTypeDistribution;
             return;
         }
@@ -984,18 +985,35 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
 
 void
 MSRouteHandler::closeVType() {
-    MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType, getFileName());
-    vehType->check();
-    if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
-        const std::string id = vehType->getID();
-        delete vehType;
-        if (!MSGlobals::gStateLoaded) {
-            throw ProcessError(TLF("Another vehicle type (or distribution) with the id '%' exists.", id));
+    MSVehicleType* vehType = nullptr;
+    if (myCurrentVTypeRef.empty()) {
+        vehType = MSVehicleType::build(*myCurrentVType, getFileName());
+        vehType->check();
+        if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
+            const std::string id = vehType->getID();
+            delete vehType;
+            if (!MSGlobals::gStateLoaded) {
+                throw ProcessError(TLF("Another vehicle type (or distribution) with the id '%' exists.", id));
+            }
         }
-    } else {
-        if (myCurrentVTypeDistribution != nullptr) {
-            myCurrentVTypeDistribution->add(vehType, vehType->getDefaultProbability());
+    }
+    if (myCurrentVTypeDistribution != nullptr) {
+        if (!myCurrentVTypeRef.empty()) {
+            const RandomDistributor<MSVehicleType*>* const dist = MSNet::getInstance()->getVehicleControl().getVTypeDistribution(myCurrentVTypeRef);
+            if (dist != nullptr) {
+                const double distProb = (myCurrentVTypeProbability >= 0 ? myCurrentVTypeProbability : 1) / dist->getOverallProb();
+                std::vector<double>::const_iterator probIt = dist->getProbs().begin();
+                for (MSVehicleType* const type : dist->getVals()) {
+                    myCurrentVTypeDistribution->add(type, distProb * *probIt);
+                    probIt++;
+                }
+                return;
+            } else {
+                vehType = MSNet::getInstance()->getVehicleControl().getVType(myCurrentVTypeRef);
+            }
         }
+        double probability = myCurrentVTypeProbability >= 0 ? myCurrentVTypeProbability : vehType->getDefaultProbability();
+        myCurrentVTypeDistribution->add(vehType, probability);
     }
 }
 
@@ -1876,6 +1894,13 @@ MSRouteHandler::initLaneTree(NamedRTree* tree) {
 SumoRNG*
 MSRouteHandler::getRNG() {
     return &myParsingRNG;
+}
+
+
+const SUMOVTypeParameter*
+MSRouteHandler::getVTypeParameter(const std::string& refid) {
+    const auto t = MSNet::getInstance()->getVehicleControl().getVType(refid);
+    return t != nullptr ? &t->getParameter() : nullptr;
 }
 
 

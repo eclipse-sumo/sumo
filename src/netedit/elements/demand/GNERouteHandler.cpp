@@ -1395,7 +1395,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     if (person) {
         // center view after creation
         if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(person->getPositionInView())) {
-            myNet->getViewNet()->centerTo(person->getPositionInView(), false);
+            myNet->getViewNet()->centerToPos(person->getPositionInView(), false);
         }
     }
     delete personPlanObject;
@@ -1468,7 +1468,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     if (container) {
         // center view after creation
         if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(container->getPositionInView())) {
-            myNet->getViewNet()->centerTo(container->getPositionInView(), false);
+            myNet->getViewNet()->centerToPos(container->getPositionInView(), false);
         }
     }
     delete containerPlanObject;

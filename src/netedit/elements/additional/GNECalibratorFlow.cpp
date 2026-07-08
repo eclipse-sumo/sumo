@@ -33,6 +33,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional(net, GNE_TAG_CALIBRATOR_FLOW),
     GNEAdditionalListed(this) {
@@ -76,6 +80,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     // reset ID
     id.clear();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNECalibratorFlow::~GNECalibratorFlow() {}

@@ -120,3 +120,6 @@ ticket17847
 
 # cars should not switch rail signals
 ticket17862
+
+# invalid assertion
+ticket18196

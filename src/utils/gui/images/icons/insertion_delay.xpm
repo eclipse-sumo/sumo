@@ -1,0 +1,27 @@
+/* XPM */
+static const char * insertion_delay_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c Black",
+". c #EF775B",
+"X c #EFE4B0",
+"o c #C3C3C3",
+"O c None",
+/* pixels */
+"OOX...XOOOOOOOOO",
+"OOX...XOOOOOOOOO",
+"OOX...XOOOOOOOOO",
+"OOX...XOOOOOOOOO",
+"OOX...XOOOOOOOOO",
+"OOX...X   OOOOOO",
+"XXX...XXXo OOOOO",
+"X.......Xoo OOOO",
+"OX.....Xoooo OOO",
+"OOX...Xooooo OOO",
+"OO X.Xoooo     O",
+"OO oXoooooo   OO",
+"OO ooooooooo OOO",
+"OOO ooooooooOOOO",
+"OOOO ooooo OOOOO",
+"OOOOO     OOOOOO"
+};

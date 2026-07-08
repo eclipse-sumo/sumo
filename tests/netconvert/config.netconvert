@@ -16,6 +16,7 @@ copy_test_path:elmar_connected_lanes.txt
 copy_test_path:visum.net
 copy_test_path:vissim.inp
 copy_test_path:input_net.net.xml
+copy_test_path:input_net.net.xml.gz
 copy_test_path:input_net2.net.xml
 copy_test_path:osm.xml
 copy_test_path:osm2.xml
@@ -56,6 +57,16 @@ plain_connections:plain.con.xml
 plain_tllogic:plain.tll.xml
 plain_types:plain.typ.xml
 plain_cfg:plain.netccfg
+csv_plain_nodes:plain.nod.csv
+csv_plain_edges:plain.edg.csv
+csv_plain_connections:plain.con.csv
+csv_plain_tllogic:plain.tll.csv
+csv_plain_types:plain.typ.csv
+parquet_plain_nodes:plain.nod.parquet
+parquet_plain_edges:plain.edg.parquet
+parquet_plain_connections:plain.con.parquet
+parquet_plain_tllogic:plain.tll.parquet
+parquet_plain_types:plain.typ.parquet
 foreign:foreign.net
 cfg:config.cfg
 log:log.txt
@@ -70,6 +81,13 @@ pois:pois.add.xml
 additional:additional.xml
 ptlines:ptlines.xml
 topology:topology.xml
+
+[collate_script]
+parquet_plain_nodes:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_edges:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_connections:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_tllogic:python -u $SUMO_HOME/tools/output/parquet2csv.py
+parquet_plain_types:python -u $SUMO_HOME/tools/output/parquet2csv.py
 
 [run_dependent_text]
 plain_nodes:<!--{[->]}-->
@@ -89,7 +107,7 @@ pois:<!--{[->]}-->
 output:Parsing types from '.*/data/typemap/{REPLACE Parsing types from 'sumo/data/typemap/}
 output:done \(.*\)\.{REPLACE done.}
 log:done \(.*\)\.{REPLACE done.}
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 elmar_links:<proj.scale value="1e-005"/>{REPLACE <proj.scale value="1e-05"/>}
@@ -114,5 +132,8 @@ cfg:0.000000001
 plain_nodes:0.00000101
 plain_edges:0.00000101
 plain_connections:0.0101
+csv_plain_nodes:0.00000101
+csv_plain_edges:0.00000101
+csv_plain_connections:0.0101
 elmar_nodes:0.0101
 additional:0.0101

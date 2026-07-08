@@ -27,6 +27,10 @@
 // member method definitions
 // ===========================================================================
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4355) // mask warning about "this" in initializers
+#endif
 GNERerouterInterval::GNERerouterInterval(GNENet* net) :
     GNEAdditional(net, SUMO_TAG_INTERVAL),
     GNEAdditionalListed(this) {
@@ -43,6 +47,9 @@ GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, const SU
     // update boundary of rerouter parent
     rerouterParent->updateCenteringBoundary(true);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNERerouterInterval::~GNERerouterInterval() {}

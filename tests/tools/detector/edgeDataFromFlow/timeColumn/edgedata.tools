@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-17 12:29:20.338909 by edgeDataFromFlow.py v1_22_0+1589-d3d4f3ce1db
-  options: -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml <doubleminus>id-column DetectorName <doubleminus>time-column Stunde <doubleminus>time-scale 3600 <doubleminus>end 24 <doubleminus>interval 1 <doubleminus>verbose
+<!-- generated on 2026-07-04 12:04:05.010313 by Eclipse SUMO edgeDataFromFlow.py v1_27_1+0120-73ee0163a09
+<configuration>
+    <detector-file value="input_detectors.det.xml"/>
+    <detector-flow-file value="input_flows.txt"/>
+    <output-file value="edgedata.xml"/>
+    <id-column value="DetectorName"/>
+    <time-column value="Stunde"/>
+    <time-scale value="3600"/>
+    <end value="24.0"/>
+    <interval value="1.0"/>
+    <verbose value="True"/>
+</configuration>
 -->
 
-<data>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/data_file.xsd">
     <interval id="flowdata" begin="0" end="3600">
         <edge id="1" qLKW="0" qPKW="400.0" groups="1"/>
         <edge id="2" qLKW="0" qPKW="200.0" groups="1"/>

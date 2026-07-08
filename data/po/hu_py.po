@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2025-10-06 11:40+0200\n"
+"POT-Creation-Date: 2025-07-29 11:04+0200\n"
 "PO-Revision-Date: 2026-03-17 11:05+0000\n"
 "Last-Translator: Dániel Takács <1takacsdaniel@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -95,7 +95,7 @@ msgstr "Dinamikus útválasztási táblázat (DRT) - Haladó (új)"
 msgid "DRT - Demo"
 msgstr ""
 
-#: tools/game/runner.py:86 tools/game/runner.py:96
+#: tools/game/runner.py:86 /tools/game/runner.py:96
 msgid "Highscore"
 msgstr ""
 

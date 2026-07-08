@@ -1,0 +1,9 @@
+edges_version,edge_id,edge_from,edge_to,edge_name,edge_priority,edge_type,edge_routingType,edge_numLanes,edge_speed,edge_friction,edge_shape,edge_spreadType,edge_length,edge_width,edge_endOffset,edge_allow,edge_disallow,edge_distance,edge_bidi
+1.20,CE,C,E,,2,,,2,13.89,,,,,,,,,,
+1.20,CN,C,N,,2,,,2,13.89,,,,,,,,,,
+1.20,CS,C,S,,2,,,2,13.89,,,,,,,,,,
+1.20,CW,C,W,,2,,,2,13.89,,,,,,,,,,
+1.20,EC,E,C,,2,,,2,13.89,,,,,,,,,,
+1.20,NC,N,C,,2,,,2,13.89,,,,,,,,,,
+1.20,SC,S,C,,2,a,,2,13.89,,,,,,,,,,
+1.20,WC,W,C,,2,,,2,13.89,,,,,,,,,,

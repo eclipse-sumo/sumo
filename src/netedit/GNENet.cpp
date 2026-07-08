@@ -107,7 +107,7 @@ GNENet::GNENet(GNEApplicationWindow* applicationWindow, NBNetBuilder* netBuilder
     // build templates
     myACTemplates->buildTemplates();
     // init junction and edges
-    initJunctionsAndEdges();
+    initJunctionsAndEdges(false);
     // check Z boundary
     if (myZBoundary.ymin() != Z_INITIALIZED) {
         myZBoundary.add(0, 0);
@@ -2928,7 +2928,7 @@ GNENet::getEdgeIDCounter() {
 // ===========================================================================
 
 void
-GNENet::initJunctionsAndEdges() {
+GNENet::initJunctionsAndEdges(bool afterVolatile) {
     // init edge types
     for (const auto& edgeType : myNetBuilder->getTypeCont()) {
         // register edge type
@@ -2937,7 +2937,7 @@ GNENet::initJunctionsAndEdges() {
     // init junctions (by default Crossing and walking areas aren't created)
     for (const auto& nodeName : myNetBuilder->getNodeCont().getAllNames()) {
         // create and register junction
-        myAttributeCarriers->registerJunction(new GNEJunction(this, myNetBuilder->getNodeCont().retrieve(nodeName), true));
+        myAttributeCarriers->registerJunction(new GNEJunction(this, myNetBuilder->getNodeCont().retrieve(nodeName), true), afterVolatile);
     }
     // init edges
     for (const auto& edgeName : myNetBuilder->getEdgeCont().getAllNames()) {
@@ -3038,7 +3038,7 @@ GNENet::computeAndUpdate(OptionsCont& neteditOptions, bool volatileOptions) {
         // enable update geometry again
         myUpdateGeometryEnabled = true;
         // init again junction an edges (Additionals and shapes will be loaded after the end of this function)
-        initJunctionsAndEdges();
+        initJunctionsAndEdges(true);
         // init default vTypes again
         myAttributeCarriers->addDefaultVTypes();
     } else {

@@ -591,7 +591,6 @@ public:
         return MIN2(vehMaxSpeed, myMaxSpeed * veh->getChosenSpeedFactor());
     }
 
-
     inline bool isSpeedModified() const {
         return mySpeedModified;
     }
@@ -603,6 +602,22 @@ public:
     inline double getSpeedLimit() const {
         return myMaxSpeed;
     }
+
+
+    inline double getSpeedLimit(SUMOVehicleClass svc) const {
+        if (myRestrictions != nullptr) {
+            std::map<SUMOVehicleClass, double>::const_iterator r = myRestrictions->find(svc);
+            if (r != myRestrictions->end()) {
+                if (mySpeedModified) {
+                    return MIN2(myMaxSpeed, r->second);
+                } else {
+                    return r->second;
+                }
+            }
+        }
+        return myMaxSpeed;
+    }
+
 
     /** @brief Returns the lane's friction coefficient
     * @return This lane's friction coefficient
