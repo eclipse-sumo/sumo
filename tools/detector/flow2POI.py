@@ -42,7 +42,7 @@ def get_options(args=None):
     parser.add_argument("-f", "--detector-flow-file", dest="flowfile", category="input", required=True,
                         type=ArgumentParser.file,
                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
-    parser.add_argument("--output-file", dest="poiOut", category="output", required=True,
+    parser.add_argument("-o", "--output-file", dest="poiOut", category="output", required=True,
                         type=ArgumentParser.additional_file,
                         help="output flow values as poi params", metavar="FILE")
     parser.add_argument("--id-column", default="Detector", dest="detcol",
