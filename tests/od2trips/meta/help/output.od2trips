@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips v1_27_0+0274-c1887d2568b
+Eclipse SUMO od2trips v1_27_1+0194-8d0b2b6a43c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -46,7 +46,8 @@ Output Options:
                                     derivable from the file name ('xml', 'csv',
                                     'parquet')
   --output.column-header STR       How to derive column headers from attribute
-                                    names ('none', 'tag', 'auto', 'plain')
+                                    names ('none', 'tag', 'auto', 'plain',
+                                    'full')
   --output.column-separator STR    Separator in CSV output
   -H, --human-readable-time        Write time values as hour:minute:second or
                                     day:hour:minute:second rather than seconds
