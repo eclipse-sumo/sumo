@@ -759,7 +759,7 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
 void
 NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
                                bool includeInternal, ConnectionStyle style, bool useGeo, bool geoAccuracy) {
-    assert(c.toEdge != 0);
+    assert(c.toEdge != nullptr);
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
     into.writeAttr(SUMO_ATTR_TO, c.toEdge->getID());
@@ -770,28 +770,16 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
         into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
         writePermissions(into, c.permissions);
-        if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING) {
-            into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft));
-        }
-        if (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING) {
-            into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight));
-        }
-        if (c.speed != NBEdge::UNSPECIFIED_SPEED) {
-            into.writeAttr(SUMO_ATTR_SPEED, c.speed);
-        }
-        if (c.customLength != NBEdge::UNSPECIFIED_LOADED_LENGTH) {
-            into.writeAttr(SUMO_ATTR_LENGTH, c.customLength);
-        }
+        const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft), !changeLeft);
+        const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight), !changeRight);
+        into.writeOptionalAttr(SUMO_ATTR_SPEED, c.speed, c.speed == NBEdge::UNSPECIFIED_SPEED);
+        into.writeOptionalAttr(SUMO_ATTR_LENGTH, c.customLength, c.customLength == NBEdge::UNSPECIFIED_LOADED_LENGTH);
         writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
-        if (c.uncontrolled != false) {
-            into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);
-        }
-        if (c.indirectLeft != false) {
-            into.writeAttr(SUMO_ATTR_INDIRECT, c.indirectLeft);
-        }
-        if (c.edgeType != "") {
-            into.writeAttr(SUMO_ATTR_TYPE, c.edgeType);
-        }
+        into.writeOptionalAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled, !c.uncontrolled);
+        into.writeOptionalAttr(SUMO_ATTR_INDIRECT, c.indirectLeft, !c.indirectLeft);
+        into.writeOptionalAttr(SUMO_ATTR_TYPE, c.edgeType, c.edgeType == "");
     }
     if (style != PLAIN) {
         if (includeInternal) {

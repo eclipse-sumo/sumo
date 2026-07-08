@@ -479,11 +479,7 @@ writePermissions(OutputDevice& into, SVCPermissions permissions) {
 
 void
 writePreferences(OutputDevice& into, SVCPermissions preferred) {
-    if (preferred == SVCAll || preferred == 0) {
-        return;
-    } else {
-        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred));
-    }
+    into.writeOptionalAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred), preferred == SVCAll || preferred == 0);
 }
 
 

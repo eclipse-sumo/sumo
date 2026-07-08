@@ -134,6 +134,12 @@ public:
      * This is not necessary for the functionality but very useful for debugging and tracking whether expected attributes
      * are still missing (triggers an error in checkAttr). If expected is empty, no tracking takes place.
      *
+     * The depth parameter is only for performance. If a tag at this depth is closed for the first time,
+     * the header is being written and buffered rows may be flushed. Setting it to a large value (which is also the default)
+     * means you are on the safe side if more attributes or tags show up later but it may result in buffering the complete
+     * output before writing the first line.
+     * Setting it to 0 triggers auto detection which means the first time a tag is closed the maximum depth will be determined.
+     *
      * @param[in] expected The enum values of the attrs which should be present before a row can be written.
      * @param[in] depth The maximum expected depth of nested XML elements.
      */
@@ -165,19 +171,25 @@ private:
         myNeedsWrite = true;
         if (!myWroteHeader) {
             std::string headerName = toString(attr);
-            if (myHeaderFormat != "plain" && !(myHeaderFormat == "auto" && std::find(myHeader.begin(), myHeader.end(), headerName) == myHeader.end())) {
-                headerName = myCurrentTag + "_" + headerName;
+            std::string prefix;
+            for (const auto& entry : myXMLStack) {
+                prefix += entry.first + "_";
             }
-            const auto colIt = std::find(myHeader.begin(), myHeader.end(), headerName);
-            if (colIt == myHeader.end()) {
+            const std::string fullHeaderName = prefix + headerName;
+            if (myHeaderFormat != "plain") {
+                headerName = myXMLStack.back().first + "_" + headerName;
+            }
+            const auto colIt = std::find(myFullHeader.begin(), myFullHeader.end(), fullHeaderName);
+            if (colIt == myFullHeader.end()) {
                 for (std::string& row : myBufferedRows) {
                     row += mySeparator;
                 }
                 myValues.resize(myHeader.size());
                 myHeader.emplace_back(headerName);
+                myFullHeader.emplace_back(fullHeaderName);
             } else {
                 // there might be missing attributes inbetween, so make sure header position and value size match
-                myValues.resize(std::distance(myHeader.begin(), colIt));
+                myValues.resize(std::distance(myFullHeader.begin(), colIt));
             }
         }
     }
@@ -191,17 +203,17 @@ private:
     /// @brief the CSV header
     std::vector<std::string> myHeader;
 
-    /// @brief the currently read tag (only valid when generating the header)
-    std::string myCurrentTag;
+    /// @brief the CSV header if we write the full name
+    std::vector<std::string> myFullHeader;
 
-    /// @brief The number of attributes in the currently open XML elements
-    std::vector<int> myXMLStack;
+    /// @brief The name and number of attributes in the currently open XML elements
+    std::vector<std::pair<const std::string, int> > myXMLStack;
 
     /// @brief the current attribute / column values
     std::vector<std::string> myValues;
 
     /// @brief the maximum depth of the XML hierarchy (excluding the root element)
-    int myMaxDepth = 2;
+    int myMaxDepth = 1000;
 
     /// @brief whether the CSV header line has been written
     bool myWroteHeader = false;

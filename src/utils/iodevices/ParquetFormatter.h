@@ -142,6 +142,12 @@ public:
      * This is not necessary for the functionality but very useful for debugging and tracking whether expected attributes
      * are still missing (triggers an error in checkAttr). If expected is empty, no tracking takes place.
      *
+     * The depth parameter is only for performance. If a tag at this depth is closed for the first time,
+     * the header is being written and buffered rows may be flushed. Setting it to a large value (which is also the default)
+     * means you are on the safe side if more attributes or tags show up later but it may result in buffering the complete
+     * output before writing the first line.
+     * Setting it to 0 triggers auto detection which means the first time a tag is closed the maximum depth will be determined.
+     *
      * @param[in] expected The enum values of the attrs which should be present before a row can be written.
      * @param[in] depth The maximum expected depth of nested XML elements.
      */

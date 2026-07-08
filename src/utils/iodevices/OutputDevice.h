@@ -383,7 +383,7 @@ public:
         return myFormatter->wroteHeader();
     }
 
-    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth) {
         myFormatter->setExpectedAttributes(expected, depth);
     }
 
