@@ -172,12 +172,13 @@ class DetectorGroupData:
 
 class DetectorReader(handler.ContentHandler):
 
-    def __init__(self, detFile=None, laneMap=None):
+    def __init__(self, detFile=None, laneMap=None, warnDoubleLane=False):
         self._edge2DetData = defaultdict(list)
         self._det2edge = {}
         self._currentGroup = None
         self._currentEdge = None
         self._laneMap = {} if laneMap is None else laneMap
+        self._warnDoubleLane = warnDoubleLane
         if detFile:
             parser = make_parser()
             parser.setContentHandler(self)
@@ -192,19 +193,20 @@ class DetectorReader(handler.ContentHandler):
         if self._currentGroup:
             self._currentGroup.ids.append(id)
         else:
-            haveGroup = False
+            group = None
             for data in self._edge2DetData[edge]:
                 if abs(data.pos - pos) <= MAX_POS_DEVIATION:
                     data.ids.append(id)
-                    if lane is not None:
-                        data.lanes.add(lane)
-                    haveGroup = True
+                    group = data
                     break
-            if not haveGroup:
-                self._edge2DetData[edge].append(
-                    DetectorGroupData(pos, True, id, detType))
-                if lane is not None:
-                    self._edge2DetData[edge][-1].lanes.add(lane)
+            if group is None:
+                group = DetectorGroupData(pos, True, id, detType)
+                self._edge2DetData[edge].append(group)
+            if lane is not None:
+                if self._warnDoubleLane and lane in group.lanes:
+                    print("Duplicate detectors ('%s') on lane '%s' at pos %s" % (
+                        id, lane, pos), file=sys.stderr)
+                group.lanes.add(lane)
         self._det2edge[id] = edge
 
     def getEdgeDetGroups(self, edge):

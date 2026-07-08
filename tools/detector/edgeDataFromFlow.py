@@ -118,8 +118,9 @@ def main(options):
     flowcols = options.flowcols.split(',')
     tMin = None
     tMax = None
-    for flowcol in flowcols:
-        detReader = detector.DetectorReader(options.detfile, LaneMap())
+    for i, flowcol in enumerate(flowcols):
+        detReader = detector.DetectorReader(options.detfile, LaneMap(),
+                                            warnDoubleLane=(i == 0))
         tMin, tMax = detReader.findTimes(
             options.flowfile, tMin, tMax,
             options.detcol, options.timecol,
