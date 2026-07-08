@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-08 08:30:10.412081 by Eclipse SUMO flow2POI.py v1_27_1+0207-1e2bc633935
+<!-- generated on 2026-07-08 08:31:03.036818 by Eclipse SUMO flow2POI.py v1_27_1+0209-3aa33cce9c0
 <configuration>
     <detector-file value="input_detectors.add.xml"/>
     <detector-flow-file value="input_flows.txt"/>
@@ -10,19 +10,19 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="e1_0" type="50.0" lane="E0_1" pos="69.21">
-        <param key="0" value="50.0"/>
+    <poi id="e1_0" type="250.0" lane="E0_1" pos="69.21">
+        <param key="0" value="250.0"/>
     </poi>
-    <poi id="e1_1" type="50.0" lane="E0_2" pos="68.98">
-        <param key="0" value="50.0"/>
+    <poi id="e1_1" type="250.0" lane="E0_2" pos="68.98">
+        <param key="0" value="250.0"/>
     </poi>
-    <poi id="e1_2" type="50.0" lane="E0_0" pos="69.45">
-        <param key="0" value="50.0"/>
+    <poi id="e1_2" type="350.0" lane="E0_0" pos="69.45">
+        <param key="0" value="350.0"/>
     </poi>
-    <poi id="e1_3" type="10.0" lane="E1_3" pos="75.26">
-        <param key="0" value="10.0"/>
+    <poi id="e1_3" type="80.0" lane="E1_3" pos="75.26">
+        <param key="0" value="80.0"/>
     </poi>
-    <poi id="e1_4" type="40.0" lane="E1_0" pos="75.26">
-        <param key="0" value="40.0"/>
+    <poi id="e1_4" type="120.0" lane="E1_0" pos="75.26">
+        <param key="0" value="120.0"/>
     </poi>
 </additional>
