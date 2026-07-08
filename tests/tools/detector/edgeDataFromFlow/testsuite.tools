@@ -22,3 +22,6 @@ interval
 timeColumn
 time_humanReadable
 timeFormat
+
+# warn about suspicious input
+duplicate_lane
