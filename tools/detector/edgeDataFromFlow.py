@@ -204,7 +204,7 @@ def main(options):
                 outf.write('    </interval>\n')
 
             if outf_turn is not None:
-                detVals = defaultdict(dict)  # detID : {attr:val}
+                detVals = defaultdict(lambda: defaultdict(lambda: 0))  # detID : {attr:val}
                 for flowcol in flowcols:
                     values = detector.parseFlowFile(options.flowfile,
                                                     detCol=options.detcol,
@@ -214,7 +214,7 @@ def main(options):
                                                     timeOffset=options.timeOffset)
                     for det, time, flow, speed in values:
                         if det in det2turn:
-                            detVals[det][flowcol] = flow
+                            detVals[det][flowcol] += flow
 
                 if detVals:
                     outf_turn.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * ts, iEndM * ts))
