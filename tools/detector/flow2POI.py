@@ -11,14 +11,12 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    edgeDataFromFlow.py
+# @file    flow2POI.py
 # @author  Jakob Erdmann
-# @author  Mirko Barthauer
-# @date    2020-02-27
+# @date    2026-07-07
 
 """
-This script converts a flow file in csv-format to XML
-(generalized meandata format : http://sumo.dlr.de/xsd/meandata_file.xsd)
+This script converts a flow file and a detector file into POIS for comparing flows locally
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -37,7 +35,7 @@ from sumolib.options import ArgumentParser  # noqa
 
 
 def get_options(args=None):
-    parser = ArgumentParser(description="Convert detector flow file to edgeData format")
+    parser = ArgumentParser(description="Convert detector flow file to POIs")
     parser.add_argument("-d", "--detector-file", dest="detfile", category="input", required=True,
                         type=ArgumentParser.additional_file,
                         help="read detectors from FILE", metavar="FILE")
@@ -91,11 +89,6 @@ def main(options):
             options.flowfile, tMin, tMax,
             options.detcol, options.timecol,
             options.timeFormat, options.timeOffset)
-    hasData = detReader.readFlows(options.flowfile, flow=options.flowcol, det=options.detcol,
-                                  time=options.timecol, timeVal=tMin,
-                                  timeMax=tMin + 1000,
-                                  timeFormat=options.timeFormat,
-                                  timeOffset=options.timeOffset)
     if options.verbose:
         print("found data from minute %s to %s" % (int(tMin), int(tMax)))
 
@@ -107,10 +100,6 @@ def main(options):
 
     while beginM <= endM:
         iEndM = beginM + intervalM
-        edges = defaultdict(dict)  # edge : {attr:val}
-        usedGroups = defaultdict(lambda: 0)
-        maxGroups = defaultdict(lambda: 0)  # edge : nGroups
-
         values = detector.parseFlowFile(options.flowfile,
                                         detCol=options.detcol,
                                         timeCol=options.timecol, flowCol=options.flowcol,
@@ -127,7 +116,8 @@ def main(options):
         for det, timeFlows in detVals.items():
             if det in det2pos:
                 lane, pos = det2pos[det]
-                outf.write('    <poi id="%s" type="%s" lane="%s" pos="%s">\n' % (det, sum(timeFlows.values()), lane, pos))
+                outf.write('    <poi id="%s" type="%s" lane="%s" pos="%s">\n' % (
+                    det, sum(timeFlows.values()), lane, pos))
                 for time in sorted(timeFlows.keys()):
                     outf.write('        <param key="%s" value="%s"/>\n' % (time, timeFlows[time]))
                 outf.write('    </poi>\n')
