@@ -316,6 +316,7 @@ GNELane::updateGeometry() {
         // Update outgoings connections of this lane
         const auto outGoingConnections = getGNEOutcomingConnections();
         for (const auto& connection : outGoingConnections) {
+            connection->markConnectionGeometryDeprecated();
             connection->updateGeometry();
         }
     }
