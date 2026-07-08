@@ -96,7 +96,7 @@ def main(options):
     beginM = int(sumolib.miscutils.parseTime(options.begin, ts) / ts)
     intervalM = int(sumolib.miscutils.parseTime(options.interval, ts) / ts)
     endM = min(int(sumolib.miscutils.parseTime(options.end, ts) / ts), tMax)
-    detVals = defaultdict(dict)  # detID : begin : val
+    detVals = defaultdict(lambda: defaultdict(lambda: 0))  # detID : begin : val
 
     while beginM <= endM:
         iEndM = beginM + intervalM
@@ -107,7 +107,7 @@ def main(options):
                                         timeFormat=options.timeFormat,
                                         timeOffset=options.timeOffset)
         for det, time, flow, speed in values:
-            detVals[det][beginM] = flow
+            detVals[det][beginM] += flow
         beginM += intervalM
 
     det2pos = getDetectorPositions(options.detfile)
