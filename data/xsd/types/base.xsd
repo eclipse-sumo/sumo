@@ -196,6 +196,13 @@
 
     <xsd:complexType name="phaseType">
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="state" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[ruyYgGoOs]+"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="minDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="maxDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="earliestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
@@ -205,13 +212,6 @@
         <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="red" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vehext" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="state" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="[ruyYgGoOs]+"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="next" use="optional">
             <xsd:simpleType>
                 <!-- non-negative int list -->

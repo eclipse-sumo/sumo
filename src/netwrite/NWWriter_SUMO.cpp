@@ -1040,36 +1040,17 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             into.writePadding(" ");
         }
         into.writeAttr(SUMO_ATTR_STATE, phase.state);
-        if (varPhaseLength) {
-            if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-            }
-            if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-            }
-            if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.earliestEnd));
-            }
-            if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd));
-            }
-            // NEMA attributes
-            if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_VEHICLEEXTENSION, writeSUMOTime(phase.vehExt));
-            }
-            if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_YELLOW, writeSUMOTime(phase.yellow));
-            }
-            if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_RED, writeSUMOTime(phase.red));
-            }
-        }
-        if (phase.name != "") {
-            into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
-        }
-        if (phase.next.size() > 0) {
-            into.writeAttr(SUMO_ATTR_NEXT, phase.next);
-        }
+        into.writeOptionalAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur), !varPhaseLength || phase.minDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur), !varPhaseLength || phase.maxDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.earliestEnd), !varPhaseLength || phase.earliestEnd == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd), !varPhaseLength || phase.latestEnd == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        // NEMA attributes
+        into.writeOptionalAttr(SUMO_ATTR_VEHICLEEXTENSION, writeSUMOTime(phase.vehExt), !varPhaseLength || phase.vehExt == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_YELLOW, writeSUMOTime(phase.yellow), !varPhaseLength || phase.yellow == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_RED, writeSUMOTime(phase.red), !varPhaseLength || phase.red == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+
+        into.writeOptionalAttr(SUMO_ATTR_NAME, phase.name, phase.name == "", true);
+        into.writeOptionalAttr(SUMO_ATTR_NEXT, phase.next, phase.next.empty());
         into.closeTag();
     }
     // write params

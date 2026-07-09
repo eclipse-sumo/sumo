@@ -318,15 +318,9 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             cdevice.writeAttr(SUMO_ATTR_NODE, (*it_node).second->getID());
             cdevice.writeAttr(SUMO_ATTR_EDGES, c->edges);
             cdevice.writeAttr(SUMO_ATTR_PRIORITY, c->priority);
-            if (c->customWidth != NBEdge::UNSPECIFIED_WIDTH) {
-                cdevice.writeAttr(SUMO_ATTR_WIDTH, c->customWidth);
-            }
-            if (c->customTLIndex != -1) {
-                cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX, c->customTLIndex);
-            }
-            if (c->customTLIndex2 != -1) {
-                cdevice.writeAttr(SUMO_ATTR_TLLINKINDEX2, c->customTLIndex2);
-            }
+            cdevice.writeOptionalAttr(SUMO_ATTR_WIDTH, c->customWidth, c->customWidth == NBEdge::UNSPECIFIED_WIDTH);
+            cdevice.writeOptionalAttr(SUMO_ATTR_TLLINKINDEX, c->customTLIndex, c->customTLIndex == -1);
+            cdevice.writeOptionalAttr(SUMO_ATTR_TLLINKINDEX2, c->customTLIndex2, c->customTLIndex2 == -1);
             NWWriter_SUMO::writeShape(cdevice, gch, c->customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c->customShape.size() != 0);
             NWWriter_SUMO::writeShape(cdevice, gch, c->outlineShape, SUMO_ATTR_OUTLINESHAPE, useGeo, geoAccuracy, c->outlineShape.size() != 0);
             c->writeParams(cdevice);
@@ -340,9 +334,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             cdevice.writeAttr(SUMO_ATTR_NODE, it_node->first);
             cdevice.writeAttr(SUMO_ATTR_EDGES, joinNamedToString(wacs.edges, " "));
             NWWriter_SUMO::writeShape(cdevice, gch, wacs.shape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, wacs.shape.size() != 0);
-            if (wacs.width != NBEdge::UNSPECIFIED_WIDTH) {
-                cdevice.writeAttr(SUMO_ATTR_WIDTH, wacs.width);
-            }
+            cdevice.writeOptionalAttr(SUMO_ATTR_WIDTH, wacs.width, wacs.width == NBEdge::UNSPECIFIED_WIDTH);
             cdevice.closeTag();
         }
     }
