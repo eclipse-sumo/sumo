@@ -102,7 +102,7 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+    static void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool escape) {
         into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
     }
 
@@ -113,9 +113,13 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool escape) {
         into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
     }
+
+    /// @brief typed overloads (non-template) -- picked by overload resolution over the template
+    static void writeAttr(std::ostream& into, const std::string& attr, const std::string& val, const bool escape);
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val, const bool escape);
 
     void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) {
         into << " " << toString(attr) << "=\"" << time2string(val) << "\"";

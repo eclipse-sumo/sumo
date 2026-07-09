@@ -253,7 +253,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
                 edevice.writeAttr(SUMO_ATTR_INDEX, idx++);
                 writePermissions(edevice, e->hasLaneSpecificPermissions() || writeLanes ? lane.permissions : SVC_UNSPECIFIED);
                 writePreferences(edevice, lane.preferred);
-                edevice.writeOptionalAttr(SUMO_ATTR_WIDTH, lane.width, 0, lane.width == NBEdge::UNSPECIFIED_WIDTH || !(e->hasLaneSpecificWidth() || writeLanes));
+                edevice.writeOptionalAttr(SUMO_ATTR_WIDTH, lane.width, lane.width == NBEdge::UNSPECIFIED_WIDTH || !(e->hasLaneSpecificWidth() || writeLanes));
                 edevice.writeOptionalAttr(SUMO_ATTR_ENDOFFSET, lane.endOffset, lane.endOffset == NBEdge::UNSPECIFIED_OFFSET || !(e->hasLaneSpecificEndOffset() || writeLanes));
                 edevice.writeOptionalAttr(SUMO_ATTR_SPEED, lane.speed, !(e->hasLaneSpecificSpeed() || writeLanes));
                 edevice.writeOptionalAttr(SUMO_ATTR_ACCELERATION, lane.accelRamp, !lane.accelRamp);

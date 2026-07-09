@@ -239,7 +239,7 @@ ParquetFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElem
         openTag(into, rootElement);
         for (const auto& a : attrs) {
             if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
-                writeAttr(into, a.first, a.second, false);
+                writeAttr(into, a.first, a.second, false, false);
             }
         }
         return true;
@@ -343,7 +343,7 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull, const bool /* escape */) {
     myImpl->checkAttr(attr);
     if (attr == SUMO_ATTR_X || attr == SUMO_ATTR_Y || into.precision() > 2) {
         myImpl->checkBuilder<SumoXMLAttr, arrow::DoubleBuilder>(attr, arrow::float64);
@@ -356,7 +356,7 @@ ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const do
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const int& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const int& val, const bool isNull, const bool /* escape */) {
     myImpl->checkAttr(attr);
     myImpl->checkBuilder<SumoXMLAttr, arrow::Int32Builder>(attr, arrow::int32);
     myImpl->myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));
@@ -364,7 +364,7 @@ ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, co
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull, const bool /* escape */) {
     assert(!myImpl->myCheckColumns);
     if (into.precision() > 2) {
         myImpl->checkBuilder<std::string, arrow::DoubleBuilder>(attr, arrow::float64);
@@ -377,7 +377,7 @@ ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const d
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val, const bool isNull, const bool /* escape */) {
     assert(!myImpl->myCheckColumns);
     myImpl->checkBuilder<std::string, arrow::Int32Builder>(attr, arrow::int32);
     myImpl->myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));

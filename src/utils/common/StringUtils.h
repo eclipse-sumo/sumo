@@ -92,6 +92,16 @@ public:
      */
     static std::string escapeShell(const std::string& orig);
 
+    /**
+     * @brief Adds quotes to strings containing the separator or the quote char and escapes the quote char with a backslash
+     *
+     * @param[in] orig The original string
+     * @param[in] separator the separator char
+     * @param[in] quote the quote char
+     * @return the string with the escaped sequences
+     */
+    static std::string escapeCSV(const std::string& orig, const char separator, const char quote = '"');
+
     /// @brief An empty string
     static std::string emptyString;
 

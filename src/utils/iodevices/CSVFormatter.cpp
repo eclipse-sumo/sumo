@@ -48,7 +48,7 @@ CSVFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
         openTag(into, rootElement);
         for (const auto& a : attrs) {
             if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
-                writeAttr(into, a.first, a.second, false);
+                writeAttr(into, a.first, a.second, false, false);
             }
         }
         return true;
