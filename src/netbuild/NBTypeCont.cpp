@@ -380,29 +380,17 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typ
         if (typeIDs.size() > 0 && typeIDs.count(edgeType.first) == 0) {
             continue;
         }
-        // open edge type tag
+        auto write = [&](SumoXMLAttr attr, const auto & val) {
+            into.writeOptionalAttr(attr, val, edgeType.second->attrs.count(attr) == 0);
+        };
+
         into.openTag(SUMO_TAG_TYPE);
-        // write ID
         into.writeAttr(SUMO_ATTR_ID, edgeType.first);
-        // write priority
-        if (edgeType.second->attrs.count(SUMO_ATTR_PRIORITY) > 0) {
-            into.writeAttr(SUMO_ATTR_PRIORITY, edgeType.second->priority);
-        }
-        // write numLanes
-        if (edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) > 0 || edgeType.second->laneTypeDefinitions.size() > 1) {
-            into.writeAttr(SUMO_ATTR_NUMLANES, edgeType.second->laneTypeDefinitions.size());
-        }
-        // write speed
-        if (edgeType.second->attrs.count(SUMO_ATTR_SPEED) > 0) {
-            into.writeAttr(SUMO_ATTR_SPEED, edgeType.second->speed);
-        }
-        // write friction
-        if (edgeType.second->attrs.count(SUMO_ATTR_FRICTION) > 0) {
-            // only write if its not the default value
-            if (edgeType.second->friction != NBEdge::UNSPECIFIED_FRICTION) {
-                into.writeAttr(SUMO_ATTR_FRICTION, edgeType.second->friction);
-            }
-        }
+        write(SUMO_ATTR_PRIORITY, edgeType.second->priority);
+        into.writeOptionalAttr(SUMO_ATTR_NUMLANES, edgeType.second->laneTypeDefinitions.size(),
+                               edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) == 0 && edgeType.second->laneTypeDefinitions.size() <= 1);
+        write(SUMO_ATTR_SPEED, edgeType.second->speed);
+        write(SUMO_ATTR_FRICTION, edgeType.second->friction);
         // write permissions
         if ((edgeType.second->attrs.count(SUMO_ATTR_DISALLOW) > 0) || (edgeType.second->attrs.count(SUMO_ATTR_ALLOW) > 0)) {
             writePermissions(into, edgeType.second->permissions);
@@ -411,27 +399,11 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into,  const std::set<std::string>& typ
         if ((edgeType.second->attrs.count(SUMO_ATTR_SPREADTYPE) > 0) && edgeType.second->spreadType != LaneSpreadFunction::RIGHT) {
             into.writeAttr(SUMO_ATTR_SPREADTYPE, SUMOXMLDefinitions::LaneSpreadFunctions.getString(edgeType.second->spreadType));
         }
-        // write oneWay
-        if (edgeType.second->attrs.count(SUMO_ATTR_ONEWAY) > 0) {
-            into.writeAttr(SUMO_ATTR_ONEWAY, edgeType.second->oneWay);
-        }
-        // write discard
-        if (edgeType.second->attrs.count(SUMO_ATTR_DISCARD) > 0) {
-            into.writeAttr(SUMO_ATTR_DISCARD, edgeType.second->discard);
-        }
-        // write width
-        if (edgeType.second->attrs.count(SUMO_ATTR_WIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_WIDTH, edgeType.second->width);
-        }
-        // write sidewalkwidth
-        if (edgeType.second->attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, edgeType.second->sidewalkWidth);
-        }
-        // write bikelanewidth
-        if (edgeType.second->attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, edgeType.second->bikeLaneWidth);
-        }
-        // write restrictions
+        write(SUMO_ATTR_ONEWAY, edgeType.second->oneWay);
+        write(SUMO_ATTR_DISCARD, edgeType.second->discard);
+        write(SUMO_ATTR_WIDTH, edgeType.second->width);
+        write(SUMO_ATTR_SIDEWALKWIDTH, edgeType.second->sidewalkWidth);
+        write(SUMO_ATTR_BIKELANEWIDTH, edgeType.second->bikeLaneWidth);
         for (const auto& restriction : edgeType.second->restrictions) {
             // open restriction tag
             into.openTag(SUMO_TAG_RESTRICTION);
