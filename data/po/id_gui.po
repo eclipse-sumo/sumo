@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-02-23 11:59+0000\n"
+"PO-Revision-Date: 2026-07-10 03:43+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -2032,11 +2032,11 @@ msgstr "lencana akses"
 
 #: src/guisim/GUIParkingArea.cpp:118
 msgid "reservations [#]"
-msgstr ""
+msgstr "reservasi [#]"
 
 #: src/guisim/GUIParkingArea.cpp:119
 msgid "reservation ids"
-msgstr ""
+msgstr "ID reservasi"
 
 #: src/guisim/GUIPerson.cpp:235
 msgid "dest stop [id]"
@@ -5435,7 +5435,7 @@ msgstr "Apakah tepi ini merupakan bagian dari bundaran"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:864
 msgid "The name of a routingType"
-msgstr ""
+msgstr "Nama routingType"
 
 #: src/netedit/GNETagPropertiesDatabase.cpp:876
 #: src/netedit/frames/network/GNEConnectorFrame.cpp:67
@@ -11492,7 +11492,7 @@ msgstr "tambah perute ulang penutupan di '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1063
 msgid "add dest prob reroute to '"
-msgstr ""
+msgstr "tambahkan pengalihan rute probabilitas tujuan ke '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1093
 msgid "add parking area reroute in '"
@@ -12056,6 +12056,8 @@ msgstr "kendaraan tidak mendukung halte di tepi"
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1275
 msgid "A stop requires only either stoppingPlace, edge or lane"
 msgstr ""
+"Sebuah pemberhentian hanya memerlukan salah satu dari stoppingPlace, edge, "
+"atau lane"
 
 #: src/netedit/elements/demand/GNERouteHandler.cpp:1277
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
@@ -15607,45 +15609,50 @@ msgstr "Awalan jaringan keluaran"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:159
 msgid "Write selection files for created, deleted and changed elements"
-msgstr ""
+msgstr "Tulis file seleksi untuk elemen yang dibuat, dihapus, dan diubah"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:162
 msgid "Write shape files for created, deleted and changed elements"
-msgstr ""
+msgstr "Tulis file shape untuk elemen yang dibuat, dihapus, dan diubah"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "Write geo coordinates instead of network coordinates"
-msgstr ""
+msgstr "Tulis koordinat geografis alih-alih koordinat jaringan"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:169
 msgid "Give more output"
-msgstr ""
+msgstr "Berikan lebih banyak output"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:172
 msgid "Interpret source and dest as plain-xml prefix instead of network names"
 msgstr ""
+"Tafsirkan source dan dest sebagai prefiks plain-xml alih-alih nama jaringan"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:175
 msgid "Compare source and dest files directly"
-msgstr ""
+msgstr "Bandingkan file source dan dest secara langsung"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:178
 msgid ""
 "Generate patch that can be applied during initial network import (exports "
 "additional connection elements)"
 msgstr ""
+"Hasilkan patch yang dapat diterapkan selama impor jaringan awal (mengekspor "
+"elemen koneksi tambahan)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:181
 msgid "Avoid saving plain xml files of source and destination networks"
-msgstr ""
+msgstr "Hindari menyimpan file plain xml dari jaringan sumber dan tujuan"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:184
 msgid "Comma-separated list of element names to copy (if they are unchanged)"
 msgstr ""
+"Daftar nama elemen yang dipisahkan dengan koma untuk disalin (jika tidak "
+"berubah)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:187
 msgid "Path to binaries"
-msgstr ""
+msgstr "Path ke biner"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:191
 msgid "Select modified elements"
@@ -17188,11 +17195,11 @@ msgstr "tanda"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2259
 msgid "parking area"
-msgstr ""
+msgstr "area parkir"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2262
 msgid "parking space"
-msgstr ""
+msgstr "ruang parkir"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2278
 msgid "element"
