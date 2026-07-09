@@ -94,8 +94,8 @@ $('body').scrollspy({
 });
 
 /* Prevent disabled links from causing a page reload */
-$("li.disabled a").click(function() {
-    event.preventDefault();
+$("li.disabled a").on( "click", function() {
+    return false;
 });
 
 const keyCodes = {
