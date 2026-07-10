@@ -100,9 +100,11 @@ public:
      * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeXML (only used in the string variant below)
      */
     template <class T>
     static void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool escape) {
+        UNUSED_PARAMETER(escape);
         into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
     }
 
@@ -111,9 +113,11 @@ public:
      * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeXML (only used in the string variant below)
      */
     template <class T>
     static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool escape) {
+        UNUSED_PARAMETER(escape);
         into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
     }
 

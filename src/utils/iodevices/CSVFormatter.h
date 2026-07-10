@@ -87,9 +87,11 @@ public:
      * @param[in] attr The attribute (name as enum value)
      * @param[in] val The attribute value
      * @param[in] isNull whether this is actually a null value (writes the empty string)
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeCSV (only used in the string variant below)
      */
     template <class T>
     void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool isNull, const bool escape) {
+        UNUSED_PARAMETER(escape);
         checkAttr(attr);
         myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
@@ -102,20 +104,22 @@ public:
      * @param[in] attr The attribute (name as string)
      * @param[in] val The attribute value
      * @param[in] isNull whether this is actually a null value (writes the empty string)
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeCSV (only used in the string variant below)
      */
     template <class T>
     void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool isNull, const bool escape) {
+        UNUSED_PARAMETER(escape);
         assert(!myCheckColumns);
         checkHeader(attr);
         myValues.emplace_back(isNull ? "" : toString(val, into.precision()));
     }
 
     /// @brief typed overloads (non-template) -- picked by overload resolution over the template
-    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val, const bool isNull, const bool escape) {
+    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const std::string& val, const bool isNull, const bool escape) {
         checkAttr(attr);
         myValues.emplace_back(isNull ? "" : (escape ? StringUtils::escapeCSV(val, mySeparator) : val));
     }
-    void writeAttr(std::ostream& into, const std::string& attr, const std::string& val, const bool isNull, const bool escape) {
+    void writeAttr(std::ostream& /* into */, const std::string& attr, const std::string& val, const bool isNull, const bool escape) {
         assert(!myCheckColumns);
         checkHeader(attr);
         myValues.emplace_back(isNull ? "" : (escape ? StringUtils::escapeCSV(val, mySeparator) : val));

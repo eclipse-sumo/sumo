@@ -90,7 +90,7 @@ public:
      * @param[in] isNull whether this actually a null value (adds nullptr to myValues)
      */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull, const bool escape) {
+    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull, const bool /* escape */) {
         if (isNull) {
             writeNullAttr(attr);
         } else {
@@ -106,7 +106,7 @@ public:
      * @param[in] isNull whether this actually a null value (adds nullptr to myValues)
      */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val, const bool isNull, const bool escape) {
+    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val, const bool isNull, const bool /* escape */) {
         if (isNull) {
             writeNullAttr(attr);
         } else {
