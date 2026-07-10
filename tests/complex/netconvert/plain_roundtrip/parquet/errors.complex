@@ -1,0 +1,37 @@
+Warning: Ambiguity in turnarounds computation at junction '1206481791'.
+Warning: Ambiguity in turnarounds computation at junction '1206481808'.
+Warning: Ambiguity in turnarounds computation at junction '1575952504'.
+Warning: Ambiguity in turnarounds computation at junction '5116771739'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_25665679_4590472037_4590472042_4590472043'.
+Warning: Found sharp turn with radius 6.02 at the start of edge '122820534#0'.
+Warning: Lane '-388702049#1_0' is not connected from any incoming edge at junction '4603453180'.
+Warning: Edge '-93584120#3' is not connected to outgoing edges at junction '5116771739'.
+Warning: Edge '168937986#3' is not connected to outgoing edges at junction '1371317063'.
+Warning: Edge '24243107#0' is not connected to outgoing edges at junction '3463843613'.
+Warning: Edge '30720544#0' is not connected to outgoing edges at junction '4603453180'.
+Warning: Edge '388702049#1' is not connected to outgoing edges at junction '4603453180'.
+Warning: Lane '389705415#1_1' is not connected from any incoming edge at junction '5116771739'.
+Warning: Lane '389705415#1_2' is not connected from any incoming edge at junction '5116771739'.
+Warning: Lane '93584120#3_0' is not connected from any incoming edge at junction '5116771739'.
+Warning: Connection '-442921387#0_0->196844845_0' is only 0.00m short.
+Warning: Ambiguity in turnarounds computation at junction '1206481791'.
+Warning: Ambiguity in turnarounds computation at junction '1206481808'.
+Warning: Ambiguity in turnarounds computation at junction '1575952504'.
+Warning: Ambiguity in turnarounds computation at junction '5116771739'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_25665679_4590472037_4590472042_4590472043'.
+Warning: Found sharp turn with radius 6.02 at the start of edge '122820534#0'.
+Warning: Lane '-388702049#1_0' is not connected from any incoming edge at junction '4603453180'.
+Warning: Edge '-93584120#3' is not connected to outgoing edges at junction '5116771739'.
+Warning: Edge '168937986#3' is not connected to outgoing edges at junction '1371317063'.
+Warning: Edge '24243107#0' is not connected to outgoing edges at junction '3463843613'.
+Warning: Edge '30720544#0' is not connected to outgoing edges at junction '4603453180'.
+Warning: Edge '388702049#1' is not connected to outgoing edges at junction '4603453180'.
+Warning: Lane '389705415#1_1' is not connected from any incoming edge at junction '5116771739'.
+Warning: Lane '389705415#1_2' is not connected from any incoming edge at junction '5116771739'.
+Warning: Lane '93584120#3_0' is not connected from any incoming edge at junction '5116771739'.
+Warning: Connection '-442921387#0_0->196844845_0' is only 0.00m short.
+Warning: Column based formats are still experimental. Autodetection only works for homogeneous output.
+Warning: Column based formats are still experimental. Autodetection only works for homogeneous output.
+Warning: Column based formats are still experimental. Autodetection only works for homogeneous output.
+Warning: Column based formats are still experimental. Autodetection only works for homogeneous output.
+Warning: Column based formats are still experimental. Autodetection only works for homogeneous output.

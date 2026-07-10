@@ -16,3 +16,5 @@ matsim_roundtrip
 
 # export sumo.net.xml as opendrive then reimport and check for consistency with the original net.xml
 opendrive_roundtrip
+
+plain_roundtrip

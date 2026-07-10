@@ -13,6 +13,7 @@ copy_test_path:input_routes2.rou.xml
 copy_test_path:input_routes3.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
+copy_test_path:input_net.net.xml.gz
 copy_test_path:input_net2.net.xml
 copy_test_path:input_net3.net.xml
 copy_test_path:input_net4.net.xml

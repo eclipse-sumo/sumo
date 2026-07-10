@@ -34,7 +34,7 @@ import sumolib  # noqa
 from sumolib.xml import xsd  # noqa
 
 
-def get_options():
+def get_options(args=None):
     optParser = sumolib.options.ArgumentParser(description="Convert a CSV file to a XML file.")
     optParser.add_argument("source", category="input", type=optParser.data_file,
                            help="the input CSV file")
@@ -53,7 +53,7 @@ def get_options():
                        help="xsd schema to use")
     group.add_argument("--flat", action="store_true", default=False,
                        help="use csv header as flat structure instead of a schema")
-    options = optParser.parse_args()
+    options = optParser.parse_args(args)
     if not options.output:
         options.output = os.path.splitext(options.source)[0] + ".xml"
     return options
@@ -208,8 +208,8 @@ def writeFlatXml(options):
         inputf.close()
 
 
-def main():
-    options = get_options()
+def main(args=None):
+    options = get_options(args)
     if options.type in ["nodes", "node", "nod"]:
         write_xml('nodes', 'node', options)
     elif options.type in ["edges", "edge", "edg"]:
