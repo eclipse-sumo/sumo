@@ -23,9 +23,9 @@ theme:
   name: mkdocs
   custom_dir: theme/
   shortcuts:
-    help: 191     # ?
-    search: 83    # s
-    edit: 69      # e
+    help: "?"
+    search: "s"
+    edit: "e"
 
 validation:
   links:

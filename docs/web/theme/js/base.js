@@ -45,7 +45,7 @@ $(document).ready(function() {
     // Keyboard navigation
     document.addEventListener("keydown", function(e) {
         if ($(e.target).is(':input')) return true;
-        const key = e.key;
+        const key = e.key.toLowerCase();
         let page;
         switch (key) {
             case shortcuts.search:
@@ -161,6 +161,7 @@ const keyCodes = {
   '-': 'subtract',
   '.': '&period;',
   '/': '&quest;',
+  '?': '&quest;',
   F1: 'f1',
   F2: 'f2',
   F3: 'f3',
