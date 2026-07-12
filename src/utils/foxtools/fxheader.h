@@ -19,16 +19,18 @@
 /****************************************************************************/
 #pragma once
 
-
 // Avoid warnings for external headers
 #ifdef __clang__
+#if __has_warning("-Wdeprecated-enum-enum-conversion")
 #pragma clang diagnostic ignored "-Wdeprecated-enum-enum-conversion"
+#endif
+#if __has_warning("-Wdeprecated-anon-enum-enum-conversion")
 #pragma clang diagnostic ignored "-Wdeprecated-anon-enum-enum-conversion"
 #endif
-#ifdef __GNUC__
+#elif defined(__GNUC__) && __GNUC__ >= 9
 #pragma GCC diagnostic ignored "-Wdeprecated-enum-enum-conversion"
 #endif
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && _MSC_VER >= 1922
 #pragma warning(disable: 5054)
 #endif
 
