@@ -11,6 +11,7 @@ fmi/vehicle_moveToXY
 fmi/vehicle_getParameterWithKey
 fmi/vehicle_getIDCount
 fmi/model_validation
+netconvert/plain_roundtrip/parquet
 appdata=dfrouter
 appdata=duarouter
 appdata=jtrrouter
