@@ -45,18 +45,52 @@ public:
     /// @brief Destructor (out-of-line: Impl is incomplete here)
     ~ParquetFormatter() override;
 
+    /** @brief Writes an "XML header"
+     *
+     * For Parquet output the header is only relevant if it contains additional attributes.
+     *
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     * @param[in] attrs Additional attributes to save within the rootElement
+     * @return whether something has been written
+     */
+    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                        const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                        bool /* includeConfig */) override;
+
+    /** @brief Keeps track of an open XML tag by adding a new element to the stack
+     *
+     * @param[in] into The output stream to use (unused)
+     * @param[in] xmlElement Name of the element to open
+     */
     void openTag(std::ostream& into, const std::string& xmlElement) override;
+
+    /** @brief Keeps track of an open XML tag by adding a new element to the stack
+     *
+     * @param[in] into The output stream to use (unused)
+     * @param[in] xmlElement Enum identifier of the element to open
+     */
     void openTag(std::ostream& into, const SumoXMLTag& xmlElement) override;
+
+    /** @brief Closes the most recently opened tag
+     *
+     * This is where the main action starts. This function determines whether a row is completed and can be written.
+     *
+     * @param[in] into The output stream to use
+     * @param[in] comment A comment to write after the tag (ignored for Parquet)
+     * @return Whether a further element existed in the stack and could be closed
+     */
     bool closeTag(std::ostream& into, const std::string& comment = "") override;
 
-    /** @brief writes a named attribute
+    /** @brief Writes a named attribute
      *
-     * Generic template: stringifies the value (only when not null, preserving the
-     * original lazy evaluation) and forwards to the typed non-template
-     * helpers defined in the .cpp.
+     * @param[in] into The output stream to use (unused)
+     * @param[in] attr The attribute (name as enum value)
+     * @param[in] val The attribute value
+     * @param[in] isNull whether this actually a null value (adds nullptr to myValues)
      */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull) {
+    void writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const T& val, const bool isNull, const bool /* escape */) {
         if (isNull) {
             writeNullAttr(attr);
         } else {
@@ -64,8 +98,15 @@ public:
         }
     }
 
+    /** @brief Writes a named attribute
+     *
+     * @param[in] into The output stream to use (unused)
+     * @param[in] attr The attribute (name as string value)
+     * @param[in] val The attribute value
+     * @param[in] isNull whether this actually a null value (adds nullptr to myValues)
+     */
     template <class T>
-    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val, const bool isNull) {
+    void writeAttr(std::ostream& /* into */, const std::string& attr, const T& val, const bool isNull, const bool /* escape */) {
         if (isNull) {
             writeNullAttr(attr);
         } else {
@@ -74,16 +115,43 @@ public:
     }
 
     /// @brief typed overloads (non-template) -- picked by overload resolution over the template
-    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull);
-    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const int& val, const bool isNull);
-    void writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull);
-    void writeAttr(std::ostream& into, const std::string& attr, const int& val, const bool isNull);
+    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull, const bool escape);
+    void writeAttr(std::ostream& into, const SumoXMLAttr attr, const int& val, const bool isNull, const bool escape);
+    void writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull, const bool escape);
+    void writeAttr(std::ostream& into, const std::string& attr, const int& val, const bool isNull, const bool escape);
 
+    /** @brief Writes a time value
+     *
+     * Currently this writes a string if human readable times are activated and a double otherwise
+     *
+     * @param[in] into The output stream to use (unused)
+     * @param[in] attr The attribute (name as enum value)
+     * @param[in] val The attribute value
+     * @todo use one of Parquet's time types
+     */
     void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) override;
 
+    /** @brief Whether a complete row has been encountered and triggered writing
+     *
+     * @return Whether the Parquet writer has been initialized and a first row has been written
+     */
     bool wroteHeader() const override;
 
-    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) override;
+    /** @brief Which elements are expected and which maximum depth the XML tree has.
+     *
+     * This is not necessary for the functionality but very useful for debugging and tracking whether expected attributes
+     * are still missing (triggers an error in checkAttr). If expected is empty, no tracking takes place.
+     *
+     * The depth parameter is only for performance. If a tag at this depth is closed for the first time,
+     * the header is being written and buffered rows may be flushed. Setting it to a large value (which is also the default)
+     * means you are on the safe side if more attributes or tags show up later but it may result in buffering the complete
+     * output before writing the first line.
+     * Setting it to 0 triggers auto detection which means the first time a tag is closed the maximum depth will be determined.
+     *
+     * @param[in] expected The enum values of the attrs which should be present before a row can be written.
+     * @param[in] depth The maximum expected depth of nested XML elements.
+     */
+    void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth) override;
 
 private:
     /// @brief non-template helpers; defined in the .cpp where arrow/parquet are available

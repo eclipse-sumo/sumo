@@ -118,6 +118,4 @@ private:
 
     /// @brief writes imported districts (TAZ) to file
     static void writeDistricts(const OptionsCont& oc, NBDistrictCont& dc);
-
-    static void writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy);
 };

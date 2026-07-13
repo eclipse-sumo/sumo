@@ -106,7 +106,7 @@ public:
      * @param[in] zoomDist The distance in m to use for the zoom, values < 0 means: use the centeringBoundary
      * @note caller is responsible for calling update
      */
-    virtual void centerTo(const Position& pos, bool applyZoom);
+    virtual void centerToPos(const Position& pos, bool applyZoom, double zoomDist = 20);
 
     /// @brief centers to the chosen artifact
     void centerTo(const Boundary& bound);

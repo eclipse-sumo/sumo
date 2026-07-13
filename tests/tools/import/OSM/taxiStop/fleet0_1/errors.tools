@@ -52,15 +52,9 @@ Warning: PT stop '3869306760' has been moved to edge '-176043807#2'.
 Warning: PT stop '3867910428' has been moved to edge '478396988'.
 Warning: PT stop '3867910429' has been moved to edge '-478396988'.
 Warning: Cannot assign stop 3867910429 on edge '478396988' to pt line '2211985'. Ignoring!
-Warning: Converting invalid rail_crossing to priority junction '2831092401'.
-Warning: Converting invalid rail_crossing to priority junction '2831092402'.
-Warning: Converting invalid rail_crossing to priority junction '2831092403'.
-Warning: Converting invalid rail_crossing to priority junction '2924018416'.
-Warning: Converting invalid rail_crossing to priority junction '2924018417'.
-Warning: Converting invalid rail_crossing to traffic_light at junction '3918673904'.
-Warning: Converting invalid rail_crossing to traffic_light at junction '3918673907'.
-Warning: Converting invalid rail_crossing to traffic_light at junction '3918673910'.
 Warning: Converting invalid rail_crossing to traffic_light at junction '3918673916'.
+Warning: Converting invalid rail_crossing to priority junction '5727160039'.
+Warning: Converting invalid rail_crossing to priority junction '5727160040'.
 Warning: Not joining junctions 160503259,171440823,4237827432 (only 1 exit node).
 Warning: Not joining junctions 1673526976,29192953,4590472031,4590472049,4590472050 (it contains a pt stop edge).
 Warning: Reducing junction cluster 26701256,29192960,3590535061,3590535063,4590472038 (parallel incoming -15977422#0,-35578576#1).
@@ -75,20 +69,19 @@ Warning: Found sharp turn with radius 6.02 at the start of edge '122820534#0'.
 Warning: Found sharp turn with radius 8.48 at the start of edge '23852053#1'.
 Warning: Found angle of 179.67 degrees at edge '32590429', segment 0.
 Warning: Found angle of 179.75 degrees at edge '32590435#1', segment 11.
-Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
-Warning: The rail crossing '4567083492' does not have any roads.
-Warning: The rail crossing '4567083494' does not have any roads.
-Warning: The rail crossing '4603453625' does not have any roads.
+Warning: The rail crossing '506357654' does not have any roads.
+Warning: The rail crossing '506357655' does not have any roads.
+Warning: The rail crossing 'cluster_4547201157_4547201159' does not have any roads.
+Warning: The rail crossing 'cluster_4673135641_4673135642' does not have any roads.
 Warning: The traffic light '4363312288' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '4363312288'
 Warning: Speed of turning connection '27080261_0->177195505#1_0' reduced by 24.89 due to turning radius of 1.51 (length=1.66, angle=168.26).
 Warning: 17 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
-Warning: 16 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 19 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 14 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 15 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 9 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 6 total messages of type: The rail crossing '%' does not have any roads.

@@ -1320,7 +1320,7 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
             GLHelper::pushMatrix();
             glTranslated(myDemandElementGeometry.getShape().front().x(), myDemandElementGeometry.getShape().front().y(), 0.1);
             // draw geometry point
-            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius);
+            GLHelper::drawFilledCircleDetailed(d, s.neteditSizeSettings.additionalGeometryPointRadius);
             // pop geometry point matrix
             GLHelper::popMatrix();
         }
@@ -1329,7 +1329,7 @@ GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const GUIVisualiz
             GLHelper::pushMatrix();
             glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
             // draw geometry point
-            GLHelper::drawFilledCircleDetailled(d, s.neteditSizeSettings.additionalGeometryPointRadius);
+            GLHelper::drawFilledCircleDetailed(d, s.neteditSizeSettings.additionalGeometryPointRadius);
             // pop geometry point matrix
             GLHelper::popMatrix();
         }

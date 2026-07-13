@@ -77,7 +77,8 @@ public:
             const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
             int detectPersons,
-            bool show) override;
+            bool show,
+            bool forceMicro = false) override;
 
 
     /** @brief Creates an instance of an e1 detector using the given values

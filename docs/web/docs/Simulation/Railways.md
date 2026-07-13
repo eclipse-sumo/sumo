@@ -10,7 +10,7 @@ taken in comparison to a plain vehicular simulation.
 
 # Building a network for train simulation
 
-The following section describes network modelling and import for conventional rail operations. [Special consideration for tram simulations are found below](#tram_network_modelling].
+The following section describes network modelling and import for conventional rail operations. [Special consideration for tram simulations are found below](#tram_network_modelling).
 
 ## Railways
 
@@ -231,13 +231,18 @@ By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard
 
 ### Heuristic generation
 
-By setting the [netconvert](../netconvert.md)-option **--railway.signal.guess-by-stops**, additional signal based on loaded public transport stops.
+By setting the [netconvert](../netconvert.md)-option **--railway.signal.guess.by-stops**, additional signals are generated based on loaded public transport stops.
 Stops are either loaded from the input (i.e. OSM) or with option **--ptstop-files**.
 
 For each public transport stop, at most two signals will be added:
 
-- a signal at the end of the stop edge (unless the node happens to be a switch)
+- a signal at the end of the stop edge 
 - a signal at the start of the stop edge or the next upstream edge that is at least 200m upstream of the stop edge end (unless the node happens to be a switch)
+
+!!! note
+    By default, this operationg may declare railway switches as rail signals. The switches and signals will continue to work normally but there will be no overlap (Durchrutschweg)
+
+By also setting option **--railway.signal.guess.by-stops.split** the edges will be split in order create suitable rail_signal nodes near the stop location. This also ensures that switches remain uncontrolled.
 
 The minimum distance of 200m between the two signals can be customized with option **--osm.stop-outout.length.train**.
 
@@ -364,15 +369,15 @@ By default, curvature will be integrated over at least *100m*. If the geometry d
 !!! caution
     For rail networks with lower gauge and very shape turns (or rolling stock with short wheel base), the values should be adapted. Attempting to compute resistance for a radius below the offset value will raise a warning.
 
-| Attribute Name  | Default Value          | 
-| ------------------- | ------------------ | 
-| curveResistance     | 0                  | 
-| curveIntegration    | 100                | 
-| roeckl_sharp_radius | 300                | 
-| roeckl_numerator    | 6380               | 
-| roeckl_numerator_sharp | 4910            | 
-| roeckl_offset | 55                       | 
-| roeckl_offset_sharp | 30                 | 
+| Attribute Name  | Default Value          |
+| ------------------- | ------------------ |
+| curveResistance     | 0                  |
+| curveIntegration    | 100                |
+| roeckl_sharp_radius | 300                |
+| roeckl_numerator    | 6380               |
+| roeckl_numerator_sharp | 4910            |
+| roeckl_offset | 55                       |
+| roeckl_offset_sharp | 30                 |
 
 
 ## Effects of train length
@@ -540,11 +545,11 @@ Constraints can be generated using the tool [generateRailSignalConstraints.py](.
 ## Tram Behavior
 
 Operationally, there are many similarities between tram and conventional/heavy rail operations with regard to track networks and signaling at conflict points.
-The main difference is that trams are not separated by blocks when following each other. To reflect this in sumo, rail signals on tram tracks are automatically put into [moving block mode](#moving_block_mode) (This is configured with option **--railsignal.moving-block.default-classes**). Tram rail signals are still needed to regulate bidirectional access to single-track sections and they can be used to guard crossing and merging conflicts. However, fewer rail signals are needed compared to a convential rail simulation because block length is not a critical efficiency factor in one-directional operations.
+The main difference is that trams are not separated by blocks when following each other. To reflect this in sumo, rail signals on tram tracks are automatically put into [moving block mode](#moving_block_mode) (This is configured with option **--railsignal.moving-block.default-classes**). Tram rail signals are still needed to regulate bidirectional access to single-track sections and they can be used to guard crossing and merging conflicts. However, fewer rail signals are needed compared to a conventional rail simulation because block length is not a critical efficiency factor in one-directional operations.
 
 ## Tram Network modelling
 
-In many parts of the world, OSM data does not provide information of signaling infrastructure for tram networks. To achieve smooth operations at conflict points without rail signals, [netconvert](../netconvert.md) sets merging conflicts to junction type 'zipper'. The vehicle classes elible for this behavior are configured with netconvert option **--railway.signal.permit-unsignalized** (default *tram,cable_car*).
+In many parts of the world, OSM data does not provide information of signaling infrastructure for tram networks. To achieve smooth operations at conflict points without rail signals, [netconvert](../netconvert.md) sets merging conflicts to junction type 'zipper'. The vehicle classes eligible for this behavior are configured with netconvert option **--railway.signal.permit-unsignalized** (default *tram,cable_car*).
 
 For many tram networks (i.e. with single track sections), this type of conflict handling is not sufficient and rail signals must be added. This can be done manually with netedit or with the tool
 [patchRailConflicts.py](../Tools/Railways.md#patchrailconflictspy).
@@ -702,7 +707,7 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 | siding / start            | edgeID                                    | The edge on which that siding starts |
 | siding / end              | edgeID                                    | The edge on which that siding ends |
 | siding / length           | float                                     | The length of the siding in meters (a Train may not use a siding if it is shorter than it's own length) |
-| deadlock / foes           | list of driveWay ids                      | The list of foe driveways that could create a deadlock toghether with the current driveway. If all foes are occupied, the current driveway must not be entered (only present when [`<deadlock>` elements](#deadlock_prevention) where loaded into the simulation |
+| deadlock / foes           | list of driveWay ids                      | The list of foe driveways that could create a deadlock together with the current driveway. If all foes are occupied, the current driveway must not be entered (only present when [`<deadlock>` elements](#deadlock_prevention) where loaded into the simulation) |
 
 ### Driveway IDs
 
@@ -712,7 +717,7 @@ By setting option **--railsignal-block-output FILE**, an output file that contai
 
 ## railsignal-vehicle-output
 
-By setting option **--railsignal-vehicle-output FILE**, an output file that contains occupancy informations for every driveway is written.
+By setting option **--railsignal-vehicle-output FILE**, an output file that contains occupancy information for every driveway is written.
 This file provides the times whenever a vehicle has entered or left a driveway.
 
 | Element / Attribute Name  | Value Type                                | Description                            |
@@ -750,7 +755,7 @@ used. The attribute `source` must be set to the ID of the junction the rail sign
 - Individual rail cars / coupling / uncoupling cannot currently be modeled
 - Distant signals (Vorsignale) are not modelled. Instead trains act as if always having full visibility onto the next main signal
 - Delay of railroad switches is not modelled
-- Overlap (Durchrutschweg) after a rail signal (which guarantuess safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
+- Overlap (Durchrutschweg) after a rail signal (which guarantees safety if a red signal is violated), is currently not modelled by the rail signal safety assessment
 - Axle counters are assumed after every signal and every railway switch and correspondingly, partial driveways (Teilfahrstraßen) are used in the most efficient manner
 - Stretching and shorting of long trains is not modelled
-- Operational restrictings on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).
+- Operational restrictions on reversing trains (Shunting) are not modelled. Trains may reverse according to their defined route and move at normal speeds / acceleration in either direction (subject to rail signal safety rules).

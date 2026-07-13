@@ -65,7 +65,6 @@ public:
      *
      * @param[in] into The output stream to use
      * @param[in] xmlElement Name of element to open
-     * @return The OutputDevice for further processing
      */
     void openTag(std::ostream& into, const std::string& xmlElement);
 
@@ -82,7 +81,6 @@ public:
      *
      * @param[in] into The output stream to use
      * @return Whether a further element existed in the stack and could be closed
-     * @todo it is not verified that the topmost element was closed
      */
     bool closeTag(std::ostream& into, const std::string& comment = "");
 
@@ -102,9 +100,11 @@ public:
      * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeXML (only used in the string variant below)
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
+    static void writeAttr(std::ostream& into, const std::string& attr, const T& val, const bool escape) {
+        UNUSED_PARAMETER(escape);
         into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
     }
 
@@ -113,11 +113,17 @@ public:
      * @param[in] into The output stream to use
      * @param[in] attr The attribute (name)
      * @param[in] val The attribute value
+     * @param[in] escape Whether the value should be processed by StringUtils::escapeXML (only used in the string variant below)
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val, const bool escape) {
+        UNUSED_PARAMETER(escape);
         into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
     }
+
+    /// @brief typed overloads (non-template) -- picked by overload resolution over the template
+    static void writeAttr(std::ostream& into, const std::string& attr, const std::string& val, const bool escape);
+    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val, const bool escape);
 
     void writeTime(std::ostream& into, const SumoXMLAttr attr, const SUMOTime val) {
         into << " " << toString(attr) << "=\"" << time2string(val) << "\"";

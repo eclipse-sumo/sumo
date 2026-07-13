@@ -2,8 +2,6 @@
 title: FMI
 ---
 
-# FMI
-
 There is ongoing work towards building [FMI v2](https://fmi-standard.org/) support for SUMO by utilizing libsumo.
 
 ## Goal

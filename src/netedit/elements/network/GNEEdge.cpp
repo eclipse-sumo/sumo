@@ -2562,7 +2562,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GUIVisu
             // move geometry point geometryPointPos
             glTranslated(geometryPointPos.x(), geometryPointPos.y(), bigGeometryPoints ? GLO_GEOMETRYPOINT : GLO_LANE + 1);
             // draw filled circle (resolution of drawn circle depending of the zoom, to improve smoothness)
-            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius);
+            GLHelper::drawFilledCircleDetailed(d, geometryPointRadius);
             // draw elevation or special symbols (Start, End and Block)
             if ((d <= GUIVisualizationSettings::Detail::Text) && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                 // Translate to top
@@ -2612,7 +2612,7 @@ GNEEdge::drawStartGeometryPoint(const GUIVisualizationSettings& s, const GUIVisu
             // move to point position
             glTranslated(startGeometryPointPos.x(), startGeometryPointPos.y(), GLO_GEOMETRYPOINT);
             // resolution of drawn circle depending of detail
-            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
+            GLHelper::drawFilledCircleDetailed(d, geometryPointRadius, angle + 90, angle + 270);
             // pop drawing matrix
             GLHelper::popMatrix();
             // draw a "s" over last point depending of detail level
@@ -2676,7 +2676,7 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
             // move to point position
             glTranslated(geometryPointPos.x(), geometryPointPos.y(), GLO_GEOMETRYPOINT);
             // resolution of drawn circle depending of detail
-            GLHelper::drawFilledCircleDetailled(d, geometryPointRadius, angle + 90, angle + 270);
+            GLHelper::drawFilledCircleDetailed(d, geometryPointRadius, angle + 90, angle + 270);
             // pop drawing matrix
             GLHelper::popMatrix();
             // draw a "s" over last point depending of detail level

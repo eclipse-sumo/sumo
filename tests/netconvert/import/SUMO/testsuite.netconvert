@@ -155,3 +155,6 @@ NEMA
 
 # Copy of routingType
 routingType
+
+# see #18154
+join-tram-dist

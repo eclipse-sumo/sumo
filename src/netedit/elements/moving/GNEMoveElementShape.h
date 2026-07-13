@@ -80,7 +80,7 @@ public:
 
 protected:
     /// @brief center position
-    Position myCenterPosition;
+    Position myCenterPosition = Position::INVALID;
 
 private:
     /// @brief reference to Shape

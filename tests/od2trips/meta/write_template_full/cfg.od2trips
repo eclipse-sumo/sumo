@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-20T23:11:07.698608+01:00 by Eclipse SUMO od2trips v1_27_0+0274-c1887d2568b
+<!-- generated on 2026-07-08T11:09:32.268048+01:00 by Eclipse SUMO od2trips v1_27_1+0194-8d0b2b6a43c
 -->
 
 <od2tripsConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -31,7 +31,7 @@
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <output.compression value="" type="STR" help="Defines the standard compression algorithm (currently only for parquet output)"/>
         <output.format value="xml" type="STR" help="Defines the standard output format if not derivable from the file name (&apos;xml&apos;, &apos;csv&apos;, &apos;parquet&apos;)"/>
-        <output.column-header value="tag" type="STR" help="How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;)"/>
+        <output.column-header value="auto" type="STR" help="How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;, &apos;full&apos;)"/>
         <output.column-separator value=";" type="STR" help="Separator in CSV output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output" deprecated="output" type="FILE" help="Writes trip definitions into FILE"/>

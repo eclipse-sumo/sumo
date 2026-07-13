@@ -59,9 +59,6 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     // set parents
     setParent<GNELane*>(lane);
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, FileBucket* fileBucket, std::vector<GNELane*> lanes, const double pos, const double endPos, const SUMOTime freq,
@@ -82,6 +79,9 @@ GNELaneAreaDetector::GNELaneAreaDetector(const std::string& id, GNENet* net, Fil
     // set parents
     setParents<GNELane*>(lanes);
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNELaneAreaDetector::~GNELaneAreaDetector() {

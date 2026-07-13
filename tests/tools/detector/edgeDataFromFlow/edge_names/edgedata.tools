@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:20:21.972113 by edgeDataFromFlow.py v1_13_0+1343-240e5d48340
-  options: -f input_flows.txt -o edgedata.xml <doubleminus>verbose
+<!-- generated on 2026-07-04 12:04:05.017770 by Eclipse SUMO edgeDataFromFlow.py v1_27_1+0120-73ee0163a09
+<configuration>
+    <detector-flow-file value="input_flows.txt"/>
+    <output-file value="edgedata.xml"/>
+    <verbose value="True"/>
+</configuration>
 -->
 
-<data>
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/data_file.xsd">
     <interval id="flowdata" begin="0" end="86400">
         <edge id="1_0" qPKW="450.0" groups="1"/>
         <edge id="1_1" qPKW="450.0" groups="1"/>

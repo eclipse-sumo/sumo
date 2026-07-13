@@ -30,12 +30,14 @@ import shutil
 
 import pulp as pl
 import darpSolvers
+from darpSolvers import SEP
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 from sumolib import checkBinary  # noqa
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.options import ArgumentParser  # noqa
+from sumolib.net import lane2edge
 import traci  # noqa
 findRoute = traci.simulation.findRoute
 
@@ -269,7 +271,7 @@ def main():
         for res in traci.person.getTaxiReservations(1):
 
             # search direct travel time
-            direct = pairs_dua_times.get("%s_%s" % (res.fromEdge, res.toEdge))
+            direct = pairs_dua_times.get("%s%s%s" % (res.fromEdge, SEP, res.toEdge))
             if direct is None:
                 direct = int(findRoute(res.fromEdge, res.toEdge, veh_type,
                              res.depart, routingMode=options.routing_mode).travelTime)
@@ -457,7 +459,7 @@ def main():
 
             # assign routes to vehicles
             for route_id in sorted(best_routes):
-                stops = route_id.replace('y', '').replace('z', '').split("_")
+                stops = darpSolvers.extract_stops(route_id)
                 veh_id = stops[0]
                 # first check if new route is better than the current one
                 current_route = []
@@ -487,7 +489,7 @@ def main():
                     # if route serve same reservations and have the same stops
                     # get travel time of current route
                     tt_current_route = step
-                    edges = [taxi_stop.lane.split("_")[0] for taxi_stop
+                    edges = [lane2edge(taxi_stop.lane) for taxi_stop
                              in traci.vehicle.getStops(veh_id)]
                     stop_types = [taxi_stop.actType for taxi_stop
                                   in traci.vehicle.getStops(veh_id)]
@@ -502,8 +504,7 @@ def main():
                     edges.insert(0, veh_edge)
                     # calculate travel time
                     for idx, edge in enumerate(edges[:-1]):
-                        tt_pair = pairs_dua_times.get("%s_%s" % (edge,
-                                                      edges[idx+1]))
+                        tt_pair = pairs_dua_times.get("%s%s%s" % (edge, SEP, edges[idx+1]))
                         if tt_pair is None:
                             tt_pair = int(findRoute(edge, edges[idx+1],
                                           veh_type, step, routingMode=options.routing_mode).travelTime)
@@ -517,7 +518,7 @@ def main():
                     if tt_new_route >= tt_current_route:
                         continue  # current route better than new found
                 if options.verbose:
-                    print('Dispatch:', route_id)
+                    print('Dispatch:', route_id.replace(SEP, '_'))
                 traci.vehicle.dispatchTaxi(veh_id, stops[1:])
                 # assign vehicle to reservations
                 # TODO to avoid major changes in the pick-up time when assigning new passengers,

@@ -19,3 +19,5 @@ opendrive_roundtrip
 
 # check that OSM sidewalk tags correctly control pedestrian access on road lanes, refs #17758
 osm_sidewalk_access
+
+plain_roundtrip

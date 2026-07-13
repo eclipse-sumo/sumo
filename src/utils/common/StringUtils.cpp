@@ -283,8 +283,18 @@ StringUtils::escapeXML(const std::string& orig, const bool maskDoubleHyphen) {
 
 std::string
 StringUtils::escapeShell(const std::string& orig) {
-    std::string result = replace(orig, "\"", "\\\"");
-    return result;
+    return replace(orig, "\"", "\\\"");
+}
+
+
+std::string
+StringUtils::escapeCSV(const std::string& orig, const char separator, const char quote) {
+    const std::string chars{separator, quote};
+    if (orig.find_first_of(chars) == std::string::npos) {
+        return orig;
+    }
+    const std::string quoteStr{quote};
+    return quoteStr + replace(orig, quoteStr, {'\\', quote}) + quoteStr;
 }
 
 

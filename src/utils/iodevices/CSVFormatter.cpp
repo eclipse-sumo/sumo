@@ -39,27 +39,33 @@ CSVFormatter::CSVFormatter(const std::string& columnNames, const char separator)
 }
 
 
+bool
+CSVFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                             const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                             bool /* includeConfig */) {
+    if (attrs.size() > 2) {
+        myHaveRootAttrs = true;
+        openTag(into, rootElement);
+        for (const auto& a : attrs) {
+            if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
+                writeAttr(into, a.first, a.second, false, false);
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void
 CSVFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
-    myXMLStack.push_back((int)myValues.size());
-    if (!myWroteHeader) {
-        myCurrentTag = xmlElement;
-    }
-    if (myMaxDepth == (int)myXMLStack.size() && myWroteHeader && myCurrentTag != xmlElement) {
-        WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myCurrentTag, xmlElement);
-    }
+    myXMLStack.push_back({xmlElement, (int)myValues.size()});
 }
 
 
 void
 CSVFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
-    myXMLStack.push_back((int)myValues.size());
-    if (!myWroteHeader) {
-        myCurrentTag = toString(xmlElement);
-    }
-    if (myMaxDepth == (int)myXMLStack.size() && myWroteHeader && myCurrentTag != toString(xmlElement)) {
-        WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myCurrentTag, toString(xmlElement));
-    }
+    myXMLStack.push_back({toString(xmlElement), (int)myValues.size()});
 }
 
 
@@ -69,19 +75,26 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         // the auto detection case: the first closed tag determines the depth
         myMaxDepth = (int)myXMLStack.size();
     }
-    if ((myMaxDepth == (int)myXMLStack.size() || myXMLStack.empty()) && !myWroteHeader) {
+    const bool eof = myXMLStack.empty() || (myHaveRootAttrs && myXMLStack.size() == 1);
+    if ((myMaxDepth == (int)myXMLStack.size() || eof) && !myWroteHeader) {
         // First complete row or EOF: write the header
         if (!myCheckColumns) {
             WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
         }
+        bool full = myHeaderFormat == "full";
+        if (myHeaderFormat == "auto") {
+            const std::set<std::string> uniq(myHeader.begin(), myHeader.end());
+            full = uniq.size() < myHeader.size();
+        }
 #ifdef HAVE_FMT
-        fmt::print(into, "{}\n", fmt::join(myHeader, std::string_view(&mySeparator, 1)));
+        fmt::print(into, "{}\n", fmt::join(full ? myFullHeader : myHeader, std::string_view(&mySeparator, 1)));
 #else
-        into << joinToString(myHeader, mySeparator) << "\n";
+        into << joinToString(full ? myFullHeader : myHeader, mySeparator) << "\n";
 #endif
         myWroteHeader = true;
     }
     if (myNeedsWrite) {
+        myValues.resize(myHeader.size());
 #ifdef HAVE_FMT
         const std::string row = fmt::format("{}", fmt::join(myValues, std::string_view(&mySeparator, 1)));
 #else
@@ -97,11 +110,12 @@ CSVFormatter::closeTag(std::ostream& into, const std::string& /* comment */) {
         }
         myBufferedRows.clear();
     }
-    if (!myXMLStack.empty()) {
-        if ((int)myValues.size() > myXMLStack.back()) {
-            myValues.resize(myXMLStack.back());
+    if (!eof) {
+        if ((int)myValues.size() > myXMLStack.back().second) {
+            myValues.resize(myXMLStack.back().second);
         }
         myXMLStack.pop_back();
+        return true;
     }
     return false;
 }

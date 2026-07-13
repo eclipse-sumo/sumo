@@ -196,6 +196,13 @@
 
     <xsd:complexType name="phaseType">
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="state" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="[ruyYgGoOs]+"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="minDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="maxDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="earliestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
@@ -205,13 +212,6 @@
         <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="red" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vehext" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="state" use="required">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:pattern value="[ruyYgGoOs]+"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
         <xsd:attribute name="next" use="optional">
             <xsd:simpleType>
                 <!-- non-negative int list -->
@@ -274,11 +274,12 @@
             <xsd:element name="laneType" type="laneTypeType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="allow" type="xsd:string"/>
-        <xsd:attribute name="disallow" type="xsd:string"/>
         <xsd:attribute name="priority" type="xsd:int"/>
         <xsd:attribute name="numLanes" type="xsd:int"/>
         <xsd:attribute name="speed" type="floatType"/>
+        <xsd:attribute name="friction" type="positiveFloatType"/>
+        <xsd:attribute name="allow" type="xsd:string"/>
+        <xsd:attribute name="disallow" type="xsd:string"/>
         <xsd:attribute name="discard" type="boolType"/>
         <xsd:attribute name="oneway" type="boolType"/>
         <xsd:attribute name="width" type="floatType"/>

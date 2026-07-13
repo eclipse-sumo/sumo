@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="0" loadingDuration="20" boardingDuration="2" timeToTeleport="200"/>
+    <vType id="1" refId="0"/>
+    <vType id="2" refId="0" length="3">
+		<param key="k" value="v"/>
+	</vType>
+    <vType id="3" refId="2"/>
+    <vType id="4" refId="2" length="2">
+		<param key="k1" value="v1"/>
+	</vType>
+
+    <trip id="0" type="0" depart="0" from="beg" to="rend"/>
+    <trip id="1" type="1" depart="0" from="beg" to="rend"/>
+    <trip id="2" type="2" depart="0" from="beg" to="rend"/>
+    <trip id="3" type="3" depart="0" from="beg" to="rend"/>
+    <trip id="4" type="4" depart="0" from="beg" to="rend"/>
+</routes>

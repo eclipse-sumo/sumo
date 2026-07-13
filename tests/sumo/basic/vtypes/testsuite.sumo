@@ -44,3 +44,6 @@ vclass_specific_speed_limit_internal_2types_higherSpeed
 
 # The vehicles are defined with an invalid type
 invalid_type
+
+# Testing copy of values when refid is used
+refid

@@ -13,4 +13,7 @@ patch_tls_from_sumonet
 # add sidewalk via typemap
 typemap
 addFromPlainXML
+
+# guess from speed
+guess
 guess.from-permissions

@@ -451,34 +451,35 @@ parseVehicleClasses(const std::vector<std::string>& allowedS) {
 
 void
 writePermissions(OutputDevice& into, SVCPermissions permissions) {
-    if (permissions == SVCAll) {
+    if (permissions == SVCAll || permissions == SVC_UNSPECIFIED) {
+        into.writeOptionalAttr(SUMO_ATTR_ALLOW, "", true);
+        into.writeOptionalAttr(SUMO_ATTR_DISALLOW, "", true);
         return;
-    } else if (permissions == 0) {
+    }
+    if (permissions == 0) {
+        into.writeOptionalAttr(SUMO_ATTR_ALLOW, "", true);
         into.writeAttr(SUMO_ATTR_DISALLOW, VehicleClassNameAll);
         return;
+    }
+    int num_allowed = 0;
+    for (SVCPermissions mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
+        if ((mask & permissions) == mask) {
+            ++num_allowed;
+        }
+    }
+    if (num_allowed <= (NUM_VCLASSES - num_allowed) && num_allowed > 0) {
+        into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(permissions));
+        into.writeOptionalAttr(SUMO_ATTR_DISALLOW, "", true);
     } else {
-        int num_allowed = 0;
-        for (SVCPermissions mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
-            if ((mask & permissions) == mask) {
-                ++num_allowed;
-            }
-        }
-        if (num_allowed <= (NUM_VCLASSES - num_allowed) && num_allowed > 0) {
-            into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(permissions));
-        } else {
-            into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(~permissions));
-        }
+        into.writeOptionalAttr(SUMO_ATTR_ALLOW, "", true);
+        into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(~permissions));
     }
 }
 
 
 void
 writePreferences(OutputDevice& into, SVCPermissions preferred) {
-    if (preferred == SVCAll || preferred == 0) {
-        return;
-    } else {
-        into.writeAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred));
-    }
+    into.writeOptionalAttr(SUMO_ATTR_PREFER, getVehicleClassNames(preferred), preferred == SVCAll || preferred == 0);
 }
 
 

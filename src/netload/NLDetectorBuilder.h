@@ -280,7 +280,8 @@ public:
             const std::string name, const std::string& vTypes,
             const std::string& nextEdges,
             int detectPersons,
-            bool show);
+            bool show,
+            bool forceMicro = false);
 
 
     /** @brief Creates an instance of an e1 detector using the given values
@@ -352,7 +353,12 @@ public:
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
+     * @param[in] haltSpeedRel the maximum relative speed to consider a vehicle waiting
      * @param[in] vTypes the set of vehicle types to consider
+     * @param[in] writeAttributes the list of attributes that shall be written
+     * @param[in] edges the list of edges for which output shall be written
+     * @param[in] aggregate Whether a single aggregated value shall be written
+     * @param[in] device The output device for the recorded data
      * @exception InvalidArgument If one of the values is invalid
      */
     void createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
@@ -360,7 +366,7 @@ public:
                                 const bool useLanes, const std::string& excludeEmpty,
                                 const bool withInternal, const bool trackVehicles, const int detectPersons,
                                 const double maxTravelTime, const double minSamples,
-                                const double haltSpeed, const std::string& vTypes,
+                                const double haltSpeed, const double haltSpeedRel, const std::string& vTypes,
                                 const std::string& writeAttributes,
                                 std::vector<MSEdge*> edges,
                                 AggregateType aggregate,

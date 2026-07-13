@@ -768,7 +768,7 @@ GNEConnection::drawConnection(const GUIVisualizationSettings& s, const GUIVisual
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, superposedGeometry.getShape(), connectionColor.changedBrightness(-32),
                                             s.neteditSizeSettings.connectionGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                            true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
     } else {
         GLHelper::drawLine(superposedGeometry.getShape());

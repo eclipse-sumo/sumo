@@ -1,4 +1,4 @@
-Eclipse SUMO activitygen v1_25_0+0045-28a3daf62ee
+Eclipse SUMO activitygen v1_27_1+0194-8d0b2b6a43c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
@@ -40,7 +40,8 @@ Output Options:
                                     derivable from the file name ('xml', 'csv',
                                     'parquet')
   --output.column-header STR       How to derive column headers from attribute
-                                    names ('none', 'tag', 'auto', 'plain')
+                                    names ('none', 'tag', 'auto', 'plain',
+                                    'full')
   --output.column-separator STR    Separator in CSV output
   -H, --human-readable-time        Write time values as hour:minute:second or
                                     day:hour:minute:second rather than seconds

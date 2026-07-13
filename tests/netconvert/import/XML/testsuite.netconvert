@@ -1,3 +1,5 @@
+output_formats
+
 # Tests parsing of stopOffsets (lane / edge child elements)
 stopOffsets
 

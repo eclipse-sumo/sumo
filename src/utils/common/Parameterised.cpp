@@ -177,8 +177,8 @@ Parameterised::writeParams(OutputDevice& device) const {
     // iterate over all parameters and write it
     for (const auto& keyValue : myMap) {
         device.openTag(SUMO_TAG_PARAM);
-        device.writeAttr(SUMO_ATTR_KEY, StringUtils::escapeXML(keyValue.first));
-        device.writeAttr(SUMO_ATTR_VALUE, StringUtils::escapeXML(keyValue.second));
+        device.writeAttr(SUMO_ATTR_KEY, keyValue.first, false, true);
+        device.writeAttr(SUMO_ATTR_VALUE, keyValue.second, false, true);
         device.closeTag();
     }
 }

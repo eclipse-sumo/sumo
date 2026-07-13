@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-24T23:28:13.835657+01:00 by Eclipse SUMO netconvert v1_26_0+0808-9a5c1bacf63
+<!-- generated on 2026-06-29T18:13:08.075154+01:00 by Eclipse SUMO netconvert v1_27_1+0036-0c84ddc3683
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -232,13 +232,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":B4_Wolfenbuetteler_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="52.44" shape="218.98,130.11 207.31,123.51 195.43,112.58 185.43,101.95 179.41,96.24"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_2" function="internal">
-        <lane id=":B4_Wolfenbuetteler_2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.72" shape="219.84,127.03 205.31,121.40 195.45,113.48 190.26,103.26 190.13,100.23"/>
+        <lane id=":B4_Wolfenbuetteler_2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.58" shape="219.84,127.03 205.32,121.36 195.47,113.32 190.30,102.91 190.20,100.25"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_3" function="internal">
         <lane id=":B4_Wolfenbuetteler_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.51" length="23.55" shape="219.84,127.03 214.72,120.48 213.97,115.38 217.60,111.72 222.34,110.41"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_22" function="internal">
-        <lane id=":B4_Wolfenbuetteler_22_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.49" shape="190.13,100.23 189.73,90.75"/>
+        <lane id=":B4_Wolfenbuetteler_22_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="10.13" shape="190.20,100.25 189.81,90.13"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_23" function="internal">
         <lane id=":B4_Wolfenbuetteler_23_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.51" length="3.40" shape="222.34,110.41 225.62,109.50"/>
@@ -247,32 +247,32 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":B4_Wolfenbuetteler_4_0" index="0" allow="tram" speed="13.21" length="29.00" shape="222.09,121.44 212.14,119.77 204.58,120.26 199.42,122.89 196.64,127.68"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_5" function="internal">
-        <lane id=":B4_Wolfenbuetteler_5_0" index="0" allow="tram" speed="13.89" length="39.48" shape="222.09,121.44 211.42,117.41 204.22,111.41 200.49,103.46 200.24,93.55"/>
+        <lane id=":B4_Wolfenbuetteler_5_0" index="0" allow="tram" speed="13.89" length="41.12" shape="222.09,121.44 211.44,117.28 204.29,110.91 200.65,102.33 200.51,91.55"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_6" function="internal">
-        <lane id=":B4_Wolfenbuetteler_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.84" length="9.15" shape="222.23,99.41 222.16,101.91 222.85,103.91 224.31,105.42 226.52,106.43"/>
+        <lane id=":B4_Wolfenbuetteler_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.18" length="13.49" shape="223.04,94.53 222.62,99.16 223.05,102.69 224.36,105.12 226.52,106.43"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_7" function="internal">
-        <lane id=":B4_Wolfenbuetteler_7_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="38.25" shape="219.13,98.58 216.44,111.09 213.32,120.67 210.06,128.40 206.96,135.35"/>
-        <lane id=":B4_Wolfenbuetteler_7_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="38.25" shape="216.02,97.75 213.45,109.83 210.48,119.05 207.36,126.53 204.31,133.38"/>
+        <lane id=":B4_Wolfenbuetteler_7_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.53" shape="219.87,94.11 216.91,108.25 213.55,119.27 210.12,128.02 206.96,135.35"/>
+        <lane id=":B4_Wolfenbuetteler_7_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="42.53" shape="216.69,93.69 213.88,107.25 210.69,117.77 207.41,126.18 204.31,133.38"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_9" function="internal">
-        <lane id=":B4_Wolfenbuetteler_9_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.10" length="24.25" shape="212.91,96.92 208.37,99.92 198.76,100.35 189.65,99.14"/>
+        <lane id=":B4_Wolfenbuetteler_9_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.00" length="28.92" shape="213.52,93.27 209.48,101.54 201.85,103.86 191.53,101.62 190.45,101.14"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_10" function="internal">
-        <lane id=":B4_Wolfenbuetteler_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.94" length="26.85" shape="209.81,96.10 202.78,102.29 197.10,103.46 192.75,99.61 190.85,94.05"/>
+        <lane id=":B4_Wolfenbuetteler_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.93" length="26.93" shape="210.34,92.85 204.19,99.87 198.72,101.75 193.93,98.51 191.27,93.10"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_24" function="internal">
-        <lane id=":B4_Wolfenbuetteler_24_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.10" length="10.67" shape="189.65,99.14 187.85,98.90 179.41,96.24"/>
+        <lane id=":B4_Wolfenbuetteler_24_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.00" length="12.08" shape="190.45,101.14 179.41,96.24"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_25" function="internal">
-        <lane id=":B4_Wolfenbuetteler_25_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.94" length="3.49" shape="190.85,94.05 189.73,90.75"/>
+        <lane id=":B4_Wolfenbuetteler_25_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.93" length="3.31" shape="191.27,93.10 189.81,90.13"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_11" function="internal">
-        <lane id=":B4_Wolfenbuetteler_11_0" index="0" allow="tram" speed="13.89" length="32.40" shape="203.89,94.52 204.38,101.60 207.80,107.70 214.14,112.83 223.41,116.97"/>
+        <lane id=":B4_Wolfenbuetteler_11_0" index="0" allow="tram" speed="13.89" length="34.42" shape="204.21,92.04 204.56,100.20 207.88,107.08 214.16,112.67 223.41,116.97"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_12" function="internal">
-        <lane id=":B4_Wolfenbuetteler_12_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="5.71" length="8.46" shape="180.86,93.39 183.08,94.12 184.78,93.79 185.96,92.38 186.61,89.92"/>
+        <lane id=":B4_Wolfenbuetteler_12_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="5.76" length="8.61" shape="180.86,93.39 183.08,94.11 184.79,93.74 185.97,92.27 186.64,89.71"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_13" function="internal">
         <lane id=":B4_Wolfenbuetteler_13_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="47.54" shape="180.86,93.39 188.52,95.99 201.76,99.70 215.97,103.52 226.52,106.43"/>
@@ -288,17 +288,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":B4_Wolfenbuetteler_16_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="10.80" length="21.02" shape="181.25,116.25 182.40,108.50 182.48,102.58 181.48,98.49 179.41,96.24"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_17" function="internal">
-        <lane id=":B4_Wolfenbuetteler_17_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="27.53" shape="181.25,116.25 186.61,89.92"/>
-        <lane id=":B4_Wolfenbuetteler_17_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="27.53" shape="184.10,118.37 189.73,90.75"/>
+        <lane id=":B4_Wolfenbuetteler_17_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="27.95" shape="181.25,116.25 186.64,89.71"/>
+        <lane id=":B4_Wolfenbuetteler_17_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="27.95" shape="184.10,118.37 189.81,90.13"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_19" function="internal">
-        <lane id=":B4_Wolfenbuetteler_19_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.93" length="27.59" shape="186.95,120.48 192.37,115.45 203.60,111.42 211.73,109.96"/>
+        <lane id=":B4_Wolfenbuetteler_19_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.69" length="31.87" shape="186.95,120.48 191.43,110.44 199.54,106.01 211.02,106.07 211.16,106.11"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_27" function="internal">
-        <lane id=":B4_Wolfenbuetteler_27_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.93" length="13.96" shape="211.73,109.96 216.17,109.17 225.62,109.50"/>
+        <lane id=":B4_Wolfenbuetteler_27_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.69" length="14.85" shape="211.16,106.11 225.62,109.50"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_20" function="internal">
-        <lane id=":B4_Wolfenbuetteler_20_0" index="0" allow="tram" speed="13.89" length="32.81" shape="194.05,125.76 195.51,119.40 197.41,109.71 199.18,99.99 200.24,93.55"/>
+        <lane id=":B4_Wolfenbuetteler_20_0" index="0" allow="tram" speed="13.89" length="34.83" shape="194.05,125.76 195.55,119.09 197.55,108.71 199.41,98.31 200.51,91.55"/>
     </edge>
     <edge id=":B4_Wolfenbuetteler_21" function="internal">
         <lane id=":B4_Wolfenbuetteler_21_0" index="0" allow="tram" speed="13.89" length="34.96" shape="194.05,125.76 197.73,118.79 203.85,115.00 212.41,114.40 223.41,116.97"/>
@@ -344,7 +344,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="26811659#0_0" index="0" allow="tram" speed="13.89" length="69.26" shape="214.99,10.71 206.90,70.92 206.01,77.90 205.83,79.36"/>
     </edge>
     <edge id="26811659#1" from="7781218446" to="B4_Wolfenbuetteler" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="205.81,79.51 205.50,81.93">
-        <lane id="26811659#1_0" index="0" allow="tram" speed="13.89" length="14.98" shape="205.79,79.66 203.89,94.52"/>
+        <lane id="26811659#1_0" index="0" allow="tram" speed="13.89" length="12.48" shape="205.79,79.66 204.21,92.04"/>
     </edge>
     <edge id="310003023#0" from="51519988" to="7781218448" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25">
         <lane id="310003023#0_0" index="0" allow="tram" speed="13.89" length="320.28" shape="675.36,215.46 670.65,214.94 664.60,214.91 660.38,214.93 648.40,215.66 635.81,216.76 632.80,216.94 622.07,218.01 617.24,218.31 608.97,218.54 600.94,218.29 599.37,218.20 594.72,218.13 592.48,218.09 583.88,216.67 539.97,204.33 519.82,198.84 443.33,177.61 391.38,165.39 362.77,159.25"/>
@@ -377,7 +377,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="310144574#2_0" index="0" allow="tram" speed="13.89" length="89.65" shape="584.62,213.25 592.81,214.59 595.54,214.66 600.19,214.86 601.07,214.79 608.97,215.04 617.13,214.82 622.83,214.58 625.95,214.33 632.60,213.41 644.09,212.07 649.35,211.36 654.76,211.03 659.98,210.90 667.61,210.89 673.90,211.49"/>
     </edge>
     <edge id="310264604" from="B4_Wolfenbuetteler" to="3156641235" priority="17" type="railway.tram" routingType="4" spreadType="center" shape="201.48,84.43 207.27,41.88 211.52,10.25">
-        <lane id="310264604_0" index="0" allow="tram" speed="13.89" length="84.06" shape="200.24,93.55 207.27,41.88 211.52,10.25"/>
+        <lane id="310264604_0" index="0" allow="tram" speed="13.89" length="82.04" shape="200.51,91.55 207.27,41.88 211.52,10.25"/>
     </edge>
     <edge id="316779260" from="1582161926" to="1582162011" priority="12" type="highway.primary" spreadType="center" shape="222.40,0.00 221.51,8.52 221.00,17.61 220.63,26.73 220.17,38.45 219.75,49.85">
         <lane id="316779260_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="45.95" shape="227.17,0.50 226.30,8.90 225.79,17.84 225.43,26.92 224.97,38.63 224.69,46.04"/>
@@ -411,11 +411,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="L 295"/>
     </edge>
     <edge id="316779261#3" from="3287940445" to="B4_Wolfenbuetteler" priority="12" type="highway.primary" spreadType="center" shape="216.81,92.97 214.88,104.67">
-        <lane id="316779261#3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.49" shape="223.07,94.36 222.23,99.41"/>
-        <lane id="316779261#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.49" shape="219.91,93.84 219.13,98.58"/>
-        <lane id="316779261#3_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.49" shape="216.75,93.32 216.02,97.75"/>
-        <lane id="316779261#3_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.49" shape="213.59,92.80 212.91,96.92"/>
-        <lane id="316779261#3_4" index="4" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.49" shape="210.44,92.28 209.81,96.10"/>
+        <lane id="316779261#3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.37" shape="223.07,94.36 223.04,94.53"/>
+        <lane id="316779261#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.37" shape="219.91,93.84 219.87,94.11"/>
+        <lane id="316779261#3_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.37" shape="216.75,93.32 216.69,93.69"/>
+        <lane id="316779261#3_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.37" shape="213.59,92.80 213.52,93.27"/>
+        <lane id="316779261#3_4" index="4" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.37" shape="210.44,92.28 210.34,92.85"/>
         <param key="ref" value="L 295"/>
     </edge>
     <edge id="316779262" from="1582162305" to="1582162268" priority="12" type="highway.primary" spreadType="center" shape="309.86,154.85 296.25,150.59 282.36,146.92">
@@ -513,8 +513,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="L 295"/>
     </edge>
     <edge id="33289080#0" from="B4_Wolfenbuetteler" to="3287940443" priority="12" type="highway.primary" spreadType="center" shape="187.11,98.37 188.45,88.24">
-        <lane id="33289080#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.99" shape="186.61,89.92 186.85,88.15"/>
-        <lane id="33289080#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.99" shape="189.73,90.75 190.02,88.57"/>
+        <lane id="33289080#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.57" shape="186.64,89.71 186.85,88.15"/>
+        <lane id="33289080#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.57" shape="189.81,90.13 190.02,88.57"/>
         <param key="ref" value="L 295"/>
     </edge>
     <edge id="33289080#1" from="3287940443" to="5426362245" priority="12" type="highway.primary" spreadType="center">
@@ -864,7 +864,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="B4_Wolfenbuetteler" type="traffic_light" x="204.84" y="114.57" incLanes="316779263#4_0 316779263#4_1 316779263#4_2 310003023#2_0 316779261#3_0 316779261#3_1 316779261#3_2 316779261#3_3 316779261#3_4 26811659#1_0 384324387_0 316779266#3_0 316779266#3_1 316779266#3_2 310143559#3_0" intLanes=":B4_Wolfenbuetteler_0_0 :B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_22_0 :B4_Wolfenbuetteler_23_0 :B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_24_0 :B4_Wolfenbuetteler_25_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_26_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_27_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0" shape="218.14,134.85 226.97,104.90 224.91,103.83 224.26,103.06 223.85,102.14 223.70,101.06 223.79,99.82 185.06,89.50 180.97,91.65 178.06,97.36 179.83,115.19 208.28,136.33">
+    <junction id="B4_Wolfenbuetteler" type="traffic_light" x="204.84" y="114.57" incLanes="316779263#4_0 316779263#4_1 316779263#4_2 310003023#2_0 316779261#3_0 316779261#3_1 316779261#3_2 316779261#3_3 316779261#3_4 26811659#1_0 384324387_0 316779266#3_0 316779266#3_1 316779266#3_2 310143559#3_0" intLanes=":B4_Wolfenbuetteler_0_0 :B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_22_0 :B4_Wolfenbuetteler_23_0 :B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_24_0 :B4_Wolfenbuetteler_25_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_26_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_27_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0" shape="218.14,134.85 226.97,104.90 225.01,103.27 224.47,101.79 224.23,99.88 224.28,97.53 224.63,94.74 185.06,89.50 180.97,91.65 178.06,97.36 179.83,115.19 208.28,136.33">
         <request index="0"  response="0000000000000110000000" foes="0000000000000110000000" cont="0"/>
         <request index="1"  response="1111110000001110000000" foes="1111111000001110010000" cont="0"/>
         <request index="2"  response="1111100110001110000000" foes="1111100110011110010000" cont="1"/>
@@ -874,7 +874,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="6"  response="0000000000000000000000" foes="0000000110000000000000" cont="0"/>
         <request index="7"  response="0000000000000000000100" foes="1010000110100000110111" cont="0"/>
         <request index="8"  response="0000000000000000000100" foes="1010000110100000110111" cont="0"/>
-        <request index="9"  response="0101110000000000000100" foes="0101111110100000100110" cont="1"/>
+        <request index="9"  response="0111110000000000000100" foes="0111111110100000100110" cont="1"/>
         <request index="10" response="0101100000100000100100" foes="0101100000100000100100" cont="1"/>
         <request index="11" response="0010000000001110000000" foes="1010000110011110001000" cont="0"/>
         <request index="12" response="0001100000000000000000" foes="0001100000000000000000" cont="0"/>
@@ -884,17 +884,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="16" response="0000000000000000000000" foes="0000001000001000000010" cont="0"/>
         <request index="17" response="0000000000000000000000" foes="0000000111011000000110" cont="0"/>
         <request index="18" response="0000000000000000000100" foes="0000000111011000000110" cont="0"/>
-        <request index="19" response="0100000000100110000100" foes="0100000110100110101110" cont="1"/>
+        <request index="19" response="0100000000100110000100" foes="0100000110101110101110" cont="1"/>
         <request index="20" response="0010000000001000000100" foes="0010000110011000100110" cont="0"/>
         <request index="21" response="0000000000100110000100" foes="0000000000100110101110" cont="0"/>
     </junction>
 
-    <junction id=":B4_Wolfenbuetteler_22_0" type="internal" x="190.13" y="100.23" incLanes=":B4_Wolfenbuetteler_2_0 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_9_0 :B4_Wolfenbuetteler_10_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0"/>
+    <junction id=":B4_Wolfenbuetteler_22_0" type="internal" x="190.20" y="100.25" incLanes=":B4_Wolfenbuetteler_2_0 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_9_0 :B4_Wolfenbuetteler_10_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_20_0 :B4_Wolfenbuetteler_21_0"/>
     <junction id=":B4_Wolfenbuetteler_23_0" type="internal" x="222.34" y="110.41" incLanes=":B4_Wolfenbuetteler_3_0 26811659#1_0 310003023#2_0 310143559#3_0 316779261#3_0 316779266#3_2 384324387_0" intLanes=":B4_Wolfenbuetteler_4_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_19_0 :B4_Wolfenbuetteler_21_0"/>
-    <junction id=":B4_Wolfenbuetteler_24_0" type="internal" x="189.65" y="99.14" incLanes=":B4_Wolfenbuetteler_9_0 316779266#3_0 316779266#3_1" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_15_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
-    <junction id=":B4_Wolfenbuetteler_25_0" type="internal" x="190.85" y="94.05" incLanes=":B4_Wolfenbuetteler_10_0 26811659#1_0 310003023#2_0 310143559#3_0 316779263#4_2 316779266#3_0 316779266#3_1 384324387_0" intLanes=":B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
+    <junction id=":B4_Wolfenbuetteler_24_0" type="internal" x="190.45" y="101.14" incLanes=":B4_Wolfenbuetteler_9_0 316779266#3_0 316779266#3_1" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_15_0 :B4_Wolfenbuetteler_16_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
+    <junction id=":B4_Wolfenbuetteler_25_0" type="internal" x="191.27" y="93.10" incLanes=":B4_Wolfenbuetteler_10_0 26811659#1_0 310003023#2_0 310143559#3_0 316779263#4_2 316779266#3_0 316779266#3_1 384324387_0" intLanes=":B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_12_0 :B4_Wolfenbuetteler_17_0 :B4_Wolfenbuetteler_17_1 :B4_Wolfenbuetteler_20_0"/>
     <junction id=":B4_Wolfenbuetteler_26_0" type="internal" x="181.57" y="94.65" incLanes=":B4_Wolfenbuetteler_15_0 316779261#3_3 316779263#4_1 316779266#3_0" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_9_0 :B4_Wolfenbuetteler_16_0"/>
-    <junction id=":B4_Wolfenbuetteler_27_0" type="internal" x="211.73" y="109.96" incLanes=":B4_Wolfenbuetteler_19_0 316779261#3_0 316779261#3_1 316779261#3_2" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_3_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_20_0"/>
+    <junction id=":B4_Wolfenbuetteler_27_0" type="internal" x="211.16" y="106.11" incLanes=":B4_Wolfenbuetteler_19_0 316779261#3_0 316779261#3_1 316779261#3_2" intLanes=":B4_Wolfenbuetteler_1_0 :B4_Wolfenbuetteler_2_0 :B4_Wolfenbuetteler_3_0 :B4_Wolfenbuetteler_5_0 :B4_Wolfenbuetteler_6_0 :B4_Wolfenbuetteler_7_0 :B4_Wolfenbuetteler_7_1 :B4_Wolfenbuetteler_11_0 :B4_Wolfenbuetteler_13_0 :B4_Wolfenbuetteler_13_1 :B4_Wolfenbuetteler_20_0"/>
 
     <connection from="-384324387" to="-396516546#3" fromLane="0" toLane="0" via=":3287940446_0_0" tl="3287940446" linkIndex="0" dir="s" state="O"/>
     <connection from="-396516546#0" to="396516546#0" fromLane="0" toLane="0" via=":3993282689_0_0" dir="t" state="M"/>

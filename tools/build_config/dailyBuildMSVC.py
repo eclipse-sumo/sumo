@@ -34,7 +34,6 @@ import sys
 
 import buildWindowsSUMOWheel
 import status
-import wix
 
 env = os.environ
 if "SUMO_HOME" not in env:
@@ -141,6 +140,16 @@ def main(options, platform="x64"):
     status.log_subprocess(["cmake", "--build", ".", "--config", "Release", "--target", "lisum"], cwd=buildDir)
     status.log_subprocess(["cmake", "--build", ".", "--config", "Release", "--target", "userdoc", "examples"],
                           cwd=buildDir)
+    # For the "extra" flavour we ship the GPL license instead of the default EPL one and
+    # pull in the (optional) cadyts jar before invoking install/package targets.
+    if options.suffix == "extra":
+        shutil.copy(os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.txt"),
+                    os.path.join(SUMO_HOME, "LICENSE"))
+        if os.path.exists(os.path.join(options.remoteDir, "cadyts.jar")):
+            shutil.copy(os.path.join(options.remoteDir, "cadyts.jar"), os.path.join(SUMO_HOME, "bin"))
+        cpack_license_rtf = os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.rtf")
+    else:
+        cpack_license_rtf = os.path.join(SUMO_HOME, "build_config", "wix", "License.rtf")
     status.log_subprocess(["cmake", "--install", "."], cwd=buildDir)
     plat = platform.lower().replace("x", "win")
     if options.msvc_version != "msvc16":
@@ -152,35 +161,22 @@ def main(options, platform="x64"):
     binaryZip = os.path.join(buildDir, "sumo-%s%s-%s" % (plat, options.suffix, installBase[5:]))
     if ret == 0:
         try:
-            for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
-                      [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "CITATION.cff", "LICENSE")]):
-                shutil.copy(f, installDir)
-            if options.suffix == "extra":
-                shutil.copy(os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.txt"),
-                            os.path.join(installDir, "LICENSE"))
-                if os.path.exists(os.path.join(options.remoteDir, "cadyts.jar")):
-                    shutil.copy(os.path.join(options.remoteDir, "cadyts.jar"), os.path.join(SUMO_HOME, "bin"))
-            for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*.jar")):
-                shutil.copy(f, os.path.join(installDir, "bin"))
-            for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*-sources.zip")):
-                shutil.unpack_archive(f, os.path.join(installDir, "include"))
-            shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
-                            ignore=shutil.ignore_patterns('web'))
+            # The libsumo / libtraci python folders are still required for the standard
+            # cmake --install layout but should not be shipped in the binary packages.
             for lib in ("libsumo", "libtraci"):
                 shutil.rmtree(os.path.join(installDir, "tools", lib), ignore_errors=True)
-            shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
-            status.printLog("Creating sumo.zip.")
-            shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
-            shutil.copy(binaryZip + ".zip", options.remoteDir)
-            status.printLog("Creating sumo.msi.")
-            if options.suffix == "extra":
-                wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi",
-                             license_path=os.path.join(SUMO_HOME, "build_config", "wix", "gpl-2.0.rtf"))
-            else:
-                wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi")
-            shutil.copy(binaryZip + ".msi", options.remoteDir)
+            status.printLog("Creating sumo.zip and sumo.msi via CPack.")
+            cpack_cmd = ["cpack", "-G", "WIX;ZIP", "-C", "Release", "-B", "C:/temp",
+                         "-D", "CPACK_PACKAGE_FILE_NAME=" + os.path.basename(binaryZip),
+                         "-D", "CPACK_RESOURCE_FILE_LICENSE=" + cpack_license_rtf]
+            status.log_subprocess(cpack_cmd, cwd=buildDir)
+            for ext in (".zip", ".msi"):
+                produced = "C:/temp/" + os.path.basename(binaryZip) + ext
+                if os.path.exists(produced):
+                    shutil.copy(produced, options.remoteDir)
+                    os.rename(produced, binaryZip + ext)
         except Exception as ziperr:
-            status.printLog("Warning: Could not zip to %s.zip (%s)!" % (binaryZip, ziperr))
+            status.printLog("Warning: Could not create installer for %s (%s)!" % (binaryZip, ziperr))
 
     gameZip = os.path.join(buildDir, "sumo-game-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
     status.printLog("Creating sumo-game.zip.")

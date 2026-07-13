@@ -67,4 +67,5 @@ with open("HBEFAresults.csv" if emissionClasses[0].startswith("HBEFA4") else "re
         fdo.write("%s\n" % ec)
         with open("tmp.csv") as fd:
             fdo.write(fd.read())
-        fdo.write("-----\n\n")
+        if i < len(emissionClasses) - 1:
+            fdo.write("-----\n\n")

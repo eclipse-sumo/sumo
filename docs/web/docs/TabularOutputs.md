@@ -80,7 +80,7 @@ To further configure the tabular outputs, the following options can be used:
 |---|---|
 | **--output.compression** {{DT_STR}} | Defines the standard compression algorithm (currently only for parquet output: 'uncompressed', 'gzip', 'bz2', 'zstd'); *default:* **uncompressed** |
 | **--output.format** {{DT_STR}} | Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet'); *default:* **xml** |
-| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain'); *default:* **tag** |
+| **--output.column-header** {{DT_STR}} | How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain', 'full'); *default:* **auto** |
 | **--output.column-separator** {{DT_STR}} | Separator in CSV output; *default:* **;** |
 
 The **--output.format** option is only being used when the format cannot be derived from the filename so it is mostly useful when writing to stdout or to a socket
@@ -90,11 +90,14 @@ For **--output.compression** please note that this will currently only be applie
 So you will not be able to uncompress a parquet file with gzip compression using a gzip tool on the command line. Furthermore we do not support specifying different
 compression methods for different columns yet. Compression support may also depend on the way SUMO (or rather the Arrow / Parquet library it depends on) has been compiled.
 
-By default the column names are derived by connecting the element name with the attribute using "_". This can be changed by setting the option **--output.column-header** to one of the following values:
-  - 'none': no header is written in CSV (parquet still uses the default header)
-  - 'tag': the default behavior using element name and attribute name
-  - 'auto': use only the attribute name unless there is a name clash. If there is a clash use the 'tag' strategy for the clashing column names (except for the first one).
+The format of the column names can be changed by setting the option **--output.column-header** to one of the following values:
+  - 'none': no header is written
+  - 'tag': the current element name and attribute name are concatenated by "_"
+  - 'full': concatenate all parent elements, the current element name and the attribute name by "_"
+  - 'auto': use 'tag' unless there is a name clash. If there is a clash use 'full' for all columns. (This is the default.)
   - 'plain': always use the attribute name only
+There will be no warnings emitted if there are multiple columns with the same name (a name clash).
+Please be aware that "auto" became the default (with changed semantics) for SUMO 1.28.0.
 
 # Parquet data types
 
@@ -119,7 +122,8 @@ fcd.csv.gz |17s| 47MB | 3s
 
 # Limitations
 
-Columns are currently determined by the first fully closed (innermost) element. This means the following structures are not supported:
-  
-- elements with optional attributes (i.e. edgeData defaults)
-- different elements on the same level (i.e. elements `<walk>` and `<ride>` of a persons plan)
+Most of the simulation outputs got at least initial support, so we verified for a simple scenario
+that the tabular outputs are equivalent to the XML. Things still needing our attention are:
+
+- vehicle routes
+- mesoscopic outputs

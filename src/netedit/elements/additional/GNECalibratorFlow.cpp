@@ -65,9 +65,6 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, const SUMO
     // set default vehsperhour
     setAttribute(SUMO_ATTR_VEHSPERHOUR, "1800");
 }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route,
@@ -83,6 +80,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     // reset ID
     id.clear();
 }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 GNECalibratorFlow::~GNECalibratorFlow() {}

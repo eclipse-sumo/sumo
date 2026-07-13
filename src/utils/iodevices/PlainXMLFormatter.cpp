@@ -43,7 +43,7 @@ PlainXMLFormatter::writeXMLHeader(std::ostream& into, const std::string& rootEle
         oc.writeXMLHeader(into, includeConfig);
         openTag(into, rootElement);
         for (std::map<SumoXMLAttr, std::string>::const_iterator it = attrs.begin(); it != attrs.end(); ++it) {
-            writeAttr(into, it->first, it->second);
+            writeAttr(into, it->first, it->second, false);
         }
         into << ">\n";
         if (writeMetadata) {
@@ -105,6 +105,18 @@ PlainXMLFormatter::writePreformattedTag(std::ostream& into, const std::string& v
 void
 PlainXMLFormatter::writePadding(std::ostream& into, const std::string& val) {
     into << val;
+}
+
+
+void
+PlainXMLFormatter::writeAttr(std::ostream& into, const std::string& attr, const std::string& val, const bool escape) {
+    into << " " << attr << "=\"" << (escape ? StringUtils::escapeXML(val) : val) << "\"";
+}
+
+
+void
+PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val, const bool escape) {
+    into << " " << toString(attr) << "=\"" << (escape ? StringUtils::escapeXML(val) : val) << "\"";
 }
 
 

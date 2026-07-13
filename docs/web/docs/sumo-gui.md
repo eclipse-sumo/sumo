@@ -1062,15 +1062,29 @@ By using the option **--edgedata-output FILE** or **--lanedata-output FILE** you
 
 To make use of the loaded data, street coloring must be set to **color by
 edgeData** in the visualization settings dialog.
+
 The button *Recalibrate Rainbow* can be used to generate a
 coloring scheme that spans the loaded data range for the selected attribute.
+Using the checkboxes min, max, center and 'fix range' it is also possible make the colors span a custom range.
+When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
 
-!!! note
-    In the gui-settings dialog, the function 'Recalibrate Rainbow' can be used to adapt the coloring to the data range of the current attribute.
-!!! note
+  
+!!! caution
     edgeData is time based so it will only be shown when the simulation time has advance to the begin time of the respective data interval. Make sure to advance the simulation to time 0 (step once) or to whatever begin time was used for edgeData generation before using *Recalibrate Rainbow*. To see further data frames, advance the simulation by using delay or breakpoints.
 
-When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
+!!! note
+    In order to efficiently step through a range of data intervals, it is helpful to set a custom simulaton **--step-length**. (i.e. 3600 for hourly data). In this way, pressing the simulation step button once, will advance to the next interval.
+
+## Coloring by lane data
+
+The color scheme "by param (numerical, lanewise)" permits coloring individual lanes by their custom [parameters](Simulation/GenericParameters.md) as long as the values can be interpreted as numbers.
+While it is possible to define such params with [netedit](Netedit/index.md) or to load them into the network from [plain-xml](Networks/PlainXML.md) it is often desirable to show values that are independent of the *.net.xml* file.
+
+This can be accomplished by using [Traci](TraCI/index.md):
+
+1. `traci.lane.setParameter(lane, "customAttribute", str(value))`
+2. in sumo-gui set street coloring to "by param (numerical, lanewise)" and select "customAttribute" in the little dropdown menu that says "LANE_KEY"
+3. press the "Recalibrate Rainbow" button to set up a color scheme for the value range
 
 ## Scaling by Data
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-30T21:28:13.580841+01:00 by Eclipse SUMO sumo v1_27_1+0054-550d56f2496
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <save-state.times value="1"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="10"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</sumoConfiguration>
+-->
+
+<snapshot type="micro" version="v1_27_1+0054-550d56f2496" time="1.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00" speedFactor="1.00" decel="4.50"/>
+    <vType id="0" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00"/>
+    <vType id="1" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00"/>
+    <vType id="2" length="3.00" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00">
+        <param key="k" value="v"/>
+    </vType>
+    <vType id="3" length="3.00" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00">
+        <param key="k" value="v"/>
+    </vType>
+    <vType id="4" length="2.00" boardingDuration="2.00" loadingDuration="20.00" timeToTeleport="200.00">
+        <param key="k" value="v"/>
+        <param key="k1" value="v1"/>
+    </vType>
+</snapshot>

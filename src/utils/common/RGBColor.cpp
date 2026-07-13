@@ -62,12 +62,16 @@ SumoRNG RGBColor::myRNG("color");
 // method definitions
 // ===========================================================================
 
-RGBColor::RGBColor(bool valid)
-    : myRed(0), myGreen(0), myBlue(0), myAlpha(0), myValid(valid) {}
+RGBColor::RGBColor(bool valid) :
+    myValid(valid) {}
 
 
-RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
-    : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha), myValid(true) {}
+RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha, bool random) :
+    myRed(red),
+    myGreen(green),
+    myBlue(blue),
+    myAlpha(alpha),
+    myRandom(random) {}
 
 
 unsigned char
@@ -119,6 +123,12 @@ RGBColor::setValid(const bool value) {
 bool
 RGBColor::isValid() const {
     return myValid;
+}
+
+
+bool
+RGBColor::isRandom() const {
+    return myRandom;
 }
 
 
@@ -276,7 +286,7 @@ RGBColor::parseColor(std::string coldef) {
                        // prefer more saturated colors
                        pow(RandHelper::rand(&myRNG), 0.3),
                        // prefer brighter colors
-                       pow(RandHelper::rand(&myRNG), 0.3));
+                       pow(RandHelper::rand(&myRNG), 0.3), true);
     }
     unsigned char r = 0;
     unsigned char g = 0;
@@ -400,7 +410,7 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, double
 
 
 RGBColor
-RGBColor::fromHSV(double h, double s, double v) {
+RGBColor::fromHSV(double h, double s, double v, bool random) {
     h = MIN2(MAX2(h, 0.), 360.);
     s = MIN2(MAX2(s, 0.), 1.);
     v = MIN2(MAX2(v, 0.), 1.);
@@ -416,24 +426,25 @@ RGBColor::fromHSV(double h, double s, double v) {
     switch (i) {
         case 0:
         case 6:
-            return RGBColor(vv, n, m, 255);
+            return RGBColor(vv, n, m, 255, random);
         case 1:
-            return RGBColor(n, vv, m, 255);
+            return RGBColor(n, vv, m, 255, random);
         case 2:
-            return RGBColor(m, vv, n, 255);
+            return RGBColor(m, vv, n, 255, random);
         case 3:
-            return RGBColor(m, n, vv, 255);
+            return RGBColor(m, n, vv, 255, random);
         case 4:
-            return RGBColor(n, m, vv, 255);
+            return RGBColor(n, m, vv, 255, random);
         case 5:
-            return RGBColor(vv, m, n, 255);
+            return RGBColor(vv, m, n, 255, random);
     }
-    return RGBColor(255, 255, 255, 255);
+    return RGBColor(255, 255, 255, 255, random);
 }
 
+
 RGBColor
-RGBColor::randomHue(double s, double v) {
-    return fromHSV(RandHelper::rand(360, &myRNG), s, v);
+RGBColor::randomHue(double s, double v, bool random) {
+    return fromHSV(RandHelper::rand(360, &myRNG), s, v, random);
 }
 
 

@@ -161,14 +161,14 @@ hr {
 border-top: 1px solid #aaa;
 }
 
-pre, .rst-content tt {
+pre, .rst-content {
 max-width: 100%;
 background: #fff;
 color: #333;
 overflow-x: auto;
 }
 
-code.code-large, .rst-content tt.code-large {
+code.code-large, .rst-content {
 font-size: 90%;
 }
 

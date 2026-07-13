@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-22 19:03+0000\n"
+"PO-Revision-Date: 2026-06-29 05:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1930,6 +1930,8 @@ msgstr "Elenca gli nomi delle forme da usare per filtrate l'uscita FCD"
 #: src/microsim/MSFrame.cpp:192
 msgid "Do not save data for time steps which have no vehicles / transportables"
 msgstr ""
+"Non salvare dati per passi di simulazione senza né veicoli né oggetti "
+"trasportabili"
 
 #: src/microsim/MSFrame.cpp:196
 msgid "Save fcd for persons and container to separate FILE"
@@ -11179,6 +11181,8 @@ msgstr "Non è stato trovato l'arco '%' della fermata '%'"
 #: src/netimport/NIXMLPTHandler.cpp:187
 msgid "Lane '%' for stop '%' not found. Using leftmost lane"
 msgstr ""
+"La corsia '%' della fermata '%'non è stata incontrata. Invece verrà usata "
+"quella più a sinistra"
 
 #: src/netimport/NIXMLPTHandler.cpp:190
 msgid "Lane '%' for stop '%' not found"
@@ -11532,11 +11536,11 @@ msgstr "Il nodo terminale '%' dell'arco '%' è sconosciuto."
 
 #: src/netload/NLHandler.cpp:553
 msgid "Attribute length of lane '%' is invalid (%)"
-msgstr ""
+msgstr "L'attributo 'length' della corsia '%' è invalido (%)"
 
 #: src/netload/NLHandler.cpp:558
 msgid "Attribute maxSpeed of lane '%' is invalid (%)"
-msgstr ""
+msgstr "L'attributo 'maxSpeed' della corsia '%' è invalido (%)"
 
 #: src/netload/NLHandler.cpp:573
 msgid ""
@@ -12054,6 +12058,8 @@ msgstr "Scrive flussi probabilistici invece di quelli a distanza uniforme"
 #: src/od2trips_main.cpp:111
 msgid "Writes poisson distributed flow instead of evenly spaced flow"
 msgstr ""
+"Scrive un flusso distribuito secondo Poisson invece di uno distribuito "
+"equamente"
 
 #: src/od2trips_main.cpp:114
 msgid "Writes pedestrians instead of vehicles"
@@ -12121,6 +12127,8 @@ msgid ""
 "Only one of the options 'flow-output.probability' and 'flow-output.poisson' "
 "may be set."
 msgstr ""
+"Le opzioni 'flow-output.probability' e 'flow-output.poisson' si escludojno a "
+"vicenda."
 
 #: src/od2trips_main.cpp:212
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."

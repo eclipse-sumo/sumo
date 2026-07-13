@@ -772,7 +772,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
                 // check if center after creation
                 if (sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) &&
                         sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)) {
-                    myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
+                    myNet->getViewNet()->centerToPos(calibrator->getPositionInView(), false);
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
@@ -826,7 +826,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
                 // check if center after creation
                 if (sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) &&
                         sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)) {
-                    myNet->getViewNet()->centerTo(calibrator->getPositionInView(), false);
+                    myNet->getViewNet()->centerToPos(calibrator->getPositionInView(), false);
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(calibrator);
@@ -1167,7 +1167,7 @@ GNEAdditionalHandler::buildRouteProbe(const CommonXMLStructure::SumoBaseObject* 
                 // check if center after creation
                 if (sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) &&
                         sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)) {
-                    myNet->getViewNet()->centerTo(routeProbe->getPositionInView(), false);
+                    myNet->getViewNet()->centerToPos(routeProbe->getPositionInView(), false);
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(routeProbe);
@@ -1294,7 +1294,7 @@ GNEAdditionalHandler::buildVaporizer(const CommonXMLStructure::SumoBaseObject* s
                 // check if center after creation
                 if (sumoBaseObject->hasBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION) &&
                         sumoBaseObject->getBoolAttribute(GNE_ATTR_CENTER_AFTER_CREATION)) {
-                    myNet->getViewNet()->centerTo(vaporizer->getPositionInView(), false);
+                    myNet->getViewNet()->centerToPos(vaporizer->getPositionInView(), false);
                 }
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(vaporizer);

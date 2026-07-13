@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T15:06:21.830048+01:00 by Eclipse SUMO dfrouter v1_25_0+0045-28a3daf62ee
+<!-- generated on 2026-07-08T11:09:30.288702+01:00 by Eclipse SUMO dfrouter v1_27_1+0194-8d0b2b6a43c
 -->
 
 <dfrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -29,7 +29,7 @@
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
         <output.compression value="" type="STR" help="Defines the standard compression algorithm (currently only for parquet output)"/>
         <output.format value="xml" type="STR" help="Defines the standard output format if not derivable from the file name (&apos;xml&apos;, &apos;csv&apos;, &apos;parquet&apos;)"/>
-        <output.column-header value="tag" type="STR" help="How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;)"/>
+        <output.column-header value="auto" type="STR" help="How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;, &apos;full&apos;)"/>
         <output.column-separator value=";" type="STR" help="Separator in CSV output"/>
         <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <routes-output value="" synonymes="o" type="FILE" help="Saves computed routes to FILE"/>

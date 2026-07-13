@@ -758,56 +758,28 @@ NWWriter_SUMO::writeInternalNodes(OutputDevice& into, const NBNode& n) {
 
 void
 NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBEdge::Connection& c,
-                               bool includeInternal, ConnectionStyle style, bool geoAccuracy) {
-    assert(c.toEdge != 0);
+                               bool includeInternal, ConnectionStyle style, bool useGeo, bool geoAccuracy) {
+    assert(c.toEdge != nullptr);
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from.getID());
     into.writeAttr(SUMO_ATTR_TO, c.toEdge->getID());
     into.writeAttr(SUMO_ATTR_FROM_LANE, c.fromLane);
     into.writeAttr(SUMO_ATTR_TO_LANE, c.toLane);
     if (style != TLL) {
-        if (c.mayDefinitelyPass) {
-            into.writeAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass);
-        }
-        if (c.keepClear == KEEPCLEAR_FALSE) {
-            into.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false);
-        }
-        if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) {
-            into.writeAttr(SUMO_ATTR_CONTPOS, c.contPos);
-        }
-        if (c.permissions != SVC_UNSPECIFIED) {
-            writePermissions(into, c.permissions);
-        }
-        if (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING) {
-            into.writeAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft));
-        }
-        if (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING) {
-            into.writeAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight));
-        }
-        if (c.speed != NBEdge::UNSPECIFIED_SPEED) {
-            into.writeAttr(SUMO_ATTR_SPEED, c.speed);
-        }
-        if (c.customLength != NBEdge::UNSPECIFIED_LOADED_LENGTH) {
-            into.writeAttr(SUMO_ATTR_LENGTH, c.customLength);
-        }
-        if (c.customShape.size() != 0) {
-            if (geoAccuracy) {
-                into.setPrecision(gPrecisionGeo);
-            }
-            into.writeAttr(SUMO_ATTR_SHAPE, c.customShape);
-            if (geoAccuracy) {
-                into.setPrecision();
-            }
-        }
-        if (c.uncontrolled != false) {
-            into.writeAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled);
-        }
-        if (c.indirectLeft != false) {
-            into.writeAttr(SUMO_ATTR_INDIRECT, c.indirectLeft);
-        }
-        if (c.edgeType != "") {
-            into.writeAttr(SUMO_ATTR_TYPE, c.edgeType);
-        }
+        into.writeOptionalAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass, !c.mayDefinitelyPass);
+        into.writeOptionalAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false, c.keepClear != KEEPCLEAR_FALSE);
+        into.writeOptionalAttr(SUMO_ATTR_CONTPOS, c.contPos, c.contPos == NBEdge::UNSPECIFIED_CONTPOS);
+        writePermissions(into, c.permissions);
+        const bool changeLeft = (c.changeLeft != SVC_UNSPECIFIED && c.changeLeft != SVCAll && c.changeLeft != SVC_IGNORING);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_LEFT, getVehicleClassNames(c.changeLeft), !changeLeft);
+        const bool changeRight = (c.changeRight != SVC_UNSPECIFIED && c.changeRight != SVCAll && c.changeRight != SVC_IGNORING);
+        into.writeOptionalAttr(SUMO_ATTR_CHANGE_RIGHT, getVehicleClassNames(c.changeRight), !changeRight);
+        into.writeOptionalAttr(SUMO_ATTR_SPEED, c.speed, c.speed == NBEdge::UNSPECIFIED_SPEED);
+        into.writeOptionalAttr(SUMO_ATTR_LENGTH, c.customLength, c.customLength == NBEdge::UNSPECIFIED_LOADED_LENGTH);
+        writeShape(into, GeoConvHelper::getFinal(), c.customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy, c.customShape.size() != 0);
+        into.writeOptionalAttr(SUMO_ATTR_UNCONTROLLED, c.uncontrolled, !c.uncontrolled);
+        into.writeOptionalAttr(SUMO_ATTR_INDIRECT, c.indirectLeft, !c.indirectLeft);
+        into.writeOptionalAttr(SUMO_ATTR_TYPE, c.edgeType, c.edgeType == "");
     }
     if (style != PLAIN) {
         if (includeInternal) {
@@ -1068,36 +1040,17 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
             into.writePadding(" ");
         }
         into.writeAttr(SUMO_ATTR_STATE, phase.state);
-        if (varPhaseLength) {
-            if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-            }
-            if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-            }
-            if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.earliestEnd));
-            }
-            if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd));
-            }
-            // NEMA attributes
-            if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_VEHICLEEXTENSION, writeSUMOTime(phase.vehExt));
-            }
-            if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_YELLOW, writeSUMOTime(phase.yellow));
-            }
-            if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                into.writeAttr(SUMO_ATTR_RED, writeSUMOTime(phase.red));
-            }
-        }
-        if (phase.name != "") {
-            into.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(phase.name));
-        }
-        if (phase.next.size() > 0) {
-            into.writeAttr(SUMO_ATTR_NEXT, phase.next);
-        }
+        into.writeOptionalAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur), !varPhaseLength || phase.minDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur), !varPhaseLength || phase.maxDur == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.earliestEnd), !varPhaseLength || phase.earliestEnd == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.latestEnd), !varPhaseLength || phase.latestEnd == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        // NEMA attributes
+        into.writeOptionalAttr(SUMO_ATTR_VEHICLEEXTENSION, writeSUMOTime(phase.vehExt), !varPhaseLength || phase.vehExt == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_YELLOW, writeSUMOTime(phase.yellow), !varPhaseLength || phase.yellow == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+        into.writeOptionalAttr(SUMO_ATTR_RED, writeSUMOTime(phase.red), !varPhaseLength || phase.red == NBTrafficLightDefinition::UNSPECIFIED_DURATION);
+
+        into.writeOptionalAttr(SUMO_ATTR_NAME, phase.name, phase.name == "", true);
+        into.writeOptionalAttr(SUMO_ATTR_NEXT, phase.next, phase.next.empty());
         into.closeTag();
     }
     // write params
@@ -1127,6 +1080,27 @@ NWWriter_SUMO::writeStopOffsets(OutputDevice& into, const StopOffset& stopOffset
         }
         into.writeAttr(SUMO_ATTR_VALUE, stopOffset.getOffset());
         into.closeTag();
+    }
+}
+
+
+void
+NWWriter_SUMO::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVector shape, SumoXMLAttr attr, bool useGeo, bool geoAccuracy, bool needsWrite) {
+    if (!needsWrite) {
+        out.writeOptionalAttr(attr, shape, true);
+        return;
+    }
+    if (useGeo) {
+        for (int i = 0; i < (int) shape.size(); i++) {
+            gch.cartesian2geo(shape[i]);
+        }
+    }
+    if (geoAccuracy) {
+        out.setPrecision(gPrecisionGeo);
+    }
+    out.writeAttr(attr, shape);
+    if (geoAccuracy) {
+        out.setPrecision();
     }
 }
 

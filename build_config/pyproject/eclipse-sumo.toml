@@ -2,7 +2,8 @@
 # all dependencies below (except for scikit) are just to enable the tool detection in netedit
 requires = [ "scikit-build-core>=0.10",
     "lxml",
-    "pandas",
+    "numpy<2.3",
+    "pandas<2.3",
     "matplotlib"
 ]
 build-backend = "scikit_build_core.build"
@@ -52,10 +53,13 @@ sumo-gui = "sumo:sumo_gui"
 
 [tool.scikit-build]
 build-dir = "_skbuild"
-install.components = ["runtime", "data", "dll", "proj_data"]
+install.components = ["runtime", "data", "dll", "proj_data", "tools"]
 wheel.packages = ["tools/build_config/sumo"]
 wheel.install-dir = "sumo"
 wheel.py-api = "py3"
+
+[tool.scikit-build.cmake.define]
+CMAKE_CXX_SCAN_FOR_MODULES = "OFF"
 
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"

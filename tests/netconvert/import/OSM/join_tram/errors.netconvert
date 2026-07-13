@@ -21,15 +21,6 @@ Warning: Ambiguity in turnarounds computation at junction '632909234'.
 Warning: Ambiguity in turnarounds computation at junction '768038181'.
 Warning: Found sharp turn with radius 8.74 at the start of edge '197740390#1'.
 Warning: Converting invalid rail_crossing to priority junction '1428640919'.
-Warning: Converting invalid rail_crossing to priority junction '1828307001'.
-Warning: Converting invalid rail_crossing to priority junction '1828354123'.
-Warning: Converting invalid rail_crossing to priority junction '1864168593'.
-Warning: Converting invalid rail_crossing to priority junction '1864168634'.
-Warning: The rail crossing '1679204728' does not have any roads.
-Warning: The rail crossing '1828307007' does not have any roads.
-Warning: The rail crossing '1828327715' does not have any roads.
-Warning: The rail crossing '1828327717' does not have any roads.
-Warning: The rail crossing '30695381' does not have any roads.
-Warning: 8 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: Converting invalid rail_crossing to priority junction '5892406397'.
 Warning: 13 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').

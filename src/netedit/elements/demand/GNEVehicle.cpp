@@ -1162,7 +1162,7 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNESegmen
                     // Set person plan color
                     GLHelper::setColor(pathColor);
                     // resolution of drawn circle depending of the zoom (To improve smoothness)
-                    GLHelper::drawFilledCircleDetailled(d, GNEMoveElementVehicle::arrivalPositionDiameter);
+                    GLHelper::drawFilledCircleDetailed(d, GNEMoveElementVehicle::arrivalPositionDiameter);
                     // pop draw matrix
                     GLHelper::popMatrix();
                 }
@@ -1365,7 +1365,11 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return vtypeid;
         case SUMO_ATTR_COLOR:
             if (wasSet(VEHPARS_COLOR_SET)) {
-                return toString(color);
+                if (color.isRandom()) {
+                    return "random";
+                } else {
+                    return toString(color);
+                }
             } else {
                 return myTagProperty->getDefaultStringValue(SUMO_ATTR_COLOR);
             }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-06-29 09:10:37.399274 by Eclipse SUMO netdiff.py v1_27_1+0026-6b4a99ad3bf
+<configuration>
+    <source value="net.net.xml"/>
+    <dest value="net2.net.xml"/>
+    <outprefix value="diff"/>
+</configuration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="-E3" fromLane="0" to="-E0" toLane="0" linkIndex="0" tl="J1"/>
+    <delete from="E0" fromLane="0" to="E3" toLane="0" linkIndex="3" tl="J1"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <connection from="-E1" fromLane="0" to="-E0" toLane="0" linkIndex="0"/>
+    <connection from="E0" fromLane="0" to="E1" toLane="0" linkIndex="1"/>
+</tlLogics>

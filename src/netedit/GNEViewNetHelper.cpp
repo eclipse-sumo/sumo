@@ -2821,6 +2821,13 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowJunctionBubble->setChecked(false);
     menuCheckShowJunctionBubble->create();
 
+    menuCheckShowPolygonSymbols = new MFXCheckableButton(false, gripModes, toolTipMenu,
+            (std::string("\t") + TL("Show polygon symbols") + std::string("\t") + TL("Show polygon symbols.")),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWPOLYGONSYMBOLS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS, GUIDesignMFXCheckableButtonSquare);
+    menuCheckShowPolygonSymbols->setChecked(true);
+    menuCheckShowPolygonSymbols->create();
+
     // always recalc after creating new elements
     gripModes->recalc();
 }
@@ -2844,6 +2851,7 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
     menuCheckMoveElevation->hide();
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
+    menuCheckShowPolygonSymbols->hide();
 }
 
 
@@ -2897,6 +2905,9 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     }
     if (menuCheckShowJunctionBubble->shown()) {
         commands.push_back(menuCheckShowJunctionBubble);
+    }
+    if (menuCheckShowPolygonSymbols->shown()) {
+        commands.push_back(menuCheckShowPolygonSymbols);
     }
 }
 
@@ -2974,6 +2985,16 @@ bool
 GNEViewNetHelper::NetworkViewOptions::editingElevation() const {
     if (menuCheckMoveElevation->shown()) {
         return (menuCheckMoveElevation->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNetHelper::NetworkViewOptions::showPolygonSymbols() const {
+    if (menuCheckShowPolygonSymbols->shown()) {
+        return (menuCheckShowPolygonSymbols->amChecked() == TRUE);
     } else {
         return false;
     }

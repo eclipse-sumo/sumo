@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-07 11:20:22.018696 by edgeDataFromFlow.py v1_13_0+1343-240e5d48340
-  options: -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml <doubleminus>verbose <doubleminus>cadyts
+<!-- generated on 2026-07-04 12:04:05.003891 by Eclipse SUMO edgeDataFromFlow.py v1_27_1+0120-73ee0163a09
+<configuration>
+    <detector-file value="input_detectors.det.xml"/>
+    <detector-flow-file value="input_flows.txt"/>
+    <output-file value="edgedata.xml"/>
+    <cadyts value="True"/>
+    <verbose value="True"/>
+</configuration>
 -->
 
-<measurements>
+<measurements xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/measurements_file.xsd">
     <singlelink link="1" start="0" end="86400" value="900.0" stddev="8" type="COUNT_VEH"/>
     <singlelink link="2" start="0" end="86400" value="900.0" stddev="8" type="COUNT_VEH"/>
     <singlelink link="3" start="0" end="86400" value="0" stddev="8" type="COUNT_VEH"/>

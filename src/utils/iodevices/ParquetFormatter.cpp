@@ -51,6 +51,11 @@
 // ===========================================================================
 // helper class definitions
 // ===========================================================================
+#ifdef _MSC_VER
+#pragma warning(push)
+/* Disable warning about hidden function arrow::io::Writable::Write */
+#pragma warning(disable: 4266)
+#endif
 class ArrowOStreamWrapper : public arrow::io::OutputStream {
 public:
     ArrowOStreamWrapper(std::ostream& out)
@@ -89,6 +94,9 @@ private:
     std::ostream& myOStream;
     bool myAmOpen;
 };
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 
 // ===========================================================================
@@ -101,14 +109,14 @@ struct ParquetFormatter::Impl {
     /// @brief the format to use for the column names
     const std::string myHeaderFormat;
 
+    /// @brief the column names if we write the full name
+    std::vector<std::string> myFullHeader;
+
     /// @brief the compression to use
     parquet::Compression::type myCompression = parquet::Compression::UNCOMPRESSED;
 
     /// @brief the number of rows to write per batch
     const int myBatchSize;
-
-    /// @brief the currently read tag (only valid when generating the header)
-    std::string myCurrentTag;
 
     /// @brief the table schema
     std::shared_ptr<arrow::Schema> mySchema = arrow::schema({});
@@ -119,14 +127,14 @@ struct ParquetFormatter::Impl {
     /// @brief the content array builders for the table
     std::vector<std::shared_ptr<arrow::ArrayBuilder> > myBuilders;
 
-    /// @brief The number of attributes in the currently open XML elements
-    std::vector<int> myXMLStack;
+    /// @brief The name and number of attributes in the currently open XML elements
+    std::vector<std::pair<const std::string, int> > myXMLStack;
 
     /// @brief the current attribute / column values
     std::vector<std::shared_ptr<arrow::Scalar> > myValues;
 
     /// @brief the maximum depth of the XML hierarchy
-    int myMaxDepth = 2;
+    int myMaxDepth = 1000;
 
     /// @brief whether the schema has been constructed completely
     bool myWroteHeader = false;
@@ -137,27 +145,14 @@ struct ParquetFormatter::Impl {
     /// @brief whether there is still unwritten data
     bool myNeedsWrite = false;
 
+    /// @brief whether any root attribute have been encountered
+    bool myHaveRootAttrs = false;
+
     /// @brief the attributes which are expected for a complete row (including null values)
     SumoXMLAttrMask myExpectedAttrs;
 
     /// @brief the attributes already seen (including null values)
     SumoXMLAttrMask mySeenAttrs;
-
-    /// @brief column-name lookup honoring the headerFormat option
-    std::string getAttrString(const std::string& attrString) const {
-        if (myHeaderFormat == "plain") {
-            return attrString;
-        }
-        if (myHeaderFormat == "auto") {
-            for (const auto& field : mySchema->fields()) {
-                if (field->name() == attrString) {
-                    return myCurrentTag + "_" + attrString;
-                }
-            }
-            return attrString;
-        }
-        return myCurrentTag + "_" + attrString;
-    }
 
     void checkAttr(const SumoXMLAttr attr) {
         if (myCheckColumns && myMaxDepth == (int)myXMLStack.size()) {
@@ -172,23 +167,34 @@ struct ParquetFormatter::Impl {
     void checkBuilder(const ATTR_TYPE& attr, const std::shared_ptr<arrow::DataType>& (*dataType)()) {
         myNeedsWrite = true;
         if (!myWroteHeader) {
-            const std::string fieldName = getAttrString(toString(attr));
-            for (const auto& field : mySchema->fields()) {
-                if (field->name() == fieldName) {
-                    return;
-                }
+            std::string fieldName = toString(attr);
+            std::string prefix;
+            for (const auto& entry : myXMLStack) {
+                prefix += entry.first + "_";
             }
-            mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(fieldName, dataType()));
-            auto builder = std::make_shared<BUILDER>();
-            if (!myBuilders.empty()) {
-                if (myBuilders.back()->length() > 0) {
-                    PARQUET_THROW_NOT_OK(builder->AppendNulls(myBuilders.back()->length()));
-                }
-                while (myValues.size() < myBuilders.size()) {
-                    myValues.push_back(nullptr);
-                }
+            const std::string fullHeaderName = prefix + fieldName;
+            if (myHeaderFormat == "none") {
+                fieldName = "";
+            } else if (myHeaderFormat != "plain") {
+                fieldName = myXMLStack.back().first + "_" + fieldName;
             }
-            myBuilders.push_back(builder);
+            const auto colIt = std::find(myFullHeader.begin(), myFullHeader.end(), fullHeaderName);
+            if (colIt == myFullHeader.end()) {
+                mySchema = *mySchema->AddField(mySchema->num_fields(), arrow::field(fieldName, dataType()));
+                auto builder = std::make_shared<BUILDER>();
+                if (!myBuilders.empty()) {
+                    if (myBuilders.back()->length() > 0) {
+                        PARQUET_THROW_NOT_OK(builder->AppendNulls(myBuilders.back()->length()));
+                    }
+                    while (myValues.size() < myBuilders.size()) {
+                        myValues.push_back(nullptr);
+                    }
+                }
+                myBuilders.push_back(builder);
+                myFullHeader.emplace_back(fullHeaderName);
+            } else {
+                myValues.resize(std::distance(myFullHeader.begin(), colIt));
+            }
         }
     }
 };
@@ -224,27 +230,33 @@ ParquetFormatter::ParquetFormatter(const std::string& columnNames, const std::st
 ParquetFormatter::~ParquetFormatter() = default;
 
 
+bool
+ParquetFormatter::writeXMLHeader(std::ostream& into, const std::string& rootElement,
+                                 const std::map<SumoXMLAttr, std::string>& attrs, bool /* writeMetadata */,
+                                 bool /* includeConfig */) {
+    if (attrs.size() > 2) {
+        myImpl->myHaveRootAttrs = true;
+        openTag(into, rootElement);
+        for (const auto& a : attrs) {
+            if (a.first != SUMO_ATTR_XMLNS && a.first != SUMO_ATTR_SCHEMA_LOCATION) {
+                writeAttr(into, a.first, a.second, false, false);
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const std::string& xmlElement) {
-    myImpl->myXMLStack.push_back((int)myImpl->myValues.size());
-    if (!myImpl->myWroteHeader) {
-        myImpl->myCurrentTag = xmlElement;
-    }
-    if (myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() && myImpl->myWroteHeader && myImpl->myCurrentTag != xmlElement) {
-        WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myImpl->myCurrentTag, xmlElement);
-    }
+    myImpl->myXMLStack.push_back({xmlElement, (int)myImpl->myValues.size()});
 }
 
 
 void
 ParquetFormatter::openTag(std::ostream& /* into */, const SumoXMLTag& xmlElement) {
-    myImpl->myXMLStack.push_back((int)myImpl->myValues.size());
-    if (!myImpl->myWroteHeader) {
-        myImpl->myCurrentTag = toString(xmlElement);
-    }
-    if (myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() && myImpl->myWroteHeader && myImpl->myCurrentTag != toString(xmlElement)) {
-        WRITE_WARNINGF("Encountered mismatch in XML tags (expected % but got %). Column names may be incorrect.", myImpl->myCurrentTag, toString(xmlElement));
-    }
+    myImpl->myXMLStack.push_back({toString(xmlElement), (int)myImpl->myValues.size()});
 }
 
 
@@ -254,11 +266,30 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         // the auto detection case: the first closed tag determines the depth
         myImpl->myMaxDepth = (int)myImpl->myXMLStack.size();
     }
-    if ((myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() || myImpl->myXMLStack.empty()) && !myImpl->myWroteHeader) {
+    const bool eof = myImpl->myXMLStack.empty() || (myImpl->myHaveRootAttrs && myImpl->myXMLStack.size() == 1);
+    if ((myImpl->myMaxDepth == (int)myImpl->myXMLStack.size() || eof) && !myImpl->myWroteHeader) {
         // we are at the correct depth or the document has ended (XML stack is empty)
         // so we should initialize the writer with the schema (if not done yet)
         if (!myImpl->myCheckColumns) {
             WRITE_WARNING("Column based formats are still experimental. Autodetection only works for homogeneous output.");
+        }
+        bool full = myImpl->myHeaderFormat == "full";
+        if (myImpl->myHeaderFormat == "auto") {
+            std::set<std::string> uniq;
+            for (const auto& field : myImpl->mySchema->fields()) {
+                const auto result = uniq.insert(field->name());
+                if (!result.second) {
+                    full = true;
+                    break;
+                }
+            }
+        }
+        if (full) {
+            arrow::FieldVector new_fields;
+            for (const auto& field : myImpl->mySchema->fields()) {
+                new_fields.push_back(field->WithName(myImpl->myFullHeader[new_fields.size()]));
+            }
+            myImpl->mySchema = arrow::schema(std::move(new_fields), myImpl->mySchema->metadata());
         }
         auto arrow_stream = std::make_shared<ArrowOStreamWrapper>(into);
         std::shared_ptr<parquet::WriterProperties> props = parquet::WriterProperties::Builder().compression(myImpl->myCompression)->build();
@@ -277,14 +308,19 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         }
         int index = 0;
         for (auto& builder : myImpl->myBuilders) {
-            const auto val = index < (int)myImpl->myValues.size() ? myImpl->myValues[index++] : nullptr;
-            PARQUET_THROW_NOT_OK(val == nullptr ? builder->AppendNull() : builder->AppendScalar(*val));
+            const auto val = index < (int)myImpl->myValues.size() ? myImpl->myValues[index] : nullptr;
+            arrow::Status s = val == nullptr ? builder->AppendNull() : builder->AppendScalar(*val);
+            if (!s.ok()) {
+                throw ProcessError(TLF("Error writing attribute '%' (index: %, value: '%'): %",
+                                       myImpl->myFullHeader[index], index, val == nullptr ? "nullptr" : val->ToString(),  s.ToString()));
+            }
+            index++;
         }
         writeBatch = myImpl->myWroteHeader && myImpl->myBuilders.back()->length() >= myImpl->myBatchSize;
         myImpl->mySeenAttrs.reset();
         myImpl->myNeedsWrite = false;
     }
-    if (writeBatch || (myImpl->myXMLStack.empty() && !myImpl->myBuilders.empty())) {
+    if (writeBatch || (eof && !myImpl->myBuilders.empty())) {
         std::vector<std::shared_ptr<arrow::Array> > data;
         for (auto& builder : myImpl->myBuilders) {
             std::shared_ptr<arrow::Array> column;
@@ -296,17 +332,18 @@ ParquetFormatter::closeTag(std::ostream& into, const std::string& /* comment */)
         PARQUET_THROW_NOT_OK(myImpl->myParquetWriter->WriteRecordBatch(*batch));
     }
     if (!myImpl->myXMLStack.empty()) {
-        if ((int)myImpl->myValues.size() > myImpl->myXMLStack.back()) {
-            myImpl->myValues.resize(myImpl->myXMLStack.back());
+        if ((int)myImpl->myValues.size() > myImpl->myXMLStack.back().second) {
+            myImpl->myValues.resize(myImpl->myXMLStack.back().second);
         }
         myImpl->myXMLStack.pop_back();
+        return true;
     }
     return false;
 }
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val, const bool isNull, const bool /* escape */) {
     myImpl->checkAttr(attr);
     if (attr == SUMO_ATTR_X || attr == SUMO_ATTR_Y || into.precision() > 2) {
         myImpl->checkBuilder<SumoXMLAttr, arrow::DoubleBuilder>(attr, arrow::float64);
@@ -319,7 +356,7 @@ ParquetFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const do
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const int& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, const int& val, const bool isNull, const bool /* escape */) {
     myImpl->checkAttr(attr);
     myImpl->checkBuilder<SumoXMLAttr, arrow::Int32Builder>(attr, arrow::int32);
     myImpl->myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));
@@ -327,7 +364,7 @@ ParquetFormatter::writeAttr(std::ostream& /* into */, const SumoXMLAttr attr, co
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const double& val, const bool isNull, const bool /* escape */) {
     assert(!myImpl->myCheckColumns);
     if (into.precision() > 2) {
         myImpl->checkBuilder<std::string, arrow::DoubleBuilder>(attr, arrow::float64);
@@ -340,7 +377,7 @@ ParquetFormatter::writeAttr(std::ostream& into, const std::string& attr, const d
 
 
 void
-ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val, const bool isNull) {
+ParquetFormatter::writeAttr(std::ostream& /* into */, const std::string& attr, const int& val, const bool isNull, const bool /* escape */) {
     assert(!myImpl->myCheckColumns);
     myImpl->checkBuilder<std::string, arrow::Int32Builder>(attr, arrow::int32);
     myImpl->myValues.push_back(isNull ? nullptr : std::make_shared<arrow::Int32Scalar>(val));

@@ -142,8 +142,8 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("output.format", new Option_String("xml"));
     oc.addDescription("output.format", "Output", TL("Defines the standard output format if not derivable from the file name ('xml', 'csv', 'parquet')"));
 
-    oc.doRegister("output.column-header", new Option_String("tag"));
-    oc.addDescription("output.column-header", "Output", TL("How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain')"));
+    oc.doRegister("output.column-header", new Option_String("auto"));
+    oc.addDescription("output.column-header", "Output", TL("How to derive column headers from attribute names ('none', 'tag', 'auto', 'plain', 'full')"));
 
     oc.doRegister("output.column-separator", new Option_String(";"));
     oc.addDescription("output.column-separator", "Output", TL("Separator in CSV output"));

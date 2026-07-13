@@ -1,0 +1,5 @@
+-d input_detectors.add.xml -f input_flows.txt -o edgedata.xml
+-n input_net.net.xml
+--skip-incomplete
+--verbose
+-i 30

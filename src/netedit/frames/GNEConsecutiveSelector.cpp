@@ -292,7 +292,7 @@ GNEConsecutiveSelector::drawTemporalConsecutiveLanePath() const {
             // draw geometry points
             GUIGeometry::drawGeometryPoints(GUIVisualizationSettings::Detail::AdditionalDetails,
             {shapes.front().front(), shapes.back().back()}, RGBColor::RED,
-            myFrameParent->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius, 1, false);
+            myFrameParent->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius, 1, true, false);
         }
         // Pop last matrix
         GLHelper::popMatrix();

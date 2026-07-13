@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate v1_26_0+0671-ff4ec946b20
+Eclipse SUMO netgenerate v1_27_1+0194-8d0b2b6a43c
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -105,7 +105,7 @@ Output Options:
                                         'csv', 'parquet')
   --output.column-header STR           How to derive column headers from
                                         attribute names ('none', 'tag', 'auto',
-                                        'plain')
+                                        'plain', 'full')
   --output.column-separator STR        Separator in CSV output
   -H, --human-readable-time            Write time values as hour:minute:second
                                         or day:hour:minute:second rather than

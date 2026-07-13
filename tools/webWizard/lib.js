@@ -1,9 +1,9 @@
 function elem(selector, attributes, events){
     if(selector[0] == "<"){
         selector = selector.substring(1, selector.length - 1);
-        var node = document.createElement(selector);
+        let node = document.createElement(selector);
 
-        var i, j;
+        let i, j;
         if(attributes){
             for(i in attributes){
                 if(attributes[i] instanceof Object){
@@ -53,7 +53,7 @@ HTMLElement.prototype.append = function(node){
 NodeList.prototype.forEach = Array.prototype.forEach;
 
 function lequal(){
-    for(var i = 1, l = arguments.length; i < l; ++i){
+    for(let i = 1, l = arguments.length; i < l; ++i){
         if(arguments[i - 1] > arguments[i])
             return false;
     }

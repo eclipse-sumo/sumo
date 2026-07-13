@@ -5,6 +5,49 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - Fixed invalid error when using idle-algorithm 'taxistand' with an initial stop #18162
+
+- meso
+  - Fixed invalid error 'too close too brake' when inserting stop #18163
+  - Fixed crash when using idle-algorithm 'taxistand' #18159
+
+- netedit
+  - The menu function for saving .sumocfg with save-as is working again #18150 (regression in 1.26.0)
+  - The button for saving the .sumocfg is now functional again after loading a network #18151 (regression in 1.26.0)
+  - Junction context menu operation 'clearing connections' no longer generates an invalid network if the junction had tls-controlled pedestrian crossings #18145 (regression in 1.27.0)
+  - setting "random" as color value for vehicles is now working #18014
+
+- netconvert
+  - Fixed missing connections in networks with dedicated bus lanes #18181 (regression in 1.23.0)
+  - Fixed crash when rail signal connection link index is patched #18142
+  - OSM: no longer importing superfluous tls where tram runs on road #18146
+  - Fixed missed joins when using **--edges.join-tram-dist** on a network with joined junctions #18154
+  - When option **--sidewalks.guess** is set, high-speed edges without sidewalks are no longer modelled as shared space #18170
+  - Setting optionts **--plain-output-prefix** and **--output.format** now writes files with *.csv* extension #18171
+
+- tools
+  - drtOnline.py: fixed failure to dispatch vehicles that have an underscore ('_') in their id. #18167
+
+### Enhancements
+
+- sumo
+  - Added option **--slope-centered** to replicate simplified slope computation found in other simulators #18111
+  - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
+  - vehicle types can be initialized with values from another vType by using attribute `refId` #18144
+  - Elements `<edgeData>` and `<laneData>` now support attribute `speedThresholdRelative` as an optional condition for recording `waitingTime` #18161
+  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions). This fixes a problem with vTypeDistributions created by netedit being unusable since version 1.25.0 #18178
+
+- duarouter
+  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178
+ 
+- meso
+  - Now supports traffic light type 'actuated' #8735
+
+- tools
+  - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
+  - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
+  - edgeDataFromFlow.py: added option **--skip-incomplete** to exclude data from incomplete cross-sections #18182
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
@@ -78,7 +121,7 @@ title: ChangeLog
   - Option **--ignore-errors** can now be used to adapt public transport stops and ptlines to a reduced network #18125
 
 - od2trips
-  - Added option **--flow-output.poisson** to generate poission distributed insertions when option **--flow-output** is set. refs #18117
+  - Added option **--flow-output.poisson** to generate poisson distributed insertions when option **--flow-output** is set. refs #18117
 
 - tools
   - createScreenshotSequence.py: Added option **--relative** which interprets zoom/rotate/offset values relatively to the previous state #17974
@@ -296,7 +339,7 @@ title: ChangeLog
 - netedit
   - Edge attribute routingType is now supported #17095
   - Element context menu for multiple objects at the same spot now shows selection status (also in sumo-gui) #17731
-  - Phase attribute "next" automaticaly updates when adding new phases #16488
+  - Phase attribute "next" automatically updates when adding new phases #16488
   - Added 18 more tools to the menu #17950
 
 - sumo-gui
@@ -369,7 +412,7 @@ title: ChangeLog
 - Option **--netstate-dump** (also known as raw dump) is now deprecated. fcd-output has been upgraded to permit all attributes formerly only available in netstate dump. #16882
 - The OpenStreetMap Attribution of OSMWebWizard is no longer hidden behind the sidebar #17743
 - Added link to [A Free Educational Course Based on SUMO](Tutorials/index.md#external_courses_and_tutorials) #17742
-- The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pdoc documentation.
+- The python modules [sumolib](https://sumo.dlr.de/pydoc/sumolib.html) and [traci](https://sumo.dlr.de/pydoc/traci.html) have now pydoc documentation.
 - The python module SUMOPy was superseded by hybridPY which extends the functionality and supports python 3 #17365
 - The maximum Parquet/Arrow version to use is 23.0, newer versions require a newer compiler which needs to be enabled explicitly at build time
 

@@ -159,7 +159,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         occupationSum += meanLengthOnLane * TS;
     }
     if (!veh.isStopped()) {
-        if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
+        if (myParent != nullptr && (meanSpeedVehicleOnLane < myParent->myHaltSpeed
+                    || (myParent->myHaltSpeedRel > 0 && meanSpeedVehicleOnLane / veh.getCurrentEdge()->getSpeedLimit(veh.getVClass()) < myParent->myHaltSpeedRel))) {
             waitSeconds += timeOnLane;
         } else if (MSGlobals::gUseMesoSim) {
             waitSeconds += STEPS2TIME(veh.getWaitingTime());
@@ -422,13 +423,15 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const double maxTravelTime,
                                const double minSamples,
                                const double haltSpeed,
+                               const double haltSpeedRel,
                                const std::string& vTypes,
                                const std::string& writeAttributes,
                                const std::vector<MSEdge*>& edges,
                                AggregateType aggregate) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, excludeEmpty,
                withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate),
-    myHaltSpeed(haltSpeed)
+    myHaltSpeed(haltSpeed),
+    myHaltSpeedRel(haltSpeedRel)
 { }
 
 

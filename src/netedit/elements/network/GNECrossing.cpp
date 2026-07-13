@@ -543,7 +543,7 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, myCrossingGeometry.getShape(), darkerColor,
                                             s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
-                                            myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                            true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         }
         // pop layer matrix
         GLHelper::popMatrix();

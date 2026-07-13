@@ -108,4 +108,4 @@ information.
 ![fig_hybridpy_gui_main.png](../../images/Fig_hybridpy_gui_main.png
 "hybridpy main window with object browser, network editor and main menu")
 
-From the scenario window previously safed scenarios can be opened and simulated with one of the methods found in the simulation menu.
+From the scenario window, previously saved scenarios can be opened and simulated with one of the methods found in the simulation menu.

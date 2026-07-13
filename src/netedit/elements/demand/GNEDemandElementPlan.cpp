@@ -1313,7 +1313,7 @@ GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& /* s */, c
         // translate to pos and move to
         glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
         // resolution of drawn circle depending of the zoom (To improve smothness)
-        GLHelper::drawFilledCircleDetailled(d, endPosRadius);
+        GLHelper::drawFilledCircleDetailed(d, endPosRadius);
         // pop draw matrix
         GLHelper::popMatrix();
     }

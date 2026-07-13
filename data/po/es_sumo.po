@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-06-23 14:58+0200\n"
-"PO-Revision-Date: 2026-06-24 08:29+0000\n"
-"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
+"PO-Revision-Date: 2026-07-02 13:01+0000\n"
+"Last-Translator: Libre <6n0n1m0s@proton.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -2625,10 +2625,14 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:570
 msgid "Override stop until times with stop ended times when given"
 msgstr ""
+"Anular la parada hasta que se completen los tiempos con la parada finalizada "
+"cuando se indique"
 
 #: src/microsim/MSFrame.cpp:573
 msgid "Override stop arrival times with stop started times when given"
 msgstr ""
+"Anular los tiempos de llegada de las paradas con los tiempos de inicio de "
+"las paradas cuando se indique"
 
 #: src/microsim/MSFrame.cpp:577
 msgid ""
@@ -2943,7 +2947,7 @@ msgstr "Longitud de un segmento de arista en la simulación mesoscópica"
 
 #: src/microsim/MSFrame.cpp:762
 msgid "Factor for calculating the net free-free headway time"
-msgstr ""
+msgstr "Factor para calcular el tiempo de avance libre-libre neto"
 
 #: src/microsim/MSFrame.cpp:764
 msgid "Factor for calculating the net free-jam headway time"
@@ -5608,10 +5612,14 @@ msgstr ""
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
+"En el semáforo actuado '%', el valor de minDur (%) es demasiado corto para "
+"una separación del detector de %m."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:433
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
+"En el semáforo actuado '%', la fase actuada % no tiene un detector que "
+"controle."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:476
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."

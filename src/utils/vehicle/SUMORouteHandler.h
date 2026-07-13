@@ -200,6 +200,9 @@ protected:
     bool parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttributes& attrs, std::string errorSuffix, MsgHandler* const errorOutput);
 
 protected:
+    virtual const SUMOVTypeParameter* getVTypeParameter(const std::string& refid) = 0;
+
+protected:
     /// @brief flag to enable or disable hard fails
     const bool myHardFail;
 
@@ -232,6 +235,12 @@ protected:
 
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
+
+    /// @brief if the currently parsed vType is only a reference to an existing type, store the refId
+    std::string myCurrentVTypeRef;
+
+    /// @brief if the currently parsed vType is only a reference, store the probability here
+    double myCurrentVTypeProbability;
 
     /// @brief The default value for flow begins
     SUMOTime myBeginDefault;

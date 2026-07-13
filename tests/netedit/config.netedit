@@ -182,12 +182,14 @@ netedit_A_net_xml:netedit_A.net.xml
 netedit_B_net_xml:netedit_B.net.xml
 
 input_net_A_net_xml:input_net_A.net.xml
-input_net_A_xml_gz:input_net_A.net.xml.gz
+input_net_A_net_xml_gz:input_net_A.net.xml.gz
+input_net_A_xml_gz:input_net_A.xml.gz
 input_net_A_xml:input_net_A.xml
 input_net_A_txt:input_net_A.txt
 
 input_net_B_net_xml:input_net_B.net.xml
-input_net_B_xml_gz:input_net_B.net.xml.gz
+input_net_B_net_xml_gz:input_net_B.net.xml.gz
+input_net_B_xml_gz:input_net_B.xml.gz
 input_net_B_xml:input_net_B.xml
 input_net_B_txt:input_net_B.txt
 

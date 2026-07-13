@@ -149,7 +149,7 @@ public:
     /** @brief Returns the type of formatter being used.
      * @return the formatter type
      */
-    OutputFormatterType getType() {
+    OutputFormatterType getType() const {
         return myType;
     }
 
@@ -158,9 +158,9 @@ public:
      * This should be not necessary but at least in the initial phase of implementing CSV and Parquet
      * it helps a lot to track errors.
      * @param[in] expected which attributes are to be written (at the deepest XML level)
-     * @param[in] depth the maximum XML hierarchy depth (excluding the root)
+     * @param[in] depth the maximum XML hierarchy depth (includes the root only if it has relevant attributes)
      */
-    virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth = 2) {
+    virtual void setExpectedAttributes(const SumoXMLAttrMask& expected, const int depth) {
         UNUSED_PARAMETER(expected);
         UNUSED_PARAMETER(depth);
     }

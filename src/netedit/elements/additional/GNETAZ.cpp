@@ -319,6 +319,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     const double geometryPointSize = s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5);
                     // draw geometry points
                     GUIGeometry::drawGeometryPoints(d, myAdditionalGeometry.getShape(), darkerColor, geometryPointSize, TAZExaggeration,
+                                                    myNet->getViewNet()->getNetworkViewOptions().showPolygonSymbols(),
                                                     myNet->getViewNet()->getNetworkViewOptions().editingElevation());
                     // draw dotted contours for geometry points if we're in move mode
                     if (moveMode) {
@@ -340,13 +341,13 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(darkerColor);
                 // draw circle
-                GLHelper::drawFilledCircleDetailled(d, centerRadius);
+                GLHelper::drawFilledCircleDetailed(d, centerRadius);
                 // move to front
                 glTranslated(0, 0, 0.1);
                 // set color
                 GLHelper::setColor(color);
                 // draw circle
-                GLHelper::drawFilledCircleDetailled(d, centerRadius * 0.8);
+                GLHelper::drawFilledCircleDetailed(d, centerRadius * 0.8);
                 // pop center matrix
                 GLHelper::popMatrix();
             }

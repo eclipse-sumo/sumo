@@ -1,1 +1,2 @@
-Warning: Traffic light type 'actuated' cannot be used in mesoscopic simulation. Using 'static' as fallback.
+Error: Unknown inductionLoop 'customLoop2' given as custom detector for actuated tlLogic '0', program 'aa.
+Quitting (on error).

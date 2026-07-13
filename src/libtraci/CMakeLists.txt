@@ -122,6 +122,13 @@ if (SWIG_FOUND)
         )
         set_target_properties(libtracics PROPERTIES FOLDER "libtraci" PREFIX "")
         install(TARGETS libtracics DESTINATION bin LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+        # Ship the SWIG-generated C# sources alongside the binary so consumers
+        # can build against them. Used by the WIX/CPack installer (see
+        # build_config/cmake_modules/SUMOCPack.cmake), but harmless otherwise.
+        if (MSVC)
+            install(DIRECTORY ${CMAKE_SWIG_OUTDIR} DESTINATION include
+                    COMPONENT include_files)
+        endif ()
     endif()
 
     if (ENABLE_PYTHON_BINDINGS)

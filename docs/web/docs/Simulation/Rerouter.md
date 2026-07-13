@@ -129,7 +129,7 @@ jams, caused by spontaneous road closing.
 !!! caution
     When using modified permissions together with option/param **device.rerouting.mode=8**, there should be at most one rerouter definition at any one time in the simulation that contains all closings. Otherwise vehicles may loop endlessly between two closed edges (because all closings other than the current rerouter are ignored).
 
-!!! note      
+!!! note
     Closing lanes or edges by setting attribute 'allow' or 'disallow' may cause emergency braking. This can be mitigated by placing [VariableSpeedSigns](../Simulation/Variable_Speed_Signs.md) ahead of the closing and slowing down traffic briefly before the closing.
 
 ## Closing a Lane
@@ -365,7 +365,7 @@ Parameter Name         | Default value | Description                            
 
 ### Reserving a parking space
 
-Whenever a [parkingArea] defines attribute `reservable="true"`, vehicles that reroute to such a parkingArea will reserve a parking space which acts to decrease the remaining capacity of that parkingArea and prevents other vehicles from taking the spot. 
+Whenever a [parkingArea] defines attribute `reservable="true"`, vehicles that reroute to such a parkingArea will reserve a parking space which acts to decrease the remaining capacity of that parkingArea and prevents other vehicles from taking the spot.
 
 ### Destination after rerouting
 
@@ -402,14 +402,14 @@ The attributes used within such definitions are:
 
 | Attribute Name | Value Type              | Description                                                                                                                                                                                                                |
 | -------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **main**       | edge ids (stringList)   | The ids of consecutive edges that a train must take at some point after the rerouter edge to be considered for being overtaken | 
+| **main**       | edge ids (stringList)   | The ids of consecutive edges that a train must take at some point after the rerouter edge to be considered for being overtaken |
 | **siding**     | edge ids (stringList)   | The ids of consecutive edges that will be used instead of the main edges for waiting to be overtaken.    |
 | minSaving      | float                   | The minimum time saving in seconds to trigger an overtaking maneuver (see below for the saving computation)  |
 | defer          | bool                    | Whether a slow train may elect to be overtaking at some downstream location (defaults to *true* if more than one `<overtakingReroute>` element is defined within the rerouter)   |
 
 Requirements for the siding:
 - one of the edges of the saiding must have a rail_signal at it's end
-- the siding must be long enough to accomodate the train being overtaken ahead of the rail signal
+- the siding must be long enough to accommodate the train being overtaken ahead of the rail signal
 
 Definitions for `<overtakingReroute>` can be created with the tool [createOvertakingReroutes.py](../Tools/Railways.md#createovertakingreroutespy).
 
@@ -436,7 +436,7 @@ The value of *accelTimeLossFast* is non-zero, only if the faster train reaches t
    <interval begin="<BEGIN_TIME>" end="<END_TIME>">
       <stationReroute id="ts_5"/>
       <stationReroute id="ts_5b"/>
-      <stationReroute id="ts_5c"/>      
+      <stationReroute id="ts_5c"/>
    </interval>
 </rerouter>
 ```

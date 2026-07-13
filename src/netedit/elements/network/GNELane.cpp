@@ -316,6 +316,7 @@ GNELane::updateGeometry() {
         // Update outgoings connections of this lane
         const auto outGoingConnections = getGNEOutcomingConnections();
         for (const auto& connection : outGoingConnections) {
+            connection->markConnectionGeometryDeprecated();
             connection->updateGeometry();
         }
     }
@@ -1080,7 +1081,7 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
         GUIGeometry::drawGeometryPoints(myDrawingConstants->getDetail(), myLaneGeometry.getShape(),
                                         s.colorSettings.editShapeColor.changedBrightness(-32),
                                         s.neteditSizeSettings.laneGeometryPointRadius, 1,
-                                        myNet->getViewNet()->getNetworkViewOptions().editingElevation());
+                                        true, myNet->getViewNet()->getNetworkViewOptions().editingElevation());
         // Pop shape edited matrix
         GLHelper::popMatrix();
     }
@@ -1851,7 +1852,7 @@ GNELane::drawStartEndGeometryPoints(const GUIVisualizationSettings& s) const {
         // move to shape start position
         glTranslated(customShape.front().x(), customShape.front().y(), 0.1);
         // draw circle
-        GLHelper::drawFilledCircleDetailled(myDrawingConstants->getDetail(), circleWidth);
+        GLHelper::drawFilledCircleDetailed(myDrawingConstants->getDetail(), circleWidth);
         // draw s depending of detail
         if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Text) {
             // move top
@@ -1876,7 +1877,7 @@ GNELane::drawStartEndGeometryPoints(const GUIVisualizationSettings& s) const {
         // move to end position
         glTranslated(customShape.back().x(), customShape.back().y(), 0.1);
         // draw filled circle
-        GLHelper::drawFilledCircleDetailled(myDrawingConstants->getDetail(), circleWidth);
+        GLHelper::drawFilledCircleDetailed(myDrawingConstants->getDetail(), circleWidth);
         // draw "e" depending of detail
         if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Text) {
             // move top

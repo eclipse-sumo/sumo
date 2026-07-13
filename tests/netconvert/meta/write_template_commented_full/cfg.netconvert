@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-01T00:10:46.281667+01:00 by Eclipse SUMO netconvert v1_26_0+0915-c030b39bdd3
+<!-- generated on 2026-07-07T13:52:17.869519+01:00 by Eclipse SUMO netconvert v1_27_1+0194-8d0b2b6a43c
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -114,8 +114,8 @@
         <!-- Defines the standard output format if not derivable from the file name (&apos;xml&apos;, &apos;csv&apos;, &apos;parquet&apos;) -->
         <output.format value="xml" type="STR"/>
 
-        <!-- How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;) -->
-        <output.column-header value="tag" type="STR"/>
+        <!-- How to derive column headers from attribute names (&apos;none&apos;, &apos;tag&apos;, &apos;auto&apos;, &apos;plain&apos;, &apos;full&apos;) -->
+        <output.column-header value="auto" type="STR"/>
 
         <!-- Separator in CSV output -->
         <output.column-separator value=";" type="STR"/>

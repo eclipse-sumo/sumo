@@ -33,6 +33,9 @@ build.targets = ["libsumo"]
 install.components = ["tools_libsumo"]
 wheel.packages = ["tools/libsumo"]
 
+[tool.scikit-build.cmake.define]
+CMAKE_CXX_SCAN_FOR_MODULES = "OFF"
+
 [tool.cibuildwheel]
 before-all = "build_config/install_dependencies.sh"
 build = ["cp*manylinux_x86_64", "cp*manylinux_aarch64", "cp*-win_amd64", "cp*-macosx_arm64"]

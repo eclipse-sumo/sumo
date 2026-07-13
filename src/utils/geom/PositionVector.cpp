@@ -472,10 +472,10 @@ PositionVector::getCentroid() const {
     Position result;
     tmp.sub(offset);
     const int endIndex = (int)tmp.size() - 1;
-    double div = 0; // 6 * area including sign
-    double x = 0;
-    double y = 0;
-    if (tmp.area() != 0) { // numerical instability ?
+    double div = 0.; // 6 * area including sign
+    double x = 0.;
+    double y = 0.;
+    if (tmp.area() != 0.) { // numerical instability ?
         // http://en.wikipedia.org/wiki/Polygon
         for (int i = 0; i < endIndex; i++) {
             const double z = tmp[i].x() * tmp[i + 1].y() - tmp[i + 1].x() * tmp[i].y();
@@ -488,18 +488,15 @@ PositionVector::getCentroid() const {
     } else {
         // compute by decomposing into line segments
         // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
-        double lengthSum = 0;
+        double lengthSum = 0.;
         for (int i = 0; i < endIndex; i++) {
             double length = tmp[i].distanceTo(tmp[i + 1]);
             x += (tmp[i].x() + tmp[i + 1].x()) * length / 2;
             y += (tmp[i].y() + tmp[i + 1].y()) * length / 2;
             lengthSum += length;
         }
-        if (lengthSum == 0) {
-            // it is probably only one point
-            result = tmp[0];
-        }
-        result = Position(x / lengthSum, y / lengthSum) + offset;
+        // if lengthSum == 0, it is probably only one point
+        result = lengthSum == 0. ? tmp[0] : Position(x / lengthSum, y / lengthSum);
     }
     return result + offset;
 }
