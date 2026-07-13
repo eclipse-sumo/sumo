@@ -58,8 +58,7 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
     ModelInstance* comp = (ModelInstance*)c;
 
     if (loggingOn) {
-        size_t i;
-        for (i = 0; i < nCategories; i++) {
+        for (size_t i = 0; i < nCategories; i++) {
             if (categories[i] == NULL) {
                 sumo2fmi_logError(comp, "Log category[%d] must not be NULL", i);
                 return fmi2Error;
@@ -136,8 +135,7 @@ fmi2FreeInstance(fmi2Component c) {
     freeMemoryFunc((void*)comp->resourceLocation);
     freeMemoryFunc((void*)comp->libsumoCallOptions);
     freeMemoryFunc((void*)comp->getterParameters);
-    int i;
-    for (i = 0; i < comp->bufferArrayLength; i++) {
+    for (int i = 0; i < comp->bufferArrayLength; i++) {
         freeMemoryFunc((void*)comp->bufferArray[i]);
     }
     freeMemoryFunc((void*)comp->bufferArray);
@@ -226,8 +224,7 @@ fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2I
     fmi2Status status = fmi2OK;
 
     // Go through the list of arrays and save all requested values
-    size_t i;
-    for (i = 0; i < nvr; i++) {
+    for (size_t i = 0; i < nvr; i++) {
         fmi2Status s = sumo2fmi_getInteger(comp, vr[i], &(value[i]));
         status = s > status ? s : status;
 
@@ -262,8 +259,7 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
     fmi2Status status = fmi2OK;
 
     /** Clear value array buffer before reuse */
-    int b;
-    for (b = 0; b < comp->bufferArrayLength; b++) {
+    for (int b = 0; b < comp->bufferArrayLength; b++) {
         comp->freeMemory((void*)comp->bufferArray[b]);
     }
     comp->freeMemory((void*)comp->bufferArray);
@@ -271,8 +267,7 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
     comp->bufferArrayLength = (int)nvr;
 
     // Go through the list of arrays and save all requested values
-    size_t i;
-    for (i = 0; i < nvr; i++) {
+    for (size_t i = 0; i < nvr; i++) {
         fmi2Status s = sumo2fmi_getString(comp, vr[i], &(comp->bufferArray[i]));
         value[i] = comp->bufferArray[i];
         if (value[i] == NULL) {
@@ -324,8 +319,7 @@ fmi2SetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const 
     ModelInstance* comp = (ModelInstance*)c;
     fmi2Status status = fmi2OK;
 
-    size_t i;
-    for (i = 0; i < nvr; i++) {
+    for (size_t i = 0; i < nvr; i++) {
         fmi2Status s = sumo2fmi_setString(comp, vr[i], value[i]);
         status = s > status ? s : status;
         if (status > fmi2Warning) {
@@ -414,8 +408,7 @@ fmi2GetRealOutputDerivatives(fmi2Component c, const fmi2ValueReference vr[], siz
     UNUSED_PARAMETER(vr);
     UNUSED_PARAMETER(order);
 
-    size_t i;
-    for (i = 0; i < nvr; i++) {
+    for (size_t i = 0; i < nvr; i++) {
         value[i] = 0;    /* We cannot compute derivatives of outputs */
     }
     return fmi2Error;
