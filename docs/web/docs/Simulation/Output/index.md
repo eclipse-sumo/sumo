@@ -115,7 +115,8 @@ There is no dedicated output format for traffic at junctions. Instead junction r
   or separate the approaching edges and to include or exclude the
   junction interior. (area-based detection on edges)
 
-Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can be aggregated to obtain the flow at a junction by using edgeData attribute `edges` and `aggregate="true"`.
+Alternatively, the [values for edges or lanes](#values_for_edges_or_lanes) can be aggregated to obtain the flow at a specific junction by using edgeData attribute `edges` and `aggregate="true"`.
+Getting output for each junction can be streamlined by setting edgeData attribute `aggregate="taz"` and sumo option **--junction-taz**.
 
 ## vehicle-based information
 
