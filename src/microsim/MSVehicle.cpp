@@ -4650,9 +4650,6 @@ MSVehicle::executeMove() {
     // or in front of which we need to stop.
     double vSafeMinDist = 0;
 
-    // myAngle will be subsequently be updated by movement and entering new lanes or sublane-changing
-    myLastAngle = myRawAngle;
-
     if (myActionStep) {
         // Actuate control (i.e. choose bounds for safe speed in current simstep (euler), resp. after current sim step (ballistic))
         processLinkApproaches(vSafe, vSafeMin, vSafeMinDist);
@@ -4897,9 +4894,12 @@ MSVehicle::executeMove() {
             myLaneChangeModel->updateShadowLane();
         }
     }
-    workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
+    // myAngle was already updated. Update lastAngle so moveRemindes have consisent angleDiff (after finalizeSpeed because it uses the old angles)
+    myLastAngle = myRawAngle;
     // store angle before lane changing
     myRawAngle = myAngle;
+
+    workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
     // Return whether the vehicle did move to another lane
     return myLane != oldLane;
 }
