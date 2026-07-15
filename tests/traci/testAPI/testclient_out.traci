@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Apr 28 09:52:50 2024
+TraCITestClient output file. Date: Wed Jul 15 17:17:16 2026
 
 
 -> Command sent: <SetOrder>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Sun Apr 28 09:52:50 2024
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 testAPI:
-  getVersion: 21, SUMO v1_19_0+1952-be680871ae9
+  getVersion: 22, SUMO v1_27_1+0274-0398e5ad5b8
   setOrder:
   edge:
     getIDList: :n_m1_0 :n_m2_0 :n_m3_0 :n_m4_0 :n_m4_2 :n_m4_4 :n_m4_7 :n_m5_0 :n_m5_2 :n_m5_4 :n_m6_0 :n_m6_2 :n_m6_4 :n_m7_0 :n_m7_3 :n_o0_0 :n_o1_0 :n_o1_3 :n_o2_0 :n_o2_3 :n_u0_0 :n_u1_0 :n_u1_2 :n_u2_0 :n_u2_2 :n_x1_0 e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
@@ -41,6 +41,7 @@ testAPI:
     getIDList: poly0
     getIDCount: 1
     getLineWidth: 0.60
+    getHeight: 0.00
     getShape: [(800,1000,0)(1200,1000,0)(1200,900,0)(800,900,0)]
     getColor: TraCIColor(0,255,255,255)
     getShape after modification: [(42,1000,0)(1200,1000,0)(1200,900,0)(800,900,0)]
