@@ -65,5 +65,20 @@ set(microsim_devices_STAT_SRCS
    MSVehicleDevice.h
 )
 
+if (HAVE_ROUTINGKIT)
+    list(APPEND microsim_devices_STAT_SRCS
+       CCHGraph.h
+       CCHGraph.cpp
+    )
+endif ()
+
 add_library(microsim_devices STATIC ${microsim_devices_STAT_SRCS})
 set_property(TARGET microsim_devices PROPERTY PROJECT_LABEL "z_microsim_devices")
+if (HAVE_ROUTINGKIT)
+    target_link_libraries(microsim_devices ${ROUTINGKIT_LIB})
+    if (TARGET OpenMP::OpenMP_CXX)
+        target_link_libraries(microsim_devices OpenMP::OpenMP_CXX)
+    elseif (OMP_LIB)
+        target_link_libraries(microsim_devices ${OMP_LIB})
+    endif ()
+endif ()
