@@ -35,6 +35,7 @@ namespace bp = boost::process::v1;
 namespace bp = boost::process;
 #endif
 #endif
+#include <utils/common/StopWatch.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
@@ -106,7 +107,7 @@ public:
         SocialForce
     };
 
-    typedef std::tuple<JPS_StageId, Position, double> WaypointDesc;
+    typedef std::tuple<JPS_StageId, const MSLane*, Position, double> WaypointDesc;
 
     void polygonChanged(const SUMOPolygon* const poly, const bool added, const bool removed) override;
 
@@ -182,6 +183,7 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch;
     /// @brief The random number generator for fluctuations on insertion
     SumoRNG myRNG;
 
@@ -215,7 +217,7 @@ private:
     std::string myJPSModel;
     int64_t myJPSSimulation;
 #ifdef HAVE_BOOST
-    bp::child* myJuPedSimServer = nullptr;
+    std::unique_ptr<bp::child> myJuPedSimServer = nullptr;
 #endif
     std::shared_ptr<grpc::Channel> myGrpcChannel;
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
@@ -238,7 +240,8 @@ private:
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId>, ComparatorNumericalIdLess> myCrossingWaits;
-    std::map<JPS_StageId, const MSLane*> myCrossings;
+    std::map<JPS_StageId, std::pair<const MSLane*, bool> > myCrossings;
+    std::map<const MSLane*, JPS_StageId, ComparatorNumericalIdLess> myLaneCenters;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
@@ -252,7 +255,7 @@ private:
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    JPS_StageId addWaypoint(const std::string& agentID, const WaypointDesc& waypoint);
+    JPS_StageId addWaypoint(const std::string& agentID, WaypointDesc& waypoint, const MSStageMoving* const finalStage);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
@@ -272,10 +275,12 @@ private:
     Response
     callGrpc(grpc::Status(sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
              Request& request, const std::string& what, const bool warnOnly = false) {
+        myStopWatch[0].start();
         grpc::ClientContext context;
         Response response;
         request.set_simulation_id(myJPSSimulation);
         const grpc::Status status = ((*myGrpcStub).*method)(&context, request, &response);
+        myStopWatch[0].stop();
         if (!status.ok()) {
             if (!warnOnly) {
                 throw ProcessError(what + status.error_message());
