@@ -65,10 +65,11 @@ const std::vector<MSPModel_JuPedSim_legacy::PState*> MSPModel_JuPedSim_legacy::n
 // method definitions
 // ===========================================================================
 MSPModel_JuPedSim_legacy::MSPModel_JuPedSim_legacy(const OptionsCont& oc, MSNet* net) :
-    myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
+    myRNG("JuPedSim_legacy"), myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
-    std::string model = oc.getString("pedestrian.jupedsim.model");
+    RandHelper::initRandGlobal(&myRNG);
+    const std::string model = oc.getString("pedestrian.jupedsim.model");
     if (model == "CollisionFreeSpeed" || model == "CollisionFreeSpeedModel") {
         myJPSModel = JPS_Model::CollisionFreeSpeed;
     } else if (model == "CollisionFreeSpeedV2" || model == "CollisionFreeSpeedModelV2") {
@@ -259,8 +260,8 @@ MSPModel_JuPedSim_legacy::add(MSTransportable* person, MSStageMoving* stage, SUM
                 const Boundary& bbox = tazShape->getShape().getBoxBoundary();
                 while (!tazShape->getShape().around(departurePosition)) {
                     // TODO: Optimize for speed if necessary or at least abort trying to find a point.
-                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax()));
-                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax()));
+                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax(), &myRNG));
+                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax(), &myRNG));
                 }
             }
         }
@@ -272,7 +273,7 @@ MSPModel_JuPedSim_legacy::add(MSTransportable* person, MSStageMoving* stage, SUM
             departureRelativePositionY = 0.0;
         }
         if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
-            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth, &myRNG);
         }
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos() + radius + POSITION_EPS, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
@@ -431,8 +432,8 @@ MSPModel_JuPedSim_legacy::execute(SUMOTime time) {
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
             Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));
+            p.setx(p.x() + RandHelper::rand(-.5, .5, &myRNG));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5, &myRNG));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -715,6 +716,7 @@ MSPModel_JuPedSim_legacy::execute(SUMOTime time) {
                     if (!ok) {
                         WRITE_WARNINGF(TL("While switching to train geometry: %"), JPS_ErrorMessage_GetMessage(message));
                     }
+                    WRITE_WARNINGF(TL("switching to train geometry: %"), "");
                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
@@ -1322,8 +1324,8 @@ MSPModel_JuPedSim_legacy::polygonChanged(const SUMOPolygon* const poly, const bo
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_JuPedSim_legacy::PState::PState(MSPerson* person, MSStageMoving* stage,
-                                  JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const std::vector<WaypointDesc>& waypoints) :
+        JPS_JourneyId journeyId, JPS_StageId stageId,
+        const std::vector<WaypointDesc>& waypoints) :
     MSPModel_InteractingState(person, stage, nullptr),
     myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints), myAgentId(0) {
     myDir = FORWARD;
@@ -1332,7 +1334,7 @@ MSPModel_JuPedSim_legacy::PState::PState(MSPerson* person, MSStageMoving* stage,
 
 void
 MSPModel_JuPedSim_legacy::PState::reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const std::vector<WaypointDesc>& waypoints) {
+        const std::vector<WaypointDesc>& waypoints) {
     if (myStage != nullptr) {
         myStage->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
     }

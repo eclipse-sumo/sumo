@@ -156,6 +156,9 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    /// @brief The random number generator for fluctuations on insertion
+    SumoRNG myRNG;
+
     /// @brief The network on which the simulation runs.
     MSNet* const myNetwork;
 

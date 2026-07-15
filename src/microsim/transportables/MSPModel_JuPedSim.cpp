@@ -66,9 +66,10 @@ const std::vector<MSPModel_JuPedSim::PState*> MSPModel_JuPedSim::noPedestrians;
 // method definitions
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
-    myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
+    myRNG("JuPedSim"), myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
+    RandHelper::initRandGlobal(&myRNG);
     myJPSModel = oc.getString("pedestrian.jupedsim.model");
     if (myJPSModel.find("Model") == std::string::npos) {
         // TODO warn about outdated model name
@@ -213,8 +214,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                 const Boundary& bbox = tazShape->getShape().getBoxBoundary();
                 while (!tazShape->getShape().around(departurePosition)) {
                     // TODO: Optimize for speed if necessary or at least abort trying to find a point.
-                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax()));
-                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax()));
+                    departurePosition.setx(RandHelper::rand(bbox.xmin(), bbox.xmax(), &myRNG));
+                    departurePosition.sety(RandHelper::rand(bbox.ymin(), bbox.ymax(), &myRNG));
                 }
             }
         }
@@ -226,7 +227,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             departureRelativePositionY = 0.0;
         }
         if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
-            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
+            departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth, &myRNG);
         }
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos() + radius + POSITION_EPS, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
@@ -391,8 +392,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         if (state->isWaitingToEnter()) {
             // insertion failed at first try so we retry with some noise
             Position p = state->getPosition(*state->getStage(), time);
-            p.setx(p.x() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));  // we do this separately to avoid evaluation order problems
-            p.sety(p.y() + RandHelper::rand(-.5, .5, MSRouteHandler::getParsingRNG()));
+            p.setx(p.x() + RandHelper::rand(-.5, .5, &myRNG));  // we do this separately to avoid evaluation order problems
+            p.sety(p.y() + RandHelper::rand(-.5, .5, &myRNG));
             tryPedestrianInsertion(state, p);
             ++stateIt;
             continue;
@@ -510,7 +511,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         sumo_jupedsim_api::GetAgentsInRegionRequest agentsRequest;
         *agentsRequest.mutable_region() = area->areaBoundary;
         const sumo_jupedsim_api::AgentIdsResponse agentsResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetAgentsInRegion,
-                                     agentsRequest, TL("Error while retrieving agents in area: "));
+                agentsRequest, TL("Error while retrieving agents in area: "));
         const int numAgents = agentsResponse.agent_ids_size();
         if (numAgents == 0) {
             continue;

@@ -178,6 +178,9 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    /// @brief The random number generator for fluctuations on insertion
+    SumoRNG myRNG;
+
     /// @brief The network on which the simulation runs.
     MSNet* const myNetwork;
 
@@ -263,8 +266,8 @@ private:
 
     template <class Request, class Response>
     Response
-    callGrpc(grpc::Status (sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
-             Request& request, const std::string& what, const bool warnOnly=false) {
+    callGrpc(grpc::Status(sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
+             Request& request, const std::string& what, const bool warnOnly = false) {
         grpc::ClientContext context;
         Response response;
         request.set_simulation_id(myJPSSimulation);
