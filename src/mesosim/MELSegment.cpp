@@ -91,7 +91,8 @@ MELSegment::updateBlockTime(Queue& q, const Queue& /*qNext*/, const MESegment* c
 void
 MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
     // record time when the gap vacated by ego will reach the upstream end of the segment
-    myGapTimes[veh->getQueIndex()].push_front(time + myLength * myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP);
+    GapTimes& gapTimes = myGapTimes[veh->getQueIndex()];
+    gapTimes.insert(gapTimes.begin(), time + myLength * myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP);
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 

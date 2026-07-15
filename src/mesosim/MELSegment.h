@@ -79,7 +79,7 @@ protected:
 private:
     /// @brief upstream arrival times of traveling gaps between cars (for each queue)
     // @note: could be slightly faster as a double-index ring-buffer
-    typedef std::deque<SUMOTime> GapTimes;
+    typedef std::vector<SUMOTime> GapTimes;
     std::vector<GapTimes> myGapTimes;
 
 private:
