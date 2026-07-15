@@ -37,6 +37,7 @@ const double Shape::DEFAULT_ANGLE = 0;
 const std::string Shape::DEFAULT_IMG_FILE = "";
 const double Shape::DEFAULT_IMG_WIDTH = 2.6;
 const double Shape::DEFAULT_IMG_HEIGHT = 1;
+const double Shape::DEFAULT_HEIGHT = 0;
 const std::string Shape::DEFAULT_NAME = "";
 const Parameterised::Map Shape::DEFAULT_PARAMETERS = Parameterised::Map();
 
@@ -46,11 +47,6 @@ const Parameterised::Map Shape::DEFAULT_PARAMETERS = Parameterised::Map();
 
 Shape::Shape(const std::string& id) :
     Named(id),
-    myType(DEFAULT_TYPE),
-    myColor(RGBColor::BLACK),
-    myLayer(DEFAULT_LAYER),
-    myNaviDegreeAngle(DEFAULT_ANGLE),
-    myImgFile(DEFAULT_IMG_FILE),
     myName(DEFAULT_NAME) {
 }
 

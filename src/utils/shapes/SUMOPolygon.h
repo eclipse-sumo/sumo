@@ -58,15 +58,17 @@ public:
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth The line with for drawing an unfilled polygon
-     * @param[in] name Polygon name
+     * @param[in] name polygon name
+     * @param[in] height polygon height
      * @param[in] parameters generic parameters
      */
     SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
-                const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                double layer = DEFAULT_LAYER,
-                double angle = DEFAULT_ANGLE,
+                const PositionVector& shape, const bool geo, const bool fill, const double lineWidth,
+                const double layer = DEFAULT_LAYER,
+                const double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE,
                 const std::string& name = DEFAULT_NAME,
+                const double height = DEFAULT_HEIGHT,
                 const Parameterised::Map& parameters = DEFAULT_PARAMETERS);
 
     /// @brief Destructor
@@ -75,25 +77,24 @@ public:
     /// @name Getter
     /// @{
 
-    /** @brief Returns the shape of the polygon
-     * @return The shape of the polygon
-     */
+    ///  @brief Returns the shape of the polygon
     const PositionVector& getShape() const;
 
-    /** @brief Returns the holers of the polygon
-     * @return The holes of the polygon
-     */
+    /// @brief Return the exterior shape of the polygon.
+    PositionVector& getShapeRef();
+
+    /// @brief Returns the holers of the polygon
     const std::vector<PositionVector>& getHoles() const;
 
-    /** @brief Returns whether the polygon is filled
-     * @return Whether the polygon is filled
-     */
+    /// @brief Returns whether the polygon is filled
     bool getFill() const;
 
-    /** @brief Returns whether the polygon is filled
-     * @return Whether the polygon is filled
-     */
+    /// @brief Returns the line width
     double getLineWidth() const;
+
+    /// @brief Returns the polygon height
+    double getHeight() const;
+
     /// @}
 
     /// @name Setter
@@ -106,6 +107,9 @@ public:
 
     /// @brief set line width
     void setLineWidth(double lineWidth);
+
+    /// @brief set height
+    void setHeight(double height);
 
     /** @brief Sets the shape of the polygon
      * @param[in] shape  The new shape of the polygon
@@ -124,11 +128,6 @@ public:
      */
     void writeXML(OutputDevice& out, bool geo = false) const;
 
-    /// @brief Return the exterior shape of the polygon.
-    PositionVector& getShapeRef() {
-        return myShape;
-    }
-
 protected:
     /// @brief The positions of the polygon
     PositionVector myShape;
@@ -144,4 +143,7 @@ protected:
 
     /// @brief The line width for drawing an unfilled polygon
     double myLineWidth;
+
+    /// @brief The line width for drawing an unfilled polygon
+    double myHeight;
 };

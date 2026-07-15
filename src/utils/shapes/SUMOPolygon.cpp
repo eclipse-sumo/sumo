@@ -31,16 +31,18 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
+
 SUMOPolygon::SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
-                         const PositionVector& shape, bool geo, bool fill, double lineWidth,
-                         double layer, double angle, const std::string& imgFile, const std::string& name,
-                         const Parameterised::Map& parameters) :
+                         const PositionVector& shape, const bool geo, const bool fill, const double lineWidth,
+                         const double layer, const double angle, const std::string& imgFile, const std::string& name,
+                         const double height, const Parameterised::Map& parameters) :
     Shape(id, type, color, layer, angle, imgFile, name),
     Parameterised(parameters),
     myShape(shape),
     myGEO(geo),
     myFill(fill),
-    myLineWidth(lineWidth) {
+    myLineWidth(lineWidth),
+    myHeight(height) {
 }
 
 
@@ -49,6 +51,12 @@ SUMOPolygon::~SUMOPolygon() {}
 
 const PositionVector&
 SUMOPolygon::getShape() const {
+    return myShape;
+}
+
+
+PositionVector&
+SUMOPolygon::getShapeRef() {
     return myShape;
 }
 
@@ -71,6 +79,12 @@ SUMOPolygon::getLineWidth() const {
 }
 
 
+double
+SUMOPolygon::getHeight() const {
+    return myHeight;
+}
+
+
 void
 SUMOPolygon::setFill(bool fill) {
     myFill = fill;
@@ -80,6 +94,12 @@ SUMOPolygon::setFill(bool fill) {
 void
 SUMOPolygon::setLineWidth(double lineWidth) {
     myLineWidth = lineWidth;
+}
+
+
+void
+SUMOPolygon::setHeight(double height) {
+    myHeight = height;
 }
 
 
@@ -129,6 +149,5 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) const {
     writeParams(out);
     out.closeTag();
 }
-
 
 /****************************************************************************/
