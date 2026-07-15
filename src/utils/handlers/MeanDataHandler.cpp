@@ -104,7 +104,7 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                       obj->getTimeAttribute(SUMO_ATTR_END),
                                       obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
                                       obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
-                                      obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
+                                      obj->getStringAttribute(SUMO_ATTR_AGGREGATE),
                                       obj->getStringListAttribute(SUMO_ATTR_EDGES),
                                       obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
                                       obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
@@ -127,7 +127,7 @@ MeanDataHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                                       obj->getTimeAttribute(SUMO_ATTR_END),
                                       obj->getBoolAttribute(SUMO_ATTR_TRACK_VEHICLES),
                                       obj->getStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES),
-                                      obj->getBoolAttribute(SUMO_ATTR_AGGREGATE),
+                                      obj->getStringAttribute(SUMO_ATTR_AGGREGATE),
                                       obj->getStringListAttribute(SUMO_ATTR_EDGES),
                                       obj->getStringAttribute(SUMO_ATTR_EDGESFILE),
                                       obj->getStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY),
@@ -166,7 +166,7 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), parsedOk, TIME2STEPS(-1));
     const bool trackVehicles = attrs.getOpt<bool>(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), parsedOk, false);
     const std::vector<std::string> writeAttributes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_WRITE_ATTRIBUTES, id.c_str(), parsedOk, {});
-    const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, false);
+    const std::string aggregate = attrs.getOpt<std::string>(SUMO_ATTR_AGGREGATE, id.c_str(), parsedOk, "false");
     const std::vector<std::string> edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), parsedOk, {});
     const std::string edgeFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), parsedOk, "");
     const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), parsedOk, SUMOXMLDefinitions::ExcludeEmptys.getString(ExcludeEmpty::FALSES));
@@ -196,7 +196,7 @@ MeanDataHandler::parseEdgeMeanData(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_END, end);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_TRACK_VEHICLES, trackVehicles);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_WRITE_ATTRIBUTES, writeAttributes);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addBoolAttribute(SUMO_ATTR_AGGREGATE, aggregate);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_AGGREGATE, aggregate);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EDGESFILE, edgeFile);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_EXCLUDE_EMPTY, excludeEmpty);

@@ -51,7 +51,7 @@ bool
 GNEMeanDataHandler::buildEdgeMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                       const std::string& file, const std::string& type, const SUMOTime period, const SUMOTime begin,
                                       const SUMOTime end, const bool trackVehicles, const std::vector<std::string>& writtenAttributes,
-                                      const bool aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
+                                      const std::string& aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
                                       const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                                       const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
                                       const double speedThreshold) {
@@ -103,7 +103,7 @@ bool
 GNEMeanDataHandler::buildLaneMeanData(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& id,
                                       const std::string& file, const std::string& type, const SUMOTime period, const SUMOTime begin,
                                       const SUMOTime end, const bool trackVehicles, const std::vector<std::string>& writtenAttributes,
-                                      const bool aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
+                                      const std::string& aggregate, const std::vector<std::string>& edgeIDs, const std::string& edgeFile,
                                       const std::string& excludeEmpty, const bool withInternal, const std::vector<std::string>& detectPersons,
                                       const double minSamples, const double maxTravelTime, const std::vector<std::string>& vTypes,
                                       const double speedThreshold) {

@@ -36,7 +36,7 @@ public:
     /// @brief Parameter constructor
     GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket, const std::string& file,
                 const std::string& type, const SUMOTime period, const SUMOTime begin, const SUMOTime end,
-                const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const bool aggregate,
+                const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const std::string& aggregate,
                 const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
                 const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples,
                 const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold);
@@ -183,7 +183,7 @@ protected:
     std::vector<SumoXMLAttr> myWrittenAttributes;
 
     /// @brief whether the data for all edges shall be aggregated
-    bool myAggregate = false;
+    std::string myAggregate = "false";
 
     /// @brief list of edges
     std::vector<std::string> myEdges;

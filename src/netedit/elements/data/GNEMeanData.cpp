@@ -39,7 +39,7 @@ GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket
 
 GNEMeanData::GNEMeanData(SumoXMLTag tag, std::string ID, GNENet* net, FileBucket* fileBucket, const std::string& file,
                          const std::string& type, const SUMOTime period, const SUMOTime begin, const SUMOTime end,
-                         const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const bool aggregate,
+                         const bool trackVehicles, const std::vector<SumoXMLAttr>& writtenAttributes, const std::string& aggregate,
                          const std::vector<std::string>& edges, const std::string& edgeFile, const std::string& excludeEmpty,
                          const bool withInternal, const std::vector<std::string>& detectPersons, const double minSamples,
                          const double maxTravelTime, const std::vector<std::string>& vTypes, const double speedThreshold) :
@@ -171,8 +171,8 @@ GNEMeanData::writeMeanData(OutputDevice& device) const {
     if (myEdgeFile.size() > 0) {
         device.writeAttr(SUMO_ATTR_EDGESFILE, myEdgeFile);
     }
-    if (myAggregate) {
-        device.writeAttr(SUMO_ATTR_AGGREGATE, true);
+    if (myAggregate != "false") {
+        device.writeAttr(SUMO_ATTR_AGGREGATE, myAggregate);
     }
     device.closeTag();
 }
@@ -288,7 +288,7 @@ GNEMeanData::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGESFILE:
             return myEdgeFile;
         case SUMO_ATTR_AGGREGATE:
-            return toString(myAggregate);
+            return myAggregate;
         default:
             return getCommonAttribute(key);
     }
@@ -397,8 +397,10 @@ GNEMeanData::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         case SUMO_ATTR_EDGESFILE:
             return SUMOXMLDefinitions::isValidFilename(value);
-        case SUMO_ATTR_AGGREGATE:
-            return (canParse<bool>(value));
+        case SUMO_ATTR_AGGREGATE: {
+            const auto& discreteValues = myTagProperty->getAttributeProperties(SUMO_ATTR_AGGREGATE)->getDiscreteValues();
+            return std::find(discreteValues.begin(), discreteValues.end(), value) != discreteValues.end();
+        }
         default:
             return isCommonAttributeValid(key, value);
     }
@@ -512,7 +514,7 @@ GNEMeanData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEdgeFile = value;
             break;
         case SUMO_ATTR_AGGREGATE:
-            myAggregate = parse<bool>(value);
+            myAggregate = value;
             break;
         default:
             setCommonAttribute(key, value);
