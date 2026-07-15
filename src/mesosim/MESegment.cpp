@@ -563,6 +563,25 @@ MESegment::limitedControlOverride(const MSLink* link) const {
 
 
 void
+MESegment::updateBlockTime(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) {
+    const bool nextFree = qNext.getOccupancy() <= next->myJamThreshold;
+    const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
+            ? (nextFree ? myTau_ff : myTau_fj)
+            : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
+    assert(tau >= 0);
+    myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+    if (myTLSPenalty) {
+        const MSLink* const tllink = getLink(veh, true);
+        if (tllink != nullptr && tllink->isTLSControlled()) {
+            assert(tllink->getGreenFraction() > 0);
+            myLastHeadway = (SUMOTime)((double)myLastHeadway / tllink->getGreenFraction());
+        }
+    }
+    q.setBlockTime(q.getBlockTime() + myLastHeadway);
+}
+
+
+void
 MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
     Queue& q = myQueues[veh->getQueIndex()];
     assert(isInvalid(next) || time >= q.getBlockTime());
@@ -576,26 +595,14 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
     if (!isInvalid(next)) {
-        const bool nextFree = next->myQueues[nextQIdx].getOccupancy() <= next->myJamThreshold;
-        const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
-                              ? (nextFree ? myTau_ff : myTau_fj)
-                              : (nextFree ? myTau_jf : getTauJJ((double)next->myQueues[nextQIdx].size(), next->myQueueCapacity, next->myJamThreshold)));
-        assert(tau >= 0);
-        myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
-        if (myTLSPenalty) {
-            const MSLink* const tllink = getLink(veh, true);
-            if (tllink != nullptr && tllink->isTLSControlled()) {
-                assert(tllink->getGreenFraction() > 0);
-                myLastHeadway = (SUMOTime)((double)myLastHeadway / tllink->getGreenFraction());
-            }
-        }
-        q.setBlockTime(q.getBlockTime() + myLastHeadway);
+        updateBlockTime(q, next->myQueues[nextQIdx], next, veh);
     }
     if (lc != nullptr) {
         lc->setEventTime(MAX2(lc->getEventTime(), q.getBlockTime()));
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
     }
 }
+
 
 SUMOTime
 MESegment::getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const {

@@ -8,6 +8,8 @@ SET(mesosim_STAT_SRCS
    MELoop.h
    MESegment.cpp
    MESegment.h
+   MELSegment.cpp
+   MELSegment.h
    METriggeredCalibrator.cpp
    METriggeredCalibrator.h
    MEVehicle.cpp
