@@ -304,8 +304,8 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
 class Server:
     """Context manager for a running gRPC server."""
 
-    def __init__(self, port=50051, debug=False, sqlite=False):
-        self._port = port
+    def __init__(self, socket, debug=False, sqlite=False):
+        self._socket = socket
         self._debug = debug
         self._sqlite = sqlite
         self._server = None
@@ -327,11 +327,11 @@ class Server:
             JuPedSimServiceServicer(self._debug, self._sqlite), self._server
         )
         # bound_port is 0 if the port is already in use with SO_REUSEPORT disabled (see above).
-        bound_port = self._server.add_insecure_port(f"[::]:{self._port}")
+        bound_port = self._server.add_insecure_port(self._socket)
         if bound_port == 0:
-            raise OSError(f"Could not bind to port {self._port} (already in use?)")
+            raise OSError(f"Could not bind to {self._socket} (already in use?)")
         self._server.start()
-        print(f"Server running on port {self._port}")
+        print(f"Server running on {self._socket}")
 
     def stop(self, grace=0):
         if self._server:
@@ -342,13 +342,9 @@ class Server:
         if self._server:
             self._server.wait_for_termination(timeout)
 
-    @property
-    def port(self):
-        return self._port
 
-
-def serve(port=50051, debug=False, sqlite=False):
-    with Server(port, debug, sqlite) as server:
+def serve(socket, debug=False, sqlite=False):
+    with Server(socket, debug, sqlite) as server:
         try:
             server.wait_for_termination()
         except KeyboardInterrupt:
@@ -364,6 +360,9 @@ if __name__ == "__main__":
         help="TCP port to listen on (default: 50051)",
     )
     parser.add_argument(
+        "--unix-socket", help="Unix socket to listen on",
+    )
+    parser.add_argument(
         "--debug", action="store_true",
         help="Dumps a 'simulation{id}.py' per simulation that can be run as-is.",
     )
@@ -372,4 +371,4 @@ if __name__ == "__main__":
         help="Writes a trajectory db 'simulation{id}.sqlite' per simulation.",
     )
     args = parser.parse_args()
-    serve(args.port, args.debug, args.sqlite)
+    serve("unix:" + args.unix_socket if args.unix_socket else f"[::]:{args.port}", args.debug, args.sqlite)
