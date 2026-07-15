@@ -9,7 +9,7 @@
         <route edges="left0A0 A0B0 B0C0 C0D0 D0E0 E0F0 F0right0"/>
         <stop edge="E0F0" duration="60"/>
     </vehicle>
-    <flow id="v_1" begin="0.00" end="3600" period="2.2">
+    <flow id="v_1" begin="0.00" end="1000" period="2.2">
         <route edges="left0A0 A0B0 B0C0 C0D0 D0E0 E0F0 F0right0"/>
     </flow>
 </routes>
