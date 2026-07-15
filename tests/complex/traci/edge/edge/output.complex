@@ -69,6 +69,6 @@ pending ()
 pending ()
 3si count=2 meanSpeed=8.445 travelTime=28.08170515097691
 pending ()
-allow_0 ()
+allow_0 ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2')
 allow_1 ('bicycle',)
 allow_2 ('pedestrian', 'bicycle')
