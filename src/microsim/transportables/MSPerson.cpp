@@ -25,7 +25,6 @@
 #include <string>
 #include <vector>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeomHelper.h>
@@ -198,7 +197,7 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                                                     prevStop->getLane().geometryPositionAtOffset(arrivalAtBs));
             } else {
                 const bool useDoors = access->exit == MSStoppingPlace::AccessExit::DOORS ||
-                                      (OptionsCont::getOptions().getString("pedestrian.model") != "jupedsim" && access->exit == MSStoppingPlace::AccessExit::CARRIAGE);
+                                      (!MSNet::getInstance()->getPersonControl().getMovementModel()->usingDoors() && access->exit == MSStoppingPlace::AccessExit::CARRIAGE);
                 if (access->exit == MSStoppingPlace::AccessExit::CARRIAGE) {
                     const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
                     const double startPosLat = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePosLat(0) : prior->getArrivalPosLat();

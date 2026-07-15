@@ -80,6 +80,10 @@ public:
     bool usingShortcuts() override {
         return myHaveAdditionalWalkableAreas;
     }
+    /// @brief precise lateral positioning when leaving trains is supported by JuPedSim
+    bool usingDoors() override {
+        return true;
+    }
     void registerArrived(const JPS_AgentId agentID);
     void clearState() override;
 

@@ -121,18 +121,17 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         }
         return;
     }
-    const OptionsCont& oc = OptionsCont::getOptions();
+    MSTransportableControl& pControl = net->getPersonControl();
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
-        if (oc.getString("pedestrian.model") == "jupedsim") {
+        if (pControl.getMovementModel()->usingDoors()) {
             myDepartPosLat = previous->getEdgePosLat(now);
         }
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();
         }
     }
-    MSTransportableControl& pControl = net->getPersonControl();
     myPState = pControl.getMovementModel()->add(person, this, now);
     if (myPState == nullptr) {
         pControl.erase(person);
@@ -142,7 +141,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
         // we only need new move reminders if we are walking a different edge (else it is probably a rerouting)
         activateEntryReminders(person, true);
     }
-    if (oc.getBool("vehroute-output.exit-times")) {
+    if (OptionsCont::getOptions().getBool("vehroute-output.exit-times")) {
         myExitTimes = new std::vector<SUMOTime>();
     }
     (*myRouteStep)->addTransportable(person);

@@ -716,7 +716,6 @@ MSPModel_JuPedSim_legacy::execute(SUMOTime time) {
                     if (!ok) {
                         WRITE_WARNINGF(TL("While switching to train geometry: %"), JPS_ErrorMessage_GetMessage(message));
                     }
-                    WRITE_WARNINGF(TL("switching to train geometry: %"), "");
                     removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
                     preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
                     GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
