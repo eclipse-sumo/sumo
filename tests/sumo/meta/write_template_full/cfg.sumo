@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-07T13:53:05.342536+01:00 by Eclipse SUMO sumo v1_27_1+0194-8d0b2b6a43c
+<!-- generated on 2026-07-15T02:03:25.954910+01:00 by Eclipse SUMO sumo v1_27_1+0246-f07521d5657
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -512,6 +512,7 @@
 
     <mesoscopic>
         <mesosim value="false" type="BOOL" help="Enables mesoscopic simulation"/>
+        <meso-lift value="false" type="BOOL" help="Enables the LIFT model"/>
         <meso-edgelength value="98" type="FLOAT" help="Length of an edge segment in mesoscopic simulation"/>
         <meso-tauff value="1.13" type="TIME" help="Factor for calculating the net free-free headway time"/>
         <meso-taufj value="1.13" type="TIME" help="Factor for calculating the net free-jam headway time"/>

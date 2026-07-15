@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-26T09:46:12.833417+01:00 by Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
+<!-- generated on 2026-07-15T02:03:25.973336+01:00 by Eclipse SUMO sumo v1_27_1+0246-f07521d5657
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -580,6 +580,7 @@
     <xsd:complexType name="sumomesoscopicTopicType">
         <xsd:all>
             <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-lift" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>

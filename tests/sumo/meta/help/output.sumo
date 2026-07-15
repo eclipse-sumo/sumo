@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_1+0194-8d0b2b6a43c
+Eclipse SUMO sumo v1_27_1+0246-f07521d5657
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -998,6 +998,7 @@ TraCI Server Options:
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
+  --meso-lift                          Enables the LIFT model
   --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
                                         simulation
   --meso-tauff TIME                    Factor for calculating the net free-free
