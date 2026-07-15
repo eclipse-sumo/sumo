@@ -3487,10 +3487,6 @@ GNEViewNet::updateCursor() {
                 cursorDelete = true;
             }
         } else if (myEditModes.isCurrentSupermodeData()) {
-            // move view
-            if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
-                cursorMoveView = true;
-            }
             // specific mode
             if (myEditModes.dataEditMode == DataEditMode::DATA_INSPECT) {
                 cursorInspect = true;
@@ -3501,7 +3497,7 @@ GNEViewNet::updateCursor() {
             }
         }
         // set cursor
-        if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMoveView) {
+        if (myMouseButtonKeyPressed.controlKeyPressed() && (cursorMoveView || myEditModes.isCurrentSupermodeData())) {
             // move view cursor if control key is pressed
             setDefaultCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
             setDragCursor(GUICursorSubSys::getCursor(GUICursor::MOVEVIEW));
@@ -6423,100 +6419,106 @@ GNEViewNet::processMoveMouseDemand(const bool mouseLeftButtonPressed) {
 
 void
 GNEViewNet::processLeftButtonPressData(void* eventData) {
-    // get AC
-    const auto AC = myViewObjectsSelector.getAttributeCarrierFront();
-    // decide what to do based on mode
-    switch (myEditModes.dataEditMode) {
-        case DataEditMode::DATA_INSPECT: {
-            // filter locked elements
-            myViewObjectsSelector.filterLockedElements();
-            // process left click in Inspector Frame
-            if (AC && AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
-                myViewParent->getInspectorFrame()->inspectElement(AC);
-            } else {
-                // inspect clicked elements
-                myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
-            }
-            // process click
-            processClick(eventData);
-            break;
-        }
-        case DataEditMode::DATA_DELETE: {
-            // check conditions
-            if (AC) {
-                // check if we are deleting a selection or an single attribute carrier
-                if (AC->isAttributeCarrierSelected()) {
-                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
-                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
-                    }
+    // control always pans the scene in data mode
+    if (myMouseButtonKeyPressed.controlKeyPressed()) {
+        // process click
+        processClick(eventData);
+    } else {
+        // get AC
+        const auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+        // decide what to do based on mode
+        switch (myEditModes.dataEditMode) {
+            case DataEditMode::DATA_INSPECT: {
+                // filter locked elements
+                myViewObjectsSelector.filterLockedElements();
+                // process left click in Inspector Frame
+                if (AC && AC->getTagProperty()->getTag() == SUMO_TAG_TAZ) {
+                    myViewParent->getInspectorFrame()->inspectElement(AC);
                 } else {
-                    myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
+                    // inspect clicked elements
+                    myViewParent->getInspectorFrame()->inspectClickedElements(myViewObjectsSelector, getPositionInformation(), myMouseButtonKeyPressed.shiftKeyPressed());
                 }
-            } else {
                 // process click
                 processClick(eventData);
+                break;
             }
-            break;
-        }
-        case DataEditMode::DATA_SELECT:
-            // filter locked elements
-            myViewObjectsSelector.filterLockedElements();
-            // avoid to select if control key is pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                // check if a rect for selecting is being created
-                if (myMouseButtonKeyPressed.shiftKeyPressed()) {
-                    // begin rectangle selection
-                    mySelectingArea.beginRectangleSelection();
-                } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myViewObjectsSelector)) {
+            case DataEditMode::DATA_DELETE: {
+                // check conditions
+                if (AC) {
+                    // check if we are deleting a selection or an single attribute carrier
+                    if (AC->isAttributeCarrierSelected()) {
+                        if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+                            myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
+                        }
+                    } else {
+                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
+                    }
+                } else {
                     // process click
                     processClick(eventData);
                 }
-            } else {
+                break;
+            }
+            case DataEditMode::DATA_SELECT:
+                // filter locked elements
+                myViewObjectsSelector.filterLockedElements();
+                // avoid to select if control key is pressed
+                if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                    // check if a rect for selecting is being created
+                    if (myMouseButtonKeyPressed.shiftKeyPressed()) {
+                        // begin rectangle selection
+                        mySelectingArea.beginRectangleSelection();
+                    } else if (!myViewParent->getSelectorFrame()->selectAttributeCarrier(myViewObjectsSelector)) {
+                        // process click
+                        processClick(eventData);
+                    }
+                } else {
+                    // process click
+                    processClick(eventData);
+                }
+                break;
+            case DataEditMode::DATA_EDGEDATA:
+                // avoid create edgeData if control key is pressed
+                if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                    if (myViewParent->getEdgeDataFrame()->addEdgeData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
+                        updateViewNet();
+                    }
+                }
+                // process click
+                processClick(eventData);
+                break;
+            case DataEditMode::DATA_EDGERELDATA:
+                // avoid create edgeData if control key is pressed
+                if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                    if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
+                        updateViewNet();
+                    }
+                }
+                // process click
+                processClick(eventData);
+                break;
+            case DataEditMode::DATA_TAZRELDATA:
+                // avoid create TAZData if control key is pressed
+                if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                    if (myViewParent->getTAZRelDataFrame()->setTAZ(myViewObjectsSelector)) {
+                        updateViewNet();
+                    }
+                }
+                // process click
+                processClick(eventData);
+                break;
+            case DataEditMode::DATA_MEANDATA:
+                // avoid create TAZData if control key is pressed
+                if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                    //
+                }
+                // process click
+                processClick(eventData);
+                break;
+            default: {
                 // process click
                 processClick(eventData);
             }
-            break;
-        case DataEditMode::DATA_EDGEDATA:
-            // avoid create edgeData if control key is pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeDataFrame()->addEdgeData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
-                    updateViewNet();
-                }
-            }
-            // process click
-            processClick(eventData);
-            break;
-        case DataEditMode::DATA_EDGERELDATA:
-            // avoid create edgeData if control key is pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myViewObjectsSelector, myMouseButtonKeyPressed)) {
-                    updateViewNet();
-                }
-            }
-            // process click
-            processClick(eventData);
-            break;
-        case DataEditMode::DATA_TAZRELDATA:
-            // avoid create TAZData if control key is pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getTAZRelDataFrame()->setTAZ(myViewObjectsSelector)) {
-                    updateViewNet();
-                }
-            }
-            // process click
-            processClick(eventData);
-            break;
-        case DataEditMode::DATA_MEANDATA:
-            // avoid create TAZData if control key is pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
-                //
-            }
-            // process click
-            processClick(eventData);
-            break;
-        default: {
-            // process click
-            processClick(eventData);
         }
     }
 }
