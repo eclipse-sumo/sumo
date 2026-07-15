@@ -44,16 +44,17 @@
 #pragma warning(disable: 4355) // mask warning about "this" in initializers
 #endif
 GNEPoly::GNEPoly(SumoXMLTag tag, GNENet* net) :
-    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", "", Parameterised::Map()),
-                  GNEAdditional(net, tag),
+    TesselatedPolygon("", "", RGBColor::BLACK, {}, false, false,  DEFAULT_LINEWIDTH, DEFAULT_LAYER,
+DEFAULT_ANGLE, DEFAULT_IMG_FILE, DEFAULT_NAME, DEFAULT_HEIGHT, DEFAULT_PARAMETERS),
+               GNEAdditional(net, tag),
 myMoveElementShape(new GNEMoveElementShape(this)) {
 }
 
 
 GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const PositionVector& shape,
-                 bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
-                 const std::string& name, const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, "", parameters),
+                 const bool geo, const bool fill, const double lineWidth, const RGBColor& color, const double layer, const double angle,
+                 const std::string& imgFile, const std::string& name, const double height, const Parameterised::Map& parameters) :
+    TesselatedPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, "", height, parameters),
     GNEAdditional(id, net, SUMO_TAG_POLY, fileBucket, name),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, false)),
     myClosedShape(shape.isClosed()) {
@@ -80,9 +81,9 @@ GNEPoly::GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, con
 
 
 GNEPoly::GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape,
-                 bool geo, const std::string& name, const Parameterised::Map& parameters) :
-    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), 1,
-                      getJuPedSimLayer(tag), 0, "", "", parameters),
+                 const bool geo, const std::string& name, const Parameterised::Map& parameters) :
+    TesselatedPolygon(id, getJuPedSimType(tag), getJuPedSimColor(tag), shape, geo, getJuPedSimFill(tag), DEFAULT_LINEWIDTH,
+                      getJuPedSimLayer(tag), DEFAULT_ANGLE, DEFAULT_IMG_FILE, DEFAULT_NAME, DEFAULT_HEIGHT, parameters),
     GNEAdditional(id, net, tag, fileBucket, name),
     myMoveElementShape(new GNEMoveElementShape(this, myShape, (tag == GNE_TAG_JPS_WALKABLEAREA) || (tag == GNE_TAG_JPS_OBSTACLE))),
     myClosedShape(shape.isClosed()),
@@ -545,6 +546,7 @@ GNEPoly::getSumoBaseObject() const {
     polygonBaseObject->addStringAttribute(SUMO_ATTR_IMGFILE, getShapeImgFile());
     polygonBaseObject->addDoubleAttribute(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     polygonBaseObject->addStringAttribute(SUMO_ATTR_NAME, myAdditionalName);
+    polygonBaseObject->addDoubleAttribute(SUMO_ATTR_HEIGHT, myHeight);
     return polygonBaseObject;
 }
 
@@ -586,6 +588,8 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
             return myAdditionalName;
         case GNE_ATTR_CLOSE_SHAPE:
             return toString(myClosedShape);
+        case SUMO_ATTR_HEIGHT:
+            return toString(myHeight);
         default:
             return getCommonAttribute(key);
     }
@@ -628,6 +632,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ANGLE:
         case SUMO_ATTR_GEO:
         case SUMO_ATTR_NAME:
+        case SUMO_ATTR_HEIGHT:
         case GNE_ATTR_CLOSE_SHAPE:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
@@ -678,6 +683,8 @@ GNEPoly::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
+        case SUMO_ATTR_HEIGHT:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_CLOSE_SHAPE:
             return canParse<bool>(value);
         default:
@@ -807,6 +814,9 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
+            break;
+        case SUMO_ATTR_HEIGHT:
+            myHeight = parse<double>(value);
             break;
         case GNE_ATTR_CLOSE_SHAPE:
             myClosedShape = parse<bool>(value);

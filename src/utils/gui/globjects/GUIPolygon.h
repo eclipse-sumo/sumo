@@ -55,11 +55,18 @@ public:
      * @param[in] geo specify if shape was loaded as GEO
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
+     * @param[in] height polygon height
      */
     TesselatedPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
-                      bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
-                      const std::string& name = DEFAULT_NAME, const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
-        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, parameters)
+                      const bool geo, const bool fill,
+                      const double lineWidth = DEFAULT_LINEWIDTH,
+                      const double layer = DEFAULT_LAYER,
+                      const double angle = DEFAULT_ANGLE,
+                      const std::string& imgFile = DEFAULT_IMG_FILE,
+                      const std::string& name = DEFAULT_NAME,
+                      const double height = DEFAULT_HEIGHT,
+                      const Parameterised::Map& parameters = DEFAULT_PARAMETERS):
+        SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, name, height, parameters)
     {}
 
     /// @brief Destructor

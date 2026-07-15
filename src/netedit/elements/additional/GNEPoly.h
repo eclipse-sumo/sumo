@@ -64,8 +64,8 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPoly(const std::string& id, GNENet* net, FileBucket* fileBucket, const std::string& type, const PositionVector& shape,
-            bool geo, bool fill, double lineWidth, const RGBColor& color, double layer, double angle, const std::string& imgFile,
-            const std::string& name, const Parameterised::Map& parameters);
+            const bool geo, const bool fill, const double lineWidth, const RGBColor& color, const double layer, const double angle,
+            const std::string& imgFile, const std::string& name, const double height, const Parameterised::Map& parameters);
 
     /** @brief Constructor for JuPedSim elements
      * @param[in] id The name of the polygon
@@ -77,7 +77,7 @@ public:
      * @param[in] parameters generic parameters
      */
     GNEPoly(SumoXMLTag tag, const std::string& id, GNENet* net, FileBucket* fileBucket, const PositionVector& shape,
-            bool geo, const std::string& name, const Parameterised::Map& parameters);
+            const bool geo, const std::string& name, const Parameterised::Map& parameters);
 
     /// @brief Destructor
     ~GNEPoly();
