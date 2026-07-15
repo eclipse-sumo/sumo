@@ -1,0 +1,1 @@
+-n net2.net.xml --merged-csv data.csv --vtype-output vehtypes.xml --join-blocks tools/import/gtfs/gtfs2pt.py
