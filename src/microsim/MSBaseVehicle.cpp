@@ -1483,7 +1483,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     std::string stopID = "";
     double parkingLength = stop.pars.endPos - stop.pars.startPos;
     if (stop.busstop != nullptr) {
-        stopType = "busStop";
+        stopType = toString(stop.busstop->getElement());
         stopID = stop.busstop->getID();
         parkingLength = stop.busstop->getParkingLength();
     } else if (stop.containerstop != nullptr) {
