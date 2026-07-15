@@ -54,17 +54,13 @@ message AddWaypointStageRequest {
   double distance = 3;
 }
 
-message AddWaypointStageResponse {
-  int64 waypoint_id = 1;
+message StageResponse {
+  int64 stage_id = 1;
 }
 
 message AddExitStageRequest {
   int64 simulation_id = 1;
   repeated Point polygon = 2;
-}
-
-message AddExitStageResponse {
-  int64 stage_id = 1;
 }
 
 message AddJourneyRequest {
@@ -93,17 +89,6 @@ message IterateRequest {
   int64 simulation_id = 1;
   // Number of simulation steps to advance. If unset (or < 1), defaults to 1.
   optional int64 count = 2;
-}
-
-message IterateResponse {
-}
-
-message SimulationIdRequest {
-  int64 simulation_id = 1;
-}
-
-message CountResponse {
-  int64 count = 1;
 }
 
 // Generic response for RPCs that only signal success/failure (failure travels
@@ -161,10 +146,6 @@ message AddWaitingSetStageRequest {
   repeated Point points = 2;
 }
 
-message AddWaitingSetStageResponse {
-  int64 stage_id = 1;
-}
-
 message SetWaitingSetStateRequest {
   int64 simulation_id = 1;
   int64 stage_id = 2;
@@ -214,14 +195,12 @@ service JuPedSimService {
   rpc GetAgentsInRegion(GetAgentsInRegionRequest) returns (AgentIdsResponse);
   rpc GetDesiredSpeedOfAgents(GetDesiredSpeedRequest) returns (DesiredSpeedResponse);
   rpc SetDesiredSpeedOfAgents(SetDesiredSpeedRequest) returns (EmptyResponse);
-  rpc AddWaypointStage(AddWaypointStageRequest) returns (AddWaypointStageResponse);
-  rpc AddExitStage(AddExitStageRequest) returns (AddExitStageResponse);
-  rpc AddWaitingSetStage(AddWaitingSetStageRequest) returns (AddWaitingSetStageResponse);
+  rpc AddWaypointStage(AddWaypointStageRequest) returns (StageResponse);
+  rpc AddExitStage(AddExitStageRequest) returns (StageResponse);
+  rpc AddWaitingSetStage(AddWaitingSetStageRequest) returns (StageResponse);
   rpc SetWaitingSetState(SetWaitingSetStateRequest) returns (EmptyResponse);
   rpc GetWaitingSetState(GetWaitingSetStateRequest) returns (GetWaitingSetStateResponse);
   rpc AddJourney(AddJourneyRequest) returns (AddJourneyResponse);
   rpc GetCorePropertiesOfAllAgents(GetCorePropertiesOfAllAgentsRequest) returns (GetCorePropertiesOfAllAgentsResponse);
-  rpc GetAgentCount(SimulationIdRequest) returns (CountResponse);
-  rpc GetIterationCount(SimulationIdRequest) returns (CountResponse);
-  rpc Iterate(IterateRequest) returns (IterateResponse);
+  rpc Iterate(IterateRequest) returns (EmptyResponse);
 }

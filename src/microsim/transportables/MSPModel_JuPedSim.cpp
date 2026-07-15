@@ -49,6 +49,7 @@
 
 
 // #define DEBUG_GEOMETRY_GENERATION
+// #define DEBUG_GRPC_TIMING
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
@@ -66,7 +67,7 @@ const std::vector<MSPModel_JuPedSim::PState*> MSPModel_JuPedSim::noPedestrians;
 // method definitions
 // ===========================================================================
 MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
-    myRNG("JuPedSim"), myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
+    myStopWatch(10), myRNG("JuPedSim"), myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
     RandHelper::initRandGlobal(&myRNG);
@@ -78,32 +79,46 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
             myJPSModel = "CollisionFreeSpeedModelV2";
         }
     }
+    std::string command;
     std::string address = oc.getString("pedestrian.jupedsim.address");
     // address = "localhost:50051"; // for debugging
     if (address == "") {
-#ifdef HAVE_BOOST
         const char* pythonEnv = getenv("PYTHON");
         const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
         const char* sumoHomeEnv = getenv("SUMO_HOME");
         const std::string sumoHome = (sumoHomeEnv == nullptr) ? "." : sumoHomeEnv;
-        const std::string port = toString(tcpip::Socket::getFreeSocketPort());
-        std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
+        command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py";
         if (oc.isSet("pedestrian.jupedsim.py")) {
-            command += " --debug";
+            command += " --debug " + oc.getString("pedestrian.jupedsim.py");
         }
-        // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
-        myJuPedSimServer = new bp::child(command);
-        address = "localhost:" + port;
+    }
+    for (int i = 0; i < 2; i++) {  // try twice: initial attempt + one restart
+        if (command != "") {
+#ifdef HAVE_BOOST
+            const std::string port = toString(tcpip::Socket::getFreeSocketPort());
+            myJuPedSimServer = std::unique_ptr<bp::child>(new bp::child(command + " --port " + port));
+            address = "localhost:" + port;
+#else
+            WRITE_WARNINGF(TL("No boost process support, you will need to start the JuPedSim server manually using %."), command);
 #endif
-    }
+        }
 
-    myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
-    myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
-    if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(2))) {
-        WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
-    } else {
-        WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
+        myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
+        if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
+            WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
+            break;
+        } else {
+            WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
+#ifdef HAVE_BOOST
+            if (myJuPedSimServer == nullptr || myJuPedSimServer->running()) {
+                break;
+            }
+#else
+            break;
+#endif
+        }
     }
+    myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }
@@ -121,11 +136,24 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
     GEOSGeom_destroy(myGEOSPedestrianNetwork);
     finishGEOS();
+#ifdef DEBUG_GRPC_TIMING
+    std::cout << myStopWatch[0].getTotal() / (1e6) << "ms, iteration: "
+              << myStopWatch[1].getTotal() / (1e6) << "ms, agent data retrieval: "
+              << myStopWatch[2].getTotal() / (1e6) << "ms, journey creation: "
+              << myStopWatch[3].getTotal() / (1e6) << "ms, insertion: "
+              << myStopWatch[4].getTotal() / (1e6) << "ms, removal: "
+              << myStopWatch[5].getTotal() / (1e6) << "ms, add waiting set: "
+              << myStopWatch[6].getTotal() / (1e6) << "ms, speed: "
+              << myStopWatch[7].getTotal() / (1e6) << "ms " << std::endl;
+#endif
 }
 
 
 void
 MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[4].start();
+#endif
     const MSVehicleType& type = state->getPerson()->getVehicleType();
     sumo_jupedsim_api::CreateAgentRequest agentRequest;
     agentRequest.set_simulation_id(myJPSSimulation);
@@ -159,32 +187,50 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
     grpc::ClientContext agentContext;
     sumo_jupedsim_api::CreateAgentResponse agentResponse;
     const grpc::Status agentStatus = myGrpcStub->CreateAgent(&agentContext, agentRequest, &agentResponse);
-    if (!agentStatus.ok()) {
+    if (agentStatus.ok()) {
+        state->setAgentId(agentResponse.agent_id());
+    } else {
         WRITE_WARNINGF(TL("Error while adding person '%' as JuPedSim agent: %"), state->getPerson()->getID(), agentStatus.error_message());
-        return;
     }
-    state->setAgentId(agentResponse.agent_id());
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[4].stop();
+#endif
 }
 
 
 MSPModel_JuPedSim::JPS_StageId
-MSPModel_JuPedSim::addWaypoint(const std::string& agentID, const WaypointDesc& waypoint) {
+MSPModel_JuPedSim::addWaypoint(const std::string& agentID, WaypointDesc& waypoint, const MSStageMoving* const finalStage) {
     // Unlike the previous implementation we do not need to set the transitions explicitly anymore,
     // the intermediate JuPedSim GRPC service handles this for us.
-    const Position& coords = std::get<1>(waypoint);
+    const MSLane* const lane = std::get<1>(waypoint);
+    Position& coords = std::get<2>(waypoint);
+    double& dist = std::get<3>(waypoint);
     sumo_jupedsim_api::AddWaypointStageRequest waypointRequest;
-    waypointRequest.set_simulation_id(myJPSSimulation);
+    if (finalStage == nullptr) {
+        if (lane->isWalkingArea()) {
+            coords = lane->getShape().getCentroid();
+            dist = lane->getEdge().getWidth() / 2.;
+        } else {
+            coords = lane->getShape().positionAtOffset(lane->getEdge().getLength() / 2.);
+            dist = lane->getWidth() / 2.;
+        }
+        const auto& centerIt = myLaneCenters.find(lane);
+        if (centerIt != myLaneCenters.end()) {
+            return centerIt->second;
+        }
+    } else {
+        coords = lane->getShape().positionAtOffset(finalStage->getArrivalPos());
+        dist = finalStage->getDouble("jupedsim.waypoint.radius", myExitTolerance);
+    }
     waypointRequest.mutable_point()->set_x(coords.x());
     waypointRequest.mutable_point()->set_y(coords.y());
-    waypointRequest.set_distance(std::get<2>(waypoint));
-    grpc::ClientContext waypointContext;
-    sumo_jupedsim_api::AddWaypointStageResponse waypointResponse;
-    const grpc::Status waypointStatus = myGrpcStub->AddWaypointStage(&waypointContext, waypointRequest, &waypointResponse);
-    if (!waypointStatus.ok()) {
-        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, waypointStatus.error_message());
-        return -1;
+    waypointRequest.set_distance(dist);
+    sumo_jupedsim_api::StageResponse waypointResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddWaypointStage, waypointRequest,
+            TLF("Error while adding waypoint for person '%': ", agentID), true);
+    if (waypointResponse.stage_id() != 0 && finalStage == nullptr) {
+        myLaneCenters[lane] = waypointResponse.stage_id();
     }
-    return waypointResponse.waypoint_id();
+    return waypointResponse.stage_id();
 }
 
 
@@ -253,18 +299,25 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                 for (const MSEdge* const ce : crossingRoute) {
                     if (ce->isCrossing()) {
                         const MSLane* const crossing = getSidewalk<MSEdge, MSLane>(ce);
-                        if (myCrossingWaits.count(crossing) > 0) {
+                        auto crossingWait = myCrossingWaits.find(crossing);
+                        if (crossingWait != myCrossingWaits.end()) {
                             if (waitingStage != 0 && wa != nullptr) {
                                 // we already have a waiting stage we need an intermediate waypoint
-                                waypoints.push_back({waitingStage, wa->getLanes()[0]->getShape().getCentroid(), wa->getWidth() / 2.});
+                                waypoints.push_back({waitingStage, wa->getLanes()[0], {}, {}});
                             }
                             const MSLane* const prevLane = getSidewalk<MSEdge, MSLane>(prev);
                             const Position& startPos = dir == FORWARD ? prevLane->getShape().back() : prevLane->getShape().front();
                             // choose the waiting set closer to the lane "end"
                             if (crossing->getShape().front().distanceSquaredTo(startPos) < crossing->getShape().back().distanceSquaredTo(startPos)) {
-                                waitingStage = myCrossingWaits[crossing].first;
+                                if (crossingWait->second.first == 0) {
+                                    crossingWait->second.first = addWaitingSet(crossing, true);
+                                }
+                                waitingStage = crossingWait->second.first;
                             } else {
-                                waitingStage = myCrossingWaits[crossing].second;
+                                if (crossingWait->second.second == 0) {
+                                    crossingWait->second.second = addWaitingSet(crossing, false);
+                                }
+                                waitingStage = crossingWait->second.second;
                             }
                         } else {
                             throw ProcessError(TLF("No waiting set for crossing at %.", ce->getID()));
@@ -276,7 +329,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
                 }
             }
         }
-        waypoints.push_back({waitingStage, lane->getShape().positionAtOffset(e->getLength() / 2.), lane->getWidth() / 2.});
+        waypoints.push_back({waitingStage, lane, {}, {}});
         prev = e;
     }
     const JPS_StageId finalWait = std::get<0>(waypoints.back());
@@ -284,20 +337,20 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     if (!waypoints.empty()) {
         waypoints.erase(waypoints.begin());  // departure edge also does not need a waypoint
     }
-    const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getDestination());
-    const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
-    waypoints.push_back({finalWait, arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)});
+    waypoints.push_back({finalWait, getSidewalk<MSEdge, MSLane>(stage->getDestination()), {}, {}});
 
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[3].start();
+#endif
     sumo_jupedsim_api::AddJourneyRequest journeyRequest;
-    journeyRequest.set_simulation_id(myJPSSimulation);
     JPS_StageId startingStage = 0;
-    for (const auto& p : waypoints) {
+    for (WaypointDesc& p : waypoints) {
         const JPS_StageId waiting = std::get<0>(p);
         if (waiting != 0) {
             journeyRequest.add_stage_ids(waiting);
         }
-        JPS_StageId waypoint = addWaypoint(person->getID(), p);
-        if (waypoint == -1) {
+        JPS_StageId waypoint = addWaypoint(person->getID(), p, &p == &waypoints.back() ? stage : nullptr);
+        if (waypoint == 0) {
             return nullptr;
         }
         journeyRequest.add_stage_ids(waypoint);
@@ -305,14 +358,12 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             startingStage = waiting != 0 ? waiting : waypoint;
         }
     }
-    grpc::ClientContext journeyContext;
-    sumo_jupedsim_api::AddJourneyResponse journeyResponse;
-    const grpc::Status journeyStatus = myGrpcStub->AddJourney(&journeyContext, journeyRequest, &journeyResponse);
-    if (!journeyStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC AddJourney failed: %"), journeyStatus.error_message());
-        return nullptr;
-    }
+    const sumo_jupedsim_api::AddJourneyResponse journeyResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddJourney, journeyRequest,
+            TLF("Error while adding journey for agent '%': ", person->getID()));
     const JPS_JourneyId journeyId = journeyResponse.journey_id();
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[3].stop();
+#endif
 
     PState* state = nullptr;
     for (PState* const pstate : myPedestrianStates) {  // TODO transform myPedestrianStates into a map for faster lookup
@@ -363,28 +414,26 @@ MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_JuPedSim::execute(SUMOTime time) {
-    const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[1].start();
+#endif
     sumo_jupedsim_api::IterateRequest iterateRequest;
-    iterateRequest.set_simulation_id(myJPSSimulation);
-    iterateRequest.set_count(nbrIterations);
-    grpc::ClientContext iterateContext;
-    sumo_jupedsim_api::IterateResponse iterateResponse;
-    const grpc::Status iterateStatus = myGrpcStub->Iterate(&iterateContext, iterateRequest, &iterateResponse);
-    if (!iterateStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC Iterate failed: %"), iterateStatus.error_message());
-        return DELTA_T;
-    }
+    iterateRequest.set_count((int)(DELTA_T / myJPSDeltaT));
+    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::Iterate, iterateRequest, TL("JuPedSim gRPC Iterate failed: "));
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[1].stop();
+#endif
 
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[2].start();
+#endif
     sumo_jupedsim_api::GetCorePropertiesOfAllAgentsRequest propertiesRequest;
-    propertiesRequest.set_simulation_id(myJPSSimulation);
-    grpc::ClientContext propertiesContext;
-    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsResponse propertiesResponse;
-    const grpc::Status propertiesStatus = myGrpcStub->GetCorePropertiesOfAllAgents(&propertiesContext, propertiesRequest, &propertiesResponse);
-    if (!propertiesStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC GetCorePropertiesOfAllAgents failed: %"), propertiesStatus.error_message());
-        return DELTA_T;
-    }
+    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsResponse propertiesResponse =
+        callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetCorePropertiesOfAllAgents, propertiesRequest, TL("JuPedSim gRPC GetCorePropertiesOfAllAgents failed: "));
     const auto& properties = propertiesResponse.properties();
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[2].stop();
+#endif
 
     for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
         PState* const state = *stateIt;
@@ -457,15 +506,22 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             sumo_jupedsim_api::SetDesiredSpeedRequest desiredSpeedRequest;
             auto speeds = desiredSpeedRequest.mutable_desired_speeds();
             (*speeds)[state->getAgentId()] = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
+#ifdef DEBUG_GRPC_TIMING
+            myStopWatch[7].start();
+#endif
             callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetDesiredSpeedOfAgents, desiredSpeedRequest,
                      TLF("Error while setting desired speed for %: ", person->getID()));
+#ifdef DEBUG_GRPC_TIMING
+            myStopWatch[7].stop();
+#endif
         }
         const double speed = person->getSpeed();
         for (int offset = 0; offset < 2; offset++) {
             const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
             if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
                 const JPS_StageId waitingStage = std::get<0>(*waypoint);
-                const MSLane* const crossing = myCrossings[waitingStage];
+                auto& crossingState = myCrossings[waitingStage];
+                const MSLane* const crossing = crossingState.first;
                 const MSLink* link = crossing->getIncomingLanes().front().viaLink;
                 if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
                     // we are walking backwards on a traffic light, there are different links to check
@@ -478,18 +534,21 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");
                 const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
                                                person->getImpatience(), speed, 0, 0, nullptr, false, person);
-                sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
-                waitingSetStateRequest.set_stage_id(waitingStage);
-                waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
-                callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
-                         TLF("Error while setting waiting status for %:", crossing->getID()));
+                if (open != crossingState.second) {
+                    sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
+                    waitingSetStateRequest.set_stage_id(waitingStage);
+                    waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
+                    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
+                             TLF("Error while setting waiting status for %:", crossing->getID()));
+                    crossingState.second = open;
+                }
             }
         }
         stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
         // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
         const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
-        if (newPosition.distanceTo2D(std::get<1>(*state->getNextWaypoint())) < std::get<2>(*state->getNextWaypoint()) + slack) {
+        if (newPosition.distanceTo2D(std::get<2>(*state->getNextWaypoint())) < std::get<3>(*state->getNextWaypoint()) + slack) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk
@@ -660,7 +719,13 @@ void MSPModel_JuPedSim::registerArrived(const JPS_AgentId agentID) {
     myNumActivePedestrians--;
     sumo_jupedsim_api::RemoveAgentsRequest removeRequest;
     removeRequest.add_agent_ids(agentID);
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[5].start();
+#endif
     callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::RemoveAgents, removeRequest, TL("Error while removing agent: "));
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[5].stop();
+#endif
 }
 
 
@@ -1076,8 +1141,14 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
         }
         GEOSGeom_destroy(geosPoint);
     }
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[6].start();
+#endif
     auto waitingSetResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddWaitingSetStage, waitingSetRequest,
                                        TLF("Error while adding waiting set for % on '%':", entry ? "entry" : "exit", crossing->getID()));
+#ifdef DEBUG_GRPC_TIMING
+    myStopWatch[6].stop();
+#endif
     JPS_StageId waitingStage = waitingSetResponse.stage_id();
 
     sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
@@ -1086,7 +1157,7 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
     callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
              TLF("Error while setting waiting status for % on '%':", entry ? "entry" : "exit", crossing->getID()));
 
-    myCrossings[waitingStage] = crossing;
+    myCrossings[waitingStage] = {crossing, true};
     return waitingStage;
 }
 
@@ -1158,11 +1229,6 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     // Polygons that define vanishing areas aren't part of the regular JuPedSim geometry.
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         polygonChanged(polygonWithID.second, true, false);
-    }
-    // add waiting sets at crossings
-    for (auto& crossing : myCrossingWaits) {
-        crossing.second.first = addWaitingSet(crossing.first, true);
-        crossing.second.second = addWaitingSet(crossing.first, false);
     }
     myNetwork->getShapeContainer().addShapeListener(this);
 }
