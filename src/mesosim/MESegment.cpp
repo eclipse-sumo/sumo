@@ -333,22 +333,9 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
                 if (q.allows(svc) && q.size() < minSize) {
                     if (init) {
                         // regular insertions and initial insertions must respect different constraints:
-                        // - regular insertions must respect entryBlockTime
-                        // - initial insertions should not cause additional jamming
-                        // - inserted vehicle should be able to continue at the current speed
-                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE) {
+                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE || hasSpaceForInsertion(q, newOccupancy)) {
                             qIdx = i;
                             minSize = q.size();
-                        } else if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
-                            if (newOccupancy <= myJamThreshold) {
-                                qIdx = i;
-                                minSize = q.size();
-                            }
-                        } else {
-                            if (newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1)) {
-                                qIdx = i;
-                                minSize = q.size();
-                            }
                         }
                     } else if (entryTime >= q.getEntryBlockTime()) {
                         qIdx = i;
@@ -364,6 +351,19 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
         return earliestEntry;
     }
     return entryTime;
+}
+
+
+bool
+MESegment::hasSpaceForInsertion(const Queue& q, double newOccupancy) const {
+    // - regular insertions must respect entryBlockTime
+    // - initial insertions should not cause additional jamming
+    // - inserted vehicle should be able to continue at the current speed
+    if (q.getOccupancy() <= myJamThreshold && !hasBlockedLeader() && !myTLSPenalty) {
+        return newOccupancy <= myJamThreshold;
+    } else {
+        return newOccupancy <= jamThresholdForSpeed(getMeanSpeed(false), -1);
+    }
 }
 
 
