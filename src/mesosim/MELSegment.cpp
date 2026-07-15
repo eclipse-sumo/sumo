@@ -100,7 +100,7 @@ void
 MELSegment::updateEntryBlockTime(SUMOTime time) {
     for (int qIdx = 0; qIdx < (int)myQueues.size(); qIdx++) {
         Queue& q = myQueues[qIdx];
-        GapTimes gapTimes = myGapTimes[qIdx];
+        GapTimes& gapTimes = myGapTimes[qIdx];
         while (!gapTimes.empty() && gapTimes.back() <= time) {
             gapTimes.pop_back();
         }
