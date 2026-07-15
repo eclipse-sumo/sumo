@@ -73,6 +73,9 @@ protected:
     /// @brief update blockTime of Queue q
     void updateBlockTime(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) override;
 
+    /// @brief check jam-avoidance constraints during insertion
+    bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const override;
+
 private:
     /// @brief upstream arrival times of traveling gaps between cars (for each queue)
     // @note: could be slightly faster as a double-index ring-buffer

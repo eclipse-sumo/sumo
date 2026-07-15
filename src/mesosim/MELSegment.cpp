@@ -111,4 +111,15 @@ MELSegment::updateEntryBlockTime(SUMOTime time) {
     }
 }
 
+
+bool
+MELSegment::hasSpaceForInsertion(const Queue& q, int qIdx, double /*newOccupancy*/, SUMOTime entryTime) const {
+    GapTimes& gapTimes = const_cast<GapTimes&>(myGapTimes[qIdx]);
+    while (!gapTimes.empty() && gapTimes.back() <= entryTime) {
+        gapTimes.pop_back();
+    }
+    return q.getOccupancy() + gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP < myQueueCapacity;
+}
+
+
 /****************************************************************************/

@@ -333,7 +333,7 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
                 if (q.allows(svc) && q.size() < minSize) {
                     if (init) {
                         // regular insertions and initial insertions must respect different constraints:
-                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE || hasSpaceForInsertion(q, newOccupancy)) {
+                        if (veh->getInsertionChecks() == (int)InsertionCheck::NONE || hasSpaceForInsertion(q, i, newOccupancy, entryTime)) {
                             qIdx = i;
                             minSize = q.size();
                         }
@@ -355,7 +355,7 @@ MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int
 
 
 bool
-MESegment::hasSpaceForInsertion(const Queue& q, double newOccupancy) const {
+MESegment::hasSpaceForInsertion(const Queue& q, int /*qIdx*/, double newOccupancy, SUMOTime /*entryTime*/) const {
     // - regular insertions must respect entryBlockTime
     // - initial insertions should not cause additional jamming
     // - inserted vehicle should be able to continue at the current speed

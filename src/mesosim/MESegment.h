@@ -538,7 +538,7 @@ protected:
     virtual void updateBlockTime(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh);
 
     /// @brief check jam-avoidance constraints during insertion
-    virtual bool hasSpaceForInsertion(const Queue& q, double newOccupancy) const;
+    virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;
 
 protected:
     /// @brief The microsim edge this segment belongs to
