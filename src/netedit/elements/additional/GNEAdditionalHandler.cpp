@@ -1585,7 +1585,7 @@ GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseO
 bool
 GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                                    const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const PositionVector& shape,
-                                   const bool geo, const bool fill, const double lineWidth, const const std::string& name, const double height,
+                                   const bool geo, const bool fill, const double lineWidth, const std::string& name, const double height,
                                    const Parameterised::Map& parameters) {
     // check conditions
     if (type == "jupedsim.walkable_area") {
