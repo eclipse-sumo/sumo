@@ -960,7 +960,7 @@ MSFrame::checkOptions() {
         }
         oc.setDefault("meso-junction-control", "true");
     }
-    if (oc.getBool("meso-lift") and oc.isDefault("mesosim")) {
+    if (oc.getBool("meso-lift") && oc.isDefault("mesosim")) {
         oc.setDefault("mesosim", "true");
     }
     if (oc.getBool("mesosim")) {
