@@ -115,11 +115,7 @@ Lane::getLinks(const std::string& laneID) {
 
 std::vector<std::string>
 Lane::getAllowed(const std::string& laneID) {
-    SVCPermissions permissions = getLane(laneID)->getPermissions();
-    if (permissions == SVCAll) {  // special case: write nothing
-        permissions = 0;
-    }
-    return getVehicleClassNamesList(permissions);
+    return getVehicleClassNamesList(getLane(laneID)->getPermissions());
 }
 
 
