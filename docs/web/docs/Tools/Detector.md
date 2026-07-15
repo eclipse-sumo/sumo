@@ -115,7 +115,7 @@ It requires the use of an input flow file and then performs a comparison between
 
 # edgeDataFromFlow.py
 
-This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to into [edgeData format](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) (i.e. to be used by [routeSampler.py](Turns.md#edge_counts) or for [visualization in sumo-gui](../sumo-gui.md#visualizing_edge-related_data))
+This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to [edgeData format](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) (i.e. to be used by [routeSampler.py](Turns.md#edge_counts) or for [visualization in sumo-gui](../sumo-gui.md#visualizing_edge-related_data))
 Example:
 ```
 <SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
@@ -140,4 +140,15 @@ det2;52.432373;13.496142
 It can be turned into a file with detectors with:
 ```
 <SUMO_HOME>/tools/detector/mapDetectors.py -n net.net.xml -d  det.csv -o det.add.xml
+```
+
+
+# flow2POI.py
+
+This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions).
+The total traffic count will be written into tye `type` attribute of the poi for streamlined visualization of localized flow values.
+Aggregated traffic values (i.e. hourly) will be written as `<param`> elements of the respective POI which makes it easy to show the respective value using gui-setting *Show poi text param*.
+
+```
+<SUMO_HOME>/tools/detector/flow2POI.py -d input_detectors.add.xml -f input_flows.txt -o pois.add.xml -i 60
 ```
