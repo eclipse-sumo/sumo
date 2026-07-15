@@ -68,6 +68,12 @@ Polygon::getLineWidth(const std::string& polygonID) {
 }
 
 
+double
+Polygon::getHeight(const std::string& polygonID) {
+    return Dom::getDouble(libsumo::VAR_HEIGHT, polygonID);
+}
+
+
 libsumo::TraCIColor
 Polygon::getColor(const std::string& polygonID) {
     return Dom::getCol(libsumo::VAR_COLOR, polygonID);
@@ -154,6 +160,12 @@ Polygon::setFilled(std::string polygonID, bool filled) {
 void
 Polygon::setLineWidth(std::string polygonID, double lineWidth) {
     Dom::setDouble(libsumo::VAR_WIDTH, polygonID, lineWidth);
+}
+
+
+void
+Polygon::setHeight(std::string polygonID, double height) {
+    Dom::setDouble(libsumo::VAR_HEIGHT, polygonID, height);
 }
 
 

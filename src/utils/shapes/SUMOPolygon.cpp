@@ -123,8 +123,11 @@ SUMOPolygon::writeXML(OutputDevice& out, bool geo) const {
     }
     out.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     out.writeAttr(SUMO_ATTR_FILL,  getFill());
-    if (getLineWidth() != 1) {
+    if (getLineWidth() != Shape::DEFAULT_LINEWIDTH) {
         out.writeAttr(SUMO_ATTR_LINEWIDTH, getLineWidth());
+    }
+    if (getHeight() != Shape::DEFAULT_HEIGHT) {
+        out.writeAttr(SUMO_ATTR_HEIGHT, getHeight());
     }
     out.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
     if (!getShapeName().empty()) {

@@ -199,20 +199,24 @@ GNEPoly::writeAdditional(OutputDevice& device) const {
     }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     device.writeAttr(SUMO_ATTR_FILL,  getFill());
-    if (getLineWidth() != 1) {
+    if (getLineWidth() != DEFAULT_LINEWIDTH) {
         device.writeAttr(SUMO_ATTR_LINEWIDTH, getLineWidth());
+    }
+    if (getHeight() != DEFAULT_HEIGHT) {
+        device.writeAttr(SUMO_ATTR_HEIGHT, getHeight());
     }
     device.writeAttr(SUMO_ATTR_LAYER, getShapeLayer());
 
     device.setPrecision(gPrecisionGeo);
     device.writeAttr(SUMO_ATTR_SHAPE, shape);
     device.setPrecision();
-    if (getShapeNaviDegree() != Shape::DEFAULT_ANGLE) {
+    if (getShapeNaviDegree() != DEFAULT_ANGLE) {
         device.writeAttr(SUMO_ATTR_ANGLE, getShapeNaviDegree());
     }
-    if (getShapeImgFile() != Shape::DEFAULT_IMG_FILE) {
+    if (getShapeImgFile() != DEFAULT_IMG_FILE) {
         device.writeAttr(SUMO_ATTR_IMGFILE, getShapeImgFile());
     }
+
     writeParams(device);
     device.closeTag();
 }

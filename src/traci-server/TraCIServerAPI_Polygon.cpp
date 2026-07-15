@@ -69,6 +69,9 @@ TraCIServerAPI_Polygon::processSet(TraCIServer& server, tcpip::Storage& inputSto
             case libsumo::VAR_WIDTH:
                 libsumo::Polygon::setLineWidth(id, StoHelp::readTypedDouble(inputStorage, "'lineWidth' must be defined using a double."));
                 break;
+            case libsumo::VAR_HEIGHT:
+                libsumo::Polygon::setHeight(id, StoHelp::readTypedDouble(inputStorage, "'height' must be defined using a double."));
+                break;
             case libsumo::ADD: {
                 const int parameterCount = StoHelp::readCompound(inputStorage, -1, "A compound object is needed for adding a new polygon.");
                 if (parameterCount != 5 && parameterCount != 6) {
