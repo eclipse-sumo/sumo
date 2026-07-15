@@ -691,6 +691,7 @@
         <xsd:attribute name="lineWidth" type="floatType" use="optional"/>
         <xsd:attribute name="imgFile" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="height" type="floatType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="poiType">
