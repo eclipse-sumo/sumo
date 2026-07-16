@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <functional>
 #include <map>
 #include <utility>
 #include <vector>
@@ -76,14 +77,15 @@ private:
     MSQueueExport& operator=(const MSQueueExport&);
 
     /// @brief Iterates through the edges and their lanes (micro) or segment queues (meso).
-    /// If of is nullptr, queue length samples are collected for aggregation instead of being written
-    static void writeEdge(OutputDevice* of, double threshold);
+    /// If of is nullptr, queue length samples are collected for aggregation instead of being written.
+    /// ensureOpen lazily opens the enclosing timestep element before the first record is written.
+    static void writeEdge(OutputDevice* of, double threshold, const std::function<void()>& ensureOpen);
 
     /// @brief Checks a single lane for a vehicle queue (micro)
-    static void writeLane(OutputDevice* of, const MSLane& lane, double threshold);
+    static void writeLane(OutputDevice* of, const MSLane& lane, double threshold, const std::function<void()>& ensureOpen);
 
     /// @brief Checks a single segment queue (meso)
-    static void writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegment& segment, int qIdx, double segmentOffset, double threshold);
+    static void writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegment& segment, int qIdx, double segmentOffset, double threshold, const std::function<void()>& ensureOpen);
 
     /// @brief Writes aggregated per-edge queue length statistics for the given interval
     static void writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end);
