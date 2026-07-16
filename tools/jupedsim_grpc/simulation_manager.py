@@ -328,6 +328,17 @@ class SimulationManager:
         """Expose for testing."""
         return self._simulation_id_counter
 
+    def add_waypoint_journey(self, simulation_id, waypoints_with_wait):
+        if (simulation := self._simulations.get(simulation_id, None)) is None:
+            return None, f"simulation ID {simulation_id} unknown"
+        stage_ids = []
+        for wait, x, y, distance in waypoints_with_wait:
+            if wait != 0:
+                stage_ids.append(wait)
+            response = self.add_waypoint_stage(simulation_id, x, y, distance)
+            stage_ids.append(response[0].waypoint_id)
+        return self.add_journey(simulation_id, stage_ids)
+
     def add_journey(self, simulation_id, stage_ids):
         if (simulation := self._simulations.get(simulation_id, None)) is None:
             return None, f"simulation ID {simulation_id} unknown"

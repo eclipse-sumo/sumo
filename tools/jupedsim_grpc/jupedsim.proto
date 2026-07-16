@@ -67,6 +67,17 @@ message AddExitStageResponse {
   int64 stage_id = 1;
 }
 
+message WaypointWithWait {
+  int64 waiting_stage = 1;
+  Point point = 2;
+  double distance = 3;
+}
+
+message AddWaypointJourneyRequest {
+  int64 simulation_id = 1;
+  repeated WaypointWithWait waypoints = 2;
+}
+
 message AddJourneyRequest {
   int64 simulation_id = 1;
   repeated int64 stage_ids = 2;
@@ -219,6 +230,7 @@ service JuPedSimService {
   rpc AddWaitingSetStage(AddWaitingSetStageRequest) returns (AddWaitingSetStageResponse);
   rpc SetWaitingSetState(SetWaitingSetStateRequest) returns (EmptyResponse);
   rpc GetWaitingSetState(GetWaitingSetStateRequest) returns (GetWaitingSetStateResponse);
+  rpc AddWaypointJourney(AddWaypointJourneyRequest) returns (AddJourneyResponse);
   rpc AddJourney(AddJourneyRequest) returns (AddJourneyResponse);
   rpc GetCorePropertiesOfAllAgents(GetCorePropertiesOfAllAgentsRequest) returns (GetCorePropertiesOfAllAgentsResponse);
   rpc GetAgentCount(SimulationIdRequest) returns (CountResponse);
