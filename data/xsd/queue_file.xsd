@@ -5,9 +5,10 @@
 
     <xsd:element name="queue-export">
         <xsd:complexType>
-            <xsd:sequence>
+            <xsd:choice>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="data"/>
-            </xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="interval"/>
+            </xsd:choice>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="data">
@@ -27,9 +28,32 @@
     <xsd:element name="lane">
         <xsd:complexType>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="segment" use="optional" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="queueing_time" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="queueing_length" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="queueing_length_experimental" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="queueing_length_experimental" use="optional" type="nonNegativeFloatType"/>
+            <xsd:attribute name="queueing_count" use="optional" type="xsd:nonNegativeInteger"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="interval">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" ref="edge"/>
+            </xsd:sequence>
+            <xsd:attribute name="begin" use="required" type="timeType"/>
+            <xsd:attribute name="end" use="required" type="timeType"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="edge">
+        <xsd:complexType>
+            <xsd:attribute name="id" use="required" type="xsd:string"/>
+            <xsd:attribute name="samples" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="maxQueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="medianQueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="p95QueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="maxQueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="medianQueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="p95QueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>
