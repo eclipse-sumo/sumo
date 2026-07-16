@@ -534,8 +534,8 @@ protected:
 
     SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
 
-    /// @brief update blockTime of Queue q
-    virtual void updateBlockTime(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh);
+    /// @brief compute current headway depending on traffic state
+    virtual SUMOTime computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const;
 
     /// @brief check jam-avoidance constraints during insertion
     virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;

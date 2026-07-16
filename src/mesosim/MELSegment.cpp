@@ -74,17 +74,17 @@ MELSegment::MELSegment(const std::string& id,
 }
 
 
-void
-MELSegment::updateBlockTime(Queue& q, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) {
-    myLastHeadway = tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+SUMOTime
+MELSegment::computeHeadway(Queue& q, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) const {
+    SUMOTime headway = tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
     if (myTLSPenalty) {
         const MSLink* const tllink = getLink(veh, true);
         if (tllink != nullptr && tllink->isTLSControlled()) {
             assert(tllink->getGreenFraction() > 0);
-            myLastHeadway = (SUMOTime)((double)myLastHeadway / tllink->getGreenFraction());
+            headway = (SUMOTime)((double)headway / tllink->getGreenFraction());
         }
     }
-    q.setBlockTime(q.getBlockTime() + myLastHeadway);
+    return headway;
 }
 
 

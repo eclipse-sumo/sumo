@@ -70,8 +70,8 @@ public:
     void updateEntryBlockTime(SUMOTime time) override; 
 
 protected:
-    /// @brief update blockTime of Queue q
-    void updateBlockTime(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) override;
+    /// @brief compute current headway depending on traffic state
+    SUMOTime computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const override;
 
     /// @brief check jam-avoidance constraints during insertion
     bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const override;
