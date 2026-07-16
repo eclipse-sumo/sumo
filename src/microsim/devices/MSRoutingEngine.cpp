@@ -48,7 +48,7 @@
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #ifdef HAVE_ROUTINGKIT
 #include "CCHGraph.h"
-#include "CCHRouter.h"
+#include <utils/router/CCHRouter.h>
 #include <routingkit/customizable_contraction_hierarchy.h>
 #endif
 
@@ -537,7 +537,8 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         // embedded fallback for non-passenger / prohibited / unreachable queries
         SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
             new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, true);
-        router = new CCHRouter(myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, fallback);
+        router = new CCHRouter<MSEdge, SUMOVehicle, CCHGraph>(
+            myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, fallback);
 #endif
     } else {
         throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
