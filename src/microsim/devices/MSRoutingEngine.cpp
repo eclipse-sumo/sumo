@@ -353,10 +353,28 @@ MSRoutingEngine::customizeCCH() {
     const double now = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
     for (CCHClass* c : myCCHClasses) {
         const int back = 1 - c->frontIndex;
-        // Fill from live speeds (getEffort/myEdgeSpeeds), masking arcs the class
-        // is not permitted on -- this is where per-class permissions AND active
+        // Fill from live speeds via myEffortFunc, masking arcs the class is
+        // not permitted on -- this is where per-class permissions AND active
         // closures (a permissions change) become inf_weight.
-        myCCHGraph->fillInputWeights(&MSRoutingEngine::getEffort, c->vClass, nullptr, now, c->weight[back]);
+        //
+        // myEffortFunc (not plain getEffort) keeps the metric consistent with
+        // every other cost evaluation in the router: TAZ source seeding in
+        // CCHRouter::compute and recomputeCosts (the equivalence oracle) both
+        // go through myOperation == myEffortFunc. When weights.priority-factor
+        // is active, myEffortFunc is getEffortExtra and the static per-edge
+        // priority multiplier is baked into the metric here -- including each
+        // folded via edge, which gets its own multiplier inside
+        // viaChainEffort, mirroring A*'s updateViaEdgeCost behavior.
+        //
+        // INVARIANT (enforced by the guard in initRouter): the only extra that
+        // may be active together with CCH is the priority factor. The
+        // vehicle-dependent extras (weights.random-factor, routing
+        // preferences, bike-speeds) stay rejected -- getEffortExtra with the
+        // nullptr reference vehicle used here is only safe because the random
+        // and preference branches (which dereference the vehicle) are
+        // guaranteed off. Stock SUMO relies on the same nullptr-safety when
+        // writing device.rerouting.output.
+        myCCHGraph->fillInputWeights(myEffortFunc, c->vClass, nullptr, now, c->weight[back]);
         if (c->metric[back] == nullptr) {
             c->metric[back] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(
                                   myCCHGraph->cch(), c->weight[back]);
@@ -501,12 +519,19 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
 #ifdef HAVE_ROUTINGKIT
     } else if (routingAlgorithm == "CCH") {
-        // CCH uses one shared, static-per-window metric (getEffort). It cannot
-        // represent per-query stochastic randomness or per-edge priority/pref
-        // modifiers -- i.e. the exact conditions under which SUMO switches to
-        // getEffortExtra (mirror of the myEffortFunc selection above).
-        if (gWeightsRandomFactor != 1 || myPriorityFactor != 0 || gRoutingPreferences || myBikeSpeeds) {
-            throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1, weights.priority-factor != 0, routing preferences or bike-speeds. Disable these to use CCH."));
+        // CCH compiles all costs into a shared, per-class metric, so it can
+        // express any effort modifier that is per-edge and vehicle-independent:
+        // weights.priority-factor is supported -- the priority multiplier is
+        // baked into the metric at customization time because the fill goes
+        // through myEffortFunc (see customizeCCH). What a shared metric cannot
+        // express are the per-VEHICLE modifiers among the getEffortExtra
+        // extras: stochastic weight randomization (per-vehicle noise), routing
+        // preferences (per-vType divisor) and the separate bicycle speed
+        // table (per-class effort function). Those remain rejected here; the
+        // customizeCCH invariant on the nullptr reference vehicle depends on
+        // this rejection.
+        if (gWeightsRandomFactor != 1 || gRoutingPreferences || myBikeSpeeds) {
+            throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1, routing preferences or bike-speeds. Disable these to use CCH."));
         }
         initCCH();  // build the immutable topology + publish an initial metric (once)
         // embedded fallback for non-passenger / prohibited / unreachable queries
