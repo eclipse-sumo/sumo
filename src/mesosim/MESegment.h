@@ -502,6 +502,13 @@ public:
         return (SUMOTime)((double)myTau_ff * vehicleTau + lengthWithGap * myTau_length);
     }
 
+    /// @brief like getMinTauWithVehLength but using the jam-state dependent net time gap of the given queue (as in getMeanSpeed)
+    inline SUMOTime getTauWithVehLength(int qIdx, double lengthWithGap, double vehicleTau) const {
+        assert(qIdx >= 0 && qIdx < (int)myQueues.size());
+        const SUMOTime tau = myQueues[qIdx].getOccupancy() < myJamThreshold ? myTau_ff : myTau_jf;
+        return tauWithVehLength(tau, lengthWithGap, vehicleTau);
+    }
+
 protected:
     bool overtake();
 

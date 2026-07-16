@@ -171,6 +171,8 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
     const double lanesCovered = segment.numQueues() == 1 ? std::round(segment.getCapacity() / segLength) : 1.;
     // positions and earliest exit times are interpolated as in MSEdge::getMesoPositions
     SUMOTime earliestExitTime = segment.getQueueBlockTime(qIdx);
+    // conservative exit times use the jam-dependent headway as in MESegment::getMeanSpeed
+    SUMOTime conservativeExitTime = earliestExitTime;
     double prevPos = std::numeric_limits<double>::max();
     bool prevQueued = false;
     const double now = SIMTIME;
@@ -180,17 +182,19 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
         const double lengthWithGap = veh->getVehicleType().getLengthWithGap();
         occupancy += lengthWithGap;
         earliestExitTime = MAX2(earliestExitTime, veh->getEventTime());
+        conservativeExitTime = MAX2(conservativeExitTime, veh->getEventTime());
         double maxPos = segmentEnd;
         if (i > 0) {
             earliestExitTime += segment.getMinTauWithVehLength(lengthWithGap, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+            conservativeExitTime += segment.getTauWithVehLength(qIdx, lengthWithGap, veh->getVehicleType().getCarFollowModel().getHeadwayTime());
             maxPos = MIN2(maxPos, prevPos - lengthWithGap / lanesCovered);
         }
         const double entry = veh->getLastEntryTimeSeconds();
         const double travelTime = MAX2(STEPS2TIME(earliestExitTime) - entry, TS);
         const double linearPos = MIN2(segmentEnd, segmentOffset + segLength * (now - entry) / travelTime);
-        // slope of the interpolated position trajectory. Unlike getSpeed() this
-        // accounts for blocked vehicles further ahead in the queue
-        const double interpolatedSpeed = segLength / travelTime;
+        // conservative speed of the interpolated position trajectory. Unlike
+        // getSpeed() this accounts for blocked vehicles further ahead in the queue
+        const double interpolatedSpeed = segLength / MAX2(STEPS2TIME(conservativeExitTime) - entry, TS);
         // a vehicle is queued if it is slow by itself or if it has caught up
         // with the clamped position behind a queued vehicle ahead
         const bool queued = MIN2(veh->getSpeed(), interpolatedSpeed) < threshold || (prevQueued && linearPos >= maxPos - POSITION_EPS);
