@@ -75,8 +75,10 @@ MELSegment::MELSegment(const std::string& id,
 
 
 SUMOTime
-MELSegment::computeHeadway(Queue& q, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) const {
-    SUMOTime headway = tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) const {
+    SUMOTime headway = tauWithVehLength(veh->getWaitingTime() > 0 ? myTau_jf : myTau_ff,
+            veh->getVehicleType().getLengthWithGap(),
+            veh->getVehicleType().getCarFollowModel().getHeadwayTime());
     if (myTLSPenalty) {
         const MSLink* const tllink = getLink(veh, true);
         if (tllink != nullptr && tllink->isTLSControlled()) {
