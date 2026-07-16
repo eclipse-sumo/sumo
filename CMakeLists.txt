@@ -592,6 +592,24 @@ if (ENABLE_PARQUET)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} Parquet")
             set(PARQUET_LIBRARY Parquet::parquet_shared)
             set(HAVE_PARQUET 1)
+            # Plain -I (BEFORE, non-SYSTEM): AppleClang searches the built-in
+            # /usr/local/include ahead of every -isystem dir, so a stale Arrow
+            # install there would otherwise shadow the found Arrow's headers
+            # and mix versions (parquet/ from one install, arrow/ from another).
+            # Resolve symlinks to the real (keg) path: clang silently DROPS a
+            # plain -I dir that duplicates a later -isystem dir, so the generic
+            # /opt/homebrew/include would be deduplicated away; its resolved
+            # Cellar path is unique and survives at the front of the search.
+            get_target_property(_ARROW_INCLUDES Arrow::arrow_shared INTERFACE_INCLUDE_DIRECTORIES)
+            if (_ARROW_INCLUDES)
+                foreach(_arrow_inc ${_ARROW_INCLUDES})
+                    if (EXISTS "${_arrow_inc}/arrow")
+                        file(REAL_PATH "${_arrow_inc}/arrow" _arrow_real)
+                        get_filename_component(_arrow_keg_inc "${_arrow_real}" DIRECTORY)
+                        include_directories(BEFORE ${_arrow_keg_inc})
+                    endif ()
+                endforeach()
+            endif ()
             include_directories(SYSTEM ${ARROW_INCLUDE_DIR})
         else()
             message(WARNING "Arrow >= 24 requires C++20 (current: C++${CMAKE_CXX_STANDARD}). Disabling Parquet support.")
