@@ -94,6 +94,8 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
         // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
         myJuPedSimServer = new bp::child(command);
         address = "localhost:" + port;
+#else
+        WRITE_WARNING(TL("No boost process support, you will need to start the JuPedSim server manually."));
 #endif
     }
 
@@ -363,27 +365,13 @@ MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
 
 SUMOTime
 MSPModel_JuPedSim::execute(SUMOTime time) {
-    const int nbrIterations = (int)(DELTA_T / myJPSDeltaT);
     sumo_jupedsim_api::IterateRequest iterateRequest;
-    iterateRequest.set_simulation_id(myJPSSimulation);
-    iterateRequest.set_count(nbrIterations);
-    grpc::ClientContext iterateContext;
-    sumo_jupedsim_api::IterateResponse iterateResponse;
-    const grpc::Status iterateStatus = myGrpcStub->Iterate(&iterateContext, iterateRequest, &iterateResponse);
-    if (!iterateStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC Iterate failed: %"), iterateStatus.error_message());
-        return DELTA_T;
-    }
+    iterateRequest.set_count((int)(DELTA_T / myJPSDeltaT));
+    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::Iterate, iterateRequest, TL("JuPedSim gRPC Iterate failed: "));
 
     sumo_jupedsim_api::GetCorePropertiesOfAllAgentsRequest propertiesRequest;
-    propertiesRequest.set_simulation_id(myJPSSimulation);
-    grpc::ClientContext propertiesContext;
-    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsResponse propertiesResponse;
-    const grpc::Status propertiesStatus = myGrpcStub->GetCorePropertiesOfAllAgents(&propertiesContext, propertiesRequest, &propertiesResponse);
-    if (!propertiesStatus.ok()) {
-        WRITE_WARNINGF(TL("JuPedSim gRPC GetCorePropertiesOfAllAgents failed: %"), propertiesStatus.error_message());
-        return DELTA_T;
-    }
+    sumo_jupedsim_api::GetCorePropertiesOfAllAgentsResponse propertiesResponse = 
+        callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::GetCorePropertiesOfAllAgents, propertiesRequest, TL("JuPedSim gRPC GetCorePropertiesOfAllAgents failed: "));
     const auto& properties = propertiesResponse.properties();
 
     for (auto stateIt = myPedestrianStates.begin(); stateIt != myPedestrianStates.end();) {
