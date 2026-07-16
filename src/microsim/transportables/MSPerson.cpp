@@ -247,6 +247,17 @@ MSPerson::getImpatience() const {
                          + STEPS2TIME((*myStep)->getWaitingTime()) / MSPModel_Striping::MAX_WAIT_TOLERANCE));
 }
 
+
+bool
+MSPerson::isJammed() const {
+    MSStageWalking* stage = dynamic_cast<MSStageWalking*>(getCurrentStage());
+    if (stage != nullptr) {
+        return stage->getPState()->isJammed();
+    }
+    return false;
+}
+
+
 const std::string&
 MSPerson::getNextEdge() const {
 //    if (getCurrentStageType() == WALKING) {

@@ -167,16 +167,6 @@ MSStageWalking::computeAverageSpeed() const {
 }
 
 
-bool
-MSPerson::isJammed() const {
-    MSStageWalking* stage = dynamic_cast<MSStageWalking*>(getCurrentStage());
-    if (stage != nullptr) {
-        return stage->getPState()->isJammed();
-    }
-    return false;
-}
-
-
 double
 MSStageWalking::walkDistance(bool partial) const {
     double length = 0;
