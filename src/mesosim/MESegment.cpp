@@ -566,9 +566,7 @@ SUMOTime
 MESegment::computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const {
     const bool nextFree = qNext.getOccupancy() <= next->myJamThreshold;
     const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
-            ? (nextFree ? myTau_ff : (myTau_fj < 0
-                    ? getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)
-                    : myTau_fj))
+            ? (nextFree ? myTau_ff : myTau_fj)
             : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
     assert(tau >= 0);
     SUMOTime headway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap(), veh->getVehicleType().getCarFollowModel().getHeadwayTime());
