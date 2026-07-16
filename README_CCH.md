@@ -142,12 +142,16 @@ build_cch/bin/sumo -c yourscenario.sumocfg --routing-algorithm CCH \
 
 - **Opt-in only.** Everything CCH is guarded by `#ifdef HAVE_ROUTINGKIT`. A build
   without `-DSUMO_WITH_CCH=ON` is byte-for-byte upstream SUMO and needs no RoutingKit.
+- **`weights.priority-factor` is supported.** The priority penalty is a static,
+  per-edge, vehicle-independent multiplier, so it is baked directly into the
+  CCH metric at customization time (the weight fill goes through the same
+  effort function A\* uses). Routes match A\* with the same factor.
 - **A\* fallback.** CCH automatically falls back to the embedded A\* router for
   queries a shared per-class metric cannot express (arbitrary per-query
-  prohibitions, a vehicle class with no metric yet, or when routing "extras" like
-  `weights.random-factor != 1`, `weights.priority-factor != 0`, bike speeds, or
-  routing preferences are active). Those options are therefore rejected up front
-  when `--routing-algorithm CCH` is selected — disable them to use CCH.
+  prohibitions, or a vehicle class with no metric yet). The per-vehicle routing
+  "extras" — `weights.random-factor != 1`, bike speeds, and routing
+  preferences — cannot be represented by a shared metric and are rejected up
+  front when `--routing-algorithm CCH` is selected; disable them to use CCH.
 - **Per-class metrics, one shared topology.** All vehicle classes share a single
   weight-independent CCH; they differ only by which arcs are masked to infinite
   weight (permissions + live closures), so road closures need no special handling.
