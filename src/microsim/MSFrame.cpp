@@ -967,7 +967,7 @@ MSFrame::checkOptions() {
         if (oc.isDefault("pedestrian.model")) {
             oc.setDefault("pedestrian.model", "nonInteracting");
         }
-        if (oc.isDefault("no-internal-links")) {
+        if (oc.isDefault("no-internal-links") && !oc.getBool("meso-lift")) {
             oc.setDefault("no-internal-links", "true");
         }
     }
