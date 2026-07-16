@@ -760,6 +760,9 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
         WRITE_MESSAGE(TL("Reason: ") + reason);
     }
     myDetectorControl->close(myStep);
+    if (OptionsCont::getOptions().isSet("queue-output")) {
+        MSQueueExport::finish(OutputDevice::getDeviceByOption("queue-output"), myStep);
+    }
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
         MSStopOut::getInstance()->generateOutputForUnfinished();
     }

@@ -20,6 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <map>
+#include <utility>
+#include <vector>
 #include <utils/common/SUMOTime.h>
 
 
@@ -30,6 +33,7 @@ class OutputDevice;
 class MSEdgeControl;
 class MSEdge;
 class MSLane;
+class MESegment;
 
 
 // ===========================================================================
@@ -56,6 +60,13 @@ public:
      */
     static void write(OutputDevice& of, SUMOTime timestep);
 
+    /** @brief Writes the last (possibly incomplete) aggregation interval and clears the collected samples
+     *
+     * @param[in] of The output device to use
+     * @param[in] timestep The final time step
+     */
+    static void finish(OutputDevice& of, SUMOTime timestep);
+
 
 private:
     /// @brief Invalidated copy constructor.
@@ -64,10 +75,26 @@ private:
     /// @brief Invalidated assignment operator.
     MSQueueExport& operator=(const MSQueueExport&);
 
-    /// @brief Iterates through all the edges and extract the lanes
-    static void writeEdge(OutputDevice& of);
+    /// @brief Iterates through the edges and their lanes (micro) or segment queues (meso).
+    /// If of is nullptr, queue length samples are collected for aggregation instead of being written
+    static void writeEdge(OutputDevice* of, double threshold);
 
-    /// @brief Iterates through the lanes and check for available vehicle queues
-    static void writeLane(OutputDevice& of, const MSLane& lane);
+    /// @brief Checks a single lane for a vehicle queue (micro)
+    static void writeLane(OutputDevice* of, const MSLane& lane, double threshold);
+
+    /// @brief Checks a single segment queue (meso)
+    static void writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegment& segment, int qIdx, double segmentOffset, double threshold);
+
+    /// @brief Writes aggregated per-edge queue length statistics for the given interval
+    static void writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end);
+
+    /// @brief Returns the given percentile (with linear interpolation) of a sorted sample vector
+    static double percentile(const std::vector<double>& sorted, double p);
+
+    /// @brief The begin of the current aggregation interval
+    static SUMOTime myIntervalStart;
+
+    /// @brief Queue length samples (in vehicles, in meters) per edge, collected during the current aggregation interval
+    static std::map<const MSEdge*, std::vector<std::pair<double, double> > > myEdgeSamples;
 
 };
