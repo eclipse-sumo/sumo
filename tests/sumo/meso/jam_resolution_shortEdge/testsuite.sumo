@@ -1,6 +1,12 @@
 # all edges are 100m long
 default
 
+# explicitly activating the novel behavior
+fj_new
+
+# explicitly activating the old behavior
+fj_old
+
 # all edges are 100m long
 noInternal
 
