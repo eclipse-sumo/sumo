@@ -67,14 +67,28 @@ MSQueueExport::write(OutputDevice& of, SUMOTime timestep) {
             writeInterval(of, myIntervalStart, myIntervalStart + aggregation);
         }
         myIntervalStart = intervalStart;
-        writeEdge(nullptr, threshold);
+        writeEdge(nullptr, threshold, [] {});
         return;
     }
-    of.openTag("data").writeAttr("timestep", time2string(timestep));
-    of.openTag("lanes");
-    writeEdge(&of, threshold);
-    of.closeTag();
-    of.closeTag();
+    // The timestep block is opened lazily so that with --queue-output.skip-empty
+    // (and, in particular, for columnar formats like Parquet or CSV) no row is
+    // emitted for time steps without any queue.
+    bool wrapperOpen = false;
+    auto ensureOpen = [&]() {
+        if (!wrapperOpen) {
+            of.openTag("data").writeAttr("timestep", time2string(timestep));
+            of.openTag("lanes");
+            wrapperOpen = true;
+        }
+    };
+    if (!oc.getBool("queue-output.skip-empty")) {
+        ensureOpen();
+    }
+    writeEdge(&of, threshold, ensureOpen);
+    if (wrapperOpen) {
+        of.closeTag(); // lanes
+        of.closeTag(); // data
+    }
 }
 
 
@@ -90,20 +104,20 @@ MSQueueExport::finish(OutputDevice& of, SUMOTime timestep) {
 
 
 void
-MSQueueExport::writeEdge(OutputDevice* of, double threshold) {
+MSQueueExport::writeEdge(OutputDevice* of, double threshold, const std::function<void()>& ensureOpen) {
     MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
     for (const MSEdge* const edge : ec.getEdges()) {
         if (MSGlobals::gUseMesoSim) {
             double segmentOffset = 0.;
             for (const MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*edge); segment != nullptr; segment = segment->getNextSegment()) {
                 for (int qIdx = 0; qIdx < segment->numQueues(); ++qIdx) {
-                    writeMesoQueue(of, *edge, *segment, qIdx, segmentOffset, threshold);
+                    writeMesoQueue(of, *edge, *segment, qIdx, segmentOffset, threshold, ensureOpen);
                 }
                 segmentOffset += segment->getLength();
             }
         } else {
             for (const MSLane* const lane : edge->getLanes()) {
-                writeLane(of, *lane, threshold);
+                writeLane(of, *lane, threshold, ensureOpen);
             }
         }
     }
@@ -111,7 +125,7 @@ MSQueueExport::writeEdge(OutputDevice* of, double threshold) {
 
 
 void
-MSQueueExport::writeLane(OutputDevice* of, const MSLane& lane, double threshold) {
+MSQueueExport::writeLane(OutputDevice* of, const MSLane& lane, double threshold, const std::function<void()>& ensureOpen) {
     // maximum of all vehicle waiting times
     double queueing_time = 0.0;
     // back of last stopped vehicle (XXX does not check for continuous queue)
@@ -146,6 +160,7 @@ MSQueueExport::writeLane(OutputDevice* of, const MSLane& lane, double threshold)
     //Output
     if (of != nullptr) {
         if (queueing_length > 1 || queueing_length2 > 1) {
+            ensureOpen();
             of->openTag("lane").writeAttr("id", lane.getID()).writeAttr("queueing_time", queueing_time).writeAttr("queueing_length", queueing_length);
             of->writeAttr("queueing_length_experimental", queueing_length2).closeTag();
         }
@@ -156,7 +171,7 @@ MSQueueExport::writeLane(OutputDevice* of, const MSLane& lane, double threshold)
 
 
 void
-MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegment& segment, int qIdx, double segmentOffset, double threshold) {
+MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegment& segment, int qIdx, double segmentOffset, double threshold, const std::function<void()>& ensureOpen) {
     const std::vector<MEVehicle*>& queue = segment.getQueue(qIdx);
     const int queueSize = (int)queue.size();
     // maximum of all vehicle waiting times
@@ -214,6 +229,7 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
         return;
     }
     if (of != nullptr) {
+        ensureOpen();
         of->openTag("lane").writeAttr("id", edge.getLanes()[qIdx]->getID()).writeAttr("segment", segment.getIndex());
         of->writeAttr("queueing_time", queueing_time).writeAttr("queueing_length", queueing_length).writeAttr("queueing_count", queueing_count).closeTag();
     } else {
@@ -224,7 +240,19 @@ MSQueueExport::writeMesoQueue(OutputDevice* of, const MSEdge& edge, const MESegm
 
 void
 MSQueueExport::writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end) {
-    of.openTag("interval").writeAttr("begin", time2string(begin)).writeAttr("end", time2string(end));
+    // The interval element is opened lazily so that with --queue-output.skip-empty
+    // (and, in particular, for columnar formats) no row is emitted for intervals
+    // without any queue.
+    bool intervalOpen = false;
+    auto ensureOpen = [&]() {
+        if (!intervalOpen) {
+            of.openTag("interval").writeAttr("begin", time2string(begin)).writeAttr("end", time2string(end));
+            intervalOpen = true;
+        }
+    };
+    if (!OptionsCont::getOptions().getBool("queue-output.skip-empty")) {
+        ensureOpen();
+    }
     // iterate in network edge order for deterministic output
     for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
         const auto it = myEdgeSamples.find(edge);
@@ -239,6 +267,7 @@ MSQueueExport::writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end) {
         }
         std::sort(counts.begin(), counts.end());
         std::sort(lengths.begin(), lengths.end());
+        ensureOpen();
         of.openTag("edge").writeAttr("id", edge->getID()).writeAttr("samples", (int)counts.size());
         of.writeAttr("maxQueueLengthInVehicles", counts.back());
         of.writeAttr("medianQueueLengthInVehicles", percentile(counts, 0.5));
@@ -248,7 +277,9 @@ MSQueueExport::writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end) {
         of.writeAttr("p95QueueLengthInMeters", percentile(lengths, 0.95));
         of.closeTag();
     }
-    of.closeTag();
+    if (intervalOpen) {
+        of.closeTag();
+    }
     myEdgeSamples.clear();
 }
 

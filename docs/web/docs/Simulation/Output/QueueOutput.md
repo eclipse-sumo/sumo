@@ -15,6 +15,12 @@ the queue lengths will be written can be restricted to the given period. Then, t
 
 The speed below which a vehicle is counted as queued can be configured with the option **--queue-output.speed-threshold** {{DT_FLOAT}} (default 1.39 m/s, i.e. 5 km/h).
 
+By default a (possibly empty) record is written for every time step (or interval). With the option **--queue-output.skip-empty** time steps / intervals that contain no queue are omitted.
+
+## Data Format
+
+The output file format is determined by the file extension (or the option **--output.format**). Besides XML, the [column based formats](../../Other/File_Extensions.md) CSV (`.csv`) and Parquet (`.parquet`) are supported. Because these formats require a homogeneous set of columns, the option **--queue-output.skip-empty** must be set when using them (otherwise empty time steps would create rows without queue data).
+
 ## Generated Output
 
 The generated XML file looks like this:

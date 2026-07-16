@@ -209,6 +209,8 @@ MSFrame::fillOptions() {
     oc.addDescription("queue-output.aggregation", "Output", TL("Write aggregated queue length statistics (max, median, 95th percentile) per edge for the given period (e.g. a traffic light cycle) instead of per-timestep data"));
     oc.doRegister("queue-output.speed-threshold", new Option_Float(5.0 / 3.6));
     oc.addDescription("queue-output.speed-threshold", "Output", TL("Maximum speed for counting a vehicle as queued"));
+    oc.doRegister("queue-output.skip-empty", new Option_Bool(false));
+    oc.addDescription("queue-output.skip-empty", "Output", TL("Do not save data for time steps / intervals which have no queue (required for column based output formats)"));
 
     oc.doRegister("vtk-output", new Option_FileName());
     oc.addDescription("vtk-output", "Output", TL("Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"));
