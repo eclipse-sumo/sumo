@@ -138,6 +138,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
     MSVehicleContainer::VehicleVector refusedEmits;
 
     // go through the list of previously refused vehicles, first
+    MSNet::getInstance()->lockPendingEmits();
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for (veh = myPendingEmits.begin(); veh != myPendingEmits.end(); veh++) {
         if (havePreChecked && (myEmitCandidates.count(*veh) == 0)) {
@@ -148,6 +149,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
     }
     myEmitCandidates.clear();
     myPendingEmits = refusedEmits;
+    MSNet::getInstance()->unlockPendingEmits();
     return numEmitted;
 }
 
@@ -346,7 +348,9 @@ MSInsertionControl::clearPendingVehicles(const std::string& route) {
 
 int
 MSInsertionControl::getPendingEmits(const MSLane* lane) {
-    if (MSNet::getInstance()->getCurrentTimeStep() != myPendingEmitsUpdateTime) {
+    const MSNet* net = MSNet::getInstance();
+    if (net->getCurrentTimeStep() != myPendingEmitsUpdateTime) {
+        net->lockPendingEmits();
         // updated pending emits (only once per time step)
         myPendingEmitsForLane.clear();
         for (const SUMOVehicle* const veh : myPendingEmits) {
@@ -362,6 +366,7 @@ MSInsertionControl::getPendingEmits(const MSLane* lane) {
             }
         }
         myPendingEmitsUpdateTime = MSNet::getInstance()->getCurrentTimeStep();
+        net->unlockPendingEmits();
     }
     return myPendingEmitsForLane[lane];
 }

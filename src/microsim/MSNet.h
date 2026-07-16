@@ -853,6 +853,13 @@ public:
         return false;
     }
 
+    /// @brief grant exclusive access to pending emits
+    virtual void lockPendingEmits() const {}
+
+    /// @brief release exclusive access to pending emits
+    virtual void unlockPendingEmits() const {}
+
+
     MSMapMatcher* getMapMatcher() const;
 
     /// @brief find electrical substation by its id
