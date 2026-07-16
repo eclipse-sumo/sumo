@@ -51,6 +51,7 @@
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
+#include <utils/router/CCHRouter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <router/ROFrame.h>
@@ -58,6 +59,7 @@
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include "RODUAEdgeBuilder.h"
+#include "RODUACCHGraph.h"
 #include "RODUAFrame.h"
 
 
@@ -109,7 +111,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
 
     if (oc.isSet("restriction-params") &&
-            (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
+            (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper" || routingAlgorithm == "CCH")) {
         throw ProcessError(TLF("Routing algorithm '%' does not support restriction-params", routingAlgorithm));
     }
 
@@ -154,6 +156,31 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
+#ifdef HAVE_ROUTINGKIT
+        } else if (routingAlgorithm == "CCH") {
+            // One weight-independent hierarchy over the union graph; one
+            // customized metric per vehicle class, built lazily on first
+            // query (see RODUACCHGraph.h / utils/router/CCHRouter.h).
+            // Static-weight case only: time-dependent weight-files would
+            // need one customization per weight period.
+            if (oc.isSet("weight-files")) {
+                throw ProcessError(TL("Routing algorithm 'CCH' does not support time-dependent weights (weight-files). Use CH or CHWrapper."));
+            }
+            // Per-vehicle modifiers cannot live in a shared metric (mirror of
+            // the guard in MSRoutingEngine::initRouter).
+            if (gWeightsRandomFactor > 1 || gRoutingPreferences) {
+                throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1 and routing preferences. Disable these to use CCH."));
+            }
+            // Process-lifetime singletons: the topology and metric store are
+            // shared by every router clone until duarouter exits.
+            RODUACCHGraph* cchGraph = new RODUACCHGraph(ROEdge::getAllEdges());
+            RODUACCHMetrics::init(cchGraph, &ROEdge::getTravelTimeStatic);
+            SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
+                nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
+            router = new CCHRouter<ROEdge, ROVehicle, RODUACCHGraph>(
+                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic, fallback);
+#endif
         } else if (routingAlgorithm == "arcflag") {
             /// @brief The number of levels in the k-d tree partition
             constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8
