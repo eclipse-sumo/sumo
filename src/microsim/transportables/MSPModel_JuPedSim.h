@@ -35,6 +35,7 @@ namespace bp = boost::process::v1;
 namespace bp = boost::process;
 #endif
 #endif
+#include <utils/common/StopWatch.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <microsim/MSNet.h>
 #include "MSPModel_Interacting.h"
@@ -182,6 +183,7 @@ private:
         JPS_AgentId myAgentId;
     };
 
+    std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch;
     /// @brief The random number generator for fluctuations on insertion
     SumoRNG myRNG;
 
@@ -272,10 +274,12 @@ private:
     Response
     callGrpc(grpc::Status(sumo_jupedsim_api::JuPedSimService::Stub::*method)(grpc::ClientContext*, const Request&, Response*),
              Request& request, const std::string& what, const bool warnOnly = false) {
+        myStopWatch[0].start();
         grpc::ClientContext context;
         Response response;
         request.set_simulation_id(myJPSSimulation);
         const grpc::Status status = ((*myGrpcStub).*method)(&context, request, &response);
+        myStopWatch[0].stop();
         if (!status.ok()) {
             if (!warnOnly) {
                 throw ProcessError(what + status.error_message());
