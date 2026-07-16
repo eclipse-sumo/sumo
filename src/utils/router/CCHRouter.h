@@ -16,10 +16,21 @@
 /// @date    2026
 ///
 // A SUMOAbstractRouter that answers queries via a RoutingKit Customizable
-// Contraction Hierarchy over the SUMO edge graph (CCHGraph). The metric is
-// re-customized out-of-band (MSRoutingEngine::adaptEdgeEfforts) and published
-// as a shared_ptr snapshot; each query snapshots the current metric, so a
+// Contraction Hierarchy over the edge graph. The metric is re-customized
+// out-of-band (MSRoutingEngine::adaptEdgeEfforts) and published as a
+// shared_ptr snapshot; each query snapshots the current metric, so a
 // publish that lands mid-query is safe (double buffer).
+//
+// Following the AStarRouter<E, V, M> lookup-table pattern, the graph-mapping
+// class is the GRAPH template parameter (the simulation supplies its concrete
+// mapper, e.g. microsim's CCHGraph), so this header carries no simulation
+// dependencies. GRAPH must provide:
+//   unsigned nodeOf(const E*)                          (INVALID_NODE if not a node)
+//   const E* edgeOf(unsigned node)
+//   const std::vector<unsigned>& tazSources(const E*)  (entry-edge node sets)
+//   const std::vector<unsigned>& tazSinks(const E*)    (exit-edge node sets)
+//   void expandNodePath(const std::vector<unsigned>&, std::vector<const E*>&)
+//   static const unsigned INVALID_NODE
 //
 // Every vehicle class routes on CCH via its own published metric. Closures are
 // permission changes the per-class metric already encodes as inf_weight, so
@@ -36,11 +47,11 @@
 #include <memory>
 #include <vector>
 #include <cmath>
-#include <microsim/MSEdge.h>
-#include <utils/vehicle/SUMOVehicle.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <routingkit/customizable_contraction_hierarchy.h>
-#include "CCHGraph.h"
 
 
 // ===========================================================================
@@ -48,30 +59,33 @@
 // ===========================================================================
 /**
  * @class CCHRouter
- * @brief Contraction-hierarchy router for the microsim edge graph.
+ * @brief Contraction-hierarchy router over the edge graph mapped by GRAPH.
  */
-class CCHRouter : public SUMOAbstractRouter<MSEdge, SUMOVehicle> {
+template<class E, class V, class GRAPH>
+class CCHRouter : public SUMOAbstractRouter<E, V> {
 public:
     typedef const RoutingKit::CustomizableContractionHierarchyMetric* MetricPtr;
     /// @brief supplies the published metric for a vehicle class (lock-free); nullptr => fall back
     typedef MetricPtr (*MetricProvider)(SUMOVehicleClass);
+    typedef typename SUMOAbstractRouter<E, V>::Operation Operation;
+    typedef typename SUMOAbstractRouter<E, V>::Prohibitions Prohibitions;
 
     /** @brief Constructor.
-     * @param[in] graph     the shared immutable CCH topology (not owned)
+     * @param[in] graph     the shared immutable CCH topology mapper (not owned)
      * @param[in] provider  static accessor for the published metric snapshot
      * @param[in] operation the effort callback (same one A-star and CH use)
      * @param[in] fallback  embedded router for non-CCH cases (OWNED)
      */
-    CCHRouter(const CCHGraph* graph, MetricProvider provider,
-              Operation operation, SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback) :
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>("CCHRouter", true, operation, nullptr, false, false),
+    CCHRouter(const GRAPH* graph, MetricProvider provider,
+              Operation operation, SUMOAbstractRouter<E, V>* fallback) :
+        SUMOAbstractRouter<E, V>("CCHRouter", true, operation, nullptr, false, false),
         myGraph(graph), myMetricProvider(provider), myFallback(fallback),
         myBoundMetric(nullptr), myProhibitionActive(false) {
     }
 
     /// @brief clone constructor: share graph + provider, clone the fallback, fresh query scratch
     CCHRouter(CCHRouter* other) :
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>(other),
+        SUMOAbstractRouter<E, V>(other),
         myGraph(other->myGraph), myMetricProvider(other->myMetricProvider),
         myFallback(other->myFallback->clone()), myBoundMetric(nullptr),
         myProhibitionActive(other->myProhibitionActive), myProhibited(other->myProhibited) {
@@ -81,12 +95,12 @@ public:
         delete myFallback;
     }
 
-    virtual SUMOAbstractRouter<MSEdge, SUMOVehicle>* clone() {
-        return new CCHRouter(this);
+    virtual SUMOAbstractRouter<E, V>* clone() {
+        return new CCHRouter<E, V, GRAPH>(this);
     }
 
-    bool compute(const MSEdge* from, const MSEdge* to, const SUMOVehicle* const vehicle,
-                 SUMOTime msTime, std::vector<const MSEdge*>& into, bool silent = false) {
+    bool compute(const E* from, const E* to, const V* const vehicle,
+                 SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         // A CCH query can only avoid an edge the metric already encodes as inf:
         // RoutingKit's query has no per-arc blacklist, and a query-time skip is
         // unsound because shortcut arcs bake in shortest paths THROUGH the edge
@@ -110,22 +124,30 @@ public:
         const std::vector<unsigned>* targets;
         if (fromTaz) {
             for (const unsigned m : myGraph->tazSources(from)) {
-                if ((myGraph->edgeOf(m)->getPermissions() & vClass) != 0) { srcBuf.push_back(m); }
+                if ((myGraph->edgeOf(m)->getPermissions() & vClass) != 0) {
+                    srcBuf.push_back(m);
+                }
             }
             sources = &srcBuf;
         } else {
             const unsigned s = myGraph->nodeOf(from);
-            if (s != CCHGraph::INVALID_NODE) { srcBuf.push_back(s); }
+            if (s != GRAPH::INVALID_NODE) {
+                srcBuf.push_back(s);
+            }
             sources = &srcBuf;
         }
         if (toTaz) {
             for (const unsigned m : myGraph->tazSinks(to)) {
-                if ((myGraph->edgeOf(m)->getPermissions() & vClass) != 0) { tgtBuf.push_back(m); }
+                if ((myGraph->edgeOf(m)->getPermissions() & vClass) != 0) {
+                    tgtBuf.push_back(m);
+                }
             }
             targets = &tgtBuf;
         } else {
             const unsigned t = myGraph->nodeOf(to);
-            if (t != CCHGraph::INVALID_NODE) { tgtBuf.push_back(t); }
+            if (t != GRAPH::INVALID_NODE) {
+                tgtBuf.push_back(t);
+            }
             targets = &tgtBuf;
         }
         if (sources->empty() || targets->empty()) {
@@ -135,7 +157,8 @@ public:
         }
 
         this->startQuery();
-        // Rebind only when the metric changed (~every 180s); else reuse binding.
+        // Rebind only when the metric changed (~every adaptation interval);
+        // else reuse the binding.
         if (metric != myBoundMetric) {
             myQuery.reset(*metric);
             myBoundMetric = metric;
@@ -158,27 +181,36 @@ public:
             const unsigned d = eff < bigEff ? (unsigned)llround(eff * 100.0) : RoutingKit::inf_weight - 1;
             myQuery.add_source(s, d);
         }
-        for (const unsigned tt : *targets) { myQuery.add_target(tt, 0); }
+        for (const unsigned tt : *targets) {
+            myQuery.add_target(tt, 0);
+        }
         myQuery.run();
         if (myQuery.get_distance() >= RoutingKit::inf_weight) {
             this->endQuery(0);
-            if (!silent && myErrorMsgHandler != nullptr) {
-                myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."),
-                                           from->getID(), to->getID());
+            if (!silent && this->myErrorMsgHandler != nullptr) {
+                this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."),
+                                                 from->getID(), to->getID());
             }
             return false;
         }
         const std::vector<unsigned> nodePath = myQuery.get_node_path();  // chosen s*..t*
-        if (fromTaz) { into.push_back(from); }   // prepend the TAZ-source connector
+        if (fromTaz) {
+            into.push_back(from);    // prepend the TAZ-source connector
+        }
         myGraph->expandNodePath(nodePath, into);
-        if (toTaz) { into.push_back(to); }       // append the TAZ-sink connector
+        if (toTaz) {
+            into.push_back(to);      // append the TAZ-sink connector
+        }
         this->endQuery((int)nodePath.size());
         return true;
     }
 
     /// @brief prohibitions: a closure that is already a live permission change
     /// is served by the per-class metric (CCH); anything else routes via the
-    /// exact fallback. Keep the set so compute() can classify each query.
+    /// exact fallback. Keep our own copy of the set so compute() can classify
+    /// each query -- deliberately NOT delegating to the base implementation,
+    /// which writes per-edge prohibition state into myEdgeInfos that this
+    /// router never populates.
     void prohibit(const Prohibitions& toProhibit) {
         myProhibited = toProhibit;
         myProhibitionActive = !toProhibit.empty();
@@ -190,7 +222,7 @@ public:
     }
 
     void setBulkMode(const bool mode) {
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>::setBulkMode(mode);
+        SUMOAbstractRouter<E, V>::setBulkMode(mode);
         myFallback->setBulkMode(mode);
     }
 
@@ -216,11 +248,11 @@ private:
     }
 
 private:
-    const CCHGraph* myGraph;                 // shared, immutable, not owned
+    const GRAPH* myGraph;                    // shared, immutable, not owned
     MetricProvider myMetricProvider;
     RoutingKit::CustomizableContractionHierarchyQuery myQuery;  // per-clone scratch
     MetricPtr myBoundMetric;                 // metric myQuery is currently bound to
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>* myFallback;        // owned
+    SUMOAbstractRouter<E, V>* myFallback;    // owned
     bool myProhibitionActive;
     Prohibitions myProhibited;               // last set installed via prohibit()
 
