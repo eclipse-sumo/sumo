@@ -238,7 +238,7 @@ private:
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId>, ComparatorNumericalIdLess> myCrossingWaits;
-    std::map<JPS_StageId, const MSLane*> myCrossings;
+    std::map<JPS_StageId, std::pair<const MSLane*, bool> > myCrossings;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;

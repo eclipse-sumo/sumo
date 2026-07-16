@@ -465,7 +465,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
             if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
                 const JPS_StageId waitingStage = std::get<0>(*waypoint);
-                const MSLane* const crossing = myCrossings[waitingStage];
+                auto& crossingState = myCrossings[waitingStage];
+                const MSLane* const crossing = crossingState.first;
                 const MSLink* link = crossing->getIncomingLanes().front().viaLink;
                 if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
                     // we are walking backwards on a traffic light, there are different links to check
@@ -478,11 +479,14 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");
                 const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
                                                person->getImpatience(), speed, 0, 0, nullptr, false, person);
-                sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
-                waitingSetStateRequest.set_stage_id(waitingStage);
-                waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
-                callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
-                         TLF("Error while setting waiting status for %:", crossing->getID()));
+                if (open != crossingState.second) {
+                    sumo_jupedsim_api::SetWaitingSetStateRequest waitingSetStateRequest;
+                    waitingSetStateRequest.set_stage_id(waitingStage);
+                    waitingSetStateRequest.set_state(open ? sumo_jupedsim_api::INACTIVE : sumo_jupedsim_api::ACTIVE);
+                    callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
+                             TLF("Error while setting waiting status for %:", crossing->getID()));
+                    crossingState.second = open;
+                }
             }
         }
         stage->activateMoveReminders(person, oldLanePos, state->getEdgePos(time), state->getSpeed(*stage));
@@ -1086,7 +1090,7 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
     callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::SetWaitingSetState, waitingSetStateRequest,
              TLF("Error while setting waiting status for % on '%':", entry ? "entry" : "exit", crossing->getID()));
 
-    myCrossings[waitingStage] = crossing;
+    myCrossings[waitingStage] = {crossing, true};
     return waitingStage;
 }
 
