@@ -713,6 +713,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
         }
         q.setOccupancy(MIN2(myQueueCapacity, q.getOccupancy() + veh->getVehicleType().getLengthWithGap()));
         veh->setEventTime(tleave);
+        veh->setUnqueuedEventTime(tleave);
         veh->setSegment(this, qIdx);
     }
     addReminders(veh);

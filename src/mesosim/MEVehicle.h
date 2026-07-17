@@ -216,6 +216,19 @@ public:
         return myEventTime;
     }
 
+    /** @brief Sets the minimum time at which the vehicle leaves its current segment (this includes planned stops)
+     * @param[in] t The leaving time
+     */
+    inline void setUnqueuedEventTime(SUMOTime t) {
+        myUnqueuedEventTime = t;
+    }
+    /** @brief Returns the minimum time at which the vehicle leaves its current segment
+     * @return The minimum time the vehicle could leave its segment at
+     */
+    inline SUMOTime getUnqueuedEventTime() const {
+        return myUnqueuedEventTime;
+    }
+
 
     /** @brief Sets the current segment the vehicle is at together with its que
      * @param[in] s The current segment
@@ -293,6 +306,11 @@ public:
     inline SUMOTime getWaitingTime(const bool accumulated = false) const {
         UNUSED_PARAMETER(accumulated);
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
+    }
+
+    /// @brief Returns the time lost compare to free flow
+    inline SUMOTime getQueuingTimeLoss() const {
+        return MAX2(SUMOTime(0), myEventTime - myUnqueuedEventTime);
     }
 
     inline SUMOTime getTimeLoss() const {
@@ -378,6 +396,9 @@ protected:
 
     /// @brief The time at which the vehicle was blocked on its current segment
     SUMOTime myBlockTime;
+
+    /// @brief The expected time of leaving the segment when following the leader at free-flow headway
+    SUMOTime myUnqueuedEventTime;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

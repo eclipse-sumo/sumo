@@ -92,9 +92,11 @@ MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment
 
 void
 MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
-    // record time when the gap vacated by ego will reach the upstream end of the segment
     GapTimes& gapTimes = myGapTimes[veh->getQueIndex()];
-    gapTimes.insert(gapTimes.begin(), time + myLength * myTau_jj / DEFAULT_VEH_LENGTH_WITH_GAP);
+    // record time when the gap vacated by ego will reach the upstream end of the segment
+    // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
+    // but they travel more slowly when queued (startupDelay)
+    gapTimes.insert(gapTimes.begin(), time + myLength * (veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 
