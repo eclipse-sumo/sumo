@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Tue, July 2026
 ///
-// A LIFT-model segment 
+// A LTM (LIFT)-model segment 
 /****************************************************************************/
 #include <config.h>
 

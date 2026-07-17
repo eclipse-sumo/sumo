@@ -320,7 +320,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     MESegment* newSegment = nullptr;
     MESegment* nextSegment = nullptr;
     const bool laneQueue = oc.getBool("meso-lane-queue");
-    const bool lift = oc.getBool("meso-lift");
+    const bool lift = oc.getBool("meso-ltm");
     bool multiQueue = laneQueue || (oc.getBool("meso-multi-queue") && e.getLanes().size() > 1 && e.getNumSuccessors() > 1);
     for (int s = numSegments - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
