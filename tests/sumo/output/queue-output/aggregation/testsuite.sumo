@@ -1,5 +1,3 @@
-aggregation
-
 # no traffic, just plain output
 no_vehicles
 
@@ -8,6 +6,3 @@ small_jam
 
 # small jam to have a valid queue in front of a tls
 period
-
-# Testing error cases
-errors
