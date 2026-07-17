@@ -250,9 +250,11 @@ MSQueueExport::writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end) {
             intervalOpen = true;
         }
     };
-    if (!OptionsCont::getOptions().getBool("queue-output.skip-empty")) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (!oc.getBool("queue-output.skip-empty")) {
         ensureOpen();
     }
+    const double p = oc.getFloat("queue-output.percentile") / 100.;
     // iterate in network edge order for deterministic output
     for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
         const auto it = myEdgeSamples.find(edge);
@@ -271,10 +273,10 @@ MSQueueExport::writeInterval(OutputDevice& of, SUMOTime begin, SUMOTime end) {
         of.openTag("edge").writeAttr("id", edge->getID()).writeAttr("samples", (int)counts.size());
         of.writeAttr("maxQueueLengthInVehicles", counts.back());
         of.writeAttr("medianQueueLengthInVehicles", percentile(counts, 0.5));
-        of.writeAttr("p95QueueLengthInVehicles", percentile(counts, 0.95));
+        of.writeAttr("percentileQueueLengthInVehicles", percentile(counts, p));
         of.writeAttr("maxQueueLengthInMeters", lengths.back());
         of.writeAttr("medianQueueLengthInMeters", percentile(lengths, 0.5));
-        of.writeAttr("p95QueueLengthInMeters", percentile(lengths, 0.95));
+        of.writeAttr("percentileQueueLengthInMeters", percentile(lengths, p));
         of.closeTag();
     }
     if (intervalOpen) {

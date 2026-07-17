@@ -84,8 +84,8 @@ the given period (typically a traffic light cycle):
 
   <interval begin="<BEGIN>" end="<END>">
     <edge id="<EDGE_ID>" samples="<NUM_SAMPLES>"
-      maxQueueLengthInVehicles="..." medianQueueLengthInVehicles="..." p95QueueLengthInVehicles="..."
-      maxQueueLengthInMeters="..." medianQueueLengthInMeters="..." p95QueueLengthInMeters="..."/>
+      maxQueueLengthInVehicles="..." medianQueueLengthInVehicles="..." percentileQueueLengthInVehicles="..."
+      maxQueueLengthInMeters="..." medianQueueLengthInMeters="..." percentileQueueLengthInMeters="..."/>
 
     ... next edge ...
 
@@ -97,10 +97,13 @@ the given period (typically a traffic light cycle):
 ```
 
 Each lane (or meso segment queue) with at least one queued vehicle
-contributes one sample per recorded time step. The `median` and `p95`
-values are computed over all samples of the interval with linear
-interpolation between order statistics (matching `numpy.percentile`).
-Edges without any queued vehicles during the interval are omitted.
+contributes one sample per recorded time step. The `median` and
+`percentile` values are computed over all samples of the interval with
+linear interpolation between order statistics (matching
+`numpy.percentile`). The reported percentile defaults to the 95th and
+can be configured with the option **--queue-output.percentile** {{DT_FLOAT}}
+(a value between 0 and 100). Edges without any queued vehicles during
+the interval are omitted.
 
 ## Notes
 
