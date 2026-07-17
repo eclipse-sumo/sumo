@@ -58,6 +58,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myEventTime(SUMOTime_MIN),
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX),
+    myWasJammed(false),
     myInfluencer(nullptr) {
 }
 

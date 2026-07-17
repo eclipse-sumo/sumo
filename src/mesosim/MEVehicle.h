@@ -369,6 +369,14 @@ public:
         return myInfluencer != nullptr;
     }
 
+    void markJammed(bool jammed) {
+        myWasJammed = jammed;
+    }
+
+    bool wasJammed() const {
+        return myWasJammed;
+    }
+
     /// @name state io
     //@{
 
@@ -399,6 +407,9 @@ protected:
 
     /// @brief The expected time of leaving the segment when following the leader at free-flow headway
     SUMOTime myUnqueuedEventTime;
+
+    /// @brief Whether this vehicle was jammed on it's previous normal segment
+    bool myWasJammed;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

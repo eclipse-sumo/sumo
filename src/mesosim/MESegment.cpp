@@ -563,9 +563,9 @@ MESegment::limitedControlOverride(const MSLink* link) const {
 
 
 SUMOTime
-MESegment::computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const {
+MESegment::computeHeadway(Queue& /*q*/, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const {
     const bool nextFree = qNext.getOccupancy() <= next->myJamThreshold;
-    const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
+    const SUMOTime tau = (!veh->wasJammed()
             ? (nextFree ? myTau_ff : myTau_fj)
             : (nextFree ? myTau_jf : getTauJJ((double)qNext.size(), next->myQueueCapacity, next->myJamThreshold)));
     assert(tau >= 0);
@@ -594,6 +594,9 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
+    if (myEdge.isNormal()) {
+        veh->markJammed(q.getOccupancy() > myJamThreshold);
+    }
     if (!isInvalid(next)) {
         myLastHeadway = computeHeadway(q, next->myQueues[nextQIdx], next, veh);
         q.setBlockTime(time + myLastHeadway);
