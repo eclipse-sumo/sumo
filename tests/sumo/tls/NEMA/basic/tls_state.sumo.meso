@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-22T10:53:55.297864+01:00 by Eclipse SUMO sumo v1_27_0+0008-ab518bb050d
+<!-- generated on 2026-07-17T22:31:31.945442+01:00 by Eclipse SUMO sumo v1_27_1+0311-5d13f2404e9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <no-internal-links value="false"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
         <default.speeddev value="0"/>
@@ -4436,94 +4437,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="4389.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
     <tlsState time="4390.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
     <tlsState time="4391.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4392.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4393.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4394.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4395.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4396.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4397.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4398.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4399.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4400.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4401.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4402.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4403.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4404.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4405.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4406.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4407.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4408.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4409.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4410.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4411.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4412.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4413.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4414.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4415.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4416.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4417.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4418.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4419.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4420.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4421.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4422.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4423.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4424.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4425.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4426.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4427.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4428.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4429.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4430.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4431.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4432.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4433.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4434.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4435.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4436.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4437.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4438.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4439.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4440.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4441.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4442.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4443.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4444.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4445.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4446.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4447.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4448.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4449.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4450.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4451.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4452.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4453.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4454.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4455.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4456.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4457.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4458.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4459.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4460.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4461.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4462.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4463.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4464.00" id="2881" programID="NEMA" phase="0" state="srrrrrrGGrrr" name="1" detectors=""/>
-    <tlsState time="4465.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4466.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4467.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4468.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4469.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4470.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4471.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4472.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4473.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4474.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4475.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4476.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4477.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4478.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4479.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4480.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
-    <tlsState time="4481.00" id="2881" programID="NEMA" phase="1" state="srrrrrrrrGGG" name="2" detectors=""/>
 </tlsStates>

@@ -1,1 +1,2 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Teleporting vehicle 'flow_2.10'; waited too long, from edge 'SC':0, time=714.98.
+Warning: Vehicle 'flow_2.10' teleports beyond arrival edge 'CW', time=721.43.
