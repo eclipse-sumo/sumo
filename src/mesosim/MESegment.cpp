@@ -594,7 +594,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
-    if (myEdge.isNormal()) {
+    if (myEdge.isNormal() && myCapacity >= 22.5 ) {
         veh->markJammed(q.getOccupancy() > myJamThreshold);
     }
     if (!isInvalid(next)) {
