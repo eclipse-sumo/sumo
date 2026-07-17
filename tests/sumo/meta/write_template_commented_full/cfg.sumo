@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-15T02:03:25.994144+01:00 by Eclipse SUMO sumo v1_27_1+0246-f07521d5657
+<!-- generated on 2026-07-17T14:11:08.464481+01:00 by Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -200,6 +200,18 @@
 
         <!-- Save vehicle queues with the given period -->
         <queue-output.period value="-1" type="TIME"/>
+
+        <!-- Write aggregated queue length statistics (max, median, 95th percentile) per edge for the given period (e.g. a traffic light cycle) instead of per-timestep data -->
+        <queue-output.aggregation value="-1" type="TIME"/>
+
+        <!-- Maximum speed for counting a vehicle as queued -->
+        <queue-output.speed-threshold value="1.38889" type="FLOAT"/>
+
+        <!-- The percentile (0-100) to report as percentileQueueLength in aggregated queue output -->
+        <queue-output.percentile value="95" type="FLOAT"/>
+
+        <!-- Do not save data for time steps / intervals which have no queue (required for column based output formats) -->
+        <queue-output.skip-empty value="false" type="BOOL"/>
 
         <!-- Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) -->
         <vtk-output value="" type="FILE"/>
@@ -1380,8 +1392,8 @@
         <!-- Enables mesoscopic simulation -->
         <mesosim value="false" type="BOOL"/>
 
-        <!-- Enables the LIFT model -->
-        <meso-lift value="false" type="BOOL"/>
+        <!-- Enables the meso-LTM (LIFT) model -->
+        <meso-ltm value="false" type="BOOL"/>
 
         <!-- Length of an edge segment in mesoscopic simulation -->
         <meso-edgelength value="98" type="FLOAT"/>

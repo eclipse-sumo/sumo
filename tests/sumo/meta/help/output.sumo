@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_1+0246-f07521d5657
+Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -127,6 +127,19 @@ Output Options:
                                         (experimental)
   --queue-output.period TIME           Save vehicle queues with the given
                                         period
+  --queue-output.aggregation TIME      Write aggregated queue length statistics
+                                        (max, median, 95th percentile) per edge
+                                        for the given period (e.g. a traffic
+                                        light cycle) instead of per-timestep
+                                        data
+  --queue-output.speed-threshold FLOAT  Maximum speed for counting a vehicle as
+                                        queued
+  --queue-output.percentile FLOAT      The percentile (0-100) to report as
+                                        percentileQueueLength in aggregated
+                                        queue output
+  --queue-output.skip-empty            Do not save data for time steps /
+                                        intervals which have no queue (required
+                                        for column based output formats)
   --vtk-output FILE                    Save complete vehicle positions
                                         inclusive speed values in the VTK Format
                                         (usage: /path/out will produce
@@ -998,7 +1011,7 @@ TraCI Server Options:
 
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
-  --meso-lift                          Enables the LIFT model
+  --meso-ltm                           Enables the meso-LTM (LIFT) model
   --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
                                         simulation
   --meso-tauff TIME                    Factor for calculating the net free-free
