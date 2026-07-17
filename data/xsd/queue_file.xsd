@@ -50,10 +50,10 @@
             <xsd:attribute name="samples" use="required" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="maxQueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="medianQueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="p95QueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="percentileQueueLengthInVehicles" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="maxQueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="medianQueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="p95QueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="percentileQueueLengthInMeters" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 </xsd:schema>

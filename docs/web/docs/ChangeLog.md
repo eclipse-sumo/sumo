@@ -54,7 +54,7 @@ title: ChangeLog
   - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions
 
 - sumo/meso
-  - Added option **--queue-output.aggregation** {{DT_TIME}} for writing per-edge queue length statistics (max, median, 95th percentile in vehicles and meters) aggregated over the given period (e.g. a traffic light cycle)
+  - Added option **--queue-output.aggregation** {{DT_TIME}} for writing per-edge queue length statistics (max, median, configurable percentile in vehicles and meters) aggregated over the given period (e.g. a traffic light cycle). The reported percentile defaults to 95 and is configurable with **--queue-output.percentile**
   - Added option **--queue-output.speed-threshold** to configure the maximum speed for counting a vehicle as queued (default 1.39 m/s)
   - queue-output now supports column based output formats (CSV, Parquet) and the option **--queue-output.skip-empty** to omit time steps / intervals without a queue
 
