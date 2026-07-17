@@ -235,20 +235,6 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             return jupedsim_pb2.GetWaitingSetStateResponse()
         return response
 
-    def AddWaypointJourney(  # noqa: N802
-        self, request, context
-    ) -> jupedsim_pb2.AddJourneyResponse:
-        """gRPC RPC method."""
-        response, error = self._manager.add_waypoint_journey(
-            request.simulation_id,
-            [(wp.waiting_stage, wp.point.x, wp.point.y, wp.distance) for wp in request.waypoints],
-        )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AddJourneyResponse()
-        return response
-
     def AddJourney(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
     ) -> jupedsim_pb2.AddJourneyResponse:
