@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-16T15:12:32.510750+01:00 by Eclipse SUMO sumo v1_27_1+0284-1f40d4bee2e
+<!-- generated on 2026-07-17T21:39:03.878570+01:00 by Eclipse SUMO sumo v1_27_1+0309-242f2d87225
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
 
     <mesoscopic>
         <mesosim value="true"/>
-        <meso-lift value="true"/>
+        <meso-ltm value="true"/>
     </mesoscopic>
 
 </sumoConfiguration>
@@ -30,7 +30,7 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="600.00" id="ed">
-        <edge id="B0C0" sampledSeconds="2538.62" traveltime="9.56" overlapTraveltime="10.04" density="42.31" overlapDensity="42.31" laneDensity="42.31" occupancy="21.16" waitingTime="47.06" timeLoss="627.27" speed="10.46" speedRelative="0.75" departed="0" arrived="0" entered="267" left="264" laneChangedFrom="0" laneChangedTo="0" flow="1593.01"/>
+        <edge id="B0C0" sampledSeconds="2488.22" traveltime="9.37" overlapTraveltime="9.84" density="41.47" overlapDensity="41.47" laneDensity="41.47" occupancy="20.74" waitingTime="43.46" timeLoss="576.87" speed="10.67" speedRelative="0.77" departed="0" arrived="0" entered="267" left="264" laneChangedFrom="0" laneChangedTo="0" flow="1593.01"/>
     </interval>
     <interval begin="600.00" end="1051.00" id="ed">
         <edge id="B0C0" sampledSeconds="1371.40" traveltime="7.20" overlapTraveltime="7.56" density="30.41" overlapDensity="30.41" laneDensity="30.41" occupancy="15.20" waitingTime="0.00" timeLoss="0.00" speed="13.89" speedRelative="1.00" departed="0" arrived="0" entered="189" left="192" laneChangedFrom="0" laneChangedTo="0" flow="1520.61"/>
