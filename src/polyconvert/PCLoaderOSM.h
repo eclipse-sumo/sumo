@@ -137,6 +137,7 @@ private:
 
     static double mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets);
 
+    static double parseHeight(const std::map<std::string, std::string>& attrs, long long int id); 
 protected:
     /**
      * @class NodesHandler
