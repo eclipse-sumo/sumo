@@ -27,9 +27,7 @@
 #include <string>
 #include <iomanip>
 #ifdef WIN32
-#define NOMINMAX
 #include <windows.h>
-#undef NOMINMAX
 #endif
 #include "OutputDevice.h"
 #include "OutputDevice_File.h"

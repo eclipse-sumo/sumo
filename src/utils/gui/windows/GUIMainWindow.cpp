@@ -25,13 +25,7 @@
 #include <algorithm>
 #include <utils/foxtools/fxheader.h>
 // fx3d includes windows.h so we need to guard against macro pollution
-#ifdef WIN32
-#define NOMINMAX
-#endif
 #include <fx3d.h>
-#ifdef WIN32
-#undef NOMINMAX
-#endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXImageHelper.h>

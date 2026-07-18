@@ -28,9 +28,7 @@
 #include <cstring>
 #include <regex>
 #ifdef WIN32
-#define NOMINMAX
 #include <windows.h>
-#undef NOMINMAX
 #else
 #include <unistd.h>
 #endif

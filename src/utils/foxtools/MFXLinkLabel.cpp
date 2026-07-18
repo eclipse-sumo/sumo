@@ -26,10 +26,8 @@
 #include <config.h>
 
 #ifdef WIN32
-#define NOMINMAX
 #include <windows.h>
 #include <shellapi.h>
-#undef NOMINMAX
 #endif
 
 #include <utils/gui/div/GUIDesigns.h>
