@@ -61,7 +61,7 @@ def main(args=None):
     df["density"] = df["density"].astype(float)
     df["laneDensity"] = df["laneDensity"].astype(float)
     df["speed"] = df["speed"].astype(float)
-    df = df.replace(np.NaN, 0)
+    df = df.replace(np.nan, 0)
     df['begin'] = df['begin'].astype(int)
 
     # calculation time interval
@@ -82,7 +82,7 @@ def main(args=None):
 
     # calculating total length of network
     length = df['sampledSeconds'] / (df['end']-df['begin']) / df['density']
-    df['Length'] = length.replace(np.NaN, 0).replace(np.inf, 0)
+    df['Length'] = length.replace(np.nan, 0).replace(np.inf, 0)
     i = 0
     j = 0
     __net = []
