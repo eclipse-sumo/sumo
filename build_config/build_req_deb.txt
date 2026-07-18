@@ -33,6 +33,7 @@ mono-mcs
 pipx
 plantuml
 pre-commit
+protobuf-compiler-grpc
 python-is-python3
 python3-build
 python3-dev
