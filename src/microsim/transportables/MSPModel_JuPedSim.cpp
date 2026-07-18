@@ -90,19 +90,19 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
         const std::string port = toString(tcpip::Socket::getFreeSocketPort());
         std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
         if (oc.isSet("pedestrian.jupedsim.py")) {
-            command += " --debug";
+            command += " --debug " + oc.getString("pedestrian.jupedsim.py");
         }
         // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
         myJuPedSimServer = new bp::child(command);
         address = "localhost:" + port;
 #else
-        WRITE_WARNING(TL("No boost process support, you will need to start the JuPedSim server manually."));
+        WRITE_WARNING(TL("No boost process support, you will need to start the JuPedSim server manually using $SUMO_HOME/tools/jupedsim_grpc/servicer.py."));
 #endif
     }
 
     myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
     myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
-    if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(2))) {
+    if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
         WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
     } else {
         WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
@@ -213,12 +213,12 @@ MSPModel_JuPedSim::addWaypoint(const std::string& agentID, WaypointDesc& waypoin
     waypointRequest.mutable_point()->set_x(coords.x());
     waypointRequest.mutable_point()->set_y(coords.y());
     waypointRequest.set_distance(dist);
-    sumo_jupedsim_api::AddWaypointStageResponse waypointResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddWaypointStage, waypointRequest,
+    sumo_jupedsim_api::StageResponse waypointResponse = callGrpc(&sumo_jupedsim_api::JuPedSimService::Stub::AddWaypointStage, waypointRequest,
             TLF("Error while adding waypoint for person '%': ", agentID), true);
-    if (waypointResponse.waypoint_id() != 0 && finalStage == nullptr) {
-        myLaneCenters[lane] = waypointResponse.waypoint_id();
+    if (waypointResponse.stage_id() != 0 && finalStage == nullptr) {
+        myLaneCenters[lane] = waypointResponse.stage_id();
     }
-    return waypointResponse.waypoint_id();
+    return waypointResponse.stage_id();
 }
 
 

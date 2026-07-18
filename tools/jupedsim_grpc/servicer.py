@@ -1,3 +1,24 @@
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2026-2026 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    servicer.py
+# @author  Ralf Leibold
+# @author  Michael Behrisch
+# @date    2026-06-22
+
+from simulation_manager import SimulationManager
+import jupedsim_pb2_grpc
+import jupedsim_pb2
 import concurrent.futures
 import os
 import sys
@@ -6,14 +27,18 @@ import grpc
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-import jupedsim_pb2
-import jupedsim_pb2_grpc
-from simulation_manager import SimulationManager
-
 
 class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
     def __init__(self, debug=False, sqlite=False):
         self._manager = SimulationManager(debug=debug, sqlite=sqlite)
+
+    @staticmethod
+    def _handleResponse(response_class, context, response_content, error):
+        if error:
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details(error)
+            return response_class()
+        return response_class(**response_content)
 
     def CreateGeometry(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
@@ -25,11 +50,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             for obstacle in request.obstacles
         ]
         response, error = self._manager.create_geometry(boundary, obstacles)
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.CreateGeometryResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.CreateGeometryResponse, context, response, error)
 
     def SwitchGeometry(  # noqa: N802
         self, request, context
@@ -39,11 +60,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             request.geometry_id,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.EmptyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
     def CreateSimulation(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
@@ -55,22 +72,14 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.delta_t,
             request.model_parameters,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.CreateSimulationResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.CreateSimulationResponse, context, response, error)
 
     def GetModelClasses(  # noqa: N802
         self, request, context
     ) -> jupedsim_pb2.GetModelClassesResponse:
         """gRPC RPC method."""
         response, error = self._manager.get_model_classes()
-        if error:
-            context.set_code(grpc.StatusCode.INTERNAL)
-            context.set_details(error)
-            return jupedsim_pb2.GetModelClassesResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.GetModelClassesResponse, context, response, error)
 
     def CreateAgent(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
@@ -81,11 +90,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.agent_model_class,
             request.agent_model_parameters,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.CreateAgentResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.CreateAgentResponse, context, response, error)
 
     def RemoveAgents(  # noqa: N802
         self, request, context
@@ -95,11 +100,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             request.agent_ids,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.EmptyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
     def SwitchAgentJourney(  # noqa: N802
         self, request, context
@@ -111,11 +112,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.journey_id,
             request.stage_id,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.EmptyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
     def GetAgentsInRegion(  # noqa: N802
         self, request, context
@@ -126,11 +123,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             region,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AgentIdsResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.AgentIdsResponse, context, response, error)
 
     def GetDesiredSpeedOfAgents(  # noqa: N802
         self, request, context
@@ -140,11 +133,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             request.agent_ids,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.DesiredSpeedResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.DesiredSpeedResponse, context, response, error)
 
     def SetDesiredSpeedOfAgents(  # noqa: N802
         self, request, context
@@ -154,15 +143,11 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             request.desired_speeds,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.EmptyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
     def AddWaypointStage(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
-    ) -> jupedsim_pb2.AddWaypointStageResponse:
+    ) -> jupedsim_pb2.StageResponse:
         """gRPC RPC method — PascalCase preserved from .proto definition."""
         response, error = self._manager.add_waypoint_stage(
             request.simulation_id,
@@ -170,41 +155,29 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.point.y,
             request.distance,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AddWaypointStageResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.StageResponse, context, response, error)
 
     def AddExitStage(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
-    ) -> jupedsim_pb2.AddExitStageResponse:
+    ) -> jupedsim_pb2.StageResponse:
         """gRPC RPC method — PascalCase preserved from .proto definition."""
         polygon = [(p.x, p.y) for p in request.polygon]
         response, error = self._manager.add_exit_stage(
             request.simulation_id,
             polygon,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AddExitStageResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.StageResponse, context, response, error)
 
     def AddWaitingSetStage(  # noqa: N802
         self, request, context
-    ) -> jupedsim_pb2.AddWaitingSetStageResponse:
+    ) -> jupedsim_pb2.StageResponse:
         """gRPC RPC method."""
         points = [(p.x, p.y) for p in request.points]
         response, error = self._manager.add_waiting_set_stage(
             request.simulation_id,
             points,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AddWaitingSetStageResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.StageResponse, context, response, error)
 
     def SetWaitingSetState(  # noqa: N802
         self, request, context
@@ -215,11 +188,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.stage_id,
             request.state,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.EmptyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
     def GetWaitingSetState(  # noqa: N802
         self, request, context
@@ -229,11 +198,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             request.stage_id,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.GetWaitingSetStateResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.GetWaitingSetStateResponse, context, response, error)
 
     def AddJourney(  # noqa: N802 (PascalCase per gRPC/RPC convention, not local variable/function)
         self, request, context
@@ -243,11 +208,7 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
             request.simulation_id,
             list(request.stage_ids),
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.AddJourneyResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.AddJourneyResponse, context, response, error)
 
     def GetCorePropertiesOfAllAgents(  # noqa: N802
         self, request, context
@@ -256,49 +217,15 @@ class JuPedSimServiceServicer(jupedsim_pb2_grpc.JuPedSimServiceServicer):
         response, error = self._manager.get_core_properties_of_all_agents(
             request.simulation_id,
         )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.GetCorePropertiesOfAllAgentsResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.GetCorePropertiesOfAllAgentsResponse, context, response, error)
 
     def Iterate(  # noqa: N802
         self, request, context
-    ) -> jupedsim_pb2.IterateResponse:
+    ) -> jupedsim_pb2.EmptyResponse:
         """gRPC RPC method."""
         count = request.count if request.HasField("count") else 1
         response, error = self._manager.iterate(request.simulation_id, count)
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.IterateResponse()
-        return response
-
-    def GetAgentCount(  # noqa: N802
-        self, request, context
-    ) -> jupedsim_pb2.CountResponse:
-        """gRPC RPC method."""
-        response, error = self._manager.get_agent_count(
-            request.simulation_id,
-        )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.CountResponse()
-        return response
-
-    def GetIterationCount(  # noqa: N802
-        self, request, context
-    ) -> jupedsim_pb2.CountResponse:
-        """gRPC RPC method."""
-        response, error = self._manager.get_iteration_count(
-            request.simulation_id,
-        )
-        if error:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details(error)
-            return jupedsim_pb2.CountResponse()
-        return response
+        return self._handleResponse(jupedsim_pb2.EmptyResponse, context, response, error)
 
 
 class Server:
@@ -363,8 +290,8 @@ if __name__ == "__main__":
         "--unix-socket", help="Unix socket to listen on",
     )
     parser.add_argument(
-        "--debug", action="store_true",
-        help="Dumps a 'simulation{id}.py' per simulation that can be run as-is.",
+        "--debug",
+        help="Dumps a python script per simulation that can be run without sumo.",
     )
     parser.add_argument(
         "--sqlite", action="store_true",
