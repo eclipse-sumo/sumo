@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-24T18:52:14.043578+01:00 by Eclipse SUMO sumo v1_27_0+0335-bf2ed6f04b8
+<!-- generated on 2026-07-18T10:37:48.956809+01:00 by Eclipse SUMO sumo v1_27_1+0318-6071c7c82fc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </time>
 
     <processing>
-        <no-internal-links value="false"/>
+        <no-internal-links value="true"/>
         <ignore-route-errors value="true"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
@@ -61,6 +61,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <substations-export>
-    <tractionSubstation id="trSubstation1" totalEnergyCharged="0.00" length="123.93" numVoltageSources="1" numClamps="1" chargingSteps="0"/>
-    <tractionSubstation id="trSubstation2" totalEnergyCharged="0.00" length="88.55" numVoltageSources="2" numClamps="0" chargingSteps="0"/>
+    <tractionSubstation id="trSubstation1" totalEnergyCharged="0.00" length="114.96" numVoltageSources="1" numClamps="1" chargingSteps="0"/>
+    <tractionSubstation id="trSubstation2" totalEnergyCharged="0.00" length="50.20" numVoltageSources="2" numClamps="0" chargingSteps="0"/>
 </substations-export>
