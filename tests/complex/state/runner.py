@@ -42,7 +42,7 @@ idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
 loadParams = sys.argv[idx + 1:]
 # work around texttests limitation of removing duplicate options
-for option in ['--mesosim', '--no-internal-links=false']:
+for option in ['--mesosim']:
     if option in loadParams and option not in saveParams:
         saveParams.append(option)
     if option in saveParams and option not in loadParams:
