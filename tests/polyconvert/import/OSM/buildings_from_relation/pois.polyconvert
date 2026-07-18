@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-25 07:39:35 by Eclipse SUMO polyconvert Version v1_19_0+1924-2186fedc66c
+<!-- generated on 2026-07-18T10:23:59.965307+01:00 by Eclipse SUMO polyconvert v1_27_1+0315-06c2bc92a15
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+<polyconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</polyconvertConfiguration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -304,21 +304,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="research_institution" value="yes"/>
         <param key="type" value="multipolygon"/>
     </poly>
-    <poly id="149663226" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528175,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
+    <poly id="149663226" type="building.yes" color="255,230,230" fill="1" height="20.00" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528175,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
         <param key="building" value="yes"/>
         <param key="colour" value="white"/>
         <param key="height" value="20"/>
         <param key="man_made" value="tower"/>
         <param key="roof:colour" value="black"/>
     </poly>
-    <poly id="149663226#1" type="man_made.tower" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528175,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
+    <poly id="149663226#1" type="man_made.tower" color="255,230,230" fill="1" height="20.00" layer="-1.00" geo="1" shape="13.528171,52.427380 13.528175,52.427357 13.528208,52.427344 13.528232,52.427347 13.528247,52.427356 13.528255,52.427368 13.528246,52.427387 13.528220,52.427397 13.528192,52.427394 13.528171,52.427380">
         <param key="building" value="yes"/>
         <param key="colour" value="white"/>
         <param key="height" value="20"/>
         <param key="man_made" value="tower"/>
         <param key="roof:colour" value="black"/>
     </poly>
-    <poly id="149663244" type="building.yes" color="255,230,230" fill="0" layer="-1.00" geo="1" shape="13.527711,52.426746 13.527802,52.427353 13.527949,52.427345">
+    <poly id="149663244" type="building.yes" color="255,230,230" fill="0" height="10.00" layer="-1.00" geo="1" shape="13.527711,52.426746 13.527802,52.427353 13.527949,52.427345">
         <param key="building" value="yes"/>
         <param key="building:parts" value="vertical"/>
         <param key="height" value="10"/>
