@@ -39,6 +39,9 @@ jobs:
     - name: Fetching SUMO Libraries
       # this also sets $SUMO_LIBRARIES
       uses: ./.github/actions/fetch-sumo-libraries
+      with:
+        # this is needed for grpc
+        commit: 5c3b1905bd8b06274dc172d9771d061f39579d9e
 
     - name: Setup fail-fast PowerShell
       run: |
@@ -59,10 +62,16 @@ jobs:
     - name: "Set up MSVC Developer Command Prompt"
       uses: compnerd/gha-setup-vsdevenv@v7
 
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
         python -m pip install -r tools/req_ci.txt -r docs/web/requirements.txt texttest pipdeptree
+        python -m pip install -U --no-deps jupedsim
         pipdeptree
 
     - name: Building SUMO plain
