@@ -1,8 +1,6 @@
 Warning: Polygon ':1387_c0' at junction '1387' has been replaced by its convex hull as it is not simple.
 Warning: Polygon ':1387_c1' at junction '1387' has been replaced by its convex hull as it is not simple.
 Warning: Polygon ':532_c0' at junction '532' has been replaced by its convex hull as it is not simple.
-Warning: Waiting point 1803.27,2057.55 is not in the geometry for exit on ':1387_c0_0'.
-Warning: Waiting point 1803.27,2057.55 is not in the geometry for entry on ':1387_c2_0'.
 Warning: Error while adding person 'pf_3.0' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7259956858807, 2076.4857056783767): distance 0
 Warning: Error while adding person 'pf_3.1' as JuPedSim agent: Model constraint violation: Agent (1799.7259956858807, 2076.4857056783767) too close to agent (1799.7259956858807, 2076.4857056783767): distance 0
 Warning: Error while adding person 'pf_3.1' as JuPedSim agent: Model constraint violation: Agent (1799.2714751071517, 2076.477150879593) too close to agent (1799.1461875573377, 2076.032947826347): distance 0.46153366361662884
