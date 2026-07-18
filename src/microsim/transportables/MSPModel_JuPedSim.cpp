@@ -79,34 +79,46 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
             myJPSModel = "CollisionFreeSpeedModelV2";
         }
     }
+    std::string command;
     std::string address = oc.getString("pedestrian.jupedsim.address");
     // address = "localhost:50051"; // for debugging
     if (address == "") {
-#ifdef HAVE_BOOST
         const char* pythonEnv = getenv("PYTHON");
         const std::string python = (pythonEnv == nullptr) ? "python" : pythonEnv;
         const char* sumoHomeEnv = getenv("SUMO_HOME");
         const std::string sumoHome = (sumoHomeEnv == nullptr) ? "." : sumoHomeEnv;
-        const std::string port = toString(tcpip::Socket::getFreeSocketPort());
-        std::string command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py --port " + port;
+        command = python + " " + sumoHome + "/tools/jupedsim_grpc/servicer.py";
         if (oc.isSet("pedestrian.jupedsim.py")) {
             command += " --debug " + oc.getString("pedestrian.jupedsim.py");
         }
-        // std::string command = "python -c \"import jupedsim; print(jupedsim.__file__)\" 2>&1";
-        myJuPedSimServer = new bp::child(command);
-        address = "localhost:" + port;
+    }
+    for (int i = 0; i < 2; i++) {  // try twice: initial attempt + one restart
+        if (command != "") {
+#ifdef HAVE_BOOST
+            const std::string port = toString(tcpip::Socket::getFreeSocketPort());
+            myJuPedSimServer = std::unique_ptr<bp::child>(new bp::child(command + " --port " + port));
+            address = "localhost:" + port;
 #else
-        WRITE_WARNING(TL("No boost process support, you will need to start the JuPedSim server manually using $SUMO_HOME/tools/jupedsim_grpc/servicer.py."));
+            WRITE_WARNINGF(TL("No boost process support, you will need to start the JuPedSim server manually using %."), command);
 #endif
-    }
+        }
 
-    myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
-    myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
-    if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
-        WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
-    } else {
-        WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
+        myGrpcChannel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
+        if (myGrpcChannel->WaitForConnected(std::chrono::system_clock::now() + std::chrono::seconds(5))) {
+            WRITE_MESSAGEF(TL("Connected to JuPedSim gRPC server on '%'."), address);
+            break;
+        } else {
+            WRITE_WARNINGF(TL("Could not connect to JuPedSim gRPC server on '%' (will retry on demand)."), address);
+#ifdef HAVE_BOOST
+            if (myJuPedSimServer == nullptr || myJuPedSimServer->running()) {
+                break;
+            }
+#else
+            break;
+#endif
+        }
     }
+    myGrpcStub = sumo_jupedsim_api::JuPedSimService::NewStub(myGrpcChannel);
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }

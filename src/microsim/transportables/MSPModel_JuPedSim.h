@@ -217,7 +217,7 @@ private:
     std::string myJPSModel;
     int64_t myJPSSimulation;
 #ifdef HAVE_BOOST
-    bp::child* myJuPedSimServer = nullptr;
+    std::unique_ptr<bp::child> myJuPedSimServer = nullptr;
 #endif
     std::shared_ptr<grpc::Channel> myGrpcChannel;
     std::unique_ptr<sumo_jupedsim_api::JuPedSimService::Stub> myGrpcStub;
