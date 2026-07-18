@@ -299,7 +299,8 @@ MSPModel_JuPedSim_legacy::add(MSTransportable* person, MSStageMoving* stage, SUM
                 for (const MSEdge* const ce : crossingRoute) {
                     if (ce->isCrossing()) {
                         const MSLane* const crossing = getSidewalk<MSEdge, MSLane>(ce);
-                        if (myCrossingWaits.count(crossing) > 0) {
+                        auto crossingWait = myCrossingWaits.find(crossing);
+                        if (crossingWait != myCrossingWaits.end()) {
                             if (waitingStage != 0 && wa != nullptr) {
                                 // we already have a waiting stage we need an intermediate waypoint
                                 waypoints.push_back({waitingStage, wa->getLanes()[0]->getShape().getCentroid(), wa->getWidth() / 2.});
@@ -308,9 +309,15 @@ MSPModel_JuPedSim_legacy::add(MSTransportable* person, MSStageMoving* stage, SUM
                             const Position& startPos = dir == FORWARD ? prevLane->getShape().back() : prevLane->getShape().front();
                             // choose the waiting set closer to the lane "end"
                             if (crossing->getShape().front().distanceSquaredTo(startPos) < crossing->getShape().back().distanceSquaredTo(startPos)) {
-                                waitingStage = myCrossingWaits[crossing].first;
+                                if (crossingWait->second.first == 0) {
+                                    crossingWait->second.first = addWaitingSet(crossing, true);
+                                }
+                                waitingStage = crossingWait->second.first;
                             } else {
-                                waitingStage = myCrossingWaits[crossing].second;
+                                if (crossingWait->second.second == 0) {
+                                    crossingWait->second.second = addWaitingSet(crossing, false);
+                                }
+                                waitingStage = crossingWait->second.second;
                             }
                         } else {
                             throw ProcessError(TLF("No waiting set for crossing at %.", ce->getID()));
@@ -1280,11 +1287,6 @@ MSPModel_JuPedSim_legacy::initialize(const OptionsCont& oc) {
                           "with open('" << filename << "') as f: geom = shapely.from_wkt(f.read())\n"
                           "simulation = jps.Simulation(dt=" << STEPS2TIME(myJPSDeltaT) << ", model=jps.CollisionFreeSpeedModel(), geometry=geom,\n"
                           "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n";
-    }
-    // add waiting sets at crossings
-    for (auto& crossing : myCrossingWaits) {
-        crossing.second.first = addWaitingSet(crossing.first, true);
-        crossing.second.second = addWaitingSet(crossing.first, false);
     }
     myNetwork->getShapeContainer().addShapeListener(this);
 }

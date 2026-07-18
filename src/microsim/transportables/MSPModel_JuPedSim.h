@@ -107,7 +107,7 @@ public:
         SocialForce
     };
 
-    typedef std::tuple<JPS_StageId, Position, double> WaypointDesc;
+    typedef std::tuple<JPS_StageId, const MSLane*, Position, double> WaypointDesc;
 
     void polygonChanged(const SUMOPolygon* const poly, const bool added, const bool removed) override;
 
@@ -241,6 +241,7 @@ private:
 
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId>, ComparatorNumericalIdLess> myCrossingWaits;
     std::map<JPS_StageId, std::pair<const MSLane*, bool> > myCrossings;
+    std::map<const MSLane*, JPS_StageId, ComparatorNumericalIdLess> myLaneCenters;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
@@ -254,7 +255,7 @@ private:
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    JPS_StageId addWaypoint(const std::string& agentID, const WaypointDesc& waypoint);
+    JPS_StageId addWaypoint(const std::string& agentID, WaypointDesc& waypoint, const MSStageMoving* const finalStage);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
