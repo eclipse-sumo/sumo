@@ -76,6 +76,9 @@ MELSegment::MELSegment(const std::string& id,
 
 SUMOTime
 MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) const {
+    // @note: it might seem sensible to check veh->getQueuingTimeLoss() here but
+    // then the queing state would be "sticky" because queuingTimeLoss is computed with tau_ff 
+    // and every leader car that uses tau_jf applies queing timeLoss to it's followers
     SUMOTime headway = tauWithVehLength(veh->getWaitingTime() > 0 ? myTau_jf : myTau_ff,
             veh->getVehicleType().getLengthWithGap(),
             veh->getVehicleType().getCarFollowModel().getHeadwayTime());
