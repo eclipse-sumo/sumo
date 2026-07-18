@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 16:06:23 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on 2026-07-17T14:20:52.084922+01:00 by Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -15,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <queue-output value="rawdump.xml"/>
     </output>
 
@@ -23,17 +29,25 @@ SPDX-License-Identifier: EPL-2.0
         <end value="100"/>
     </time>
 
+    <processing>
+        <no-internal-links value="false"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <queue-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/queue_file.xsd">
@@ -191,91 +205,149 @@ SPDX-License-Identifier: EPL-2.0
         <lanes/>
     </data>
     <data timestep="51.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="1.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="52.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="2.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="53.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="3.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="54.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="4.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="55.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="5.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="56.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="6.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="57.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="7.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="58.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="8.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="59.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="9.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="60.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="10.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="61.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="11.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="62.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="12.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="63.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="13.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="64.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="14.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="65.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="15.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="66.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="16.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="67.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="17.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="68.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="18.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="69.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="19.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="70.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="20.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="71.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="21.00" queueing_length="5.00" queueing_count="1"/>
+        </lanes>
     </data>
     <data timestep="72.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="22.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="73.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="23.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="74.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="24.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="75.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="25.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="76.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="26.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="77.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="27.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="78.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="28.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="79.00">
-        <lanes/>
+        <lanes>
+            <lane id="4/1to3/1_0" segment="3" queueing_time="29.00" queueing_length="25.00" queueing_count="5"/>
+        </lanes>
     </data>
     <data timestep="80.00">
         <lanes/>

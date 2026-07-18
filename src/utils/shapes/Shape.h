@@ -47,6 +47,7 @@ public:
     static const std::string DEFAULT_IMG_FILE;
     static const double DEFAULT_IMG_WIDTH;
     static const double DEFAULT_IMG_HEIGHT;
+    static const double DEFAULT_HEIGHT;
     static const std::string DEFAULT_NAME;
     static const Parameterised::Map DEFAULT_PARAMETERS;
     /// @}
@@ -149,20 +150,20 @@ public:
 
 private:
     /// @brief The type of the Shape
-    std::string myType;
+    std::string myType = DEFAULT_TYPE;
 
     /// @brief The color of the Shape
-    RGBColor myColor;
+    RGBColor myColor = RGBColor::BLACK;
 
     /// @brief The layer of the Shape
-    double myLayer;
+    double myLayer = DEFAULT_LAYER;
 
     /// @brief The angle of the Shape
-    double myNaviDegreeAngle;
+    double myNaviDegreeAngle = DEFAULT_ANGLE;
 
     /// @brief The img file (include path)
-    std::string myImgFile;
+    std::string myImgFile = DEFAULT_IMG_FILE;
 
     /// @brief shape name
-    std::string myName;
+    std::string myName = DEFAULT_NAME;
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-07T13:53:05.342536+01:00 by Eclipse SUMO sumo v1_27_1+0194-8d0b2b6a43c
+<!-- generated on 2026-07-17T14:11:08.464462+01:00 by Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -75,6 +75,10 @@
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
         <queue-output.period value="-1" type="TIME" help="Save vehicle queues with the given period"/>
+        <queue-output.aggregation value="-1" type="TIME" help="Write aggregated queue length statistics (max, median, 95th percentile) per edge for the given period (e.g. a traffic light cycle) instead of per-timestep data"/>
+        <queue-output.speed-threshold value="1.38889" type="FLOAT" help="Maximum speed for counting a vehicle as queued"/>
+        <queue-output.percentile value="95" type="FLOAT" help="The percentile (0-100) to report as percentileQueueLength in aggregated queue output"/>
+        <queue-output.skip-empty value="false" type="BOOL" help="Do not save data for time steps / intervals which have no queue (required for column based output formats)"/>
         <vtk-output value="" type="FILE" help="Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"/>
         <amitran-output value="" type="FILE" help="Save the vehicle trajectories in the Amitran format"/>
         <summary-output value="" synonymes="summary" type="FILE" help="Save aggregated vehicle departure info into FILE"/>
@@ -512,6 +516,7 @@
 
     <mesoscopic>
         <mesosim value="false" type="BOOL" help="Enables mesoscopic simulation"/>
+        <meso-ltm value="false" type="BOOL" help="Enables the meso-LTM (LIFT) model"/>
         <meso-edgelength value="98" type="FLOAT" help="Length of an edge segment in mesoscopic simulation"/>
         <meso-tauff value="1.13" type="TIME" help="Factor for calculating the net free-free headway time"/>
         <meso-taufj value="1.13" type="TIME" help="Factor for calculating the net free-jam headway time"/>

@@ -55,7 +55,7 @@ schemata = {
 csvs = []
 for f, s in schemata.items():
     if format == "parquet":
-        with open(f.replace(".parquet", ".csv"), "w") as csv:
+        with sumolib.openz(f.replace(".parquet", ".csv"), "w") as csv:
             df = pd.read_parquet(f, dtype_backend="numpy_nullable")
             # print(df)
             df.to_csv(csv, index=False, lineterminator='\n', float_format='%.2f', sep=";")

@@ -62,7 +62,7 @@ For additional attributes see the table below.
 | writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
 | edges  | string list                  | restrict output to the given list of edge ids        |
 | edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations))        |
-| aggregate  | bool    | Whether the traffic statistic of all edges shall be aggregated into a single value (edge id will be `AGGREGATED`).  |
+| aggregate  | bool or "taz"    | Whether the traffic statistic of edges shall be aggregated. If set to "true" the data for all edges (potentially a subset configured with `edges` or `edgesFiles`) will be aggregated into a single value and the output edge id will be `AGGREGATED`). If set to "taz" then the statistics for all edges in a loaded TAZ will be aggregated into a single value and the output edge id will be the TAZ-id. This feature is also compatible with option **--junction-taz** to obtain aggregated output for every junction. |
 
 
 ### Simplified definition

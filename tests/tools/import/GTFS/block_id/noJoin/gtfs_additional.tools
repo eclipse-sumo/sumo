@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-15 17:39:34.009743 by Eclipse SUMO gtfs2pt.py v1_27_1+0275-acf350395f8
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net2.net.xml"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="132.0" lane="-5148300_0" startPos="0.00" endPos="13.00" friendlyPos="true" name="Braunschweig Rathaus"/>
+    <busStop id="132.1" lane="37983000_0" startPos="31.86" endPos="44.86" friendlyPos="true" name="Braunschweig Packhof"/>
+    <busStop id="132.2" lane="30425275#0_0" startPos="31.86" endPos="44.86" friendlyPos="true" name="Braunschweig Hintern Brüdern"/>
+    <busStop id="132.3" lane="8108069_0" startPos="2.49" endPos="15.49" friendlyPos="true" name="Braunschweig Altstadtmarkt"/>
+    <busStop id="132.4" lane="-320399277#2_0" startPos="4.37" endPos="17.37" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="133.0" lane="320399277#0_0" startPos="18.58" endPos="31.58" friendlyPos="true" name="Braunschweig Güldenstraße"/>
+    <busStop id="133.4" lane="-198087353#0_0" startPos="0.00" endPos="7.39" friendlyPos="true" name="Braunschweig Rathaus"/>
+</additional>

@@ -526,11 +526,13 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      * @param[in] name polygon name
+     * @param[in] height polygon height
      * @param[in] parameters generic parameters
      */
     bool buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
                       const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const PositionVector& shape,
-                      const bool geo, const bool fill, const double lineWidth, const std::string& name, const Parameterised::Map& parameters);
+                      const bool geo, const bool fill, const double lineWidth, const std::string& name, const double height,
+                      const Parameterised::Map& parameters);
 
     /**@brief Builds a POI using the given values
      * @param[in] sumoBaseObject sumo base object used for build

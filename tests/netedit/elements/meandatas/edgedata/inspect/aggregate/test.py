@@ -35,7 +35,13 @@ netedit.changeMode("meanData")
 netedit.createMeanData()
 
 # modify meanData
-netedit.modifyBoolAttribute(netedit.attrs.edgeMeanData.inspect.aggregate)
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.aggregate, "true")
+
+# modify meanData
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.aggregate, "false")
+
+# modify meanData
+netedit.modifyAttribute(netedit.attrs.edgeMeanData.inspect.aggregate, "taz")
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

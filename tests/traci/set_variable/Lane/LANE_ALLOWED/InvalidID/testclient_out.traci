@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Sep  8 08:53:31 2024
+TraCITestClient output file. Date: Wed Jul 15 15:15:01 2026
 
 
 -> Command sent: <SimulationStep>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Sun Sep  8 08:53:31 2024
 -> Command sent: <GetVariable>:
   domID=163 varID=52 objID=2/1to2/0_0
 .. Command acknowledged (163), [description: ]
-  CommandID=179  VariableID=52  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [  ]
+  CommandID=179  VariableID=52  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [ "private", "emergency", "authority", "army", "vip", "pedestrian", "passenger", "hov", "taxi", "bus", "coach", "delivery", "truck", "trailer", "motorcycle", "moped", "bicycle", "evehicle", "tram", "rail_urban", "rail", "rail_electric", "rail_fast", "ship", "container", "cable_car", "subway", "aircraft", "wheelchair", "scooter", "drone", "custom1", "custom2" ]
 
 -> Command sent: <SetValue>:
   domID=195 varID=52 objID=xxx
@@ -16,7 +16,7 @@ TraCITestClient output file. Date: Sun Sep  8 08:53:31 2024
 -> Command sent: <GetVariable>:
   domID=163 varID=52 objID=2/1to2/0_0
 .. Command acknowledged (163), [description: ]
-  CommandID=179  VariableID=52  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [  ]
+  CommandID=179  VariableID=52  ObjectID=2/1to2/0_0 valueDataType=14 string list value: [ "private", "emergency", "authority", "army", "vip", "pedestrian", "passenger", "hov", "taxi", "bus", "coach", "delivery", "truck", "trailer", "motorcycle", "moped", "bicycle", "evehicle", "tram", "rail_urban", "rail", "rail_electric", "rail_fast", "ship", "container", "cable_car", "subway", "aircraft", "wheelchair", "scooter", "drone", "custom1", "custom2" ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

@@ -1584,8 +1584,9 @@ GNEAdditionalHandler::buildOverheadWireClamp(const CommonXMLStructure::SumoBaseO
 
 bool
 GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& type,
-                                   const RGBColor& color, double layer, double angle, const std::string& imgFile, const PositionVector& shape,
-                                   bool geo, bool fill, double lineWidth, const std::string& name, const Parameterised::Map& parameters) {
+                                   const RGBColor& color, const double layer, const double angle, const std::string& imgFile, const PositionVector& shape,
+                                   const bool geo, const bool fill, const double lineWidth, const std::string& name, const double height,
+                                   const Parameterised::Map& parameters) {
     // check conditions
     if (type == "jupedsim.walkable_area") {
         return buildJpsWalkableArea(sumoBaseObject, id, shape, geo, name, parameters);
@@ -1602,7 +1603,7 @@ GNEAdditionalHandler::buildPolygon(const CommonXMLStructure::SumoBaseObject* sum
             return false;
         } else {
             // create poly
-            GNEPoly* poly = new GNEPoly(id, myNet, myFileBucket, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, name, parameters);
+            GNEPoly* poly = new GNEPoly(id, myNet, myFileBucket, type, shape, geo, fill, lineWidth, color, layer, angle, imgFile, name, height, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
                 myNet->getUndoList()->begin(poly, TL("add polygon '") + id + "'");

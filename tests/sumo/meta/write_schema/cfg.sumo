@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-26T09:46:12.833417+01:00 by Eclipse SUMO sumo v1_27_1+0013-cda8a5b4168
+<!-- generated on 2026-07-17T14:11:08.420123+01:00 by Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -99,6 +99,10 @@
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output.period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.aggregation" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.speed-threshold" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.percentile" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.skip-empty" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
@@ -580,6 +584,7 @@
     <xsd:complexType name="sumomesoscopicTopicType">
         <xsd:all>
             <xsd:element name="mesosim" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-ltm" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-edgelength" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-tauff" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-taufj" type="timeOptionType" minOccurs="0"/>

@@ -205,6 +205,14 @@ MSFrame::fillOptions() {
     oc.addDescription("queue-output", "Output", TL("Save the vehicle queues at the junctions (experimental)"));
     oc.doRegister("queue-output.period", new Option_String("-1", "TIME"));
     oc.addDescription("queue-output.period", "Output", TL("Save vehicle queues with the given period"));
+    oc.doRegister("queue-output.aggregation", new Option_String("-1", "TIME"));
+    oc.addDescription("queue-output.aggregation", "Output", TL("Write aggregated queue length statistics (max, median, 95th percentile) per edge for the given period (e.g. a traffic light cycle) instead of per-timestep data"));
+    oc.doRegister("queue-output.speed-threshold", new Option_Float(5.0 / 3.6));
+    oc.addDescription("queue-output.speed-threshold", "Output", TL("Maximum speed for counting a vehicle as queued"));
+    oc.doRegister("queue-output.percentile", new Option_Float(95.));
+    oc.addDescription("queue-output.percentile", "Output", TL("The percentile (0-100) to report as percentileQueueLength in aggregated queue output"));
+    oc.doRegister("queue-output.skip-empty", new Option_Bool(false));
+    oc.addDescription("queue-output.skip-empty", "Output", TL("Do not save data for time steps / intervals which have no queue (required for column based output formats)"));
 
     oc.doRegister("vtk-output", new Option_FileName());
     oc.addDescription("vtk-output", "Output", TL("Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"));
@@ -763,6 +771,8 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Mesoscopic");
     oc.doRegister("mesosim", new Option_Bool(false));
     oc.addDescription("mesosim", "Mesoscopic", TL("Enables mesoscopic simulation"));
+    oc.doRegister("meso-ltm", new Option_Bool(false));
+    oc.addDescription("meso-ltm", "Mesoscopic", TL("Enables the meso-LTM (LIFT) model"));
     oc.doRegister("meso-edgelength", new Option_Float(98.0f));
     oc.addDescription("meso-edgelength", "Mesoscopic", TL("Length of an edge segment in mesoscopic simulation"));
     oc.doRegister("meso-tauff", new Option_String("1.13", "TIME"));
@@ -962,11 +972,14 @@ MSFrame::checkOptions() {
         }
         oc.setDefault("meso-junction-control", "true");
     }
+    if (oc.getBool("meso-ltm") && oc.isDefault("mesosim")) {
+        oc.setDefault("mesosim", "true");
+    }
     if (oc.getBool("mesosim")) {
         if (oc.isDefault("pedestrian.model")) {
             oc.setDefault("pedestrian.model", "nonInteracting");
         }
-        if (oc.isDefault("no-internal-links")) {
+        if (oc.isDefault("no-internal-links") && !oc.getBool("meso-ltm")) {
             oc.setDefault("no-internal-links", "true");
         }
     }

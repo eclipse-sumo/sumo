@@ -341,6 +341,12 @@ public:
     /// @brief release exclusive access to the simulation state
     void unlock();
 
+    /// @brief grant exclusive access to pending emits
+    void lockPendingEmits() const override;
+
+    /// @brief release exclusive access to pending emits
+    void unlockPendingEmits() const override;
+
     /** @brief Returns the pointer to the unique instance of GUINet (singleton).
      * @return Pointer to the unique GUINet-instance
      * @exception ProcessError If a network was not yet constructed
@@ -460,5 +466,9 @@ protected:
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable FXMutex myLock;
+
+    /// The mutex used to avoid concurrent updates of pending emits in
+    //MSInsertionControl (avoid the need to create GUIInsertionControl)
+    mutable FXMutex myPendingEmitsLock;
 
 };

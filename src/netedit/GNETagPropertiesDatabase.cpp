@@ -6438,18 +6438,18 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
 
     if (!calibratorFlow) {
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_TYPE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
-                GNEAttributeProperties::Edit::EDITMODE,
-                TL("The id of the vehicle type to use for this vehicle"),
-                DEFAULT_VTYPE_ID);
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::VTYPE,
+                                   GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the vehicle type to use for this vehicle"),
+                                   DEFAULT_VTYPE_ID);
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTEDGE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                TL("The index of the edge within route the vehicle starts at"));
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the vehicle starts at"));
         new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALEDGE,
-                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
-                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                TL("The index of the edge within route the vehicle ends at"));
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::UPDATEGEOMETRY | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The index of the edge within route the vehicle ends at"));
     }
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTLANE,
@@ -7730,11 +7730,12 @@ GNETagPropertiesDatabase::fillCommonMeanDataAttributes(GNETagProperties* tagProp
             TL("Restrict output to the given list of edges given in file"));
     edgesFile->setFilenameExtensions(SUMOXMLDefinitions::OutputFileExtensions.getStrings());
 
-    new GNEAttributeProperties(tagProperties, SUMO_ATTR_AGGREGATE,
-                               GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
-                               GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
-                               TL("Whether the traffic statistic of all edges shall be aggregated into a single value"),
-                               GNEAttributeCarrier::FALSE_STR);
+    auto aggregate = new GNEAttributeProperties(tagProperties, SUMO_ATTR_AGGREGATE,
+            GNEAttributeProperties::Property::DISCRETE | GNEAttributeProperties::Property::DEFAULTVALUE,
+            GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+            TL("Whether the traffic statistic of all edges shall be aggregated into a single value"),
+            "false");
+    aggregate->setDiscreteValues({"true", "false", "taz"});
 }
 
 

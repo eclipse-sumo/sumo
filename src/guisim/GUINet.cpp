@@ -604,6 +604,19 @@ GUINet::unlock() {
     myLock.unlock();
 }
 
+
+void
+GUINet::lockPendingEmits() const {
+    myPendingEmitsLock.lock();
+}
+
+
+void
+GUINet::unlockPendingEmits() const {
+    myPendingEmitsLock.unlock();
+}
+
+
 GUIMEVehicleControl*
 GUINet::getGUIMEVehicleControl() {
     return dynamic_cast<GUIMEVehicleControl*>(myVehicleControl);

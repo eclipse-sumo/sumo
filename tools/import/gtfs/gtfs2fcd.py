@@ -143,6 +143,7 @@ def joinBlocks(data):
     """For trips that have the same non-empty block_id:
        - sort trips by first depart
        - swap trip_id and block_id (old trip_id can be written as stop attribute tripId)
+       - concatenate route_ids to form a descriptive route id for the joined trips
        - renumber stop_sequence
     """
     blocks = []
@@ -158,6 +159,8 @@ def joinBlocks(data):
                 del block['trip_departure_time']
                 # swap columns so later code will treat the block like a single trip (but preserve the original trip_id)
                 block[['trip_id', 'block_id']] = block[['block_id', 'trip_id']].values
+                # concatenate route_ids if they differ within the block
+                block['route_id'] = "_".join(block['route_id'].unique())
         blocks.append(block)
     return pd.concat(blocks)
 

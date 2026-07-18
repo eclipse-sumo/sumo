@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-07-15 17:39:34.026775 by Eclipse SUMO gtfs2pt.py v1_27_1+0275-acf350395f8
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net2.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="132" edges="-198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28509534#0 28509534#1 28509707#0 307200571 409312582#1 30425275#0 291686198 210624811#0 210624811#2 210624811#3 210624811#4 409312549 409312557#0 8108069 -376915189 -8107411#2 -320399277#2">
+        <stop busStop="132.0" duration="10" until="0"/> <!-- Braunschweig Rathaus -->
+        <stop busStop="132.1" duration="10" until="60"/> <!-- Braunschweig Packhof -->
+        <stop busStop="132.2" duration="10" until="120"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132.3" duration="10" until="180"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132.4" duration="10" until="300"/> <!-- Braunschweig Güldenstraße -->
+    </route>
+    <route id="133" edges="320399277#0 8107411#0 89428515#0 8074359#0 409312560#1 409312560#2 8107417 5141050#0 5141050#1 478287482#0 210624811#0 210624811#2 210624811#3 210624811#4 409312549 409312557#0 8108069 -376915189 -8107411#2 376743573#0 376743573#4 376743573#5 376743572#0 31414016#0 5021498#0 5021499#0 30425275#0 291686198 -478287482#1 -5141050#1 -5141050#0 -478287472 217362171 308327285 8107414#1 8107414#2 376743572#0 31414016#0 31414016#3 150851273#0 150851273#1 379981942 32269752#1 5021505#0 288839942#0 54684974 13002096#0 54684973#0 33230516 315421255#0 -615184925 -198087353#0 -5148300 22978949#0 54684975#0 54684975#11 23386846#0 37983000 28381788 28106472#0 191875413#0 191875413#1 32269752#1 5021505#0 288839942#0 54684974 13002096#0 54684973#0 33230516 315421255#0 -615184925 -198087353#0">
+        <stop busStop="133.0" duration="10" until="0"/> <!-- Braunschweig Güldenstraße -->
+        <stop busStop="132.3" duration="10" until="560"/> <!-- Braunschweig Altstadtmarkt -->
+        <stop busStop="132.2" duration="10" until="620"/> <!-- Braunschweig Hintern Brüdern -->
+        <stop busStop="132.1" duration="10" until="680"/> <!-- Braunschweig Packhof -->
+        <stop busStop="133.4" duration="10" until="800"/> <!-- Braunschweig Rathaus -->
+    </route>
+    <vehicle id="132.0" route="132" type="bus" depart="18890" line="418">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+    <vehicle id="133.0" route="133" type="bus" depart="19390" line="418#1">
+        <param key="gtfs.route_name" value="418"/>
+        <param key="gtfs.trip_headsign" value="Westpark"/>
+    </vehicle>
+</routes>

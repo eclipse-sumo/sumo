@@ -70,7 +70,7 @@ public:
     };
 
 
-private:
+protected:
     class Queue {
     public:
         Queue(const SVCPermissions permissions) : myPermissions(permissions) {}
@@ -194,6 +194,9 @@ public:
      * @return the earliest time a vehicle may be added to this segment
      */
     SUMOTime hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int& qIdx, const bool init = false) const;
+
+    /// @brief update entry blockTime for all queues
+    virtual void updateEntryBlockTime(SUMOTime /*time*/) {}
 
     /** @brief Inserts (emits) vehicle into the segment
      *
@@ -346,7 +349,7 @@ public:
      * @param[in] time the leave time
      * @todo Isn't always time == veh->getEventTime?
      */
-    void send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason);
+    virtual void send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason);
 
     /** @brief Adds the vehicle to the segment, adapting its parameters
      *
@@ -499,7 +502,14 @@ public:
         return (SUMOTime)((double)myTau_ff * vehicleTau + lengthWithGap * myTau_length);
     }
 
-private:
+    /// @brief like getMinTauWithVehLength but using the jam-state dependent net time gap of the given queue (as in getMeanSpeed)
+    inline SUMOTime getTauWithVehLength(int qIdx, double lengthWithGap, double vehicleTau) const {
+        assert(qIdx >= 0 && qIdx < (int)myQueues.size());
+        const SUMOTime tau = myQueues[qIdx].getOccupancy() < myJamThreshold ? myTau_ff : myTau_jf;
+        return tauWithVehLength(tau, lengthWithGap, vehicleTau);
+    }
+
+protected:
     bool overtake();
 
     void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
@@ -531,7 +541,13 @@ private:
 
     SUMOTime getTauJJ(double nextQueueSize, double nextQueueCapacity, double nextJamThreshold) const;
 
-private:
+    /// @brief compute current headway depending on traffic state
+    virtual SUMOTime computeHeadway(Queue& q, const Queue& qNext, const MESegment* const next, const MEVehicle* veh) const;
+
+    /// @brief check jam-avoidance constraints during insertion
+    virtual bool hasSpaceForInsertion(const Queue& q, int qIdx, double newOccupancy, SUMOTime entryTime) const;
+
+protected:
     /// @brief The microsim edge this segment belongs to
     const MSEdge& myEdge;
 

@@ -1223,6 +1223,11 @@ TraCIAPI::PolygonScope::getLineWidth(const std::string& polygonID) const {
     return getDouble(libsumo::VAR_WIDTH, polygonID);
 }
 
+double
+TraCIAPI::PolygonScope::getHeight(const std::string& polygonID) const {
+    return getDouble(libsumo::VAR_HEIGHT, polygonID);
+}
+
 bool
 TraCIAPI::PolygonScope::getFilled(const std::string& polygonID) const {
     return getInt(libsumo::VAR_FILL, polygonID) != 0;
@@ -1249,6 +1254,15 @@ TraCIAPI::PolygonScope::setLineWidth(const std::string& polygonID, const double 
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(lineWidth);
     myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::VAR_WIDTH, polygonID, &content);
+    myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
+}
+
+void
+TraCIAPI::PolygonScope::setHeight(const std::string& polygonID, const double height) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(height);
+    myParent.createCommand(libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::VAR_HEIGHT, polygonID, &content);
     myParent.processSet(libsumo::CMD_SET_POLYGON_VARIABLE);
 }
 

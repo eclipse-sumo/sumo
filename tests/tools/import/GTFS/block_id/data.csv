@@ -1,0 +1,11 @@
+trip_id;block_id;route_id;route_short_name;route_type;stop_id;stop_name;stop_lat;stop_lon;stop_sequence;fare_zone;fare_token;start_char;trip_headsign;arrival_time;departure_time
+132;4709;147;418;3;120010034202;Braunschweig Rathaus;52.26519;10.525524;0.0;;;;Westpark;18900;18900
+132;4709;147;418;3;120010032201;Braunschweig Packhof;52.26541;10.521949;1.0;;;;Westpark;18960;18960
+132;4709;147;418;3;120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;2.0;;;;Westpark;19020;19020
+132;4709;147;418;3;120010001502;Braunschweig Altstadtmarkt;52.262974;10.517664;3.0;;;;Westpark;19080;19080
+132;4709;147;418;3;120010016102;Braunschweig Güldenstraße;52.262584;10.513801;4.0;;;;Westpark;19200;19200
+133;4709;148;418;3;120010016102;Braunschweig Güldenstraße;52.262584;10.513801;0.0;;;;Westpark;19400;19400
+133;4709;148;418;3;120010001502;Braunschweig Altstadtmarkt;52.262974;10.517664;1.0;;;;Westpark;19960;19960
+133;4709;148;418;3;120010031501;Braunschweig Hintern Brüdern;52.265493;10.517161;2.0;;;;Westpark;20020;20020
+133;4709;148;418;3;120010032201;Braunschweig Packhof;52.26541;10.521949;3.0;;;;Westpark;20080;20080
+133;4709;148;418;3;120010034202;Braunschweig Rathaus;52.26519;10.525524;4.0;;;;Westpark;20200;20200

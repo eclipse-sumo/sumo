@@ -714,6 +714,7 @@ TraCITestClient::testAPI() {
     libsumo::TraCIPositionVector shape = polygon.getShape("poly0");
     polygon.setLineWidth("poly0", 0.6);
     answerLog << "    getLineWidth: " << polygon.getLineWidth("poly0") << "\n";
+    answerLog << "    getHeight: " << polygon.getHeight("poly0") << "\n";
     answerLog << "    getShape: " << shape.getString() << "\n";
     answerLog << "    getColor: " << polygon.getColor("poly0").getString() << "\n";
     shape.value[0].x = 42;

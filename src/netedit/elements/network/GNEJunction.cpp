@@ -1640,7 +1640,11 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TLLAYOUT:
             return myNBNode->isTLControlled() && SUMOXMLDefinitions::TrafficLightLayouts.hasString(value);
         case SUMO_ATTR_TLID:
-            return myNBNode->isTLControlled() && (value != "");
+            if (SUMOXMLDefinitions::isValidNetID(value)) {
+                return myNBNode->isTLControlled();
+            } else {
+                return false;
+            }
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
         case SUMO_ATTR_RIGHT_OF_WAY:
