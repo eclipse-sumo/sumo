@@ -9,7 +9,7 @@ fmpy<0.3.23
 # visualization tests are very flaky so we need to pin this exactly
 matplotlib==3.6.3; sys.platform != 'darwin' or python_version < '3.12'
 # numpy 2 changed the dtype size so a lot of code is incompatible and we want to keep the ubuntu numpy
-numpy<2
+numpy<2; python_version < '3.13'
 ortools==9.10.4067; python_version >= '3.8' and python_version < '3.13'
 pandas<2.2.0; python_version < '3.13'
 pyparsing<3.3.0
