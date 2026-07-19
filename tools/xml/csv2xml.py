@@ -88,9 +88,13 @@ def write_xml(toptag, tag, options, printer=row2xml):
 
 
 def getAttrValue(row, tagStack, depth, tagName, attrName, used=None):
+    # Prefer the fully qualified column (ancestorPath_tag_attr).
     longKey = "_".join(tagStack[:depth] + [tagName]) + "_" + attrName
     if longKey in row:
         return row[longKey]
+    # Fall back to the unqualified short form (tag_attr).
+    # If this value was already "consumed" by another position
+    # in this row (see markUsed), treat it as absent here.
     shortKey = tagName + "_" + attrName
     if used is not None and shortKey in used:
         return ""
@@ -98,6 +102,10 @@ def getAttrValue(row, tagStack, depth, tagName, attrName, used=None):
 
 
 def markUsed(row, tagStack, depth, ele, used):
+    # Mark every attribute of ele that was only resolvable via the
+    # ambiguous short form (no qualified column present) as consumed, so
+    # the same value can't be attributed to another, structurally
+    # different position later in this row.
     for attr in ele.attributes:
         longKey = "_".join(tagStack[:depth] + [ele.name]) + "_" + attr.name
         if longKey not in row:
@@ -106,28 +114,44 @@ def markUsed(row, tagStack, depth, ele, used):
 
 def openElement(out, row, ele, tagStack, depth, used):
     if len(tagStack) > depth:
+        # Something else is currently open at this depth (or deeper); close
+        # it - and everything nested below it - before ele can be opened here.
         out.write(u"/>\n")
         del tagStack[-1]
         while len(tagStack) > depth:
             out.write(u"%s</%s>\n" % ((len(tagStack) - 1) * '    ', tagStack[-1]))
             del tagStack[-1]
     elif depth > 0:
+        # Nothing open at this depth, but the parent element's start tag is
+        # still unclosed (no ">" written yet) - close it before writing a child.
         out.write(u">\n")
+    # Collect only the attributes that actually have a value for this row;
+    # attribute values are looked up per-position via tagStack/depth so
+    # that qualified columns win over ambiguous short-form ones.
     attrs = ['%s="%s"' % (attr.name, getAttrValue(row, tagStack, depth, ele.name, attr.name))
              for attr in ele.attributes
              if getAttrValue(row, tagStack, depth, ele.name, attr.name) != ""]
     out.write(u'%s<%s %s' % ((depth * '    '), ele.name, ' '.join(attrs)))
+    # Record which short-form keys this element consumed, then push it onto
+    # the stack as the currently open element at this depth.
     markUsed(row, tagStack, depth, ele, used)
     tagStack.append(ele.name)
 
 
 def elementPresent(row, tagStack, depth, ele, used):
+    # True if at least one attribute of ele has a (non-empty, not already
+    # consumed) value in this row - i.e. whether ele should exist at all for this row.
     return any(getAttrValue(row, tagStack, depth, ele.name, attr.name, used) != "" for attr in ele.attributes)
 
 
 def checkChanges(out, old, new, currEle, tagStack, depth, used):
     for ele in currEle.children:
         if len(tagStack) > depth and tagStack[depth] == ele.name:
+            # ele is already open at this depth from the previous row.
+            # Determine whether any of its attribute values changed
+            # (requiring the element to be closed and reopened) and
+            # whether it's present at all in the new row (needed below to
+            # decide whether to recurse into its children).
             changed = False
             present = False
             for attr in ele.attributes:
@@ -140,10 +164,19 @@ def checkChanges(out, old, new, currEle, tagStack, depth, used):
             if changed:
                 openElement(out, new, ele, tagStack, depth, used)
             elif present:
+                # Element stays open unchanged; still needs its short-form
+                # keys marked as consumed, since openElement (which would
+                # normally do this) isn't called in this branch.
                 markUsed(new, tagStack, depth, ele, used)
             if present and ele.children:
                 checkChanges(out, old, new, ele, tagStack, depth + 1, used)
         elif ele.name not in tagStack[:depth]:
+            # ele is not currently open at this depth (and isn't one of
+            # its own ancestors, which would indicate a recursive schema).
+            # Evaluate presence once and reuse the result for both the
+            # open decision and the recursion decision, since openElement
+            # mutates `used` as a side effect and re-querying afterwards
+            # would give a different (wrong) answer.
             present = elementPresent(new, tagStack, depth, ele, used)
             if present:
                 openElement(out, new, ele, tagStack, depth, used)
@@ -182,8 +215,7 @@ def writeHierarchicalXml(struct, options):
                     row[field] = entry
                 used = set()
                 if first and not options.skip_root:
-                    if elementPresent(row, tagStack, 0, struct.root, used):
-                        openElement(outputf, row, struct.root, tagStack, 0, used)
+                    openElement(outputf, row, struct.root, tagStack, 0, used)
                     first = False
                 checkChanges(outputf, lastRow, row, struct.root, tagStack, 1, used)
                 lastRow = row
