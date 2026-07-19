@@ -22,5 +22,8 @@ taz
 # load csv with type edges
 plain_edges
 
+# load csv with type edges but no root element
+plain_edges_noroot
+
 # load csv without type or schema
 flat
