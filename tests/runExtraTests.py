@@ -55,7 +55,7 @@ def run(suffix, args, guiTests=False, chrouter=True, apps=None, force_gui=False,
     if force_gui:
         env["SUMO_BINARY"] = env["GUISIM_BINARY"]
     if not apps:
-        apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.meso,"
+        apps = ("sumo.extra,sumo.extra.gcf,sumo.extra.sf,sumo.extra.legacy,sumo.meso,"
                 "sumo.agg.ballistic,sumo.agg.idm,sumo.agg.sublanes,"
                 "sumo.astar,sumo.parallel,duarouter.astar,netconvert.gdal,polyconvert.gdal,"
                 "complex.meso,complex.libsumo,complex.libtraci,tools.extra")
@@ -85,4 +85,5 @@ if __name__ == "__main__":
                            help="run tests with the local binaries instead of using SUMO_HOME")
     optParser.add_argument("-a", "--apps", help="run the given apps")
     options, args = optParser.parse_known_args()
-    run(options.suffix, ["-" + a for a in args], options.gui, True, options.apps, options.force_gui, options.force_local)
+    run(options.suffix, ["-" + a for a in args], options.gui,
+        True, options.apps, options.force_gui, options.force_local)
