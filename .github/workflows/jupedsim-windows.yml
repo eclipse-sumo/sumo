@@ -96,6 +96,9 @@ jobs:
       if: matrix.build_config == 'Release'
       run: |
         python -m pip install -r sumo/tools/req_ci.txt texttest
+        cd jupedsim
+        python -m pip install -U --no-deps .
+        cd ..
         $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
         sumo\tests\runCiTests.bat
 
