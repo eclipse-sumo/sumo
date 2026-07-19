@@ -1,8 +1,15 @@
-# these requirements are used to make sure the tests run only with versions known to work on GitHub actions
-# the "normal" requirements are used in addition (see the last line)
+# These requirements are used to make sure the tests run only with versions known to work on GitHub actions,
+# the "normal" requirements are used in addition (see the last line).
+# Most of the "downgrades" here are necessary to avoid updating a package which has already been installed
+# using the ubuntu package manager on the reference platform.
+
+# jupedsim >= 1.3 needs it but we need to install recent jupedsim with --no-deps otherwise it will pull in numpy>=2
 deprecated~=1.2.18
 fmpy<0.3.23
+# visualization tests are very flaky so we need to pin this exactly
 matplotlib==3.6.3; sys.platform != 'darwin' or python_version < '3.12'
+# numpy 2 changed the dtype size so a lot of code is incompatible and we want to keep the ubuntu numpy
+numpy<2
 ortools==9.10.4067; python_version >= '3.8' and python_version < '3.13'
 pandas<2.2.0; python_version < '3.13'
 pyparsing<3.3.0
