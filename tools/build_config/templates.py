@@ -315,63 +315,27 @@ SOURCE_DEPS = [
 
 
 def buildTemplateToolHeader(templateHeaderFile):
-    print(
-        u"#pragma once\n"
-        "#include <string>\n"
-        "#include <vector>\n"
-        "\n"
-        "// @brief template tool\n"
-        "struct TemplateTool {\n"
-        "\n"
-        "    // @brief constructor\n"
-        "    TemplateTool(const std::string name_, const std::string pythonPath_,\n"
-        "        const std::string subfolder_, const std::string templateStr_) :\n"
-        "        name(name_),\n"
-        "        pythonPath(pythonPath_),\n"
-        "        subfolder(subfolder_),\n"
-        "        templateStr(templateStr_) {\n"
-        "    }\n"
-        "\n"
-        "    // @brief tool name\n"
-        "    const std::string name;\n"
-        "\n"
-        "    // @brief python path\n"
-        "    const std::string pythonPath;\n"
-        "\n"
-        "    // @brief subfolder path\n"
-        "    const std::string subfolder;\n"
-        "\n"
-        "    // @brief tool template\n"
-        "    const std::string templateStr;\n"
-        "};\n",
-        file=templateHeaderFile)
+    print(u"""#pragma once
+#include <string>
+#include <vector>
 
+struct TemplateTool {
 
-def formatBinTemplate(templateStr):
-    """
-    @brief parse binary of a bin template (sumo, netconvert, etc.)
-    """
-    # remove endlines in Windows
-    templateStr = templateStr.replace("\\r", '')
-    # replace " with \"
-    templateStr = templateStr.replace('"', '\\"')
-    # split lines
-    return templateStr.replace("\n", '"\n    "').replace('""', ') + std::string(')
+    TemplateTool(const std::string name_, const std::string pythonPath_,
+        const std::string subfolder_, const std::string templateStr_) :
+        name(name_),
+        pythonPath(pythonPath_),
+        subfolder(subfolder_),
+        templateStr(templateStr_) {
+    }
 
-
-def formatToolTemplate(templateStr):
-    """
-    @brief format python tool template
-    """
-    if templateStr == '' or templateStr[0] != "<":
-        return '""'
-    # replace all current directory values (src/netedit)
-    templateStr = re.sub("(?<=value)(.*)(?=netedit)", "", templateStr)
-    templateStr = templateStr.replace('netedit', '="')
-    # replace " with \"
-    templateStr = templateStr.replace('"', '\\"')
-    # add quotes and end lines
-    return templateStr.replace("<", '"<').replace("\n", '"\n')
+    const std::string name;
+    const std::string pythonPath;
+    const std::string subfolder;
+    const std::string templateStr;
+};
+""",
+          file=templateHeaderFile)
 
 
 def generateTemplate(app, appBin):
@@ -385,13 +349,12 @@ def generateTemplate(app, appBin):
     env["UBSAN_OPTIONS"] = "suppressions=%s/../../build_config/clang_ubsan_suppressions.txt" % dirname(__file__)
     # obtain template piping stdout using check_output
     try:
-        template = formatBinTemplate(subprocess.check_output(
-            [appBin, "--save-template", "stdout"], env=env, universal_newlines=True))
+        template = subprocess.check_output([appBin, "--save-template", "stdout"], env=env, universal_newlines=True)
     except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
     # join variable and formatted template
-    return u'const std::string %sTemplate = ("%s");\n' % (app, template)
+    return u'\n\nconst std::string %sTemplate = R"xml~(\n%s)xml~";' % (app, template)
 
 
 def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
@@ -399,16 +362,17 @@ def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
     for p, toolPath in zip(procs, toolPaths):
         toolName = os.path.basename(toolPath)[:-3]
         d = os.path.dirname(toolPath)
-        result += 'TemplateTool("%s", "tools/%s", "%s",\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
+        result += '\nTemplateTool("%s", "tools/%s", "%s", R"xml~(\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
         stdout, stderr = p.communicate()
-        if p.returncode:
+        if p.returncode or stdout == '' or stdout[0] != "<":
             failed.append(toolPath if testFailure else toolName)
             if verbose:
                 print("Cannot generate tool template for %s: '%s'." % (toolName, stderr), file=sys.stderr)
-            result += '""'
         else:
-            result += formatToolTemplate(stdout)
-        result += '),\n'
+            # replace all current directory values (src/netedit)
+            stdout = re.sub("(?<=value)(.*)(?=netedit)", "", stdout)
+            result += stdout.replace('netedit', '="')
+        result += ')xml~"),\n'
     return result
 
 
@@ -467,7 +431,7 @@ def main():
         with io.open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
             buildTemplateToolHeader(templateHeaderFile)
             is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
-            print(u"const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
+            print(u"const std::vector<TemplateTool> templateTools {", file=templateHeaderFile)
             print(generateToolTemplates(toolDir, TOOLS, is_debug), file=templateHeaderFile)
             print(u"};\n", file=templateHeaderFile)
             # generate sumo Template
