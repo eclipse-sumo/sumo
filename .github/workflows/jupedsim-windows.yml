@@ -68,11 +68,17 @@ jobs:
         key: ${{ matrix.build_config }}-${{ matrix.jps_version }}
         variant: sccache
 
-    - name: Building jupedsim
+    - name: Building jupedsim C API
       run: |
         cmake -B jupedsim-build-${{ matrix.build_config }} -DCMAKE_INSTALL_PREFIX=jupedsim-install-${{ matrix.build_config }} jupedsim
         cmake --build jupedsim-build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }}
         cmake --install jupedsim-build-${{ matrix.build_config }} --config ${{ matrix.build_config }}
+
+    - name: Building jupedsim Python module
+      run: |
+        cd jupedsim
+        python -m pip install -r requirements.txt
+        python -m pip install .
 
     - name: Uploading artifacts
       uses: actions/upload-artifact@v7

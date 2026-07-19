@@ -73,6 +73,7 @@ jobs:
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled
       run: |
         python -m pip install -r tools/req_ci.txt -r docs/web/requirements.txt texttest pipdeptree
+        python -m pip install -U --no-deps jupedsim
         pipdeptree
 
     - name: Building SUMO plain
