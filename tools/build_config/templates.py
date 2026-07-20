@@ -350,11 +350,12 @@ def generateTemplate(app, appBin):
     # obtain template piping stdout using check_output
     try:
         template = subprocess.check_output([appBin, "--save-template", "stdout"], env=env, universal_newlines=True)
+        template = template.replace('\n\n', ')xml~"\nR"xml~(\n')
     except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
     # join variable and formatted template
-    return u'\n\nconst std::string %sTemplate = R"xml~(\n%s)xml~";' % (app, template)
+    return u'\n\nconst std::string %sTemplate = R"xml~(%s)xml~";' % (app, template)
 
 
 def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
@@ -362,7 +363,7 @@ def _collectOutput(procs, toolPaths, failed, verbose, testFailure):
     for p, toolPath in zip(procs, toolPaths):
         toolName = os.path.basename(toolPath)[:-3]
         d = os.path.dirname(toolPath)
-        result += '\nTemplateTool("%s", "tools/%s", "%s", R"xml~(\n' % (toolName, toolPath, PATH_MAPPING.get(d, d))
+        result += '\nTemplateTool("%s", "tools/%s", "%s", R"xml~(' % (toolName, toolPath, PATH_MAPPING.get(d, d))
         stdout, stderr = p.communicate()
         if p.returncode or stdout == '' or stdout[0] != "<":
             failed.append(toolPath if testFailure else toolName)
