@@ -37,7 +37,7 @@ jobs:
 
     - name: Configuring Python
       # to avoid issues similar to https://github.com/saghul/pycares/issues/234
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: '3.12'
 
