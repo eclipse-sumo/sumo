@@ -1350,6 +1350,10 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         // write info
         WRITE_ERROR(failureMessage);
         setStatusBarText(failureMessage);
+        if (OptionsCont::getOptions().getBool("quit-on-fail")) {
+            closeAllWindows(true);
+            getApp()->exit(1);
+        }
     } else {
         // report success
         std::string successMessage;

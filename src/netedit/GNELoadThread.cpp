@@ -542,6 +542,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("gui-testing.setting-output", new Option_FileName());
     neteditOptions.addDescription("gui-testing.setting-output", "Visualisation", TL("Save gui settings in the given settings-output file"));
 
+    neteditOptions.doRegister("quit-on-fail", 'Q', new Option_Bool(false));
+    neteditOptions.addDescription("quit-on-fail", "Visualisation", TL("Quit the app if the initial net/config loading fails"));
+
     // TOPIC: Time
 
     // register the simulation settings (needed for GNERouteHandler)
