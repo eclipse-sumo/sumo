@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2026-06-23 14:58+0200\n"
+"POT-Creation-Date: 2026-07-21 20:52+0200\n"
 "PO-Revision-Date: 2026-07-10 03:43+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -22,32 +22,32 @@ msgstr ""
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
 #: src/gui/GUIApplicationWindow.cpp:2317
-#: src/netedit/GNEApplicationWindow.cpp:580
-#: src/netedit/GNEApplicationWindow.cpp:584
-#: src/netedit/GNEApplicationWindow.cpp:588
-#: src/netedit/GNEApplicationWindow.cpp:1712
-#: src/netedit/GNEApplicationWindow.cpp:1713
-#: src/netedit/GNEApplicationWindow.cpp:1714
+#: src/netedit/GNEApplicationWindow.cpp:582
+#: src/netedit/GNEApplicationWindow.cpp:586
+#: src/netedit/GNEApplicationWindow.cpp:590
+#: src/netedit/GNEApplicationWindow.cpp:1718
+#: src/netedit/GNEApplicationWindow.cpp:1719
+#: src/netedit/GNEApplicationWindow.cpp:1720
 msgid "N/A"
 msgstr "T/A"
 
 #: src/gui/GUIApplicationWindow.cpp:312
-#: src/netedit/GNEApplicationWindow.cpp:581
+#: src/netedit/GNEApplicationWindow.cpp:583
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr "Koordinat asli (sebelum transformasi koordinat di netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:315
-#: src/netedit/GNEApplicationWindow.cpp:585
+#: src/netedit/GNEApplicationWindow.cpp:587
 msgid "Network coordinate"
 msgstr "Koordinat jaringan"
 
 #: src/gui/GUIApplicationWindow.cpp:343
-#: src/netedit/GNEApplicationWindow.cpp:608
+#: src/netedit/GNEApplicationWindow.cpp:610
 msgid "Ready."
 msgstr "Siap."
 
 #: src/gui/GUIApplicationWindow.cpp:466
-#: src/netedit/GNEApplicationWindow.cpp:1447
+#: src/netedit/GNEApplicationWindow.cpp:1453
 msgid "&File"
 msgstr "File"
 
@@ -93,7 +93,7 @@ msgid "Load edge related data for visualization."
 msgstr "Muat data terkait tepi untuk visualisasi."
 
 #: src/gui/GUIApplicationWindow.cpp:484
-#: src/netedit/GNEApplicationWindow.cpp:1079
+#: src/netedit/GNEApplicationWindow.cpp:1081
 msgid "&Reload"
 msgstr "Muat Ulang"
 
@@ -127,17 +127,17 @@ msgid "Close the simulation."
 msgstr "Tutup simulasi."
 
 #: src/gui/GUIApplicationWindow.cpp:502
-#: src/netedit/GNEApplicationWindow.cpp:1467
+#: src/netedit/GNEApplicationWindow.cpp:1473
 msgid "&Quit"
 msgstr "Keluar"
 
 #: src/gui/GUIApplicationWindow.cpp:502
-#: src/netedit/GNEApplicationWindow.cpp:1467
+#: src/netedit/GNEApplicationWindow.cpp:1473
 msgid "Quit the Application."
 msgstr "Keluar dari Aplikasi."
 
 #: src/gui/GUIApplicationWindow.cpp:511
-#: src/netedit/GNEApplicationWindow.cpp:1482
+#: src/netedit/GNEApplicationWindow.cpp:1488
 msgid "&Edit"
 msgstr "Edit"
 
@@ -188,22 +188,22 @@ msgid "Opens a dialog for editing breakpoints."
 msgstr "Membuka dialog untuk mengedit titik henti."
 
 #: src/gui/GUIApplicationWindow.cpp:528
-#: src/netedit/GNEApplicationWindowHelper.cpp:1304
+#: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Edit Visualisation"
 msgstr "Edit Visualisasi"
 
 #: src/gui/GUIApplicationWindow.cpp:528
-#: src/netedit/GNEApplicationWindowHelper.cpp:1304
+#: src/netedit/GNEApplicationWindowHelper.cpp:1315
 msgid "Opens a dialog for editing visualization settings."
 msgstr "Membuka dialog untuk mengedit pengaturan visualisasi."
 
 #: src/gui/GUIApplicationWindow.cpp:531
-#: src/netedit/GNEApplicationWindowHelper.cpp:1307
+#: src/netedit/GNEApplicationWindowHelper.cpp:1318
 msgid "Edit Viewport"
 msgstr "Edit Viewport"
 
 #: src/gui/GUIApplicationWindow.cpp:531
-#: src/netedit/GNEApplicationWindowHelper.cpp:1307
+#: src/netedit/GNEApplicationWindowHelper.cpp:1318
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr "Membuka dialog untuk mengedit area tampilan, zoom, dan rotasi."
 
@@ -265,51 +265,51 @@ msgid "Toggle full screen mode on/off."
 msgstr "Aktifkan/nonaktifkan mode layar penuh."
 
 #: src/gui/GUIApplicationWindow.cpp:559
-#: src/netedit/GNEApplicationWindow.cpp:1518
+#: src/netedit/GNEApplicationWindow.cpp:1524
 msgid "&Locate"
 msgstr "Cari"
 
 #: src/gui/GUIApplicationWindow.cpp:561
-#: src/netedit/GNEApplicationWindowHelper.cpp:1350
-#: src/netedit/GNEApplicationWindowHelper.cpp:2015
+#: src/netedit/GNEApplicationWindowHelper.cpp:1361
+#: src/netedit/GNEApplicationWindowHelper.cpp:2026
 msgid "&Junctions"
 msgstr "Persimpangan"
 
 #: src/gui/GUIApplicationWindow.cpp:561
-#: src/netedit/GNEApplicationWindowHelper.cpp:2015
+#: src/netedit/GNEApplicationWindowHelper.cpp:2026
 msgid "Open a dialog for locating a Junction."
 msgstr "Buka dialog untuk menemukan Persimpangan."
 
 #: src/gui/GUIApplicationWindow.cpp:564
-#: src/netedit/GNEApplicationWindowHelper.cpp:1355
-#: src/netedit/GNEApplicationWindowHelper.cpp:2018
+#: src/netedit/GNEApplicationWindowHelper.cpp:1366
+#: src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "&Edges"
 msgstr "Tepi"
 
 #: src/gui/GUIApplicationWindow.cpp:564
-#: src/netedit/GNEApplicationWindowHelper.cpp:2018
+#: src/netedit/GNEApplicationWindowHelper.cpp:2029
 msgid "Open a dialog for locating an Edge."
 msgstr "Buka dialog untuk menemukan Tepi."
 
 #: src/gui/GUIApplicationWindow.cpp:567
-#: src/netedit/GNEApplicationWindowHelper.cpp:1420
-#: src/netedit/GNEApplicationWindowHelper.cpp:2024
+#: src/netedit/GNEApplicationWindowHelper.cpp:1431
+#: src/netedit/GNEApplicationWindowHelper.cpp:2035
 msgid "&Vehicles"
 msgstr "Kendaraan"
 
 #: src/gui/GUIApplicationWindow.cpp:567
-#: src/netedit/GNEApplicationWindowHelper.cpp:2024
+#: src/netedit/GNEApplicationWindowHelper.cpp:2035
 msgid "Open a dialog for locating a Vehicle."
 msgstr "Buka dialog untuk menemukan Kendaraan."
 
 #: src/gui/GUIApplicationWindow.cpp:570
-#: src/netedit/GNEApplicationWindowHelper.cpp:1425
-#: src/netedit/GNEApplicationWindowHelper.cpp:2027
+#: src/netedit/GNEApplicationWindowHelper.cpp:1436
+#: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "&Persons"
 msgstr "Orang"
 
 #: src/gui/GUIApplicationWindow.cpp:570
-#: src/netedit/GNEApplicationWindowHelper.cpp:2027
+#: src/netedit/GNEApplicationWindowHelper.cpp:2038
 msgid "Open a dialog for locating a Person."
 msgstr "Buka dialog untuk menemukan Orang."
 
@@ -318,48 +318,48 @@ msgid "&Container"
 msgstr "Kontainer"
 
 #: src/gui/GUIApplicationWindow.cpp:573
-#: src/netedit/GNEApplicationWindowHelper.cpp:2030
+#: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "Open a dialog for locating a Container."
 msgstr "Buka dialog untuk menemukan Kontainer."
 
 #: src/gui/GUIApplicationWindow.cpp:576
-#: src/netedit/GNEApplicationWindowHelper.cpp:2039
+#: src/netedit/GNEApplicationWindowHelper.cpp:2050
 msgid "&TLS"
 msgstr "TLS"
 
 #: src/gui/GUIApplicationWindow.cpp:576
-#: src/netedit/GNEApplicationWindowHelper.cpp:2039
+#: src/netedit/GNEApplicationWindowHelper.cpp:2050
 msgid "Open a dialog for locating a Traffic Light."
 msgstr "Buka dialog untuk menemukan Lampu Lalu Lintas."
 
 #: src/gui/GUIApplicationWindow.cpp:579
 #: src/netedit/GNEApplicationWindowHelper.cpp:637
-#: src/netedit/GNEApplicationWindowHelper.cpp:2042
+#: src/netedit/GNEApplicationWindowHelper.cpp:2053
 msgid "&Additional"
 msgstr "Tambahan"
 
 #: src/gui/GUIApplicationWindow.cpp:579
-#: src/netedit/GNEApplicationWindowHelper.cpp:2042
+#: src/netedit/GNEApplicationWindowHelper.cpp:2053
 msgid "Open a dialog for locating an Additional Structure."
 msgstr "Buka dialog untuk menemukan Struktur Tambahan."
 
 #: src/gui/GUIApplicationWindow.cpp:582
-#: src/netedit/GNEApplicationWindowHelper.cpp:2045
+#: src/netedit/GNEApplicationWindowHelper.cpp:2056
 msgid "P&oI"
 msgstr "PoI"
 
 #: src/gui/GUIApplicationWindow.cpp:582
-#: src/netedit/GNEApplicationWindowHelper.cpp:2045
+#: src/netedit/GNEApplicationWindowHelper.cpp:2056
 msgid "Open a dialog for locating a Point of Interest."
 msgstr "Buka dialog untuk menemukan Titik Kepentingan."
 
 #: src/gui/GUIApplicationWindow.cpp:585
-#: src/netedit/GNEApplicationWindowHelper.cpp:2048
+#: src/netedit/GNEApplicationWindowHelper.cpp:2059
 msgid "Po&lygon"
 msgstr "Poligon"
 
 #: src/gui/GUIApplicationWindow.cpp:585
-#: src/netedit/GNEApplicationWindowHelper.cpp:2048
+#: src/netedit/GNEApplicationWindowHelper.cpp:2059
 msgid "Open a dialog for locating a Polygon."
 msgstr "Buka dialog untuk menemukan Poligon."
 
@@ -463,7 +463,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "Muat status simulasi untuk jaringan saat ini dari file."
 
 #: src/gui/GUIApplicationWindow.cpp:618
-#: src/netedit/GNEApplicationWindow.cpp:1589
+#: src/netedit/GNEApplicationWindow.cpp:1595
 msgid "&Window"
 msgstr "Jendela"
 
@@ -522,7 +522,7 @@ msgid "&Others..."
 msgstr "Lainnya..."
 
 #: src/gui/GUIApplicationWindow.cpp:647
-#: src/netedit/GNEApplicationWindowHelper.cpp:2142
+#: src/netedit/GNEApplicationWindowHelper.cpp:2153
 msgid "Show Status Line"
 msgstr "Tampilkan Baris Status"
 
@@ -531,12 +531,12 @@ msgid "Toggle the Status Bar on/off."
 msgstr "Aktifkan/nonaktifkan Bilah Status."
 
 #: src/gui/GUIApplicationWindow.cpp:648
-#: src/netedit/GNEApplicationWindowHelper.cpp:2145
+#: src/netedit/GNEApplicationWindowHelper.cpp:2156
 msgid "Show Message Window"
 msgstr "Tampilkan Jendela Pesan"
 
 #: src/gui/GUIApplicationWindow.cpp:648
-#: src/netedit/GNEApplicationWindowHelper.cpp:2145
+#: src/netedit/GNEApplicationWindowHelper.cpp:2156
 msgid "Toggle the Message Window on/off."
 msgstr "Aktifkan/nonaktifkan Jendela Pesan."
 
@@ -557,7 +557,7 @@ msgid "Toggle the Simulation Delay Entry on/off."
 msgstr "Aktifkan/nonaktifkan Entri Penundaan Simulasi."
 
 #: src/gui/GUIApplicationWindow.cpp:655
-#: src/netedit/GNEApplicationWindowHelper.cpp:2149
+#: src/netedit/GNEApplicationWindowHelper.cpp:2160
 msgid "Clear Message Window"
 msgstr "Hapus Jendela Pesan"
 
@@ -566,7 +566,7 @@ msgid "Clear the message window."
 msgstr "Hapus jendela pesan."
 
 #: src/gui/GUIApplicationWindow.cpp:662
-#: src/netedit/GNEApplicationWindow.cpp:1595
+#: src/netedit/GNEApplicationWindow.cpp:1601
 msgid "&Help"
 msgstr "Bantuan"
 
@@ -575,7 +575,7 @@ msgid "&Online Documentation"
 msgstr "Dokumentasi Online"
 
 #: src/gui/GUIApplicationWindow.cpp:664
-#: src/netedit/GNEApplicationWindowHelper.cpp:2165
+#: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Open Online documentation."
 msgstr "Buka dokumentasi Online."
 
@@ -584,7 +584,7 @@ msgid "&Changelog"
 msgstr "Catatan Perubahan"
 
 #: src/gui/GUIApplicationWindow.cpp:667
-#: src/netedit/GNEApplicationWindowHelper.cpp:2168
+#: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "Open Changelog."
 msgstr "Buka Catatan Perubahan."
 
@@ -593,7 +593,7 @@ msgid "&Hotkeys"
 msgstr "Tombol Pintas"
 
 #: src/gui/GUIApplicationWindow.cpp:669
-#: src/netedit/GNEApplicationWindowHelper.cpp:2170
+#: src/netedit/GNEApplicationWindowHelper.cpp:2181
 msgid "Open Hotkeys."
 msgstr "Buka Tombol Pintas."
 
@@ -602,7 +602,7 @@ msgid "&Tutorial"
 msgstr "Tutorial"
 
 #: src/gui/GUIApplicationWindow.cpp:671
-#: src/netedit/GNEApplicationWindowHelper.cpp:2172
+#: src/netedit/GNEApplicationWindowHelper.cpp:2183
 msgid "Open Tutorial."
 msgstr "Buka Tutorial."
 
@@ -780,7 +780,7 @@ msgid "Quick-Reloading."
 msgstr "Memuat Ulang Cepat."
 
 #: src/gui/GUIApplicationWindow.cpp:1194
-#: src/netedit/GNEApplicationWindow.cpp:1152
+#: src/netedit/GNEApplicationWindow.cpp:1154
 msgid "Already loading!"
 msgstr "Sedang memuat!"
 
@@ -964,7 +964,7 @@ msgstr "kondisi"
 msgid "Overflow in time computation occurred."
 msgstr "Terjadi overflow dalam komputasi waktu."
 
-#: src/gui/GUIViewTraffic.cpp:111 src/netedit/GNEViewNet.cpp:389
+#: src/gui/GUIViewTraffic.cpp:111 src/netedit/GNEViewNet.cpp:390
 msgid "Locate Junctions"
 msgstr "Cari Persimpangan"
 
@@ -972,7 +972,7 @@ msgstr "Cari Persimpangan"
 msgid "Locate a junction within the network."
 msgstr "Cari persimpangan dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:116 src/netedit/GNEViewNet.cpp:393
+#: src/gui/GUIViewTraffic.cpp:116 src/netedit/GNEViewNet.cpp:394
 msgid "Locate Edges"
 msgstr "Cari Tepi"
 
@@ -980,7 +980,7 @@ msgstr "Cari Tepi"
 msgid "Locate an edge within the network."
 msgstr "Cari tepi dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:121 src/netedit/GNEViewNet.cpp:401
+#: src/gui/GUIViewTraffic.cpp:121 src/netedit/GNEViewNet.cpp:402
 msgid "Locate Vehicles"
 msgstr "Cari Kendaraan"
 
@@ -988,7 +988,7 @@ msgstr "Cari Kendaraan"
 msgid "Locate a vehicle within the network."
 msgstr "Cari kendaraan dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:126 src/netedit/GNEViewNet.cpp:405
+#: src/gui/GUIViewTraffic.cpp:126 src/netedit/GNEViewNet.cpp:406
 msgid "Locate Persons"
 msgstr "Cari Orang"
 
@@ -1004,7 +1004,7 @@ msgstr "Cari Kontainer"
 msgid "Locate a container within the network."
 msgstr "Cari kontainer dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:136 src/netedit/GNEViewNet.cpp:428
+#: src/gui/GUIViewTraffic.cpp:136 src/netedit/GNEViewNet.cpp:429
 msgid "Locate TLS"
 msgstr "Cari TLS"
 
@@ -1012,7 +1012,7 @@ msgstr "Cari TLS"
 msgid "Locate a tls within the network."
 msgstr "Cari tls dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:141 src/netedit/GNEViewNet.cpp:432
+#: src/gui/GUIViewTraffic.cpp:141 src/netedit/GNEViewNet.cpp:433
 msgid "Locate Additional"
 msgstr "Cari Tambahan"
 
@@ -1020,7 +1020,7 @@ msgstr "Cari Tambahan"
 msgid "Locate an additional structure within the network."
 msgstr "Cari struktur tambahan dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:146 src/netedit/GNEViewNet.cpp:436
+#: src/gui/GUIViewTraffic.cpp:146 src/netedit/GNEViewNet.cpp:437
 msgid "Locate PoI"
 msgstr "Cari PoI"
 
@@ -1028,7 +1028,7 @@ msgstr "Cari PoI"
 msgid "Locate a PoI within the network."
 msgstr "Cari PoI dalam jaringan."
 
-#: src/gui/GUIViewTraffic.cpp:151 src/netedit/GNEViewNet.cpp:440
+#: src/gui/GUIViewTraffic.cpp:151 src/netedit/GNEViewNet.cpp:441
 msgid "Locate Polygon"
 msgstr "Cari Poligon"
 
@@ -1774,7 +1774,7 @@ msgstr "Tutup tepi"
 msgid "Add rerouter"
 msgstr "Tambah perute ulang"
 
-#: src/guisim/GUILane.cpp:1049 src/netedit/elements/network/GNELane.cpp:2196
+#: src/guisim/GUILane.cpp:1049 src/netedit/elements/network/GNELane.cpp:2197
 msgid "Select reachable"
 msgstr "Pilih yang dapat dijangkau"
 
@@ -1999,18 +1999,18 @@ msgstr "total panjang lajur [km]"
 msgid "network version "
 msgstr "versi jaringan "
 
-#: src/guisim/GUINet.cpp:676
+#: src/guisim/GUINet.cpp:689
 msgid "Trying to set data value for the unknown edge '%'."
 msgstr "Mencoba menetapkan nilai data untuk tepi '%' yang tidak dikenal."
 
-#: src/guisim/GUINet.cpp:700
+#: src/guisim/GUINet.cpp:713
 msgid ""
 "Trying to set data value for the unknown relation from edge '%' to edge '%'."
 msgstr ""
 "Mencoba menetapkan nilai data untuk relasi yang tidak dikenal dari tepi '%' "
 "ke tepi '%'."
 
-#: src/guisim/GUINet.cpp:718
+#: src/guisim/GUINet.cpp:731
 msgid "No data defined after simulation begin time."
 msgstr "Tidak ada data yang ditentukan setelah waktu mulai simulasi."
 
@@ -2470,116 +2470,116 @@ msgstr "Versi GUI dari simulasi lalu lintas mikroskopis dan multi-modal SUMO."
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Sistem ini tidak memiliki dukungan OpenGL. Keluar."
 
-#: src/netedit/GNEApplicationWindow.cpp:535
+#: src/netedit/GNEApplicationWindow.cpp:537
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Simulasi lalu lintas multi-modal mikroskopik."
 
-#: src/netedit/GNEApplicationWindow.cpp:548
+#: src/netedit/GNEApplicationWindow.cpp:550
 msgid "Close dialog automatically"
 msgstr "Tutup dialog secara otomatis"
 
-#: src/netedit/GNEApplicationWindow.cpp:576
+#: src/netedit/GNEApplicationWindow.cpp:578
 msgid "Recomputing"
 msgstr "Menghitung ulang"
 
-#: src/netedit/GNEApplicationWindow.cpp:577
+#: src/netedit/GNEApplicationWindow.cpp:579
 msgid "Recomputing is needed"
 msgstr "Penghitungan ulang diperlukan"
 
-#: src/netedit/GNEApplicationWindow.cpp:589
+#: src/netedit/GNEApplicationWindow.cpp:591
 msgid "Test coordinate"
 msgstr "Uji koordinat"
 
-#: src/netedit/GNEApplicationWindow.cpp:755
+#: src/netedit/GNEApplicationWindow.cpp:757
 msgid "netconvert config file"
 msgstr "file konfigurasi netconvert"
 
-#: src/netedit/GNEApplicationWindow.cpp:784
-#: src/netedit/GNEApplicationWindow.cpp:3449
+#: src/netedit/GNEApplicationWindow.cpp:786
+#: src/netedit/GNEApplicationWindow.cpp:3464
 #: src/netedit/dialogs/tools/GNENetgenerateDialog.cpp:115
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:375
 msgid "network file"
 msgstr "file jaringan"
 
-#: src/netedit/GNEApplicationWindow.cpp:801
+#: src/netedit/GNEApplicationWindow.cpp:803
 msgid "OpenStreetMap file"
 msgstr "file OpenStreetMap"
 
-#: src/netedit/GNEApplicationWindow.cpp:818
-#: src/netedit/GNEApplicationWindow.cpp:3627
+#: src/netedit/GNEApplicationWindow.cpp:820
+#: src/netedit/GNEApplicationWindow.cpp:3642
 msgid "netedit config file"
 msgstr "file konfigurasi netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:848
-#: src/netedit/GNEApplicationWindow.cpp:3756
+#: src/netedit/GNEApplicationWindow.cpp:850
+#: src/netedit/GNEApplicationWindow.cpp:3784
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:551
 msgid "sumo config file"
 msgstr "file konfigurasi sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:951
-#: src/netedit/GNEApplicationWindow.cpp:3877
+#: src/netedit/GNEApplicationWindow.cpp:953
+#: src/netedit/GNEApplicationWindow.cpp:3921
 msgid "Traffic Light definitions file"
 msgstr "file definisi Lampu Lalu Lintas"
 
-#: src/netedit/GNEApplicationWindow.cpp:989
-#: src/netedit/GNEApplicationWindow.cpp:3901
+#: src/netedit/GNEApplicationWindow.cpp:991
+#: src/netedit/GNEApplicationWindow.cpp:3945
 msgid "EdgeTypes file"
 msgstr "file EdgeTypes"
 
-#: src/netedit/GNEApplicationWindow.cpp:1051
+#: src/netedit/GNEApplicationWindow.cpp:1053
 msgid "Reloading netedit config file '%'"
 msgstr "Memuat ulang file konfigurasi netedit '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1056
+#: src/netedit/GNEApplicationWindow.cpp:1058
 msgid "Reloading sumo config file '%'"
 msgstr "Memuat ulang file konfigurasi sumo '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1061
-#: src/netedit/GNEApplicationWindow.cpp:1123
+#: src/netedit/GNEApplicationWindow.cpp:1063
+#: src/netedit/GNEApplicationWindow.cpp:1125
 msgid "Reloading network file '%'"
 msgstr "Memuat ulang file jaringan '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:1076
+#: src/netedit/GNEApplicationWindow.cpp:1078
 msgid "&Reload Netedit config"
 msgstr "Muat Ulang konfigurasi Netedit"
 
-#: src/netedit/GNEApplicationWindow.cpp:1077
+#: src/netedit/GNEApplicationWindow.cpp:1079
 msgid "&Reload Sumo config"
 msgstr "Muat Ulang konfigurasi Sumo"
 
-#: src/netedit/GNEApplicationWindow.cpp:1078
+#: src/netedit/GNEApplicationWindow.cpp:1080
 msgid "&Reload Network"
 msgstr "Muat Ulang Jaringan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1321
+#: src/netedit/GNEApplicationWindow.cpp:1323
 msgid "Loading of netedit config '%' failed"
 msgstr "Pemuatan konfigurasi netedit '%' gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:1324
+#: src/netedit/GNEApplicationWindow.cpp:1326
 msgid "Loading of sumo config '%' failed"
 msgstr "Pemuatan konfigurasi sumo '%' gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:1327
+#: src/netedit/GNEApplicationWindow.cpp:1329
 msgid "Loading of netconvert config '%' failed"
 msgstr "Pemuatan konfigurasi netconvert '%' gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:1330
+#: src/netedit/GNEApplicationWindow.cpp:1332
 msgid "Loading of network '%' failed"
 msgstr "Pemuatan jaringan '%' gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:1333
+#: src/netedit/GNEApplicationWindow.cpp:1335
 msgid "Loading of OSM Network '%' failed"
 msgstr "Pemuatan Jaringan OSM '%' gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:1336
+#: src/netedit/GNEApplicationWindow.cpp:1338
 msgid "Invalid Options. Nothing loaded"
 msgstr "Opsi tidak valid. Tidak ada yang dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1339
+#: src/netedit/GNEApplicationWindow.cpp:1341
 msgid "Could not build projection. Nothing loaded"
 msgstr "Tidak dapat membangun proyeksi. Tidak ada yang dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1342
+#: src/netedit/GNEApplicationWindow.cpp:1344
 msgid ""
 "Invalid extension for config file. Only .netecfg, .sumocfg or .netccfg are "
 "allowed"
@@ -2587,7 +2587,7 @@ msgstr ""
 "Ekstensi file konfigurasi tidak valid. Hanya .netecfg, .sumocfg, "
 "atau .netccfg yang diizinkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1345
+#: src/netedit/GNEApplicationWindow.cpp:1347
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with --new option"
@@ -2595,595 +2595,595 @@ msgstr ""
 "Opsi jaringan masukan tidak valid. Muat dengan konfigurasi sumo/netedit/"
 "netconvert atau dengan opsi --new"
 
-#: src/netedit/GNEApplicationWindow.cpp:1356
+#: src/netedit/GNEApplicationWindow.cpp:1362
 msgid "Netedit config '%' loaded"
 msgstr "Konfigurasi netedit '%' dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1359
+#: src/netedit/GNEApplicationWindow.cpp:1365
 msgid "Sumo config '%' loaded"
 msgstr "Konfigurasi sumo '%' dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1362
+#: src/netedit/GNEApplicationWindow.cpp:1368
 msgid "Netconvert config '%' loaded"
 msgstr "Konfigurasi netconvert '%' dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1365
+#: src/netedit/GNEApplicationWindow.cpp:1371
 msgid "Network '%' loaded"
 msgstr "Jaringan '%' dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1368
+#: src/netedit/GNEApplicationWindow.cpp:1374
 msgid "OSM Network '%' loaded"
 msgstr "Jaringan OSM '%' dimuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1371
+#: src/netedit/GNEApplicationWindow.cpp:1377
 msgid "Network '%' loaded through console"
 msgstr "Jaringan '%' dimuat melalui konsol"
 
-#: src/netedit/GNEApplicationWindow.cpp:1374
+#: src/netedit/GNEApplicationWindow.cpp:1380
 msgid "New network successfully created"
 msgstr "Jaringan baru berhasil dibuat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1471
+#: src/netedit/GNEApplicationWindow.cpp:1477
 msgid "&Modes"
 msgstr "Mode"
 
-#: src/netedit/GNEApplicationWindow.cpp:1507
+#: src/netedit/GNEApplicationWindow.cpp:1513
 msgid "L&ock"
 msgstr "Kunci"
 
-#: src/netedit/GNEApplicationWindow.cpp:1514
+#: src/netedit/GNEApplicationWindow.cpp:1520
 msgid "&Processing"
 msgstr "Pemrosesan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1541
+#: src/netedit/GNEApplicationWindow.cpp:1547
 msgid "&Tools"
 msgstr "Alat"
 
-#: src/netedit/GNEApplicationWindow.cpp:1543
+#: src/netedit/GNEApplicationWindow.cpp:1549
 msgid "Assign"
 msgstr "Tetapkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1544
+#: src/netedit/GNEApplicationWindow.cpp:1550
 #: src/netedit/GNETagPropertiesDatabase.cpp:427
 #: src/netedit/GNETagPropertiesDatabase.cpp:429
 msgid "Detectors"
 msgstr "Detektor"
 
-#: src/netedit/GNEApplicationWindow.cpp:1545
+#: src/netedit/GNEApplicationWindow.cpp:1551
 msgid "Districts"
 msgstr "Distrik"
 
-#: src/netedit/GNEApplicationWindow.cpp:1546
+#: src/netedit/GNEApplicationWindow.cpp:1552
 msgid "DRT"
 msgstr "DRT"
 
-#: src/netedit/GNEApplicationWindow.cpp:1548
+#: src/netedit/GNEApplicationWindow.cpp:1554
 msgid "CityBrain"
 msgstr "CityBrain"
 
-#: src/netedit/GNEApplicationWindow.cpp:1549
+#: src/netedit/GNEApplicationWindow.cpp:1555
 msgid "GTFS"
 msgstr "GTFS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1550
+#: src/netedit/GNEApplicationWindow.cpp:1556
 msgid "Vissim"
 msgstr "Vissim"
 
-#: src/netedit/GNEApplicationWindow.cpp:1551
+#: src/netedit/GNEApplicationWindow.cpp:1557
 msgid "Visum"
 msgstr "Visum"
 
-#: src/netedit/GNEApplicationWindow.cpp:1552
+#: src/netedit/GNEApplicationWindow.cpp:1558
 msgid "Import"
 msgstr "Impor"
 
-#: src/netedit/GNEApplicationWindow.cpp:1553
+#: src/netedit/GNEApplicationWindow.cpp:1559
 msgid "Net"
 msgstr "Jaringan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1554
+#: src/netedit/GNEApplicationWindow.cpp:1560
 msgid "Output"
 msgstr "Keluaran"
 
-#: src/netedit/GNEApplicationWindow.cpp:1555
+#: src/netedit/GNEApplicationWindow.cpp:1561
 #: src/netedit/GNEApplicationWindowHelper.cpp:706
 #: src/netedit/GNETagPropertiesDatabase.cpp:2127
 #: src/netedit/GNETagPropertiesDatabase.cpp:2603
 msgid "Route"
 msgstr "Rute"
 
-#: src/netedit/GNEApplicationWindow.cpp:1557
+#: src/netedit/GNEApplicationWindow.cpp:1563
 msgid "TLS"
 msgstr "TLS"
 
-#: src/netedit/GNEApplicationWindow.cpp:1558
+#: src/netedit/GNEApplicationWindow.cpp:1564
 msgid "Trigger"
 msgstr "Pemicu"
 
-#: src/netedit/GNEApplicationWindow.cpp:1559
+#: src/netedit/GNEApplicationWindow.cpp:1565
 msgid "Turn-defs"
 msgstr "Definisi-belokan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1560
+#: src/netedit/GNEApplicationWindow.cpp:1566
 msgid "Visualization"
 msgstr "Visualisasi"
 
-#: src/netedit/GNEApplicationWindow.cpp:1561
+#: src/netedit/GNEApplicationWindow.cpp:1567
 msgid "XML"
 msgstr "XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:1651
+#: src/netedit/GNEApplicationWindow.cpp:1657
 msgid "Network computed"
 msgstr "Jaringan dihitung"
 
-#: src/netedit/GNEApplicationWindow.cpp:1655
+#: src/netedit/GNEApplicationWindow.cpp:1661
 msgid "Press F5"
 msgstr "Tekan F5"
 
-#: src/netedit/GNEApplicationWindow.cpp:1656
+#: src/netedit/GNEApplicationWindow.cpp:1662
 msgid "Network requires recomputing"
 msgstr "Jaringan memerlukan penghitungan ulang"
 
-#: src/netedit/GNEApplicationWindow.cpp:1742
+#: src/netedit/GNEApplicationWindow.cpp:1748
 msgid "Loading console arguments."
 msgstr "Memuat argumen konsol."
 
-#: src/netedit/GNEApplicationWindow.cpp:1770
+#: src/netedit/GNEApplicationWindow.cpp:1776
 msgid "Creating new network."
 msgstr "Membuat jaringan baru."
 
-#: src/netedit/GNEApplicationWindow.cpp:1781
+#: src/netedit/GNEApplicationWindow.cpp:1787
 msgid "Trying to load an empty network."
 msgstr "Mencoba memuat jaringan kosong."
 
-#: src/netedit/GNEApplicationWindow.cpp:1800
+#: src/netedit/GNEApplicationWindow.cpp:1806
 msgid "Loading network file '%'."
 msgstr "Memuat file jaringan '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1812
+#: src/netedit/GNEApplicationWindow.cpp:1818
 msgid "Trying to load an empty configuration."
 msgstr "Mencoba memuat konfigurasi kosong."
 
-#: src/netedit/GNEApplicationWindow.cpp:1828
+#: src/netedit/GNEApplicationWindow.cpp:1834
 msgid "Loading configuration file '%'."
 msgstr "Memuat file konfigurasi '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1867
+#: src/netedit/GNEApplicationWindow.cpp:1873
 msgid "Loading OSM file '%'."
 msgstr "Memuat file OSM '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:1884
+#: src/netedit/GNEApplicationWindow.cpp:1890
 msgid "Recompute with volatile options"
 msgstr "Hitung ulang dengan opsi volatil"
 
-#: src/netedit/GNEApplicationWindow.cpp:1885
+#: src/netedit/GNEApplicationWindow.cpp:1891
 msgid "Changes produced in the net due a recomputing with"
 msgstr ""
 "Perubahan yang dihasilkan pada jaringan akibat penghitungan ulang dengan"
 
-#: src/netedit/GNEApplicationWindow.cpp:1886
+#: src/netedit/GNEApplicationWindow.cpp:1892
 msgid "volatile options cannot be undone. Continue?"
 msgstr "opsi volatil tidak dapat dibatalkan. Lanjutkan?"
 
-#: src/netedit/GNEApplicationWindow.cpp:2198
-#: src/netedit/GNEApplicationWindow.cpp:2256
+#: src/netedit/GNEApplicationWindow.cpp:2204
+#: src/netedit/GNEApplicationWindow.cpp:2262
 msgid "Running '%'."
 msgstr "Menjalankan '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:2219
+#: src/netedit/GNEApplicationWindow.cpp:2225
 msgid "Loading network '%' in SUMO-GUI."
 msgstr "Memuat jaringan '%' di SUMO-GUI."
 
-#: src/netedit/GNEApplicationWindow.cpp:2228
+#: src/netedit/GNEApplicationWindow.cpp:2234
 msgid "Loading sumo config '%' in SUMO-GUI."
 msgstr "Memuat konfigurasi sumo '%' di SUMO-GUI."
 
-#: src/netedit/GNEApplicationWindow.cpp:2651
-#: src/netedit/GNEApplicationWindowHelper.cpp:1284
+#: src/netedit/GNEApplicationWindow.cpp:2657
+#: src/netedit/GNEApplicationWindowHelper.cpp:1295
 #: src/netedit/GNEUndoList.cpp:475 src/netedit/GNEViewParent.cpp:109
 #: src/netedit/changes/GNEChangeGroup.cpp:94
 msgid "Undo"
 msgstr "Batalkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:2684
-#: src/netedit/GNEApplicationWindowHelper.cpp:1287
+#: src/netedit/GNEApplicationWindow.cpp:2690
+#: src/netedit/GNEApplicationWindowHelper.cpp:1298
 #: src/netedit/GNEUndoList.cpp:526 src/netedit/GNEViewParent.cpp:112
 #: src/netedit/changes/GNEChangeGroup.cpp:100
 msgid "Redo"
 msgstr "Ulangi"
 
-#: src/netedit/GNEApplicationWindow.cpp:2828
+#: src/netedit/GNEApplicationWindow.cpp:2834
 #: src/netedit/frames/GNEAttributesEditorType.cpp:410
 msgid "Unfront element"
 msgstr "Batalkan tampil depan elemen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2829
+#: src/netedit/GNEApplicationWindow.cpp:2835
 #: src/netedit/frames/GNEAttributesEditorType.cpp:411
 msgid "Unfront inspected elements"
 msgstr "Batalkan tampil depan elemen yang diinspeksi"
 
-#: src/netedit/GNEApplicationWindow.cpp:2831
-#: src/netedit/GNEApplicationWindowHelper.cpp:1316
+#: src/netedit/GNEApplicationWindow.cpp:2837
+#: src/netedit/GNEApplicationWindowHelper.cpp:1327
 #: src/netedit/frames/GNEAttributesEditorType.cpp:82
 #: src/netedit/frames/GNEAttributesEditorType.cpp:413
 msgid "Front element"
 msgstr "Tampilkan elemen di depan"
 
-#: src/netedit/GNEApplicationWindow.cpp:2832
-#: src/netedit/GNEApplicationWindow.cpp:2841
+#: src/netedit/GNEApplicationWindow.cpp:2838
+#: src/netedit/GNEApplicationWindow.cpp:2847
 #: src/netedit/frames/GNEAttributesEditorType.cpp:83
 #: src/netedit/frames/GNEAttributesEditorType.cpp:414
 msgid "Mark element to be drawn above everything else"
 msgstr "Tandai elemen untuk digambar di atas segalanya"
 
-#: src/netedit/GNEApplicationWindow.cpp:2836
+#: src/netedit/GNEApplicationWindow.cpp:2842
 msgid "Unfront all element"
 msgstr "Batalkan tampil depan semua elemen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2837
+#: src/netedit/GNEApplicationWindow.cpp:2843
 msgid "Unfront all elements"
 msgstr "Batalkan tampil depan semua elemen"
 
-#: src/netedit/GNEApplicationWindow.cpp:2840
+#: src/netedit/GNEApplicationWindow.cpp:2846
 msgid "Front element (only inspected elements)"
 msgstr "Tampilkan elemen di depan (hanya elemen yang diinspeksi)"
 
-#: src/netedit/GNEApplicationWindow.cpp:3378
+#: src/netedit/GNEApplicationWindow.cpp:3393
 msgid "Force save network"
 msgstr "Paksa simpan jaringan"
 
-#: src/netedit/GNEApplicationWindow.cpp:3428
+#: src/netedit/GNEApplicationWindow.cpp:3443
 msgid "Saving network failed"
 msgstr "Penyimpanan jaringan gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:3432
+#: src/netedit/GNEApplicationWindow.cpp:3447
 msgid "Network saved in '%'."
 msgstr "Jaringan disimpan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3438
+#: src/netedit/GNEApplicationWindow.cpp:3453
 msgid "Could not save network in '%'."
 msgstr "Tidak dapat menyimpan jaringan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3488
+#: src/netedit/GNEApplicationWindow.cpp:3503
 msgid "Plain XML saved with prefix '%'."
 msgstr "Plain XML disimpan dengan prefiks '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3491
+#: src/netedit/GNEApplicationWindow.cpp:3506
 msgid "Saving plain xml failed"
 msgstr "Penyimpanan plain xml gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:3505
+#: src/netedit/GNEApplicationWindow.cpp:3520
 msgid "plain XML file"
 msgstr "file plain XML"
 
-#: src/netedit/GNEApplicationWindow.cpp:3524
+#: src/netedit/GNEApplicationWindow.cpp:3539
 msgid "joined junctions file"
 msgstr "file persimpangan yang digabungkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:3535
+#: src/netedit/GNEApplicationWindow.cpp:3550
 msgid "Joined junctions saved to '%'."
 msgstr "Persimpangan yang digabungkan disimpan ke '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3538
+#: src/netedit/GNEApplicationWindow.cpp:3553
 msgid "Saving joined junctions failed"
 msgstr "Penyimpanan persimpangan yang digabungkan gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:3560
+#: src/netedit/GNEApplicationWindow.cpp:3575
 msgid "Saving of netedit configuration aborted (due network)."
 msgstr "Penyimpanan konfigurasi netedit dibatalkan (karena jaringan)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3564
+#: src/netedit/GNEApplicationWindow.cpp:3579
 msgid "Saving of netedit configuration aborted (due additional file)."
 msgstr "Penyimpanan konfigurasi netedit dibatalkan (karena file tambahan)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3568
+#: src/netedit/GNEApplicationWindow.cpp:3583
 msgid "Saving of netedit configuration aborted (due demand file)."
 msgstr "Penyimpanan konfigurasi netedit dibatalkan (karena file permintaan)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3572
+#: src/netedit/GNEApplicationWindow.cpp:3587
 msgid "Saving of netedit configuration aborted (due data file)."
 msgstr "Penyimpanan konfigurasi netedit dibatalkan (karena file data)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3576
+#: src/netedit/GNEApplicationWindow.cpp:3591
 msgid "Saving of netedit configuration aborted (due meanData file)."
 msgstr "Penyimpanan konfigurasi netedit dibatalkan (karena file meanData)."
 
-#: src/netedit/GNEApplicationWindow.cpp:3588
-#: src/netedit/GNEApplicationWindow.cpp:3732
+#: src/netedit/GNEApplicationWindow.cpp:3603
+#: src/netedit/GNEApplicationWindow.cpp:3760
 msgid "Netedit configuration saved in '%'."
 msgstr "Konfigurasi netedit disimpan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3606
-#: src/netedit/GNEApplicationWindow.cpp:3719
+#: src/netedit/GNEApplicationWindow.cpp:3621
+#: src/netedit/GNEApplicationWindow.cpp:3747
 msgid "SUMO configuration saved in '%'."
 msgstr "Konfigurasi SUMO disimpan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3616
+#: src/netedit/GNEApplicationWindow.cpp:3631
 msgid "Could not save netedit configuration in '%'."
 msgstr "Tidak dapat menyimpan konfigurasi netedit di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3688
-#: src/netedit/GNEApplicationWindow.cpp:3692
-#: src/netedit/GNEApplicationWindow.cpp:3696
-#: src/netedit/GNEApplicationWindow.cpp:3700
-#: src/netedit/GNEApplicationWindow.cpp:3704
+#: src/netedit/GNEApplicationWindow.cpp:3716
+#: src/netedit/GNEApplicationWindow.cpp:3720
+#: src/netedit/GNEApplicationWindow.cpp:3724
+#: src/netedit/GNEApplicationWindow.cpp:3728
+#: src/netedit/GNEApplicationWindow.cpp:3732
 msgid "Saving of SUMO configuration aborted"
 msgstr "Penyimpanan konfigurasi SUMO dibatalkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:3745
+#: src/netedit/GNEApplicationWindow.cpp:3773
 msgid "Could not save SUMO configuration in '%'."
 msgstr "Tidak dapat menyimpan konfigurasi SUMO di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3806
+#: src/netedit/GNEApplicationWindow.cpp:3850
 msgid "TLS Programs saved in '%'."
 msgstr "Program TLS disimpan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3809
+#: src/netedit/GNEApplicationWindow.cpp:3853
 msgid "Saving TLS Programs failed"
 msgstr "Penyimpanan Program TLS gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:3850
+#: src/netedit/GNEApplicationWindow.cpp:3894
 msgid "EdgeType saved in '%'."
 msgstr "EdgeType disimpan di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:3853
+#: src/netedit/GNEApplicationWindow.cpp:3897
 msgid "Saving edgeTypes failed"
 msgstr "Penyimpanan edgeTypes gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:3925
+#: src/netedit/GNEApplicationWindow.cpp:3969
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:419
 msgid "Additional elements file"
 msgstr "File elemen tambahan"
 
-#: src/netedit/GNEApplicationWindow.cpp:3941
+#: src/netedit/GNEApplicationWindow.cpp:3985
 msgid "load additionals from '%'"
 msgstr "muat tambahan dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:3945
+#: src/netedit/GNEApplicationWindow.cpp:3989
 msgid "Loading of additional file '%' failed."
 msgstr "Pemuatan file tambahan '%' gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:3948
+#: src/netedit/GNEApplicationWindow.cpp:3992
 msgid "Loading of additional file '%' successfully."
 msgstr "Pemuatan file tambahan '%' berhasil."
 
-#: src/netedit/GNEApplicationWindow.cpp:3973
+#: src/netedit/GNEApplicationWindow.cpp:4017
 msgid "reloading additionals"
 msgstr "memuat ulang tambahan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4012
+#: src/netedit/GNEApplicationWindow.cpp:4056
 msgid "Force save additional elements"
 msgstr "Paksa simpan elemen tambahan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4035
+#: src/netedit/GNEApplicationWindow.cpp:4079
 msgid "Additionals saved."
 msgstr "Tambahan disimpan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4038
+#: src/netedit/GNEApplicationWindow.cpp:4082
 msgid "Saving additional aborted."
 msgstr "Penyimpanan tambahan dibatalkan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4043
+#: src/netedit/GNEApplicationWindow.cpp:4087
 msgid "Saving additional elements failed"
 msgstr "Penyimpanan elemen tambahan gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:4053
+#: src/netedit/GNEApplicationWindow.cpp:4097
 msgid "Additional elements as"
 msgstr "Elemen tambahan sebagai"
 
-#: src/netedit/GNEApplicationWindow.cpp:4073
+#: src/netedit/GNEApplicationWindow.cpp:4117
 msgid "Additional elements in unified file"
 msgstr "Elemen tambahan dalam file terpadu"
 
-#: src/netedit/GNEApplicationWindow.cpp:4083
+#: src/netedit/GNEApplicationWindow.cpp:4127
 msgid "saving of unified additional elements in '%'"
 msgstr "penyimpanan elemen tambahan terpadu di '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4104
+#: src/netedit/GNEApplicationWindow.cpp:4148
 msgid "JuPedSim elements file"
 msgstr "File elemen JuPedSim"
 
-#: src/netedit/GNEApplicationWindow.cpp:4118
+#: src/netedit/GNEApplicationWindow.cpp:4162
 msgid "JuPedSim elements saved."
 msgstr "Elemen JuPedSim disimpan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4121
+#: src/netedit/GNEApplicationWindow.cpp:4165
 msgid "Saving JuPedSim elements aborted."
 msgstr "Penyimpanan elemen JuPedSim dibatalkan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4126
+#: src/netedit/GNEApplicationWindow.cpp:4170
 msgid "Saving JuPedSim elements failed"
 msgstr "Penyimpanan elemen JuPedSim gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:4136
+#: src/netedit/GNEApplicationWindow.cpp:4180
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:463
 msgid "Route elements file"
 msgstr "File elemen rute"
 
-#: src/netedit/GNEApplicationWindow.cpp:4152
+#: src/netedit/GNEApplicationWindow.cpp:4196
 msgid "loading demand elements from '%'"
 msgstr "memuat elemen permintaan dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4156
+#: src/netedit/GNEApplicationWindow.cpp:4200
 msgid "Loading of route file '%' failed."
 msgstr "Pemuatan file rute '%' gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:4159
+#: src/netedit/GNEApplicationWindow.cpp:4203
 msgid "Loading of route file '%' successfully."
 msgstr "Pemuatan file rute '%' berhasil."
 
-#: src/netedit/GNEApplicationWindow.cpp:4184
+#: src/netedit/GNEApplicationWindow.cpp:4228
 msgid "reloading demand elements"
 msgstr "memuat ulang elemen permintaan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4223
+#: src/netedit/GNEApplicationWindow.cpp:4267
 msgid "Force save demand elements"
 msgstr "Paksa simpan elemen permintaan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4244
+#: src/netedit/GNEApplicationWindow.cpp:4288
 msgid "Demand elements saved."
 msgstr "Elemen permintaan disimpan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4247
-#: src/netedit/GNEApplicationWindow.cpp:4429
+#: src/netedit/GNEApplicationWindow.cpp:4291
+#: src/netedit/GNEApplicationWindow.cpp:4473
 msgid "Saving demand elements aborted."
 msgstr "Penyimpanan elemen permintaan dibatalkan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4252
+#: src/netedit/GNEApplicationWindow.cpp:4296
 msgid "Saving demand elements failed"
 msgstr "Penyimpanan elemen permintaan gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:4262
+#: src/netedit/GNEApplicationWindow.cpp:4306
 msgid "Route elements"
 msgstr "Elemen rute"
 
-#: src/netedit/GNEApplicationWindow.cpp:4282
+#: src/netedit/GNEApplicationWindow.cpp:4326
 msgid "Route elements file in unified file"
 msgstr "File elemen rute dalam file terpadu"
 
-#: src/netedit/GNEApplicationWindow.cpp:4292
+#: src/netedit/GNEApplicationWindow.cpp:4336
 msgid "saving of unified demand elements in '%'."
 msgstr "penyimpanan elemen permintaan terpadu di '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4313
-#: src/netedit/GNEApplicationWindow.cpp:4444
+#: src/netedit/GNEApplicationWindow.cpp:4357
+#: src/netedit/GNEApplicationWindow.cpp:4488
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:507
 msgid "Data elements file"
 msgstr "File elemen data"
 
-#: src/netedit/GNEApplicationWindow.cpp:4331
+#: src/netedit/GNEApplicationWindow.cpp:4375
 msgid "loading data elements from '%'."
 msgstr "memuat elemen data dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4335
+#: src/netedit/GNEApplicationWindow.cpp:4379
 msgid "Loading of data file '%' failed."
 msgstr "Pemuatan file data '%' gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:4338
+#: src/netedit/GNEApplicationWindow.cpp:4382
 msgid "Loading of data file '%' successfully."
 msgstr "Pemuatan file data '%' berhasil."
 
-#: src/netedit/GNEApplicationWindow.cpp:4367
+#: src/netedit/GNEApplicationWindow.cpp:4411
 msgid "reloading data elements"
 msgstr "memuat ulang elemen data"
 
-#: src/netedit/GNEApplicationWindow.cpp:4408
+#: src/netedit/GNEApplicationWindow.cpp:4452
 msgid "Force save data elements"
 msgstr "Paksa simpan elemen data"
 
-#: src/netedit/GNEApplicationWindow.cpp:4426
+#: src/netedit/GNEApplicationWindow.cpp:4470
 msgid "Data elements saved."
 msgstr "Elemen data disimpan."
 
-#: src/netedit/GNEApplicationWindow.cpp:4434
+#: src/netedit/GNEApplicationWindow.cpp:4478
 msgid "Saving data elements failed"
 msgstr "Penyimpanan elemen data gagal"
 
-#: src/netedit/GNEApplicationWindow.cpp:4464
+#: src/netedit/GNEApplicationWindow.cpp:4508
 msgid "Data elements file in unified file"
 msgstr "File elemen data dalam file terpadu"
 
-#: src/netedit/GNEApplicationWindow.cpp:4474
+#: src/netedit/GNEApplicationWindow.cpp:4518
 msgid "saving of unified data elements in '%'"
 msgstr "penyimpanan elemen data terpadu di '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4493
+#: src/netedit/GNEApplicationWindow.cpp:4537
 msgid "MeanData elements file"
 msgstr "File elemen MeanData"
 
-#: src/netedit/GNEApplicationWindow.cpp:4509
+#: src/netedit/GNEApplicationWindow.cpp:4553
 msgid "load meanDatas from '%'"
 msgstr "muat meanDatas dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4513
+#: src/netedit/GNEApplicationWindow.cpp:4557
 msgid "Loading of meandata file '%' failed."
 msgstr "Pemuatan file meandata '%' gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:4516
+#: src/netedit/GNEApplicationWindow.cpp:4560
 msgid "Loading of meandata file '%' successfully."
 msgstr "Pemuatan file meandata '%' berhasil."
 
-#: src/netedit/GNEApplicationWindow.cpp:4541
+#: src/netedit/GNEApplicationWindow.cpp:4585
 msgid "reloading meanDatas"
 msgstr "memuat ulang meanDatas"
 
-#: src/netedit/GNEApplicationWindow.cpp:4580
+#: src/netedit/GNEApplicationWindow.cpp:4624
 msgid "Force save meandata elements"
 msgstr "Paksa simpan elemen meandata"
 
-#: src/netedit/GNEApplicationWindow.cpp:4600
+#: src/netedit/GNEApplicationWindow.cpp:4644
 msgid "MeanDatas elements saved"
 msgstr "Elemen MeanDatas disimpan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4603
+#: src/netedit/GNEApplicationWindow.cpp:4647
 msgid "Saving MeanData elements aborted"
 msgstr "Penyimpanan elemen MeanData dibatalkan"
 
-#: src/netedit/GNEApplicationWindow.cpp:4608
+#: src/netedit/GNEApplicationWindow.cpp:4652
 msgid "Saving demand elements failed!"
 msgstr "Penyimpanan elemen permintaan gagal!"
 
-#: src/netedit/GNEApplicationWindow.cpp:4618
+#: src/netedit/GNEApplicationWindow.cpp:4662
 msgid "MeanData elements"
 msgstr "Elemen MeanData"
 
-#: src/netedit/GNEApplicationWindow.cpp:4638
+#: src/netedit/GNEApplicationWindow.cpp:4682
 msgid "MeanData elements file in unified file"
 msgstr "File elemen MeanData dalam file terpadu"
 
-#: src/netedit/GNEApplicationWindow.cpp:4648
+#: src/netedit/GNEApplicationWindow.cpp:4692
 msgid "saving of unified mean data elements in '%'"
 msgstr "penyimpanan elemen mean data terpadu di '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4887
+#: src/netedit/GNEApplicationWindow.cpp:4931
 msgid "% additional elements from '%'"
 msgstr "% elemen tambahan dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4894
+#: src/netedit/GNEApplicationWindow.cpp:4938
 msgid "% additionals from '%'."
 msgstr "% tambahan dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4905
-#: src/netedit/GNEApplicationWindow.cpp:4954
+#: src/netedit/GNEApplicationWindow.cpp:4949
+#: src/netedit/GNEApplicationWindow.cpp:4998
 msgid "% of '%' failed."
 msgstr "% dari '%' gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:4936
+#: src/netedit/GNEApplicationWindow.cpp:4980
 msgid "% demand elements from '%'"
 msgstr "% elemen permintaan dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4943
+#: src/netedit/GNEApplicationWindow.cpp:4987
 msgid "% demand elements from '%'."
 msgstr "% elemen permintaan dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:4984
+#: src/netedit/GNEApplicationWindow.cpp:5028
 msgid "% data elements from '%'"
 msgstr "% elemen data dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:4991
+#: src/netedit/GNEApplicationWindow.cpp:5035
 msgid "% data elements from '%'."
 msgstr "% elemen data dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5002
-#: src/netedit/GNEApplicationWindow.cpp:5050
+#: src/netedit/GNEApplicationWindow.cpp:5046
+#: src/netedit/GNEApplicationWindow.cpp:5094
 msgid "% of % failed."
 msgstr "% dari % gagal."
 
-#: src/netedit/GNEApplicationWindow.cpp:5032
+#: src/netedit/GNEApplicationWindow.cpp:5076
 msgid "% meanData elements from '%'"
 msgstr "% elemen meanData dari '%'"
 
-#: src/netedit/GNEApplicationWindow.cpp:5039
+#: src/netedit/GNEApplicationWindow.cpp:5083
 msgid "% meanData elements from '%'."
 msgstr "% elemen meanData dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5076
-#: src/netedit/GNEApplicationWindow.cpp:5077
+#: src/netedit/GNEApplicationWindow.cpp:5120
+#: src/netedit/GNEApplicationWindow.cpp:5121
 msgid "% TLS programs from '%'."
 msgstr "% program TLS dari '%'."
 
-#: src/netedit/GNEApplicationWindow.cpp:5110
-#: src/netedit/GNEApplicationWindow.cpp:5111
+#: src/netedit/GNEApplicationWindow.cpp:5154
+#: src/netedit/GNEApplicationWindow.cpp:5155
 msgid "% edge types from '%'."
 msgstr "% tipe tepi dari '%'."
 
@@ -3820,16 +3820,16 @@ msgid "Create MeanData edge/lanes."
 msgstr "Buat tepi/lajur MeanData."
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:861
-#: src/netedit/GNEApplicationWindowHelper.cpp:1046
-#: src/netedit/GNEViewNetHelper.cpp:2715 src/netedit/GNEViewNetHelper.cpp:2999
+#: src/netedit/GNEApplicationWindowHelper.cpp:1057
+#: src/netedit/GNEViewNetHelper.cpp:2715 src/netedit/GNEViewNetHelper.cpp:3020
 msgid "Show grid"
 msgstr "Tampilkan kisi"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:866
-#: src/netedit/GNEApplicationWindowHelper.cpp:1051
-#: src/netedit/GNEApplicationWindowHelper.cpp:1177
-#: src/netedit/GNEViewNetHelper.cpp:2722 src/netedit/GNEViewNetHelper.cpp:3006
-#: src/netedit/GNEViewNetHelper.cpp:3278
+#: src/netedit/GNEApplicationWindowHelper.cpp:1062
+#: src/netedit/GNEApplicationWindowHelper.cpp:1188
+#: src/netedit/GNEViewNetHelper.cpp:2722 src/netedit/GNEViewNetHelper.cpp:3027
+#: src/netedit/GNEViewNetHelper.cpp:3299
 msgid "Hide junction shape"
 msgstr "Sembunyikan bentuk persimpangan"
 
@@ -3838,8 +3838,8 @@ msgid "Draw vehicles spread in lane or in depart position"
 msgstr "Gambar kendaraan tersebar di lajur atau di posisi keberangkatan"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:876
-#: src/netedit/GNEApplicationWindowHelper.cpp:1192
-#: src/netedit/GNEViewNetHelper.cpp:2736 src/netedit/GNEViewNetHelper.cpp:3297
+#: src/netedit/GNEApplicationWindowHelper.cpp:1203
+#: src/netedit/GNEViewNetHelper.cpp:2736 src/netedit/GNEViewNetHelper.cpp:3318
 msgid "Show demand elements"
 msgstr "Tampilkan elemen permintaan"
 
@@ -3894,425 +3894,430 @@ msgstr "Terapkan gerakan mouse ke ketinggian"
 msgid "Show bubbles over junctions shapes"
 msgstr "Tampilkan gelembung di atas bentuk persimpangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1056
-#: src/netedit/GNEViewNetHelper.cpp:3013
+#: src/netedit/GNEApplicationWindowHelper.cpp:941
+#: src/netedit/GNEViewNetHelper.cpp:2825
+msgid "Show polygon symbols"
+msgstr ""
+
+#: src/netedit/GNEApplicationWindowHelper.cpp:1067
+#: src/netedit/GNEViewNetHelper.cpp:3034
 msgid "Draw vehicles spread/depart position"
 msgstr "Gambar posisi tersebar/keberangkatan kendaraan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1061
-#: src/netedit/GNEApplicationWindowHelper.cpp:1187
-#: src/netedit/GNEViewNetHelper.cpp:3020 src/netedit/GNEViewNetHelper.cpp:3291
+#: src/netedit/GNEApplicationWindowHelper.cpp:1072
+#: src/netedit/GNEApplicationWindowHelper.cpp:1198
+#: src/netedit/GNEViewNetHelper.cpp:3041 src/netedit/GNEViewNetHelper.cpp:3312
 msgid "Show shapes"
 msgstr "Tampilkan bentuk"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1066
-#: src/netedit/GNEViewNetHelper.cpp:3027
+#: src/netedit/GNEApplicationWindowHelper.cpp:1077
+#: src/netedit/GNEViewNetHelper.cpp:3048
 msgid "Show all trips"
 msgstr "Tampilkan semua perjalanan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1071
-#: src/netedit/GNEViewNetHelper.cpp:3034
+#: src/netedit/GNEApplicationWindowHelper.cpp:1082
+#: src/netedit/GNEViewNetHelper.cpp:3055
 msgid "Show all person plans"
 msgstr "Tampilkan semua rencana orang"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1076
-#: src/netedit/GNEViewNetHelper.cpp:3041
+#: src/netedit/GNEApplicationWindowHelper.cpp:1087
+#: src/netedit/GNEViewNetHelper.cpp:3062
 msgid "Lock selected person"
 msgstr "Kunci orang yang dipilih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1081
+#: src/netedit/GNEApplicationWindowHelper.cpp:1092
 msgid "Show all container plans"
 msgstr "Tampilkan semua rencana kontainer"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1086
-#: src/netedit/GNEViewNetHelper.cpp:3055
+#: src/netedit/GNEApplicationWindowHelper.cpp:1097
+#: src/netedit/GNEViewNetHelper.cpp:3076
 msgid "Lock selected container"
 msgstr "Kunci kontainer yang dipilih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1091
-#: src/netedit/GNEViewNetHelper.cpp:3062
+#: src/netedit/GNEApplicationWindowHelper.cpp:1102
+#: src/netedit/GNEViewNetHelper.cpp:3083
 msgid "Show non-inspected demand elements"
 msgstr "Tampilkan elemen permintaan yang tidak diinspeksi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1096
-#: src/netedit/GNEViewNetHelper.cpp:3069
+#: src/netedit/GNEApplicationWindowHelper.cpp:1107
+#: src/netedit/GNEViewNetHelper.cpp:3090
 msgid "Show number of overlapped routes"
 msgstr "Tampilkan jumlah rute yang tumpang tindih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1182
-#: src/netedit/GNEViewNetHelper.cpp:3285
+#: src/netedit/GNEApplicationWindowHelper.cpp:1193
+#: src/netedit/GNEViewNetHelper.cpp:3306
 msgid "Show additionals"
 msgstr "Tampilkan tambahan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1197
+#: src/netedit/GNEApplicationWindowHelper.cpp:1208
 msgid "Draw TAZRel from center"
 msgstr "Gambar TAZRel dari pusat"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1202
+#: src/netedit/GNEApplicationWindowHelper.cpp:1213
 msgid "Draw TAZ fill"
 msgstr "Gambar isian TAZ"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1207
+#: src/netedit/GNEApplicationWindowHelper.cpp:1218
 msgid "Only draw TAZRel from"
 msgstr "Hanya gambar TAZRel dari"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1212
+#: src/netedit/GNEApplicationWindowHelper.cpp:1223
 msgid "Only draw TAZRel to"
 msgstr "Hanya gambar TAZRel ke"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1284
+#: src/netedit/GNEApplicationWindowHelper.cpp:1295
 msgid "Undo the last change."
 msgstr "Batalkan perubahan terakhir."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1287
+#: src/netedit/GNEApplicationWindowHelper.cpp:1298
 msgid "Redo the last change."
 msgstr "Ulangi perubahan terakhir."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1290
+#: src/netedit/GNEApplicationWindowHelper.cpp:1301
 msgid "Show undo/redo history"
 msgstr "Tampilkan riwayat batalkan/ulangi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1290
+#: src/netedit/GNEApplicationWindowHelper.cpp:1301
 msgid "Open undo/redo history dialog."
 msgstr "Buka dialog riwayat batalkan/ulangi."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1294
+#: src/netedit/GNEApplicationWindowHelper.cpp:1305
 msgid "Allow undo-redo"
 msgstr "Izinkan batalkan-ulangi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1316
+#: src/netedit/GNEApplicationWindowHelper.cpp:1327
 msgid "Mark current inspected element as front element"
 msgstr "Tandai elemen yang diinspeksi saat ini sebagai elemen depan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1325
+#: src/netedit/GNEApplicationWindowHelper.cpp:1336
 msgid "Load additionals in sumo-gui"
 msgstr "Muat tambahan di sumo-gui"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1325
+#: src/netedit/GNEApplicationWindowHelper.cpp:1336
 msgid "Load additionals in sumo-gui."
 msgstr "Muat tambahan di sumo-gui."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1329
+#: src/netedit/GNEApplicationWindowHelper.cpp:1340
 msgid "Load demand in sumo-gui"
 msgstr "Muat permintaan di sumo-gui"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1329
+#: src/netedit/GNEApplicationWindowHelper.cpp:1340
 msgid "Load demand in sumo-gui."
 msgstr "Muat permintaan di sumo-gui."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1333
+#: src/netedit/GNEApplicationWindowHelper.cpp:1344
 msgid "Open in sumo-gui"
 msgstr "Buka di sumo-gui"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1333
+#: src/netedit/GNEApplicationWindowHelper.cpp:1344
 msgid "Opens the sumo-gui application with the current network."
 msgstr "Membuka aplikasi sumo-gui dengan jaringan saat ini."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1360
+#: src/netedit/GNEApplicationWindowHelper.cpp:1371
 msgid "&Lanes"
 msgstr "Lajur"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1365
+#: src/netedit/GNEApplicationWindowHelper.cpp:1376
 msgid "&Connections"
 msgstr "Koneksi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1370
+#: src/netedit/GNEApplicationWindowHelper.cpp:1381
 msgid "C&rossings"
 msgstr "Penyeberangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1375
+#: src/netedit/GNEApplicationWindowHelper.cpp:1386
 msgid "Walkin&gAreas"
 msgstr "Area Pejalan Kaki"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1380
+#: src/netedit/GNEApplicationWindowHelper.cpp:1391
 msgid "&Additionals"
 msgstr "Tambahan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1385
+#: src/netedit/GNEApplicationWindowHelper.cpp:1396
 msgid "&TAZs"
 msgstr "TAZ"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1390
+#: src/netedit/GNEApplicationWindowHelper.cpp:1401
 msgid "&Wires"
 msgstr "Kabel"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1395
+#: src/netedit/GNEApplicationWindowHelper.cpp:1406
 msgid "&Polygons"
 msgstr "Poligon"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1400
+#: src/netedit/GNEApplicationWindowHelper.cpp:1411
 msgid "P&OIs"
 msgstr "POI"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1405
+#: src/netedit/GNEApplicationWindowHelper.cpp:1416
 msgid "WalkableAreas"
 msgstr "Area yang Dapat Dilalui Pejalan Kaki"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1410
+#: src/netedit/GNEApplicationWindowHelper.cpp:1421
 msgid "Obstacles"
 msgstr "Rintangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1415
+#: src/netedit/GNEApplicationWindowHelper.cpp:1426
 msgid "&Routes"
 msgstr "Rute"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1430
+#: src/netedit/GNEApplicationWindowHelper.cpp:1441
 msgid "Person&Trips"
 msgstr "Perjalanan Orang"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1435
+#: src/netedit/GNEApplicationWindowHelper.cpp:1446
 msgid "&Walks"
 msgstr "Jalan Kaki"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1440
+#: src/netedit/GNEApplicationWindowHelper.cpp:1451
 msgid "Ri&des"
 msgstr "Tumpangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1445
-#: src/netedit/GNEApplicationWindowHelper.cpp:2030
+#: src/netedit/GNEApplicationWindowHelper.cpp:1456
+#: src/netedit/GNEApplicationWindowHelper.cpp:2041
 msgid "&Containers"
 msgstr "Kontainer"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1450
+#: src/netedit/GNEApplicationWindowHelper.cpp:1461
 msgid "Tra&nsports"
 msgstr "Transportasi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1455
+#: src/netedit/GNEApplicationWindowHelper.cpp:1466
 msgid "Trans&hips"
 msgstr "Pemindahan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1460
+#: src/netedit/GNEApplicationWindowHelper.cpp:1471
 msgid "Stop&s"
 msgstr "Halte"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1465
+#: src/netedit/GNEApplicationWindowHelper.cpp:1476
 msgid "&EdgeDatas"
 msgstr "Data Tepi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1470
+#: src/netedit/GNEApplicationWindowHelper.cpp:1481
 msgid "E&dgeRelDatas"
 msgstr "Data Relasi Tepi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1475
+#: src/netedit/GNEApplicationWindowHelper.cpp:1486
 msgid "Edge&TAZRel"
 msgstr "Relasi TAZ Tepi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1483
+#: src/netedit/GNEApplicationWindowHelper.cpp:1494
 msgid "Lock selected elements"
 msgstr "Kunci elemen yang dipilih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1483
+#: src/netedit/GNEApplicationWindowHelper.cpp:1494
 msgid "selected elements"
 msgstr "elemen yang dipilih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1490
+#: src/netedit/GNEApplicationWindowHelper.cpp:1501
 msgid "Lock all elements"
 msgstr "Kunci semua elemen"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1490
+#: src/netedit/GNEApplicationWindowHelper.cpp:1501
 msgid "all elements"
 msgstr "semua elemen"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1494
+#: src/netedit/GNEApplicationWindowHelper.cpp:1505
 msgid "Unlock all elements"
 msgstr "Buka kunci semua elemen"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1854
+#: src/netedit/GNEApplicationWindowHelper.cpp:1865
 msgid "Compute Junctions"
 msgstr "Hitung Persimpangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1854
+#: src/netedit/GNEApplicationWindowHelper.cpp:1865
 msgid "Compute junction shape and logic."
 msgstr "Hitung bentuk dan logika persimpangan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1857
+#: src/netedit/GNEApplicationWindowHelper.cpp:1868
 msgid "Compute Junctions with volatile options"
 msgstr "Hitung Persimpangan dengan opsi volatil"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1857
+#: src/netedit/GNEApplicationWindowHelper.cpp:1868
 msgid "Compute junction shape and logic using volatile junctions."
 msgstr ""
 "Hitung bentuk dan logika persimpangan menggunakan persimpangan volatil."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1860
+#: src/netedit/GNEApplicationWindowHelper.cpp:1871
 msgid "Clean Junctions"
 msgstr "Bersihkan Persimpangan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1860
+#: src/netedit/GNEApplicationWindowHelper.cpp:1871
 msgid "Remove solitary junctions."
 msgstr "Hapus persimpangan yang berdiri sendiri."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1863
+#: src/netedit/GNEApplicationWindowHelper.cpp:1874
 msgid "Join Selected Junctions"
 msgstr "Gabungkan Persimpangan yang Dipilih"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1863
+#: src/netedit/GNEApplicationWindowHelper.cpp:1874
 msgid "Join selected junctions into a single junction."
 msgstr "Gabungkan persimpangan yang dipilih menjadi satu persimpangan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1866
+#: src/netedit/GNEApplicationWindowHelper.cpp:1877
 msgid "Clean invalid crossings"
 msgstr "Bersihkan penyeberangan yang tidak valid"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1866
+#: src/netedit/GNEApplicationWindowHelper.cpp:1877
 msgid "Clear invalid crossings."
 msgstr "Hapus penyeberangan yang tidak valid."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1872
+#: src/netedit/GNEApplicationWindowHelper.cpp:1883
 msgid "Recompute Network in Data Mode"
 msgstr "Hitung Ulang Jaringan dalam Mode Data"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1878
+#: src/netedit/GNEApplicationWindowHelper.cpp:1889
 msgid "Compute demand"
 msgstr "Hitung permintaan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1878
+#: src/netedit/GNEApplicationWindowHelper.cpp:1889
 msgid "Computes demand elements."
 msgstr "Menghitung elemen permintaan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1881
+#: src/netedit/GNEApplicationWindowHelper.cpp:1892
 msgid "Clean routes"
 msgstr "Bersihkan rute"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1881
+#: src/netedit/GNEApplicationWindowHelper.cpp:1892
 msgid "Removes routes without vehicles."
 msgstr "Hapus rute tanpa kendaraan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1884
+#: src/netedit/GNEApplicationWindowHelper.cpp:1895
 msgid "Join routes"
 msgstr "Gabungkan rute"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1884
+#: src/netedit/GNEApplicationWindowHelper.cpp:1895
 msgid "Joins routes with the same edges."
 msgstr "Gabungkan rute dengan tepi yang sama."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1887
+#: src/netedit/GNEApplicationWindowHelper.cpp:1898
 msgid "Adjust person plans"
 msgstr "Sesuaikan rencana orang"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1887
+#: src/netedit/GNEApplicationWindowHelper.cpp:1898
 msgid "Adjust person plans (start/end positions, arrival positions, etc.)"
 msgstr "Sesuaikan rencana orang (posisi awal/akhir, posisi kedatangan, dll.)"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1890
+#: src/netedit/GNEApplicationWindowHelper.cpp:1901
 msgid "Clean invalid route elements"
 msgstr "Bersihkan elemen rute yang tidak valid"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1890
+#: src/netedit/GNEApplicationWindowHelper.cpp:1901
 msgid "Clear elements with an invalid path (routes, Trips, Flows...)."
 msgstr "Hapus elemen dengan jalur tidak valid (rute, Perjalanan, Aliran...)."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1896
+#: src/netedit/GNEApplicationWindowHelper.cpp:1907
 msgid "Sumo options"
 msgstr "Opsi sumo"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1896
+#: src/netedit/GNEApplicationWindowHelper.cpp:1907
 msgid "Configure sumo Options."
 msgstr "Konfigurasikan Opsi sumo."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1902
+#: src/netedit/GNEApplicationWindowHelper.cpp:1913
 #: src/netedit/dialogs/options/GNEOptionsEditor.cpp:97
 #: src/netedit/frames/common/GNEDeleteFrame.cpp:60
 msgid "Options"
 msgstr "Opsi"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:1902
+#: src/netedit/GNEApplicationWindowHelper.cpp:1913
 msgid "Configure netedit Options."
 msgstr "Konfigurasikan Opsi netedit."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2021
+#: src/netedit/GNEApplicationWindowHelper.cpp:2032
 msgid "&WalkingAreas"
 msgstr "Area Pejalan Kaki"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2021
+#: src/netedit/GNEApplicationWindowHelper.cpp:2032
 msgid "Open a dialog for locating a Walking Area."
 msgstr "Buka dialog untuk menemukan Area Pejalan Kaki."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2033
+#: src/netedit/GNEApplicationWindowHelper.cpp:2044
 msgid "&Route"
 msgstr "Rute"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2033
+#: src/netedit/GNEApplicationWindowHelper.cpp:2044
 msgid "Open a dialog for locating a Route."
 msgstr "Buka dialog untuk menemukan Rute."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2036
+#: src/netedit/GNEApplicationWindowHelper.cpp:2047
 msgid "&Stops"
 msgstr "Halte"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2036
+#: src/netedit/GNEApplicationWindowHelper.cpp:2047
 msgid "Open a dialog for locating a Stop."
 msgstr "Buka dialog untuk menemukan Halte."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2142
+#: src/netedit/GNEApplicationWindowHelper.cpp:2153
 msgid "Toggle this Status Bar on/off."
 msgstr "Aktifkan/nonaktifkan Bilah Status ini."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2149
+#: src/netedit/GNEApplicationWindowHelper.cpp:2160
 msgid "Clear the Message Window."
 msgstr "Hapus Jendela Pesan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2165
+#: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Online Documentation"
 msgstr "Dokumentasi Online"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2168
+#: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "Changelog"
 msgstr "Catatan Perubahan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2170
+#: src/netedit/GNEApplicationWindowHelper.cpp:2181
 msgid "Hotkeys"
 msgstr "Tombol Pintas"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2172
+#: src/netedit/GNEApplicationWindowHelper.cpp:2183
 msgid "Tutorial"
 msgstr "Tutorial"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2174
+#: src/netedit/GNEApplicationWindowHelper.cpp:2185
 msgid "Feedback"
 msgstr "Masukan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2174
+#: src/netedit/GNEApplicationWindowHelper.cpp:2185
 msgid "Open feedback channels."
 msgstr "Buka saluran masukan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2177
+#: src/netedit/GNEApplicationWindowHelper.cpp:2188
 msgid "About"
 msgstr "Tentang"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2177
+#: src/netedit/GNEApplicationWindowHelper.cpp:2188
 msgid "About netedit."
 msgstr "Tentang netedit."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2214
+#: src/netedit/GNEApplicationWindowHelper.cpp:2225
 msgid "&Network"
 msgstr "Jaringan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2214
+#: src/netedit/GNEApplicationWindowHelper.cpp:2225
 msgid "Select network mode."
 msgstr "Pilih mode jaringan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2217
+#: src/netedit/GNEApplicationWindowHelper.cpp:2228
 msgid "&Demand"
 msgstr "Permintaan"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2217
+#: src/netedit/GNEApplicationWindowHelper.cpp:2228
 msgid "Select demand mode."
 msgstr "Pilih mode permintaan."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2220
+#: src/netedit/GNEApplicationWindowHelper.cpp:2231
 msgid "&Data"
 msgstr "Data"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2220
+#: src/netedit/GNEApplicationWindowHelper.cpp:2231
 msgid "Select data mode."
 msgstr "Pilih mode data."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2257
+#: src/netedit/GNEApplicationWindowHelper.cpp:2268
 msgid "There are invalid options in sumo configuration '%'."
 msgstr "Ada opsi yang tidak valid dalam konfigurasi sumo '%'."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2260
+#: src/netedit/GNEApplicationWindowHelper.cpp:2271
 msgid ""
 "Could not load sumo configuration '%':\n"
 " %"
@@ -4320,15 +4325,15 @@ msgstr ""
 "Tidak dapat memuat konfigurasi sumo '%':\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2272
+#: src/netedit/GNEApplicationWindowHelper.cpp:2283
 msgid "No network defined in sumo configuration '%'."
 msgstr "Tidak ada jaringan yang ditentukan dalam konfigurasi sumo '%'."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2308
+#: src/netedit/GNEApplicationWindowHelper.cpp:2319
 msgid "There are invalid options in netconvert configuration '%'."
 msgstr "Ada opsi yang tidak valid dalam konfigurasi netconvert '%'."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2311
+#: src/netedit/GNEApplicationWindowHelper.cpp:2322
 msgid ""
 "Could not load netconvert configuration '%':\n"
 " %"
@@ -4336,11 +4341,11 @@ msgstr ""
 "Tidak dapat memuat konfigurasi netconvert '%':\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2355
+#: src/netedit/GNEApplicationWindowHelper.cpp:2366
 msgid "There are invalid options in netedit configuration '%'."
 msgstr "Ada opsi yang tidak valid dalam konfigurasi netedit '%'."
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2358
+#: src/netedit/GNEApplicationWindowHelper.cpp:2369
 msgid ""
 "Could not load netedit configuration '%':\n"
 " %"
@@ -4348,7 +4353,7 @@ msgstr ""
 "Tidak dapat memuat konfigurasi netedit '%':\n"
 " %"
 
-#: src/netedit/GNEApplicationWindowHelper.cpp:2477
+#: src/netedit/GNEApplicationWindowHelper.cpp:2488
 msgid "Element '% cannot be updateAC in bucket '%'"
 msgstr "Elemen '% tidak dapat diperbarui AC dalam bucket '%'"
 
@@ -4451,23 +4456,23 @@ msgstr "[0, 360]"
 msgid "Attribute '%' already inserted"
 msgstr "Atribut '%' sudah dimasukkan"
 
-#: src/netedit/GNEExternalRunner.cpp:87
+#: src/netedit/GNEExternalRunner.cpp:85
 msgid "cancelled by user\n"
 msgstr "dibatalkan oleh pengguna\n"
 
-#: src/netedit/GNEExternalRunner.cpp:119 src/netedit/GNEExternalRunner.cpp:200
+#: src/netedit/GNEExternalRunner.cpp:117 src/netedit/GNEExternalRunner.cpp:195
 msgid "starting process...\n"
 msgstr "memulai proses...\n"
 
-#: src/netedit/GNEExternalRunner.cpp:164 src/netedit/GNEExternalRunner.cpp:230
+#: src/netedit/GNEExternalRunner.cpp:159 src/netedit/GNEExternalRunner.cpp:225
 msgid "process finished\n"
 msgstr "proses selesai\n"
 
-#: src/netedit/GNEExternalRunner.cpp:170
+#: src/netedit/GNEExternalRunner.cpp:165
 msgid "Error running tool using boost::process"
 msgstr "Kesalahan menjalankan alat menggunakan boost::process"
 
-#: src/netedit/GNEExternalRunner.cpp:216
+#: src/netedit/GNEExternalRunner.cpp:211
 msgid "error processing command\n"
 msgstr "kesalahan memproses perintah\n"
 
@@ -4775,16 +4780,20 @@ msgstr "Aktifkan pesan keluaran selama Pengujian GUI khusus fungsi gl"
 msgid "Save gui settings in the given settings-output file"
 msgstr "Simpan pengaturan gui dalam file pengaturan-keluaran yang ditentukan"
 
-#: src/netedit/GNELoadThread.cpp:550
+#: src/netedit/GNELoadThread.cpp:546
+msgid "Quit the app if the initial net/config loading fails"
+msgstr ""
+
+#: src/netedit/GNELoadThread.cpp:553
 msgid "Defines the begin time in seconds; The simulation starts at this time"
 msgstr "Mendefinisikan waktu awal dalam detik; Simulasi dimulai pada waktu ini"
 
-#: src/netedit/GNELoadThread.cpp:553
+#: src/netedit/GNELoadThread.cpp:556
 msgid "Defines the end time in seconds; The simulation ends at this time"
 msgstr ""
 "Mendefinisikan waktu akhir dalam detik; Simulasi berakhir pada waktu ini"
 
-#: src/netedit/GNELoadThread.cpp:556
+#: src/netedit/GNELoadThread.cpp:559
 msgid ""
 "Length of the default interval length between action points for the car-"
 "following and lane-change models (in seconds). If not specified, the "
@@ -4797,7 +4806,7 @@ msgstr ""
 "simulasi digunakan secara default. Pengaturan khusus kendaraan atau VType "
 "menimpa default. Harus merupakan kelipatan dari panjang langkah simulasi."
 
-#: src/netedit/GNELoadThread.cpp:559
+#: src/netedit/GNELoadThread.cpp:562
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
@@ -4805,7 +4814,7 @@ msgstr ""
 "Pilih deviasi kecepatan default. Nilai negatif mengimplikasikan default "
 "khusus vClass (0,1 untuk kelas penumpang default)"
 
-#: src/netedit/GNELoadThread.cpp:602
+#: src/netedit/GNELoadThread.cpp:605
 msgid "Failed to reset options."
 msgstr "Gagal mengatur ulang opsi."
 
@@ -4848,7 +4857,7 @@ msgstr "hapus "
 msgid "Trying to delete a default Vehicle Type"
 msgstr "Mencoba menghapus Tipe Kendaraan default"
 
-#: src/netedit/GNENet.cpp:865 src/netedit/GNEViewNet.cpp:3277
+#: src/netedit/GNENet.cpp:865 src/netedit/GNEViewNet.cpp:3278
 msgid "duplicate lane"
 msgstr "duplikat lajur"
 
@@ -5050,36 +5059,36 @@ msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 "Ukuran jaringan melebihi 1 Tahun Cahaya. Harap tinjau kembali masukan Anda."
 
-#: src/netedit/GNENetHelper.cpp:1564
+#: src/netedit/GNENetHelper.cpp:1568
 msgid "Default vType doesn't exist"
 msgstr "vType default tidak ada"
 
-#: src/netedit/GNENetHelper.cpp:3528
+#: src/netedit/GNENetHelper.cpp:3532
 #: src/netedit/dialogs/tools/GNEPythonToolDialogElements.cpp:367
 msgid "network"
 msgstr "jaringan"
 
-#: src/netedit/GNENetHelper.cpp:3560
+#: src/netedit/GNENetHelper.cpp:3564
 msgid "additional elements"
 msgstr "elemen tambahan"
 
-#: src/netedit/GNENetHelper.cpp:3592
+#: src/netedit/GNENetHelper.cpp:3596
 msgid "demand elements"
 msgstr "elemen permintaan"
 
-#: src/netedit/GNENetHelper.cpp:3624
+#: src/netedit/GNENetHelper.cpp:3628
 msgid "data elements"
 msgstr "elemen data"
 
-#: src/netedit/GNENetHelper.cpp:3656
+#: src/netedit/GNENetHelper.cpp:3660
 msgid "meanData elements"
 msgstr "elemen meanData"
 
-#: src/netedit/GNENetHelper.cpp:3704
+#: src/netedit/GNENetHelper.cpp:3708
 msgid "Redo replace in TLS"
 msgstr "Ulangi penggantian dalam TLS"
 
-#: src/netedit/GNENetHelper.cpp:3710
+#: src/netedit/GNENetHelper.cpp:3714
 msgid "Undo replace in TLS"
 msgstr "Batalkan penggantian dalam TLS"
 
@@ -8439,39 +8448,39 @@ msgstr ""
 "Apakah statistik lalu lintas semua tepi harus diagregasikan menjadi satu "
 "nilai"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7747
-#: src/netedit/GNETagPropertiesDatabase.cpp:7752
+#: src/netedit/GNETagPropertiesDatabase.cpp:7748
+#: src/netedit/GNETagPropertiesDatabase.cpp:7753
 msgid "ID of %"
 msgstr "ID dari %"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7762
+#: src/netedit/GNETagPropertiesDatabase.cpp:7763
 msgid "Optional name for %"
 msgstr "Nama opsional untuk %"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7773
-#: src/netedit/GNETagPropertiesDatabase.cpp:7779
+#: src/netedit/GNETagPropertiesDatabase.cpp:7774
+#: src/netedit/GNETagPropertiesDatabase.cpp:7780
 msgid "The id of an edge in the simulation network"
 msgstr "ID sebuah tepi dalam jaringan simulasi"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7790
-#: src/netedit/GNETagPropertiesDatabase.cpp:7796
+#: src/netedit/GNETagPropertiesDatabase.cpp:7791
+#: src/netedit/GNETagPropertiesDatabase.cpp:7797
 msgid "The name of the lane the % shall be located at"
 msgstr "Nama lajur tempat % akan ditempatkan"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7806
+#: src/netedit/GNETagPropertiesDatabase.cpp:7807
 msgid "If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 "Jika diatur, tidak ada kesalahan yang akan dilaporkan jika elemen "
 "ditempatkan di belakang lajur."
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7807
+#: src/netedit/GNETagPropertiesDatabase.cpp:7808
 msgid ""
 "Instead, it will be placed 0.1 meters from the lanes end or at position 0.1,"
 msgstr ""
 "Sebaliknya, elemen akan ditempatkan 0,1 meter dari ujung lajur atau pada "
 "posisi 0,1,"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7808
+#: src/netedit/GNETagPropertiesDatabase.cpp:7809
 msgid ""
 "if the position was negative and larger than the lanes length after "
 "multiplication with - 1"
@@ -8479,24 +8488,24 @@ msgstr ""
 "jika posisinya negatif dan lebih besar dari panjang lajur setelah perkalian "
 "dengan -1"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7818
+#: src/netedit/GNETagPropertiesDatabase.cpp:7819
 msgid "Space separated list of vehicle type ids to consider"
 msgstr "Daftar ID tipe kendaraan yang dipisahkan spasi untuk dipertimbangkan"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7827
+#: src/netedit/GNETagPropertiesDatabase.cpp:7828
 msgid "The path to the output file"
 msgstr "Jalur ke file keluaran"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7837
+#: src/netedit/GNETagPropertiesDatabase.cpp:7838
 msgid "Path to the output file for writing information"
 msgstr "Jalur ke file keluaran untuk menulis informasi"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7849
-#: src/netedit/GNETagPropertiesDatabase.cpp:7854
+#: src/netedit/GNETagPropertiesDatabase.cpp:7850
+#: src/netedit/GNETagPropertiesDatabase.cpp:7855
 msgid "A bitmap to use for rendering this %"
 msgstr "Bitmap yang digunakan untuk merender % ini"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7865
+#: src/netedit/GNETagPropertiesDatabase.cpp:7866
 msgid ""
 "The departure time of the (first) % which is generated using this trip "
 "definition"
@@ -8504,39 +8513,39 @@ msgstr ""
 "Waktu keberangkatan % (pertama) yang dihasilkan menggunakan definisi "
 "perjalanan ini"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7875
+#: src/netedit/GNETagPropertiesDatabase.cpp:7876
 msgid ""
 "Explicitly allows the given vehicle classes (not given will be not allowed)"
 msgstr ""
 "Secara eksplisit mengizinkan kelas kendaraan yang diberikan (yang tidak "
 "diberikan tidak akan diizinkan)"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7881
+#: src/netedit/GNETagPropertiesDatabase.cpp:7882
 msgid ""
 "Explicitly disallows the given vehicle classes (not given will be allowed)"
 msgstr ""
 "Secara eksplisit melarang kelas kendaraan yang diberikan (yang tidak "
 "diberikan akan diizinkan)"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7890
+#: src/netedit/GNETagPropertiesDatabase.cpp:7891
 msgid "The position on the lane the % shall be laid on in meters"
 msgstr "Posisi pada lajur tempat % akan dipasang dalam meter"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7900
+#: src/netedit/GNETagPropertiesDatabase.cpp:7901
 msgid "Detect persons instead of vehicles (pedestrians or passengers)"
 msgstr "Deteksi orang bukan kendaraan (pejalan kaki atau penumpang)"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7911
+#: src/netedit/GNETagPropertiesDatabase.cpp:7912
 msgid "The RGBA color with which the % shall be displayed"
 msgstr "Warna RGBA yang digunakan untuk menampilkan %"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7921
+#: src/netedit/GNETagPropertiesDatabase.cpp:7922
 msgid ""
 "The aggregation period the values the % detector collects shall be summed up"
 msgstr ""
 "Periode agregasi tempat nilai yang dikumpulkan detektor % akan dijumlahkan"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7931
+#: src/netedit/GNETagPropertiesDatabase.cpp:7932
 msgid ""
 "List of edge ids that must all be part of the future route of the vehicle to "
 "qualify for detection"
@@ -8544,7 +8553,7 @@ msgstr ""
 "Daftar ID tepi yang semuanya harus menjadi bagian dari rute kendaraan di "
 "masa depan untuk memenuhi syarat deteksi"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7940
+#: src/netedit/GNETagPropertiesDatabase.cpp:7941
 msgid ""
 "The time-based threshold that describes how much time has to pass until a "
 "vehicle is recognized as halting)"
@@ -8552,7 +8561,7 @@ msgstr ""
 "Ambang batas berbasis waktu yang menggambarkan berapa lama waktu yang harus "
 "berlalu hingga kendaraan dikenali sebagai berhenti)"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7946
+#: src/netedit/GNETagPropertiesDatabase.cpp:7947
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
@@ -8560,7 +8569,7 @@ msgstr ""
 "Ambang batas berbasis kecepatan yang menggambarkan seberapa lambat kendaraan "
 "harus bergerak untuk dikenali sebagai berhenti) dalam m/s"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7952
+#: src/netedit/GNETagPropertiesDatabase.cpp:7953
 msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
@@ -8568,8 +8577,8 @@ msgstr ""
 "Jarak maksimum ke kendaraan berhenti berikutnya agar kendaraan ini dihitung "
 "sebagai peserta kemacetan dalam m"
 
-#: src/netedit/GNETagPropertiesDatabase.cpp:7964
-#: src/netedit/GNETagPropertiesDatabase.cpp:7970
+#: src/netedit/GNETagPropertiesDatabase.cpp:7965
+#: src/netedit/GNETagPropertiesDatabase.cpp:7971
 msgid "The probability when being added to a distribution"
 msgstr "Probabilitas saat ditambahkan ke distribusi"
 
@@ -8589,79 +8598,79 @@ msgstr "Ulangi dinonaktifkan"
 msgid "Cannot Redo in the middle of "
 msgstr "Tidak dapat Mengulang di tengah-tengah "
 
-#: src/netedit/GNEViewNet.cpp:389
+#: src/netedit/GNEViewNet.cpp:390
 msgid "Locate a junction within the network. (Shift+J)"
 msgstr "Cari persimpangan dalam jaringan. (Shift+J)"
 
-#: src/netedit/GNEViewNet.cpp:393
+#: src/netedit/GNEViewNet.cpp:394
 msgid "Locate an edge within the network. (Shift+E)"
 msgstr "Cari tepi dalam jaringan. (Shift+E)"
 
-#: src/netedit/GNEViewNet.cpp:397
+#: src/netedit/GNEViewNet.cpp:398
 msgid "Locate WalkingAreas"
 msgstr "Cari Area Pejalan Kaki"
 
-#: src/netedit/GNEViewNet.cpp:397
+#: src/netedit/GNEViewNet.cpp:398
 msgid "Locate a walkingArea within the network. (Shift+W)"
 msgstr "Cari area pejalan kaki dalam jaringan. (Shift+W)"
 
-#: src/netedit/GNEViewNet.cpp:401
+#: src/netedit/GNEViewNet.cpp:402
 msgid "Locate a vehicle within the network. (Shift+V)"
 msgstr "Cari kendaraan dalam jaringan. (Shift+V)"
 
-#: src/netedit/GNEViewNet.cpp:405
+#: src/netedit/GNEViewNet.cpp:406
 msgid "Locate a person within the network. (Shift+P)"
 msgstr "Cari orang dalam jaringan. (Shift+P)"
 
-#: src/netedit/GNEViewNet.cpp:409
+#: src/netedit/GNEViewNet.cpp:410
 msgid "Locate Containers"
 msgstr "Cari Kontainer"
 
-#: src/netedit/GNEViewNet.cpp:409
+#: src/netedit/GNEViewNet.cpp:410
 msgid "Locate a container within the network. (Shift+C)"
 msgstr "Cari kontainer dalam jaringan. (Shift+C)"
 
-#: src/netedit/GNEViewNet.cpp:413
+#: src/netedit/GNEViewNet.cpp:414
 msgid "Locate Route"
 msgstr "Cari Rute"
 
-#: src/netedit/GNEViewNet.cpp:413
+#: src/netedit/GNEViewNet.cpp:414
 msgid "Locate a route within the network. (Shift+R)"
 msgstr "Cari rute dalam jaringan. (Shift+R)"
 
-#: src/netedit/GNEViewNet.cpp:417
+#: src/netedit/GNEViewNet.cpp:418
 msgid "Locate Stops"
 msgstr "Cari Halte"
 
-#: src/netedit/GNEViewNet.cpp:417
+#: src/netedit/GNEViewNet.cpp:418
 msgid "Locate a stop within the network. (Shift+S)"
 msgstr "Cari halte dalam jaringan. (Shift+S)"
 
-#: src/netedit/GNEViewNet.cpp:428
+#: src/netedit/GNEViewNet.cpp:429
 msgid "Locate a tls within the network. (Shift+T)"
 msgstr "Cari tls dalam jaringan. (Shift+T)"
 
-#: src/netedit/GNEViewNet.cpp:432
+#: src/netedit/GNEViewNet.cpp:433
 msgid "Locate an additional structure within the network. (Shift+A)"
 msgstr "Cari struktur tambahan dalam jaringan. (Shift+A)"
 
-#: src/netedit/GNEViewNet.cpp:436
+#: src/netedit/GNEViewNet.cpp:437
 msgid "Locate a PoI within the network. (Shift+O)"
 msgstr "Cari PoI dalam jaringan. (Shift+O)"
 
-#: src/netedit/GNEViewNet.cpp:440
+#: src/netedit/GNEViewNet.cpp:441
 msgid "Locate a Polygon within the network. (Shift+L)"
 msgstr "Cari Poligon dalam jaringan. (Shift+L)"
 
-#: src/netedit/GNEViewNet.cpp:774
+#: src/netedit/GNEViewNet.cpp:775
 msgid "GUI-Settings cannot be saved in "
 msgstr "Pengaturan GUI tidak dapat disimpan di "
 
-#: src/netedit/GNEViewNet.cpp:940
+#: src/netedit/GNEViewNet.cpp:941
 msgid "Confirm Junction Merger"
 msgstr "Konfirmasi Penggabungan Persimpangan"
 
-#: src/netedit/GNEViewNet.cpp:941
+#: src/netedit/GNEViewNet.cpp:942
 msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
@@ -8669,312 +8678,312 @@ msgstr ""
 "Apakah Anda ingin menggabungkan persimpangan '%' dan '%'?\n"
 "('%' akan dihapus dan jalannya ditambahkan ke '%')"
 
-#: src/netedit/GNEViewNet.cpp:966
+#: src/netedit/GNEViewNet.cpp:967
 msgid "% requires switch to network mode. Continue?"
 msgstr "% memerlukan peralihan ke mode jaringan. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:968
+#: src/netedit/GNEViewNet.cpp:969
 msgid "% requires switch to demand mode. Continue?"
 msgstr "% memerlukan peralihan ke mode permintaan. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:970
+#: src/netedit/GNEViewNet.cpp:971
 msgid "% requires switch to data mode. Continue?"
 msgstr "% memerlukan peralihan ke mode data. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:976
+#: src/netedit/GNEViewNet.cpp:977
 msgid "Confirm switch mode"
 msgstr "Konfirmasi peralihan mode"
 
-#: src/netedit/GNEViewNet.cpp:1030
+#: src/netedit/GNEViewNet.cpp:1031
 msgid "Multiple lane in the same edge selected"
 msgstr "Beberapa lajur dalam tepi yang sama dipilih"
 
-#: src/netedit/GNEViewNet.cpp:1031
+#: src/netedit/GNEViewNet.cpp:1032
 msgid "There are selected lanes that belong to the same edge."
 msgstr "Ada lajur yang dipilih yang termasuk dalam tepi yang sama."
 
-#: src/netedit/GNEViewNet.cpp:1032
+#: src/netedit/GNEViewNet.cpp:1033
 msgid "Only one lane per edge will be restricted to %."
 msgstr "Hanya satu lajur per tepi yang akan dibatasi untuk %."
 
-#: src/netedit/GNEViewNet.cpp:1048 src/netedit/GNEViewNet.cpp:1055
+#: src/netedit/GNEViewNet.cpp:1049 src/netedit/GNEViewNet.cpp:1056
 msgid "Set vclass to % for selected lanes"
 msgstr "Tetapkan vclass ke % untuk lajur yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:1049
+#: src/netedit/GNEViewNet.cpp:1050
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for %"
 msgstr ""
 "Semua lajur sudah memiliki lajur lain dalam tepi yang sama dengan pembatasan "
 "untuk %"
 
-#: src/netedit/GNEViewNet.cpp:1056
+#: src/netedit/GNEViewNet.cpp:1057
 msgid "% lanes will be restricted to %. Continue?"
 msgstr "% lajur akan dibatasi ke %. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:1075
+#: src/netedit/GNEViewNet.cpp:1076
 msgid "restrict lane to "
 msgstr "Batasi lajur ke "
 
-#: src/netedit/GNEViewNet.cpp:1116 src/netedit/GNEViewNet.cpp:1123
+#: src/netedit/GNEViewNet.cpp:1117 src/netedit/GNEViewNet.cpp:1124
 msgid "Add vclass % to selected lanes"
 msgstr "Tambah vclass % ke lajur yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:1117
+#: src/netedit/GNEViewNet.cpp:1118
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
 msgstr ""
 "Semua lajur sudah memiliki lajur lain dalam tepi yang sama dengan pembatasan "
 "ke %."
 
-#: src/netedit/GNEViewNet.cpp:1124
+#: src/netedit/GNEViewNet.cpp:1125
 msgid "% restrictions to % will be added. Continue?"
 msgstr "% pembatasan ke % akan ditambahkan. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:1133
+#: src/netedit/GNEViewNet.cpp:1134
 msgid "add restrictions for "
 msgstr "tambah pembatasan untuk "
 
-#: src/netedit/GNEViewNet.cpp:1143
+#: src/netedit/GNEViewNet.cpp:1144
 msgid "add vclass for "
 msgstr "tambah vclass untuk "
 
-#: src/netedit/GNEViewNet.cpp:1198 src/netedit/GNEViewNet.cpp:1205
+#: src/netedit/GNEViewNet.cpp:1199 src/netedit/GNEViewNet.cpp:1206
 msgid "Remove vclass % from selected lanes"
 msgstr "Hapus vclass % dari lajur yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:1199
+#: src/netedit/GNEViewNet.cpp:1200
 msgid "The selected lanes and edges don't have a restriction to %."
 msgstr "Lajur dan tepi yang dipilih tidak memiliki pembatasan ke %."
 
-#: src/netedit/GNEViewNet.cpp:1206
+#: src/netedit/GNEViewNet.cpp:1207
 msgid "% restrictions to % will be removed. Continue?"
 msgstr "% pembatasan ke % akan dihapus. Lanjutkan?"
 
-#: src/netedit/GNEViewNet.cpp:1225
+#: src/netedit/GNEViewNet.cpp:1226
 msgid "Remove vclass for "
 msgstr "Hapus vclass untuk "
 
-#: src/netedit/GNEViewNet.cpp:1771
+#: src/netedit/GNEViewNet.cpp:1772
 msgid "Cannot delete in this mode"
 msgstr "Tidak dapat menghapus dalam mode ini"
 
-#: src/netedit/GNEViewNet.cpp:1774
+#: src/netedit/GNEViewNet.cpp:1775
 msgid "delete network inspected elements"
 msgstr "hapus elemen yang diinspeksi jaringan"
 
-#: src/netedit/GNEViewNet.cpp:1784
+#: src/netedit/GNEViewNet.cpp:1785
 msgid "delete network selection"
 msgstr "hapus seleksi jaringan"
 
-#: src/netedit/GNEViewNet.cpp:1794
+#: src/netedit/GNEViewNet.cpp:1795
 msgid "delete demand inspected elements"
 msgstr "hapus elemen yang diinspeksi permintaan"
 
-#: src/netedit/GNEViewNet.cpp:1804
+#: src/netedit/GNEViewNet.cpp:1805
 msgid "delete demand selection"
 msgstr "hapus seleksi permintaan"
 
-#: src/netedit/GNEViewNet.cpp:1814
+#: src/netedit/GNEViewNet.cpp:1815
 msgid "delete data inspected elements"
 msgstr "hapus elemen yang diinspeksi data"
 
-#: src/netedit/GNEViewNet.cpp:1824
+#: src/netedit/GNEViewNet.cpp:1825
 msgid "delete data selection"
 msgstr "hapus seleksi data"
 
-#: src/netedit/GNEViewNet.cpp:2474
+#: src/netedit/GNEViewNet.cpp:2475
 msgid "Reverse selected edges"
 msgstr "Balik tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2481
+#: src/netedit/GNEViewNet.cpp:2482
 msgid "Reverse edge"
 msgstr "Balik tepi"
 
-#: src/netedit/GNEViewNet.cpp:2495
+#: src/netedit/GNEViewNet.cpp:2496
 msgid "Add Reverse edge for selected edges"
 msgstr "Tambah tepi terbalik untuk tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2502
+#: src/netedit/GNEViewNet.cpp:2503
 msgid "Add reverse edge"
 msgstr "Tambah tepi terbalik"
 
-#: src/netedit/GNEViewNet.cpp:2516
+#: src/netedit/GNEViewNet.cpp:2517
 msgid "Add Reverse disconnected edge for selected edges"
 msgstr "Tambah tepi terbalik terputus untuk tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2523
+#: src/netedit/GNEViewNet.cpp:2524
 msgid "Add reverse disconnected edge"
 msgstr "Tambah tepi terbalik terputus"
 
-#: src/netedit/GNEViewNet.cpp:2552
+#: src/netedit/GNEViewNet.cpp:2553
 msgid "reset geometry points"
 msgstr "atur ulang titik geometri"
 
-#: src/netedit/GNEViewNet.cpp:2573
+#: src/netedit/GNEViewNet.cpp:2574
 msgid "straighten selected edges"
 msgstr "luruskan tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2581
+#: src/netedit/GNEViewNet.cpp:2582
 msgid "straighten edge"
 msgstr "luruskan tepi"
 
-#: src/netedit/GNEViewNet.cpp:2595
+#: src/netedit/GNEViewNet.cpp:2596
 msgid "smooth selected edges"
 msgstr "haluskan tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2602
+#: src/netedit/GNEViewNet.cpp:2603
 msgid "smooth edge"
 msgstr "haluskan tepi"
 
-#: src/netedit/GNEViewNet.cpp:2616
+#: src/netedit/GNEViewNet.cpp:2617
 msgid "straighten elevation of selected edges"
 msgstr "luruskan ketinggian tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2623
+#: src/netedit/GNEViewNet.cpp:2624
 msgid "straighten edge elevation"
 msgstr "luruskan ketinggian tepi"
 
-#: src/netedit/GNEViewNet.cpp:2637
+#: src/netedit/GNEViewNet.cpp:2638
 msgid "smooth elevation of selected edges"
 msgstr "haluskan ketinggian tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:2644
+#: src/netedit/GNEViewNet.cpp:2645
 msgid "smooth edge elevation"
 msgstr "haluskan ketinggian tepi"
 
-#: src/netedit/GNEViewNet.cpp:2658
+#: src/netedit/GNEViewNet.cpp:2659
 msgid "reset edge lengths"
 msgstr "atur ulang panjang tepi"
 
-#: src/netedit/GNEViewNet.cpp:2687
+#: src/netedit/GNEViewNet.cpp:2688
 msgid "copy edge template"
 msgstr "salin templat tepi"
 
-#: src/netedit/GNEViewNet.cpp:2715
+#: src/netedit/GNEViewNet.cpp:2716
 msgid "simplify shapes"
 msgstr "sederhanakan bentuk"
 
-#: src/netedit/GNEViewNet.cpp:2757
+#: src/netedit/GNEViewNet.cpp:2758
 msgid "close polygon shapes"
 msgstr "tutup bentuk poligon"
 
-#: src/netedit/GNEViewNet.cpp:2789
+#: src/netedit/GNEViewNet.cpp:2790
 msgid "open polygon shapes"
 msgstr "buka bentuk poligon"
 
-#: src/netedit/GNEViewNet.cpp:2836
+#: src/netedit/GNEViewNet.cpp:2837
 msgid "select within polygon boundary"
 msgstr "pilih dalam batas poligon"
 
-#: src/netedit/GNEViewNet.cpp:2860
+#: src/netedit/GNEViewNet.cpp:2861
 msgid "triangulate polygon"
 msgstr "triangulasi poligon"
 
-#: src/netedit/GNEViewNet.cpp:2896 src/netedit/GNEViewNet.cpp:2926
-#: src/netedit/GNEViewNet.cpp:2941 src/netedit/GNEViewNet.cpp:2958
-#: src/netedit/GNEViewNet.cpp:2975 src/netedit/GNEViewNet.cpp:2990
+#: src/netedit/GNEViewNet.cpp:2897 src/netedit/GNEViewNet.cpp:2927
+#: src/netedit/GNEViewNet.cpp:2942 src/netedit/GNEViewNet.cpp:2959
+#: src/netedit/GNEViewNet.cpp:2976 src/netedit/GNEViewNet.cpp:2991
 msgid "simplify edited shape"
 msgstr "sederhanakan bentuk yang diedit"
 
-#: src/netedit/GNEViewNet.cpp:2911
+#: src/netedit/GNEViewNet.cpp:2912
 msgid "straighten edited shape"
 msgstr "luruskan bentuk yang diedit"
 
-#: src/netedit/GNEViewNet.cpp:3039
+#: src/netedit/GNEViewNet.cpp:3040
 msgid "attach POI into lane"
 msgstr "lampirkan POI ke lajur"
 
-#: src/netedit/GNEViewNet.cpp:3063
+#: src/netedit/GNEViewNet.cpp:3064
 msgid "release POI from lane"
 msgstr "lepaskan POI dari lajur"
 
-#: src/netedit/GNEViewNet.cpp:3086
+#: src/netedit/GNEViewNet.cpp:3087
 msgid "transform to POI"
 msgstr "ubah menjadi POI"
 
-#: src/netedit/GNEViewNet.cpp:3111
+#: src/netedit/GNEViewNet.cpp:3112
 msgid "transform to POI GEO"
 msgstr "ubah menjadi POI GEO"
 
-#: src/netedit/GNEViewNet.cpp:3127
+#: src/netedit/GNEViewNet.cpp:3128
 msgid "reverse % '%'"
 msgstr "balik % '%'"
 
-#: src/netedit/GNEViewNet.cpp:3141
+#: src/netedit/GNEViewNet.cpp:3142
 msgid "add reverse '%'"
 msgstr "tambah terbalik '%'"
 
-#: src/netedit/GNEViewNet.cpp:3168
+#: src/netedit/GNEViewNet.cpp:3169
 msgid "change edge Geometry Point position"
 msgstr "ubah posisi Titik Geometri tepi"
 
-#: src/netedit/GNEViewNet.cpp:3198
+#: src/netedit/GNEViewNet.cpp:3199
 msgid "change polygon Geometry Point position"
 msgstr "ubah posisi Titik Geometri poligon"
 
-#: src/netedit/GNEViewNet.cpp:3216
+#: src/netedit/GNEViewNet.cpp:3217
 msgid "change TAZ Geometry Point position"
 msgstr "ubah posisi Titik Geometri TAZ"
 
-#: src/netedit/GNEViewNet.cpp:3240
+#: src/netedit/GNEViewNet.cpp:3241
 msgid "reset end points of selected edges"
 msgstr "atur ulang titik akhir tepi yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:3251
+#: src/netedit/GNEViewNet.cpp:3252
 msgid "reset end points of edge '"
 msgstr "atur ulang titik akhir tepi '"
 
-#: src/netedit/GNEViewNet.cpp:3270
+#: src/netedit/GNEViewNet.cpp:3271
 msgid "duplicate selected lanes"
 msgstr "duplikat lajur yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:3307
+#: src/netedit/GNEViewNet.cpp:3308
 msgid "reset custom lane shapes"
 msgstr "atur ulang bentuk lajur kustom"
 
-#: src/netedit/GNEViewNet.cpp:3314
+#: src/netedit/GNEViewNet.cpp:3315
 msgid "reset custom lane shape"
 msgstr "atur ulang bentuk lajur kustom"
 
-#: src/netedit/GNEViewNet.cpp:3330
+#: src/netedit/GNEViewNet.cpp:3331
 msgid "reset opposite lanes"
 msgstr "atur ulang lajur berlawanan"
 
-#: src/netedit/GNEViewNet.cpp:3337
+#: src/netedit/GNEViewNet.cpp:3338
 msgid "reset opposite lane"
 msgstr "atur ulang lajur berlawanan"
 
-#: src/netedit/GNEViewNet.cpp:3396
+#: src/netedit/GNEViewNet.cpp:3397
 msgid "select lane reachability"
 msgstr "pilih keterjangkauan lajur"
 
-#: src/netedit/GNEViewNet.cpp:3608
+#: src/netedit/GNEViewNet.cpp:3605
 msgid "reset edge endpoints"
 msgstr "atur ulang titik akhir tepi"
 
-#: src/netedit/GNEViewNet.cpp:3653 src/netedit/GNEViewNet.cpp:3919
-#: src/netedit/GNEViewNet.cpp:3954 src/netedit/GNEViewNet.cpp:3977
+#: src/netedit/GNEViewNet.cpp:3650 src/netedit/GNEViewNet.cpp:3916
+#: src/netedit/GNEViewNet.cpp:3951 src/netedit/GNEViewNet.cpp:3974
 msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "Kisi masih aktif, tekan ctrl+g untuk menonaktifkan"
 
-#: src/netedit/GNEViewNet.cpp:3672
+#: src/netedit/GNEViewNet.cpp:3669
 msgid "reset custom junction shapes"
 msgstr "atur ulang bentuk persimpangan kustom"
 
-#: src/netedit/GNEViewNet.cpp:3679
+#: src/netedit/GNEViewNet.cpp:3676
 msgid "reset custom junction shape"
 msgstr "atur ulang bentuk persimpangan kustom"
 
-#: src/netedit/GNEViewNet.cpp:3788
+#: src/netedit/GNEViewNet.cpp:3785
 msgid "clear connections of selected junctions"
 msgstr "hapus koneksi persimpangan yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:3822
+#: src/netedit/GNEViewNet.cpp:3819
 msgid "reset connections of selected junctions"
 msgstr "atur ulang koneksi persimpangan yang dipilih"
 
-#: src/netedit/GNEViewNet.cpp:3845 src/netedit/GNEViewNet.cpp:3872
+#: src/netedit/GNEViewNet.cpp:3842 src/netedit/GNEViewNet.cpp:3869
 msgid "add TLS in multiple junctions"
 msgstr "tambah TLS di beberapa persimpangan"
 
@@ -9145,7 +9154,7 @@ msgstr "Mode permintaan sudah dipilih"
 msgid "Data mode already selected"
 msgstr "Mode data sudah dipilih"
 
-#: src/netedit/GNEViewNetHelper.cpp:2715 src/netedit/GNEViewNetHelper.cpp:2999
+#: src/netedit/GNEViewNetHelper.cpp:2715 src/netedit/GNEViewNetHelper.cpp:3020
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
@@ -9153,8 +9162,8 @@ msgstr ""
 "Tampilkan kisi dan batasi pergerakan ke kisi - tentukan ukuran kisi di opsi "
 "visualisasi. (Ctrl+G)"
 
-#: src/netedit/GNEViewNetHelper.cpp:2722 src/netedit/GNEViewNetHelper.cpp:3006
-#: src/netedit/GNEViewNetHelper.cpp:3278
+#: src/netedit/GNEViewNetHelper.cpp:2722 src/netedit/GNEViewNetHelper.cpp:3027
+#: src/netedit/GNEViewNetHelper.cpp:3299
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "Beralih sembunyikan bentuk persimpangan. (Ctrl+J)"
 
@@ -9162,11 +9171,11 @@ msgstr "Beralih sembunyikan bentuk persimpangan. (Ctrl+J)"
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "Gambar kendaraan menyebar di lajur atau posisi keberangkatan"
 
-#: src/netedit/GNEViewNetHelper.cpp:2729 src/netedit/GNEViewNetHelper.cpp:3013
+#: src/netedit/GNEViewNetHelper.cpp:2729 src/netedit/GNEViewNetHelper.cpp:3034
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "Gambar kendaraan menyebar di lajur atau di posisi keberangkatan."
 
-#: src/netedit/GNEViewNetHelper.cpp:2736 src/netedit/GNEViewNetHelper.cpp:3297
+#: src/netedit/GNEViewNetHelper.cpp:2736 src/netedit/GNEViewNetHelper.cpp:3318
 msgid "Toggle show demand elements."
 msgstr "Beralih tampilkan elemen permintaan."
 
@@ -9266,307 +9275,311 @@ msgstr "Tampilkan gelembung"
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "Beralih tampilkan gelembung di atas bentuk persimpangan."
 
-#: src/netedit/GNEViewNetHelper.cpp:3020 src/netedit/GNEViewNetHelper.cpp:3291
+#: src/netedit/GNEViewNetHelper.cpp:2825
+msgid "Show polygon symbols."
+msgstr ""
+
+#: src/netedit/GNEViewNetHelper.cpp:3041 src/netedit/GNEViewNetHelper.cpp:3312
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr "Beralih tampilkan bentuk (Poligon dan POI)."
 
-#: src/netedit/GNEViewNetHelper.cpp:3027
+#: src/netedit/GNEViewNetHelper.cpp:3048
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Beralih tampilkan semua perjalanan (memerlukan permintaan yang diperbarui - "
 "F5)."
 
-#: src/netedit/GNEViewNetHelper.cpp:3034
+#: src/netedit/GNEViewNetHelper.cpp:3055
 msgid "Toggle show all person plans."
 msgstr "Beralih tampilkan semua rencana orang."
 
-#: src/netedit/GNEViewNetHelper.cpp:3041
+#: src/netedit/GNEViewNetHelper.cpp:3062
 msgid "Toggle lock selected person."
 msgstr "Beralih kunci orang yang dipilih."
 
-#: src/netedit/GNEViewNetHelper.cpp:3048
+#: src/netedit/GNEViewNetHelper.cpp:3069
 msgid "Show all containers plans"
 msgstr "Tampilkan semua rencana kontainer"
 
-#: src/netedit/GNEViewNetHelper.cpp:3048
+#: src/netedit/GNEViewNetHelper.cpp:3069
 msgid "Toggle show all container plans."
 msgstr "Beralih tampilkan semua rencana kontainer."
 
-#: src/netedit/GNEViewNetHelper.cpp:3055
+#: src/netedit/GNEViewNetHelper.cpp:3076
 msgid "Toggle lock selected container."
 msgstr "Beralih kunci kontainer yang dipilih."
 
-#: src/netedit/GNEViewNetHelper.cpp:3062
+#: src/netedit/GNEViewNetHelper.cpp:3083
 msgid "Toggle show non-inspected demand elements."
 msgstr "Beralih tampilkan elemen permintaan yang tidak diinspeksi."
 
-#: src/netedit/GNEViewNetHelper.cpp:3069
+#: src/netedit/GNEViewNetHelper.cpp:3090
 msgid "Toggle show number of overlapped routes."
 msgstr "Beralih tampilkan jumlah rute yang tumpang tindih."
 
-#: src/netedit/GNEViewNetHelper.cpp:3285
+#: src/netedit/GNEViewNetHelper.cpp:3306
 msgid "Toggle show additionals."
 msgstr "Beralih tampilkan elemen tambahan."
 
-#: src/netedit/GNEViewNetHelper.cpp:3303
+#: src/netedit/GNEViewNetHelper.cpp:3324
 msgid "Draw TAZREL drawing mode"
 msgstr "Mode penggambaran TAZREL"
 
-#: src/netedit/GNEViewNetHelper.cpp:3303
+#: src/netedit/GNEViewNetHelper.cpp:3324
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "Beralih mode penggambaran TAZREL."
 
-#: src/netedit/GNEViewNetHelper.cpp:3309
+#: src/netedit/GNEViewNetHelper.cpp:3330
 msgid "Toggle draw TAZ fill"
 msgstr "Beralih gambar pengisian TAZ"
 
-#: src/netedit/GNEViewNetHelper.cpp:3315
+#: src/netedit/GNEViewNetHelper.cpp:3336
 msgid "Toggle draw TAZRel only from"
 msgstr "Beralih gambar TAZRel hanya dari"
 
-#: src/netedit/GNEViewNetHelper.cpp:3321
+#: src/netedit/GNEViewNetHelper.cpp:3342
 msgid "Toggle draw TAZRel only to"
 msgstr "Beralih gambar TAZRel hanya ke"
 
-#: src/netedit/GNEViewNetHelper.cpp:3453
+#: src/netedit/GNEViewNetHelper.cpp:3474
 msgid "Data type"
 msgstr "Tipe data"
 
-#: src/netedit/GNEViewNetHelper.cpp:3467
+#: src/netedit/GNEViewNetHelper.cpp:3488
 msgid "Data sets"
 msgstr "Kumpulan data"
 
-#: src/netedit/GNEViewNetHelper.cpp:3476
+#: src/netedit/GNEViewNetHelper.cpp:3497
 #: src/netedit/frames/data/GNEGenericDataFrame.cpp:215
 msgid "Interval"
 msgstr "Interval"
 
-#: src/netedit/GNEViewNetHelper.cpp:3488
+#: src/netedit/GNEViewNetHelper.cpp:3509
 msgid "Parameter"
 msgstr "Parameter"
 
-#: src/netedit/GNEViewNetHelper.cpp:3803
+#: src/netedit/GNEViewNetHelper.cpp:3824
 msgid "Inspect mode"
 msgstr "Mode inspeksi"
 
-#: src/netedit/GNEViewNetHelper.cpp:3803
+#: src/netedit/GNEViewNetHelper.cpp:3824
 msgid "Mode to inspect elements and change their attributes. (I)"
 msgstr "Mode untuk menginspeksi elemen dan mengubah atributnya. (I)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3808
+#: src/netedit/GNEViewNetHelper.cpp:3829
 msgid "Delete mode"
 msgstr "Mode hapus"
 
-#: src/netedit/GNEViewNetHelper.cpp:3808
+#: src/netedit/GNEViewNetHelper.cpp:3829
 msgid "Mode for deleting elements. (D)"
 msgstr "Mode untuk menghapus elemen. (D)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3813
+#: src/netedit/GNEViewNetHelper.cpp:3834
 msgid "Select mode"
 msgstr "Mode pilih"
 
-#: src/netedit/GNEViewNetHelper.cpp:3813
+#: src/netedit/GNEViewNetHelper.cpp:3834
 msgid "Mode for selecting elements. (S)"
 msgstr "Mode untuk memilih elemen. (S)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3869 src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:3890 src/netedit/GNEViewNetHelper.cpp:4043
 msgid "Move mode"
 msgstr "Mode pindah"
 
-#: src/netedit/GNEViewNetHelper.cpp:3869 src/netedit/GNEViewNetHelper.cpp:4022
+#: src/netedit/GNEViewNetHelper.cpp:3890 src/netedit/GNEViewNetHelper.cpp:4043
 msgid "Mode for moving elements. (M)"
 msgstr "Mode untuk memindahkan elemen. (M)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3874
+#: src/netedit/GNEViewNetHelper.cpp:3895
 msgid "Edge mode"
 msgstr "Mode tepi"
 
-#: src/netedit/GNEViewNetHelper.cpp:3874
+#: src/netedit/GNEViewNetHelper.cpp:3895
 msgid "Mode for creating junctions and edges. (E)"
 msgstr "Mode untuk membuat persimpangan dan tepi. (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3879
+#: src/netedit/GNEViewNetHelper.cpp:3900
 msgid "Traffic light mode"
 msgstr "Mode lampu lalu lintas"
 
-#: src/netedit/GNEViewNetHelper.cpp:3879
+#: src/netedit/GNEViewNetHelper.cpp:3900
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr "Mode untuk mengedit lampu lalu lintas di persimpangan. (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3884
+#: src/netedit/GNEViewNetHelper.cpp:3905
 msgid "Connection mode"
 msgstr "Mode koneksi"
 
-#: src/netedit/GNEViewNetHelper.cpp:3884
+#: src/netedit/GNEViewNetHelper.cpp:3905
 msgid "Mode for editing connections between lanes. (C)"
 msgstr "Mode untuk mengedit koneksi antar lajur. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3889
+#: src/netedit/GNEViewNetHelper.cpp:3910
 msgid "Prohibition mode"
 msgstr "Mode larangan"
 
-#: src/netedit/GNEViewNetHelper.cpp:3889
+#: src/netedit/GNEViewNetHelper.cpp:3910
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Mode untuk mengedit larangan koneksi. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3894
+#: src/netedit/GNEViewNetHelper.cpp:3915
 msgid "Crossing mode"
 msgstr "Mode penyeberangan"
 
-#: src/netedit/GNEViewNetHelper.cpp:3894
+#: src/netedit/GNEViewNetHelper.cpp:3915
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Mode untuk membuat penyeberangan antar tepi. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3899
+#: src/netedit/GNEViewNetHelper.cpp:3920
 msgid "Additional mode"
 msgstr "Mode tambahan"
 
-#: src/netedit/GNEViewNetHelper.cpp:3899
+#: src/netedit/GNEViewNetHelper.cpp:3920
 msgid "Mode for creating additional elements. (A)"
 msgstr "Mode untuk membuat elemen tambahan. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3904
+#: src/netedit/GNEViewNetHelper.cpp:3925
 msgid "Wire mode"
 msgstr "Mode kabel"
 
-#: src/netedit/GNEViewNetHelper.cpp:3904
+#: src/netedit/GNEViewNetHelper.cpp:3925
 msgid "Mode for editing overhead wires. (W)"
 msgstr "Mode untuk mengedit kabel overhead. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3909
+#: src/netedit/GNEViewNetHelper.cpp:3930
 msgid "TAZ mode"
 msgstr "Mode TAZ"
 
-#: src/netedit/GNEViewNetHelper.cpp:3909
+#: src/netedit/GNEViewNetHelper.cpp:3930
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Mode untuk membuat Zona Penugasan Lalu Lintas. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3914
+#: src/netedit/GNEViewNetHelper.cpp:3935
 msgid "Polygon mode"
 msgstr "Mode poligon"
 
-#: src/netedit/GNEViewNetHelper.cpp:3914
+#: src/netedit/GNEViewNetHelper.cpp:3935
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Mode untuk membuat poligon dan POI. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:3919
+#: src/netedit/GNEViewNetHelper.cpp:3940
 msgid "Decal mode"
 msgstr "Mode dekal"
 
-#: src/netedit/GNEViewNetHelper.cpp:3919
+#: src/netedit/GNEViewNetHelper.cpp:3940
 msgid "Mode for editing decals. (U)"
 msgstr "Mode untuk mengedit dekal. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4048
 #: src/netedit/frames/demand/GNERouteFrame.cpp:56
 msgid "Route mode"
 msgstr "Mode rute"
 
-#: src/netedit/GNEViewNetHelper.cpp:4027
+#: src/netedit/GNEViewNetHelper.cpp:4048
 msgid "Mode for creating routes. (R)"
 msgstr "Mode untuk membuat rute. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4032
+#: src/netedit/GNEViewNetHelper.cpp:4053
 msgid "Route distribution mode"
 msgstr "Mode distribusi rute"
 
-#: src/netedit/GNEViewNetHelper.cpp:4032
+#: src/netedit/GNEViewNetHelper.cpp:4053
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr "Mode untuk membuat dan mengedit distribusi rute. (W)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4037
+#: src/netedit/GNEViewNetHelper.cpp:4058
 msgid "Vehicle mode"
 msgstr "Mode kendaraan"
 
-#: src/netedit/GNEViewNetHelper.cpp:4037
+#: src/netedit/GNEViewNetHelper.cpp:4058
 msgid "Mode for creating vehicles. (V)"
 msgstr "Mode untuk membuat kendaraan. (V)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4042
+#: src/netedit/GNEViewNetHelper.cpp:4063
 msgid "Type mode"
 msgstr "Mode tipe"
 
-#: src/netedit/GNEViewNetHelper.cpp:4042
+#: src/netedit/GNEViewNetHelper.cpp:4063
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr "Mode untuk membuat tipe (kendaraan, orang, dan kontainer). (T)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4047
+#: src/netedit/GNEViewNetHelper.cpp:4068
 msgid "Type distribution mode"
 msgstr "Mode distribusi tipe"
 
-#: src/netedit/GNEViewNetHelper.cpp:4047
+#: src/netedit/GNEViewNetHelper.cpp:4068
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr "Mode untuk membuat dan mengedit distribusi tipe. (U)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4052
+#: src/netedit/GNEViewNetHelper.cpp:4073
 msgid "Stop mode"
 msgstr "Mode halte"
 
-#: src/netedit/GNEViewNetHelper.cpp:4052
+#: src/netedit/GNEViewNetHelper.cpp:4073
 msgid "Mode for creating stops. (A)"
 msgstr "Mode untuk membuat halte. (A)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4057
+#: src/netedit/GNEViewNetHelper.cpp:4078
 msgid "Person mode"
 msgstr "Mode orang"
 
-#: src/netedit/GNEViewNetHelper.cpp:4057
+#: src/netedit/GNEViewNetHelper.cpp:4078
 msgid "Mode for creating persons. (P)"
 msgstr "Mode untuk membuat orang. (P)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4062
+#: src/netedit/GNEViewNetHelper.cpp:4083
 msgid "Person plan mode"
 msgstr "Mode rencana orang"
 
-#: src/netedit/GNEViewNetHelper.cpp:4062
+#: src/netedit/GNEViewNetHelper.cpp:4083
 msgid "Mode for creating person plans. (L)"
 msgstr "Mode untuk membuat rencana orang. (L)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4067
+#: src/netedit/GNEViewNetHelper.cpp:4088
 msgid "Container mode"
 msgstr "Mode kontainer"
 
-#: src/netedit/GNEViewNetHelper.cpp:4067
+#: src/netedit/GNEViewNetHelper.cpp:4088
 msgid "Mode for creating containers. (C)"
 msgstr "Mode untuk membuat kontainer. (C)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4072
+#: src/netedit/GNEViewNetHelper.cpp:4093
 msgid "Container plan mode"
 msgstr "Mode rencana kontainer"
 
-#: src/netedit/GNEViewNetHelper.cpp:4072
+#: src/netedit/GNEViewNetHelper.cpp:4093
 msgid "Mode for creating container plans. (H)"
 msgstr "Mode untuk membuat rencana kontainer. (H)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4174
+#: src/netedit/GNEViewNetHelper.cpp:4195
 msgid "Edge data mode"
 msgstr "Mode data tepi"
 
-#: src/netedit/GNEViewNetHelper.cpp:4174
+#: src/netedit/GNEViewNetHelper.cpp:4195
 msgid "Mode for creating edge datas. (E)"
 msgstr "Mode untuk membuat data tepi. (E)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4179
+#: src/netedit/GNEViewNetHelper.cpp:4200
 msgid "Edge relation data mode"
 msgstr "Mode data relasi tepi"
 
-#: src/netedit/GNEViewNetHelper.cpp:4179
+#: src/netedit/GNEViewNetHelper.cpp:4200
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Mode untuk membuat data relasi tepi. (R)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4184
+#: src/netedit/GNEViewNetHelper.cpp:4205
 msgid "TAZ relation data mode"
 msgstr "Mode data relasi TAZ"
 
-#: src/netedit/GNEViewNetHelper.cpp:4184
+#: src/netedit/GNEViewNetHelper.cpp:4205
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr "Mode untuk membuat data relasi TAZ. (Z)"
 
-#: src/netedit/GNEViewNetHelper.cpp:4189
+#: src/netedit/GNEViewNetHelper.cpp:4210
 msgid "MeanData mode"
 msgstr "Mode MeanData"
 
-#: src/netedit/GNEViewNetHelper.cpp:4189
+#: src/netedit/GNEViewNetHelper.cpp:4210
 msgid "Mode for MeanData elements. (M)"
 msgstr "Mode untuk elemen MeanData. (M)"
 
@@ -11566,40 +11579,40 @@ msgstr ""
 msgid "add overhead wire '"
 msgstr "tambah kabel overhead '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1608
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1609
 msgid "add polygon '"
 msgstr "tambah poligon '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1647
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1648
 msgid "add POI '%'"
 msgstr "tambah POI '%'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1693
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1694
 msgid "add POI lane '%'"
 msgstr "tambah POI lajur '%'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1727
 msgid "Could not build POI with ID '%' in netedit"
 msgstr "Tidak dapat membangun POI dengan ID '%' di netedit"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1726
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1727
 msgid "Network requires a geo projection."
 msgstr "Jaringan memerlukan proyeksi geo."
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1736
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1737
 msgid "add POI GEO '%'"
 msgstr "tambah POI GEO '%'"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1763
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1764
 msgid "add jps walkable area '"
 msgstr "tambah area yang dapat dilalui pejalan kaki jps '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1790
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1791
 msgid "add jps obstacle '"
 msgstr "tambah rintangan jps '"
 
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2011
-#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2029
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2012
+#: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2030
 #: src/netedit/elements/demand/GNERouteHandler.cpp:2572
 msgid "Could not build % with ID '%' in netedit; % with ID '%' doesn't exist."
 msgstr ""
@@ -11610,7 +11623,7 @@ msgstr ""
 msgid "Both myEdge and myLane aren't defined"
 msgstr "myEdge dan myLane keduanya tidak ditentukan"
 
-#: src/netedit/elements/additional/GNECalibratorFlow.cpp:118
+#: src/netedit/elements/additional/GNECalibratorFlow.cpp:125
 msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
@@ -11618,133 +11631,133 @@ msgstr ""
 "calibratorFlow dari kalibrator '%' tidak dapat ditulis. Tipe atau "
 "vehsPerHour atau kecepatan harus diaktifkan"
 
-#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:134
+#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:141
 msgid "' needs at least one entry and one exit"
 msgstr "' memerlukan setidaknya satu pintu masuk dan satu pintu keluar"
 
-#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:354
+#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:361
 msgid "An entry-exit detector needs at least one entry detector"
 msgstr "Detektor masuk-keluar memerlukan setidaknya satu detektor masuk"
 
-#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:357
+#: src/netedit/elements/additional/GNEMultiEntryExitDetector.cpp:364
 msgid "An entry-exit detector needs at least one exit detector"
 msgstr "Detektor masuk-keluar memerlukan setidaknya satu detektor keluar"
 
-#: src/netedit/elements/additional/GNEPOI.cpp:337
+#: src/netedit/elements/additional/GNEPOI.cpp:344
 msgid "Release from lane"
 msgstr "Lepaskan dari lajur"
 
-#: src/netedit/elements/additional/GNEPOI.cpp:340
+#: src/netedit/elements/additional/GNEPOI.cpp:347
 msgid "Attach to nearest lane"
 msgstr "Lampirkan ke lajur terdekat"
 
-#: src/netedit/elements/additional/GNEPOI.cpp:344
+#: src/netedit/elements/additional/GNEPOI.cpp:351
 msgid "Transform to POI"
 msgstr "Ubah menjadi POI"
 
-#: src/netedit/elements/additional/GNEPOI.cpp:346
+#: src/netedit/elements/additional/GNEPOI.cpp:353
 msgid "Transform to POI Geo"
 msgstr "Ubah menjadi POI Geo"
 
-#: src/netedit/elements/additional/GNEPOI.cpp:414
-#: src/netedit/elements/additional/GNEPOI.cpp:420
-#: src/netedit/elements/additional/GNEPoly.cpp:560
+#: src/netedit/elements/additional/GNEPOI.cpp:421
+#: src/netedit/elements/additional/GNEPOI.cpp:427
+#: src/netedit/elements/additional/GNEPoly.cpp:573
 #: src/netedit/frames/network/GNEShapeFrame.cpp:91
 msgid "No geo-conversion defined"
 msgstr "Tidak ada konversi geo yang ditentukan"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:265
+#: src/netedit/elements/additional/GNEPoly.cpp:277
 msgid "Simplify Shape"
 msgstr "Sederhanakan Bentuk"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:265
+#: src/netedit/elements/additional/GNEPoly.cpp:277
 #: src/netedit/elements/network/GNENetworkElement.cpp:335
 #: src/netedit/elements/network/GNENetworkElement.cpp:346
 msgid "Replace current shape with a rectangle"
 msgstr "Ganti bentuk saat ini dengan persegi panjang"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:273
+#: src/netedit/elements/additional/GNEPoly.cpp:285
 #: src/netedit/elements/network/GNENetworkElement.cpp:341
 msgid "Open shape"
 msgstr "Buka bentuk"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:273
+#: src/netedit/elements/additional/GNEPoly.cpp:285
 msgid "Open polygon's shape"
 msgstr "Buka bentuk poligon"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:275
+#: src/netedit/elements/additional/GNEPoly.cpp:287
 #: src/netedit/elements/network/GNENetworkElement.cpp:343
 msgid "Close shape"
 msgstr "Tutup bentuk"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:275
+#: src/netedit/elements/additional/GNEPoly.cpp:287
 msgid "Close polygon's shape"
 msgstr "Tutup bentuk poligon"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:278
+#: src/netedit/elements/additional/GNEPoly.cpp:290
 msgid "Select elements within polygon"
 msgstr "Pilih elemen di dalam poligon"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:278
+#: src/netedit/elements/additional/GNEPoly.cpp:290
 msgid "Select elements within polygon boundary"
 msgstr "Pilih elemen di dalam batas poligon"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:280
+#: src/netedit/elements/additional/GNEPoly.cpp:292
 msgid "Triangulate polygon"
 msgstr "Triangulasi poligon"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:280
+#: src/netedit/elements/additional/GNEPoly.cpp:292
 msgid "Convert the current polygon in triangles"
 msgstr "Ubah poligon saat ini menjadi segitiga"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:291
+#: src/netedit/elements/additional/GNEPoly.cpp:303
 msgid "Remove geometry point"
 msgstr "Hapus titik geometri"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:291
+#: src/netedit/elements/additional/GNEPoly.cpp:303
 #: src/netedit/elements/network/GNENetworkElement.cpp:355
 msgid "Remove geometry point under mouse"
 msgstr "Hapus titik geometri di bawah kursor mouse"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:292
+#: src/netedit/elements/additional/GNEPoly.cpp:304
 #: src/netedit/elements/network/GNENetworkElement.cpp:356
 msgid "Set first geometry point"
 msgstr "Tetapkan titik geometri pertama"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:400
+#: src/netedit/elements/additional/GNEPoly.cpp:412
 msgid "Number of remaining points insufficient"
 msgstr "Jumlah titik yang tersisa tidak mencukupi"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:427
+#: src/netedit/elements/additional/GNEPoly.cpp:439
 msgid "Polygon already opened"
 msgstr "Poligon sudah terbuka"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:448
+#: src/netedit/elements/additional/GNEPoly.cpp:460
 msgid "Polygon already closed"
 msgstr "Poligon sudah tertutup"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:459
+#: src/netedit/elements/additional/GNEPoly.cpp:471
 msgid "Selected point must be different of the first point"
 msgstr "Titik yang dipilih harus berbeda dari titik pertama"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:520
+#: src/netedit/elements/additional/GNEPoly.cpp:532
 msgid "Polygon already simplified"
 msgstr "Poligon sudah disederhanakan"
 
-#: src/netedit/elements/additional/GNEPoly.cpp:552
+#: src/netedit/elements/additional/GNEPoly.cpp:565
 msgid "Using GEO Shape"
 msgstr "Menggunakan Bentuk GEO"
 
-#: src/netedit/elements/additional/GNERerouter.cpp:114
+#: src/netedit/elements/additional/GNERerouter.cpp:121
 msgid "' needs at least one edge"
 msgstr "' memerlukan setidaknya satu tepi"
 
-#: src/netedit/elements/additional/GNETAZ.cpp:251
-#: src/netedit/elements/network/GNELane.cpp:549
+#: src/netedit/elements/additional/GNETAZ.cpp:261
+#: src/netedit/elements/network/GNELane.cpp:550
 msgid "Set custom Geometry Point"
 msgstr "Tetapkan Titik Geometri kustom"
 
-#: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:98
+#: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:105
 msgid "' needs at least one lane"
 msgstr "' memerlukan setidaknya satu lajur"
 
@@ -11945,7 +11958,7 @@ msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr "Tidak dapat mengulang rute; tepi depan dan terakhir tidak terhubung"
 
 #: src/netedit/elements/demand/GNERoute.cpp:734
-#: src/netedit/elements/demand/GNEVehicle.cpp:1890
+#: src/netedit/elements/demand/GNEVehicle.cpp:1894
 msgid "copy % '%'"
 msgstr "salin % '%'"
 
@@ -12331,41 +12344,41 @@ msgstr "lebar dari %"
 msgid "height of %"
 msgstr "tinggi dari %"
 
-#: src/netedit/elements/network/GNEConnection.cpp:360
+#: src/netedit/elements/network/GNEConnection.cpp:367
 msgid "Set custom connection shape"
 msgstr "Tetapkan bentuk koneksi kustom"
 
-#: src/netedit/elements/network/GNEConnection.cpp:361
+#: src/netedit/elements/network/GNEConnection.cpp:368
 msgid "Smooth connection shape"
 msgstr "Haluskan bentuk koneksi"
 
-#: src/netedit/elements/network/GNEConnection.cpp:667
+#: src/netedit/elements/network/GNEConnection.cpp:674
 msgid "Could not set attribute '%' (tls is broken)"
 msgstr "Tidak dapat menetapkan atribut '%' (tls rusak)"
 
-#: src/netedit/elements/network/GNEConnection.cpp:944
+#: src/netedit/elements/network/GNEConnection.cpp:951
 msgid "Cannot restore attribute '%=%' for computed connection from lane '%'"
 msgstr ""
 "Tidak dapat memulihkan atribut '%=%' untuk koneksi yang dihitung dari lajur "
 "'%'"
 
-#: src/netedit/elements/network/GNECrossing.cpp:86
+#: src/netedit/elements/network/GNECrossing.cpp:93
 msgid "Crossing's edges don't support pedestrians"
 msgstr "Tepi penyeberangan tidak mendukung pejalan kaki"
 
-#: src/netedit/elements/network/GNECrossing.cpp:296
+#: src/netedit/elements/network/GNECrossing.cpp:303
 msgid "Set custom crossing shape"
 msgstr "Tetapkan bentuk penyeberangan kustom"
 
-#: src/netedit/elements/network/GNEEdge.cpp:163
+#: src/netedit/elements/network/GNEEdge.cpp:170
 msgid "Parent junctions are in the same position: %, %"
 msgstr "Persimpangan induk berada di posisi yang sama: %, %"
 
-#: src/netedit/elements/network/GNEEdge.cpp:2364
+#: src/netedit/elements/network/GNEEdge.cpp:2371
 msgid "Could not compute smooth shape for edge '%'"
 msgstr "Tidak dapat menghitung bentuk halus untuk tepi '%'"
 
-#: src/netedit/elements/network/GNEEdge.cpp:2382
+#: src/netedit/elements/network/GNEEdge.cpp:2389
 msgid "Could not compute smooth elevation for edge '%'"
 msgstr "Tidak dapat menghitung ketinggian halus untuk tepi '%'"
 
@@ -12373,300 +12386,300 @@ msgstr "Tidak dapat menghitung ketinggian halus untuk tepi '%'"
 msgid "invalid link state='%'"
 msgstr "status tautan tidak valid='%'"
 
-#: src/netedit/elements/network/GNEJunction.cpp:479
+#: src/netedit/elements/network/GNEJunction.cpp:486
 msgid "TLS operations"
 msgstr "Operasi TLS"
 
-#: src/netedit/elements/network/GNEJunction.cpp:481
+#: src/netedit/elements/network/GNEJunction.cpp:488
 msgid "Add TLS"
 msgstr "Tambah TLS"
 
-#: src/netedit/elements/network/GNEJunction.cpp:482
+#: src/netedit/elements/network/GNEJunction.cpp:489
 msgid "Add joined TLS"
 msgstr "Tambah TLS gabungan"
 
-#: src/netedit/elements/network/GNEJunction.cpp:523
+#: src/netedit/elements/network/GNEJunction.cpp:530
 msgid "Reset edge endpoints"
 msgstr "Atur ulang titik akhir tepi"
 
-#: src/netedit/elements/network/GNEJunction.cpp:524
+#: src/netedit/elements/network/GNEJunction.cpp:531
 msgid "Set custom junction shape"
 msgstr "Tetapkan bentuk persimpangan kustom"
 
-#: src/netedit/elements/network/GNEJunction.cpp:525
+#: src/netedit/elements/network/GNEJunction.cpp:532
 msgid "Reset junction shape"
 msgstr "Atur ulang bentuk persimpangan"
 
-#: src/netedit/elements/network/GNEJunction.cpp:526
+#: src/netedit/elements/network/GNEJunction.cpp:533
 msgid "Replace junction by geometry point"
 msgstr "Ganti persimpangan dengan titik geometri"
 
-#: src/netedit/elements/network/GNEJunction.cpp:527
+#: src/netedit/elements/network/GNEJunction.cpp:534
 msgid "Split junction (% end points)"
 msgstr "Pisah persimpangan (% titik akhir)"
 
-#: src/netedit/elements/network/GNEJunction.cpp:528
+#: src/netedit/elements/network/GNEJunction.cpp:535
 msgid "Split junction and reconnect"
 msgstr "Pisah persimpangan dan sambungkan kembali"
 
-#: src/netedit/elements/network/GNEJunction.cpp:531
+#: src/netedit/elements/network/GNEJunction.cpp:538
 msgid "Select roundabout"
 msgstr "Pilih bundaran"
 
-#: src/netedit/elements/network/GNEJunction.cpp:535
+#: src/netedit/elements/network/GNEJunction.cpp:542
 msgid "Convert to roundabout (using junction attribute radius %)"
 msgstr "Ubah menjadi bundaran (menggunakan atribut radius persimpangan %)"
 
-#: src/netedit/elements/network/GNEJunction.cpp:544
+#: src/netedit/elements/network/GNEJunction.cpp:551
 msgid " of % junctions"
 msgstr " dari % persimpangan"
 
-#: src/netedit/elements/network/GNEJunction.cpp:545
+#: src/netedit/elements/network/GNEJunction.cpp:552
 msgid "Clear connections"
 msgstr "Hapus koneksi"
 
-#: src/netedit/elements/network/GNEJunction.cpp:546
+#: src/netedit/elements/network/GNEJunction.cpp:553
 msgid "Reset connections"
 msgstr "Atur ulang koneksi"
 
-#: src/netedit/elements/network/GNEJunction.cpp:555
+#: src/netedit/elements/network/GNEJunction.cpp:562
 msgid "Reset junction shapes"
 msgstr "Atur ulang bentuk persimpangan"
 
-#: src/netedit/elements/network/GNEJunction.cpp:569
+#: src/netedit/elements/network/GNEJunction.cpp:576
 msgid "wrong edit mode"
 msgstr "mode edit salah"
 
-#: src/netedit/elements/network/GNEJunction.cpp:1455
+#: src/netedit/elements/network/GNEJunction.cpp:1462
 msgid "change junction position"
 msgstr "ubah posisi persimpangan"
 
-#: src/netedit/elements/network/GNEJunction.cpp:1478
+#: src/netedit/elements/network/GNEJunction.cpp:1485
 msgid "change keepClear for whole junction"
 msgstr "ubah keepClear untuk seluruh persimpangan"
 
-#: src/netedit/elements/network/GNELane.cpp:506
+#: src/netedit/elements/network/GNELane.cpp:507
 msgid "Copy parent edge name to clipboard"
 msgstr "Salin nama tepi induk ke clipboard"
 
-#: src/netedit/elements/network/GNELane.cpp:515
+#: src/netedit/elements/network/GNELane.cpp:516
 msgid "Remove Lane From Selected"
 msgstr "Hapus Lajur Dari Yang Dipilih"
 
-#: src/netedit/elements/network/GNELane.cpp:517
+#: src/netedit/elements/network/GNELane.cpp:518
 msgid "Add Lane To Selected"
 msgstr "Tambah Lajur Ke Yang Dipilih"
 
-#: src/netedit/elements/network/GNELane.cpp:521
+#: src/netedit/elements/network/GNELane.cpp:522
 msgid "Remove Edge From Selected"
 msgstr "Hapus Tepi Dari Yang Dipilih"
 
-#: src/netedit/elements/network/GNELane.cpp:523
+#: src/netedit/elements/network/GNELane.cpp:524
 msgid "Add Edge To Selected"
 msgstr "Tambah Tepi Ke Yang Dipilih"
 
-#: src/netedit/elements/network/GNELane.cpp:540
+#: src/netedit/elements/network/GNELane.cpp:541
 msgid "Reset edge end points"
 msgstr "Atur ulang titik akhir tepi"
 
-#: src/netedit/elements/network/GNELane.cpp:567
+#: src/netedit/elements/network/GNELane.cpp:568
 msgid "Select state for all links from this edge:"
 msgstr "Pilih status untuk semua tautan dari tepi ini:"
 
-#: src/netedit/elements/network/GNELane.cpp:577
+#: src/netedit/elements/network/GNELane.cpp:578
 msgid "Additional options available in 'Inspect Mode'"
 msgstr "Opsi tambahan tersedia di 'Mode Inspeksi'"
 
-#: src/netedit/elements/network/GNELane.cpp:592
+#: src/netedit/elements/network/GNELane.cpp:593
 msgid "Shape pos: "
 msgstr "Posisi bentuk: "
 
-#: src/netedit/elements/network/GNELane.cpp:593
+#: src/netedit/elements/network/GNELane.cpp:594
 msgid "Length pos: "
 msgstr "Posisi panjang: "
 
-#: src/netedit/elements/network/GNELane.cpp:595
+#: src/netedit/elements/network/GNELane.cpp:596
 msgid "Distance: "
 msgstr "Jarak: "
 
-#: src/netedit/elements/network/GNELane.cpp:597
+#: src/netedit/elements/network/GNELane.cpp:598
 msgid "Height: "
 msgstr "Ketinggian: "
 
-#: src/netedit/elements/network/GNELane.cpp:598
+#: src/netedit/elements/network/GNELane.cpp:599
 msgid "Angle: "
 msgstr "Sudut: "
 
-#: src/netedit/elements/network/GNELane.cpp:648
+#: src/netedit/elements/network/GNELane.cpp:649
 msgid "Lane Parametric Length cannot be never 0"
 msgstr "Panjang Parametrik Lajur tidak boleh pernah 0"
 
-#: src/netedit/elements/network/GNELane.cpp:841
+#: src/netedit/elements/network/GNELane.cpp:842
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
 "Lajur berlawanan '%' tidak menghubungkan simpul yang sama dengan tepi '%'!"
 
-#: src/netedit/elements/network/GNELane.cpp:1391
+#: src/netedit/elements/network/GNELane.cpp:1392
 msgid "Unexpected LinkState '%'"
 msgstr "LinkState '%' tidak terduga"
 
-#: src/netedit/elements/network/GNELane.cpp:1996
+#: src/netedit/elements/network/GNELane.cpp:1997
 msgid "Edge operations (% selected)"
 msgstr "Operasi tepi (% dipilih)"
 
-#: src/netedit/elements/network/GNELane.cpp:1998
+#: src/netedit/elements/network/GNELane.cpp:1999
 msgid "Edge operations"
 msgstr "Operasi tepi"
 
-#: src/netedit/elements/network/GNELane.cpp:2001
+#: src/netedit/elements/network/GNELane.cpp:2002
 msgid "Split edge here"
 msgstr "Pisah tepi di sini"
 
-#: src/netedit/elements/network/GNELane.cpp:2002
+#: src/netedit/elements/network/GNELane.cpp:2003
 msgid "Split edge in both directions here (no symmetric opposite edge)"
 msgstr "Pisah tepi di kedua arah di sini (tidak ada tepi berlawanan simetris)"
 
-#: src/netedit/elements/network/GNELane.cpp:2007
+#: src/netedit/elements/network/GNELane.cpp:2008
 msgid "Split edge in both directions here (no opposite edge)"
 msgstr "Pisah tepi di kedua arah di sini (tidak ada tepi berlawanan)"
 
-#: src/netedit/elements/network/GNELane.cpp:2014
+#: src/netedit/elements/network/GNELane.cpp:2015
 msgid "Split edge in both directions here"
 msgstr "Pisah tepi di kedua arah di sini"
 
-#: src/netedit/elements/network/GNELane.cpp:2018
+#: src/netedit/elements/network/GNELane.cpp:2019
 msgid "Set geometry endpoint here (shift-click)"
 msgstr "Tetapkan titik akhir geometri di sini (shift-klik)"
 
-#: src/netedit/elements/network/GNELane.cpp:2022
+#: src/netedit/elements/network/GNELane.cpp:2023
 msgid "Restore both geometry endpoints"
 msgstr "Pulihkan kedua titik akhir geometri"
 
-#: src/netedit/elements/network/GNELane.cpp:2024
+#: src/netedit/elements/network/GNELane.cpp:2025
 msgid "Restore geometry endpoints of all selected edges"
 msgstr "Pulihkan titik akhir geometri semua tepi yang dipilih"
 
-#: src/netedit/elements/network/GNELane.cpp:2027
+#: src/netedit/elements/network/GNELane.cpp:2028
 msgid "Restore geometry endpoint (shift-click)"
 msgstr "Pulihkan titik akhir geometri (shift-klik)"
 
-#: src/netedit/elements/network/GNELane.cpp:2029
+#: src/netedit/elements/network/GNELane.cpp:2030
 msgid "Reverse %"
 msgstr "Balik %"
 
-#: src/netedit/elements/network/GNELane.cpp:2030
+#: src/netedit/elements/network/GNELane.cpp:2031
 msgid "Add reverse direction for %"
 msgstr "Tambah arah terbalik untuk %"
 
-#: src/netedit/elements/network/GNELane.cpp:2034
+#: src/netedit/elements/network/GNELane.cpp:2035
 msgid "Add reverse disconnected direction for %"
 msgstr "Tambah arah terbalik terputus untuk %"
 
-#: src/netedit/elements/network/GNELane.cpp:2035
+#: src/netedit/elements/network/GNELane.cpp:2036
 msgid "Reset lengths for %"
 msgstr "Atur ulang panjang untuk %"
 
-#: src/netedit/elements/network/GNELane.cpp:2036
+#: src/netedit/elements/network/GNELane.cpp:2037
 msgid "Straighten %"
 msgstr "Luruskan %"
 
-#: src/netedit/elements/network/GNELane.cpp:2037
+#: src/netedit/elements/network/GNELane.cpp:2038
 msgid "Smooth %"
 msgstr "Haluskan %"
 
-#: src/netedit/elements/network/GNELane.cpp:2038
+#: src/netedit/elements/network/GNELane.cpp:2039
 msgid "Straighten elevation of %"
 msgstr "Luruskan ketinggian dari %"
 
-#: src/netedit/elements/network/GNELane.cpp:2039
+#: src/netedit/elements/network/GNELane.cpp:2040
 msgid "Smooth elevation of %"
 msgstr "Haluskan ketinggian dari %"
 
-#: src/netedit/elements/network/GNELane.cpp:2086
+#: src/netedit/elements/network/GNELane.cpp:2087
 msgid "Lane operations (% selected)"
 msgstr "Operasi lajur (% dipilih)"
 
-#: src/netedit/elements/network/GNELane.cpp:2088
+#: src/netedit/elements/network/GNELane.cpp:2089
 msgid "Lane operations"
 msgstr "Operasi lajur"
 
-#: src/netedit/elements/network/GNELane.cpp:2090
+#: src/netedit/elements/network/GNELane.cpp:2091
 msgid "Duplicate lane"
 msgstr "Duplikat lajur"
 
-#: src/netedit/elements/network/GNELane.cpp:2091
+#: src/netedit/elements/network/GNELane.cpp:2092
 msgid "Set custom lane shape"
 msgstr "Tetapkan bentuk lajur kustom"
 
-#: src/netedit/elements/network/GNELane.cpp:2092
+#: src/netedit/elements/network/GNELane.cpp:2093
 msgid "Reset custom shape"
 msgstr "Atur ulang bentuk kustom"
 
-#: src/netedit/elements/network/GNELane.cpp:2096
+#: src/netedit/elements/network/GNELane.cpp:2097
 msgid "Reset opposite lane"
 msgstr "Atur ulang lajur berlawanan"
 
-#: src/netedit/elements/network/GNELane.cpp:2108
-#: src/netedit/elements/network/GNELane.cpp:2119
-#: src/netedit/elements/network/GNELane.cpp:2128
+#: src/netedit/elements/network/GNELane.cpp:2109
+#: src/netedit/elements/network/GNELane.cpp:2120
+#: src/netedit/elements/network/GNELane.cpp:2129
 msgid "Sidewalk"
 msgstr "Trotoar"
 
-#: src/netedit/elements/network/GNELane.cpp:2109
-#: src/netedit/elements/network/GNELane.cpp:2121
-#: src/netedit/elements/network/GNELane.cpp:2129
+#: src/netedit/elements/network/GNELane.cpp:2110
+#: src/netedit/elements/network/GNELane.cpp:2122
+#: src/netedit/elements/network/GNELane.cpp:2130
 msgid "Bike lane"
 msgstr "Lajur sepeda"
 
-#: src/netedit/elements/network/GNELane.cpp:2110
-#: src/netedit/elements/network/GNELane.cpp:2123
-#: src/netedit/elements/network/GNELane.cpp:2130
+#: src/netedit/elements/network/GNELane.cpp:2111
+#: src/netedit/elements/network/GNELane.cpp:2124
+#: src/netedit/elements/network/GNELane.cpp:2131
 msgid "Bus lane"
 msgstr "Lajur bus"
 
-#: src/netedit/elements/network/GNELane.cpp:2113
-#: src/netedit/elements/network/GNELane.cpp:2125
-#: src/netedit/elements/network/GNELane.cpp:2131
+#: src/netedit/elements/network/GNELane.cpp:2114
+#: src/netedit/elements/network/GNELane.cpp:2126
+#: src/netedit/elements/network/GNELane.cpp:2132
 msgid "Green verge"
 msgstr "Jalur hijau"
 
-#: src/netedit/elements/network/GNELane.cpp:2115
+#: src/netedit/elements/network/GNELane.cpp:2116
 msgid "Green verge (front)"
 msgstr "Jalur hijau (depan)"
 
-#: src/netedit/elements/network/GNELane.cpp:2116
+#: src/netedit/elements/network/GNELane.cpp:2117
 msgid "Green verge (back)"
 msgstr "Jalur hijau (belakang)"
 
-#: src/netedit/elements/network/GNELane.cpp:2133
+#: src/netedit/elements/network/GNELane.cpp:2134
 msgid "Add restricted %"
 msgstr "Tambah % terbatas"
 
-#: src/netedit/elements/network/GNELane.cpp:2134
+#: src/netedit/elements/network/GNELane.cpp:2135
 msgid "Remove restricted %"
 msgstr "Hapus % terbatas"
 
-#: src/netedit/elements/network/GNELane.cpp:2135
+#: src/netedit/elements/network/GNELane.cpp:2136
 msgid "Transform to restricted %"
 msgstr "Ubah menjadi % terbatas"
 
-#: src/netedit/elements/network/GNELane.cpp:2176
+#: src/netedit/elements/network/GNELane.cpp:2177
 msgid "Template operations (% selected)"
 msgstr "Operasi templat (% dipilih)"
 
-#: src/netedit/elements/network/GNELane.cpp:2178
+#: src/netedit/elements/network/GNELane.cpp:2179
 msgid "Template operations"
 msgstr "Operasi templat"
 
-#: src/netedit/elements/network/GNELane.cpp:2181
+#: src/netedit/elements/network/GNELane.cpp:2182
 msgid "Use edge as template"
 msgstr "Gunakan tepi sebagai templat"
 
-#: src/netedit/elements/network/GNELane.cpp:2182
+#: src/netedit/elements/network/GNELane.cpp:2183
 msgid "Apply template"
 msgstr "Terapkan templat"
 
-#: src/netedit/elements/network/GNELane.cpp:2201
+#: src/netedit/elements/network/GNELane.cpp:2202
 msgid "Select reachable (compute junctions)"
 msgstr "Pilih yang dapat dijangkau (hitung persimpangan)"
 
@@ -15916,7 +15929,7 @@ msgstr "Mengganti POI '%'"
 msgid "Replacing polygon '%'"
 msgstr "Mengganti poligon '%'"
 
-#: src/utils/gui/images/GUIIconSubSys.cpp:1189
+#: src/utils/gui/images/GUIIconSubSys.cpp:1197
 msgid "Instance was previously created"
 msgstr "Instance sudah dibuat sebelumnya"
 
