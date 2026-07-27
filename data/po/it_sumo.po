@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-06-29 05:43+0000\n"
+"PO-Revision-Date: 2026-07-27 17:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1961,22 +1961,29 @@ msgid ""
 "edge for the given period (e.g. a traffic light cycle) instead of per-"
 "timestep data"
 msgstr ""
+"Scrivi statistiche aggregate di code (max, mediano, 95° percentile) per ogni "
+"arco e intervallo dato (per esempio un ciclo semaforico) invece di farlo per "
+"ogni passo di simulazione"
 
 #: src/microsim/MSFrame.cpp:211
 msgid "Maximum speed for counting a vehicle as queued"
-msgstr ""
+msgstr "Velocità massima di un veicolo per consideralo essere in coda"
 
 #: src/microsim/MSFrame.cpp:213
 msgid ""
 "The percentile (0-100) to report as percentileQueueLength in aggregated "
 "queue output"
 msgstr ""
+"Il percentile (0-100) da calcolare come percentileQueueLength nell'uscita "
+"aggregata di code"
 
 #: src/microsim/MSFrame.cpp:215
 msgid ""
 "Do not save data for time steps / intervals which have no queue (required "
 "for column based output formats)"
 msgstr ""
+"Non salvare dati di passi di simulazione o intervalli senza nessuna coda "
+"(richiesto per formati di uscita a base di colonne)"
 
 #: src/microsim/MSFrame.cpp:218
 msgid ""
@@ -2546,6 +2553,8 @@ msgid ""
 "Compute slope at the vehicle center of mass instead of integrating over "
 "front and back"
 msgstr ""
+"Calcola la pendenza del veicolo usando il centro di massa invece di "
+"integrare tra fronte e retro"
 
 #: src/microsim/MSFrame.cpp:544
 msgid ""
@@ -2947,7 +2956,7 @@ msgstr "Attiva la simulazione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:771
 msgid "Enables the meso-LTM (LIFT) model"
-msgstr ""
+msgstr "Attiva il modello meso-LTM (LIFT)"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -4084,7 +4093,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:79
 msgid "incompatible carFollowModel '%' when loading state for Rail"
-msgstr ""
+msgstr "modello di guida '%' incompatibile con il caricamento di uno stato Rail"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:155
 msgid "Unknown train type: %. Exiting!"
