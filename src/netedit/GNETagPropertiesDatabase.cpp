@@ -2702,7 +2702,7 @@ GNETagPropertiesDatabase::fillDemandElements() {
         // set values of tag
         myTagProperties[currentTag] = new GNETagProperties(currentTag, mySetTagProperties[GNE_TAG_SUPERMODE_DEMAND],
                 GNETagProperties::Type::DEMANDELEMENT | GNETagProperties::Type::DISTRIBUTIONREF,
-                GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
+                GNETagProperties::Property::NOTDRAWABLE | GNETagProperties::Property::NOTSELECTABLE | GNETagProperties::Property::XMLCHILD | GNETagProperties::Property::NOPARAMETERS,
                 GNETagProperties::Over::VIEW,
                 FileBucket::Type::NOTHING,
                 GNETagProperties::Conflicts::NO_CONFLICTS,
