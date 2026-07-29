@@ -1401,7 +1401,7 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
         // set settings in view
         if (viewParent->getView() && (fileLoadedEvent->getSettingsFile().size() > 0)) {
-            GUISettingsHandler settings(fileLoadedEvent->getSettingsFile(), true, true);
+            GUISettingsHandler settings(getApp(), fileLoadedEvent->getSettingsFile(), true, true);
             settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());

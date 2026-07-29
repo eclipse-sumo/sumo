@@ -624,7 +624,7 @@ public:
     };
 
     /// @brief constructor
-    GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
+    GUIVisualizationSettings(FXApp* app, const std::string& _name, bool _netedit = false);
 
     /// @brief check if draw junction
     bool checkDrawJunction(const Boundary& b, const bool selected) const;

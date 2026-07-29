@@ -560,7 +560,7 @@ GUIVisualizationWidthSettings::operator!=(const GUIVisualizationWidthSettings& v
 // GUIVisualizationWidthSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, bool _netedit) :
+GUIVisualizationSettings::GUIVisualizationSettings(FXApp* app, const std::string& _name, bool _netedit) :
     name(_name),
     netedit(_netedit),
     angle(0),
@@ -585,7 +585,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
-    disableHideByZoom(true),
+    disableHideByZoom(app ? app->reg().readBoolEntry("NETEDIT", "disableHideByZoom", true) : false),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),

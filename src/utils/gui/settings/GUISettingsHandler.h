@@ -44,12 +44,11 @@ public:
     /** @brief Constructor
      * @param[in] file the file to parse
      */
-    GUISettingsHandler(const std::string& content, bool isFile = true, bool netedit = false);
+    GUISettingsHandler(FXApp* app, const std::string& content, bool isFile = true, bool netedit = false);
 
 
     /// @brief Destructor
     ~GUISettingsHandler();
-
 
 
     /// @name inherited from GenericSAXHandler
@@ -144,6 +143,9 @@ public:
     }
 
 private:
+    /// @brief pointer to App
+    FXApp* myApp;
+
     /// @brief The settings to fill
     GUIVisualizationSettings mySettings;
 
