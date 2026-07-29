@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2025-12-23 09:18+0000\n"
+"PO-Revision-Date: 2026-07-29 08:19+0000\n"
 "Last-Translator: MuteJack <coldman1224@outlook.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -9192,7 +9192,7 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:607
 #: src/netimport/NIImporter_VISUM.cpp:642
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr ""
+msgstr "중복된 Edge id가 발견되었습니다 (ID='%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:627
 msgid ""
@@ -9203,7 +9203,7 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:685
 #: src/netimport/NIImporter_VISUM.cpp:734
 msgid "There is no edge from node '%' to node '%'."
-msgstr ""
+msgstr "노드 '%' 에서 '%' 를 연결하는 Edge가 없습니다."
 
 #: src/netimport/NIImporter_VISUM.cpp:712
 msgid "Error in geometry description from node '%' to node '%'."
