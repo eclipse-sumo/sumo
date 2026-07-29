@@ -1928,6 +1928,11 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
                 counter++;
             }
         }
+        for (const auto& stop : vehicle.second->getChildDemandElements()) {
+            if (stop->getTagProperty()->isVehicleStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
     }
     for (const auto& flow : myDemandElements.at(SUMO_TAG_FLOW)) {
         for (const auto& stop : flow.second->getChildDemandElements()) {
@@ -1938,6 +1943,11 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
     }
     for (const auto& flow : myDemandElements.at(GNE_TAG_FLOW_WITHROUTE)) {
         for (const auto& stop : flow.second->getChildDemandElements().front()->getChildDemandElements()) {
+            if (stop->getTagProperty()->isVehicleStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
+        }
+        for (const auto& stop : flow.second->getChildDemandElements()) {
             if (stop->getTagProperty()->isVehicleStop() && stop->isAttributeCarrierSelected()) {
                 counter++;
             }
