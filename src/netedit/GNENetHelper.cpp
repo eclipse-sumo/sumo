@@ -1908,8 +1908,10 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedStops() const {
     int counter = 0;
     // iterate over routes
     for (const auto& route : myDemandElements.at(SUMO_TAG_ROUTE)) {
-        if (route.second->isAttributeCarrierSelected()) {
-            counter++;
+        for (const auto& stop : route.second->getChildDemandElements()) {
+            if (stop->getTagProperty()->isVehicleStop() && stop->isAttributeCarrierSelected()) {
+                counter++;
+            }
         }
     }
     // vehicles
