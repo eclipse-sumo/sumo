@@ -41,6 +41,9 @@ public:
     /// @brief constructor with a single tag
     GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType);
 
+    /// @brief constructor with mores tag
+    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType);
+
     /// @brief constructor with tag type
     GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,
                              const std::vector<SumoXMLTag> exceptions = {});
