@@ -2222,6 +2222,12 @@ GNETagPropertiesDatabase::fillShapeElements() {
                                    TL("Angle of rendered image in degree"),
                                    toString(Shape::DEFAULT_ANGLE));
 
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_HEIGHT,
+                                   GNEAttributeProperties::Property::FLOAT | GNEAttributeProperties::Property::POSITIVE | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("Height of polygonin meters"),
+                                   toString(Shape::DEFAULT_HEIGHT));
+
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_GEO,
                                    GNEAttributeProperties::Property::BOOL | GNEAttributeProperties::Property::DEFAULTVALUE,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::GEOEDITOR,
@@ -2237,6 +2243,7 @@ GNETagPropertiesDatabase::fillShapeElements() {
                                    GNEAttributeProperties::Property::BOOL,
                                    GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                                    TL("Toggle close or open shape"));
+
     }
     currentTag = SUMO_TAG_POI;
     {
