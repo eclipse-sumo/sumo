@@ -2250,7 +2250,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
             myNet->getAttributeCarriers()->insertConnection(connection);
             return connection;
         } else {
-            WRITE_WARNING("Warning: the NBEdge " + to->getID() + " doesn't exist in Netedit");
+            WRITE_WARNING("The NBEdge " + to->getID() + " doesn't exist in Netedit");
             return nullptr;
         }
     } else {
