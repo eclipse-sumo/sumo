@@ -2607,6 +2607,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
             // aditionally, check if network requires saving
             if (neteditOptionsDialog.requireSaveNetwork()) {
+                myNet->getSavingStatus()->requireSaveNetwork();
                 myNet->requireRecompute();
             }
         }
