@@ -2949,7 +2949,7 @@ GNEViewNetHelper::NetworkViewOptions::showConnections(const GNEConnection* conne
         if (!myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showConnections()) {
             if (myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
                 for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
-                    if (connection == outgoingConnection) {
+                    if ((connection == outgoingConnection) && (outgoingConnection->getLaneFrom() == myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane())) {
                         return true;
                     }
                 }

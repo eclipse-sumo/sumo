@@ -325,6 +325,7 @@ GNEConnectorFrame::ConnectionVisualization::ConnectionVisualization(GNEConnector
 
     // Create checkbox for toggle always show connections button
     myToggleAlwaysShowConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Always show connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myToggleAlwaysShowConnectionsButton->setCheck(TRUE);
 
     // Create checkbox for toggle inspect connections buttons
     myToggleInspectConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Inspect connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);

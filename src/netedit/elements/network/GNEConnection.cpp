@@ -694,6 +694,8 @@ GNEConnection::checkDrawConnection() const {
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         if (myNet->getViewNet()->getNetworkViewOptions().showConnections(this) || isAttributeCarrierSelected()) {
             drawConnection = !myShapeDeprecated;
+        } else if (myNet->getViewNet()->getInspectedElements().isACInspected(this)) {
+            drawConnection = true;
         } else {
             drawConnection = false;
         }
