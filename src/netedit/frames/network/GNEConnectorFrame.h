@@ -159,6 +159,51 @@ public:
     };
 
     // ===========================================================================
+    // class ConnectionVisualization
+    // ===========================================================================
+
+    class ConnectionVisualization : public GNEGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEConnectorFrame::ConnectionVisualization)
+
+    public:
+        /// @brief constructor
+        ConnectionVisualization(GNEConnectorFrame* connectorFrameParent);
+
+        /// @brief destructor
+        ~ConnectionVisualization();
+
+        /// @brief check if show connections
+        bool showConnections() const;
+
+        /// @brief check if inspect connections
+        bool inspectConnections() const;
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /// @brief Called when the user toggles the show always connection checkbox
+        long onCmdToggleAlwaysShowConnections(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user toggles the inspect connections checkbox
+        long onCmdToggleInspectConnections(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(ConnectionVisualization)
+
+    private:
+        /// @brief pointer to connectorFrame parent
+        GNEConnectorFrame* myConnectorFrameParent;
+
+        /// @brief "Select Dead Ends" button
+        FXCheckButton* myToggleAlwaysShowConnectionsButton;
+
+        /// @brief "Select Dead Starts" button
+        FXCheckButton* myToggleInspectConnectionsButton;
+    };
+
+    // ===========================================================================
     // class ConnectionSelection
     // ===========================================================================
 
@@ -242,6 +287,9 @@ private:
 
     /// @brief ConnectionOperations module
     GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
+
+    /// @brief ConnectionVisualization module
+    GNEConnectorFrame::ConnectionVisualization* myConnectionVisualization = nullptr;
 
     /// @brief ConnectionSelection module
     GNEConnectorFrame::ConnectionSelection* myConnectionSelection = nullptr;

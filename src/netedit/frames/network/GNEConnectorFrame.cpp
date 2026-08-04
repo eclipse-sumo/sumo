@@ -37,8 +37,8 @@
 // ===========================================================================
 
 FXDEFMAP(GNEConnectorFrame::ConnectionModifications) ConnectionModificationsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,     GNEConnectorFrame::ConnectionModifications::onCmdCancelModifications),
-    FXMAPFUNC(SEL_COMMAND,  MID_OK,         GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL, GNEConnectorFrame::ConnectionModifications::onCmdCancelModifications),
+    FXMAPFUNC(SEL_COMMAND,  MID_OK,     GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications),
 };
 
 FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
@@ -50,9 +50,15 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SELECTPASS,          GNEConnectorFrame::ConnectionOperations::onCmdSelectPass),
 };
 
+FXDEFMAP(GNEConnectorFrame::ConnectionVisualization) ConnectionVisualizationMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleAlwaysShowConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleInspectConnections),
+};
+
 // Object implementation
-FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, GNEGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
-FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    GNEGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, GNEGroupBoxModule, ConnectionModificationsMap,  ARRAYNUMBER(ConnectionModificationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    GNEGroupBoxModule, ConnectionOperationsMap,     ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionVisualization, GNEGroupBoxModule, ConnectionVisualizationMap,  ARRAYNUMBER(ConnectionVisualizationMap))
 
 
 // ===========================================================================
@@ -310,6 +316,50 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 }
 
 // ---------------------------------------------------------------------------
+// GNEConnectorFrame::ConnectionVisualization - methods
+// ---------------------------------------------------------------------------
+
+GNEConnectorFrame::ConnectionVisualization::ConnectionVisualization(GNEConnectorFrame* connectorFrameParent) :
+    GNEGroupBoxModule(connectorFrameParent, TL("Visualization")),
+    myConnectorFrameParent(connectorFrameParent) {
+
+    // Create checkbox for toggle always show connections button
+    myToggleAlwaysShowConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Always show connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+
+    // Create checkbox for toggle inspect connections buttons
+    myToggleInspectConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Inspect connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+}
+
+
+GNEConnectorFrame::ConnectionVisualization::~ConnectionVisualization() {}
+
+
+bool
+GNEConnectorFrame::ConnectionVisualization::showConnections() const {
+    return myToggleAlwaysShowConnectionsButton->getCheck() == TRUE;
+}
+
+
+bool
+GNEConnectorFrame::ConnectionVisualization::inspectConnections() const {
+    return myToggleInspectConnectionsButton->getCheck() == TRUE;
+}
+
+
+long
+GNEConnectorFrame::ConnectionVisualization::onCmdToggleAlwaysShowConnections(FXObject*, FXSelector, void*) {
+    myConnectorFrameParent->getViewNet()->updateViewNet();
+    return 1;
+}
+
+
+long
+GNEConnectorFrame::ConnectionVisualization::onCmdToggleInspectConnections(FXObject*, FXSelector, void*) {
+    myConnectorFrameParent->getViewNet()->updateViewNet();
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEConnectorFrame::ConnectionSelection - methods
 // ---------------------------------------------------------------------------
 
@@ -369,8 +419,8 @@ GNEConnectorFrame::GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create connection modifications module
     myConnectionModifications = new ConnectionModifications(this);
 
-    // create connection operations module
-    myConnectionOperations = new ConnectionOperations(this);
+    // create connection visualization module
+    myConnectionVisualization = new ConnectionVisualization(this);
 
     // create connection selection module
     myConnectionSelection = new ConnectionSelection(this);
