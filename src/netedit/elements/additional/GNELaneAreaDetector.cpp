@@ -313,7 +313,7 @@ GNELaneAreaDetector::drawJunctionPartialGL(const GUIVisualizationSettings& s, co
         // get detail level
         const auto d = s.getDetailLevel(E2Exaggeration);
         // get flag for show only contour
-        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections() : false;
+        const bool onlyContour = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() ? myNet->getViewNet()->getNetworkViewOptions().showConnections(nullptr) : false;
         // check if connection to next lane exist
         const bool connectionExist = segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane());
         // get geometry

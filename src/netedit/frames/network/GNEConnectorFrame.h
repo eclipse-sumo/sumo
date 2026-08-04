@@ -247,8 +247,14 @@ public:
      */
     void handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
+    /// @brief get the lane of which connections are to be modified
+    GNELane* getCurrentEditedLane() const;
+
     /// @brief get pointer to ConnectionModifications module
     ConnectionModifications* getConnectionModifications() const;
+
+    /// @brief get pointer to ConnectionVisualization module
+    ConnectionVisualization* getConnectionVisualization();
 
 private:
     /// @brief the status of a target lane

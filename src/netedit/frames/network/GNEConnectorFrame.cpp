@@ -449,9 +449,21 @@ GNEConnectorFrame::handleLaneClick(const GNEViewNetHelper::ViewObjectsSelector& 
 }
 
 
+GNELane*
+GNEConnectorFrame::getCurrentEditedLane() const {
+    return myCurrentEditedLane;
+}
+
+
 GNEConnectorFrame::ConnectionModifications*
 GNEConnectorFrame::getConnectionModifications() const {
     return myConnectionModifications;
+}
+
+
+GNEConnectorFrame::ConnectionVisualization*
+GNEConnectorFrame::getConnectionVisualization() {
+    return myConnectionVisualization;
 }
 
 

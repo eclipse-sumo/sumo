@@ -31,6 +31,7 @@
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
@@ -2941,12 +2942,23 @@ GNEViewNetHelper::NetworkViewOptions::selectEdges() const {
 
 
 bool
-GNEViewNetHelper::NetworkViewOptions::showConnections() const {
+GNEViewNetHelper::NetworkViewOptions::showConnections(const GNEConnection* connection) const {
     if (myViewNet->myEditModes.isCurrentSupermodeData()) {
         return false;
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
-        // check if menu check hide connections ins shown
-        return (menuCheckHideConnections->amChecked() == FALSE);
+        if (!myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showConnections()) {
+            if (myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
+                for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
+                    if (connection == outgoingConnection) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        } else {
+            // check if menu check hide connections ins shown
+            return (menuCheckHideConnections->amChecked() == FALSE);
+        }
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
         return true;
     } else if (myViewNet->myEditModes.isCurrentSupermodeNetwork() && menuCheckShowConnections->shown() == false) {
