@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:52+0200\n"
-"PO-Revision-Date: 2026-06-21 11:06+0000\n"
+"PO-Revision-Date: 2026-08-07 19:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -3915,7 +3915,7 @@ msgstr "Zeige Blasen über Knotenpunktgeometrie an"
 #: src/netedit/GNEApplicationWindowHelper.cpp:941
 #: src/netedit/GNEViewNetHelper.cpp:2825
 msgid "Show polygon symbols"
-msgstr ""
+msgstr "Polygonsymvole anzeigen"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:1067
 #: src/netedit/GNEViewNetHelper.cpp:3034
@@ -4804,6 +4804,8 @@ msgstr "Darstellungseinstellungen in dieser Ausgabedatei speichern"
 #: src/netedit/GNELoadThread.cpp:546
 msgid "Quit the app if the initial net/config loading fails"
 msgstr ""
+"Die Anwendung schließen, falls der ursprüngliche Ladevorgang eines Netzes / "
+"einer Konfiguration fehlschlägt"
 
 #: src/netedit/GNELoadThread.cpp:553
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -9377,7 +9379,7 @@ msgstr "Blasen über Knotenpunktgeometrien ein-/ ausblenden."
 
 #: src/netedit/GNEViewNetHelper.cpp:2825
 msgid "Show polygon symbols."
-msgstr ""
+msgstr "Polygonsymbole anzeigen."
 
 #: src/netedit/GNEViewNetHelper.cpp:3041 src/netedit/GNEViewNetHelper.cpp:3312
 msgid "Toggle show shapes (Polygons and POIs)."
@@ -15786,18 +15788,20 @@ msgstr ""
 #: src/netedit/tools/GNENetDiffTool.cpp:165
 msgid "Write geo coordinates instead of network coordinates"
 msgstr ""
+"Geografische Koordinaten anstatt von (kartesischen) Netzkoordinaten schreiben"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:169
 msgid "Give more output"
-msgstr ""
+msgstr "Erweiterte Ausgabe"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:172
 msgid "Interpret source and dest as plain-xml prefix instead of network names"
 msgstr ""
+"Quelle und Ziel als plain-xml-Präfix anstatt von Netzwerknamen interpretieren"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:175
 msgid "Compare source and dest files directly"
-msgstr ""
+msgstr "Quell- und Zieldateien direkt vergleichen"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:178
 msgid ""
