@@ -106,8 +106,8 @@
 
     while (PyDict_Next($input, &pos, &key, &value)) {
         const int key_int = PyLong_AsLong(key);
-        if (PyInt_Check(value)) {
-            parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(value));
+        if (PyLong_Check(value)) {
+            parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyLong_AsLong(value));
         } else if (PyFloat_Check(value)) {
             parameters[key_int] = std::make_shared<libsumo::TraCIDouble>(PyFloat_AsDouble(value));
         } else if (PyUnicode_Check(value)) {
@@ -120,14 +120,14 @@
             }
             const std::string format = PyUnicode_AsUTF8(PySequence_GetItem(value, 0));
             if (format == "b") {
-                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyLong_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_BYTE);
             } else if (format == "B") {
-                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyInt_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_UBYTE);
+                parameters[key_int] = std::make_shared<libsumo::TraCIInt>(PyLong_AsLong(PySequence_GetItem(value, 1)), libsumo::TYPE_UBYTE);
             } else if (format == "tru") {
                 PyObject* pyRoadPos = PySequence_GetItem(value, 2);
                 const std::string edge = PyUnicode_AsUTF8(PySequence_GetItem(pyRoadPos, 0));
                 const double pos = PyFloat_AsDouble(PySequence_GetItem(pyRoadPos, 1));
-                const int laneIndex = PyInt_AsLong(PySequence_GetItem(pyRoadPos, 2));
+                const int laneIndex = PyLong_AsLong(PySequence_GetItem(pyRoadPos, 2));
                 parameters[key_int] = std::make_shared<libsumo::TraCIRoadPosition>(edge, pos, laneIndex);
             } else if (format == "tou") {
                 PyObject* pyPos = PySequence_GetItem(value, 2);
@@ -137,8 +137,8 @@
                 parameters[key_int] = std::make_shared<libsumo::TraCIPosition>(pos);
             } else if (format == "tisb") {
                 libsumo::TraCIStringDoublePairList wrap;
-                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), (double)PyInt_AsLong(PySequence_GetItem(value, 2))));
-                wrap.value.emplace_back(std::pair<std::string, double>("", (double)PyInt_AsLong(PySequence_GetItem(value, 4))));
+                wrap.value.emplace_back(std::pair<std::string, double>(PyUnicode_AsUTF8(PySequence_GetItem(value, 3)), (double)PyLong_AsLong(PySequence_GetItem(value, 2))));
+                wrap.value.emplace_back(std::pair<std::string, double>("", (double)PyLong_AsLong(PySequence_GetItem(value, 4))));
                 parameters[key_int] = std::make_shared<libsumo::TraCIStringDoublePairList>(wrap);
             } else if (format == "tds") {
                 libsumo::TraCIStringDoublePairList wrap;
@@ -213,7 +213,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         if (pyVal == nullptr) {
             const libsumo::TraCIInt* const theInt = dynamic_cast<const libsumo::TraCIInt*>(traciVal);
             if (theInt != nullptr) {
-                pyVal = PyInt_FromLong(theInt->value);
+                pyVal = PyLong_FromLong(theInt->value);
             }
         }
         if (pyVal == nullptr) {
@@ -271,7 +271,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         if (pyVal == nullptr) {
             pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(traciVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
         }
-        PyObject* const pyKey = PyInt_FromLong(iter->first);
+        PyObject* const pyKey = PyLong_FromLong(iter->first);
         PyDict_SetItem(result, pyKey, pyVal);
         Py_DECREF(pyKey);
         Py_DECREF(pyVal);
