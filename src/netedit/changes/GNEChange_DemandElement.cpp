@@ -84,12 +84,19 @@ GNEChange_DemandElement::undo() {
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
         myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
-    // update stack labels
+    // update stack labels for parent edges
     const auto parentEdges = myParents.get<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();
         parentEdges.front()->updateContainerStackLabels();
+    }
+    // update stack labels also for route elements
+    if (myDemandElement->getTagProperty()->vehicleRoute()) {
+        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
+        firstRouteEdge->updateVehicleStackLabels();
+        firstRouteEdge->updatePersonStackLabels();
+        firstRouteEdge->updateContainerStackLabels();
     }
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();
@@ -121,12 +128,19 @@ GNEChange_DemandElement::redo() {
     if ((myDemandElement->getTagProperty()->getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewParent()->getTypeFrame()->shown()) {
         myDemandElement->getNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector(true);
     }
-    // update stack labels
+    // update stack labels for parent edges
     const auto parentEdges = myParents.get<GNEEdge*>();
     if (parentEdges.size() > 0) {
         parentEdges.front()->updateVehicleStackLabels();
         parentEdges.front()->updatePersonStackLabels();
         parentEdges.front()->updateContainerStackLabels();
+    }
+    // update stack labels also for route elements
+    if (myDemandElement->getTagProperty()->vehicleRoute()) {
+        const auto firstRouteEdge = myParents.get<GNEDemandElement*>().at(1)->getParentEdges().front();
+        firstRouteEdge->updateVehicleStackLabels();
+        firstRouteEdge->updatePersonStackLabels();
+        firstRouteEdge->updateContainerStackLabels();
     }
     // require always save elements
     myDemandElement->getNet()->getSavingStatus()->requireSaveDemandElements();

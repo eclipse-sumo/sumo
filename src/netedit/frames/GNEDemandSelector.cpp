@@ -46,12 +46,17 @@ FXIMPLEMENT(GNEDemandElementSelector,      GNEGroupBoxModule,     DemandElementS
 // ===========================================================================
 
 GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType) :
-    GNEGroupBoxModule(frameParent, TLF("Parent %", toString(demandElementTag)).c_str()),
+    GNEDemandElementSelector(frameParent, std::vector<SumoXMLTag>({demandElementTag}), tagType) {
+}
+
+
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType) :
+    GNEGroupBoxModule(frameParent, TLF("Parent %", toString(demandElementTags.front())).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
-    myDemandElementTags({demandElementTag}),
-                    myTagType(tagType),
-mySelectingMultipleElements(false) {
+    myDemandElementTags(demandElementTags),
+    myTagType(tagType),
+    mySelectingMultipleElements(false) {
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -60,6 +65,7 @@ mySelectingMultipleElements(false) {
     // shown after creation
     show();
 }
+
 
 
 GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,

@@ -98,7 +98,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     GUIPersistentWindowPos(this, "VIEWSETTINGS", true, 20, 40, 700, 500, 400, 20),
     myParent(parent),
     mySettings(settings),
-    myBackup(settings->name, settings->netedit) {
+    myBackup(parent->getApp(), settings->name, settings->netedit) {
     // make a backup copy
     myBackup.copy(*settings);
     // create content frame
@@ -533,7 +533,7 @@ GUIDialog_ViewSettings::updateScaleRanges(FXObject* sender, std::vector<FXRealSp
 
 long
 GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*val*/) {
-    GUIVisualizationSettings tmpSettings(mySettings->name);
+    GUIVisualizationSettings tmpSettings(getApp(), mySettings->name);
     tmpSettings.copy(*mySettings);
     int prevLaneMode = mySettings->getLaneEdgeMode();
     int prevLaneScaleMode = mySettings->getLaneEdgeScaleMode();
@@ -991,7 +991,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
 void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
-    GUISettingsHandler handler(file, true, mySettings->netedit);
+    GUISettingsHandler handler(getApp(), file, true, mySettings->netedit);
     for (std::string settingsName : handler.addSettings(myParent)) {
         FXint index = mySchemeName->appendIconItem(settingsName.c_str());
         mySchemeName->setCurrentItem(index);
@@ -1050,7 +1050,7 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
 void
 GUIDialog_ViewSettings::loadDecals(const std::string& file) {
     myParent->clearDecals();
-    GUISettingsHandler handler(file);
+    GUISettingsHandler handler(getApp(), file);
     if (handler.hasDecals()) {
         myParent->getDecalsLockMutex().lock();
         myParent->getDecals() = handler.getDecals();
@@ -1091,7 +1091,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
             }
         }
     }
-    GUIVisualizationSettings tmpSettings(mySettings->name, mySettings->netedit);
+    GUIVisualizationSettings tmpSettings(getApp(), mySettings->name, mySettings->netedit);
     tmpSettings.copy(*mySettings);
     tmpSettings.name = name;
     if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {

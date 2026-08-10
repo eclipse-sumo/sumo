@@ -943,6 +943,9 @@ GNEEdge::remakeGNEConnections(bool junctionsReady) {
     for (const auto& connection : connections) {
         // retrieve existent GNEConnection, or create it
         GNEConnection* retrievedGNEConnection = retrieveGNEConnection(connection.fromLane, connection.toEdge, connection.toLane);
+        if (!retrievedGNEConnection) {
+            continue;
+        }
         if (junctionsReady) {
             retrievedGNEConnection->updateLinkState();
         }
@@ -2237,13 +2240,19 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         }
     }
     if (createIfNoExist) {
-        // create new connection. Will be added to the rTree on first geometry computation
-        GNEConnection* connection = new GNEConnection(getChildLanes()[fromLane], myNet->getAttributeCarriers()->retrieveEdge(to->getID())->getChildLanes()[toLane]);
-        // add it into network
-        myNet->addGLObjectIntoGrid(connection);
-        // add it in attributeCarriers
-        myNet->getAttributeCarriers()->insertConnection(connection);
-        return connection;
+        const auto edge = myNet->getAttributeCarriers()->retrieveEdge(to->getID(), false);
+        if (edge) {
+            // create new connection. Will be added to the rTree on first geometry computation
+            GNEConnection* connection = new GNEConnection(getChildLanes()[fromLane], edge->getChildLanes()[toLane]);
+            // add it into network
+            myNet->addGLObjectIntoGrid(connection);
+            // add it in attributeCarriers
+            myNet->getAttributeCarriers()->insertConnection(connection);
+            return connection;
+        } else {
+            WRITE_WARNING("The NBEdge " + to->getID() + " doesn't exist in Netedit");
+            return nullptr;
+        }
     } else {
         return nullptr;
     }

@@ -1350,6 +1350,10 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         // write info
         WRITE_ERROR(failureMessage);
         setStatusBarText(failureMessage);
+        if (OptionsCont::getOptions().getBool("quit-on-fail")) {
+            closeAllWindows(true);
+            getApp()->exit(1);
+        }
     } else {
         // report success
         std::string successMessage;
@@ -1397,7 +1401,7 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         myViewNet = dynamic_cast<GNEViewNet*>(viewParent->getView());
         // set settings in view
         if (viewParent->getView() && (fileLoadedEvent->getSettingsFile().size() > 0)) {
-            GUISettingsHandler settings(fileLoadedEvent->getSettingsFile(), true, true);
+            GUISettingsHandler settings(getApp(), fileLoadedEvent->getSettingsFile(), true, true);
             settings.addSettings(viewParent->getView());
             viewParent->getView()->addDecals(settings.getDecals());
             settings.applyViewport(viewParent->getView());
@@ -2603,6 +2607,7 @@ GNEApplicationWindow::onCmdOpenOptionsDialog(FXObject*, FXSelector, void*) {
             myNet->getSavingStatus()->requireSaveNeteditConfig();
             // aditionally, check if network requires saving
             if (neteditOptionsDialog.requireSaveNetwork()) {
+                myNet->getSavingStatus()->requireSaveNetwork();
                 myNet->requireRecompute();
             }
         }

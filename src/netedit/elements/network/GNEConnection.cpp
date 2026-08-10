@@ -689,11 +689,13 @@ GNEConnection::checkDrawConnection() const {
     // declare a flag to check if shape has to be draw (by deafult false)
     bool drawConnection = false;
     // only draw connections if shape isn't deprecated
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() && myNet->getViewNet()->getNetworkViewOptions().showConnections(this)) {
         drawConnection = !myShapeDeprecated;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        if (myNet->getViewNet()->getNetworkViewOptions().showConnections() || isAttributeCarrierSelected()) {
+        if (myNet->getViewNet()->getNetworkViewOptions().showConnections(this) || isAttributeCarrierSelected()) {
             drawConnection = !myShapeDeprecated;
+        } else if (myNet->getViewNet()->getInspectedElements().isACInspected(this)) {
+            drawConnection = true;
         } else {
             drawConnection = false;
         }

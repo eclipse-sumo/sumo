@@ -63,7 +63,7 @@ FXIMPLEMENT_ABSTRACT(GNEOptionsEditorRow::OptionFilename,   GNEOptionsEditorRow:
 
 GNEOptionsEditorRow::OptionRow::OptionRow(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
         const std::string& name, const std::string& description, const std::string& defaultValue, const bool editable,
-        const bool requireSaveNetwork) :
+        const bool drawRed, const bool requireSaveNetwork) :
     FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame),
     myOptionsEditor(optionsEditor),
     myTopic(topic),
@@ -77,6 +77,9 @@ GNEOptionsEditorRow::OptionRow::OptionRow(GNEOptionsEditor* optionsEditor, FXCom
                                       name.c_str(), nullptr, GUIDesignLabelThickedFixed(MINNAMEWIDTH));
     // set description as tooltip
     myNameLabel->setTipText(description.c_str());
+    if (drawRed) {
+        myNameLabel->setTextColor(GUIDesignTextColorRed);
+    }
     // create content frame
     myContentFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // Create reset button
@@ -132,8 +135,8 @@ GNEOptionsEditorRow::OptionRow::updateResetButton() {
 
 GNEOptionsEditorRow::OptionString::OptionString(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myStringTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myStringTextField->setText(myOptionsEditor->myOptionsContainer.getString(name).c_str());
     if (!editable) {
@@ -191,8 +194,8 @@ GNEOptionsEditorRow::OptionString::getValue() const {
 
 GNEOptionsEditorRow::OptionStringVector::OptionStringVector(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myStringVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     if (!editable) {
         myStringVectorTextField->disable();
@@ -252,8 +255,8 @@ GNEOptionsEditorRow::OptionStringVector::getValue() const {
 
 GNEOptionsEditorRow::OptionBool::OptionBool(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myCheckButton = new FXCheckButton(myContentFrame, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     if (!editable) {
         myCheckButton->disable();
@@ -350,8 +353,8 @@ GNEOptionsEditorRow::OptionBool::getValue() const {
 
 GNEOptionsEditorRow::OptionInt::OptionInt(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myIntTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_INTEGER));
     if (!editable) {
         myIntTextField->disable();
@@ -415,8 +418,8 @@ GNEOptionsEditorRow::OptionInt::getValue() const {
 
 GNEOptionsEditorRow::OptionIntVector::OptionIntVector(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myIntVectorTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myIntVectorTextField->setText(myOptionsEditor->myOptionsContainer.getValueString(name).c_str());
     if (!editable) {
@@ -487,8 +490,8 @@ GNEOptionsEditorRow::OptionIntVector::getValue() const {
 
 GNEOptionsEditorRow::OptionFloat::OptionFloat(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, parseFloat(defaultValue), editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, parseFloat(defaultValue), editable, drawRed, requireSaveNetwork) {
     myFloatTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldRestricted(TEXTFIELD_REAL));
     myFloatTextField->setText(myOptionsEditor->myOptionsContainer.getValueString(name).c_str());
     if (!editable) {
@@ -564,8 +567,8 @@ GNEOptionsEditorRow::OptionFloat::parseFloat(const std::string& value) const {
 
 GNEOptionsEditorRow::OptionTime::OptionTime(GNEOptionsEditor* optionsEditor, FXComposite* parent,
         const std::string& topic, const std::string& name, const std::string& description,
-        const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, parseTime(defaultValue), editable, requireSaveNetwork) {
+        const std::string& defaultValue, const bool editable, const bool drawRed, const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, parseTime(defaultValue), editable, drawRed, requireSaveNetwork) {
     myTimeTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTimeTextField->setText(toString(myOptionsEditor->myOptionsContainer.getString(name)).c_str());
     if (!editable) {
@@ -640,8 +643,9 @@ GNEOptionsEditorRow::OptionTime::parseTime(const std::string& value) const {
 // ---------------------------------------------------------------------------
 
 GNEOptionsEditorRow::OptionFilename::OptionFilename(GNEOptionsEditor* optionsEditor, FXComposite* parent, const std::string& topic,
-        const std::string& name, const std::string& description, const std::string& defaultValue, const bool editable, const bool requireSaveNetwork) :
-    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, requireSaveNetwork) {
+        const std::string& name, const std::string& description, const std::string& defaultValue, const bool editable, const bool drawRed,
+        const bool requireSaveNetwork) :
+    OptionRow(optionsEditor, parent, topic, name, description, defaultValue, editable, drawRed, requireSaveNetwork) {
     myOpenFilenameButton = GUIDesigns::buildFXButton(myContentFrame, "", "", TL("Select filename"),
                            GUIIconSubSys::getIcon(GUIIcon::OPEN), this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonIcon);
     myFilenameTextField = new FXTextField(myContentFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);

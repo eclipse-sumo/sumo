@@ -57,7 +57,7 @@ GUICompleteSchemeStorage::add(const GUIVisualizationSettings& scheme) {
     if (std::find(mySortedSchemeNames.begin(), mySortedSchemeNames.end(), name) == mySortedSchemeNames.end()) {
         mySortedSchemeNames.push_back(name);
     }
-    GUIVisualizationSettings* s = new GUIVisualizationSettings(name);
+    GUIVisualizationSettings* s = new GUIVisualizationSettings(nullptr, name);
     s->copy(scheme);
     mySettings[name] = s;
 }
@@ -116,12 +116,12 @@ GUICompleteSchemeStorage::getNumInitialSettings() const {
 void
 GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
     {
-        GUIVisualizationSettings vs("standard", netedit);
+        GUIVisualizationSettings vs(app, "standard", netedit);
         vs.laneShowBorders = true;
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs("faster standard", netedit);
+        GUIVisualizationSettings vs(app, "faster standard", netedit);
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.showRails = false;
@@ -130,7 +130,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs("real world", netedit);
+        GUIVisualizationSettings vs(app, "real world", netedit);
         vs.vehicleQuality = 2;
         vs.backgroundColor = RGBColor(51, 128, 51, 255);
         vs.laneShowBorders = true;
@@ -142,7 +142,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         gSchemeStorage.add(vs);
     }
     {
-        GUIVisualizationSettings vs("rail", netedit);
+        GUIVisualizationSettings vs(app, "rail", netedit);
         vs.vehicleQuality = 2;
         vs.showLaneDirection = true;
         vs.spreadSuperposed = true;
@@ -152,7 +152,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
     }
 
     if (!netedit) {
-        GUIVisualizationSettings vs("selection", netedit);
+        GUIVisualizationSettings vs(app, "selection", netedit);
         vs.vehicleColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
         vs.edgeColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
         vs.laneColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
@@ -170,7 +170,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         std::string name = "visset#" + toString(i);
         std::string setting = app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
         if (setting != "") {
-            GUIVisualizationSettings vs(setting, netedit);
+            GUIVisualizationSettings vs(app, setting, netedit);
             app->reg().readStringEntry("VisualizationSettings", name.c_str(), "");
 
             // add saved xml setting
@@ -188,7 +188,7 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
             }
             if (content != "" && xmlSize == 0) {
                 try {
-                    GUISettingsHandler handler(content, false, netedit);
+                    GUISettingsHandler handler(app, content, false, netedit);
                     handler.addSettings();
                 } catch (ProcessError&) { }
             }

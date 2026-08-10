@@ -6047,8 +6047,15 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CONNECT: {
+            const auto frontConnection = myViewObjectsSelector.getConnectionFront();
             // check if we're clicked over a non locked lane
-            if (myViewObjectsSelector.getLaneFrontNonLocked()) {
+            if (myViewParent->getConnectorFrame()->getConnectionVisualization()->inspectConnections() &&
+                    frontConnection && (frontConnection == myViewObjectsSelector.getAttributeCarrierFront())) {
+                // go to inspect mode
+                myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_INSPECT);
+                // inspect connection
+                myViewParent->getInspectorFrame()->inspectElement(frontConnection);
+            } else if (myViewObjectsSelector.getLaneFrontNonLocked()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                 myViewParent->getConnectorFrame()->handleLaneClick(myViewObjectsSelector);
                 updateViewNet();

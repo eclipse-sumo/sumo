@@ -1800,7 +1800,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
             vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
             // by default, number and end enabled
-            vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+            vehicleParameters.parametersSet |= GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         }
         // check if new vehicle must have an embedded route
         if (createEmbeddedRoute) {
@@ -1963,7 +1963,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
             vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
             // by default, number and end enabled
-            vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+            vehicleParameters.parametersSet |= GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         }
         // change tag in vehicle parameters
         vehicleParameters.tag = SUMO_TAG_FLOW;
@@ -2061,7 +2061,7 @@ GNERouteHandler::transformToFlowJunctions(GNEVehicle* originalVehicle) {
         vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
         vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
         // by default, number and end enabled
-        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        vehicleParameters.parametersSet |= GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_FLOW_JUNCTIONS;
         // create flow
@@ -2158,7 +2158,7 @@ GNERouteHandler::transformToFlowTAZs(GNEVehicle* originalVehicle) {
         vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
         vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
         // by default, number and end enabled
-        vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
+        vehicleParameters.parametersSet |= GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         // change tag in vehicle parameters
         vehicleParameters.tag = GNE_TAG_FLOW_TAZS;
         // create flow

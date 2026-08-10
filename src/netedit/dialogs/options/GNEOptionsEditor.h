@@ -147,7 +147,7 @@ private:
     const std::set<std::string> myIgnoredTopics = {"Configuration"};
 
     /// @brief ignores entries
-    const std::set<std::string> myIgnoredEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
+    const std::set<std::string> myCriticalEntries = {"geometry.remove", "edges.join", "geometry.split", "ramps.guess", "ramps.set"};
 
     /// @brief update visible entries by selected topic
     bool updateVisibleEntriesByTopic();

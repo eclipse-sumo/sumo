@@ -41,9 +41,10 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUISettingsHandler::GUISettingsHandler(const std::string& content, bool isFile, bool netedit) :
+GUISettingsHandler::GUISettingsHandler(FXApp* app, const std::string& content, bool isFile, bool netedit) :
     SUMOSAXHandler(content),
-    mySettings("TEMPORARY_NAME", netedit),
+    myApp(app),
+    mySettings(nullptr, "TEMPORARY_NAME", netedit),
     myDelay(-1), myLookFrom(-1, -1, -1), myLookAt(-1, -1, -1), myZCoordSet(true),
     myRotation(0),
     myZoom(-1),
@@ -159,6 +160,12 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.showSublanes = StringUtils::toBool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)));
             mySettings.spreadSuperposed = StringUtils::toBool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)));
             mySettings.disableHideByZoom = StringUtils::toBool(attrs.getStringSecure("disableHideByZoom", toString(mySettings.disableHideByZoom)));
+
+            // disable hide by zoom is the only
+            if (myApp) {
+                myApp->reg().writeBoolEntry("NETEDIT", "disableHideByZoom", mySettings.disableHideByZoom);
+            }
+
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);

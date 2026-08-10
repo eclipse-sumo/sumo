@@ -60,9 +60,7 @@ jobs:
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
-      # uses: seanmiddleditch/gha-setup-vsdevenv@v4  # the original but no longer maintained
-      # uses: compnerd/gha-setup-vsdevenv@main  # disabled until it gets an update for node.js
-      uses: behrisch/gha-setup-vsdevenv@node24_update
+      uses: compnerd/gha-setup-vsdevenv@v7
 
     - name: Setup Python dependencies
       # the pipdeptree below is just for debugging but often comes handy so keep it enabled

@@ -831,7 +831,7 @@ struct GNEViewNetHelper {
         bool selectEdges() const;
 
         /// @brief check if select show connections checkbox is enabled
-        bool showConnections() const;
+        bool showConnections(const GNEConnection* connection) const;
 
         /// @brief check if show sub-additionals
         bool showSubAdditionals() const;

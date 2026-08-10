@@ -1,1 +1,1 @@
--c netedit_A.netecfg --test-file "test.py"
+-Q -c netedit_A.netecfg --test-file "test.py"

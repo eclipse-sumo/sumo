@@ -220,7 +220,7 @@ GUIDialog_EditViewport::onCmdLoad(FXObject*, FXSelector, void*) {
     }
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
-        GUISettingsHandler handler(opendialog.getFilename().text());
+        GUISettingsHandler handler(getApp(), opendialog.getFilename().text());
         handler.applyViewport(myParent);
         setValues(myParent->getChanger().getZoom(), myParent->getChanger().getXPos(), myParent->getChanger().getYPos(), myParent->getChanger().getRotation());
     }
