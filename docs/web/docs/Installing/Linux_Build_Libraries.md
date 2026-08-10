@@ -24,7 +24,7 @@ working GCC (version 3.3 and up should suffice) and probably some basic
 libraries Fox depends on.
 
 It has been tested successfully on several SuSE Linux installations and
-with a recent [cygwin](https://www.cygwin.org). Everything that needs
+with a recent [cygwin](https://cygwin.org). Everything that needs
 extra work on cygwin is described in the [cygwin
 section](#cygwin).
 
