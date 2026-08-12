@@ -92,7 +92,9 @@ public:
     /// @{
     /// @brief Returns the full name appearing in the tool tip
     /// @return This object's typed id
-    const std::string& getFullName() const;
+    inline const std::string& getFullName() const {
+        return myFullName;
+    }
 
     /// @brief Returns the name of the parent object (if any)
     /// @return This object's parent id
@@ -100,7 +102,9 @@ public:
 
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id
-    inline GUIGlID getGlID() const;
+    inline GUIGlID getGlID() const {
+        return myGlID;
+    }
 
     /// @brief get icon associated with this GL Object
     FXIcon* getGLIcon() const;

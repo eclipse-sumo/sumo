@@ -207,26 +207,17 @@ GUIGlObject::cleanupOnDestruction() {
 }
 
 
-const std::string&
-GUIGlObject::getFullName() const {
-    return myFullName;
-}
-
 std::string
 GUIGlObject::getParentName() const {
     return StringUtils::emptyString;
 }
 
 
-GUIGlID
-GUIGlObject::getGlID() const {
-    return myGlID;
-}
-
 FXIcon*
 GUIGlObject::getGLIcon() const {
     return myIcon;
 }
+
 
 GUIGlObject*
 GUIGlObject::getGLObjectParent() {
