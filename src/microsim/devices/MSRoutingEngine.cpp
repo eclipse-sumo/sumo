@@ -238,7 +238,12 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     if (MSNet::getInstance()->getVehicleControl().getDepartedVehicleNo() == 0) {
         return myAdaptationInterval;
     }
-    myCachedRoutes.clear();
+    {
+#ifdef HAVE_FOX
+        FXMutexLock lock(myRouteCacheMutex);
+#endif
+        myCachedRoutes.clear();
+    }
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     const double newWeightFactor = (double)(1. - myAdaptationWeight);
     for (const MSEdge* const e : edges) {
@@ -471,6 +476,10 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
 
 ConstMSRoutePtr
 MSRoutingEngine::getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key) {
+#ifdef HAVE_FOX
+    // worker threads insert into the cache concurrently (RoutingTask::run)
+    FXMutexLock lock(myRouteCacheMutex);
+#endif
     auto routeIt = myCachedRoutes.find(key);
     if (routeIt != myCachedRoutes.end()) {
         return routeIt->second;
@@ -710,8 +719,25 @@ MSRoutingEngine::cleanup() {
     //for (auto& item : myCachedRoutes) {
     //    item.second->release();
     //}
-    myCachedRoutes.clear();
+    {
+#ifdef HAVE_FOX
+        FXMutexLock lock(myRouteCacheMutex);
+#endif
+        myCachedRoutes.clear();
+    }
     myAdaptationStepsIndex = 0;
+#ifdef HAVE_ROUTINGKIT
+    // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
+    // it against the new network; the router clones referencing it were
+    // deleted together with the worker threads / router provider
+    delete myCCHGraph;
+    myCCHGraph = nullptr;
+    for (CCHClass* c : myCCHClasses) {
+        delete c;
+    }
+    myCCHClasses.clear();
+    myCCHByClass.clear();
+#endif
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor
