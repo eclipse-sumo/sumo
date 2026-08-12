@@ -471,6 +471,8 @@ enum {
     MID_OPEN_ADDITIONAL_DIALOG,
     /// @brief Show object parameter - popup entry
     MID_SHOWPARS,
+    /// @brief Show object parent parameter - popup entry
+    MID_SHOWPARS_PARENT,
     /// @brief Show object type parameter - popup entry
     MID_SHOWTYPEPARS,
     /// @brief Show transportable plan

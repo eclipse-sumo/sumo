@@ -92,9 +92,7 @@ public:
     /// @{
     /// @brief Returns the full name appearing in the tool tip
     /// @return This object's typed id
-    inline const std::string& getFullName() const {
-        return myFullName;
-    }
+    const std::string& getFullName() const;
 
     /// @brief Returns the name of the parent object (if any)
     /// @return This object's parent id
@@ -102,12 +100,16 @@ public:
 
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id
-    inline GUIGlID getGlID() const {
-        return myGlID;
-    }
+    inline GUIGlID getGlID() const;
 
     /// @brief get icon associated with this GL Object
     FXIcon* getGLIcon() const;
+
+    /// @brief notify object about popup menu removal
+    GUIGlObject* getGLObjectParent();
+
+    /// @brief notify object about popup menu removal
+    void setGLObjectParent(GUIGlObject* parent);
 
     /// @}
 
@@ -339,6 +341,9 @@ private:
 
     /// @brief whether the object can be deleted
     bool myAmBlocked = false;
+
+    /// @brief parent of this GLObject (usually used for lanes and edges)
+    GUIGlObject* myParent = nullptr;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;

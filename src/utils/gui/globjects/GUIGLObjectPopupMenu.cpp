@@ -25,17 +25,18 @@
 #include <cassert>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/ToString.h>
+#include <utils/foxtools/MFXLinkLabel.h>
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/gui/windows/GUISUMOAbstractView.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIUserIO.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/gui/div/GUIUserIO.h>
-#include <utils/common/ToString.h>
+#include <utils/gui/windows/GUISUMOAbstractView.h>
+
 #include "GUIGLObjectPopupMenu.h"
-#include <utils/foxtools/MFXLinkLabel.h>
 
 // ===========================================================================
 // FOX callback mapping
@@ -51,6 +52,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_VIEW_GEOBOUNDARY,   GUIGLObjectPopupMenu::onCmdCopyViewGeoBoundary),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GEOPOSITION_ONLINE, GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS_PARENT,         GUIGLObjectPopupMenu::onCmdShowParsParent),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTYPEPARS,            GUIGLObjectPopupMenu::onCmdShowTypePars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,               GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,            GUIGLObjectPopupMenu::onCmdRemoveSelected)
@@ -249,6 +251,16 @@ GUIGLObjectPopupMenu::onCmdShowPars(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GUIGLObjectPopupMenu::onCmdShowParsParent(FXObject*, FXSelector, void*) {
+    if (myObject && myObject->getGLObjectParent()) {
+        myObject->getGLObjectParent()->getParameterWindow(*myApplication, *myParent);
+    } else {
+        throw ProcessError("Object is NULL");
+    }
+    return 1;
+}
 
 
 long
