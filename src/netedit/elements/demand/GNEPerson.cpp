@@ -58,7 +58,7 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
     // build common options
-    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->getTagProperty()->getTag(), person->isAttributeCarrierSelected());
+    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->getTagProperty()->getTag(), person->isAttributeCarrierSelected(), person->myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand(), true);
     // add transform functions only in demand mode
     if (myPerson->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
@@ -103,7 +103,7 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     myTransformToPerson(nullptr),
     myTransformToPersonFlow(nullptr) {
     // build common options
-    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->myTagProperty->getTag(), person->isAttributeCarrierSelected());
+    person->buildPopUpMenuCommonOptions(this, app, person->myNet->getViewNet(), person->myTagProperty->getTag(), person->isAttributeCarrierSelected(), person->myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand(), true);
     // add transform functions only in demand mode
     if (person->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations

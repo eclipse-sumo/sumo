@@ -132,6 +132,9 @@ public:
     /// @brief Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the object can be removed
+    long onCmdDelete(FXObject*, FXSelector, void*);
+
     /// @}
 
 protected:

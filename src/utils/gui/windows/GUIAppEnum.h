@@ -489,6 +489,8 @@ enum {
     MID_ADDSELECT,
     /// @brief Remove from selected items - Menu Entry
     MID_REMOVESELECT,
+    /// @brief delete item - menu entry
+    MID_DELETE,
     /// @brief Open the object's manipulator
     MID_MANIP,
     /// @brief Draw a vehicle's route

@@ -515,6 +515,9 @@ public:
     /// @brief unselect Edge under cursor
     long onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*);
 
+    /// @brief delete element under cursor
+    long onCmdDelete(FXObject*, FXSelector, void*);
+
     /// @brief called when a new view is set
     long onCmdSetNeteditView(FXObject*, FXSelector sel, void*);
 

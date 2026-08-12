@@ -261,7 +261,7 @@ protected:
     /// @{
     /// @brief build common popup options
     void buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, GUISUMOAbstractView* parent, const SumoXMLTag tag,
-                                     const bool selected, bool addSeparator = true);
+                                     const bool selected, const bool allowDelete, const bool addSeparator);
 
     /** @brief Builds the header
      * @param[in, filled] ret The popup menu to add the entry to

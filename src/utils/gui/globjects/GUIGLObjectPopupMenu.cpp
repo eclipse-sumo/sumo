@@ -55,7 +55,8 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS_PARENT,         GUIGLObjectPopupMenu::onCmdShowParsParent),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTYPEPARS,            GUIGLObjectPopupMenu::onCmdShowTypePars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,               GUIGLObjectPopupMenu::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,            GUIGLObjectPopupMenu::onCmdRemoveSelected)
+    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,            GUIGLObjectPopupMenu::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELETE,                  GUIGLObjectPopupMenu::onCmdDelete)
 };
 
 // Object implementation
@@ -291,6 +292,17 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
     if (myObject) {
         gSelected.deselect(myObject->getGlID());
         myParent->update();
+    } else {
+        throw ProcessError("Object is NULL");
+    }
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdDelete(FXObject*, FXSelector, void*) {
+    if (myObject) {
+        myObject->deleteGLObject();
     } else {
         throw ProcessError("Object is NULL");
     }

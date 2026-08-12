@@ -316,7 +316,7 @@ GUIGlObject::setNode(osg::Node* node) {
 
 void
 GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, GUISUMOAbstractView* parent,
-        const SumoXMLTag tag, const bool selected, bool addSeparator) {
+        const SumoXMLTag tag, const bool selected, const bool allowDelete, const bool addSeparator) {
     // build header
     buildPopupHeader(ret, app);
     // build menu command for center button and copy cursor position to clipboard
@@ -331,6 +331,11 @@ GUIGlObject::buildPopUpMenuCommonOptions(GUIGLObjectPopupMenu* ret, GUIMainWindo
         GUIDesigns::buildFXMenuCommand(ret, TL("Add to Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), parent, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
+    // add delete
+    if (allowDelete) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), parent, MID_DELETE);
+        new FXMenuSeparator(ret);
+    }
     buildShowParamsPopupEntry(ret, true);
     buildPositionCopyEntry(ret, app, addSeparator);
 }

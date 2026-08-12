@@ -510,10 +510,12 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         // create popup
         GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+        // supermode network
+        const bool supermodeNetwork = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork();
         // build common options
-        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork());
+        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, supermodeNetwork, supermodeNetwork);
         // check if we're in supermode network
-        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        if (supermodeNetwork) {
             const int numSelectedJunctions = myNet->getAttributeCarriers()->getNumberOfSelectedJunctions();
             const int numEndpoints = (int)myNBNode->getEndPoints().size();
             // check if we're handling a selection

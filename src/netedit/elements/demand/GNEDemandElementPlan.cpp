@@ -143,7 +143,8 @@ GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& 
     // create popup
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, myPlanElement);
     // build common options
-    myPlanElement->buildPopUpMenuCommonOptions(ret, app, myPlanElement->myNet->getViewNet(), myPlanElement->getTagProperty()->getTag(), myPlanElement->isAttributeCarrierSelected());
+    myPlanElement->buildPopUpMenuCommonOptions(ret, app, myPlanElement->myNet->getViewNet(), myPlanElement->getTagProperty()->getTag(),
+            myPlanElement->isAttributeCarrierSelected(), myPlanElement->myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand(), true);
     GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPlanPositionInView().x()) + "," + toString(getPlanPositionInView().y())).c_str(), nullptr, nullptr, 0);
     return ret;
 }

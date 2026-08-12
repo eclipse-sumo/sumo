@@ -161,6 +161,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_REMOVESELECT,            GNEViewNet::onCmdRemoveSelected),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_ADDSELECT_EDGE,      GNEViewNet::onCmdAddEdgeSelected),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_REMOVESELECT_EDGE,   GNEViewNet::onCmdRemoveEdgeSelected),
+    FXMAPFUNC(SEL_COMMAND, MID_DELETE,                  GNEViewNet::onCmdDelete),
     // Junctions
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_EDGE_ENDPOINTS,   GNEViewNet::onCmdResetEdgeEndPoints),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_EDIT_SHAPE,             GNEViewNet::onCmdEditJunctionShape),
@@ -4766,6 +4767,17 @@ GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
     auto edge = myViewObjectsSelector.getEdgeFront();
     if (edge && edge->isAttributeCarrierSelected()) {
         edge->unselectAttributeCarrier();
+    }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdDelete(FXObject*, FXSelector, void*) {
+    // only unselect if edge under cursor isn't previously selected
+    auto ac = myViewObjectsSelector.getAttributeCarrierFront();
+    if (ac) {
+        ac->getGUIGlObject()->deleteGLObject();
     }
     return 1;
 }

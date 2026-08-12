@@ -359,8 +359,10 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         // create popup
         GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, this);
+        // check if allow delete connections
+        const bool allowDelete = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_CONNECT);
         // build common options
-        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected);
+        buildPopUpMenuCommonOptions(ret, app, myNet->getViewNet(), myTagProperty->getTag(), mySelected, allowDelete, true);
         // check if we're in supermode network
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
             // create menu commands

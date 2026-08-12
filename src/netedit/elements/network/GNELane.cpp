@@ -525,6 +525,12 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     } else {
         GUIDesigns::buildFXMenuCommand(ret, TL("Add Edge To Selected"), GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), myNet->getViewNet(), MID_GNE_ADDSELECT_EDGE);
     }
+    // add separator
+    new FXMenuSeparator(ret);
+    // delete lane
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Delete"), GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myNet->getViewNet(), MID_DELETE);
+    }
     // stop if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         return ret;
