@@ -31,6 +31,8 @@ set(microsim_cfmodels_STAT_SRCS
    MSCFModel_CACC.h
    MSCFModel_Rail.cpp
    MSCFModel_Rail.h
+   MSCFModel_NaSch.cpp
+   MSCFModel_NaSch.h
    CC_Const.h
    CC_VehicleVariables.cpp
    CC_VehicleVariables.h
