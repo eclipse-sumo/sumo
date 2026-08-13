@@ -805,6 +805,7 @@ following table.
 | carFollowing-W99            | W99                                             | Car following model by Wiedemann, [10-Parameter version](https://w99demo.com/)                |
 | carFollowing-Daniel1        | Daniel1                                         | Car following model by Daniel Krajzewicz<br><br>**Caution:** lacking documentation           |
 | carFollowing-ACC            | ACC                                             | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/ACC.md)  |
+| carFollowing-NaSch          | NaSch                                           | Discretized cellular-automaton model by Nagel and Schreckenberg (1992); speeds are rounded to multiples of the "cell size" implied by **accel** and only the gap (not the leader's speed) bounds the safe speed |
 | carFollowing-CACC           | CACC                                            | [Car following model by Milanés V. and Shladover S.E.](Car-Following-Models/CACC.md) |
 | carFollowing-Rail           | Rail                                            | [Model for various train types](Simulation/Railways.md#modelling_trains)                    |
 

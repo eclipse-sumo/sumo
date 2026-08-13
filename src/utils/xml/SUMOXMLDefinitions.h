@@ -373,6 +373,7 @@ enum SumoXMLTag {
     SUMO_TAG_CF_CACC,
     SUMO_TAG_CF_RAIL,
     SUMO_TAG_CF_CC,
+    SUMO_TAG_CF_NASCH,
     /// @}
 
     /// @name Persons

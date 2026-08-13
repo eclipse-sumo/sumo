@@ -1520,6 +1520,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::refreshCFMFields() {
             case SUMO_TAG_CF_KRAUSS:
             case SUMO_TAG_CF_KRAUSS_ORIG1:
             case SUMO_TAG_CF_KRAUSS_PLUS_SLOPE:
+            case SUMO_TAG_CF_NASCH:
                 myTauRow->show();
                 myAccelRow->show();
                 myDecelRow->show();

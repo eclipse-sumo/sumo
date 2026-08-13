@@ -50,6 +50,7 @@
 #include "MSInsertionControl.h"
 #include "MSVehicleControl.h"
 #include "cfmodels/MSCFModel_CC.h"
+#include "cfmodels/MSCFModel_NaSch.h"
 #include "MSVehicleType.h"
 
 
@@ -406,6 +407,10 @@ MSVehicleType::build(SUMOVTypeParameter& from, const std::string& fileName) {
             break;
         case SUMO_TAG_CF_CC:
             vtype->myCarFollowModel = new MSCFModel_CC(vtype);
+            break;
+        case SUMO_TAG_CF_NASCH:
+            vtype->myCarFollowModel = new MSCFModel_NaSch(vtype,
+                    from.getCFParam(SUMO_ATTR_SIGMA, SUMOVTypeParameter::getDefaultImperfection(from.vehicleClass)));
             break;
         case SUMO_TAG_CF_KRAUSS:
         default:

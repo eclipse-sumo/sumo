@@ -1542,6 +1542,11 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         ccParams.insert(SUMO_ATTR_CF_CC_FLATBED_H);
         allowedCFModelAttrs[SUMO_TAG_CF_CC] = ccParams;
         allParams.insert(ccParams.begin(), ccParams.end());
+        // NaSch
+        std::set<SumoXMLAttr> naschParams(genericParams);
+        naschParams.insert(SUMO_ATTR_SIGMA);
+        allowedCFModelAttrs[SUMO_TAG_CF_NASCH] = naschParams;
+        allParams.insert(naschParams.begin(), naschParams.end());
         // last element
         allowedCFModelAttrs[SUMO_TAG_NOTHING] = allParams;
     }

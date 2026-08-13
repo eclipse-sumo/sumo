@@ -15,6 +15,8 @@ Modifications to the files and directories listed here are considered _derivativ
 - MSCFModel_Kerner.h
 - MSCFModel_Krauss.cpp
 - MSCFModel_Krauss.h
+- MSCFModel_NaSch.cpp
+- MSCFModel_NaSch.h
 - MSCFModel_KraussOrig1.cpp
 - MSCFModel_KraussOrig1.h
 - MSCFModel_KraussPS.cpp
