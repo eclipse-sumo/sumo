@@ -6,6 +6,3 @@ Warning! Fixed route 36232563 between 194083373#5 and 308691084#12 (added edges:
 Warning! No stop at index 1 for vehicle(id='36232563', x='10.588659', y='50.937609', until='120', attr_name='Jena, Nordschule', gtfsid='de:16053:153024::15302400', block='', fareZone='', fareSymbol='', startFare='').
 Warning! Fixed route 36232564 between 194083373#5 and 308691084#12 (added edges: 6)
 Warning! No stop at index 1 for vehicle(id='36232564', x='10.588659', y='50.937609', until='120', attr_name='Jena, Nordschule', gtfsid='de:16053:153024::15302400a', block='', fareZone='', fareSymbol='', startFare='').
-Warning! No stop at index 2 for vehicle(id='36232564', x='11.591933', y='50.941953', until='180', attr_name='Jena, Scharnhorststraße', gtfsid='de:16053:153097::15309704a', block='', fareZone='', fareSymbol='', startFare='').
-Warning! No stop at index 3 for vehicle(id='36232564', x='11.597718', y='50.946124', until='340', attr_name='Jena, An der Eule', gtfsid='de:16053:153040::15304003a', block='', fareZone='', fareSymbol='', startFare='').
-Warning! No stop at index 4 for vehicle(id='36232564', x='11.594459', y='50.943588', until='260', attr_name='Jena, Kieshügel', gtfsid='de:16053:153087::15308701a', block='', fareZone='', fareSymbol='', startFare='').
