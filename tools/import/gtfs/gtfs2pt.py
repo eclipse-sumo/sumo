@@ -254,6 +254,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                         vias[idx] = [invEdgeMap[sumolib._laneID2edgeID(fixed.lane)]]
                 if trace in traceCache:
                     mappedRoute, indices = traceCache[trace]
+                    # use an indepedent copy in case the route gets repaired and indices updated later in map_stops
+                    indices = indices[:]
                     cacheHits += 1
                 else:
                     detours = []
