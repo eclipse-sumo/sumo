@@ -230,9 +230,9 @@ def main(options):
                 lastStop = d.stop_name
 
                 arrivalSec = d.arrival_time + timeIndex
-                stopSeq.append(d.stop_id)
                 departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
+                stopSeq.append((d.stop_id, until))
                 buf += ((u'    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
                          u'name=%s gtfsid=%s block="%s" fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/>' +
                          u'</timestep>\n') %
