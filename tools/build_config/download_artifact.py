@@ -24,11 +24,14 @@ import urllib.request
 import zipfile
 
 
-def request(url, token):
+def request(url, token, binary=False):
     if token:
-        req = urllib.request.Request(url, headers={"Authorization": "Bearer " + token})
+        req = urllib.request.Request(url)
+        req.add_unredirected_header("Authorization", "Bearer " + token)
     else:
         req = urllib.request.Request(url)
+    if binary:
+        return urllib.request.urlopen(req)
     return json.loads(urllib.request.urlopen(req).read())
 
 
@@ -94,9 +97,9 @@ if __name__ == "__main__":
     if not options.token:
         sys.exit("no authentication token found, please use the option --token or provide a .git-credentials file")
     for artifact_url in get_latest_artifact_url(options):
-        response = request(artifact_url, options.token)
-        if response.status_code == 200:
-            with zipfile.ZipFile(io.BytesIO(response.content)) as zip:
+        response = request(artifact_url, options.token, True)
+        if response.status == 200:
+            with zipfile.ZipFile(io.BytesIO(response.read())) as zip:
                 zip.extractall(options.directory)
                 if options.rename:
                     for f in zip.namelist():
