@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-08-17 14:56:55.368194 by Eclipse SUMO gtfs2pt.py v1_27_1+0369-1f25f3882f0
+<configuration>
+    <merged-csv value="data.csv"/>
+    <modes value="bus"/>
+    <vtype-output value="vehtypes.xml"/>
+    <network value="net.net.xml"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="t1" edges="beg middle middle2">
+        <stop busStop="t1.0" duration="10" until="0"/> <!-- stopname1 -->
+        <stop busStop="t1.1" duration="10" until="100"/> <!-- stopname2 -->
+    </route>
+    <vehicle id="t1.0" route="t1" type="bus" depart="990" line="t1">
+        <param key="gtfs.route_name" value="t1"/>
+    </vehicle>
+    <vehicle id="t2.0" route="t1" type="bus" depart="1990" line="t1">
+        <param key="gtfs.route_name" value="t1"/>
+    </vehicle>
+</routes>

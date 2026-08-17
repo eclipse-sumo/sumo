@@ -29,6 +29,9 @@ bad_sequence
 # load stops with invalid timing
 invalid_timing
 
+# run the same route twice with different timing
+different_timing
+
 # test routes if the vehicle class is disallowed on some lanes
 vclass_disallowed
 
