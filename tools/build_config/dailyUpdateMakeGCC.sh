@@ -47,7 +47,7 @@ if test -e ../sumo_test_env/bin/activate; then
   # activate the virtual environment containing the python packages which are not available via apt
   source ../sumo_test_env/bin/activate
   # only-binary to make sonar happy
-  pip install --only-binary :all: -r docs/web/requirements.txt -r tools/req_test_server.txt
+  pip install --only-binary :all: -r docs/web/requirements.txt -r tools/req_test_server.txt >> $MAKELOG 2>&1
 fi
 GITREV=`tools/build_config/version.py -`
 date >> $MAKELOG
