@@ -24,6 +24,11 @@ title: ChangeLog
   - The button for saving the .sumocfg is now functional again after loading a network #18151 (regression in 1.26.0)
   - Junction context menu operation 'clearing connections' no longer generates an invalid network if the junction had tls-controlled pedestrian crossings #18145 (regression in 1.27.0)
   - setting "random" as color value for vehicles is now working #18014
+  - Fixed display problems when selecting demand elements #17012
+  - Vehicle parameters are no longer lost when transforming trip to flow #17333
+  - The now "knows" that it needs to be recomputed after changing netedit processing option #15947
+  - vehicle stack indicator is now working when defining multiple vehicles-over-route on the same route. #14956
+  - stacked vehicle indicator now updates after editing departLane #16517
 
 - netconvert
   - Fixed missing connections in networks with dedicated bus lanes #18181 (regression in 1.23.0)
@@ -38,6 +43,10 @@ title: ChangeLog
 - tools
   - drtOnline.py: fixed failure to dispatch vehicles that have an underscore ('_') in their id. #18167
   - gtfs2pt.py: fixed duplicate vehicle ids when using option **--join-blocks** to join trips with different route_ids #18209
+  - gtfs2pt.py: fixed duplicate busstop in output with option **--use-gtfs-stopids** #18237
+  - gtfs2pt.py: fixed invalid route output when repairing distinct routes that have the same trace #18240
+  - gtfs2pt.py: routes with the same sequence of stops but different timing are now distinguished #18238
+  - csv2xml.py: fixed problem when converting plain.nod.csv #18176
 
 ### Enhancements
 
@@ -47,25 +56,36 @@ title: ChangeLog
   - vehicle types can be initialized with values from another vType by using attribute `refId` #18144
   - Elements `<edgeData>` and `<laneData>` now support attribute `speedThresholdRelative` as an optional condition for recording `waitingTime` #18161
   - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions). This fixes a problem with vTypeDistributions created by netedit being unusable since version 1.25.0 #18178
-
-- netedit
-  - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
-  - edgeData / laneData attribute `aggregate` now permits the special value `taz` #17342
-  - data mode: Dragging the mouse will ctrl is held, now moves the view #17139
-  - Polygons now support attribute "height" #18140
-
-- duarouter
-  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178
- 
-- meso
-  - Now supports traffic light type 'actuated' #8735
-  - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions
-
-- sumo/meso
   - Added option **--queue-output.aggregation** {{DT_TIME}} for writing per-edge queue length statistics (max, median, configurable percentile in vehicles and meters) aggregated over the given period (e.g. a traffic light cycle). The reported percentile defaults to 95 and is configurable with **--queue-output.percentile**
   - Added option **--queue-output.speed-threshold** to configure the maximum speed for counting a vehicle as queued (default 1.39 m/s)
   - queue-output now supports column based output formats (CSV, Parquet) and the option **--queue-output.skip-empty** to omit time steps / intervals without a queue
 
+- netedit
+  - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
+  - edgeData / laneData attribute `aggregate` now permits the special value `taz` #17342
+  - data mode: Dragging the mouse will <kbd>CTRL</kbd> is held, now moves the view #17139
+  - Polygons now support attribute "height" #18140
+  - allow setting options that are only applied during "compute with volatile" #18174
+  - vTypeDistributions now show up in type-combobox in vehicle mode #18149
+  - gui option "disable hide by zoom" is now stored in registry #16972
+  - netedit config values concerning loaded files are no longer editable. They are instead manipulated by loading files or editing the 'file' attribute of loaded elements
+  - added 'show edge parameter' to the lane context menu
+  - added 'delete' item in every context menu #15050
+
+
+- duarouter
+  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178
+
+- polyconvert
+  - Now importing polygon height from OSM #18216
+  
+- meso
+  - Now supports traffic light type 'actuated' #8735
+  - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212
+
+- sumo/meso
+  - https://github.com/eclipse-sumo/sumo/issues/18212
+  
 - tools
   - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
   - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
