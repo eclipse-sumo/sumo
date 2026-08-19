@@ -303,8 +303,8 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     const std::string vehID = battery->getHolder().getID();
     if (myChargeValues.count(vehID) == 0) {
         myChargedVehicles.push_back(vehID);
-        myChargedBatteries[vehID] = battery;
     }
+    myChargedBatteries[vehID] = battery;
     Charge C(MSNet::getInstance()->getCurrentTimeStep(), vehID, battery->getHolder().getVehicleType().getID(),
              status, WCharged, battery->getActualBatteryCapacity(), battery->getMaximumBatteryCapacity(),
              myNominalChargingPower, myEfficiency, myTotalCharge);
