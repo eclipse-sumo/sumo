@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-11-14T08:21:33.812163+01:00 by Eclipse SUMO sumo v1_25_0+0027-5c3bcfe9774
+<!-- generated on 2026-08-19T17:37:03.739728+01:00 by Eclipse SUMO sumo v1_27_1+0399-ad0490a36ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -49,6 +51,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <chargingstations-export>
-    <chargingStation id="CS1" totalEnergyCharged="0.00" chargingSteps="0"/>
-    <chargingStation id="CS2" totalEnergyCharged="0.00" chargingSteps="0"/>
+    <chargingStation id="cs_0" totalEnergyCharged="0.00" chargingSteps="0"/>
 </chargingstations-export>
