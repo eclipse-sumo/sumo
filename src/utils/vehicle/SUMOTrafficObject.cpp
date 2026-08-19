@@ -107,4 +107,15 @@ SUMOTrafficObject::getTimeParam(const std::string& paramName, const bool require
 }
 
 
+std::string
+SUMOTrafficObject::getCategory() const {
+    if (isPerson()) {
+        return "Person";
+    } else if (isContainer()) {
+        return "Container";
+    } else {
+        return "Vehicle";
+    }
+}
+
 /****************************************************************************/

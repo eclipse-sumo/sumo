@@ -289,4 +289,7 @@ public:
      */
     SUMOTime getTimeParam(const std::string& paramName, const bool required = false, const SUMOTime deflt = SUMOTime_MIN) const;
     /// @}
+
+    /// @brief return description for suitable for warnings and messages
+    std::string getCategory() const;
 };
