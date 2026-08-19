@@ -2962,18 +2962,15 @@ GNEViewNetHelper::NetworkViewOptions::showConnections(const GNEConnection* conne
     if (myViewNet->myEditModes.isCurrentSupermodeData()) {
         return false;
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
-        if (myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showOnlyFromConnections()) {
-            if (myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
-                for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
-                    if ((connection == outgoingConnection) && (outgoingConnection->getLaneFrom() == myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane())) {
-                        return true;
-                    }
+        if (myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showOnlyFromConnections() && myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
+            for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
+                if ((connection == outgoingConnection) && (outgoingConnection->getLaneFrom() == myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane())) {
+                    return true;
                 }
             }
             return false;
         } else {
-            // check if menu check hide connections ins shown
-            return (menuCheckHideConnections->amChecked() == FALSE);
+            return (menuCheckHideConnections->amChecked() == false);
         }
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
         return true;
