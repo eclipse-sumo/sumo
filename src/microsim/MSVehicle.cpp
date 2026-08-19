@@ -1094,7 +1094,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
         if (myParameter->departLaneProcedure == DepartLaneDefinition::GIVEN
                 || (myParameter->departLaneProcedure == DepartLaneDefinition::DEFAULT && MSEdge::getDefaultDepartLaneDefinition() == DepartLaneDefinition::GIVEN)) {
             if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
-                msg = "Invalid departlane definition for vehicle '" + getID() + "'.";
+                msg = "Invalid departLane definition for vehicle '" + getID() + "'.";
                 if (myParameter->departLane >= (int)(*myCurrEdge)->getLanes().size()) {
                     myRouteValidity |= ROUTE_START_INVALID_LANE;
                 } else {
