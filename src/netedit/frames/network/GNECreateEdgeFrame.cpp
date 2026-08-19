@@ -77,6 +77,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     // default short radio button
     myCreateDefaultShortEdgeType = new FXRadioButton(getCollapsableFrame(), TL("Create default edge short"),
             this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myCreateDefaultShortEdgeType->hide();
     // checkboxes
     myNoPedestriansCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Disallow for pedestrians"),
             this, MID_GNE_CREATEEDGEFRAME_CHECKBUTTON, GUIDesignCheckButton);
@@ -301,6 +302,16 @@ GNECreateEdgeFrame::EdgeTypeSelector::useTemplate() {
     myCreateDefaultShortEdgeType->setCheck(FALSE);
     myCreateCustomEdgeType->setCheck(TRUE);
     refreshEdgeTypeSelector();
+}
+
+
+void
+GNECreateEdgeFrame::EdgeTypeSelector::showDefaultShortEdgeCheckBox(const bool value) {
+    if (value) {
+        myCreateDefaultShortEdgeType->show();
+    } else {
+        myCreateDefaultShortEdgeType->hide();
+    }
 }
 
 

@@ -33,6 +33,7 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GLHelper.h>
@@ -2674,11 +2675,15 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
         gripSupermodes->setWidth(353);
         // show menu commands
         fileMenuCommands.setDefaultView();
+        // hide short edges in create edge frame
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(false);
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
         gripSupermodes->setWidth(250);
         // hide menu commands
         fileMenuCommands.setJuPedSimView();
+        // show short edges in create edge frame
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(true);
     }
     // update viewNet
     myViewNet->viewUpdated();
