@@ -376,7 +376,7 @@ GNEWalkingArea::drawInContourMode() const {
     } else if (modes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
         return true;
     } else {
-        return false;
+        return !myNet->getViewNet()->getNetworkViewOptions().drawFilledWalkingAreas();
     }
 }
 

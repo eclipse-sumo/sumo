@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-07-07 11:18:41.214607 by gtfs2pt.py v1_13_0+1343-240e5d48340
+  options: -n net.net.xml <doubleminus>gtfs gtfs.zip <doubleminus>date 20201111 <doubleminus>vtype-output vehtypes.xml <doubleminus>modes bus
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus"/>
+</additional>

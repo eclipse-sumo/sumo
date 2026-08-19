@@ -1,2 +1,8 @@
 # deadlock on junction
 ticket18115
+
+# emergency braking after departure on junction
+ticket18236
+
+# invalid departPos warning
+ticket18246

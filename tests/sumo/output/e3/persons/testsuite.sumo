@@ -4,6 +4,18 @@ default
 # detect all walking persons on lane
 walk
 
+# detect all walking persons on lane
+walk_nonInteracting
+
+# only entry events are captured
+walk_open
+
+# detect all walking persons on walkingarea
+walk_walkingArea
+
+# detect all walking persons on walkingarea
+walk_walkingArea2
+
 # detect persons walking in edge direction
 walkForward
 

@@ -254,6 +254,8 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
                         vias[idx] = [invEdgeMap[sumolib._laneID2edgeID(fixed.lane)]]
                 if trace in traceCache:
                     mappedRoute, indices = traceCache[trace]
+                    # use an indepedent copy in case the route gets repaired and indices updated later in map_stops
+                    indices = indices[:]
                     cacheHits += 1
                 else:
                     detours = []
@@ -317,6 +319,7 @@ def generate_polygons(net, routes, outfile):
 def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
     stops = collections.defaultdict(list)
     stopDesc = collections.defaultdict(list)  # laneID -> [(typ, id, start, end, stopName, childs)]
+    stopID2Lane = dict()
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
@@ -482,6 +485,14 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                  and until - lastUntil >= options.parkingThreshold)):
                 isParking = True
             if keep:
+                if stop in stopID2Lane:
+                    oldID = stop
+                    if '#' in stop and stop.rsplit('#')[-1].isdigit():
+                        stop = "%s#%s" % (stop.rsplit('#')[0], int(stop.rsplit('#')[-1]) + 1)
+                    else:
+                        stop += "#1"
+                    print("Warning: GTFS stop_id '%s' occurs on lane '%s' and '%s', assigning new id '%s'." % (
+                        oldID, stopID2Lane[oldID], laneID, stop), file=sys.stderr)
                 if not options.skip_access:
                     childs += gtfs2osm.getAccess(net, veh.x, veh.y, options.access_radius, laneID)
                 if not options.overtake_right:
@@ -491,6 +502,7 @@ def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
                     if not all([edge.getLane(i).allows("pedestrian") for i in range(idx)]):
                         childs.append(u'        <param key="allowOvertakeRight" value="false"/>\n')
                 stopDesc[laneID].append([typ, stop, start, end, stopName, childs])
+                stopID2Lane[stop] = laneID
             stops[rid].append((stop, until, stopName, block, isParking))
             lastUntil = until
             lastStop = stop

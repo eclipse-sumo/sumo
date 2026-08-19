@@ -1,0 +1,2 @@
+Warning: GTFS stop_id 'gtfs_stop2' occurs on lane 'E1.203_0' and 'beg_0', assigning new id 'gtfs_stop2#1'.
+Warning: GTFS stop_id 'gtfs_stop1' occurs on lane 'E1_0' and 'beg.196_0', assigning new id 'gtfs_stop1#1'.

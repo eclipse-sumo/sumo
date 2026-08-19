@@ -33,6 +33,7 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/GNETagProperties.h>
 #include <utils/foxtools/MFXMenuCheckIcon.h>
 #include <utils/gui/div/GLHelper.h>
@@ -2674,11 +2675,15 @@ GNEViewNetHelper::EditModes::setView(FXSelector sel) {
         gripSupermodes->setWidth(353);
         // show menu commands
         fileMenuCommands.setDefaultView();
+        // hide short edges in create edge frame
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(false);
     } else if (sel == MID_GNE_VIEW_JUPEDSIM) {
         myNeteditViewsButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::VIEWJUPEDSIM));
         gripSupermodes->setWidth(250);
         // hide menu commands
         fileMenuCommands.setJuPedSimView();
+        // show short edges in create edge frame
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->showDefaultShortEdgeCheckBox(true);
     }
     // update viewNet
     myViewNet->viewUpdated();
@@ -2829,6 +2834,13 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowPolygonSymbols->setChecked(true);
     menuCheckShowPolygonSymbols->create();
 
+    menuCheckDrawFilledWalkingAreas = new MFXCheckableButton(false, gripModes, toolTipMenu,
+            (std::string("\t") + TL("Draw filled walking areas") + std::string("\t") + TL("Draw filled walking areas.")),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_DRAWFILLEDWALKINGAREAS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS, GUIDesignMFXCheckableButtonSquare);
+    menuCheckDrawFilledWalkingAreas->setChecked(true);
+    menuCheckDrawFilledWalkingAreas->create();
+
     // always recalc after creating new elements
     gripModes->recalc();
 }
@@ -2853,6 +2865,7 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
     menuCheckShowPolygonSymbols->hide();
+    menuCheckDrawFilledWalkingAreas->hide();
 }
 
 
@@ -2910,6 +2923,9 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     if (menuCheckShowPolygonSymbols->shown()) {
         commands.push_back(menuCheckShowPolygonSymbols);
     }
+    if (menuCheckDrawFilledWalkingAreas->shown()) {
+        commands.push_back(menuCheckDrawFilledWalkingAreas);
+    }
 }
 
 
@@ -2946,18 +2962,15 @@ GNEViewNetHelper::NetworkViewOptions::showConnections(const GNEConnection* conne
     if (myViewNet->myEditModes.isCurrentSupermodeData()) {
         return false;
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_CONNECT) {
-        if (!myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showConnections()) {
-            if (myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
-                for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
-                    if ((connection == outgoingConnection) && (outgoingConnection->getLaneFrom() == myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane())) {
-                        return true;
-                    }
+        if (myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showOnlyFromConnections() && myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()) {
+            for (const auto& outgoingConnection : myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane()->getParentEdge()->getGNEConnections()) {
+                if ((connection == outgoingConnection) && (outgoingConnection->getLaneFrom() == myViewNet->getViewParent()->getConnectorFrame()->getCurrentEditedLane())) {
+                    return true;
                 }
             }
             return false;
         } else {
-            // check if menu check hide connections ins shown
-            return (menuCheckHideConnections->amChecked() == FALSE);
+            return (menuCheckHideConnections->amChecked() == false);
         }
     } else if (myViewNet->myEditModes.networkEditMode == NetworkEditMode::NETWORK_PROHIBITION) {
         return true;
@@ -3007,6 +3020,16 @@ bool
 GNEViewNetHelper::NetworkViewOptions::showPolygonSymbols() const {
     if (menuCheckShowPolygonSymbols->shown()) {
         return (menuCheckShowPolygonSymbols->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNetHelper::NetworkViewOptions::drawFilledWalkingAreas() const {
+    if (menuCheckDrawFilledWalkingAreas->shown()) {
+        return (menuCheckDrawFilledWalkingAreas->amChecked() == TRUE);
     } else {
         return false;
     }

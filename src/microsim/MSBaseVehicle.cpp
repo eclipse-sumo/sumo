@@ -1413,7 +1413,7 @@ MSBaseVehicle::getParkingBadges() const {
 
 double
 MSBaseVehicle::basePos(const MSEdge* edge) const {
-    double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getLength());
+    double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getMinLength());
     if (hasStops()
             && myStops.front().edge == myRoute->begin()
             && (&myStops.front().lane->getEdge()) == *myStops.front().edge) {

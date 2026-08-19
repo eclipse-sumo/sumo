@@ -20,11 +20,17 @@ stops_looped_laterCloser
 # use candiate stop locations to restrict mapping
 stops_gtfs_ids
 
+# see #18237
+stops_gtfs_ids2
+
 # load stops with invalid sequence numbers
 bad_sequence
 
 # load stops with invalid timing
 invalid_timing
+
+# run the same route twice with different timing
+different_timing
 
 # test routes if the vehicle class is disallowed on some lanes
 vclass_disallowed
@@ -61,6 +67,9 @@ detour_remove
 
 # warn about large detour (#17567)
 detour_edgeNotFound
+
+# see #18240
+detour_edgeNotFound_cached
 
 # see #17560
 sbahn_routingType

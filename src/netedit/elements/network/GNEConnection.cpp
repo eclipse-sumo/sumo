@@ -412,7 +412,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             shapeSuperposed.move2side(0.5);
         }
         GUIGeometry superposedGeometry(shapeSuperposed);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
+        // draw geometry only if we are not in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // draw connection
             drawConnection(s, d, superposedGeometry, connectionExaggeration);

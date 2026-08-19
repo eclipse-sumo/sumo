@@ -47,8 +47,9 @@ Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25779.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25779.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25717.00.
+Warning: Vehicle '82_subway_U2:1' skips stop on lane '199847347#2_0' time=25717.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25717.00.
 Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25868.00.
 Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25868.00.
 Warning: 8 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.

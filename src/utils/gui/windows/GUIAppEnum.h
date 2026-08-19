@@ -861,6 +861,8 @@ enum {
     MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,
     /// @brief show polygon symbols
     MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS,
+    /// @brief draw filled walking areas
+    MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS,
     /// @brief Add edge to selected items - menu entry
     MID_GNE_ADDSELECT_EDGE,
     /// @brief Remove edge from selected items - Menu Entry
@@ -1172,6 +1174,12 @@ enum {
     MID_GNE_CONNECTORFRAME_SELECTCONFLICTS,
     /// @brief select lanes with connections that have the pass attribute set to 'true'
     MID_GNE_CONNECTORFRAME_SELECTPASS,
+    /// @brief toogle inspect connections
+    MID_GNE_CONNECTORFRAME_VISIBLEININSPECTMODE,
+    /// @brief toogle show only from source connections
+    MID_GNE_CONNECTORFRAME_HIDEOTHERSOURCES,
+    /// @brief toogle inspect connections
+    MID_GNE_CONNECTORFRAME_INSPECTCONNECTIONS,
 
     /// @}
 

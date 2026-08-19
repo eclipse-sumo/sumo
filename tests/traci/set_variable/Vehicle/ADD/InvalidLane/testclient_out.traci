@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Sep  8 08:53:24 2024
+TraCITestClient output file. Date: Wed Aug 19 17:07:28 2026
 
 
 -> Command sent: <SimulationStep>:
@@ -38,7 +38,7 @@ TraCITestClient output file. Date: Sun Sep  8 08:53:24 2024
 
 -> Command sent: <SetValue>:
   domID=196 varID=128 objID=veh1
-.. Answered with error to command (196), [description: Invalid departlane definition for vehicle 'veh1'.]
+.. Answered with error to command (196), [description: Invalid departLane definition for vehicle 'veh1'.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

@@ -1,4 +1,7 @@
-Error: Answered with error to command 0xc4: Invalid departlane definition for vehicle 'veh1'.
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+#Error while connecting: tcpip::Socket::connect() @ socket: Connection refused
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+Error: Answered with error to command 0xc4: Invalid departLane definition for vehicle 'veh1'.
 Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known.
 Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known.
 Error: Answered with error to command 0xa4: Vehicle 'veh1' is not known.

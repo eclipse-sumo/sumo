@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-01-16T12:28:08.821868+01:00 by Eclipse SUMO netedit v1_25_0+0995-1363e65118a
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <trainStop id="-270501610" name="Kieshügel" lane="-47065544#3_0" startPos="363.48" endPos="388.48" friendlyPos="1"/>
+    <trainStop id="-270501655" name="An der Eule" lane="-47054575#2_0" startPos="336.03" endPos="361.03" friendlyPos="1"/>
+    <trainStop id="-270501681" name="Altenburger Straße" lane="-47054574#2_0" startPos="52.07" endPos="77.07" friendlyPos="1"/>
+    <trainStop id="-270501694" name="Stifterstraße" lane="-47054577#1_0" startPos="424.17" endPos="449.17" friendlyPos="1"/>
+    <trainStop id="-279231327" name="Zwätzen Schleife" lane="-1336523426#1_0" startPos="11.01" endPos="36.01" friendlyPos="1"/>
+    <trainStop id="-369739828" name="Zwätzen" lane="-239198519#8_0" startPos="206.58" endPos="231.58" friendlyPos="1"/>
+    <trainStop id="-7881800759" name="Jena, Löbstedt" lane="-47054577#1_0" startPos="36.09" endPos="61.09" friendlyPos="1"/>
+    <trainStop id="-7881800760" name="Flurweg" lane="-449880362#0_0" startPos="89.28" endPos="114.28" friendlyPos="1"/>
+    <trainStop id="1730884418" name="Spittelplatz" lane="194083373#5_0" startPos="470.53" endPos="495.53" friendlyPos="1" lines="1 4"/>
+    <trainStop id="1730884630" name="Universität" lane="194083373#5_0" startPos="44.80" endPos="69.80" friendlyPos="1" lines="1 4"/>
+    <trainStop id="2026739636" name="Nordschule" lane="251681972#10_0" startPos="23.28" endPos="48.28" friendlyPos="1" lines="4 1"/>
+    <trainStop id="2026739684" name="Scharnhorststraße" lane="251681972#0_0" startPos="127.45" endPos="152.45" friendlyPos="1" lines="4 1"/>
+    <trainStop id="2026764341" name="Altenburger Straße" lane="308691084#27_0" startPos="45.61" endPos="70.61" friendlyPos="1" lines="1 4"/>
+    <trainStop id="2026764345" name="An der Eule" lane="308691084#12_0" startPos="1065.10" endPos="1090.10" friendlyPos="1" lines="1 4"/>
+    <trainStop id="2026764349" name="Kieshügel" lane="308691084#12_0" startPos="680.70" endPos="705.70" friendlyPos="1" lines="1 4"/>
+    <trainStop id="2026764352" name="Nordschule" lane="308691084#8_0" startPos="21.17" endPos="46.17" friendlyPos="1" lines="1 4"/>
+    <trainStop id="2026764648" name="Scharnhorststraße" lane="308691084#12_0" startPos="449.14" endPos="474.14" friendlyPos="1" lines="1 4"/>
+    <trainStop id="269714530" name="Universität" lane="251681972#14_0" startPos="745.14" endPos="770.14" friendlyPos="1" lines="4 1"/>
+    <trainStop id="279231327" name="Zwätzen Schleife" lane="239198518#4_0" startPos="154.08" endPos="179.08" friendlyPos="1" lines="1 4"/>
+    <trainStop id="3104091210" name="Stifterstraße" lane="308691084#31_0" startPos="330.79" endPos="355.79" friendlyPos="1" lines="1"/>
+    <trainStop id="3139587568" name="Spittelplatz" lane="251681972#14_0" startPos="374.16" endPos="399.16" friendlyPos="1" lines="4 1"/>
+    <trainStop id="369739828" name="Zwätzen" lane="239198519#0_0" startPos="213.82" endPos="238.82" friendlyPos="1" lines="1 4"/>
+    <trainStop id="7881800758" name="Jena, Löbstedt" lane="308691084#31_0" startPos="691.36" endPos="716.36" friendlyPos="1" lines="1 4"/>
+    <trainStop id="7881800761" name="Flurweg" lane="449880366#2_0" startPos="400.57" endPos="425.57" friendlyPos="1" lines="1 4"/>
+</additional>

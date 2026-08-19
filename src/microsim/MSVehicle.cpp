@@ -1094,7 +1094,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
         if (myParameter->departLaneProcedure == DepartLaneDefinition::GIVEN
                 || (myParameter->departLaneProcedure == DepartLaneDefinition::DEFAULT && MSEdge::getDefaultDepartLaneDefinition() == DepartLaneDefinition::GIVEN)) {
             if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
-                msg = "Invalid departlane definition for vehicle '" + getID() + "'.";
+                msg = "Invalid departLane definition for vehicle '" + getID() + "'.";
                 if (myParameter->departLane >= (int)(*myCurrEdge)->getLanes().size()) {
                     myRouteValidity |= ROUTE_START_INVALID_LANE;
                 } else {
@@ -5794,6 +5794,14 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     myState = State(pos, speed, posLat, pos - getVehicleType().getLength(), hasDeparted() ? myState.myPreviousSpeed : speed);
     if (myDeparture == NOT_YET_DEPARTED) {
         onDepart();
+    }
+    if (enteredLane->isInternal() && myJunctionEntryTime == SUMOTime_MAX) {
+        myJunctionEntryTime = MSNet::getInstance()->getCurrentTimeStep();
+        myJunctionEntryTimeNeverYield = myJunctionEntryTime;
+        assert(enteredLane->getIncomingLanes().size() == 1);
+        if (enteredLane->getIncomingLanes().front().viaLink->isConflictEntryLink()) {
+            myJunctionConflictEntryTime = myJunctionEntryTime;
+        }
     }
     myCachedPosition = Position::INVALID;
     assert(myState.myPos >= 0);

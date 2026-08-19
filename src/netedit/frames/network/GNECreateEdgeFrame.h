@@ -92,6 +92,9 @@ public:
         /// @brief use template
         void useTemplate();
 
+        /// @brief check if show default short edge checkbox (only in JuPedSim view)
+        void showDefaultShortEdgeCheckBox(const bool value);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press a radio button

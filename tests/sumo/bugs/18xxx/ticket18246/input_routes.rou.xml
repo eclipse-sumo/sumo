@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <vehicle id="v0" depart="0" departLane="1">
+        <route edges=":C_10 CW"/>
+    </vehicle>
+</routes>

@@ -192,6 +192,7 @@
 #include "icons/checkboxes/checkbox_autoselectjunctions.xpm"
 #include "icons/checkboxes/checkbox_bubbles.xpm"
 #include "icons/checkboxes/checkbox_chain.xpm"
+#include "icons/checkboxes/checkbox_drawfilledwalkingareas.xpm"
 #include "icons/checkboxes/checkbox_drawjunctionshapes.xpm"
 #include "icons/checkboxes/checkbox_elevation.xpm"
 #include "icons/checkboxes/checkbox_grid.xpm"
@@ -791,6 +792,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWTAZELEMENTS] = new FXXPMIcon(a, checkbox_showtazelements_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES] = new FXXPMIcon(a, checkbox_applytoallphases_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWPOLYGONSYMBOLS] = new FXXPMIcon(a, checkbox_showpolygonsymbols_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_DRAWFILLEDWALKINGAREAS] = new FXXPMIcon(a, checkbox_drawfilledwalkingareas_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWTRIPS] = new FXXPMIcon(a, checkbox_showtrips_xpm);
