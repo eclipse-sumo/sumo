@@ -5795,6 +5795,14 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     if (myDeparture == NOT_YET_DEPARTED) {
         onDepart();
     }
+    if (enteredLane->isInternal() && myJunctionEntryTime == SUMOTime_MAX) {
+        myJunctionEntryTime = MSNet::getInstance()->getCurrentTimeStep();
+        myJunctionEntryTimeNeverYield = myJunctionEntryTime;
+        assert(enteredLane->getIncomingLanes().size() == 1);
+        if (enteredLane->getIncomingLanes().front().viaLink->isConflictEntryLink()) {
+            myJunctionConflictEntryTime = myJunctionEntryTime;
+        }
+    }
     myCachedPosition = Position::INVALID;
     assert(myState.myPos >= 0);
     assert(myState.mySpeed >= 0);
