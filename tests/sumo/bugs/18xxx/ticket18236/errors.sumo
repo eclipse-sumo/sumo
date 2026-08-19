@@ -1,3 +1,0 @@
-Warning: Vehicle 'v0' performs emergency braking on lane ':C_6_1' with decel=9.00, wished=4.50, severity=1.00, time=0.60.
-Warning: Teleporting vehicle 'v0'; waited too long (jam), lane=':C_6_1', time=301.20.
-Warning: Vehicle 'v0' ends teleporting on edge 'CW', time=301.20.
