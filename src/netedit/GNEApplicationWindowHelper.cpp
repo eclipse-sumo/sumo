@@ -943,6 +943,12 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::buildNetworkVi
                                   myApplicationWindow, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS);
     menuCheckShowPolygonSymbols->setCheck(TRUE);
 
+    menuCheckDrawFilledWalkingAreas = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
+                                      TL("Draw filled walkingareas"), "Alt+10", "",
+                                      GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_DRAWFILLEDWALKINGAREAS),
+                                      myApplicationWindow, MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS);
+    menuCheckDrawFilledWalkingAreas->setCheck(TRUE);
+
     // build separator
     separator = new FXMenuSeparator(editMenu);
 }
@@ -967,6 +973,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
     menuCheckShowPolygonSymbols->hide();
+    menuCheckDrawFilledWalkingAreas->hide();
     separator->hide();
 }
 
@@ -1037,6 +1044,10 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateShortcut
     }
     if (menuCheckShowPolygonSymbols->shown()) {
         menuCheckShowPolygonSymbols->setAccelText(("Alt+" + toString(index)).c_str());
+        index++;
+    }
+    if (menuCheckDrawFilledWalkingAreas->shown()) {
+        menuCheckDrawFilledWalkingAreas->setAccelText(("Alt+" + toString(index)).c_str());
         index++;
     }
 }
@@ -2828,6 +2839,9 @@ GNEApplicationWindowHelper::toggleEditOptionsNetwork(GNEViewNet* viewNet, const 
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckShowPolygonSymbols) {
         // Call manually onCmdToggleShowPolygonSymbols
         viewNet->onCmdToggleShowPolygonSymbols(obj, sel, nullptr);
+    } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckDrawFilledWalkingAreas) {
+        // Call manually onCmdToggleDrawFilledWalkingAreas
+        viewNet->onCmdToggleDrawFilledWalkingAreas(obj, sel, nullptr);
     } else {
         return false;
     }

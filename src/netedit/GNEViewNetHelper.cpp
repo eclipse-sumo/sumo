@@ -2834,6 +2834,13 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowPolygonSymbols->setChecked(true);
     menuCheckShowPolygonSymbols->create();
 
+    menuCheckDrawFilledWalkingAreas = new MFXCheckableButton(false, gripModes, toolTipMenu,
+            (std::string("\t") + TL("Draw filled walking areas") + std::string("\t") + TL("Draw filled walking areas.")),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_DRAWFILLEDWALKINGAREAS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS, GUIDesignMFXCheckableButtonSquare);
+    menuCheckDrawFilledWalkingAreas->setChecked(true);
+    menuCheckDrawFilledWalkingAreas->create();
+
     // always recalc after creating new elements
     gripModes->recalc();
 }
@@ -2858,6 +2865,7 @@ GNEViewNetHelper::NetworkViewOptions::hideNetworkViewOptionsMenuChecks() {
     menuCheckChainEdges->hide();
     menuCheckAutoOppositeEdge->hide();
     menuCheckShowPolygonSymbols->hide();
+    menuCheckDrawFilledWalkingAreas->hide();
 }
 
 
@@ -2914,6 +2922,9 @@ GNEViewNetHelper::NetworkViewOptions::getVisibleNetworkMenuCommands(std::vector<
     }
     if (menuCheckShowPolygonSymbols->shown()) {
         commands.push_back(menuCheckShowPolygonSymbols);
+    }
+    if (menuCheckDrawFilledWalkingAreas->shown()) {
+        commands.push_back(menuCheckDrawFilledWalkingAreas);
     }
 }
 
@@ -3012,6 +3023,16 @@ bool
 GNEViewNetHelper::NetworkViewOptions::showPolygonSymbols() const {
     if (menuCheckShowPolygonSymbols->shown()) {
         return (menuCheckShowPolygonSymbols->amChecked() == TRUE);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNetHelper::NetworkViewOptions::drawFilledWalkingAreas() const {
+    if (menuCheckDrawFilledWalkingAreas->shown()) {
+        return (menuCheckDrawFilledWalkingAreas->amChecked() == TRUE);
     } else {
         return false;
     }

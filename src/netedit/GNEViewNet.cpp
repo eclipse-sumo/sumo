@@ -135,6 +135,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,               GNEViewNet::onCmdToggleChainEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,        GNEViewNet::onCmdToggleAutoOppositeEdge),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS,       GNEViewNet::onCmdToggleShowPolygonSymbols),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS,   GNEViewNet::onCmdToggleDrawFilledWalkingAreas),
     // Demand view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,                  GNEViewNet::onCmdToggleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_TOGGLEDRAWJUNCTIONSHAPE,   GNEViewNet::onCmdToggleDrawJunctionShape),
@@ -4347,6 +4348,25 @@ GNEViewNet::onCmdToggleShowPolygonSymbols(FXObject*, FXSelector sel, void*) {
 
 
 long
+GNEViewNet::onCmdToggleDrawFilledWalkingAreas(FXObject*, FXSelector sel, void*) {
+    // Toggle menuCheckAutoOppositeEdge
+    if (myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->amChecked() == TRUE) {
+        myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->setChecked(FALSE);
+    } else {
+        myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->setChecked(TRUE);
+    }
+    myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->update();
+    // Only update view
+    updateViewNet();
+    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
+    if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS)) {
+        myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->setFocus();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector sel, void*) {
     // Toggle menuCheckHideNonInspectedDemandElements
     if (myDemandViewOptions.menuCheckHideNonInspectedDemandElements->amChecked() == TRUE) {
@@ -4882,6 +4902,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
@@ -4889,6 +4910,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckShowAdditionalSubElements->show();
@@ -4926,6 +4948,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myCommonCheckableButtons.selectButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckExtendSelection->show();
@@ -4934,6 +4957,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             menuChecks.menuCheckSelectEdges->show();
             menuChecks.menuCheckShowConnections->show();
             menuChecks.menuCheckExtendSelection->show();
@@ -4949,11 +4973,13 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             myNetworkViewOptions.menuCheckChainEdges->show();
             myNetworkViewOptions.menuCheckAutoOppositeEdge->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             menuChecks.menuCheckChainEdges->show();
             menuChecks.menuCheckAutoOppositeEdge->show();
             menuChecks.menuCheckShowJunctionBubble->show();
@@ -4991,9 +5017,11 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.trafficLightButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             myNetworkViewOptions.menuCheckChangeAllPhases->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             menuChecks.menuCheckChangeAllPhases->show();
             break;
         case NetworkEditMode::NETWORK_ADDITIONAL:
@@ -5003,9 +5031,11 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.additionalButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             myNetworkViewOptions.menuCheckShowAdditionalSubElements->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             menuChecks.menuCheckShowAdditionalSubElements->show();
             break;
         case NetworkEditMode::NETWORK_CROSSING:
@@ -5015,8 +5045,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.crossingButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         case NetworkEditMode::NETWORK_TAZ:
             myViewParent->getTAZFrame()->show();
@@ -5025,8 +5057,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.TAZButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         case NetworkEditMode::NETWORK_SHAPE:
             myViewParent->getShapeFrame()->show();
@@ -5035,8 +5069,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.shapeButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         case NetworkEditMode::NETWORK_PROHIBITION:
             myViewParent->getProhibitionFrame()->show();
@@ -5045,8 +5081,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.prohibitionButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         case NetworkEditMode::NETWORK_WIRE:
             myViewParent->getWireFrame()->show();
@@ -5055,8 +5093,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.wireButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         case NetworkEditMode::NETWORK_DECAL:
             myViewParent->getDecalFrame()->show();
@@ -5065,8 +5105,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.decalButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckShowPolygonSymbols->show();
+            myNetworkViewOptions.menuCheckDrawFilledWalkingAreas->show();
             // show menu checks
             menuChecks.menuCheckShowPolygonSymbols->show();
+            menuChecks.menuCheckDrawFilledWalkingAreas->show();
             break;
         default:
             break;

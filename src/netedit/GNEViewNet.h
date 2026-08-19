@@ -430,6 +430,9 @@ public:
     /// @brief toggle show polygon symbols
     long onCmdToggleShowPolygonSymbols(FXObject*, FXSelector, void*);
 
+    /// @brief toggle draw filled walking areas
+    long onCmdToggleDrawFilledWalkingAreas(FXObject*, FXSelector, void*);
+
     /// @brief toggle hide non inspected demand elements
     long onCmdToggleHideNonInspecteDemandElements(FXObject*, FXSelector, void*);
 

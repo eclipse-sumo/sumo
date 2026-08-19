@@ -845,6 +845,9 @@ struct GNEViewNetHelper {
         /// @brief check if draw polygon symbols
         bool showPolygonSymbols() const;
 
+        /// @brief draw filled walking areas
+        bool drawFilledWalkingAreas() const;
+
         /// @brief checkable button to show grid button
         MFXCheckableButton* menuCheckToggleGrid = nullptr;
 
@@ -895,6 +898,9 @@ struct GNEViewNetHelper {
 
         /// @brief check checkable to show polygon symbols
         MFXCheckableButton* menuCheckShowPolygonSymbols = nullptr;
+
+        /// @brief check checkable to draw filled walking areas
+        MFXCheckableButton* menuCheckDrawFilledWalkingAreas = nullptr;
 
     private:
         /// @brief pointer to net

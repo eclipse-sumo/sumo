@@ -532,6 +532,9 @@ struct GNEApplicationWindowHelper {
             /// @brief check checkable to show the start and end symbols in polygons
             MFXMenuCheckIcon* menuCheckShowPolygonSymbols = nullptr;
 
+            /// @brief check checkable to show draw filled walking areas
+            MFXMenuCheckIcon* menuCheckDrawFilledWalkingAreas = nullptr;
+
             /// @brief separator
             FXMenuSeparator* separator = nullptr;
 

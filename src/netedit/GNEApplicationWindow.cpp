@@ -3057,6 +3057,8 @@ GNEApplicationWindow::onCmdToggleViewOption(FXObject* sender, FXSelector sel, vo
                 return myViewNet->onCmdToggleAutoOppositeEdge(sender, sel, ptr);
             case MID_GNE_NETWORKVIEWOPTIONS_SHOWPOLYGONSYMBOLS:
                 return myViewNet->onCmdToggleShowPolygonSymbols(sender, sel, ptr);
+            case MID_GNE_NETWORKVIEWOPTIONS_DRAWFILLEDWALKINGAREAS:
+                return myViewNet->onCmdToggleDrawJunctionShape(sender, sel, ptr);
             // Demand
             case MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID:
                 return myViewNet->onCmdToggleShowGrid(sender, sel, ptr);
