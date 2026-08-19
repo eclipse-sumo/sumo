@@ -1792,4 +1792,14 @@ MSEdge::getMesoPositions() const {
 }
 
 
+double
+MSEdge::getMinLength() const {
+    double result = std::numeric_limits<double>::max();
+    for (const MSLane* l : *myLanes) {
+        result = MIN2(result, l->getLength());
+    }
+    return result;
+}
+
+
 /****************************************************************************/

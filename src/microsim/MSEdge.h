@@ -695,6 +695,10 @@ public:
         return myLength;
     }
 
+    
+    /// @brief return the minimum length of all lanes (only differs from getLength for curved internal lanes)
+    double getMinLength() const;
+
 
     /** @brief Returns the speed limit of the edge
      * @caution The speed limit of the first lane is retured; should probably be the fastest lane
