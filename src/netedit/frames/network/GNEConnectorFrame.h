@@ -189,10 +189,10 @@ public:
         /// @{
 
         /// @brief Called when the user toggles the show always connection checkbox
-        long onCmdToggleShowConnections(FXObject* obj, FXSelector sel, void* ptr);
+        long onCmdToggleVisibleInInspectMode(FXObject* obj, FXSelector sel, void* ptr);
 
         /// @brief Called when the user toggles the show only from checkbox
-        long onCmdToggleShowOnlyFromLaneConnections(FXObject*, FXSelector, void*);
+        long onCmdToggleHideOtherSources(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user toggles the inspect connections checkbox
         long onCmdToggleInspectConnections(FXObject*, FXSelector, void*);
@@ -205,11 +205,11 @@ public:
         /// @brief pointer to connectorFrame parent
         GNEConnectorFrame* myConnectorFrameParent;
 
-        /// @brief "Show connections" check button
-        FXCheckButton* myToggleShowConnectionsCheckButton;
+        /// @brief "Visible in inspet mode" check button
+        FXCheckButton* myToggleVisibleInInspectMode;
 
-        /// @brief "Show only from connections" check button
-        FXCheckButton* myToggleShowOnlyFromConnectionsCheckButton;
+        /// @brief "Hide other sources" check button
+        FXCheckButton* myToggleHideOtherSources;
 
         /// @brief "Inspect connections" check button
         FXCheckButton* myToggleInspectConnectionsCheckbutton;

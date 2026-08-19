@@ -1173,9 +1173,9 @@ enum {
     /// @brief select lanes with connections that have the pass attribute set to 'true'
     MID_GNE_CONNECTORFRAME_SELECTPASS,
     /// @brief toogle inspect connections
-    MID_GNE_CONNECTORFRAME_SHOWCONNECTIONS,
+    MID_GNE_CONNECTORFRAME_VISIBLEININSPECTMODE,
     /// @brief toogle show only from source connections
-    MID_GNE_CONNECTORFRAME_SHOWONLYFROMSOURCE,
+    MID_GNE_CONNECTORFRAME_HIDEOTHERSOURCES,
     /// @brief toogle inspect connections
     MID_GNE_CONNECTORFRAME_INSPECTCONNECTIONS,
 
