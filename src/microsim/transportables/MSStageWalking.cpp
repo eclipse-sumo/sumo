@@ -353,7 +353,6 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
     if (myExitTimes != nullptr && nextInternal == nullptr) {
         myExitTimes->push_back(currentTime);
     }
-    myMoveReminders.clear();
     myLastEdgeEntryTime = currentTime;
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
     if (myCurrentInternalEdge != nullptr) {
@@ -435,9 +434,13 @@ MSStageWalking::activateMoveReminders(MSTransportable* person, double oldPos, do
 void
 MSStageWalking::activateLeaveReminders(MSTransportable* person, const MSLane* lane, double lastPos, SUMOTime t, bool arrived) {
     MSMoveReminder::Notification notification = arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION;
-    for (MSMoveReminder* const rem : myMoveReminders) {
-        rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
-        rem->notifyLeave(*person, lastPos, notification);
+    for (std::vector<MSMoveReminder*>::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        (*rem)->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, t, t, true);
+        if ((*rem)->notifyLeave(*person, lastPos, notification)) {
+            ++rem;
+        } else {
+            rem = myMoveReminders.erase(rem);
+        }
     }
 }
 

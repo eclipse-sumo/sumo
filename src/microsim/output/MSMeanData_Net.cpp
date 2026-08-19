@@ -207,7 +207,8 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
             }
         }
     }
-    if (MSGlobals::gUseMesoSim) {
+    if (MSGlobals::gUseMesoSim || !veh.isVehicle()) {
+        // only microsim vehicles keep the reminder until their back has fully left the edge/lane
         return false;
     }
     return reason == MSMoveReminder::NOTIFICATION_JUNCTION;
