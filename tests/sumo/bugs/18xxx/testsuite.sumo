@@ -1,2 +1,5 @@
 # deadlock on junction
 ticket18115
+
+# invalid departPos warning
+ticket18246
