@@ -173,8 +173,8 @@ public:
         /// @brief destructor
         ~ConnectionVisualization();
 
-        /// @brief force show connections
-        void forceShowConnections();
+        /// @brief update show connections
+        void updateShowConnections();
 
         /// @brief check if show connections
         bool showConnections() const;

@@ -2960,8 +2960,6 @@ GNEViewNetHelper::NetworkViewOptions::showConnections(const GNEConnection* conne
                 }
             }
             return false;
-        } else if (!myViewNet->getViewParent()->getConnectorFrame()->getConnectionVisualization()->showConnections()) {
-            return false;
         } else {
             // check if menu check hide connections ins shown
             return (menuCheckHideConnections->amChecked() == FALSE);

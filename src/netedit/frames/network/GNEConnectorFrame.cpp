@@ -340,8 +340,13 @@ GNEConnectorFrame::ConnectionVisualization::~ConnectionVisualization() {}
 
 
 void
-GNEConnectorFrame::ConnectionVisualization::forceShowConnections() {
-    myToggleVisibleInInspectMode->setCheck(TRUE, TRUE);
+GNEConnectorFrame::ConnectionVisualization::updateShowConnections() {
+    // mirror the value of show connections
+    if (myConnectorFrameParent->getViewNet()->getNetworkViewOptions().menuCheckShowConnections->amChecked()) {
+        myToggleVisibleInInspectMode->setCheck(TRUE, FALSE);
+    } else {
+        myToggleVisibleInInspectMode->setCheck(FALSE, FALSE);
+    }
 }
 
 
@@ -364,11 +369,7 @@ GNEConnectorFrame::ConnectionVisualization::inspectConnections() const {
 
 
 long GNEConnectorFrame::ConnectionVisualization::onCmdToggleVisibleInInspectMode(FXObject* obj, FXSelector sel, void* ptr) {
-    if (!myConnectorFrameParent->getViewNet()->getNetworkViewOptions().menuCheckShowConnections->amChecked()) {
-        myConnectorFrameParent->getViewNet()->onCmdToggleVisibleInInspectMode(obj, sel, ptr);
-    }
-    myConnectorFrameParent->getViewNet()->updateViewNet();
-    return 1;
+    return myConnectorFrameParent->getViewNet()->onCmdToggleShowConnections(obj, sel, ptr);
 }
 
 
@@ -461,7 +462,7 @@ GNEConnectorFrame::~GNEConnectorFrame() {}
 
 void
 GNEConnectorFrame::show() {
-    myConnectionVisualization->forceShowConnections();
+    myConnectionVisualization->updateShowConnections();
     GNEFrame::show();
 }
 
