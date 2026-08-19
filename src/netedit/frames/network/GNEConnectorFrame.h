@@ -173,8 +173,14 @@ public:
         /// @brief destructor
         ~ConnectionVisualization();
 
+        /// @brief force show connections
+        void forceShowConnections();
+
         /// @brief check if show connections
         bool showConnections() const;
+
+        /// @brief check if show only from connections
+        bool showOnlyFromConnections() const;
 
         /// @brief check if inspect connections
         bool inspectConnections() const;
@@ -183,7 +189,10 @@ public:
         /// @{
 
         /// @brief Called when the user toggles the show always connection checkbox
-        long onCmdToggleAlwaysShowConnections(FXObject*, FXSelector, void*);
+        long onCmdToggleShowConnections(FXObject* obj, FXSelector sel, void* ptr);
+
+        /// @brief Called when the user toggles the show only from checkbox
+        long onCmdToggleShowOnlyFromLaneConnections(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user toggles the inspect connections checkbox
         long onCmdToggleInspectConnections(FXObject*, FXSelector, void*);
@@ -196,11 +205,14 @@ public:
         /// @brief pointer to connectorFrame parent
         GNEConnectorFrame* myConnectorFrameParent;
 
-        /// @brief "Select Dead Ends" button
-        FXCheckButton* myToggleAlwaysShowConnectionsButton;
+        /// @brief "Show connections" check button
+        FXCheckButton* myToggleShowConnectionsCheckButton;
 
-        /// @brief "Select Dead Starts" button
-        FXCheckButton* myToggleInspectConnectionsButton;
+        /// @brief "Show only from connections" check button
+        FXCheckButton* myToggleShowOnlyFromConnectionsCheckButton;
+
+        /// @brief "Inspect connections" check button
+        FXCheckButton* myToggleInspectConnectionsCheckbutton;
     };
 
     // ===========================================================================
@@ -241,6 +253,11 @@ public:
 
     /// @brief Destructor
     ~GNEConnectorFrame();
+
+    /**@brief show Frame
+     * @note some GNEFrames needs a re-implementation
+     */
+    void show();
 
     /**@brief either sets the current lane or toggles the connection of the
      * @param viewObjects collection of objects under cursor after click over view

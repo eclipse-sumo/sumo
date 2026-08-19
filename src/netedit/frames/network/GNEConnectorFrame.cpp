@@ -51,8 +51,9 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
 };
 
 FXDEFMAP(GNEConnectorFrame::ConnectionVisualization) ConnectionVisualizationMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleAlwaysShowConnections),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleInspectConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SHOWCONNECTIONS,     GNEConnectorFrame::ConnectionVisualization::onCmdToggleShowConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_INSPECTCONNECTIONS,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleInspectConnections),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CONNECTORFRAME_SHOWONLYFROMSOURCE,  GNEConnectorFrame::ConnectionVisualization::onCmdToggleShowOnlyFromLaneConnections),
 };
 
 // Object implementation
@@ -323,32 +324,56 @@ GNEConnectorFrame::ConnectionVisualization::ConnectionVisualization(GNEConnector
     GNEGroupBoxModule(connectorFrameParent, TL("Visualization")),
     myConnectorFrameParent(connectorFrameParent) {
 
+    // Create checkbox for show connections button
+    myToggleShowConnectionsCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Show connections"), this, MID_GNE_CONNECTORFRAME_SHOWCONNECTIONS, GUIDesignCheckButton);
+
     // Create checkbox for toggle always show connections button
-    myToggleAlwaysShowConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Always show connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
-    myToggleAlwaysShowConnectionsButton->setCheck(TRUE);
+    myToggleShowOnlyFromConnectionsCheckButton = new FXCheckButton(getCollapsableFrame(), TL("Show only from connections"), this, MID_GNE_CONNECTORFRAME_SHOWONLYFROMSOURCE, GUIDesignCheckButton);
+    myToggleShowOnlyFromConnectionsCheckButton->setCheck(FALSE);
 
     // Create checkbox for toggle inspect connections buttons
-    myToggleInspectConnectionsButton = new FXCheckButton(getCollapsableFrame(), TL("Inspect connections"), this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myToggleInspectConnectionsCheckbutton = new FXCheckButton(getCollapsableFrame(), TL("Inspect connections"), this, MID_GNE_CONNECTORFRAME_INSPECTCONNECTIONS, GUIDesignCheckButton);
 }
 
 
 GNEConnectorFrame::ConnectionVisualization::~ConnectionVisualization() {}
 
 
+void
+GNEConnectorFrame::ConnectionVisualization::forceShowConnections() {
+    myToggleShowConnectionsCheckButton->setCheck(TRUE, TRUE);
+}
+
+
 bool
 GNEConnectorFrame::ConnectionVisualization::showConnections() const {
-    return myToggleAlwaysShowConnectionsButton->getCheck() == TRUE;
+    return myToggleShowConnectionsCheckButton->getCheck() == TRUE;
+}
+
+
+bool
+GNEConnectorFrame::ConnectionVisualization::showOnlyFromConnections() const {
+    return myToggleShowOnlyFromConnectionsCheckButton->getCheck() == TRUE;
 }
 
 
 bool
 GNEConnectorFrame::ConnectionVisualization::inspectConnections() const {
-    return myToggleInspectConnectionsButton->getCheck() == TRUE;
+    return myToggleInspectConnectionsCheckbutton->getCheck() == TRUE;
+}
+
+
+long GNEConnectorFrame::ConnectionVisualization::onCmdToggleShowConnections(FXObject* obj, FXSelector sel, void* ptr) {
+    if (!myConnectorFrameParent->getViewNet()->getNetworkViewOptions().menuCheckShowConnections->amChecked()) {
+        myConnectorFrameParent->getViewNet()->onCmdToggleShowConnections(obj, sel, ptr);
+    }
+    myConnectorFrameParent->getViewNet()->updateViewNet();
+    return 1;
 }
 
 
 long
-GNEConnectorFrame::ConnectionVisualization::onCmdToggleAlwaysShowConnections(FXObject*, FXSelector, void*) {
+GNEConnectorFrame::ConnectionVisualization::onCmdToggleShowOnlyFromLaneConnections(FXObject*, FXSelector, void*) {
     myConnectorFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
@@ -432,6 +457,13 @@ GNEConnectorFrame::GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* view
 
 
 GNEConnectorFrame::~GNEConnectorFrame() {}
+
+
+void
+GNEConnectorFrame::show() {
+    myConnectionVisualization->forceShowConnections();
+    GNEFrame::show();
+}
 
 
 void
