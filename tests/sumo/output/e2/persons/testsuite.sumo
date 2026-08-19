@@ -5,6 +5,9 @@ default
 walk
 
 # detect all walking persons on lane
+walk_nonInteracting
+
+# detect all walking persons on lane
 walk_walkingArea
 
 # detect persons walking in edge direction

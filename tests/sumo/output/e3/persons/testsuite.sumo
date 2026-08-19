@@ -4,6 +4,9 @@ default
 # detect all walking persons on lane
 walk
 
+# detect all walking persons on lane
+walk_nonInteracting
+
 # only entry events are captured
 walk_open
 
