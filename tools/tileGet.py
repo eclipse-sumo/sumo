@@ -173,14 +173,35 @@ def writeSettings(options, net, tile_list, zoom, decals):
                    se[0] - nw[0], nw[1] - se[1], options.layer), file=decals)
 
 
+def zoomFromResolution(resolution):
+    """Convert a meters-per-pixel resolution to an OSM zoom level (at equator)."""
+    R = 6378137.0
+    return int(round(math.log2(2 * math.pi * R / (256 * resolution))))
+
+
+def effectiveZoom(options):
+    """Return the zoom level to use, considering --zoom, --resolution, and --max-zoom."""
+    if options.zoom is not None:
+        return min(options.zoom, options.maxZoom)
+    if options.resolution is not None:
+        return min(zoomFromResolution(options.resolution), options.maxZoom)
+    return None
+
+
 def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, is_retina):
-    zoom = options.maxZoom + 1
-    numTiles = options.tiles + 1
-    while numTiles > options.tiles:
-        zoom -= 1
+    fixed_zoom = effectiveZoom(options)
+    if fixed_zoom is not None:
+        zoom = fixed_zoom
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
-        numTiles = (ex - sx + 1) * (ey - sy + 1)
+    else:
+        zoom = options.maxZoom + 1
+        numTiles = options.tiles + 1
+        while numTiles > options.tiles:
+            zoom -= 1
+            sx, sy = fromLatLonToTile(north, west, zoom)
+            ex, ey = fromLatLonToTile(south, east, zoom)
+            numTiles = (ex - sx + 1) * (ey - sy + 1)
 
     if options.user_agent:
         opener = urllib.build_opener()
@@ -200,13 +221,19 @@ def retrieveOpenStreetMapTiles(options, west, south, east, north, decals, net, i
 
 
 def retrieveMapServerTiles(options, west, south, east, north, decals, net, pattern):
-    zoom = 20
-    numTiles = options.tiles + 1
-    while numTiles > options.tiles:
-        zoom -= 1
+    fixed_zoom = effectiveZoom(options)
+    if fixed_zoom is not None:
+        zoom = fixed_zoom
         sx, sy = fromLatLonToTile(north, west, zoom)
         ex, ey = fromLatLonToTile(south, east, zoom)
-        numTiles = (ex - sx + 1) * (ey - sy + 1)
+    else:
+        zoom = 20
+        numTiles = options.tiles + 1
+        while numTiles > options.tiles:
+            zoom -= 1
+            sx, sy = fromLatLonToTile(north, west, zoom)
+            ex, ey = fromLatLonToTile(south, east, zoom)
+            numTiles = (ex - sx + 1) * (ey - sy + 1)
 
     # opener = urllib.build_opener()
     # opener.addheaders = [('User-agent', 'Mozilla/5.0')]
@@ -260,8 +287,13 @@ def get_options(args=None):
                          help="maximum number of tiles the output gets split into")
     optParser.add_option("--simulate", action="store_true", default=False,
                          help="print download urls and filenames instead of requesting from tile server")
-    optParser.add_option("-z", "--max-zoom", type=int, default=17, dest="maxZoom",
+    optParser.add_option("-z", "--max-zoom", type=int, default=19, dest="maxZoom",
                          help="restrict maximum zoom level")
+    optParser.add_option("--zoom", type=int, default=None,
+                         help="use this zoom level directly (overrides --tiles based selection, capped by --max-zoom)")
+    optParser.add_option("--resolution", type=float, default=None,
+                         help="target resolution in meters per pixel; the closest zoom level is used "
+                              "(overrides --tiles based selection, capped by --max-zoom)")
     optParser.add_option("-j", "--parallel-jobs", type=int, default=0,
                          help="Number of parallel jobs to run when downloading tiles. 0 means no parallelism.")
     optParser.add_option("-r", "--retina", action="store_true", default=False,

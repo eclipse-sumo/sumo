@@ -76,6 +76,19 @@
                         </div>
                         <label>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
                         <label>Satellite background <input id="decal" type="checkbox" /></label>
+                        <div id="tileZoomRow" style="display:none; margin-left: 18px;">
+                            <div style="margin-bottom:3px;">Image zoom level</div>
+                            <select id="tileZoom" style="width:100%; box-sizing:border-box; color:#000;">
+                                <option value="12">12 (~38 m/px)</option>
+                                <option value="13">13 (~19 m/px)</option>
+                                <option value="14">14 (~10 m/px)</option>
+                                <option value="15">15 (~5 m/px)</option>
+                                <option value="16">16 (~2 m/px)</option>
+                                <option value="17" selected="selected">17 (~1 m/px)</option>
+                                <option value="18">18 (~0.6 m/px)</option>
+                                <option value="19">19 (~0.3 m/px)</option>
+                            </select>
+                        </div>
                         <label>Left Hand Traffic <input id="leftHand" type="checkbox" /></label>
                         <label>Verbose <input id="verbose" type="checkbox" /></label>
                     </div>

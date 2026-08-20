@@ -162,7 +162,7 @@ button:hover {
 }
 
 .container > :checked + .options, .options.open {
-    max-height: 425px;
+    max-height: 600px;
 }
 
 .container > :checked + .options, h4 + .options.open {

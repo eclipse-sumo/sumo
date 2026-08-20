@@ -323,6 +323,8 @@ class Builder(object):
                 "-l", "-300",
                 "-a", "Mozilla/5.0 (X11; Linux x86_64) osmWebWizard.py/1.0 (+https://github.com/eclipse-sumo/sumo)",
             ]
+            if self.data.get("tileZoom") is not None:
+                tileOptions += ["--zoom", str(self.data["tileZoom"])]
             try:
                 os.chdir(self.tmp)
                 os.mkdir("background_images")

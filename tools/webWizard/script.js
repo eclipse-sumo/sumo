@@ -634,6 +634,7 @@ on("ready", function(){
             },
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
+            tileZoom: elem("#decal").checked ? Number.parseInt(elem("#tileZoom").value) : null,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
             verbose: elem("#verbose").checked,
             vehicles: {},
@@ -697,6 +698,23 @@ on("ready", function(){
     }
 
     elem("#export-button").on("click", startBuild);
+
+    // Show/hide tile zoom selector based on decal checkbox state
+    function syncTileZoomToMap() {
+        // clamp map zoom to the select's option range [12, 19]
+        const z = Math.min(19, Math.max(12, map.getZoom()));
+        elem("#tileZoom").value = z;
+    }
+
+    elem("#decal").addEventListener("change", function() {
+        const row = elem("#tileZoomRow");
+        row.style.display = this.checked ? "block" : "none";
+        if (this.checked) syncTileZoomToMap();
+    });
+
+    map.on("zoomend", function() {
+        if (elem("#decal").checked) syncTileZoomToMap();
+    });
 
     /**
      * @function
