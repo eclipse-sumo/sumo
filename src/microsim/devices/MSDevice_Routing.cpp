@@ -68,6 +68,12 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addSynonyme("device.rerouting.adaptation-interval", "device.routing.adaptation-interval", true);
     oc.addDescription("device.rerouting.adaptation-interval", "Routing", TL("The interval for updating the edge weights"));
 
+    oc.doRegister("device.rerouting.cch-update-threshold.factor", new Option_Float(1));
+    oc.addDescription("device.rerouting.cch-update-threshold.factor", "Routing", TL("Only propagate an arc weight into the CCH metric if it changed by more than the given factor"));
+
+    oc.doRegister("device.rerouting.cch-update-threshold.constant", new Option_String("0", "TIME"));
+    oc.addDescription("device.rerouting.cch-update-threshold.constant", "Routing", TL("Only propagate an arc weight into the CCH metric if it changed by more than the given TIME"));
+
     oc.doRegister("device.rerouting.threshold.factor", new Option_Float(1));
     oc.addDescription("device.rerouting.threshold.factor", "Routing", TL("Only reroute if the new route is faster than the current route by the given factor"));
 
