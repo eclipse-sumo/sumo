@@ -134,6 +134,23 @@ CCHGraph::CCHGraph(const std::set<SUMOVehicleClass>& classes, const std::string&
         }
     }
 
+    // 2a-bis. reverse image for sparse re-customization: for every arc, the
+    // edges its weight reads at fill time (head edge + folded via chain; the
+    // tail edge is deliberately absent from the weight, see the arc weight
+    // convention in CCHGraph.h)
+    myEdgeToArcs.resize(myEdgeToNode.size());
+    for (unsigned a = 0; a < (unsigned)myArcHead.size(); a++) {
+        myEdgeToArcs[myNodeToEdge[myArcHead[a]]->getNumericalID()].push_back(a);
+        const MSEdge* via = myArcVia[a];
+        while (via != nullptr && via->isInternal()) {
+            if (via->getNumericalID() >= 0 && via->getNumericalID() < (int)myEdgeToArcs.size()) {
+                myEdgeToArcs[via->getNumericalID()].push_back(a);
+            }
+            const MSConstEdgePairVector& vs = via->getViaSuccessors();
+            via = vs.empty() ? nullptr : vs.front().second;
+        }
+    }
+
     // 2b. per-arc CONNECTION-level permissions: for each present class, mark
     // the arcs whose connection that class may traverse -- exactly the arcs
     // getViaSuccessors(vClass) would return. Edge-level getPermissions() is too
@@ -239,35 +256,49 @@ CCHGraph::nodeOf(const MSEdge* e) const {
 }
 
 
+const std::vector<unsigned>&
+CCHGraph::arcsOfEdge(const MSEdge* e) const {
+    static const std::vector<unsigned> empty;
+    if (e == nullptr || e->getNumericalID() < 0 || e->getNumericalID() >= (int)myEdgeToArcs.size()) {
+        return empty;
+    }
+    return myEdgeToArcs[e->getNumericalID()];
+}
+
+
+unsigned
+CCHGraph::computeArcWeight(unsigned a, EffortOperation effort, SUMOVehicleClass maskClass,
+                           const SUMOVehicle* veh, double time) const {
+    const MSEdge* to = myNodeToEdge[myArcHead[a]];
+    // Per-class / closure gate. Forbidden (inf_weight) if EITHER:
+    //  - the connection does not permit the class (static, connection-level,
+    //    matches A*'s getViaSuccessors(vClass)); OR
+    //  - the destination edge does not currently permit the class (dynamic,
+    //    edge-level -- catches runtime closures via MSLane::setPermissions).
+    if (maskClass != SVC_IGNORING && (((myArcPerm[a] & maskClass) == 0)
+                                      || ((to->getPermissions() & maskClass) == 0))) {
+        return RoutingKit::inf_weight;
+    }
+    // arc weight = via-chain effort + destination-edge effort (see CCHGraph.h).
+    const double bigEffort = (double)(RoutingKit::inf_weight - 1) / 100.0;
+    double eff = viaChainEffort(myArcVia[a], effort, veh, time)
+                 + effort(to, veh, time);
+    if (!(eff < bigEffort)) {  // NaN / inf / overflow -> forbidden
+        return RoutingKit::inf_weight;
+    }
+    long long cs = std::llround(eff * 100.0);
+    return (unsigned)(cs < 0 ? 0 : (cs >= (long long)RoutingKit::inf_weight
+                                    ? RoutingKit::inf_weight - 1 : cs));
+}
+
+
 void
 CCHGraph::fillInputWeights(EffortOperation effort, SUMOVehicleClass maskClass,
                            const SUMOVehicle* veh, double time,
                            std::vector<unsigned>& weight) const {
     weight.resize(arcCount());
-    const double bigEffort = (double)(RoutingKit::inf_weight - 1) / 100.0;
-    const bool mask = (maskClass != SVC_IGNORING);
     for (unsigned a = 0; a < arcCount(); a++) {
-        const MSEdge* to = myNodeToEdge[myArcHead[a]];
-        // Per-class / closure gate. Forbidden (inf_weight) if EITHER:
-        //  - the connection does not permit the class (static, connection-level,
-        //    matches A*'s getViaSuccessors(vClass)); OR
-        //  - the destination edge does not currently permit the class (dynamic,
-        //    edge-level -- catches runtime closures via MSLane::setPermissions).
-        if (mask && (((myArcPerm[a] & maskClass) == 0)
-                     || ((to->getPermissions() & maskClass) == 0))) {
-            weight[a] = RoutingKit::inf_weight;
-            continue;
-        }
-        // arc weight = via-chain effort + destination-edge effort (see CCHGraph.h).
-        double eff = viaChainEffort(myArcVia[a], effort, veh, time)
-                     + effort(to, veh, time);
-        if (!(eff < bigEffort)) {  // NaN / inf / overflow -> forbidden
-            weight[a] = RoutingKit::inf_weight;
-        } else {
-            long long cs = std::llround(eff * 100.0);
-            weight[a] = (unsigned)(cs < 0 ? 0 : (cs >= (long long)RoutingKit::inf_weight
-                                                 ? RoutingKit::inf_weight - 1 : cs));
-        }
+        weight[a] = computeArcWeight(a, effort, maskClass, veh, time);
     }
 }
 
