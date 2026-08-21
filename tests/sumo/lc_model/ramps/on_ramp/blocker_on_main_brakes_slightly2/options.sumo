@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml -r=input_routes.rou.xml
+-t
+--max-depart-delay 3
+--extrapolate-departpos
+--time-to-teleport -1
