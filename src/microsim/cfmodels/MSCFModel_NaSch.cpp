@@ -97,7 +97,7 @@ MSCFModel_NaSch::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vM
 
 
 double
-MSCFModel_NaSch::minNextSpeedEmergency(double speed, const MSVehicle* const /*veh*/) const {
+MSCFModel_NaSch::minNextSpeedEmergency(double /*speed*/, const MSVehicle* const /*veh*/) const {
     // NaSch rule 4 (movement) permits vehicles to stop dead within a single
     // step whenever the gap requires it, i.e. emergency deceleration is not
     // bounded, see issue #12182 ("do not bound emergency decel").
