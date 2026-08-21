@@ -17,6 +17,15 @@ The backend is fully **opt-in and guarded** behind the `SUMO_WITH_CCH` build
 option (`HAVE_ROUTINGKIT`). If you build without it, this fork compiles and behaves
 exactly like upstream SUMO — RoutingKit is not required for a normal build.
 
+> **This CCH work also has a superset branch.** `feature/parallel-fcd`
+> contains everything in this document *plus* parallelized FCD output
+> (`--fcd-output.threads`) built on top of it. See
+> [`WRITEUP.md`](https://github.com/stprnvsh/sumo-fastrouting/blob/feature/parallel-fcd/WRITEUP.md) for that combined writeup, measured results for
+> both features together, and the full branch history
+> (`feature/cch-routing-backend` → `feature/parquet-async-writer` →
+> `feature/parallel-fcd`). This document covers the CCH backend on its own —
+> use it as-is if you only want the routing change.
+
 ---
 
 ## What you need
@@ -54,10 +63,15 @@ sudo apt-get install libomp-dev   # optional
 ### 1. Clone this fork
 
 ```bash
-git clone https://github.com/stprnvsh/sumo.git sumo-cch
+git clone https://github.com/stprnvsh/sumo-fastrouting.git sumo-cch
 cd sumo-cch
 git checkout feature/cch-routing-backend
 ```
+
+> Want parallel FCD output too? Check out `feature/parallel-fcd` instead —
+> it contains everything in `feature/cch-routing-backend` plus that
+> additional feature (see the note at the top of this document). Everything
+> from step 2 onward is identical either way.
 
 ### 2. Build RoutingKit (produces the static library the backend links against)
 
@@ -163,6 +177,13 @@ build_cch/bin/sumo -c yourscenario.sumocfg --routing-algorithm CCH \
 - This is a **feature branch**, not (yet) an upstream pull request: it does not ship
   the RoutingKit dependency vendored in-tree, the CCH-specific regression tests, or
   the upstream docs/ChangeLog entries an eclipse-sumo PR would require.
+
+---
+
+See [`WRITEUP.md`](https://github.com/stprnvsh/sumo-fastrouting/blob/feature/parallel-fcd/WRITEUP.md) for measured performance numbers (routing CPU,
+exactness vs. A\*, closure correctness, and a full 24-hour vanilla-vs-fork
+comparison), and for the parallel FCD output feature built on top of this
+backend on `feature/parallel-fcd`.
 
 ---
 
