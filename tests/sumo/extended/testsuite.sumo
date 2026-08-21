@@ -46,6 +46,3 @@ bidiEdge
 
 # test for using option --max-num-vehicles
 max_num_vehicles
-
-# Tests for the NaSch (Nagel-Schreckenberg) cellular automaton car-following model
-carfollowing

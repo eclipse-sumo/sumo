@@ -1,9 +1,0 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- accel=decel=7.5 gives the classic NaSch cell size of 7.5m, sigma=0 keeps the test deterministic -->
-    <vType id="leader"   accel="7.5" decel="7.5" sigma="0" maxSpeed="15" carFollowModel="NaSch"/>
-    <vType id="follower" accel="7.5" decel="7.5" sigma="0" maxSpeed="30" carFollowModel="NaSch"/>
-
-    <route id="r0" edges="end2 end3"/>
-    <vehicle id="leader"   type="leader"   route="r0" depart="0"  departPos="0" departSpeed="0"/>
-    <vehicle id="follower" type="follower" route="r0" depart="10" departPos="0" departSpeed="0"/>
-</routes>

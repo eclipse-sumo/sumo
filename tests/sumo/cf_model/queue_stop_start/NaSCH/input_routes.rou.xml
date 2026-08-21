@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+      <!-- accel=decel=7.5 gives the classic NaSch cell size of 7.5m -->
+    <vType id="flow" speedDev="0" accel="7.5" decel="7.5" emergencyDecel="1000" maxSpeed="15" speedFactor="2"/>
+    <route id="r0" edges="0"/>
+    <vehicle id="first" depart="0" route="r0" departSpeed="max" type="flow" departPos="7.5">
+        <stop lane="0_0" endPos="300" duration="60"/>
+    </vehicle>
+    <flow id="flow" type="flow" begin="1" end="11" period="1" route="r0" departPos="7.5" departSpeed="max"/>
+</routes>
