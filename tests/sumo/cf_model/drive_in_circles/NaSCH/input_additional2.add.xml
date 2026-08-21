@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+      <!-- accel=decel=7.5 gives the classic NaSch cell size of 7.5m -->
+    <vType id="custom" length="5" minGap="2.5" accel="7.5" decel="7.5" emergencyDecel="1000" carFollowModel="NaSch" speedFactor="2" maxSpeed="22.5"/>
+</routes>

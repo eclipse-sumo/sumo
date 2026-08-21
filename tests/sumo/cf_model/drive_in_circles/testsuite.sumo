@@ -33,6 +33,9 @@ CACC
 # EIDM model test
 EIDM
 
+# NaSCH model test
+NaSCH
+
 # Plexe model standalone test
 # 
 CC
