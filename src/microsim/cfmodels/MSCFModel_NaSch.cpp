@@ -73,6 +73,11 @@ MSCFModel_NaSch::followSpeed(const MSVehicle* const veh, double speed, double ga
     return vsafe(veh, speed, gap2pred);
 }
 
+double
+MSCFModel_NaSch::insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double /*predSpeed*/, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
+    return vsafe(veh, speed, gap2pred);
+}
+
 
 double
 MSCFModel_NaSch::stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred, double /*decel*/, const CalcReason /*usage*/) const {
