@@ -654,6 +654,9 @@ public:
     double getCooperativeHelpThreshold() const {
         return myCooperativeHelpThreshold;
     }
+    double getCooperativeMinSpeed() const {
+        return myCooperativeMinSpeed;
+    }
 
     static const double NO_NEIGHBOR;
     static const double UNDEFINED_LOOKAHEAD;
@@ -810,6 +813,8 @@ protected:
     SUMOTime myCooperativeHelpTime;
     // @brief adjust speed cooperatively for vehicles that are not much slower and that are not currently blocked longer than myCooperativeHelpTime
     double myCooperativeHelpThreshold;
+    // @brief adjust speed cooperatively unless the ego speed would drop below the given relative speed
+    double myCooperativeMinSpeed;
 
     /// @brief whether this vehicle is driving with special permissions and behavior
     bool myHaveBlueLight;

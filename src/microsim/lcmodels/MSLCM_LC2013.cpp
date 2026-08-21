@@ -81,9 +81,9 @@
 // debug defines
 // ===========================================================================
 //#define DEBUG_CONSTRUCTOR
-//#define DEBUG_PATCH_SPEED
-//#define DEBUG_INFORMED
-//#define DEBUG_INFORMER
+#define DEBUG_PATCH_SPEED
+#define DEBUG_INFORMED
+#define DEBUG_INFORMER
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_COOPERATE
@@ -672,8 +672,32 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         std::cout << "\nINFORM_FOLLOWER"
                   << "\nspeed=" <<  myVehicle.getSpeed() << " planned=" << plannedSpeed << "\n";
     }
-
 #endif
+
+    // decide whether we will request help to cut in before the follower or allow to be overtaken
+    // first check whether the neighbor is even willing to help
+    if (nv != nullptr && (nv->getLaneChangeModel().getCooperativeHelpTime() < 0 || myVehicle.getWaitingSeconds() < nv->getLaneChangeModel().getCooperativeHelpTime())) {
+        // ego vehicle has not been waiting long enough to be eligible for unconditional help
+        if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv->getSpeed() - plannedSpeed) > nv->getLaneChangeModel().getCooperativeHelpThreshold()) {
+            // neighhbor not willing to help because ego is much slower
+#ifdef DEBUG_INFORMER
+            if (DEBUG_COND)  std::cout << "\n nv=" << nv->getID() << " not willing to help because ego is much slower\n";
+#endif
+            return;
+        }
+        const double nvLaneMax = nv->getLane()->getVehicleMaxSpeed(nv);
+        if (nv->isSelected()) {
+            std::cout << SIMTIME << " ego=" << myVehicle.getID() << " rel=" << nv->getSpeed() / nvLaneMax << " min=" << nv->getLaneChangeModel().getCooperativeMinSpeed() << "\n";
+        }
+        if (nv->getSpeed() / nvLaneMax < nv->getLaneChangeModel().getCooperativeMinSpeed()) {
+            // neighbor not willing to help because it is already to slow and does not want to disturb the flow
+#ifdef DEBUG_INFORMER
+            if (DEBUG_COND)  std::cout << "\n nv=" << nv->getID() << " not willing to help because it is already too slow\n";
+#endif
+            return;
+        }
+    }
+
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && nv != nullptr) {
         if (MSLCHelper::divergentRoute(myVehicle, *nv)) {
             //std::cout << SIMTIME << " ego=" << myVehicle.getID() << " ignoresDivergentBlockingFollower=" << nv->getID() << "\n";
@@ -685,7 +709,6 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                       << nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel()) << " planned=" << plannedSpeed <<  "\n";
         }
 #endif
-
         // are we fast enough to cut in without any help?
         if (MAX2(plannedSpeed, 0.) - nv->getSpeed() >= HELP_OVERTAKE) {
             const double neededGap = nv->getCarFollowModel().getSecureGap(nv, &myVehicle, nv->getSpeed(), plannedSpeed, myVehicle.getCarFollowModel().getMaxDecel());
@@ -700,14 +723,6 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 msgPass.informNeighFollower(new Info(MAX2(plannedSpeed, 0.) - HELP_OVERTAKE, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                 return;
             }
-        }
-        // decide whether we will request help to cut in before the follower or allow to be overtaken
-        // first check whether the neighbor is even willing to help
-        const double curDV = nv->getSpeed() - plannedSpeed;
-        if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && curDV > nv->getLaneChangeModel().getCooperativeHelpThreshold()
-                && (nv->getLaneChangeModel().getCooperativeHelpTime() < 0 || myVehicle.getWaitingSeconds() < nv->getLaneChangeModel().getCooperativeHelpTime())) {
-            // ego vehicle is too slow and has not been waiting long enough to be eligible for help
-            return;
         }
 
         // PARAMETERS

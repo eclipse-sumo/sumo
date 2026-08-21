@@ -147,6 +147,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myCooperativeHelpTime(TIME2STEPS(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_HELPTIME, 60))),
     myCooperativeHelpThreshold(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_HELPTHRESHOLD, -1)),
+    myCooperativeMinSpeed(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_COOPERATIVE_MINSPEED, 0)),
     myHaveBlueLight(v.getDevice(typeid(MSDevice_Bluelight)) != nullptr), // see MSVehicle::initDevices
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
