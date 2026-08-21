@@ -87,6 +87,14 @@ FXMutex MSRoutingEngine::myRouteCacheMutex;
 CCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
 std::vector<MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHClasses;
 std::map<SUMOVehicleClass, MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHByClass;
+std::atomic<bool> MSRoutingEngine::myCCHQueried(false);
+std::vector<unsigned> MSRoutingEngine::myCCHScratchWeight;
+double MSRoutingEngine::myCCHUpdateFactor = 1.;
+double MSRoutingEngine::myCCHUpdateConstant = 0.;
+std::vector<double> MSRoutingEngine::myCCHAppliedEffort[2];
+std::vector<char> MSRoutingEngine::myCCHPendingFlag[2];
+std::vector<const MSEdge*> MSRoutingEngine::myCCHPendingList[2];
+bool MSRoutingEngine::myCCHValidate = false;
 #endif
 
 
@@ -263,6 +271,9 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                           << "\n";
             }
 #endif
+#ifdef HAVE_ROUTINGKIT
+            const double oldSmoothedSpeed = myEdgeSpeeds[id];
+#endif
             if (myAdaptationSteps > 0) {
                 // moving average
                 myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
@@ -284,6 +295,13 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                     }
                 }
             }
+#ifdef HAVE_ROUTINGKIT
+            // sparse CCH re-customization: remember which edges actually
+            // moved; the update threshold is applied at the customize barrier
+            if (myCCHGraph != nullptr && myEdgeSpeeds[id] != oldSmoothedSpeed) {
+                markCCHEdgeDirty(e);
+            }
+#endif
         }
     }
     if (myAdaptationSteps > 0) {
@@ -294,7 +312,14 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     // Re-customize the CCH metric from the freshly updated speed tables and
     // publish it (double-buffered). Runs on the main thread after the speed
     // update; no worker query is in flight at this point.
-    if (myCCHGraph != nullptr) {
+    //
+    // Lazy, following the CH weightPeriod pattern (initRouter): only rebuild
+    // a metric somebody routed on. If no query consumed the published metric
+    // since the last customize, the current one is still unread -- skip the
+    // rebuild (measured on Lausanne: the unconditional per-tick customize was
+    // 80% of meso wall time at adaptation-interval 2, and ran even with
+    // device.rerouting.probability 0).
+    if (myCCHGraph != nullptr && myCCHQueried.exchange(false, std::memory_order_acq_rel)) {
         customizeCCH();
     }
 #endif
@@ -341,11 +366,27 @@ MSRoutingEngine::initCCH() {
         }
     }
     myCCHGraph = new CCHGraph(classes);  // union topology + per-arc class permissions
+    const OptionsCont& oc = OptionsCont::getOptions();
+    myCCHUpdateFactor = oc.getFloat("device.rerouting.cch-update-threshold.factor");
+    myCCHUpdateConstant = STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant")));
+    myCCHValidate = getenv("SUMO_CCH_VALIDATE") != nullptr;
+    int edgeSpace = 0;
+    for (const MSEdge* e : MSEdge::getAllEdges()) {
+        edgeSpace = MAX2(edgeSpace, e->getNumericalID() + 1);
+    }
+    for (int i = 0; i < 2; i++) {
+        // NaN = "never applied": the first pending occurrence always passes
+        // the threshold and primes the entry
+        myCCHAppliedEffort[i].assign(edgeSpace, std::numeric_limits<double>::quiet_NaN());
+        myCCHPendingFlag[i].assign(edgeSpace, 0);
+        myCCHPendingList[i].clear();
+    }
     for (const SUMOVehicleClass vc : classes) {
         CCHClass* c = new CCHClass();
         c->vClass = vc;
         c->weight[0].resize(myCCHGraph->arcCount());
         c->weight[1].resize(myCCHGraph->arcCount());
+        c->partial = std::make_shared<RoutingKit::CustomizableContractionHierarchyPartialCustomization>(myCCHGraph->cch());
         myCCHClasses.push_back(c);
         myCCHByClass[vc] = c;
     }
@@ -354,8 +395,76 @@ MSRoutingEngine::initCCH() {
 
 
 void
+MSRoutingEngine::markCCHEdgeDirty(const MSEdge* e) {
+    const int id = e->getNumericalID();
+    if (id < 0 || id >= (int)myCCHPendingFlag[0].size()) {
+        return;
+    }
+    for (int i = 0; i < 2; i++) {
+        if (!myCCHPendingFlag[i][id]) {
+            myCCHPendingFlag[i][id] = 1;
+            myCCHPendingList[i].push_back(e);
+        }
+    }
+}
+
+
+void
+MSRoutingEngine::invalidateCCHEdge(const MSEdge* e) {
+    if (myCCHGraph == nullptr) {
+        return;
+    }
+    const int id = e->getNumericalID();
+    if (id < 0 || id >= (int)myCCHPendingFlag[0].size()) {
+        return;
+    }
+    markCCHEdgeDirty(e);
+    // NaN sentinel: the threshold always passes, so a permission flip
+    // (closure / re-opening) reaches the metric at the next barrier even
+    // though the speed table did not move
+    myCCHAppliedEffort[0][id] = std::numeric_limits<double>::quiet_NaN();
+    myCCHAppliedEffort[1][id] = std::numeric_limits<double>::quiet_NaN();
+}
+
+
+void
 MSRoutingEngine::customizeCCH() {
     const double now = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+    if (myCCHClasses.empty()) {
+        return;
+    }
+    // buffers flip in lockstep across classes (every call processes all)
+    const int backShared = 1 - myCCHClasses.front()->frontIndex;
+    // Threshold pass, once (efforts read the class-shared speed table):
+    // accept edges whose effort moved by more than BOTH bounds since this
+    // buffer last applied them -- the sufficientSaving() analog. Rejected
+    // edges stay pending; their drift keeps accumulating against the same
+    // applied value, so a slow trend eventually passes while filter jitter
+    // never does.
+    std::vector<const MSEdge*> accepted;
+    if (myCCHClasses.front()->metric[backShared] != nullptr) {
+        std::vector<const MSEdge*> stillPending;
+        for (const MSEdge* e : myCCHPendingList[backShared]) {
+            const int id = e->getNumericalID();
+            const double effNow = myEffortFunc(e, nullptr, now);
+            const double effApplied = myCCHAppliedEffort[backShared][id];
+            bool pass = true;
+            if (!std::isnan(effApplied) && effApplied > 0. && effNow > 0.) {
+                const double hi = MAX2(effNow, effApplied);
+                const double lo = MIN2(effNow, effApplied);
+                pass = (hi / lo > myCCHUpdateFactor) && (hi - lo > myCCHUpdateConstant);
+            }
+            if (pass) {
+                accepted.push_back(e);
+                myCCHAppliedEffort[backShared][id] = effNow;
+                myCCHPendingFlag[backShared][id] = 0;
+            } else {
+                stillPending.push_back(e);
+            }
+        }
+        myCCHPendingList[backShared].swap(stillPending);
+    }
+    bool fullRebuild = false;
     for (CCHClass* c : myCCHClasses) {
         const int back = 1 - c->frontIndex;
         // Fill from live speeds via myEffortFunc, masking arcs the class is
@@ -379,18 +488,66 @@ MSRoutingEngine::customizeCCH() {
         // and preference branches (which dereference the vehicle) are
         // guaranteed off. Stock SUMO relies on the same nullptr-safety when
         // writing device.rerouting.output.
-        myCCHGraph->fillInputWeights(myEffortFunc, c->vClass, nullptr, now, c->weight[back]);
         if (c->metric[back] == nullptr) {
+            // first use of this buffer: no previous state to diff against
+            myCCHGraph->fillInputWeights(myEffortFunc, c->vClass, nullptr, now, c->weight[back]);
             c->metric[back] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(
                                   myCCHGraph->cch(), c->weight[back]);
+            c->metric[back]->customize();  // serial (~2.7ms/class); avoids OpenMP-in-FOX oversubscription
+            fullRebuild = true;
         } else {
-            c->metric[back]->reset(myCCHGraph->cch(), c->weight[back]);
+            // SPARSE PATH: metric[back] is the customization of the current
+            // contents of weight[back]. Recompute only the arcs of accepted
+            // edges (edge->arc reverse image), write the ones that moved,
+            // and propagate through affected triangles only. Cost scales
+            // with traffic transitions, not with the network.
+            std::vector<unsigned>& applied = c->weight[back];
+            c->partial->reset(myCCHGraph->cch());
+            unsigned changed = 0;
+            for (const MSEdge* e : accepted) {
+                for (const unsigned a : myCCHGraph->arcsOfEdge(e)) {
+                    const unsigned newW = myCCHGraph->computeArcWeight(a, myEffortFunc, c->vClass, nullptr, now);
+                    if (newW != applied[a]) {
+                        applied[a] = newW;
+                        c->partial->update_arc(a);  // takes INPUT arc ids
+                        ++changed;
+                    }
+                }
+            }
+            if (changed > 0) {
+                c->partial->customize(*c->metric[back]);
+            }
+            if (myCCHValidate) {
+                // debug: full-customize the same weights into a scratch metric
+                // and compare -- abort on the first divergent arc
+                RoutingKit::CustomizableContractionHierarchyMetric ref(myCCHGraph->cch(), applied);
+                ref.customize();
+                for (unsigned a = 0; a < (unsigned)ref.forward.size(); ++a) {
+                    if (ref.forward[a] != c->metric[back]->forward[a]
+                            || ref.backward[a] != c->metric[back]->backward[a]) {
+                        throw ProcessError("CCH partial validation failed at t=" + toString(now)
+                                           + " class=" + toString(c->vClass) + " cchArc=" + toString(a)
+                                           + " marked=" + toString(changed)
+                                           + " fw=" + toString(c->metric[back]->forward[a]) + "/" + toString(ref.forward[a])
+                                           + " bw=" + toString(c->metric[back]->backward[a]) + "/" + toString(ref.backward[a]));
+                    }
+                }
+            }
         }
-        c->metric[back]->customize();  // serial (~2.7ms/class); avoids OpenMP-in-FOX oversubscription
         // Publish lock-free (see class doc): main-thread release store at the
         // barrier, worker acquire-loads on the hot path.
         c->frontIndex = back;
         c->front.store(c->metric[back].get(), std::memory_order_release);
+    }
+    if (fullRebuild) {
+        // a full fill matched every arc to the live efforts: pending entries
+        // for this buffer are stale; NaN re-arms the first-change auto-pass
+        for (const MSEdge* e : myCCHPendingList[backShared]) {
+            myCCHPendingFlag[backShared][e->getNumericalID()] = 0;
+        }
+        myCCHPendingList[backShared].clear();
+        myCCHAppliedEffort[backShared].assign(myCCHAppliedEffort[backShared].size(),
+                                              std::numeric_limits<double>::quiet_NaN());
     }
 }
 
@@ -400,6 +557,14 @@ MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass) {
     const auto it = myCCHByClass.find(vClass);
     if (it == myCCHByClass.end()) {
         return nullptr;  // class has no CCH metric -> caller falls back to A*
+    }
+    // mark the metric as consumed so the next adaptation barrier refreshes it.
+    // Test before set: an unconditional store from every worker query would
+    // ping-pong the cache line between cores; the read is shared and the
+    // store fires once per adaptation window (relaxed: only gates the
+    // customize cadence, never data visibility)
+    if (!myCCHQueried.load(std::memory_order_relaxed)) {
+        myCCHQueried.store(true, std::memory_order_relaxed);
     }
     return it->second->front.load(std::memory_order_acquire);
 }
@@ -737,6 +902,13 @@ MSRoutingEngine::cleanup() {
     }
     myCCHClasses.clear();
     myCCHByClass.clear();
+    myCCHQueried.store(false, std::memory_order_relaxed);
+    myCCHScratchWeight.clear();
+    for (int i = 0; i < 2; i++) {
+        myCCHAppliedEffort[i].clear();
+        myCCHPendingFlag[i].clear();
+        myCCHPendingList[i].clear();
+    }
 #endif
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {

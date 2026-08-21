@@ -119,6 +119,17 @@ public:
     const std::vector<unsigned>& tail() const { return myArcTail; }
     const std::vector<unsigned>& head() const { return myArcHead; }
 
+    /// @brief the arcs whose weight depends on the given edge (arcs it heads
+    /// plus arcs whose folded via chain contains it), for sparse
+    /// re-customization; empty for edges that are not part of the graph
+    const std::vector<unsigned>& arcsOfEdge(const MSEdge* e) const;
+
+    /** @brief Recompute the input weight of one arc -- the exact per-arc body
+     * of fillInputWeights (same masking, folding and rounding), exposed so a
+     * sparse update can refresh only the arcs of edges that actually moved. */
+    unsigned computeArcWeight(unsigned a, EffortOperation effort, SUMOVehicleClass maskClass,
+                              const SUMOVehicle* veh, double time) const;
+
     /** @brief Fill a centisecond input-weight buffer for one vehicle class.
      * @param[in] effort     the effort Operation (getEffort, or getEffortBike for bikes)
      * @param[in] maskClass  arcs whose destination edge does NOT permit this
@@ -160,6 +171,9 @@ private:
     /// traverse this connection, at build-time permissions). Matches A*'s
     /// getViaSuccessors(vClass); dynamic closures are AND'd in at fill time.
     std::vector<SVCPermissions> myArcPerm;
+    /// @brief edge numerical id -> arcs whose weight reads that edge (head +
+    /// folded via edges); the reverse image of computeArcWeight's inputs
+    std::vector<std::vector<unsigned> > myEdgeToArcs;
     /// @brief TAZ-source connector edge -> its entry-edge road node ids
     std::map<const MSEdge*, std::vector<unsigned> > myTazSrcNodes;
     /// @brief TAZ-sink connector edge -> its exit-edge road node ids

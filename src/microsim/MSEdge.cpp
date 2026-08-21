@@ -341,6 +341,13 @@ MSEdge::rebuildAllowedLanes(const bool onInit, bool updateVehicles) {
         myOrigAllowedTargets = myAllowedTargets;
         myOrigClassesViaSuccessorMap = myClassesViaSuccessorMap;
     }
+#ifdef HAVE_ROUTINGKIT
+    if (!onInit && lanesChangedPermission) {
+        // a runtime permission change (closure / re-opening) must reach the
+        // CCH metric even though the speed table does not move
+        MSRoutingEngine::invalidateCCHEdge(this);
+    }
+#endif
     // rebuild myAllowed
     myAllowed.clear();
     if (myCombinedPermissions != myMinimumPermissions) {
