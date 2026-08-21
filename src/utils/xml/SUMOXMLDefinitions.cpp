@@ -954,6 +954,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "lcCooperativeRoundabout",    SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT },
     { "lcCooperativeSpeed",         SUMO_ATTR_LCA_COOPERATIVE_SPEED },
     { "lcCooperativeHelpTime",      SUMO_ATTR_LCA_COOPERATIVE_HELPTIME },
+    { "lcCooperativeHelpThreshold", SUMO_ATTR_LCA_COOPERATIVE_HELPTHRESHOLD },
     { "lcMaxSpeedLatStanding",      SUMO_ATTR_LCA_MAXSPEEDLATSTANDING },
     { "lcMaxSpeedLatFactor",        SUMO_ATTR_LCA_MAXSPEEDLATFACTOR },
     { "lcMaxDistLatStanding",       SUMO_ATTR_LCA_MAXDISTLATSTANDING },

@@ -701,8 +701,14 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 return;
             }
         }
-
         // decide whether we will request help to cut in before the follower or allow to be overtaken
+        // first check whether the neighbor is even willing to help
+        const double curDV = nv->getSpeed() - plannedSpeed;
+        if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && curDV > nv->getLaneChangeModel().getCooperativeHelpThreshold()
+                && (nv->getLaneChangeModel().getCooperativeHelpTime() < 0 || myVehicle.getWaitingSeconds() < nv->getLaneChangeModel().getCooperativeHelpTime())) {
+            // ego vehicle is too slow and has not been waiting long enough to be eligible for help
+            return;
+        }
 
         // PARAMETERS
         // assume other vehicle will assume the equivalent of 1 second of

@@ -89,6 +89,7 @@
         <xsd:attribute name="lcCooperativeRoundabout" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcCooperativeSpeed" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="lcCooperativeHelpTime" type="floatType"/>
+        <xsd:attribute name="lcCooperativeHelpThreshold" type="floatType"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>

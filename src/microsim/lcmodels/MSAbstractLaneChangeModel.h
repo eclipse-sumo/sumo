@@ -648,6 +648,13 @@ public:
     /// @brief return speed for helping a vehicle that is blocked from changing
     double getCooperativeHelpSpeed(const MSLane* lane, double distToLaneEnd) const;
 
+    double getCooperativeHelpTime() const {
+        return myCooperativeHelpTime;
+    }
+    double getCooperativeHelpThreshold() const {
+        return myCooperativeHelpThreshold;
+    }
+
     static const double NO_NEIGHBOR;
     static const double UNDEFINED_LOOKAHEAD;
 
@@ -801,6 +808,8 @@ protected:
     double myAssertive;
     // @brief brake for blocked vehicles after they have been waiting for the given time
     SUMOTime myCooperativeHelpTime;
+    // @brief adjust speed cooperatively for vehicles that are not much slower and that are not currently blocked longer than myCooperativeHelpTime
+    double myCooperativeHelpThreshold;
 
     /// @brief whether this vehicle is driving with special permissions and behavior
     bool myHaveBlueLight;
