@@ -35,6 +35,11 @@ try:
 except ImportError:
     import urllib
     from urllib2 import HTTPError as urlerror
+try:
+    from PIL import Image, ImageEnhance
+    HAVE_PIL = True
+except ImportError:
+    HAVE_PIL = False
 
 HAVE_GDAL = shutil.which("gdalwarp") is not None and shutil.which("gdal_translate") is not None
 
@@ -99,6 +104,27 @@ def getGeoTransform(filename):
     return info["geoTransform"], info["size"][0], info["size"][1]
 
 
+def _srcExtentInNetCRS(tile_list, zoom, net):
+    """Return (xmin, ymin, xmax, ymax) in the network's projected CRS.
+
+    Projects the four corners of the source tile extent to the target CRS and
+    returns the largest inscribed axis-aligned rectangle, eliminating the black
+    rotation triangles that appear when the two CRS are not axis-aligned.
+    """
+    x_tiles = [x for x, y, _ in tile_list]
+    y_tiles = [y for x, y, _ in tile_list]
+    min_x, max_x = min(x_tiles), max(x_tiles) + 1
+    min_y, max_y = min(y_tiles), max(y_tiles) + 1
+
+    def corner(xt, yt):
+        lat, lon = fromTileToLatLon(xt, yt, zoom)
+        return net.convertLonLat2XY(lon, lat, rawUTM=True)
+
+    nw, ne = corner(min_x, min_y), corner(max_x, min_y)
+    se, sw = corner(max_x, max_y), corner(min_x, max_y)
+    return max(nw[0], sw[0]), max(sw[1], se[1]), min(ne[0], se[0]), min(nw[1], ne[1])
+
+
 def reprojectTiles(options, tile_list, zoom, net, decals):
     """Merge downloaded tiles and reproject from EPSG:3857 to the network projection."""
     R = 6378137.0  # Web Mercator radius
@@ -115,23 +141,26 @@ def reprojectTiles(options, tile_list, zoom, net, decals):
     vrt_path = os.path.join(options.output_dir, options.prefix + ".vrt")
     gdalCmd("gdalbuildvrt", vrt_path, *tif_paths)
     warped_path = os.path.join(options.output_dir, options.prefix + "_warped.tif")
-    warp_args = ["-t_srs", net._location["projParameter"], "-r", "bilinear"]
-    # Warp once to get the full geotransform reliably (JPEG has no native georef support)
-    gdalCmd("gdalwarp", "-overwrite", *(warp_args + [vrt_path, warped_path]))
-    out_path = os.path.join(options.output_dir, options.prefix + ".jpg")
-    gt, xsize, ysize = getGeoTransform(warped_path)
-    w, h = gt[1] * xsize, -gt[5] * ysize
+
+    # Compute the tight valid extent before warping so gdalwarp receives it as -te,
+    # eliminating black rotation triangles.
+    xmin, ymin, xmax, ymax = _srcExtentInNetCRS(tile_list, zoom, net)
     if options.crop_margin:
         m = list(map(float, options.crop_margin.split(",")))
         if len(m) == 1:
             m = 4 * m
-        warp_args += ["-te", gt[0] + m[0], gt[3] - h + m[1], gt[0] + w - m[2], gt[3] - m[3]]
-        gdalCmd("gdalwarp", "-overwrite", *(warp_args + [vrt_path, warped_path]))
-        gt, xsize, ysize = getGeoTransform(warped_path)
-        w, h = gt[1] * xsize, -gt[5] * ysize
+        xmin += m[0]
+        ymin += m[1]
+        xmax -= m[2]
+        ymax -= m[3]
+    gdalCmd("gdalwarp", "-t_srs", net._location["projParameter"], "-r", "bilinear",
+            "-te", xmin, ymin, xmax, ymax, vrt_path, warped_path)
+
+    out_path = os.path.join(options.output_dir, options.prefix + ".jpg")
+    gt, xsize, ysize = getGeoTransform(warped_path)
+    w, h = gt[1] * xsize, -gt[5] * ysize
     gdalCmd("gdal_translate", "-of", "JPEG", warped_path, out_path)
-    if options.background_factor != 1.0:
-        from PIL import Image, ImageEnhance
+    if options.background_factor != 1.0 and HAVE_PIL:
         img = Image.open(out_path)
         for Enhancer in (ImageEnhance.Color, ImageEnhance.Brightness, ImageEnhance.Contrast):
             img = Enhancer(img).enhance(options.background_factor)

@@ -262,7 +262,7 @@ class Builder(object):
             netconvertOptions += ",--lefthand"
         if self.data.get("verbose"):
             netconvertOptions += ",--verbose"
-        if self.data["decal"]:
+        if self.data["decal"] and not tileGet.HAVE_GDAL:
             # change projection to web-mercator to match the background image projection
             netconvertOptions += ",--proj,+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"  # noqa
 
@@ -318,13 +318,13 @@ class Builder(object):
             self.report("Downloading background images")
             tileOptions = [
                 "-n", self.files["net"],
-                "-t", "100",
+                "--zoom", str(self.data["tileZoom"]),
                 "-d", "background_images",
                 "-l", "-300",
                 "-a", "Mozilla/5.0 (X11; Linux x86_64) osmWebWizard.py/1.0 (+https://github.com/eclipse-sumo/sumo)",
             ]
-            if self.data.get("tileZoom") is not None:
-                tileOptions += ["--zoom", str(self.data["tileZoom"])]
+            if tileGet.HAVE_GDAL:
+                tileOptions += ["--reproject", "--background-factor", "0.8"]
             try:
                 os.chdir(self.tmp)
                 os.mkdir("background_images")
