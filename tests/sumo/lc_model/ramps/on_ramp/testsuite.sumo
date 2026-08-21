@@ -27,3 +27,6 @@ blocker_on_main_brakes3_noHelp
 # The reason here is that they all try to help with merging by changing lanes themselves which causes them to brake until standstill.
 # 
 blocker_on_main_brakes4
+
+# Everyone brakes only a little but this accumulates into a standstill on the main highway.
+blocker_on_main_brakes_slightly
