@@ -180,6 +180,9 @@
 /* defined if Eigen is available */
 #cmakedefine HAVE_EIGEN
 
+/* defined if RoutingKit (CCH router backend) is available */
+#cmakedefine HAVE_ROUTINGKIT
+
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 

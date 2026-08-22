@@ -59,6 +59,12 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
+// Some GDAL installs (e.g. when multiple GDAL versions are visible on the
+// include path) do not reliably pull in GDAL_VERSION_MAJOR transitively via
+// ogrsf_frmts.h. Include it explicitly so the version-guarded
+// OGRSpatialReference declaration below picks the correct (const-ness)
+// branch regardless of include-path ordering.
+#include <gdal_version.h>
 #endif
 
 

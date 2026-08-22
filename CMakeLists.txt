@@ -21,6 +21,10 @@ option(ENABLE_PARQUET "Compile with Parquet support" ON)
 option(ENABLE_PROJ "Enable PROJ for geopositioning" ON)
 option(ENABLE_FOX "Enable FOX toolkit for GUI" ON)
 option(ENABLE_EIGEN "Enable Eigen for overhead wire simulation" ON)
+# RoutingKit is BSD-2 (compatible with EPL/GPL) but NOT EPL-clean, so it is
+# intentionally NOT gated by CHECK_OPTIONAL_LIBS and defaults OFF. Provide
+# -DROUTINGKIT_ROOT=<path> pointing at a built RoutingKit (include/ + lib/).
+option(SUMO_WITH_CCH "Enable RoutingKit Customizable Contraction Hierarchies router backend" OFF)
 option(ENABLE_FMT "Enable {fmt} library" ON)
 option(ENABLE_GTEST "Enable Google Test for unit testing" ON)
 option(ENABLE_GDAL "Enable GDAL for shapefile and geotiff support" ${CHECK_OPTIONAL_LIBS})
@@ -588,6 +592,24 @@ if (ENABLE_PARQUET)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} Parquet")
             set(PARQUET_LIBRARY Parquet::parquet_shared)
             set(HAVE_PARQUET 1)
+            # Plain -I (BEFORE, non-SYSTEM): AppleClang searches the built-in
+            # /usr/local/include ahead of every -isystem dir, so a stale Arrow
+            # install there would otherwise shadow the found Arrow's headers
+            # and mix versions (parquet/ from one install, arrow/ from another).
+            # Resolve symlinks to the real (keg) path: clang silently DROPS a
+            # plain -I dir that duplicates a later -isystem dir, so the generic
+            # /opt/homebrew/include would be deduplicated away; its resolved
+            # Cellar path is unique and survives at the front of the search.
+            get_target_property(_ARROW_INCLUDES Arrow::arrow_shared INTERFACE_INCLUDE_DIRECTORIES)
+            if (_ARROW_INCLUDES)
+                foreach(_arrow_inc ${_ARROW_INCLUDES})
+                    if (EXISTS "${_arrow_inc}/arrow")
+                        file(REAL_PATH "${_arrow_inc}/arrow" _arrow_real)
+                        get_filename_component(_arrow_keg_inc "${_arrow_real}" DIRECTORY)
+                        include_directories(BEFORE ${_arrow_keg_inc})
+                    endif ()
+                endforeach()
+            endif ()
             include_directories(SYSTEM ${ARROW_INCLUDE_DIR})
         else()
             message(WARNING "Arrow >= 24 requires C++20 (current: C++${CMAKE_CXX_STANDARD}). Disabling Parquet support.")
@@ -605,6 +627,29 @@ if (ENABLE_EIGEN)
         set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
     endif ()
 endif (ENABLE_EIGEN)
+
+# RoutingKit CCH router backend (customizable contraction hierarchies).
+# Header-only usage from src/microsim/devices; the static lib links into
+# the microsim_devices target (see src/microsim/devices/CMakeLists.txt).
+if (SUMO_WITH_CCH)
+    find_package(OpenMP)  # optional: absent OpenMP -> customize runs serial (still correct)
+    # RoutingKit's static lib references OpenMP (__kmpc_*) from its parallel
+    # customization TU even when we only call the serial path, so libomp must
+    # still be linked. Apple clang's find_package(OpenMP) frequently fails, so
+    # also probe homebrew's libomp directly.
+    find_library(OMP_LIB NAMES omp gomp
+                 HINTS /opt/homebrew/opt/libomp/lib /usr/local/opt/libomp/lib)
+    find_path(ROUTINGKIT_INCLUDE_DIR routingkit/customizable_contraction_hierarchy.h
+              HINTS ${ROUTINGKIT_ROOT}/include)
+    find_library(ROUTINGKIT_LIB routingkit HINTS ${ROUTINGKIT_ROOT}/lib)
+    if (ROUTINGKIT_INCLUDE_DIR AND ROUTINGKIT_LIB)
+        include_directories(SYSTEM ${ROUTINGKIT_INCLUDE_DIR})
+        set(HAVE_ROUTINGKIT 1)  # see config.h.cmake for #cmakedefine
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} CCH")
+    else ()
+        message(WARNING "SUMO_WITH_CCH=ON but RoutingKit not found; set -DROUTINGKIT_ROOT=<path>. CCH disabled.")
+    endif ()
+endif (SUMO_WITH_CCH)
 
 if (ENABLE_GDAL)
     # GDAL (for geopositioning)

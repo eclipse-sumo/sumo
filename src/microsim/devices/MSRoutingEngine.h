@@ -31,6 +31,16 @@
 #include <utils/router/AStarRouter.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRouterDefs.h>
+#ifdef HAVE_ROUTINGKIT
+#include <memory>
+#include <atomic>
+#include <map>
+namespace RoutingKit {
+struct CustomizableContractionHierarchyMetric;
+struct CustomizableContractionHierarchyPartialCustomization;
+}
+class CCHGraph;
+#endif
 
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
@@ -113,6 +123,17 @@ public:
 
     /// @brief return the cached route or nullptr on miss
     static ConstMSRoutePtr getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
+
+#ifdef HAVE_ROUTINGKIT
+    /// @brief the currently published (customized) CCH metric FOR A GIVEN
+    /// vehicle class, or nullptr if that class has no CCH metric (then the
+    /// caller falls back to A*). Lock-free: a plain atomic pointer read. The
+    /// metric objects live for the whole run, so the raw pointer is always
+    /// valid; the double buffer guarantees the pointer we hand out is not the
+    /// one being customized. Called on the routing hot path -- allocation- and
+    /// lock-free.
+    static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass);
+#endif
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
@@ -308,6 +329,75 @@ private:
 #ifdef HAVE_FOX
     /// @brief Mutex for accessing the route cache
     static FXMutex myRouteCacheMutex;
+#endif
+
+#ifdef HAVE_ROUTINGKIT
+    /// @brief per-vehicle-class CCH metric state (one double-buffer per class).
+    /// The CCH TOPOLOGY is shared (class-independent union); each class differs
+    /// only in which arcs are inf_weight (permissions + closures). Heap-owned
+    /// (the atomic makes it non-movable, so it cannot live in a map by value).
+    struct CCHClass {
+        std::vector<unsigned> weight[2];  // ping-pong input-weight buffers, live whole run
+        std::shared_ptr<RoutingKit::CustomizableContractionHierarchyMetric> metric[2];
+        std::atomic<const RoutingKit::CustomizableContractionHierarchyMetric*> front{nullptr};
+        int frontIndex = 1;               // first customize uses back = 0
+        SUMOVehicleClass vClass = SVC_PASSENGER;
+        /// @brief partial-customization worker (queue over the shared CCH);
+        /// one per class -- its queue is drained by every customize()
+        std::shared_ptr<RoutingKit::CustomizableContractionHierarchyPartialCustomization> partial;
+    };
+    /// @brief the immutable shared CCH topology (built once), or nullptr if inactive
+    static CCHGraph* myCCHGraph;
+    /// @brief one metric-set per vehicle class present in the demand
+    static std::vector<CCHClass*> myCCHClasses;
+    static std::map<SUMOVehicleClass, CCHClass*> myCCHByClass;
+    /// @brief whether any query consumed a published metric since the last
+    /// customize. Mirrors the lazy weightPeriod semantics of CH/CHWrapper
+    /// (initRouter): a hierarchy is only rebuilt for weights somebody routes
+    /// on. Workers set this on the query hot path (relaxed store); the main
+    /// thread exchanges it at the adaptation barrier and skips the customize
+    /// when no query arrived -- an idle network (or probability 0) then pays
+    /// nothing, while under continuous querying the cadence is unchanged.
+    static std::atomic<bool> myCCHQueried;
+    /// @brief scratch input-weight buffer for the partial-path diff (sized to
+    /// arcCount on first use; avoids a per-tick allocation)
+    static std::vector<unsigned> myCCHScratchWeight;
+    /// @brief edge-effort update threshold, mirroring the reroute decision's
+    /// sufficientSaving(): an edge's arcs are only refilled into the metric
+    /// when its effort moved by MORE than BOTH the relative factor AND the
+    /// absolute constant (seconds) since the buffer last applied it. The
+    /// moving-average speed filter smears every traffic event into
+    /// adaptation-steps ticks of sub-percent drift; without a deadband that
+    /// drift marks thousands of arcs per tick and partial re-customization
+    /// degenerates (RoutingKit documents it for the sparse "new traffic jam"
+    /// case). Defaults 1/0 = every change propagates. Closures bypass the
+    /// threshold via the applied-effort sentinel set by invalidateCCHEdge.
+    static double myCCHUpdateFactor;
+    static double myCCHUpdateConstant;
+    /// @brief per-buffer edge state for the sparse path: the effort each
+    /// edge's arcs were last filled from (NaN = never applied / forced), the
+    /// pending-dirty flag, and the pending list (edges whose speed moved
+    /// since this buffer last customized; threshold-checked at the barrier)
+    static std::vector<double> myCCHAppliedEffort[2];
+    static std::vector<char> myCCHPendingFlag[2];
+    static std::vector<const MSEdge*> myCCHPendingList[2];
+    /// @brief validate every partial customize against a full one and abort
+    /// on the first divergent arc (set by env SUMO_CCH_VALIDATE; debug aid)
+    static bool myCCHValidate;
+    /// @brief build the shared CCH + one metric per present class, publish initial metrics
+    static void initCCH();
+    /// @brief refill+customize+publish every class's metric from live speeds/permissions
+    static void customizeCCH();
+
+public:
+    /// @brief mark one edge dirty for the sparse CCH re-customization,
+    /// bypassing the update threshold (used for permission changes /
+    /// closures, where the speed table does not move but the mask does)
+    static void invalidateCCHEdge(const MSEdge* e);
+private:
+    /// @brief queue an edge whose smoothed speed changed this tick (both
+    /// buffers; threshold applies later at the customize barrier)
+    static void markCCHEdgeDirty(const MSEdge* e);
 #endif
 
 private:
