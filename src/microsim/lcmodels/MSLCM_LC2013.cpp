@@ -81,9 +81,9 @@
 // debug defines
 // ===========================================================================
 //#define DEBUG_CONSTRUCTOR
-#define DEBUG_PATCH_SPEED
-#define DEBUG_INFORMED
-#define DEBUG_INFORMER
+//#define DEBUG_PATCH_SPEED
+//#define DEBUG_INFORMED
+//#define DEBUG_INFORMER
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SLOW_DOWN
 //#define DEBUG_COOPERATE
@@ -681,7 +681,9 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv->getSpeed() - plannedSpeed) > nv->getLaneChangeModel().getCooperativeHelpThreshold()) {
             // neighhbor not willing to help because ego is much slower
 #ifdef DEBUG_INFORMER
-            if (DEBUG_COND)  std::cout << "\n nv=" << nv->getID() << " not willing to help because ego is much slower\n";
+            if (DEBUG_COND) {
+                std::cout << "\n nv=" << nv->getID() << " not willing to help because ego is much slower\n";
+            }
 #endif
             return;
         }
@@ -692,7 +694,9 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         if (nv->getSpeed() / nvLaneMax < nv->getLaneChangeModel().getCooperativeMinSpeed()) {
             // neighbor not willing to help because it is already to slow and does not want to disturb the flow
 #ifdef DEBUG_INFORMER
-            if (DEBUG_COND)  std::cout << "\n nv=" << nv->getID() << " not willing to help because it is already too slow\n";
+            if (DEBUG_COND) {
+                std::cout << "\n nv=" << nv->getID() << " not willing to help because it is already too slow\n";
+            }
 #endif
             return;
         }
