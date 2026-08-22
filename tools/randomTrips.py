@@ -1091,7 +1091,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 if __name__ == "__main__":
     try:
         if not main(get_options()):
-            print("Error: Trips couldn't be generated as requested. ", file=sys.stderr)
+            print("Error: Trips couldn't be generated as requested.", file=sys.stderr)
             sys.exit(1)
     except ValueError as e:
         print("Error:", e, file=sys.stderr)

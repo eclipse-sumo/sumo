@@ -1,0 +1,3 @@
+Warning: 2281 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 2281 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 2281 total messages of type: The vehicle '%' has no valid route.

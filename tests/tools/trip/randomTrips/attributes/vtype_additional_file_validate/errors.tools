@@ -1,0 +1,5 @@
+Warning: 3 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 3 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 5 total messages of type: The vehicle '%' has no valid route.
+Warning: 1 total messages of type: Vehicle '%' is not allowed to arrive on edge '%'.
+Warning: 1 total messages of type: Vehicle '%' is not allowed to depart on edge '%'.

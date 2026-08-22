@@ -1,1 +1,3 @@
+Warning: 10 total messages of type: The vehicle '%' has no valid route.
+Warning: 10 total messages of type: Vehicle '%' is not allowed to depart on edge '%'.
 Warning: Only 0 out of 10 requested trips passed validation. Set option --error-log for more details on the failure. Set option --min-success-rate to find more valid trips.

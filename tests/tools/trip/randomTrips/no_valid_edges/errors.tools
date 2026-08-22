@@ -1,2 +1,3 @@
 Error: no valid edges for generating source or destination. Try using option --allow-fringe
-Error: Trips couldn't be generated as requested. 
+Warning: No route input specified or all routes were invalid.
+Error: Trips couldn't be generated as requested.
