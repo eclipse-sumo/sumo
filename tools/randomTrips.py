@@ -981,9 +981,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 
     # call duarouter for routes or validated trips
     args = ['-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
-            '--begin', str(options.begin), '--end', str(options.end),
-            '--no-warnings',
-            '--no-step-log']
+            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.remove_loops:
@@ -995,7 +993,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
     if options.threads is not None and options.threads > 1:
         args += ['--routing-threads', str(options.threads)]
     if options.verbose:
-        args += ['-v']
+        args += ['-v', '--aggregate-warnings', '5']
     if options.errorlog:
         args += ['--error-log', options.errorlog]
 
@@ -1029,7 +1027,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
 
     if options.routefile and rerunFactor is None:
         args2 = (maargs if options.marouter else duargs)[:]
-        args2 += ['-o', options.routefile]
+        args2 += ['-o', options.routefile, '--no-warnings']
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
@@ -1046,6 +1044,10 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         if options.verbose:
             print("calling", " ".join(args2))
             sys.stdout.flush()
+        elif rerunFactor is None:
+            args2 += ['--aggregate-warnings', '0']
+        else:
+            args2 += ['--no-warnings']
         subprocess.call(args2, stdout=redirect)
         sys.stdout.flush()
 
