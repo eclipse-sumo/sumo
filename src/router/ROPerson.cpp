@@ -411,7 +411,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
         index++;
     }
     if (result.empty()) {
-        errorHandler->inform("No route for trip in person '" + getID() + "'.");
+        errorHandler->informf(TL("No route for trip in person '%'."), getID());
         myRoutingSuccess = false;
     }
     return carUsed;
@@ -466,7 +466,7 @@ ROPerson::computeRoute(const RORouterProvider& provider,
     if (RONet::getInstance()->getMaxTraveltime() > 0) {
         double costs = STEPS2TIME(time - getParameter().depart);
         if (costs > RONet::getInstance()->getMaxTraveltime()) {
-            errorHandler->inform("Person '" + getID() + "' has no valid route (traveltime " + time2string(TIME2STEPS(costs)) + " exceeds max-traveltime)");
+            errorHandler->informf(TL("Person '%' has no valid route (traveltime % exceeds max-traveltime)."), getID(), time2string(TIME2STEPS(costs)));
             myRoutingSuccess = false;
             return;
         }

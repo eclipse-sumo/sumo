@@ -72,7 +72,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     assert(stopEdge != 0); // was checked when parsing the stop
     if (stopEdge->prohibits(this)) {
         if (errorHandler != nullptr) {
-            errorHandler->inform("Stop edge '" + stopEdge->getID() + "' does not allow vehicle '" + getID() + "'.");
+            errorHandler->informf(TL("Stop edge '%' does not allow vehicle '%'."), stopEdge->getID(), getID());
         }
         return;
     }
@@ -93,7 +93,7 @@ ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, 
     if (stopPar.jump >= 0) {
         if (stopEdge->isInternal()) {
             if (errorHandler != nullptr) {
-                errorHandler->inform("Jumps are not supported from internal stop edge '" + stopEdge->getID() + "'.");
+                errorHandler->informf(TL("Jumps are not supported from internal stop edge '%'."), stopEdge->getID());
             }
         } else {
             if (myJumpTime < 0) {
@@ -118,11 +118,10 @@ void
 ROVehicle::computeRoute(const RORouterProvider& provider,
                         const bool removeLoops, MsgHandler* errorHandler) {
     SUMOAbstractRouter<ROEdge, ROVehicle>& router = provider.getVehicleRouter(getVClass());
-    std::string noRouteMsg = "The vehicle '" + getID() + "' has no valid route.";
     RORouteDef* const routeDef = getRouteDefinition();
     // check if the route definition is valid
     if (routeDef == nullptr) {
-        errorHandler->inform(noRouteMsg);
+        errorHandler->informf(TL("The vehicle '%' has no valid route."), getID());
         myRoutingSuccess = false;
         return;
     }
@@ -135,7 +134,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     std::shared_ptr<RORoute> current = routeDef->buildCurrentRoute(router, getDepartureTime(), *this);
     if (current == nullptr || current->size() == 0) {
         if (current == nullptr || !routeDef->discardSilent()) {
-            errorHandler->inform(noRouteMsg);
+            errorHandler->informf(TL("The vehicle '%' has no valid route."), getID());
         }
         myRoutingSuccess = false;
         return;
@@ -153,7 +152,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
         current->recheckForLoops(mandatory);
         // check whether the route is still valid
         if (current->size() == 0) {
-            errorHandler->inform(noRouteMsg + " (after removing loops)");
+            errorHandler->informf(TL("The vehicle '%' has no valid route (after removing loops)."), getID());
             myRoutingSuccess = false;
             return;
         }
@@ -161,7 +160,7 @@ ROVehicle::computeRoute(const RORouterProvider& provider,
     if (RONet::getInstance()->getMaxTraveltime() > 0) {
         double costs = router.recomputeCosts(current->getEdgeVector(), this, getDepartureTime());
         if (costs > RONet::getInstance()->getMaxTraveltime()) {
-            errorHandler->inform(noRouteMsg + " (traveltime " + time2string(TIME2STEPS(costs)) + " exceeds max-traveltime)");
+            errorHandler->informf(TL("The vehicle '%' has no valid route (traveltime % exceeds max-traveltime)."), getID(), time2string(TIME2STEPS(costs)));
             myRoutingSuccess = false;
             return;
         }

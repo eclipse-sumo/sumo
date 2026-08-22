@@ -101,16 +101,14 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
     if (myAlternatives[0]->getFirst()->prohibits(&veh, hasRestrictions) && (!oc.getBool("repair.from")
             // do not try to reassign starting edge for trip input
             || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
-        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to depart on edge '" +
-                   myAlternatives[0]->getFirst()->getID() + "'.");
+        mh->informf(TL("Vehicle '%' is not allowed to depart on edge '%'."), veh.getID(), myAlternatives[0]->getFirst()->getID());
         return;
     } else if (myAlternatives[0]->getLast()->prohibits(&veh, hasRestrictions) && (!oc.getBool("repair.to")
                // do not try to reassign destination edge for trip input
                || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
         // this check is not strictly necessary unless myTryRepair is set.
         // However, the error message is more helpful than "no connection found"
-        mh->inform("Vehicle '" + veh.getID() + "' is not allowed to arrive on edge '" +
-                   myAlternatives[0]->getLast()->getID() + "'.");
+        mh->informf(TL("Vehicle '%' is not allowed to arrive on edge '%'."), veh.getID(), myAlternatives[0]->getLast()->getID());
         return;
     }
     const bool skipTripRouting = (oc.exists("write-trips") && oc.getBool("write-trips")
@@ -206,7 +204,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             }
         }
         if (oldEdges.size() == 0) {
-            mh->inform("Could not find new starting edge for vehicle '" + veh.getID() + "'.");
+            mh->informf(TL("Could not find new starting edge for vehicle '%'."), veh.getID());
             return false;
         }
         if (oldEdges.back()->prohibits(&veh, hasRestrictions)) {
@@ -306,7 +304,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                         // we would then need to decide whether we have found a good
                         // tradeoff between faithfulness to the input data and detour-length
                         if (lastMandatory >= (int)newEdges.size() || last == newEdges[lastMandatory] || !backTrack(router, i, lastMandatory, nextMandatory->edge, newEdges, veh, begin)) {
-                            mh->inform("Mandatory edge '" + (*i)->getID() + "' not reachable by vehicle '" + veh.getID() + "'.");
+                            mh->informf(TL("Mandatory edge '%' not reachable by vehicle '%'."), (*i)->getID(), veh.getID());
                             return false;
                         }
                     } else if (!myMayBeDisconnected && !isTrip && last != (*i)) {
@@ -345,7 +343,7 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
                 const ROEdge* e = net->getEdge(stop.edge);
                 it = std::find(it, newEdges.end(), e);
                 if (it == newEdges.end()) {
-                    mh->inform("Stop edge '" + e->getID() + "' is inconsistent with via edges for vehicle '" + veh.getID() + "'.");
+                    mh->informf(TL("Stop edge '%' is inconsistent with via edges for vehicle '%'."), e->getID(), veh.getID());
                     return false;
                 }
             }
