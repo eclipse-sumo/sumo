@@ -1,2 +1,7 @@
+Warning: 2 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 2 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 2 total messages of type: The vehicle '%' has no valid route.
 Could not generate passenger traffic
+Warning: 2 total messages of type: No connection between % '%' and % '%' found%.
+Warning: 2 total messages of type: No route for trip in person '%'.
 Warning: Person 'ped3' is jammed on edge '-1104407243', time=510.00.
