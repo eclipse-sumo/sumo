@@ -14,6 +14,7 @@ set(foreign_routingkit_STAT_SRCS
     include/routingkit/permutation.h
     include/routingkit/sort.h
     include/routingkit/timer.h
+    include/routingkit/timestamp_flag.h
     include/routingkit/vector_io.h
     src/bit_select.h
     src/bit_select.cpp
