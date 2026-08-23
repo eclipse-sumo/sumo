@@ -1,6 +1,6 @@
 # RoutingKit
 
-This directory contains the minimal needed subset of [RoutingKit](https://github.com/RoutingKit/RoutingKit) needed for the customizable contraction hierarchy.
+This directory contains the minimal subset of [RoutingKit](https://github.com/RoutingKit/RoutingKit) needed for the customizable contraction hierarchy.
 
 RoutingKit is a C++ library that provides advanced route planning functionality. 
 It was developed at [KIT](https://www.kit.edu) in the [group of Prof. Dorothea Wagner](https://i11www.iti.kit.edu/).
