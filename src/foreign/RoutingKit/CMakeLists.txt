@@ -32,6 +32,9 @@ set(foreign_routingkit_STAT_SRCS
 
 add_library(foreign_routingkit STATIC ${foreign_routingkit_STAT_SRCS})
 target_include_directories(foreign_routingkit PUBLIC include)
+if (MSVC)
+    target_compile_definitions(foreign_routingkit PRIVATE ROUTING_KIT_NO_GCC_EXTENSIONS)
+endif ()
 set_property(TARGET foreign_routingkit PROPERTY PROJECT_LABEL "z_foreign_routingkit")
 if (SUMO_UTILS)
     install(TARGETS foreign_routingkit DESTINATION lib COMPONENT runtime)
