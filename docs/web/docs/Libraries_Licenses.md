@@ -65,6 +65,13 @@ license files but we strive to list them here as well:
 - License: MIT, see [license
   file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/zstr/LICENSE)
 
+### [RoutingKit](https://github.com/RoutingKit/RoutingKit) - A C++ library that provides advanced route planning functionality
+
+- Version: [HEAD of master branch](https://github.com/RoutingKit/RoutingKit/commit/54d49bb0cdea56dde182357522e4e86a03c57852) as of 2026-08-23
+- Modifications: only retained necessary files
+- License: BSD-2-Clause, see [license
+  file](https://github.com/eclipse-sumo/sumo/blob/main/src/foreign/RoutingKit/LICENSE)
+
 # Referenced Libraries
 
 ## Mandatory and highly recommended
