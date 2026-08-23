@@ -40,6 +40,7 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
 #endif
+#include <gdal_version.h>
 #include <ogrsf_frmts.h>
 #include <ogr_api.h>
 #include <gdal_priv.h>
