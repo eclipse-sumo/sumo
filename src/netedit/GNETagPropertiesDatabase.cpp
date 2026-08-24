@@ -6094,22 +6094,49 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element (not editable for network elements)"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     } else if (tagProperties->saveInParentFile()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element (the same of their parent)"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     } else {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     }
 
     // if this is a drawable element, add front and select attributes
