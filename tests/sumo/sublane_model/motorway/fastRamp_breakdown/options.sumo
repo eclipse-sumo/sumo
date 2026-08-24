@@ -1,0 +1,6 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml -r=input_routes.rou.xml
+--extrapolate-departpos
+--max-depart-delay 3
+--lanedata-output aggregated.xml
+--lateral-resolution 0.8
+-t

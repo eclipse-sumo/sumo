@@ -73,3 +73,9 @@ onOffRamp_short
 # Network has extra connection that should prevent deadlock.
 # (see Issue #10037)
 onOffRamp_short_extraConnection
+
+# break-down of the flow due to incremental yielding
+fastRamp_breakdown
+
+# break-down of the flow should be avoided
+fastRamp_noHelp
