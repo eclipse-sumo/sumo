@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-23T20:55:58.997465+01:00 by Eclipse SUMO sumo v1_27_1+0444-1ce3f118d88
+<!-- generated on 2026-08-24T08:51:49.697037+01:00 by Eclipse SUMO sumo v1_27_1+0447-f14db63ece2
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -506,7 +506,7 @@
         <device.fcd-replay.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;fcd-replay&apos; device"/>
         <device.fcd-replay.explicit value="" synonymes="device.fcd-replay.knownveh" deprecated="device.fcd-replay.knownveh" type="STR[]" help="Assign a &apos;fcd-replay&apos; device to named vehicles"/>
         <device.fcd-replay.deterministic value="false" type="BOOL" help="The &apos;fcd-replay&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.fcd-replay.files value="" type="FILE" help="FCD files to read"/>
+        <device.fcd-replay.files value="" synonymes="device.fcd-replay.file" type="FILE" help="FCD files to read"/>
         <device.fcd-replay.consistency value="all" type="STR[]" help="Values to use when replaying (&apos;all&apos; or any combination of &apos;x&apos;, &apos;y&apos;, &apos;edge&apos;, &apos;lane&apos;, &apos;speed&apos;, &apos;position&apos;, &apos;angle&apos;, &apos;type&apos;)"/>
     </fcd_replay_device>
 
