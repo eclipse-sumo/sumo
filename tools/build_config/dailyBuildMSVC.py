@@ -134,7 +134,7 @@ def main(options, platform="x64"):
     status.killall(("", "D"), BINARIES)
     status.printLog("Running %s build using python %s." % (options.msvc_version, sys.version))
     gitrev = repositoryUpdate(options)
-    generator = "Visual Studio " + ("12 2013" if options.msvc_version == "msvc12" else "16 2019")
+    generator = "Visual Studio " + ("16 2019" if options.msvc_version == "msvc16" else "18 2026")
     buildDir = generateCMake(generator, platform, options.suffix == "extra", options.python)
     ret = status.log_subprocess(["cmake", "--build", ".", "--config", "Release"], cwd=buildDir)
     status.log_subprocess(["cmake", "--build", ".", "--config", "Release", "--target", "lisum"], cwd=buildDir)
@@ -238,8 +238,8 @@ if __name__ == "__main__":
     optParser.add_option("-x", "--x64only", action="store_true",
                          default=False, help="skip debug build")
     optParser.add_option("-p", "--python", help="path to python interpreter to use")
-    optParser.add_option("--msvc-version", default="msvc16",
-                         help="Visual Studio version to use (either msvc12 or msvc16)")
+    optParser.add_option("--msvc-version", default="msvc18",
+                         help="Visual Studio version to use (either msvc16 or msvc18)")
     optParser.add_option("-u", "--repositories", default="git",
                          help="repositories to update")
     main(optParser.parse_args())
