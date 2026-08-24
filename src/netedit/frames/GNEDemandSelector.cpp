@@ -45,18 +45,19 @@ FXIMPLEMENT(GNEDemandElementSelector,      GNEGroupBoxModule,     DemandElementS
 // method definitions
 // ===========================================================================
 
-GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType) :
-    GNEDemandElementSelector(frameParent, std::vector<SumoXMLTag>({demandElementTag}), tagType) {
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType, const bool checkIcon) :
+    GNEDemandElementSelector(frameParent, std::vector<SumoXMLTag>({demandElementTag}), tagType, checkIcon) {
 }
 
 
-GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType) :
+GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType, const bool checkIcon) :
     GNEGroupBoxModule(frameParent, TLF("Parent %", toString(demandElementTags.front())).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myDemandElementTags(demandElementTags),
     myTagType(tagType),
-    mySelectingMultipleElements(false) {
+    mySelectingMultipleElements(false),
+    myCheckIcon(checkIcon) {
     // Create MFXComboBoxIcon
     myDemandElementsComboBox = new MFXComboBoxIcon(getCollapsableFrame(), frameParent->getViewNet()->getViewParent()->getGNEAppWindows()->getStaticTooltipMenu(),
             true, GUIDesignComboBoxVisibleItems, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -69,12 +70,13 @@ GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const 
 
 
 GNEDemandElementSelector::GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,
-        const std::vector<SumoXMLTag> exceptions) :
+        const std::vector<SumoXMLTag> exceptions, const bool checkIcon) :
     GNEGroupBoxModule(frameParent, TL("Parent element")),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myTagType(GNETagProperties::Type::OTHER),
-    mySelectingMultipleElements(false) {
+    mySelectingMultipleElements(false),
+    myCheckIcon(checkIcon) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
         const auto tagPropertiesByType = frameParent->getViewNet()->getNet()->getTagPropertiesDatabase()->getTagPropertiesByType(tagType);
@@ -269,6 +271,10 @@ GNEDemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*)
     for (const auto& demandElementTag : myDemandElementTags) {
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
             if (demandElement.second->getID() == myDemandElementsComboBox->getText().text()) {
+                // check if we have to compare the icons
+                if (myCheckIcon && (demandElement.second->getACIcon() != myDemandElementsComboBox->getIcon())) {
+                    continue;
+                }
                 // set color of myTypeMatchBox to black (valid)
                 myDemandElementsComboBox->setTextColor(GUIDesignTextColorBlack);
                 myDemandElementsComboBox->killFocus();

@@ -45,7 +45,7 @@ GNEContainerFrame::GNEContainerFrame(GNEViewParent* viewParent, GNEViewNet* view
     myContainerTagSelector = new GNETagSelector(this, GNETagProperties::Type::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector module and set DEFAULT_PEDTYPE_ID as default element
-    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::CONTAINER);
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::CONTAINER, false);
 
     // Create attributes editor
     myContainerAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);
