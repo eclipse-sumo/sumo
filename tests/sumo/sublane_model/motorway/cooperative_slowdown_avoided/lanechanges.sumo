@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-21T12:01:05.721822+01:00 by Eclipse SUMO sumo v1_27_1+0419-507e58a9163
+<!-- generated on 2026-08-24T08:43:50.794180+01:00 by Eclipse SUMO sumo v1_27_1+0447-f14db63ece2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,5 +42,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <lanechanges>
-    <change id="A" type="t0" time="273.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="5.82" followerSecureGap="3.21" followerSpeed="7.71" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="A" type="t0" time="275.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="23.93" leaderSecureGap="0.00" leaderSpeed="17.80" followerGap="5.86" followerSecureGap="1.92" followerSpeed="5.99" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>

@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'ramp.1'; waited too long (wrong lane), lane='merge_0', time=329.00.
+Warning: Vehicle 'ramp.1' teleports beyond arrival edge 'main_end', time=341.00.
