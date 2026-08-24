@@ -6490,7 +6490,7 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lane on which the vehicle shall be inserted"),
-                               "first");
+                               "best");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
@@ -6502,7 +6502,7 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The speed with which the vehicle shall enter the network"),
-                               "0");
+                               "desired");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALLANE,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
