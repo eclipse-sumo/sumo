@@ -82,4 +82,6 @@ public:
 
     static bool isBidiFollower(const MSVehicle* ego, const MSVehicle* follower);
 
+    /// @brief whether the neighboring vehicle nv is unwilling to yield to help ego merge
+    static bool unwillingToHelp(const MSVehicle& ego, double plannedSpeed, const MSVehicle& nv);
 };

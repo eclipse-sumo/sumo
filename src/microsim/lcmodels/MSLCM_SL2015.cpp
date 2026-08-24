@@ -688,32 +688,14 @@ MSLCM_SL2015::informFollower(int blocked,
 
     const MSVehicle* nv = neighFollow.first;
     // decide whether we will request help to cut in before the follower or allow to be overtaken
-    // first check whether the neighbor is even willing to help
-    // @note: this check needs to come first because even if the follower is not blocking, getSpeedPreservingSecureGap may request a slow-down
-    if (nv != nullptr && (nv->getLaneChangeModel().getCooperativeHelpTime() < 0 || myVehicle.getWaitingSeconds() < nv->getLaneChangeModel().getCooperativeHelpTime())) {
-        // ego vehicle has not been waiting long enough to be eligible for unconditional help
-        if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv->getSpeed() - plannedSpeed) > nv->getLaneChangeModel().getCooperativeHelpThreshold()) {
-            // neighhbor not willing to help because ego is much slower
+    if (nv != nullptr && MSLCHelper::unwillingToHelp(myVehicle, plannedSpeed, *nv)) {
+        // @note: this check needs to come first because even if the follower is not blocking, getSpeedPreservingSecureGap may request a slow-down
 #ifdef DEBUG_INFORMER
-            if (DEBUG_COND) {
-                std::cout << "\n nv=" << nv->getID() << " not willing to help because ego is much slower\n";
-            }
+        if (DEBUG_COND) {
+            std::cout << "\n nv=" << nv->getID() << " not willing to help\n";
+        }
 #endif
-            return;
-        }
-        const double nvLaneMax = nv->getLane()->getVehicleMaxSpeed(nv);
-        if (nv->isSelected()) {
-            std::cout << SIMTIME << " ego=" << myVehicle.getID() << " rel=" << nv->getSpeed() / nvLaneMax << " min=" << nv->getLaneChangeModel().getCooperativeMinSpeed() << "\n";
-        }
-        if (nv->getSpeed() / nvLaneMax < nv->getLaneChangeModel().getCooperativeMinSpeed()) {
-            // neighbor not willing to help because it is already to slow and does not want to disturb the flow
-#ifdef DEBUG_INFORMER
-            if (DEBUG_COND) {
-                std::cout << "\n nv=" << nv->getID() << " not willing to help because it is already too slow\n";
-            }
-#endif
-            return;
-        }
+        return;
     }
 
     if ((blocked & LCA_BLOCKED_BY_FOLLOWER) != 0 && neighFollow.first != 0) {

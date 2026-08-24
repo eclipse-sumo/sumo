@@ -30,6 +30,7 @@
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
 //#define DEBUG_SAVE_BLOCKER_LENGTH
+//#define DEBUG_UNWILLING_TO_HELP
 
 #define DEBUG_COND (veh.isSelected())
 //#define DEBUG_COND (true)
@@ -389,4 +390,31 @@ MSLCHelper::isBidiFollower(const MSVehicle* ego, const MSVehicle* follower) {
     return result;
 }
 
+
+bool
+MSLCHelper::unwillingToHelp(const MSVehicle& ego, double plannedSpeed, const MSVehicle& nv) {
+    if (nv.getLaneChangeModel().getCooperativeHelpTime() < 0 || ego.getWaitingSeconds() < nv.getLaneChangeModel().getCooperativeHelpTime()) {
+        // ego vehicle has not been waiting long enough to be eligible for unconditional help
+        if (nv.getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv.getSpeed() - plannedSpeed) > nv.getLaneChangeModel().getCooperativeHelpThreshold()) {
+            // neighhbor not willing to help because ego is much slower
+#ifdef DEBUG_UNWILLING_TO_HELP
+            if (DEBUG_COND) {
+                std::cout << "\n nv=" << nv.getID() << " not willing to help because ego is much slower\n";
+            }
+#endif
+            return true;
+        }
+        const double nvLaneMax = nv.getLane()->getVehicleMaxSpeed(&nv);
+        if (nv.getSpeed() / nvLaneMax < nv.getLaneChangeModel().getCooperativeMinSpeed()) {
+            // neighbor not willing to help because it is already to slow and does not want to disturb the flow
+#ifdef DEBUG_UNWILLING_TO_HELP
+            if (DEBUG_COND) {
+                std::cout << "\n nv=" << nv.getID() << " not willing to help because it is already too slow\n";
+            }
+#endif
+            return true;
+        }
+    }
+    return false;
+}
 /****************************************************************************/
