@@ -78,4 +78,7 @@ onOffRamp_short_extraConnection
 fastRamp_breakdown
 
 # break-down of the flow should be avoided
+fastRamp_someHelp
+
+# break-down of the flow should be avoided
 fastRamp_noHelp
