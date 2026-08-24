@@ -1669,7 +1669,7 @@ MSLCM_LC2013::_wantsChange(
             if ((blocked & LCA_BLOCKED_BY_LEFT_FOLLOWER) && !right && mySpeedGainProbabilityLeft > (long long int)(mySpeedGainUrgency * HYST_PRECISION)) {
                 MSVehicle* nv = neighFollow.first;
                 const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, nv);
-                if (nv != nullptr && !hasBidiNeighFollower) {
+                if (nv != nullptr && !hasBidiNeighFollower && !MSLCHelper::unwillingToHelp(myVehicle, myVehicle.getSpeed(), *nv)) {
                     const double helpSpeed = MAX2(nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv), myVehicle.getSpeed() - 1);
                     msgPass.informNeighFollower(new Info(helpSpeed, myLca | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                 }
@@ -1869,7 +1869,7 @@ MSLCM_LC2013::_wantsChange(
                 if ((req & LCA_URGENT) && (blocked & LCA_BLOCKED_BY_LEFT_FOLLOWER)) {
                     MSVehicle* nv = neighFollow.first;
                     const bool hasBidiNeighFollower = neighLane.getBidiLane() != nullptr && MSLCHelper::isBidiFollower(&myVehicle, nv);
-                    if (nv != nullptr && !hasBidiNeighFollower) {
+                    if (nv != nullptr && !hasBidiNeighFollower && !MSLCHelper::unwillingToHelp(myVehicle, myVehicle.getSpeed(), *nv)) {
                         const double helpSpeed = MAX2(nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv), myVehicle.getSpeed() - 1);
                         msgPass.informNeighFollower(new Info(helpSpeed, myLca | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
                     }
