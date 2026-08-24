@@ -373,8 +373,13 @@ GNELane::checkDrawRelatedContour() const {
     // check opened popup
     if (myNet->getViewNet()->getPopup()) {
         return myNet->getViewNet()->getPopup()->getGLObject() == this;
+    } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() && (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL)) {
+        // check if we're creating a access
+        const auto templateAC = myNet->getViewNet()->getViewParent()->getAdditionalFrame()->getAdditionalTagSelector()->getCurrentTemplateAC();
+        return (templateAC && (templateAC->getTagProperty()->getTag() == SUMO_TAG_ACCESS) && (getAttribute(SUMO_ATTR_ALLOW) == "pedestrian"));
+    } else {
+        return false;
     }
-    return false;
 }
 
 
