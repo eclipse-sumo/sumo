@@ -676,6 +676,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
     // decide whether we will request help to cut in before the follower or allow to be overtaken
     // first check whether the neighbor is even willing to help
+    // @note: this check needs to come first because even if the follower is not blocking, getSpeedPreservingSecureGap may request a slow-down
     if (nv != nullptr && (nv->getLaneChangeModel().getCooperativeHelpTime() < 0 || myVehicle.getWaitingSeconds() < nv->getLaneChangeModel().getCooperativeHelpTime())) {
         // ego vehicle has not been waiting long enough to be eligible for unconditional help
         if (nv->getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv->getSpeed() - plannedSpeed) > nv->getLaneChangeModel().getCooperativeHelpThreshold()) {
