@@ -38,4 +38,7 @@ blocker_on_main_brakes_slightly2
 fastRamp_breakdown
 
 # break-down of the flow should be avoided
+fastRamp_someHelp
+
+# break-down of the flow should be avoided
 fastRamp_noHelp
