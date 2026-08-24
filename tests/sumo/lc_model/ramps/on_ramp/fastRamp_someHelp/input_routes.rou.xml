@@ -3,5 +3,5 @@
     <route id="ramp" edges="ramp_beg merge main_end"/>
     <vType id="main" maxSpeed="25" lcCooperativeHelpThreshold="10" lcCooperativeMinSpeed="0.8"/>
     <flow id="main" route="main" type="main" begin="0" end="400" period="1.5" departSpeed="avg" color="green"/>
-    <flow id="ramp" route="ramp" begin="4" end="400" period="3" departSpeed="avg"/>
+    <flow id="ramp" route="ramp" type="main" begin="4" end="400" period="3" departSpeed="avg"/>
 </routes>
