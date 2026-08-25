@@ -280,7 +280,7 @@ When loading a network with edge permissions, a separate preprocessing is trigge
 ## CHWrapper
 
 This works like *CH* but performs separate preprocessing for every vehicle class that is encountered, thereby
-enabling routing in multi modal scenarios
+enabling routing in multi modal scenarios.
 
 # Further Options that affect routing
 
