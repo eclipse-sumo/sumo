@@ -105,6 +105,7 @@ title: ChangeLog
 - UI element "Create short edge" now only shows up in JuPedSim mode #16369
 - Building SUMO requires now a C++14 compiler (e.g. gcc5 or later)
   - SUMO will not build on a plain CentOS7 anymore (but you can still build it there if you update the compiler)
+- Windows builds (nightly and release) now use Visual Studio 2026
 
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
