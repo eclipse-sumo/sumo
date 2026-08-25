@@ -4,6 +4,12 @@ basic
 # two vehicle queus should alternate in driving
 two_queues
 
+# two vehicle queus should alternate in driving (vehicles cross paths instead of merging)
+two_queues_cross
+
+# two vehicle queus should alternate in driving (vehicles cross paths instead of merging)
+two_queues_cross_noInternal
+
 # two vehicles arriving at the same time should not cause a deadlock
 arrival_same_time
 
