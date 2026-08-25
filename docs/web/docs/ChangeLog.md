@@ -13,7 +13,7 @@ title: ChangeLog
   - Fixed crash related to chargingStations with totalPower restrictions #18241
   - Fixed invalid departPos-warning when inserting on curved multi-lane turning lane #18246
   - Fixed emergency braking / deadlock when vehicle departs on a junction an is directly followed on a parallel lane #18236
-  - Setting parameter `lcCoopertiveHelpTime` is now working #18249
+  - Setting parameter `lcCooperativeHelpTime` is now working #18249
 
 - sumo-gui
   - fixed crash when coloring by insertion backlog #18215
@@ -23,6 +23,7 @@ title: ChangeLog
   - Fixed invalid jam dynamics at short edges #17416
   - Fixed invalid error 'too close too brake' when inserting stop #18163
   - Fixed crash when using idle-algorithm 'taxistand' #18159
+  - Fixed right-of-way violation that was causing gridlock in roundabout and exaggerated junction throughput #18258
 
 - netedit
   - Fixed invalid connection shapes after computing the network for the first time #16885 (regression in 1.22.0)
@@ -35,6 +36,8 @@ title: ChangeLog
   - The now "knows" that it needs to be recomputed after changing netedit processing option #15947
   - vehicle stack indicator is now working when defining multiple vehicles-over-route on the same route. #14956
   - stacked vehicle indicator now updates after editing departLane #16517
+  - Adding a stop to a route no longer adds it to a flow over that route instead #17020
+  - Fixed default file extension in file dialog for demand elements #18073
 
 - netconvert
   - Fixed missing connections in networks with dedicated bus lanes #18181 (regression in 1.23.0)
@@ -57,6 +60,7 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
+  - Added carFollowModel NaSch (Nagel Schreckenberg) #12182 (Thanks to 
   - Added option **--slope-centered** to replicate simplified slope computation found in other simulators #18111
   - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
   - vehicle types can be initialized with values from another vType by using attribute `refId` #18144
@@ -81,9 +85,10 @@ title: ChangeLog
   - Connection mode now also allows to toggle the 'show connections in inspect mode' toogle (for better discoverability of this feature) #16677
   - Connection mode now allows to inspect any connection via clicking #16677
   - Added Checkbox to enable/disable filled drawing of walking areas #17981
+  - In additional mode, during access creation, a dotted contour is drawn around viable access lanes #17091
 
 - duarouter
-  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178
+  - vTypeDistribution can now reference an existing vType using attribute `refId` without creating a new type (similar to routeDistributions) #18178  
 
 - polyconvert
   - Now importing polygon height from OSM #18216
@@ -97,6 +102,7 @@ title: ChangeLog
   - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
   - edgeDataFromFlow.py: added option **--skip-incomplete** to exclude data from incomplete cross-sections #18182
   - flow2POI.poi: added [new tool](Tools/Detector.md#flow2poipy) for visualizing detector flow #18193
+  - randomTrips.py: Now warns when routing personTrips with mode public and without pt input #18006
 
 ### Miscellaneous
 
