@@ -731,8 +731,10 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
     }
 #endif
     if (MSGlobals::gUseMesoSim) {
-        // in meso, setApproaching may be callsed multiple times without intermediate removeApproaching
-        // explicit erasal is necessary because emplace does nothing if the key already exists
+        // - in meso, setApproaching may be called multiple times without intermediate removeApproaching (whenever a vehicle is blocked in MELoop::checkCar)
+        // explicit erasure is necessary because emplace does nothing if the key already exists
+        // - in micro, double registration only happens on looped routes. Here, we only wish to keep the first arrival and thus emplace has the correct behavior
+        //   (on meso, only the next upcoming link is registered so nothing gets overwritten on looped routes)
         myApproachingVehicles.erase(approaching);
     }
     myApproachingVehicles.emplace(approaching,
