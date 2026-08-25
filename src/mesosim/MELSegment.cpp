@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Tue, July 2026
 ///
-// A LTM (LIFT)-model segment 
+// A LTM (LIFT)-model segment
 /****************************************************************************/
 #include <config.h>
 
@@ -63,13 +63,12 @@
 // MELSegment method definitions
 // ===========================================================================
 MELSegment::MELSegment(const std::string& id,
-                     const MSEdge& parent, MESegment* next,
-                     const double length, const double speed,
-                     const int idx,
-                     const bool multiQueue,
-                     const MesoEdgeType& edgeType):
-    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType)
-{
+                       const MSEdge& parent, MESegment* next,
+                       const double length, const double speed,
+                       const int idx,
+                       const bool multiQueue,
+                       const MesoEdgeType& edgeType):
+    MESegment(id, parent, next, length, speed, idx, multiQueue, edgeType) {
     myGapTimes.resize(myQueues.size());
 }
 
@@ -77,11 +76,11 @@ MELSegment::MELSegment(const std::string& id,
 SUMOTime
 MELSegment::computeHeadway(Queue& /*q*/, const Queue& /*qNext*/, const MESegment* const /*next*/, const MEVehicle* veh) const {
     // @note: it might seem sensible to check veh->getQueuingTimeLoss() here but
-    // then the queing state would be "sticky" because queuingTimeLoss is computed with tau_ff 
+    // then the queing state would be "sticky" because queuingTimeLoss is computed with tau_ff
     // and every leader car that uses tau_jf applies queing timeLoss to it's followers
     SUMOTime headway = tauWithVehLength(veh->getWaitingTime() > 0 ? myTau_jf : myTau_ff,
-            veh->getVehicleType().getLengthWithGap(),
-            veh->getVehicleType().getCarFollowModel().getHeadwayTime());
+                                        veh->getVehicleType().getLengthWithGap(),
+                                        veh->getVehicleType().getCarFollowModel().getHeadwayTime());
     if (myTLSPenalty) {
         const MSLink* const tllink = getLink(veh, true);
         if (tllink != nullptr && tllink->isTLSControlled()) {
@@ -99,7 +98,7 @@ MELSegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMO
     // record time when the gap vacated by ego will reach the upstream end of the segment
     // gaps travel quickly in free flow (the number of gaps and vehicles stays below the segment capacity)
     // but they travel more slowly when queued (startupDelay)
-    gapTimes.insert(gapTimes.begin(), time + myLength * (veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP);
+    gapTimes.insert(gapTimes.begin(), time + (SUMOTime)(myLength * (double)(veh->getQueuingTimeLoss() > 0 ? myTau_jj : myTau_ff) / DEFAULT_VEH_LENGTH_WITH_GAP));
     MESegment::send(veh, next, nextQIdx, time, reason);
 }
 
@@ -112,7 +111,7 @@ MELSegment::updateEntryBlockTime(SUMOTime time) {
         while (!gapTimes.empty() && gapTimes.back() <= time) {
             gapTimes.pop_back();
         }
-        if (!gapTimes.empty() && q.getOccupancy() + gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
+        if (!gapTimes.empty() && q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP > myQueueCapacity) {
             // segment is jammed because the empty spaces have not yet reached the upstream end.
             q.setEntryBlockTime(MAX2(q.getEntryBlockTime(), gapTimes.back()));
         }
@@ -126,7 +125,7 @@ MELSegment::hasSpaceForInsertion(const Queue& q, int qIdx, double /*newOccupancy
     while (!gapTimes.empty() && gapTimes.back() <= entryTime) {
         gapTimes.pop_back();
     }
-    return q.getOccupancy() + gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP < myQueueCapacity;
+    return q.getOccupancy() + (double)gapTimes.size() * DEFAULT_VEH_LENGTH_WITH_GAP <= myQueueCapacity;
 }
 
 

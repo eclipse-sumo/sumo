@@ -585,7 +585,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(FXApp* app, const std::string
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
-    disableHideByZoom(app ? app->reg().readBoolEntry("NETEDIT", "disableHideByZoom", true) : false),
+    disableHideByZoom(app != nullptr ? app->reg().readBoolEntry("NETEDIT", "disableHideByZoom", true) : false),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),
