@@ -350,7 +350,7 @@ def generateTemplate(app, appBin):
     # obtain template piping stdout using check_output
     try:
         template = subprocess.check_output([appBin, "--save-template", "stdout"], env=env, universal_newlines=True)
-        template = template.replace('\n\n', ')xml~") + \nstd::string(R"xml~(\n')
+        template = template.replace('\n\n', ')xml~") +\nstd::string(R"xml~(\n')
     except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""
