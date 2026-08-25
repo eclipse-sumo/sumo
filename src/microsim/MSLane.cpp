@@ -455,7 +455,7 @@ MSLane::resetManeuverReservation(MSVehicle* v) {
 void
 MSLane::incorporateVehicle(MSVehicle* veh, double pos, double speed, double posLat, const MSLane::VehCont::iterator& at, MSMoveReminder::Notification notification) {
     myNeedsCollisionCheck = true;
-    assert(pos <= myLength);
+    assert(pos <= myLength || notification == MSMoveReminder::NOTIFICATION_LOAD_STATE);
     bool wasInactive = myVehicles.size() == 0;
     veh->enterLaneAtInsertion(this, pos, speed, posLat, notification);
     if (at == myVehicles.end()) {
