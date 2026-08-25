@@ -31,6 +31,8 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleType.h>
+#include <set>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/transportables/MSTransportable.h>
 #include <microsim/devices/MSDevice_Taxi.h>
@@ -44,6 +46,11 @@
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#ifdef HAVE_ROUTINGKIT
+#include "CCHGraph.h"
+#include "CCHRouter.h"
+#include <routingkit/customizable_contraction_hierarchy.h>
+#endif
 
 //#define DEBUG_SEPARATE_TURNS
 #define DEBUG_COND(obj) (obj->isSelected())
@@ -75,6 +82,11 @@ bool MSRoutingEngine::myHaveExtras(false);
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
+#endif
+#ifdef HAVE_ROUTINGKIT
+CCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
+std::vector<MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHClasses;
+std::map<SUMOVehicleClass, MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHByClass;
 #endif
 
 
@@ -273,6 +285,14 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     }
     myLastAdaptation = currentTime;
+#ifdef HAVE_ROUTINGKIT
+    // Re-customize the CCH metric from the freshly updated speed tables and
+    // publish it (double-buffered). Runs on the main thread after the speed
+    // update; no worker query is in flight at this point.
+    if (myCCHGraph != nullptr) {
+        customizeCCH();
+    }
+#endif
     if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
         dev.openTag(SUMO_TAG_INTERVAL);
@@ -293,6 +313,74 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     }
     return myAdaptationInterval;
 }
+
+
+#ifdef HAVE_ROUTINGKIT
+void
+MSRoutingEngine::initCCH() {
+    if (myCCHGraph != nullptr) {
+        return;  // built once
+    }
+    // One metric per vehicle class actually present in the demand (plus
+    // passenger). All classes share ONE CCH topology (the union); they differ
+    // only by which arcs are inf_weight (permissions + closures). Enumerate
+    // loaded vTypes -- parsed from additional files before any routing.
+    std::set<SUMOVehicleClass> classes;
+    classes.insert(SVC_PASSENGER);
+    std::vector<std::string> vtypeIDs;
+    MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
+    for (const std::string& id : vtypeIDs) {
+        MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(id, nullptr, true);
+        if (vt != nullptr) {
+            classes.insert(vt->getVehicleClass());
+        }
+    }
+    myCCHGraph = new CCHGraph(classes);  // union topology + per-arc class permissions
+    for (const SUMOVehicleClass vc : classes) {
+        CCHClass* c = new CCHClass();
+        c->vClass = vc;
+        c->weight[0].resize(myCCHGraph->arcCount());
+        c->weight[1].resize(myCCHGraph->arcCount());
+        myCCHClasses.push_back(c);
+        myCCHByClass[vc] = c;
+    }
+    customizeCCH();  // publish initial metrics so the first queries succeed
+}
+
+
+void
+MSRoutingEngine::customizeCCH() {
+    const double now = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+    for (CCHClass* c : myCCHClasses) {
+        const int back = 1 - c->frontIndex;
+        // Fill from live speeds (getEffort/myEdgeSpeeds), masking arcs the class
+        // is not permitted on -- this is where per-class permissions AND active
+        // closures (a permissions change) become inf_weight.
+        myCCHGraph->fillInputWeights(&MSRoutingEngine::getEffort, c->vClass, nullptr, now, c->weight[back]);
+        if (c->metric[back] == nullptr) {
+            c->metric[back] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(
+                                  myCCHGraph->cch(), c->weight[back]);
+        } else {
+            c->metric[back]->reset(myCCHGraph->cch(), c->weight[back]);
+        }
+        c->metric[back]->customize();  // serial (~2.7ms/class); avoids OpenMP-in-FOX oversubscription
+        // Publish lock-free (see class doc): main-thread release store at the
+        // barrier, worker acquire-loads on the hot path.
+        c->frontIndex = back;
+        c->front.store(c->metric[back].get(), std::memory_order_release);
+    }
+}
+
+
+const RoutingKit::CustomizableContractionHierarchyMetric*
+MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass) {
+    const auto it = myCCHByClass.find(vClass);
+    if (it == myCCHByClass.end()) {
+        return nullptr;  // class has no CCH metric -> caller falls back to A*
+    }
+    return it->second->front.load(std::memory_order_acquire);
+}
+#endif // HAVE_ROUTINGKIT
 
 
 double
@@ -411,6 +499,21 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         router = new CHRouterWrapper<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
+#ifdef HAVE_ROUTINGKIT
+    } else if (routingAlgorithm == "CCH") {
+        // CCH uses one shared, static-per-window metric (getEffort). It cannot
+        // represent per-query stochastic randomness or per-edge priority/pref
+        // modifiers -- i.e. the exact conditions under which SUMO switches to
+        // getEffortExtra (mirror of the myEffortFunc selection above).
+        if (gWeightsRandomFactor != 1 || myPriorityFactor != 0 || gRoutingPreferences || myBikeSpeeds) {
+            throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1, weights.priority-factor != 0, routing preferences or bike-speeds. Disable these to use CCH."));
+        }
+        initCCH();  // build the immutable topology + publish an initial metric (once)
+        // embedded fallback for non-passenger / prohibited / unreachable queries
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
+            new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, true);
+        router = new CCHRouter(myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, fallback);
+#endif
     } else {
         throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
     }

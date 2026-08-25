@@ -1,4 +1,6 @@
 set(microsim_devices_STAT_SRCS
+   CCHGraph.cpp
+   CCHGraph.h
    MSDevice.cpp
    MSDevice.h
    MSDevice_SSM.cpp
@@ -67,3 +69,4 @@ set(microsim_devices_STAT_SRCS
 
 add_library(microsim_devices STATIC ${microsim_devices_STAT_SRCS})
 set_property(TARGET microsim_devices PROPERTY PROJECT_LABEL "z_microsim_devices")
+target_link_libraries(microsim_devices foreign_routingkit)
