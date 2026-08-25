@@ -74,6 +74,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.threshold.constant", new Option_String("0", "TIME"));
     oc.addDescription("device.rerouting.threshold.constant", "Routing", TL("Only reroute if the new route is faster than the current route by the given TIME"));
 
+    oc.doRegister("device.rerouting.invalidation", new Option_Bool(false));
+    oc.addDescription("device.rerouting.invalidation", "Routing", TL("Only perform a periodic reroute when the current route's remaining cost has drifted beyond the threshold (cheap re-scoring gate before the full reroute)"));
+
     oc.doRegister("device.rerouting.with-taz", new Option_Bool(false));
     oc.addSynonyme("device.rerouting.with-taz", "device.routing.with-taz", true);
     oc.addSynonyme("device.rerouting.with-taz", "with-taz");
@@ -173,7 +176,9 @@ MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
     myRerouteAfterStop(false),
     myThresholdFactor(holder.getFloatParam("device.rerouting.threshold.factor", true, 1)),
     myThresholdTime(STEPS2TIME(holder.getTimeParam("device.rerouting.threshold.constant", true, 0))),
-    myActive(true) {
+    myActive(true),
+    myInvalidation(OptionsCont::getOptions().getBool("device.rerouting.invalidation")),
+    myLastRouteCost(-1.) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -303,8 +308,32 @@ MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     if (myLastRouting >= MSRoutingEngine::getLastAdaptation() || !myActive) {
         return;
     }
+    // Invalidation gate: even when the metric changed, skip the (expensive)
+    // reroute unless THIS vehicle's remaining route has actually degraded.
+    // recomputeCosts is O(remaining-route length) array reads, far cheaper
+    // than a shortest-path search. Only meaningful once the vehicle is on the
+    // road with a concrete route (getCurrentRouteEdge is only valid then);
+    // pre-insertion / onInit reroutes always run and don't track cost.
+    const bool canGate = myInvalidation && !onInit && myHolder.isOnRoad();
+    if (canGate && myLastRouteCost >= 0.) {
+        MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
+        const ConstMSEdgeVector remaining(myHolder.getCurrentRouteEdge(), myHolder.getRoute().end());
+        if (!remaining.empty()) {
+            const double costNow = router.recomputeCosts(remaining, &myHolder, currentTime);
+            if (costNow - myLastRouteCost <= myThresholdTime && costNow <= myLastRouteCost * myThresholdFactor) {
+                myLastRouting = currentTime;  // route still good enough; skip the search
+                myLastRouteCost = costNow;
+                return;
+            }
+        }
+    }
     myLastRouting = currentTime;
     MSRoutingEngine::reroute(myHolder, currentTime, "device.rerouting", onInit);
+    if (myInvalidation && myHolder.isOnRoad()) {
+        MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
+        const ConstMSEdgeVector remaining(myHolder.getCurrentRouteEdge(), myHolder.getRoute().end());
+        myLastRouteCost = remaining.empty() ? -1. : router.recomputeCosts(remaining, &myHolder, currentTime);
+    }
 }
 
 
