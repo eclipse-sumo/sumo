@@ -730,6 +730,11 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
         std::cout << "\n";
     }
 #endif
+    if (MSGlobals::gUseMesoSim) {
+        // in meso, setApproaching may be callsed multiple times without intermediate removeApproaching
+        // explicit erasal is necessary because emplace does nothing if the key already exists
+        myApproachingVehicles.erase(approaching);
+    }
     myApproachingVehicles.emplace(approaching,
                                   ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
                                           arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset));
