@@ -122,12 +122,12 @@ def generateCMake(generator, platform, checkOptionalLibs, python):
 
 
 def main(options, platform="x64"):
-    env["FILEPREFIX"] = options.msvc_version + options.suffix + platform
+    env["FILEPREFIX"] = "msvc" + options.suffix
     prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
     testLog = prefix + "Test.log"
-    testDebugLog = prefix + "DebugTest.log"
+    testDebugLog = prefix + "DTest.log"
     statusLog = prefix + "status.log"
     log_handler = status.set_rotating_log(makeLog)
 
