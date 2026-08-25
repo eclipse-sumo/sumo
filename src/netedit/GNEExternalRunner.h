@@ -64,8 +64,10 @@ protected:
     bool myErrorOccurred = false;
 
 private:
+#ifndef HAVE_BOOST
     /// @brief pipe file
     FILE* myPipe = nullptr;
+#endif
 
     /// @brief starts the thread. The thread ends after the tool is finished
     FXint run();
