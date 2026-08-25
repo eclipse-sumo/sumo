@@ -17,7 +17,7 @@ title: ChangeLog
 
 - sumo-gui
   - fixed crash when coloring by insertion backlog #18215
-    
+
 - meso
   - Fixed invalid jam dynamics when running with internal links #18131
   - Fixed invalid jam dynamics at short edges #17416
@@ -87,14 +87,11 @@ title: ChangeLog
 
 - polyconvert
   - Now importing polygon height from OSM #18216
-  
+
 - meso
   - Now supports traffic light type 'actuated' #8735
   - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212
 
-- sumo/meso
-  - https://github.com/eclipse-sumo/sumo/issues/18212
-  
 - tools
   - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
   - edgeDataFromFlow.py: added option **--turn-output** to write edgeRelations for detectors that have a unique sucessor edge #17955
@@ -106,6 +103,9 @@ title: ChangeLog
 - traci.lane.getAllowed() now returns the complete list of allowed vehicle classes if all classes are allowed. This avoids ambiguity between having "all" or "nothing" allowed #18201
 - JuPedSim now uses it's own RNG #18153
 - UI element "Create short edge" now only shows up in JuPedSim mode #16369
+- Building SUMO requires now a C++14 compiler (e.g. gcc5 or later)
+  - SUMO will not build on a plain CentOS7 anymore (but you can still build it there if you update the compiler)
+
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
 
