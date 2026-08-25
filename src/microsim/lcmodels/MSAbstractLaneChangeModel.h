@@ -648,7 +648,7 @@ public:
     /// @brief return speed for helping a vehicle that is blocked from changing
     double getCooperativeHelpSpeed(const MSLane* lane, double distToLaneEnd) const;
 
-    double getCooperativeHelpTime() const {
+    SUMOTime getCooperativeHelpTime() const {
         return myCooperativeHelpTime;
     }
     double getCooperativeHelpThreshold() const {

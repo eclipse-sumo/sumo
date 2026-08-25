@@ -393,7 +393,7 @@ MSLCHelper::isBidiFollower(const MSVehicle* ego, const MSVehicle* follower) {
 
 bool
 MSLCHelper::unwillingToHelp(const MSVehicle& ego, double plannedSpeed, const MSVehicle& nv) {
-    if (nv.getLaneChangeModel().getCooperativeHelpTime() < 0 || ego.getWaitingSeconds() < nv.getLaneChangeModel().getCooperativeHelpTime()) {
+    if (nv.getLaneChangeModel().getCooperativeHelpTime() < 0 || ego.getWaitingTime() < nv.getLaneChangeModel().getCooperativeHelpTime()) {
         // ego vehicle has not been waiting long enough to be eligible for unconditional help
         if (nv.getLaneChangeModel().getCooperativeHelpThreshold() >= 0 && (nv.getSpeed() - plannedSpeed) > nv.getLaneChangeModel().getCooperativeHelpThreshold()) {
             // neighhbor not willing to help because ego is much slower
