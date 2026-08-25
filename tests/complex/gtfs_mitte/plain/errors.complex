@@ -47,12 +47,21 @@ Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25775.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25775.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25869.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25869.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25774.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25774.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25864.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25864.00.
 Warning: 8 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
+Warning: 7 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 7 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 7 total messages of type: The vehicle '%' has no valid route.
+Warning: 41 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 41 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 41 total messages of type: The vehicle '%' has no valid route.
+Warning: 14 total messages of type: No connection between % '%' and % '%' found%.
+Warning: 14 total messages of type: No route for trip in person '%'.
+Warning: 34 total messages of type: Not using public transport line '%' for routing persons. It has less than two usable stops.
 Trip 114193955 (bus): detour (factor inf) to stop index 10, fromPos=3243.37,2646.76 toPos=2977.28,2839.98 (airLine=328.84 path=inf)
 Trip 114193955 (bus): detour (factor inf) to stop index 13, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
 Trip 114194036.trimmed (bus): detour (factor inf) to stop index 3, fromPos=1996.18,3185.87 toPos=1505.37,3051.22 (airLine=508.94 path=inf)
