@@ -163,11 +163,15 @@ public:
     static void updateParent(ElementType element, const int index, ParentType newParent) {
         // remove element from old parent
         auto oldParent = element->myHierarchicalStructureParents.template at<ParentType>(index);
-        oldParent->myHierarchicalStructureChildren.remove(element);
+        if (oldParent) {
+            oldParent->myHierarchicalStructureChildren.remove(element);
+        }
         // update parent
         element->myHierarchicalStructureParents.replaceSingle(index, newParent);
         // insert child in new parent
-        newParent->myHierarchicalStructureChildren.add(element);
+        if (newParent) {
+            newParent->myHierarchicalStructureChildren.add(element);
+        }
     }
 
     /// @brief update all parent elements
@@ -175,28 +179,40 @@ public:
     static void updateParents(ElementType element, GNEHierarchicalContainerParents<ParentType> newParents) {
         // remove children
         for (const auto parent : element->myHierarchicalStructureParents.template get<ParentType>()) {
-            parent->myHierarchicalStructureChildren.remove(element);
+            if (parent) {
+                parent->myHierarchicalStructureChildren.remove(element);
+            }
         }
         // update parents
         element->myHierarchicalStructureParents.replaceAll(newParents);
         // restore children
         for (const auto parent : element->myHierarchicalStructureParents.template get<ParentType>()) {
-            parent->myHierarchicalStructureChildren.add(element);
+            if (parent) {
+                parent->myHierarchicalStructureChildren.add(element);
+            }
         }
     }
 
     /// @brief insert child element
     template<typename ElementType, typename ChildType>
     static void insertChild(ElementType element, ChildType child) {
-        element->myHierarchicalStructureChildren.add(child);
-        child->myHierarchicalStructureParents.add(element);
+        if (element) {
+            element->myHierarchicalStructureChildren.add(child);
+        }
+        if (child) {
+            child->myHierarchicalStructureParents.add(element);
+        }
     }
 
     /// @brief remove child element
     template<typename ElementType, typename ChildType>
     static void removeChild(ElementType element, ChildType child) {
-        element->myHierarchicalStructureChildren.remove(child);
-        child->myHierarchicalStructureParents.remove(element);
+        if (element) {
+            element->myHierarchicalStructureChildren.remove(child);
+        }
+        if (child) {
+            child->myHierarchicalStructureParents.remove(element);
+        }
     }
 
     /// @brief update all children elements
@@ -204,13 +220,17 @@ public:
     static void updateChildren(ElementType element, GNEHierarchicalContainerChildren<ChildType> newChildren) {
         // remove children
         for (const auto children : element->myHierarchicalStructureChildren.template get<ChildType>()) {
-            children->myHierarchicalStructureParents.remove(element);
+            if (children) {
+                children->myHierarchicalStructureParents.remove(element);
+            }
         }
         // update children
         element->myHierarchicalStructureChildren.replaceAll(newChildren);
         // restore children
         for (const auto children : element->myHierarchicalStructureChildren.template get<ChildType>()) {
-            children->myHierarchicalStructureParents.add(element);
+            if (children) {
+                children->myHierarchicalStructureParents.add(element);
+            }
         }
     }
 
