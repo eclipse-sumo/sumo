@@ -26,7 +26,6 @@ hard coded into this script.
 from __future__ import absolute_import
 from __future__ import print_function
 import datetime
-import optparse
 import os
 import shutil
 import sys
@@ -64,31 +63,28 @@ def runTests(options, env, gitrev, debugSuffix=""):
     status.killall((debugSuffix,), BINARIES)
 
 
-optParser = optparse.OptionParser()
-optParser.add_option("-r", "--root-dir", dest="rootDir",
-                     default=r"D:\Sumo", help="root for git and log output")
-optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
-optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
-                     help="directory containing the binaries, relative to the root dir")
-optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
-                     help="directory containing the tests, relative to the root dir")
-optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
-                     help="directory to move the results to")
-optParser.add_option("-p", "--python", help="path to python interpreter to use")
-(options, args) = optParser.parse_args()
+if __name__ == "__main__":
+    optParser = sumolib.options.ArgumentParser()
+    optParser.add_option("-r", "--root-dir", dest="rootDir",
+                         default=r"D:\Sumo", help="root for git and log output")
+    optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
+    optParser.add_option("-b", "--bin-dir", dest="binDir", default=r"git\bin",
+                         help="directory containing the binaries, relative to the root dir")
+    optParser.add_option("-t", "--tests-dir", dest="testsDir", default=r"git\tests",
+                         help="directory containing the tests, relative to the root dir")
+    optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
+                         help="directory to move the results to")
+    options = optParser.parse_args()
 
-env = os.environ
-if "SUMO_HOME" not in env:
-    env["SUMO_HOME"] = os.path.dirname(
-        os.path.dirname(os.path.dirname(__file__)))
-env["PYTHON"] = "python"
-env["SMTP_SERVER"] = "smtprelay.dlr.de"
-msvcVersion = "msvc16"
+    env = os.environ
+    if "SUMO_HOME" not in env:
+        env["SUMO_HOME"] = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    env["PYTHON"] = "python"
+    env["SMTP_SERVER"] = "smtprelay.dlr.de"
 
-platform = "x64"
-env["FILEPREFIX"] = msvcVersion + options.suffix + platform
-prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
-gitrev = sumolib.version.gitDescribe()
-status.set_rotating_log(prefix + "NeteditTest.log")
-status.printLog("Running tests.")
-runTests(options, env, gitrev)
+    env["FILEPREFIX"] = "msvc" + options.suffix
+    prefix = os.path.join(options.rootDir, env["FILEPREFIX"])
+    gitrev = sumolib.version.gitDescribe()
+    status.set_rotating_log(prefix + "NeteditTest.log")
+    status.printLog("Running tests.")
+    runTests(options, env, gitrev)
