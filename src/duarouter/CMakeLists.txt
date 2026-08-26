@@ -1,7 +1,7 @@
 set(duarouter_SRCS
    duarouter_main.cpp
-   RODUACCHGraph.cpp
-   RODUACCHGraph.h
+   RODUACCHMetrics.cpp
+   RODUACCHMetrics.h
    RODUAEdgeBuilder.cpp
    RODUAEdgeBuilder.h
    RODUAFrame.cpp

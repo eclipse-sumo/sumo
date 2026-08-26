@@ -11,19 +11,17 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    RODUACCHGraph.cpp
+/// @file    RODUACCHMetrics.cpp
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// ROEdge instantiation of the shared CCH graph mapping (see RODUACCHGraph.h).
+// duarouter's lazy CCH metric store (see RODUACCHMetrics.h).
 /****************************************************************************/
 #include <config.h>
 
-#include "RODUACCHGraph.h"
+#include "RODUACCHMetrics.h"
 
 #include <router/ROEdge.h>
-#include <router/ROLane.h>
-#include <router/RONode.h>
 
 // ===========================================================================
 // static member definitions
@@ -32,36 +30,6 @@ const RODUACCHGraph* RODUACCHMetrics::myGraph = nullptr;
 RODUACCHGraph::EffortOperation RODUACCHMetrics::myEffort = nullptr;
 std::map<SUMOVehicleClass, RODUACCHMetrics::ClassMetric> RODUACCHMetrics::myMetrics;
 std::mutex RODUACCHMetrics::myLock;
-
-
-// ===========================================================================
-// RODUACCHGraph method definitions
-// ===========================================================================
-RODUACCHGraph::RODUACCHGraph(const std::vector<ROEdge*>& allEdges) :
-    CCHGraphBase<ROEdge, ROVehicle>(allEdges) {
-}
-
-
-void
-RODUACCHGraph::fillInputWeights(EffortOperation effort, SUMOVehicleClass maskClass,
-                                const ROVehicle* veh, double time,
-                                std::vector<unsigned>& weight) const {
-    // Which arcs may this class traverse? Walk getViaSuccessors(maskClass)
-    // live -- exactly the connections the exact routers would relax. Weights
-    // are static in duarouter, so this runs once per class (see
-    // RODUACCHMetrics::get) and needs no precomputed permission mask.
-    std::vector<bool> allowed;
-    markClassAllowedArcs(maskClass, allowed);
-    weight.resize(arcCount());
-    for (unsigned a = 0; a < arcCount(); a++) {
-        const ROEdge* to = edgeOf(myArcHead[a]);
-        if (!allowed[a] || (maskClass != SVC_IGNORING && (to->getPermissions() & maskClass) == 0)) {
-            weight[a] = RoutingKit::inf_weight;
-        } else {
-            weight[a] = computeArcWeightRaw(a, effort, veh, time);
-        }
-    }
-}
 
 
 // ===========================================================================

@@ -26,6 +26,7 @@
 #include "MSRoutingEngine.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEventControl.h>
@@ -46,7 +47,7 @@
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include "CCHGraph.h"
+#include <utils/router/CCHGraphBase.h>
 #include <utils/router/CCHRouter.h>
 #include <routingkit/customizable_contraction_hierarchy.h>
 
@@ -354,7 +355,7 @@ MSRoutingEngine::initCCH() {
             classes.insert(vt->getVehicleClass());
         }
     }
-    myCCHGraph = new CCHGraph(classes);  // union topology + per-arc class permissions
+    myCCHGraph = new CCHGraph(MSEdge::getAllEdges());  // union topology; class masks prime at first fill
     const OptionsCont& oc = OptionsCont::getOptions();
     myCCHUpdateFactor = oc.getFloat("device.rerouting.cch-update-threshold.factor");
     myCCHUpdateConstant = STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant")));

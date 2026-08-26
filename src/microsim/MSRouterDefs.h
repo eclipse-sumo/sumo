@@ -39,6 +39,9 @@ typedef std::vector<MSEdge*> MSEdgeVector;
 typedef std::shared_ptr<const MSRoute> ConstMSRoutePtr;
 typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
 typedef SUMOAbstractRouter<MSEdge, SUMOVehicle> MSVehicleRouter;
+template<class E, class V> class CCHGraphBase;
+/// @brief the MSEdge instantiation of the CCH graph mapping (utils/router/CCHGraphBase.h)
+using CCHGraph = CCHGraphBase<MSEdge, SUMOVehicle>;
 typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSTransportableRouter;
 typedef PedestrianRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSPedestrianRouter;
 typedef MapMatcher<MSEdge, MSLane, MSJunction> MSMapMatcher;

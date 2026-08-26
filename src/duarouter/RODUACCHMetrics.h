@@ -11,14 +11,12 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    RODUACCHGraph.h
+/// @file    RODUACCHMetrics.h
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// ROEdge instantiation of the shared CCH graph mapping (CCHGraphBase) plus
-// duarouter's lazy per-class metric store. The topology, TAZ handling and
-// path expansion live in the base; only the weight fill is duarouter
-// specific (static weights, one-shot per class).
+// duarouter's lazy CCH metric store over the shared graph mapping
+// (utils/router/CCHGraphBase.h); RODUACCHGraph is its ROEdge instantiation.
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -38,27 +36,8 @@ class ROVehicle;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class RODUACCHGraph
- * @brief Metric-independent RoutingKit CCH topology over the ROEdge graph.
- */
-class RODUACCHGraph : public CCHGraphBase<ROEdge, ROVehicle> {
-public:
-    /// @brief Build the line graph + nested dissection order + CCH (once).
-    RODUACCHGraph(const std::vector<ROEdge*>& allEdges);
-
-    /** @brief Fill a centisecond input-weight buffer for one vehicle class.
-     *
-     * Arcs whose connection is not returned by getViaSuccessors(maskClass)
-     * (or whose destination edge does not permit the class) become
-     * inf_weight, so the arc set never changes; everything else is
-     * round(100 * (viaChainEffort + effort(to))). @p veh is the reference
-     * vehicle (nullptr => plain edge speeds).
-     */
-    void fillInputWeights(EffortOperation effort, SUMOVehicleClass maskClass,
-                          const ROVehicle* veh, double time,
-                          std::vector<unsigned>& weight) const;
-};
+/// @brief the ROEdge instantiation of the CCH graph mapping
+using RODUACCHGraph = CCHGraphBase<ROEdge, ROVehicle>;
 
 
 /**

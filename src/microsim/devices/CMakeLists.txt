@@ -1,6 +1,4 @@
 set(microsim_devices_STAT_SRCS
-   CCHGraph.cpp
-   CCHGraph.h
    MSDevice.cpp
    MSDevice.h
    MSDevice_SSM.cpp

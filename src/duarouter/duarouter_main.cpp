@@ -59,7 +59,9 @@
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include "RODUAEdgeBuilder.h"
-#include "RODUACCHGraph.h"
+#include <router/ROLane.h>
+#include <router/RONode.h>
+#include "RODUACCHMetrics.h"
 #include "RODUAFrame.h"
 
 
@@ -159,7 +161,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
             // customized metric per vehicle class, built lazily on first
-            // query (see RODUACCHGraph.h / utils/router/CCHRouter.h).
+            // query (see RODUACCHMetrics.h / utils/router/CCHRouter.h).
             // Static-weight case only: time-dependent weight-files would
             // need one customization per weight period.
             if (oc.isSet("weight-files")) {
