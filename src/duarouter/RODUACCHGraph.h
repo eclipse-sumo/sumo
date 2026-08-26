@@ -15,36 +15,21 @@
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// ROEdge graph adapter for the CCHRouter template (duarouter side).
-//
-// RODUACCHGraph is the duarouter counterpart of microsim's CCHGraph: it maps
-// the ROEdge graph onto a RoutingKit Customizable Contraction Hierarchy.
-// RoutingKit node = one non-internal, non-taz ROEdge (densely re-indexed);
-// RoutingKit arc = one edge-to-edge connection from getViaSuccessors, with
-// any internal/via chain folded into the arc weight. TAZ connectors are kept
-// out of the hierarchy (a degree-d star forces treewidth >= d) and resolved
-// as query-time multi-source/target seed sets. It provides the GRAPH
-// interface documented in utils/router/CCHRouter.h.
-//
-// RODUACCHMetrics is the per-class metric store. duarouter streams vehicles,
-// so the set of vehicle classes is not known up front: metrics are built
-// lazily on first query for a class (mutex-guarded; ~ms each), all sharing
-// the one weight-independent topology. Static-weight case only -- duarouter
-// runs with time-independent efforts unless weight-files are loaded, which
-// the CCH branch in duarouter_main rejects.
+// ROEdge instantiation of the shared CCH graph mapping (CCHGraphBase) plus
+// duarouter's lazy per-class metric store. The topology, TAZ handling and
+// path expansion live in the base; only the weight fill is duarouter
+// specific (static weights, one-shot per class).
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-
 #include <map>
 #include <memory>
 #include <mutex>
-#include <string>
 #include <utility>
 #include <vector>
 #include <utils/common/SUMOVehicleClass.h>
-#include <routingkit/customizable_contraction_hierarchy.h>
+#include <utils/router/CCHGraphBase.h>
 
 class ROEdge;
 class ROVehicle;
@@ -57,39 +42,10 @@ class ROVehicle;
  * @class RODUACCHGraph
  * @brief Metric-independent RoutingKit CCH topology over the ROEdge graph.
  */
-class RODUACCHGraph {
+class RODUACCHGraph : public CCHGraphBase<ROEdge, ROVehicle> {
 public:
-    /// @brief effort callback signature (matches SUMOAbstractRouter::Operation)
-    typedef double (*EffortOperation)(const ROEdge* const, const ROVehicle* const, double);
-
     /// @brief Build the line graph + nested dissection order + CCH (once).
     RODUACCHGraph(const std::vector<ROEdge*>& allEdges);
-
-    ~RODUACCHGraph() {}
-
-    /// @brief the immutable CCH (shared by all metrics)
-    const RoutingKit::CustomizableContractionHierarchy& cch() const {
-        return myCCH;
-    }
-
-    /// @brief number of input arcs (== number of mapped connections)
-    unsigned arcCount() const {
-        return (unsigned)myArcTail.size();
-    }
-
-    /// @brief RoutingKit node index for an edge, or INVALID_NODE if not a node
-    unsigned nodeOf(const ROEdge* e) const;
-
-    /// @brief the edge backing a RoutingKit node
-    const ROEdge* edgeOf(unsigned node) const {
-        return myNodeToEdge[node];
-    }
-
-    /// @brief road member nodes of a TAZ-source connector (its entry edges)
-    const std::vector<unsigned>& tazSources(const ROEdge* taz) const;
-
-    /// @brief road member nodes of a TAZ-sink connector (its exit edges)
-    const std::vector<unsigned>& tazSinks(const ROEdge* taz) const;
 
     /** @brief Fill a centisecond input-weight buffer for one vehicle class.
      *
@@ -102,39 +58,6 @@ public:
     void fillInputWeights(EffortOperation effort, SUMOVehicleClass maskClass,
                           const ROVehicle* veh, double time,
                           std::vector<unsigned>& weight) const;
-
-    /// @brief Re-expand a RoutingKit node path into the full edge list,
-    /// re-inserting any folded internal/via edges.
-    void expandNodePath(const std::vector<unsigned>& nodePath,
-                        std::vector<const ROEdge*>& into) const;
-
-    /// @brief sentinel for "not a routable node"
-    static const unsigned INVALID_NODE;
-
-private:
-    /// @brief node index -> backing edge
-    std::vector<const ROEdge*> myNodeToEdge;
-    /// @brief edge numerical id -> node index (INVALID_NODE if not a node)
-    std::vector<unsigned> myEdgeToNode;
-    /// @brief per-arc endpoints
-    std::vector<unsigned> myArcTail;
-    std::vector<unsigned> myArcHead;
-    /// @brief per-arc leading via/internal edge (nullptr if none)
-    std::vector<const ROEdge*> myArcVia;
-    /// @brief (tail, head) -> arc index, for the per-class permission walk
-    std::map<std::pair<unsigned, unsigned>, unsigned> myArcOf;
-    /// @brief TAZ-source connector edge -> its entry-edge road node ids
-    std::map<const ROEdge*, std::vector<unsigned> > myTazSrcNodes;
-    /// @brief TAZ-sink connector edge -> its exit-edge road node ids
-    std::map<const ROEdge*, std::vector<unsigned> > myTazSnkNodes;
-    /// @brief whether any arc folds a real internal/via edge chain
-    bool myHasVia;
-    /// @brief the immutable hierarchy
-    RoutingKit::CustomizableContractionHierarchy myCCH;
-
-private:
-    RODUACCHGraph(const RODUACCHGraph&) = delete;
-    RODUACCHGraph& operator=(const RODUACCHGraph&) = delete;
 };
 
 
@@ -167,4 +90,3 @@ private:
     static std::map<SUMOVehicleClass, ClassMetric> myMetrics;
     static std::mutex myLock;
 };
-
