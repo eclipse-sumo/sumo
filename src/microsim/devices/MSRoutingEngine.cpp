@@ -92,7 +92,6 @@ double MSRoutingEngine::myCCHUpdateConstant = 0.;
 std::vector<double> MSRoutingEngine::myCCHAppliedEffort[2];
 std::vector<char> MSRoutingEngine::myCCHPendingFlag[2];
 std::vector<const MSEdge*> MSRoutingEngine::myCCHPendingList[2];
-bool MSRoutingEngine::myCCHValidate = false;
 
 
 // ===========================================================================
@@ -359,7 +358,6 @@ MSRoutingEngine::initCCH() {
     const OptionsCont& oc = OptionsCont::getOptions();
     myCCHUpdateFactor = oc.getFloat("device.rerouting.cch-update-threshold.factor");
     myCCHUpdateConstant = STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant")));
-    myCCHValidate = getenv("SUMO_CCH_VALIDATE") != nullptr;
     int edgeSpace = 0;
     for (const MSEdge* e : MSEdge::getAllEdges()) {
         edgeSpace = MAX2(edgeSpace, e->getNumericalID() + 1);
@@ -506,22 +504,6 @@ MSRoutingEngine::customizeCCH() {
             }
             if (changed > 0) {
                 c->partial->customize(*c->metric[back]);
-            }
-            if (myCCHValidate) {
-                // debug: full-customize the same weights into a scratch metric
-                // and compare -- abort on the first divergent arc
-                RoutingKit::CustomizableContractionHierarchyMetric ref(myCCHGraph->cch(), applied);
-                ref.customize();
-                for (unsigned a = 0; a < (unsigned)ref.forward.size(); ++a) {
-                    if (ref.forward[a] != c->metric[back]->forward[a]
-                            || ref.backward[a] != c->metric[back]->backward[a]) {
-                        throw ProcessError("CCH partial validation failed at t=" + toString(now)
-                                           + " class=" + toString(c->vClass) + " cchArc=" + toString(a)
-                                           + " marked=" + toString(changed)
-                                           + " fw=" + toString(c->metric[back]->forward[a]) + "/" + toString(ref.forward[a])
-                                           + " bw=" + toString(c->metric[back]->backward[a]) + "/" + toString(ref.backward[a]));
-                    }
-                }
             }
         }
         // Publish lock-free (see class doc): main-thread release store at the
