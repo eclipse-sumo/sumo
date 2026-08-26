@@ -39,7 +39,6 @@
 #pragma once
 #include <config.h>
 
-#ifdef HAVE_ROUTINGKIT
 
 #include <string>
 #include <vector>
@@ -193,4 +192,3 @@ private:
     CCHGraph& operator=(const CCHGraph&) = delete;
 };
 
-#endif // HAVE_ROUTINGKIT

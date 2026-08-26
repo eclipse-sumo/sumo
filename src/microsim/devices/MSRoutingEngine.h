@@ -31,7 +31,6 @@
 #include <utils/router/AStarRouter.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRouterDefs.h>
-#ifdef HAVE_ROUTINGKIT
 #include <memory>
 #include <atomic>
 #include <map>
@@ -40,7 +39,6 @@ struct CustomizableContractionHierarchyMetric;
 struct CustomizableContractionHierarchyPartialCustomization;
 }
 class CCHGraph;
-#endif
 
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
@@ -124,7 +122,6 @@ public:
     /// @brief return the cached route or nullptr on miss
     static ConstMSRoutePtr getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
-#ifdef HAVE_ROUTINGKIT
     /// @brief the currently published (customized) CCH metric FOR A GIVEN
     /// vehicle class, or nullptr if that class has no CCH metric (then the
     /// caller falls back to A*). Lock-free: a plain atomic pointer read. The
@@ -133,7 +130,6 @@ public:
     /// one being customized. Called on the routing hot path -- allocation- and
     /// lock-free.
     static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass);
-#endif
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
@@ -331,7 +327,6 @@ private:
     static FXMutex myRouteCacheMutex;
 #endif
 
-#ifdef HAVE_ROUTINGKIT
     /// @brief per-vehicle-class CCH metric state (one double-buffer per class).
     /// The CCH TOPOLOGY is shared (class-independent union); each class differs
     /// only in which arcs are inf_weight (permissions + closures). Heap-owned
@@ -398,7 +393,6 @@ private:
     /// @brief queue an edge whose smoothed speed changed this tick (both
     /// buffers; threshold applies later at the customize barrier)
     static void markCCHEdgeDirty(const MSEdge* e);
-#endif
 
 private:
     /// @brief Invalidated copy constructor.

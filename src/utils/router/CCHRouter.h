@@ -42,7 +42,6 @@
 #pragma once
 #include <config.h>
 
-#ifdef HAVE_ROUTINGKIT
 
 #include <memory>
 #include <vector>
@@ -260,4 +259,3 @@ private:
     CCHRouter& operator=(const CCHRouter&) = delete;
 };
 
-#endif // HAVE_ROUTINGKIT

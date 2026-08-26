@@ -156,7 +156,6 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
-#ifdef HAVE_ROUTINGKIT
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
             // customized metric per vehicle class, built lazily on first
@@ -180,7 +179,6 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
             router = new CCHRouter<ROEdge, ROVehicle, RODUACCHGraph>(
                 cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic, fallback);
-#endif
         } else if (routingAlgorithm == "arcflag") {
             /// @brief The number of levels in the k-d tree partition
             constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8

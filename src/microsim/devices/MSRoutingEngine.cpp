@@ -46,11 +46,9 @@
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#ifdef HAVE_ROUTINGKIT
 #include "CCHGraph.h"
 #include <utils/router/CCHRouter.h>
 #include <routingkit/customizable_contraction_hierarchy.h>
-#endif
 
 //#define DEBUG_SEPARATE_TURNS
 #define DEBUG_COND(obj) (obj->isSelected())
@@ -83,7 +81,6 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc
 #ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
 #endif
-#ifdef HAVE_ROUTINGKIT
 CCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
 std::vector<MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHClasses;
 std::map<SUMOVehicleClass, MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHByClass;
@@ -95,7 +92,6 @@ std::vector<double> MSRoutingEngine::myCCHAppliedEffort[2];
 std::vector<char> MSRoutingEngine::myCCHPendingFlag[2];
 std::vector<const MSEdge*> MSRoutingEngine::myCCHPendingList[2];
 bool MSRoutingEngine::myCCHValidate = false;
-#endif
 
 
 // ===========================================================================
@@ -271,9 +267,7 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                           << "\n";
             }
 #endif
-#ifdef HAVE_ROUTINGKIT
             const double oldSmoothedSpeed = myEdgeSpeeds[id];
-#endif
             if (myAdaptationSteps > 0) {
                 // moving average
                 myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
@@ -295,20 +289,17 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                     }
                 }
             }
-#ifdef HAVE_ROUTINGKIT
             // sparse CCH re-customization: remember which edges actually
             // moved; the update threshold is applied at the customize barrier
             if (myCCHGraph != nullptr && myEdgeSpeeds[id] != oldSmoothedSpeed) {
                 markCCHEdgeDirty(e);
             }
-#endif
         }
     }
     if (myAdaptationSteps > 0) {
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     }
     myLastAdaptation = currentTime;
-#ifdef HAVE_ROUTINGKIT
     // Re-customize the CCH metric from the freshly updated speed tables and
     // publish it (double-buffered). Runs on the main thread after the speed
     // update; no worker query is in flight at this point.
@@ -322,7 +313,6 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     if (myCCHGraph != nullptr && myCCHQueried.exchange(false, std::memory_order_acq_rel)) {
         customizeCCH();
     }
-#endif
     if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
         dev.openTag(SUMO_TAG_INTERVAL);
@@ -345,7 +335,6 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 }
 
 
-#ifdef HAVE_ROUTINGKIT
 void
 MSRoutingEngine::initCCH() {
     if (myCCHGraph != nullptr) {
@@ -568,7 +557,6 @@ MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass) {
     }
     return it->second->front.load(std::memory_order_acquire);
 }
-#endif // HAVE_ROUTINGKIT
 
 
 double
@@ -691,7 +679,6 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         router = new CHRouterWrapper<MSEdge, SUMOVehicle>(
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
-#ifdef HAVE_ROUTINGKIT
     } else if (routingAlgorithm == "CCH") {
         // CCH compiles all costs into a shared, per-class metric, so it can
         // express any effort modifier that is per-edge and vehicle-independent:
@@ -713,7 +700,6 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, true);
         router = new CCHRouter<MSEdge, SUMOVehicle, CCHGraph>(
             myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, fallback);
-#endif
     } else {
         throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
     }
@@ -891,7 +877,6 @@ MSRoutingEngine::cleanup() {
         myCachedRoutes.clear();
     }
     myAdaptationStepsIndex = 0;
-#ifdef HAVE_ROUTINGKIT
     // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
     // it against the new network; the router clones referencing it were
     // deleted together with the worker threads / router provider
@@ -909,7 +894,6 @@ MSRoutingEngine::cleanup() {
         myCCHPendingFlag[i].clear();
         myCCHPendingList[i].clear();
     }
-#endif
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor

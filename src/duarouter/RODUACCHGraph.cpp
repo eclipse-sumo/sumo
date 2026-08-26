@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#ifdef HAVE_ROUTINGKIT
 
 #include "RODUACCHGraph.h"
 
@@ -317,4 +316,3 @@ RODUACCHMetrics::get(SUMOVehicleClass vClass) {
     return it->second.metric.get();
 }
 
-#endif // HAVE_ROUTINGKIT
