@@ -146,7 +146,7 @@ public:
             Prohibitions v;
             for (const auto& settings : closed) {
                 // no permissions are changed but edges are forbidden for all during routing
-                v[settings.first].permissions = settings.second.first == SVCAll ? 0 : settings.second.first;
+                v[settings.first].permissions = settings.second.first == SVC_UNSPECIFIED ? 0 : settings.second.first;
                 if (settings.second.second != -1) {
                     // end time is known
                     v[settings.first].end = STEPS2TIME(settings.second.second);

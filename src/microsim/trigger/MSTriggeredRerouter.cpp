@@ -179,10 +179,13 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError(TLF("rerouter '%': Edge '%' to close is not known.", getID(), closed_id));
         }
         bool ok;
-        const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
-        const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
+        SVCPermissions permissions = SVC_UNSPECIFIED;
+        if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+            const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
+            const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
+            permissions = parseVehicleClasses(allow, disallow);
+        }
         const SUMOTime until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, TIME2STEPS(-1));
-        SVCPermissions permissions = parseVehicleClasses(allow, disallow);
         myParsedRerouteInterval.closed[closedEdge] = std::make_pair(permissions, STEPS2TIME(until));
     }
 
@@ -193,9 +196,9 @@ MSTriggeredRerouter::myStartElement(int element,
         if (closedLane == nullptr) {
             throw ProcessError(TLF("rerouter '%': Lane '%' to close is not known.", getID(), closed_id));
         }
-        bool ok;
         SVCPermissions permissions = SVC_AUTHORITY;
         if (attrs.hasAttribute(SUMO_ATTR_ALLOW) || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+            bool ok;
             const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, getID().c_str(), ok, "", false);
             const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, getID().c_str(), ok, "");
             permissions = parseVehicleClasses(allow, disallow);
@@ -331,7 +334,7 @@ MSTriggeredRerouter::myEndElement(int element) {
         // precompute permissionsAllowAll
         bool allowAll = true;
         for (const auto& entry : myParsedRerouteInterval.closed) {
-            allowAll = allowAll && entry.second.first == SVCAll;
+            allowAll = allowAll && entry.second.first == SVC_UNSPECIFIED;
             if (!allowAll) {
                 break;
             }
@@ -375,12 +378,14 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
     for (const RerouteInterval& i : myIntervals) {
         if (i.begin == currentTime && !(i.closed.empty() && i.closedLanes.empty()) /*&& i.permissions != SVCAll*/) {
             for (const auto& settings : i.closed) {
-                for (MSLane* lane : settings.first->getLanes()) {
-                    //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << lane->getID() << " prevPerm=" << getVehicleClassNames(lane->getPermissions()) << " new=" << getVehicleClassNames(settings.second.first) << "\n";
-                    lane->setPermissions(settings.second.first, i.id);
+                if (settings.second.first != SVC_UNSPECIFIED) {
+                    for (MSLane* lane : settings.first->getLanes()) {
+                        //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << lane->getID() << " prevPerm=" << getVehicleClassNames(lane->getPermissions()) << " new=" << getVehicleClassNames(settings.second.first) << "\n";
+                        lane->setPermissions(settings.second.first, i.id);
+                    }
+                    settings.first->rebuildAllowedLanes();
+                    updateVehicles = true;
                 }
-                settings.first->rebuildAllowedLanes();
-                updateVehicles = true;
             }
             for (std::pair<MSLane*, SVCPermissions> settings : i.closedLanes) {
                 settings.first->setPermissions(settings.second, i.id);
@@ -392,12 +397,14 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
         }
         if (i.end == currentTime && !(i.closed.empty() && i.closedLanes.empty()) /*&& i.permissions != SVCAll*/) {
             for (auto settings : i.closed) {
-                for (MSLane* lane : settings.first->getLanes()) {
-                    lane->resetPermissions(i.id);
-                    //std::cout << SIMTIME << " opening: intervalID=" << i.id << " lane=" << lane->getID() << " restore prevPerm=" << getVehicleClassNames(lane->getPermissions()) << "\n";
+                if (settings.second.first != SVC_UNSPECIFIED) {
+                    for (MSLane* lane : settings.first->getLanes()) {
+                        lane->resetPermissions(i.id);
+                        //std::cout << SIMTIME << " opening: intervalID=" << i.id << " lane=" << lane->getID() << " restore prevPerm=" << getVehicleClassNames(lane->getPermissions()) << "\n";
+                    }
+                    settings.first->rebuildAllowedLanes();
+                    updateVehicles = true;
                 }
-                settings.first->rebuildAllowedLanes();
-                updateVehicles = true;
             }
             for (std::pair<MSLane*, SVCPermissions> settings : i.closedLanes) {
                 settings.first->resetPermissions(i.id);
