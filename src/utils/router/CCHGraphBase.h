@@ -24,11 +24,11 @@
 //                   getViaSuccessors, with any internal/via edge chain
 //                   between them folded into the arc weight.
 //
-// The topology (tail/head/order/CCH) is metric-INDEPENDENT and built once
-// from the class-union successor sets. Weights are metric-DEPENDENT
-// centisecond integers recomputed by the derived classes from their effort
-// functions; forbidden arcs get exactly RoutingKit::inf_weight so the arc
-// set (topology) never changes.
+// The topology (arcs/order/CCH) is metric-INDEPENDENT and built once from
+// the class-union successor sets. Weights are metric-DEPENDENT centisecond
+// integers recomputed from the caller's effort function (fillInputWeights /
+// computeArcWeight); forbidden arcs get exactly RoutingKit::inf_weight so
+// the arc set (topology) never changes.
 //
 // ARC WEIGHT CONVENTION (load-bearing):
 //   w(u -> to) = round(100 * ( viaEffort(u..to) + effort(to) ))   [centiseconds]
@@ -145,6 +145,8 @@ public:
                 myArcVia.push_back(follower.second);  // leading internal edge or nullptr
             }
         }
+        myArcPerm.assign(myArcTail.size(), 0);
+        myPrimedClasses = 0;
         myHasVia = false;
         for (const E* via : myArcVia) {
             if (via != nullptr) {
@@ -221,11 +223,6 @@ public:
         return myCCH;
     }
 
-    /// @brief number of RoutingKit nodes (== number of real edges)
-    unsigned nodeCount() const {
-        return (unsigned)myNodeToEdge.size();
-    }
-
     /// @brief number of input arcs (== number of mapped connections)
     unsigned arcCount() const {
         return (unsigned)myArcTail.size();
@@ -258,14 +255,6 @@ public:
         static const std::vector<unsigned> empty;
         const auto it = myTazSnkNodes.find(taz);
         return it == myTazSnkNodes.end() ? empty : it->second;
-    }
-
-    /// @brief per-arc endpoints (size arcCount()), for CCH construction / metric
-    const std::vector<unsigned>& tail() const {
-        return myArcTail;
-    }
-    const std::vector<unsigned>& head() const {
-        return myArcHead;
     }
 
     /// @brief the arcs whose weight depends on the given edge (arcs it heads
@@ -315,7 +304,6 @@ public:
         }
     }
 
-protected:
     /// @brief effort accumulated crossing the internal/via chain that leads from
     /// one real edge onto its successor (mirrors SUMOAbstractRouter::updateViaEdgeCost).
     static double viaChainEffort(const E* via, EffortOperation effort,
@@ -329,10 +317,80 @@ protected:
         return sum;
     }
 
+public:
+    /** @brief Recompute the input weight of one arc -- the exact per-arc body
+     * of fillInputWeights (same masking, folding and rounding), exposed so a
+     * sparse update can refresh only the arcs of edges that actually moved.
+     *
+     * Forbidden (inf_weight) if EITHER the connection does not permit the
+     * class (static, connection-level, matches getViaSuccessors(vClass); see
+     * primeClassMask) OR the destination edge does not currently permit the
+     * class (dynamic, edge-level -- catches runtime closures via
+     * MSLane::setPermissions; a no-op where permissions are static). */
+    unsigned computeArcWeight(unsigned a, EffortOperation effort, SUMOVehicleClass maskClass,
+                              const V* veh, double time) const {
+        if (maskClass != SVC_IGNORING
+                && (((myArcPerm[a] & maskClass) == 0)
+                    || ((edgeOf(myArcHead[a])->getPermissions() & maskClass) == 0))) {
+            return RoutingKit::inf_weight;
+        }
+        return computeArcWeightRaw(a, effort, veh, time);
+    }
+
+    /** @brief Fill a centisecond input-weight buffer for one vehicle class.
+     *
+     * Primes the class's connection mask on first use (see primeClassMask for
+     * the synchronization contract), then applies computeArcWeight per arc.
+     * @param[in] effort     the effort Operation
+     * @param[in] maskClass  arcs whose connection or destination edge does NOT
+     *   permit this class become inf_weight; SVC_IGNORING masks nothing
+     * @param[in] veh    reference vehicle for the effort floor (may be null)
+     * @param[in] time   seconds, passed to the effort fn
+     * @param[out] weight resized to arcCount(); w[a] in [0, inf_weight]
+     */
+    void fillInputWeights(EffortOperation effort, SUMOVehicleClass maskClass,
+                          const V* veh, double time,
+                          std::vector<unsigned>& weight) const {
+        primeClassMask(maskClass);
+        weight.resize(arcCount());
+        for (unsigned a = 0; a < arcCount(); a++) {
+            weight[a] = computeArcWeight(a, effort, maskClass, veh, time);
+        }
+    }
+
+private:
+    /** @brief Record which arcs @p vClass may traverse in the per-arc
+     * CONNECTION-level permission bitmask -- exactly the arcs
+     * getViaSuccessors(vClass) yields (edge-level getPermissions() is too
+     * coarse on mixed-lane edges). No-op if the class was primed before.
+     *
+     * NOT internally synchronized: concurrent calls for an unprimed class
+     * must be serialized by the caller. In practice the simulation primes on
+     * the main thread at the customization barrier (no query in flight) and
+     * duarouter primes under the RODUACCHMetrics mutex; primed classes make
+     * this a lock-free bit test on the hot path. */
+    void primeClassMask(SUMOVehicleClass vClass) const {
+        if (vClass == SVC_IGNORING || (myPrimedClasses & vClass) == vClass) {
+            return;
+        }
+        for (unsigned n = 0; n < (unsigned)myNodeToEdge.size(); n++) {
+            for (const auto& follower : myNodeToEdge[n]->getViaSuccessors(vClass)) {
+                const unsigned toNode = nodeOf(follower.first);
+                if (toNode == INVALID_NODE) {
+                    continue;
+                }
+                const auto it = myArcOf.find(std::make_pair(n, toNode));
+                if (it != myArcOf.end()) {
+                    myArcPerm[it->second] |= (SVCPermissions)vClass;
+                }
+            }
+        }
+        myPrimedClasses |= (SVCPermissions)vClass;
+    }
+
     /** @brief The unmasked weight of one arc: via-chain effort + head-edge
      * effort, rounded to centiseconds and clamped below inf_weight (NaN /
-     * inf / overflow become inf_weight = forbidden). Permission masking is
-     * the derived class's business. */
+     * inf / overflow become inf_weight = forbidden). */
     unsigned computeArcWeightRaw(unsigned a, EffortOperation effort,
                                  const V* veh, double time) const {
         const E* to = myNodeToEdge[myArcHead[a]];
@@ -347,30 +405,6 @@ protected:
                                         ? RoutingKit::inf_weight - 1 : cs));
     }
 
-    /** @brief Mark the arcs the given class may traverse -- exactly the arcs
-     * getViaSuccessors(vClass) yields, i.e. CONNECTION-level permissions
-     * (edge-level getPermissions() is too coarse on mixed-lane edges).
-     * SVC_IGNORING allows everything. */
-    void markClassAllowedArcs(SUMOVehicleClass vClass, std::vector<bool>& allowed) const {
-        allowed.assign(arcCount(), vClass == SVC_IGNORING);
-        if (vClass == SVC_IGNORING) {
-            return;
-        }
-        for (unsigned n = 0; n < (unsigned)myNodeToEdge.size(); n++) {
-            for (const auto& follower : myNodeToEdge[n]->getViaSuccessors(vClass)) {
-                const unsigned toNode = nodeOf(follower.first);
-                if (toNode == INVALID_NODE) {
-                    continue;
-                }
-                const auto it = myArcOf.find(std::make_pair(n, toNode));
-                if (it != myArcOf.end()) {
-                    allowed[it->second] = true;
-                }
-            }
-        }
-    }
-
-protected:
     /// @brief node index -> backing edge
     std::vector<const E*> myNodeToEdge;
     /// @brief edge numerical id -> node index (INVALID_NODE if not a node)
@@ -382,6 +416,11 @@ protected:
     std::vector<const E*> myArcVia;
     /// @brief (tail node, head node) -> arc index
     std::map<std::pair<unsigned, unsigned>, unsigned> myArcOf;
+    /// @brief per-arc CONNECTION-level permission bitmask, accumulated per
+    /// primed class (see primeClassMask); mutable lazy cache
+    mutable std::vector<SVCPermissions> myArcPerm;
+    /// @brief the classes already primed into myArcPerm
+    mutable SVCPermissions myPrimedClasses;
     /// @brief edge numerical id -> arcs whose weight reads that edge (head +
     /// folded via edges); the reverse image of computeArcWeightRaw's inputs
     std::vector<std::vector<unsigned> > myEdgeToArcs;

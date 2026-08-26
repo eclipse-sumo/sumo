@@ -38,7 +38,6 @@ namespace RoutingKit {
 struct CustomizableContractionHierarchyMetric;
 struct CustomizableContractionHierarchyPartialCustomization;
 }
-class CCHGraph;
 
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
