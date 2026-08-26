@@ -68,6 +68,7 @@
 // ===========================================================================
 // functions
 // ===========================================================================
+
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
@@ -113,7 +114,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     DijkstraRouter<ROEdge, ROVehicle>::Operation op = &ROEdge::getTravelTimeStatic;
 
     if (oc.isSet("restriction-params") &&
-            (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper" || routingAlgorithm == "CCH")) {
+            (routingAlgorithm == "CH" || routingAlgorithm == "CHWrapper")) {
         throw ProcessError(TLF("Routing algorithm '%' does not support restriction-params", routingAlgorithm));
     }
 
@@ -160,27 +161,33 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
-            // customized metric per vehicle class, built lazily on first
-            // query (see RODUACCHMetrics.h / utils/router/CCHRouter.h).
-            // Static-weight case only: time-dependent weight-files would
-            // need one customization per weight period.
-            if (oc.isSet("weight-files")) {
-                throw ProcessError(TL("Routing algorithm 'CCH' does not support time-dependent weights (weight-files). Use CH or CHWrapper."));
-            }
+            // customized metric per (vehicle class, weight period), built
+            // lazily on first query (see RODUACCHMetrics.h). With
+            // time-dependent weight files this follows CHRouterWrapper's
+            // per-period semantics, but repeats only the metric
+            // customization, never the topology build.
             // Per-vehicle modifiers cannot live in a shared metric (mirror of
             // the guard in MSRoutingEngine::initRouter).
             if (gWeightsRandomFactor > 1 || gRoutingPreferences) {
                 throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1 and routing preferences. Disable these to use CCH."));
             }
+            const bool hasWeights = oc.isSet("weight-files") || oc.isSet("lane-weight-files");
+            const SUMOTime weightPeriod = hasWeights ? string2time(oc.getString("weight-period")) : SUMOTime_MAX;
             // Process-lifetime singletons: the topology and metric store are
             // shared by every router clone until duarouter exits.
             RODUACCHGraph* cchGraph = new RODUACCHGraph(ROEdge::getAllEdges());
-            RODUACCHMetrics::init(cchGraph, &ROEdge::getTravelTimeStatic);
+            RODUACCHMetrics::init(cchGraph, &ROEdge::getTravelTimeStatic, begin, weightPeriod);
             SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
+            // restriction-params are handled natively: each distinct
+            // restriction profile gets its own masked metric (see
+            // RODUACCHMetrics::get); the period-end hook lets queries whose
+            // trip crosses a weight-period boundary re-query on the next
+            // period's metric.
             router = new CCHRouter<ROEdge, ROVehicle, RODUACCHGraph>(
-                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic, fallback);
+                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic, fallback,
+                hasWeights ? &RODUACCHMetrics::periodEnd : nullptr);
         } else if (routingAlgorithm == "arcflag") {
             /// @brief The number of levels in the k-d tree partition
             constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8
