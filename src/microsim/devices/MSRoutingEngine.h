@@ -128,7 +128,7 @@ public:
     /// valid; the double buffer guarantees the pointer we hand out is not the
     /// one being customized. Called on the routing hot path -- allocation- and
     /// lock-free.
-    static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass);
+    static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass, SUMOTime time, const SUMOVehicle* veh);
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 

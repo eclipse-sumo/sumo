@@ -525,7 +525,9 @@ MSRoutingEngine::customizeCCH() {
 
 
 const RoutingKit::CustomizableContractionHierarchyMetric*
-MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass) {
+MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass, SUMOTime /* time */, const SUMOVehicle* /* veh */) {
+    // the single published metric always tracks the live speeds; the query
+    // time only matters for duarouter's per-weight-period metrics
     const auto it = myCCHByClass.find(vClass);
     if (it == myCCHByClass.end()) {
         return nullptr;  // class has no CCH metric -> caller falls back to A*
