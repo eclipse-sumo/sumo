@@ -146,9 +146,10 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
     myRadius(std::numeric_limits<double>::max()),
-    myPermissions(myLaneBefore->getPermissions() & myLane->getPermissions() & (via == nullptr ? SVCAll : via->getPermissions())),
-    myJunction(nullptr) {
-
+    myPermissions(SVCAll),
+    myJunction(nullptr) 
+{
+    updatePermissions();
     if (MSGlobals::gLateralResolution > 0) {
         // detect lateral shift from lane geometries
         //std::cout << "DEBUG link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " hasInternal=" << MSNet::getInstance()->hasInternalLinks() << " shapeBefore=" << myLaneBefore->getShape().back() << " shapeFront=" << getViaLaneOrLane()->getShape().front() << "\n";
@@ -175,6 +176,12 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
 MSLink::~MSLink() {
     delete myOffFoeLinks;
     delete myApproachingPersons;
+}
+
+
+void
+MSLink::updatePermissions() {
+    myPermissions = myLaneBefore->getPermissions() & myLane->getPermissions() & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
 }
 
 
