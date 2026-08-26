@@ -606,13 +606,6 @@ if (ENABLE_EIGEN)
     endif ()
 endif (ENABLE_EIGEN)
 
-# RoutingKit CCH router backend (customizable contraction hierarchies),
-# built from the vendored copy in src/foreign/RoutingKit (compiled without
-# OpenMP; customization runs single-threaded). The consuming targets link
-# foreign_routingkit and inherit its include directory.
-set(HAVE_ROUTINGKIT 1)  # see config.h.cmake for #cmakedefine
-set(ENABLED_FEATURES "${ENABLED_FEATURES} CCH")
-
 if (ENABLE_GDAL)
     # GDAL (for geopositioning)
     find_package(GDAL)

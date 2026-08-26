@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#ifdef HAVE_ROUTINGKIT
 
 #include "CCHGraph.h"
 
@@ -338,4 +337,3 @@ CCHGraph::expandNodePath(const std::vector<unsigned>& nodePath,
     }
 }
 
-#endif // HAVE_ROUTINGKIT

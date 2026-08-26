@@ -36,7 +36,6 @@
 #pragma once
 #include <config.h>
 
-#ifdef HAVE_ROUTINGKIT
 
 #include <map>
 #include <memory>
@@ -169,4 +168,3 @@ private:
     static std::mutex myLock;
 };
 
-#endif // HAVE_ROUTINGKIT

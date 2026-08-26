@@ -21,14 +21,8 @@ per-interval metric customization runs single-threaded.
 
 ## Build and verify
 
-Build SUMO as usual for your platform (see `docs/web/docs/Installing/`), then:
-
-```bash
-bin/sumo --version
-```
-
-The **Build features** line lists `CCH` when the backend is compiled in
-(`HAVE_ROUTINGKIT`).
+Build SUMO as usual for your platform (see `docs/web/docs/Installing/`); the
+CCH backend is always compiled in.
 
 ---
 
