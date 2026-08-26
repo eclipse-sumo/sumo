@@ -376,7 +376,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
         if (i.begin == currentTime && !(i.closed.empty() && i.closedLanes.empty()) /*&& i.permissions != SVCAll*/) {
             for (const auto& settings : i.closed) {
                 for (MSLane* lane : settings.first->getLanes()) {
-                    //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << lane->getID() << " prevPerm=" << getVehicleClassNames(lane->getPermissions()) << " new=" << getVehicleClassNames(i.permissions) << "\n";
+                    //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << lane->getID() << " prevPerm=" << getVehicleClassNames(lane->getPermissions()) << " new=" << getVehicleClassNames(settings.second.first) << "\n";
                     lane->setPermissions(settings.second.first, i.id);
                 }
                 settings.first->rebuildAllowedLanes();
