@@ -376,6 +376,14 @@ MSEdge::rebuildAllowedLanes(const bool onInit, bool updateVehicles) {
                 s->updatePermissions();
             }
         }
+        for (MSLane* const lane : *myLanes) {
+            for (MSLink* link : lane->getLinkCont()) {
+                link->updatePermissions();
+            }
+            for (auto ili : lane->getIncomingLanes()) {
+                ili.viaLink->updatePermissions();
+            }
+        }
     }
 }
 

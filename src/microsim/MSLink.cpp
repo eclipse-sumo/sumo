@@ -146,7 +146,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
     myRadius(std::numeric_limits<double>::max()),
-    myPermissions(SVCAll),
+    myPermissions(0),
     myJunction(nullptr) 
 {
     updatePermissions();
@@ -181,7 +181,8 @@ MSLink::~MSLink() {
 
 void
 MSLink::updatePermissions() {
-    myPermissions = myLaneBefore->getPermissions() & myLane->getPermissions() & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
+    // we only ever increase permission because transient permission reductions lead to invalid bestLanes assignment otherwise
+    myPermissions |= myLaneBefore->getPermissions() & myLane->getPermissions() & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
 }
 
 
