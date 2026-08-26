@@ -186,7 +186,7 @@
         <!-- The number of parallel execution threads used for routing -->
         <routing-threads value="0" type="INT"/>
 
-        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
+        <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;, &apos;CCH&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
 
         <!-- Comma separated list of param keys to compare for additional restrictions -->
