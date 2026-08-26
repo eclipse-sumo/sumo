@@ -761,9 +761,7 @@ GNEAdditionalHandler::buildLaneCalibrator(const CommonXMLStructure::SumoBaseObje
             return false;
         } else {
             // build Calibrator
-            GNEAdditional* calibrator = (routeProbe == nullptr) ?
-                                        new GNECalibrator(id, myNet, myFileBucket, lane, pos, period, name, outfile, jamThreshold, vTypes, parameters) :
-                                        new GNECalibrator(id, myNet, myFileBucket, lane, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
+            GNEAdditional* calibrator = new GNECalibrator(id, myNet, myFileBucket, lane, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getUndoList()->begin(calibrator, TL("add lane calibrator '") + id + "'");
@@ -815,9 +813,7 @@ GNEAdditionalHandler::buildEdgeCalibrator(const CommonXMLStructure::SumoBaseObje
             return false;
         } else {
             // build Calibrator
-            GNEAdditional* calibrator = (routeProbe == nullptr) ?
-                                        new GNECalibrator(id, myNet, myFileBucket, edge, pos, period, name, outfile, jamThreshold, vTypes, parameters) :
-                                        new GNECalibrator(id, myNet, myFileBucket, edge, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
+            GNEAdditional* calibrator = new GNECalibrator(id, myNet, myFileBucket, edge, pos, period, name, outfile, routeProbe, jamThreshold, vTypes, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {
                 myNet->getUndoList()->begin(calibrator, TL("add calibrator '") + id + "'");
