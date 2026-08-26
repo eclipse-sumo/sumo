@@ -375,9 +375,6 @@ private:
     static std::vector<double> myCCHAppliedEffort[2];
     static std::vector<char> myCCHPendingFlag[2];
     static std::vector<const MSEdge*> myCCHPendingList[2];
-    /// @brief validate every partial customize against a full one and abort
-    /// on the first divergent arc (set by env SUMO_CCH_VALIDATE; debug aid)
-    static bool myCCHValidate;
     /// @brief build the shared CCH + one metric per present class, publish initial metrics
     static void initCCH();
     /// @brief refill+customize+publish every class's metric from live speeds/permissions
