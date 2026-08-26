@@ -180,7 +180,10 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
 
     if (isDUA || isMA) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"));
+        // CCH is only implemented for duarouter
+        oc.addDescription("routing-algorithm", "Processing",
+                          isDUA ? TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', 'CCH']")
+                          : TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"));
     }
 
     oc.doRegister("restriction-params", new Option_StringVector());

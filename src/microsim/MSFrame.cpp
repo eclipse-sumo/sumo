@@ -662,7 +662,7 @@ MSFrame::fillOptions() {
     // generic routing options
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Routing",
-                      "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
+                      "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', 'CCH']");
 
     oc.doRegister("weights.random-factor", new Option_Float(1.));
     oc.addDescription("weights.random-factor", "Routing", TL("Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"));
