@@ -490,7 +490,8 @@ Processing Options:
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms
-                                        ['dijkstra', 'astar', 'CH', 'CHWrapper']
+                                        ['dijkstra', 'astar', 'CH', 'CHWrapper',
+                                        'CCH']
   --weights.random-factor FLOAT        Edge weights for routing are dynamically
                                         disturbed by a random factor drawn
                                         uniformly from [1,FLOAT)
@@ -553,12 +554,22 @@ Routing Options:
                                         average weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
                                         edge weights
+  --device.rerouting.cch-update-threshold.factor FLOAT  Only propagate an arc
+                                        weight into the CCH metric if it changed
+                                        by more than the given factor
+  --device.rerouting.cch-update-threshold.constant TIME  Only propagate an arc
+                                        weight into the CCH metric if it changed
+                                        by more than the given TIME
   --device.rerouting.threshold.factor FLOAT  Only reroute if the new route is
                                         faster than the current route by the
                                         given factor
   --device.rerouting.threshold.constant TIME  Only reroute if the new route is
                                         faster than the current route by the
                                         given TIME
+  --device.rerouting.invalidation      Only perform a periodic reroute when the
+                                        current route's remaining cost has
+                                        drifted beyond the threshold (cheap
+                                        re-scoring gate before the full reroute)
   --device.rerouting.with-taz          Use zones (districts) as routing start-
                                         and endpoints
   --device.rerouting.mode STR          Set routing flags (8 ignores temporary
