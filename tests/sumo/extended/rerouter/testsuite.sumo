@@ -67,6 +67,9 @@ closing_keep_route_stop
 # vehicle should keep stop after reroute even if it requires a detour
 closing_keep_stop_detour
 
+# see #18263
+closing_increase_permissions
+
 # the route is terminated on an edge, which the vehicle already passed
 terminateRoute_on_jumped_edge
 terminateRoute_on_depart
