@@ -262,6 +262,27 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
 }
 
 
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+void
+MSTransportableControl::addPendingRouting(MSTransportable* transportable) {
+    myPendingRouting.push_back(transportable);
+}
+
+
+void
+MSTransportableControl::processPendingRouting(MSNet* net, const SUMOTime time) {
+    for (MSTransportable* t : myPendingRouting) {
+        if (!t->proceed(net, time)) {
+            erase(t);
+        }
+    }
+    myPendingRouting.clear();
+}
+#endif
+#endif
+
+
 void
 MSTransportableControl::forceDeparture() {
     myRunningNumber++;
