@@ -299,6 +299,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
         dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
         dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * frontSpeed * 3.6, attributeMask, frontSampleSeconds == 0);
         dev.writeOptionalAttr(SUMO_ATTR_DISTANCE, frontTravelledDistance, attributeMask);
+        dev.closeTag();
         return;
     }
     const bool haveSamples = sampleSeconds > myParent->myMinSamples;
