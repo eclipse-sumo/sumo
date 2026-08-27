@@ -7835,6 +7835,9 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(isStopped()));
     internals.push_back(toString(isStopped() ? myStops.front().duration : 0));
     internals.push_back(toString(myPastStops.size()));
+    internals.push_back(toString(myJunctionEntryTime));
+    internals.push_back(toString(myJunctionConflictEntryTime));
+    internals.push_back(toString(myJunctionEntryTimeNeverYield));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, std::vector<double> { myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
     out.writeAttr(SUMO_ATTR_SPEED, std::vector<double> { myState.mySpeed, myState.myPreviousSpeed });
@@ -7895,6 +7898,9 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> stopped;
     bis >> stopDuration;
     bis >> pastStops;
+    bis >> myJunctionEntryTime;
+    bis >> myJunctionConflictEntryTime;
+    bis >> myJunctionEntryTimeNeverYield;
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
         myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);
