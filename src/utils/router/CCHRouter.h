@@ -125,11 +125,13 @@ public:
         if (metric == nullptr || (myProhibitionActive && !prohibitionsCoveredByMetric(vClass))) {
             return myFallback->compute(from, to, vehicle, msTime, into, silent);
         }
-        // Endpoints -> node SETS: a TAZ connector expands to its member edges
-        // (phantom-node seeding); a real edge is a single node. TAZ member edges
-        // are the class-union set, so filter to edges this class may enter.
-        const bool fromTaz = from->isTazConnector();
-        const bool toTaz = to->isTazConnector();
+        // Endpoints -> node SETS: a district star connector expands to its
+        // member edges (phantom-node seeding); everything that is a graph
+        // node -- including legacy function="connector" net edges -- routes
+        // as a single node. TAZ member edges are the class-union set, so
+        // filter to edges this class may enter.
+        const bool fromTaz = from->isTazConnector() && myGraph->nodeOf(from) == GRAPH::INVALID_NODE;
+        const bool toTaz = to->isTazConnector() && myGraph->nodeOf(to) == GRAPH::INVALID_NODE;
         std::vector<unsigned> srcBuf, tgtBuf;
         const std::vector<unsigned>* sources;
         const std::vector<unsigned>* targets;

@@ -106,7 +106,14 @@ public:
         }
         myEdgeToNode.assign(maxNumID + 1, INVALID_NODE);
         for (const E* e : allEdges) {
-            if (e->isInternal() || e->isTazConnector()) {
+            // excluded are junction-internal edges and the district STAR
+            // connectors ("<taz>-source"/"-sink", the high-degree phantom
+            // edges -- see the class documentation). Legacy net edges with
+            // function="connector" are ordinary routable geometry for the
+            // exact routers and therefore stay ordinary nodes here; only the
+            // paired district connectors (identified by their
+            // otherTazConnector link) are kept out of the hierarchy.
+            if (e->isInternal() || isStarConnector(e)) {
                 continue;
             }
             const unsigned node = (unsigned)myNodeToEdge.size();
@@ -181,7 +188,7 @@ public:
         // source connector (entry edges), predecessors for a sink connector.
         unsigned nTazSrc = 0, nTazSnk = 0;
         for (const E* e : allEdges) {
-            if (!e->isTazConnector()) {
+            if (!isStarConnector(e)) {
                 continue;
             }
             std::vector<unsigned> srcNodes;
@@ -364,6 +371,13 @@ public:
     }
 
 private:
+    /// @brief whether the edge is a district star connector (the paired
+    /// "<taz>-source"/"-sink" phantom edge) as opposed to a legacy
+    /// function="connector" net edge, which stays routable
+    static bool isStarConnector(const E* e) {
+        return e->isTazConnector() && e->getOtherTazConnector() != nullptr;
+    }
+
     /** @brief Record which arcs @p vClass may traverse in the per-arc
      * CONNECTION-level permission bitmask -- exactly the arcs
      * getViaSuccessors(vClass) yields (edge-level getPermissions() is too
