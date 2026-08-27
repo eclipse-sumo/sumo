@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-20T09:06:08.281773+01:00 by Eclipse SUMO sumo v1_26_0+1678-6b9b3d63f0c
+<!-- generated on 2026-08-27T15:00:19.225299+01:00 by Eclipse SUMO sumo v1_27_1+0513-afd24508070
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -47,7 +47,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_26_0+1678-6b9b3d63f0c" time="30.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_1+0513-afd24508070" time="30.000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <rngState default="0" routeHandler="8" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="30"/>
@@ -123,7 +123,7 @@
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
     </vType>
-    <vehicle id="trip_0" type="taxi" depart="0.000" route="!trip_0!var#1" distance="0 1" speedFactor="1.030000000000000" line="taxi" state="2050 0 0 5.100000000000000 0 6.621343334327465 29000 0 0 1" pos="251.358378587936642 246.358378587936642 13.571504251422175" speed="13.571504251422175 13.854048832339050" angle="90.000000000000000" posLat="0.000000000000000" waitingTime="100000 1 21000 23000" lcStateBase="0.000000000000000" lcState2="0 0 0 0 0">
+    <vehicle id="trip_0" type="taxi" depart="0.000" route="!trip_0!var#1" distance="0 1" speedFactor="1.030000000000000" line="taxi" state="2050 0 0 5.100000000000000 0 6.621343334327465 29000 0 0 1 9223372036854774807 9223372036854774807 9223372036854774807" pos="251.358378587936642 246.358378587936642 13.571504251422175" speed="13.571504251422175 13.854048832339050" angle="90.000000000000000" posLat="0.000000000000000" waitingTime="100000 1 21000 23000" lcStateBase="0.000000000000000" lcState2="0 0 0 0 0">
         <stop lane="A0B0_1" startPos="20.000000000000000" endPos="20.000000000000000" duration="0.000" triggered="person" parking="1" permitted="p0" actType="pickup p0 (0)" started="9.000" ended="10.000"/>
         <stop lane="B0C0_1" startPos="300.000000000000000" endPos="300.000000000000000" duration="60.000" parking="1" actType="dropOff p0 (0)"/>
         <device id="vehroute_trip_0" state="1 0.000000000000000 0.000000000000000 5.100000000000000 1 A0B0 0 r0 taxi:prepare_dispatch 0 0"/>
@@ -131,7 +131,7 @@
         <device id="taxi_trip_0" state="2 0 231.359 21000" customers="p0" reservations="0"/>
         <device id="person_trip_0" state="0 0 0"/>
     </vehicle>
-    <vehicle id="trip_1" type="taxi" depart="0.000" route="r0" distance="0 0" speedFactor="0.969200000000000" line="taxi" state="2050 3000 0 5.100000000000000 0 0.000000000000000 4000 1 -25001 0" pos="5.100000000000000 0.100000000000000 0.000000000000000" speed="0.000000000000000 0.000000000000000" angle="90.000000000000000" posLat="0.000000000000000" waitingTime="100000 0" lcStateBase="0.000000000000000" lcState2="0 0 0 0 0">
+    <vehicle id="trip_1" type="taxi" depart="0.000" route="r0" distance="0 0" speedFactor="0.969200000000000" line="taxi" state="2050 3000 0 5.100000000000000 0 0.000000000000000 4000 1 -25001 0 9223372036854774807 9223372036854774807 9223372036854774807" pos="5.100000000000000 0.100000000000000 0.000000000000000" speed="0.000000000000000 0.000000000000000" angle="90.000000000000000" posLat="0.000000000000000" waitingTime="100000 0" lcStateBase="0.000000000000000" lcState2="0 0 0 0 0">
         <stop lane="A0B0_1" endPos="5.100000000000000" triggered="person" parking="1" actType="idling" started="4.000"/>
         <device id="vehroute_trip_1" state="1 0.000000000000000 0.000000000000000 5.100000000000000 0"/>
         <device id="tripinfo_trip_1" state="A0B0_1 0 0 -5.1 0 0 0 1000 4000 -1000 NONE -1 0 -1"/>
