@@ -466,6 +466,8 @@ MSMeanData_Net::getAttributeNames() const {
     result.push_back(toString(SUMO_ATTR_ARRIVED));
     result.push_back(toString(SUMO_ATTR_ENTERED));
     result.push_back(toString(SUMO_ATTR_LEFT));
+    result.push_back(toString(SUMO_ATTR_LANECHANGEDFROM));
+    result.push_back(toString(SUMO_ATTR_LANECHANGEDTO));
     result.push_back(toString(SUMO_ATTR_VAPORIZED));
     result.push_back(toString(SUMO_ATTR_TELEPORTED));
     result.push_back(toString(SUMO_ATTR_FLOW));
@@ -489,6 +491,8 @@ MSMeanData_Net::supports(const SumoXMLAttrMask& attributeMask) {
         attributeMask.test(SUMO_ATTR_ARRIVED) ||
         attributeMask.test(SUMO_ATTR_ENTERED) ||
         attributeMask.test(SUMO_ATTR_LEFT) ||
+        attributeMask.test(SUMO_ATTR_LANECHANGEDFROM) ||
+        attributeMask.test(SUMO_ATTR_LANECHANGEDTO) ||
         attributeMask.test(SUMO_ATTR_VAPORIZED) ||
         attributeMask.test(SUMO_ATTR_TELEPORTED) ||
         attributeMask.test(SUMO_ATTR_FLOW) ||
