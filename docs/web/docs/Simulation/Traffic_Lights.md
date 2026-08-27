@@ -417,6 +417,9 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
+!!! note
+    Using custom detectors in [meso](Meso.md), only works if the inductionLoop sets attribute `mesoTLS="true"`
+
 Custom detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
 To include further detectors in the output and in the [phase tracker dialog](#track_phases) (i.e. when a custom logic uses laneArea detectors or multiple detectors on the same lane) the following declaration can be used to list all extra detectors:
