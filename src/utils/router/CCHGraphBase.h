@@ -57,6 +57,8 @@
 #include <routingkit/nested_dissection.h>
 #pragma GCC diagnostic pop
 
+// #define CCH_DEBUG
+
 
 // ===========================================================================
 // class definitions
@@ -211,12 +213,12 @@ public:
         std::vector<unsigned> order = RoutingKit::compute_nested_node_dissection_order_using_inertial_flow(
                                           nNodes, myArcTail, myArcHead, lat, lon);
         myCCH = RoutingKit::CustomizableContractionHierarchy(order, myArcTail, myArcHead);
-
-        WRITE_MESSAGEF(TL("CCH: % road nodes, % arcs, % cch-arcs (fill x%), % TAZ sources, % TAZ sinks."),
-                       toString(nNodes), toString(arcCount()),
-                       toString(myCCH.cch_arc_count()),
-                       toString((double)myCCH.cch_arc_count() / MAX2((unsigned)1, arcCount())),
-                       toString(nTazSrc), toString(nTazSnk));
+#ifdef CCH_DEBUG
+        std::cout << "CCH: " << nNodes << " road nodes, "
+                  << arcCount() << " arcs, "
+                  << myCCH.cch_arc_count() << " cch-arcs (fill x" << (double)myCCH.cch_arc_count() / MAX2((unsigned)1, arcCount())
+                  << "), " << nTazSrc<< " TAZ sources, " << nTazSnk << " TAZ sinks." << std::endl;
+#endif
     }
 
     virtual ~CCHGraphBase() {}
