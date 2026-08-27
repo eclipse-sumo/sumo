@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
-    <!-- detect only buses -->
-    <inductionLoop id="dBus" lane="SC_0" pos="-90" vTypes="busType" file="NUL"/>
+    <!-- detect only buses, mesoTLS=true ensures that this is a microscopic tls detector when running meso -->
+    <inductionLoop id="dBus" lane="SC_0" pos="-90" vTypes="busType" file="NUL" mesoTLS="true"/>
 
     <tlLogic id="C" type="actuated" programID="P1" offset="0">
         <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
