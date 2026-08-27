@@ -488,11 +488,11 @@ The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can 
 
 ```xml
     <tlLogic id="C" type="actuated" programID="P1" offset="0">
-        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="8 1"/>
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="1 8"/>
         <phase duration="3"  state="ygrrygrr"/>
         <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
         <phase duration="3"  state="ryrrryrr"/>
-        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="9 5"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="5 9"/>
         <phase duration="3"  state="rrygrryg"/>
         <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
         <phase duration="3"  state="rrryrrry" next="0"/>
