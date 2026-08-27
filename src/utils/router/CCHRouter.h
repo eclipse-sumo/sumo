@@ -87,9 +87,10 @@ public:
      * @param[in] fallback  embedded router for non-CCH cases (OWNED)
      */
     CCHRouter(const GRAPH* graph, MetricProvider provider,
-              Operation operation, SUMOAbstractRouter<E, V>* fallback,
+              Operation operation, const bool unbuildIsWarning,
+              SUMOAbstractRouter<E, V>* fallback,
               PeriodEnd periodEnd = nullptr) :
-        SUMOAbstractRouter<E, V>("CCHRouter", true, operation, nullptr, false, false),
+        SUMOAbstractRouter<E, V>("CCHRouter", unbuildIsWarning, operation, nullptr, false, false),
         myGraph(graph), myMetricProvider(provider), myFallback(fallback),
         myPeriodEnd(periodEnd), myProhibitionActive(false) {
     }

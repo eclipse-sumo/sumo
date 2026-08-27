@@ -687,7 +687,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
             new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, true);
         router = new CCHRouter<MSEdge, SUMOVehicle, CCHGraph>(
-            myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, fallback);
+            myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, true, fallback);
     } else {
         throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
     }

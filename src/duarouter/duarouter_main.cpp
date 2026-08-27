@@ -186,7 +186,8 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // trip crosses a weight-period boundary re-query on the next
             // period's metric.
             router = new CCHRouter<ROEdge, ROVehicle, RODUACCHGraph>(
-                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic, fallback,
+                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic,
+                oc.getBool("ignore-errors"), fallback,
                 hasWeights ? &RODUACCHMetrics::periodEnd : nullptr);
         } else if (routingAlgorithm == "arcflag") {
             /// @brief The number of levels in the k-d tree partition
