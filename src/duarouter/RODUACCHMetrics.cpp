@@ -32,7 +32,6 @@ RODUACCHGraph::EffortOperation RODUACCHMetrics::myEffort = nullptr;
 SUMOTime RODUACCHMetrics::myBegin = 0;
 SUMOTime RODUACCHMetrics::myWeightPeriod = SUMOTime_MAX;
 std::map<RODUACCHMetrics::MetricKey, RODUACCHMetrics::ClassMetric> RODUACCHMetrics::myMetrics;
-std::map<std::vector<double>, int> RODUACCHMetrics::myProfiles;
 std::mutex RODUACCHMetrics::myLock;
 
 
@@ -47,7 +46,6 @@ RODUACCHMetrics::init(const RODUACCHGraph* graph, RODUACCHGraph::EffortOperation
     myBegin = begin;
     myWeightPeriod = weightPeriod;
     myMetrics.clear();
-    myProfiles.clear();
 }
 
 
@@ -62,32 +60,28 @@ RODUACCHMetrics::get(SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* ve
     if (myWeightPeriod > 0 && myWeightPeriod != SUMOTime_MAX && time > myBegin) {
         period = (int)((time - myBegin) / myWeightPeriod);
     }
-    // Lazy build on the first query for a (class, period, profile) triple
-    // (duarouter streams vehicles, so classes are not known up front); the
-    // weights are evaluated at the period's begin, so each triple is
-    // customized exactly once. The mutex also serialises concurrent first
-    // queries from parallel routing threads (satisfying primeClassMask's
+    // Lazy build on the first query for a (type, period) pair (duarouter
+    // streams vehicles, so the types are not known up front); the weights are
+    // evaluated at the period's begin with the querying vehicle as the effort
+    // reference, so each pair is customized exactly once and reflects the
+    // type's maximum speed, per-class edge speed restrictions and
+    // restriction-params. The mutex also serialises concurrent first queries
+    // from parallel routing threads (satisfying primeClassMask's
     // synchronization contract); afterwards the map is read-only for that
     // key (references into std::map are stable).
     std::lock_guard<std::mutex> lock(myLock);
-    int profile = 0;
-    if (veh != nullptr && !veh->getType()->paramRestrictions.empty()) {
-        const auto ins = myProfiles.insert(std::make_pair(veh->getType()->paramRestrictions,
-                                           (int)myProfiles.size()));
-        profile = ins.first->second;
-    }
-    const MetricKey key = std::make_tuple(vClass, period, profile);
+    const MetricKey key = std::make_pair(veh == nullptr ? nullptr : veh->getType(), period);
     auto it = myMetrics.find(key);
     if (it == myMetrics.end()) {
         ClassMetric& cm = myMetrics[key];
         const double periodBegin = STEPS2TIME(myBegin + period * myWeightPeriod);
-        myGraph->fillInputWeights(myEffort, vClass, nullptr, periodBegin, cm.weights);
-        if (profile != 0 || (veh != nullptr && !veh->getType()->paramRestrictions.empty())) {
-            // mask the edges that restrict this profile (restricts() depends
-            // only on the type's paramRestrictions vector, evaluated here via
-            // the first vehicle of the profile). arcsOfEdge of a real edge is
-            // exactly the arcs headed by it -- via chains hold internal edges
-            // only -- matching what the exact routers check per relaxation.
+        myGraph->fillInputWeights(myEffort, vClass, veh, periodBegin, cm.weights);
+        if (veh != nullptr && !veh->getType()->paramRestrictions.empty()) {
+            // mask the edges that restrict this type (restricts() depends
+            // only on the type's paramRestrictions vector). arcsOfEdge of a
+            // real edge is exactly the arcs headed by it -- via chains hold
+            // internal edges only -- matching what the exact routers check
+            // per relaxation.
             for (const ROEdge* const e : ROEdge::getAllEdges()) {
                 if (!e->isInternal() && !e->isTazConnector() && e->restricts(veh)) {
                     for (const unsigned a : myGraph->arcsOfEdge(e)) {

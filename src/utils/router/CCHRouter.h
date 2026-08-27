@@ -171,7 +171,7 @@ public:
 
         this->startQuery();
         const double t = STEPS2TIME(msTime);
-        if (!runQuery(metric, *sources, *targets, t)) {
+        if (!runQuery(metric, *sources, *targets, vehicle, t)) {
             this->endQuery(0);
             if (!silent && this->myErrorMsgHandler != nullptr) {
                 this->myErrorMsgHandler->informf(TL("No connection between edge '%' and edge '%' found."),
@@ -198,7 +198,7 @@ public:
                     && msTime + TIME2STEPS((double)myQuery.get_distance() / 100.) >= boundary) {
                 MetricPtr altMetric = myMetricProvider(vClass, boundary, vehicle);
                 if (altMetric != nullptr && altMetric != metric
-                        && runQuery(altMetric, *sources, *targets, t)) {
+                        && runQuery(altMetric, *sources, *targets, vehicle, t)) {
                     std::vector<const E*> altPath;
                     buildPath(from, to, fromTaz, toTaz, altPath);
                     visited += (int)altPath.size();
@@ -246,7 +246,7 @@ private:
      * how expensive each entry edge is and picks a different entry than A*.
      * Targets seed 0: the arc INTO a target already carries its effort. */
     bool runQuery(MetricPtr metric, const std::vector<unsigned>& sources,
-                  const std::vector<unsigned>& targets, double t) {
+                  const std::vector<unsigned>& targets, const V* const vehicle, double t) {
         if (metric != myBoundMetric) {
             myQuery.reset(*metric);
             myBoundMetric = metric;
@@ -255,7 +255,7 @@ private:
         }
         const double bigEff = (double)(RoutingKit::inf_weight - 1) / 100.0;
         for (const unsigned s : sources) {
-            const double eff = this->getEffort(myGraph->edgeOf(s), nullptr, t);
+            const double eff = this->getEffort(myGraph->edgeOf(s), vehicle, t);
             const unsigned d = eff < bigEff ? (unsigned)llround(eff * 100.0) : RoutingKit::inf_weight - 1;
             myQuery.add_source(s, d);
         }
