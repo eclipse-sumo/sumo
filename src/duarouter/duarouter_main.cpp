@@ -199,7 +199,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                     partition, oc.getBool("ignore-errors"), ttFunction, reversedTtFunction, (oc.isSet("weight-files") ? string2time(oc.getString("weight-period")) : SUMOTime_MAX),
                     nullptr, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else {
-            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
+            throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
         }
     } else {
         if (measure == "traveltime") {

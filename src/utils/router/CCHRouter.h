@@ -50,7 +50,10 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/SUMOAbstractRouter.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <routingkit/customizable_contraction_hierarchy.h>
+#pragma GCC diagnostic pop
 
 
 // ===========================================================================
@@ -88,15 +91,14 @@ public:
               PeriodEnd periodEnd = nullptr) :
         SUMOAbstractRouter<E, V>("CCHRouter", true, operation, nullptr, false, false),
         myGraph(graph), myMetricProvider(provider), myFallback(fallback),
-        myBoundMetric(nullptr), myPeriodEnd(periodEnd), myProhibitionActive(false) {
+        myPeriodEnd(periodEnd), myProhibitionActive(false) {
     }
 
     /// @brief clone constructor: share graph + provider, clone the fallback, fresh query scratch
     CCHRouter(CCHRouter* other) :
         SUMOAbstractRouter<E, V>(other),
         myGraph(other->myGraph), myMetricProvider(other->myMetricProvider),
-        myFallback(other->myFallback->clone()), myBoundMetric(nullptr),
-        myPeriodEnd(other->myPeriodEnd),
+        myFallback(other->myFallback->clone()), myPeriodEnd(other->myPeriodEnd),
         myProhibitionActive(other->myProhibitionActive), myProhibited(other->myProhibited) {
     }
 
@@ -300,7 +302,7 @@ private:
     const GRAPH* myGraph;                    // shared, immutable, not owned
     MetricProvider myMetricProvider;
     RoutingKit::CustomizableContractionHierarchyQuery myQuery;  // per-clone scratch
-    MetricPtr myBoundMetric;                 // metric myQuery is currently bound to
+    MetricPtr myBoundMetric = nullptr;       // metric myQuery is currently bound to
     SUMOAbstractRouter<E, V>* myFallback;    // owned
     PeriodEnd myPeriodEnd;                   // may be nullptr (static weights)
     bool myProhibitionActive;

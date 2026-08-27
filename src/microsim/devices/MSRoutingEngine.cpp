@@ -49,7 +49,10 @@
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/router/CCHGraphBase.h>
 #include <utils/router/CCHRouter.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include <routingkit/customizable_contraction_hierarchy.h>
+#pragma GCC diagnostic pop
 
 //#define DEBUG_SEPARATE_TURNS
 #define DEBUG_COND(obj) (obj->isSelected())
