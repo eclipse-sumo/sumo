@@ -253,8 +253,6 @@ The following outputs are not supported:
 
 The following SUMO features are not supported:
 
-- [Actuated traffic lights](Traffic_Lights.md#type_actuated)
-- Electric model
 - Wireless model
 - Opposite-direction driving
 - Sublane-model
