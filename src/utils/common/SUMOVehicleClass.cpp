@@ -377,6 +377,11 @@ parseVehicleClasses(const std::string& allowedS) {
 }
 
 
+void
+clearParseVehicleClassesCache() {
+    parseVehicleClassesCached.clear();
+}
+
 bool
 canParseVehicleClasses(const std::string& classes) {
     if (classes == VehicleClassNameAll) {
