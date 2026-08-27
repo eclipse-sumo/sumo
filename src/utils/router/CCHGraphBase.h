@@ -159,14 +159,6 @@ public:
         }
         myArcPerm.assign(myArcTail.size(), 0);
         myPrimedClasses = 0;
-        myHasVia = false;
-        for (const E* via : myArcVia) {
-            if (via != nullptr) {
-                myHasVia = true;
-                break;
-            }
-        }
-
         // 2b. reverse image for sparse re-customization: for every arc, the
         // edges its weight reads at fill time (head edge + folded via chain;
         // the tail edge is deliberately absent from the weight, see the arc
@@ -280,39 +272,17 @@ public:
         return myEdgeToArcs[e->getNumericalID()];
     }
 
-    /** @brief Re-expand a RoutingKit node path into the full edge list,
-     * re-inserting any folded internal/via edges. */
+    /** @brief Map a RoutingKit node path back to the edge sequence.
+     *
+     * The result lists REAL edges only, exactly like the exact routers:
+     * junction-internal edges are never part of SUMO route vectors -- their
+     * cost is folded into the arc weights for the query and re-added from
+     * consecutive real edges by SUMOAbstractRouter::recomputeCosts. */
     void expandNodePath(const std::vector<unsigned>& nodePath,
                         std::vector<const E*>& into) const {
         into.reserve(into.size() + nodePath.size());
-        // Fast path for nets without internal edges (e.g. --no-internal-links):
-        // graph nodes ARE the edges, so the route is a direct id map -- no
-        // per-hop getViaSuccessors lookup (which locks under multithreading).
-        if (!myHasVia) {
-            for (unsigned node : nodePath) {
-                into.push_back(myNodeToEdge[node]);
-            }
-            return;
-        }
-        // Re-insert folded internal/via edges between consecutive real edges so
-        // the returned route is a valid edge sequence.
-        for (size_t i = 0; i < nodePath.size(); i++) {
-            const E* e = myNodeToEdge[nodePath[i]];
-            into.push_back(e);
-            if (i + 1 < nodePath.size()) {
-                const E* next = myNodeToEdge[nodePath[i + 1]];
-                for (const auto& follower : e->getViaSuccessors(SVC_IGNORING)) {
-                    if (follower.first == next) {
-                        const E* via = follower.second;
-                        while (via != nullptr && via->isInternal()) {
-                            into.push_back(via);
-                            const auto& vs = via->getViaSuccessors();
-                            via = vs.empty() ? nullptr : vs.front().second;
-                        }
-                        break;
-                    }
-                }
-            }
+        for (unsigned node : nodePath) {
+            into.push_back(myNodeToEdge[node]);
         }
     }
 
@@ -447,10 +417,6 @@ private:
     std::map<const E*, std::vector<unsigned> > myTazSrcNodes;
     /// @brief TAZ-sink connector edge -> its exit-edge road node ids
     std::map<const E*, std::vector<unsigned> > myTazSnkNodes;
-    /// @brief whether any arc folds a real internal/via edge chain. False for
-    /// --no-internal-links nets: lets path expansion skip the per-hop
-    /// getViaSuccessors lookup (which locks under multithreading).
-    bool myHasVia;
     /// @brief the immutable hierarchy
     RoutingKit::CustomizableContractionHierarchy myCCH;
 
