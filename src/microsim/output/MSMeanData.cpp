@@ -289,7 +289,7 @@ MSMeanData::MeanDataValueTracker::MeanDataValueTracker(MSLane* const lane,
         const double length,
         const MSMeanData* const parent)
     : MSMeanData::MeanDataValues(lane, length, true, parent) {
-    myCurrentData.push_back(std::make_shared<TrackerEntry>(parent->createValues(lane, length, false)));
+    myCurrentData.push_back(std::make_shared<TrackerEntry>(parent->createValuesSubData(lane, length, false)));
 }
 
 
@@ -303,7 +303,7 @@ MSMeanData::MeanDataValueTracker::reset(bool afterWrite) {
             myCurrentData.pop_front();
         }
     } else {
-        myCurrentData.push_back(std::make_shared<TrackerEntry>(myParent->createValues(myLane, myLaneLength, false)));
+        myCurrentData.push_back(std::make_shared<TrackerEntry>(myParent->createValuesSubData(myLane, myLaneLength, false)));
     }
 }
 
@@ -508,15 +508,28 @@ MSMeanData::init() {
             }
         }
     }
+    if (mySubData != nullptr) {
+        mySubData->init();
+        std::vector<std::vector<MeanDataValues*> >::const_iterator subMeasureList = mySubData->myMeasures.begin();
+        for (const std::vector<MeanDataValues*>& valueList : myMeasures) {
+            std::vector<MeanDataValues*>::const_iterator subMeasures = subMeasureList->begin();
+            for (MeanDataValues* values : valueList) {
+                values->setSubData(*subMeasures);
+                subMeasures++;
+            }
+            subMeasureList++;
+        }
+    }
 }
 
 
 MSMeanData::~MSMeanData() {
-    for (std::vector<std::vector<MeanDataValues*> >::const_iterator i = myMeasures.begin(); i != myMeasures.end(); ++i) {
-        for (std::vector<MeanDataValues*>::const_iterator j = (*i).begin(); j != (*i).end(); ++j) {
-            delete *j;
+    for (const std::vector<MeanDataValues*>& valueList : myMeasures) {
+        for (MeanDataValues* const values : valueList) {
+            delete values;
         }
     }
+    delete mySubData;
 }
 
 
@@ -567,7 +580,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
         speedSum += edge->getSpeedLimit();
         totalTT += edge->getLength() / edge->getSpeedLimit();
     }
-    MeanDataValues* sumData = createValues(nullptr, edgeLengthSum, false);
+    MeanDataValues* sumData = createValuesSubData(nullptr, edgeLengthSum, false);
     for (const std::vector<MeanDataValues*>& edgeValues : myMeasures) {
         for (MeanDataValues* meanData : edgeValues) {
             meanData->addTo(*sumData);
@@ -597,8 +610,11 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
     if (myDumpEmpty || !sumData->isEmpty()) {
         writePrefix(dev, *sumData, SUMO_TAG_EDGE, "AGGREGATED");
         dev.writeAttr(SUMO_ATTR_NUMEDGES, myEdges.size());
-        sumData->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)myEdges.size(),
-                       myPrintDefaults ? totalTT : -1.);
+        for (MeanDataValues* data = sumData; data != nullptr; data = data->getSubData()) {
+            data->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)myEdges.size(),
+                        myPrintDefaults ? totalTT : -1.);
+        }
+        dev.closeTag();
     }
     delete sumData;
 }
@@ -628,7 +644,7 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
             speedSum += edge->getSpeedLimit();
             totalTT += edge->getLength() / edge->getSpeedLimit();
         }
-        MeanDataValues* sumData = createValues(nullptr, edgeLengthSum, false);
+        MeanDataValues* sumData = createValuesSubData(nullptr, edgeLengthSum, false);
         for (int i = 0; i < (int)myEdges.size(); i++) {
             MSEdge* edge = myEdges[i];
             if (connected.count(edge) != 0) {
@@ -652,8 +668,11 @@ MSMeanData::writeAggregatedTAZ(OutputDevice& dev, SUMOTime startTime, SUMOTime s
         if (myDumpEmpty || !sumData->isEmpty()) {
             writePrefix(dev, *sumData, SUMO_TAG_EDGE, taz->getID());
             dev.writeAttr(SUMO_ATTR_NUMEDGES, connected.size());
-            sumData->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)connected.size(),
-                           myPrintDefaults ? totalTT : -1.);
+            for (MeanDataValues* data = sumData; data != nullptr; data = data->getSubData()) {
+                data->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)connected.size(),
+                            myPrintDefaults ? totalTT : -1.);
+            }
+            dev.closeTag();
         }
         delete sumData;
     }
@@ -686,10 +705,13 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues* const data = edgeValues.front();
             if (myDumpEmpty || (myPrintModified && edge->getLanes()[0]->isSpeedModified()) || !data->isEmpty()) {
                 writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge));
-                data->write(dev, myWrittenAttributes, stopTime - startTime,
-                            edge->getNumDrivingLanes(),
-                            edge->getSpeedLimit(),
-                            myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                for (MeanDataValues* d = data; d != nullptr; d = d->getSubData()) {
+                    d->write(dev, myWrittenAttributes, stopTime - startTime,
+                             edge->getNumDrivingLanes(),
+                             edge->getSpeedLimit(),
+                             myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                }
+                dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
                 data->reset(true);
@@ -714,8 +736,11 @@ MSMeanData::writeEdge(OutputDevice& dev,
             const MSLane* const lane = laneData->getLane();
             if (myDumpEmpty || (myPrintModified && lane->isSpeedModified()) || !laneData->isEmpty()) {
                 writePrefix(dev, *laneData, SUMO_TAG_LANE, lane->getID());
-                laneData->write(dev, myWrittenAttributes, stopTime - startTime, 1, lane->getSpeedLimit(),
+                for (MeanDataValues* data = laneData; data != nullptr; data = data->getSubData()) {
+                    data->write(dev, myWrittenAttributes, stopTime - startTime, 1, lane->getSpeedLimit(),
                                 myPrintDefaults ? lane->getLength() / lane->getSpeedLimit() : -1.);
+                }
+                dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
                 laneData->reset(true);
@@ -726,17 +751,20 @@ MSMeanData::writeEdge(OutputDevice& dev,
         }
     } else {
         if (myTrackVehicles) {
-            MeanDataValues& meanData = **edgeValues.begin();
-            if (myDumpEmpty || !meanData.isEmpty()) {
-                writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID());
-                meanData.write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
-                               myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+            MeanDataValues* meanData = *edgeValues.begin();
+            if (myDumpEmpty || !meanData->isEmpty()) {
+                writePrefix(dev, *meanData, SUMO_TAG_EDGE, edge->getID());
+                for (MeanDataValues* data = meanData; data != nullptr; data = data->getSubData()) {
+                    data->write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
+                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                }
+                dev.closeTag();
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
-                meanData.reset(true);
+                meanData->reset(true);
             }
         } else {
-            MeanDataValues* sumData = createValues(nullptr, edge->getLength(), false);
+            MeanDataValues* sumData = createValuesSubData(nullptr, edge->getLength(), false);
             bool writeCheck = myDumpEmpty;
             for (MeanDataValues* const laneData : edgeValues) {
                 laneData->addTo(*sumData);
@@ -749,8 +777,11 @@ MSMeanData::writeEdge(OutputDevice& dev,
             }
             if (writeCheck || !sumData->isEmpty()) {
                 writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge));
-                sumData->write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
-                               myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                for (MeanDataValues* data = sumData; data != nullptr; data = data->getSubData()) {
+                    data->write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
+                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                }
+                dev.closeTag();
             }
             delete sumData;
         }
@@ -856,6 +887,43 @@ MSMeanData::getReminders() const {
         result.insert(result.end(), vec.begin(), vec.end());
     }
     return result;
+}
+
+
+double
+MSMeanData::getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
+    double result = defaultValue;
+    const std::vector<MeanDataValues*>* edgeValues = getEdgeValues(&lane->getEdge());
+    if (edgeValues == nullptr) {
+        return result;
+    }
+    MeanDataValues* values = nullptr;
+    if (!myAmEdgeBased) {
+        values = (*edgeValues)[lane->getIndex()];
+    } else {
+        MeanDataValues* sumData = createValuesSubData(nullptr, lane->getLength(), false);
+        for (MeanDataValues* meanData : (*edgeValues)) {
+            meanData->addTo(*sumData);
+        }
+        values = sumData;
+    }
+    const SUMOTime myLastResetTime = 0; // XXX store last reset time
+    const SUMOTime period = SIMSTEP - myLastResetTime;
+    result = values->getAttributeValue(a, period, lane->getEdge().getNumLanes(), lane->getSpeedLimit());
+    if (myAmEdgeBased) {
+        delete values;
+    }
+    return result;
+}
+
+
+MSMeanData::MeanDataValues*
+MSMeanData::createValuesSubData(MSLane* const lane, const double length, const bool doAdd) const {
+    MeanDataValues* values = createValues(lane, length, doAdd);
+    if (mySubData != nullptr) {
+        values->setSubData(mySubData->createValues(lane, length, doAdd));
+    }
+    return values;
 }
 
 

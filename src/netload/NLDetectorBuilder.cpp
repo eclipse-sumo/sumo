@@ -523,34 +523,71 @@ NLDetectorBuilder::createEdgeLaneMeanData(const std::string& id, SUMOTime freque
         throw InvalidArgument("End before or at begin for meandata dump '" + id + "'.");
     }
     checkStepLengthMultiple(begin, " for meandata dump '" + id + "'");
-    MSMeanData* det = nullptr;
-    if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::DEFAULT)) ||
-            (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::TRAFFIC)) ||
-            (type == "performance")) {
-        det = new MSMeanData_Net(id, begin, end, useLanes, excludeEmpty,
-                                 withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, haltSpeedRel, vTypes, writeAttributes, edges, aggregate);
-    } else if ((type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::EMISSIONS)) || (type == "hbefa")) {
-        if (type == "hbefa") {
-            WRITE_WARNING(TL("The netstate type 'hbefa' is deprecated. Please use the type 'emissions' instead."));
-        }
-        det = new MSMeanData_Emissions(id, begin, end, useLanes, excludeEmpty,
-                                       withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
-    } else if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::HARMONOISE)) {
-        det = new MSMeanData_Harmonoise(id, begin, end, useLanes, excludeEmpty,
-                                        withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
-    } else if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::AMITRAN)) {
-        det = new MSMeanData_Amitran(id, begin, end, useLanes, excludeEmpty,
-                                     withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
-    } else {
-        throw InvalidArgument("Invalid type '" + type + "' for meandata dump '" + id + "'.");
-    }
-    if (det != nullptr) {
-        if (frequency < 0) {
-            frequency = end - begin;
+    std::vector<MeanDataType> types;
+    if (type == SUMOXMLDefinitions::MeanDataTypes.getString(MeanDataType::DEFAULT)) {
+        const SumoXMLAttrMask attrs = OutputDevice::parseWrittenAttributes(StringTokenizer(writeAttributes).getVector(), "meandata '" + id + "'");
+        if (attrs.none()) {
+            types.push_back(MeanDataType::TRAFFIC);
         } else {
-            checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
+            if (MSMeanData_Net::supports(attrs)) {
+                types.push_back(MeanDataType::TRAFFIC);
+            }
+            if (MSMeanData_Emissions::supports(attrs)) {
+                types.push_back(MeanDataType::EMISSIONS);
+            }
+            if (MSMeanData_Harmonoise::supports(attrs)) {
+                types.push_back(MeanDataType::HARMONOISE);
+            }
         }
-        MSNet::getInstance()->getDetectorControl().add(det, device, frequency, begin);
+    } else {
+        for (const std::string& t : StringTokenizer(type).getVector()) {
+            if (SUMOXMLDefinitions::MeanDataTypes.hasString(t)) {
+                types.push_back(SUMOXMLDefinitions::MeanDataTypes.get(t));
+            } else if (t == "performance") {
+                types.push_back(MeanDataType::TRAFFIC);
+            } else if (t == "hbefa") {
+                WRITE_WARNING(TL("The meandata type 'hbefa' is deprecated. Please use the type 'emissions' instead."));
+                types.push_back(MeanDataType::EMISSIONS);
+            } else {
+                throw InvalidArgument("Invalid type '" + t + "' for meandata dump '" + id + "'.");
+            }
+        }
+    }
+    if (frequency < 0) {
+        frequency = end - begin;
+    } else {
+        checkStepLengthMultiple(frequency, " for meandata dump '" + id + "'");
+    }
+    MSMeanData* first = nullptr;
+    MSMeanData* parent = nullptr;
+    for (const MeanDataType t : types) {
+        MSMeanData* det = nullptr;
+        if (t == MeanDataType::TRAFFIC) {
+            det = new MSMeanData_Net(id, begin, end, useLanes, excludeEmpty,
+                                     withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, haltSpeedRel, vTypes, writeAttributes, edges, aggregate);
+        } else if (t == MeanDataType::EMISSIONS) {
+            det = new MSMeanData_Emissions(id, begin, end, useLanes, excludeEmpty,
+                                           withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
+        } else if (t == MeanDataType::HARMONOISE) {
+            det = new MSMeanData_Harmonoise(id, begin, end, useLanes, excludeEmpty,
+                                            withInternal, trackVehicles, maxTravelTime, minSamples, vTypes, writeAttributes, edges, aggregate);
+        } else if (t == MeanDataType::AMITRAN) {
+            det = new MSMeanData_Amitran(id, begin, end, useLanes, excludeEmpty,
+                                         withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, haltSpeed, vTypes, writeAttributes, edges, aggregate);
+        }
+        if (det != nullptr) {
+            if (first == nullptr) {
+                first = det;
+            }
+            if (parent != nullptr) {
+                parent->setSubData(det);
+            }
+            parent = det;
+        }
+    }
+    if (first != nullptr) {
+        // needs to be delayed because it might call init for the subdata
+        MSNet::getInstance()->getDetectorControl().add(first, device, frequency, begin);
     }
 }
 

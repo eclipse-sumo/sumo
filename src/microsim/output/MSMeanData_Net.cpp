@@ -119,6 +119,9 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     } else {
         v.minimalVehicleLength = MIN2(minimalVehicleLength, v.minimalVehicleLength);
     }
+    if (mySubData != nullptr) {
+        mySubData->addTo(*val.getSubData());
+    }
 }
 
 
@@ -160,7 +163,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     }
     if (!veh.isStopped()) {
         if (myParent != nullptr && (meanSpeedVehicleOnLane < myParent->myHaltSpeed
-                    || (myParent->myHaltSpeedRel > 0 && meanSpeedVehicleOnLane / veh.getCurrentEdge()->getSpeedLimit(veh.getVClass()) < myParent->myHaltSpeedRel))) {
+                                    || (myParent->myHaltSpeedRel > 0 && meanSpeedVehicleOnLane / veh.getCurrentEdge()->getSpeedLimit(veh.getVClass()) < myParent->myHaltSpeedRel))) {
             waitSeconds += timeOnLane;
         } else if (MSGlobals::gUseMesoSim) {
             waitSeconds += STEPS2TIME(veh.getWaitingTime());
@@ -295,7 +298,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
         dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
         dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
         dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * frontSpeed * 3.6, attributeMask, frontSampleSeconds == 0);
-        dev.closeTag();
+        dev.writeOptionalAttr(SUMO_ATTR_DISTANCE, frontTravelledDistance, attributeMask);
         return;
     }
     const bool haveSamples = sampleSeconds > myParent->myMinSamples;
@@ -356,7 +359,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXMLAttr
     dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask, nVehVaporized == 0);
     dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask, nVehTeleported == 0);
     dev.writeOptionalAttr(SUMO_ATTR_FLOW, density * frontSpeed * 3.6, attributeMask, !haveSamples || numVehicles == 0);
-    dev.closeTag();
+    dev.writeOptionalAttr(SUMO_ATTR_DISTANCE, frontTravelledDistance, attributeMask);
 }
 
 
@@ -406,10 +409,13 @@ MSMeanData_Net::MSLaneMeanDataValues::getAttributeValue(SumoXMLAttr a,
             const double speed = frontTravelledDistance / frontSampleSeconds;
             return density * speed * 3.6;
         }
+        case SUMO_ATTR_DISTANCE:
+            return frontTravelledDistance;
         default:
             return 0;
     }
 }
+
 
 // ---------------------------------------------------------------------------
 // MSMeanData_Net - methods
@@ -450,6 +456,7 @@ MSMeanData_Net::getAttributeNames() const {
     std::vector<std::string> result;
     result.push_back(toString(SUMO_ATTR_DENSITY));
     result.push_back(toString(SUMO_ATTR_LANEDENSITY));
+    result.push_back(toString(SUMO_ATTR_OVERLAPDENSITY));
     result.push_back(toString(SUMO_ATTR_OCCUPANCY));
     result.push_back(toString(SUMO_ATTR_WAITINGTIME));
     result.push_back(toString(SUMO_ATTR_TIMELOSS));
@@ -462,34 +469,30 @@ MSMeanData_Net::getAttributeNames() const {
     result.push_back(toString(SUMO_ATTR_VAPORIZED));
     result.push_back(toString(SUMO_ATTR_TELEPORTED));
     result.push_back(toString(SUMO_ATTR_FLOW));
+    result.push_back(toString(SUMO_ATTR_DISTANCE));
     return result;
 }
 
 
-double
-MSMeanData_Net::getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
-    double result = defaultValue;
-    const std::vector<MeanDataValues*>* edgeValues = getEdgeValues(&lane->getEdge());
-    if (edgeValues == nullptr) {
-        return result;
-    }
-    MeanDataValues* values = nullptr;
-    if (!myAmEdgeBased) {
-        values = (*edgeValues)[lane->getIndex()];
-    } else {
-        MeanDataValues* sumData = createValues(nullptr, lane->getLength(), false);
-        for (MeanDataValues* meanData : (*edgeValues)) {
-            meanData->addTo(*sumData);
-        }
-        values = sumData;
-    }
-    const SUMOTime myLastResetTime = 0; // XXX store last reset time
-    const SUMOTime period = SIMSTEP - myLastResetTime;
-    result = values->getAttributeValue(a, period, lane->getEdge().getNumLanes(), lane->getSpeedLimit());
-    if (myAmEdgeBased) {
-        delete values;
-    }
-    return result;
+bool
+MSMeanData_Net::supports(const SumoXMLAttrMask& attributeMask) {
+    return
+        attributeMask.test(SUMO_ATTR_DENSITY) ||
+        attributeMask.test(SUMO_ATTR_LANEDENSITY) ||
+        attributeMask.test(SUMO_ATTR_OVERLAPDENSITY) ||
+        attributeMask.test(SUMO_ATTR_OCCUPANCY) ||
+        attributeMask.test(SUMO_ATTR_WAITINGTIME) ||
+        attributeMask.test(SUMO_ATTR_TIMELOSS) ||
+        attributeMask.test(SUMO_ATTR_SPEED) ||
+        attributeMask.test(SUMO_ATTR_SPEEDREL) ||
+        attributeMask.test(SUMO_ATTR_DEPARTED) ||
+        attributeMask.test(SUMO_ATTR_ARRIVED) ||
+        attributeMask.test(SUMO_ATTR_ENTERED) ||
+        attributeMask.test(SUMO_ATTR_LEFT) ||
+        attributeMask.test(SUMO_ATTR_VAPORIZED) ||
+        attributeMask.test(SUMO_ATTR_TELEPORTED) ||
+        attributeMask.test(SUMO_ATTR_FLOW) ||
+        attributeMask.test(SUMO_ATTR_DISTANCE);
 }
 
 

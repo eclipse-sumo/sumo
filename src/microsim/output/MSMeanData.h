@@ -174,6 +174,14 @@ public:
             return 0;
         }
 
+        MeanDataValues* getSubData() {
+            return mySubData;
+        }
+
+        void setSubData(MeanDataValues* subData) {
+            mySubData = subData;
+        }
+
     protected:
         /// @brief The meandata parent
         const MSMeanData* const myParent;
@@ -192,6 +200,9 @@ public:
 
         /// @brief time at which collection was reset;
         SUMOTime resetTime;
+
+        /// @brief additional data to collect and write
+        MeanDataValues* mySubData = nullptr;
     };
 
 
@@ -382,24 +393,24 @@ public:
     }
 
     /// @brief return all attributes that are (potentially) written by this output
-    virtual std::vector<std::string> getAttributeNames() const {
-        return std::vector<std::string>();
-    }
+    virtual std::vector<std::string> getAttributeNames() const = 0;
 
     /// @brief return attribute value for the given lane
-    virtual double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const {
-        UNUSED_PARAMETER(lane);
-        UNUSED_PARAMETER(a);
-        return defaultValue;
-    }
+    double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const;
 
     /// @brief retrieve all MeanDataValues
     const std::vector<MSMoveReminder*> getReminders() const;
+
+    /// @brief set a sub collector
+    void setSubData(MSMeanData* subData) {
+        mySubData = subData;
+    }
 
 protected:
     /** @brief Create an instance of MeanDataValues
      *
      * @param[in] lane The lane to create for
+     * @param[in] length The lane length (or total length for aggregated data)
      * @param[in] doAdd whether to add the values as reminder to the lane
      */
     virtual MSMeanData::MeanDataValues* createValues(MSLane* const lane, const double length, const bool doAdd) const = 0;
@@ -480,9 +491,16 @@ protected:
     virtual void writePrefix(OutputDevice& dev, const MeanDataValues& values,
                              const SumoXMLTag tag, const std::string id) const;
 
-
-protected:
     const std::vector<MeanDataValues*>* getEdgeValues(const MSEdge* edge) const;
+
+private:
+    /** @brief Create an instance of MeanDataValues with subdata
+     *
+     * @param[in] lane The lane to create for
+     * @param[in] length The lane length (or total length for aggregated data)
+     * @param[in] doAdd whether to add the values as reminder to the lane
+     */
+    MSMeanData::MeanDataValues* createValuesSubData(MSLane* const lane, const double length, const bool doAdd) const;
 
 protected:
     /// @brief the minimum sample seconds
@@ -532,6 +550,9 @@ private:
 
     /// @brief whether the data for all edges shall be aggregated
     const AggregateType myAggregate;
+
+    /// @brief more data collectors which write to the same output
+    MSMeanData* mySubData = nullptr;
 
     /// @brief The intervals for which output still has to be generated (only in the tracking case)
     std::list< std::pair<SUMOTime, SUMOTime> > myPendingIntervals;
