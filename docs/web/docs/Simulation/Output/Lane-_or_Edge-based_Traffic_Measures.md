@@ -59,7 +59,7 @@ For additional attributes see the table below.
 | vTypes         | string                         | space separated list of vehicle type ids to consider. If not given, all vTypes will be considered.                         |
 | trackVehicles  | bool                           | whether aggregation should be performed over all vehicles that entered the edge/lane in the aggregation interval                                                                                                                            |
 | detectPersons  | string list                    | whether pedestrians shall be recorded instead of vehicles. Allowed value is *walk*.<br>**Note:** further modes are planned           |
-| writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attribute)         |
+| writeAttributes  | string list                  | list of attribute names that shall be written (defaults to all attributes)         |
 | edges  | string list                  | restrict output to the given list of edge ids        |
 | edgesFile  | filename                 | restrict output to the given the list of edges given in file (either one edgeID per line or an id prefixed with 'edge:' as in a [selection file](../../Netedit/editModesCommon.md#selection_operations))        |
 | aggregate  | bool or "taz"    | Whether the traffic statistic of edges shall be aggregated. If set to "true" the data for all edges (potentially a subset configured with `edges` or `edgesFiles`) will be aggregated into a single value and the output edge id will be `AGGREGATED`). If set to "taz" then the statistics for all edges in a loaded TAZ will be aggregated into a single value and the output edge id will be the TAZ-id. This feature is also compatible with option **--junction-taz** to obtain aggregated output for every junction. |
@@ -175,12 +175,16 @@ The meanings of the written values are given in the following table.
 | laneChangedTo     | \#veh                | The number of vehicles that changed to this lane   |
 | vaporized         | \#veh                | The number of vehicles vaporized on this edge **(only present if \#veh \> 0)**        |
 | teleported        | \#veh                | The number of vehicles teleported from this edge **(only present if \#veh \> 0)**      |
-| flow               | \#veh/hour          | The number of vehicles passing this edge per hour. Vehicles that depart on this edge beyond position 0 or arrive before the end of the edge are fractionally disocunted |
+| flow              | \#veh/hour           | The number of vehicles passing this edge per hour. Vehicles that depart on this edge beyond position 0 or arrive before the end of the edge are fractionally discounted |
+| distance          | m                    | The total distance driven by (the front of) all vehicles |
 
 Please note that in the case of *edge* meandata both laneChanged entries
 are equal to the total number of lane changes on the edge. Furthermore
 each lane change is counted separately, that means if one vehicle
 changes from lane 1 to lane 3 it will generate two lane change counts.
+
+You can also add [emission](Lane-_or_Edge-based_Emissions_Measures.md) and [noise](Lane-_or_Edge-based_Noise_Measures.md)
+values directly in the same output by adding the needed attributes to the `writeAttributes`.
 
 ## How to aggregate / derive further values
 
@@ -205,6 +209,7 @@ denotes the length of the aggregation interval):
 - Traffic volume at the begin of the lane / edge (\#/h) = `3600 * entered / period`
 - Traffic volume at the end of the lane / edge (\#/h) = `3600 * left /  period`
 - Total distance travelled (m) = `speed * sampledSeconds`
+  - This is different from `distance` because a vehicle which is only partially on the edge (and not with its front) still counts.
 - Edge length = `sampledSeconds / period * 1000 / density`
 
 

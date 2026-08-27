@@ -69,6 +69,9 @@ title: ChangeLog
   - Added option **--queue-output.aggregation** {{DT_TIME}} for writing per-edge queue length statistics (max, median, configurable percentile in vehicles and meters) aggregated over the given period (e.g. a traffic light cycle). The reported percentile defaults to 95 and is configurable with **--queue-output.percentile**
   - Added option **--queue-output.speed-threshold** to configure the maximum speed for counting a vehicle as queued (default 1.39 m/s)
   - queue-output now supports column based output formats (CSV, Parquet) and the option **--queue-output.skip-empty** to omit time steps / intervals without a queue
+  - initial person routing can now use multiple threads #18268
+  - meandata output has an attribute `distance` #18255
+  - meandata values for net, emissions and noise can now be merged into a single line or table row #18254
 
 - netedit
   - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
