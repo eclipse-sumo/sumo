@@ -24,7 +24,6 @@
 #include <map>
 #include <memory>
 #include <mutex>
-#include <tuple>
 #include <utility>
 #include <vector>
 #include <utils/common/SUMOTime.h>
@@ -33,6 +32,7 @@
 
 class ROEdge;
 class ROVehicle;
+class SUMOVTypeParameter;
 
 
 // ===========================================================================
@@ -44,18 +44,25 @@ using RODUACCHGraph = CCHGraphBase<ROEdge, ROVehicle>;
 
 /**
  * @class RODUACCHMetrics
- * @brief Lazy per-(vehicle class, weight period) CCH metric store for duarouter.
+ * @brief Lazy per-(vehicle type, weight period) CCH metric store for duarouter.
  *
  * The metric provider handed to CCHRouter (a plain function pointer). On the
- * first query for a (class, period) pair, the metric is customized under a
+ * first query for a (type, period) pair, the metric is customized under a
  * mutex from the graph's fillInputWeights evaluated at the period's begin
- * (which also primes the class's connection mask under that lock) and cached
- * for the rest of the run. Without weight files there is a single period, so
- * exactly one metric per class; with time-dependent weight files this mirrors
- * CHRouterWrapper's one-hierarchy-per-weight-period semantics -- except that
- * only the cheap re-customization is repeated, never the topology build.
- * RoutingKit metrics BORROW their input-weight buffer, so buffer and metric
- * live together in the map (std::map nodes are address-stable).
+ * with the querying vehicle as the effort reference (which also primes the
+ * class's connection mask under that lock) and cached for the rest of the
+ * run. Keying by the TYPE (rather than the class) makes everything the
+ * effort function reads from the vehicle type exact per metric: the type's
+ * maximum speed, per-class edge speed restrictions and restriction-params
+ * values; only individual speed-factor draws within one type share a metric
+ * (the same approximation the CH family makes with its per-class prototype
+ * vehicles, but at finer granularity). Without weight files there is a
+ * single period, so exactly one metric per type; with time-dependent weight
+ * files this mirrors CHRouterWrapper's one-hierarchy-per-weight-period
+ * semantics -- except that only the cheap re-customization is repeated,
+ * never the topology build. RoutingKit metrics BORROW their input-weight
+ * buffer, so buffer and metric live together in the map (std::map nodes are
+ * address-stable).
  */
 class RODUACCHMetrics {
 public:
@@ -82,14 +89,13 @@ private:
         std::vector<unsigned> weights;
         std::unique_ptr<RoutingKit::CustomizableContractionHierarchyMetric> metric;
     };
-    /// @brief (vClass, weight period, restriction profile) -> metric
-    typedef std::tuple<SUMOVehicleClass, int, int> MetricKey;
+    /// @brief (vehicle type, weight period) -> metric; the type pointer is
+    /// stable (types are owned by RONet), nullptr covers vehicle-less queries
+    typedef std::pair<const SUMOVTypeParameter*, int> MetricKey;
     static const RODUACCHGraph* myGraph;
     static RODUACCHGraph::EffortOperation myEffort;
     static SUMOTime myBegin;
     static SUMOTime myWeightPeriod;
     static std::map<MetricKey, ClassMetric> myMetrics;
-    /// @brief dedup of the restriction-profile vectors (empty vector = 0)
-    static std::map<std::vector<double>, int> myProfiles;
     static std::mutex myLock;
 };
