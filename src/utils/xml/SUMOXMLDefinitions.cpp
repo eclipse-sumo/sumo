@@ -1007,6 +1007,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "routes",                 SUMO_ATTR_ROUTES },
     { "vTypes",                 SUMO_ATTR_VTYPES },
     { "nextEdges",              SUMO_ATTR_NEXT_EDGES },
+    { "mesoTLS",                SUMO_ATTR_MESO_TLS },
     { "deterministic",          SUMO_ATTR_DETERMINISTIC },
 
     { "lanes",                  SUMO_ATTR_LANES },

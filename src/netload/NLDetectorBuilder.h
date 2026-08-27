@@ -91,7 +91,8 @@ public:
     Parameterised* buildInductLoop(const std::string& id,
                                    const std::string& lane, double pos, double length, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
-                                   const std::string name, const std::string& vTypes, const std::string& nextEdges, int detectPersons);
+                                   const std::string name, const std::string& vTypes, const std::string& nextEdges,
+                                   bool mesoTLS, int detectPersons);
 
 
     /** @brief Builds an instantenous induction and adds it to the net

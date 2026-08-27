@@ -102,6 +102,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
                                    const std::string name,
                                    const std::string& vTypes,
                                    const std::string& nextEdges,
+                                   bool mesoTLS,
                                    int detectPersons) {
     checkSampleInterval(splInterval, SUMO_TAG_E1DETECTOR, id);
     // get and check the lane
@@ -119,7 +120,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
         }
     }
     // build the loop
-    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, length, name, vTypes, nextEdges, detectPersons, true);
+    MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, length, name, vTypes, nextEdges, detectPersons, true, mesoTLS);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
     return loop;
