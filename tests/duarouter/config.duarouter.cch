@@ -1,0 +1,3 @@
+[run_dependent_text]
+output:DijkstraRouter{REPLACE CCHRouter}
+output: queries and explored [0-9\.]+ edges{REPLACE queries}
