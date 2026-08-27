@@ -30,6 +30,7 @@ The attributes:
 | **file**       | filename           | The path to the output file. The path may be relative. If output is to be discarded "NUL" or "/dev/null" can be given.      |
 | friendlyPos    | bool               | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1.                      |
 | vTypes         | string             | space separated list of vehicle type ids to consider, "" means all; default "".                       |
+| nextEdges      | stringList         | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*). Instead of giving one or more "normal" edges it is permitted to give a single internal edge. In this case, the vehicle will be detected if it drives over that internal edge immediately after the detector edge. |
 
 !!! note
     Instead of manually defining detectors in an xml file, they can also be defined visually with [netedit](../../Netedit/index.md).
