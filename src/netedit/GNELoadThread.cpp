@@ -242,6 +242,7 @@ GNELoadThread::run() {
                 // GNENet not created, then delete netBuilder
                 delete netBuilder;
             }
+            GeoConvHelper::resetLoaded();
         } catch (std::exception& e) {
             WRITE_ERROR(e.what());
             // check if delete network

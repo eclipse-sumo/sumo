@@ -1358,6 +1358,8 @@ GNEApplicationWindow::handleEvent_FileLoaded(GUIEvent* e) {
         if (OptionsCont::getOptions().getBool("quit-on-fail")) {
             closeAllWindows(true);
             getApp()->exit(1);
+        } else {
+            myMessageWindow->unregisterMsgHandlers();
         }
     } else {
         // report success
