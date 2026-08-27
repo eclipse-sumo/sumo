@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-08-27T11:13:30.351885+01:00 by Eclipse SUMO sumo v1_27_1+0490-97f65309270
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</sumoConfiguration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="15.00" id="dump_15">
+        <edge id="beg" speed="27.80" CO2_abs="48744.57"/>
+    </interval>
+    <interval begin="15.00" end="30.00" id="dump_15">
+        <edge id="beg" speed="27.80" CO2_abs="81240.96"/>
+        <edge id="middle" speed="13.90" CO2_abs="14677.35"/>
+    </interval>
+    <interval begin="30.00" end="45.00" id="dump_15">
+        <edge id="middle" speed="13.90" CO2_abs="44032.05"/>
+    </interval>
+    <interval begin="45.00" end="60.00" id="dump_15">
+        <edge id="middle" speed="13.90" CO2_abs="73386.75"/>
+    </interval>
+    <interval begin="60.00" end="75.00" id="dump_15">
+        <edge id="middle" speed="13.90" CO2_abs="102741.46"/>
+    </interval>
+    <interval begin="75.00" end="90.00" id="dump_15">
+        <edge id="middle" speed="13.90" CO2_abs="132096.16"/>
+    </interval>
+    <interval begin="90.00" end="105.00" id="dump_15">
+        <edge id="end" speed="27.80" CO2_abs="48744.57"/>
+        <edge id="middle" speed="13.90" CO2_abs="146773.51"/>
+    </interval>
+    <interval begin="105.00" end="120.00" id="dump_15">
+        <edge id="end" speed="27.80" CO2_abs="81240.96"/>
+        <edge id="rend" speed="27.80" CO2_abs="48891.06"/>
+    </interval>
+    <interval begin="120.00" end="135.00" id="dump_15">
+        <edge id="rend" speed="27.80" CO2_abs="81485.09"/>
+    </interval>
+    <interval begin="135.00" end="150.00" id="dump_15"/>
+</meandata>

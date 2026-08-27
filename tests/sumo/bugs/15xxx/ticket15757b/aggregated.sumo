@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-22T23:25:19.933692+01:00 by Eclipse SUMO sumo v1_26_0+1333-841653467c3
+<!-- generated on 2026-08-25T12:40:38.564781+01:00 by Eclipse SUMO sumo v1_27_1+0469-e17aa8a62df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="7537.00" id="DEFAULT_EDGEDATA">
-        <edge id="E0" sampledSeconds="140428.09" traveltime="1823.26" overlapTraveltime="1844.76" density="93.13" overlapDensity="93.16" laneDensity="46.57" occupancy="32.45" waitingTime="127556.00" timeLoss="139139.40" speed="0.11" speedRelative="0.01" departed="0" arrived="77" entered="231" left="154" laneChangedFrom="35" laneChangedTo="35" flow="36.78"/>
-        <edge id="E1" sampledSeconds="78947.64" traveltime="928.33" overlapTraveltime="1025.29" density="94.84" overlapDensity="104.75" laneDensity="47.42" occupancy="34.17" waitingTime="73458.84" timeLoss="78353.92" speed="0.10" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="23" laneChangedTo="23" flow="36.78"/>
+        <edge id="E0" sampledSeconds="140428.09" traveltime="1823.26" overlapTraveltime="1844.76" density="93.13" overlapDensity="93.16" laneDensity="46.57" occupancy="32.45" waitingTime="127556.00" timeLoss="139139.40" speed="0.11" speedRelative="0.01" departed="0" arrived="77" entered="231" left="154" laneChangedFrom="35" laneChangedTo="35" flow="36.78" distance="15399.84"/>
+        <edge id="E1" sampledSeconds="78947.64" traveltime="928.33" overlapTraveltime="1025.29" density="94.84" overlapDensity="104.75" laneDensity="47.42" occupancy="34.17" waitingTime="73458.84" timeLoss="78353.92" speed="0.10" speedRelative="0.01" departed="77" arrived="0" entered="0" left="77" laneChangedFrom="23" laneChangedTo="23" flow="36.78" distance="7700.00"/>
     </interval>
 </meandata>

@@ -76,3 +76,6 @@ internal_empty
 
 # count teleporting vehicles
 teleporting
+
+# two vehicles sampling at 15s with traffic and emissions
+mixed_attrs
