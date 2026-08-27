@@ -48,7 +48,7 @@ The attributes:
 | nextEdges      | stringList | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*). Instead of giving one or more "normal" edges it is permitted to give a single internal edge. In this case, the vehicle will be detected if it drives over that internal edge immediately after the detector edge. |
 | detectPersons  | string   | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)  |
 | length         | float    | length of the detection zone downstream of **pos** (default *0*)                       |
-
+| mesoTLS        | bool     | If set to *true*, this inductionLoop will be usable by actuated traffic lights when running [meso](../Meso.md) |
 
 ## Generated Output
 
