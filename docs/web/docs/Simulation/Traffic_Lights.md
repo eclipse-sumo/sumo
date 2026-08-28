@@ -307,8 +307,6 @@ The order of the phases can be changed by defining attribute `next` for some or 
 # Traffic Lights that respond to traffic
 
 Generally, the designation "actuated" refers to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
-!!! note
-    [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
 ## Type 'actuated'
 
