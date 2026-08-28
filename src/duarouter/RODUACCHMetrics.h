@@ -16,7 +16,7 @@
 /// @date    2026
 ///
 // duarouter's lazy CCH metric store over the shared graph mapping
-// (utils/router/CCHGraphBase.h); RODUACCHGraph is its ROEdge instantiation.
+// (utils/router/CCHGraph.h); RODUACCHGraph is its ROEdge instantiation.
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,7 +28,7 @@
 #include <vector>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/router/CCHGraphBase.h>
+#include <utils/router/CCHGraph.h>
 
 class ROEdge;
 class ROVehicle;
@@ -39,7 +39,7 @@ class SUMOVTypeParameter;
 // class definitions
 // ===========================================================================
 /// @brief the ROEdge instantiation of the CCH graph mapping
-using RODUACCHGraph = CCHGraphBase<ROEdge, ROVehicle>;
+using RODUACCHGraph = CCHGraph<ROEdge, ROVehicle>;
 
 
 /**

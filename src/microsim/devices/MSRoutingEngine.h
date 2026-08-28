@@ -341,7 +341,7 @@ private:
         std::shared_ptr<RoutingKit::CustomizableContractionHierarchyPartialCustomization> partial;
     };
     /// @brief the immutable shared CCH topology (built once), or nullptr if inactive
-    static CCHGraph* myCCHGraph;
+    static MSCCHGraph* myCCHGraph;
     /// @brief one metric-set per vehicle class present in the demand
     static std::vector<CCHClass*> myCCHClasses;
     static std::map<SUMOVehicleClass, CCHClass*> myCCHByClass;
