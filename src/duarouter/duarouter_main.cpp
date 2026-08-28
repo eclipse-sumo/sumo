@@ -161,24 +161,24 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else if (routingAlgorithm == "CCH") {
             // One weight-independent hierarchy over the union graph; one
-            // customized metric per (vehicle class, weight period), built
+            // customized metric per (vehicle type, weight period), built
             // lazily on first query (see RODUACCHMetrics.h). With
             // time-dependent weight files this follows CHRouterWrapper's
             // per-period semantics, but repeats only the metric
             // customization, never the topology build.
-            // Per-vehicle modifiers cannot live in a shared metric (mirror of
-            // the guard in MSRoutingEngine::initRouter).
-            if (gWeightsRandomFactor > 1 || gRoutingPreferences) {
-                throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1 and routing preferences. Disable these to use CCH."));
-            }
+            // Because the metrics are keyed by vehicle type, the type and
+            // class specific routing preferences of the effort function are
+            // captured exactly. weights.random-factor freezes one random
+            // realization into each metric, the same approximation
+            // CHRouterWrapper makes when building its hierarchies.
             const bool hasWeights = oc.isSet("weight-files") || oc.isSet("lane-weight-files");
             const SUMOTime weightPeriod = hasWeights ? string2time(oc.getString("weight-period")) : SUMOTime_MAX;
             // Process-lifetime singletons: the topology and metric store are
             // shared by every router clone until duarouter exits.
             RODUACCHGraph* cchGraph = new RODUACCHGraph(ROEdge::getAllEdges());
-            RODUACCHMetrics::init(cchGraph, &ROEdge::getTravelTimeStatic, begin, weightPeriod);
+            RODUACCHMetrics::init(cchGraph, ttFunction, begin, weightPeriod);
             SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
             // restriction-params are handled natively: each distinct
             // restriction profile gets its own masked metric (see
@@ -186,7 +186,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             // trip crosses a weight-period boundary re-query on the next
             // period's metric.
             router = new CCHRouter<ROEdge, ROVehicle, RODUACCHGraph>(
-                cchGraph, &RODUACCHMetrics::get, &ROEdge::getTravelTimeStatic,
+                cchGraph, &RODUACCHMetrics::get, ttFunction,
                 oc.getBool("ignore-errors"), fallback,
                 hasWeights ? &RODUACCHMetrics::periodEnd : nullptr);
         } else if (routingAlgorithm == "arcflag") {
