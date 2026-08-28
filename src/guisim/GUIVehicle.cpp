@@ -95,6 +95,10 @@ GUIVehicle::GUIVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
 
 GUIVehicle::~GUIVehicle() {
     gSelected.deselect(GLO_VEHICLE, getGlID());
+    // cleanupFurtherLanes will be called again in MSVehicle. However, we must
+    // first call it here to avoid stale pointers to a partially destructed
+    // GUIVehicle in MSLane::myPartialVehicles
+    cleanupFurtherLanes();
     cleanupOnDestruction();
 }
 
