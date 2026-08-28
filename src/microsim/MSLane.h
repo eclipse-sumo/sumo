@@ -1650,8 +1650,10 @@ protected:
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;
 
+#ifdef HAVE_FOX
     /// @brief Mutex for access to the cached follower info value
     mutable FXMutex myPartialOccupatorMutex;
+#endif
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
