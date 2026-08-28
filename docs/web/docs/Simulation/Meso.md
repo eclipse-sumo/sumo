@@ -139,7 +139,7 @@ The option **--meso-recheck** {{DT_TIME}} can be used to delay traffic flow into
 When setting option **--meso-ltm**, an alternative longitudinal model (the mesoscopic **L**ink **T**ransmission **M**odel) is activated. This model is based on a [publications](https://www.sciencedirect.com/science/article/pii/S1569190X26000018) by Ying-Chuan Ni et. al.
 
 Instead of classifying segments as jammed/free based on **--meso-jam-threshold**, this model achieves jam dynamics by tracking gaps between cars that travel upstream when a car exists a segment.
-Whereas the other model achieves increased headway whenever a car travels from a "jammed" segment into another "jammed" segment, the meso-LTM model achieves increased headway whenever a segment is filled with cars and the gaps have not yet reached the upstream boundary of the segment.
+Whereas the other model achieves increased headway whenever a car travels from a "jammed" segment into another "jammed" segment, the meso-LTM model achieves increased headway whenever a segment is filled with a combination of cars and gaps. As soon as gaps reach the upstream end of the segment they disappear and thus free up capacity for vehicles from the upstream segment.
 The following parameters are used by the model:
 
 - **meso-tauff**: minimum headway when traveling (default *1.13*), also the time for a gap to travel backwards by 7.5m if a car was traveling at free flow speed
