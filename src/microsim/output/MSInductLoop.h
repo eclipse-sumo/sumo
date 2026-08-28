@@ -360,6 +360,10 @@ protected:
     /// @brief helper function for mapping person movement
     void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
+    /// @brief helper function for managing meso timings
+    typedef std::priority_queue<SUMOTime, std::vector<SUMOTime>, std::greater<SUMOTime>> TimeQueue;
+    static void discardOldTimes(TimeQueue& tq, SUMOTime now);
+
 protected:
     /// @brief detecto name
     std::string myName;
@@ -377,7 +381,8 @@ protected:
     double myLastLeaveTime;
 
     /// @brief extrapolated leave times for meso vehicle
-    mutable std::priority_queue<SUMOTime, std::vector<SUMOTime>, std::greater<SUMOTime>> myNextMesoLeaveTimes;
+    mutable TimeQueue myNextMesoLeaveTimes;
+    mutable TimeQueue myLastMesoLeaveTimes;
 
     /// @brief overrides the time since last detection
     double myOverrideTime;

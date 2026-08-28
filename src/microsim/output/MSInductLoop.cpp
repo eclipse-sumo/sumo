@@ -128,7 +128,7 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
             //std::cout << SIMTIME << " det=" << getID() << " veh=" << veh.getID() << " entry=" << STEPS2TIME(mesoveh->getLastEntryTime()) << " et=" << STEPS2TIME(mesoveh->getEventTime()) << " exLeaveTime=" << STEPS2TIME(exLeaveTime) << "\n";
             myNextMesoLeaveTimes.push(exLeaveTime);
         }
-        return false;
+        return true;
     }
     if (reason != NOTIFICATION_JUNCTION) { // the junction case is handled in notifyMove
         if (veh.getBackPositionOnLane(myLane) >= myPosition) {
@@ -225,6 +225,26 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
     if (veh.isPerson() && myDetectPersons != (int)PersonMode::NONE) {
         const int lastDir = lastPos < 0 ? MSPModel::BACKWARD : MSPModel::FORWARD;
         notifyMovePerson(dynamic_cast<MSTransportable*>(&veh), lastDir, lastPos);
+    }
+    if (MSGlobals::gUseMesoSim && reason <= MSMoveReminder::NOTIFICATION_SEGMENT && vehicleApplies(veh)) {
+        MEVehicle* mesoveh = dynamic_cast<MEVehicle*>(&veh);
+        assert(mesoveh != nullptr);
+        const MESegment* seg = mesoveh->getSegment();
+        if (seg != nullptr && (seg->numQueues() == 1 || mesoveh->getQueIndex() == myLane->getIndex())) {
+            // interpolate movement + 1 extra second
+            // We can only interpolate the passing time at the detector after the vehicle leaves the segment. Consequently our information is always out of date
+            // (by the time the current vehicle left, the follower vehicle should already have reached the detector so the estimated time gap to the last detection is always too large)
+            // the prior implementation used seg->getBlockTime() which included the headway which somewhat worked around this deficit by accident
+            const SUMOTime inLeaveTime = mesoveh->getEventTime() - TIME2STEPS((seg->getLength() - mySegmentPos - mesoveh->getLength()) / myLane->getSpeedLimit());
+            //std::cout << SIMTIME << " det=" << getID() << " veh=" << veh.getID() << " et=" << STEPS2TIME(mesoveh->getEventTime()) << " inLeaveTime=" << STEPS2TIME(inLeaveTime) << "\n";
+            auto q = seg->getQueue(mesoveh->getQueIndex());
+            if (q.size() > 1 && vehicleApplies(*q[q.size() - 2])) {
+                myLastMesoLeaveTimes.push(inLeaveTime + TIME2STEPS(seg->getLastHeadwaySeconds()));
+                //std::cout << "    inLeaveTime2=" << (STEPS2TIME(inLeaveTime) + seg->getLastHeadwaySeconds()) << "\n";
+            }
+            myLastMesoLeaveTimes.push(inLeaveTime);
+        }
+        return false;
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (veh.isPerson() && myDetectPersons != (int)PersonMode::NONE)) {
 #ifdef HAVE_FOX
@@ -359,6 +379,21 @@ MSInductLoop::getArrivalDelay() const {
 }
 
 
+void
+MSInductLoop::discardOldTimes(TimeQueue& tq, SUMOTime now) {
+    // discard times in the past except for the latest one
+    SUMOTime last = tq.top();
+    if (tq.size() > 1) {
+        tq.pop();
+        while (tq.size() > 0 && tq.top() < now) {
+            last = tq.top();
+            tq.pop();
+        }
+        tq.push(last);
+    }
+}
+
+
 SUMOTime
 MSInductLoop::getLastDetectionTime() const {
     if (myOverrideTime >= 0) {
@@ -367,23 +402,18 @@ MSInductLoop::getLastDetectionTime() const {
     if (myVehiclesOnDet.size() != 0) {
         return MSNet::getInstance()->getCurrentTimeStep();
     }
+    const SUMOTime now = SIMSTEP;
     if (MSGlobals::gUseMesoSim
             && !myNextMesoLeaveTimes.empty()
-            && myNextMesoLeaveTimes.top() < SIMSTEP) {
-        // find the latest time that is already in the past
+            && myNextMesoLeaveTimes.top() < now) {
+        discardOldTimes(myNextMesoLeaveTimes, now);
         SUMOTime last = myNextMesoLeaveTimes.top();
-        if (myNextMesoLeaveTimes.size() > 1) {
-            myNextMesoLeaveTimes.pop();
-            while (myNextMesoLeaveTimes.size() > 0 && myNextMesoLeaveTimes.top() < SIMSTEP) {
-                last = myNextMesoLeaveTimes.top();
-                myNextMesoLeaveTimes.pop();
-            }
-            myNextMesoLeaveTimes.push(last);
+        if (!myLastMesoLeaveTimes.empty() && myLastMesoLeaveTimes.top() < now) {
+            discardOldTimes(myLastMesoLeaveTimes, now);
+            last = MAX2(last, myLastMesoLeaveTimes.top());
         }
-        const SUMOTime blockTime = mySegment->getQueueBlockTime(MIN2(mySegment->numQueues() - 1, myLane->getIndex()));
-        const SUMOTime last2 = blockTime - TIME2STEPS((mySegment->getLength() - mySegmentPos) / myLane->getSpeedLimit());
-        //std::cout << SIMTIME << " det=" << getID() << " last=" << last << " last2=" << last2 << " block=" << blockTime << " times=" << myNextMesoLeaveTimes.size() << "\n";
-        return MAX2(last, last2);
+        //std::cout << SIMTIME << " det=" << getID() << " result=" << last << " last=" << myNextMesoLeaveTimes.top() << " last2=" << (myLastMesoLeaveTimes.size() > 0 ? myLastMesoLeaveTimes.top() : -1) << "\n";
+        return last;
     }
     return TIME2STEPS(myLastLeaveTime);
 }
