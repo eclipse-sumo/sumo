@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    CCHGraphBase.h
+/// @file    CCHGraph.h
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
@@ -64,7 +64,7 @@
 // class definitions
 // ===========================================================================
 /**
- * @class CCHGraphBase
+ * @class CCHGraph
  * @brief Metric-independent RoutingKit CCH topology over the PURE road graph.
  *
  * Nodes are the non-internal, non-TAZ edges. TAZ connectors are deliberately
@@ -83,7 +83,7 @@
  * @tparam V the vehicle type of the effort callback (SUMOVehicle / ROVehicle)
  */
 template<class E, class V>
-class CCHGraphBase {
+class CCHGraph {
 public:
     /// @brief effort callback signature, matching SUMOAbstractRouter::Operation
     typedef double (*EffortOperation)(const E* const, const V* const, double);
@@ -98,7 +98,7 @@ public:
      * (including e.g. tram-only rail arcs) exists. Per-class permissions are
      * applied later as inf_weight in the metric, never by removing arcs.
      */
-    explicit CCHGraphBase(const std::vector<E*>& allEdges) {
+    explicit CCHGraph(const std::vector<E*>& allEdges) {
         // 1. dense node indexing over real (non-internal, non-taz) edges.
         unsigned maxNumID = 0;
         for (const E* e : allEdges) {
@@ -220,7 +220,7 @@ public:
 #endif
     }
 
-    virtual ~CCHGraphBase() {}
+    virtual ~CCHGraph() {}
 
     /// @brief the immutable CCH (share const& across clones)
     const RoutingKit::CustomizableContractionHierarchy& cch() const {
@@ -421,10 +421,10 @@ private:
     RoutingKit::CustomizableContractionHierarchy myCCH;
 
 private:
-    CCHGraphBase(const CCHGraphBase&) = delete;
-    CCHGraphBase& operator=(const CCHGraphBase&) = delete;
+    CCHGraph(const CCHGraph&) = delete;
+    CCHGraph& operator=(const CCHGraph&) = delete;
 };
 
 
 template<class E, class V>
-const unsigned CCHGraphBase<E, V>::INVALID_NODE = RoutingKit::invalid_id;
+const unsigned CCHGraph<E, V>::INVALID_NODE = RoutingKit::invalid_id;

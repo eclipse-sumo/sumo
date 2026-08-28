@@ -47,7 +47,7 @@
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
-#include <utils/router/CCHGraphBase.h>
+#include <utils/router/CCHGraph.h>
 #include <utils/router/CCHRouter.h>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -85,7 +85,7 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc
 #ifdef HAVE_FOX
 FXMutex MSRoutingEngine::myRouteCacheMutex;
 #endif
-CCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
+MSCCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
 std::vector<MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHClasses;
 std::map<SUMOVehicleClass, MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHByClass;
 std::atomic<bool> MSRoutingEngine::myCCHQueried(false);
@@ -357,7 +357,7 @@ MSRoutingEngine::initCCH() {
             classes.insert(vt->getVehicleClass());
         }
     }
-    myCCHGraph = new CCHGraph(MSEdge::getAllEdges());  // union topology; class masks prime at first fill
+    myCCHGraph = new MSCCHGraph(MSEdge::getAllEdges());  // union topology; class masks prime at first fill
     const OptionsCont& oc = OptionsCont::getOptions();
     myCCHUpdateFactor = oc.getFloat("device.rerouting.cch-update-threshold.factor");
     myCCHUpdateConstant = STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant")));
@@ -686,7 +686,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         // embedded fallback for non-passenger / prohibited / unreachable queries
         SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
             new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, true);
-        router = new CCHRouter<MSEdge, SUMOVehicle, CCHGraph>(
+        router = new CCHRouter<MSEdge, SUMOVehicle, MSCCHGraph>(
             myCCHGraph, &MSRoutingEngine::getPublishedCCHMetric, myEffortFunc, true, fallback);
     } else {
         throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
