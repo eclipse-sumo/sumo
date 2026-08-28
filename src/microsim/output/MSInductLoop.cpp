@@ -243,6 +243,7 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
                 //std::cout << "    inLeaveTime2=" << (STEPS2TIME(inLeaveTime) + seg->getLastHeadwaySeconds()) << "\n";
             }
             myLastMesoLeaveTimes.push(inLeaveTime);
+            myEnteredVehicleNumber++;
         }
         return false;
     }
@@ -504,6 +505,9 @@ MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
             lengthSum += vData.lengthM;
             contrib++;
         }
+    }
+    if (MSGlobals::gUseMesoSim) {
+        contrib = myEnteredVehicleNumber;
     }
     const double flow = (double)contrib / t * 3600.;
     for (std::map< SUMOTrafficObject*, double >::const_iterator i = myVehiclesOnDet.begin(); i != myVehiclesOnDet.end(); ++i) {
