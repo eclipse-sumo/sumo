@@ -1,1 +1,2 @@
+Warning: Mismodelled capacity on edge ':26581513_3'. Not all lanes are usable by vClass 'private emergency authority army vip passenger hov taxi coach delivery truck trailer motorcycle moped bicycle evehicle container aircraft wheelchair scooter drone custom1 custom2'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.
 Warning: At actuated tlLogic 'Rudolfplatz', linkIndex 37 has no controlling detector.

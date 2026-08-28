@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-28T21:53:25.304113+01:00 by Eclipse SUMO netedit v1_27_1+0541-77b6d1f1c7b
+<!-- generated on 2026-08-28T22:28:51.408942+01:00 by Eclipse SUMO netedit v1_27_1+0545-0a6877b8fb2
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="net2.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="net2.net.xml"/>
     </output>
 
     <processing>
@@ -33,7 +33,7 @@
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,500.00,0.00" origBoundary="-500.00,0.00,2000.00,500.00" projParameter="!"/>
 
     <edge id="beg" from="absBeg" to="beg" priority="-1">
-        <lane id="beg_0" index="0" allow="bus" speed="13.89" length="500.00" shape="0.00,-4.80 500.00,-4.80"/>
+        <lane id="beg_0" index="0" disallow="passenger truck" speed="13.89" length="500.00" shape="0.00,-4.80 500.00,-4.80"/>
         <lane id="beg_1" index="1" speed="13.89" length="500.00" shape="0.00,-1.60 500.00,-1.60"/>
     </edge>
 

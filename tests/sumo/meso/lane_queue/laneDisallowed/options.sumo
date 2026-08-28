@@ -1,2 +1,2 @@
 --edgedata-output aggregated.xml --no-step-log --no-duration-log
---net-file=net.net.xml --routes=input_routes.rou.xml --meso-lane-queue -t
+--net-file=net2.net.xml --routes=input_routes.rou.xml --meso-lane-queue -t

@@ -1,3 +1,4 @@
+Warning: Mismodelled capacity on edge 'absBeg'. Not all lanes are usable by vClass 'bus'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.
 Warning: No connection between edge 'absBeg' and edge 'beg2left' found with vClass bus.
 Error: No connection found between edge 'absBeg' and edge 'beg2left' for person 'p0'.
 Quitting (on error).

@@ -1,2 +1,2 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Mismodelled capacity on edge ':EFlared_0'. Not all lanes are usable by vClass 'private emergency authority vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle custom1 custom2'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.
 Warning: Vehicle class 'bicycle' of vType 'BYC' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
