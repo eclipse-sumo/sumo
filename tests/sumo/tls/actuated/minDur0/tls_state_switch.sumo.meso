@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-30T13:31:57.573220+01:00 by Eclipse SUMO sumo v1_27_1+0049-b29ab8a7e8a
+<!-- generated on 2026-08-28T14:39:04.817578+01:00 by Eclipse SUMO sumo v1_27_1+0536-b0be38ab3ae
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
         <default.speeddev value="0"/>
@@ -52,15 +51,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="16.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
     <tlsState time="20.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsState time="24.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="61.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="65.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="69.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="73.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="77.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="81.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="85.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="89.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="93.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsState time="60.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="64.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="68.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="72.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="76.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="80.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="84.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="88.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="92.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
     <tlsState time="103.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
     <tlsState time="107.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
     <tlsState time="111.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
@@ -70,57 +69,99 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="127.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
     <tlsState time="131.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsState time="135.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="148.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="152.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="156.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="160.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="164.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="168.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="172.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="176.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="180.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="199.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="203.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="207.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsState time="147.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="151.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="155.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsState time="179.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="183.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="187.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsState time="226.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="230.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
     <tlsState time="234.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
     <tlsState time="238.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
     <tlsState time="242.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="290.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="294.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="298.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsState time="312.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="316.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="320.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="330.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="334.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="338.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
-    <tlsState time="348.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="352.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="356.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
-    <tlsState time="416.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="420.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="424.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="428.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="432.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="436.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="440.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="444.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="448.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="452.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="456.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="460.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="464.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="468.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="472.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="476.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="480.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="484.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="488.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="492.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="496.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="500.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
-    <tlsState time="504.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
-    <tlsState time="508.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
-    <tlsState time="512.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
-    <tlsState time="516.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="255.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="259.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="263.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="267.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="271.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsState time="289.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="293.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="297.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="301.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="305.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="309.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="313.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="317.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="321.00" id="0" programID="actuated_additional" phase="4" state="rrrrGGggrrrrGGgg"/>
+    <tlsState time="328.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="332.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="336.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsState time="359.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="363.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="367.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="371.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="375.00" id="0" programID="actuated_additional" phase="0" state="GGggrrrrGGggrrrr"/>
+    <tlsState time="390.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="394.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="398.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="402.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="406.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="410.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="414.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="418.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="422.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="426.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="430.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="434.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="438.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="442.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="446.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="450.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="454.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="458.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="462.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="466.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="470.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="474.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="478.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="482.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="486.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="490.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="494.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="498.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="502.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="506.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="510.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="514.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="518.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="522.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="526.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="530.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="534.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="538.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="542.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="546.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="550.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="554.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="558.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="562.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="566.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="570.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="574.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="578.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="582.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="586.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="590.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="594.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="598.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="602.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="606.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="610.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="614.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="618.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
+    <tlsState time="622.00" id="0" programID="actuated_additional" phase="5" state="rrrryyggrrrryygg"/>
+    <tlsState time="626.00" id="0" programID="actuated_additional" phase="7" state="rrrrrryyrrrrrryy"/>
+    <tlsState time="630.00" id="0" programID="actuated_additional" phase="1" state="yyggrrrryyggrrrr"/>
+    <tlsState time="634.00" id="0" programID="actuated_additional" phase="3" state="rryyrrrrrryyrrrr"/>
 </tlsStates>

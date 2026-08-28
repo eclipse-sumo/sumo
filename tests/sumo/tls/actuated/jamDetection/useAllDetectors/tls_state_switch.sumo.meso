@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-30T13:21:01.210454+01:00 by Eclipse SUMO sumo v1_27_1+0049-b29ab8a7e8a
+<!-- generated on 2026-08-28T14:39:04.611705+01:00 by Eclipse SUMO sumo v1_27_1+0536-b0be38ab3ae
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
         <time-to-teleport value="1000"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
@@ -74,8 +73,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="366.00" id="C" programID="P1" phase="0" state="GGGggrrrrrGGGggrrrrr"/>
     <tlsState time="416.00" id="C" programID="P1" phase="1" state="yyyggrrrrryyyggrrrrr"/>
     <tlsState time="419.00" id="C" programID="P1" phase="2" state="rrrGGrrrrrrrrGGrrrrr"/>
-    <tlsState time="462.00" id="C" programID="P1" phase="3" state="rrryyrrrrrrrryyrrrrr"/>
-    <tlsState time="465.00" id="C" programID="P1" phase="4" state="rrrrrGGGggrrrrrGGGgg"/>
-    <tlsState time="492.00" id="C" programID="P1" phase="5" state="rrrrryyyggrrrrryyygg"/>
-    <tlsState time="495.00" id="C" programID="P1" phase="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+    <tlsState time="460.00" id="C" programID="P1" phase="3" state="rrryyrrrrrrrryyrrrrr"/>
+    <tlsState time="463.00" id="C" programID="P1" phase="4" state="rrrrrGGGggrrrrrGGGgg"/>
+    <tlsState time="489.00" id="C" programID="P1" phase="5" state="rrrrryyyggrrrrryyygg"/>
+    <tlsState time="492.00" id="C" programID="P1" phase="6" state="rrrrrrrrGGrrrrrrrrGG"/>
 </tlsStates>
