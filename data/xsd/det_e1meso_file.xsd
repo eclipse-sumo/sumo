@@ -11,9 +11,6 @@
   </xsd:element>
   <xsd:element name="interval">
     <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element minOccurs="0" maxOccurs="unbounded" ref="typedInterval"/>
-      </xsd:sequence>
       <xsd:attribute name="begin" use="required" type="nonNegativeFloatType"/>
       <xsd:attribute name="end" use="required" type="nonNegativeFloatType"/>
       <xsd:attribute name="id" use="required" type="xsd:string"/>
@@ -32,27 +29,6 @@
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
       <xsd:attribute name="flow" use="optional" type="floatType"/>
       <xsd:attribute name="distance" use="optional" type="floatType"/>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="typedInterval">
-    <xsd:complexType>
-      <xsd:attribute name="begin" use="required" type="nonNegativeFloatType"/>
-      <xsd:attribute name="end" use="required" type="nonNegativeFloatType"/>
-      <xsd:attribute name="id" use="required" type="xsd:string"/>
-      <xsd:attribute name="type" use="required" type="xsd:string"/>
-      <xsd:attribute name="departed" use="required" type="xsd:integer"/>
-      <xsd:attribute name="arrived" use="required" type="xsd:integer"/>
-      <xsd:attribute name="entered" use="required" type="nonNegativeFloatType"/>
-      <xsd:attribute name="left" use="required" type="xsd:integer"/>
-      <xsd:attribute name="sampledSeconds" use="optional" type="nonNegativeFloatType"/>
-      <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
-      <xsd:attribute name="occupancy" use="optional" type="xsd:decimal"/>
-      <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
-      <xsd:attribute name="timeLoss" use="optional" type="floatType"/>
-      <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
-      <xsd:attribute name="speedRelative" use="optional" type="xsd:decimal"/>
-      <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
