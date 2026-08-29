@@ -1,1 +1,0 @@
-Warning: Mismodelled capacity on edge 'EW1'. Not all lanes are usable by vClass 'private rail_fast'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.

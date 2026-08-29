@@ -1,3 +1,2 @@
-Warning: Mismodelled capacity on edge 'beg2left'. Not all lanes are usable by vClass 'private emergency authority army vip pedestrian passenger hov taxi coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.
 Warning: No connection between edge 'beg2' and edge 'end' found.
 Warning: No route for vehicle 'veh0' found.
