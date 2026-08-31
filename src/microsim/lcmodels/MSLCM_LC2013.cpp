@@ -1399,7 +1399,8 @@ MSLCM_LC2013::_wantsChange(
             currentDist = myVehicle.getPositionOnLane() + leader.second;
 #ifdef DEBUG_WANTS_CHANGE
             if (DEBUG_COND) {
-                std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                std::cout << " veh=" << myVehicle.getID()
+                          << " overtake " << (hasBidiLeader ? "bidi" : "stopped") << " leader=" << leader.first->getID()
                           << " overtakeDist=" << overtakeDist
                           << " overtakeDist2=" << overtakeDist
                           << " hasFreeLane=" << hasFreeLane(laneOffset, neighLead)
