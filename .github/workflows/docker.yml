@@ -134,5 +134,5 @@ jobs:
       - run: |
           docker run --rm \
             -v "${{ github.workspace }}:/work" -w /work \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:nightly \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main \
             sumo --version
