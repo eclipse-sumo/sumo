@@ -8,5 +8,7 @@ Warning: Teleporting vehicle 't.5'; waited too long (jam), lane='-E0_1', time=77
 Warning: Vehicle 't.5' teleports beyond arrival edge '-E0', time=777.00.
 Warning: Teleporting vehicle 't.8'; waited too long (yield), lane='-E1_1', time=782.00.
 Warning: Teleporting vehicle 't.10'; waited too long (jam), lane='-E2_1', time=803.00.
-Error: Request lateral pos of vehicle 'v.89' for invalid lane '-E0_1'
-Quitting (on error).
+Warning: Vehicle 't.10' teleports beyond arrival edge '-E0', time=815.00.
+Warning: Vehicle 'v.95'; frontal collision with vehicle 't.6', lane='E0_1', gap=-1.24, latGap=-0.70, time=825.00, stage=laneChange.
+Warning: Vehicle 'v.56' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=826.00.
+Warning: Vehicle 't.8' teleports beyond arrival edge '-E0', time=925.00.
