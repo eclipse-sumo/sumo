@@ -146,6 +146,9 @@ The following parameters are used by the model:
 - **meso-taujf**: minimum headway when traveling after the vehicle was blocked (waitingTime > 0)
 - **meso-taujj**: the time for a gap to travel backwards by 7.5m if a car was *not* traveling at free flow speed (default *1.4*)
 
+!!! note
+    The meso-LTM model achieves more realistic simulation for urban queuing dynamics. The original meso model (Eissfeldt) achieves instant propagation of gaps when queued traffic starts to flow again (i.e. at a traffic light). In contrast, the meso-LTM model distinguishes between a queue that has space at the upstream end and a queue that has space ad the downstream end.
+
 ## Lateral Model
 
 Lateral movement is not modelled explicitly. Vehicles may overtake each
