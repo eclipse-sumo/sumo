@@ -18,6 +18,6 @@ jobs:
     - name: Remove Docker Tag
       uses: rafalkk/remove-dockertag-action@v1
       with:
-        tag_name: gui-benchmark
+        tag_name: dependabot-github_actions-docker-login-action-4
         github_token: ${{ secrets.GITHUB_TOKEN }}
         is_organization: true
