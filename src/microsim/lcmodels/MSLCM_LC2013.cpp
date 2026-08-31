@@ -495,7 +495,9 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         // not overtaking
         return plannedSpeed;
     }
-    const double neighNextSpeed = nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration()));
+    const double neighNextSpeed = MIN2(nv->getSpeed() - ACCEL2SPEED(MAX2(1.0, -nv->getAcceleration())),
+            // assume that we know when a neighboring vehicle intends to stop
+            nv->nextStopDist() <= nv->getLane()->getLength() ? nv->getCarFollowModel().minNextSpeed(nv->getSpeed(), nv) : nv->getSpeed());
     double neighNextGap;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         neighNextGap = neighLead.second + SPEED2DIST(neighNextSpeed - plannedSpeed);
