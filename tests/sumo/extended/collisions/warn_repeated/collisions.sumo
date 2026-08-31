@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-31T16:22:10.357574+01:00 by Eclipse SUMO sumo v1_27_1+0560-941092aa293
+<!-- generated on 2026-08-31T16:58:32.961195+01:00 by Eclipse SUMO sumo v1_27_1+0565-71d805c017e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,6 +46,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
-    <collision time="8.00" type="collision" lane="SC_0" pos="54.47" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="8.23" victimSpeed="0.00" colliderFront="104.42,54.47" colliderBack="104.42,49.47" victimFront="104.95,60.00" victimBack="104.95,55.00"/>
-    <collision time="107.50" type="collision" lane="SC_0" pos="54.17" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="3.54" victimSpeed="0.00" colliderFront="104.42,54.17" colliderBack="104.42,49.17" victimFront="104.95,60.00" victimBack="104.95,55.00"/>
+    <collision time="8.00" type="collision" lane="SC_1" pos="54.47" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="8.23" victimSpeed="0.00" colliderFront="102.18,54.47" colliderBack="102.18,49.47" victimFront="101.65,60.00" victimBack="101.65,55.00"/>
+    <collision time="107.00" type="collision" lane="SC_1" pos="54.29" collider="c" victim="v" colliderType="chump" victimType="surprise" colliderSpeed="6.39" victimSpeed="0.00" colliderFront="103.35,54.29" colliderBack="103.35,49.29" victimFront="101.65,60.00" victimBack="101.65,55.00"/>
 </collisions>
