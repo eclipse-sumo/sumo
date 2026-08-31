@@ -1,11 +1,5 @@
 [Reported by ARM CI]
 search_string:.*
-search_file:errors
-brief_description:see #17458
-ignore_other_errors:1
-
-[Reported by ARM CI (2)]
-search_string:.*
-search_file:output
+search_file:aggregated300
 brief_description:see #17458
 ignore_other_errors:1
