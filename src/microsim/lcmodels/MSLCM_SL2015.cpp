@@ -2366,6 +2366,19 @@ MSLCM_SL2015::getStopped(const MSLeaderDistanceInfo& ldi) {
 }
 
 
+bool
+MSLCM_SL2015::hasBidiLeader(const MSLeaderDistanceInfo& ldi, const std::vector<MSLane*>& conts) {
+    if (ldi.hasVehicles()) {
+        for (const MSVehicle* const v : ldi.getVehicles()) {
+            if (MSLCHelper::isBidiLeader(v, conts)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 int
 MSLCM_SL2015::checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                             const MSLeaderDistanceInfo& leaders,
@@ -2972,7 +2985,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
     } else if (laneOffset != 0 && changeToBest && bestLaneOffset == curr.bestLaneOffset
                && currentDistDisallows(usableDist, bestLaneOffset, laDist)) {
         /// @brief we urgently need to change lanes to follow our route
-        if (!mustOvertakeStopped(false, neighLane, neighLeaders, leaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+        if (!mustOvertakeStopped(false, neighLane, neighLeaders, leaders, forwardPos, neighDist, right, latLaneDist, neigh.bestContinuations, currentDist, latDist)) {
             latDist = latLaneDist;
             ret |= LCA_STRATEGIC | LCA_URGENT;
 #ifdef DEBUG_STRATEGIC_CHANGE
@@ -3018,7 +3031,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
         // handling reaction to stopped for opposite direction driving NYI
         const bool noOpposites = &myVehicle.getLane()->getEdge() == &neighLane.getEdge();
-        if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(true, neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, currentDist, latDist)) {
+        if (laneOffset != 0 && myStrategicParam >= 0 && noOpposites && mustOvertakeStopped(true, neighLane, leaders, neighLeaders, forwardPos, neighDist, right, latLaneDist, curr.bestContinuations,  currentDist, latDist)) {
 #ifdef DEBUG_STRATEGIC_CHANGE
             if (gDebugFlag2) {
                 std::cout << " veh=" << myVehicle.getID() << " mustOvertakeStopped\n";
@@ -3151,7 +3164,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
 
 bool
 MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
-                                  double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist) {
+                                  double posOnLane, double neighDist, bool right, double latLaneDist, const std::vector<MSLane*>& conts, double& currentDist, double& latDist) {
     bool mustOvertake = false;
     const MSVehicle* const stoppedLeader = getStopped(leaders);
     const bool checkOverTakeRight = avoidOvertakeRight(stoppedLeader, true);
@@ -3162,11 +3175,11 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
     const MSLane* neighBeyond = neighLane.getParallelLane(dir);
     const bool hasLaneBeyond = checkCurrent && neighBeyond != nullptr && neighBeyond->allowsVehicleClass(myVehicle.getVClass());
     UNUSED_PARAMETER(hasLaneBeyond);
-    if (curHasStopped) {
+    if (curHasStopped || hasBidiLeader(leaders, conts)) {
         leaders.getSubLanes(&myVehicle, 0, rightmost, leftmost);
         for (int i = rightmost; i <= leftmost; i++) {
             const CLeaderDist& leader = leaders[i];
-            if (leader.first != 0 && leader.first->isStopped() && leader.second < REACT_TO_STOPPED_DISTANCE) {
+            if (leader.first != 0 && (leader.first->isStopped() || MSLCHelper::isBidiLeader(leader.first, conts)) && leader.second < REACT_TO_STOPPED_DISTANCE) {
                 const double overtakeDist = leader.second + myVehicle.getVehicleType().getLength() + leader.first->getVehicleType().getLengthWithGap();
                 const double remaining = MIN2(neighDist, currentDist) - posOnLane;
 #ifdef DEBUG_STRATEGIC_CHANGE
@@ -3193,7 +3206,8 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
                     mustOvertake = true;
 #ifdef DEBUG_STRATEGIC_CHANGE
                     if (DEBUG_COND) {
-                        std::cout << " veh=" << myVehicle.getID() << " overtake stopped leader=" << leader.first->getID()
+                        std::cout << " veh=" << myVehicle.getID()
+                                  << " overtake " << (leader.first->isStopped ? "stopped" : "bidi") << " leader=" << leader.first->getID()
                                   << " newCurrentDist=" << currentDist
                                   << " overtakeDist=" << overtakeDist
                                   << " remaining=" << remaining

@@ -245,6 +245,9 @@ protected:
     /// @brief get a stopped vehicle in the given info
     static const MSVehicle* getStopped(const MSLeaderDistanceInfo& ldi);
 
+    /// @brief return true if any leader on the upcoming lanes is driving in the opposite direction
+    bool hasBidiLeader(const MSLeaderDistanceInfo& ldi, const std::vector<MSLane*>& conts); 
+
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
     int checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,
@@ -294,7 +297,7 @@ protected:
 
 
     bool mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, const MSLeaderDistanceInfo& leaders, const MSLeaderDistanceInfo& neighLead,
-                             double posOnLane, double neighDist, bool right, double latLaneDist, double& currentDist, double& latDist);
+                             double posOnLane, double neighDist, bool right, double latLaneDist, const std::vector<MSLane*>& conts, double& currentDist, double& latDist);
 
     /// @brief check whether lateral gap requirements are met override the current maneuver if necessary
     int keepLatGap(int state,
