@@ -7008,6 +7008,10 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
                 assert(myLaneChangeModel->getShadowLane() != 0);
                 return (lane->getRightSideOnEdge() + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
                         + (myLane->getCenterOnEdge() - myLaneChangeModel->getShadowLane()->getCenterOnEdge()));
+            } else if (shadowFurther[i]->getBidiLane() == lane) {
+                assert(myLaneChangeModel->getShadowLane() != 0);
+                return (lane->getRightSideOnEdge() - myLaneChangeModel->getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
+                        + (myLane->getCenterOnEdge() - myLaneChangeModel->getShadowLane()->getCenterOnEdge()));
             }
         }
         assert(false);
