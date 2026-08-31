@@ -18,6 +18,6 @@ jobs:
     - name: Remove Docker Tag
       uses: rafalkk/remove-dockertag-action@v1
       with:
-        tag_name: v0_13_7
+        tag_name: jupedsim_grpc
         github_token: ${{ secrets.GITHUB_TOKEN }}
         is_organization: true
