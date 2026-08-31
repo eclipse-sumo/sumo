@@ -715,7 +715,7 @@ MSRouteHandler::closeVehicle() {
                     for (int i = 0; i < (int)rDist->getVals().size() - 1; i++) {
                         SUMOTime replacedAt = rDist->getVals()[i]->getReplacedTime();
                         auto* cmd = new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]);
-                        if (i == 0 && replacedAt >= 0 && replacedAt == myVehicleParameter->depart) {
+                        if (replacedAt >= 0 && replacedAt == myVehicleParameter->depart) {
                             // routing in the insertion step happens *after* insertion
                             MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, replacedAt);
                         } else {
