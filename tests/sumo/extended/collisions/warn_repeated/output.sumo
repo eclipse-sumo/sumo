@@ -6,17 +6,17 @@ Simulation ended at time: 387.00.
 Reason: All vehicles have left the simulation.
 Performance:
  Duration: 0.00s
- Real time factor: 96750
- UPS: 376750.000000
+ Real time factor: 129000
+ UPS: 502333.333333
 Vehicles:
  Inserted: 2
  Running: 0
  Waiting: 0
- Teleports: 0 (Collisions: 1)
+ Teleports: 0 (Collisions: 2)
 Statistics (avg of 2):
  RouteLength: 1628.64
  Speed: 4.32
  Duration: 376.75
- WaitingTime: 179.25
- TimeLoss: 213.36
+ WaitingTime: 186.50
+ TimeLoss: 213.20
  DepartDelay: 0.00

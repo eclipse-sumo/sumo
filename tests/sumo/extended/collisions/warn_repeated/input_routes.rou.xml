@@ -4,7 +4,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="r0" edges="SC CN NC CS" repeat="3">
         <stop edge="SC" endPos="60" duration="10"/>
-        <stop edge="CN" endPos="60" speed="20"/>
+        <stop lane="CN_1" endPos="60" speed="20"/>
     </route>
     <route id="r1" edges="SC CN NC CS" repeat="3">
         <stop edge="SC" endPos="80" duration="6"/>
