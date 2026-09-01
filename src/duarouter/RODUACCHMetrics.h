@@ -15,20 +15,20 @@
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// duarouter's lazy CCH metric store over the shared graph mapping
-// (utils/router/CCHGraph.h); RODUACCHGraph is its ROEdge instantiation.
+// duarouter's CCH metric store: thin static trampolines (CCHRouter's
+// MetricProvider and PeriodEnd hooks are plain function pointers) over the
+// shared CCHMetricFamily in STATIC mode -- lazy per-(vehicle type, weight
+// period) customization, filled with the querying vehicle, with the
+// restriction-params edges of a type masked to inf_weight by a post-fill
+// patch. See utils/router/CCHMetricFamily.h for the semantics.
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
-#include <map>
-#include <memory>
-#include <mutex>
-#include <utility>
-#include <vector>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/router/CCHGraph.h>
+#include <utils/router/CCHMetricFamily.h>
 
 class ROEdge;
 class ROVehicle;
@@ -40,29 +40,14 @@ class SUMOVTypeParameter;
 // ===========================================================================
 /// @brief the ROEdge instantiation of the CCH graph mapping
 using RODUACCHGraph = CCHGraph<ROEdge, ROVehicle>;
+/// @brief the ROEdge instantiation of the CCH metric store, keyed by the
+/// vehicle-type parameters (stable pointers, owned by RONet)
+using RODUACCHMetricFamily = CCHMetricFamily<ROEdge, ROVehicle, SUMOVTypeParameter>;
 
 
 /**
  * @class RODUACCHMetrics
- * @brief Lazy per-(vehicle type, weight period) CCH metric store for duarouter.
- *
- * The metric provider handed to CCHRouter (a plain function pointer). On the
- * first query for a (type, period) pair, the metric is customized under a
- * mutex from the graph's fillInputWeights evaluated at the period's begin
- * with the querying vehicle as the effort reference (which also primes the
- * class's connection mask under that lock) and cached for the rest of the
- * run. Keying by the TYPE (rather than the class) makes everything the
- * effort function reads from the vehicle type exact per metric: the type's
- * maximum speed, per-class edge speed restrictions and restriction-params
- * values; only individual speed-factor draws within one type share a metric
- * (the same approximation the CH family makes with its per-class prototype
- * vehicles, but at finer granularity). Without weight files there is a
- * single period, so exactly one metric per type; with time-dependent weight
- * files this mirrors CHRouterWrapper's one-hierarchy-per-weight-period
- * semantics -- except that only the cheap re-customization is repeated,
- * never the topology build. RoutingKit metrics BORROW their input-weight
- * buffer, so buffer and metric live together in the map (std::map nodes are
- * address-stable).
+ * @brief function-pointer front end of duarouter's STATIC metric family
  */
 class RODUACCHMetrics {
 public:
@@ -71,12 +56,8 @@ public:
     static void init(const RODUACCHGraph* graph, RODUACCHGraph::EffortOperation effort,
                      SUMOTime begin, SUMOTime weightPeriod);
 
-    /// @brief the metric for the vehicle's class and restriction profile at
-    /// a query time, built on first use; matches CCHRouter::MetricProvider.
-    /// Vehicles whose type carries restriction-params values get their own
-    /// metric with the edges that restrict them masked to inf_weight -- the
-    /// restricts() relation only depends on the type's paramRestrictions
-    /// vector, so vehicles sharing that vector share the metric.
+    /// @brief the metric for the vehicle's type at a query time, built on
+    /// first use; matches CCHRouter::MetricProvider
     static const RoutingKit::CustomizableContractionHierarchyMetric* get(
         SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* veh);
 
@@ -85,17 +66,10 @@ public:
     static SUMOTime periodEnd(SUMOTime time);
 
 private:
-    struct ClassMetric {
-        std::vector<unsigned> weights;
-        std::unique_ptr<RoutingKit::CustomizableContractionHierarchyMetric> metric;
-    };
-    /// @brief (vehicle type, weight period) -> metric; the type pointer is
-    /// stable (types are owned by RONet), nullptr covers vehicle-less queries
-    typedef std::pair<const SUMOVTypeParameter*, int> MetricKey;
-    static const RODUACCHGraph* myGraph;
-    static RODUACCHGraph::EffortOperation myEffort;
-    static SUMOTime myBegin;
-    static SUMOTime myWeightPeriod;
-    static std::map<MetricKey, ClassMetric> myMetrics;
-    static std::mutex myLock;
+    /// @brief post-fill hook: mask the edges that restrict the querying
+    /// vehicle's type to inf_weight (restriction-params)
+    static void patchRestrictions(const RODUACCHGraph* graph, const ROVehicle* veh,
+                                  std::vector<unsigned>& weights);
+
+    static RODUACCHMetricFamily* myFamily;
 };
