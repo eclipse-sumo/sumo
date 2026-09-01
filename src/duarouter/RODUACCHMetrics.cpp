@@ -15,7 +15,7 @@
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// duarouter's lazy CCH metric store (see RODUACCHMetrics.h).
+// duarouter's CCH metric store (see RODUACCHMetrics.h).
 /****************************************************************************/
 #include <config.h>
 
@@ -27,12 +27,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-const RODUACCHGraph* RODUACCHMetrics::myGraph = nullptr;
-RODUACCHGraph::EffortOperation RODUACCHMetrics::myEffort = nullptr;
-SUMOTime RODUACCHMetrics::myBegin = 0;
-SUMOTime RODUACCHMetrics::myWeightPeriod = SUMOTime_MAX;
-std::map<RODUACCHMetrics::MetricKey, RODUACCHMetrics::ClassMetric> RODUACCHMetrics::myMetrics;
-std::mutex RODUACCHMetrics::myLock;
+RODUACCHMetricFamily* RODUACCHMetrics::myFamily = nullptr;
 
 
 // ===========================================================================
@@ -41,69 +36,48 @@ std::mutex RODUACCHMetrics::myLock;
 void
 RODUACCHMetrics::init(const RODUACCHGraph* graph, RODUACCHGraph::EffortOperation effort,
                       SUMOTime begin, SUMOTime weightPeriod) {
-    myGraph = graph;
-    myEffort = effort;
-    myBegin = begin;
-    myWeightPeriod = weightPeriod;
-    myMetrics.clear();
+    delete myFamily;
+    // no reference-vehicle factory: each (type, period) pair is customized
+    // exactly once, so the first querying vehicle of a type is that type's
+    // effort reference
+    myFamily = new RODUACCHMetricFamily(graph, effort, begin, weightPeriod,
+                                        nullptr, &RODUACCHMetrics::patchRestrictions);
 }
 
 
 const RoutingKit::CustomizableContractionHierarchyMetric*
 RODUACCHMetrics::get(SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* veh) {
-    if (myGraph == nullptr) {
+    if (myFamily == nullptr) {
         return nullptr;  // not initialised -> caller falls back to A*
     }
-    // Weight period of the query time (period 0 covers everything before
-    // begin and the whole run when no weight files are loaded).
-    int period = 0;
-    if (myWeightPeriod > 0 && myWeightPeriod != SUMOTime_MAX && time > myBegin) {
-        period = (int)((time - myBegin) / myWeightPeriod);
-    }
-    // Lazy build on the first query for a (type, period) pair (duarouter
-    // streams vehicles, so the types are not known up front); the weights are
-    // evaluated at the period's begin with the querying vehicle as the effort
-    // reference, so each pair is customized exactly once and reflects the
-    // type's maximum speed, per-class edge speed restrictions and
-    // restriction-params. The mutex also serialises concurrent first queries
-    // from parallel routing threads (satisfying primeClassMask's
-    // synchronization contract); afterwards the map is read-only for that
-    // key (references into std::map are stable).
-    std::lock_guard<std::mutex> lock(myLock);
-    const MetricKey key = std::make_pair(veh == nullptr ? nullptr : veh->getType(), period);
-    auto it = myMetrics.find(key);
-    if (it == myMetrics.end()) {
-        ClassMetric& cm = myMetrics[key];
-        const double periodBegin = STEPS2TIME(myBegin + period * myWeightPeriod);
-        myGraph->fillInputWeights(myEffort, vClass, veh, periodBegin, cm.weights);
-        if (veh != nullptr && !veh->getType()->paramRestrictions.empty()) {
-            // mask the edges that restrict this type (restricts() depends
-            // only on the type's paramRestrictions vector). arcsOfEdge of a
-            // real edge is exactly the arcs headed by it -- via chains hold
-            // internal edges only -- matching what the exact routers check
-            // per relaxation.
-            for (const ROEdge* const e : ROEdge::getAllEdges()) {
-                if (!e->isInternal() && !e->isTazConnector() && e->restricts(veh)) {
-                    for (const unsigned a : myGraph->arcsOfEdge(e)) {
-                        cm.weights[a] = RoutingKit::inf_weight;
-                    }
-                }
-            }
-        }
-        cm.metric.reset(new RoutingKit::CustomizableContractionHierarchyMetric(
-                            myGraph->cch(), cm.weights));
-        cm.metric->customize();
-        return cm.metric.get();
-    }
-    return it->second.metric.get();
+    // keyed by the TYPE (nullptr covers vehicle-less queries): everything the
+    // effort function reads from the type is exact per metric -- see
+    // CCHMetricFamily.h
+    return myFamily->get(veh == nullptr ? nullptr : veh->getType(), vClass, time, veh);
 }
 
 
 SUMOTime
 RODUACCHMetrics::periodEnd(SUMOTime time) {
-    if (myWeightPeriod <= 0 || myWeightPeriod == SUMOTime_MAX) {
-        return SUMOTime_MAX;
+    return myFamily == nullptr ? SUMOTime_MAX : myFamily->periodEnd(time);
+}
+
+
+void
+RODUACCHMetrics::patchRestrictions(const RODUACCHGraph* graph, const ROVehicle* veh,
+                                   std::vector<unsigned>& weights) {
+    if (veh == nullptr || veh->getType()->paramRestrictions.empty()) {
+        return;
     }
-    const int period = time > myBegin ? (int)((time - myBegin) / myWeightPeriod) : 0;
-    return myBegin + (period + 1) * myWeightPeriod;
+    // mask the edges that restrict this type (restricts() depends only on
+    // the type's paramRestrictions vector). arcsOfEdge of a real edge is
+    // exactly the arcs headed by it -- via chains hold internal edges only --
+    // matching what the exact routers check per relaxation.
+    for (const ROEdge* const e : ROEdge::getAllEdges()) {
+        if (!e->isInternal() && !e->isTazConnector() && e->restricts(veh)) {
+            for (const unsigned a : graph->arcsOfEdge(e)) {
+                weights[a] = RoutingKit::inf_weight;
+            }
+        }
+    }
 }
