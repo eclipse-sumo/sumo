@@ -34,6 +34,7 @@
 #include <memory>
 #include <atomic>
 #include <map>
+#include <mutex>
 namespace RoutingKit {
 struct CustomizableContractionHierarchyMetric;
 struct CustomizableContractionHierarchyPartialCustomization;
@@ -48,6 +49,7 @@ struct CustomizableContractionHierarchyPartialCustomization;
 // class declarations
 // ===========================================================================
 class MSTransportable;
+class MSVehicleType;
 class SUMOSAXAttributes;
 
 // ===========================================================================
@@ -129,6 +131,22 @@ public:
     /// one being customized. Called on the routing hot path -- allocation- and
     /// lock-free.
     static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass, SUMOTime time, const SUMOVehicle* veh);
+
+    /// @brief the free-flow CCH metric for MSNet's routers (TraCI / triggers /
+    /// GUI), keyed by vehicle type and filled through MSNet::getTravelTime
+    /// with a reference vehicle of the type. Free-flow efforts are static, so
+    /// each metric customizes once; a runtime permission change re-customizes
+    /// in place. Returns nullptr (-> exact A* fallback) whenever the query
+    /// cannot be served by a shared metric: individual or global TraCI edge
+    /// weights, a routing mode other than DEFAULT, or a vehicle-specific
+    /// type. MAIN-THREAD ONLY -- MSNet's routers never run on the worker
+    /// threads, which is what allows the synchronous lazy build and repair.
+    static const RoutingKit::CustomizableContractionHierarchyMetric* getFreeflowCCHMetric(SUMOVehicleClass vClass, SUMOTime time, const SUMOVehicle* veh);
+
+    /// @brief the shared CCH topology, built on first demand (used by
+    /// MSNet::getRouterTT to construct its CCH router; the device path builds
+    /// it through initCCH)
+    static MSCCHGraph* ensureCCHGraph();
 
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
@@ -326,69 +344,35 @@ private:
     static FXMutex myRouteCacheMutex;
 #endif
 
-    /// @brief per-vehicle-class CCH metric state (one double-buffer per class).
-    /// The CCH TOPOLOGY is shared (class-independent union); each class differs
-    /// only in which arcs are inf_weight (permissions + closures). Heap-owned
-    /// (the atomic makes it non-movable, so it cannot live in a map by value).
-    struct CCHClass {
-        std::vector<unsigned> weight[2];  // ping-pong input-weight buffers, live whole run
-        std::shared_ptr<RoutingKit::CustomizableContractionHierarchyMetric> metric[2];
-        std::atomic<const RoutingKit::CustomizableContractionHierarchyMetric*> front{nullptr};
-        int frontIndex = 1;               // first customize uses back = 0
-        SUMOVehicleClass vClass = SVC_PASSENGER;
-        /// @brief partial-customization worker (queue over the shared CCH);
-        /// one per class -- its queue is drained by every customize()
-        std::shared_ptr<RoutingKit::CustomizableContractionHierarchyPartialCustomization> partial;
-    };
     /// @brief the immutable shared CCH topology (built once), or nullptr if inactive
     static MSCCHGraph* myCCHGraph;
-    /// @brief one metric-set per vehicle class present in the demand
-    static std::vector<CCHClass*> myCCHClasses;
-    static std::map<SUMOVehicleClass, CCHClass*> myCCHByClass;
-    /// @brief whether any query consumed a published metric since the last
-    /// customize. Mirrors the lazy weightPeriod semantics of CH/CHWrapper
-    /// (initRouter): a hierarchy is only rebuilt for weights somebody routes
-    /// on. Workers set this on the query hot path (relaxed store); the main
-    /// thread exchanges it at the adaptation barrier and skips the customize
-    /// when no query arrived -- an idle network (or probability 0) then pays
-    /// nothing, while under continuous querying the cadence is unchanged.
-    static std::atomic<bool> myCCHQueried;
-    /// @brief scratch input-weight buffer for the partial-path diff (sized to
-    /// arcCount on first use; avoids a per-tick allocation)
-    static std::vector<unsigned> myCCHScratchWeight;
-    /// @brief edge-effort update threshold, mirroring the reroute decision's
-    /// sufficientSaving(): an edge's arcs are only refilled into the metric
-    /// when its effort moved by MORE than BOTH the relative factor AND the
-    /// absolute constant (seconds) since the buffer last applied it. The
-    /// moving-average speed filter smears every traffic event into
-    /// adaptation-steps ticks of sub-percent drift; without a deadband that
-    /// drift marks thousands of arcs per tick and partial re-customization
-    /// degenerates (RoutingKit documents it for the sparse "new traffic jam"
-    /// case). Defaults 1/0 = every change propagates. Closures bypass the
-    /// threshold via the applied-effort sentinel set by invalidateCCHEdge.
-    static double myCCHUpdateFactor;
-    static double myCCHUpdateConstant;
-    /// @brief per-buffer edge state for the sparse path: the effort each
-    /// edge's arcs were last filled from (NaN = never applied / forced), the
-    /// pending-dirty flag, and the pending list (edges whose speed moved
-    /// since this buffer last customized; threshold-checked at the barrier)
-    static std::vector<double> myCCHAppliedEffort[2];
-    static std::vector<char> myCCHPendingFlag[2];
-    static std::vector<const MSEdge*> myCCHPendingList[2];
-    /// @brief build the shared CCH + one metric per present class, publish initial metrics
+    /// @brief the rerouting device's LIVE metric family over the adaptive
+    /// speed tables (see utils/router/CCHMetricFamily.h): metrics are keyed
+    /// by vehicle TYPE -- mirroring duarouter's keying -- and filled with an
+    /// OWNED reference vehicle of the type, so the type's maximum speed,
+    /// vClass speed limits, routing preferences, the bicycle speed table and
+    /// one frozen weights.random-factor realization are exact per metric.
+    /// nullptr until initCCH.
+    static MSCCHMetricFamily* myCCHLive;
+    /// @brief the STATIC free-flow metric family behind MSNet's routers
+    /// (TraCI / triggers / GUI, all main-thread); built on first query
+    static MSCCHMetricFamily* myCCHFreeflow;
+    /// @brief construct the unregistered effort-reference vehicle for a
+    /// type: never counted, inserted or given devices, with the type's mean
+    /// speed factor and a deterministic random seed (the family's
+    /// RefVehicleFactory)
+    static SUMOVehicle* buildCCHRefVehicle(const MSVehicleType* type);
+    /// @brief build the shared CCH + the live family with one metric per
+    /// loaded type, publish initial metrics
     static void initCCH();
-    /// @brief refill+customize+publish every class's metric from live speeds/permissions
-    static void customizeCCH();
 
 public:
-    /// @brief mark one edge dirty for the sparse CCH re-customization,
-    /// bypassing the update threshold (used for permission changes /
-    /// closures, where the speed table does not move but the mask does)
+    /// @brief a runtime permission change (closure / re-opening) hit this
+    /// edge: invalidate the graph's primed connection masks and both
+    /// families' metrics (queries divert to the exact fallback until the
+    /// families re-customize)
     static void invalidateCCHEdge(const MSEdge* e);
 private:
-    /// @brief queue an edge whose smoothed speed changed this tick (both
-    /// buffers; threshold applies later at the customize barrier)
-    static void markCCHEdgeDirty(const MSEdge* e);
 
 private:
     /// @brief Invalidated copy constructor.

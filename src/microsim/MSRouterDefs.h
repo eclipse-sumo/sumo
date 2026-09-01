@@ -42,6 +42,10 @@ typedef SUMOAbstractRouter<MSEdge, SUMOVehicle> MSVehicleRouter;
 template<class E, class V> class CCHGraph;
 /// @brief the MSEdge instantiation of the CCH graph mapping (utils/router/CCHGraph.h)
 using MSCCHGraph = CCHGraph<MSEdge, SUMOVehicle>;
+class MSVehicleType;
+template<class E, class V, class K> class CCHMetricFamily;
+/// @brief the per-vehicle-type CCH metric store (utils/router/CCHMetricFamily.h)
+using MSCCHMetricFamily = CCHMetricFamily<MSEdge, SUMOVehicle, MSVehicleType>;
 typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSTransportableRouter;
 typedef PedestrianRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSPedestrianRouter;
 typedef MapMatcher<MSEdge, MSLane, MSJunction> MSMapMatcher;

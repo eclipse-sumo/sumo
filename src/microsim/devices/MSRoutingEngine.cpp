@@ -33,6 +33,12 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSRoute.h>
+#include <microsim/MSEdgeWeightsStorage.h>
+#include <mesosim/MEVehicle.h>
+#include <libsumo/TraCIConstants.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include <set>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/transportables/MSTransportable.h>
@@ -48,6 +54,7 @@
 #include <utils/router/CHRouterWrapper.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/router/CCHGraph.h>
+#include <utils/router/CCHMetricFamily.h>
 #include <utils/router/CCHRouter.h>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -86,15 +93,8 @@ SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc
 FXMutex MSRoutingEngine::myRouteCacheMutex;
 #endif
 MSCCHGraph* MSRoutingEngine::myCCHGraph = nullptr;
-std::vector<MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHClasses;
-std::map<SUMOVehicleClass, MSRoutingEngine::CCHClass*> MSRoutingEngine::myCCHByClass;
-std::atomic<bool> MSRoutingEngine::myCCHQueried(false);
-std::vector<unsigned> MSRoutingEngine::myCCHScratchWeight;
-double MSRoutingEngine::myCCHUpdateFactor = 1.;
-double MSRoutingEngine::myCCHUpdateConstant = 0.;
-std::vector<double> MSRoutingEngine::myCCHAppliedEffort[2];
-std::vector<char> MSRoutingEngine::myCCHPendingFlag[2];
-std::vector<const MSEdge*> MSRoutingEngine::myCCHPendingList[2];
+MSCCHMetricFamily* MSRoutingEngine::myCCHLive = nullptr;
+MSCCHMetricFamily* MSRoutingEngine::myCCHFreeflow = nullptr;
 
 
 // ===========================================================================
@@ -253,6 +253,7 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
     }
     const MSEdgeVector& edges = MSNet::getInstance()->getEdgeControl().getEdges();
     const double newWeightFactor = (double)(1. - myAdaptationWeight);
+    bool cchEdgeMoved = false;
     for (const MSEdge* const e : edges) {
         if (e->isDelayed()) {
             const int id = e->getNumericalID();
@@ -293,9 +294,10 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
                 }
             }
             // sparse CCH re-customization: remember which edges actually
-            // moved; the update threshold is applied at the customize barrier
-            if (myCCHGraph != nullptr && myEdgeSpeeds[id] != oldSmoothedSpeed) {
-                markCCHEdgeDirty(e);
+            // moved; the update deadband is applied at the customize barrier
+            if (myCCHLive != nullptr && myEdgeSpeeds[id] != oldSmoothedSpeed) {
+                myCCHLive->markDirty(e);
+                cchEdgeMoved = true;
             }
         }
     }
@@ -303,18 +305,15 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
         myAdaptationStepsIndex = (myAdaptationStepsIndex + 1) % myAdaptationSteps;
     }
     myLastAdaptation = currentTime;
-    // Re-customize the CCH metric from the freshly updated speed tables and
-    // publish it (double-buffered). Runs on the main thread after the speed
-    // update; no worker query is in flight at this point.
-    //
-    // Lazy, following the CH weightPeriod pattern (initRouter): only rebuild
-    // a metric somebody routed on. If no query consumed the published metric
-    // since the last customize, the current one is still unread -- skip the
-    // rebuild (measured on Lausanne: the unconditional per-tick customize was
-    // 80% of meso wall time at adaptation-interval 2, and ran even with
-    // device.rerouting.probability 0).
-    if (myCCHGraph != nullptr && myCCHQueried.exchange(false, std::memory_order_acq_rel)) {
-        customizeCCH();
+    // The device's CCH customization barrier: re-customize the metrics from
+    // the freshly updated speed tables and publish (double-buffered). Runs
+    // on the main thread after the speed update; no worker query is in
+    // flight at this point. The family skips quiet barriers and runs that
+    // never route (see CCHMetricFamily::atBarrier: measured on Lausanne, the
+    // unconditional per-tick customize was 80% of meso wall time at
+    // adaptation-interval 2, and ran even with rerouting probability 0).
+    if (myCCHLive != nullptr) {
+        myCCHLive->atBarrier(STEPS2TIME(currentTime), cchEdgeMoved);
     }
     if (OptionsCont::getOptions().isSet("device.rerouting.output")) {
         OutputDevice& dev = OutputDevice::getDeviceByOption("device.rerouting.output");
@@ -338,65 +337,71 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 }
 
 
-void
-MSRoutingEngine::initCCH() {
-    if (myCCHGraph != nullptr) {
-        return;  // built once
+MSCCHGraph*
+MSRoutingEngine::ensureCCHGraph() {
+    if (myCCHGraph == nullptr) {
+        myCCHGraph = new MSCCHGraph(MSEdge::getAllEdges());  // union topology; class masks prime at first fill
     }
-    // One metric per vehicle class actually present in the demand (plus
-    // passenger). All classes share ONE CCH topology (the union); they differ
-    // only by which arcs are inf_weight (permissions + closures). Enumerate
-    // loaded vTypes -- parsed from additional files before any routing.
-    std::set<SUMOVehicleClass> classes;
-    classes.insert(SVC_PASSENGER);
-    std::vector<std::string> vtypeIDs;
-    MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
-    for (const std::string& id : vtypeIDs) {
-        MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(id, nullptr, true);
-        if (vt != nullptr) {
-            classes.insert(vt->getVehicleClass());
-        }
-    }
-    myCCHGraph = new MSCCHGraph(MSEdge::getAllEdges());  // union topology; class masks prime at first fill
-    const OptionsCont& oc = OptionsCont::getOptions();
-    myCCHUpdateFactor = oc.getFloat("device.rerouting.cch-update-threshold.factor");
-    myCCHUpdateConstant = STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant")));
-    int edgeSpace = 0;
-    for (const MSEdge* e : MSEdge::getAllEdges()) {
-        edgeSpace = MAX2(edgeSpace, e->getNumericalID() + 1);
-    }
-    for (int i = 0; i < 2; i++) {
-        // NaN = "never applied": the first pending occurrence always passes
-        // the threshold and primes the entry
-        myCCHAppliedEffort[i].assign(edgeSpace, std::numeric_limits<double>::quiet_NaN());
-        myCCHPendingFlag[i].assign(edgeSpace, 0);
-        myCCHPendingList[i].clear();
-    }
-    for (const SUMOVehicleClass vc : classes) {
-        CCHClass* c = new CCHClass();
-        c->vClass = vc;
-        c->weight[0].resize(myCCHGraph->arcCount());
-        c->weight[1].resize(myCCHGraph->arcCount());
-        c->partial = std::make_shared<RoutingKit::CustomizableContractionHierarchyPartialCustomization>(myCCHGraph->cch());
-        myCCHClasses.push_back(c);
-        myCCHByClass[vc] = c;
-    }
-    customizeCCH();  // publish initial metrics so the first queries succeed
+    return myCCHGraph;
 }
 
 
 void
-MSRoutingEngine::markCCHEdgeDirty(const MSEdge* e) {
-    const int id = e->getNumericalID();
-    if (id < 0 || id >= (int)myCCHPendingFlag[0].size()) {
-        return;
+MSRoutingEngine::initCCH() {
+    if (myCCHLive != nullptr) {
+        return;  // device-side state built once (the graph alone may already
+        // exist for MSNet's free-flow router)
     }
-    for (int i = 0; i < 2; i++) {
-        if (!myCCHPendingFlag[i][id]) {
-            myCCHPendingFlag[i][id] = 1;
-            myCCHPendingList[i].push_back(e);
+    // One LIVE metric per vehicle TYPE known when routing starts (see
+    // utils/router/CCHMetricFamily.h for the keying and buffer semantics).
+    // All types share ONE CCH topology (the union); route files stream, so
+    // types appearing later register through the family's wanted list and
+    // get their metric at the next customization barrier.
+    ensureCCHGraph();
+    const OptionsCont& oc = OptionsCont::getOptions();
+    myCCHLive = new MSCCHMetricFamily(
+        myCCHGraph, myEffortFunc, &MSRoutingEngine::getEffort,
+        oc.getFloat("device.rerouting.cch-update-threshold.factor"),
+        STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant"))),
+        &MSRoutingEngine::buildCCHRefVehicle);
+    std::vector<std::string> vtypeIDs;
+    MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
+    for (const std::string& id : vtypeIDs) {
+        const MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(id, nullptr, true);
+        if (vt != nullptr && !vt->isVehicleSpecific()) {
+            myCCHLive->seedKey(vt);
         }
     }
+    // publish initial metrics so the first queries succeed
+    myCCHLive->customize(STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()));
+}
+
+
+SUMOVehicle*
+MSRoutingEngine::buildCCHRefVehicle(const MSVehicleType* type) {
+    // The effort-reference vehicle: constructed DIRECTLY (what buildVehicle
+    // does minus initVehicle), so it is never counted in the vehicle
+    // statistics, never given devices and never inserted -- it exists only
+    // so every metric fill evaluates the same reference. The mean speed
+    // factor makes it deterministic (the findRoute precedent) and the fixed
+    // id makes the frozen weights.random-factor realization reproducible
+    // (the random seed is a hash of the id).
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    pars->id = "cchRef:" + type->getID();
+    const MSEdge* refEdge = nullptr;
+    for (const MSEdge* e : MSEdge::getAllEdges()) {
+        if (!e->isInternal() && !e->isTazConnector()) {
+            refEdge = e;
+            break;
+        }
+    }
+    ConstMSRoutePtr route = std::make_shared<MSRoute>(pars->id, ConstMSEdgeVector({refEdge}), false, nullptr, StopParVector());
+    if (MSGlobals::gUseMesoSim) {
+        return new MEVehicle(pars, route, const_cast<MSVehicleType*>(type),
+                             type->getSpeedFactor().getParameter(0));
+    }
+    return new MSVehicle(pars, route, const_cast<MSVehicleType*>(type),
+                         type->getSpeedFactor().getParameter(0));
 }
 
 
@@ -405,145 +410,74 @@ MSRoutingEngine::invalidateCCHEdge(const MSEdge* e) {
     if (myCCHGraph == nullptr) {
         return;
     }
-    const int id = e->getNumericalID();
-    if (id < 0 || id >= (int)myCCHPendingFlag[0].size()) {
-        return;
+    // the primed connection masks reflect the OLD successor lists; the next
+    // fill of either family re-primes from the live ones. Safe to do right
+    // here: masks are only read at fill time, and every fill runs on the
+    // main thread (the device barrier, the free-flow repair) -- never on a
+    // query thread.
+    myCCHGraph->invalidateClassMasks();
+    if (myCCHFreeflow != nullptr) {
+        myCCHFreeflow->flagPermissionsStale();
     }
-    markCCHEdgeDirty(e);
-    // NaN sentinel: the threshold always passes, so a permission flip
-    // (closure / re-opening) reaches the metric at the next barrier even
-    // though the speed table did not move
-    myCCHAppliedEffort[0][id] = std::numeric_limits<double>::quiet_NaN();
-    myCCHAppliedEffort[1][id] = std::numeric_limits<double>::quiet_NaN();
-}
-
-
-void
-MSRoutingEngine::customizeCCH() {
-    const double now = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-    if (myCCHClasses.empty()) {
-        return;
-    }
-    // buffers flip in lockstep across classes (every call processes all)
-    const int backShared = 1 - myCCHClasses.front()->frontIndex;
-    // Threshold pass, once (efforts read the class-shared speed table):
-    // accept edges whose effort moved by more than BOTH bounds since this
-    // buffer last applied them -- the sufficientSaving() analog. Rejected
-    // edges stay pending; their drift keeps accumulating against the same
-    // applied value, so a slow trend eventually passes while filter jitter
-    // never does.
-    std::vector<const MSEdge*> accepted;
-    if (myCCHClasses.front()->metric[backShared] != nullptr) {
-        std::vector<const MSEdge*> stillPending;
-        for (const MSEdge* e : myCCHPendingList[backShared]) {
-            const int id = e->getNumericalID();
-            const double effNow = myEffortFunc(e, nullptr, now);
-            const double effApplied = myCCHAppliedEffort[backShared][id];
-            bool pass = true;
-            if (!std::isnan(effApplied) && effApplied > 0. && effNow > 0.) {
-                const double hi = MAX2(effNow, effApplied);
-                const double lo = MIN2(effNow, effApplied);
-                pass = (hi / lo > myCCHUpdateFactor) && (hi - lo > myCCHUpdateConstant);
-            }
-            if (pass) {
-                accepted.push_back(e);
-                myCCHAppliedEffort[backShared][id] = effNow;
-                myCCHPendingFlag[backShared][id] = 0;
-            } else {
-                stillPending.push_back(e);
-            }
-        }
-        myCCHPendingList[backShared].swap(stillPending);
-    }
-    bool fullRebuild = false;
-    for (CCHClass* c : myCCHClasses) {
-        const int back = 1 - c->frontIndex;
-        // Fill from live speeds via myEffortFunc, masking arcs the class is
-        // not permitted on -- this is where per-class permissions AND active
-        // closures (a permissions change) become inf_weight.
-        //
-        // myEffortFunc (not plain getEffort) keeps the metric consistent with
-        // every other cost evaluation in the router: TAZ source seeding in
-        // CCHRouter::compute and recomputeCosts (the equivalence oracle) both
-        // go through myOperation == myEffortFunc. When weights.priority-factor
-        // is active, myEffortFunc is getEffortExtra and the static per-edge
-        // priority multiplier is baked into the metric here -- including each
-        // folded via edge, which gets its own multiplier inside
-        // viaChainEffort, mirroring A*'s updateViaEdgeCost behavior.
-        //
-        // INVARIANT (enforced by the guard in initRouter): the only extra that
-        // may be active together with CCH is the priority factor. The
-        // vehicle-dependent extras (weights.random-factor, routing
-        // preferences, bike-speeds) stay rejected -- getEffortExtra with the
-        // nullptr reference vehicle used here is only safe because the random
-        // and preference branches (which dereference the vehicle) are
-        // guaranteed off. Stock SUMO relies on the same nullptr-safety when
-        // writing device.rerouting.output.
-        if (c->metric[back] == nullptr) {
-            // first use of this buffer: no previous state to diff against
-            myCCHGraph->fillInputWeights(myEffortFunc, c->vClass, nullptr, now, c->weight[back]);
-            c->metric[back] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(
-                                  myCCHGraph->cch(), c->weight[back]);
-            c->metric[back]->customize();  // serial (~2.7ms/class); avoids OpenMP-in-FOX oversubscription
-            fullRebuild = true;
-        } else {
-            // SPARSE PATH: metric[back] is the customization of the current
-            // contents of weight[back]. Recompute only the arcs of accepted
-            // edges (edge->arc reverse image), write the ones that moved,
-            // and propagate through affected triangles only. Cost scales
-            // with traffic transitions, not with the network.
-            std::vector<unsigned>& applied = c->weight[back];
-            c->partial->reset(myCCHGraph->cch());
-            unsigned changed = 0;
-            for (const MSEdge* e : accepted) {
-                for (const unsigned a : myCCHGraph->arcsOfEdge(e)) {
-                    const unsigned newW = myCCHGraph->computeArcWeight(a, myEffortFunc, c->vClass, nullptr, now);
-                    if (newW != applied[a]) {
-                        applied[a] = newW;
-                        c->partial->update_arc(a);  // takes INPUT arc ids
-                        ++changed;
-                    }
-                }
-            }
-            if (changed > 0) {
-                c->partial->customize(*c->metric[back]);
-            }
-        }
-        // Publish lock-free (see class doc): main-thread release store at the
-        // barrier, worker acquire-loads on the hot path.
-        c->frontIndex = back;
-        c->front.store(c->metric[back].get(), std::memory_order_release);
-    }
-    if (fullRebuild) {
-        // a full fill matched every arc to the live efforts: pending entries
-        // for this buffer are stale; NaN re-arms the first-change auto-pass
-        for (const MSEdge* e : myCCHPendingList[backShared]) {
-            myCCHPendingFlag[backShared][e->getNumericalID()] = 0;
-        }
-        myCCHPendingList[backShared].clear();
-        myCCHAppliedEffort[backShared].assign(myCCHAppliedEffort[backShared].size(),
-                                              std::numeric_limits<double>::quiet_NaN());
+    if (myCCHLive != nullptr) {
+        myCCHLive->invalidateEdge(e);
     }
 }
 
 
 const RoutingKit::CustomizableContractionHierarchyMetric*
-MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass vClass, SUMOTime /* time */, const SUMOVehicle* /* veh */) {
-    // the single published metric always tracks the live speeds; the query
-    // time only matters for duarouter's per-weight-period metrics
-    const auto it = myCCHByClass.find(vClass);
-    if (it == myCCHByClass.end()) {
-        return nullptr;  // class has no CCH metric -> caller falls back to A*
+MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass /* vClass */, SUMOTime /* time */, const SUMOVehicle* veh) {
+    // the published metrics always track the live speeds; the query time
+    // only matters for duarouter's per-weight-period metrics. Lookup is by
+    // vehicle TYPE (the metric's exactness key); a vehicle-specific type
+    // (TraCI-modified singular copy) routes on the exact fallback rather
+    // than on another type's metric.
+    if (veh == nullptr || myCCHLive == nullptr) {
+        return nullptr;
     }
-    // mark the metric as consumed so the next adaptation barrier refreshes it.
-    // Test before set: an unconditional store from every worker query would
-    // ping-pong the cache line between cores; the read is shared and the
-    // store fires once per adaptation window (relaxed: only gates the
-    // customize cadence, never data visibility)
-    if (!myCCHQueried.load(std::memory_order_relaxed)) {
-        myCCHQueried.store(true, std::memory_order_relaxed);
+    const MSVehicleType* type = &veh->getVehicleType();
+    if (type->isVehicleSpecific()) {
+        return nullptr;
     }
-    return it->second->front.load(std::memory_order_acquire);
+    return myCCHLive->published(type);
+}
+
+
+const RoutingKit::CustomizableContractionHierarchyMetric*
+MSRoutingEngine::getFreeflowCCHMetric(SUMOVehicleClass /* vClass */, SUMOTime /* time */, const SUMOVehicle* veh) {
+    // MAIN-THREAD ONLY (see header): MSNet's routers serve TraCI, triggers
+    // and the GUI, never the rerouting worker threads, so the family's lazy
+    // creation and stale repair may run synchronously right here.
+    if (veh == nullptr) {
+        return nullptr;
+    }
+    // Everything MSNet::getTravelTime reads ahead of the free-flow layer is
+    // per-vehicle and cannot live in a shared metric -> exact fallback:
+    // individual TraCI edge weights, global TraCI edge weights, a routing
+    // mode other than DEFAULT (the AGGREGATED modes belong to the device
+    // metrics; the transient-permission modes already fall back inside
+    // CCHRouter::compute).
+    if (veh->getRoutingMode() != libsumo::ROUTING_MODE_DEFAULT
+            || !MSNet::getInstance()->getWeightsStorage().empty()) {
+        return nullptr;
+    }
+    const MSVehicle* const msVeh = dynamic_cast<const MSVehicle*>(veh);
+    if (msVeh != nullptr && !msVeh->getWeightsStorage().empty()) {
+        return nullptr;
+    }
+    const MSVehicleType* type = &veh->getVehicleType();
+    if (type->isVehicleSpecific()) {
+        return nullptr;
+    }
+    if (myCCHFreeflow == nullptr) {
+        // free-flow efforts are static: a STATIC family with a single weight
+        // period, lazily customized per type on first query
+        myCCHFreeflow = new MSCCHMetricFamily(
+            ensureCCHGraph(), &MSNet::getTravelTime, 0, SUMOTime_MAX,
+            &MSRoutingEngine::buildCCHRefVehicle, nullptr);
+    }
+    return myCCHFreeflow->get(type, type->getVehicleClass(),
+                              MSNet::getInstance()->getCurrentTimeStep(), veh);
 }
 
 
@@ -668,20 +602,15 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
             MSEdge::getAllEdges(), true, myEffortFunc,
             string2time(oc.getString("begin")), string2time(oc.getString("end")), weightPeriod, hasPermissions, oc.getInt("device.rerouting.threads"));
     } else if (routingAlgorithm == "CCH") {
-        // CCH compiles all costs into a shared, per-class metric, so it can
-        // express any effort modifier that is per-edge and vehicle-independent:
-        // weights.priority-factor is supported -- the priority multiplier is
-        // baked into the metric at customization time because the fill goes
-        // through myEffortFunc (see customizeCCH). What a shared metric cannot
-        // express are the per-VEHICLE modifiers among the getEffortExtra
-        // extras: stochastic weight randomization (per-vehicle noise), routing
-        // preferences (per-vType divisor) and the separate bicycle speed
-        // table (per-class effort function). Those remain rejected here; the
-        // customizeCCH invariant on the nullptr reference vehicle depends on
-        // this rejection.
-        if (gWeightsRandomFactor != 1 || gRoutingPreferences || myBikeSpeeds) {
-            throw ProcessError(TL("Routing algorithm 'CCH' is incompatible with weights.random-factor != 1, routing preferences or bike-speeds. Disable these to use CCH."));
-        }
+        // CCH metrics are keyed by vehicle TYPE and filled with a reference
+        // vehicle of the type (customizeCCH), mirroring duarouter's
+        // RODUACCHMetrics: type/class-specific routing preferences, the
+        // bicycle speed table, the type's maximum speed and the static
+        // priority multiplier are captured exactly per metric.
+        // weights.random-factor freezes one realization per metric -- the
+        // same approximation CHRouterWrapper makes when building its
+        // hierarchies; exact per-vehicle randomization remains the domain of
+        // dijkstra and astar.
         initCCH();  // build the immutable topology + publish an initial metric (once)
         // embedded fallback for non-passenger / prohibited / unreachable queries
         SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
@@ -868,20 +797,12 @@ MSRoutingEngine::cleanup() {
     // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
     // it against the new network; the router clones referencing it were
     // deleted together with the worker threads / router provider
+    delete myCCHLive;
+    myCCHLive = nullptr;
+    delete myCCHFreeflow;
+    myCCHFreeflow = nullptr;
     delete myCCHGraph;
     myCCHGraph = nullptr;
-    for (CCHClass* c : myCCHClasses) {
-        delete c;
-    }
-    myCCHClasses.clear();
-    myCCHByClass.clear();
-    myCCHQueried.store(false, std::memory_order_relaxed);
-    myCCHScratchWeight.clear();
-    for (int i = 0; i < 2; i++) {
-        myCCHAppliedEffort[i].clear();
-        myCCHPendingFlag[i].clear();
-        myCCHPendingList[i].clear();
-    }
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor
