@@ -232,6 +232,12 @@ public:
         return (unsigned)myArcTail.size();
     }
 
+    /// @brief size of the edge numerical-id space the graph was built over
+    /// (for callers keeping per-edge-id side arrays, e.g. CCHMetricFamily)
+    unsigned edgeIdSpace() const {
+        return (unsigned)myEdgeToNode.size();
+    }
+
     /// @brief RoutingKit node index for an edge, or INVALID_NODE if not a node
     unsigned nodeOf(const E* e) const {
         if (e == nullptr || e->getNumericalID() < 0 || e->getNumericalID() >= (int)myEdgeToNode.size()) {
@@ -338,6 +344,19 @@ public:
         for (unsigned a = 0; a < arcCount(); a++) {
             weight[a] = computeArcWeight(a, effort, maskClass, veh, time);
         }
+    }
+
+    /** @brief Drop every primed connection mask so the next fill re-primes
+     * from the CURRENT successor lists.
+     *
+     * Runtime permission changes (closingReroute / closingLaneReroute) alter
+     * getViaSuccessors(vClass); a mask primed before the change keeps serving
+     * the old connection set -- a closure active at first customize would
+     * even outlive its re-opening. Same synchronization contract as
+     * primeClassMask: call only while no query is in flight. */
+    void invalidateClassMasks() const {
+        myArcPerm.assign(myArcPerm.size(), 0);
+        myPrimedClasses = 0;
     }
 
 private:
