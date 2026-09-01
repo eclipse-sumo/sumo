@@ -1,14 +1,15 @@
-Warning: Teleporting vehicle 'v.19'; waited too long (jam), lane='E0_1', time=462.00.
-Warning: Teleporting vehicle 't.4'; waited too long (jam), lane='-E0_1', time=462.00.
-Warning: Vehicle 't.4' teleports beyond arrival edge '-E0', time=462.00.
-Warning: Vehicle 'v.19' ends teleporting on edge 'E4', time=466.00.
-Warning: Vehicle 'v.80' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=475.00.
-Warning: Vehicle 'v.56'; frontal collision with vehicle 't.5', lane='E0_1', gap=-1.61, latGap=-0.70, time=476.00, stage=laneChange.
-Warning: Teleporting vehicle 't.5'; waited too long (jam), lane='-E0_1', time=777.00.
-Warning: Vehicle 't.5' teleports beyond arrival edge '-E0', time=777.00.
-Warning: Teleporting vehicle 't.8'; waited too long (yield), lane='-E1_1', time=782.00.
-Warning: Teleporting vehicle 't.10'; waited too long (jam), lane='-E2_1', time=803.00.
-Warning: Vehicle 't.10' teleports beyond arrival edge '-E0', time=815.00.
-Warning: Vehicle 'v.95'; frontal collision with vehicle 't.6', lane='E0_1', gap=-1.24, latGap=-0.70, time=825.00, stage=laneChange.
-Warning: Vehicle 'v.56' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=826.00.
-Warning: Vehicle 't.8' teleports beyond arrival edge '-E0', time=925.00.
+Warning: Vehicle 'v.23' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=176.00.
+Warning: Vehicle 'v.86'; frontal collision with vehicle 't.9', lane='E0_1', gap=-1.40, latGap=-0.90, time=516.00, stage=laneChange.
+Warning: Vehicle 'v.87'; frontal collision with vehicle 't.9', lane='E0_1', gap=-0.69, latGap=-0.90, time=522.00, stage=laneChange.
+Warning: Teleporting vehicle 'v.85'; waited too long (jam), lane='E0_1', time=822.00.
+Warning: Teleporting vehicle 't.10'; waited too long (jam), lane='-E0_1', time=822.00.
+Warning: Vehicle 't.10' teleports beyond arrival edge '-E0', time=822.00.
+Warning: Vehicle 'v.85' ends teleporting on edge 'E4', time=859.00.
+Warning: Teleporting vehicle 'v.90'; waited too long (yield), lane=':J2_7_0', time=870.00.
+Warning: Vehicle 'v.90' ends teleporting on edge 'E4', time=870.00.
+Warning: Teleporting vehicle 't.11'; waited too long (yield), lane='-E1_1', time=1126.00.
+Warning: Teleporting vehicle 't.13'; waited too long (jam), lane='-E2_1', time=1127.00.
+Warning: Teleporting vehicle 'v.86'; waited too long (jam), lane='E0_1', time=1131.00.
+Warning: Vehicle 't.13' teleports beyond arrival edge '-E0', time=1136.00.
+Warning: Vehicle 'v.86' ends teleporting on edge 'E1', time=1137.00.
+Warning: Vehicle 't.11' ends teleporting on edge '-E0', time=1151.00.
