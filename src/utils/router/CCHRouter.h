@@ -33,11 +33,15 @@
 //   static const unsigned INVALID_NODE
 //
 // Every vehicle class routes on CCH via its own published metric. Closures are
-// permission changes the per-class metric already encodes as inf_weight, so
-// they need no query-time handling. The embedded A* fallback is used only when
-// a class has no metric yet or a prohibition is NOT expressible as a live
-// permission closure (an arbitrary per-query prohibition, which no shared CCH
-// metric can represent) -- see compute() / prohibitionsCoveredByMetric().
+// permission changes the per-class metric encodes as inf_weight once they have
+// been customized in; the simulation's metric provider hands out nullptr while
+// a permission flip is still pending, so those queries route exactly. The
+// embedded A* fallback is used when a class has no (fresh) metric, when the
+// vehicle routes on the ORIGINAL permissions (ignoreTransientPermissions --
+// the shared metric bakes in the live ones), or when a prohibition is NOT
+// expressible as a live permission closure (an arbitrary per-query
+// prohibition, which no shared CCH metric can represent) -- see compute() /
+// prohibitionsCoveredByMetric().
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -46,6 +50,7 @@
 #include <memory>
 #include <vector>
 #include <cmath>
+#include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOVehicleClass.h>
@@ -122,6 +127,13 @@ public:
         // active prohibition that is NOT already a live permission-closure this
         // class's metric encodes (prohibitionsCoveredByMetric).
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_PASSENGER : vehicle->getVClass();
+        // A vehicle that routes on the ORIGINAL permissions (routing mode bit
+        // ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) cannot use the shared
+        // metric, which bakes in the LIVE permissions, transient closures
+        // included -- route it exactly, like Dijkstra/A* do natively.
+        if (vehicle != nullptr && vehicle->ignoreTransientPermissions()) {
+            return myFallback->compute(from, to, vehicle, msTime, into, silent);
+        }
         MetricPtr metric = myMetricProvider(vClass, msTime, vehicle);
         if (metric == nullptr || (myProhibitionActive && !prohibitionsCoveredByMetric(vClass))) {
             return myFallback->compute(from, to, vehicle, msTime, into, silent);
@@ -133,6 +145,26 @@ public:
         // filter to edges this class may enter.
         const bool fromTaz = from->isTazConnector() && myGraph->nodeOf(from) == GRAPH::INVALID_NODE;
         const bool toTaz = to->isTazConnector() && myGraph->nodeOf(to) == GRAPH::INVALID_NODE;
+        // Mirror the exact routers' endpoint rejection (AStarRouter::compute):
+        // an endpoint the vehicle may not use fails loudly instead of quietly
+        // seeding a query on it. The metric masks only arcs BETWEEN nodes --
+        // the source edge's own closure never enters it (its effort is added
+        // as a plain source seed), so without this check a query from a
+        // hard-closed edge would "succeed". TAZ members are filtered below.
+        if (vehicle != nullptr) {
+            if (!fromTaz && from->prohibits(vehicle)) {
+                if (!silent && this->myErrorMsgHandler != nullptr) {
+                    this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on source edge '" + from->getID() + "'.");
+                }
+                return false;
+            }
+            if (!toTaz && to->prohibits(vehicle)) {
+                if (!silent && this->myErrorMsgHandler != nullptr) {
+                    this->myErrorMsgHandler->inform("Vehicle '" + Named::getIDSecure(vehicle) + "' is not allowed on destination edge '" + to->getID() + "'.");
+                }
+                return false;
+            }
+        }
         std::vector<unsigned> srcBuf, tgtBuf;
         const std::vector<unsigned>* sources;
         const std::vector<unsigned>* targets;
@@ -234,6 +266,13 @@ public:
     void setBulkMode(const bool mode) {
         SUMOAbstractRouter<E, V>::setBulkMode(mode);
         myFallback->setBulkMode(mode);
+    }
+
+    /// @brief keep the fallback reporting through the same handler (duarouter
+    /// swaps handlers around route repair; CHRouterWrapper propagates likewise)
+    void setMsgHandler(MsgHandler* const errorMsgHandler) {
+        SUMOAbstractRouter<E, V>::setMsgHandler(errorMsgHandler);
+        myFallback->setMsgHandler(errorMsgHandler);
     }
 
 private:
