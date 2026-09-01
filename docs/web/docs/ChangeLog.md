@@ -17,6 +17,13 @@ title: ChangeLog
   - Setting parameter `lcCooperativeHelpTime` is now working #18249
   - Rerouter-closingReroute without allow/disallow no longer resets edge permissions to 'all' #18262
   - Saved vehicle state now restores junction timing variables #18248
+  - Fixed bug where option **--replay-rerouting** fails if a vehicle reroutes before departure and again in the depart step #18278
+  - Fixed bug where parking vehicles could not enter the road at a busStop #17638
+  - Fixed inefficient cooperative speeds during lane changing for carFollowModel *IDM* #17502
+  - Fixed invalid error in sublane simulation with bidirectional lanes #18280
+  - Fixed deadlocks and unsafe driving in sublane simulation #18281
+  - Fixed bug where vehicles were kept in the simulation despite insertion failure for longer than option **--max-depart-delay** #18284
+
 
 - sumo-gui
   - Fixed crash when coloring by insertion backlog #18215
@@ -46,6 +53,7 @@ title: ChangeLog
   - Fixed crash after loading an invalid network #18244
 
 - netconvert
+  - Fixed invalid link index for second part of multi-lane internal edge #18282 (regression in 1.22.0)
   - Fixed missing connections in networks with dedicated bus lanes #18181 (regression in 1.23.0)
   - Fixed crash when rail signal connection link index is patched #18142
   - OSM: no longer importing superfluous tls where tram runs on road #18146
@@ -78,6 +86,7 @@ title: ChangeLog
   - initial person routing can now use multiple threads #18268
   - meandata output has an attribute `distance` #18255
   - meandata values for net, emissions and noise can now be merged into a single line or table row #18254
+  - Added laneChangeModel parameters `lcCooperativeMinSpeed` and `lcCooperativeHelpThreshold` which make cooperative yielding dependent on ego speed and also on the speed difference between ego and the blocked vehicle which requires help #17717
 
 - netedit
   - Added visualization toggle switch for showing start and end symbols (S, E) for polygons #17911
