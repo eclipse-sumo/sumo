@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-26T11:32:49.902997+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
+<!-- generated on 2026-09-01T14:50:32.723905+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,14 +32,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
@@ -193,11 +189,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":C_29" function="internal">
         <lane id=":C_29_0" index="0" allow="bicycle" speed="5.91" length="7.30" width="1.50" shape="3854.66,1106.73 3853.81,1108.03 3853.44,1109.88 3854.07,1111.49 3855.71,1112.86"/>
-        <lane id=":C_29_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.78" length="4.54" shape="3851.96,1111.34 3852.51,1113.11 3854.52,1114.89"/>
+        <lane id=":C_29_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.78" length="4.54" shape="3851.96,1111.34 3852.51,1113.11 3854.52,1114.89"/>
     </edge>
     <edge id=":C_30" function="internal">
         <lane id=":C_30_0" index="0" allow="bicycle" speed="13.06" length="25.49" width="1.50" shape="3847.31,1111.16 3838.82,1117.83 3830.67,1123.04 3825.84,1124.39"/>
-        <lane id=":C_30_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.24" length="17.61" shape="3844.77,1113.45 3841.00,1115.99 3833.66,1119.41 3828.69,1119.63"/>
+        <lane id=":C_30_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.24" length="17.61" shape="3844.77,1113.45 3841.00,1115.99 3833.66,1119.41 3828.69,1119.63"/>
     </edge>
     <edge id=":C_31" function="internal">
         <lane id=":C_31_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="3.65" length="3.23" shape="3853.14,1105.80 3852.27,1105.59 3851.92,1104.77 3852.09,1103.33"/>
@@ -246,11 +242,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":C_35" function="internal">
         <lane id=":C_35_0" index="0" allow="bicycle" speed="5.90" length="7.01" width="1.50" shape="3826.99,1130.26 3827.68,1129.28 3828.11,1127.43 3827.49,1125.80 3825.84,1124.39"/>
-        <lane id=":C_35_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.77" length="4.52" shape="3829.60,1125.91 3829.10,1124.21 3827.05,1122.38"/>
+        <lane id=":C_35_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="6.77" length="4.52" shape="3829.60,1125.91 3829.10,1124.21 3827.05,1122.38"/>
     </edge>
     <edge id=":C_36" function="internal">
         <lane id=":C_36_0" index="0" allow="bicycle" speed="13.34" length="27.42" width="1.50" shape="3832.83,1127.56 3834.05,1126.43 3842.86,1119.64 3851.04,1114.36 3855.71,1112.86"/>
-        <lane id=":C_36_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.50" length="20.12" shape="3834.74,1125.39 3840.69,1121.48 3848.06,1118.01 3852.90,1117.65"/>
+        <lane id=":C_36_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.50" length="20.12" shape="3834.74,1125.39 3840.69,1121.48 3848.06,1118.01 3852.90,1117.65"/>
     </edge>
     <edge id=":C_37" function="internal">
         <lane id=":C_37_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="3.65" length="3.23" shape="3828.25,1131.57 3829.11,1131.81 3829.43,1132.64 3829.21,1134.07"/>

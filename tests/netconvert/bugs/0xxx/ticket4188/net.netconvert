@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-08-01 10:34:35 by Eclipse SUMO netconvert Version v1_24_0+0102-c3f50d280c3
+<!-- generated on 2026-09-01T14:50:40.708519+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,19 +27,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -92,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_0" index="0" allow="bicycle" speed="13.89" length="23.59" width="1.50" shape="353.92,152.10 353.82,152.75 350.13,159.59 344.29,163.60 336.30,164.79"/>
-        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_1" index="0" disallow="pedestrian rail_fast" speed="13.89" length="26.40" width="3.50" shape="355.33,148.05 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
+        <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_24_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.40" width="3.50" shape="355.33,148.05 354.68,151.68 350.84,157.73 344.72,161.27 336.31,162.29"/>
     </edge>
     <edge id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11" function="internal">
         <lane id=":_gneJ11_gneJ12_gneJ15_gneJ17_gneJ18_gneJ4_gneJ7_gneJ8_11_0" index="0" allow="bicycle" speed="13.89" length="19.83" width="1.85" shape="335.16,152.77 342.29,152.47 347.43,151.17 350.57,148.87 351.73,145.57"/>

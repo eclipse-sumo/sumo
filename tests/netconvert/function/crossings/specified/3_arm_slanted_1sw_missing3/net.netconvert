@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-08 12:33:47 by Eclipse SUMO netconvert Version v1_21_0+0667-84505d7ebe2
+<!-- generated on 2026-09-01T14:50:39.276297+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":137_9" function="internal">
         <lane id=":137_9_0" index="0" allow="passenger" speed="6.21" length="11.54" shape="155.13,145.26 155.15,148.15 156.33,150.18 158.67,150.25 162.17,148.39"/>
-        <lane id=":137_9_1" index="0" allow="passenger" speed="7.93" length="4.03" shape="160.44,152.91 164.00,151.02"/>
+        <lane id=":137_9_1" index="1" allow="passenger" speed="7.93" length="4.03" shape="160.44,152.91 164.00,151.02"/>
     </edge>
     <edge id=":137_10" function="internal">
         <lane id=":137_10_0" index="0" allow="passenger" speed="3.65" length="2.34" shape="146.99,144.88 146.24,144.39 145.58,143.11"/>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":137_11" function="internal">
         <lane id=":137_11_0" index="0" allow="passenger" speed="6.47" length="4.07" shape="138.33,146.36 139.22,142.39"/>
-        <lane id=":137_11_1" index="0" allow="passenger" speed="8.03" length="4.03" shape="141.49,146.67 142.40,142.75"/>
+        <lane id=":137_11_1" index="1" allow="passenger" speed="8.03" length="4.03" shape="141.49,146.67 142.40,142.75"/>
     </edge>
     <edge id=":137_12" function="internal">
         <lane id=":137_12_0" index="0" allow="passenger" speed="13.89" length="4.02" shape="160.46,152.93 164.00,151.02"/>
@@ -146,10 +146,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="24" type="priority" x="324.34" y="41.50" incLanes="-138_0 -138_1 -138_2" intLanes=":24_0_0" shape="324.34,41.50 319.55,34.60 324.34,41.50">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="347" type="priority" x="163.32" y="0.00" incLanes="348_0 348_1 348_2 348_3" intLanes=":347_0_0" shape="163.32,0.00 151.79,-1.30 163.32,0.00">
+    <junction id="347" type="priority" x="163.32" y="0.00" incLanes="348_0 348_1 348_2 348_3" intLanes=":347_0_0" shape="163.32,-0.00 151.79,-1.30 163.32,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="6" type="dead_end" x="0.00" y="64.33" incLanes="" intLanes="" shape="0.00,64.33 6.69,54.86"/>
+    <junction id="6" type="dead_end" x="0.00" y="64.33" incLanes="" intLanes="" shape="-0.00,64.33 6.69,54.86"/>
 
     <junction id=":137_9_0" type="internal" x="155.13" y="145.26" incLanes=":137_3_0" intLanes=":137_2_0 :137_8_0 :137_c0_0 :137_c1_0"/>
     <junction id=":137_9_1" type="internal" x="160.44" y="152.91" incLanes=":137_3_1" intLanes=":137_2_0 :137_8_0 :137_c0_0 :137_c1_0"/>

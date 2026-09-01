@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-26T11:33:01.656182+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
+<!-- generated on 2026-09-01T14:50:38.838874+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":C_34" function="internal">
         <lane id=":C_34_0" index="0" allow="bicycle" speed="10.59" length="14.89" width="1.50" shape="99.27,99.68 97.79,103.76 94.08,107.43 88.90,108.65"/>
-        <lane id=":C_34_1" index="0" allow="passenger" speed="9.48" length="15.38" shape="100.89,93.99 100.81,94.57 98.42,98.47 94.46,100.82 88.90,101.60"/>
+        <lane id=":C_34_1" index="1" allow="passenger" speed="9.48" length="15.38" shape="100.89,93.99 100.81,94.57 98.42,98.47 94.46,100.82 88.90,101.60"/>
     </edge>
     <edge id=":C_22" function="internal">
         <lane id=":C_22_0" index="0" allow="passenger bicycle" speed="6.02" length="7.58" shape="88.90,95.20 90.26,94.82 91.22,93.68 91.81,91.77 92.00,89.10"/>
@@ -126,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":C_35" function="internal">
         <lane id=":C_35_0" index="0" allow="bicycle" speed="10.59" length="14.14" width="1.50" shape="100.22,100.93 103.71,102.16 107.42,105.80 108.65,110.90"/>
-        <lane id=":C_35_1" index="0" allow="passenger" speed="9.48" length="15.23" shape="93.94,99.11 94.46,99.18 98.43,101.53 100.81,105.43 101.60,110.90"/>
+        <lane id=":C_35_1" index="1" allow="passenger" speed="9.48" length="15.23" shape="93.94,99.11 94.46,99.18 98.43,101.53 100.81,105.43 101.60,110.90"/>
     </edge>
 
     <edge id="CE" from="C" to="E" priority="3">

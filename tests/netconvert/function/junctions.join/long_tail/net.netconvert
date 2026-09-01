@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:53 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2026-09-01T14:50:38.511337+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,7 +26,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
@@ -34,12 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <junctions.join value="true"/>
         <junctions.corner-detail value="0"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -80,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_14" function="internal">
         <lane id=":cluster_301292612_38919945_56231397_59993001_14_0" index="0" speed="13.89" length="11.55" shape="39.40,47.60 36.05,44.71 33.69,37.98"/>
-        <lane id=":cluster_301292612_38919945_56231397_59993001_14_1" index="0" speed="13.89" length="5.05" shape="38.47,43.54 36.79,38.77"/>
+        <lane id=":cluster_301292612_38919945_56231397_59993001_14_1" index="1" speed="13.89" length="5.05" shape="38.47,43.54 36.79,38.77"/>
     </edge>
     <edge id=":cluster_301292612_38919945_56231397_59993001_8" function="internal">
         <lane id=":cluster_301292612_38919945_56231397_59993001_8_0" index="0" speed="18.05" length="9.41" shape="27.20,43.49 29.46,43.35 31.30,42.38 32.71,40.59 33.69,37.98"/>
@@ -150,7 +144,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="492462300" type="dead_end" x="1.87" y="40.76" incLanes="" intLanes="" shape="1.70,42.35 2.04,39.17"/>
     <junction id="567607201" type="dead_end" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.80,65.35 91.12,71.17"/>
     <junction id="945141569" type="dead_end" x="0.00" y="51.05" incLanes="27445000#0.28_0" intLanes="" shape="0.07,52.65 -0.07,49.45"/>
-    <junction id="cluster_301292612_38919945_56231397_59993001" type="priority" x="40.27" y="50.75" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_0_0 :cluster_301292612_38919945_56231397_59993001_1_0 :cluster_301292612_38919945_56231397_59993001_1_1 :cluster_301292612_38919945_56231397_59993001_12_0 :cluster_301292612_38919945_56231397_59993001_4_0 :cluster_301292612_38919945_56231397_59993001_13_0 :cluster_301292612_38919945_56231397_59993001_14_0 :cluster_301292612_38919945_56231397_59993001_14_1 :cluster_301292612_38919945_56231397_59993001_8_0 :cluster_301292612_38919945_56231397_59993001_9_0 :cluster_301292612_38919945_56231397_59993001_9_1 :cluster_301292612_38919945_56231397_59993001_11_0" shape="48.88,63.04 55.82,47.92 53.68,43.09 32.14,37.58 27.44,41.91 25.43,54.95">
+    <junction id="cluster_301292612_38919945_56231397_59993001" type="priority" x="40.27" y="50.76" incLanes="27437972_0 27437972_1 27441289.95_0 27441289.95_1 46039050_0" intLanes=":cluster_301292612_38919945_56231397_59993001_0_0 :cluster_301292612_38919945_56231397_59993001_1_0 :cluster_301292612_38919945_56231397_59993001_1_1 :cluster_301292612_38919945_56231397_59993001_12_0 :cluster_301292612_38919945_56231397_59993001_4_0 :cluster_301292612_38919945_56231397_59993001_13_0 :cluster_301292612_38919945_56231397_59993001_14_0 :cluster_301292612_38919945_56231397_59993001_14_1 :cluster_301292612_38919945_56231397_59993001_8_0 :cluster_301292612_38919945_56231397_59993001_9_0 :cluster_301292612_38919945_56231397_59993001_9_1 :cluster_301292612_38919945_56231397_59993001_11_0" shape="48.88,63.04 55.82,47.92 53.68,43.09 32.14,37.58 27.44,41.91 25.43,54.95">
         <request index="0"  response="000000000000" foes="100000100000" cont="0"/>
         <request index="1"  response="000000000000" foes="011111100000" cont="0"/>
         <request index="2"  response="000000000000" foes="011111100000" cont="0"/>
