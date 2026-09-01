@@ -7,6 +7,7 @@ set(utils_router_STAT_SRCS
    PublicTransportEdge.h
    StopEdge.h
    CCHGraph.h
+   CCHMetricFamily.h
    CCHRouter.h
    CHBuilder.h
    CHRouter.h

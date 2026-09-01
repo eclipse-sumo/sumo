@@ -91,5 +91,6 @@ set(microsim_STAT_SRCS
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})
+target_link_libraries(microsim foreign_routingkit)
 add_dependencies(microsim generate-version-h)
 set_property(TARGET microsim PROPERTY PROJECT_LABEL "z_microsim")
