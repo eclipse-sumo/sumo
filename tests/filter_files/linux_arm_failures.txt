@@ -96,6 +96,7 @@ cf_model/jam_resolution/high_flow
 cf_model/jam_resolution/bottleneck_departLane_random
 cf_model/W99/bottleneck
 lc_model/continuous_lanechange/bugs/ticket15052
+lc_model/ramps/onRampLong_flows/marked_lane
 lc_model/bugs/ticket16443
 pedestrian_model/striping/subsecond/bidirectional_flow_2_stripes
 opposite_direction_driving/continuous/ticket8760
@@ -105,8 +106,11 @@ sublane_model/junction/turnAlignment/bikes_lefthand_center
 sublane_model/junction/wide_lane_split
 sublane_model/opposite_direction_driving/bugs/ticket13111
 sublane_model/bidiEdge/hangAtIntersectionWithBidi
+sublane_model/bidiEdge/TWLT/TWLT_tls
 sublane_model/overtake_stopped/stopped_right
+sublane_model/bugs/ticket12581
 sublane_model/bugs/ticket12581b
+sublane_model/bugs/ticket17502
 devices/bluelight/opposite_multiple2
 devices/bt/pedestrians/parallel_one_starting_later/all_cps
 devices/bt/pedestrians/parallel_one_starting_later/one_cp
