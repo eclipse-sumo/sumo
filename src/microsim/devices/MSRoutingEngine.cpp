@@ -363,7 +363,8 @@ MSRoutingEngine::initCCH() {
         myCCHGraph, myEffortFunc, &MSRoutingEngine::getEffort,
         oc.getFloat("device.rerouting.cch-update-threshold.factor"),
         STEPS2TIME(string2time(oc.getString("device.rerouting.cch-update-threshold.constant"))),
-        &MSRoutingEngine::buildCCHRefVehicle);
+        &MSRoutingEngine::buildCCHRefVehicle,
+        oc.getInt("device.rerouting.cch-ensemble"));
     std::vector<std::string> vtypeIDs;
     MSNet::getInstance()->getVehicleControl().insertVTypeIDs(vtypeIDs);
     for (const std::string& id : vtypeIDs) {
@@ -378,7 +379,7 @@ MSRoutingEngine::initCCH() {
 
 
 SUMOVehicle*
-MSRoutingEngine::buildCCHRefVehicle(const MSVehicleType* type) {
+MSRoutingEngine::buildCCHRefVehicle(const MSVehicleType* type, int slot) {
     // The effort-reference vehicle: constructed DIRECTLY (what buildVehicle
     // does minus initVehicle), so it is never counted in the vehicle
     // statistics, never given devices and never inserted -- it exists only
@@ -387,7 +388,10 @@ MSRoutingEngine::buildCCHRefVehicle(const MSVehicleType* type) {
     // id makes the frozen weights.random-factor realization reproducible
     // (the random seed is a hash of the id).
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-    pars->id = "cchRef:" + type->getID();
+    // slot 0 keeps the historical id (and with it the frozen random-factor
+    // realization); ensemble slots differ only in the id, which seeds their
+    // own realization -- see CCHMetricFamily::RefVehicleFactory
+    pars->id = "cchRef:" + type->getID() + (slot == 0 ? "" : ":" + toString(slot));
     const MSEdge* refEdge = nullptr;
     for (const MSEdge* e : MSEdge::getAllEdges()) {
         if (!e->isInternal() && !e->isTazConnector()) {
@@ -439,7 +443,7 @@ MSRoutingEngine::getPublishedCCHMetric(SUMOVehicleClass /* vClass */, SUMOTime /
     if (type->isVehicleSpecific()) {
         return nullptr;
     }
-    return myCCHLive->published(type);
+    return myCCHLive->published(type, veh->getID());
 }
 
 

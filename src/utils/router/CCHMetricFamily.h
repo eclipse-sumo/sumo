@@ -88,8 +88,12 @@ public:
     /// @brief builds an OWNED effort-reference vehicle for a type: never
     /// registered, counted or inserted -- it exists only so every fill of
     /// that type's metric evaluates the same reference (deterministic speed
-    /// factor and frozen random realization are the factory's business)
-    typedef V* (*RefVehicleFactory)(const K*);
+    /// factor and frozen random realization are the factory's business).
+    /// The second argument is the ensemble slot (see the LIVE constructor);
+    /// slot 0 must reproduce the pre-ensemble reference exactly, further
+    /// slots give distinct frozen weights.random-factor realizations
+    /// (typically by varying the reference vehicle's id, which seeds them)
+    typedef V* (*RefVehicleFactory)(const K*, int);
     /// @brief post-fill hook on the input weights (STATIC mode), e.g.
     /// duarouter masking the edges that restrict a type to inf_weight
     typedef void (*WeightPatch)(const Graph*, const V*, std::vector<unsigned>&);
@@ -130,14 +134,28 @@ public:
      *   jam" case). 1/0 = every change propagates. Rejected edges stay
      *   pending and their drift accumulates against the same applied value,
      *   so a slow trend eventually passes while filter jitter never does.
-     * @param[in] factory reference-vehicle factory (required in LIVE mode) */
+     * @param[in] factory reference-vehicle factory (required in LIVE mode)
+     * @param[in] ensembleK how many frozen weights.random-factor
+     *   realizations (= metrics) to keep per type. The exact routers draw a
+     *   fresh perturbation per vehicle; a shared metric freezes ONE
+     *   realization, losing the feature's route diversity. With K > 1 every
+     *   type keeps K metrics -- each filled with its own reference vehicle
+     *   (factory slot k) and therefore its own frozen realization -- and a
+     *   vehicle is assigned its slot by a stable hash of its id, so each
+     *   vehicle persistently routes on one of K perturbed networks:
+     *   K = 1 is exactly the single-realization behavior, growing K
+     *   converges toward the exact routers' per-vehicle diversity at K x
+     *   customization and memory cost. Pointless without
+     *   weights.random-factor (the K references fill identical weights). */
     CCHMetricFamily(const Graph* graph, EffortOperation fillEffort,
                     EffortOperation gateEffort, double updateFactor,
-                    double updateConstant, RefVehicleFactory factory) :
+                    double updateConstant, RefVehicleFactory factory,
+                    int ensembleK = 1) :
         myGraph(graph), myFillEffort(fillEffort), myGateEffort(gateEffort),
         myFactory(factory), myPatch(nullptr), myLive(true),
         myBegin(0), myWeightPeriod(SUMOTime_MAX),
-        myUpdateFactor(updateFactor), myUpdateConstant(updateConstant) {
+        myUpdateFactor(updateFactor), myUpdateConstant(updateConstant),
+        myEnsembleK(ensembleK > 1 ? ensembleK : 1) {
         const unsigned space = myGraph->edgeIdSpace();
         for (int i = 0; i < 2; i++) {
             // NaN = "never applied": the first pending occurrence always
@@ -193,7 +211,7 @@ public:
             sm.vClass = vClass;
             const V* ref = veh;
             if (myFactory != nullptr) {
-                sm.refVehicle = myFactory(key);
+                sm.refVehicle = myFactory(key, 0);
                 ref = sm.refVehicle;
             }
             // the weights are evaluated at the period's begin, so each pair
@@ -235,11 +253,15 @@ public:
     /// @name LIVE mode
     /// @{
 
-    /// @brief allocate the metric state for one type; call only while no
-    /// query is in flight (seeding at init, or the customization barrier)
+    /// @brief allocate the metric state (all ensemble slots) for one type;
+    /// call only while no query is in flight (seeding at init, or the
+    /// customization barrier)
     void seedKey(const K* key) {
         if (myByKey.count(key) == 0) {
-            buildLiveMetric(key);
+            std::vector<LiveMetric*>& slots = myByKey[key];
+            for (int k = 0; k < myEnsembleK; k++) {
+                slots.push_back(buildLiveMetric(key, k));
+            }
         }
     }
 
@@ -307,9 +329,7 @@ public:
         {
             std::lock_guard<std::mutex> lock(myWantedLock);
             for (const K* key : myWantedKeys) {
-                if (myByKey.count(key) == 0) {
-                    buildLiveMetric(key);
-                }
+                seedKey(key);
             }
             myWantedKeys.clear();
         }
@@ -429,9 +449,11 @@ public:
                                std::memory_order_release);
     }
 
-    /** @brief the published metric for a type key, or nullptr if the query
-     * must route on the exact fallback. Query hot path, any thread. */
-    MetricPtr published(const K* key) {
+    /** @brief the published metric for a type key and querying vehicle id
+     * (the id picks the ensemble slot -- see the LIVE constructor), or
+     * nullptr if the query must route on the exact fallback. Query hot
+     * path, any thread. */
+    MetricPtr published(const K* key, const std::string& vehID) {
         const auto it = myByKey.find(key);
         if (it == myByKey.end()) {
             // streamed-in type without a metric yet: register it for
@@ -468,7 +490,12 @@ public:
                 != mySpeedEpoch.load(std::memory_order_acquire)) {
             return nullptr;
         }
-        return it->second->front.load(std::memory_order_acquire);
+        // stable slot assignment: FNV-1a over the id (std::hash is
+        // implementation-defined and would break cross-platform test
+        // reproducibility)
+        const LiveMetric* c = myEnsembleK == 1 ? it->second.front()
+                              : it->second[fnv1a(vehID) % myEnsembleK];
+        return c->front.load(std::memory_order_acquire);
     }
 
     /// @brief whether any type has live metric state yet
@@ -505,16 +532,25 @@ private:
         V* refVehicle = nullptr;
     };
 
-    /// @brief allocate LIVE metric state for one type (owner's thread only)
-    LiveMetric* buildLiveMetric(const K* key) {
+    /// @brief stable 64-bit FNV-1a for the ensemble slot assignment
+    static uint64_t fnv1a(const std::string& s) {
+        uint64_t h = 1469598103934665603ull;
+        for (const char ch : s) {
+            h = (h ^ (unsigned char)ch) * 1099511628211ull;
+        }
+        return h;
+    }
+
+    /// @brief allocate LIVE metric state for one (type, ensemble slot)
+    /// (owner's thread only)
+    LiveMetric* buildLiveMetric(const K* key, int slot) {
         LiveMetric* c = new LiveMetric();
-        c->refVehicle = myFactory(key);
+        c->refVehicle = myFactory(key, slot);
         c->vClass = c->refVehicle->getVClass();
         c->weight[0].resize(myGraph->arcCount());
         c->weight[1].resize(myGraph->arcCount());
         c->partial = std::make_shared<RoutingKit::CustomizableContractionHierarchyPartialCustomization>(myGraph->cch());
         myLiveMetrics.push_back(c);
-        myByKey[key] = c;
         return c;
     }
 
@@ -545,10 +581,12 @@ private:
     /// @brief the deadband bounds (see the LIVE constructor)
     double myUpdateFactor;
     double myUpdateConstant;
+    /// @brief frozen random-factor realizations per type (see the LIVE ctor)
+    int myEnsembleK = 1;
     /// @brief every type's state, in creation order (barrier iteration) and
     /// by key (query lookup; only mutated while no query is in flight)
     std::vector<LiveMetric*> myLiveMetrics;
-    std::map<const K*, LiveMetric*> myByKey;
+    std::map<const K*, std::vector<LiveMetric*> > myByKey;
     /// @brief types that queried but have no metric yet (demand streams, so
     /// types can appear after seeding); queries register them under the lock
     /// and route via the fallback until the next barrier builds their state

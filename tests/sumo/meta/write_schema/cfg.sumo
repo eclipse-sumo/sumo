@@ -296,6 +296,7 @@
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.cch-update-threshold.factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.cch-update-threshold.constant" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.cch-ensemble" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threshold.factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threshold.constant" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.invalidation" type="boolOptionType" minOccurs="0"/>

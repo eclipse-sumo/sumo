@@ -73,6 +73,8 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.rerouting.cch-update-threshold.constant", new Option_String("0", "TIME"));
     oc.addDescription("device.rerouting.cch-update-threshold.constant", "Routing", TL("Only propagate an arc weight into the CCH metric if it changed by more than the given TIME"));
+    oc.doRegister("device.rerouting.cch-ensemble", new Option_Integer(1));
+    oc.addDescription("device.rerouting.cch-ensemble", "Routing", TL("Keep this many frozen weights.random-factor realizations (CCH metrics) per vehicle type and assign vehicles to them by a stable id hash"));
 
     oc.doRegister("device.rerouting.threshold.factor", new Option_Float(1));
     oc.addDescription("device.rerouting.threshold.factor", "Routing", TL("Only reroute if the new route is faster than the current route by the given factor"));
