@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-08-07 19:53+0000\n"
+"PO-Revision-Date: 2026-09-01 18:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -11110,6 +11110,8 @@ msgstr "Kante '%' für den Halt '%' nicht gefunden"
 #: src/netimport/NIXMLPTHandler.cpp:187
 msgid "Lane '%' for stop '%' not found. Using leftmost lane"
 msgstr ""
+"Der Fahrstreifen '%' des Halts '%' wurde nicht gefunden. Es wird der "
+"Fahrstreifen links außen verwendet"
 
 #: src/netimport/NIXMLPTHandler.cpp:190
 msgid "Lane '%' for stop '%' not found"
@@ -11462,11 +11464,11 @@ msgstr "Unbekannter Endknoten '%' für Kante '%'."
 
 #: src/netload/NLHandler.cpp:553
 msgid "Attribute length of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Der Attributwert der Länge des Fahrstreifens '%' ist ungültig (%)"
 
 #: src/netload/NLHandler.cpp:558
 msgid "Attribute maxSpeed of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Der Attributwert für maxSpeed des Fahrstreifens '%' ist ungültig (%)"
 
 #: src/netload/NLHandler.cpp:573
 msgid ""
@@ -12058,6 +12060,8 @@ msgid ""
 "Only one of the options 'flow-output.probability' and 'flow-output.poisson' "
 "may be set."
 msgstr ""
+"Die Optionen 'flow-output.probability' und 'flow-output.poisson' schließen "
+"sich gegenseitig aus."
 
 #: src/od2trips_main.cpp:212
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
@@ -12319,7 +12323,7 @@ msgstr "Polygon '%' hat keine Shape."
 
 #: src/polyconvert/PCLoaderOSM.cpp:332
 msgid "Value of key '%' is not numeric ('%') in way '%'."
-msgstr ""
+msgstr "Der zum Schlüssel '%' gehörige Wert '%' ist keine Zahl (way '%')."
 
 #: src/polyconvert/PCLoaderVisum.cpp:116
 msgid "Could not open visum-file '%'."
