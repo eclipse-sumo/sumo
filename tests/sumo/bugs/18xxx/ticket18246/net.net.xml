@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-19T13:28:22.670930+01:00 by Eclipse SUMO netedit v1_27_1+0392-642446019bf
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2026-09-01T15:20:55.463721+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net2.net.xml"/>
+        <sumo-net-file value="./sumo/bugs/18xxx/ticket18246/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net2.net.xml"/>
+        <output-file value="./sumo/bugs/18xxx/ticket18246/net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
         <junctions.limit-turn-speed value="-1.00"/>
     </junctions>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -69,7 +69,7 @@
     </edge>
     <edge id=":C_18" function="internal">
         <lane id=":C_18_0" index="0" speed="13.89" length="15.70" shape="100.89,95.86 100.85,96.25 98.60,101.00 94.85,103.85 89.60,104.80"/>
-        <lane id=":C_18_1" index="0" speed="13.89" length="14.34" shape="100.89,94.56 100.85,94.85 98.60,98.60 94.85,100.85 89.60,101.60"/>
+        <lane id=":C_18_1" index="1" speed="13.89" length="14.34" shape="100.89,94.56 100.85,94.85 98.60,98.60 94.85,100.85 89.60,101.60"/>
     </edge>
     <edge id=":C_12" function="internal">
         <lane id=":C_12_0" index="0" speed="13.89" length="9.03" shape="89.60,95.20 92.05,94.85 93.80,93.80 94.85,92.05 95.20,89.60"/>

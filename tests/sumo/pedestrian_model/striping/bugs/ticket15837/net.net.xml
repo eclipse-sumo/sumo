@@ -1,41 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-12-02 16:53:50 by Eclipse SUMO netedit Version v1_21_0+1105-0c403684cd1
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2026-09-01T15:20:55.584240+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumocfg-file value="/localdata1/debug/roundaboutCrossing/test.sumocfg"/>
-        <route-files value="/localdata1/debug/roundaboutCrossing/input_routes.rou.xml"/>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="./sumo/pedestrian_model/striping/bugs/ticket15837/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/pedestrian_model/striping/bugs/ticket15837/net.net.xml"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <walkingareas value="1"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -56,7 +50,7 @@
     </edge>
     <edge id=":J0_6" function="internal">
         <lane id=":J0_6_0" index="0" allow="passenger" speed="8.17" length="4.22" shape="105.93,136.78 105.23,138.01 104.80,140.78"/>
-        <lane id=":J0_6_1" index="0" allow="passenger" speed="8.89" length="4.61" shape="103.63,136.78 102.23,138.37 101.60,140.78"/>
+        <lane id=":J0_6_1" index="1" allow="passenger" speed="8.89" length="4.61" shape="103.63,136.78 102.23,138.37 101.60,140.78"/>
     </edge>
     <edge id=":J0_c0" function="crossing" crossingEdges="CN NC">
         <lane id=":J0_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="106.40,138.78 93.60,138.78" outlineShape="106.50,140.78 93.50,140.78 93.44,139.73 92.96,138.77 92.16,137.89 91.04,137.10 90.40,136.78 109.60,136.78 108.96,137.10 107.84,137.89 107.04,138.77 106.56,139.73"/>
@@ -81,7 +75,7 @@
     </edge>
     <edge id=":J1_6" function="internal">
         <lane id=":J1_6_0" index="0" allow="passenger" speed="8.17" length="4.22" shape="136.78,94.07 138.01,94.77 140.78,95.20"/>
-        <lane id=":J1_6_1" index="0" allow="passenger" speed="8.89" length="4.61" shape="136.78,96.37 138.37,97.77 140.78,98.40"/>
+        <lane id=":J1_6_1" index="1" allow="passenger" speed="8.89" length="4.61" shape="136.78,96.37 138.37,97.77 140.78,98.40"/>
     </edge>
     <edge id=":J1_c0" function="crossing" crossingEdges="CE EC">
         <lane id=":J1_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="138.78,93.60 138.78,106.40" outlineShape="140.78,93.50 140.78,106.50 139.73,106.56 138.77,107.04 137.89,107.84 137.10,108.96 136.78,109.60 136.78,90.40 137.10,91.04 137.89,92.16 138.77,92.96 139.73,93.44"/>
@@ -106,7 +100,7 @@
     </edge>
     <edge id=":J2_6" function="internal">
         <lane id=":J2_6_0" index="0" allow="passenger" speed="8.17" length="4.22" shape="94.07,63.22 94.77,61.99 95.20,59.22"/>
-        <lane id=":J2_6_1" index="0" allow="passenger" speed="8.89" length="4.61" shape="96.37,63.22 97.77,61.63 98.40,59.22"/>
+        <lane id=":J2_6_1" index="1" allow="passenger" speed="8.89" length="4.61" shape="96.37,63.22 97.77,61.63 98.40,59.22"/>
     </edge>
     <edge id=":J2_c0" function="crossing" crossingEdges="CS SC">
         <lane id=":J2_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="93.60,61.22 106.40,61.22" outlineShape="93.50,59.22 106.50,59.22 106.56,60.27 107.04,61.23 107.84,62.11 108.96,62.90 109.60,63.22 90.40,63.22 91.04,62.90 92.16,62.11 92.96,61.23 93.44,60.27"/>
@@ -127,7 +121,7 @@
     </edge>
     <edge id=":J3_6" function="internal">
         <lane id=":J3_6_0" index="0" allow="passenger" speed="8.17" length="4.22" shape="63.22,105.93 61.99,105.23 59.22,104.80"/>
-        <lane id=":J3_6_1" index="0" allow="passenger" speed="8.89" length="4.61" shape="63.22,103.63 61.63,102.23 59.22,101.60"/>
+        <lane id=":J3_6_1" index="1" allow="passenger" speed="8.89" length="4.61" shape="63.22,103.63 61.63,102.23 59.22,101.60"/>
     </edge>
     <edge id=":J3_4" function="internal">
         <lane id=":J3_4_0" index="0" allow="passenger" speed="8.17" length="11.51" shape="59.22,95.20 61.99,94.77 64.26,93.47 66.05,91.31 67.34,88.29"/>

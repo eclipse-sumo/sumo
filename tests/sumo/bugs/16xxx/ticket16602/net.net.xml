@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-28 13:51:25 by Eclipse SUMO netedit Version v1_22_0+1783-505b7462ad7
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2026-09-01T15:20:55.313543+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/localdata/1/debug/16602/reduced2.net.xml"/>
+        <sumo-net-file value="./sumo/bugs/16xxx/ticket16602/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/localdata/1/debug/16602/reduced2.net.xml"/>
+        <output-file value="./sumo/bugs/16xxx/ticket16602/net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
 
     <pedestrian>
         <walkingareas value="1"/>
     </pedestrian>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-672401.23,-5399632.08" convBoundary="6786.14,3741.71,6942.72,4029.10" origBoundary="11.274814,48.715766,11.611141,48.814343" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -48,7 +44,7 @@
         <lane id=":1541227311_w0_0" index="0" allow="pedestrian" speed="2.78" length="22.06" width="2.00" shape="6811.71,3885.22 6810.57,3883.58 6824.19,3903.41 6823.06,3901.75"/>
     </edge>
     <edge id=":21532579_w0" function="walkingarea">
-        <lane id=":21532579_w0_0" index="0" allow="pedestrian" speed="2.78" length="21.95" width="2.00" shape="6943.80,3839.01 6944.65,3840.83 6934.75,3819.01 6935.55,3820.84"/>
+        <lane id=":21532579_w0_0" index="0" allow="pedestrian" speed="2.78" length="21.95" width="2.00" shape="6943.80,3839.01 6944.65,3840.83 6934.75,3819.01 6935.55,3820.85"/>
     </edge>
     <edge id=":7628244053_0" function="internal">
         <lane id=":7628244053_0_0" index="0" allow="bicycle" speed="5.93" length="3.06" width="2.00" shape="6860.52,3881.99 6859.07,3879.90 6858.65,3879.61"/>
@@ -79,11 +75,11 @@
     </edge>
     <edge id=":7628244053_34" function="internal">
         <lane id=":7628244053_34_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="7.39" length="7.21" shape="6859.01,3876.64 6858.13,3876.07 6855.35,3875.98 6852.29,3877.42"/>
-        <lane id=":7628244053_34_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.12" length="8.46" shape="6858.24,3875.06 6856.92,3873.99 6853.76,3873.43 6850.47,3874.78"/>
+        <lane id=":7628244053_34_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.12" length="8.46" shape="6858.24,3875.06 6856.92,3873.99 6853.76,3873.43 6850.47,3874.78"/>
     </edge>
     <edge id=":7628244053_35" function="internal">
-        <lane id=":7628244053_35_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.58" length="17.59" shape="6865.26,3863.49 6865.29,3861.48 6868.93,3855.41 6876.08,3850.79"/>
-        <lane id=":7628244053_35_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.62" length="18.10" shape="6868.54,3867.86 6868.56,3862.63 6871.50,3857.55 6877.36,3853.72"/>
+        <lane id=":7628244053_35_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.58" length="17.60" shape="6865.26,3863.49 6865.29,3861.48 6868.93,3855.41 6876.08,3850.79"/>
+        <lane id=":7628244053_35_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.62" length="18.10" shape="6868.54,3867.86 6868.56,3862.63 6871.50,3857.55 6877.36,3853.72"/>
     </edge>
     <edge id=":7628244053_9" function="internal">
         <lane id=":7628244053_9_0" index="0" allow="bicycle" speed="5.71" length="7.41" width="2.00" shape="6882.72,3865.98 6880.98,3867.04 6880.03,3868.40 6879.88,3870.06 6880.53,3872.00"/>
@@ -115,7 +111,7 @@
     </edge>
     <edge id=":7628244053_38" function="internal">
         <lane id=":7628244053_38_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="12.57" length="12.84" shape="6860.66,3860.47 6854.90,3858.66 6849.58,3854.42"/>
-        <lane id=":7628244053_38_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.79" length="12.91" shape="6863.46,3858.78 6856.98,3856.75 6852.33,3852.78"/>
+        <lane id=":7628244053_38_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.79" length="12.91" shape="6863.46,3858.78 6856.98,3856.75 6852.33,3852.78"/>
     </edge>
     <edge id=":7628244053_39" function="internal">
         <lane id=":7628244053_39_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="5.06" length="3.41" shape="6874.23,3853.67 6876.08,3850.79"/>
@@ -181,7 +177,7 @@
     </edge>
     <edge id=":7628244053_46" function="internal">
         <lane id=":7628244053_46_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.26" length="7.81" shape="6849.01,3861.72 6850.02,3860.20 6850.54,3857.28 6849.58,3854.42"/>
-        <lane id=":7628244053_46_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.96" length="8.98" shape="6850.35,3860.92 6852.01,3858.85 6853.06,3855.65 6852.33,3852.78"/>
+        <lane id=":7628244053_46_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="8.96" length="8.98" shape="6850.35,3860.92 6852.01,3858.85 6853.06,3855.65 6852.33,3852.78"/>
     </edge>
     <edge id=":7628244053_47" function="internal">
         <lane id=":7628244053_47_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="9.72" length="19.88" shape="6857.54,3868.42 6863.02,3868.06 6870.45,3870.01 6875.34,3874.59"/>
@@ -306,7 +302,7 @@
         <lane id="816754680_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="66.49" shape="6876.08,3850.79 6937.00,3824.14">
             <param key="origId" value="816754680"/>
         </lane>
-        <lane id="816754680_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="66.49" shape="6877.36,3853.72 6938.28,3827.07">
+        <lane id="816754680_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="66.49" shape="6877.36,3853.72 6938.28,3827.08">
             <param key="origId" value="816754680"/>
         </lane>
     </edge>
@@ -367,24 +363,24 @@
         <request index="2"  response="001110001000011001001100100001100000" foes="001111001100111111101110110001111000" cont="1"/>
         <request index="3"  response="100100000000100010000010010000000110" foes="100100000000100010000010010000000110" cont="1"/>
         <request index="4"  response="100100000000100010000010010000000110" foes="100100000000100010000010010000000110" cont="1"/>
-        <request index="5"  response="010110111000000000001100100000000000" foes="010111111101100010001110110000000100" cont="0"/>
-        <request index="6"  response="010110111000000000001100100000000000" foes="010111111101100010001110110000000100" cont="0"/>
+        <request index="5"  response="010110111000000000000100100000000000" foes="010111111101100010001110110000000100" cont="0"/>
+        <request index="6"  response="010110101000000000001100100000000000" foes="010111111101100010001110110000000100" cont="0"/>
         <request index="7"  response="001110001000011001001100100000000000" foes="001111001000011111011110110000000000" cont="1"/>
         <request index="8"  response="001110001000011001001100100000000000" foes="001111001000011111011110110000000000" cont="1"/>
         <request index="9"  response="001100001000000001000000000000000000" foes="001100001000000001000000000000000000" cont="0"/>
         <request index="10" response="101000000000011011000000000111111110" foes="101010001000011011000001000111111111" cont="0"/>
         <request index="11" response="011011001100111011000010000111100110" foes="011011111110111011000011000111100110" cont="1"/>
         <request index="12" response="001110001000011001000000110000000000" foes="001110001000011001000000110000000000" cont="1"/>
-        <request index="13" response="101000000000111011000000000111111110" foes="101010001000111011000000100111111110" cont="0"/>
+        <request index="13" response="101000000000111011000000000111110110" foes="101010001000111011000000100111111110" cont="0"/>
         <request index="14" response="011001001100111011000000000111100100" foes="011001111101111011000000000111100100" cont="1"/>
         <request index="15" response="011001001100111011000000000111100100" foes="011001111101111011000000000111100100" cont="1"/>
-        <request index="16" response="001001000000000000000000000110000000" foes="001001000000000100000000000110000000" cont="1"/>
+        <request index="16" response="001001000000000100000000000110000000" foes="001001000000000100000000000110000000" cont="1"/>
         <request index="17" response="011000000100000000000000000000000100" foes="011000000100000000000000000000000100" cont="1"/>
         <request index="18" response="010100001000000000001101100000000000" foes="010101001100000100001111111110000100" cont="0"/>
         <request index="19" response="110010001000011000001100100111100110" foes="110011001100011100001110110111111111" cont="1"/>
         <request index="20" response="011001000100000011010000000110000100" foes="011001000100000011010000000110000100" cont="1"/>
-        <request index="21" response="010110001000000000001101100000000000" foes="010111001100000010001111110110000100" cont="0"/>
-        <request index="22" response="010110001000000000001101100000000000" foes="010111001100000010001111110110000100" cont="0"/>
+        <request index="21" response="010100001000000000001101100000000000" foes="010111001100000010001111110110000100" cont="0"/>
+        <request index="22" response="010110001000000000001100100000000000" foes="010111001100000010001111110110000100" cont="0"/>
         <request index="23" response="110010001000000000001100100001100110" foes="110011001100000000001110100001111110" cont="1"/>
         <request index="24" response="010000110000000000001100000001100000" foes="010000110000000000001100000001100000" cont="1"/>
         <request index="25" response="110000000000000000000000100000000010" foes="110000000000000000000000100000000010" cont="0"/>
@@ -531,5 +527,4 @@
     <connection from=":7628244053_w3" to=":7628244053_c2" fromLane="0" toLane="0" tl="7628244053" linkIndex="30" dir="s" state="M"/>
     <connection from=":7628244053_w3" to="141058765" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="816754682" to=":7628244053_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-
 </net>
