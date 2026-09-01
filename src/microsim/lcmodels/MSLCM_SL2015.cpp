@@ -3207,7 +3207,7 @@ MSLCM_SL2015::mustOvertakeStopped(bool checkCurrent, const MSLane& neighLane, co
 #ifdef DEBUG_STRATEGIC_CHANGE
                     if (DEBUG_COND) {
                         std::cout << " veh=" << myVehicle.getID()
-                                  << " overtake " << (leader.first->isStopped ? "stopped" : "bidi") << " leader=" << leader.first->getID()
+                                  << " overtake " << (leader.first->isStopped() ? "stopped" : "bidi") << " leader=" << leader.first->getID()
                                   << " newCurrentDist=" << currentDist
                                   << " overtakeDist=" << overtakeDist
                                   << " remaining=" << remaining
