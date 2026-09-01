@@ -360,8 +360,9 @@ private:
     /// @brief construct the unregistered effort-reference vehicle for a
     /// type: never counted, inserted or given devices, with the type's mean
     /// speed factor and a deterministic random seed (the family's
-    /// RefVehicleFactory)
-    static SUMOVehicle* buildCCHRefVehicle(const MSVehicleType* type);
+    /// RefVehicleFactory; the slot picks the frozen random-factor
+    /// realization, see device.rerouting.cch-ensemble)
+    static SUMOVehicle* buildCCHRefVehicle(const MSVehicleType* type, int slot);
     /// @brief build the shared CCH + the live family with one metric per
     /// loaded type, publish initial metrics
     static void initCCH();

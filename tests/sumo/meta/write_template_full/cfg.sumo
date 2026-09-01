@@ -266,6 +266,7 @@
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" deprecated="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
         <device.rerouting.cch-update-threshold.factor value="1" type="FLOAT" help="Only propagate an arc weight into the CCH metric if it changed by more than the given factor"/>
         <device.rerouting.cch-update-threshold.constant value="0" type="TIME" help="Only propagate an arc weight into the CCH metric if it changed by more than the given TIME"/>
+        <device.rerouting.cch-ensemble value="1" type="INT" help="Keep this many frozen weights.random-factor realizations (CCH metrics) per vehicle type and assign vehicles to them by a stable id hash"/>
         <device.rerouting.threshold.factor value="1" type="FLOAT" help="Only reroute if the new route is faster than the current route by the given factor"/>
         <device.rerouting.threshold.constant value="0" type="TIME" help="Only reroute if the new route is faster than the current route by the given TIME"/>
         <device.rerouting.invalidation value="false" type="BOOL" help="Only perform a periodic reroute when the current route&apos;s remaining cost has drifted beyond the threshold (cheap re-scoring gate before the full reroute)"/>

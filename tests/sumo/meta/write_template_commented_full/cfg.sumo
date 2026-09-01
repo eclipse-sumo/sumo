@@ -756,6 +756,9 @@
         <!-- Only propagate an arc weight into the CCH metric if it changed by more than the given TIME -->
         <device.rerouting.cch-update-threshold.constant value="0" type="TIME"/>
 
+        <!-- Keep this many frozen weights.random-factor realizations (CCH metrics) per vehicle type and assign vehicles to them by a stable id hash -->
+        <device.rerouting.cch-ensemble value="1" type="INT"/>
+
         <!-- Only reroute if the new route is faster than the current route by the given factor -->
         <device.rerouting.threshold.factor value="1" type="FLOAT"/>
 
