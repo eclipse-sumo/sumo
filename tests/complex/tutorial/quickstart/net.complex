@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-11-08 12:33:36 by Eclipse SUMO netconvert Version v1_21_0+0667-84505d7ebe2
+<!-- generated on 2026-09-01T16:39:02.209818+01:00 by Eclipse SUMO netconvert v1_27_1+0590-ea8652ded3a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -93,8 +93,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":3_15" function="internal">
         <lane id=":3_15_0" index="0" speed="11.84" length="16.84" shape="2001.14,-0.95 2002.60,-0.20 2006.65,5.55 2008.00,13.60"/>
-        <lane id=":3_15_1" index="0" speed="11.36" length="16.31" shape="1998.94,-0.96 2000.20,-0.20 2003.65,5.55 2004.80,13.60"/>
-        <lane id=":3_15_2" index="0" speed="10.36" length="19.50" shape="1991.36,-0.89 1993.05,-0.65 1997.80,2.20 2000.65,6.95 2001.60,13.60"/>
+        <lane id=":3_15_1" index="1" speed="11.36" length="16.31" shape="1998.94,-0.96 2000.20,-0.20 2003.65,5.55 2004.80,13.60"/>
+        <lane id=":3_15_2" index="2" speed="10.36" length="19.50" shape="1991.36,-0.89 1993.05,-0.65 1997.80,2.20 2000.65,6.95 2001.60,13.60"/>
     </edge>
     <edge id=":4_0" function="internal">
         <lane id=":4_0_0" index="0" speed="13.89" length="8.54" shape="3004.00,4.80 3001.54,5.30 3000.00,6.40 2998.46,7.50 2996.00,8.00"/>
@@ -127,7 +127,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":6_14" function="internal">
         <lane id=":6_14_0" index="0" speed="11.36" length="16.31" shape="2001.06,1000.96 1999.80,1000.20 1996.35,994.45 1995.20,986.40"/>
-        <lane id=":6_14_1" index="0" speed="10.36" length="19.50" shape="2008.64,1000.89 2006.95,1000.65 2002.20,997.80 1999.35,993.05 1998.40,986.40"/>
+        <lane id=":6_14_1" index="1" speed="10.36" length="19.50" shape="2008.64,1000.89 2006.95,1000.65 2002.20,997.80 1999.35,993.05 1998.40,986.40"/>
     </edge>
     <edge id=":6_5" function="internal">
         <lane id=":6_5_0" index="0" speed="6.51" length="9.03" shape="2008.00,986.40 2008.35,988.85 2009.40,990.60 2011.15,991.65 2013.60,992.00"/>
