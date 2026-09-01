@@ -192,6 +192,18 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
 
 void
 MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
+    if (myMaxDepartDelay >= 0) {
+        for (auto it = myPendingEmits.begin(); it != myPendingEmits.end();) {
+            SUMOVehicle* veh = *it;
+            if (time - veh->getParameter().depart > myMaxDepartDelay) {
+                // remove vehicles waiting too long for departure
+                myVehicleControl.deleteVehicle(veh, true);
+                it = myPendingEmits.erase(it);
+            } else {
+                it++;
+            }
+        }
+    }
     while (myAllVeh.anyWaitingBefore(time)) {
         const MSVehicleContainer::VehicleVector& top = myAllVeh.top();
         copy(top.begin(), top.end(), back_inserter(myPendingEmits));
