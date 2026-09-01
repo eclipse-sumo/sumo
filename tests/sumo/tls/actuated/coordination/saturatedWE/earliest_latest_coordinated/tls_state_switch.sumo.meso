@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-30T13:31:57.406261+01:00 by Eclipse SUMO sumo v1_27_1+0049-b29ab8a7e8a
+<!-- generated on 2026-09-01T20:21:07.416146+01:00 by Eclipse SUMO sumo v1_27_1+0592-92c05eb9b0b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <no-internal-links value="false"/>
         <max-depart-delay value="60"/>
         <default.departspeed value="0"/>
         <default.departlane value="first"/>
@@ -216,5 +215,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="3720.00" id="C0" programID="custom" phase="3" state="rrrryyyyrrrryyyy"/>
     <tlsState time="3723.00" id="C0" programID="custom" phase="0" state="GGggrrrrGGggrrrr"/>
     <tlsState time="3728.00" id="C0" programID="custom" phase="1" state="yyyyrrrryyyyrrrr"/>
-    <tlsState time="3731.00" id="C0" programID="custom" phase="2" state="rrrrGGggrrrrGGgg"/>
 </tlsStates>
