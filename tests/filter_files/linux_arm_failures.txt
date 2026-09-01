@@ -108,6 +108,7 @@ sublane_model/opposite_direction_driving/bugs/ticket13111
 sublane_model/bidiEdge/hangAtIntersectionWithBidi
 sublane_model/bidiEdge/TWLT/TWLT_tls
 sublane_model/overtake_stopped/stopped_right
+sublane_model/overtake_stopped/stopped_left
 sublane_model/bugs/ticket7925
 sublane_model/bugs/ticket12581
 sublane_model/bugs/ticket12581b
