@@ -6,7 +6,11 @@ title: Docker
 
 Building and installing SUMO from source is not an easy task for beginner users.
 Docker is a popular tool to solve this issue.
-SUMO provides [Dockerfiles](https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker) and [prebuilt Docker images](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo/versions) to use.
+SUMO provides [Dockerfiles](https://github.com/eclipse-sumo/sumo/blob/main/build_config/docker) and [prebuilt Docker images](https://github.com/eclipse-sumo/sumo/pkgs/container/sumo) to use.
+
+!!! note
+    The tags for the containers v1_23_0, v1_23_1, v1_24_0, v1_25_0 and v1_26_0 point to containers which are either broken or contain the wrong version.
+    To make sure you use the correct version use the version tags 1.23.0 etc.
 
 ### Available Dockerfiles
 
@@ -33,7 +37,7 @@ The following Dockerfiles provide build environments:
 | Dockerfile                 | Description                                                                                                                                 |
 |----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | `Dockerfile.jenkins-build` | Environment for building SUMO on Jenkins. Installs all packages required to build SUMO, but does not contain any SUMO binaries.             |
-| `Dockerfile.manylinux2014` | Build environment for creating [manylinux](https://github.com/pypa/manylinux) python wheels, adapted with additional preinstalled packages. |
+| `Dockerfile.manylinux`     | Build environment for creating [manylinux](https://github.com/pypa/manylinux) python wheels, adapted with additional preinstalled packages. |
 
 ### Available Images in the registry
 
@@ -47,9 +51,11 @@ The following tags are available:
 
 | Tag                       | Description                                                                                                    |
 |---------------------------|----------------------------------------------------------------------------------------------------------------|
-| `main` `nightly`          | Nightly build containing the current version of SUMO from the repository.                                      |
-| `vX_Y_Z` (e.g. `v1_21_0`) | A version of the image created alongside the respective release. Contains SUMO in the matching stable version. |
-| `latest`                  | References the image of the latest stable release (e.g. `v1_21_0`)                                             |
+| `main` `nightly`          | Nightly build containing the current version of SUMO from the repository (``main` may be more recent if a build has been triggered manually). |
+| `vX_Y_Z`, `X.Y.Z` (e.g. `v1_21_0`, `1.21.0`) | A version of the image created alongside the respective release. Contains SUMO in the matching stable version. |
+| `latest`                  | References the image of the latest stable release (e.g. `1.21.0`)                                             |
+
+The tag without the `v` is the more reliable one, see the note at the top of the page.
 
 ### How to use dockerized SUMO
 
