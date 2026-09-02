@@ -57,6 +57,7 @@ BINARIES = ("activitygen", "emissionsDrivingCycle", "emissionsMap",
             "netconvert", "netedit", "netgenerate",
             "od2trips", "polyconvert", "sumo", "sumo-gui",
             "TraCITestClient")
+MSVC_DEFAULT = "msvc18"
 
 
 def repositoryUpdate(options):
@@ -152,7 +153,7 @@ def main(options, platform="x64"):
         cpack_license_rtf = os.path.join(SUMO_HOME, "build_config", "wix", "License.rtf")
     status.log_subprocess(["cmake", "--install", "."], cwd=buildDir)
     plat = platform.lower().replace("x", "win")
-    if options.msvc_version != "msvc16":
+    if options.msvc_version != MSVC_DEFAULT:
         plat += options.msvc_version
     for d in glob.glob(os.path.join(buildDir, "sumo-*")):
         if os.path.isdir(d):
@@ -238,7 +239,7 @@ if __name__ == "__main__":
     optParser.add_option("-x", "--x64only", action="store_true",
                          default=False, help="skip debug build")
     optParser.add_option("-p", "--python", help="path to python interpreter to use")
-    optParser.add_option("--msvc-version", default="msvc18",
+    optParser.add_option("--msvc-version", default=MSVC_DEFAULT,
                          help="Visual Studio version to use (either msvc16 or msvc18)")
     optParser.add_option("-u", "--repositories", default="git",
                          help="repositories to update")
