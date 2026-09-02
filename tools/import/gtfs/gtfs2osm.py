@@ -67,7 +67,11 @@ GTFS2OSM_MODES = {
     '800': 'trolleybus',  # used in Prague, as per Extended GTFS Route Types
     # https://developers.google.com/transit/gtfs/reference/extended-route-types
     '100':  'train',        # DB
-    '109':  'light_rail',   # S-Bahn
+    '101':  'train',
+    '102':  'train',
+    '103':  'train',
+    '106':  'train',
+    '109':  'train',        # S-Bahn
     '400':  'subway',       # U-Bahn
     '1000': 'ferry',        # Faehre
     # additional modes used in Hamburg
