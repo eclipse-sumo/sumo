@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_1+0444-1ce3f118d88
+Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -695,8 +695,6 @@ Battery Options:
                                         restriction)
   --device.stationfinder.repeat TIME   When to trigger a new search if no
                                         station has been found
-  --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of
-                                        the vehicle battery
   --device.stationfinder.chargeType STR  Type of energy transfer
   --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
                                         searches for a new station when the

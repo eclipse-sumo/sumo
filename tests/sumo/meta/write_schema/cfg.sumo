@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-23T20:56:56.948877+01:00 by Eclipse SUMO sumo v1_27_1+0444-1ce3f118d88
+<!-- generated on 2026-09-03T22:27:04.166808+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -383,7 +383,6 @@
             <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.maxEuclideanDistance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.minOpportunityDuration" type="timeOptionType" minOccurs="0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-24T08:51:49.708941+01:00 by Eclipse SUMO sumo v1_27_1+0447-f14db63ece2
+<!-- generated on 2026-09-03T22:27:04.159717+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -968,9 +968,6 @@
 
         <!-- When to trigger a new search if no station has been found -->
         <device.stationfinder.repeat value="60" type="TIME"/>
-
-        <!-- The maximum charging speed of the vehicle battery -->
-        <device.stationfinder.maxChargePower value="100000" type="FLOAT"/>
 
         <!-- Type of energy transfer -->
         <device.stationfinder.chargeType value="charging" type="STR"/>
