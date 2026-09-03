@@ -397,9 +397,6 @@ private:
     /// @brief SoC the last time the station finder algorithm was run completely
     double myUpdateSoC;
 
-    /// @brief The maximum charging speed of the vehicle battery in W
-    double myMaxChargePower;
-
     /// @brief The target state of charge where the vehicle stops charging
     double myTargetSoC;
 
