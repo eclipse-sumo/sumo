@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-07-27 17:47+0000\n"
+"PO-Revision-Date: 2026-09-03 20:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6024,11 +6024,11 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:714
 msgid "While switching to train geometry: %"
-msgstr ""
+msgstr "Durante il cambio verso la geometria del treno: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:726
 msgid "While switching to default geometry: %"
-msgstr ""
+msgstr "Durante il cambio verso la geometria standard: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:765
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
@@ -13056,7 +13056,7 @@ msgstr ""
 
 #: src/router/RORouteHandler.cpp:1348
 msgid "Unknown vehicle type '%'."
-msgstr ""
+msgstr "Tipo di veicolo sconosciusto '%'."
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -13623,6 +13623,8 @@ msgid ""
 "How to derive column headers from attribute names ('none', 'tag', 'auto', "
 "'plain', 'full')"
 msgstr ""
+"Come derivare l'intestatizione dai nomi degli attributi ('none', 'tag', "
+"'auto', 'plain', 'full')"
 
 #: src/utils/common/SystemFrame.cpp:149
 msgid "Separator in CSV output"
@@ -14755,7 +14757,7 @@ msgstr ""
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:391
 msgid "Ignoring param for referenced vType %"
-msgstr ""
+msgstr "Un parametro del tipo di veicolo % viene ignorato"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:503
 msgid "Speed cannot be negative for stop%."
