@@ -1,5 +1,6 @@
 Warning: Vehicle 'v.1167' performs emergency braking on lane '2_0' with decel=9.00, wished=4.50, severity=1.00, time=46.00.
 Warning: Vehicle 'v.1167'; collision with vehicle 'v.834', lane='2_0', gap=-0.66, latGap=-0.20, time=46.00, stage=move.
+Warning: Vehicle 'v.4334'; side collision with vehicle 'v.4389', lane='1_1', gap=-0.67, latGap=-0.05, time=106.00, stage=laneChange.
 Warning: Teleporting vehicle 'v.223'; waited too long (jam), lane=':J1_0_2', time=338.00.
 Warning: Teleporting vehicle 'v.723'; waited too long (jam), lane='2_2', time=340.00.
 Warning: Teleporting vehicle 'v.834'; waited too long (jam), lane=':J1_0_0', time=346.00.

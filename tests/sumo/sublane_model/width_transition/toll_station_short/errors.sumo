@@ -1,11 +1,2 @@
-Warning: Teleporting vehicle 'v.2667'; waited too long (jam), lane='2_0', time=371.00.
-Warning: Teleporting vehicle 'v.2445'; waited too long (jam), lane=':J1_0_0', time=372.00.
-Warning: Vehicle 'v.2445' ends teleporting on edge '2.9', time=372.00.
-Warning: Teleporting vehicle 'v.2834'; waited too long (jam), lane='2_0', time=374.00.
-Warning: Teleporting vehicle 'v.2889'; waited too long (jam), lane=':J1_0_2', time=376.00.
-Warning: Teleporting vehicle 'v.2556'; waited too long (jam), lane=':J1_0_2', time=377.00.
-Warning: Vehicle 'v.2556' ends teleporting on edge '2.9', time=377.00.
-Warning: Vehicle 'v.2667' ends teleporting on edge '2.9', time=377.00.
-Warning: Vehicle 'v.2834' ends teleporting on edge '2.9', time=377.00.
-Warning: Vehicle 'v.2889' ends teleporting on edge '2.9', time=377.00.
-Warning: Vehicle 'v.4500'; side collision with vehicle 'v.4389', lane='1_1', gap=-0.69, latGap=-0.30, time=389.00, stage=laneChange.
+Warning: Teleporting vehicle 'v.2556'; waited too long (jam), lane='2_2', time=370.00.
+Warning: Vehicle 'v.2556' ends teleporting on edge '2.9', time=372.00.

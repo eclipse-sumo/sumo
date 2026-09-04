@@ -1,15 +1,17 @@
 Warning: Vehicle 'v.23' performs emergency braking on lane 'E0_0' with decel=9.00, wished=4.50, severity=1.00, time=176.00.
 Warning: Vehicle 'v.86'; frontal collision with vehicle 't.9', lane='E0_1', gap=-1.40, latGap=-0.90, time=516.00, stage=laneChange.
 Warning: Vehicle 'v.87'; frontal collision with vehicle 't.9', lane='E0_1', gap=-0.69, latGap=-0.90, time=522.00, stage=laneChange.
+Warning: Vehicle 'v.97'; frontal collision with vehicle 't.9', lane='E0_1', gap=-0.38, latGap=-0.90, time=575.00, stage=laneChange.
+Warning: Vehicle 'v.99'; frontal collision with vehicle 't.9', lane='E0_1', gap=-1.00, latGap=-0.90, time=588.00, stage=laneChange.
 Warning: Teleporting vehicle 'v.85'; waited too long (jam), lane='E0_1', time=822.00.
 Warning: Teleporting vehicle 't.10'; waited too long (jam), lane='-E0_1', time=822.00.
 Warning: Vehicle 't.10' teleports beyond arrival edge '-E0', time=822.00.
-Warning: Vehicle 'v.85' ends teleporting on edge 'E4', time=859.00.
-Warning: Teleporting vehicle 'v.90'; waited too long (yield), lane=':J2_7_0', time=870.00.
-Warning: Vehicle 'v.90' ends teleporting on edge 'E4', time=870.00.
+Warning: Vehicle 'v.85' ends teleporting on edge 'E1', time=823.00.
 Warning: Teleporting vehicle 't.11'; waited too long (yield), lane='-E1_1', time=1126.00.
 Warning: Teleporting vehicle 't.13'; waited too long (jam), lane='-E2_1', time=1127.00.
-Warning: Teleporting vehicle 'v.86'; waited too long (jam), lane='E0_1', time=1131.00.
+Warning: Teleporting vehicle 'v.85'; waited too long (yield), lane=':J2_7_0', time=1128.00.
+Warning: Vehicle 'v.85' ends teleporting on edge 'E4', time=1128.00.
+Warning: Teleporting vehicle 'v.99'; waited too long (jam), lane='E0_1', time=1129.00.
 Warning: Vehicle 't.13' teleports beyond arrival edge '-E0', time=1136.00.
-Warning: Vehicle 'v.86' ends teleporting on edge 'E1', time=1137.00.
-Warning: Vehicle 't.11' ends teleporting on edge '-E0', time=1151.00.
+Warning: Vehicle 'v.99' ends teleporting on edge 'E4', time=1144.00.
+Warning: Vehicle 't.11' ends teleporting on edge '-E0', time=1149.00.
