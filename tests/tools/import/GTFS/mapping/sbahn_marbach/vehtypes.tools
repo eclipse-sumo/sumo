@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-04-16 14:03:08.734428 by gtfs2pt.py v1_22_0+1521-07d7a238385
+  options: -n net.net.xml <doubleminus>merged-csv data.csv <doubleminus>vtype-output vehtypes.xml <doubleminus>write-terminals -H
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="light_rail" vClass="rail_urban"/>
+</additional>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-04 09:39:51.479565 by Eclipse SUMO gtfs2pt.py v1_27_1+0602-17f9c03c7e4
+<configuration>
+    <merged-csv value="data.csv"/>
+    <vtype-output value="vehtypes.xml"/>
+    <human-readable-time value="True"/>
+    <network value="net.net.xml"/>
+    <stops value="input_stops.xml"/>
+    <radius value="200.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>

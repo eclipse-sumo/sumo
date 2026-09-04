@@ -56,6 +56,9 @@ sbahn
 # test case from the berlin sbahn network (#16544)
 sbahn2
 
+# input where type is 109 but the network is rail (#18292)
+sbahn_marbach
+
 # consecutive stops on the same edge should not cause mapping failure (#17540)
 duplicate_edge
 
