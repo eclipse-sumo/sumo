@@ -3,4 +3,5 @@
 -H
 --radius 200
 --rail-priority-factor 1
+--sbahn-is-light-rail
 tools/import/gtfs/gtfs2pt.py

@@ -2,4 +2,5 @@
 --stops input_stops.xml
 -H
 --radius 200
+--sbahn-is-light-rail
 tools/import/gtfs/gtfs2pt.py
