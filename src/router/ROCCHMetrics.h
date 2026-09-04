@@ -11,16 +11,20 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    RODUACCHMetrics.h
+/// @file    ROCCHMetrics.h
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// duarouter's CCH metric store: thin static trampolines (CCHRouter's
-// MetricProvider and PeriodEnd hooks are plain function pointers) over the
-// shared CCHMetricFamily in STATIC mode -- lazy per-(vehicle type, weight
-// period) customization, filled with the querying vehicle, with the
-// restriction-params edges of a type masked to inf_weight by a post-fill
-// patch. See utils/router/CCHMetricFamily.h for the semantics.
+// The CCH metric store of the router applications (duarouter, marouter):
+// thin static trampolines (CCHRouter's MetricProvider, PeriodEnd and reset
+// hooks are plain function pointers) over the shared CCHMetricFamily in
+// STATIC mode -- lazy per-(vehicle type, weight period) customization,
+// filled with the querying vehicle, with the restriction-params edges of a
+// type masked to inf_weight by a post-fill patch. marouter has no weight
+// periods but changes the travel times after every assignment iteration and
+// resets its router there: the reset flags every metric for
+// re-customization on the next query. See utils/router/CCHMetricFamily.h
+// for the semantics.
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -39,21 +43,21 @@ class SUMOVTypeParameter;
 // class definitions
 // ===========================================================================
 /// @brief the ROEdge instantiation of the CCH graph mapping
-using RODUACCHGraph = CCHGraph<ROEdge, ROVehicle>;
+using ROCCHGraph = CCHGraph<ROEdge, ROVehicle>;
 /// @brief the ROEdge instantiation of the CCH metric store, keyed by the
 /// vehicle-type parameters (stable pointers, owned by RONet)
-using RODUACCHMetricFamily = CCHMetricFamily<ROEdge, ROVehicle, SUMOVTypeParameter>;
+using ROCCHMetricFamily = CCHMetricFamily<ROEdge, ROVehicle, SUMOVTypeParameter>;
 
 
 /**
- * @class RODUACCHMetrics
- * @brief function-pointer front end of duarouter's STATIC metric family
+ * @class ROCCHMetrics
+ * @brief function-pointer front end of the router applications' STATIC metric family
  */
-class RODUACCHMetrics {
+class ROCCHMetrics {
 public:
     /// @brief install the shared graph, effort function and weight-period
     /// grid (call once, before routing); weightPeriod SUMOTime_MAX = static
-    static void init(const RODUACCHGraph* graph, RODUACCHGraph::EffortOperation effort,
+    static void init(const ROCCHGraph* graph, ROCCHGraph::EffortOperation effort,
                      SUMOTime begin, SUMOTime weightPeriod);
 
     /// @brief the metric for the vehicle's type at a query time, built on
@@ -65,11 +69,16 @@ public:
     /// (SUMOTime_MAX when the weights are static); CCHRouter's PeriodEnd hook
     static SUMOTime periodEnd(SUMOTime time);
 
+    /// @brief the edge weights changed behind the metrics (marouter after an
+    /// assignment iteration, through CCHRouter::reset): every metric is
+    /// refilled and re-customized on the next query; CCHRouter's ResetHook
+    static void reset(const ROVehicle* veh);
+
 private:
     /// @brief post-fill hook: mask the edges that restrict the querying
     /// vehicle's type to inf_weight (restriction-params)
-    static void patchRestrictions(const RODUACCHGraph* graph, const ROVehicle* veh,
+    static void patchRestrictions(const ROCCHGraph* graph, const ROVehicle* veh,
                                   std::vector<unsigned>& weights);
 
-    static RODUACCHMetricFamily* myFamily;
+    static ROCCHMetricFamily* myFamily;
 };
