@@ -7,7 +7,7 @@ title: Routing Algorithms
 Applications that perform routing ([sumo](sumo.md),
 [sumo-gui](sumo-gui.md), [duarouter](duarouter.md),
 [marouter](marouter.md)) support the option **--routing-algorithm** for selecting among
-the following values (**CCH** is only available for sumo/sumo-gui and duarouter):
+the following values:
 
 ## Dijkstra (`dijkstra`)
 
@@ -61,14 +61,15 @@ enabling routing in multi modal scenarios.
 
 [Customizable Contraction Hierarchies](https://doi.org/10.1145/2886843)
 (CCH) is a preprocessing-based routing algorithm, available in
-[sumo](sumo.md) and [duarouter](duarouter.md). It splits Contraction
-Hierarchies into a one-time, weight-independent topology build (the nested
-dissection order) and a much cheaper "customization" step that recomputes
-edge weights over that fixed topology. This makes it attractive when edge
-weights change repeatedly over a simulation run (unlike plain *CH*, which
-must rebuild the whole hierarchy for every **--weight-period**).
+[sumo](sumo.md), [duarouter](duarouter.md) and [marouter](marouter.md). It
+splits Contraction Hierarchies into a one-time, weight-independent topology
+build (the nested dissection order) and a much cheaper "customization" step
+that recomputes edge weights over that fixed topology. This makes it
+attractive when edge weights change repeatedly over a simulation run or an
+assignment (unlike plain *CH*, which must rebuild the whole hierarchy for
+every **--weight-period**).
 
-In both applications one metric is customized per vehicle *type* (not per
+In all three applications one metric is customized per vehicle *type* (not per
 vehicle class). Everything the travel time function reads from the type is
 therefore exact per metric: the type's maximum speed, vClass-specific edge
 speed limits, [routing preferences](Simulation/Routing.md#routing_by_travel_time_and_routingtype)
@@ -100,6 +101,12 @@ instead of a fresh draw per query as with *dijkstra* and *astar*).
   (one metric per vehicle type and weight period, built lazily on first use)
   and **--restriction-params** (the restricted edges are masked to infinite
   weight per affected vehicle type).
+- In **marouter**, one metric is customized for the default vehicle type and
+  re-customized whenever an assignment iteration has updated the travel
+  times, so every iteration routes on the same travel times a *dijkstra* run
+  would use (*CH* rebuilds its whole hierarchy at that point instead). As
+  with *CH*, the metric does not see the k shortest path penalties of
+  **--paths**, so a warning is issued for **--paths** greater than 1.
 
 !!! caution
     CCH support differs meaningfully between sumo and duarouter; see the
@@ -109,9 +116,9 @@ instead of a fresh draw per query as with *dijkstra* and *astar*).
 
 The table below summarizes which routing features are supported by each
 **--routing-algorithm** value. "partial" means the feature is only supported
-by one of the two applications that implement CCH ([sumo](sumo.md) /
-[duarouter](duarouter.md)); see the [CCH](#cch-customizable-contraction-hierarchies)
-section above for the exact split.
+by some of the applications that implement CCH ([sumo](sumo.md),
+[duarouter](duarouter.md), [marouter](marouter.md)); see the
+[CCH](#cch-customizable-contraction-hierarchies) section above for the exact split.
 
 | Feature | dijkstra | astar / ALT | CH | CHWrapper | CCH |
 |---|---|---|---|---|---|

@@ -31,9 +31,11 @@
 //
 // STATIC -- weights never change while a (type, weight period) pair is in
 //   use. Metrics are customized lazily on the first query of a pair under a
-//   mutex and cached (duarouter and the simulation's free-flow routers).
-//   A runtime permission change re-customizes every cached metric on the
-//   next query (flagPermissionsStale).
+//   mutex and cached (duarouter, marouter and the simulation's free-flow
+//   routers). When the efforts do change between queries -- a runtime
+//   permission flip, marouter's travel times after an assignment iteration
+//   -- the host flags it (flagStale) and every cached metric is refilled
+//   and re-customized on the next query.
 //
 // LIVE -- weights track an adaptive speed table (the rerouting device).
 //   Metrics are double-buffered: worker threads acquire-load the published
@@ -183,27 +185,21 @@ public:
      * serialises concurrent first queries from parallel routing threads
      * (satisfying primeClassMask's synchronization contract); afterwards the
      * map is read-only for that key (map references are address-stable).
-     * A pending permission flip first re-customizes every cached metric from
-     * the live permissions (main-thread callers only -- see
-     * flagPermissionsStale). */
+     * A pending flagStale() first refills and re-customizes every cached
+     * metric from the live efforts and permissions -- in place, so the
+     * flagging host guarantees that no query is in flight (the simulation's
+     * main thread, marouter's reset between two iterations). */
     MetricPtr get(const K* key, SUMOVehicleClass vClass, SUMOTime time, const V* veh) {
         std::lock_guard<std::mutex> lock(myStaticLock);
-        if (myPermissionsStale) {
-            const double now = STEPS2TIME(time);
+        if (myStale) {
             for (auto& item : myStaticMetrics) {
                 StaticMetric& sm = item.second;
-                myGraph->fillInputWeights(myFillEffort, sm.vClass,
-                                          sm.refVehicle != nullptr ? sm.refVehicle : veh, now, sm.weights);
+                fillStatic(sm, item.first.second, time, sm.refVehicle != nullptr ? sm.refVehicle : veh, veh);
                 sm.metric->customize();
             }
-            myPermissionsStale = false;
+            myStale = false;
         }
-        // period 0 covers everything before begin and the whole run when the
-        // weights are static
-        int period = 0;
-        if (myWeightPeriod > 0 && myWeightPeriod != SUMOTime_MAX && time > myBegin) {
-            period = (int)((time - myBegin) / myWeightPeriod);
-        }
+        const int period = periodOf(time);
         const std::pair<const K*, int> mapKey(key, period);
         auto it = myStaticMetrics.find(mapKey);
         if (it == myStaticMetrics.end()) {
@@ -214,15 +210,7 @@ public:
                 sm.refVehicle = myFactory(key, 0);
                 ref = sm.refVehicle;
             }
-            // the weights are evaluated at the period's begin, so each pair
-            // is customized exactly once (a single period evaluates at begin,
-            // where free-flow style efforts are time-invariant anyway)
-            const double fillTime = myWeightPeriod == SUMOTime_MAX
-                                    ? STEPS2TIME(time) : STEPS2TIME(myBegin + period * myWeightPeriod);
-            myGraph->fillInputWeights(myFillEffort, vClass, ref, fillTime, sm.weights);
-            if (myPatch != nullptr) {
-                myPatch(myGraph, veh, sm.weights);
-            }
+            fillStatic(sm, period, time, ref, veh);
             sm.metric.reset(new RoutingKit::CustomizableContractionHierarchyMetric(
                                 myGraph->cch(), sm.weights));
             sm.metric->customize();
@@ -237,16 +225,22 @@ public:
         if (myWeightPeriod <= 0 || myWeightPeriod == SUMOTime_MAX) {
             return SUMOTime_MAX;
         }
-        const int period = time > myBegin ? (int)((time - myBegin) / myWeightPeriod) : 0;
-        return myBegin + (period + 1) * myWeightPeriod;
+        return myBegin + (periodOf(time) + 1) * myWeightPeriod;
     }
 
-    /// @brief a runtime permission change invalidated the cached metrics;
-    /// every metric is re-customized from the live permissions on the next
-    /// get(). The caller must also invalidate the graph's class masks.
-    void flagPermissionsStale() {
+    /** @brief the efforts behind the cached metrics changed -- a runtime
+     * permission change in the simulation (the caller must also invalidate
+     * the graph's class masks), or marouter's travel times after an
+     * assignment iteration (CCHRouter::reset): every cached metric is
+     * refilled and re-customized on the next get(). */
+    void flagStale() {
         std::lock_guard<std::mutex> lock(myStaticLock);
-        myPermissionsStale = true;
+        myStale = true;
+    }
+
+    /// @brief flagStale() under the simulation's name for the permission case
+    void flagPermissionsStale() {
+        flagStale();
     }
     /// @}
 
@@ -530,7 +524,52 @@ private:
         /// @brief OWNED reference vehicle (nullptr when filling with the
         /// querying vehicle)
         V* refVehicle = nullptr;
+        /// @brief whether the first fill (which runs the patch) is done
+        bool filled = false;
+        /// @brief the (arc, weight) pairs the patch wrote on the first fill,
+        /// re-applied on every refill
+        std::vector<std::pair<unsigned, unsigned> > patched;
     };
+
+    /// @brief the weight period containing @p time: 0 is everything before
+    /// begin and the whole run when the weights are static
+    int periodOf(SUMOTime time) const {
+        if (myWeightPeriod > 0 && myWeightPeriod != SUMOTime_MAX && time > myBegin) {
+            return (int)((time - myBegin) / myWeightPeriod);
+        }
+        return 0;
+    }
+
+    /** @brief (re)fill a STATIC metric's input weights from the live efforts.
+     * A weight-period grid evaluates at the period's begin, so each pair is
+     * customized once per fill; a single period evaluates at the query time
+     * -- free-flow efforts are time-invariant anyway, and marouter's
+     * per-iteration travel times are exactly what a Dijkstra query at that
+     * time sees. The patch runs once, on the first fill, and what it wrote is
+     * re-applied on every refill: the masked set depends only on the
+     * metric's type, whereas the vehicle triggering a refill may be of
+     * another type. */
+    void fillStatic(StaticMetric& sm, int period, SUMOTime time, const V* ref, const V* veh) {
+        const double fillTime = myWeightPeriod == SUMOTime_MAX
+                                ? STEPS2TIME(time) : STEPS2TIME(myBegin + period * myWeightPeriod);
+        myGraph->fillInputWeights(myFillEffort, sm.vClass, ref, fillTime, sm.weights);
+        if (!sm.filled) {
+            sm.filled = true;
+            if (myPatch != nullptr) {
+                const std::vector<unsigned> unpatched(sm.weights);
+                myPatch(myGraph, veh, sm.weights);
+                for (unsigned a = 0; a < (unsigned)sm.weights.size(); a++) {
+                    if (sm.weights[a] != unpatched[a]) {
+                        sm.patched.emplace_back(a, sm.weights[a]);
+                    }
+                }
+            }
+        } else {
+            for (const auto& p : sm.patched) {
+                sm.weights[p.first] = p.second;
+            }
+        }
+    }
 
     /// @brief stable 64-bit FNV-1a for the ensemble slot assignment
     static uint64_t fnv1a(const std::string& s) {
@@ -573,7 +612,9 @@ private:
     SUMOTime myWeightPeriod;
     std::map<std::pair<const K*, int>, StaticMetric> myStaticMetrics;
     std::mutex myStaticLock;
-    bool myPermissionsStale = false;
+    /// @brief the efforts changed behind the cached metrics: refill and
+    /// re-customize them all on the next get() (see flagStale)
+    bool myStale = false;
     /// @}
 
     /// @name LIVE state

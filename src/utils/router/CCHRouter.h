@@ -82,6 +82,11 @@ public:
     /// whose trip crosses into the next period and re-query on that
     /// period's metric (see the boundary handling in compute()).
     typedef SUMOTime(*PeriodEnd)(SUMOTime);
+    /// @brief the host's efforts changed behind the metrics and it reset the
+    /// router (SUMOAbstractRouter::reset -- marouter does so after every
+    /// assignment iteration, which is where CH rebuilds its hierarchy): the
+    /// metric store should re-customize before the next query
+    typedef void (*ResetHook)(const V*);
     typedef typename SUMOAbstractRouter<E, V>::Operation Operation;
     typedef typename SUMOAbstractRouter<E, V>::Prohibitions Prohibitions;
 
@@ -90,14 +95,16 @@ public:
      * @param[in] provider  static accessor for the published metric snapshot
      * @param[in] operation the effort callback (same one A-star and CH use)
      * @param[in] fallback  embedded router for non-CCH cases (OWNED)
+     * @param[in] periodEnd weight-period boundary hook (nullptr = static weights)
+     * @param[in] onReset   hook run by reset() (nullptr = nobody to notify)
      */
     CCHRouter(const GRAPH* graph, MetricProvider provider,
               Operation operation, const bool unbuildIsWarning,
               SUMOAbstractRouter<E, V>* fallback,
-              PeriodEnd periodEnd = nullptr) :
+              PeriodEnd periodEnd = nullptr, ResetHook onReset = nullptr) :
         SUMOAbstractRouter<E, V>("CCHRouter", unbuildIsWarning, operation, nullptr, false, false),
         myGraph(graph), myMetricProvider(provider), myFallback(fallback),
-        myPeriodEnd(periodEnd), myProhibitionActive(false) {
+        myPeriodEnd(periodEnd), myOnReset(onReset), myProhibitionActive(false) {
     }
 
     /// @brief clone constructor: share graph + provider, clone the fallback, fresh query scratch
@@ -105,6 +112,7 @@ public:
         SUMOAbstractRouter<E, V>(other),
         myGraph(other->myGraph), myMetricProvider(other->myMetricProvider),
         myFallback(other->myFallback->clone()), myPeriodEnd(other->myPeriodEnd),
+        myOnReset(other->myOnReset),
         myProhibitionActive(other->myProhibitionActive), myProhibited(other->myProhibited) {
     }
 
@@ -114,6 +122,17 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new CCHRouter<E, V, GRAPH>(this);
+    }
+
+    /// @brief the host's efforts changed (see ResetHook): notify the metric
+    /// store and reset the fallback's caches. Must not run while another
+    /// clone is mid-query; marouter resets once its worker threads have
+    /// finished the iteration.
+    virtual void reset(const V* const vehicle) {
+        if (myOnReset != nullptr) {
+            myOnReset(vehicle);
+        }
+        myFallback->reset(vehicle);
     }
 
     bool compute(const E* from, const E* to, const V* const vehicle,
@@ -347,6 +366,7 @@ private:
     MetricPtr myBoundMetric = nullptr;       // metric myQuery is currently bound to
     SUMOAbstractRouter<E, V>* myFallback;    // owned
     PeriodEnd myPeriodEnd;                   // may be nullptr (static weights)
+    ResetHook myOnReset;                     // may be nullptr (nobody to notify)
     bool myProhibitionActive;
     Prohibitions myProhibited;               // last set installed via prohibit()
 

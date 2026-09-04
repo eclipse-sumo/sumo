@@ -11,42 +11,42 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    RODUACCHMetrics.cpp
+/// @file    ROCCHMetrics.cpp
 /// @author  Pranav Sateesh
 /// @date    2026
 ///
-// duarouter's CCH metric store (see RODUACCHMetrics.h).
+// The CCH metric store of the router applications (see ROCCHMetrics.h).
 /****************************************************************************/
 #include <config.h>
 
-#include "RODUACCHMetrics.h"
+#include "ROCCHMetrics.h"
 
-#include <router/ROEdge.h>
-#include <router/ROVehicle.h>
+#include "ROEdge.h"
+#include "ROVehicle.h"
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-RODUACCHMetricFamily* RODUACCHMetrics::myFamily = nullptr;
+ROCCHMetricFamily* ROCCHMetrics::myFamily = nullptr;
 
 
 // ===========================================================================
-// RODUACCHMetrics method definitions
+// ROCCHMetrics method definitions
 // ===========================================================================
 void
-RODUACCHMetrics::init(const RODUACCHGraph* graph, RODUACCHGraph::EffortOperation effort,
-                      SUMOTime begin, SUMOTime weightPeriod) {
+ROCCHMetrics::init(const ROCCHGraph* graph, ROCCHGraph::EffortOperation effort,
+                   SUMOTime begin, SUMOTime weightPeriod) {
     delete myFamily;
     // no reference-vehicle factory: each (type, period) pair is customized
-    // exactly once, so the first querying vehicle of a type is that type's
-    // effort reference
-    myFamily = new RODUACCHMetricFamily(graph, effort, begin, weightPeriod,
-                                        nullptr, &RODUACCHMetrics::patchRestrictions);
+    // exactly once per fill, so the first querying vehicle of a type is that
+    // type's effort reference
+    myFamily = new ROCCHMetricFamily(graph, effort, begin, weightPeriod,
+                                     nullptr, &ROCCHMetrics::patchRestrictions);
 }
 
 
 const RoutingKit::CustomizableContractionHierarchyMetric*
-RODUACCHMetrics::get(SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* veh) {
+ROCCHMetrics::get(SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* veh) {
     if (myFamily == nullptr) {
         return nullptr;  // not initialised -> caller falls back to A*
     }
@@ -58,14 +58,22 @@ RODUACCHMetrics::get(SUMOVehicleClass vClass, SUMOTime time, const ROVehicle* ve
 
 
 SUMOTime
-RODUACCHMetrics::periodEnd(SUMOTime time) {
+ROCCHMetrics::periodEnd(SUMOTime time) {
     return myFamily == nullptr ? SUMOTime_MAX : myFamily->periodEnd(time);
 }
 
 
 void
-RODUACCHMetrics::patchRestrictions(const RODUACCHGraph* graph, const ROVehicle* veh,
-                                   std::vector<unsigned>& weights) {
+ROCCHMetrics::reset(const ROVehicle* /* veh */) {
+    if (myFamily != nullptr) {
+        myFamily->flagStale();
+    }
+}
+
+
+void
+ROCCHMetrics::patchRestrictions(const ROCCHGraph* graph, const ROVehicle* veh,
+                                std::vector<unsigned>& weights) {
     if (veh == nullptr || veh->getType()->paramRestrictions.empty()) {
         return;
     }

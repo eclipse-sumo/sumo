@@ -1,5 +1,7 @@
 set(router_STAT_SRCS
    ROAbstractEdgeBuilder.h
+   ROCCHMetrics.cpp
+   ROCCHMetrics.h
    ROEdge.cpp
    ROEdge.h
    ROFrame.cpp
@@ -29,4 +31,5 @@ set(router_STAT_SRCS
 )
 
 add_library(router STATIC ${router_STAT_SRCS})
+target_link_libraries(router foreign_routingkit)
 set_property(TARGET router PROPERTY PROJECT_LABEL "z_router")

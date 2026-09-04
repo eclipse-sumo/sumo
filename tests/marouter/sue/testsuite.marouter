@@ -3,3 +3,6 @@ plain
 
 # SUE assignment with CH routing does not work
 warn_CH
+
+# SUE assignment with CCH routing: like CH, the metric does not see the k shortest path penalties
+warn_CCH
