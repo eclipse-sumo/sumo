@@ -2018,7 +2018,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     if (ignoreFoe(ego, leader)) {
                         continue;
                     }
-                    result.emplace_back(leader, gap, -1);
+                    result.emplace_back(leader, gap, -1, LL_SAME_SOURCE);
                 }
             }
         }
