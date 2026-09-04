@@ -4139,22 +4139,32 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
             for (const MSLink::LinkLeader& ll : linkLeaders) {
                 MSVehicle* veh = ll.vehAndGap.first;
                 // in the context of lane changing all junction leader candidates must be respected
+#ifdef DEBUG_CONTEXT
+                if (DEBUG_COND2(ego)) {
+                    std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << " leaderOffset=" << ll.latOffset << " flags=" << ll.llFlags << "\n";
+                }
+#endif
                 if (veh != 0 && (ego->isLeader(*link, veh, ll.vehAndGap.second)
                                  || (MSGlobals::gComputeLC
                                      && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
                                      < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
-#ifdef DEBUG_CONTEXT
-                    if (DEBUG_COND2(ego)) {
-                        std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << " leaderOffset=" << ll.latOffset << " flags=" << ll.llFlags << "\n";
-                    }
-#endif
                     if (ll.sameTarget() || ll.sameSource()) {
                         result.addLeader(veh, ll.vehAndGap.second, ll.latOffset);
+#ifdef DEBUG_CONTEXT
+                        if (DEBUG_COND2(ego)) {
+                            std::cout << "   added selective: result=" << result.toString() << "\n";
+                        }
+#endif
                     } else {
                         // add link leader to all sublanes and return
                         for (int i = 0; i < result.numSublanes(); ++i) {
                             result.addLeader(veh, ll.vehAndGap.second, 0, i);
                         }
+#ifdef DEBUG_CONTEXT
+                        if (DEBUG_COND2(ego)) {
+                            std::cout << "   added allSublanes: result=" << result.toString() << "\n";
+                        }
+#endif
                     }
                 } // XXX else, deal with pedestrians
             }
