@@ -1,2 +1,4 @@
+Warning: Vehicle 'v.7834'; side collision with vehicle 'v.5056', lane='1_0', gap=-7.07, latGap=-0.15, time=197.00, stage=laneChange.
+Warning: Vehicle 'v.5556'; side collision with vehicle 'v.4889', lane='1_1', gap=-3.39, latGap=-0.15, time=240.00, stage=laneChange.
 Warning: Teleporting vehicle 'v.2556'; waited too long (jam), lane='2_2', time=370.00.
-Warning: Vehicle 'v.2556' ends teleporting on edge '2.9', time=372.00.
+Warning: Vehicle 'v.2556' ends teleporting on edge '2.9', time=370.00.
