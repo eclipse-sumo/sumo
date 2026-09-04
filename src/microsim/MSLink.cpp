@@ -1836,7 +1836,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             }
                             if ((posLat > posLatLeader) == leaderFromRight
                                     // leader should keep lateral position or move away from ego
-                                    && (leader->getLaneChangeModel().getSpeedLat() == 0
+                                    && (leader->getLaneChangeModel().getSpeedLat() == 0 || leader->getLaneChangeModel().getManeuverDist() == 0
                                         || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
                                     && (ego->getLaneChangeModel().getSpeedLat() == 0 || ego->getLaneChangeModel().getManeuverDist() == 0
                                         || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > -latGap))) {
