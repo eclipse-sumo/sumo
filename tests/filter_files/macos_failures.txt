@@ -118,6 +118,7 @@ opposite_direction_driving/bugs/ticket3718
 sublane_model/motorway/push_for_merge_ramp_mixed
 sublane_model/junction/turnAlignment/bikes_lefthand_center
 sublane_model/opposite_direction_driving/bugs/ticket13111
+sublane_model/roundabout/high_traffic
 sublane_model/bidiEdge/hangAtIntersectionWithBidi
 sublane_model/bidiEdge/TWLT/TWLT_tls
 sublane_model/overtake_stopped/stopped_right
