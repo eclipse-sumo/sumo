@@ -156,6 +156,8 @@ def get_options(args=None):
         options.detourWarnFactor = options.detourRemoveFactor
     if options.distPenalty is None:
         options.distPenalty = 1 if options.stops else 2
+    if options.sbahnLR:
+        gtfs2osm.GTFS2OSM_MODES['109'] = 'light_rail'
 
     random.seed(options.seed)
     return options
