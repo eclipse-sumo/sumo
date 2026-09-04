@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-04 09:39:51.479565 by Eclipse SUMO gtfs2pt.py v1_27_1+0602-17f9c03c7e4
+<!-- generated on 2026-09-04 09:41:28.350863 by Eclipse SUMO gtfs2pt.py v1_27_1+0604-936816a43aa
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -12,4 +12,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.0" lane="-108600974#1_0" startPos="15.14" endPos="215.14" friendlyPos="true" name="Marbach (N)"/>
+    <trainStop id="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.1" lane="107904689_0" startPos="8.61" endPos="208.61" friendlyPos="true" name="Benningen (N)"/>
+    <trainStop id="de:vvs:10004_:.vvs-10-4.44.T0.140.j26.0" lane="247108425#1_0" startPos="0.00" endPos="130.00" friendlyPos="true" name="Marbach (N)"/>
+    <trainStop id="de:vvs:10004_:.vvs-10-4.44.T0.6.j26.0" lane="28387340_0" startPos="88.06" endPos="288.06" friendlyPos="true" name="Benningen (N)"/>
 </additional>

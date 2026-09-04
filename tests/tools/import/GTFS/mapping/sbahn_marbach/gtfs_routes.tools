@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-04 09:39:51.487025 by Eclipse SUMO gtfs2pt.py v1_27_1+0602-17f9c03c7e4
+<!-- generated on 2026-09-04 09:41:28.399813 by Eclipse SUMO gtfs2pt.py v1_27_1+0604-936816a43aa
 <configuration>
     <merged-csv value="data.csv"/>
     <vtype-output value="vehtypes.xml"/>
@@ -12,4 +12,174 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="de:vvs:10004_:.vvs-10-4.44.T0.123.j26" edges="-108600974#1 -108600974#0 273178654 25015448#0 25015448#1 24217632#0 24217632#1 916048754 560340460 107904689">
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Marbach (N) -->
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.1" duration="00:00:10" until="00:02:00"/> <!-- Benningen (N) -->
+    </route>
+    <route id="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" edges="247108425#1 195174049#0 195174049#1 273178652 273178654 25015448#0 25015448#1 24217632#0 24217632#1 916048754 560340460 107904689">
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.140.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Marbach (N) -->
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.1" duration="00:00:10" until="00:02:00"/> <!-- Benningen (N) -->
+    </route>
+    <route id="de:vvs:10004_:.vvs-10-4.44.T0.6.j26" edges="28387340">
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.6.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Benningen (N) -->
+    </route>
+    <route id="de:vvs:10004_:.vvs-10-4.44.T0.8.j26" edges="28387340">
+        <stop busStop="de:vvs:10004_:.vvs-10-4.44.T0.6.j26.0" duration="00:00:10" until="00:00:00"/> <!-- Benningen (N) -->
+    </route>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.123.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.123.j26" type="train" depart="04:54:50" line="S4">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.140.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="03:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.15.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="05:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.16.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="05:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.18.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="06:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.20.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="06:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.22.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="07:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.24.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="07:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.26.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="08:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.28.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="08:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.29.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="09:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.3.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="23:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.30.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="09:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.31.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="10:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.32.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="10:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.33.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="11:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.34.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="11:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.35.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="12:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.36.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="12:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.37.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="13:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.38.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="13:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.40.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="14:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.41.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="15:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.42.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="15:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.44.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="16:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.46.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="16:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.47.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="17:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.48.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="17:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.49.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="21:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.5.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="14:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.50.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="18:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.51.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="18:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.52.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="19:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.53.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="19:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.54.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="20:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.55.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="20:54:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.56.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="21:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.57.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="22:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
+    <vehicle id="de:vvs:10004_:.vvs-10-4.44.T0.7.j26.0" route="de:vvs:10004_:.vvs-10-4.44.T0.140.j26" type="train" depart="23:24:50" line="S4#1">
+        <param key="gtfs.route_name" value="S4"/>
+        <param key="gtfs.trip_headsign" value="Stuttgart Hauptbahnhof (oben)"/>
+    </vehicle>
 </routes>
