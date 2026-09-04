@@ -68,28 +68,38 @@ edge weights over that fixed topology. This makes it attractive when edge
 weights change repeatedly over a simulation run (unlike plain *CH*, which
 must rebuild the whole hierarchy for every **--weight-period**).
 
+In both applications one metric is customized per vehicle *type* (not per
+vehicle class). Everything the travel time function reads from the type is
+therefore exact per metric: the type's maximum speed, vClass-specific edge
+speed limits, [routing preferences](Simulation/Routing.md#routing_by_travel_time_and_routingtype)
+and **--weights.priority-factor**. Only the individual speed factor of the
+vehicles within a type is approximated by the type's reference vehicle, and
+**--weights.random-factor** freezes one random realization into each metric
+(the same approximation *CHWrapper* makes when building its hierarchies,
+instead of a fresh draw per query as with *dijkstra* and *astar*).
+
 - In **sumo**, CCH replaces the periodic hierarchy rebuild of *CH*/*CHWrapper*
   with a metric re-customization that runs whenever the [rerouting
   device](Demand/Automatic_Routing.md) adapts edge weights
-  (**--device.rerouting.adaptation-interval**). The metric always reflects
-  live simulated speeds; there is no support for **--weight-files** /
-  **--weight-period** time-dependent weights. One metric per vehicle class
-  present in the demand is customized and published; a query for a class
-  without a metric, or a query carrying a per-request prohibition (e.g. a
+  (**--device.rerouting.adaptation-interval**), so the metrics always reflect
+  the device's current edge weights (**--device.rerouting.bike-speeds**
+  included, through the metrics of the bicycle types). The re-customization
+  is partial: an edge is only propagated into the metric once its weight has
+  moved by more than **--device.rerouting.cch-update-threshold.factor**
+  (relative) and **--device.rerouting.cch-update-threshold.constant**
+  (absolute, in seconds) since it was last applied; the defaults (1 and 0)
+  propagate every change. **--device.rerouting.cch-ensemble** {{DT_INT}} keeps
+  that many metrics per type, each with its own frozen
+  **--weights.random-factor** realization, and assigns every vehicle to one of
+  them by a stable hash of its id, which restores the route diversity of the
+  random factor at the cost of more customization work. A query for a type
+  without a metric yet, or a query carrying a per-request prohibition (e.g. a
   [rerouter](Simulation/Rerouter.md) closure) that is not already a live
   permission change, transparently falls back to an embedded A\* search.
-  Because of this, **--weights.random-factor**, routing preferences and
-  **--device.rerouting.bike-speeds** are rejected when combined with CCH (the
-  shared metric has no per-vehicle state to encode them); **--weights.priority-factor**
-  is supported, since it only depends on the (static) edge.
 - In **duarouter**, CCH supports **--weight-files** / **--weight-period**
-  (one metric per vehicle type and weight period, built lazily on first use),
-  **--weights.priority-factor**, routing preferences (exact, since metrics
-  are keyed by vehicle type) and **--weights.random-factor** (one random
-  realization is frozen per metric, the same approximation *CHWrapper* makes
-  when building its hierarchies -- not exact per-vehicle randomization).
-  **--restriction-params** is supported by masking the restricted edges to
-  infinite weight per affected vehicle type.
+  (one metric per vehicle type and weight period, built lazily on first use)
+  and **--restriction-params** (the restricted edges are masked to infinite
+  weight per affected vehicle type).
 
 !!! caution
     CCH support differs meaningfully between sumo and duarouter; see the
@@ -110,6 +120,6 @@ section above for the exact split.
 | **--restriction-params** | yes | yes | no | yes | partial (duarouter only) |
 | Per-query prohibitions (rerouter / TraCI closures not already reflected as a live permission change) | yes | yes | yes | yes | falls back to embedded A\* |
 | **--weights.priority-factor** | yes | yes | yes | yes | yes |
-| **--weights.random-factor** | yes (exact, per query) | yes (exact, per query) | not supported | not supported | partial: duarouter approximates (one frozen realization per metric); sumo rejects |
-| Routing preferences | yes | yes | not supported | not supported | partial: duarouter exact (keyed by vehicle type); sumo rejects |
-| **--device.rerouting.bike-speeds** (sumo only) | yes | yes | not supported | not supported | rejected |
+| **--weights.random-factor** | yes (exact, per query) | yes (exact, per query) | not supported | not supported | approximated: one frozen realization per metric (sumo keeps several with **--device.rerouting.cch-ensemble**) |
+| Routing preferences | yes | yes | not supported | not supported | yes (exact, metrics are keyed by vehicle type) |
+| **--device.rerouting.bike-speeds** (sumo only) | yes | yes | not supported | not supported | yes |
