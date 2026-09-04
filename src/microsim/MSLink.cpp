@@ -1729,7 +1729,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 continue;
             }
             // after entering the conflict area, ignore foe vehicles that are not in the way
-            if ((!MSGlobals::gComputeLC || (ego != nullptr && ego->getLane() == foeLane) || MSGlobals::gSublane)
+            if ((!MSGlobals::gComputeLC || (ego != nullptr && ego->getLane() == foeLane) || (MSGlobals::gSublane && !MSGlobals::gComputeLC))
                     && distToCrossing < -POSITION_EPS && !inTheWay
                     && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing < -ego->getVehicleType().getLength())) {
                 if (gDebugFlag1) {
@@ -1831,11 +1831,14 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             if (MSGlobals::gLefthand) {
                                 leaderFromRight = !leaderFromRight;
                             }
+                            if (gDebugFlag1) {
+                                std::cout << "   leaderFromRight=" << leaderFromRight << "\n";
+                            }
                             if ((posLat > posLatLeader) == leaderFromRight
                                     // leader should keep lateral position or move away from ego
                                     && (leader->getLaneChangeModel().getSpeedLat() == 0
                                         || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
-                                    && (ego->getLaneChangeModel().getSpeedLat() == 0
+                                    && (ego->getLaneChangeModel().getSpeedLat() == 0 || ego->getLaneChangeModel().getManeuverDist() == 0
                                         || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > -latGap))) {
                                 if (gDebugFlag1) {
                                     std::cout << "   ignored (different source) leaderFromRight=" << leaderFromRight << "\n";
