@@ -321,6 +321,13 @@ MSEdge::getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored) {
 
 void
 MSEdge::rebuildAllowedLanes(const bool onInit, bool updateVehicles) {
+    // hadPermissionChanges() only tracks transient (rerouter/TraCI-temporary)
+    // changes; a permanent change (e.g. traci.lane.setDisallowed /
+    // traci.edge.setAllowed) goes straight through MSLane::setPermissions and
+    // never registers there. Comparing the aggregated permissions before and
+    // after this rebuild catches that case too.
+    const SVCPermissions oldMinimumPermissions = myMinimumPermissions;
+    const SVCPermissions oldCombinedPermissions = myCombinedPermissions;
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
@@ -341,9 +348,12 @@ MSEdge::rebuildAllowedLanes(const bool onInit, bool updateVehicles) {
         myOrigAllowedTargets = myAllowedTargets;
         myOrigClassesViaSuccessorMap = myClassesViaSuccessorMap;
     }
-    if (!onInit && lanesChangedPermission) {
-        // a runtime permission change (closure / re-opening) must reach the
-        // CCH metric even though the speed table does not move
+    if (!onInit && (lanesChangedPermission
+                    || myMinimumPermissions != oldMinimumPermissions
+                    || myCombinedPermissions != oldCombinedPermissions)) {
+        // a runtime permission change (closure / re-opening, transient or
+        // permanent) must reach the CCH metric even though the speed table
+        // does not move
         MSRoutingEngine::invalidateCCHEdge(this);
     }
     // rebuild myAllowed
@@ -725,7 +735,7 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
                 if (((*i).length - departPos) >= bestLength) {
                     if (isInternal()) {
                         for (MSLane* lane : *myLanes) {
-                            if (lane->getNormalSuccessorLane() == (*i).lane && lane->allowsVehicleClass(veh.getVClass()) ) {
+                            if (lane->getNormalSuccessorLane() == (*i).lane && lane->allowsVehicleClass(veh.getVClass())) {
                                 bestLanes->push_back(lane);
                             }
                         }
