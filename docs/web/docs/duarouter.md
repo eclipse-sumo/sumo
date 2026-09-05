@@ -240,5 +240,5 @@ Options](Basics/Using_the_Command_Line_Applications.md#random_number_options).
 
 # Further Documentation
 
-- [Supported Routing Algorithms](Simulation/Routing.md#routing_algorithms)
+- [Supported Routing Algorithms](Routing_Algorithms.md)
 - [Custom access restrictions](Simulation/VehiclePermissions.md#custom_access_restrictions)
