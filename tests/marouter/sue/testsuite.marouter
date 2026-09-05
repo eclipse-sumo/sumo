@@ -6,3 +6,8 @@ warn_CH
 
 # SUE assignment with CCH routing: like CH, the metric does not see the k shortest path penalties
 warn_CCH
+
+# regression: sue() must re-customize the CCH metric after every inner
+# iteration (myRouter.reset), otherwise the metric stays stale at its
+# free-flow customization and a congestion-induced detour is never found
+cch_reset_regression

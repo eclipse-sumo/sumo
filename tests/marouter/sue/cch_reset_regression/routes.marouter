@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-05T20:49:59.488698+01:00 by Eclipse SUMO marouter v1_27_1+0486-cd640410f770
+<!-- generated on 2026-09-05T20:41:44.408207+01:00 by Eclipse SUMO marouter v1_27_1+0486-cd640410f77
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="input_net.net.xml"/>
         <additional-files value="input_taz.taz.xml"/>
-        <od-matrix-files value="input_od_vm.fma"/>
+        <tazrelation-files value="input_od.xml"/>
     </input>
 
     <output>
@@ -25,9 +25,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <processing>
-        <routing-algorithm value="CH"/>
+        <routing-algorithm value="CCH"/>
         <assignment-method value="SUE"/>
-        <paths value="3"/>
     </processing>
 
     <report>
@@ -38,10 +37,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="0" begin="0.00" end="86400.00" number="100" type="1" fromTaz="91" toTaz="93" departLane="free" departSpeed="max">
+    <flow id="0" begin="0.00" end="3600.00" number="2000" type="car" fromTaz="Z1" toTaz="Z2" departLane="free" departSpeed="max">
         <routeDistribution>
-            <route cost="273.02" probability="49.77585586" edges="D1 L2 L5 L8 L9 L14 L15 L16 D3"/>
-            <route cost="272.13" probability="50.22414414" edges="D1 L2 L5 L7 L6 L10 L13 L15 L16 D3"/>
+            <route cost="59.87" probability="959.98596347" edges="src AC CB snk"/>
+            <route cost="51.86" probability="1040.01403653" edges="src AB snk"/>
         </routeDistribution>
     </flow>
 </routes>

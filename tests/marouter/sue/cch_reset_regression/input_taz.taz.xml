@@ -1,0 +1,8 @@
+<tazs>
+   <taz id="Z1">
+      <tazSource id="src" weight="1.0000"/>
+   </taz>
+   <taz id="Z2">
+      <tazSink id="snk" weight="1.0000"/>
+   </taz>
+</tazs>
