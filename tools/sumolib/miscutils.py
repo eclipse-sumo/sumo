@@ -29,6 +29,7 @@ import random
 import gzip
 import codecs
 import io
+from pathlib import Path
 from types import ModuleType, FunctionType
 from gc import get_referents
 try:
@@ -417,3 +418,9 @@ def getBaseName(filename):
         return filename[:-4]
     else:
         return filename
+
+def flattenPath(filename, sep='_'):
+    """create a filename that encodes the original directory structure"""
+    parts = Path(filename).parts
+    clean = [p for p in parts if p not in ('/', '\\') and ':' not in p]
+    return sep.join(clean)

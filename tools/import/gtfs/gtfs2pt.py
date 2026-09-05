@@ -39,7 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible, getBaseName  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible, getBaseName, flattenPath# noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -171,7 +171,7 @@ def splitNet(options):
 
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
-    numIdNet = os.path.join(options.network_split, getBaseName(options.network) + "_numerical.net.xml")
+    numIdNet = os.path.join(options.network_split, flattenPath(getBaseName(options.network)) + "_numerical.net.xml")
     if os.path.exists(numIdNet) and os.path.getmtime(numIdNet) > os.path.getmtime(options.network):
         print("Reusing old", numIdNet)
     else:
@@ -189,7 +189,7 @@ def splitNet(options):
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
         if not options.modes or mode in options.modes.split(","):
-            netPrefix = os.path.join(options.network_split, getBaseName(options.network) + '_' + mode)
+            netPrefix = os.path.join(options.network_split, flattenPath(getBaseName(options.network)) + '_' + mode)
             vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
             edgeFilter = ["--keep-edges.by-vclass", vclass] if vclass else None
             if edgeFilter:
