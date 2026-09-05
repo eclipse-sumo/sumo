@@ -446,6 +446,10 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
                     edge->setHelpFlow(intBegin, intEnd, 0.);
                 }
             }
+            // travel times changed: flag stale metrics (e.g. a CCH metric
+            // family) so the next recomputeCosts()/compute() call sees them,
+            // mirroring the reset() call in incremental()
+            myRouter.reset(myDefaultVehicle);
             // if stable break
             if (unstableEdges == 0) {
                 break;
