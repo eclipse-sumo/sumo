@@ -1852,11 +1852,11 @@ GNEAdditionalHandler::checkLanePosition(double pos, const double length, const d
         pos += laneLength;
     }
     // check extremes
-    if ((pos < 0) || (pos > laneLength)) {
+    if ((pos < 0) || (pos - POSITION_EPS > laneLength)) {
         return false;
     }
     // check pos + length
-    if ((pos + length) > laneLength) {
+    if ((pos + length - POSITION_EPS) > laneLength) {
         return false;
     }
     // all OK
