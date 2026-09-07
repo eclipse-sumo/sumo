@@ -164,7 +164,12 @@ public:
 /// @{
 
 struct TraCIResult {
+    TraCIResult() {}
     virtual ~TraCIResult() {}
+#ifndef SWIG
+    TraCIResult(const TraCIResult&) = default;
+    TraCIResult& operator=(const TraCIResult&) = default;
+#endif
     virtual std::string getString() const {
         return "";
     }
