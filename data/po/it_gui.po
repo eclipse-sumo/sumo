@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:52+0200\n"
-"PO-Revision-Date: 2026-06-19 08:59+0000\n"
+"PO-Revision-Date: 2026-09-08 06:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:312 src/gui/GUIApplicationWindow.cpp:315
 #: src/gui/GUIApplicationWindow.cpp:2314 src/gui/GUIApplicationWindow.cpp:2315
@@ -4811,6 +4811,8 @@ msgstr "Salva configurazione di visualizzazione nel file indicato"
 #: src/netedit/GNELoadThread.cpp:546
 msgid "Quit the app if the initial net/config loading fails"
 msgstr ""
+"Chiudi l'applicazione se il caricamento iniziale di una rete/una "
+"configurazione fallisce"
 
 #: src/netedit/GNELoadThread.cpp:553
 msgid "Defines the begin time in seconds; The simulation starts at this time"
@@ -13428,7 +13430,7 @@ msgstr "Non può essere trasformato in un numero decimale"
 
 #: src/netedit/frames/GNETLSTable.cpp:955
 msgid "Tooltips only for TextFields"
-msgstr ""
+msgstr "Tooltip unicamente per caselle di testo"
 
 #: src/netedit/frames/GNETLSTable.cpp:1287
 msgid "Delete phase"
@@ -15765,13 +15767,15 @@ msgstr ""
 
 #: src/netedit/tools/GNENetDiffTool.cpp:175
 msgid "Compare source and dest files directly"
-msgstr ""
+msgstr "Compara i file di origine e di destinazione direttamente"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:178
 msgid ""
 "Generate patch that can be applied during initial network import (exports "
 "additional connection elements)"
 msgstr ""
+"Genera un patch da applicare durante l'importazione iniziale della rete "
+"(esporta ulteriori elementi di collegamenti)"
 
 #: src/netedit/tools/GNENetDiffTool.cpp:181
 msgid "Avoid saving plain xml files of source and destination networks"
