@@ -23,6 +23,7 @@ title: ChangeLog
   - Fixed invalid error in sublane simulation with bidirectional lanes #18280
   - Fixed deadlocks and unsafe driving in sublane simulation #18281
   - Fixed bug where vehicles were kept in the simulation despite insertion failure for longer than option **--max-depart-delay** #18284
+  - Fixed negative timeloss when using the AGLOSA device #18239
 
 
 - sumo-gui
@@ -66,10 +67,12 @@ title: ChangeLog
 - tools
   - drtOnline.py: fixed failure to dispatch vehicles that have an underscore ('_') in their id. #18167
   - gtfs2pt.py: fixed duplicate vehicle ids when using option **--join-blocks** to join trips with different route_ids #18209
-  - gtfs2pt.py: fixed duplicate busstop in output with option **--use-gtfs-stopids** #18237
+  - gtfs2pt.py: fixed duplicate busStop in output with option **--use-gtfs-stopids** #18237
   - gtfs2pt.py: fixed invalid route output when repairing distinct routes that have the same trace #18240
   - gtfs2pt.py: routes with the same sequence of stops but different timing are now distinguished #18238
+  - gtfs2pt.py: fixed invalid cache-reuse when called twice with different input networks #18291
   - csv2xml.py: fixed problem when converting plain.nod.csv #18176
+  - plotting tools: fixed error when Matplotlib version string contains non-integer components #18294
 
 ### Enhancements
 
@@ -131,6 +134,7 @@ title: ChangeLog
   - edgeDataFromFlow.py: added option **--skip-incomplete** to exclude data from incomplete cross-sections #18182
   - flow2POI.poi: added [new tool](Tools/Detector.md#flow2poipy) for visualizing detector flow #18193
   - randomTrips.py: Now warns when routing personTrips with mode public and without pt input #18006
+  - gtfs2pt.py now interprets extended gtfs trip modes. The default interpretation of mode 109 was changed to 'train' as this is by far the more common case. Special cases such as Berlin and Hamburg where 109 is mapped as 'light_rail' in OSM can be handled by setting the new option **--sbahn-is-light-rail** #18292
 
 ### Miscellaneous
 
@@ -140,6 +144,7 @@ title: ChangeLog
 - Building SUMO requires now a C++14 compiler (e.g. gcc5 or later)
   - SUMO will not build on a plain CentOS7 anymore (but you can still build it there if you update the compiler)
 - Windows builds (nightly and release) now use Visual Studio 2026
+- Removed stationFinder device parameter `maxChargePower`. It was never in use because the quantity in question is already defined by `device.battery.maximumChargeRate` #18275
 
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
