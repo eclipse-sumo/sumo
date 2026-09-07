@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-07 09:13:39.267952 by Eclipse SUMO netdiff.py v1_27_1+0626-d8461b9d330
+<configuration>
+    <source value="net.net.xml"/>
+    <dest value="net3.net.xml"/>
+    <outprefix value="diff2"/>
+</configuration>
+-->
+
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <connection from="A0left0" fromLane="0" to="E0" toLane="0" />
+    <connection from="E0" fromLane="0" to="E1" toLane="0" />
+    <connection from="E1" fromLane="0" to="bottom0A0" toLane="0" />
+    <!-- Changed Elements -->
+</connections>
