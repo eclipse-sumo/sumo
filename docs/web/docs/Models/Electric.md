@@ -28,16 +28,21 @@ vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devi
 
 Additional properties of the vehicle and its electrical components must
 then be defined via [parameters of the vehicle or its
-type](../Simulation/GenericParameters.md). Some property can only be defined for the vehicle type.
+type](../Simulation/GenericParameters.md).
+Note, that some parameters are specific to the battery device and thus carry the `device.battery` prefix. These can be defined either in the `<vType>` or the `<vehicle`. 
+Other parameters are more general and also used by other models (i.e. emission models) and thus carry no prefix. All of the later must be defined in the `<vType>`.
 
 These values have the following meanings (the defaults are from the Kia below):
 
 | key                               | Value Type | Default           | Description                                             |
 | --------------------------------- | ---------- | ----------------- | ------------------------------------------------------- |
 | device.battery.capacity           | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
+| device.battery.maximumChargeRate  | float      | 150000 (W)        | Maximum charging rate of the battery                    |
+| device.battery.chargeLevelTable   | float list |                   | Ordered list of state of charge values (from 0 to 1) for which maximum charge rates are defined in `device.battery.chargeCurveTable` |
+| device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
 | vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
-| loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)**     |
+| loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)** |
 | frontSurfaceArea                  | float      | 2.6 (m<sup>2</sup>) | Front surface area *A<sub>veh</sub>*                  |
 | airDragCoefficient                | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
 | rotatingMass                      | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
@@ -47,9 +52,6 @@ These values have the following meanings (the defaults are from the Kia below):
 | propulsionEfficiency              | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
 | recuperationEfficiency            | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
 | stoppingThreshold                 | float      | 0.1 (m/s)         | Maximum velocity to start charging                      |
-| device.battery.maximumChargeRate  | float      | 150000 (W)        | Maximum charging rate of the battery                    |
-| device.battery.chargeLevelTable   | float list |                   | Ordered list of state of charge values (from 0 to 1) for which maximum charge rates are defined in `device.battery.chargeCurveTable` |
-| device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
 
 !!! note
     Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
