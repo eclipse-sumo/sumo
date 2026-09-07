@@ -780,6 +780,24 @@ MSRoutingEngine::getIntermodalRouterTT(const int rngIndex, const Prohibitions& p
 
 
 void
+MSRoutingEngine::cleanupCCH() {
+    // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
+    // it against the new network; the router clones referencing it were
+    // deleted together with the worker threads / router provider.
+    // Deleting the metric families' owned ref vehicles dereferences their
+    // MSVehicleType*, so this must run BEFORE MSNet deletes its
+    // MSVehicleControl (see the call in ~MSNet); the nullptr checks below
+    // make a second call from cleanup() a safe no-op.
+    delete myCCHLive;
+    myCCHLive = nullptr;
+    delete myCCHFreeflow;
+    myCCHFreeflow = nullptr;
+    delete myCCHGraph;
+    myCCHGraph = nullptr;
+}
+
+
+void
 MSRoutingEngine::cleanup() {
     myAdaptationInterval = -1; // responsible for triggering initEdgeWeights
     myPastEdgeSpeeds.clear();
@@ -798,15 +816,7 @@ MSRoutingEngine::cleanup() {
         myCachedRoutes.clear();
     }
     myAdaptationStepsIndex = 0;
-    // free the CCH state so a subsequent load (libsumo / GUI reload) rebuilds
-    // it against the new network; the router clones referencing it were
-    // deleted together with the worker threads / router provider
-    delete myCCHLive;
-    myCCHLive = nullptr;
-    delete myCCHFreeflow;
-    myCCHFreeflow = nullptr;
-    delete myCCHGraph;
-    myCCHGraph = nullptr;
+    cleanupCCH();
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {
         // router deletion is done in thread destructor

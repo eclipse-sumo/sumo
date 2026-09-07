@@ -367,7 +367,6 @@ public:
             }
             myPendingList[backShared].swap(stillPending);
         }
-        bool fullRebuild = false;
         for (LiveMetric* c : myLiveMetrics) {
             const int back = 1 - c->frontIndex;
             // Fill from the live efforts, masking arcs the class is not
@@ -380,19 +379,26 @@ public:
             // per-vehicle randomization remains the domain of the exact
             // routers.
             if (c->metric[back] == nullptr) {
-                // first use of this buffer: no previous state to diff against
+                // first use of this buffer for THIS type only (streamed/late
+                // vType): no previous state to diff against for this type,
+                // but every other already-running type's sparse deadband
+                // state is unaffected, so this branch must NOT trigger the
+                // shared wipe below (which would reset the type-shared
+                // myPendingList/myAppliedEffort for everybody just because
+                // one type is new)
                 myGraph->fillInputWeights(myFillEffort, c->vClass, c->refVehicle, now, c->weight[back]);
                 c->metric[back] = std::make_shared<RoutingKit::CustomizableContractionHierarchyMetric>(
                                       myGraph->cch(), c->weight[back]);
                 c->metric[back]->customize();  // serial; avoids OpenMP oversubscription under FOX
-                fullRebuild = true;
             } else if (forceFull) {
                 // permission flip: wholesale refill in place from the
                 // re-primed masks and live permissions (the metric already
-                // references weight[back]), then a full customize
+                // references weight[back]), then a full customize. This is
+                // the ONLY case that invalidates the type-shared deadband
+                // state below, since it is the only one that actually
+                // changes what "applied" means for every type at once.
                 myGraph->fillInputWeights(myFillEffort, c->vClass, c->refVehicle, now, c->weight[back]);
                 c->metric[back]->customize();
-                fullRebuild = true;
             } else {
                 // SPARSE PATH: metric[back] is the customization of the
                 // current contents of weight[back]. Recompute only the arcs
@@ -422,10 +428,13 @@ public:
             c->frontIndex = back;
             c->front.store(c->metric[back].get(), std::memory_order_release);
         }
-        if (fullRebuild) {
-            // a full fill matched every arc to the live efforts: pending
-            // entries for this buffer are stale; NaN re-arms the
-            // first-change auto-pass
+        if (forceFull) {
+            // a permission flip's full refill matched every arc to the live
+            // efforts/masks for this buffer: type-shared deadband entries
+            // are stale; NaN re-arms the first-change auto-pass. (A plain
+            // per-type first-fill above does NOT reach here -- it must not
+            // wipe deadband state that other, already-running types still
+            // depend on.)
             for (const E* e : myPendingList[backShared]) {
                 myPendingFlag[backShared][e->getNumericalID()] = 0;
             }

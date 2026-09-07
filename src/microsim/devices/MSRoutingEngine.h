@@ -77,7 +77,7 @@ class MSRoutingEngine {
 public:
     typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
 
-    /// @brief initialize constants for using myPriorityFactor 
+    /// @brief initialize constants for using myPriorityFactor
     static void initWeightConstants(const OptionsCont& oc);
 
     /// @brief intialize period edge weight update
@@ -163,6 +163,15 @@ public:
 
     /// @brief deletes the router instance
     static void cleanup();
+
+    /// @brief tears down the CCH state (myCCHLive/myCCHFreeflow/myCCHGraph)
+    /// only -- the ref vehicles owned by the CCH metric families hold a raw
+    /// MSVehicleType* that MSVehicleControl frees, so this MUST run before
+    /// MSNet deletes its MSVehicleControl (cleanup() itself runs far later,
+    /// from MSNet::clearAll(), so this is called separately and first; it is
+    /// also idempotent/safe to call again from cleanup() afterwards since it
+    /// nulls out the pointers it deletes)
+    static void cleanupCCH();
 
     /// @brief returns whether any routing actions take place
     static bool isEnabled() {

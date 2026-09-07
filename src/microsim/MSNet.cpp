@@ -325,6 +325,12 @@ MSNet::~MSNet() {
         delete myContainerControl;
         myContainerControl = nullptr; // just to have that clear for later cleanups
     }
+    // the CCH metric families (myCCHLive/myCCHFreeflow) own ref vehicles
+    // that hold a raw MSVehicleType*; tear them down before the vehicle
+    // types go away below (MSDevice::cleanupAll() -> MSRoutingEngine::
+    // cleanup() runs this again later via clearAll(), harmlessly, since
+    // cleanupCCH() nulls out what it deletes)
+    MSRoutingEngine::cleanupCCH();
     delete myVehicleControl; // must happen after deleting transportables
     // ShapeContainer registers polygon-update commands with the event controls.
     // It must be torn down before the event controls so that ~ShapeContainer
