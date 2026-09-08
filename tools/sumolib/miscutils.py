@@ -419,6 +419,7 @@ def getBaseName(filename):
     else:
         return filename
 
+
 def flattenPath(filename, sep='_'):
     """create a filename that encodes the original directory structure"""
     parts = Path(filename).parts

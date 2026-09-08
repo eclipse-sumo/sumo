@@ -87,14 +87,14 @@ def main(options):
 
     for stop in sumolib.xml.parse(options.stopFile, ['busStop', 'trainStop']):
         stopNames[stop.id] = stop.getAttributeSecure('attr_name', stop.id)
-    
+
     for route in sumolib.xml.parse(options.routeFile, 'route'):
         if route.id:
             if route.stop:
                 routeStops[route.id] = [getStopID(stop) for stop in route.stop]
             else:
                 routeStops[route.id] = []
-                
+
     stops = []
     idelem = None
     xattr = None
