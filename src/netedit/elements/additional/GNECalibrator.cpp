@@ -314,7 +314,9 @@ GNECalibrator::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_OUTPUT:
             return myOutput;
         case SUMO_ATTR_ROUTEPROBE:
-            if (getParentAdditionals().at(0)) {
+            if (isTemplate()) {
+                return myRouteProbeID;
+            } else if (getParentAdditionals().size() > 0) {
                 return getParentAdditionals().at(0)->getID();
             } else {
                 return "";
@@ -554,6 +556,8 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ROUTEPROBE:
             if (!isTemplate()) {
                 replaceAdditionalParent(SUMO_TAG_ROUTEPROBE, value, 0);
+            } else {
+                myRouteProbeID = value;
             }
             break;
         case SUMO_ATTR_JAM_DIST_THRESHOLD:

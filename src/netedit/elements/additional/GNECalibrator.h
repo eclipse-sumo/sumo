@@ -216,6 +216,9 @@ protected:
     /// @brief jamThreshold
     double myJamThreshold = 0;
 
+    /// @brief route probe ID (needed during creation)
+    std::string myRouteProbeID;
+
     /// @brief vTypes
     std::vector<std::string> myVTypes;
 
