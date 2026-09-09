@@ -9,6 +9,9 @@ connections
 # consider connections when traversing network
 connections2
 
+# estimate data for low-flow edges
+symmetry
+
 # total flow not retrievable
 undefined
 
