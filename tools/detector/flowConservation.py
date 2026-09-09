@@ -56,6 +56,8 @@ def get_options(args=None):
                     help="end time in seconds or H:M:S")
     ap.add_argument("--vclass", default="passenger",
                     help="only from and to edges which permit the given vehicle class")
+    ap.add_argument("--symmetry-threshold", type=float, default=-1, dest="symmetryThresh",
+                    help="if an edge has no data, use the reverse edge data if that value is below FLOAT")
     ap.add_argument("-o", "--output-file", dest="output", category="output", type=ap.file,
                     help="write output to file instead of printing it to console", metavar="FILE")
     ap.add_argument("-v", "--verbose", action="store_true", dest="verbose", default=False,
@@ -137,6 +139,18 @@ def checkFlow(options, begin, graph, edgeFlow):
         options.outfile.write(';'.join(map(str, [begin] + item)) + '\n')
 
 
+def addSymmetry(options, edgeFlow):
+    add = {}
+    for e, v in edgeFlow.items():
+        for e2 in e.getToNode().getOutgoing():
+            if   (e2.getToNode() == e.getFromNode()
+                  and e2.allows(options.vclass)
+                  and e2 not in edgeFlow
+                  and v < options.symmetryThresh):
+                add[e2] = edgeFlow[e]
+    edgeFlow |= add
+
+
 def main(options):
     net = sumolib.net.readNet(options.netfile)
     graph = dict()  # node -> (allowed_incoming, allowed_outgoing)
@@ -150,6 +164,7 @@ def main(options):
         end = min(begin + options.interval, options.end)
         edgeFlow = readEdgeData(net, options.edgeDataFile, begin, end, options.edgeDataAttr)
         if edgeFlow:
+            addSymmetry(options, edgeFlow)
             checkFlow(options, begin, graph, edgeFlow)
         begin += options.interval
     options.outfile.close()
