@@ -114,3 +114,6 @@ ticket17502
 
 # crash
 ticket18030
+
+# deadlock after stopping
+ticket18289
