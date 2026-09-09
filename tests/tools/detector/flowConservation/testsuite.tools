@@ -3,6 +3,12 @@ basic
 # follow more edges upstream and downstream
 extend
 
+# consider connections when traversing network
+connections
+
+# consider connections when traversing network
+connections2
+
 # total flow not retrievable
 undefined
 
