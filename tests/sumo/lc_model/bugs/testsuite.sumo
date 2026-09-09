@@ -65,3 +65,6 @@ ticket16443
 
 # prolonged failure to change lane
 ticket16780
+
+# deadlock after stopping
+ticket18289
