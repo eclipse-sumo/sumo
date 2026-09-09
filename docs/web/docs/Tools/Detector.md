@@ -152,3 +152,11 @@ Aggregated traffic values (i.e. hourly) will be written as `<param`> elements of
 ```
 <SUMO_HOME>/tools/detector/flow2POI.py -d input_detectors.add.xml -f input_flows.txt -o pois.add.xml -i 60
 ```
+
+# flowConservation.py
+
+This script reads a network and an [edgeData file](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) to find data that violates conservation of flow at each junction where enough data is available to determine this.  The algorithm looks upstream and downstream to estimate missing values (i.e. if only incoming flow is available from traffic light detectors). By setting option **--symmetry-threshold** missing values can estimated from the reverse direction for edges with traffic below the given threshold. 
+
+```
+<SUMO_HOME>/tools/detector/flowConservation.py -n net.net.xml -e input_edgedata.xml 
+```
