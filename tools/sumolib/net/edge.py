@@ -122,6 +122,20 @@ class Edge:
     def getOutgoing(self):
         return self._outgoing
 
+    def getAllowedIncoming(self, vClass):
+        if vClass is None or vClass == "ignoring":
+            return self._incoming
+        else:
+            result = {}
+            for e, conns in self._incoming.items():
+                allowedConns = [c for c in conns if
+                                c.getFromLane().allows(vClass) and
+                                c.getToLane().allows(vClass) and
+                                c.allows(vClass)]
+                if allowedConns:
+                    result[e] = allowedConns
+            return result
+
     def getAllowedOutgoing(self, vClass):
         if vClass is None or vClass == "ignoring":
             return self._outgoing

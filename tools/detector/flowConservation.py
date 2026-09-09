@@ -92,9 +92,10 @@ def readEdgeData(net, edgeDataFile, begin, end, attr):
     return dict(edgeFlow)
 
 
-def getFlow(graph, d, edgeFlow, n):
+def getFlow(graph, d, edgeFlow, vclass, n):
     """d is the graph direction"""
     nextFn = sumolib.net.edge.Edge.getFromNode if d == 0 else sumolib.net.edge.Edge.getToNode
+    nextEdgesFn = sumolib.net.edge.Edge.getAllowedIncoming if d == 0 else sumolib.net.edge.Edge.getAllowedOutgoing
     d2 = 1 - d  # other direction
     seen = set()
     check = graph[n][d][:]
@@ -110,7 +111,7 @@ def getFlow(graph, d, edgeFlow, n):
             if len(graph[n2][d2]) > 1:
                 # abort search because we passed a non-simple junction
                 return None
-            nextEdges = graph[n2][d]
+            nextEdges = nextEdgesFn(e, vclass).keys()
             if not nextEdges:
                 # abort search because we reached a dead-end without finding flow
                 return None
@@ -124,7 +125,8 @@ def checkFlow(options, begin, graph, edgeFlow):
     mismatch = dict()  # node -> (inflow, outflow)
     for n, in_out in graph.items():
         if all(in_out):
-            mismatch[n] = (getFlow(graph, 0, edgeFlow, n), getFlow(graph, 1, edgeFlow, n))
+            mismatch[n] = (getFlow(graph, 0, edgeFlow, options.vclass, n),
+                           getFlow(graph, 1, edgeFlow, options.vclass, n))
     
     maxMismatch = []
     for n, (inflow, outflow) in mismatch.items():
@@ -139,8 +141,8 @@ def main(options):
     net = sumolib.net.readNet(options.netfile)
     graph = dict()  # node -> (allowed_incoming, allowed_outgoing)
     for n in net.getNodes():
-        graph[n] = ([e for e in n.getIncoming() if e.allows(options.vclass)],
-                [e for e in n.getOutgoing() if e.allows(options.vclass)])
+        graph[n] = ([e for e in n.getIncoming() if e.getAllowedOutgoing(options.vclass)],
+                [e for e in n.getOutgoing() if e.getAllowedIncoming(options.vclass)])
 
     begin = options.begin
     options.outfile.write("begin;mismatch;junction;inflow;outflow\n")
