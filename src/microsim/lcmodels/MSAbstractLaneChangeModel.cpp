@@ -1113,7 +1113,7 @@ MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
 void
 MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) {
     const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
-    myLCAccelerationAdvices.push_back({accel, ownAdvice});
+    myLCAccelerationAdvices.push_back({accel, ownAdvice ? 0 : LCA_CHANGE_TO_HELP});
 }
 
 
@@ -1161,7 +1161,7 @@ MSAbstractLaneChangeModel::loadState(const SUMOSAXAttributes& attrs) {
         double prev = std::numeric_limits<double>::max();
         while (bis >> token) {
             if (prev != std::numeric_limits<double>::max()) {
-                myLCAccelerationAdvices.push_back(std::make_pair(prev, (bool)token));
+                myLCAccelerationAdvices.push_back(std::make_pair(prev, (int)token));
                 prev = std::numeric_limits<double>::max();
             }
             prev = token;

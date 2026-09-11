@@ -374,11 +374,11 @@ MSLCM_SL2015::_patchSpeed(double min, const double wanted, double max, const MSC
         double accel = i.first;
         double v = myVehicle.getSpeed() + ACCEL2SPEED(accel);
         if (v >= min && v <= max) {
-            if (i.second) {
+            if (i.second & LCA_CHANGE_TO_HELP) {
+                nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
+            } else {
                 // own advice, no scaling needed
                 nVSafe = MIN2(v, nVSafe);
-            } else {
-                nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
             }
             gotOne = true;
 #ifdef DEBUG_PATCHSPEED

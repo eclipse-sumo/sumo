@@ -292,11 +292,11 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
                                      //      VERY rarely (whenever a requested help-acceleration is really indicated by v=-1)
                                      //      this can lead to failing lane-change attempts, though)
                                      || v != -1)) {
-            if (i.second) {
+            if (i.second & LCA_CHANGE_TO_HELP) {
+                nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
+            } else {
                 // own advice, no scaling needed
                 nVSafe = MIN2(v, nVSafe);
-            } else {
-                nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
             }
             gotOne = true;
 #ifdef DEBUG_PATCH_SPEED

@@ -824,9 +824,9 @@ protected:
     void initLastLaneChangeOffset(int dir);
 
     /* @brief vector of LC-related acceleration recommendations combined with a
-     * boolean to indicate whether the advice is from ego or someone else.
+     * bitset to indicate who the advice came from and to which direction it applies
      * Filled in wantsChange() and applied in patchSpeed() */
-    std::vector<std::pair<double, bool> > myLCAccelerationAdvices;
+    std::vector<std::pair<double, int> > myLCAccelerationAdvices;
 
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;
