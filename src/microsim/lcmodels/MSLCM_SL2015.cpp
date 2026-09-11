@@ -508,7 +508,7 @@ void*
 MSLCM_SL2015::inform(void* info, MSVehicle* sender) {
     Info* pinfo = (Info*) info;
     if (pinfo->first >= 0) {
-        addLCSpeedAdvice(pinfo->first, false);
+        addLCSpeedAdvice(pinfo->first, LCA_CHANGE_TO_HELP);
     }
     //myOwnState &= 0xffffffff; // reset all bits of MyLCAEnum but only those
     myOwnState |= pinfo->second;
@@ -603,7 +603,7 @@ MSLCM_SL2015::informLeader(int blocked,
                               << "\n";
                 }
 #endif
-                addLCSpeedAdvice(nextSpeed);
+                addLCSpeedAdvice(nextSpeed, dir);
                 return nextSpeed;
             } else {
                 // leader is fast enough anyway
@@ -617,7 +617,7 @@ MSLCM_SL2015::informLeader(int blocked,
                               << "\n";
                 }
 #endif
-                addLCSpeedAdvice(targetSpeed);
+                addLCSpeedAdvice(targetSpeed, dir);
                 return plannedSpeed;
             }
         } else {
@@ -659,7 +659,7 @@ MSLCM_SL2015::informLeader(int blocked,
         }
         const double targetSpeed = getCarFollowModel().followSpeed(
                                        &myVehicle, myVehicle.getSpeed(), neighLead.second - dv, nextNVSpeed, nv->getCarFollowModel().getMaxDecel());
-        addLCSpeedAdvice(targetSpeed);
+        addLCSpeedAdvice(targetSpeed, dir);
 #ifdef DEBUG_INFORM
         if (gDebugFlag2) {
             std::cout << " not blocked by leader nv=" <<  nv->getID()
@@ -824,7 +824,7 @@ MSLCM_SL2015::informFollower(int blocked,
             // speed difference to create a sufficiently large gap
             const double needDV = overtakeDist / remainingSeconds;
             // make sure the deceleration is not to strong
-            addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
+            addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())), dir);
 
 #ifdef DEBUG_INFORM
             if (gDebugFlag2) {
@@ -2100,7 +2100,7 @@ MSLCM_SL2015::slowDownForBlocked(MSVehicle** blocked, int state) {
                     std::cout << "   slowing down for blocked " << Named::getIDSecure(*blocked) << " targetSpeed=" << targetSpeed << "\n";
                 }
 #endif
-                addLCSpeedAdvice(targetSpeed, false);
+                addLCSpeedAdvice(targetSpeed, LCA_CHANGE_TO_HELP);
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
             }
         }
@@ -3012,7 +3012,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             double deltaV = 0.;
             double vSafe = 0.;
             if (canOvertakeRight(nv, cld.second, myVehicle.getLane()->getVehicleMaxSpeed(&myVehicle) - neighLane.getVehicleMaxSpeed(nv), HELP_OVERTAKE, vSafe, deltaV)) {
-                addLCSpeedAdvice(vSafe);
+                addLCSpeedAdvice(vSafe, LCA_MLEFT);
                 if (vSafe < myVehicle.getSpeed()) {
                     mySpeedGainProbabilityRight += myVehicle.getActionStepLengthSecs() * myChangeProbThresholdLeft / 3;
                 }

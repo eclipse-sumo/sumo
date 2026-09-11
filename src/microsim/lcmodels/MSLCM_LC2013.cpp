@@ -437,7 +437,7 @@ MSLCM_LC2013::inform(void* info, MSVehicle* sender) {
     UNUSED_PARAMETER(sender);
     Info* pinfo = (Info*)info;
     assert(pinfo->first >= 0 || !MSGlobals::gSemiImplicitEulerUpdate);
-    addLCSpeedAdvice(pinfo->first, false);
+    addLCSpeedAdvice(pinfo->first, LCA_CHANGE_TO_HELP);
     myOwnState |= pinfo->second;
 #ifdef DEBUG_INFORMED
     if (DEBUG_COND) {
@@ -590,7 +590,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << "\n";
                 }
 #endif
-                addLCSpeedAdvice(nextSpeed);
+                addLCSpeedAdvice(nextSpeed, dir);
                 return nextSpeed;
             } else {
                 // leader is fast enough anyway
@@ -612,7 +612,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                               << "\n";
                 }
 #endif
-                addLCSpeedAdvice(targetSpeed);
+                addLCSpeedAdvice(targetSpeed, dir);
                 return plannedSpeed;
             }
         } else {
@@ -641,7 +641,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
         const double targetSpeed = MAX2(
                                        myVehicle.getCarFollowModel().minNextSpeed(myVehicle.getSpeed(), &myVehicle),
                                        getCarFollowModel().followSpeed(&myVehicle, myVehicle.getSpeed(), neighNextGap, neighNextSpeed, nv->getCarFollowModel().getMaxDecel()));
-        addLCSpeedAdvice(targetSpeed);
+        addLCSpeedAdvice(targetSpeed, dir);
 #ifdef DEBUG_INFORMER
         if (DEBUG_COND) {
             std::cout << " not blocked by leader nv=" <<  nv->getID()
@@ -1000,7 +1000,7 @@ MSLCM_LC2013::informFollower(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             // speed difference to create a sufficiently large gap
             const double needDV = overtakeDist / remainingSeconds;
             // make sure the deceleration is not to strong (XXX: should be assured in finalizeSpeed -> TODO: remove the MAX2 if agreed) -> prob with possibly non-existing maximal deceleration for som CF Models(?) Refs. #2578
-            addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())));
+            addLCSpeedAdvice(MAX2(vhelp - needDV, myVehicle.getSpeed() - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxDecel())), dir);
 
 #ifdef DEBUG_INFORMER
             if (DEBUG_COND) {
@@ -1354,7 +1354,7 @@ MSLCM_LC2013::_wantsChange(
                     vSafe = MAX2(vSafe, nv->getSpeed());
                 }
                 thisLaneVSafe = MIN2(thisLaneVSafe, vSafe);
-                addLCSpeedAdvice(vSafe);
+                addLCSpeedAdvice(vSafe, myLca);
                 // only generate impulse for overtaking left shortly before braking would be necessary
                 const double deltaGapFuture = deltaV * 8;
                 const double vSafeFuture = getCarFollowModel().followSpeed(
@@ -1992,7 +1992,7 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle* blocked, int state) {
                 addLCSpeedAdvice(getCarFollowModel().followSpeed(
                                      &myVehicle, myVehicle.getSpeed(),
                                      gap - POSITION_EPS, blocked->getSpeed(),
-                                     blocked->getCarFollowModel().getMaxDecel()), false);
+                                     blocked->getCarFollowModel().getMaxDecel()), LCA_CHANGE_TO_HELP);
 
                 //(*blocked) = 0; // VARIANT_14 (furtherBlock)
 #ifdef DEBUG_SLOW_DOWN

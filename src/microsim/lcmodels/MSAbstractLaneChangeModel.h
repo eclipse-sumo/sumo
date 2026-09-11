@@ -680,7 +680,7 @@ protected:
      *         where operation on the speed in the next sim step had to be replaced by acceleration
      *         throughout the next action step.
      */
-    void addLCSpeedAdvice(const double vSafe, bool ownAdvice = true);
+    void addLCSpeedAdvice(const double vSafe, int flag);
 
     bool canOvertakeRight(const MSVehicle* const nv, const double dist, const double maxSpeedDiff, const double helpOvertakeSpeed, double& vSafe, double& deltaV) const;
 

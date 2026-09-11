@@ -1111,9 +1111,9 @@ MSAbstractLaneChangeModel::getNormalizedLaneIndex() {
 }
 
 void
-MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, bool ownAdvice) {
+MSAbstractLaneChangeModel::addLCSpeedAdvice(const double vSafe, int flag) {
     const double accel = SPEED2ACCEL(vSafe - myVehicle.getSpeed());
-    myLCAccelerationAdvices.push_back({accel, ownAdvice ? 0 : LCA_CHANGE_TO_HELP});
+    myLCAccelerationAdvices.push_back({accel, flag});
 }
 
 
