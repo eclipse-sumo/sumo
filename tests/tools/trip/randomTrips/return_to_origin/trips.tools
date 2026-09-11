@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-10 20:27:58.168841 by Eclipse SUMO randomTrips.py v1.27.1-0000000000
+<configuration>
+    <net-file value="net.net.xml"/>
+    <intermediate value="1"/>
+    <return-to-origin value="True"/>
+    <validate value="False"/>
+    <end value="5.0"/>
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="bc" to="cb" via="ab" />
+    <trip id="1" depart="1.00" from="ac" to="ca" via="ac" />
+    <trip id="2" depart="2.00" from="ca" to="ac" via="ca" />
+    <trip id="3" depart="3.00" from="cb" to="bc" via="ab" />
+    <trip id="4" depart="4.00" from="ba" to="ab" via="ab" />
+</routes>

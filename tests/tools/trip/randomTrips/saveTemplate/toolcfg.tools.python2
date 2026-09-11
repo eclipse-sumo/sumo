@@ -20,6 +20,7 @@
     <insertion-density value="None" type="string" help="How much vehicles arrive in the simulation per hour per kilometer of road (alternative to the period option)." category="flow" listSeparator=" "/>
     <insertion-rate value="None" type="string" help="How much vehicles arrive in the simulation per hour (alternative to the period option)." category="flow" listSeparator=" "/>
     <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
+    <return-to-origin value="False" type="bool" help="end each trip on the opposite-direction edge of its source edge" category="processing"/>
     <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
     <junction-taz value="False" type="bool" help="Write trips with fromJunction and toJunction" category="processing"/>
     <lanes value="False" type="bool" help="weight edge probability by number of lanes" category="processing"/>

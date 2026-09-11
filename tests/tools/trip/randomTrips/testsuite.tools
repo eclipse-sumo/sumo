@@ -48,6 +48,8 @@ vclass
 
 # test trips with intermediate waypoints
 intermediate
+return_to_origin
+return_to_origin_no_bidi
 no_valid_edges
 no_valid_intermediate_edges
 

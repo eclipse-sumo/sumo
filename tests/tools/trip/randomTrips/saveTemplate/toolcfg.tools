@@ -45,6 +45,7 @@
     <min-distance.fringe value="None" type="float" help="require start and end edges for each fringe to fringe trip to be at least 'FLOAT' m apart" category="processing"/>
     <max-distance value="None" type="float" help="require start and end edges for each trip to be at most 'FLOAT' m apart (default 0 which disables any checks)" category="processing"/>
     <intermediate value="0" type="int" help="generates the given number of intermediate way points" category="processing"/>
+    <return-to-origin value="False" type="bool" help="end each trip on the opposite-direction edge of its source edge" category="processing"/>
     <jtrrouter value="False" type="bool" help="Create flows without destination as input for jtrrouter" category="processing"/>
     <maxtries value="100" type="int" help="number of attemps for finding a trip which meets the distance constraints" category="processing"/>
     <remove-loops value="False" type="bool" help="Remove loops at route start and end" category="processing"/>
