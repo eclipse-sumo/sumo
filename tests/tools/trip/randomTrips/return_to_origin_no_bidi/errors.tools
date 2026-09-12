@@ -1,2 +1,0 @@
-Error: no valid source edges with an opposite-direction edge. Check that the network contains bidirectional edges.
-Error: Trips couldn't be generated as requested.

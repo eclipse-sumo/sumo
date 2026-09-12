@@ -159,7 +159,7 @@ def get_options(args=None):
     op.add_argument("-i", "--intermediate", default=0, type=int,
                     help="generates the given number of intermediate way points")
     op.add_argument("--return-to-origin", dest="returnToOrigin", action="store_true", default=False,
-                    help="end each trip on the opposite-direction edge of its source edge")
+                    help="end each trip on the opposite-direction edge of its source edge if available")
     op.add_argument("--jtrrouter", action="store_true", default=False,
                     help="Create flows without destination as input for jtrrouter")
     op.add_argument("--maxtries", default=100, type=int,
@@ -213,8 +213,6 @@ def get_options(args=None):
         raise ValueError("Option --return-to-origin must be used with option --intermediate.")
     if options.returnToOrigin and options.jtrrouter:
         raise ValueError("Option --return-to-origin cannot be used with option --jtrrouter.")
-    if options.returnToOrigin and options.junctionTaz:
-        raise ValueError("Option --return-to-origin cannot be used with option --junction-taz.")
     if options.edge_permission and not is_vehicle_class(options.edge_permission):
         raise ValueError("The string '%s' doesn't correspond to a legit vehicle class." % options.edge_permission)
 
@@ -428,6 +426,12 @@ class RandomTripGenerator:
         self.pedestrians = pedestrians
         self.return_to_origin = return_to_origin
 
+    def get_return_edge(self, source_edge):
+        for edge in source_edge.getFromNode().getIncoming():
+            if edge.getFromNode() == source_edge.getToNode():
+                return edge
+        return source_edge
+
     def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False, min_dist_fringe=None):
         for min_dist in [min_distance, min_dist_fringe]:
             if min_dist is None:
@@ -435,7 +439,7 @@ class RandomTripGenerator:
             for _ in range(maxtries):
                 source_edge = self.source_generator.get()
                 intermediate = [self.via_generator.get() for __ in range(self.intermediate)]
-                sink_edge = source_edge.getBidi() if self.return_to_origin else self.sink_generator.get()
+                sink_edge = self.get_return_edge(source_edge) if self.return_to_origin else self.sink_generator.get()
                 is_fringe2fringe = source_edge.is_fringe() and sink_edge.is_fringe() and not intermediate
                 if min_dist == min_dist_fringe and not is_fringe2fringe:
                     continue
@@ -576,25 +580,14 @@ def buildTripGenerator(net, options):
                 source_weight_fun = LoadedProps(options.weightsprefix + SOURCE_SUFFIX)
             if os.path.isfile(options.weightsprefix + DEST_SUFFIX):
                 sink_weight_fun = LoadedProps(options.weightsprefix + DEST_SUFFIX)
-        if options.returnToOrigin:
-            base_source_weight_fun = source_weight_fun
-
-            def return_to_origin_source_weight_fun(edge):
-                return base_source_weight_fun(edge) if edge.getBidi() is not None else 0
-
-            source_weight_fun = return_to_origin_source_weight_fun
 
         source_generator = RandomEdgeGenerator(net, source_weight_fun)
         sink_generator = None
         if not options.returnToOrigin or options.weights_outprefix:
             sink_generator = RandomEdgeGenerator(net, sink_weight_fun)
     except InvalidGenerator:
-        if options.returnToOrigin:
-            print("Error: no valid source edges with an opposite-direction edge. "
-                  "Check that the network contains bidirectional edges.", file=sys.stderr)
-        else:
-            print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
-                  file=sys.stderr)
+        print("Error: no valid edges for generating source or destination. Try using option --allow-fringe",
+              file=sys.stderr)
         return None
 
     try:

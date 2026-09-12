@@ -242,9 +242,9 @@ be generated using the option **--intermediate** {{DT_INT}}. This will add the g
 [via-edges](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows)
 to the trip definitions.
 
-The option **--return-to-origin** ends each trip on the opposite-direction edge of its starting edge.
-It must be used together with **--intermediate**. Edges without an opposite-direction edge are not
-selected as starting edges.
+The option **--return-to-origin** ends each trip on the opposite-direction edge of its starting edge,
+if one exists. Otherwise, the starting edge is used as the destination edge. It must be used together
+with **--intermediate**.
 
 !!! caution
     If the network contains disconnected components, the probability of generating invalid trips grows with the number of intermediate waypoints (since a trip is invalid if any intermediate part is invalid). To avoid this, [make sure your network has only a single component](../netconvert.md#edge_removal).
