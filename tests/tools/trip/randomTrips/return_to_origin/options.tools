@@ -1,0 +1,1 @@
+-n net3.net.xml -s 42 -e 5 --intermediate 1 --return-to-origin --no-validate
