@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-06-11 07:55+0000\n"
+"PO-Revision-Date: 2026-09-15 02:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1866,6 +1866,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:192
 msgid "Do not save data for time steps which have no vehicles / transportables"
 msgstr ""
+"Jangan simpan data untuk langkah waktu yang tidak memiliki kendaraan/"
+"transportables"
 
 #: src/microsim/MSFrame.cpp:196
 msgid "Save fcd for persons and container to separate FILE"
@@ -1896,22 +1898,29 @@ msgid ""
 "edge for the given period (e.g. a traffic light cycle) instead of per-"
 "timestep data"
 msgstr ""
+"Tulis statistik panjang antrean teragregasi per ruas jalan untuk periode "
+"tertentu, misalnya satu siklus lampu lalu lintas, meliputi nilai maksimum, "
+"median, dan persentil ke-95, alih-alih data per langkah waktu"
 
 #: src/microsim/MSFrame.cpp:211
 msgid "Maximum speed for counting a vehicle as queued"
-msgstr ""
+msgstr "Kecepatan maksimum agar kendaraan dihitung sebagai sedang mengantre"
 
 #: src/microsim/MSFrame.cpp:213
 msgid ""
 "The percentile (0-100) to report as percentileQueueLength in aggregated "
 "queue output"
 msgstr ""
+"Persentil (0–100) yang dilaporkan sebagai percentileQueueLength dalam "
+"keluaran antrean teragregasi"
 
 #: src/microsim/MSFrame.cpp:215
 msgid ""
 "Do not save data for time steps / intervals which have no queue (required "
 "for column based output formats)"
 msgstr ""
+"Jangan simpan data untuk langkah waktu/interfal yang tidak memiliki antrean, "
+"diperlukan untuk format keluaran berbasis kolom"
 
 #: src/microsim/MSFrame.cpp:218
 msgid ""
@@ -2458,6 +2467,8 @@ msgid ""
 "Compute slope at the vehicle center of mass instead of integrating over "
 "front and back"
 msgstr ""
+"Hitung kemiringan pada pusat massa kendaraan, alih-alih mengintegrasikan "
+"bagian depan dan belakang"
 
 #: src/microsim/MSFrame.cpp:544
 msgid ""
@@ -2855,7 +2866,7 @@ msgstr "Mengaktifkan simulasi mesoskopik"
 
 #: src/microsim/MSFrame.cpp:771
 msgid "Enables the meso-LTM (LIFT) model"
-msgstr ""
+msgstr "Mengaktifkan model meso-LTM (LIFT)"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -3961,7 +3972,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:79
 msgid "incompatible carFollowModel '%' when loading state for Rail"
-msgstr ""
+msgstr "carFollowModel '%' tidak kompatibel saat memuat state untuk Rail"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:155
 msgid "Unknown train type: %. Exiting!"
@@ -5811,11 +5822,11 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:714
 msgid "While switching to train geometry: %"
-msgstr ""
+msgstr "Saat beralih ke geometri kereta: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:726
 msgid "While switching to default geometry: %"
-msgstr ""
+msgstr "Saat beralih ke geometri default: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:765
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
@@ -10864,6 +10875,8 @@ msgstr "Tepi '%' untuk pemberhentian '%' tidak ditemukan"
 #: src/netimport/NIXMLPTHandler.cpp:187
 msgid "Lane '%' for stop '%' not found. Using leftmost lane"
 msgstr ""
+"Lajur '%' untuk pemberhentian '%' tidak ditemukan. Menggunakan lajur paling "
+"kiri"
 
 #: src/netimport/NIXMLPTHandler.cpp:190
 msgid "Lane '%' for stop '%' not found"
@@ -11210,11 +11223,11 @@ msgstr "Node tujuan '%' tidak dikenal untuk tepi '%'."
 
 #: src/netload/NLHandler.cpp:553
 msgid "Attribute length of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Atribut length pada lajur '%' tidak valid (%)"
 
 #: src/netload/NLHandler.cpp:558
 msgid "Attribute maxSpeed of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Atribut maxSpeed pada lajur '%' tidak valid (%)"
 
 #: src/netload/NLHandler.cpp:573
 msgid ""
@@ -11729,6 +11742,8 @@ msgstr "Menulis aliran probabilistik alih-alih aliran berjarak merata"
 #: src/od2trips_main.cpp:111
 msgid "Writes poisson distributed flow instead of evenly spaced flow"
 msgstr ""
+"Menulis arus berdistribusi Poisson alih-alih arus dengan jarak antar-"
+"kendaraan yang merata"
 
 #: src/od2trips_main.cpp:114
 msgid "Writes pedestrians instead of vehicles"
@@ -11793,6 +11808,8 @@ msgid ""
 "Only one of the options 'flow-output.probability' and 'flow-output.poisson' "
 "may be set."
 msgstr ""
+"Hanya salah satu dari opsi 'flow-output.probability' dan 'flow-"
+"output.poisson' yang dapat ditetapkan."
 
 #: src/od2trips_main.cpp:212
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
@@ -12048,7 +12065,7 @@ msgstr "Poligon '%' tidak memiliki bentuk."
 
 #: src/polyconvert/PCLoaderOSM.cpp:332
 msgid "Value of key '%' is not numeric ('%') in way '%'."
-msgstr ""
+msgstr "Nilai kunci '%' bukan numerik ('%') pada way '%'."
 
 #: src/polyconvert/PCLoaderVisum.cpp:116
 msgid "Could not open visum-file '%'."
@@ -12639,7 +12656,7 @@ msgstr ""
 
 #: src/router/RORouteHandler.cpp:1348
 msgid "Unknown vehicle type '%'."
-msgstr ""
+msgstr "Tipe kendaraan '%' tidak dikenal."
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -13190,6 +13207,8 @@ msgid ""
 "How to derive column headers from attribute names ('none', 'tag', 'auto', "
 "'plain', 'full')"
 msgstr ""
+"Cara memperoleh header kolom dari nama atribut ('none', 'tag', 'auto', "
+"'plain', 'full')"
 
 #: src/utils/common/SystemFrame.cpp:149
 msgid "Separator in CSV output"
@@ -13784,7 +13803,7 @@ msgstr ""
 
 #: src/utils/iodevices/ParquetFormatter.cpp:314
 msgid "Error writing attribute '%' (index: %, value: '%'): %"
-msgstr ""
+msgstr "Kesalahan saat menulis atribut '%' (indeks: %, nilai: '%'): %"
 
 #: src/utils/options/Option.cpp:364
 msgid "'%' is not a valid float."
@@ -14307,7 +14326,7 @@ msgstr ""
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:391
 msgid "Ignoring param for referenced vType %"
-msgstr ""
+msgstr "Mengabaikan param untuk vType yang dirujuk %"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:503
 msgid "Speed cannot be negative for stop%."
