@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    flowConversation.py
+# @file    flowConservation.py
 # @author  Jakob Erdmann
 # @date    2026-09-07
 
@@ -22,14 +22,10 @@ total outgoing flow.
 
 from __future__ import absolute_import
 from __future__ import print_function
-import math
 import sys
 import os
 
 from collections import defaultdict
-
-import detector
-from detector import relError
 
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -44,7 +40,8 @@ def get_options(args=None):
     ap = sumolib.options.ArgumentParser()
     ap.add_argument("-n", "--net-file", category="input", dest="netfile", required=True, type=ap.net_file,
                     help="define the net file (mandatory)")
-    ap.add_argument("-e", "--edgedata-file", dest="edgeDataFile", category="input", required=True, type=ap.edgedata_file,
+    ap.add_argument("-e", "--edgedata-file", dest="edgeDataFile", category="input", required=True,
+                    type=ap.edgedata_file,
                     help="read edgeData from FILE (mandatory)", metavar="FILE")
     ap.add_argument("-a", "--edgedata-attribute", category="input", dest="edgeDataAttr", default="count",
                     help="Read edgeData counts from the given attribute")
@@ -129,7 +126,7 @@ def checkFlow(options, begin, graph, edgeFlow):
         if all(in_out):
             mismatch[n] = (getFlow(graph, 0, edgeFlow, options.vclass, n),
                            getFlow(graph, 1, edgeFlow, options.vclass, n))
-    
+
     maxMismatch = []
     for n, (inflow, outflow) in mismatch.items():
         if inflow is not None and outflow is not None:
@@ -143,10 +140,10 @@ def addSymmetry(options, edgeFlow):
     add = {}
     for e, v in edgeFlow.items():
         for e2 in e.getToNode().getOutgoing():
-            if   (e2.getToNode() == e.getFromNode()
-                  and e2.allows(options.vclass)
-                  and e2 not in edgeFlow
-                  and v < options.symmetryThresh):
+            if ((e2.getToNode() == e.getFromNode()
+                 and e2.allows(options.vclass)
+                 and e2 not in edgeFlow
+                 and v < options.symmetryThresh)):
                 add[e2] = edgeFlow[e]
     edgeFlow |= add
 
@@ -156,7 +153,7 @@ def main(options):
     graph = dict()  # node -> (allowed_incoming, allowed_outgoing)
     for n in net.getNodes():
         graph[n] = ([e for e in n.getIncoming() if e.getAllowedOutgoing(options.vclass)],
-                [e for e in n.getOutgoing() if e.getAllowedIncoming(options.vclass)])
+                    [e for e in n.getOutgoing() if e.getAllowedIncoming(options.vclass)])
 
     begin = options.begin
     options.outfile.write("begin;mismatch;junction;inflow;outflow\n")

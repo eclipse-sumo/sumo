@@ -1,0 +1,3 @@
+<add>
+    <timedEvent type="SaveTLSSwitchTimes" dest="tls_state_switch.xml"/>
+</add>
