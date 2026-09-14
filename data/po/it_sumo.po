@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-09-03 20:28+0000\n"
+"PO-Revision-Date: 2026-09-15 02:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -12447,7 +12447,7 @@ msgstr "Il poligono '%' non ha una forma."
 
 #: src/polyconvert/PCLoaderOSM.cpp:332
 msgid "Value of key '%' is not numeric ('%') in way '%'."
-msgstr ""
+msgstr "Il valore della chiave '%' non è numerico ('%') nel elemento way '%'."
 
 #: src/polyconvert/PCLoaderVisum.cpp:116
 msgid "Could not open visum-file '%'."
@@ -14594,6 +14594,8 @@ msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
+"Le coordinate del punto d'interesse '%' sono in formato (lon, lat) ma "
+"nessuna conversione geografica è stata specificata per la rete."
 
 #: src/utils/shapes/ShapeHandler.cpp:200
 msgid "PoI '%' already exists."
