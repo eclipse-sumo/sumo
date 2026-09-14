@@ -260,9 +260,9 @@ MSLaneChanger::updateLanes(SUMOTime t) {
         //std::cout << SIMTIME << " updateLanes lane=" << ce->lane->getID() << " myVehicles=" << toString(ce->lane->myVehicles) << " myTmpVehicles=" << toString(ce->lane->myTmpVehicles) << "\n";
         ce->lane->swapAfterLaneChange(t);
         ce->lane->releaseVehicles();
-        if (ce->lastBlocked != nullptr) {
-            ce->lastBlockedBackPos = ce->lastBlocked->getBackPositionOnLane();
-            ce->lastBlockedWaitingTime = ce->lastBlocked->getWaitingTime();
+        if (ce->firstBlocked != nullptr) {
+            ce->lastBlockedBackPos = ce->firstBlocked->getBackPositionOnLane();
+            ce->lastBlockedWaitingTime = ce->firstBlocked->getWaitingTime();
         }
     }
 }

@@ -127,7 +127,7 @@ MSSOTLTrafficLightLogic::init(NLDetectorBuilder& nb) {
         //Building SOTLSensors
         switch (SENSORS_TYPE) {
             case SENSORS_TYPE_E1:
-                assert(0); // Throw exception because TLS can only handle E2 sensors
+                throw ProcessError(TL("SOTL can only handle E2 sensors."));
             case SENSORS_TYPE_E2:
 
                 //Adding Sensors to the ingoing Lanes

@@ -413,7 +413,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                               NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                               StopOffset(), width, k.viaShape, &k,
                               MAX2(k.viaLength, POSITION_EPS), // microsim needs positive length
-                              0, "", "");
+                              k.internalViaLaneIndex, "", "");
                 }
                 into.closeTag();
             }

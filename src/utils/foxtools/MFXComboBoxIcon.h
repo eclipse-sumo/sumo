@@ -85,6 +85,9 @@ public:
     /// @brief Get the text
     FXString getText() const;
 
+    /// @brief Get the icon
+    FXIcon* getIcon() const;
+
     /// @brief Return the number of items in the list
     FXint getNumItems() const;
 

@@ -242,8 +242,10 @@ public:
     /// @brief return all attributes that are (potentially) written by this output
     std::vector<std::string> getAttributeNames() const;
 
-    /// @brief return attribute value for the given lane
-    double getAttributeValue(const MSLane* lane, SumoXMLAttr a, double defaultValue) const;
+    /// @brief  check whether any of the given attributes can be calculated by this meandata
+    /// @param attributeMask the attributes to check
+    /// @return whether any given attribute is supported
+    static bool supports(const SumoXMLAttrMask& attributeMask);
 
 protected:
     /** @brief Create an instance of MeanDataValues

@@ -104,6 +104,9 @@ public:
     /// @brief Change the icon
     void setIcon(FXIcon* ic);
 
+    /// @brief get icon
+    FXIcon* getIcon() const;
+
     /// @brief Get the text for this label
     FXString getText() const;
 

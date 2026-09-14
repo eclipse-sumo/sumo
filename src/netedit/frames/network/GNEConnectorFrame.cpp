@@ -449,6 +449,9 @@ GNEConnectorFrame::GNEConnectorFrame(GNEViewParent* viewParent, GNEViewNet* view
     // create connection visualization module
     myConnectionVisualization = new ConnectionVisualization(this);
 
+    // create connection operation module
+    myConnectionOperations = new ConnectionOperations(this);
+
     // create connection selection module
     myConnectionSelection = new ConnectionSelection(this);
 

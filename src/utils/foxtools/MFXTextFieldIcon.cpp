@@ -2222,6 +2222,12 @@ MFXTextFieldIcon::setIcon(FXIcon* ic) {
 }
 
 
+FXIcon*
+MFXTextFieldIcon::getIcon() const {
+    return myIcon;
+}
+
+
 FXString
 MFXTextFieldIcon::getText() const {
     return contents;

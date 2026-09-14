@@ -1,0 +1,22 @@
+basic
+
+# follow more edges upstream and downstream
+extend
+
+# consider connections when traversing network
+connections
+
+# consider connections when traversing network
+connections2
+
+# estimate data for low-flow edges
+symmetry
+
+# total flow not retrievable
+undefined
+
+# total flow not retrievable
+undefined2
+
+# total flow not retrievable
+undefined3

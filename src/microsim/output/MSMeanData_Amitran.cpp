@@ -130,7 +130,6 @@ MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoXML
             dev.closeTag();
         }
     }
-    dev.closeTag();
 }
 
 // ---------------------------------------------------------------------------
@@ -187,6 +186,12 @@ MSMeanData_Amitran::writePrefix(OutputDevice& dev, const MeanDataValues& /*value
 MSMeanData::MeanDataValues*
 MSMeanData_Amitran::createValues(MSLane* const lane, const double length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, this);
+}
+
+
+std::vector<std::string>
+MSMeanData_Amitran::getAttributeNames() const {
+    return std::vector<std::string> {toString(SUMO_ATTR_AMOUNT), toString(SUMO_ATTR_AVERAGESPEED)};
 }
 
 

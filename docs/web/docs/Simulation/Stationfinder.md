@@ -28,7 +28,6 @@ The parameters take effect only on vehicles which have been assigned a stationfi
 | radius                | float (s)        | ≥0                        | 180              | Search radius in travel time seconds |
 | maxEuclideanDistance  | float (m)        |                           | -1               | Euclidean search radius in meters (negative values disable this restriction) |
 | repeat                | float (s)        | ≥0                        | 60               | When to trigger a new search if no station has been found |
-| maxChargePower        | float (W)        | ≥0                        | 100000           | The maximum charging speed of the vehicle battery |
 | chargeType            | enum             | {charging}                | charging         | Type of energy transfer (not used at the moment) |
 | waitForCharge         | float (s)        | ≥0                        | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
 | saturatedChargeLevel  | float            | [0;1]                     | 0.8              | Target state of charge after which the vehicle stops charging |

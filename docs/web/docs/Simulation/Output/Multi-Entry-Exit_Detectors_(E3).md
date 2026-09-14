@@ -60,7 +60,7 @@ The complete list of attributes is:
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
 | expectArrival  | bool        | Whether no warning should be issued when a vehicle arrives within the detector area. *default: false*. |
 | vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".       |
-| nextEdges      | stringList  | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
+| nextEdges      | stringList  | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*).  Instead of giving one or more "normal" edges it is permitted to give a single internal edge. In this case, the vehicle will be detected if it drives over that internal edge immediately after the detector edge.   |
 | detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 ## Generated Output

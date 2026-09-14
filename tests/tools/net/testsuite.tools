@@ -1,6 +1,9 @@
 # tests tools\net\netcheck.py
 netcheck
 netdiff
+
+# check network diffs for id clashes
+diffMerge
 netmatch
 
 # convert net to kml

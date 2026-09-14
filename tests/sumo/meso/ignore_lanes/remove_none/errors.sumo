@@ -1,0 +1,1 @@
+Warning: Mismodelled capacity on edge 'E0'. Not all lanes are usable by vClass 'all'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.

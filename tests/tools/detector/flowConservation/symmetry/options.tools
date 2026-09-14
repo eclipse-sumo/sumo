@@ -1,0 +1,1 @@
+-n net.net.xml -e input_edgedata.xml --symmetry-threshold 100

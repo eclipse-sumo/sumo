@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-17T14:11:08.464481+01:00 by Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
+<!-- generated on 2026-09-03T22:27:04.159717+01:00 by Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -981,9 +981,6 @@
         <!-- When to trigger a new search if no station has been found -->
         <device.stationfinder.repeat value="60" type="TIME"/>
 
-        <!-- The maximum charging speed of the vehicle battery -->
-        <device.stationfinder.maxChargePower value="100000" type="FLOAT"/>
-
         <!-- Type of energy transfer -->
         <device.stationfinder.chargeType value="charging" type="STR"/>
 
@@ -1386,8 +1383,11 @@
         <!-- The &apos;fcd-replay&apos; devices are set deterministic using a fraction of 1000 -->
         <device.fcd-replay.deterministic value="false" type="BOOL"/>
 
-        <!-- FCD file to read -->
-        <device.fcd-replay.file value="" type="FILE"/>
+        <!-- FCD files to read -->
+        <device.fcd-replay.files value="" synonymes="device.fcd-replay.file" type="FILE"/>
+
+        <!-- Values to use when replaying (&apos;all&apos; or any combination of &apos;x&apos;, &apos;y&apos;, &apos;edge&apos;, &apos;lane&apos;, &apos;speed&apos;, &apos;position&apos;, &apos;angle&apos;, &apos;type&apos;) -->
+        <device.fcd-replay.consistency value="all" type="STR[]"/>
 
     </fcd_replay_device>
 

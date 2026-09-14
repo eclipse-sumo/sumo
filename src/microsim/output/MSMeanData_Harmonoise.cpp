@@ -99,7 +99,6 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const Sumo
         // @todo default value for noise
         dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
     }
-    dev.closeTag();
 }
 
 
@@ -139,6 +138,18 @@ MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) {
             (*j)->update();
         }
     }
+}
+
+
+std::vector<std::string>
+MSMeanData_Harmonoise::getAttributeNames() const {
+    return std::vector<std::string> {toString(SUMO_ATTR_NOISE)};
+}
+
+
+bool
+MSMeanData_Harmonoise::supports(const SumoXMLAttrMask& attributeMask) {
+    return attributeMask.test(SUMO_ATTR_NOISE);
 }
 
 

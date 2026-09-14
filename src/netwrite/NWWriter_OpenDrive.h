@@ -153,7 +153,7 @@ protected:
 
     /* @brief whether a the lanes in a lefthand network shall be written to the
      * left of the reference line (positive indices)
-     * This style is not support by some older programs.
+     * This style is not supported by some older programs.
      * */
     static bool LHLL;
 

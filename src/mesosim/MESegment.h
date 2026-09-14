@@ -609,6 +609,8 @@ protected:
     static MSEdge myDummyParent;
     static MESegment myVaporizationTarget;
 
+    static SVCPermissions myMultiModalWarnings;
+
     /// @brief the mean speed on this segment. Updated at event time or on demand
     mutable double myMeanSpeed;
 

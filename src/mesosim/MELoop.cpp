@@ -40,6 +40,7 @@
 #include "MELSegment.h"
 #include "MEVehicle.h"
 
+long long int MELoop::LeaderEvent::myEventCounter(0);
 
 // ===========================================================================
 // method definitions
@@ -61,17 +62,24 @@ MELoop::~MELoop() {
 void
 MELoop::simulate(SUMOTime tMax) {
     while (!myLeaderCars.empty()) {
-        const SUMOTime time = myLeaderCars.begin()->first;
-        std::vector<MEVehicle*> vehs = myLeaderCars[time];
-        assert(time > tMax - DELTA_T || vehs.size() == 0);
-        if (time > tMax) {
+        LeaderEvent e = myLeaderCars.top();
+        assert(e.time > tMax - DELTA_T);
+        if (e.time > tMax) {
             return;
         }
-        myLeaderCars.erase(time);
-        for (std::vector<MEVehicle*>::const_iterator i = vehs.begin(); i != vehs.end(); ++i) {
-            checkCar(*i);
-            assert(myLeaderCars.empty() || myLeaderCars.begin()->first >= time);
+        myLeaderCars.pop();
+        while (!myInvalidatedLeaderCars.empty() && e.time > myInvalidatedLeaderCars.top().time) {
+            myInvalidatedLeaderCars.pop();
         }
+        if (!myInvalidatedLeaderCars.empty()) {
+            if (e == myInvalidatedLeaderCars.top()) {
+                myInvalidatedLeaderCars.pop();
+                continue;
+            }
+        }
+        //std::cout << SIMTIME << " checkChar " << e.veh->getID() << " on=" << e.veh->getSegment()->getID() << " t=" << e.time << " nid=" << e.veh->getNumericalID() << "\n";
+        checkCar(e.veh);
+        assert(myLeaderCars.empty() || myLeaderCars.top().time >= e.time);
     }
 }
 
@@ -241,29 +249,21 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment, bool disconn
 
 void
 MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
-    myLeaderCars[veh->getEventTime()].push_back(veh);
+    myLeaderCars.push(LeaderEvent(veh));
     veh->setApproaching(link);
 }
 
 
 void
 MELoop::clearState() {
-    myLeaderCars.clear();
+    myLeaderCars = LeaderEventQeue();
+    myInvalidatedLeaderCars = LeaderEventQeue();
 }
 
 
-bool
+void
 MELoop::removeLeaderCar(MEVehicle* v) {
-    const auto candIt = myLeaderCars.find(v->getEventTime());
-    if (candIt != myLeaderCars.end()) {
-        std::vector<MEVehicle*>& cands = candIt->second;
-        auto it = find(cands.begin(), cands.end(), v);
-        if (it != cands.end()) {
-            cands.erase(it);
-            return true;
-        }
-    }
-    return false;
+    myInvalidatedLeaderCars.push(LeaderEvent(v));
 }
 
 
@@ -367,5 +367,11 @@ MELoop::isEnteringRoundabout(const MSEdge& e) {
     return false;
 }
 
+
+MELoop::LeaderEvent::LeaderEvent(MEVehicle* v):
+    time(v->getEventTime()),
+    eventIndex(myEventCounter++),
+    nid(v->getNumericalID()),
+    veh(v) { }
 
 /****************************************************************************/

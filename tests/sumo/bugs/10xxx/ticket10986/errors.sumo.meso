@@ -1,0 +1,1 @@
+Warning: Mismodelled capacity on edge ':2972382261_0'. Not all lanes are usable by vClass 'tram'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.

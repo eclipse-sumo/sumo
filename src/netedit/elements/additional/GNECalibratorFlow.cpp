@@ -53,7 +53,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, const SUMO
     GNEAdditional(calibratorParent, GNE_TAG_CALIBRATOR_FLOW, ""),
     GNEAdditionalListed(this) {
     // set parents
-    setParent<GNEAdditional*>(calibratorParent);
+    setParents<GNEAdditional*>({calibratorParent, nullptr});
     setParents<GNEDemandElement*>({vehicleType, route});
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -73,7 +73,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
     SUMOVehicleParameter(vehicleParameters),
     GNEAdditionalListed(this) {
     // set parents
-    setParent<GNEAdditional*>(calibratorParent);
+    setParents<GNEAdditional*>({calibratorParent, nullptr});
     setParents<GNEDemandElement*>({vehicleType, route});
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -117,6 +117,10 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
         // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
+        // write route probe
+        if (getParentAdditionals().at(1)) {
+            device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().front()->getID());
+        }
         // write parameters
         SUMOVehicleParameter::writeParams(device);
         // close vehicle tag
@@ -198,6 +202,12 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             return vtypeid;
         case SUMO_ATTR_ROUTE:
             return getParentDemandElements().at(1)->getID();
+        case SUMO_ATTR_ROUTEPROBE:
+            if (getParentAdditionals().at(1)) {
+                return getParentAdditionals().at(1)->getID();
+            } else {
+                return "";
+            }
         case SUMO_ATTR_VEHSPERHOUR:
             if (parametersSet & VEHPARS_VPH_SET) {
                 return toString(3600 / STEPS2TIME(repetitionOffset));
@@ -354,6 +364,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_ID:
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
+        case SUMO_ATTR_ROUTEPROBE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_SPEED:
@@ -390,6 +401,12 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::types, value, false) == nullptr);
         case SUMO_ATTR_ROUTE:
             return (myNet->getAttributeCarriers()->retrieveDemandElements(NamespaceIDs::routes, value, false) == nullptr);
+        case SUMO_ATTR_ROUTEPROBE:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_ROUTEPROBE, value, false) != nullptr);
+            }
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {
                 // speed and vehsPerHour cannot be empty at the same time
@@ -540,6 +557,11 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROUTE:
             replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+            break;
+        case SUMO_ATTR_ROUTEPROBE:
+            if (!isTemplate()) {
+                replaceAdditionalParent(SUMO_TAG_ROUTEPROBE, value, 1);
+            }
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             if (value.empty()) {

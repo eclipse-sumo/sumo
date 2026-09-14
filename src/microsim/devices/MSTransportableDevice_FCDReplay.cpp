@@ -54,7 +54,7 @@ MSTransportableDevice_FCDReplay::insertOptions(OptionsCont& oc) {
 void
 MSTransportableDevice_FCDReplay::buildDevices(MSTransportable& t, std::vector<MSTransportableDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
-    if (equippedByDefaultAssignmentOptions(oc, "fcd-replay", t, oc.isSet("device.fcd-replay.file"), true)) {
+    if (equippedByDefaultAssignmentOptions(oc, "fcd-replay", t, oc.isSet("device.fcd-replay.files"), true)) {
         MSTransportableDevice_FCDReplay* device = new MSTransportableDevice_FCDReplay(t, "fcdReplay_" + t.getID());
         into.push_back(device);
         if (!myAmActive) {

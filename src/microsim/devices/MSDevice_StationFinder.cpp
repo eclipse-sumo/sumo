@@ -73,8 +73,6 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.maxEuclideanDistance", "Battery", TL("Euclidean search distance in meters (a negative value disables the restriction)"));
     oc.doRegister("device.stationfinder.repeat", new Option_String("60", "TIME"));
     oc.addDescription("device.stationfinder.repeat", "Battery", TL("When to trigger a new search if no station has been found"));
-    oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(100000.));
-    oc.addDescription("device.stationfinder.maxChargePower", "Battery", TL("The maximum charging speed of the vehicle battery"));
     oc.doRegister("device.stationfinder.chargeType", new Option_String("charging"));
     oc.addDescription("device.stationfinder.chargeType", "Battery", TL("Type of energy transfer"));
     oc.doRegister("device.stationfinder.waitForCharge", new Option_String("600", "TIME"));
@@ -153,7 +151,6 @@ myLastOpportunisticSearch(-1) {
     myRadius = holder.getTimeParam("device.stationfinder.radius");
     myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance");
     myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat");
-    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower");
     myChargeType = CHARGETYPE_CHARGING;
 
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");

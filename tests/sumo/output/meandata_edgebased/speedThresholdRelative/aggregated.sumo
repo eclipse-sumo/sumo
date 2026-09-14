@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-07-01T09:46:01.822997+01:00 by Eclipse SUMO sumo v1_27_1+0071-d8974bdd45e
+<!-- generated on 2026-08-25T12:37:28.115280+01:00 by Eclipse SUMO sumo v1_27_1+0469-e17aa8a62df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="101.00" id="ed">
-        <edge id="beg" sampledSeconds="49.99" traveltime="50.00" overlapTraveltime="50.50" density="0.98" overlapDensity="0.99" laneDensity="0.98" occupancy="0.49" waitingTime="49.00" timeLoss="0.00" speed="10.00" speedRelative="0.36" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" flow="35.28"/>
-        <edge id="beg2right" sampledSeconds="50.50" traveltime="50.00" overlapTraveltime="50.50" density="0.99" overlapDensity="1.00" laneDensity="0.99" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="0.72" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0" flow="35.64"/>
+        <edge id="beg" sampledSeconds="49.99" traveltime="50.00" overlapTraveltime="50.50" density="0.98" overlapDensity="0.99" laneDensity="0.98" occupancy="0.49" waitingTime="49.00" timeLoss="0.00" speed="10.00" speedRelative="0.36" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0" flow="35.28" distance="494.90"/>
+        <edge id="beg2right" sampledSeconds="50.50" traveltime="50.00" overlapTraveltime="50.50" density="0.99" overlapDensity="1.00" laneDensity="0.99" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="10.00" speedRelative="0.72" departed="0" arrived="1" entered="1" left="0" laneChangedFrom="0" laneChangedTo="0" flow="35.64" distance="500.00"/>
     </interval>
 </meandata>

@@ -55,6 +55,8 @@ def add_options():
                     help="directory to write / read the generated gpsdat files to / from")
     op.add_argument("--modes", category="input", help="comma separated list of modes to import (%s)" %
                     (", ".join(gtfs2osm.OSM2SUMO_MODES.keys())))
+    op.add_argument("--sbahn-is-light-rail", action="store_true", default=False, dest="sbahnLR", category="input",
+                    help="interpret GTFS mode 109 (S-Bahn) as light_rail instead of train (Berlin, Hamburg)")
     op.add_argument("--vtype-output", default="vtypes.xml", category="output", type=op.file,
                     help="file to write the generated vehicle types to")
     op.add_argument("--write-terminals", action="store_true", default=False,

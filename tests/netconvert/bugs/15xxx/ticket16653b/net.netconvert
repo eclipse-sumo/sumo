@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-09-26T11:33:05.862192+01:00 by Eclipse SUMO netconvert v1_24_0+1017-55edef68438
+<!-- generated on 2026-09-01T14:50:41.043153+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":104_38" function="internal">
         <lane id=":104_38_0" index="0" allow="bicycle" speed="5.83" length="16.11" width="1.00" shape="59.94,60.06 63.48,44.35"/>
-        <lane id=":104_38_1" index="0" allow="bicycle" speed="5.62" length="14.86" width="1.00" shape="59.94,60.06 63.20,45.57"/>
+        <lane id=":104_38_1" index="1" allow="bicycle" speed="5.62" length="14.86" width="1.00" shape="59.94,60.06 63.20,45.57"/>
     </edge>
     <edge id=":104_39" function="internal">
         <lane id=":104_39_0" index="0" allow="bicycle" speed="2.50" length="1.91" width="1.00" shape="59.33,60.40 59.22,60.29 59.11,59.82 59.42,59.44 60.15,59.17"/>
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":104_42" function="internal">
         <lane id=":104_42_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.27" length="4.03" shape="47.24,58.90 45.20,62.37"/>
-        <lane id=":104_42_1" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.80" length="4.05" shape="44.46,57.69 42.27,61.10"/>
+        <lane id=":104_42_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="10.80" length="4.05" shape="44.46,57.69 42.27,61.10"/>
     </edge>
     <edge id=":104_43" function="internal">
         <lane id=":104_43_0" index="0" allow="bicycle" speed="8.33" length="4.01" width="1.00" shape="51.85,60.89 50.12,64.51"/>
@@ -152,7 +152,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":104_49" function="internal">
         <lane id=":104_49_0" index="0" allow="bicycle" speed="11.11" length="3.96" width="2.00" shape="44.32,33.83 46.54,30.55"/>
-        <lane id=":104_49_1" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.11" length="4.00" shape="46.59,34.96 48.88,31.69"/>
+        <lane id=":104_49_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.11" length="4.00" shape="46.59,34.96 48.88,31.69"/>
     </edge>
     <edge id=":104_50" function="internal">
         <lane id=":104_50_0" index="0" allow="bicycle" speed="8.33" length="21.81" width="1.00" shape="35.47,50.66 37.93,51.60 45.86,56.01 49.92,60.32 50.12,64.51"/>

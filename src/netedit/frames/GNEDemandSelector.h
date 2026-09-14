@@ -39,14 +39,14 @@ class GNEDemandElementSelector : public GNEGroupBoxModule {
 
 public:
     /// @brief constructor with a single tag
-    GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType);
+    GNEDemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, const GNETagProperties::Type tagType, const bool checkIcon);
 
     /// @brief constructor with mores tag
-    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType);
+    GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<SumoXMLTag> demandElementTags, const GNETagProperties::Type tagType, const bool checkIcon);
 
     /// @brief constructor with tag type
     GNEDemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::Type> tagTypes,
-                             const std::vector<SumoXMLTag> exceptions = {});
+                             const std::vector<SumoXMLTag> exceptions, const bool checkIcon);
 
     /// @brief destructor
     ~GNEDemandElementSelector();
@@ -106,4 +106,7 @@ private:
 
     /// @brief flag for enable/disable multiple element selection
     bool mySelectingMultipleElements;
+
+    /// @brief flag to check if we have to compare icons when we choose an element in the comboBox
+    bool myCheckIcon;
 };

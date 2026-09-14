@@ -156,7 +156,6 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SumoX
         dev.writeOptionalAttr(SUMO_ATTR_ELECTRICITY_PERVEH, PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime, t->getEmissionParameters()), attributeMask);
     }
     dev.setPrecision(gPrecision);
-    dev.closeTag();
 }
 
 
@@ -187,6 +186,61 @@ MSMeanData_Emissions::~MSMeanData_Emissions() {}
 MSMeanData::MeanDataValues*
 MSMeanData_Emissions::createValues(MSLane* const lane, const double length, const bool doAdd) const {
     return new MSLaneMeanDataValues(lane, length, doAdd, this);
+}
+
+
+std::vector<std::string>
+MSMeanData_Emissions::getAttributeNames() const {
+    std::vector<std::string> result;
+    result.push_back(toString(SUMO_ATTR_CO_ABS));
+    result.push_back(toString(SUMO_ATTR_CO2_ABS));
+    result.push_back(toString(SUMO_ATTR_HC_ABS));
+    result.push_back(toString(SUMO_ATTR_PMX_ABS));
+    result.push_back(toString(SUMO_ATTR_NOX_ABS));
+    result.push_back(toString(SUMO_ATTR_FUEL_ABS));
+    result.push_back(toString(SUMO_ATTR_ELECTRICITY_ABS));
+    result.push_back(toString(SUMO_ATTR_CO_NORMED));
+    result.push_back(toString(SUMO_ATTR_CO2_NORMED));
+    result.push_back(toString(SUMO_ATTR_HC_NORMED));
+    result.push_back(toString(SUMO_ATTR_PMX_NORMED));
+    result.push_back(toString(SUMO_ATTR_NOX_NORMED));
+    result.push_back(toString(SUMO_ATTR_FUEL_NORMED));
+    result.push_back(toString(SUMO_ATTR_ELECTRICITY_NORMED));
+    result.push_back(toString(SUMO_ATTR_CO_PERVEH));
+    result.push_back(toString(SUMO_ATTR_CO2_PERVEH));
+    result.push_back(toString(SUMO_ATTR_HC_PERVEH));
+    result.push_back(toString(SUMO_ATTR_PMX_PERVEH));
+    result.push_back(toString(SUMO_ATTR_NOX_PERVEH));
+    result.push_back(toString(SUMO_ATTR_FUEL_PERVEH));
+    result.push_back(toString(SUMO_ATTR_ELECTRICITY_PERVEH));
+    return result;
+}
+
+
+bool
+MSMeanData_Emissions::supports(const SumoXMLAttrMask& attributeMask) {
+    return
+        attributeMask.test(SUMO_ATTR_CO_ABS) ||
+        attributeMask.test(SUMO_ATTR_CO2_ABS) ||
+        attributeMask.test(SUMO_ATTR_HC_ABS) ||
+        attributeMask.test(SUMO_ATTR_PMX_ABS) ||
+        attributeMask.test(SUMO_ATTR_NOX_ABS) ||
+        attributeMask.test(SUMO_ATTR_FUEL_ABS) ||
+        attributeMask.test(SUMO_ATTR_ELECTRICITY_ABS) ||
+        attributeMask.test(SUMO_ATTR_CO_NORMED) ||
+        attributeMask.test(SUMO_ATTR_CO2_NORMED) ||
+        attributeMask.test(SUMO_ATTR_HC_NORMED) ||
+        attributeMask.test(SUMO_ATTR_PMX_NORMED) ||
+        attributeMask.test(SUMO_ATTR_NOX_NORMED) ||
+        attributeMask.test(SUMO_ATTR_FUEL_NORMED) ||
+        attributeMask.test(SUMO_ATTR_ELECTRICITY_NORMED) ||
+        attributeMask.test(SUMO_ATTR_CO_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_CO2_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_HC_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_PMX_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_NOX_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_FUEL_PERVEH) ||
+        attributeMask.test(SUMO_ATTR_ELECTRICITY_PERVEH);
 }
 
 

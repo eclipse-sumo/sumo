@@ -1,22 +1,22 @@
-Loading net-file from 'net2.net.xml' ... done (1ms).
+Loading net-file from 'net2.net.xml' ... done (3ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading route-files incrementally from 'input_routes.rou.xml'
 Loading done.
-Simulation version v1_21_0+1557-fb9ec070d59 started with time: 0.00.
+Simulation version v1_27_1+0607-84350f70265 started with time: 0.00.
 Simulation ended at time: 600.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 3.18s
- Real time factor: 188.62
- UPS: 77376.296762
+ Duration: 1.39s
+ Real time factor: 431.344
+ UPS: 186066.139468
 Vehicles:
- Inserted: 861 (Loaded: 999)
- Running: 627
- Waiting: 1
-Bike Statistics (avg of 234):
+ Inserted: 905 (Loaded: 999)
+ Running: 668
+ Waiting: 3
+Bike Statistics (avg of 237):
  RouteLength: 1998.30
- Speed: 4.60
- Duration: 435.38
- WaitingTime: 0.12
- TimeLoss: 83.98
- DepartDelay: 1.40
+ Speed: 4.57
+ Duration: 437.80
+ WaitingTime: 0.22
+ TimeLoss: 86.72
+ DepartDelay: 1.21

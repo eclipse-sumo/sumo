@@ -7,7 +7,7 @@ Warning: 2 total messages of type: Converting invalid rail_crossing to traffic_l
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
 Warning: 10 total messages of type: Could not assign stop '%' to pt line '%' (closest edge '%', distance %). Ignoring!
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
-Warning: 7 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
+Warning: 9 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross).
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 13 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
@@ -47,10 +47,18 @@ Warning: No connection between edge '199847347#2' and edge '387141734' found.
 Warning: Vehicle '82_subway_U2:1' has no valid route from edge '199847347#2' to stop edge '387141734'.
 Warning: No connection between edge '384294422#1' and edge '391559412' found.
 Warning: Vehicle '81_subway_U2:0' has no valid route from edge '384294422#1' to stop edge '391559412'.
-Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25717.00.
-Warning: Vehicle '82_subway_U2:1' skips stop on lane '199847347#2_0' time=25717.00.
-Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25717.00.
-Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25868.00.
-Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25868.00.
+Warning: Teleporting vehicle '82_subway_U2:1'; waited too long (wrong lane, disconnected), lane='199847347#2_0', time=25774.00.
+Warning: Vehicle '82_subway_U2:1' ends teleporting on edge '387141734', time=25774.00.
+Warning: Teleporting vehicle '81_subway_U2:0'; waited too long (wrong lane, disconnected), lane='384294422#1_0', time=25864.00.
+Warning: Vehicle '81_subway_U2:0' ends teleporting on edge '391559412', time=25864.00.
 Warning: 8 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: No stops for flow '31_bus_200:1'
+Warning: 7 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 7 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 7 total messages of type: The vehicle '%' has no valid route.
+Warning: 41 total messages of type: Mandatory edge '%' not reachable by vehicle '%'.
+Warning: 41 total messages of type: No connection between edge '%' and edge '%' found.
+Warning: 41 total messages of type: The vehicle '%' has no valid route.
+Warning: 14 total messages of type: No connection between % '%' and % '%' found%.
+Warning: 14 total messages of type: No route for trip in person '%'.
+Warning: 34 total messages of type: Not using public transport line '%' for routing persons. It has less than two usable stops.

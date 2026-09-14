@@ -308,11 +308,11 @@ private:
     /// @brief ConnectionModifications module
     GNEConnectorFrame::ConnectionModifications* myConnectionModifications = nullptr;
 
-    /// @brief ConnectionOperations module
-    GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
-
     /// @brief ConnectionVisualization module
     GNEConnectorFrame::ConnectionVisualization* myConnectionVisualization = nullptr;
+
+    /// @brief connectionOperations module
+    GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
 
     /// @brief ConnectionSelection module
     GNEConnectorFrame::ConnectionSelection* myConnectionSelection = nullptr;

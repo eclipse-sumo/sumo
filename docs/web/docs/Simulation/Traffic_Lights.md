@@ -307,8 +307,6 @@ The order of the phases can be changed by defining attribute `next` for some or 
 # Traffic Lights that respond to traffic
 
 Generally, the designation "actuated" refers to traffic lights that switch in response to traffic (or lack thereof). The different controllers and their features are described below. SUMO supports several algorithms with this property and they are described below.
-!!! note
-    [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
 ## Type 'actuated'
 
@@ -417,6 +415,9 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
+!!! note
+    Using custom detectors in [meso](Meso.md), only works if the inductionLoop sets attribute `mesoTLS="true"`
+
 Custom detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
 To include further detectors in the output and in the [phase tracker dialog](#track_phases) (i.e. when a custom logic uses laneArea detectors or multiple detectors on the same lane) the following declaration can be used to list all extra detectors:
@@ -488,11 +489,11 @@ The helper script [buildTransitions.py](../Tools/tls.md#buildtransitionspy) can 
 
 ```xml
     <tlLogic id="C" type="actuated" programID="P1" offset="0">
-        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="8 1"/>
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" next="1 8"/>
         <phase duration="3"  state="ygrrygrr"/>
         <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
         <phase duration="3"  state="ryrrryrr"/>
-        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="9 5"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" next="5 9"/>
         <phase duration="3"  state="rrygrryg"/>
         <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
         <phase duration="3"  state="rrryrrry" next="0"/>

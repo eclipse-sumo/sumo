@@ -164,7 +164,12 @@ public:
 /// @{
 
 struct TraCIResult {
+    TraCIResult() {}
     virtual ~TraCIResult() {}
+#ifndef SWIG
+    TraCIResult(const TraCIResult&) = default;
+    TraCIResult& operator=(const TraCIResult&) = default;
+#endif
     virtual std::string getString() const {
         return "";
     }
@@ -387,7 +392,6 @@ struct TraCIPhase {
                const std::string& _name = "",
                const std::string& _earlyTarget = "") :
         duration(_duration), state(_state), minDur(_minDur), maxDur(_maxDur), next(_next), name(_name), earlyTarget(_earlyTarget) {}
-    ~TraCIPhase() {}
 
     double duration;
     std::string state;
@@ -410,7 +414,6 @@ struct TraCILogic {
     TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
                const std::vector<std::shared_ptr<libsumo::TraCIPhase> >& _phases = std::vector<std::shared_ptr<libsumo::TraCIPhase> >())
         : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
-    ~TraCILogic() {}
 
     std::string getString() const {
         std::ostringstream os;
@@ -445,7 +448,6 @@ struct TraCILink {
     TraCILink() {}
     TraCILink(const std::string& _from, const std::string& _via, const std::string& _to)
         : fromLane(_from), viaLane(_via), toLane(_to) {}
-    ~TraCILink() {}
 
     std::string getString() const {
         std::ostringstream os;
@@ -483,7 +485,6 @@ struct TraCIConnection {
                     const std::string _approachedInternal, const std::string _state, const std::string _direction, const double _length)
         : approachedLane(_approachedLane), hasPrio(_hasPrio), isOpen(_isOpen), hasFoe(_hasFoe),
           approachedInternal(_approachedInternal), state(_state), direction(_direction), length(_length) {}
-    ~TraCIConnection() {}
 
     std::string getString() const {
         std::ostringstream os;

@@ -157,8 +157,10 @@ private:
     };
 
 private:
-    static FCDHandler* myHandler;
-    static SUMOSAXReader* myParser;
+    static std::vector<std::unique_ptr<FCDHandler> > myHandlers;
+    static std::vector<std::unique_ptr<SUMOSAXReader> > myParsers;
+    /// @brief bit mask for checking attributes to be used
+    static SumoXMLAttrMask myUsedAttributes;
     const Trajectory* myTrajectory = nullptr;
     int myTrajectoryIndex = 0;
 

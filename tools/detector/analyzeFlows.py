@@ -15,6 +15,16 @@
 # @author  Jakob Erdmann
 # @date    2026-06-10
 
+"""
+This script computes statistics on detector flow files. It's main use is to find
+anomalies (i.e. individual data points that are suspiciously high or detectors
+that are high on average). The following statistics are collected:
+
+- all data received on all detectors
+- the total flow counted for each detector
+- a sorted list of total flow by each detector (if option --xml-output is given)
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 import sys

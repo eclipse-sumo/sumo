@@ -648,7 +648,7 @@ public:
     /// @brief return speed for helping a vehicle that is blocked from changing
     double getCooperativeHelpSpeed(const MSLane* lane, double distToLaneEnd) const;
 
-    double getCooperativeHelpTime() const {
+    SUMOTime getCooperativeHelpTime() const {
         return myCooperativeHelpTime;
     }
     double getCooperativeHelpThreshold() const {
@@ -680,7 +680,7 @@ protected:
      *         where operation on the speed in the next sim step had to be replaced by acceleration
      *         throughout the next action step.
      */
-    void addLCSpeedAdvice(const double vSafe, bool ownAdvice = true);
+    void addLCSpeedAdvice(const double vSafe, int flag);
 
     bool canOvertakeRight(const MSVehicle* const nv, const double dist, const double maxSpeedDiff, const double helpOvertakeSpeed, double& vSafe, double& deltaV) const;
 
@@ -824,9 +824,9 @@ protected:
     void initLastLaneChangeOffset(int dir);
 
     /* @brief vector of LC-related acceleration recommendations combined with a
-     * boolean to indicate whether the advice is from ego or someone else.
+     * bitset to indicate who the advice came from and to which direction it applies
      * Filled in wantsChange() and applied in patchSpeed() */
-    std::vector<std::pair<double, bool> > myLCAccelerationAdvices;
+    std::vector<std::pair<double, int> > myLCAccelerationAdvices;
 
     /// @brief whether overtaking on the right is permitted
     static bool myAllowOvertakingRight;

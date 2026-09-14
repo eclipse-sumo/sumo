@@ -808,12 +808,15 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } // else: this is the shadow during a continuous lane change
         }
         // draw long partial vehicles (#14342)
+        // must prevent concurrent access via MSVehicle::cleanupFurtherLanes to avoid crash (#18271)
+        myPartialOccupatorMutex.lock();
         for (const MSVehicle* veh : myPartialVehicles) {
             if (veh->getLength() > RENDERING_BUFFER) {
                 // potential double rendering taken into account
                 static_cast<const GUIVehicle*>(veh)->drawGL(s);
             }
         }
+        myPartialOccupatorMutex.unlock();
         // draw parking vehicles
         for (const MSBaseVehicle* const v : myParkingVehicles) {
             dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);

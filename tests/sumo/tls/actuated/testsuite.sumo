@@ -87,3 +87,6 @@ minDur0
 
 # test for #14692
 right_turn_crossing_usable
+
+# test for #18303
+merge_proportions

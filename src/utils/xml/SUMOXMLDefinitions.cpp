@@ -1007,6 +1007,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "routes",                 SUMO_ATTR_ROUTES },
     { "vTypes",                 SUMO_ATTR_VTYPES },
     { "nextEdges",              SUMO_ATTR_NEXT_EDGES },
+    { "mesoTLS",                SUMO_ATTR_MESO_TLS },
     { "deterministic",          SUMO_ATTR_DETERMINISTIC },
 
     { "lanes",                  SUMO_ATTR_LANES },
@@ -1128,7 +1129,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "startProg",              SUMO_ATTR_START_PROG },
     { "off",                    SUMO_ATTR_OFF },
     { "friendlyPos",            SUMO_ATTR_FRIENDLY_POS },
-    { "splitByType",            SUMO_ATTR_SPLIT_VTYPE },
     { "uncontrolled",           SUMO_ATTR_UNCONTROLLED },
     { "pass",                   SUMO_ATTR_PASS },
     { "busStop",                SUMO_ATTR_BUS_STOP },

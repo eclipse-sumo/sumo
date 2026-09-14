@@ -1,7 +1,7 @@
 Loading net
-function import_gtfs called at Mon, 17 Aug 2026 16:46:27 +0000
+function import_gtfs called at Fri, 04 Sep 2026 21:04:12 +0000
 Loading GTFS data "gtfs.zip"
-function import_gtfs finished after 0.101870 seconds
+function import_gtfs finished after 0.114897 seconds
 Success.
 Success.
 Writing fcd file "fcd/gtfs/bus.fcd.xml"
@@ -15,4 +15,4 @@ mapping trace with 7 points ... (200 router calls)
 mapping trace with 3 points ... (20 router calls)
 mapping trace with 3 points ... (11 router calls)
 mapped 9 traces to 9 routes (1 cacheHits)
-Reading resources/gtfs/bus.net.xml
+Reading resources/gtfs/net_bus.net.xml

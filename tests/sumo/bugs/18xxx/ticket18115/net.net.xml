@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-06-19T15:05:32.086638+01:00 by Eclipse SUMO netedit v1_27_0+0266-b30389a56d8
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2026-09-01T15:20:55.394863+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="./sumo/bugs/18xxx/ticket18115/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="./sumo/bugs/18xxx/ticket18115/net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -23,7 +23,7 @@
         <no-turnarounds value="true"/>
     </junctions>
 
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -92,7 +92,7 @@
     </edge>
     <edge id=":C_19" function="internal">
         <lane id=":C_19_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.08" length="15.56" shape="3197.18,4215.95 3193.62,4220.80 3184.34,4223.07"/>
-        <lane id=":C_19_1" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.63" length="15.02" shape="3197.12,4213.45 3193.53,4217.87 3184.42,4219.87"/>
+        <lane id=":C_19_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.63" length="15.02" shape="3197.12,4213.45 3193.53,4217.87 3184.42,4219.87"/>
     </edge>
     <edge id=":C_12" function="internal">
         <lane id=":C_12_0" index="0" allow="tram" speed="13.89" length="29.16" shape="3185.02,4194.64 3214.18,4195.43"/>

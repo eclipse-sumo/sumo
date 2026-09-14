@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-07-21 20:51+0200\n"
-"PO-Revision-Date: 2026-06-15 19:00+0000\n"
+"PO-Revision-Date: 2026-09-01 18:23+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.7.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1926,6 +1926,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:192
 msgid "Do not save data for time steps which have no vehicles / transportables"
 msgstr ""
+"Keine Daten von Zeitschritten ohne Fahrzeuge / Transportgütern speichern"
 
 #: src/microsim/MSFrame.cpp:196
 msgid "Save fcd for persons and container to separate FILE"
@@ -1957,22 +1958,30 @@ msgid ""
 "edge for the given period (e.g. a traffic light cycle) instead of per-"
 "timestep data"
 msgstr ""
+"Aggregierte Rückstaulängenstatistik (Max., Median, 95. Perzentil) für jede "
+"Kante und angegebenes Zeitintervall (z. B. eine LSA-Umlaufzeit) anstatt von "
+"zeitschrittbasierten Daten schreiben"
 
 #: src/microsim/MSFrame.cpp:211
 msgid "Maximum speed for counting a vehicle as queued"
 msgstr ""
+"Geschwindigkeit, bis zu der ein Fahrzeug zu einem Stau gezählt werden kann"
 
 #: src/microsim/MSFrame.cpp:213
 msgid ""
 "The percentile (0-100) to report as percentileQueueLength in aggregated "
 "queue output"
 msgstr ""
+"Das in der aggregierten Rückstauausgabe bei percentileQueueLength zu "
+"nutzende Perzentil (0-100)"
 
 #: src/microsim/MSFrame.cpp:215
 msgid ""
 "Do not save data for time steps / intervals which have no queue (required "
 "for column based output formats)"
 msgstr ""
+"Keine Daten von Zeitschritten / Zeitintervallen speichern, in denen kein "
+"Rückstau auftritt (nötig für spaltenbasierte Ausgabeformate)"
 
 #: src/microsim/MSFrame.cpp:218
 msgid ""
@@ -2542,6 +2551,8 @@ msgid ""
 "Compute slope at the vehicle center of mass instead of integrating over "
 "front and back"
 msgstr ""
+"Neigung am Massenmittelpunkt des Fahrzeugs anstatt über ein Integral über "
+"Front und Heck ermitteln"
 
 #: src/microsim/MSFrame.cpp:544
 msgid ""
@@ -2946,7 +2957,7 @@ msgstr "Aktiviert mesoskopische Simulation"
 
 #: src/microsim/MSFrame.cpp:771
 msgid "Enables the meso-LTM (LIFT) model"
-msgstr ""
+msgstr "Aktiviert das meso-LTM-Modell (LIFT)"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -4072,7 +4083,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:79
 msgid "incompatible carFollowModel '%' when loading state for Rail"
-msgstr ""
+msgstr "mit Laden des Rail-Zustands inkompatibles Fahrzeugfolgemodell '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:155
 msgid "Unknown train type: %. Exiting!"
@@ -6128,7 +6139,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSTransportable.cpp:153
 msgid "Changing a transportable ID is not permitted"
-msgstr "Das Ändern einer transportablen ID ist nicht zulässig"
+msgstr "Das Ändern einer Transportgut-ID ist nicht zulässig"
 
 #: src/microsim/transportables/MSTransportable.cpp:308
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
@@ -11099,6 +11110,8 @@ msgstr "Kante '%' für den Halt '%' nicht gefunden"
 #: src/netimport/NIXMLPTHandler.cpp:187
 msgid "Lane '%' for stop '%' not found. Using leftmost lane"
 msgstr ""
+"Der Fahrstreifen '%' des Halts '%' wurde nicht gefunden. Es wird der "
+"Fahrstreifen links außen verwendet"
 
 #: src/netimport/NIXMLPTHandler.cpp:190
 msgid "Lane '%' for stop '%' not found"
@@ -11451,11 +11464,11 @@ msgstr "Unbekannter Endknoten '%' für Kante '%'."
 
 #: src/netload/NLHandler.cpp:553
 msgid "Attribute length of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Der Attributwert der Länge des Fahrstreifens '%' ist ungültig (%)"
 
 #: src/netload/NLHandler.cpp:558
 msgid "Attribute maxSpeed of lane '%' is invalid (%)"
-msgstr ""
+msgstr "Der Attributwert für maxSpeed des Fahrstreifens '%' ist ungültig (%)"
 
 #: src/netload/NLHandler.cpp:573
 msgid ""
@@ -12047,6 +12060,8 @@ msgid ""
 "Only one of the options 'flow-output.probability' and 'flow-output.poisson' "
 "may be set."
 msgstr ""
+"Die Optionen 'flow-output.probability' und 'flow-output.poisson' schließen "
+"sich gegenseitig aus."
 
 #: src/od2trips_main.cpp:212
 msgid "Only one of the Options 'pedestrians' and 'persontrips' may be set."
@@ -12308,7 +12323,7 @@ msgstr "Polygon '%' hat keine Shape."
 
 #: src/polyconvert/PCLoaderOSM.cpp:332
 msgid "Value of key '%' is not numeric ('%') in way '%'."
-msgstr ""
+msgstr "Der zum Schlüssel '%' gehörige Wert '%' ist keine Zahl (way '%')."
 
 #: src/polyconvert/PCLoaderVisum.cpp:116
 msgid "Could not open visum-file '%'."
@@ -12915,7 +12930,7 @@ msgstr ""
 
 #: src/router/RORouteHandler.cpp:1348
 msgid "Unknown vehicle type '%'."
-msgstr ""
+msgstr "Unbekannter Fahrzeugtyp '%'."
 
 #: src/sumo_main.cpp:49
 msgid "Another interrupt signal received, hard exit."
@@ -13483,6 +13498,8 @@ msgid ""
 "How to derive column headers from attribute names ('none', 'tag', 'auto', "
 "'plain', 'full')"
 msgstr ""
+"Wie Spaltenüberschriften aus Attributnamen abgeleitet werden ('none', 'tag', "
+"'auto', 'plain', 'full')"
 
 #: src/utils/common/SystemFrame.cpp:149
 msgid "Separator in CSV output"

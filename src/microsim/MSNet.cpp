@@ -910,6 +910,15 @@ MSNet::simulationStep(const bool onlyMove) {
     if (myContainerControl != nullptr && myContainerControl->hasTransportables()) {
         myContainerControl->checkWaiting(this, myStep);
     }
+#ifdef HAVE_FOX
+    MSRoutingEngine::waitForAll();
+    if (myPersonControl != nullptr) {
+        myPersonControl->processPendingRouting(this, myStep);
+    }
+    if (myContainerControl != nullptr) {
+        myContainerControl->processPendingRouting(this, myStep);
+    }
+#endif
     if (MSRailSignalControl::hasInstance()) {
         MSRailSignalControl::getInstance().resetWaitRelations();
         // preserve waitRelation from insertion for the next step

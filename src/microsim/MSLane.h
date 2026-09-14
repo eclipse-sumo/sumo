@@ -440,7 +440,7 @@ public:
      * @param[in] allowCached Whether the cached value may be used
      * @return Information about the last vehicles
      */
-    const MSLeaderInfo getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos = 0, bool allowCached = true) const;
+    const MSLeaderInfo getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos = 0, bool allowCached = true, const MSVehicle* ignore = nullptr) const;
 
     /// @brief analogue to getLastVehicleInformation but in the upstream direction
     const MSLeaderInfo getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos = std::numeric_limits<double>::max(), bool allowCached = true) const;
@@ -1650,6 +1650,11 @@ protected:
     /// definition of the static dictionary type
     typedef std::map< std::string, MSLane* > DictType;
 
+#ifdef HAVE_FOX
+    /// @brief Mutex for access to the cached follower info value
+    mutable FXMutex myPartialOccupatorMutex;
+#endif
+
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
@@ -1819,8 +1824,6 @@ private:
     mutable FXMutex myLeaderInfoMutex;
     /// @brief Mutex for access to the cached follower info value
     mutable FXMutex myFollowerInfoMutex;
-    /// @brief Mutex for access to the cached follower info value
-    mutable FXMutex myPartialOccupatorMutex;
 #endif
     std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch;
 

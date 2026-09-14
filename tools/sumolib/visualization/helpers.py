@@ -28,13 +28,14 @@ from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, ti
 from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks
 from matplotlib.ticker import FuncFormatter as ff
 from matplotlib.collections import LineCollection
+from packaging import version
 
 from ..options import ArgumentParser
-mpl_version = tuple(map(int, matplotlib.__version__.split(".")[:3]))
+mpl_version = version.parse(matplotlib.__version__)
 
 if sys.version_info[:2] >= (3, 14):
     # workaround for https://github.com/matplotlib/matplotlib/issues/29157
-    if mpl_version < (3, 10, 5):
+    if mpl_version < version.parse("3.10.5"):
         import copy  # noqa
 
         def _safe_path_deepcopy(self, memo):
@@ -269,7 +270,7 @@ def plotNet(net, colors, widths, options):
 
 
 def getColorMap(options):
-    if mpl_version < (3, 6, 0):
+    if mpl_version < version.parse("3.6.0"):
         return matplotlib.cm.get_cmap(options.colormap)
     return matplotlib.colormaps[options.colormap]
 
@@ -282,7 +283,7 @@ def getColor(options, i, a):
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])
-        if mpl_version < (3, 6, 0):
+        if mpl_version < version.parse("3.6.0"):
             cm.register_cmap(name="CUSTOM", cmap=colormap)
         else:
             matplotlib.colormaps.register(name="CUSTOM", cmap=colormap)

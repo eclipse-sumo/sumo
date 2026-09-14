@@ -90,7 +90,10 @@ def main(options):
 
     for route in sumolib.xml.parse(options.routeFile, 'route'):
         if route.id:
-            routeStops[route.id] = [getStopID(stop) for stop in route.stop]
+            if route.stop:
+                routeStops[route.id] = [getStopID(stop) for stop in route.stop]
+            else:
+                routeStops[route.id] = []
 
     stops = []
     idelem = None

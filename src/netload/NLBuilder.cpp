@@ -356,9 +356,7 @@ NLBuilder::init(const bool isLibsumo) {
     }
 #ifdef HAVE_FOX
     if (oc.getInt("threads") > 1 || oc.getInt("device.rerouting.threads") > 1) {
-        // make the output aware of threading; the rerouting device emits
-        // messages from its worker threads even when the simulation itself
-        // is single-threaded
+        // make the output aware of threading
         MsgHandler::setFactory(&MsgHandlerSynchronized::create);
     }
 #endif

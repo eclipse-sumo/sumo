@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-04T09:31:03.090265+01:00 by Eclipse SUMO netconvert v1_27_1+0600-3f7ce74d7c5
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <ptstop-output value="stops.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="rail,rail_urban,tram"/>
+    </edge_removal>
+
+</netconvertConfiguration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <trainStop id="-3079877421" name="Benningen (Neckar)" lane="-107904689_0" startPos="66.92" endPos="266.92" friendlyPos="true"/>
+    <trainStop id="-3080078329" name="Marbach (Neckar)" lane="-247108425#1_0" startPos="0.00" endPos="130.00" friendlyPos="true"/>
+    <trainStop id="-3220592201" name="Marbach (Neckar)" lane="-108600974#1_0" startPos="15.14" endPos="215.14" friendlyPos="true"/>
+    <trainStop id="-7099957237" name="Marbach (Neckar)" lane="-122399197#1_0" startPos="0.00" endPos="137.83" friendlyPos="true"/>
+    <trainStop id="3079877415" name="Benningen (Neckar)" lane="28387340_0" startPos="88.06" endPos="288.06" friendlyPos="true" lines="S4"/>
+    <trainStop id="3079877421" name="Benningen (Neckar)" lane="107904689_0" startPos="8.61" endPos="208.61" friendlyPos="true" lines="S4"/>
+    <trainStop id="3080078329" name="Marbach (Neckar)" lane="247108425#1_0" startPos="0.00" endPos="130.00" friendlyPos="true" lines="S4"/>
+    <trainStop id="3220592201" name="Marbach (Neckar)" lane="108600974#1_0" startPos="16.13" endPos="216.13" friendlyPos="true" lines="S4"/>
+    <trainStop id="7099957237" name="Marbach (Neckar)" lane="122399197#1_0" startPos="0.00" endPos="137.83" friendlyPos="true"/>
+</additional>

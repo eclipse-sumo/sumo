@@ -186,7 +186,21 @@ MFXComboBoxIcon::layout() {
 
 FXString
 MFXComboBoxIcon::getText() const {
-    return myTextFieldIcon->getText();
+    if (myTextFieldIcon) {
+        return myTextFieldIcon->getText();
+    } else {
+        return "";
+    }
+}
+
+
+FXIcon*
+MFXComboBoxIcon::getIcon() const {
+    if (myTextFieldIcon) {
+        return myTextFieldIcon->getIcon();
+    } else {
+        return nullptr;
+    }
 }
 
 

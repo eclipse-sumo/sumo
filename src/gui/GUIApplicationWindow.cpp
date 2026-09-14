@@ -83,6 +83,12 @@
 #define MIN_DRAW_DELAY 20
 //#define HAVE_DANGEROUS_SOUNDS
 
+#define STAT_VEHS 0
+#define STAT_DELAYED 1
+#define STAT_TELEPORTS 2
+#define STAT_PERSONS 3
+#define STAT_CONTAINERS 4
+
 // ===========================================================================
 // FOX-declarations
 // ===========================================================================
@@ -314,10 +320,21 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = GUIDesigns::buildFXLabel(myCartesianFrame, TL("N/A"), "", TL("Network coordinate"), nullptr, LAYOUT_CENTER_Y);
         // build buttons
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
+        std::vector<std::string> help({
+                TL("number of running vehicles"),
+                TL("number of insertion backlogged vehicles"),
+                TL("percentage of teleports per departed vehicles"),
+                TL("number of active persons"),
+                TL("number of active containers")});
+
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_VEHS], help[STAT_VEHS], GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_DELAYED], help[STAT_DELAYED], GUIIconSubSys::getIcon(GUIIcon::INSERTION_DELAY), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
-        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", "", "", GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_TELEPORTS], help[STAT_TELEPORTS], GUIIconSubSys::getIcon(GUIIcon::TELEPORT), this, MID_SHOWVEHSTATS));
+        myStatButtons.back()->hide();
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_PERSONS], help[STAT_PERSONS], GUIIconSubSys::getIcon(GUIIcon::GREENPERSON), this, MID_SHOWPERSONSTATS));
+        myStatButtons.back()->hide();
+        myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_CONTAINERS], help[STAT_CONTAINERS], GUIIconSubSys::getIcon(GUIIcon::GREENCONTAINER), this, MID_SHOWVEHSTATS));
         myStatButtons.back()->hide();
     }
     // make the window a mdi-window
@@ -2027,29 +2044,53 @@ GUIApplicationWindow::handleEvent_SimulationStep(GUIEvent*) {
     myLastStepEventMillis = t;
 #endif
     updateTimeLCD(myRunThread->getNet().getCurrentTimeStep());
+    FXButton* vehStats = myStatButtons[STAT_VEHS];
+    FXButton* delayStats = myStatButtons[STAT_DELAYED];
+    FXButton* teleStats = myStatButtons[STAT_TELEPORTS];
+    FXButton* personStats = myStatButtons[STAT_PERSONS];
+    FXButton* containerStats = myStatButtons[STAT_CONTAINERS];
+
     const int running = myRunThread->getNet().getVehicleControl().getRunningVehicleNo();
     const int backlog = myRunThread->getNet().getInsertionControl().getWaitingVehicleNo();
+    const int teleports = myRunThread->getNet().getVehicleControl().getTeleportCount();
+    const int departed = myRunThread->getNet().getVehicleControl().getDepartedVehicleNo();
     if (backlog > running) {
-        if (myStatButtons.front()->getIcon() == GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE)) {
-            myStatButtons.front()->setIcon(GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE));
+        if (vehStats->getIcon() == GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE)) {
+            vehStats->setIcon(GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE));
         }
     } else {
-        if (myStatButtons.front()->getIcon() == GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE)) {
-            myStatButtons.front()->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
+        if (vehStats->getIcon() == GUIIconSubSys::getIcon(GUIIcon::YELLOWVEHICLE)) {
+            vehStats->setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
         }
     }
-    myStatButtons.front()->setText(toString(running).c_str());
-    if (myRunThread->getNet().hasPersons()) {
-        if (!myStatButtons[1]->shown()) {
-            myStatButtons[1]->show();
+    vehStats->setText(toString(running).c_str());
+    if (backlog > 0) {
+        if (!delayStats->shown()) {
+            delayStats->show();
         }
-        myStatButtons[1]->setText(toString(myRunThread->getNet().getPersonControl().getRunningNumber()).c_str());
+        delayStats->setText(toString(backlog).c_str());
+    } else {
+        if (delayStats->shown()) {
+            delayStats->hide();
+        }
+    }
+    if (teleports > 0) {
+        if (!teleStats->shown()) {
+            teleStats->show();
+        }
+        teleStats->setText((toString(100.00 * teleports / departed) + "%").c_str());
+    }
+    if (myRunThread->getNet().hasPersons()) {
+        if (!personStats->shown()) {
+            personStats->show();
+        }
+        personStats->setText(toString(myRunThread->getNet().getPersonControl().getRunningNumber()).c_str());
     }
     if (myRunThread->getNet().hasContainers()) {
-        if (!myStatButtons[2]->shown()) {
-            myStatButtons[2]->show();
+        if (!containerStats->shown()) {
+            containerStats->show();
         }
-        myStatButtons[2]->setText(toString(myRunThread->getNet().getContainerControl().getRunningNumber()).c_str());
+        containerStats->setText(toString(myRunThread->getNet().getContainerControl().getRunningNumber()).c_str());
     }
     if (myAmGaming) {
         if (myTLSGame) {

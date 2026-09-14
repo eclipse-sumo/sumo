@@ -449,7 +449,7 @@ class positions:
 
             class parkingArea:
                 x = 340
-                y = 185
+                y = 210
 
             class parkingSpace:
                 x = 437

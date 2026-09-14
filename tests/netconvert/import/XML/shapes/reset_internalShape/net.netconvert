@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-04-29 10:36:40 by Eclipse SUMO netconvert Version v1_22_0+1806-33294317c71
+<!-- generated on 2026-09-01T14:50:31.235796+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,19 +30,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <geometry.avoid-overlap value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
         <junctions.limit-turn-speed value="-1.00"/>
-        <rectangular-lane-cut value="0"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
 
     <report>
         <xml-validation value="never"/>
@@ -96,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":C_17" function="internal">
         <lane id=":C_17_0" index="0" speed="13.89" length="21.12" shape="92.38,99.11 94.45,99.35 100.20,102.20 103.65,106.95 104.80,113.60"/>
-        <lane id=":C_17_1" index="0" speed="13.89" length="19.50" shape="91.36,99.11 93.05,99.35 97.80,102.20 100.65,106.95 101.60,113.60"/>
+        <lane id=":C_17_1" index="1" speed="13.89" length="19.50" shape="91.36,99.11 93.05,99.35 97.80,102.20 100.65,106.95 101.60,113.60"/>
     </edge>
     <edge id=":C_18" function="internal">
         <lane id=":C_18_0" index="0" speed="13.89" length="3.23" shape="87.60,99.20 88.00,100.00 87.60,100.80 86.40,101.60"/>

@@ -92,6 +92,16 @@ public:
     /// checks whether any transportables waiting time is over
     void checkWaiting(MSNet* net, const SUMOTime time);
 
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+    /// adds a transportable to the list with a pending routing task
+    void addPendingRouting(MSTransportable* transportable);
+
+    /// resumes proceed for all transportables whose routing task has completed
+    void processPendingRouting(MSNet* net, const SUMOTime time);
+#endif
+#endif
+
     /// adds a transportable to the list of transportables waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSTransportable* person);
 
@@ -367,6 +377,13 @@ protected:
 
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
+
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+    /// @brief transportables waiting for an asynchronous routing task to complete
+    TransportableVector myPendingRouting;
+#endif
+#endif
 
     /// @brief maximum transportable count
     int myMaxTransportableNumber;

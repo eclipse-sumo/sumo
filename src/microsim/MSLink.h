@@ -697,6 +697,8 @@ public:
         return myPermissions;
     }
 
+    void updatePermissions();
+
     /// @brief initialize parallel links (to be called after all links are loaded)
     void initParallelLinks();
 

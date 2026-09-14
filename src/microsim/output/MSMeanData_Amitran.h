@@ -205,6 +205,9 @@ public:
     virtual void writePrefix(OutputDevice& dev, const MeanDataValues& values,
                              const SumoXMLTag tag, const std::string id) const;
 
+    /// @brief return all attributes that are (potentially) written by this output
+    std::vector<std::string> getAttributeNames() const;
+
 protected:
     /** @brief Create an instance of MeanDataValues
      *

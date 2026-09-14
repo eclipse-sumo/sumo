@@ -45,7 +45,7 @@ GNEPersonFrame::GNEPersonFrame(GNEViewParent* viewParent, GNEViewNet* viewNet) :
     myPersonTagSelector = new GNETagSelector(this, GNETagProperties::Type::PERSON, SUMO_TAG_PERSON);
 
     // create person types selector module and set DEFAULT_PEDTYPE_ID as default element
-    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::PERSON);
+    myTypeSelector = new GNEDemandElementSelector(this, SUMO_TAG_VTYPE, GNETagProperties::Type::PERSON, false);
 
     // create person attributes
     myPersonAttributesEditor = new GNEAttributesEditor(this, GNEAttributesEditorType::EditorType::CREATOR);

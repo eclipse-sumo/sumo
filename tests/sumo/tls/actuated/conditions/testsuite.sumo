@@ -55,6 +55,9 @@ override_phaseAttrs2
 # use custom switching rules to add bus prioritization on top of the default behavior
 bus_prio
 
+# use custom switching rules to add bus prioritization on top of the default behavior
+bus_prio_once
+
 # use custom switching rules to add bus prioritization on top of the default behavior but only prioritize delayed busses
 bus_delay_prio
 

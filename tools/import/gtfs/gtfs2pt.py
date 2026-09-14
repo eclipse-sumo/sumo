@@ -39,7 +39,7 @@ sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')]
 import route2poly  # noqa
 import sumolib  # noqa
-from sumolib.miscutils import euclidean, parseTime, intIfPossible  # noqa
+from sumolib.miscutils import euclidean, parseTime, intIfPossible, getBaseName, flattenPath# noqa
 import tracemapper  # noqa
 
 import gtfs2fcd  # noqa
@@ -156,6 +156,8 @@ def get_options(args=None):
         options.detourWarnFactor = options.detourRemoveFactor
     if options.distPenalty is None:
         options.distPenalty = 1 if options.stops else 2
+    if options.sbahnLR:
+        gtfs2osm.GTFS2OSM_MODES['109'] = 'light_rail'
 
     random.seed(options.seed)
     return options
@@ -169,7 +171,7 @@ def splitNet(options):
 
     if not os.path.exists(options.network_split):
         os.makedirs(options.network_split)
-    numIdNet = os.path.join(options.network_split, "numerical.net.xml")
+    numIdNet = os.path.join(options.network_split, flattenPath(getBaseName(options.network)) + "_numerical.net.xml")
     if os.path.exists(numIdNet) and os.path.getmtime(numIdNet) > os.path.getmtime(options.network):
         print("Reusing old", numIdNet)
     else:
@@ -187,7 +189,7 @@ def splitNet(options):
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
         if not options.modes or mode in options.modes.split(","):
-            netPrefix = os.path.join(options.network_split, mode)
+            netPrefix = os.path.join(options.network_split, flattenPath(getBaseName(options.network)) + '_' + mode)
             vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
             edgeFilter = ["--keep-edges.by-vclass", vclass] if vclass else None
             if edgeFilter:
@@ -211,10 +213,11 @@ def traceMap(options, veh2mode, typedNets, fixedStops, stopLookup, invEdgeMap, r
 
     routes = collections.OrderedDict()
     for mode in sorted(typedNets.keys()):
+        netPrefix = typedNets[mode][1]
         vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
         if options.verbose:
             print("mapping", mode)
-        net = sumolib.net.readNet(os.path.join(options.network_split, mode + ".net.xml"), maxcache=options.maxcache)
+        net = sumolib.net.readNet(netPrefix + ".net.xml", maxcache=options.maxcache)
         mode_edges = set([e.getID() for e in net.getEdges()])
         netBox = net.getBBoxXY()
         numTraces = 0
@@ -316,15 +319,16 @@ def generate_polygons(net, routes, outfile):
         outf.write('</polygons>\n')
 
 
-def map_stops(options, net, routes, rout, edgeMap, fixedStops, stopLookup):
+def map_stops(options, net, typedNets, routes, rout, edgeMap, fixedStops, stopLookup):
     stops = collections.defaultdict(list)
     stopDesc = collections.defaultdict(list)  # laneID -> [(typ, id, start, end, stopName, childs)]
     stopID2Lane = dict()
     rid = None
     for inp in sorted(glob.glob(os.path.join(options.fcd, "*.fcd.xml"))):
         mode = os.path.basename(inp)[:-8]
+        netPrefix = typedNets[mode][1]
         vclass = gtfs2osm.OSM2SUMO_MODES.get(mode)
-        typedNetFile = os.path.join(options.network_split, mode + ".net.xml")
+        typedNetFile = netPrefix + ".net.xml"
         if not os.path.exists(typedNetFile):
             print("Warning! No net", typedNetFile, file=sys.stderr)
             continue
@@ -649,7 +653,7 @@ def main(options):
             generate_polygons(net, routes, options.poly_output)
         with sumolib.openz(options.additional_output, mode='w') as aout:
             sumolib.xml.writeHeader(aout, os.path.basename(__file__), "additional", options=options)
-            stops = map_stops(options, net, routes, aout, edgeMap, fixedStops, stopLookup)
+            stops = map_stops(options, net, typedNets, routes, aout, edgeMap, fixedStops, stopLookup)
             aout.write(u'</additional>\n')
         with sumolib.openz(options.route_output, mode='w') as rout:
             sumolib.xml.writeHeader(rout, os.path.basename(__file__), "routes", options=options)

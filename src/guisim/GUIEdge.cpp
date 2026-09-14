@@ -168,7 +168,19 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     if (MSGlobals::gUseMesoSim) {
-        buildShowParamsPopupEntry(ret);
+        buildShowParamsPopupEntry(ret, false);
+        // find lane under cursor for building a lane-param menu entry
+        // @note: cannot use getLaneUnderCursor because this returns nullptr in meso
+        GUILane* lane = dynamic_cast<GUILane*>(myLanes->front());
+        const Position pos = parent.getPositionInformation();
+        for (MSLane* l : *myLanes) {
+            GUILane* cand = dynamic_cast<GUILane*>(l);
+            if (cand->getCenter().distanceTo2D(pos) < lane->getCenter().distanceTo2D(pos)) {
+                lane = cand;
+            }
+        }
+        setGLObjectParent(lane);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Lane Param", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS_PARENT);
         buildShowTypeParamsPopupEntry(ret);
     }
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());

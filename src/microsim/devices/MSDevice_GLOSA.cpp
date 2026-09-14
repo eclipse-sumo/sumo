@@ -589,7 +589,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
         }
         return;
     }
-    const double targetSpeed = x;
+    const double targetSpeed = MAX2(x, myVeh.getCarFollowModel().minNextSpeed(myVeh.getSpeed(), &myVeh));
     const double duration = MAX2(y, TS);
     solved = true;
 #ifdef DEBUG_GLOSA

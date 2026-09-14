@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-07-14 13:14:21.222146 by randomTrips.py v1_23_1+1056-485580ee618
+<!-- generated on 2026-08-26 14:03:09.704236 by Eclipse SUMO randomTrips.py v1_27_1+0495-af1141efad2
 <configuration>
     <net-file value="net.net.xml"/>
-    <persontrips value="True"/>
+    <persons value="True"/>
     <trip-attributes value="modes=&quot;taxi&quot;"/>
     <edge-permission value="taxi"/>
     <end value="100.0"/>
@@ -34,12 +34,12 @@
         <personTrip from="CE" to="CE" modes="taxi"/>
     </person>
     <person id="7" depart="70.00">
-        <personTrip from="EC" to="EC" modes="taxi"/>
+        <personTrip from="EC" to="CW" modes="taxi"/>
     </person>
     <person id="8" depart="80.00">
-        <personTrip from="WC" to="CE" modes="taxi"/>
+        <personTrip from="EC" to="EC" modes="taxi"/>
     </person>
     <person id="9" depart="90.00">
-        <personTrip from="CE" to="CE" modes="taxi"/>
+        <personTrip from="WC" to="CE" modes="taxi"/>
     </person>
 </routes>

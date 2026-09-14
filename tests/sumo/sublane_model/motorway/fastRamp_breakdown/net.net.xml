@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-08-21T14:29:55.230169+01:00 by Eclipse SUMO netedit v1_27_1+0428-4434241517a
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1.00"/>
+    </junctions>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" avoidOverlap="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-50.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="main_beg" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="main_beg_0" index="0" speed="20.00" length="95.82" shape="-100.00,-1.60 -7.90,-1.60"/>
+    </edge>
+    <edge id="main_end" from="gneJ3" to="gneJ5" priority="1">
+        <lane id="main_end_0" index="0" speed="20.00" length="200.00" shape="104.00,-1.60 300.00,-1.60"/>
+    </edge>
+    <edge id="merge" from="gneJ1" to="gneJ3" priority="1">
+        <lane id="merge_0" index="0" speed="20.00" length="108.39" acceleration="1" shape="-4.14,-4.80 96.00,-4.80"/>
+        <lane id="merge_1" index="1" speed="20.00" length="108.39" shape="-4.14,-1.60 96.00,-1.60"/>
+    </edge>
+    <edge id="ramp_beg" from="gneJ4" to="gneJ1" priority="1">
+        <lane id="ramp_beg_0" index="0" speed="20.00" length="104.37" shape="-99.28,-51.43 -7.70,-5.64"/>
+    </edge>
+
+    <junction id="gneJ0" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,0.00 -100.00,-3.20"/>
+    <junction id="gneJ1" type="priority" x="0.00" y="0.00" incLanes="ramp_beg_0 main_beg_0" intLanes="" shape="-4.14,0.00 -4.14,-6.40 -6.99,-7.07 -8.42,-4.21 -7.90,-3.20 -7.90,0.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="gneJ3" type="priority" x="100.00" y="0.00" incLanes="merge_0 merge_1" intLanes="" shape="104.00,0.00 104.00,-3.20 96.00,-6.40 96.00,0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="gneJ4" type="dead_end" x="-100.00" y="-50.00" incLanes="" intLanes="" shape="-100.00,-50.00 -98.57,-52.86"/>
+    <junction id="gneJ5" type="dead_end" x="300.00" y="0.00" incLanes="main_end_0" intLanes="" shape="300.00,-3.20 300.00,0.00"/>
+
+    <connection from="main_beg" to="merge" fromLane="0" toLane="1" pass="1" dir="s" state="M"/>
+    <connection from="merge" to="main_end" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="ramp_beg" to="merge" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
+
+</net>

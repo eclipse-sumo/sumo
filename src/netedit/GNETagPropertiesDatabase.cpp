@@ -1920,6 +1920,11 @@ GNETagPropertiesDatabase::fillAdditionalElements() {
                                    GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::DIALOGEDITOR,
                                    TL("The id of the route the vehicle shall drive along"));
 
+        new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_ROUTEPROBE,
+                                   GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
+                                   GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
+                                   TL("The id of the routeProbe element from which to determine the route distribution for generated vehicles"));
+
         // at least one of the following attributes must be defined
 
         new GNEAttributeProperties(myTagProperties[currentTag], SUMO_ATTR_VEHSPERHOUR,
@@ -6094,22 +6099,49 @@ GNETagPropertiesDatabase::fillCommonAttributes(GNETagProperties* tagProperties) 
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element (not editable for network elements)"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     } else if (tagProperties->saveInParentFile()) {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element (the same of their parent)"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     } else {
         commonAttribute = new GNEAttributeProperties(tagProperties, GNE_ATTR_SAVEFILE,
                 GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::FILESAVE | GNEAttributeProperties::Property::DEFAULTVALUE,
                 GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE | GNEAttributeProperties::Edit::NETEDITEDITOR,
                 TL("The path to the file to save this element"));
-        commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
         commonAttribute->setAlternativeName(TL("File"));
+        // set filename extension
+        if (tagProperties->isAdditionalElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::AdditionalFileExtensions.getStrings());
+        } else if (tagProperties->isDemandElement()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::RouteFileExtensions.getStrings());
+        } else if (tagProperties->isMeanData()) {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::MeanDataFileExtensions.getStrings());
+        } else {
+            commonAttribute->setFilenameExtensions(SUMOXMLDefinitions::XMLFileExtensions.getStrings());
+        }
     }
 
     // if this is a drawable element, add front and select attributes
@@ -6463,7 +6495,7 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The lane on which the vehicle shall be inserted"),
-                               "first");
+                               "best_prob");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_DEPARTPOS,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,
@@ -6475,7 +6507,7 @@ GNETagPropertiesDatabase::fillCommonVehicleAttributes(GNETagProperties* tagPrope
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE,
                                GNEAttributeProperties::Edit::CREATEMODE | GNEAttributeProperties::Edit::EDITMODE,
                                TL("The speed with which the vehicle shall enter the network"),
-                               "0");
+                               "avg");
 
     new GNEAttributeProperties(tagProperties, SUMO_ATTR_ARRIVALLANE,
                                GNEAttributeProperties::Property::STRING | GNEAttributeProperties::Property::DEFAULTVALUE |  GNEAttributeProperties::Property::UPDATEGEOMETRY,

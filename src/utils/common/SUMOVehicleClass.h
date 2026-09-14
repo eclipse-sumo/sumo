@@ -379,6 +379,9 @@ extern void writePermissions(OutputDevice& into, SVCPermissions permissions);
 /// @brief writes allowed disallowed attributes if needed;
 extern void writePreferences(OutputDevice& into, SVCPermissions preferred);
 
+/// @brief resets parsing cache
+extern void clearParseVehicleClassesCache();
+
 // ---------------------------------------------------------------------------
 // vehicle shape class
 // ---------------------------------------------------------------------------

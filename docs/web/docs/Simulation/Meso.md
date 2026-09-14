@@ -134,6 +134,21 @@ On multi-lane edges, [overtaking can be enabled](#lateral_model) to reduce this 
 
 The option **--meso-recheck** {{DT_TIME}} can be used to delay traffic flow into a fully occupied segment. Whenever a vehicle cannot move into the next segment because it is full, the given value acts as a time delay before checking again whether the segment has capacity to receive another vehicle. By default this delay is set to 0.
 
+## LTM: alternative longitudinal model
+
+When setting option **--meso-ltm**, an alternative longitudinal model (the mesoscopic **L**ink **T**ransmission **M**odel) is activated. This model is based on a [publications](https://www.sciencedirect.com/science/article/pii/S1569190X26000018) by Ying-Chuan Ni et. al.
+
+Instead of classifying segments as jammed/free based on **--meso-jam-threshold**, this model achieves jam dynamics by tracking gaps between cars that travel upstream when a car exists a segment.
+Whereas the other model achieves increased headway whenever a car travels from a "jammed" segment into another "jammed" segment, the meso-LTM model achieves increased headway whenever a segment is filled with a combination of cars and gaps. As soon as gaps reach the upstream end of the segment they disappear and thus free up capacity for vehicles from the upstream segment.
+The following parameters are used by the model:
+
+- **meso-tauff**: minimum headway when traveling (default *1.13*), also the time for a gap to travel backwards by 7.5m if a car was traveling at free flow speed
+- **meso-taujf**: minimum headway when traveling after the vehicle was blocked (waitingTime > 0)
+- **meso-taujj**: the time for a gap to travel backwards by 7.5m if a car was *not* traveling at free flow speed (default *1.4*)
+
+!!! note
+    The meso-LTM model achieves more realistic simulation for urban queuing dynamics. The original meso model (Eissfeldt) achieves instant propagation of gaps when queued traffic starts to flow again (i.e. at a traffic light). In contrast, the meso-LTM model distinguishes between a queue that has space at the upstream end and a queue that has space ad the downstream end.
+
 ## Lateral Model
 
 Lateral movement is not modelled explicitly. Vehicles may overtake each
@@ -253,8 +268,6 @@ The following outputs are not supported:
 
 The following SUMO features are not supported:
 
-- [Actuated traffic lights](Traffic_Lights.md#type_actuated)
-- Electric model
 - Wireless model
 - Opposite-direction driving
 - Sublane-model

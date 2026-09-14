@@ -20,7 +20,7 @@ netedit.positions.elements.additionals.geometryPointDestinyA 574 238
 netedit.positions.elements.additionals.geometryPointDestinyB 498 332
 netedit.positions.elements.additionals.geometryPointExistent 362 138
 netedit.positions.elements.additionals.geometryPointNew 400 138
-netedit.positions.elements.additionals.parkingArea 340 185
+netedit.positions.elements.additionals.parkingArea 340 210
 netedit.positions.elements.additionals.parkingSpace 437 120
 netedit.positions.elements.additionals.routeProbe 488 168
 netedit.positions.elements.additionals.shapeA 304 133

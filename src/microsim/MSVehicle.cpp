@@ -3807,7 +3807,8 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     const double shadowLatPos = getLateralPositionOnLane() - myLaneChangeModel->getShadowDirection() * 0.5 * (
                                                     myLane->getWidth() + myLaneChangeModel->getShadowLane()->getWidth());
                     opened = yellow || influencerPrio || (opened && parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
-                                                          getVehicleType().getLength(), getImpatience(),
+                                                          getVehicleType().getLength(),
+                                                          canBrake ? getImpatience() : 1,
                                                           cfModel.getMaxDecel(),
                                                           getWaitingTimeFor(link), shadowLatPos, nullptr,
                                                           ignoreRedLink, this, dpi.myDistance));
@@ -3834,6 +3835,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                           << " lastContMajor=" << link->lastWasContMajor()
                           << " isCont=" << link->isCont()
                           << " ignoreRed=" << ignoreRedLink
+                          << " canBrake=" << canBrake
                           << "\n";
             }
 #endif
@@ -7008,6 +7010,10 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
                 assert(myLaneChangeModel->getShadowLane() != 0);
                 return (lane->getRightSideOnEdge() + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
                         + (myLane->getCenterOnEdge() - myLaneChangeModel->getShadowLane()->getCenterOnEdge()));
+            } else if (shadowFurther[i]->getBidiLane() == lane) {
+                assert(myLaneChangeModel->getShadowLane() != 0);
+                return (lane->getRightSideOnEdge() - myLaneChangeModel->getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
+                        + (myLane->getCenterOnEdge() - myLaneChangeModel->getShadowLane()->getCenterOnEdge()));
             }
         }
         assert(false);
@@ -7835,6 +7841,9 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(isStopped()));
     internals.push_back(toString(isStopped() ? myStops.front().duration : 0));
     internals.push_back(toString(myPastStops.size()));
+    internals.push_back(toString(myJunctionEntryTime));
+    internals.push_back(toString(myJunctionConflictEntryTime));
+    internals.push_back(toString(myJunctionEntryTimeNeverYield));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, std::vector<double> { myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
     out.writeAttr(SUMO_ATTR_SPEED, std::vector<double> { myState.mySpeed, myState.myPreviousSpeed });
@@ -7895,6 +7904,9 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> stopped;
     bis >> stopDuration;
     bis >> pastStops;
+    bis >> myJunctionEntryTime;
+    bis >> myJunctionConflictEntryTime;
+    bis >> myJunctionEntryTimeNeverYield;
 
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS_RANDOMIZED)) {
         myArrivalPos = attrs.get<double>(SUMO_ATTR_ARRIVALPOS_RANDOMIZED, getID().c_str(), ok);

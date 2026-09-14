@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-05-16 22:38:27 by Eclipse SUMO netconvert Version v1_23_1+0083-8d98c775f14
+<!-- generated on 2026-09-01T14:50:40.906231+01:00 by Eclipse SUMO netconvert v1_27_1+0586-eedfd8e7fd0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":gneJ21_28" function="internal">
         <lane id=":gneJ21_28_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="6.52" length="8.68" shape="65.28,61.31 68.24,59.98 73.65,60.52"/>
-        <lane id=":gneJ21_28_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="5.69" length="3.49" shape="68.15,62.65 71.62,62.99"/>
+        <lane id=":gneJ21_28_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="5.69" length="3.49" shape="68.15,62.65 71.62,62.99"/>
     </edge>
     <edge id=":gneJ21_6" function="internal">
         <lane id=":gneJ21_6_0" index="0" allow="bicycle" speed="11.11" length="25.56" width="2.00" shape="58.41,39.87 59.15,42.58 62.21,46.59 67.59,51.90 75.30,58.50"/>
@@ -154,7 +154,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":gneJ21_37" function="internal">
         <lane id=":gneJ21_37_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="12.75" length="29.45" shape="46.59,51.54 47.42,51.06 60.01,52.51 73.65,60.52"/>
-        <lane id=":gneJ21_37_1" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="11.92" length="29.47" shape="44.76,56.76 48.71,54.53 59.72,55.94 71.62,62.99"/>
+        <lane id=":gneJ21_37_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="11.92" length="29.47" shape="44.76,56.76 48.71,54.53 59.72,55.94 71.62,62.99"/>
     </edge>
     <edge id=":gneJ21_38" function="internal">
         <lane id=":gneJ21_38_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="4.70" length="3.28" shape="40.38,69.46 40.80,69.82 41.70,72.40"/>
@@ -316,7 +316,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="276184048" type="priority" x="71.85" y="0.00" incLanes="-148050455#1_0 -148050455#1_1 -148050455#1_2" intLanes=":276184048_0_0" shape="71.85,0.00 65.98,-4.16 71.85,-0.00">
+    <junction id="276184048" type="priority" x="71.85" y="0.00" incLanes="-148050455#1_0 -148050455#1_1 -148050455#1_2" intLanes=":276184048_0_0" shape="71.85,0.00 65.98,-4.16 71.85,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="3238957553" type="dead_end" x="34.77" y="94.00" incLanes="-30399663#1_0" intLanes="" shape="38.78,89.68 21.79,88.91 25.09,92.40 38.02,92.93" customShape="1"/>

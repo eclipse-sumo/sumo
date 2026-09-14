@@ -146,9 +146,10 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
     myRadius(std::numeric_limits<double>::max()),
-    myPermissions(myLaneBefore->getPermissions() & myLane->getPermissions() & (via == nullptr ? SVCAll : via->getPermissions())),
-    myJunction(nullptr) {
-
+    myPermissions(0),
+    myJunction(nullptr) 
+{
+    updatePermissions();
     if (MSGlobals::gLateralResolution > 0) {
         // detect lateral shift from lane geometries
         //std::cout << "DEBUG link=" << myLaneBefore->getID() << "->" << getViaLaneOrLane()->getID() << " hasInternal=" << MSNet::getInstance()->hasInternalLinks() << " shapeBefore=" << myLaneBefore->getShape().back() << " shapeFront=" << getViaLaneOrLane()->getShape().front() << "\n";
@@ -175,6 +176,13 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
 MSLink::~MSLink() {
     delete myOffFoeLinks;
     delete myApproachingPersons;
+}
+
+
+void
+MSLink::updatePermissions() {
+    // we only ever increase permission because transient permission reductions lead to invalid bestLanes assignment otherwise
+    myPermissions |= myLaneBefore->getPermissions() & myLane->getPermissions() & (myInternalLane == nullptr ? SVCAll : myInternalLane->getPermissions());
 }
 
 
@@ -730,6 +738,13 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
         std::cout << "\n";
     }
 #endif
+    if (MSGlobals::gUseMesoSim) {
+        // - in meso, setApproaching may be called multiple times without intermediate removeApproaching (whenever a vehicle is blocked in MELoop::checkCar)
+        // explicit erasure is necessary because emplace does nothing if the key already exists
+        // - in micro, double registration only happens on looped routes. Here, we only wish to keep the first arrival and thus emplace has the correct behavior
+        //   (on meso, only the next upcoming link is registered so nothing gets overwritten on looped routes)
+        myApproachingVehicles.erase(approaching);
+    }
     myApproachingVehicles.emplace(approaching,
                                   ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
                                           arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset));
@@ -1714,7 +1729,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 continue;
             }
             // after entering the conflict area, ignore foe vehicles that are not in the way
-            if ((!MSGlobals::gComputeLC || (ego != nullptr && ego->getLane() == foeLane) || MSGlobals::gSublane)
+            if ((!MSGlobals::gComputeLC || (ego != nullptr && ego->getLane() == foeLane) || (MSGlobals::gSublane && !MSGlobals::gComputeLC))
                     && distToCrossing < -POSITION_EPS && !inTheWay
                     && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing < -ego->getVehicleType().getLength())) {
                 if (gDebugFlag1) {
@@ -1816,11 +1831,14 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             if (MSGlobals::gLefthand) {
                                 leaderFromRight = !leaderFromRight;
                             }
+                            if (gDebugFlag1) {
+                                std::cout << "   leaderFromRight=" << leaderFromRight << "\n";
+                            }
                             if ((posLat > posLatLeader) == leaderFromRight
                                     // leader should keep lateral position or move away from ego
-                                    && (leader->getLaneChangeModel().getSpeedLat() == 0
+                                    && (leader->getLaneChangeModel().getSpeedLat() == 0 || leader->getLaneChangeModel().getManeuverDist() == 0
                                         || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
-                                    && (ego->getLaneChangeModel().getSpeedLat() == 0
+                                    && (ego->getLaneChangeModel().getSpeedLat() == 0 || ego->getLaneChangeModel().getManeuverDist() == 0
                                         || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > -latGap))) {
                                 if (gDebugFlag1) {
                                     std::cout << "   ignored (different source) leaderFromRight=" << leaderFromRight << "\n";
@@ -2000,7 +2018,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     if (ignoreFoe(ego, leader)) {
                         continue;
                     }
-                    result.emplace_back(leader, gap, -1);
+                    result.emplace_back(leader, gap, -1, LL_SAME_SOURCE);
                 }
             }
         }

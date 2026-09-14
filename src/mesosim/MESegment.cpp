@@ -61,6 +61,7 @@
 // ===========================================================================
 MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
+SVCPermissions MESegment::myMultiModalWarnings(0);
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
 const std::string MESegment::OVERRIDE_TLS_PENALTIES("meso.tls.control");
 
@@ -119,6 +120,8 @@ MESegment::MESegment(const std::string& id,
 
     const std::vector<MSLane*>& lanes = parent.getLanes();
     int usableLanes = 0;
+    SVCPermissions maxAllow = 0;
+    SVCPermissions minAllow = SVCAll;
     for (MSLane* const l : lanes) {
         const SVCPermissions allow = MSEdge::getMesoPermissions(l->getPermissions());
         if (multiQueue) {
@@ -126,6 +129,8 @@ MESegment::MESegment(const std::string& id,
         }
         if (allow != 0) {
             usableLanes++;
+            maxAllow |= allow;
+            minAllow &= allow;
         }
     }
     if (usableLanes == 0) {
@@ -150,6 +155,12 @@ MESegment::MESegment(const std::string& id,
         myQueueCapacity = length;
     } else {
         myQueues.push_back(Queue(parent.getPermissions()));
+        maxAllow &= ~minAllow;
+        if ((maxAllow & ~myMultiModalWarnings) != 0) {
+            WRITE_WARNINGF("Mismodelled capacity on edge '%'. Not all lanes are usable by vClass '%'. Use option --meso-lane-queue or add unused class to option --meso-ignore-lanes-by-vclass.",
+                    myEdge.getID(), getVehicleClassNames(maxAllow & ~myMultiModalWarnings));
+            myMultiModalWarnings |= maxAllow;
+        }
     }
 
     initSegment(edgeType, parent, length * usableLanes);

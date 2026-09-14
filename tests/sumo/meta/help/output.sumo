@@ -1,4 +1,4 @@
-Eclipse SUMO sumo v1_27_1+0302-ab1210ba70b
+Eclipse SUMO sumo v1_27_1+0600-3f7ce74d7c5
  Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -710,8 +710,6 @@ Battery Options:
                                         restriction)
   --device.stationfinder.repeat TIME   When to trigger a new search if no
                                         station has been found
-  --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of
-                                        the vehicle battery
   --device.stationfinder.chargeType STR  Type of energy transfer
   --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
                                         searches for a new station when the
@@ -1018,7 +1016,11 @@ FCD Replay Device Options:
                                         vehicles
   --device.fcd-replay.deterministic    The 'fcd-replay' devices are set
                                         deterministic using a fraction of 1000
-  --device.fcd-replay.file FILE        FCD file to read
+  --device.fcd-replay.files FILE       FCD files to read
+  --device.fcd-replay.consistency STR[]  Values to use when replaying ('all' or
+                                        any combination of 'x', 'y', 'edge',
+                                        'lane', 'speed', 'position', 'angle',
+                                        'type')
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set

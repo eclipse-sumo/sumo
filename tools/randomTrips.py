@@ -980,8 +980,7 @@ def createTrips(options, trip_generator, rerunFactor=None, skipValidation=False)
         fouttrips.write("</routes>\n")
 
     # call duarouter for routes or validated trips
-    args = ['-n', options.netfile, '-r', options.tripfile, '--ignore-errors',
-            '--begin', str(options.begin), '--end', str(options.end), '--no-step-log']
+    args = ['-n', options.netfile, '-r', options.tripfile, '--ignore-errors', '--no-step-log']
     if options.additional is not None:
         args += ['--additional-files', options.additional]
     if options.remove_loops:
