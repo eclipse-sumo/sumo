@@ -101,8 +101,3 @@ cmake -B jupedsim-build -DCMAKE_BUILD_TYPE=Release jupedsim-$JUPEDSIM_VERSION
 cmake --build jupedsim-build -j2
 $SUDO cmake --install jupedsim-build
 rm -rf v$JUPEDSIM_VERSION.tar.gz jupedsim-$JUPEDSIM_VERSION jupedsim-build
-
-if [[ "$ID" != "macOS" ]]; then
-    # see https://github.com/pypa/manylinux/issues/1421
-    pipx install -f patchelf==0.16.1.0
-fi
