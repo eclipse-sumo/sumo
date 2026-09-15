@@ -26,7 +26,7 @@ jobs:
         run: |
           import json, os
 
-          osl = (os.environ.get('INPUT_OS') or 'macos-14,macos-15,ubuntu-latest,ubuntu-24.04-arm,windows-latest').split(",")
+          osl = (os.environ.get('INPUT_OS') or 'macos-15,macos-26,ubuntu-latest,ubuntu-24.04-arm,windows-latest').split(",")
           manylinux = ["default", "manylinux2014", "manylinux_2_28"]
           python_versions = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
@@ -36,7 +36,7 @@ jobs:
               for ml in manylinux:
                   if (ml == "default") == osys.startswith("ubuntu"):
                       continue
-                  if osys != "macos-15" or "macos-14" not in osl:
+                  if osys != "macos-26" or "macos-15" not in osl:
                       include_build.append({"os": osys, "manylinux": ml})
                   for py in python_versions:
                       include_test.append({"os": osys, "manylinux": ml, "python_version": py})

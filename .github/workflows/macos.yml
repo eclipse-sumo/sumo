@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-14, macos-15]
+        os: [macos-15, macos-26]
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
@@ -39,13 +39,6 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2.24
       with:
         key: ${{ matrix.os }}
-
-    - name: Install XQuartz (isolated, with timeout)
-      run: |
-        brew update
-        brew install coreutils
-        brew info apache-arrow
-        gtimeout 300 env HOMEBREW_CASK_OPTS="--no-quarantine" brew install --cask xquartz --verbose
 
     - name: Installing dependencies
       run: sumo/build_config/install_dependencies.sh
