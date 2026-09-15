@@ -66,6 +66,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       SUMO_LIBRARIES: D:\a\sumo\sumo\SUMOLibraries
+      MACOSX_DEPLOYMENT_TARGET: '15.0'
 
     steps:
       - name: Cloning SUMO
@@ -86,12 +87,6 @@ jobs:
       - name: "Set up MSVC Developer Command Prompt"
         if: matrix.os == 'windows-latest'
         uses: compnerd/gha-setup-vsdevenv@v7
-
-      - name: "Set up macOS environment"
-        if: ${{ startsWith(matrix.os, 'macos') }}
-        run: |
-          echo 'CIBW_PROJECT_REQUIRES_PYTHON=>=3.9' >> $GITHUB_ENV
-          echo 'MACOSX_DEPLOYMENT_TARGET=14.0' >> $GITHUB_ENV
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2.24
