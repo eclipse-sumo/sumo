@@ -73,14 +73,14 @@ case "$ID" in
         dnf install -y arrow-devel-$PARQUET_VERSION parquet-devel-$PARQUET_VERSION
         cd /opt
         # building fox from source
-        if curl -LOs http://www.fox-toolkit.org/ftp/fox-$FOX_VERSION.tar.gz; then
+        if curl -LOs http://fox-toolkit.org/ftp/fox-$FOX_VERSION.tar.gz; then
             tar xf fox-$FOX_VERSION.tar.gz
-            rm fox-$FOX_VERSION.tar.gz
+            rm -f fox-$FOX_VERSION.tar.gz
         else
             FOX_VERSION=ed07da20d24279afc18951d2b0fbe6dc920a2660
-            curl -LOs https://github.com/franko/fox/archive/$FOX_VERSION.zip
+            curl -LOs --proto =https https://github.com/franko/fox/archive/$FOX_VERSION.zip
             unzip $FOX_VERSION.zip
-            rm $FOX_VERSION.zip
+            rm -f $FOX_VERSION.zip
         fi
         cd fox-$FOX_VERSION
         ./configure --disable-static --enable-shared
@@ -95,7 +95,7 @@ case "$ID" in
 esac
 
 # building jupedsim from source
-curl -LOs https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v$JUPEDSIM_VERSION.tar.gz
+curl -LOs --proto =https https://github.com/PedestrianDynamics/jupedsim/archive/refs/tags/v$JUPEDSIM_VERSION.tar.gz
 tar xf v$JUPEDSIM_VERSION.tar.gz
 cmake -B jupedsim-build -DCMAKE_BUILD_TYPE=Release jupedsim-$JUPEDSIM_VERSION
 cmake --build jupedsim-build -j2

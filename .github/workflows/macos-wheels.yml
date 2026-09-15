@@ -20,4 +20,4 @@ jobs:
   call-cibuildwheel:
     uses: ./.github/workflows/cibuildwheel.yml
     with:
-      os: "macos-14,macos-15"
+      os: "macos-15,macos-26"
