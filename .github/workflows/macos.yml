@@ -44,6 +44,7 @@ jobs:
       run: |
         brew update
         brew install coreutils
+        brew info apache-arrow
         gtimeout 300 env HOMEBREW_CASK_OPTS="--no-quarantine" brew install --cask xquartz --verbose
 
     - name: Installing dependencies
