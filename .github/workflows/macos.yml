@@ -40,6 +40,11 @@ jobs:
       with:
         key: ${{ matrix.os }}
 
+    - name: Install XQuartz (isolated, with timeout)
+      run: |
+        brew update
+        timeout 300 env HOMEBREW_CASK_OPTS="--no-quarantine" brew install --cask xquartz --verbose
+
     - name: Installing dependencies
       run: sumo/build_config/install_dependencies.sh
 
