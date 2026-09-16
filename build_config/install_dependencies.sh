@@ -104,5 +104,6 @@ rm -rf v$JUPEDSIM_VERSION.tar.gz jupedsim-$JUPEDSIM_VERSION jupedsim-build
 
 if [[ "$ID" != "macOS" ]]; then
     # see https://github.com/pypa/manylinux/issues/1421
+    pipx uninstall patchelf
     pipx install -f patchelf==0.16.1.0
 fi
