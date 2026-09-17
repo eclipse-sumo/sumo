@@ -240,4 +240,4 @@ log:0.0101
 
 [batch_extra_version]
 gcc:perf
-msvc16x64:perf
+msvc:perf
