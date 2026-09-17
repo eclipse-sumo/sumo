@@ -20,6 +20,7 @@
 Filters a TAZ file for edges that exist in the given net
 and optionally
 - keep edges that permit a specific vehicle class
+- keep source and sink edges with sufficient connectivity
 - remove specific edge ids
 
 """
@@ -46,6 +47,8 @@ def getOptions():
     ap.add_argument("-o", "--output", default="taz_filtered.add.xml", category="output", type=ArgumentParser.file,
                     help="write filtered districts to FILE (default: %(default)s)", metavar="FILE")
     ap.add_argument("--vclass", type=str, help="filter taz edges that allow the given vehicle class")
+    ap.add_argument("--min-connections", dest="minConnections", type=int, default=0, category="processing",
+                    help="Minimum number of successors for sources and predecessors for sinks")
     ap.add_argument("--remove-ids", category="processing", dest="removeIDs",
                     help="Remove the given ids from all TAZ")
     ap.add_argument("--remove-ids-file", dest="removeIDsFile", category="processing", type=ap.additional_file,
@@ -73,6 +76,18 @@ def keep(options, net, edge):
             and edge not in options.remove)
 
 
+def keepSource(options, net, edge):
+    return (keep(options, net, edge)
+            and (options.minConnections <= 0
+                 or len(net.getEdge(edge).getAllowedOutgoing(options.vclass)) >= options.minConnections))
+
+
+def keepSink(options, net, edge):
+    return (keep(options, net, edge)
+            and (options.minConnections <= 0
+                 or len(net.getEdge(edge).getAllowedIncoming(options.vclass)) >= options.minConnections))
+
+
 if __name__ == "__main__":
     options = getOptions()
     if options.verbose:
@@ -82,12 +97,18 @@ if __name__ == "__main__":
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
         for taz in sumolib.output.parse(options.tazfile, "taz"):
             if taz.edges is not None:
-                taz.edges = " ".join(
-                    [e for e in taz.edges.split() if keep(options, net, e)])
+                if options.minConnections > 0:
+                    for edge in taz.edges.split():
+                        taz.addChild("tazSource", {"id": edge, "weight": "1"})
+                        taz.addChild("tazSink", {"id": edge, "weight": "1"})
+                    taz.edges = None
+                else:
+                    taz.edges = " ".join(
+                        [e for e in taz.edges.split() if keep(options, net, e)])
             deleteSources = []
             if taz.tazSink is not None:
-                taz.tazSink = [s for s in taz.tazSink if keep(options, net, s.id)]
+                taz.tazSink = [s for s in taz.tazSink if keepSink(options, net, s.id)]
             if taz.tazSource is not None:
-                taz.tazSource = [s for s in taz.tazSource if keep(options, net, s.id)]
+                taz.tazSource = [s for s in taz.tazSource if keepSource(options, net, s.id)]
             outf.write(taz.toXML(initialIndent=" " * 4))
         outf.write("</additional>\n")

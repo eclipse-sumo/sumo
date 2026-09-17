@@ -1,6 +1,12 @@
 keep_all
 passenger
 
+# filter source and sink edges by connectivity
+connectivity
+
+# filter connectivity for the selected vehicle class
+connectivity_passenger
+
 # set edge ids to remove from all  taz
 remove_explicit
 
