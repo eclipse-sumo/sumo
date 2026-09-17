@@ -111,6 +111,35 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
+# Emscripten / WebAssembly target. Everything which needs a desktop window, a
+# native language runtime or a platform allocator is impossible inside the
+# browser sandbox, so those features are switched off unconditionally here.
+# Options which only need a cross compiled dependency (PROJ, Eigen, {fmt}, ...)
+# are left untouched, they are picked up from CMAKE_FIND_ROOT_PATH when present.
+if (EMSCRIPTEN)
+    foreach (wasm_disabled_feature
+             ENABLE_FOX ENABLE_NETEDIT ENABLE_OSG ENABLE_FFMPEG ENABLE_GL2PS
+             ENABLE_PYTHON_BINDINGS ENABLE_JAVA_BINDINGS ENABLE_CS_BINDINGS ENABLE_C_BINDINGS
+             ENABLE_TCMALLOC ENABLE_PARQUET ENABLE_GDAL ENABLE_JUPEDSIM ENABLE_BOOST
+             ENABLE_GTEST ENABLE_FMI CHECK_OPTIONAL_LIBS)
+        set(${wasm_disabled_feature} OFF)
+    endforeach ()
+
+    # libsumo and its dependencies throw and catch across translation unit
+    # boundaries, so exception support has to be requested explicitly and the
+    # very same mode has to be used for every cross compiled dependency
+    # (notably Xerces-C), otherwise throw and catch do not find each other.
+    option(WASM_LEGACY_EXCEPTIONS "Use the JavaScript based exception handling instead of native WebAssembly exceptions" OFF)
+    if (WASM_LEGACY_EXCEPTIONS)
+        set(WASM_EXCEPTION_FLAG "-fexceptions")
+    else ()
+        set(WASM_EXCEPTION_FLAG "-fwasm-exceptions")
+    endif ()
+    add_compile_options(${WASM_EXCEPTION_FLAG})
+    add_link_options(${WASM_EXCEPTION_FLAG})
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} WebAssembly")
+endif ()
+
 # C++20 is needed by Parquet >= 24.
 # C++17 is needed by std::filesystem and Parquet.
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
@@ -143,6 +172,10 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         # disable debug build (due a problem with Runtime Libraries)
         set(CMAKE_CONFIGURATION_TYPES "Release")
         set(CMAKE_BUILD_TYPE "Release")
+    elseif (EMSCRIPTEN)
+        # -pthread would pull in the SharedArrayBuffer based threading of Emscripten
+        # which needs special HTTP headers to be served, so we stay single threaded
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra")
     else ()
         # flags for clang and gcc in linux
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
@@ -201,7 +234,7 @@ endif ()
 
 # special debug flags
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
-if (CLANG_COMPILER)
+if (CLANG_COMPILER AND NOT EMSCRIPTEN)
     if (WIN32)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=undefined,integer -fsanitize-blacklist=${CMAKE_SOURCE_DIR}/build_config/clang_sanitize_blacklist.txt")
         add_compile_definitions(_ITERATOR_DEBUG_LEVEL=0)

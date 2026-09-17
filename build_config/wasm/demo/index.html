@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+Copyright (C) 2012-2026 German Aerospace Center (DLR) and others.
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License 2.0 which is available at
+https://www.eclipse.org/legal/epl-2.0/
+This Source Code may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+@file    index.html
+@author  Masaya Kataoka
+@date    17.09.2026
+
+Minimal browser demo for the WebAssembly build of libsumo. See
+build_config/wasm/README.md for how to serve it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>libsumo in the browser</title>
+<style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; }
+    h1 { font-size: 1.2rem; margin: 0 0 12px; }
+    #controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+    button { font: inherit; padding: 4px 12px; }
+    #status { font-variant-numeric: tabular-nums; opacity: 0.8; }
+    canvas { width: 100%; max-width: 900px; border: 1px solid currentColor; background: #11151c; }
+</style>
+</head>
+<body>
+<h1>libsumo in the browser</h1>
+<div id="controls">
+    <button id="play" disabled>play</button>
+    <button id="stepButton" disabled>step</button>
+    <button id="reload" disabled>restart</button>
+    <span id="status">loading libsumo.wasm ...</span>
+</div>
+<canvas id="canvas" width="800" height="600"></canvas>
+
+<script src="libsumo.js"></script>
+<script>
+'use strict';
+
+const SCENARIO = ['example.sumocfg', 'net.net.xml', 'routes.rou.xml'];
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+const status = document.getElementById('status');
+const playButton = document.getElementById('play');
+const stepButton = document.getElementById('stepButton');
+const reloadButton = document.getElementById('reload');
+
+let libsumo = null;
+let lanes = [];      // the static network geometry, collected once per load
+let transform = null;
+let running = false;
+
+function fitToCanvas(boundary) {
+    const [min, max] = boundary;
+    const margin = 10;
+    const scale = Math.min((canvas.width - 2 * margin) / (max.x - min.x),
+                           (canvas.height - 2 * margin) / (max.y - min.y));
+    // center the network in the canvas
+    const offsetX = (canvas.width - (max.x - min.x) * scale) / 2;
+    const offsetY = (canvas.height - (max.y - min.y) * scale) / 2;
+    // SUMO has y pointing up, the canvas has it pointing down
+    return (x, y) => [offsetX + (x - min.x) * scale, canvas.height - offsetY - (y - min.y) * scale];
+}
+
+function loadScenario() {
+    libsumo.Simulation.load(['-c', '/scenario/example.sumocfg', '--no-step-log', '--xml-validation', 'never']);
+    lanes = libsumo.Lane.getIDList().map((id) => libsumo.Lane.getShape(id));
+    transform = fitToCanvas(libsumo.Simulation.getNetBoundary());
+    draw();
+}
+
+function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    context.strokeStyle = '#5a6473';
+    context.lineWidth = 3;
+    for (const shape of lanes) {
+        context.beginPath();
+        shape.forEach((point, index) => {
+            const [x, y] = transform(point.x, point.y);
+            index === 0 ? context.moveTo(x, y) : context.lineTo(x, y);
+        });
+        context.stroke();
+    }
+
+    for (const vehID of libsumo.Vehicle.getIDList()) {
+        const position = libsumo.Vehicle.getPosition(vehID);
+        const [x, y] = transform(position.x, position.y);
+        // SUMO angles are given in degrees, clockwise from north
+        const angle = libsumo.Vehicle.getAngle(vehID) * Math.PI / 180;
+        const speed = libsumo.Vehicle.getSpeed(vehID);
+        const maxSpeed = Math.max(libsumo.Vehicle.getAllowedSpeed(vehID), 0.1);
+        context.save();
+        context.translate(x, y);
+        context.rotate(angle);
+        // green when driving freely, red when standing
+        const green = Math.round(220 * Math.min(speed / maxSpeed, 1));
+        context.fillStyle = `rgb(230, ${green + 30}, 60)`;
+        context.fillRect(-2.5, -5, 5, 10);
+        context.restore();
+    }
+
+    status.textContent = `t = ${libsumo.Simulation.getTime().toFixed(0)} s, ` +
+        `${libsumo.Vehicle.getIDCount()} vehicles running, ` +
+        `${libsumo.Simulation.getMinExpectedNumber()} expected`;
+}
+
+function step() {
+    if (libsumo.Simulation.getMinExpectedNumber() === 0) {
+        running = false;
+        playButton.textContent = 'play';
+        status.textContent = `finished at t = ${libsumo.Simulation.getTime().toFixed(0)} s`;
+        return false;
+    }
+    libsumo.Simulation.step(0);
+    draw();
+    return true;
+}
+
+function animate() {
+    if (!running) {
+        return;
+    }
+    if (step()) {
+        requestAnimationFrame(animate);
+    }
+}
+
+playButton.addEventListener('click', () => {
+    running = !running;
+    playButton.textContent = running ? 'pause' : 'play';
+    animate();
+});
+
+stepButton.addEventListener('click', () => {
+    running = false;
+    playButton.textContent = 'play';
+    step();
+});
+
+reloadButton.addEventListener('click', () => {
+    running = false;
+    playButton.textContent = 'play';
+    loadScenario();
+});
+
+createLibsumo().then(async (module) => {
+    libsumo = module;
+    libsumo.FS.mkdir('/scenario');
+    for (const name of SCENARIO) {
+        const response = await fetch('example/' + name);
+        if (!response.ok) {
+            throw new Error(`could not fetch example/${name}: ${response.status}`);
+        }
+        libsumo.FS.writeFile('/scenario/' + name, new Uint8Array(await response.arrayBuffer()));
+    }
+    loadScenario();
+    playButton.disabled = stepButton.disabled = reloadButton.disabled = false;
+}).catch((error) => {
+    status.textContent = 'failed: ' + error.message;
+    console.error(error);
+});
+</script>
+</body>
+</html>

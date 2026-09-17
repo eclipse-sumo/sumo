@@ -79,22 +79,57 @@ if (FOX_FOUND)
     target_compile_definitions(libsumocpp PUBLIC HAVE_LIBSUMOGUI)
     set(sumo_link_libraries ${sumoguilibs} libsumoguistatic)
     target_link_libraries(libsumocpp PRIVATE ${sumoguilibs})
+elseif (EMSCRIPTEN)
+    # Emscripten knows no shared libraries, everything is linked into the
+    # WebAssembly module below, so libsumocpp is not built at all here.
+    set(sumo_link_libraries ${sumolibs} libsumostatic)
 else ()
     add_library(libsumocpp SHARED ${libsumostatic_STAT_SRCS})
     set(sumo_link_libraries ${sumolibs} libsumostatic)
     target_link_libraries(libsumocpp PRIVATE ${sumolibs})
 endif()
-# TODO libsumocpp may contain GUI or not, you cannot tell from the name
-add_dependencies(libsumocpp generate-version-h install_dll)
 
-set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
-    OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
-    OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
-target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
-install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
-    RUNTIME LIBRARY ARCHIVE
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+if (NOT EMSCRIPTEN)
+    # TODO libsumocpp may contain GUI or not, you cannot tell from the name
+    add_dependencies(libsumocpp generate-version-h install_dll)
+
+    set_target_properties(libsumocpp PROPERTIES FOLDER "libsumo" PREFIX ""
+        OUTPUT_NAME libsumocpp${BINARY_SUFFIX}
+        OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
+    target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
+    install(TARGETS libsumocpp EXPORT SUMOConfig COMPONENT runtime
+        RUNTIME LIBRARY ARCHIVE
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    )
+else ()
+    # The JavaScript / WebAssembly module. Build it with
+    #   cmake --build <builddir> --target libsumojs
+    # which yields bin/libsumo.js together with bin/libsumo.wasm.
+    option(WASM_ES6_MODULE "Emit the WebAssembly glue code as an ES6 module" OFF)
+    add_executable(libsumojs libsumo_wasm.cpp)
+    add_dependencies(libsumojs generate-version-h)
+    target_link_libraries(libsumojs ${sumo_link_libraries})
+    set_target_properties(libsumojs PROPERTIES FOLDER "libsumo" OUTPUT_NAME libsumo SUFFIX ".js"
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+    target_link_options(libsumojs PRIVATE
+        -lembind
+        # SUMO networks and demand easily exceed the default heap
+        -sALLOW_MEMORY_GROWTH=1
+        -sINITIAL_MEMORY=64MB
+        # the XML parser and the routing algorithms recurse deeply
+        -sSTACK_SIZE=8MB
+        # libsumo reads its input from (and writes its output to) files
+        -sFORCE_FILESYSTEM=1
+        -sEXPORTED_RUNTIME_METHODS=FS,PATH,ENV
+        -sEXIT_RUNTIME=0
+        -sMODULARIZE=1
+        -sEXPORT_NAME=createLibsumo
+        -sENVIRONMENT=web,worker,node
+    )
+    if (WASM_ES6_MODULE)
+        target_link_options(libsumojs PRIVATE -sEXPORT_ES6=1)
+    endif ()
+endif ()
 
 if (SWIG_FOUND)
     include(${SWIG_USE_FILE})
