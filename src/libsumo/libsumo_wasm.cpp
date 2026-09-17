@@ -23,6 +23,7 @@
 #include <vector>
 #include <utility>
 #include <stdexcept>
+#include <type_traits>
 
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
@@ -52,68 +53,52 @@ using emscripten::val;
 // ===========================================================================
 namespace {
 
-/** @brief Turns a C++ exception into a proper JavaScript Error object.
+/** @brief Turns the exception being handled into a proper JavaScript Error.
  *
  * Without this every libsumo error would reach JavaScript as an opaque
  * WebAssembly.Exception without any readable message.
  */
 [[noreturn]] void
-throwAsJsError(const std::string& what) {
+rethrowCurrentAsJsError() {
+    std::string what = "unknown libsumo error";
+    try {
+        throw;
+    } catch (const std::exception& e) {
+        what = e.what();
+    } catch (...) {}
     val error = val::global("Error").new_(what);
     error.set("name", std::string("TraCIError"));
     error.throw_();
 }
 
 
-[[noreturn]] void
-rethrowCurrentAsJsError() {
-    try {
-        throw;
-    } catch (const std::exception& e) {
-        throwAsJsError(e.what());
-    } catch (...) {
-        throwAsJsError("unknown libsumo error");
-    }
-}
+template <typename T> constexpr bool isVector = false;
+template <typename T> constexpr bool isVector<std::vector<T> > = true;
 
 
-/// @brief Wraps a free function so that C++ exceptions surface as JavaScript errors
+/** @brief Wraps a libsumo function for embind.
+ *
+ * C++ exceptions surface as JavaScript errors and results which would need an
+ * embind wrapper object the caller has to free by hand become plain JavaScript
+ * values instead: a std::vector becomes an Array, a position vector an Array
+ * of positions.
+ */
 template <auto F> struct Guard;
 
 template <typename R, typename... A, R(*F)(A...)>
 struct Guard<F> {
-    static R call(A... args) {
+    static auto call(A... args) {
+        using Result = std::remove_cv_t<R>;
         try {
-            return F(args...);
-        } catch (...) {
-            rethrowCurrentAsJsError();
-        }
-    }
-};
-
-
-/** @brief Wraps a function returning a std::vector so that JavaScript receives a
- * plain Array instead of an embind vector which would have to be freed by hand.
- */
-template <auto F> struct VecGuard;
-
-template <typename T, typename... A, std::vector<T>(*F)(A...)>
-struct VecGuard<F> {
-    static val call(A... args) {
-        try {
-            return val::array(F(args...));
-        } catch (...) {
-            rethrowCurrentAsJsError();
-        }
-    }
-};
-
-// libsumo declares some of its list getters with a const qualified return type
-template <typename T, typename... A, const std::vector<T>(*F)(A...)>
-struct VecGuard<F> {
-    static val call(A... args) {
-        try {
-            return val::array(F(args...));
+            if constexpr (std::is_void_v<R>) {
+                F(args...);
+            } else if constexpr (isVector<Result>) {
+                return val::array(F(args...));
+            } else if constexpr (std::is_same_v<Result, libsumo::TraCIPositionVector>) {
+                return val::array(F(args...).value);
+            } else {
+                return F(args...);
+            }
         } catch (...) {
             rethrowCurrentAsJsError();
         }
@@ -126,12 +111,6 @@ toStringVector(const val& array) {
     return emscripten::vecFromJSArray<std::string>(array);
 }
 
-
-std::vector<int>
-toIntVector(const val& array) {
-    return emscripten::vecFromJSArray<int>(array);
-}
-
 // ===========================================================================
 // value types which have no direct embind representation
 // ===========================================================================
@@ -139,14 +118,6 @@ toIntVector(const val& array) {
 struct JsNeighbor {
     std::string id;
     double dist;
-};
-
-/// @brief libsumo::TraCINextTLSData with the state as a string instead of a char
-struct JsNextTLS {
-    std::string id;
-    int tlIndex;
-    double dist;
-    std::string state;
 };
 
 /// @brief the SUMO version
@@ -174,15 +145,98 @@ struct JsPoi {};
 struct JsPolygon {};
 
 // ===========================================================================
+// accessors for the value object members embind cannot map by itself
+// ===========================================================================
+// they turn the member into a plain JavaScript value, so that nothing the
+// caller would have to free by hand ends up in a result
+val stageGetEdges(const libsumo::TraCIStage& stage) {
+    return val::array(stage.edges);
+}
+
+void stageSetEdges(libsumo::TraCIStage& stage, val edges) {
+    stage.edges = toStringVector(edges);
+}
+
+val phaseGetNext(const libsumo::TraCIPhase& phase) {
+    return val::array(phase.next);
+}
+
+void phaseSetNext(libsumo::TraCIPhase& phase, val next) {
+    phase.next = emscripten::vecFromJSArray<int>(next);
+}
+
+val bestLanesGetContinuationLanes(const libsumo::TraCIBestLanesData& data) {
+    return val::array(data.continuationLanes);
+}
+
+void bestLanesSetContinuationLanes(libsumo::TraCIBestLanesData& data, val lanes) {
+    data.continuationLanes = toStringVector(lanes);
+}
+
+// the signal state of a single link is a char, which JavaScript has no type for
+std::string nextTLSGetState(const libsumo::TraCINextTLSData& data) {
+    return std::string(1, data.state);
+}
+
+void nextTLSSetState(libsumo::TraCINextTLSData& data, const std::string& state) {
+    data.state = state.empty() ? ' ' : state[0];
+}
+
+val logicGetPhases(const libsumo::TraCILogic& logic) {
+    std::vector<libsumo::TraCIPhase> phases;
+    phases.reserve(logic.phases.size());
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+        phases.push_back(*phase);
+    }
+    return val::array(phases);
+}
+
+void logicSetPhases(libsumo::TraCILogic& logic, val phases) {
+    logic.phases.clear();
+    for (const libsumo::TraCIPhase& phase : emscripten::vecFromJSArray<libsumo::TraCIPhase>(phases)) {
+        logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(phase));
+    }
+}
+
+val logicGetSubParameter(const libsumo::TraCILogic& logic) {
+    val result = val::object();
+    for (const auto& item : logic.subParameter) {
+        result.set(item.first, item.second);
+    }
+    return result;
+}
+
+void logicSetSubParameter(libsumo::TraCILogic& logic, val subParameter) {
+    logic.subParameter.clear();
+    for (const std::string& key : toStringVector(val::global("Object").call<val>("keys", subParameter))) {
+        logic.subParameter[key] = subParameter[key].as<std::string>();
+    }
+}
+
+// ===========================================================================
 // shims for calls with default arguments, overloads or unbindable types
 // ===========================================================================
+/// @brief passes a JavaScript array where libsumo wants a list of strings
+template <void(*F)(const std::string&, std::vector<std::string>)>
+void setStringList(const std::string& objectID, const val& list) {
+    F(objectID, toStringVector(list));
+}
+
+/// @brief the same for the functions taking that list by const reference
+template <void(*F)(const std::string&, const std::vector<std::string>&)>
+void setStringListRef(const std::string& objectID, const val& list) {
+    F(objectID, toStringVector(list));
+}
+
+/// @brief keeps the action offset, which is what the other clients default to
+template <void(*F)(const std::string&, double, bool)>
+void setActionStepLength(const std::string& objectID, double actionStepLength) {
+    F(objectID, actionStepLength, true);
+}
+
 // --- Simulation ---
 void simulationLoad(const val& args) {
     libsumo::Simulation::load(toStringVector(args));
-}
-
-void simulationStep(double time) {
-    libsumo::Simulation::step(time);
 }
 
 void simulationClose() {
@@ -190,24 +244,8 @@ void simulationClose() {
 }
 
 JsVersion simulationGetVersion() {
-    const std::pair<int, std::string> version = libsumo::Simulation::getVersion();
-    return JsVersion{version.first, version.second};
-}
-
-val simulationGetNetBoundary() {
-    return val::array(libsumo::Simulation::getNetBoundary().value);
-}
-
-libsumo::TraCIPosition simulationConvert2D(const std::string& edgeID, double pos, int laneIndex, bool toGeo) {
-    return libsumo::Simulation::convert2D(edgeID, pos, laneIndex, toGeo);
-}
-
-libsumo::TraCIPosition simulationConvertGeo(double x, double y, bool fromGeo) {
-    return libsumo::Simulation::convertGeo(x, y, fromGeo);
-}
-
-libsumo::TraCIRoadPosition simulationConvertRoad(double x, double y, bool isGeo, const std::string& vClass) {
-    return libsumo::Simulation::convertRoad(x, y, isGeo, vClass);
+    std::pair<int, std::string> version = libsumo::Simulation::getVersion();
+    return JsVersion{version.first, std::move(version.second)};
 }
 
 libsumo::TraCIStage simulationFindRoute(const std::string& fromEdge, const std::string& toEdge,
@@ -215,40 +253,12 @@ libsumo::TraCIStage simulationFindRoute(const std::string& fromEdge, const std::
     return libsumo::Simulation::findRoute(fromEdge, toEdge, vType, depart, routingMode);
 }
 
-void simulationClearPending(const std::string& routeID) {
-    libsumo::Simulation::clearPending(routeID);
-}
-
 // --- Edge ---
-void edgeSetAllowed(const std::string& edgeID, const val& classes) {
-    libsumo::Edge::setAllowed(edgeID, toStringVector(classes));
-}
-
-void edgeSetDisallowed(const std::string& edgeID, const val& classes) {
-    libsumo::Edge::setDisallowed(edgeID, toStringVector(classes));
-}
-
-void edgeAdaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {
-    libsumo::Edge::adaptTraveltime(edgeID, time, beginSeconds, endSeconds);
-}
-
 double edgeGetAngle(const std::string& edgeID) {
     return libsumo::Edge::getAngle(edgeID);
 }
 
 // --- Lane ---
-val laneGetShape(const std::string& laneID) {
-    return val::array(libsumo::Lane::getShape(laneID).value);
-}
-
-void laneSetAllowed(const std::string& laneID, const val& classes) {
-    libsumo::Lane::setAllowed(laneID, toStringVector(classes));
-}
-
-void laneSetDisallowed(const std::string& laneID, const val& classes) {
-    libsumo::Lane::setDisallowed(laneID, toStringVector(classes));
-}
-
 double laneGetAngle(const std::string& laneID) {
     return libsumo::Lane::getAngle(laneID);
 }
@@ -258,40 +268,19 @@ libsumo::TraCIPosition junctionGetPosition(const std::string& junctionID) {
     return libsumo::Junction::getPosition(junctionID);
 }
 
-val junctionGetShape(const std::string& junctionID) {
-    return val::array(libsumo::Junction::getShape(junctionID).value);
-}
-
-// --- Route ---
-void routeAdd(const std::string& routeID, const val& edges) {
-    libsumo::Route::add(routeID, toStringVector(edges));
-}
-
 // --- Vehicle ---
 libsumo::TraCIPosition vehicleGetPosition(const std::string& vehID) {
     return libsumo::Vehicle::getPosition(vehID);
 }
 
 JsNeighbor vehicleGetLeader(const std::string& vehID, double dist) {
-    const std::pair<std::string, double> leader = libsumo::Vehicle::getLeader(vehID, dist);
-    return JsNeighbor{leader.first, leader.second};
+    std::pair<std::string, double> leader = libsumo::Vehicle::getLeader(vehID, dist);
+    return JsNeighbor{std::move(leader.first), leader.second};
 }
 
 JsNeighbor vehicleGetFollower(const std::string& vehID, double dist) {
-    const std::pair<std::string, double> follower = libsumo::Vehicle::getFollower(vehID, dist);
-    return JsNeighbor{follower.first, follower.second};
-}
-
-val vehicleGetNextTLS(const std::string& vehID) {
-    std::vector<JsNextTLS> result;
-    for (const libsumo::TraCINextTLSData& d : libsumo::Vehicle::getNextTLS(vehID)) {
-        result.push_back(JsNextTLS{d.id, d.tlIndex, d.dist, std::string(1, d.state)});
-    }
-    return val::array(result);
-}
-
-val vehicleGetStops(const std::string& vehID, int limit) {
-    return val::array(libsumo::Vehicle::getStops(vehID, limit));
+    std::pair<std::string, double> follower = libsumo::Vehicle::getFollower(vehID, dist);
+    return JsNeighbor{std::move(follower.first), follower.second};
 }
 
 void vehicleAdd(const std::string& vehID, const std::string& routeID, const std::string& typeID,
@@ -304,27 +293,6 @@ void vehicleRemove(const std::string& vehID, int reason) {
     libsumo::Vehicle::remove(vehID, (char)reason);
 }
 
-void vehicleSetRoute(const std::string& vehID, const val& edges) {
-    libsumo::Vehicle::setRoute(vehID, toStringVector(edges));
-}
-
-void vehicleSetVia(const std::string& vehID, const val& edges) {
-    libsumo::Vehicle::setVia(vehID, toStringVector(edges));
-}
-
-void vehicleMoveTo(const std::string& vehID, const std::string& laneID, double pos, int reason) {
-    libsumo::Vehicle::moveTo(vehID, laneID, pos, reason);
-}
-
-void vehicleMoveToXY(const std::string& vehID, const std::string& edgeID, int laneIndex,
-                     double x, double y, double angle, int keepRoute, double matchThreshold) {
-    libsumo::Vehicle::moveToXY(vehID, edgeID, laneIndex, x, y, angle, keepRoute, matchThreshold);
-}
-
-void vehicleRerouteTraveltime(const std::string& vehID, bool currentTravelTimes) {
-    libsumo::Vehicle::rerouteTraveltime(vehID, currentTravelTimes);
-}
-
 double vehicleGetDrivingDistance(const std::string& vehID, const std::string& edgeID, double pos) {
     return libsumo::Vehicle::getDrivingDistance(vehID, edgeID, pos);
 }
@@ -332,19 +300,6 @@ double vehicleGetDrivingDistance(const std::string& vehID, const std::string& ed
 // --- Person ---
 libsumo::TraCIPosition personGetPosition(const std::string& personID) {
     return libsumo::Person::getPosition(personID);
-}
-
-libsumo::TraCIStage personGetStage(const std::string& personID, int nextStageIndex) {
-    return libsumo::Person::getStage(personID, nextStageIndex);
-}
-
-val personGetEdges(const std::string& personID, int nextStageIndex) {
-    return val::array(libsumo::Person::getEdges(personID, nextStageIndex));
-}
-
-void personAdd(const std::string& personID, const std::string& edgeID, double pos, double depart,
-               const std::string& typeID) {
-    libsumo::Person::add(personID, edgeID, pos, depart, typeID);
 }
 
 void personAppendWalkingStage(const std::string& personID, const val& edges, double arrivalPos,
@@ -357,6 +312,7 @@ void personRemove(const std::string& personID, int reason) {
 }
 
 // --- TrafficLight ---
+// the inner vector of links is not registered, so it needs a manual conversion
 val trafficLightGetControlledLinks(const std::string& tlsID) {
     val result = val::array();
     int index = 0;
@@ -364,47 +320,6 @@ val trafficLightGetControlledLinks(const std::string& tlsID) {
         result.set(index++, val::array(links));
     }
     return result;
-}
-
-val toJsLogic(const libsumo::TraCILogic& logic) {
-    val result = val::object();
-    result.set("programID", logic.programID);
-    result.set("type", logic.type);
-    result.set("currentPhaseIndex", logic.currentPhaseIndex);
-    val phases = val::array();
-    int index = 0;
-    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
-        phases.set(index++, val(*phase));
-    }
-    result.set("phases", phases);
-    val subParameter = val::object();
-    for (const auto& item : logic.subParameter) {
-        subParameter.set(item.first, item.second);
-    }
-    result.set("subParameter", subParameter);
-    return result;
-}
-
-val trafficLightGetAllProgramLogics(const std::string& tlsID) {
-    val result = val::array();
-    int index = 0;
-    for (const libsumo::TraCILogic& logic : libsumo::TrafficLight::getAllProgramLogics(tlsID)) {
-        result.set(index++, toJsLogic(logic));
-    }
-    return result;
-}
-
-void trafficLightSetProgramLogic(const std::string& tlsID, const val& jsLogic) {
-    libsumo::TraCILogic logic;
-    logic.programID = jsLogic["programID"].as<std::string>();
-    logic.type = jsLogic["type"].as<int>();
-    logic.currentPhaseIndex = jsLogic["currentPhaseIndex"].as<int>();
-    const val jsPhases = jsLogic["phases"];
-    const int numPhases = jsPhases["length"].as<int>();
-    for (int i = 0; i < numPhases; i++) {
-        logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(jsPhases[i].as<libsumo::TraCIPhase>()));
-    }
-    libsumo::TrafficLight::setProgramLogic(tlsID, logic);
 }
 
 // --- POI ---
@@ -418,21 +333,10 @@ bool poiAdd(const std::string& poiID, double x, double y, const libsumo::TraCICo
     return libsumo::POI::add(poiID, x, y, color, poiType, layer, imgFile, width, height, angle);
 }
 
-bool poiRemove(const std::string& poiID, int layer) {
-    return libsumo::POI::remove(poiID, layer);
-}
-
 // --- Polygon ---
-val polygonGetShape(const std::string& polygonID) {
-    return val::array(libsumo::Polygon::getShape(polygonID).value);
-}
-
 libsumo::TraCIPositionVector toPositionVector(const val& array) {
     libsumo::TraCIPositionVector shape;
-    const int length = array["length"].as<int>();
-    for (int i = 0; i < length; i++) {
-        shape.value.push_back(array[i].as<libsumo::TraCIPosition>());
-    }
+    shape.value = emscripten::vecFromJSArray<libsumo::TraCIPosition>(array);
     return shape;
 }
 
@@ -445,23 +349,6 @@ void polygonAdd(const std::string& polygonID, const val& shape, const libsumo::T
     libsumo::Polygon::add(polygonID, toPositionVector(shape), color, fill, polygonType, layer, lineWidth);
 }
 
-void polygonRemove(const std::string& polygonID, int layer) {
-    libsumo::Polygon::remove(polygonID, layer);
-}
-
-// --- VehicleType ---
-void vehicleTypeSetActionStepLength(const std::string& typeID, double actionStepLength) {
-    libsumo::VehicleType::setActionStepLength(typeID, actionStepLength);
-}
-
-void vehicleSetActionStepLength(const std::string& vehID, double actionStepLength) {
-    libsumo::Vehicle::setActionStepLength(vehID, actionStepLength);
-}
-
-void personSetActionStepLength(const std::string& personID, double actionStepLength) {
-    libsumo::Person::setActionStepLength(personID, actionStepLength);
-}
-
 }  // namespace
 
 
@@ -469,11 +356,12 @@ void personSetActionStepLength(const std::string& personID, double actionStepLen
 // bindings
 // ===========================================================================
 #define FN(NAME, FUNC) class_function(NAME, &Guard<FUNC>::call)
-#define VEC_FN(NAME, FUNC) class_function(NAME, &VecGuard<FUNC>::call)
 
-/// @brief getIDList / getIDCount / getParameter / setParameter of a libsumo domain
+// getIDList / getIDCount / getParameter / setParameter of a libsumo domain.
+// getParameterWithKey of the C++ API is left out, it only exists to carry the
+// key through a subscription and subscriptions are not bound here.
 #define ID_PARAMETER_API(CLASS) \
-    VEC_FN("getIDList", &libsumo::CLASS::getIDList) \
+    FN("getIDList", &libsumo::CLASS::getIDList) \
     .FN("getIDCount", &libsumo::CLASS::getIDCount) \
     .FN("getParameter", &libsumo::CLASS::getParameter) \
     .FN("setParameter", &libsumo::CLASS::setParameter)
@@ -575,11 +463,11 @@ EMSCRIPTEN_BINDINGS(libsumo_types) {
     .field("id", &JsNeighbor::id)
     .field("dist", &JsNeighbor::dist);
 
-    emscripten::value_object<JsNextTLS>("NextTLS")
-    .field("id", &JsNextTLS::id)
-    .field("tlIndex", &JsNextTLS::tlIndex)
-    .field("dist", &JsNextTLS::dist)
-    .field("state", &JsNextTLS::state);
+    emscripten::value_object<libsumo::TraCINextTLSData>("NextTLS")
+    .field("id", &libsumo::TraCINextTLSData::id)
+    .field("tlIndex", &libsumo::TraCINextTLSData::tlIndex)
+    .field("dist", &libsumo::TraCINextTLSData::dist)
+    .field("state", &nextTLSGetState, &nextTLSSetState);
 
     emscripten::value_object<JsVersion>("Version")
     .field("apiVersion", &JsVersion::apiVersion)
@@ -603,35 +491,6 @@ EMSCRIPTEN_BINDINGS(libsumo_types) {
     .field("line", &libsumo::TraCINextStopData::line)
     .field("speed", &libsumo::TraCINextStopData::speed);
 }
-
-
-namespace {
-// the string vector members of the value objects below are mapped to plain
-// JavaScript arrays so that no embind vector has to be freed by the caller
-val stageGetEdges(const libsumo::TraCIStage& stage) {
-    return val::array(stage.edges);
-}
-
-void stageSetEdges(libsumo::TraCIStage& stage, val edges) {
-    stage.edges = toStringVector(edges);
-}
-
-val phaseGetNext(const libsumo::TraCIPhase& phase) {
-    return val::array(phase.next);
-}
-
-void phaseSetNext(libsumo::TraCIPhase& phase, val next) {
-    phase.next = toIntVector(next);
-}
-
-val bestLanesGetContinuationLanes(const libsumo::TraCIBestLanesData& data) {
-    return val::array(data.continuationLanes);
-}
-
-void bestLanesSetContinuationLanes(libsumo::TraCIBestLanesData& data, val lanes) {
-    data.continuationLanes = toStringVector(lanes);
-}
-}  // namespace
 
 
 EMSCRIPTEN_BINDINGS(libsumo_composite_types) {
@@ -659,6 +518,13 @@ EMSCRIPTEN_BINDINGS(libsumo_composite_types) {
     .field("name", &libsumo::TraCIPhase::name)
     .field("earlyTarget", &libsumo::TraCIPhase::earlyTarget);
 
+    emscripten::value_object<libsumo::TraCILogic>("Logic")
+    .field("programID", &libsumo::TraCILogic::programID)
+    .field("type", &libsumo::TraCILogic::type)
+    .field("currentPhaseIndex", &libsumo::TraCILogic::currentPhaseIndex)
+    .field("phases", &logicGetPhases, &logicSetPhases)
+    .field("subParameter", &logicGetSubParameter, &logicSetSubParameter);
+
     emscripten::value_object<libsumo::TraCIBestLanesData>("BestLanesData")
     .field("laneID", &libsumo::TraCIBestLanesData::laneID)
     .field("length", &libsumo::TraCIBestLanesData::length)
@@ -673,7 +539,7 @@ EMSCRIPTEN_BINDINGS(libsumo_simulation) {
     emscripten::class_<JsSimulation>("Simulation")
     .class_function("load", &Guard<&simulationLoad>::call)
     .FN("isLoaded", &libsumo::Simulation::isLoaded)
-    .class_function("step", &Guard<&simulationStep>::call)
+    .FN("step", &libsumo::Simulation::step)
     .FN("executeMove", &libsumo::Simulation::executeMove)
     .class_function("close", &Guard<&simulationClose>::call)
     .class_function("getVersion", &Guard<&simulationGetVersion>::call)
@@ -684,35 +550,35 @@ EMSCRIPTEN_BINDINGS(libsumo_simulation) {
     .FN("getCurrentTime", &libsumo::Simulation::getCurrentTime)
     .FN("getMinExpectedNumber", &libsumo::Simulation::getMinExpectedNumber)
     .FN("getLoadedNumber", &libsumo::Simulation::getLoadedNumber)
-    .VEC_FN("getLoadedIDList", &libsumo::Simulation::getLoadedIDList)
+    .FN("getLoadedIDList", &libsumo::Simulation::getLoadedIDList)
     .FN("getDepartedNumber", &libsumo::Simulation::getDepartedNumber)
-    .VEC_FN("getDepartedIDList", &libsumo::Simulation::getDepartedIDList)
+    .FN("getDepartedIDList", &libsumo::Simulation::getDepartedIDList)
     .FN("getArrivedNumber", &libsumo::Simulation::getArrivedNumber)
-    .VEC_FN("getArrivedIDList", &libsumo::Simulation::getArrivedIDList)
+    .FN("getArrivedIDList", &libsumo::Simulation::getArrivedIDList)
     .FN("getCollidingVehiclesNumber", &libsumo::Simulation::getCollidingVehiclesNumber)
-    .VEC_FN("getCollidingVehiclesIDList", &libsumo::Simulation::getCollidingVehiclesIDList)
+    .FN("getCollidingVehiclesIDList", &libsumo::Simulation::getCollidingVehiclesIDList)
     .FN("getStartingTeleportNumber", &libsumo::Simulation::getStartingTeleportNumber)
-    .VEC_FN("getStartingTeleportIDList", &libsumo::Simulation::getStartingTeleportIDList)
+    .FN("getStartingTeleportIDList", &libsumo::Simulation::getStartingTeleportIDList)
     .FN("getEndingTeleportNumber", &libsumo::Simulation::getEndingTeleportNumber)
-    .VEC_FN("getEndingTeleportIDList", &libsumo::Simulation::getEndingTeleportIDList)
+    .FN("getEndingTeleportIDList", &libsumo::Simulation::getEndingTeleportIDList)
     .FN("getDepartedPersonNumber", &libsumo::Simulation::getDepartedPersonNumber)
-    .VEC_FN("getDepartedPersonIDList", &libsumo::Simulation::getDepartedPersonIDList)
+    .FN("getDepartedPersonIDList", &libsumo::Simulation::getDepartedPersonIDList)
     .FN("getArrivedPersonNumber", &libsumo::Simulation::getArrivedPersonNumber)
-    .VEC_FN("getArrivedPersonIDList", &libsumo::Simulation::getArrivedPersonIDList)
-    .VEC_FN("getBusStopIDList", &libsumo::Simulation::getBusStopIDList)
+    .FN("getArrivedPersonIDList", &libsumo::Simulation::getArrivedPersonIDList)
+    .FN("getBusStopIDList", &libsumo::Simulation::getBusStopIDList)
     .FN("getBusStopWaiting", &libsumo::Simulation::getBusStopWaiting)
-    .VEC_FN("getBusStopWaitingIDList", &libsumo::Simulation::getBusStopWaitingIDList)
-    .VEC_FN("getPendingVehicles", &libsumo::Simulation::getPendingVehicles)
-    .class_function("getNetBoundary", &Guard<&simulationGetNetBoundary>::call)
-    .class_function("convert2D", &Guard<&simulationConvert2D>::call)
-    .class_function("convertGeo", &Guard<&simulationConvertGeo>::call)
-    .class_function("convertRoad", &Guard<&simulationConvertRoad>::call)
+    .FN("getBusStopWaitingIDList", &libsumo::Simulation::getBusStopWaitingIDList)
+    .FN("getPendingVehicles", &libsumo::Simulation::getPendingVehicles)
+    .FN("getNetBoundary", &libsumo::Simulation::getNetBoundary)
+    .FN("convert2D", &libsumo::Simulation::convert2D)
+    .FN("convertGeo", &libsumo::Simulation::convertGeo)
+    .FN("convertRoad", &libsumo::Simulation::convertRoad)
     .FN("getDistance2D", &libsumo::Simulation::getDistance2D)
     .FN("getDistanceRoad", &libsumo::Simulation::getDistanceRoad)
     .class_function("findRoute", &Guard<&simulationFindRoute>::call)
     .FN("getScale", &libsumo::Simulation::getScale)
     .FN("setScale", &libsumo::Simulation::setScale)
-    .class_function("clearPending", &Guard<&simulationClearPending>::call)
+    .FN("clearPending", &libsumo::Simulation::clearPending)
     .FN("saveState", &libsumo::Simulation::saveState)
     .FN("loadState", &libsumo::Simulation::loadState)
     .FN("writeMessage", &libsumo::Simulation::writeMessage)
@@ -728,9 +594,9 @@ EMSCRIPTEN_BINDINGS(libsumo_network) {
     .FN("getEffort", &libsumo::Edge::getEffort)
     .FN("getTraveltime", &libsumo::Edge::getTraveltime)
     .FN("getWaitingTime", &libsumo::Edge::getWaitingTime)
-    .VEC_FN("getLastStepPersonIDs", &libsumo::Edge::getLastStepPersonIDs)
-    .VEC_FN("getLastStepVehicleIDs", &libsumo::Edge::getLastStepVehicleIDs)
-    .VEC_FN("getPendingVehicles", &libsumo::Edge::getPendingVehicles)
+    .FN("getLastStepPersonIDs", &libsumo::Edge::getLastStepPersonIDs)
+    .FN("getLastStepVehicleIDs", &libsumo::Edge::getLastStepVehicleIDs)
+    .FN("getPendingVehicles", &libsumo::Edge::getPendingVehicles)
     .FN("getCO2Emission", &libsumo::Edge::getCO2Emission)
     .FN("getCOEmission", &libsumo::Edge::getCOEmission)
     .FN("getHCEmission", &libsumo::Edge::getHCEmission)
@@ -751,9 +617,9 @@ EMSCRIPTEN_BINDINGS(libsumo_network) {
     .FN("getToJunction", &libsumo::Edge::getToJunction)
     .FN("getBidiEdge", &libsumo::Edge::getBidiEdge)
     .class_function("getAngle", &Guard<&edgeGetAngle>::call)
-    .class_function("setAllowed", &Guard<&edgeSetAllowed>::call)
-    .class_function("setDisallowed", &Guard<&edgeSetDisallowed>::call)
-    .class_function("adaptTraveltime", &Guard<&edgeAdaptTraveltime>::call)
+    .FN("setAllowed", &setStringList<&libsumo::Edge::setAllowed>)
+    .FN("setDisallowed", &setStringList<&libsumo::Edge::setDisallowed>)
+    .FN("adaptTraveltime", &libsumo::Edge::adaptTraveltime)
     .FN("setMaxSpeed", &libsumo::Edge::setMaxSpeed)
     .FN("setFriction", &libsumo::Edge::setFriction);
 
@@ -765,15 +631,15 @@ EMSCRIPTEN_BINDINGS(libsumo_network) {
     .FN("getFriction", &libsumo::Lane::getFriction)
     .FN("getWidth", &libsumo::Lane::getWidth)
     .FN("getLinkNumber", &libsumo::Lane::getLinkNumber)
-    .VEC_FN("getAllowed", &libsumo::Lane::getAllowed)
-    .VEC_FN("getDisallowed", &libsumo::Lane::getDisallowed)
-    .VEC_FN("getChangePermissions", &libsumo::Lane::getChangePermissions)
-    .VEC_FN("getLinks", &libsumo::Lane::getLinks)
-    .VEC_FN("getFoes", &libsumo::Lane::getFoes)
-    .VEC_FN("getInternalFoes", &libsumo::Lane::getInternalFoes)
-    .VEC_FN("getLastStepVehicleIDs", &libsumo::Lane::getLastStepVehicleIDs)
-    .VEC_FN("getPendingVehicles", &libsumo::Lane::getPendingVehicles)
-    .class_function("getShape", &Guard<&laneGetShape>::call)
+    .FN("getAllowed", &libsumo::Lane::getAllowed)
+    .FN("getDisallowed", &libsumo::Lane::getDisallowed)
+    .FN("getChangePermissions", &libsumo::Lane::getChangePermissions)
+    .FN("getLinks", &libsumo::Lane::getLinks)
+    .FN("getFoes", &libsumo::Lane::getFoes)
+    .FN("getInternalFoes", &libsumo::Lane::getInternalFoes)
+    .FN("getLastStepVehicleIDs", &libsumo::Lane::getLastStepVehicleIDs)
+    .FN("getPendingVehicles", &libsumo::Lane::getPendingVehicles)
+    .FN("getShape", &libsumo::Lane::getShape)
     .FN("getCO2Emission", &libsumo::Lane::getCO2Emission)
     .FN("getCOEmission", &libsumo::Lane::getCOEmission)
     .FN("getHCEmission", &libsumo::Lane::getHCEmission)
@@ -791,8 +657,8 @@ EMSCRIPTEN_BINDINGS(libsumo_network) {
     .FN("getLastStepHaltingNumber", &libsumo::Lane::getLastStepHaltingNumber)
     .FN("getBidiLane", &libsumo::Lane::getBidiLane)
     .class_function("getAngle", &Guard<&laneGetAngle>::call)
-    .class_function("setAllowed", &Guard<&laneSetAllowed>::call)
-    .class_function("setDisallowed", &Guard<&laneSetDisallowed>::call)
+    .FN("setAllowed", &setStringList<&libsumo::Lane::setAllowed>)
+    .FN("setDisallowed", &setStringList<&libsumo::Lane::setDisallowed>)
     .FN("setMaxSpeed", &libsumo::Lane::setMaxSpeed)
     .FN("setLength", &libsumo::Lane::setLength)
     .FN("setFriction", &libsumo::Lane::setFriction);
@@ -800,14 +666,14 @@ EMSCRIPTEN_BINDINGS(libsumo_network) {
     emscripten::class_<JsJunction>("Junction")
     .ID_PARAMETER_API(Junction)
     .class_function("getPosition", &Guard<&junctionGetPosition>::call)
-    .class_function("getShape", &Guard<&junctionGetShape>::call)
-    .VEC_FN("getIncomingEdges", &libsumo::Junction::getIncomingEdges)
-    .VEC_FN("getOutgoingEdges", &libsumo::Junction::getOutgoingEdges);
+    .FN("getShape", &libsumo::Junction::getShape)
+    .FN("getIncomingEdges", &libsumo::Junction::getIncomingEdges)
+    .FN("getOutgoingEdges", &libsumo::Junction::getOutgoingEdges);
 
     emscripten::class_<JsRoute>("Route")
     .ID_PARAMETER_API(Route)
-    .VEC_FN("getEdges", &libsumo::Route::getEdges)
-    .class_function("add", &Guard<&routeAdd>::call)
+    .FN("getEdges", &libsumo::Route::getEdges)
+    .FN("add", &setStringListRef<&libsumo::Route::add>)
     .FN("remove", &libsumo::Route::remove);
 }
 
@@ -817,9 +683,9 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .ID_PARAMETER_API(Vehicle)
     .VEHICLE_TYPE_GETTER(Vehicle)
     .VEHICLE_TYPE_SETTER(Vehicle)
-    .VEC_FN("getLoadedIDList", &libsumo::Vehicle::getLoadedIDList)
-    .VEC_FN("getTeleportingIDList", &libsumo::Vehicle::getTeleportingIDList)
-    .VEC_FN("getTaxiFleet", &libsumo::Vehicle::getTaxiFleet)
+    .FN("getLoadedIDList", &libsumo::Vehicle::getLoadedIDList)
+    .FN("getTeleportingIDList", &libsumo::Vehicle::getTeleportingIDList)
+    .FN("getTaxiFleet", &libsumo::Vehicle::getTaxiFleet)
     .FN("getSpeed", &libsumo::Vehicle::getSpeed)
     .FN("getLateralSpeed", &libsumo::Vehicle::getLateralSpeed)
     .FN("getAcceleration", &libsumo::Vehicle::getAcceleration)
@@ -834,7 +700,7 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getTypeID", &libsumo::Vehicle::getTypeID)
     .FN("getRouteID", &libsumo::Vehicle::getRouteID)
     .FN("getRouteIndex", &libsumo::Vehicle::getRouteIndex)
-    .VEC_FN("getRoute", &libsumo::Vehicle::getRoute)
+    .FN("getRoute", &libsumo::Vehicle::getRoute)
     .FN("getDeparture", &libsumo::Vehicle::getDeparture)
     .FN("getDepartDelay", &libsumo::Vehicle::getDepartDelay)
     .FN("getLanePosition", &libsumo::Vehicle::getLanePosition)
@@ -848,7 +714,7 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getNoiseEmission", &libsumo::Vehicle::getNoiseEmission)
     .FN("getElectricityConsumption", &libsumo::Vehicle::getElectricityConsumption)
     .FN("getPersonNumber", &libsumo::Vehicle::getPersonNumber)
-    .VEC_FN("getPersonIDList", &libsumo::Vehicle::getPersonIDList)
+    .FN("getPersonIDList", &libsumo::Vehicle::getPersonIDList)
     .class_function("getLeader", &Guard<&vehicleGetLeader>::call)
     .class_function("getFollower", &Guard<&vehicleGetFollower>::call)
     .FN("getWaitingTime", &libsumo::Vehicle::getWaitingTime)
@@ -856,10 +722,10 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getTimeLoss", &libsumo::Vehicle::getTimeLoss)
     .FN("isRouteValid", &libsumo::Vehicle::isRouteValid)
     .FN("getSignals", &libsumo::Vehicle::getSignals)
-    .VEC_FN("getBestLanes", &libsumo::Vehicle::getBestLanes)
-    .class_function("getNextTLS", &Guard<&vehicleGetNextTLS>::call)
-    .VEC_FN("getNextStops", &libsumo::Vehicle::getNextStops)
-    .class_function("getStops", &Guard<&vehicleGetStops>::call)
+    .FN("getBestLanes", &libsumo::Vehicle::getBestLanes)
+    .FN("getNextTLS", &libsumo::Vehicle::getNextTLS)
+    .FN("getNextStops", &libsumo::Vehicle::getNextStops)
+    .FN("getStops", &libsumo::Vehicle::getStops)
     .FN("getStopState", &libsumo::Vehicle::getStopState)
     .FN("getStopDelay", &libsumo::Vehicle::getStopDelay)
     .FN("getStopArrivalDelay", &libsumo::Vehicle::getStopArrivalDelay)
@@ -871,7 +737,7 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getLaneChangeMode", &libsumo::Vehicle::getLaneChangeMode)
     .FN("getRoutingMode", &libsumo::Vehicle::getRoutingMode)
     .FN("getLine", &libsumo::Vehicle::getLine)
-    .VEC_FN("getVia", &libsumo::Vehicle::getVia)
+    .FN("getVia", &libsumo::Vehicle::getVia)
     .FN("getLastActionTime", &libsumo::Vehicle::getLastActionTime)
     .class_function("add", &Guard<&vehicleAdd>::call)
     .class_function("remove", &Guard<&vehicleRemove>::call)
@@ -887,18 +753,18 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("setRoutingMode", &libsumo::Vehicle::setRoutingMode)
     .FN("setType", &libsumo::Vehicle::setType)
     .FN("setRouteID", &libsumo::Vehicle::setRouteID)
-    .class_function("setRoute", &Guard<&vehicleSetRoute>::call)
-    .class_function("setVia", &Guard<&vehicleSetVia>::call)
+    .FN("setRoute", &setStringListRef<&libsumo::Vehicle::setRoute>)
+    .FN("setVia", &setStringListRef<&libsumo::Vehicle::setVia>)
     .FN("setLateralLanePosition", &libsumo::Vehicle::setLateralLanePosition)
     .FN("updateBestLanes", &libsumo::Vehicle::updateBestLanes)
-    .class_function("rerouteTraveltime", &Guard<&vehicleRerouteTraveltime>::call)
+    .FN("rerouteTraveltime", &libsumo::Vehicle::rerouteTraveltime)
     .FN("rerouteEffort", &libsumo::Vehicle::rerouteEffort)
     .FN("setSignals", &libsumo::Vehicle::setSignals)
-    .class_function("moveTo", &Guard<&vehicleMoveTo>::call)
-    .class_function("moveToXY", &Guard<&vehicleMoveToXY>::call)
+    .FN("moveTo", &libsumo::Vehicle::moveTo)
+    .FN("moveToXY", &libsumo::Vehicle::moveToXY)
     .FN("setLine", &libsumo::Vehicle::setLine)
     .FN("resume", &libsumo::Vehicle::resume)
-    .class_function("setActionStepLength", &Guard<&vehicleSetActionStepLength>::call);
+    .FN("setActionStepLength", &setActionStepLength<&libsumo::Vehicle::setActionStepLength>);
 
     emscripten::class_<JsVehicleType>("VehicleType")
     .ID_PARAMETER_API(VehicleType)
@@ -908,7 +774,7 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getScale", &libsumo::VehicleType::getScale)
     .FN("setScale", &libsumo::VehicleType::setScale)
     .FN("setSpeedDeviation", &libsumo::VehicleType::setSpeedDeviation)
-    .class_function("setActionStepLength", &Guard<&vehicleTypeSetActionStepLength>::call);
+    .FN("setActionStepLength", &setActionStepLength<&libsumo::VehicleType::setActionStepLength>);
 
     emscripten::class_<JsPerson>("Person")
     .ID_PARAMETER_API(Person)
@@ -927,9 +793,9 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("getNextEdge", &libsumo::Person::getNextEdge)
     .FN("getVehicle", &libsumo::Person::getVehicle)
     .FN("getRemainingStages", &libsumo::Person::getRemainingStages)
-    .class_function("getStage", &Guard<&personGetStage>::call)
-    .class_function("getEdges", &Guard<&personGetEdges>::call)
-    .class_function("add", &Guard<&personAdd>::call)
+    .FN("getStage", &libsumo::Person::getStage)
+    .FN("getEdges", &libsumo::Person::getEdges)
+    .FN("add", &libsumo::Person::add)
     .class_function("remove", &Guard<&personRemove>::call)
     .FN("appendStage", &libsumo::Person::appendStage)
     .FN("replaceStage", &libsumo::Person::replaceStage)
@@ -942,7 +808,7 @@ EMSCRIPTEN_BINDINGS(libsumo_vehicle) {
     .FN("moveToXY", &libsumo::Person::moveToXY)
     .FN("setSpeed", &libsumo::Person::setSpeed)
     .FN("setType", &libsumo::Person::setType)
-    .class_function("setActionStepLength", &Guard<&personSetActionStepLength>::call);
+    .FN("setActionStepLength", &setActionStepLength<&libsumo::Person::setActionStepLength>);
 }
 
 
@@ -950,10 +816,10 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     emscripten::class_<JsTrafficLight>("TrafficLight")
     .ID_PARAMETER_API(TrafficLight)
     .FN("getRedYellowGreenState", &libsumo::TrafficLight::getRedYellowGreenState)
-    .VEC_FN("getControlledJunctions", &libsumo::TrafficLight::getControlledJunctions)
-    .VEC_FN("getControlledLanes", &libsumo::TrafficLight::getControlledLanes)
+    .FN("getControlledJunctions", &libsumo::TrafficLight::getControlledJunctions)
+    .FN("getControlledLanes", &libsumo::TrafficLight::getControlledLanes)
     .class_function("getControlledLinks", &Guard<&trafficLightGetControlledLinks>::call)
-    .class_function("getAllProgramLogics", &Guard<&trafficLightGetAllProgramLogics>::call)
+    .FN("getAllProgramLogics", &libsumo::TrafficLight::getAllProgramLogics)
     .FN("getProgram", &libsumo::TrafficLight::getProgram)
     .FN("getPhase", &libsumo::TrafficLight::getPhase)
     .FN("getPhaseName", &libsumo::TrafficLight::getPhaseName)
@@ -961,15 +827,15 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     .FN("getNextSwitch", &libsumo::TrafficLight::getNextSwitch)
     .FN("getSpentDuration", &libsumo::TrafficLight::getSpentDuration)
     .FN("getServedPersonCount", &libsumo::TrafficLight::getServedPersonCount)
-    .VEC_FN("getBlockingVehicles", &libsumo::TrafficLight::getBlockingVehicles)
-    .VEC_FN("getRivalVehicles", &libsumo::TrafficLight::getRivalVehicles)
-    .VEC_FN("getPriorityVehicles", &libsumo::TrafficLight::getPriorityVehicles)
+    .FN("getBlockingVehicles", &libsumo::TrafficLight::getBlockingVehicles)
+    .FN("getRivalVehicles", &libsumo::TrafficLight::getRivalVehicles)
+    .FN("getPriorityVehicles", &libsumo::TrafficLight::getPriorityVehicles)
     .FN("setRedYellowGreenState", &libsumo::TrafficLight::setRedYellowGreenState)
     .FN("setPhase", &libsumo::TrafficLight::setPhase)
     .FN("setPhaseName", &libsumo::TrafficLight::setPhaseName)
     .FN("setProgram", &libsumo::TrafficLight::setProgram)
     .FN("setPhaseDuration", &libsumo::TrafficLight::setPhaseDuration)
-    .class_function("setProgramLogic", &Guard<&trafficLightSetProgramLogic>::call);
+    .FN("setProgramLogic", &libsumo::TrafficLight::setProgramLogic);
 
     emscripten::class_<JsInductionLoop>("InductionLoop")
     .ID_PARAMETER_API(InductionLoop)
@@ -977,19 +843,19 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     .FN("getLaneID", &libsumo::InductionLoop::getLaneID)
     .FN("getLastStepVehicleNumber", &libsumo::InductionLoop::getLastStepVehicleNumber)
     .FN("getLastStepMeanSpeed", &libsumo::InductionLoop::getLastStepMeanSpeed)
-    .VEC_FN("getLastStepVehicleIDs", &libsumo::InductionLoop::getLastStepVehicleIDs)
+    .FN("getLastStepVehicleIDs", &libsumo::InductionLoop::getLastStepVehicleIDs)
     .FN("getLastStepOccupancy", &libsumo::InductionLoop::getLastStepOccupancy)
     .FN("getLastStepMeanLength", &libsumo::InductionLoop::getLastStepMeanLength)
     .FN("getTimeSinceDetection", &libsumo::InductionLoop::getTimeSinceDetection)
-    .VEC_FN("getVehicleData", &libsumo::InductionLoop::getVehicleData)
+    .FN("getVehicleData", &libsumo::InductionLoop::getVehicleData)
     .FN("getIntervalOccupancy", &libsumo::InductionLoop::getIntervalOccupancy)
     .FN("getIntervalMeanSpeed", &libsumo::InductionLoop::getIntervalMeanSpeed)
     .FN("getIntervalVehicleNumber", &libsumo::InductionLoop::getIntervalVehicleNumber)
-    .VEC_FN("getIntervalVehicleIDs", &libsumo::InductionLoop::getIntervalVehicleIDs)
+    .FN("getIntervalVehicleIDs", &libsumo::InductionLoop::getIntervalVehicleIDs)
     .FN("getLastIntervalOccupancy", &libsumo::InductionLoop::getLastIntervalOccupancy)
     .FN("getLastIntervalMeanSpeed", &libsumo::InductionLoop::getLastIntervalMeanSpeed)
     .FN("getLastIntervalVehicleNumber", &libsumo::InductionLoop::getLastIntervalVehicleNumber)
-    .VEC_FN("getLastIntervalVehicleIDs", &libsumo::InductionLoop::getLastIntervalVehicleIDs)
+    .FN("getLastIntervalVehicleIDs", &libsumo::InductionLoop::getLastIntervalVehicleIDs)
     .FN("overrideTimeSinceDetection", &libsumo::InductionLoop::overrideTimeSinceDetection);
 
     emscripten::class_<JsLaneArea>("LaneArea")
@@ -1000,7 +866,7 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     .FN("getJamLengthVehicle", &libsumo::LaneArea::getJamLengthVehicle)
     .FN("getJamLengthMeters", &libsumo::LaneArea::getJamLengthMeters)
     .FN("getLastStepMeanSpeed", &libsumo::LaneArea::getLastStepMeanSpeed)
-    .VEC_FN("getLastStepVehicleIDs", &libsumo::LaneArea::getLastStepVehicleIDs)
+    .FN("getLastStepVehicleIDs", &libsumo::LaneArea::getLastStepVehicleIDs)
     .FN("getLastStepOccupancy", &libsumo::LaneArea::getLastStepOccupancy)
     .FN("getLastStepVehicleNumber", &libsumo::LaneArea::getLastStepVehicleNumber)
     .FN("getLastStepHaltingNumber", &libsumo::LaneArea::getLastStepHaltingNumber)
@@ -1018,13 +884,13 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
 
     emscripten::class_<JsMultiEntryExit>("MultiEntryExit")
     .ID_PARAMETER_API(MultiEntryExit)
-    .VEC_FN("getEntryLanes", &libsumo::MultiEntryExit::getEntryLanes)
-    .VEC_FN("getExitLanes", &libsumo::MultiEntryExit::getExitLanes)
-    .VEC_FN("getEntryPositions", &libsumo::MultiEntryExit::getEntryPositions)
-    .VEC_FN("getExitPositions", &libsumo::MultiEntryExit::getExitPositions)
+    .FN("getEntryLanes", &libsumo::MultiEntryExit::getEntryLanes)
+    .FN("getExitLanes", &libsumo::MultiEntryExit::getExitLanes)
+    .FN("getEntryPositions", &libsumo::MultiEntryExit::getEntryPositions)
+    .FN("getExitPositions", &libsumo::MultiEntryExit::getExitPositions)
     .FN("getLastStepVehicleNumber", &libsumo::MultiEntryExit::getLastStepVehicleNumber)
     .FN("getLastStepMeanSpeed", &libsumo::MultiEntryExit::getLastStepMeanSpeed)
-    .VEC_FN("getLastStepVehicleIDs", &libsumo::MultiEntryExit::getLastStepVehicleIDs)
+    .FN("getLastStepVehicleIDs", &libsumo::MultiEntryExit::getLastStepVehicleIDs)
     .FN("getLastStepHaltingNumber", &libsumo::MultiEntryExit::getLastStepHaltingNumber)
     .FN("getLastIntervalMeanTravelTime", &libsumo::MultiEntryExit::getLastIntervalMeanTravelTime)
     .FN("getLastIntervalMeanHaltsPerVehicle", &libsumo::MultiEntryExit::getLastIntervalMeanHaltsPerVehicle)
@@ -1048,12 +914,12 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     .FN("setAngle", &libsumo::POI::setAngle)
     .FN("setImageFile", &libsumo::POI::setImageFile)
     .class_function("add", &Guard<&poiAdd>::call)
-    .class_function("remove", &Guard<&poiRemove>::call);
+    .FN("remove", &libsumo::POI::remove);
 
     emscripten::class_<JsPolygon>("Polygon")
     .ID_PARAMETER_API(Polygon)
     .FN("getType", &libsumo::Polygon::getType)
-    .class_function("getShape", &Guard<&polygonGetShape>::call)
+    .FN("getShape", &libsumo::Polygon::getShape)
     .FN("getColor", &libsumo::Polygon::getColor)
     .FN("getFilled", &libsumo::Polygon::getFilled)
     .FN("getLineWidth", &libsumo::Polygon::getLineWidth)
@@ -1063,7 +929,7 @@ EMSCRIPTEN_BINDINGS(libsumo_infrastructure) {
     .FN("setFilled", &libsumo::Polygon::setFilled)
     .FN("setLineWidth", &libsumo::Polygon::setLineWidth)
     .class_function("add", &Guard<&polygonAdd>::call)
-    .class_function("remove", &Guard<&polygonRemove>::call);
+    .FN("remove", &libsumo::Polygon::remove);
 }
 
 

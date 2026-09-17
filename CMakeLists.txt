@@ -30,6 +30,8 @@ option(ENABLE_GL2PS "Enable GL2PS for vector graphics export" ${CHECK_OPTIONAL_L
 option(ENABLE_JUPEDSIM "Enable JuPedSim pedestrian simulation integration" ${CHECK_OPTIONAL_LIBS})
 option(ENABLE_BOOST "Enable Boost for stacktrace support" ${CHECK_OPTIONAL_LIBS})
 option(VERBOSE_SUB "Let sub-commands be more verbose")
+option(WASM_LEGACY_EXCEPTIONS "Use the JavaScript based exception handling instead of native WebAssembly exceptions (Emscripten only)" OFF)
+option(WASM_ES6_MODULE "Emit the WebAssembly glue code as an ES6 module (Emscripten only)" OFF)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
@@ -111,29 +113,27 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set (CLANG_COMPILER True)
 endif ()
 
-# Emscripten / WebAssembly target. Everything which needs a desktop window, a
-# native language runtime or a platform allocator is impossible inside the
-# browser sandbox, so those features are switched off unconditionally here.
-# Options which only need a cross compiled dependency (PROJ, Eigen, {fmt}, ...)
-# are left untouched, they are picked up from CMAKE_FIND_ROOT_PATH when present.
+# Emscripten / WebAssembly target. The features below need a desktop window or
+# a native language runtime, so they cannot work in a browser sandbox no matter
+# which libraries are available (netedit, the 3D view and the video export
+# follow from ENABLE_FOX being off). Everything else (PROJ, GDAL, Eigen, {fmt},
+# tcmalloc, ...) is already gated by its find_package / find_library below and
+# switches itself off unless a cross compiled version is in CMAKE_FIND_ROOT_PATH.
 if (EMSCRIPTEN)
     foreach (wasm_disabled_feature
-             ENABLE_FOX ENABLE_NETEDIT ENABLE_OSG ENABLE_FFMPEG ENABLE_GL2PS
-             ENABLE_PYTHON_BINDINGS ENABLE_JAVA_BINDINGS ENABLE_CS_BINDINGS ENABLE_C_BINDINGS
-             ENABLE_TCMALLOC ENABLE_PARQUET ENABLE_GDAL ENABLE_JUPEDSIM ENABLE_BOOST
-             ENABLE_GTEST ENABLE_FMI CHECK_OPTIONAL_LIBS)
+             ENABLE_FOX ENABLE_GTEST ENABLE_FMI
+             ENABLE_PYTHON_BINDINGS ENABLE_JAVA_BINDINGS ENABLE_CS_BINDINGS ENABLE_C_BINDINGS)
         set(${wasm_disabled_feature} OFF)
     endforeach ()
+    message(STATUS "Disabled the GUI, the language bindings, the FMI library and Google Test for WebAssembly")
 
     # libsumo and its dependencies throw and catch across translation unit
     # boundaries, so exception support has to be requested explicitly and the
     # very same mode has to be used for every cross compiled dependency
     # (notably Xerces-C), otherwise throw and catch do not find each other.
-    option(WASM_LEGACY_EXCEPTIONS "Use the JavaScript based exception handling instead of native WebAssembly exceptions" OFF)
+    set(WASM_EXCEPTION_FLAG "-fwasm-exceptions")
     if (WASM_LEGACY_EXCEPTIONS)
         set(WASM_EXCEPTION_FLAG "-fexceptions")
-    else ()
-        set(WASM_EXCEPTION_FLAG "-fwasm-exceptions")
     endif ()
     add_compile_options(${WASM_EXCEPTION_FLAG})
     add_link_options(${WASM_EXCEPTION_FLAG})
@@ -172,13 +172,15 @@ if (GNU_COMPILER OR CLANG_COMPILER)
         # disable debug build (due a problem with Runtime Libraries)
         set(CMAKE_CONFIGURATION_TYPES "Release")
         set(CMAKE_BUILD_TYPE "Release")
-    elseif (EMSCRIPTEN)
-        # -pthread would pull in the SharedArrayBuffer based threading of Emscripten
-        # which needs special HTTP headers to be served, so we stay single threaded
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra")
     else ()
         # flags for clang and gcc in linux
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -pedantic -Wextra")
+        # (-pthread would pull in the SharedArrayBuffer based threading of
+        # Emscripten which needs special HTTP headers to be served, so the
+        # WebAssembly build stays single threaded)
+        if (NOT EMSCRIPTEN)
+            set(SUMO_PTHREAD_FLAG "-pthread")
+        endif ()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SUMO_PTHREAD_FLAG} -Wall -pedantic -Wextra")
     endif ()
     if (GNU_COMPILER)
         # see https://stackoverflow.com/questions/23499909/adjust-variable-tracking-assignment-length

@@ -57,7 +57,8 @@ const stepButton = document.getElementById('stepButton');
 const reloadButton = document.getElementById('reload');
 
 let libsumo = null;
-let lanes = [];      // the static network geometry, collected once per load
+let networkPath = null;   // the static network geometry, built once per load
+let networkMaxSpeed = 1;
 let transform = null;
 let running = false;
 
@@ -66,104 +67,101 @@ function fitToCanvas(boundary) {
     const margin = 10;
     const scale = Math.min((canvas.width - 2 * margin) / (max.x - min.x),
                            (canvas.height - 2 * margin) / (max.y - min.y));
-    // center the network in the canvas
+    // center the network in the canvas; SUMO has y pointing up, the canvas down
     const offsetX = (canvas.width - (max.x - min.x) * scale) / 2;
     const offsetY = (canvas.height - (max.y - min.y) * scale) / 2;
-    // SUMO has y pointing up, the canvas has it pointing down
     return (x, y) => [offsetX + (x - min.x) * scale, canvas.height - offsetY - (y - min.y) * scale];
 }
 
 function loadScenario() {
+    setRunning(false);
     libsumo.Simulation.load(['-c', '/scenario/example.sumocfg', '--no-step-log', '--xml-validation', 'never']);
-    lanes = libsumo.Lane.getIDList().map((id) => libsumo.Lane.getShape(id));
     transform = fitToCanvas(libsumo.Simulation.getNetBoundary());
+
+    // the network never moves, so it is transformed once into a reusable path
+    networkPath = new Path2D();
+    networkMaxSpeed = 1;
+    for (const laneID of libsumo.Lane.getIDList()) {
+        networkMaxSpeed = Math.max(networkMaxSpeed, libsumo.Lane.getMaxSpeed(laneID));
+        libsumo.Lane.getShape(laneID).forEach((point, index) => {
+            const [x, y] = transform(point.x, point.y);
+            index === 0 ? networkPath.moveTo(x, y) : networkPath.lineTo(x, y);
+        });
+    }
     draw();
 }
 
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-
     context.strokeStyle = '#5a6473';
     context.lineWidth = 3;
-    for (const shape of lanes) {
-        context.beginPath();
-        shape.forEach((point, index) => {
-            const [x, y] = transform(point.x, point.y);
-            index === 0 ? context.moveTo(x, y) : context.lineTo(x, y);
-        });
-        context.stroke();
-    }
+    context.stroke(networkPath);
 
-    for (const vehID of libsumo.Vehicle.getIDList()) {
+    const vehIDs = libsumo.Vehicle.getIDList();
+    for (const vehID of vehIDs) {
         const position = libsumo.Vehicle.getPosition(vehID);
         const [x, y] = transform(position.x, position.y);
         // SUMO angles are given in degrees, clockwise from north
-        const angle = libsumo.Vehicle.getAngle(vehID) * Math.PI / 180;
-        const speed = libsumo.Vehicle.getSpeed(vehID);
-        const maxSpeed = Math.max(libsumo.Vehicle.getAllowedSpeed(vehID), 0.1);
         context.save();
         context.translate(x, y);
-        context.rotate(angle);
+        context.rotate(libsumo.Vehicle.getAngle(vehID) * Math.PI / 180);
         // green when driving freely, red when standing
-        const green = Math.round(220 * Math.min(speed / maxSpeed, 1));
+        const green = Math.round(220 * Math.min(libsumo.Vehicle.getSpeed(vehID) / networkMaxSpeed, 1));
         context.fillStyle = `rgb(230, ${green + 30}, 60)`;
         context.fillRect(-2.5, -5, 5, 10);
         context.restore();
     }
 
+    const expected = libsumo.Simulation.getMinExpectedNumber();
     status.textContent = `t = ${libsumo.Simulation.getTime().toFixed(0)} s, ` +
-        `${libsumo.Vehicle.getIDCount()} vehicles running, ` +
-        `${libsumo.Simulation.getMinExpectedNumber()} expected`;
+        `${vehIDs.length} vehicles running, ${expected} expected`;
+    return expected;
+}
+
+function setRunning(value) {
+    running = value;
+    playButton.textContent = value ? 'pause' : 'play';
 }
 
 function step() {
-    if (libsumo.Simulation.getMinExpectedNumber() === 0) {
-        running = false;
-        playButton.textContent = 'play';
-        status.textContent = `finished at t = ${libsumo.Simulation.getTime().toFixed(0)} s`;
-        return false;
-    }
     libsumo.Simulation.step(0);
-    draw();
-    return true;
+    if (draw() === 0) {
+        setRunning(false);
+        status.textContent = `finished at t = ${libsumo.Simulation.getTime().toFixed(0)} s`;
+    }
 }
 
 function animate() {
-    if (!running) {
-        return;
-    }
-    if (step()) {
+    if (running) {
+        step();
         requestAnimationFrame(animate);
     }
 }
 
 playButton.addEventListener('click', () => {
-    running = !running;
-    playButton.textContent = running ? 'pause' : 'play';
+    setRunning(!running);
     animate();
 });
 
 stepButton.addEventListener('click', () => {
-    running = false;
-    playButton.textContent = 'play';
+    setRunning(false);
     step();
 });
 
-reloadButton.addEventListener('click', () => {
-    running = false;
-    playButton.textContent = 'play';
-    loadScenario();
-});
+reloadButton.addEventListener('click', loadScenario);
 
 createLibsumo().then(async (module) => {
     libsumo = module;
-    libsumo.FS.mkdir('/scenario');
-    for (const name of SCENARIO) {
+    const files = await Promise.all(SCENARIO.map(async (name) => {
         const response = await fetch('example/' + name);
         if (!response.ok) {
             throw new Error(`could not fetch example/${name}: ${response.status}`);
         }
-        libsumo.FS.writeFile('/scenario/' + name, new Uint8Array(await response.arrayBuffer()));
+        return [name, new Uint8Array(await response.arrayBuffer())];
+    }));
+    libsumo.FS.mkdir('/scenario');
+    for (const [name, content] of files) {
+        libsumo.FS.writeFile('/scenario/' + name, content);
     }
     loadScenario();
     playButton.disabled = stepButton.disabled = reloadButton.disabled = false;

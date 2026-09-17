@@ -23,20 +23,28 @@
 
 set -euo pipefail
 
-SUMO_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-PREFIX="${1:-$HOME/sumo-wasm-deps}"
-BUILD_DIR="${WASM_BUILD_DIR:-$SUMO_SRC/build-wasm}"
-JOBS="${JOBS:-$(nproc 2>/dev/null || echo 4)}"
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
-if ! command -v emcmake > /dev/null; then
-    echo "emcmake not found, please activate the Emscripten SDK first:" >&2
-    echo "  source /path/to/emsdk/emsdk_env.sh" >&2
-    exit 1
-fi
+SUMO_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+BUILD_DIR="${WASM_BUILD_DIR:-$SUMO_SRC/build-wasm}"
 
 if [ ! -f "$PREFIX/lib/libxerces-c.a" ]; then
     echo "Xerces-C not found in $PREFIX, please run build_dependencies.sh first." >&2
     exit 1
+fi
+
+DEPS_EXCEPTIONS="$(cat "$WASM_EXCEPTIONS_STAMP" 2> /dev/null || echo unknown)"
+if [ "$DEPS_EXCEPTIONS" != "$WASM_EXCEPTIONS" ]; then
+    echo "The dependencies in $PREFIX were built with '$DEPS_EXCEPTIONS' exceptions" >&2
+    echo "but this build uses '$WASM_EXCEPTIONS'. A throw would never find its catch," >&2
+    echo "so rebuild the dependencies with the same WASM_EXCEPTIONS setting." >&2
+    exit 1
+fi
+
+if [ "$WASM_EXCEPTIONS" = "legacy" ]; then
+    LEGACY_EXCEPTIONS=ON
+else
+    LEGACY_EXCEPTIONS=OFF
 fi
 
 # ISOLATED_BUILD keeps the WebAssembly artifacts out of the bin directory of a
@@ -44,6 +52,7 @@ fi
 emcmake cmake -S "$SUMO_SRC" -B "$BUILD_DIR" \
     -DCMAKE_BUILD_TYPE=Release \
     -DISOLATED_BUILD=ON \
+    -DWASM_LEGACY_EXCEPTIONS=$LEGACY_EXCEPTIONS \
     -DCMAKE_FIND_ROOT_PATH="$PREFIX"
 cmake --build "$BUILD_DIR" -j "$JOBS" --target libsumojs
 

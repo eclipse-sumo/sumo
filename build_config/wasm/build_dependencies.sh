@@ -23,52 +23,48 @@
 
 set -euo pipefail
 
-PREFIX="${1:-$HOME/sumo-wasm-deps}"
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
+
 WORKDIR="${WASM_DEPS_WORKDIR:-$PREFIX/src}"
 ZLIB_VERSION="${ZLIB_VERSION:-v1.3.1}"
 XERCES_VERSION="${XERCES_VERSION:-v3.2.5}"
-# has to match the setting of the SUMO build, see WASM_LEGACY_EXCEPTIONS
-EXCEPTION_FLAG="${WASM_EXCEPTION_FLAG:--fwasm-exceptions}"
-JOBS="${JOBS:-$(nproc 2>/dev/null || echo 4)}"
-
-if ! command -v emcmake > /dev/null; then
-    echo "emcmake not found, please activate the Emscripten SDK first:" >&2
-    echo "  source /path/to/emsdk/emsdk_env.sh" >&2
-    exit 1
-fi
 
 mkdir -p "$WORKDIR"
 
+# clone, cross compile and install one dependency, any further arguments are
+# passed on to cmake
+build_dep() {
+    local name="$1" url="$2" tag="$3"
+    shift 3
+    if [ ! -d "$WORKDIR/$name" ]; then
+        git clone --depth 1 -b "$tag" "$url" "$WORKDIR/$name"
+    fi
+    emcmake cmake -S "$WORKDIR/$name" -B "$WORKDIR/$name/build-wasm" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX="$PREFIX" \
+        -DBUILD_SHARED_LIBS=OFF \
+        -DCMAKE_C_FLAGS="$WASM_EXCEPTION_FLAG" \
+        -DCMAKE_CXX_FLAGS="$WASM_EXCEPTION_FLAG" \
+        "$@"
+    cmake --build "$WORKDIR/$name/build-wasm" -j "$JOBS" --target install
+}
+
 # zlib is optional for SUMO but without it no gzipped input or output works
-if [ ! -d "$WORKDIR/zlib" ]; then
-    git clone --depth 1 -b "$ZLIB_VERSION" https://github.com/madler/zlib.git "$WORKDIR/zlib"
-fi
-emcmake cmake -S "$WORKDIR/zlib" -B "$WORKDIR/zlib/build-wasm" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-    -DBUILD_SHARED_LIBS=OFF \
-    -DCMAKE_C_FLAGS="$EXCEPTION_FLAG"
-cmake --build "$WORKDIR/zlib/build-wasm" -j "$JOBS" --target install
+build_dep zlib https://github.com/madler/zlib.git "$ZLIB_VERSION"
 # zlib installs stub shared libraries which would be preferred by find_package
 rm -f "$PREFIX"/lib/libz.so*
 
 # Xerces-C is the XML parser of SUMO and therefore mandatory. Threads and the
 # network accessor are unavailable in the browser sandbox, the iconv transcoder
 # is the only one which works with the Emscripten libc.
-if [ ! -d "$WORKDIR/xerces-c" ]; then
-    git clone --depth 1 -b "$XERCES_VERSION" https://github.com/apache/xerces-c.git "$WORKDIR/xerces-c"
-fi
-emcmake cmake -S "$WORKDIR/xerces-c" -B "$WORKDIR/xerces-c/build-wasm" \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX="$PREFIX" \
-    -DBUILD_SHARED_LIBS=OFF \
+build_dep xerces-c https://github.com/apache/xerces-c.git "$XERCES_VERSION" \
     -Dnetwork=OFF \
     -Dthreads=OFF \
     -Dtranscoder=gnuiconv \
-    -Dmessage-loader=inmemory \
-    -DCMAKE_C_FLAGS="$EXCEPTION_FLAG" \
-    -DCMAKE_CXX_FLAGS="$EXCEPTION_FLAG"
-cmake --build "$WORKDIR/xerces-c/build-wasm" -j "$JOBS" --target install
+    -Dmessage-loader=inmemory
+
+# record the mode so that build.sh can refuse a mismatching SUMO build
+echo "$WASM_EXCEPTIONS" > "$WASM_EXCEPTIONS_STAMP"
 
 echo
-echo "WebAssembly dependencies installed in $PREFIX"
+echo "WebAssembly dependencies installed in $PREFIX ($WASM_EXCEPTIONS exceptions)"

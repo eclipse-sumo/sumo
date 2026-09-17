@@ -64,59 +64,63 @@ createLibsumo().then((libsumo) => {
     assert.strictEqual(boundary.length, 2, 'the net boundary is given by two points');
 
     // --- run the simulation ---
-    const deltaT = libsumo.Simulation.getDeltaT();
-    checkClose(deltaT, 1.0, 1e-9, 'default step length');
+    checkClose(libsumo.Simulation.getDeltaT(), 1.0, 1e-9, 'default step length');
 
     let maxRunning = 0;
     let departed = 0;
     let arrived = 0;
     let steps = 0;
-    let inspected = false;
-    while (libsumo.Simulation.getMinExpectedNumber() > 0 && libsumo.Simulation.getTime() < 300) {
+
+    function step() {
         libsumo.Simulation.step(0);
         steps++;
-        departed += libsumo.Simulation.getDepartedIDList().length;
-        arrived += libsumo.Simulation.getArrivedIDList().length;
-        const running = libsumo.Vehicle.getIDList();
-        maxRunning = Math.max(maxRunning, running.length);
+    }
+
+    function inspectVehicle(vehID) {
+        const position = libsumo.Vehicle.getPosition(vehID);
+        assert.strictEqual(typeof position.x, 'number');
+        assert.ok(libsumo.Vehicle.getSpeed(vehID) >= 0);
+        assert.ok(libsumo.Vehicle.getRoute(vehID).length > 0, 'a vehicle has a route');
+        assert.ok(edges.includes(libsumo.Vehicle.getRoadID(vehID)) ||
+                  libsumo.Vehicle.getRoadID(vehID).startsWith(':'), 'the vehicle is on a known edge');
+        assert.strictEqual(typeof libsumo.Vehicle.getTypeID(vehID), 'string');
+        assert.ok(Array.isArray(libsumo.Vehicle.getNextTLS(vehID)));
+        const leader = libsumo.Vehicle.getLeader(vehID, 100);
+        assert.strictEqual(typeof leader.id, 'string');
+        assert.strictEqual(typeof leader.dist, 'number');
+
+        libsumo.Vehicle.setParameter(vehID, 'wasm.test', 'hello');
+        assert.strictEqual(libsumo.Vehicle.getParameter(vehID, 'wasm.test'), 'hello');
+
+        // setting values has to become visible in the following steps, the
+        // vehicle needs a few of them because setSpeed respects its maximum
+        // acceleration and deceleration
+        libsumo.Vehicle.setSpeed(vehID, 3.0);
+        for (let i = 0; i < 5; i++) {
+            step();
+        }
+        assert.ok(libsumo.Vehicle.getIDList().includes(vehID), 'the inspected vehicle is still running');
+        checkClose(libsumo.Vehicle.getSpeed(vehID), 3.0, 1e-6, 'speed set via setSpeed');
+        libsumo.Vehicle.setSpeed(vehID, -1);
+        console.log(`inspected vehicle ${vehID} of type ${libsumo.Vehicle.getTypeID(vehID)} ` +
+                    `on edge ${libsumo.Vehicle.getRoadID(vehID)}`);
+    }
+
+    let inspected = false;
+    while (libsumo.Simulation.getMinExpectedNumber() > 0 && libsumo.Simulation.getTime() < 300) {
+        step();
+        departed += libsumo.Simulation.getDepartedNumber();
+        arrived += libsumo.Simulation.getArrivedNumber();
+        maxRunning = Math.max(maxRunning, libsumo.Vehicle.getIDCount());
 
         if (!inspected && steps >= 60) {
             // inspect a vehicle which has just departed, so that it is
             // guaranteed to stay in the network for the next few steps
             const fresh = libsumo.Simulation.getDepartedIDList();
-            if (fresh.length === 0) {
-                continue;
+            if (fresh.length > 0) {
+                inspected = true;
+                inspectVehicle(fresh[0]);
             }
-            inspected = true;
-            const vehID = fresh[0];
-            const position = libsumo.Vehicle.getPosition(vehID);
-            assert.strictEqual(typeof position.x, 'number');
-            assert.ok(libsumo.Vehicle.getSpeed(vehID) >= 0);
-            assert.ok(libsumo.Vehicle.getRoute(vehID).length > 0, 'a vehicle has a route');
-            assert.ok(edges.includes(libsumo.Vehicle.getRoadID(vehID)) ||
-                      libsumo.Vehicle.getRoadID(vehID).startsWith(':'), 'the vehicle is on a known edge');
-            assert.strictEqual(typeof libsumo.Vehicle.getTypeID(vehID), 'string');
-            assert.ok(Array.isArray(libsumo.Vehicle.getNextTLS(vehID)));
-            const leader = libsumo.Vehicle.getLeader(vehID, 100);
-            assert.strictEqual(typeof leader.id, 'string');
-            assert.strictEqual(typeof leader.dist, 'number');
-
-            libsumo.Vehicle.setParameter(vehID, 'wasm.test', 'hello');
-            assert.strictEqual(libsumo.Vehicle.getParameter(vehID, 'wasm.test'), 'hello');
-
-            // setting values has to become visible in the following steps, the
-            // vehicle needs a few of them because setSpeed respects its
-            // maximum acceleration and deceleration
-            libsumo.Vehicle.setSpeed(vehID, 3.0);
-            for (let i = 0; i < 5; i++) {
-                libsumo.Simulation.step(0);
-                steps++;
-            }
-            assert.ok(libsumo.Vehicle.getIDList().includes(vehID), 'the inspected vehicle is still running');
-            checkClose(libsumo.Vehicle.getSpeed(vehID), 3.0, 1e-6, 'speed set via setSpeed');
-            libsumo.Vehicle.setSpeed(vehID, -1);
-            console.log(`inspected vehicle ${vehID} of type ${libsumo.Vehicle.getTypeID(vehID)} ` +
-                        `on edge ${libsumo.Vehicle.getRoadID(vehID)}`);
         }
     }
     console.log(`simulated ${steps} steps, ${departed} vehicles departed, ${arrived} arrived, ` +
@@ -133,18 +137,32 @@ createLibsumo().then((libsumo) => {
         const logics = libsumo.TrafficLight.getAllProgramLogics(tlsID);
         assert.ok(logics.length > 0 && logics[0].phases.length > 0, 'a traffic light has phases');
         assert.strictEqual(typeof logics[0].phases[0].state, 'string');
-        libsumo.TrafficLight.setRedYellowGreenState(tlsID, 'r'.repeat(state.length));
-        assert.strictEqual(libsumo.TrafficLight.getRedYellowGreenState(tlsID), 'r'.repeat(state.length));
-        console.log(`traffic light ${tlsID}: ${logics[0].phases.length} phases, state ${state}`);
+        const allRed = 'r'.repeat(state.length);
+        libsumo.TrafficLight.setRedYellowGreenState(tlsID, allRed);
+        assert.strictEqual(libsumo.TrafficLight.getRedYellowGreenState(tlsID), allRed);
+        // the program logic has to survive a round trip through JavaScript
+        const logic = logics[0];
+        assert.strictEqual(typeof logic.subParameter, 'object');
+        logic.phases[0].duration += 1;
+        libsumo.TrafficLight.setProgramLogic(tlsID, logic);
+        const readBack = libsumo.TrafficLight.getAllProgramLogics(tlsID)
+            .find((l) => l.programID === logic.programID);
+        assert.strictEqual(readBack.phases.length, logic.phases.length);
+        checkClose(readBack.phases[0].duration, logic.phases[0].duration, 1e-6, 'phase duration round trip');
+        assert.strictEqual(readBack.phases[0].state, logic.phases[0].state);
+
+        console.log(`traffic light ${tlsID}: ${logic.phases.length} phases, state ${state}`);
     }
 
     // --- errors arrive as regular JavaScript errors ---
-    assert.throws(() => libsumo.Vehicle.getSpeed('no-such-vehicle'), (error) => {
+    try {
+        libsumo.Vehicle.getSpeed('no-such-vehicle');
+        assert.fail('asking for an unknown vehicle should throw');
+    } catch (error) {
         assert.ok(error instanceof Error, 'libsumo errors should be Error instances');
         assert.ok(error.message.length > 0, 'libsumo errors should carry a message');
         console.log(`error handling: ${error.name}: ${error.message}`);
-        return true;
-    });
+    }
 
     // --- writing output works through the in memory file system ---
     libsumo.Simulation.saveState('/scenario/state.xml');

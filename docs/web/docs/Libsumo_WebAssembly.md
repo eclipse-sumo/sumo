@@ -31,14 +31,10 @@ build_config/wasm/build_dependencies.sh ~/sumo-wasm-deps  # Xerces-C and zlib
 build_config/wasm/build.sh ~/sumo-wasm-deps               # libsumo.js / libsumo.wasm
 ```
 
-Under the hood this configures SUMO with the Emscripten toolchain file and
-builds the `libsumojs` target:
-
-```bash
-emcmake cmake -S . -B build-wasm -DCMAKE_BUILD_TYPE=Release \
-              -DISOLATED_BUILD=ON -DCMAKE_FIND_ROOT_PATH=$HOME/sumo-wasm-deps
-cmake --build build-wasm --target libsumojs
-```
+The first script cross compiles Xerces-C and zlib, the second configures SUMO
+with the Emscripten toolchain file and builds the `libsumojs` target into
+`build-wasm/bin`. The README also documents the plain `emcmake cmake`
+invocation for those who prefer to drive the build themselves.
 
 ## Usage
 
@@ -102,5 +98,5 @@ In addition to the [general libsumo limitations](Libsumo.md#limitations):
 - the command line applications ([netconvert](netconvert.md),
   [duarouter](duarouter.md), ...) are not part of the WebAssembly build
 - the module uses native WebAssembly exceptions, which need Chrome 95+,
-  Firefox 131+, Safari 15.2+ or Node 18+; configure with
-  `-DWASM_LEGACY_EXCEPTIONS=ON` to fall back to the JavaScript based ones
+  Firefox 131+, Safari 15.2+ or Node 18+; build with `WASM_EXCEPTIONS=legacy`
+  to fall back to the JavaScript based ones

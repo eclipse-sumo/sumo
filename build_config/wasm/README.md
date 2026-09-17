@@ -55,6 +55,24 @@ dependencies instead of the ones installed on the host. Building the default
 target (everything) is not supported, the command line applications are not
 part of the WebAssembly build.
 
+### Exception handling
+
+The module uses native WebAssembly exceptions, which need Chrome 95+,
+Firefox 131+, Safari 15.2+ or Node 18+. Set `WASM_EXCEPTIONS=legacy` for both
+scripts to fall back to the slower but universally supported JavaScript based
+exceptions:
+
+```bash
+WASM_EXCEPTIONS=legacy ./build_dependencies.sh ~/sumo-wasm-deps
+WASM_EXCEPTIONS=legacy ./build.sh ~/sumo-wasm-deps
+```
+
+SUMO and every cross compiled dependency have to agree on this, otherwise a
+`throw` in Xerces-C never finds its `catch` in libsumo. `build_dependencies.sh`
+therefore records the mode in the prefix and `build.sh` refuses to build
+against a prefix which was built with the other one. When driving cmake by
+hand, pass `-DWASM_LEGACY_EXCEPTIONS=ON` to match a `legacy` prefix.
+
 ### Trying it out
 
 A smoke test which loads a small scenario, runs it and exercises the most
@@ -79,74 +97,11 @@ and open <http://localhost:8000>.
 ## Using the module
 
 `libsumo.js` exports a factory function which resolves to the module once the
-WebAssembly has been instantiated. Every libsumo domain is a property of that
-module:
-
-```js
-const createLibsumo = require('./libsumo.js');   // or a <script> tag in the browser
-
-const libsumo = await createLibsumo();
-
-// the simulation reads its input from the in memory file system
-libsumo.FS.mkdir('/scenario');
-libsumo.FS.writeFile('/scenario/net.net.xml', netXmlAsStringOrUint8Array);
-libsumo.FS.writeFile('/scenario/routes.rou.xml', routesXml);
-
-libsumo.Simulation.load(['-n', '/scenario/net.net.xml', '-r', '/scenario/routes.rou.xml']);
-while (libsumo.Simulation.getMinExpectedNumber() > 0) {
-    libsumo.Simulation.step(0);
-    for (const vehID of libsumo.Vehicle.getIDList()) {
-        const {x, y} = libsumo.Vehicle.getPosition(vehID);
-        console.log(vehID, x, y, libsumo.Vehicle.getSpeed(vehID));
-    }
-}
-libsumo.Simulation.close();
-```
-
-The bound domains are `Simulation`, `Edge`, `Lane`, `Junction`, `Route`,
-`Vehicle`, `VehicleType`, `Person`, `TrafficLight`, `InductionLoop`, `LaneArea`,
-`MultiEntryExit`, `Poi` and `Polygon`.
-
-### How the API differs from the C++ one
-
-* **Lists are plain arrays.** Everything returning a `std::vector` gives a real
-  JavaScript `Array`, so nothing has to be freed by hand. Functions taking a
-  list accept a plain array as well.
-* **Structs are plain objects.** `TraCIPosition` arrives as `{x, y, z}`,
-  `TraCIColor` as `{r, g, b, a}` and so on.
-* **Errors are `Error` objects** with `name` set to `TraCIError`, so
-  `try`/`catch` and `error.message` work as expected.
-* **There are no optional arguments.** Embind cannot express default arguments,
-  so every parameter of a bound function has to be passed. Where a default is
-  particularly useful the binding exposes a shorter signature instead, for
-  example `Vehicle.getPosition(vehID)` and
-  `Vehicle.add(vehID, routeID, typeID, depart, departLane, departPos, departSpeed)`.
-* **Subscriptions are not bound.** Call the getters in a loop instead, they are
-  cheap because there is no socket in between.
-
-## Limitations
-
-* **Single threaded.** The module is built without `-pthread`, since that would
-  require the `SharedArrayBuffer` cross origin isolation headers. Options such
-  as `--threads` or `--device.rerouting.threads` therefore have to stay at 1.
-* **No GUI.** FOX, OpenGL and consequently `sumo-gui`, netedit and `libsumo.GUI`
-  are unavailable. Visualisation has to happen on the JavaScript side, as the
-  demo shows.
-* **No geo projection and no shapefiles by default.** PROJ and GDAL are not
-  built by `build_dependencies.sh`. Networks which need a projection at runtime
-  (`--proj` options, `Simulation.convertGeo` on a projected network) will fail.
-  Cross compiling PROJ into the same prefix and reconfiguring enables them.
-* **No sockets.** libsumo never needed them, but this also means a wasm build
-  cannot act as a TraCI server for external clients.
-* **Exception handling.** The module uses native WebAssembly exceptions, which
-  need Chrome 95+, Firefox 131+, Safari 15.2+ or Node 18+ (verified with
-  Node 22 and Chromium 141). Configure with
-  `-DWASM_LEGACY_EXCEPTIONS=ON` for the slower but universally supported
-  JavaScript based exceptions. The very same setting has to be used for the
-  dependencies, pass `WASM_EXCEPTION_FLAG=-fexceptions` to
-  `build_dependencies.sh` in that case.
-* **Memory.** The module starts with 64 MB and grows on demand. Large networks
-  need a lot of memory and a 32 bit address space limits it to 4 GB.
+WebAssembly has been instantiated, and every libsumo domain is a property of
+that module. How the JavaScript API looks, how it differs from the C++ and
+Python ones and what the WebAssembly build cannot do is described in
+[the user documentation](../../docs/web/docs/Libsumo_WebAssembly.md);
+`test_libsumo.js` and `demo/index.html` next to this file are working examples.
 
 ## Files
 
