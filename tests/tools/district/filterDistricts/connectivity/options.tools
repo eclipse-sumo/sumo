@@ -1,0 +1,4 @@
+-n net.net.xml --taz-file input_connectivity.xml
+--min-connections 1
+-o districts.xml
+tools/district/filterDistricts.py

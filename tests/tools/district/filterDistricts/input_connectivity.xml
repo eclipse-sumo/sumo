@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<tazs>
+    <taz id="edges" edges="a b c g h"/>
+    <taz id="separate">
+        <tazSource id="c" weight="2.5"/>
+        <tazSource id="g" weight="1.5"/>
+        <tazSource id="h" weight="1"/>
+        <tazSink id="a" weight="1"/>
+        <tazSink id="b" weight="3"/>
+        <tazSink id="g" weight="1"/>
+        <tazSink id="h" weight="2"/>
+    </taz>
+    <taz id="mixed" edges="a h missing">
+        <tazSource id="g" weight="2.5"/>
+        <tazSink id="b" weight="1.5"/>
+    </taz>
+</tazs>
