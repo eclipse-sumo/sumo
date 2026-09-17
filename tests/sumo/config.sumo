@@ -275,7 +275,7 @@ aggregated:0.00001
 
 [batch_extra_version]
 gcc:perf
-msvc16x64:perf
+msvc:perf
 
 [unordered_text]
 vehroutes_ignore_arrival:arrival
