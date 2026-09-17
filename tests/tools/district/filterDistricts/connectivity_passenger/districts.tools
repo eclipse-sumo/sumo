@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-17 22:07:34.117878 by Eclipse SUMO filterDistricts.py v1.27.1-0000000000
+<configuration>
+    <net-file value="net.net.xml"/>
+    <taz-file value="input_connectivity.xml"/>
+    <output value="districts.xml"/>
+    <vclass value="passenger"/>
+    <min-connections value="1"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="edges">
+        <tazSink id="b" weight="1"/>
+        <tazSink id="c" weight="1"/>
+        <tazSink id="h" weight="1"/>
+        <tazSource id="a" weight="1"/>
+        <tazSource id="b" weight="1"/>
+        <tazSource id="g" weight="1"/>
+    </taz>
+    <taz id="separate">
+        <tazSink id="b" weight="3"/>
+        <tazSink id="h" weight="2"/>
+        <tazSource id="g" weight="1.5"/>
+    </taz>
+    <taz id="mixed">
+        <tazSink id="b" weight="1.5"/>
+        <tazSink id="h" weight="1"/>
+        <tazSource id="g" weight="2.5"/>
+        <tazSource id="a" weight="1"/>
+    </taz>
+</additional>

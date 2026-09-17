@@ -37,7 +37,13 @@ Call option **--help** for additional details.
 
 Filter a taz (district) file using a network file and a vehicle class so
 that only edges which allow the given vehicle class are included in the
-taz definitions.
+taz definitions. Option **--min-connections** can be used to remove
+source edges with too few successors and sink edges with too few
+predecessors. Connections are counted by distinct adjacent edges and,
+when **--vclass** is set, must permit that vehicle class.
+With a positive threshold, the `edges` attribute is expanded into
+`tazSource` and `tazSink` elements with weight 1 so that each direction
+can be filtered independently. Existing source and sink weights are preserved.
 
 ```
 python tools/district/filterDistricts.py -n <net-file> -t <taz-file> -o <output-file> --vclass passenger
