@@ -161,6 +161,10 @@ private:
         static long long int myEventCounter;
     };
 
+    /// @brief check whether the current car was invalidated and remove it from myInvalidatedLeaderCars
+    bool wasInvalidated(const LeaderEvent& e);
+
+
     /// @brief leader cars in the segments sorted by exit time
     typedef std::priority_queue<LeaderEvent> LeaderEventQeue;
     LeaderEventQeue myLeaderCars;
