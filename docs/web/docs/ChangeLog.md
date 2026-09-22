@@ -79,7 +79,7 @@ title: ChangeLog
 ### Enhancements
 
 - sumo
-  - Added carFollowModel NaSch (Nagel Schreckenberg) #12182 (Thanks to 
+  - Added carFollowModel NaSch (Nagel Schreckenberg) #12182 (Thanks to Jerry Lin)
   - Added option **--slope-centered** to replicate simplified slope computation found in other simulators #18111
   - In carFollowModel 'Rail', curvature is now computed by integrating over a configurable distance (default 100m) to smooth piecewise linear geometry. #18138
   - vehicle types can be initialized with values from another vType by using attribute `refId` #18144
@@ -128,7 +128,6 @@ title: ChangeLog
   - Added inductionLoop attribute `mesoTLS`. Detectors with this attribute can be used as custom detectors for actuated traffic lights (i.e. to register vehicles of a specific type) #18245
   - Option **--queue-output** is now supported. Queue lengths are measured per segment queue based on vehicle entry order and, when **--meso-interpolate-pos** is set, on interpolated positions #18212  - 
   - Added warning when loading a network with multi-modal edges where a risk of miscalculating capacity exists #4113
-  
 
 - tools
   - instantOutToEdgeData.py: added option **--poi-output** to visualize extra values and aid in debugging #18166
