@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 10:34:17 by Eclipse SUMO sumo Version v1_11_0+0005-a0af71f
+<!-- generated on 2026-09-22T10:48:29.860692+01:00 by Eclipse SUMO sumo v1_27_1+0680-d01f9b57dc9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -23,13 +28,13 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,10 +43,10 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
     <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="542" removed="0" inserted="0" cleared="1448" flow="542.00" aspiredFlow="-1.00" speed="1.36" aspiredSpeed="27.80"/>
-    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="2" removed="0" inserted="0" cleared="8" flow="4.00" aspiredFlow="-1.00" speed="0.62" aspiredSpeed="27.80"/>
+    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="2" removed="0" inserted="0" cleared="8" flow="4.00" aspiredFlow="-1.00" speed="0.57" aspiredSpeed="27.80"/>
 </calibratorstats>

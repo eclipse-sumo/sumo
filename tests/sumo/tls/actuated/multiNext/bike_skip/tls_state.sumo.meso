@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-28T14:39:04.614576+01:00 by Eclipse SUMO sumo v1_27_1+0536-b0be38ab3ae
+<!-- generated on 2026-09-22T10:48:26.237478+01:00 by Eclipse SUMO sumo v1_27_1+0680-d01f9b57dc9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -506,11 +506,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3.00"  state="rrrrrrryyrrrrrr"/>
         <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
         <phase duration="3.00"  state="rrryyyyrrrrryyy"/>
-        <phase duration="8.00"  state="GGgrrrrrrgGgrrr"/>
-        <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->5"/>
-        <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
-        <phase duration="3.00"  state="rrryyyyrrrrryyy"/>
         <phase duration="7.00"  state="GGgrrrrrrgGgrrr"/>
+        <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->5"/>
+        <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
+        <phase duration="3.00"  state="rrryyyyrrrrryyy"/>
+        <phase duration="8.00"  state="GGgrrrrrrgGgrrr"/>
         <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->3"/>
         <phase duration="5.00"  state="rrrrrrrGGrrrrrr"/>
         <phase duration="3.00"  state="rrrrrrryyrrrrrr"/>
@@ -548,7 +548,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3.00"  state="rrrrrrryyrrrrrr"/>
         <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
         <phase duration="3.00"  state="rrryyyyrrrrryyy"/>
-        <phase duration="10.00" state="GGgrrrrrrgGgrrr"/>
+        <phase duration="11.00" state="GGgrrrrrrgGgrrr"/>
         <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->3"/>
         <phase duration="5.00"  state="rrrrrrrGGrrrrrr"/>
         <phase duration="3.00"  state="rrrrrrryyrrrrrr"/>
@@ -566,7 +566,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->5"/>
         <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
         <phase duration="3.00"  state="rrryyyyrrrrryyy"/>
-        <phase duration="10.00" state="GGgrrrrrrgGgrrr"/>
+        <phase duration="9.00"  state="GGgrrrrrrgGgrrr"/>
         <phase duration="3.00"  state="yyyrrrrrryyyrrr" name="0->5"/>
         <phase duration="5.00"  state="rrrGGGgrrrrrGGg"/>
         <phase duration="3.00"  state="rrryyyyrrrrryyy"/>

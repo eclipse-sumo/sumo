@@ -1,2 +1,14 @@
-Warning: Teleporting vehicle 'f_0.484'; waited too long, from edge 'E1':2, time=1305.58.
-Warning: Vehicle 'f_0.484' teleports beyond arrival edge 'E5', time=1341.52.
+Warning: Teleporting vehicle 'f_0.494'; waited too long, from edge 'E1':2, time=1351.72.
+Warning: Teleporting vehicle 'f_0.495'; waited too long, from edge 'E1':2, time=1371.72.
+Warning: Vehicle 'f_0.494' teleports beyond arrival edge 'E5', time=1387.67.
+Warning: Teleporting vehicle 'f_0.496'; waited too long, from edge 'E1':2, time=1391.72.
+Warning: Vehicle 'f_0.495' ends teleporting on edge 'E6':0, time=1392.92.
+Warning: Vehicle 'f_0.496' ends teleporting on edge 'E5':0, time=1420.30.
+Warning: Teleporting vehicle 'f_0.794'; waited too long, from edge 'E1':2, time=2082.29.
+Warning: Vehicle 'f_0.794' ends teleporting on edge 'E5':0, time=2111.14.
+Warning: Teleporting vehicle 'f_0.1243'; waited too long, from edge 'E1':2, time=3298.59.
+Warning: Vehicle 'f_0.1243' ends teleporting on edge 'E5':0, time=3327.44.
+Warning: Teleporting vehicle 'f_0.1390'; waited too long, from edge 'E1':2, time=3722.23.
+Warning: Teleporting vehicle 'f_0.1391'; waited too long, from edge 'E1':2, time=3742.23.
+Warning: Vehicle 'f_0.1390' ends teleporting on edge 'E6':0, time=3743.43.
+Warning: Vehicle 'f_0.1391' ends teleporting on edge 'E6':0, time=3763.43.

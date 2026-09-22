@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:31:25 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2026-09-22T10:48:29.227146+01:00 by Eclipse SUMO sumo v1_27_1+0680-d01f9b57dc9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -26,8 +26,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <ignore-route-errors value="true"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <routing>
@@ -36,9 +37,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </routing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -51,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <seed value="42"/>
     </random_number>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -258,14 +257,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.85" depart="60.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="139.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="60.00" probability="0" edges="beg beg2 middle end"/>
-            <route edges="beg detour end"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow.14" depart="10.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="140.00">
+    <vehicle id="flow.14" depart="10.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="139.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -273,18 +265,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.16" depart="12.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="141.00">
-        <route edges="beg beg2 middle end"/>
-    </vehicle>
-
-    <vehicle id="flow.88" depart="62.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="141.00">
+    <vehicle id="flow.85" depart="60.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="140.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="62.00" probability="0" edges="beg beg2 middle end"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="60.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.17" depart="12.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="142.00">
+    <vehicle id="flow.16" depart="12.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="141.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.17" depart="12.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="141.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -292,23 +284,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.19" depart="14.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="143.00">
-        <route edges="beg beg2 middle end"/>
-    </vehicle>
-
-    <vehicle id="flow.89" depart="63.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="143.00">
+    <vehicle id="flow.88" depart="62.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="142.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="63.00" probability="0" edges="beg beg2 middle end"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="62.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.20" depart="14.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="144.00">
+    <vehicle id="flow.19" depart="14.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="143.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.20" depart="14.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="143.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
     <vehicle id="flow.21" depart="15.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="144.00">
         <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.89" depart="63.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="144.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="63.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
     </vehicle>
 
     <vehicle id="flow.22" depart="16.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="145.00">
@@ -431,7 +430,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.67" depart="47.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="162.00">
+    <vehicle id="flow.67" depart="47.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="163.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -439,11 +438,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.68" depart="48.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="164.00">
+    <vehicle id="flow.70" depart="49.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="164.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.70" depart="49.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="164.00">
+    <vehicle id="flow.68" depart="48.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="165.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -455,7 +454,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.76" depart="54.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="166.00">
+    <vehicle id="flow.76" depart="54.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="167.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -467,7 +466,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.81" depart="57.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="168.00">
+    <vehicle id="flow.81" depart="57.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="169.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -479,7 +478,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.86" depart="61.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="170.00">
+    <vehicle id="flow.86" depart="61.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="171.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -491,7 +490,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.91" depart="64.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="172.00">
+    <vehicle id="flow.91" depart="64.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="173.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -567,7 +566,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.92" depart="65.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="185.00">
+    <vehicle id="flow.123" depart="87.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="185.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -575,7 +574,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.123" depart="87.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="186.00">
+    <vehicle id="flow.92" depart="65.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="186.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
@@ -599,147 +598,147 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.102" depart="72.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="220.00">
+    <vehicle id="flow.102" depart="72.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="223.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.105" depart="74.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="222.00">
+    <vehicle id="flow.105" depart="74.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="225.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.108" depart="76.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="224.00">
+    <vehicle id="flow.108" depart="76.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="227.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.111" depart="78.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="226.00">
+    <vehicle id="flow.111" depart="78.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="229.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.134" depart="95.00" departLane="free" departSpeed="25.0501" speedFactor="1.0000" arrival="233.00">
+    <vehicle id="flow.134" depart="95.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="236.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.121" depart="85.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="234.00">
+    <vehicle id="flow.121" depart="85.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="237.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.138" depart="100.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="236.00">
+    <vehicle id="flow.138" depart="100.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="239.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.139" depart="101.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="237.00">
+    <vehicle id="flow.139" depart="102.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="240.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.141" depart="105.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="238.00">
+    <vehicle id="flow.141" depart="105.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="241.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.95" depart="67.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="243.00">
+    <vehicle id="flow.95" depart="67.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="246.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="67.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.98" depart="69.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="245.00">
+    <vehicle id="flow.98" depart="69.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="248.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="69.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.99" depart="70.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="247.00">
+    <vehicle id="flow.99" depart="70.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="250.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="70.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.140" depart="103.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="251.00">
+    <vehicle id="flow.140" depart="103.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="254.00">
         <route edges="beg beg2 middle end"/>
     </vehicle>
 
-    <vehicle id="flow.112" depart="79.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="257.00">
+    <vehicle id="flow.112" depart="79.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="260.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="79.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.114" depart="80.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="259.00">
+    <vehicle id="flow.114" depart="80.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="262.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="80.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.116" depart="82.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="261.00">
+    <vehicle id="flow.116" depart="82.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="264.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="82.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.122" depart="86.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="265.00">
+    <vehicle id="flow.122" depart="86.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="268.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="86.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.128" depart="91.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="267.00">
+    <vehicle id="flow.128" depart="91.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="270.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="91.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.131" depart="94.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="269.00">
+    <vehicle id="flow.131" depart="93.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="272.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="93.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.132" depart="94.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="274.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="94.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.132" depart="94.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="271.00">
+    <vehicle id="flow.133" depart="94.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="276.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="94.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.133" depart="94.00" departLane="free" departSpeed="22.0897" speedFactor="1.0000" arrival="273.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="94.00" probability="0" edges="beg beg2 middle end"/>
-            <route edges="beg detour end"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow.135" depart="96.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="275.00">
+    <vehicle id="flow.135" depart="96.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="278.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="96.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.136" depart="97.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="277.00">
+    <vehicle id="flow.136" depart="97.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="280.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="97.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.137" depart="97.00" departLane="free" departSpeed="24.6184" speedFactor="1.0000" arrival="279.00">
+    <vehicle id="flow.137" depart="98.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="282.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="97.00" probability="0" edges="beg beg2 middle end"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="98.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow.142" depart="106.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="282.00">
+    <vehicle id="flow.142" depart="107.00" departLane="free" departSpeed="27.80" speedFactor="1.0000" arrival="285.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="106.00" probability="0" edges="beg beg2 middle end"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="107.00" probability="0" edges="beg beg2 middle end"/>
             <route edges="beg detour end"/>
         </routeDistribution>
     </vehicle>

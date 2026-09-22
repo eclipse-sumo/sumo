@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-09T16:38:03.086093+01:00 by Eclipse SUMO sumo v1_26_0+1034-8d7c6592743
+<!-- generated on 2026-09-22T10:48:33.213649+01:00 by Eclipse SUMO sumo v1_27_1+0680-d01f9b57dc9
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -1154,7 +1154,7 @@
     </vehicle>
 
     <vehicle id="283" depart="1132.00" arrival="1395.00">
-        <route cost="276.95" savings="0.00" edges="-3 5 222 240 254 278 652 662 833 2386 -2370 1903 2072 2450"/>
+        <route cost="276.96" savings="0.00" edges="-3 5 222 240 254 278 652 662 833 2386 -2370 1903 2072 2450"/>
     </vehicle>
 
     <vehicle id="294" depart="1176.00" arrival="1395.00">
@@ -1254,7 +1254,7 @@
     </vehicle>
 
     <vehicle id="319" depart="1276.00" arrival="1483.00">
-        <route cost="235.48" savings="0.00" edges="2066 -2321 -2319 2370 -2386 -833 -662 -652 658 828 1941 -1941"/>
+        <route cost="235.44" savings="0.00" edges="2066 -2321 -2319 2370 -2386 -833 -662 -652 658 828 1941 -1941"/>
     </vehicle>
 
     <vehicle id="315" depart="1260.00" arrival="1488.00">
@@ -1298,7 +1298,7 @@
     </vehicle>
 
     <vehicle id="325" depart="1300.00" arrival="1540.00">
-        <route cost="255.38" savings="0.00" edges="-2588 2588 -2454 -2411 -2386 -833 -662 -652 658 828 1941"/>
+        <route cost="255.35" savings="0.00" edges="-2588 2588 -2454 -2411 -2386 -833 -662 -652 658 828 1941"/>
     </vehicle>
 
     <vehicle id="339" depart="1356.00" arrival="1544.00">
@@ -1334,7 +1334,7 @@
     </vehicle>
 
     <vehicle id="338" depart="1352.00" arrival="1571.00">
-        <route cost="229.39" savings="0.00" edges="-2688 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 814"/>
+        <route cost="229.35" savings="0.00" edges="-2688 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 814"/>
     </vehicle>
 
     <vehicle id="291" depart="1164.00" arrival="1573.00">
@@ -1342,7 +1342,7 @@
     </vehicle>
 
     <vehicle id="342" depart="1368.00" arrival="1577.00">
-        <route cost="221.88" savings="0.00" edges="-829 -662 -652 -278 -254 -240 -222 -5 9 39 47 768"/>
+        <route cost="221.84" savings="0.00" edges="-829 -662 -652 -278 -254 -240 -222 -5 9 39 47 768"/>
     </vehicle>
 
     <vehicle id="340" depart="1360.00" arrival="1591.00">
@@ -1362,7 +1362,7 @@
     </vehicle>
 
     <vehicle id="332" depart="1328.00" arrival="1607.00">
-        <route cost="297.96" savings="0.00" edges="-1579 -831 -662 -652 -278 -254 -240 -228 -197 205 320 -330"/>
+        <route cost="297.93" savings="0.00" edges="-1579 -831 -662 -652 -278 -254 -240 -228 -197 205 320 -330"/>
     </vehicle>
 
     <vehicle id="330" depart="1320.00" arrival="1608.00">
@@ -1406,7 +1406,7 @@
     </vehicle>
 
     <vehicle id="331" depart="1324.00" arrival="1634.00">
-        <route cost="339.21" savings="0.00" edges="-2321 -2319 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 51 -51"/>
+        <route cost="339.18" savings="0.00" edges="-2321 -2319 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 51 -51"/>
     </vehicle>
 
     <vehicle id="362" depart="1448.00" arrival="1635.00">
@@ -1854,7 +1854,7 @@
     </vehicle>
 
     <vehicle id="456" depart="1824.00" arrival="2080.00">
-        <route cost="280.15" savings="0.00" edges="5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2440"/>
+        <route cost="280.16" savings="0.00" edges="5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2440"/>
     </vehicle>
 
     <vehicle id="455" depart="1820.00" arrival="2082.00">
@@ -1994,7 +1994,7 @@
     </vehicle>
 
     <vehicle id="472" depart="1888.00" arrival="2224.00">
-        <route cost="358.44" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2058 2438 -2408"/>
+        <route cost="358.45" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2058 2438 -2408"/>
     </vehicle>
 
     <vehicle id="474" depart="1896.00" arrival="2224.00">
@@ -3362,7 +3362,7 @@
     </vehicle>
 
     <vehicle id="856" depart="3424.00" arrival="3605.00">
-        <route cost="201.74" savings="0.00" edges="-829 -662 -652 658 828 1941 -2436 -2403 -1466 1468"/>
+        <route cost="201.68" savings="0.00" edges="-829 -662 -652 658 828 1941 -2436 -2403 -1466 1468"/>
     </vehicle>
 
     <vehicle id="811" depart="3244.00" arrival="3613.00">
@@ -3422,7 +3422,7 @@
     </vehicle>
 
     <vehicle id="855" depart="3420.00" arrival="3655.00">
-        <route cost="253.00" savings="0.00" edges="-2066 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 -2403 1595"/>
+        <route cost="252.94" savings="0.00" edges="-2066 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 -2403 1595"/>
     </vehicle>
 
     <vehicle id="833" depart="3332.00" arrival="3662.00">
@@ -3482,7 +3482,7 @@
     </vehicle>
 
     <vehicle id="876" depart="3504.00" arrival="3711.00">
-        <route cost="249.33" savings="0.00" edges="831 -831 -662 -652 658 828 1941 -2436 -2403 -1466 1468"/>
+        <route cost="249.27" savings="0.00" edges="831 -831 -662 -652 658 828 1941 -2436 -2403 -1466 1468"/>
     </vehicle>
 
     <vehicle id="858" depart="3432.00" arrival="3712.00">
@@ -3586,7 +3586,7 @@
     </vehicle>
 
     <vehicle id="866" depart="3464.00" arrival="3816.00">
-        <route cost="374.08" savings="0.00" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -652 658 828 1941 -2436 -2403 -1466 -1458"/>
+        <route cost="374.01" savings="0.00" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -652 658 828 1941 -2436 -2403 -1466 -1458"/>
     </vehicle>
 
     <vehicle id="897" depart="3588.00" arrival="3818.00">
@@ -3606,7 +3606,7 @@
     </vehicle>
 
     <vehicle id="878" depart="3512.00" arrival="3840.00">
-        <route cost="344.77" savings="0.00" edges="-2427 -1586 -1454 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 51 792 -937"/>
+        <route cost="344.70" savings="0.00" edges="-2427 -1586 -1454 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 51 792 -937"/>
     </vehicle>
 
     <vehicle id="893" depart="3572.00" arrival="3843.00">
@@ -3614,11 +3614,11 @@
     </vehicle>
 
     <vehicle id="884" depart="3536.00" arrival="3862.00">
-        <route cost="345.96" savings="0.00" edges="-2690 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 21"/>
+        <route cost="345.92" savings="0.00" edges="-2690 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 21"/>
     </vehicle>
 
     <vehicle id="890" depart="3560.00" arrival="3883.00">
-        <route cost="382.15" savings="0.00" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 802 951 -951"/>
+        <route cost="382.11" savings="0.00" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 802 951 -951"/>
     </vehicle>
 
     <vehicle id="877" depart="3508.00" arrival="3909.00">
