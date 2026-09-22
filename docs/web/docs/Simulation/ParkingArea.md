@@ -61,6 +61,7 @@ The parkingArea supports the following attributes:
 | lefthand         | bool           |     | *false*    | Whether road-side parking spaces should be drawn on the left side of the lane   |
 | acceptedBadges   | string list |     |  | The set of keywords which give access to the parking area (an empty value means free access to all) |
 | reservable       | bool |               | *false* | Whether vehicles that are [cruising for parking](Rerouter.md#rerouting_to_an_alternative_parking_area) can reserve a parking space |
+| departPos        | float |              | undefined | When set to a value between [0, laneLength], the vehicle will exit the parkingArea at that location instead of the location where it stopped |
 
 ## Custom parking spaces
 
