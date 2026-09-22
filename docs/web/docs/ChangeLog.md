@@ -151,6 +151,7 @@ title: ChangeLog
   - SUMO will not build on a plain CentOS7 anymore (but you can still build it there if you update the compiler)
 - Windows builds (nightly and release) now use Visual Studio 2026
 - Removed stationFinder device parameter `maxChargePower`. It was never in use because the quantity in question is already defined by `device.battery.maximumChargeRate` #18275
+- As a consequence of fixing #18131, meso defaults to running with internal links if they are present in the network (which improves accuracy in route length and positioning but slightly reduces simulation speed).
 
 
 ## Version 1.27.1 (25.06.2026) ([downloads](https://sumo.dlr.de/docs/Downloads.php))
