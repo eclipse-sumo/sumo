@@ -12,3 +12,9 @@ iter50
 
 # multi threaded call of the incremental assignment
 threading
+
+# incremental assignment with CCH routing (the metric is re-customized after every iteration)
+cch
+
+# multi threaded incremental assignment with CCH routing
+cch_threading

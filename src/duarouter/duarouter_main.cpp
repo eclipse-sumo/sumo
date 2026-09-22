@@ -51,6 +51,7 @@
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
+#include <utils/router/CCHRouter.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <router/ROFrame.h>
@@ -58,12 +59,16 @@
 #include <router/RONet.h>
 #include <router/ROEdge.h>
 #include "RODUAEdgeBuilder.h"
+#include <router/ROLane.h>
+#include <router/RONode.h>
+#include <router/ROCCHMetrics.h>
 #include "RODUAFrame.h"
 
 
 // ===========================================================================
 // functions
 // ===========================================================================
+
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
@@ -154,6 +159,36 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
+        } else if (routingAlgorithm == "CCH") {
+            // One weight-independent hierarchy over the union graph; one
+            // customized metric per (vehicle type, weight period), built
+            // lazily on first query (see ROCCHMetrics.h). With
+            // time-dependent weight files this follows CHRouterWrapper's
+            // per-period semantics, but repeats only the metric
+            // customization, never the topology build.
+            // Because the metrics are keyed by vehicle type, the type and
+            // class specific routing preferences of the effort function are
+            // captured exactly. weights.random-factor freezes one random
+            // realization into each metric, the same approximation
+            // CHRouterWrapper makes when building its hierarchies.
+            const bool hasWeights = oc.isSet("weight-files") || oc.isSet("lane-weight-files");
+            const SUMOTime weightPeriod = hasWeights ? string2time(oc.getString("weight-period")) : SUMOTime_MAX;
+            // Process-lifetime singletons: the topology and metric store are
+            // shared by every router clone until duarouter exits.
+            ROCCHGraph* cchGraph = new ROCCHGraph(ROEdge::getAllEdges());
+            ROCCHMetrics::init(cchGraph, ttFunction, begin, weightPeriod);
+            SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
+                nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
+            // restriction-params are handled natively: each distinct
+            // restriction profile gets its own masked metric (see
+            // ROCCHMetrics::get); the period-end hook lets queries whose
+            // trip crosses a weight-period boundary re-query on the next
+            // period's metric.
+            router = new CCHRouter<ROEdge, ROVehicle, ROCCHGraph>(
+                cchGraph, &ROCCHMetrics::get, ttFunction,
+                oc.getBool("ignore-errors"), fallback,
+                hasWeights ? &ROCCHMetrics::periodEnd : nullptr);
         } else if (routingAlgorithm == "arcflag") {
             /// @brief The number of levels in the k-d tree partition
             constexpr auto NUMBER_OF_LEVELS = 5; //or 4 or 8
@@ -165,7 +200,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                     partition, oc.getBool("ignore-errors"), ttFunction, reversedTtFunction, (oc.isSet("weight-files") ? string2time(oc.getString("weight-period")) : SUMOTime_MAX),
                     nullptr, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else {
-            throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
+            throw ProcessError(TLF("Unknown routing algorithm '%'!", routingAlgorithm));
         }
     } else {
         if (measure == "traveltime") {

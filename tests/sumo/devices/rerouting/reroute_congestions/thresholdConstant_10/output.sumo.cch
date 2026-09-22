@@ -1,0 +1,23 @@
+Loading net-file from 'net.net.xml' ... done (55ms).
+Loading route-files incrementally from 'input_trips.trips.xml'
+Loading done.
+Simulation version v1_27_1+0474-0c9d4dc8aff started with time: 0.00.
+Simulation ended at time: 4209.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 3.57s
+ Real time factor: 1180.65
+ UPS: 101946.984572
+Vehicles:
+ Inserted: 900
+ Running: 0
+ Waiting: 0
+Statistics (avg of 900):
+ RouteLength: 3715.90
+ Speed: 9.35
+ Duration: 403.82
+ WaitingTime: 84.90
+ TimeLoss: 132.04
+ DepartDelay: 0.04
+CCHRouter answered 3294 queries and explored 8.61 edges on average.
+CCHRouter spent 0.02s answering queries (0.00ms on average).

@@ -251,6 +251,12 @@ private:
     /// @brief Whether the equipped vehicle may perform rerouting
     bool myActive;
 
+    /// @brief Whether to gate periodic reroutes on a cheap route-drift check
+    bool myInvalidation;
+
+    /// @brief remaining-route cost at the last (re)routing, -1 if unknown
+    double myLastRouteCost;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Routing(const MSDevice_Routing&);

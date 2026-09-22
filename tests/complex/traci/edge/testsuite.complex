@@ -9,3 +9,7 @@ bidi
 
 # see #16422
 subscribeContextVehicles
+
+# regression: permanent TraCI permission changes (setDisallowed) must
+# invalidate the CCH free-flow metric so rerouteTraveltime avoids the edge
+permissions_cch_reroute

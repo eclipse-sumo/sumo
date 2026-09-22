@@ -180,7 +180,7 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
 
     if (isDUA || isMA) {
         oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-        oc.addDescription("routing-algorithm", "Processing", TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"));
+        oc.addDescription("routing-algorithm", "Processing", TL("Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper', 'CCH']"));
     }
 
     oc.doRegister("restriction-params", new Option_StringVector());

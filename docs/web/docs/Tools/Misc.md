@@ -247,7 +247,7 @@ This script generates a landmark file for use with duarouter options **--astar.l
 ```
 python tools/generateLandmarks.py -n <net-file> -o <output-file>
 ```
-See [Routing algorithm ALT](../Simulation/Routing.md#alt).
+See [Routing algorithm ALT](../Routing_Algorithms.md#alt).
 
 # averageTripStatistics.py
 

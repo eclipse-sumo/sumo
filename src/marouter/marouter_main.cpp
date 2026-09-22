@@ -51,12 +51,14 @@
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
+#include <utils/router/CCHRouter.h>
 #include <utils/xml/XMLSubSys.h>
 #include <od/ODCell.h>
 #include <od/ODDistrict.h>
 #include <od/ODDistrictCont.h>
 #include <od/ODDistrictHandler.h>
 #include <od/ODMatrix.h>
+#include <router/ROCCHMetrics.h>
 #include <router/ROEdge.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
@@ -176,6 +178,23 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
+        } else if (routingAlgorithm == "CCH") {
+            // One weight-independent hierarchy over the union graph and one
+            // customized metric for the default vehicle's type, filled from
+            // the travel times of the current assignment iteration.
+            // ROMAAssignments resets the router after every iteration (where
+            // CH rebuilds its whole hierarchy); the reset hook flags the
+            // metric for re-customization at the next query, so every
+            // iteration routes on exactly the travel times a Dijkstra query
+            // would see. Like CH, the metric cannot follow the k shortest
+            // path penalties (see ROMAFrame::checkOptions).
+            ROCCHGraph* cchGraph = new ROCCHGraph(ROEdge::getAllEdges());
+            ROCCHMetrics::init(cchGraph, &ROEdge::getTravelTimeStatic, begin, SUMOTime_MAX);
+            SUMOAbstractRouter<ROEdge, ROVehicle>* fallback = new AStarRouter<ROEdge, ROVehicle, ROMapMatcher>(
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, nullptr, net.hasPermissions());
+            router = new CCHRouter<ROEdge, ROVehicle, ROCCHGraph>(
+                cchGraph, &ROCCHMetrics::get, &ROEdge::getTravelTimeStatic,
+                oc.getBool("ignore-errors"), fallback, nullptr, &ROCCHMetrics::reset);
         } else {
             throw ProcessError(TLF("Unknown routing Algorithm '%'!", routingAlgorithm));
         }

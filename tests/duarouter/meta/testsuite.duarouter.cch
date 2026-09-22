@@ -1,0 +1,11 @@
+# Tests --help
+help
+
+# Tests --version
+version
+
+# Tests configuration writing
+write_config
+
+# Tests whether log-file output works
+with_log

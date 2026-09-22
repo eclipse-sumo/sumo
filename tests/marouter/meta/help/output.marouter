@@ -97,7 +97,8 @@ Processing Options:
   --routing-threads INT               The number of parallel execution threads
                                        used for routing
   --routing-algorithm STR             Select among routing algorithms
-                                       ['dijkstra', 'astar', 'CH', 'CHWrapper']
+                                       ['dijkstra', 'astar', 'CH', 'CHWrapper',
+                                       'CCH']
   --restriction-params STR[]          Comma separated list of param keys to
                                        compare for additional restrictions
   --weights.interpolate               Interpolate edge weights at interval

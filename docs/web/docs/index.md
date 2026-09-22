@@ -138,6 +138,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Intersection dynamics](Simulation/Intersections.md)
 - [Randomness](Simulation/Randomness.md)
 - [Routing and Re-routing](Simulation/Routing.md)
+- [Routing Algorithms](Routing_Algorithms.md)
 - [Sublane Model](Simulation/SublaneModel.md)
 - [Opposite Direction Driving](Simulation/OppositeDirectionDriving.md)
 - [Safety](Simulation/Safety.md)

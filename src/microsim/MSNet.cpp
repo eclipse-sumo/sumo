@@ -56,6 +56,8 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/router/AStarRouter.h>
+#include <utils/router/CCHGraph.h>
+#include <utils/router/CCHRouter.h>
 #include <utils/router/IntermodalRouter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
@@ -323,6 +325,12 @@ MSNet::~MSNet() {
         delete myContainerControl;
         myContainerControl = nullptr; // just to have that clear for later cleanups
     }
+    // the CCH metric families (myCCHLive/myCCHFreeflow) own ref vehicles
+    // that hold a raw MSVehicleType*; tear them down before the vehicle
+    // types go away below (MSDevice::cleanupAll() -> MSRoutingEngine::
+    // cleanup() runs this again later via clearAll(), harmlessly, since
+    // cleanupCCH() nulls out what it deletes)
+    MSRoutingEngine::cleanupCCH();
     delete myVehicleControl; // must happen after deleting transportables
     // ShapeContainer registers polygon-update commands with the event controls.
     // It must be torn down before the event controls so that ~ShapeContainer
@@ -1650,6 +1658,16 @@ MSNet::getRouterTT(int rngIndex, const Prohibitions& prohibited) const {
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingAlgorithm == "dijkstra") {
             myRouterTT[rngIndex] = new DijkstraRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, false, nullptr, true);
+        } else if (routingAlgorithm == "CCH") {
+            // free-flow CCH metrics per vehicle type; every query a shared
+            // metric cannot serve (TraCI edge weights, non-default routing
+            // modes, prohibitions beyond live closures) routes on the exact
+            // embedded fallback -- see MSRoutingEngine::getFreeflowCCHMetric
+            SUMOAbstractRouter<MSEdge, SUMOVehicle>* fallback =
+                new AStarRouter<MSEdge, SUMOVehicle, MSMapMatcher>(MSEdge::getAllEdges(), true, &MSNet::getTravelTime, nullptr, true);
+            myRouterTT[rngIndex] = new CCHRouter<MSEdge, SUMOVehicle, MSCCHGraph>(
+                MSRoutingEngine::ensureCCHGraph(), &MSRoutingEngine::getFreeflowCCHMetric,
+                &MSNet::getTravelTime, true, fallback);
         } else {
             if (routingAlgorithm != "astar") {
                 WRITE_WARNINGF(TL("TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."), routingAlgorithm);

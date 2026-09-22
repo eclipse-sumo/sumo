@@ -452,6 +452,17 @@ ROMAAssignments::sue(const int maxOuterIteration, const int maxInnerIteration, c
             }
             // additional stability check from python script: if notstable < math.ceil(net.geteffEdgeCounts()*0.005) or notstable < 3: stable = True
         }
+        // travel times changed since the metric was last built (or since the
+        // previous outer iteration): flag it stale so the *first* subsequent
+        // router query re-customizes (CCH) / rebuilds the hierarchy (CH)
+        // from current edge weights. recomputeCosts() above never consults
+        // the cached metric (it reads the live effort function directly), so
+        // a single reset() here -- right before the only call that does,
+        // computePath()'s router->compute() below -- is exactly as correct
+        // as resetting after every inner iteration, but for an
+        // expensive-to-rebuild algorithm like CH this cuts the number of
+        // rebuilds from O(maxInnerIteration) to one per outer iteration.
+        myRouter.reset(myDefaultVehicle);
         // check for a new route, if none available, break
         // several modifications about when a route is new and when to break are in the original script
         bool newRoute = false;

@@ -31,6 +31,14 @@
 #include <utils/router/AStarRouter.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSRouterDefs.h>
+#include <memory>
+#include <atomic>
+#include <map>
+#include <mutex>
+namespace RoutingKit {
+struct CustomizableContractionHierarchyMetric;
+struct CustomizableContractionHierarchyPartialCustomization;
+}
 
 #ifdef HAVE_FOX
 #include <utils/foxtools/MFXWorkerThread.h>
@@ -41,6 +49,7 @@
 // class declarations
 // ===========================================================================
 class MSTransportable;
+class MSVehicleType;
 class SUMOSAXAttributes;
 
 // ===========================================================================
@@ -68,7 +77,7 @@ class MSRoutingEngine {
 public:
     typedef SUMOAbstractRouter<MSEdge, SUMOVehicle>::Prohibitions Prohibitions;
 
-    /// @brief initialize constants for using myPriorityFactor 
+    /// @brief initialize constants for using myPriorityFactor
     static void initWeightConstants(const OptionsCont& oc);
 
     /// @brief intialize period edge weight update
@@ -114,6 +123,31 @@ public:
     /// @brief return the cached route or nullptr on miss
     static ConstMSRoutePtr getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
+    /// @brief the currently published (customized) CCH metric FOR A GIVEN
+    /// vehicle class, or nullptr if that class has no CCH metric (then the
+    /// caller falls back to A*). Lock-free: a plain atomic pointer read. The
+    /// metric objects live for the whole run, so the raw pointer is always
+    /// valid; the double buffer guarantees the pointer we hand out is not the
+    /// one being customized. Called on the routing hot path -- allocation- and
+    /// lock-free.
+    static const RoutingKit::CustomizableContractionHierarchyMetric* getPublishedCCHMetric(SUMOVehicleClass vClass, SUMOTime time, const SUMOVehicle* veh);
+
+    /// @brief the free-flow CCH metric for MSNet's routers (TraCI / triggers /
+    /// GUI), keyed by vehicle type and filled through MSNet::getTravelTime
+    /// with a reference vehicle of the type. Free-flow efforts are static, so
+    /// each metric customizes once; a runtime permission change re-customizes
+    /// in place. Returns nullptr (-> exact A* fallback) whenever the query
+    /// cannot be served by a shared metric: individual or global TraCI edge
+    /// weights, a routing mode other than DEFAULT, or a vehicle-specific
+    /// type. MAIN-THREAD ONLY -- MSNet's routers never run on the worker
+    /// threads, which is what allows the synchronous lazy build and repair.
+    static const RoutingKit::CustomizableContractionHierarchyMetric* getFreeflowCCHMetric(SUMOVehicleClass vClass, SUMOTime time, const SUMOVehicle* veh);
+
+    /// @brief the shared CCH topology, built on first demand (used by
+    /// MSNet::getRouterTT to construct its CCH router; the device path builds
+    /// it through initCCH)
+    static MSCCHGraph* ensureCCHGraph();
+
     static void initRouter(SUMOVehicle* vehicle = nullptr);
 
     /// @brief initiate the rerouting, create router / thread pool on first use
@@ -129,6 +163,15 @@ public:
 
     /// @brief deletes the router instance
     static void cleanup();
+
+    /// @brief tears down the CCH state (myCCHLive/myCCHFreeflow/myCCHGraph)
+    /// only -- the ref vehicles owned by the CCH metric families hold a raw
+    /// MSVehicleType* that MSVehicleControl frees, so this MUST run before
+    /// MSNet deletes its MSVehicleControl (cleanup() itself runs far later,
+    /// from MSNet::clearAll(), so this is called separately and first; it is
+    /// also idempotent/safe to call again from cleanup() afterwards since it
+    /// nulls out the pointers it deletes)
+    static void cleanupCCH();
 
     /// @brief returns whether any routing actions take place
     static bool isEnabled() {
@@ -309,6 +352,37 @@ private:
     /// @brief Mutex for accessing the route cache
     static FXMutex myRouteCacheMutex;
 #endif
+
+    /// @brief the immutable shared CCH topology (built once), or nullptr if inactive
+    static MSCCHGraph* myCCHGraph;
+    /// @brief the rerouting device's LIVE metric family over the adaptive
+    /// speed tables (see utils/router/CCHMetricFamily.h): metrics are keyed
+    /// by vehicle TYPE -- mirroring duarouter's keying -- and filled with an
+    /// OWNED reference vehicle of the type, so the type's maximum speed,
+    /// vClass speed limits, routing preferences, the bicycle speed table and
+    /// one frozen weights.random-factor realization are exact per metric.
+    /// nullptr until initCCH.
+    static MSCCHMetricFamily* myCCHLive;
+    /// @brief the STATIC free-flow metric family behind MSNet's routers
+    /// (TraCI / triggers / GUI, all main-thread); built on first query
+    static MSCCHMetricFamily* myCCHFreeflow;
+    /// @brief construct the unregistered effort-reference vehicle for a
+    /// type: never counted, inserted or given devices, with the type's mean
+    /// speed factor and a deterministic random seed (the family's
+    /// RefVehicleFactory; the slot picks the frozen random-factor
+    /// realization, see device.rerouting.cch-ensemble)
+    static SUMOVehicle* buildCCHRefVehicle(const MSVehicleType* type, int slot);
+    /// @brief build the shared CCH + the live family with one metric per
+    /// loaded type, publish initial metrics
+    static void initCCH();
+
+public:
+    /// @brief a runtime permission change (closure / re-opening) hit this
+    /// edge: invalidate the graph's primed connection masks and both
+    /// families' metrics (queries divert to the exact fallback until the
+    /// families re-customize)
+    static void invalidateCCHEdge(const MSEdge* e);
+private:
 
 private:
     /// @brief Invalidated copy constructor.

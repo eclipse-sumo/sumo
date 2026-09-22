@@ -243,7 +243,7 @@ ROMAFrame::checkOptions() {
         WRITE_ERRORF(TL("Invalid route choice method '%'."), oc.getString("route-choice-method"));
         return false;
     }
-    if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
+    if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper" || oc.getString("routing-algorithm") == "CCH")) {
         WRITE_WARNING(TL("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!"));
     }
     return true;
