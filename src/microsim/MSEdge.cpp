@@ -466,6 +466,7 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
         }
     }
     myClassesSuccessorMap.clear();
+    myClassesViaSuccessorMap.clear();
 }
 
 

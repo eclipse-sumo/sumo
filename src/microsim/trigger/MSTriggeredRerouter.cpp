@@ -414,6 +414,7 @@ MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
         }
     }
     if (updateVehicles) {
+        MSNet::getInstance()->setPermissionsFound();
         // only vehicles on the affected lanes had their bestlanes updated so far
         for (MSEdge* e : myEdges) {
             // also updates vehicles
