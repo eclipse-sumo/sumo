@@ -135,7 +135,14 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
         if (veh->isStopped()) {
             veh->processStop();
         }
-        return SUMOTime_MAX;
+        // all queues on the next segment are forbidden. We don't want to check
+        // too often whether the forbiden edge has become permitted again
+        if (MSGlobals::gTimeToGridlock > 0) {
+            // if teleporting is enabled, make sure we look at the vehicle when the gridlock-time is up
+            const SUMOTime recheck = MSGlobals::gTimeToTeleportDisconnected >= 0 ? MIN2(MSGlobals::gTimeToGridlock, MSGlobals::gTimeToTeleportDisconnected) : MSGlobals::gTimeToGridlock;
+            return MAX2(MIN2(leaveTime + myLinkRecheckInterval, MIN2(veh->getBlockTime(), leaveTime) + recheck + 1), leaveTime + 1);
+        }
+        return leaveTime + myLinkRecheckInterval;
     }
     toSegment->updateEntryBlockTime(leaveTime);
     const SUMOTime entry = toSegment->hasSpaceFor(veh, leaveTime, qIdx);
