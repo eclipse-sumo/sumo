@@ -13,6 +13,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
+# @author  Michael Behrisch
 # @date    2026-09-05
 
 # Regression test for a bug where a permanent TraCI permission change
