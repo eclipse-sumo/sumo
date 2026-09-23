@@ -166,7 +166,7 @@ MSRoutingEngine::initWeightConstants(const OptionsCont& oc) {
         }
     }
     myDynamicRandomness = oc.getBool("weights.random-factor.dynamic");
-    myHaveExtras = gRoutingPreferences || myPriorityFactor != 0 || gWeightsRandomFactor != 0;
+    myHaveExtras = gRoutingPreferences || myPriorityFactor != 0 || gWeightsRandomFactor != 1;
 }
 
 
