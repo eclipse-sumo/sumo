@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-06-17 16:33:58 by Eclipse SUMO sumo Version v1_23_1+0618-e43ddf96520
+<!-- generated on 2026-09-23T18:46:24.481680+01:00 by Eclipse SUMO sumo v1_27_1+0758-bc4264f2603
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <time-to-teleport.railsignal-deadlock value="200"/>
+        <default.departspeed value="0"/>
+        <default.departlane value="first"/>
         <default.speeddev value="0"/>
     </processing>
 
@@ -51,5 +53,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
     <stopinfo id="v_0" type="train" edge="E0" pos="100.00" parking="0" started="7.20" ended="28.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
-    <stopinfo id="v_0" type="train" edge="E2" pos="0.00" parking="0" started="34.40" ended="3600.00" delay="3500.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
+    <stopinfo id="v_0" type="train" edge="E2" pos="0.00" parking="0" started="34.40" ended="108.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" blockedDuration="0.00"/>
 </stops>
