@@ -18,9 +18,14 @@ directional_lane_switch_visible
 
 # overtaking lane available in different directions at different times.
 # Visualization intended to model a 3 lane road with a center lane that switches permitted direction
-#
+# 
 directional_lane_switch
 
 # lane closing blocks the route but the vehicle should stay on the old route
 # (despite rerouting device)
 routingMode_ignore
+
+# lane closing blocks the route but the vehicle should stay on the old route
+# (despite rerouting device)
+# Also, the vehicle ignores the rerouter due to a type filter
+routingMode_ignore_filter
