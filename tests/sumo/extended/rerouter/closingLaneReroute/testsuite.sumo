@@ -29,3 +29,12 @@ routingMode_ignore
 # (despite rerouting device)
 # Also, the vehicle ignores the rerouter due to a type filter
 routingMode_ignore_filter
+
+# lane closing blocks the old route but the edge is still permitted and can be used for a detour
+closeTurningLane
+
+# lane closing blocks the old route but the edge is still permitted and can be used for a detour. Vehicle has rerouting device.
+closeTurningLane_rerouting
+
+# lane closing blocks the old route but the edge is still permitted and can be used for a detour. Vehicle has rerouting device.
+closeTurningLane_rerouting_mode8
