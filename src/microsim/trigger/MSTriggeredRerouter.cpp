@@ -519,11 +519,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     if (reason == NOTIFICATION_LANE_CHANGE) {
         return false;
     }
-    // if we have a closingLaneReroute, only vehicles with a rerouting device can profit from rerouting (otherwise, edge weights will not reflect local jamming)
+    // if we have a closingLaneReroute it may still affect the network topology (i.e. by closing a turning lane).
+    // Even if the topology stays unchanged, vehicles with a rerouting device could reroute around jams that form due to capacity reduction
     const bool hasReroutingDevice = tObject.getDevice(typeid(MSDevice_Routing)) != nullptr;
-    if (rerouteDef->closedLanes.size() > 0 && !hasReroutingDevice) {
-        return true; // an active interval could appear later
-    }
     const MSEdge* lastEdge = tObject.getRerouteDestination();
 #ifdef DEBUG_REROUTER
     if (DEBUGCOND(tObject)) {
