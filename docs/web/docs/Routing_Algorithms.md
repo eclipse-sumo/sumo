@@ -118,7 +118,7 @@ The table below summarizes which routing features are supported by each
 **--routing-algorithm** value. "partial" means the feature is only supported
 by some of the applications that implement CCH ([sumo](sumo.md),
 [duarouter](duarouter.md), [marouter](marouter.md)); see the
-[CCH](#cch-customizable-contraction-hierarchies) section above for the exact split.
+[CCH](#cch_customizable_contraction_hierarchies) section above for the exact split.
 
 | Feature | dijkstra | astar / ALT | CH | CHWrapper | CCH |
 |---|---|---|---|---|---|
