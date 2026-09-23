@@ -191,7 +191,13 @@ public:
         return false;
     };
 
+    /// @brief return routing mode (configures router choice but also handling of transient permission changes)
     virtual int getRoutingMode() const = 0;
+
+    /** @brief Sets routing behavior
+     * @param[in] value an enum value controlling the different modes
+     */
+    virtual void setRoutingMode(int value) = 0;
 
     /** @brief Returns the object's maximum speed (minimum of technical and desired maximum speed)
      * @return The object's maximum speed

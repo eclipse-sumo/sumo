@@ -408,6 +408,11 @@ public:
     /// @brief return routing mode (configures router choice but also handling of transient permission changes)
     virtual int getRoutingMode() const override;
 
+    /** @brief Sets routing behavior
+     * @param[in] value an enum value controlling the different modes
+     */
+    virtual void setRoutingMode(int value) override;
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);

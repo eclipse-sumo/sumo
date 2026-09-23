@@ -659,6 +659,13 @@ MSTransportable::getRoutingMode() const {
     return libsumo::ROUTING_MODE_DEFAULT;
 }
 
+
+void
+MSTransportable::setRoutingMode(int value) {
+    /// @todo: allow configuring routing mode
+    UNUSED_PARAMETER(value);
+}
+
 void
 MSTransportable::saveState(OutputDevice& out) {
     // this saves lots of departParameters which are only needed for transportables that did not yet depart
