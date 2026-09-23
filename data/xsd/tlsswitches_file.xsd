@@ -6,12 +6,12 @@
     <xsd:element name="tlsSwitches">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element maxOccurs="unbounded" ref="tlsSwitch"/>
+                <xsd:element maxOccurs="unbounded" name="tlsSwitch" type="tlsSwitchType"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
 
-    <xsd:complexType name="tlsSwitch">
+    <xsd:complexType name="tlsSwitchType">
         <xsd:attribute name="id" use="required" type="xsd:string"/>
         <xsd:attribute name="programID" use="required" type="xsd:string"/>
         <xsd:attribute name="fromLane" use="required" type="xsd:string"/>
