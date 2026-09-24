@@ -26,7 +26,10 @@
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 #include <fxkeys.h>
 #include "GUIMessageWindow.h"
 
@@ -46,7 +49,10 @@ std::map<std::string, std::string> GUIMessageWindow::myTypeStrings;
 // ===========================================================================
 
 FXDEFMAP(GUIMessageWindow) GUIMessageWindowMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS, 0, GUIMessageWindow::onKeyPress),
+    FXMAPFUNC(SEL_KEYPRESS,           0,                      GUIMessageWindow::onKeyPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE, 0,                      GUIMessageWindow::onRightBtnRelease),
+    FXMAPFUNC(SEL_COMMAND,            MID_CLEARMESSAGEWINDOW, GUIMessageWindow::onCmdClear),
+    FXMAPFUNC(SEL_UPDATE,             MID_CLEARMESSAGEWINDOW, GUIMessageWindow::onUpdClear),
 };
 
 FXIMPLEMENT_ABSTRACT(GUIMessageWindow, FXText, GUIMessageWindowMap, ARRAYNUMBER(GUIMessageWindowMap))
@@ -286,7 +292,7 @@ GUIMessageWindow::clear() {
     if (getLength() == 0) {
         return;
     }
-    FXText::removeText(0, getLength() - 1, true);
+    FXText::removeText(0, getLength(), true);
     if (isEnabled()) {
         layout();
         update();
@@ -324,6 +330,55 @@ GUIMessageWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
         return FXText::onKeyPress(o, sel, ptr);
     }
     return 0;
+}
+
+
+long
+GUIMessageWindow::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
+    FXText::onRightBtnRelease(o, sel, ptr);
+    if (!isEnabled()) {
+        return 0;
+    }
+    FXEvent* event = (FXEvent*)ptr;
+    if (event->moved) {
+        return 1;
+    }
+    setFocus();
+    FXMenuPane contextMenu(this);
+    FXMenuCommand* copyCmd = GUIDesigns::buildFXMenuCommandShortcut(&contextMenu, TL("Copy"), "Ctrl+C", TL("Copy selection to clipboard"),
+                             GUIIconSubSys::getIcon(GUIIcon::COPY), this, FXText::ID_COPY_SEL);
+    FXMenuCommand* selAllCmd = GUIDesigns::buildFXMenuCommandShortcut(&contextMenu, TL("Select all"), "Ctrl+A", TL("Select all text"),
+                               nullptr, this, FXText::ID_SELECT_ALL);
+    if (getSelStartPos() >= getSelEndPos()) {
+        copyCmd->disable();
+    }
+    if (getLength() == 0) {
+        selAllCmd->disable();
+    }
+    new FXMenuSeparator(&contextMenu);
+    FXMenuCommand* clearCmd = GUIDesigns::buildFXMenuCommand(&contextMenu, TL("Clear"), TL("Clear message window"),
+                              GUIIconSubSys::getIcon(GUIIcon::CLEARMESSAGEWINDOW), this, MID_CLEARMESSAGEWINDOW);
+    if (getLength() == 0) {
+        clearCmd->disable();
+    }
+    contextMenu.create();
+    contextMenu.popup(nullptr, event->root_x, event->root_y);
+    getApp()->runModalWhileShown(&contextMenu);
+    return 1;
+}
+
+
+long
+GUIMessageWindow::onCmdClear(FXObject*, FXSelector, void*) {
+    clear();
+    return 1;
+}
+
+
+long
+GUIMessageWindow::onUpdClear(FXObject* sender, FXSelector, void* ptr) {
+    sender->handle(this, getLength() > 0 ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), ptr);
+    return 1;
 }
 
 

@@ -109,6 +109,15 @@ public:
     /// @brief handle keys
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
 
+    /// @brief handle right button release
+    long onRightBtnRelease(FXObject* o, FXSelector sel, void* data);
+
+    /// @brief handle clear command
+    long onCmdClear(FXObject*, FXSelector, void*);
+
+    /// @brief handle update of clear command
+    long onUpdClear(FXObject* sender, FXSelector, void* data);
+
     /// @brief The text colors used
     static FXHiliteStyle* getStyles();
 
