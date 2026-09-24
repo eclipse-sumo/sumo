@@ -136,34 +136,65 @@ MFXImageHelper::saveImage(const std::string& file,
                           int width, int height, FXColor* data) {
     FXString ext = FXPath::extension(file.c_str());
     checkSupported(ext);
+    enum class ImageFormat {
+        GIF, BMP, XPM, PCX, ICO, TGA, RGB, XBM, PNG, JPG, TIF
+    };
+    ImageFormat format;
+    if (comparecase(ext, "gif") == 0) {
+        format = ImageFormat::GIF;
+    } else if (comparecase(ext, "bmp") == 0) {
+        format = ImageFormat::BMP;
+    } else if (comparecase(ext, "xpm") == 0) {
+        format = ImageFormat::XPM;
+    } else if (comparecase(ext, "pcx") == 0) {
+        format = ImageFormat::PCX;
+    } else if (comparecase(ext, "ico") == 0 || comparecase(ext, "cur") == 0) {
+        format = ImageFormat::ICO;
+    } else if (comparecase(ext, "tga") == 0) {
+        format = ImageFormat::TGA;
+    } else if (comparecase(ext, "rgb") == 0) {
+        format = ImageFormat::RGB;
+    } else if (comparecase(ext, "xbm") == 0) {
+        format = ImageFormat::XBM;
+    } else if (comparecase(ext, "png") == 0) {
+        format = ImageFormat::PNG;
+    } else if (comparecase(ext, "jpg") == 0 || comparecase(ext, "jpeg") == 0) {
+        format = ImageFormat::JPG;
+    } else if (comparecase(ext, "tif") == 0 || comparecase(ext, "tiff") == 0) {
+        format = ImageFormat::TIF;
+    } else {
+        throw InvalidArgument("Unknown file extension for image!");
+    }
     FXFileStream stream;
     if (!stream.open(file.c_str(), FXStreamSave)) {
         throw InvalidArgument("Could not open file for writing!");
     }
-    if (comparecase(ext, "gif") == 0) {
-        return fxsaveGIF(stream, data, width, height, false /* !!! "fast" */);
-    } else if (comparecase(ext, "bmp") == 0) {
-        return fxsaveBMP(stream, data, width, height);
-    } else if (comparecase(ext, "xpm") == 0) {
-        return fxsaveXPM(stream, data, width, height);
-    } else if (comparecase(ext, "pcx") == 0) {
-        return fxsavePCX(stream, data, width, height);
-    } else if (comparecase(ext, "ico") == 0 || comparecase(ext, "cur") == 0) {
-        return fxsaveICO(stream, data, width, height);
-    } else if (comparecase(ext, "tga") == 0) {
-        return fxsaveTGA(stream, data, width, height);
-    } else if (comparecase(ext, "rgb") == 0) {
-        return fxsaveRGB(stream, data, width, height);
-    } else if (comparecase(ext, "xbm") == 0) {
-        return fxsaveXBM(stream, data, width, height);
-    } else if (comparecase(ext, "png") == 0) {
-        return fxsavePNG(stream, data, width, height);
-    } else if (comparecase(ext, "jpg") == 0 || comparecase(ext, "jpeg") == 0) {
-        return fxsaveJPG(stream, data, width, height, 75);
-    } else if (comparecase(ext, "tif") == 0 || comparecase(ext, "tiff") == 0) {
-        return fxsaveTIF(stream, data, width, height, 0);
+    switch (format) {
+        case ImageFormat::GIF:
+            return fxsaveGIF(stream, data, width, height, false /* !!! "fast" */);
+        case ImageFormat::BMP:
+            return fxsaveBMP(stream, data, width, height);
+        case ImageFormat::XPM:
+            return fxsaveXPM(stream, data, width, height);
+        case ImageFormat::PCX:
+            return fxsavePCX(stream, data, width, height);
+        case ImageFormat::ICO:
+            return fxsaveICO(stream, data, width, height);
+        case ImageFormat::TGA:
+            return fxsaveTGA(stream, data, width, height);
+        case ImageFormat::RGB:
+            return fxsaveRGB(stream, data, width, height);
+        case ImageFormat::XBM:
+            return fxsaveXBM(stream, data, width, height);
+        case ImageFormat::PNG:
+            return fxsavePNG(stream, data, width, height);
+        case ImageFormat::JPG:
+            return fxsaveJPG(stream, data, width, height, 75);
+        case ImageFormat::TIF:
+            return fxsaveTIF(stream, data, width, height, 0);
+        default:
+            return false;
     }
-    throw InvalidArgument("Unknown file extension for image!");
 }
 
 
