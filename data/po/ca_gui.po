@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2026-09-22 10:14+0200\n"
-"PO-Revision-Date: 2026-09-22 10:14+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-09-24 13:51+0000\n"
+"Last-Translator: Ferran González García <ferrangg02@gmail.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: src/gui/GUIApplicationWindow.cpp:318 src/gui/GUIApplicationWindow.cpp:321
 #: src/gui/GUIApplicationWindow.cpp:2355 src/gui/GUIApplicationWindow.cpp:2356
@@ -27,21 +29,23 @@ msgstr ""
 #: src/netedit/GNEApplicationWindow.cpp:1726
 #: src/netedit/GNEApplicationWindow.cpp:1727
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: src/gui/GUIApplicationWindow.cpp:318
 #: src/netedit/GNEApplicationWindow.cpp:588
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
+"Coordenades originals (abans de la transformació de coordenades en el "
+"netconvert)"
 
 #: src/gui/GUIApplicationWindow.cpp:321
 #: src/netedit/GNEApplicationWindow.cpp:592
 msgid "Network coordinate"
-msgstr ""
+msgstr "Coordenades de la xarxa"
 
 #: src/gui/GUIApplicationWindow.cpp:324
 msgid "number of running vehicles"
-msgstr ""
+msgstr "Nombre de vehicles en moviment"
 
 #: src/gui/GUIApplicationWindow.cpp:325
 msgid "number of insertion backlogged vehicles"
@@ -49,349 +53,355 @@ msgstr ""
 
 #: src/gui/GUIApplicationWindow.cpp:326
 msgid "percentage of teleports per departed vehicles"
-msgstr ""
+msgstr "percentatge de teletransports per vehicle sortint"
 
 #: src/gui/GUIApplicationWindow.cpp:327
 msgid "number of active persons"
-msgstr ""
+msgstr "Nombre de persones actives"
 
 #: src/gui/GUIApplicationWindow.cpp:328
 msgid "number of active containers"
-msgstr ""
+msgstr "Nombre de contenidors actius"
 
 #: src/gui/GUIApplicationWindow.cpp:360
 #: src/netedit/GNEApplicationWindow.cpp:615
 msgid "Ready."
-msgstr ""
+msgstr "Llest."
 
 #: src/gui/GUIApplicationWindow.cpp:483
 #: src/netedit/GNEApplicationWindow.cpp:1460
 msgid "&File"
-msgstr ""
+msgstr "&Arxiu"
 
 #: src/gui/GUIApplicationWindow.cpp:485
 #: src/netedit/GNEApplicationWindowHelper.cpp:207
 msgid "New Window"
-msgstr ""
+msgstr "Nova finestra"
 
 #: src/gui/GUIApplicationWindow.cpp:485
 msgid "Open a new sumo-gui window."
-msgstr ""
+msgstr "Obre una nova finestra de sumo-gui."
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "&Open Simulation..."
-msgstr ""
+msgstr "&Obrir Simulació..."
 
 #: src/gui/GUIApplicationWindow.cpp:489
 msgid "Open a simulation (Configuration file)."
-msgstr ""
+msgstr "Obrir simulació (Fitxer de configuració)."
 
 #: src/gui/GUIApplicationWindow.cpp:492
 msgid "Open &Network..."
-msgstr ""
+msgstr "Obrir &Xarxa..."
 
 #: src/gui/GUIApplicationWindow.cpp:492
 msgid "Open a network."
-msgstr ""
+msgstr "Obrir una xarxa."
 
 #: src/gui/GUIApplicationWindow.cpp:495
 msgid "Open Shapes "
-msgstr ""
+msgstr "Obrir arxiu amb formes "
 
 #: src/gui/GUIApplicationWindow.cpp:495
 msgid "Load POIs and Polygons for visualization."
-msgstr ""
+msgstr "Carregar POIs i polígons per la visualització."
 
 #: src/gui/GUIApplicationWindow.cpp:498
 msgid "Open EdgeData "
-msgstr ""
+msgstr "Obrir EdgeData "
 
 #: src/gui/GUIApplicationWindow.cpp:498
 msgid "Load edge related data for visualization."
-msgstr ""
+msgstr "Carregar dades relacionades amb l'aresta per la visualització."
 
 #: src/gui/GUIApplicationWindow.cpp:501
 #: src/netedit/GNEApplicationWindow.cpp:1086
 msgid "&Reload"
-msgstr ""
+msgstr "&Recarregar"
 
 #: src/gui/GUIApplicationWindow.cpp:501
 msgid "Reloads the simulation / the network."
-msgstr ""
+msgstr "Recarrega la simulació / la xarxa."
 
 #: src/gui/GUIApplicationWindow.cpp:504
 msgid "Quick-Reload"
-msgstr ""
+msgstr "Recàrrega ràpida"
 
 #: src/gui/GUIApplicationWindow.cpp:504
 msgid "Reloads the simulation (but not network)."
-msgstr ""
+msgstr "Recarrega la simulació (però no la xarxa)."
 
 #: src/gui/GUIApplicationWindow.cpp:508
 msgid "Save Configuration"
-msgstr ""
+msgstr "Desar configuració"
 
 #: src/gui/GUIApplicationWindow.cpp:508
 msgid "Save current options as a configuration file."
-msgstr ""
+msgstr "Desar opcions actuals com a fitxer de configuració."
 
 #: src/gui/GUIApplicationWindow.cpp:511
 #: src/netedit/GNEApplicationWindowHelper.cpp:315
 msgid "Close"
-msgstr ""
+msgstr "Tancar"
 
 #: src/gui/GUIApplicationWindow.cpp:511
 msgid "Close the simulation."
-msgstr ""
+msgstr "Tancar la simulació."
 
 #: src/gui/GUIApplicationWindow.cpp:519
 #: src/netedit/GNEApplicationWindow.cpp:1480
 msgid "&Quit"
-msgstr ""
+msgstr "&Sortir"
 
 #: src/gui/GUIApplicationWindow.cpp:519
 #: src/netedit/GNEApplicationWindow.cpp:1480
 msgid "Quit the Application."
-msgstr ""
+msgstr "Tancar l'aplicació."
 
 #: src/gui/GUIApplicationWindow.cpp:528
 #: src/netedit/GNEApplicationWindow.cpp:1495
 msgid "&Edit"
-msgstr ""
+msgstr "&Edició"
 
 #: src/gui/GUIApplicationWindow.cpp:530 src/gui/GUIApplicationWindow.cpp:902
 msgid "Edit Selected..."
-msgstr ""
+msgstr "Edita la selecció..."
 
 #: src/gui/GUIApplicationWindow.cpp:530
 msgid "Opens a dialog for editing the list of selected items."
-msgstr ""
+msgstr "Obrir una finestra per a editar la llista d'elements seleccionats."
 
 #: src/gui/GUIApplicationWindow.cpp:532
 msgid "Select lanes which allow..."
-msgstr ""
+msgstr "Seleccionar carrils que permetin..."
 
 #: src/gui/GUIApplicationWindow.cpp:533
 msgid "Opens a menu for selecting a vehicle class by which to selected lanes."
 msgstr ""
+"Obre un menu per a escollir una classe de vehicle (vclass) que seleccionarà "
+"els carrils permesos,"
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "Establir punt d'aturada"
 
 #: src/gui/GUIApplicationWindow.cpp:536
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "Estableix un punt d'aturada al pas actual de la simulació"
 
 #: src/gui/GUIApplicationWindow.cpp:539
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "Estableix punt d'aturada amb desplaçament"
 
 #: src/gui/GUIApplicationWindow.cpp:539
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Estableix un punt d'aturada al pas actual de la simulació + el desplaçament "
+"indicat a la configuració de l'aplicació"
 
 #: src/gui/GUIApplicationWindow.cpp:542
 msgid "Edit Breakpoints"
-msgstr ""
+msgstr "Modifica punts d'aturada"
 
 #: src/gui/GUIApplicationWindow.cpp:542
 msgid "Opens a dialog for editing breakpoints."
-msgstr ""
+msgstr "Obre un diàleg per a editar punts d'aturada."
 
 #: src/gui/GUIApplicationWindow.cpp:545
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
 msgid "Edit Visualisation"
-msgstr ""
+msgstr "Modifica visualització"
 
 #: src/gui/GUIApplicationWindow.cpp:545
 #: src/netedit/GNEApplicationWindowHelper.cpp:1326
 msgid "Opens a dialog for editing visualization settings."
-msgstr ""
+msgstr "Obre un diàleg per a editar les opcions de visualització."
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Edit Viewport"
-msgstr ""
+msgstr "Modifica la finestra de visualització"
 
 #: src/gui/GUIApplicationWindow.cpp:548
 #: src/netedit/GNEApplicationWindowHelper.cpp:1329
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
 msgstr ""
+"Obre un diàleg per a la modificació de l'àrea de visualització, zoom i "
+"rotació."
 
 #: src/gui/GUIApplicationWindow.cpp:552
 msgid "Load additionals in netedit"
-msgstr ""
+msgstr "Carregar elements addicionals al netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:552
 msgid "Load additionals in netedit."
-msgstr ""
+msgstr "Carregar elements addicionals al netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:554
 msgid "Load demand in netedit"
-msgstr ""
+msgstr "Carregar demanda al netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:554
 msgid "Load demand in netedit."
-msgstr ""
+msgstr "Carregar demanda al netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:557
 msgid "Open in netedit"
-msgstr ""
+msgstr "Obrir al netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:557
 msgid "Opens current simulation in NETEDIT."
-msgstr ""
+msgstr "Obrir la simulació actual al netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:560 src/gui/GUIApplicationWindow.cpp:1539
 msgid "Open network in netedit"
-msgstr ""
+msgstr "Obrir la xarxa al netedit"
 
 #: src/gui/GUIApplicationWindow.cpp:560
 msgid "Opens current network in NETEDIT."
-msgstr ""
+msgstr "Obrir la xarxa actual al netedit."
 
 #: src/gui/GUIApplicationWindow.cpp:564
 msgid "&Settings"
-msgstr ""
+msgstr "&Configuració"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 #: src/gui/dialogs/GUIDialog_AppSettings.cpp:53
 msgid "Application Settings"
-msgstr ""
+msgstr "Configuració de l'aplicació"
 
 #: src/gui/GUIApplicationWindow.cpp:566
 msgid "Open a Dialog for Application Settings editing."
-msgstr ""
+msgstr "Obrir un diàleg per a modificar la configuració de l'aplicació."
 
 #: src/gui/GUIApplicationWindow.cpp:569
 msgid "Gaming Mode\tCtrl+G\tToggle gaming mode on/off."
-msgstr ""
+msgstr "Mode de joc\tCtrl+G\tAlternar el mode de joc."
 
 #: src/gui/GUIApplicationWindow.cpp:572
 msgid "Full Screen Mode"
-msgstr ""
+msgstr "Mode de pantalla completa"
 
 #: src/gui/GUIApplicationWindow.cpp:572
 msgid "Toggle full screen mode on/off."
-msgstr ""
+msgstr "Alternar mode de pantalla completa."
 
 #: src/gui/GUIApplicationWindow.cpp:576
 #: src/netedit/GNEApplicationWindow.cpp:1531
 msgid "&Locate"
-msgstr ""
+msgstr "&Localitza"
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:1372
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "&Junctions"
-msgstr ""
+msgstr "&Cruïlles"
 
 #: src/gui/GUIApplicationWindow.cpp:578
 #: src/netedit/GNEApplicationWindowHelper.cpp:2037
 msgid "Open a dialog for locating a Junction."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar una cruïlla."
 
 #: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:1377
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "&Edges"
-msgstr ""
+msgstr "&Arestes"
 
 #: src/gui/GUIApplicationWindow.cpp:581
 #: src/netedit/GNEApplicationWindowHelper.cpp:2040
 msgid "Open a dialog for locating an Edge."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar una aresta."
 
 #: src/gui/GUIApplicationWindow.cpp:584
 #: src/netedit/GNEApplicationWindowHelper.cpp:1442
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "&Vehicles"
-msgstr ""
+msgstr "&Vehicles"
 
 #: src/gui/GUIApplicationWindow.cpp:584
 #: src/netedit/GNEApplicationWindowHelper.cpp:2046
 msgid "Open a dialog for locating a Vehicle."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar un vehicle."
 
 #: src/gui/GUIApplicationWindow.cpp:587
 #: src/netedit/GNEApplicationWindowHelper.cpp:1447
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "&Persons"
-msgstr ""
+msgstr "&Persones"
 
 #: src/gui/GUIApplicationWindow.cpp:587
 #: src/netedit/GNEApplicationWindowHelper.cpp:2049
 msgid "Open a dialog for locating a Person."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar una persona."
 
 #: src/gui/GUIApplicationWindow.cpp:590
 msgid "&Container"
-msgstr ""
+msgstr "&Contenidor"
 
 #: src/gui/GUIApplicationWindow.cpp:590
 #: src/netedit/GNEApplicationWindowHelper.cpp:2052
 msgid "Open a dialog for locating a Container."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar un contenidor."
 
 #: src/gui/GUIApplicationWindow.cpp:593
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "&TLS"
-msgstr ""
+msgstr "&Semàfors"
 
 #: src/gui/GUIApplicationWindow.cpp:593
 #: src/netedit/GNEApplicationWindowHelper.cpp:2061
 msgid "Open a dialog for locating a Traffic Light."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar un semàfor."
 
 #: src/gui/GUIApplicationWindow.cpp:596
 #: src/netedit/GNEApplicationWindowHelper.cpp:637
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "&Additional"
-msgstr ""
+msgstr "&Elements addicionals"
 
 #: src/gui/GUIApplicationWindow.cpp:596
 #: src/netedit/GNEApplicationWindowHelper.cpp:2064
 msgid "Open a dialog for locating an Additional Structure."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar un element addicional."
 
 #: src/gui/GUIApplicationWindow.cpp:599
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "P&oI"
-msgstr ""
+msgstr "&Punts d'interès"
 
 #: src/gui/GUIApplicationWindow.cpp:599
 #: src/netedit/GNEApplicationWindowHelper.cpp:2067
 msgid "Open a dialog for locating a Point of Interest."
-msgstr ""
+msgstr "Obre un diàleg per a trobar un punt d'interès (POI)."
 
 #: src/gui/GUIApplicationWindow.cpp:602
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Po&lygon"
-msgstr ""
+msgstr "&Polígons"
 
 #: src/gui/GUIApplicationWindow.cpp:602
 #: src/netedit/GNEApplicationWindowHelper.cpp:2070
 msgid "Open a dialog for locating a Polygon."
-msgstr ""
+msgstr "Obre un diàleg per a localitzar un polígon."
 
 #: src/gui/GUIApplicationWindow.cpp:605
 msgid "Show Internal Structures"
-msgstr ""
+msgstr "Mostrar estructures internes"
 
 #: src/gui/GUIApplicationWindow.cpp:605
 msgid "Show internal junctions and streets in locator dialog."
-msgstr ""
+msgstr "Mostra cruïlles internes i carrers a la finestra de localització."
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Show Parking Vehicles"
-msgstr ""
+msgstr "Mostra vehicles aparcats"
 
 #: src/gui/GUIApplicationWindow.cpp:606
 msgid "Show parking vehicles in locator dialog."
-msgstr ""
+msgstr "Mostra vehicles aparcats a la finestra de localització."
 
 #: src/gui/GUIApplicationWindow.cpp:608
 msgid "Show vehicles outside the road network"
