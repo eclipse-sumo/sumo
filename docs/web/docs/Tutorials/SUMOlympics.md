@@ -2,12 +2,12 @@
 title: SUMOlympics
 ---
 
-This tutorial sets up a competition (a collective 100 meter sprint) for
-different traffic modes. You will learn how to create special lanes and
-(very simple) traffic lights in [netedit](../Netedit/index.md), use different vehicle classes
-to define vehicle types and create flows for the different
-types. All files can also be found in the {{SUMO}}/docs/tutorial/sumolympics
-directory.
+This tutorial sets up a competition (a collective 100-meter sprint) for
+different modes of transportation. You will learn how to create special-purpose lanes and
+(very simple) traffic lights in [netedit](../Netedit/index.md), use vehicle classes
+to define vehicle types, and create flows for those
+types. All files are also available in the {{SUMO}}/docs/tutorial/sumolympics/data
+directory. Alternatively, you can download them using our [online test extraction tool](https://sumo.dlr.de/extractTest.php) by clicking [here](https://sumo.dlr.de/extractTest.php?path=/tests/complex/tutorial/sumolympics/).
 
 This tutorial is a reconstruction of a [VISSIM Scenario devised
 by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
@@ -16,34 +16,30 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 
 <img src="../images/sumolympics_netedit_1.PNG" width="1000"/>
 
-Open netedit and create a new network and add a single
-edge by pressing <kbd>e</kbd> for entering the edge creation mode and clicking on
-two different locations in the editing area. Change to the inspection mode
-(press <kbd>i</kbd>) and click on the starting point of the edge (at the location
-of your first click). Now enter `0,0` in the textfield labeled `pos` in
-the inspector panel on the left (see figure). Do the same for the edge's
+Open netedit, create a new network, and add a single edge. Press <kbd>E</kbd> to enter edge creation mode, then click two different locations in the editing area. Switch to the inspection mode by pressing <kbd>I</kbd> then click on the starting point of the edge (the location
+of your first click). In the inspector panel on the left, enter `0,0` in the text field labeled `pos` (see figure). Do the same for the edge's
 endpoint, setting its position to `1000,0`. Now save your network under
-the name `sumolympics.net.xml` (press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
+the name `sumolympics.net.xml` (press <kbd>Ctrl</kbd> + <kbd>S</kbd>).
 
-Now we have a long road, which will be the stage of our competition. The
+We now have a long road that will serve as the stage for our competition. The
 participants in the competition will be transportation modes, i.e.,
-buses, trams, bicycles, passenger cars, and feet. They should travel on
+buses, trams, bicycles, passenger cars, and pedestrians. They should travel on
 different lanes side-by-side. Thus, we have to add lanes for each mode.
-To do so, right-click on the edge and hover over "add restricted lane"
-in the context menu. This will show you three choices for the creation
-of special purpose lanes: Sidewalk, bike lane, and Bus lane. Add one lane
+To do so, right-click on the edge and hover over "Lane operations" > "Add restricted lane"
+in the context menu. This will show you some options for the creation
+of special purpose lanes: Sidewalk, Bike lane, and Bus lane. Add one lane
 for each type.
 
 <img src="../images/sumolympics_netedit_2.png" width="1000"/>
 
 To create a tram, we add a new lane by clicking on "Duplicate lane" in
 the same context menu. For that lane, we have to restrict the allowed
-vehicle class to trams. To do this, first uncheck the "select edges"-box
-just right of the edit mode dropdown menu in the toolbar (the mode
-should still be set to "(i)Inspect"). Then click on the newly created
-lane and on the button "allow" in the inspector panel. This opens a
+vehicle class to only trams. To do this, first enable the "Clicking should target lanes"-option
+in the Edit menu (![Image:icon_checkbox_selectededges.png](../images/icon_checkbox_selectededges.png "Image:icon_checkbox_selectededges.png")).
+Make sure to be in the Inspect mode ![Image:icon_modeinspect.png](../images/icon_modeinspect.png "Image:icon_modeinspect.png") (<kbd>I</kbd>). Then click on the newly created
+lane and on the "allow"-button in the inspector panel. This opens a
 dialog with check boxes for all possible vehicle classes. Uncheck all
-but "rail_urban" and click on "accept". Now edit the allowances for the
+but "rail_urban" and click on "Accept". Now edit the allowances for the
 remaining lane (it is currently allowed for all vehicle classes) and
 reserve it to the class "passenger" (i.e. passenger
 cars). Also for the bicycle lane, we need to modify its width in order to
@@ -53,7 +49,7 @@ inspect mode, change its width to 2.1 meters in the left panel.
 <img src="../images/sumolympics_netedit_3.png" width="1000"/>
 
 Now let us split the edge to create a starting point for the
-competitors: Right-click anywhere on the edge and select "Split edge
+competitors: Right-click anywhere on the edge and select "Edge operations" > "Split edge
 here" from the context menu. Then click on the created node (in SUMO
 terminology this is already a _junction_). Set its x-coordinate to 900
 and its y-coordinate to 0 in the `pos`-field just as you did above when
@@ -65,7 +61,7 @@ network (<kbd>Ctrl</kbd> + <kbd>S</kbd>).
 
 # Defining the competing vehicles (types and flows)
 
-As a next step, we define the competing vehicle types as well as a several of these vehicles, organized as _flows_.
+As a next step, we define the competing vehicle types as well as a several of these vehicles, organized as _flows_. This can be done [manually creating xml files](#using_xml), or [using the netedit gui](#using_netedit).
 
 ## Using XML
 
@@ -106,20 +102,33 @@ section [Flow Definitions](../Demand/Shortest_or_Optimal_Path_Routing.md#flow_de
 
 ## Using netedit
 
-We created the vehicle types and the vehicle flows "by hand", by writing the definitions down into a XML file, however these manipulations can directly be made (and visualized) in netedit! In order to achieve this, you need to select the "Demand" mode rather than the "Network" mode that you used to create the network above. For creating a new vehicle type use the "Create type mode". You can modify the main parameters directly in the left panel, other parameters can be modified after clicking "Open attributes editor", as shown here:
+We created the vehicle types and the vehicle flows "by hand", by writing the definitions down into a XML file, however these manipulations can directly be made (and visualized) in netedit! In order to achieve this, you need to select the "Demand" supermode (<kbd>F3</kbd>) rather than the "Network" (<kbd>F2</kbd>) supermode that you used to create the network above. For creating a new vehicle type use the "Create type mode" (<kbd>T</kbd>). You can modify the main parameters directly in the left panel, other parameters can be modified after clicking "Open attributes editor", as shown here:
 
 <img src="../images/sumolympics_netedit_5.png" width="1000"/>
 
-Now concerning the creation of motorized flows, you need to use the "Create vehicle mode". Then at the top of the left panel, you can create an individual vehicle or a flow, with different options. There select "flow (from-to edges)". You can then use a particular vehicle type, change the `departPos` attribute and the number of vehicles you want. Then select the start and end edges directly on the network and when everything has been set, click on "Finish route creation" on the left panel to create the route and the flow.
+Now concerning the creation of motorized flows, you need to use the "Create vehicle mode" (<kbd>V</kbd>). Then at the top of the left panel, you can create an individual vehicle or a flow, with different options. There select "flow (from-to edges)". You can then use a particular vehicle type, change the `departPos` attribute and the number of vehicles you want. Then select the start and end edges directly on the network and when everything has been set, click on "Finish route creation" on the left panel to create the route and the flow.
 
 <img src="../images/sumolympics_netedit_6.png" width="1000"/>
 
 The cyan color is used to represent the start edge whereas the light green color is used for the chosen end edge. A small vehicle will be added at the starting position of the flow to materialize it inside the GUI. You can also check that the flow was created by using "Locate > Vehicles" of the netedit main menu. Person flows are created in a similar manner, but you need to use the dedicated "Create person mode" instead.
 
-## A first simulation
+Finally, save the demand file as `sumolympics.rou.xml` by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd>, or using `File` > `Demand Elements` > `Save Demand Elements`
 
-Finally, to prepare the simulation, create a SUMO configuration file (name it
-`sumolympics.sumocfg`):
+# A first simulation
+
+In order to run a simulation, we need a SUMO configuration file. This is a file ending in .sumocfg, that specifies the network and demand files to be used in the simulation, among with other options and additional files.
+You can create / save a sumoconfig directly from netedit, by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>, or going to `File` > `Sumo Config` > `Save Sumo config`. Save it as `sumolympics.sumocfg`.
+
+For this example, we need to specify a different lateral resolution than the default for the simulation (a value
+corresponding to the sub-lane width in meters to achieve a more
+realistic behavior of bicyclists utilizing the whole lane width to
+overtake each other - see [Sublane
+Model](../Simulation/SublaneModel.md) and [Bicycle
+simulation](../Simulation/Bicycles.md)). In netedit, go to `Processing` > `Sumo options` (or <kbd>Shift</kbd> + <kbd>F10</kbd>) and search for `lateral-resolution` in the new dialog. Change the value from the default -1 (meaning that all vehicles should drive at the center of their lane) to 1.
+
+---
+
+It is also possible to manually define the config file. Just create a xml text file (saved as `sumolympics.sumocfg`), with the following content:
 
 ```xml
 <configuration>
@@ -133,14 +142,11 @@ Finally, to prepare the simulation, create a SUMO configuration file (name it
 </configuration>
 ```
 
-Here we give the processing argument `lateral-resolution` with a value
-corresponding to the sub-lane width in meters to achieve a more
-realistic behavior of bicyclists utilizing the whole lane width to
-overtake each other (see [Sublane
-Model](../Simulation/SublaneModel.md) and [Bicycle
-simulation](../Simulation/Bicycles.md)). Start the simulation by
+---
+
+Finally, start the simulation by
 double-clicking on the configuration file `sumolympics.sumocfg`
-(Windows), opening SUMO GUI, or running `sumo-gui -c sumolympics.sumocfg` from a terminal.
+(on Windows), opening sumo-gui, or running `sumo-gui -c sumolympics.sumocfg` from a terminal.
 Adjust the step delay to 100 ms and press the run button
 (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")).
 
@@ -157,18 +163,16 @@ lane width).
 <img src="../images/sumolympics_netedit_4.png" width="1000"/>
 
 First we create a traffic light on the
-junction between the edges "beg" and "end" with netedit: Press <kbd>t</kbd> to
+junction between the edges "beg" and "end" with netedit: Press <kbd>T</kbd> to
 enter the traffic light editing mode. Click on the junction, then on
-"Create TLS" in the left panel. Below, under the label phases, type
+"Create TLS" in the left panel. Under the phases label, enter
 "rrrrr" for the first phase ("r" for red) and set its duration to 100
-(secs.). This will give enough time for the bicyclists to group more
-densely. For the second phase enter "GGGGG" (yes, "G" for green) and set
-its duration to 1000 (i.e. until the end of the simulation run). Now run
+(secs.). This will give the bicyclists enough time to form a denser group. For the second phase enter "GGGGG" (yes, "G" for green) and set
+its duration to 1000 (i.e. until the end of the simulation run). Note that the number of "r" and "G" characters must be the same and must correspond to the total number of lanes. Now run
 the simulation again to see the bikes outrun the cars. See? We should
 all use our bikes more often!
 
-If you have noticed a warning (like "Warning: Missing yellow phase in
-tlLogic 'gneJ2', program '0' for tl-index 0 when switching to phase 0")
+If you have noticed a warning (like `Warning: Missing yellow phase in tlLogic 'gneJ2', program '0' for tl-index 0 when switching to phase 0`)
 in the Message Window, don't worry. SUMO routinely checks tls-phases for
 basic consistency and missing yellow phases may lead to crashes if you
 have intersecting flows. However, this is a special situation and we
