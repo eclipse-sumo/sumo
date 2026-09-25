@@ -1,2 +1,5 @@
+# notify on incompatibility of know-duration closing + mode 8 with the rerouting device
+closing_until_mode8_trip
+
 # see #17709
 vClass_invalid

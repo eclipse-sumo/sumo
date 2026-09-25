@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+	<vType id="DEFAULT_VEHTYPE" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70" vClass="passenger"/>
+
+    <trip id="reroute_period" depart="0" from="beg" to="end">
+        <param key="device.rerouting.period" value="10"/>
+    </trip>
+    <trip id="reroute_once" depart="0" from="beg" to="end"/>
+</routes>

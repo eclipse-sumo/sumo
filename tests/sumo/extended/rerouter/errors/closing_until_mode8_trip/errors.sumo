@@ -1,0 +1,1 @@
+Warning: Periodic rerouting and rerouting mode 8 for vehicle 'reroute_period' are incompatible with closingReroute attribute 'until' in rerouter (vehicle may return to an invalid route.
