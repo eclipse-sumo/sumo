@@ -373,6 +373,9 @@ protected:
     /// whether this rerouter has loaded parkingReroute definitions
     bool myHaveParkProbs;
 
+    /// @brief whether closed edges with known duration are loaded
+    bool myHaveClosingUntil;
+
     std::set<const MSStoppingPlace*> myBlockedStoppingPlaces;
 
     /// @brief special destination values

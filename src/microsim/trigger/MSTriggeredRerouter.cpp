@@ -39,6 +39,7 @@
 #include <utils/router/DijkstraRouter.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/WrappingCommand.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
@@ -98,7 +99,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myPosition(pos),
     myRadius(radius),
     myTimeThreshold(timeThreshold),
-    myHaveParkProbs(false) {
+    myHaveParkProbs(false),
+    myHaveClosingUntil(false)
+{
     myInstances[id] = this;
     // build actors
     for (const MSEdge* const e : edges) {
@@ -187,6 +190,7 @@ MSTriggeredRerouter::myStartElement(int element,
         }
         const SUMOTime until = attrs.getOptSUMOTimeReporting(SUMO_ATTR_UNTIL, nullptr, ok, TIME2STEPS(-1));
         myParsedRerouteInterval.closed[closedEdge] = std::make_pair(permissions, STEPS2TIME(until));
+        myHaveClosingUntil |= until > 0;
     }
 
     if (element == SUMO_TAG_CLOSING_LANE_REROUTE) {
@@ -712,6 +716,14 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     MSEdgeVector closed = rerouteDef->getClosedEdges();
     Prohibitions prohibited = rerouteDef->getClosed();
     if (rerouteDef->closed.empty() || destUnreachable || rerouteDef->isVia || affected(tObject.getUpcomingEdgeIDs(), closed)) {
+        if (tObject.ignoreTransientPermissions()) {
+            // after learning about network changes, the driver must no longer forget them
+            if (!myHaveClosingUntil) {
+                tObject.setRoutingMode(tObject.getRoutingMode() & ~libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS);
+            } else if (hasReroutingDevice) {
+                WRITE_WARNINGF(TL("Rerouting device and rerouting mode 8 for vehicle '%' are incompatible with closingReroute attribute 'until' in rerouter '%'. Automated routing may return to an invalid route."), tObject.getID(), getID());
+            }
+        }
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
             ConstMSEdgeVector prevEdges = veh.getRoute().getEdges();
