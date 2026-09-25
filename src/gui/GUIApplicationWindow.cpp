@@ -321,11 +321,11 @@ GUIApplicationWindow::dependentBuild(const bool isLibsumo) {
         myCartesianCoordinate = GUIDesigns::buildFXLabel(myCartesianFrame, TL("N/A"), "", TL("Network coordinate"), nullptr, LAYOUT_CENTER_Y);
         // build buttons
         std::vector<std::string> help({
-                TL("number of running vehicles"),
-                TL("number of insertion backlogged vehicles"),
-                TL("percentage of teleports per departed vehicles"),
-                TL("number of active persons"),
-                TL("number of active containers")});
+            TL("number of running vehicles"),
+            TL("number of insertion backlogged vehicles"),
+            TL("percentage of teleports per departed vehicles"),
+            TL("number of active persons"),
+            TL("number of active containers")});
 
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_VEHS], help[STAT_VEHS], GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
         myStatButtons.push_back(GUIDesigns::buildFXButton(myStatusbar, "-", help[STAT_DELAYED], help[STAT_DELAYED], GUIIconSubSys::getIcon(GUIIcon::INSERTION_DELAY), this, MID_SHOWVEHSTATS));
@@ -1177,7 +1177,7 @@ GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdReload(FXObject* sender, FXSelector sel, void*) {
-    if (!myAmLoading && (sender == nullptr || TraCIServer::getInstance() == nullptr)) {
+    if (!myAmLoading && (sender == nullptr || (myRunThread->networkAvailable() && myLoadThread->getFileName() != "" && TraCIServer::getInstance() == nullptr))) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
