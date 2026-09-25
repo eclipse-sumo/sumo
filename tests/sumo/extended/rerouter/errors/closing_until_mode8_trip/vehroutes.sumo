@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-09-25T12:37:37.687981+01:00 by Eclipse SUMO sumo v1_27_1+0773-3db22cf6bdc
+<!-- generated on 2026-09-25T12:41:31.483539+01:00 by Eclipse SUMO sumo v1_27_1+0774-b253f9293e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,12 +49,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="reroute_once" depart="0.00" arrival="1058.00">
-        <route edges="beg middle end"/>
+    <vehicle id="reroute_once" depart="0.00" arrival="189.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="0.00" probability="0" edges="beg middle end"/>
+            <route edges="beg beg2right right right2end end"/>
+        </routeDistribution>
     </vehicle>
 
-    <vehicle id="reroute_period" depart="2.00" arrival="1059.00">
-        <route edges="beg middle end"/>
+    <vehicle id="reroute_period" depart="2.00" arrival="1058.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter2" replacedAtTime="2.00" probability="0" edges="beg middle end"/>
+            <route replacedOnEdge="beg" reason="device.rerouting" replacedAtTime="12.00" probability="0" edges="beg beg2right right right2end end"/>
+            <route edges="beg middle end"/>
+        </routeDistribution>
         <param key="device.rerouting.period" value="10"/>
     </vehicle>
 
