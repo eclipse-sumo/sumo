@@ -87,6 +87,7 @@ basic/personFlow/trip_chain
 basic/containerFlow/tranship_probability
 basic/containerFlow/trip_chain
 extended/rerouter/closingLaneReroute/closingLane
+extended/rerouter/closingLaneReroute/closingLane_all
 extended/calibrator/high_flow
 extended/bidiEdge/TWLT_side2
 extended/bidiEdge/TWLT_tls
