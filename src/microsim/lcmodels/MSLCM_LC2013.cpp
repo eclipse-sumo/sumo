@@ -281,6 +281,9 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
     }
 
     const double coopWeight = MAX2(0.0, MIN2(1.0, myCooperativeSpeed));
+    int filter = (
+            ((myOwnState & LCA_LEFT) != 0 ? LCA_MLEFT : 0) |
+            ((myOwnState & LCA_RIGHT) != 0 ? LCA_MRIGHT : 0));
     for (auto i : myLCAccelerationAdvices) {
         double a = i.first;
         double v = myVehicle.getSpeed() + ACCEL2SPEED(a);
@@ -294,6 +297,15 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
                                      || v != -1)) {
             if (i.second & LCA_CHANGE_TO_HELP) {
                 nVSafe = MIN2(v * coopWeight + (1 - coopWeight) * wanted, nVSafe);
+            } else if ((i.second & filter) != filter) {
+#ifdef DEBUG_PATCH_SPEED
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << myVehicle.getID() << " ignoring nVSafe=" << v
+                        << " (flag=" << toString((LaneChangeAction)i.second)
+                        << " state=" << toString((LaneChangeAction)myOwnState) << "\n";
+                }
+#endif
+                continue;
             } else {
                 // own advice, no scaling needed
                 nVSafe = MIN2(v, nVSafe);
