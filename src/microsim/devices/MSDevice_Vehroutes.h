@@ -265,10 +265,11 @@ private:
          * @param[in] route_ The prior route
          */
         RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, ConstMSRoutePtr const route_,
-                         const std::string& info_, int lastRouteIndex_, int newRouteIndex_) :
+                         const std::string& info_, int lastRouteIndex_, int newRouteIndex_, bool isValid_) :
             edge(edge_), time(time_), route(route_), info(info_),
             lastRouteIndex(lastRouteIndex_),
-            newRouteIndex(newRouteIndex_)
+            newRouteIndex(newRouteIndex_),
+            isValid(isValid_)
         {}
 
         /// @brief Destructor
@@ -294,10 +295,16 @@ private:
         // (new route may or may not include prior driven route edges)
         int newRouteIndex;
 
+        /// @brief whether the current route is valid/complete
+        bool isValid;
+
     };
 
     /// @brief The currently used route
     ConstMSRoutePtr myCurrentRoute;
+
+    /// @brief Whether the currently used route is valid/complete
+    bool myCurrentValid;
 
     /// @brief Prior routes
     std::vector<RouteReplaceInfo> myReplacedRoutes;

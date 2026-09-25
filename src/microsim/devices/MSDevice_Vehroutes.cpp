@@ -144,6 +144,8 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
     myDepartSpeed(-1),
     myDepartPosLat(0),
     myStopOut(2) {
+        std::string dummyMsg;
+        myCurrentValid = myHolder.hasValidRoute(dummyMsg, myCurrentRoute);
 }
 
 
@@ -416,7 +418,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         const int routesToSkip = (myHolder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)
                                   && !myIncludeIncomplete
                                   && myReplacedRoutes.size() > 0
-                                  && !myHolder.hasValidRoute(dummyMsg, myReplacedRoutes[0].route) ? 1 : 0);
+                                  && !myReplacedRoutes[0].isValid ? 1 : 0);
         if ((int)myReplacedRoutes.size() > routesToSkip) {
             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
             for (int i = routesToSkip; i < (int)myReplacedRoutes.size(); ++i) {
@@ -459,12 +461,15 @@ MSDevice_Vehroutes::addRoute(const std::string& info) {
                                        myHolder.hasDeparted() ?  myHolder.getEdge() : nullptr,
                                        MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info,
                                        myLastRouteIndex,
-                                       myHolder.hasDeparted() ? myHolder.getRoutePosition() : 0));
+                                       myHolder.hasDeparted() ? myHolder.getRoutePosition() : 0,
+                                       myCurrentValid));
         if ((int)myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.erase(myReplacedRoutes.begin());
         }
     }
+    std::string dummyMsg;
     myCurrentRoute = myHolder.getRoutePtr();
+    myCurrentValid = myHolder.hasValidRoute(dummyMsg, myCurrentRoute);
 }
 
 
@@ -572,6 +577,7 @@ MSDevice_Vehroutes::saveState(OutputDevice& out) const {
         internals.push_back(myReplacedRoutes[i].info);
         internals.push_back(toString(myReplacedRoutes[i].lastRouteIndex));
         internals.push_back(toString(myReplacedRoutes[i].newRouteIndex));
+        internals.push_back(toString(myReplacedRoutes[i].isValid));
     }
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     if (mySaveExits && myExits.size() > 0) {
@@ -606,10 +612,11 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         bis >> info;
         bis >> lastIndex;
         bis >> newIndex;
+        bis >> myCurrentValid;
 
         ConstMSRoutePtr route = MSRoute::dictionary(routeID);
         if (route != nullptr) {
-            myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info, lastIndex, newIndex));
+            myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info, lastIndex, newIndex, myCurrentValid));
         }
     }
     if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
