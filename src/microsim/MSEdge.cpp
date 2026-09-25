@@ -1359,24 +1359,23 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass, bool ignoreTransientPermission
 #endif
     auto& viaMap = ignoreTransientPermissions && myHaveTransientPermissions ? myOrigClassesViaSuccessorMap : myClassesViaSuccessorMap;
     auto i = viaMap.find(vClass);
-    if (i != viaMap.end()) {
-        // can use cached value
-        return i->second;
-    }
-    // instantiate vector
-    MSConstEdgePairVector& result = viaMap[vClass];
-    // this vClass is requested for the first time. rebuild all successors
-    for (const auto& viaPair : myViaSuccessors) {
-        if (viaPair.first->isTazConnector()) {
-            result.push_back(viaPair);
-        } else {
-            const std::vector<MSLane*>* allowed = allowedLanes(*viaPair.first, vClass, ignoreTransientPermissions);
-            if (allowed != nullptr && allowed->size() > 0) {
+    if (i == viaMap.end()) {
+        // instantiate vector
+        MSConstEdgePairVector& result = viaMap[vClass];
+        // this vClass is requested for the first time. rebuild all successors
+        for (const auto& viaPair : myViaSuccessors) {
+            if (viaPair.first->isTazConnector()) {
                 result.push_back(viaPair);
+            } else {
+                const std::vector<MSLane*>* allowed = allowedLanes(*viaPair.first, vClass, ignoreTransientPermissions);
+                if (allowed != nullptr && allowed->size() > 0) {
+                    result.push_back(viaPair);
+                }
             }
         }
+        i = viaMap.find(vClass);
     }
-    return result;
+    return i->second;
 }
 
 
