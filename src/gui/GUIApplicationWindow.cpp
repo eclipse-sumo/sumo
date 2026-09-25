@@ -1262,7 +1262,7 @@ GUIApplicationWindow::onUpdOpen(FXObject* sender, FXSelector, void* ptr) {
 long
 GUIApplicationWindow::onUpdReload(FXObject* sender, FXSelector, void* ptr) {
     sender->handle(this,
-                   myAmLoading || myLoadThread->getFileName() == "" || TraCIServer::getInstance() != nullptr
+                   myAmLoading || !myRunThread->networkAvailable() || TraCIServer::getInstance() != nullptr
                    ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE),
                    ptr);
     return 1;
