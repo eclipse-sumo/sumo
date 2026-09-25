@@ -720,8 +720,9 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
             // after learning about network changes, the driver must no longer forget them
             if (!myHaveClosingUntil) {
                 tObject.setRoutingMode(tObject.getRoutingMode() & ~libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS);
-            } else if (hasReroutingDevice) {
-                WRITE_WARNINGF(TL("Rerouting device and rerouting mode 8 for vehicle '%' are incompatible with closingReroute attribute 'until' in rerouter '%'. Automated routing may return to an invalid route."), tObject.getID(), getID());
+            } else if (hasReroutingDevice && dynamic_cast<MSDevice_Routing*>(tObject.getDevice(typeid(MSDevice_Routing)))->getPeriod() > 0) {
+                WRITE_WARNINGF(TL("Periodic rerouting and rerouting mode 8 for vehicle '%' are incompatible with closingReroute attribute 'until' in rerouter (vehicle may return to an invalid route."),
+                        tObject.getID(), getID());
             }
         }
         if (tObject.isVehicle()) {
