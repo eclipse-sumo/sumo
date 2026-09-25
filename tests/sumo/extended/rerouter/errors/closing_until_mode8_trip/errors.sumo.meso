@@ -1,8 +1,1 @@
-Warning: No connection between edge 'beg' and edge 'rend' found.
-Warning: No route for vehicle 'flow_maybe_detour.0' found.
-Warning: No connection between edge 'beg' and edge 'rend' found.
-Warning: No route for vehicle 'flow_maybe_detour.3' found.
-Warning: No connection between edge 'beg' and edge 'rend' found.
-Warning: No route for vehicle 'flow_maybe_detour.8' found.
-Warning: No connection between edge 'beg' and edge 'rend' found.
-Warning: No route for vehicle 'flow_maybe_detour.9' found.
+Warning: Periodic rerouting and rerouting mode 8 for vehicle 'reroute_period' are incompatible with closingReroute attribute 'until' in rerouter (vehicle may return to an invalid route.
