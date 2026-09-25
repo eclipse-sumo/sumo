@@ -149,7 +149,7 @@ public:
                 v[settings.first].permissions = settings.second.first == SVC_UNSPECIFIED ? 0 : settings.second.first;
                 if (settings.second.second != -1) {
                     // end time is known
-                    v[settings.first].end = STEPS2TIME(settings.second.second);
+                    v[settings.first].end = settings.second.second;
                 }
             }
             return v;
