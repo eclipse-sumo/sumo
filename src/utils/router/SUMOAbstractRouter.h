@@ -22,6 +22,7 @@
 #pragma once
 #include <config.h>
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -415,7 +416,7 @@ public:
             myEdgeInfos[item.first->getNumericalID()].prohibitionBegin = item.second.begin;
             myEdgeInfos[item.first->getNumericalID()].prohibitionEnd = item.second.end;
             myEdgeInfos[item.first->getNumericalID()].prohibitedPermissions = item.second.permissions;
-            //std::cout << item.first->getID() << " " << item.second.begin << " " << item.second.end << " (" << getVehicleClassNames(item.second.permissions) << "\n";
+            //std::cout << item.first->getID() << " " << item.second.begin << " " << item.second.end << " (" << getVehicleClassNames(item.second.permissions) << ")\n";
         }
         this->myProhibited = toProhibit;
     }
