@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-08-27T14:59:50.523449+01:00 by Eclipse SUMO sumo v1_27_1+0513-afd24508070
+<!-- generated on 2026-09-25T13:50:12.153197+01:00 by Eclipse SUMO sumo v1_27_1+0686-1020a595192
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="micro" version="v1_27_1+0513-afd24508070" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="micro" version="v1_27_1+0686-1020a595192" time="50.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!trip_0" state="0" edges="WC CE"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00" speedFactor="1.06" decel="4.50"/>
     <vType id="DEFAULT_VEHTYPE"/>

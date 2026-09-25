@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-24T09:19:07.103052+01:00 by Eclipse SUMO sumo v1_26_0+1366-8b27a71a755
+<!-- generated on 2026-09-25T13:48:38.544138+01:00 by Eclipse SUMO sumo v1_27_1+0781-c8a0d7d4fb6
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -37,7 +37,7 @@
 </sumoConfiguration>
 -->
 
-<snapshot type="meso" version="v1_26_0+1366-8b27a71a755" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
+<snapshot type="meso" version="v1_27_1+0781-c8a0d7d4fb6" time="100.00" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd">
     <route id="!100" state="0" edges="E3E4 E4D4 D4D3 D3D2 D2E2 E2E3"/>
     <route id="!101" state="0" edges="E0D0 D0C0 C0B0 B0A0"/>
     <route id="!102" state="0" edges="C2B2 B2B1 B1B0"/>
@@ -239,11 +239,11 @@
         <device id="routing_18" state="10000 98000"/>
     </vehicle>
     <vehicle id="19" depart="19.00" route="!19!var#2" distance="1200 2" speedFactor="1.1582" state="0 19000 6 0 0 0 99808 93592 9223372036854774807 0 0">
-        <device id="vehroute_19" state="16.09 0.00 2 !NULL 19000 !19 device.rerouting -1 0 E0E1 29000 !19!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_19" state="16.09 0.00 2 !NULL 19000 !19 device.rerouting -1 0 1 E0E1 29000 !19!var#1 device.rerouting 0 0 1"/>
         <device id="routing_19" state="10000 99000"/>
     </vehicle>
     <vehicle id="22" depart="22.00" route="!22!var#1" distance="800 1" speedFactor="0.9750" state="0 22000 4 0 1 0 99741 91022 9223372036854774807 0 0">
-        <device id="vehroute_22" state="13.54 0.00 1 A2A3 32000 !22 device.rerouting 0 0"/>
+        <device id="vehroute_22" state="13.54 0.00 1 A2A3 32000 !22 device.rerouting 0 0 1"/>
         <device id="routing_22" state="10000 92000"/>
         <rem id="vehroute_22" time="91022" pos="100.00"/>
     </vehicle>
@@ -256,12 +256,12 @@
         <device id="routing_26" state="10000 96000"/>
     </vehicle>
     <vehicle id="27" depart="27.00" route="!27!var#1" distance="800 3" speedFactor="0.9488" state="0 27000 4 0 1 0 102880 95292 9223372036854774807 0 0">
-        <device id="vehroute_27" state="13.18 0.00 3 E0E1 47000 !27 device.rerouting 1 1 E1E2 67000 !27!var#1 device.rerouting 2 2 E2D2 87000 !27!var#2 device.rerouting 3 3"/>
+        <device id="vehroute_27" state="13.18 0.00 3 E0E1 47000 !27 device.rerouting 1 1 1 E1E2 67000 !27!var#1 device.rerouting 2 2 1 E2D2 87000 !27!var#2 device.rerouting 3 3 1"/>
         <device id="routing_27" state="10000 97000"/>
         <rem id="vehroute_27" time="95292" pos="100.00"/>
     </vehicle>
     <vehicle id="28" depart="28.00" route="!28!var#2" distance="1000 2" speedFactor="1.1318" state="0 28000 5 0 0 0 101072 94711 9223372036854774807 0 0">
-        <device id="vehroute_28" state="15.72 0.00 2 B0A0 38000 !28 device.rerouting 0 0 A0A1 48000 !28!var#1 device.rerouting 1 1"/>
+        <device id="vehroute_28" state="15.72 0.00 2 B0A0 38000 !28 device.rerouting 0 0 1 A0A1 48000 !28!var#1 device.rerouting 1 1 1"/>
         <device id="routing_28" state="10000 98000"/>
     </vehicle>
     <vehicle id="29" depart="29.00" route="!29" distance="800 0" speedFactor="0.9313" state="0 29000 4 0 1 0 106310 98579 9223372036854774807 0 0">
@@ -270,12 +270,12 @@
         <rem id="vehroute_29" time="98579" pos="100.00"/>
     </vehicle>
     <vehicle id="30" depart="30.00" route="!30!var#1" distance="1000 3" speedFactor="1.1786" state="0 30000 5 0 1 0 103296 97188 9223372036854774807 0 0">
-        <device id="vehroute_30" state="16.37 0.00 3 !NULL 30000 !30 device.rerouting -1 0 E4E3 40000 !30!var#1 device.rerouting 0 0 E3E2 50000 !30!var#2 device.rerouting 1 1"/>
+        <device id="vehroute_30" state="16.37 0.00 3 !NULL 30000 !30 device.rerouting -1 0 1 E4E3 40000 !30!var#1 device.rerouting 0 0 1 E3E2 50000 !30!var#2 device.rerouting 1 1 1"/>
         <device id="routing_30" state="10000 90000"/>
         <rem id="vehroute_30" time="97188" pos="100.00"/>
     </vehicle>
     <vehicle id="31" depart="31.00" route="!31!var#2" distance="1000 2" speedFactor="1.1544" state="0 31000 5 0 0 0 102806 96569 9223372036854774807 0 0">
-        <device id="vehroute_31" state="16.03 0.00 2 !NULL 31000 !31 device.rerouting -1 0 C3C4 41000 !31!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_31" state="16.03 0.00 2 !NULL 31000 !31 device.rerouting -1 0 1 C3C4 41000 !31!var#1 device.rerouting 0 0 1"/>
         <device id="routing_31" state="10000 91000"/>
     </vehicle>
     <vehicle id="32" depart="32.00" route="!32" distance="800 0" speedFactor="1.0052" state="0 32000 4 0 1 0 103620 96458 9223372036854774807 0 0">
@@ -284,25 +284,25 @@
         <rem id="vehroute_32" time="96458" pos="100.00"/>
     </vehicle>
     <vehicle id="35" depart="35.00" route="!35!var#2" distance="800 4" speedFactor="1.0197" state="0 35000 4 0 1 0 105600 98540 9223372036854774807 0 0">
-        <device id="vehroute_35" state="14.16 0.00 4 !NULL 35000 !35 device.rerouting -1 0 B1A1 45000 !35!var#1 device.rerouting 0 0 A1B1 55000 !35!var#2 device.rerouting 1 1 C1D1 85000 !35!var#1 device.rerouting 3 3"/>
+        <device id="vehroute_35" state="14.16 0.00 4 !NULL 35000 !35 device.rerouting -1 0 1 B1A1 45000 !35!var#1 device.rerouting 0 0 1 A1B1 55000 !35!var#2 device.rerouting 1 1 1 C1D1 85000 !35!var#1 device.rerouting 3 3 1"/>
         <device id="routing_35" state="10000 95000"/>
         <rem id="vehroute_35" time="98540" pos="100.00"/>
     </vehicle>
     <vehicle id="36" depart="36.00" route="!36!var#2" distance="800 4" speedFactor="0.9732" state="0 36000 4 0 0 0 102582 95184 9223372036854774807 0 0">
-        <device id="vehroute_36" state="13.52 0.00 4 !NULL 36000 !36 device.rerouting -1 0 E0D0 56000 !36!var#1 device.rerouting 1 1 E0D0 66000 !36!var#2 device.rerouting 1 1 D1D2 86000 !36!var#1 device.rerouting 3 3"/>
+        <device id="vehroute_36" state="13.52 0.00 4 !NULL 36000 !36 device.rerouting -1 0 1 E0D0 56000 !36!var#1 device.rerouting 1 1 1 E0D0 66000 !36!var#2 device.rerouting 1 1 1 D1D2 86000 !36!var#1 device.rerouting 3 3 1"/>
         <device id="routing_36" state="10000 96000"/>
     </vehicle>
     <vehicle id="40" depart="40.00" route="!40!var#1" distance="800 1" speedFactor="1.0304" state="0 40000 4 0 0 0 102883 95896 9223372036854774807 0 0">
-        <device id="vehroute_40" state="14.31 0.00 1 !NULL 40000 !40 device.rerouting -1 0"/>
+        <device id="vehroute_40" state="14.31 0.00 1 !NULL 40000 !40 device.rerouting -1 0 1"/>
         <device id="routing_40" state="10000 90000"/>
     </vehicle>
     <vehicle id="41" depart="41.00" route="!41!var#1" distance="600 3" speedFactor="0.9571" state="0 41000 3 0 1 0 101465 93654 9223372036854774807 0 0">
-        <device id="vehroute_41" state="13.29 0.00 3 !NULL 41000 !41 device.rerouting -1 0 C4B4 51000 !41!var#1 device.rerouting 0 0 D4D3 91000 !41!var#2 device.rerouting 3 3"/>
+        <device id="vehroute_41" state="13.29 0.00 3 !NULL 41000 !41 device.rerouting -1 0 1 C4B4 51000 !41!var#1 device.rerouting 0 0 1 D4D3 91000 !41!var#2 device.rerouting 3 3 1"/>
         <device id="routing_41" state="10000 91000"/>
         <rem id="vehroute_41" time="93654" pos="100.00"/>
     </vehicle>
     <vehicle id="43" depart="43.00" route="!43!var#1" distance="600 1" speedFactor="1.0378" state="0 43000 3 0 1 0 99129 92085 9223372036854774807 0 0">
-        <device id="vehroute_43" state="14.42 0.00 1 !NULL 43000 !43 device.rerouting -1 0"/>
+        <device id="vehroute_43" state="14.42 0.00 1 !NULL 43000 !43 device.rerouting -1 0 1"/>
         <device id="routing_43" state="10000 93000"/>
         <rem id="vehroute_43" time="92085" pos="100.00"/>
     </vehicle>
@@ -312,12 +312,12 @@
         <rem id="vehroute_44" time="92368" pos="100.00"/>
     </vehicle>
     <vehicle id="45" depart="45.00" route="!45!var#2" distance="600 4" speedFactor="1.0880" state="0 45000 3 0 1 0 102269 94869 9223372036854774807 0 0">
-        <device id="vehroute_45" state="15.11 0.00 4 A3A2 55000 !45 device.rerouting 0 0 A2B2 65000 !45!var#1 device.rerouting 1 1 B2B1 75000 !45!var#2 device.rerouting 2 2 B2B1 85000 !45!var#1 device.rerouting 2 2"/>
+        <device id="vehroute_45" state="15.11 0.00 4 A3A2 55000 !45 device.rerouting 0 0 1 A2B2 65000 !45!var#1 device.rerouting 1 1 1 B2B1 75000 !45!var#2 device.rerouting 2 2 1 B2B1 85000 !45!var#1 device.rerouting 2 2 1"/>
         <device id="routing_45" state="10000 95000"/>
         <rem id="vehroute_45" time="94869" pos="100.00"/>
     </vehicle>
     <vehicle id="46" depart="46.00" route="!46!var#1" distance="600 1" speedFactor="0.9974" state="0 46000 3 0 1 0 103809 96591 9223372036854774807 0 0">
-        <device id="vehroute_46" state="13.85 0.00 1 D3E3 56000 !46 device.rerouting 0 0"/>
+        <device id="vehroute_46" state="13.85 0.00 1 D3E3 56000 !46 device.rerouting 0 0 1"/>
         <device id="routing_46" state="10000 96000"/>
         <rem id="vehroute_46" time="96591" pos="100.00"/>
     </vehicle>
@@ -344,20 +344,20 @@
         <device id="routing_51" state="10000 91000"/>
     </vehicle>
     <vehicle id="52" depart="52.00" route="!52!var#1" distance="600 1" speedFactor="1.0168" state="0 52000 3 0 0 0 101560 94480 9223372036854774807 0 0">
-        <device id="vehroute_52" state="14.12 0.00 1 !NULL 52000 !52 device.rerouting -1 0"/>
+        <device id="vehroute_52" state="14.12 0.00 1 !NULL 52000 !52 device.rerouting -1 0 1"/>
         <device id="routing_52" state="10000 92000"/>
     </vehicle>
     <vehicle id="53" depart="53.00" route="!53!var#2" distance="600 2" speedFactor="1.0958" state="0 53000 3 0 1 0 105560 98990 9223372036854774807 0 0">
-        <device id="vehroute_53" state="15.22 0.00 2 !NULL 53000 !53 device.rerouting -1 0 A3A2 63000 !53!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_53" state="15.22 0.00 2 !NULL 53000 !53 device.rerouting -1 0 1 A3A2 63000 !53!var#1 device.rerouting 0 0 1"/>
         <device id="routing_53" state="10000 93000"/>
         <rem id="vehroute_53" time="98990" pos="100.00"/>
     </vehicle>
     <vehicle id="54" depart="54.00" route="!54!var#1" distance="600 1" speedFactor="1.0032" state="0 54000 3 0 0 0 104232 97056 9223372036854774807 0 0">
-        <device id="vehroute_54" state="13.93 0.00 1 C1C2 64000 !54 device.rerouting 0 0"/>
+        <device id="vehroute_54" state="13.93 0.00 1 C1C2 64000 !54 device.rerouting 0 0 1"/>
         <device id="routing_54" state="10000 94000"/>
     </vehicle>
     <vehicle id="55" depart="55.00" route="!55!var#1" distance="600 3" speedFactor="0.9960" state="0 55000 3 0 0 0 105596 98368 9223372036854774807 0 0">
-        <device id="vehroute_55" state="13.83 0.00 3 !NULL 55000 !55 device.rerouting -1 0 E0D0 75000 !55!var#1 device.rerouting 1 1 D0C0 85000 !55!var#2 device.rerouting 2 2"/>
+        <device id="vehroute_55" state="13.83 0.00 3 !NULL 55000 !55 device.rerouting -1 0 1 E0D0 75000 !55!var#1 device.rerouting 1 1 1 D0C0 85000 !55!var#2 device.rerouting 2 2 1"/>
         <device id="routing_55" state="10000 95000"/>
     </vehicle>
     <vehicle id="56" depart="56.00" route="!56" distance="400 0" speedFactor="0.8989" state="0 56000 2 0 1 0 104054 96045 9223372036854774807 0 0">
@@ -366,32 +366,32 @@
         <rem id="vehroute_56" time="96045" pos="100.00"/>
     </vehicle>
     <vehicle id="58" depart="58.00" route="!58!var#1" distance="400 1" speedFactor="1.0236" state="0 58000 2 0 1 0 104113 97080 9223372036854774807 0 0">
-        <device id="vehroute_58" state="10.73 0.00 1 C2C1 78000 !58 device.rerouting 1 1"/>
+        <device id="vehroute_58" state="10.73 0.00 1 C2C1 78000 !58 device.rerouting 1 1 1"/>
         <device id="routing_58" state="10000 98000"/>
         <rem id="vehroute_58" time="97080" pos="100.00"/>
     </vehicle>
     <vehicle id="59" depart="59.00" route="!59!var#2" distance="400 2" speedFactor="0.9695" state="0 59000 2 0 1 0 103556 96130 9223372036854774807 0 0">
-        <device id="vehroute_59" state="13.47 0.00 2 !NULL 59000 !59 device.rerouting -1 0 C4D4 69000 !59!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_59" state="13.47 0.00 2 !NULL 59000 !59 device.rerouting -1 0 1 C4D4 69000 !59!var#1 device.rerouting 0 0 1"/>
         <device id="routing_59" state="10000 99000"/>
         <rem id="vehroute_59" time="96130" pos="100.00"/>
     </vehicle>
     <vehicle id="60" depart="60.00" route="!60!var#1" distance="400 1" speedFactor="1.0825" state="0 60000 2 0 1 0 99906 93255 9223372036854774807 0 0">
-        <device id="vehroute_60" state="15.04 0.00 1 D3D2 70000 !60 device.rerouting 0 0"/>
+        <device id="vehroute_60" state="15.04 0.00 1 D3D2 70000 !60 device.rerouting 0 0 1"/>
         <device id="routing_60" state="10000 90000"/>
         <rem id="vehroute_60" time="93255" pos="100.00"/>
     </vehicle>
     <vehicle id="61" depart="61.00" route="!61!var#1" distance="400 1" speedFactor="1.1193" state="0 61000 2 0 1 0 101575 94924 9223372036854774807 0 0">
-        <device id="vehroute_61" state="15.55 0.00 1 !NULL 61000 !61 device.rerouting -1 0"/>
+        <device id="vehroute_61" state="15.55 0.00 1 !NULL 61000 !61 device.rerouting -1 0 1"/>
         <device id="routing_61" state="10000 91000"/>
         <rem id="vehroute_61" time="94924" pos="100.00"/>
     </vehicle>
     <vehicle id="62" depart="62.00" route="!62!var#1" distance="400 1" speedFactor="1.0158" state="0 62000 2 0 1 0 104522 97435 9223372036854774807 0 0">
-        <device id="vehroute_62" state="14.11 0.00 1 A0A1 72000 !62 device.rerouting 0 0"/>
+        <device id="vehroute_62" state="14.11 0.00 1 A0A1 72000 !62 device.rerouting 0 0 1"/>
         <device id="routing_62" state="10000 92000"/>
         <rem id="vehroute_62" time="97435" pos="100.00"/>
     </vehicle>
     <vehicle id="63" depart="63.00" route="!63!var#1" distance="400 3" speedFactor="0.9870" state="0 63000 2 0 0 0 102306 92176 9223372036854774807 0 0">
-        <device id="vehroute_63" state="13.71 0.00 3 !NULL 63000 !63 device.rerouting -1 0 A0B0 73000 !63!var#1 device.rerouting 0 0 B0C0 93000 !63!var#2 device.rerouting 1 1"/>
+        <device id="vehroute_63" state="13.71 0.00 3 !NULL 63000 !63 device.rerouting -1 0 1 A0B0 73000 !63!var#1 device.rerouting 0 0 1 B0C0 93000 !63!var#2 device.rerouting 1 1 1"/>
         <device id="routing_63" state="10000 93000"/>
     </vehicle>
     <vehicle id="64" depart="64.00" route="!64" distance="400 0" speedFactor="0.9376" state="0 64000 2 0 0 0 102395 94716 9223372036854774807 0 0">
@@ -403,20 +403,20 @@
         <device id="routing_65" state="10000 95000"/>
     </vehicle>
     <vehicle id="66" depart="66.00" route="!66!var#1" distance="400 1" speedFactor="0.9068" state="0 66000 2 0 0 0 105695 97756 9223372036854774807 0 0">
-        <device id="vehroute_66" state="12.60 0.00 1 E1E0 76000 !66 device.rerouting 0 0"/>
+        <device id="vehroute_66" state="12.60 0.00 1 E1E0 76000 !66 device.rerouting 0 0 1"/>
         <device id="routing_66" state="10000 96000"/>
     </vehicle>
     <vehicle id="67" depart="67.00" route="!67!var#1" distance="200 1" speedFactor="0.9146" state="0 67000 1 0 1 0 99820 90616 98488 0 0">
-        <device id="vehroute_67" state="12.70 0.00 1 !NULL 67000 !67 device.rerouting -1 0"/>
+        <device id="vehroute_67" state="12.70 0.00 1 !NULL 67000 !67 device.rerouting -1 0 1"/>
         <device id="routing_67" state="10000 97000"/>
         <rem id="vehroute_67" time="90616" pos="100.00"/>
     </vehicle>
     <vehicle id="68" depart="68.00" route="!68!var#1" distance="400 1" speedFactor="1.0400" state="0 68000 2 0 0 0 102615 95692 9223372036854774807 0 0">
-        <device id="vehroute_68" state="14.44 0.00 1 !NULL 68000 !68 device.rerouting -1 0"/>
+        <device id="vehroute_68" state="14.44 0.00 1 !NULL 68000 !68 device.rerouting -1 0 1"/>
         <device id="routing_68" state="10000 98000"/>
     </vehicle>
     <vehicle id="69" depart="69.00" route="!69!var#1" distance="400 1" speedFactor="1.0221" state="0 69000 2 0 0 0 104504 97460 9223372036854774807 0 0">
-        <device id="vehroute_69" state="13.65 0.00 1 D2C2 89000 !69 device.rerouting 1 1"/>
+        <device id="vehroute_69" state="13.65 0.00 1 D2C2 89000 !69 device.rerouting 1 1 1"/>
         <device id="routing_69" state="10000 99000"/>
     </vehicle>
     <vehicle id="70" depart="70.00" route="!70" distance="400 0" speedFactor="1.0230" state="0 70000 2 0 0 0 105190 98152 9223372036854774807 0 0">
@@ -439,12 +439,12 @@
         <rem id="vehroute_73" time="93460" pos="100.00"/>
     </vehicle>
     <vehicle id="74" depart="74.00" route="!74!var#2" distance="200 2" speedFactor="0.9551" state="0 74000 1 0 1 0 104152 96614 9223372036854774807 0 0">
-        <device id="vehroute_74" state="13.27 0.00 2 !NULL 74000 !74 device.rerouting -1 0 B1A1 84000 !74!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_74" state="13.27 0.00 2 !NULL 74000 !74 device.rerouting -1 0 1 B1A1 84000 !74!var#1 device.rerouting 0 0 1"/>
         <device id="routing_74" state="10000 94000"/>
         <rem id="vehroute_74" time="96614" pos="100.00"/>
     </vehicle>
     <vehicle id="75" depart="75.00" route="!75!var#2" distance="200 2" speedFactor="0.9849" state="0 75000 1 0 1 0 104240 96930 9223372036854774807 0 0">
-        <device id="vehroute_75" state="13.68 0.00 2 !NULL 75000 !75 device.rerouting -1 0 E3E2 95000 !75!var#1 device.rerouting 1 1"/>
+        <device id="vehroute_75" state="13.68 0.00 2 !NULL 75000 !75 device.rerouting -1 0 1 E3E2 95000 !75!var#1 device.rerouting 1 1 1"/>
         <device id="routing_75" state="10000 95000"/>
         <rem id="vehroute_75" time="96930" pos="100.00"/>
     </vehicle>
@@ -467,7 +467,7 @@
         <device id="routing_79" state="10000 99000"/>
     </vehicle>
     <vehicle id="80" depart="80.00" route="!80!var#1" distance="200 1" speedFactor="1.0345" state="0 80000 1 0 0 0 100877 93918 9223372036854774807 0 0">
-        <device id="vehroute_80" state="14.37 0.00 1 !NULL 80000 !80 device.rerouting -1 0"/>
+        <device id="vehroute_80" state="14.37 0.00 1 !NULL 80000 !80 device.rerouting -1 0 1"/>
         <device id="routing_80" state="10000 90000"/>
     </vehicle>
     <vehicle id="81" depart="81.00" route="!81" distance="0 0" speedFactor="0.9981" state="0 81000 0 0 1 0 99233 89353 9223372036854774807 0 0">
@@ -476,7 +476,7 @@
         <rem id="vehroute_81" time="89353" pos="100.00"/>
     </vehicle>
     <vehicle id="82" depart="82.00" route="!82!var#2" distance="200 2" speedFactor="1.0169" state="0 82000 1 0 0 0 103240 96160 9223372036854774807 0 0">
-        <device id="vehroute_82" state="14.12 0.00 2 !NULL 82000 !82 device.rerouting -1 0 E0E1 92000 !82!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_82" state="14.12 0.00 2 !NULL 82000 !82 device.rerouting -1 0 1 E0E1 92000 !82!var#1 device.rerouting 0 0 1"/>
         <device id="routing_82" state="10000 92000"/>
     </vehicle>
     <vehicle id="83" depart="83.00" route="!83" distance="200 0" speedFactor="0.9670" state="0 83000 1 0 0 0 105335 97890 9223372036854774807 0 0">
@@ -498,17 +498,17 @@
         <rem id="vehroute_86" time="93187" pos="100.00"/>
     </vehicle>
     <vehicle id="87" depart="87.00" route="!87!var#2" distance="0 2" speedFactor="1.0428" state="0 87000 0 0 1 0 100808 93904 9223372036854774807 0 0">
-        <device id="vehroute_87" state="14.48 0.00 2 !NULL 87000 !87 device.rerouting -1 0 D4C4 97000 !87!var#1 device.rerouting 0 0"/>
+        <device id="vehroute_87" state="14.48 0.00 2 !NULL 87000 !87 device.rerouting -1 0 1 D4C4 97000 !87!var#1 device.rerouting 0 0 1"/>
         <device id="routing_87" state="10000 97000"/>
         <rem id="vehroute_87" time="93904" pos="100.00"/>
     </vehicle>
     <vehicle id="88" depart="88.00" route="!88!var#1" distance="0 1" speedFactor="1.0071" state="0 88000 0 0 1 0 102298 95149 9223372036854774807 0 0">
-        <device id="vehroute_88" state="13.99 0.00 1 !NULL 88000 !88 device.rerouting -1 0"/>
+        <device id="vehroute_88" state="13.99 0.00 1 !NULL 88000 !88 device.rerouting -1 0 1"/>
         <device id="routing_88" state="10000 98000"/>
         <rem id="vehroute_88" time="95149" pos="100.00"/>
     </vehicle>
     <vehicle id="89" depart="89.00" route="!89!var#1" distance="0 1" speedFactor="1.0220" state="0 89000 0 0 1 0 103088 96044 9223372036854774807 0 0">
-        <device id="vehroute_89" state="14.20 0.00 1 C0D0 99000 !89 device.rerouting 0 0"/>
+        <device id="vehroute_89" state="14.20 0.00 1 C0D0 99000 !89 device.rerouting 0 0 1"/>
         <device id="routing_89" state="10000 99000"/>
         <rem id="vehroute_89" time="96044" pos="100.00"/>
     </vehicle>
@@ -522,7 +522,7 @@
         <device id="routing_91" state="10000 91000"/>
     </vehicle>
     <vehicle id="92" depart="92.00" route="!92!var#1" distance="0 1" speedFactor="0.8336" state="0 92000 0 0 0 0 100637 92000 9223372036854774807 0 0">
-        <device id="vehroute_92" state="11.58 0.00 1 !NULL 92000 !92 device.rerouting -1 0"/>
+        <device id="vehroute_92" state="11.58 0.00 1 !NULL 92000 !92 device.rerouting -1 0 1"/>
         <device id="routing_92" state="10000 92000"/>
     </vehicle>
     <vehicle id="93" depart="93.00" route="!93" distance="0 0" speedFactor="0.9214" state="0 93000 0 0 0 0 100814 93000 9223372036854774807 0 0">
@@ -534,11 +534,11 @@
         <device id="routing_94" state="10000 94000"/>
     </vehicle>
     <vehicle id="95" depart="95.00" route="!95!var#1" distance="0 1" speedFactor="1.0568" state="0 95000 0 0 0 0 103229 95000 9223372036854774807 0 0">
-        <device id="vehroute_95" state="12.15 0.00 1 !NULL 95000 !95 device.rerouting -1 0"/>
+        <device id="vehroute_95" state="12.15 0.00 1 !NULL 95000 !95 device.rerouting -1 0 1"/>
         <device id="routing_95" state="10000 95000"/>
     </vehicle>
     <vehicle id="96" depart="96.00" route="!96!var#1" distance="0 1" speedFactor="1.0099" state="0 96000 0 0 0 0 104284 96000 9223372036854774807 0 0">
-        <device id="vehroute_96" state="12.07 0.00 1 !NULL 96000 !96 device.rerouting -1 0"/>
+        <device id="vehroute_96" state="12.07 0.00 1 !NULL 96000 !96 device.rerouting -1 0 1"/>
         <device id="routing_96" state="10000 96000"/>
     </vehicle>
     <vehicle id="97" depart="97.00" route="!97" distance="0 0" speedFactor="0.9065" state="0 97000 0 0 0 0 104942 97000 9223372036854774807 0 0">
@@ -546,7 +546,7 @@
         <device id="routing_97" state="10000 97000"/>
     </vehicle>
     <vehicle id="98" depart="98.00" route="!98!var#1" distance="0 1" speedFactor="1.1216" state="0 98000 0 0 0 0 104419 98000 9223372036854774807 0 0">
-        <device id="vehroute_98" state="15.58 0.00 1 !NULL 98000 !98 device.rerouting -1 0"/>
+        <device id="vehroute_98" state="15.58 0.00 1 !NULL 98000 !98 device.rerouting -1 0 1"/>
         <device id="routing_98" state="10000 98000"/>
     </vehicle>
     <vehicle id="99" depart="99.00" route="!99" distance="0 0" speedFactor="1.0972" state="0 99000 0 0 0 0 105562 99000 9223372036854774807 0 0">

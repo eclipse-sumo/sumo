@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-22T10:20:27.477194+01:00 by Eclipse SUMO sumo v1_26_0+1319-1c471fba8c9
+<!-- generated on 2026-09-25T13:48:37.785635+01:00 by Eclipse SUMO sumo v1_27_1+0781-c8a0d7d4fb6
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -169,7 +169,6 @@
 
     <vehicle id="trip_1" type="taxi" depart="0.00">
         <routeDistribution>
-            <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="60.00" probability="0" edges="A2B2 B2C2"/>
             <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="60.00" probability="0" edges="A2B2 B2B1 C2D2"/>
             <route replacedOnEdge="C2D2" replacedOnIndex="4" reason="taxi:prepare_dispatch" replacedAtTime="120.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2"/>
             <route replacedOnEdge="C2D2" replacedOnIndex="4" reason="taxi:dispatch" replacedAtTime="120.00" probability="0" edges="A2B2 B2B1 B1C1 C1C2 C2D2 B1A1 B2B1"/>
