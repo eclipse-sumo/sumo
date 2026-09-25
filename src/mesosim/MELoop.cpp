@@ -169,6 +169,10 @@ MELoop::changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSeg
             toSegment->receive(veh, qIdx, leaveTime, false, true, true);
         }
         return entry;
+    } else {
+        if (veh->getQueIndex() != MESegment::PARKING_QUEUE && veh->isStopped() && veh->endTriggeredStop()) {
+            veh->processStop();
+        }
     }
     if (entry == leaveTime && !ignoreLink) { // this is a long way of saying !veh->mayProceed() (which is a costly call)
         return entry + MAX2(SUMOTime(1), myLinkRecheckInterval);
