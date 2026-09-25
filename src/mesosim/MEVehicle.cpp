@@ -394,10 +394,7 @@ MEVehicle::processStop() {
 
 
 bool
-MEVehicle::mayProceed() {
-    if (mySegment == nullptr) {
-        return true;
-    }
+MEVehicle::endTriggeredStop() {
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
@@ -456,6 +453,18 @@ MEVehicle::mayProceed() {
             // TODO do something useful here
             return false;
         }
+    }
+    return true;
+}
+
+
+bool
+MEVehicle::mayProceed() {
+    if (mySegment == nullptr) {
+        return true;
+    }
+    if (!endTriggeredStop()) {
+        return false;
     }
     return mySegment->isOpen(this);
 }

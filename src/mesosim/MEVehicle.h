@@ -176,6 +176,9 @@ public:
         return true;
     }
 
+    /// @brief process triggered stops and return true if all stops on the current segment are completed
+    bool endTriggeredStop();
+
     ///@brief ends the current stop and performs loading/unloading
     void processStop();
 
